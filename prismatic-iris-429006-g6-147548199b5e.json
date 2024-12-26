@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "prismatic-iris-429006-g6",
+  "private_key_id": "147548199b5e1390bccbd515383ec1ae8e6a635f",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCtZVpqDdTsNXdL\ncw30qA3aKnpO+dhyz93lznYJtbphccV4HGtpE2EDyJaRsdD/YugN2uLiJXqzcFqA\nHVEkJfRxYvZGWC+W5n+dIsjAKPaVpZh6yq3wVdrA5zgnsYcH1e99g/UpMMwnnIi3\nGeFVeD5vDSylklQVjSD1CSIpPPfu17nzEyxlOzLlzD4HsDfnQ0UBFYL1/pf93rXp\nckaJPJNypI76uQtHJ3rZOAiOVhxaMlRqcbQc+o3eJNzYAGMpco4Jx/HlNtnrfbZx\n7X5xOlOsVvBV/k0jhEyl/WxaPE9HEwwjKLrE0gD270YAVo/3tRHLZbamJj63G6ye\nHpTA8+LDAgMBAAECggEAE+fMOtuOo3U51jAFnJ4ERRTWSKW2+usxApYyh8fUdyZL\n8I92py/h1cDbxCsBHqhYkmqb3DFIRjwyL33uGDPBPZkKQ6YRBIY+hSf+msy5DhHe\nEM6erDX28Gk60Ze4NCaToTmaVdmzviJisX5nl1u/8xi0lOdY/sZeT7L2OHy2y7TI\nb+JT5TbJH44keQqL4no5BrjN8kB/qynUGGpYf3IpnP4Y+WF5FFd/3QEMK/cckeuO\nhCkV+KDpG5LDs+iiikKwC12QwLZUDX7K+b0knShxRf85bNnkUuApw0tYcpoGGiXp\ndhScvO5YtvuQb1CY5hsDEm5uuX7iuwQhdUMIOv47aQKBgQDvXYcdoapksQLU5hZ6\n7L4l4BprVWKS1cnQ/Fye4wga6SfGBn0zp+wkg2SUx9TeaIUUCsiah5V7vqy909TC\n95/+Ajv5HdsynN8pfp4tskAc6jqt3vSd0XN8S7B8N6bZjtPIqBLcIDc7sKZ3ksp1\nb3IJ8V7T2ImoHXCA8teaZSrtuQKBgQC5ci8wcu7lGDZYo5lVGB6dsW4UcaeKd7z+\nku7MoFjPMqTi99wB47U2xn3Rap+B7ahEyi1+T/eiAWTaRsQm+l5EFH19SU2kfSf3\n7emdVHRwsNeHP1eiVIzRzOG+4hqq4W+coYzVUXUZGuzEU3tSOiO4VUncu1pDNEG5\nAK9FJf1yWwKBgED5xHm4rsZSfpBIPQX1SdCCOumz7eQqAHSobIP84PBdJhzNGiNx\ni9qFiEIS1Kfi+2zrWHUKJPvIUJ/e5rxd96I9/QWsoxnkF3fuFQYWguzWcENOaFyG\nxLCS4z904+feq4KmjSgP3q5nT2jaAfdK30vvp2weNY/bHfUC9p/EopiRAoGBAJMk\nJo0qpKLiMzzhkigSmzhEMDPIekdD+pGDxDZYhB7i8DGmuMpHAuITXIFtOGK/T2RF\nhxNSIApLUNpgjALhZSpfl7JxF0oMhEoUW+iZukowBtMpTz9eFt3g0r3CaaZseUKu\nbDBWEbN5yaN9GbyEpRL9mT2q6lOogv1nraoQGqlBAoGAZoS4X8n00UJiA8aZ6iku\n4eKf2Gw6Irpv280FuNoljVQUhw7VbIsH217CNGhgKFLviTgRlurF+lAvPMC4tZHr\ntheNJv7q+cWkYARlkrghyXizhWbgxTINuCYE8jwOqFyKZjYtZrvFyQesGsh3hv4H\n7JBVyrSh/jbdC30Fkm95Qbk=\n-----END PRIVATE KEY-----\n",
+  "client_email": "clipscribe-sa@prismatic-iris-429006-g6.iam.gserviceaccount.com",
+  "client_id": "109820841905240854288",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/clipscribe-sa%40prismatic-iris-429006-g6.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

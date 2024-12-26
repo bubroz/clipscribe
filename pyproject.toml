@@ -1,0 +1,123 @@
+[build-system]
+requires = ["setuptools>=45", "wheel", "setuptools_scm>=6.2"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools_scm]
+write_to = "src/_version.py"
+
+[tool.black]
+line-length = 100
+target-version = ['py39']
+include = '\.pyi?$'
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+line_length = 100
+
+[tool.mypy]
+python_version = "3.9"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_unreachable = true
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q --cov=src --cov-report=term-missing"
+testpaths = ["tests"]
+
+[tool.coverage.run]
+source = ["src"]
+omit = ["tests/*"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if self.debug:",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "pass",
+    "raise ImportError"
+]
+
+[tool.bandit]
+exclude_dirs = ["tests"]
+skips = ["B101"]
+
+[project]
+name = "clipscribe"
+dynamic = ["version"]
+description = "Advanced YouTube video transcription and analysis tool"
+readme = "README.md"
+requires-python = ">=3.9"
+license = {file = "LICENSE"}
+authors = [
+    {name = "Your Name", email = "your.email@example.com"}
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+]
+dependencies = [
+    "python-dotenv>=1.0.0",
+    "google-cloud-speech>=2.21.0",
+    "google-cloud-storage>=2.10.0",
+    "google-generativeai>=0.7.2",
+    "yt-dlp>=2024.8.6",
+    "pytube>=15.0.0",
+    "moviepy>=1.0.3",
+    "nltk>=3.8.1",
+    "spacy>=3.7.2",
+    "textstat>=0.7.4",
+    "textblob>=0.18.0",
+    "google-api-core>=2.11.1",
+    "ffmpeg-python>=0.2.0",
+    "pytz>=2024.1",
+    "numpy>=1.26.4",
+    "pandas>=2.2.2",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest>=8.0.0",
+    "pytest-cov>=4.1.0",
+    "pytest-mock>=3.12.0",
+    "pytest-asyncio>=0.23.5",
+    "pytest-xdist>=3.5.0",
+    "pytest-timeout>=2.2.0",
+    "coverage>=7.4.1",
+    "tox>=4.12.1",
+]
+dev = [
+    "black>=24.1.1",
+    "flake8>=7.0.0",
+    "mypy>=1.8.0",
+    "isort>=5.13.2",
+    "pre-commit>=3.6.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/yourusername/clipscribe"
+Documentation = "https://github.com/yourusername/clipscribe#readme"
+Repository = "https://github.com/yourusername/clipscribe.git"
+Changelog = "https://github.com/yourusername/clipscribe/blob/main/CHANGELOG.md"
+
+[project.scripts]
+clipscribe = "clipscribe.clipscribe:main" 
