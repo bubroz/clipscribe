@@ -1,129 +1,12 @@
-# ClipScribe Project Continuation Prompt
+# ClipScribe Continuation Prompt
 
-*Last Updated: January 2025*
-
-## Current Project State
-
-ClipScribe is a mature video intelligence tool that extracts structured knowledge from video content. The project is feature-complete with comprehensive extraction capabilities, multiple output formats, and cost-optimized processing.
-
-## Recent Major Changes
-
-### Rules System Implementation (January 2025)
-- Created comprehensive `.cursor/rules/` directory with 19 specialized rule files
-- Aligned with Chimera Researcher project patterns
-- Added master rule (README.mdc) that governs all other rules
-- Implemented always-apply rules for critical patterns:
-  - Core identity and mission
-  - File organization discipline  
-  - Cost optimization requirements
-  - Documentation update triggers
-
-### Documentation Structure
-- Organized all user docs in `docs/` directory
-- Created clear separation between user docs, developer docs, and rules
-- Implemented documentation update rules to ensure consistency
-- Added visualization guidelines for knowledge graphs
-
-## Architecture Overview
-
-```
-ClipScribe
-├── Video Retrieval (YouTube, Twitter/X, etc.)
-├── Transcription (Gemini API or YouTube captions)
-├── Entity Extraction (SpaCy + GLiNER + REBEL)
-├── Knowledge Graph Generation
-└── Multiple Export Formats
-```
-
-## Key Features Working Well
-
-1. **Cost-Optimized Pipeline** - 92% cost reduction through intelligent routing
-2. **Multi-Platform Support** - YouTube, Twitter/X, TikTok, generic URLs
-3. **Hybrid Extraction** - Combines local models with LLM validation
-4. **Rich Output Formats** - TXT, SRT, VTT, JSON, knowledge graphs
-5. **Async Processing** - Efficient handling of multiple videos
-6. **Chimera Integration** - Ready for use as video intelligence component
-
-## Known Issues
-
-1. **Large Video Memory** - Videos >2 hours may require chunking
-2. **Platform Auth** - Some platforms (Twitter/X) may need authentication
-3. **Model Downloads** - First run downloads several GB of models
-
-## Next Planned Features
-
-1. **Web Interface** - FastAPI-based UI for non-technical users
-2. **Batch Processing** - Process entire playlists/channels
-3. **Real-time Streaming** - Live transcription support
-4. **Advanced Analytics** - Topic modeling, sentiment analysis
-5. **API Endpoints** - RESTful API for integration
-
-## Development Guidelines
-
-### Before Starting Work
-1. Review `.cursor/rules/` directory for project conventions
-2. Check `cost-optimization.mdc` - cost awareness is critical
-3. Follow `file-organization.mdc` - maintain clean structure
-4. Read `core-identity.mdc` - understand project mission
-
-### Making Changes
-1. Always update tests for new features
-2. Follow async patterns for I/O operations
-3. Use type hints everywhere
-4. End code comments with :-) 
-5. Track API costs in all operations
-
-### After Completing Tasks
-1. Run the comprehensive task checklist in `documentation-updates.mdc`
-2. Update this CONTINUATION_PROMPT.md
-3. Commit with conventional format: `type(scope): description`
-
-## Technical Debt
-
-1. **Test Coverage** - Some integration tests need improvement
-2. **Error Messages** - Could be more user-friendly in some cases
-3. **Caching** - Local caching system could be more robust
-4. **Platform Support** - Instagram/Facebook support incomplete
-
-## Environment Setup
-
-```bash
-# Install Poetry
-curl -sSL https://install.python-poetry.org | python3 -
-
-# Clone and setup
-git clone https://github.com/bubroz/clipscribe
-cd clipscribe
-poetry install
-
-# Configure
-cp .env.example .env
-# Add your GOOGLE_API_KEY to .env
-
-# Run
-poetry run clipscribe process "https://youtube.com/watch?v=..."
-```
-
-## Important Context
-
-- ClipScribe is designed as a component of the larger Chimera Researcher system
-- Cost optimization is paramount - always check API costs
-- The hybrid extraction approach is key to quality + affordability
-- All output is structured for easy integration with knowledge management systems
-- The project follows a "video intelligence" philosophy, not just transcription
-
-## Contact & Resources
-
-- GitHub: https://github.com/bubroz/clipscribe
-- Parent Project: Chimera Researcher
-- Documentation: See `docs/` directory
-- Rules & Conventions: See `.cursor/rules/`
-
----
-
-*Remember: This is a living document. Update it whenever you make significant changes!*
+This document captures the current state of ClipScribe for future AI assistants or developers who need to continue work on this project.
 
 ## Current State (June 24, 2025 - 07:00 UTC)
+
+### Version 2.3.0 Released! 🎉
+
+Major improvements to extraction quality and long video support have been completed and tested.
 
 ### Recent Major Updates
 
@@ -148,20 +31,116 @@ poetry run clipscribe process "https://youtube.com/watch?v=..."
 
 ### What's Working Well
 
-- **Full Video Processing**: Can now handle videos up to 4 hours long
-- **Cost Efficiency**: ~$0.002/minute for audio processing
-- **Entity Extraction**: Advanced hybrid extractor with SpaCy + GLiNER + REBEL
-- **Knowledge Graphs**: Generated with relationships and confidence scores
-- **Multiple Output Formats**: JSON, TXT, SRT, VTT, and structured data
-- **Platform Support**: 1800+ video platforms via yt-dlp
+- **Video Processing**: Successfully processes videos up to 4 hours long
+- **Entity Extraction**: SpaCy + GLiNER + REBEL hybrid working smoothly
+- **Cost Efficiency**: 92% cost reduction vs GPT-4 while maintaining quality
+- **Output Quality**: All 11 output formats generating correctly
+- **Platform Support**: 1800+ platforms via yt-dlp
+- **Async Performance**: Fast concurrent processing
+- **Caching**: Smart caching reduces redundant API calls
 
-### Current Architecture
+### Known Issues
+
+1. **Relationship Extraction on Non-Factual Content**: REBEL doesn't work well on song lyrics or creative content
+2. **Python 3.13 Incompatibility**: Requires Python 3.12 (Poetry handles this automatically)
+3. **LLM Validation Error**: Minor error in advanced_hybrid_extractor.py line 222 (non-critical)
+
+### Next Features to Consider
+
+1. **Batch Processing**: Process multiple videos in parallel
+2. **Web UI**: Simple interface for non-technical users
+3. **Export Formats**: Add more visualization formats (D3.js, Cytoscape)
+4. **Language Support**: Multi-language transcription
+5. **Custom Extractors**: Plugin system for domain-specific extraction
+6. **Real-time Processing**: Stream processing for live videos
+7. **Cost Optimization**: Further reduce costs with smart chunking
+
+### Technical Debt
+
+1. **Test Coverage**: Currently minimal, needs comprehensive test suite
+2. **Error Handling**: Some edge cases not fully handled
+3. **Documentation**: API documentation could be more detailed
+4. **Type Hints**: Some functions missing proper type annotations
+
+### Architecture Overview
 
 ```
 ClipScribe
-├── Video Retrieval (YouTube, Twitter/X, etc.)
-├── Transcription (Gemini API or YouTube captions)
+├── Video Retrieval (1800+ platforms via yt-dlp)
+├── Transcription (Gemini 1.5 Flash - audio/video modes)
 ├── Entity Extraction (SpaCy + GLiNER + REBEL)
+├── Relationship Extraction (REBEL + LLM)
 ├── Knowledge Graph Generation
-└── Multiple Export Formats
+└── Multiple Export Formats (11 formats including Chimera)
 ```
+
+### Environment Setup
+
+```bash
+# Required
+GOOGLE_API_KEY=your_key_here
+GEMINI_REQUEST_TIMEOUT=14400  # 4 hours
+
+# Optional
+GLINER_MODEL=urchade/gliner_multi-v2.1
+REBEL_MODEL=Babelscape/rebel-large
+```
+
+### Quick Test Commands
+
+```bash
+# Test short video
+poetry run clipscribe transcribe "https://www.youtube.com/watch?v=dQw4w9WgXcQ" --mode audio
+
+# Test long video (PBS News Hour)
+poetry run clipscribe transcribe "https://www.youtube.com/watch?v=HSODoOfhnks" --mode audio
+
+# Convert existing output to Chimera format
+poetry run python scripts/convert_to_chimera.py output/YYYYMMDD_platform_videoId
+```
+
+### Recent Test Results
+
+- **PBS News Hour (57 min)**: Processed in 5.3 minutes, cost $0.114, extracted 149 entities, 282 relationships
+- **Rick Astley (3.5 min)**: Processed in 33 seconds, cost $0.007, extracted 6 entities, 28 facts
+
+### Development Guidelines
+
+#### Before Starting Work
+1. Review `.cursor/rules/` directory for project conventions
+2. Check `cost-optimization.mdc` - cost awareness is critical
+3. Follow `file-organization.mdc` - maintain clean structure
+4. Read `core-identity.mdc` - understand project mission
+
+#### Making Changes
+1. Always update tests for new features
+2. Follow async patterns for I/O operations
+3. Use type hints everywhere
+4. End code comments with :-) 
+5. Track API costs in all operations
+
+#### After Completing Tasks
+1. Run the comprehensive task checklist in `.cursor/rules/README.mdc`
+2. Update this CONTINUATION_PROMPT.md
+3. Update CHANGELOG.md with your changes
+4. Commit with conventional format: `type(scope): description`
+
+### Project Philosophy
+
+ClipScribe is the video intelligence component of the Chimera Researcher ecosystem. It prioritizes:
+1. **Cost efficiency** without sacrificing quality
+2. **Comprehensive extraction** of all available intelligence
+3. **Clean, structured output** for downstream processing
+4. **Platform agnosticism** - work with any video source
+
+### Contact & Resources
+
+- GitHub: https://github.com/bubroz/clipscribe
+- Issues: Report bugs or request features via GitHub Issues
+- Chimera Integration: See chimera_format.json output
+- Documentation: See `docs/` directory
+- Rules & Conventions: See `.cursor/rules/`
+
+---
+
+*Remember: This is a living document. Update it whenever you make significant changes!*
