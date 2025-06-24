@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "clipscribe"
-version = "2.2.2"
+version = "2.3.0"
 description = "AI-powered video transcription and analysis tool"
 authors = ["ClipScribe Team"]
 readme = "README.md"
