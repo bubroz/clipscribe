@@ -11,10 +11,13 @@ output/
     ├── transcript.json         # Full structured data
     ├── metadata.json           # Video metadata
     ├── entities.json           # Extracted entities
+    ├── entities.csv            # Entities in CSV format (NEW in v2.5.1)
     ├── relationships.json      # Entity relationships
+    ├── relationships.csv       # Relationships in CSV format (NEW in v2.5.1)
     ├── knowledge_graph.json    # Graph representation
     ├── knowledge_graph.gexf    # Gephi-compatible graph
     ├── facts.txt              # Key facts (up to 100)
+    ├── report.md              # Markdown intelligence report (NEW in v2.5.1)
     ├── chimera_format.json    # Chimera Researcher compatible
     └── manifest.json          # File index with checksums
 ```
@@ -98,6 +101,16 @@ Human-readable key facts extracted from:
 - Diverse fact types interleaved
 - Higher quality extraction
 
+### report.md
+**NEW in v2.5.1** - Professional markdown intelligence report:
+- Executive summary with key findings
+- Cost indicator emojis (🟢 < $0.10, 🟡 < $0.50, 🔴 > $0.50)
+- Key statistics table (word count, entities, relationships)
+- Top entities organized by type with confidence scores
+- Key relationships and facts
+- Generated file index with descriptions
+- Perfect for sharing insights with stakeholders
+
 ### chimera_format.json
 Compatible with Chimera Researcher ecosystem:
 - Standardized format for knowledge integration
@@ -119,29 +132,34 @@ File inventory with:
 
 ```bash
 # After processing a video:
-output/20240315_youtube_dQw4w9WgXcQ/
+output/20240624_youtube_dQw4w9WgXcQ/
 ├── transcript.txt (2.5 KB)
 ├── transcript.json (15.2 KB)
 ├── metadata.json (1.2 KB)
 ├── entities.json (8.4 KB)
+├── entities.csv (3.2 KB)          # NEW in v2.5.1
 ├── relationships.json (12.1 KB)
+├── relationships.csv (4.1 KB)     # NEW in v2.5.1
 ├── knowledge_graph.json (18.5 KB)
-├── knowledge_graph.gexf (22.1 KB)  # NEW - Gephi format
+├── knowledge_graph.gexf (22.1 KB)
 ├── facts.txt (4.8 KB)
+├── report.md (2.8 KB)             # NEW in v2.5.1
 ├── chimera_format.json (25.3 KB)
-└── manifest.json (1.5 KB)
+└── manifest.json (1.8 KB)
 ```
 
-## Format Changes in v2.3
+## Format Changes
 
-### Removed Formats
-- **transcript.srt** - Subtitle format (removed as unnecessary for intelligence extraction)
-- **transcript.vtt** - WebVTT format (removed as unnecessary for intelligence extraction)
+### v2.5.1 Additions
+- **entities.csv** - Spreadsheet-compatible entity export
+- **relationships.csv** - Spreadsheet-compatible relationship export  
+- **report.md** - Professional markdown intelligence report
 
-### Added Formats
-- **knowledge_graph.gexf** - Gephi-compatible graph visualization format
+### v2.3 Changes
+- **Removed**: transcript.srt, transcript.vtt (subtitle formats)
+- **Added**: knowledge_graph.gexf (Gephi graph format)
 
-The removal of subtitle formats allows us to focus on intelligence extraction and analysis rather than video captioning. The addition of GEXF format enables powerful graph visualization in Gephi for understanding entity relationships.
+The addition of CSV formats enables easy data analysis in spreadsheet tools, while the markdown report provides a professional summary perfect for sharing insights.
 
 ## Converting Existing Outputs
 
@@ -157,4 +175,4 @@ If you need to convert knowledge graphs to Gephi format:
 python scripts/convert_to_gephi.py output/YYYYMMDD_platform_videoId/knowledge_graph.json
 ```
 
-This will generate the .gexf file for Gephi visualization. 
+This will generate the .gexf file for Gephi visualization.

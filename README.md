@@ -1,11 +1,11 @@
-# ClipScribe 2.2
+# ClipScribe 2.5.1
 
 <p align="center">
   <strong>AI-powered video transcription and analysis for 1800+ platforms</strong>
 </p>
 
 <p align="center">
-  <em>v2.2 with Advanced Intelligence Extraction - Now Fully Functional! 🎉</em>
+  <em>v2.5.1 with Optimized API Batching & Export Formats 🚀</em>
 </p>
 
 <p align="center">
@@ -26,10 +26,35 @@ ClipScribe is a modern video transcription tool that leverages Google's Gemini 2
 - 🚀 **Gemini 2.5 Flash** - Native audio transcription with 92% cost reduction
 - ⚡ **10x Faster** - Process 1 hour of video in 2-5 minutes
 - 🎯 **High Accuracy** - Native audio understanding outperforms traditional ASR
-- 📊 **Multiple Formats** - Export as TXT or JSON, plus GEXF for knowledge graphs
-- 💰 **Cost Tracking** - Real-time cost calculation per video
+- 📊 **Multiple Export Formats** - TXT, JSON, CSV, Markdown reports, GEXF graphs
+- 💰 **50-60% Cost Savings** - Optimized API batching reduces calls from 6 to 2-3
+- 📈 **CSV Data Export** - Export entities and relationships for data analysis
+- 📝 **Markdown Reports** - Professional intelligence reports with statistics
 - 🔄 **Async Processing** - Handle multiple videos concurrently
 - 🎨 **Beautiful CLI** - Modern terminal interface with Rich
+
+## 🎉 What's New in v2.5.1
+
+### Major Performance Improvements
+- **50-60% Cost Reduction** - Optimized API batching combines multiple extractions into 2-3 calls (down from 6)
+- **Dual-Pass Extraction** - Optional second pass ensures comprehensive entity and relationship capture
+- **Smart Auto-Clean Thresholds** - Raised to 300/500 to prevent over-aggressive graph cleaning
+
+### New Export Formats
+- **CSV Export** - Export entities and relationships as CSV for data analysis
+  - `entities.csv` - All entities with type, confidence, and source
+  - `relationships.csv` - All relationships with subject, predicate, object
+- **Markdown Reports** - Professional intelligence reports featuring:
+  - Executive summary with cost indicators (🟢🟡🔴)
+  - Key statistics and metrics tables
+  - Top entities organized by type
+  - Key relationships and facts
+  - Generated file index
+
+### Technical Improvements
+- **Structured JSON Output** - Uses Gemini's official `response_schema` for guaranteed valid JSON
+- **Enhanced Context** - Increased transcript context from 8k to 10k characters
+- **GeminiPool Architecture** - Separate instances per task prevent token buildup
 
 ## 📋 Requirements
 

@@ -38,6 +38,11 @@ clipscribe transcribe [OPTIONS] URL
 | `--language` | `-l` | `en` | Language code (e.g., en, es, fr) |
 | `--include-timestamps` | | False | Include word-level timestamps |
 | `--enhance` | | False | Enable AI enhancement for better formatting |
+| `--mode` | `-m` | `auto` | Processing mode: auto, audio, video |
+| `--skip-cleaning` | | False | Skip AI graph cleaning (v2.5+) |
+| `--clean-graph` | | False | Force AI graph cleaning (v2.5+) |
+| `--no-cache` | | False | Skip cache and force fresh processing |
+| `--visualize` | | False | Auto-open knowledge graph visualization |
 
 **Examples:**
 
@@ -53,11 +58,22 @@ clipscribe transcribe "https://youtube.com/watch?v=..." -l es --enhance
 
 # Get all output formats with timestamps
 clipscribe transcribe "https://twitter.com/i/status/..." -f all --include-timestamps
+
+# Skip graph cleaning for raw extraction results (v2.5+)
+clipscribe transcribe "https://youtube.com/watch?v=..." --skip-cleaning
+
+# Force fresh processing without cache (v2.5+)
+clipscribe transcribe "https://youtube.com/watch?v=..." --no-cache
+
+# Audio-only mode for faster processing (v2.5+)
+clipscribe transcribe "https://youtube.com/watch?v=..." --mode audio
 ```
 
 **Output:**
-- Creates transcript file(s) in the specified output directory
-- Filename format: `{video_title}_{timestamp}.{format}`
+- Creates comprehensive output directory with multiple formats
+- Includes transcript, entities, relationships, knowledge graph
+- CSV files for data analysis (v2.5.1+)
+- Markdown report with statistics (v2.5.1+)
 - Shows cost estimate and processing time
 
 ### `research` - Research a topic (Coming Soon)
@@ -187,31 +203,45 @@ Structured data with metadata, transcript, entities, and key points.
 }
 ```
 
-### SRT Format (.srt)
-Standard subtitle format with timestamps.
+### CSV Format (.csv) - NEW in v2.5.1
+Spreadsheet-compatible data files for analysis.
 
-```
-1
-00:00:00,000 --> 00:00:05,000
-This is the first subtitle.
-
-2
-00:00:05,000 --> 00:00:10,000
-This is the second subtitle.
+**entities.csv:**
+```csv
+name,type,confidence,source,timestamp
+John Doe,PERSON,0.95,SpaCy,
+Acme Corp,ORGANIZATION,0.92,GLiNER,
 ```
 
-### VTT Format (.vtt)
-WebVTT subtitle format for web players.
-
+**relationships.csv:**
+```csv
+subject,predicate,object,confidence,context
+John Doe,founded,Acme Corp,0.89,"In 2020, John Doe founded..."
 ```
-WEBVTT
 
-00:00:00.000 --> 00:00:05.000
-This is the first subtitle.
+### Markdown Report (.md) - NEW in v2.5.1
+Professional intelligence report with statistics.
 
-00:00:05.000 --> 00:00:10.000
-This is the second subtitle.
+```markdown
+# Video Intelligence Report: [Title]
+
+**Processing Cost**: 🟢 $0.0842
+
+## Executive Summary
+[Summary of video content]
+
+## Key Statistics
+| Metric | Count |
+|--------|-------|
+| Entities | 125 |
+| Relationships | 87 |
 ```
+
+### GEXF Format (.gexf)
+Gephi-compatible graph format for advanced visualization.
+
+### Note on Subtitle Formats
+As of v2.3, SRT and VTT subtitle formats have been removed to focus on intelligence extraction rather than captioning.
 
 ## Exit Codes
 
