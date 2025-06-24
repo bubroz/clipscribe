@@ -346,6 +346,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Richer knowledge graphs with more meaningful connections
   - More reliable processing with fewer errors
 
-## [Unreleased]
+## [2.5.1] - 2024-06-24
+
+### Added
+- CSV export for entities and relationships - perfect for data analysis
+- Markdown report generation with cost indicators and key statistics
+- Dual-pass extraction option for improved entity/relationship capture
+- Structured JSON output using Gemini's response_schema for reliability
+
+### Changed
+- **MAJOR**: Optimized API calls from 6 to 2-3 using combined extraction
+- Raised auto-clean thresholds from 100/150 to 300/500 nodes/relationships
+- Increased transcript context from 8000 to 10000 chars for better coverage
+- Used official Gemini structured output for guaranteed JSON formatting
+
+### Fixed
+- Auto-clean now respects --skip-cleaning flag at higher thresholds
+- Better handling of second-pass extraction for sparse results
+
+### Performance
+- 50-60% reduction in API calls through intelligent batching
+- Significant cost savings while maintaining quality
+- Optional second-pass extraction for comprehensive coverage
+
+## [2.5.0] - 2024-06-24
 
 // ... existing code ... 

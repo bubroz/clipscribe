@@ -4,10 +4,21 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "clipscribe"
-version = "2.5.0"
-description = "AI-powered video transcription and analysis tool with cost-effective intelligence extraction"
-authors = ["ClipScribe Team"]
+version = "2.5.1"
+description = "AI-powered video transcription and analysis tool using Gemini Flash"
+authors = ["Zac Forristall <zforristall@gmail.com>"]
 readme = "README.md"
+license = "MIT"
+repository = "https://github.com/bubroz/clipscribe"
+keywords = ["video", "transcription", "AI", "Gemini", "knowledge extraction"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
 packages = [{include = "clipscribe", from = "src"}]
 
 [tool.black]

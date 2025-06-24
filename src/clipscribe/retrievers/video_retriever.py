@@ -8,6 +8,7 @@ import os
 import json
 from pathlib import Path
 import networkx as nx
+import csv
 
 from ..models import VideoIntelligence, VideoTranscript, KeyPoint, Entity, Topic, Relationship
 from .universal_video_client import UniversalVideoClient
@@ -313,8 +314,8 @@ class VideoIntelligenceRetriever:
                             if hasattr(video_intelligence, 'knowledge_graph') and video_intelligence.knowledge_graph:
                                 # Clean if explicitly requested OR if graph is large and messy
                                 should_clean = self.clean_graph or (
-                                    video_intelligence.knowledge_graph.get('node_count', 0) > 100 and
-                                    len(getattr(video_intelligence, 'relationships', [])) > 150
+                                    video_intelligence.knowledge_graph.get('node_count', 0) > 300 and
+                                    len(getattr(video_intelligence, 'relationships', [])) > 500
                                 )
                                 
                                 if should_clean:
@@ -679,7 +680,174 @@ class VideoIntelligenceRetriever:
             paths["facts"] = facts_path
             logger.info(f"Saved {len(video.key_moments)} key facts :-)")
         
-        # 10. Manifest file (index of all files)
+        # 10. CSV exports for entities and relationships (NEW)
+        # Entities CSV
+        entities_csv_path = paths["directory"] / "entities.csv"
+        with open(entities_csv_path, 'w', encoding='utf-8') as f:
+            writer = csv.writer(f)
+            writer.writerow(["name", "type", "confidence", "source", "timestamp"])
+            
+            # Add basic entities
+            for entity in video.entities:
+                writer.writerow([
+                    entity.name,
+                    entity.type,
+                    getattr(entity, 'confidence', 0.0),
+                    getattr(entity, 'source', 'SpaCy'),
+                    getattr(entity, 'timestamp', '')
+                ])
+            
+            # Add custom entities if available
+            if hasattr(video, 'custom_entities'):
+                for entity in video.custom_entities:
+                    writer.writerow([
+                        entity.name,
+                        entity.type,
+                        getattr(entity, 'confidence', 0.0),
+                        getattr(entity, 'source', 'GLiNER'),
+                        getattr(entity, 'timestamp', '')
+                    ])
+        
+        paths["entities_csv"] = entities_csv_path
+        logger.info(f"Saved entities to CSV :-)")
+        
+        # Relationships CSV
+        if hasattr(video, 'relationships') and video.relationships:
+            relationships_csv_path = paths["directory"] / "relationships.csv"
+            with open(relationships_csv_path, 'w', encoding='utf-8') as f:
+                writer = csv.writer(f)
+                writer.writerow(["subject", "predicate", "object", "confidence", "context"])
+                
+                for rel in video.relationships:
+                    writer.writerow([
+                        rel.subject,
+                        rel.predicate,
+                        rel.object,
+                        getattr(rel, 'confidence', 0.0),
+                        getattr(rel, 'context', '')[:100]  # Truncate context to 100 chars
+                    ])
+            
+            paths["relationships_csv"] = relationships_csv_path
+            logger.info(f"Saved relationships to CSV :-)")
+        
+        # 11. Markdown report (NEW)
+        markdown_path = paths["directory"] / "report.md"
+        with open(markdown_path, 'w', encoding='utf-8') as f:
+            # Header
+            f.write(f"# Video Intelligence Report: {video.metadata.title}\n\n")
+            f.write(f"**URL**: {video.metadata.url}\n")
+            f.write(f"**Channel**: {video.metadata.channel}\n")
+            f.write(f"**Duration**: {video.metadata.duration // 60}:{video.metadata.duration % 60:02d}\n")
+            f.write(f"**Published**: {video.metadata.published_at.strftime('%Y-%m-%d') if video.metadata.published_at else 'Unknown'}\n")
+            f.write(f"**Processed**: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n")
+            
+            # Cost indicator
+            cost = video.processing_cost
+            cost_emoji = "🟢" if cost < 0.10 else ("🟡" if cost < 0.50 else "🔴")
+            f.write(f"**Processing Cost**: {cost_emoji} ${cost:.4f}\n\n")
+            
+            # Executive Summary
+            f.write("## Executive Summary\n\n")
+            f.write(f"{video.summary}\n\n")
+            
+            # Key Statistics
+            f.write("## Key Statistics\n\n")
+            f.write("| Metric | Count |\n")
+            f.write("|--------|-------|\n")
+            f.write(f"| Transcript Length | {len(video.transcript.full_text):,} chars |\n")
+            f.write(f"| Word Count | {len(video.transcript.full_text.split()):,} words |\n")
+            f.write(f"| Entities Extracted | {len(video.entities) + len(getattr(video, 'custom_entities', []))} |\n")
+            f.write(f"| Relationships Found | {len(getattr(video, 'relationships', []))} |\n")
+            f.write(f"| Key Points | {len(video.key_points)} |\n")
+            f.write(f"| Topics | {len(video.topics)} |\n")
+            if hasattr(video, 'knowledge_graph') and video.knowledge_graph:
+                f.write(f"| Graph Nodes | {video.knowledge_graph.get('node_count', 0)} |\n")
+                f.write(f"| Graph Edges | {video.knowledge_graph.get('edge_count', 0)} |\n")
+            f.write("\n")
+            
+            # Topics
+            f.write("## Main Topics\n\n")
+            for topic in video.topics[:10]:
+                topic_name = topic.name if hasattr(topic, 'name') else topic
+                f.write(f"- {topic_name}\n")
+            f.write("\n")
+            
+            # Top Entities by Type
+            f.write("## Key Entities\n\n")
+            all_entities = list(video.entities) + list(getattr(video, 'custom_entities', []))
+            
+            # Group by type
+            entities_by_type = {}
+            for entity in all_entities:
+                entity_type = entity.type
+                if entity_type not in entities_by_type:
+                    entities_by_type[entity_type] = []
+                entities_by_type[entity_type].append(entity)
+            
+            # Sort types by count
+            for entity_type in sorted(entities_by_type.keys()):
+                entities = sorted(entities_by_type[entity_type], 
+                                key=lambda e: getattr(e, 'confidence', 0), 
+                                reverse=True)[:10]
+                
+                f.write(f"### {entity_type} ({len(entities_by_type[entity_type])} total)\n\n")
+                f.write("| Name | Confidence |\n")
+                f.write("|------|------------|\n")
+                for entity in entities:
+                    conf = getattr(entity, 'confidence', 0.0)
+                    f.write(f"| {entity.name} | {conf:.2f} |\n")
+                f.write("\n")
+            
+            # Key Relationships
+            if hasattr(video, 'relationships') and video.relationships:
+                f.write("## Key Relationships\n\n")
+                # Sort by confidence
+                top_relationships = sorted(video.relationships, 
+                                         key=lambda r: getattr(r, 'confidence', 0), 
+                                         reverse=True)[:20]
+                
+                for rel in top_relationships:
+                    f.write(f"- **{rel.subject}** *{rel.predicate}* **{rel.object}**")
+                    if hasattr(rel, 'confidence'):
+                        f.write(f" (confidence: {rel.confidence:.2f})")
+                    f.write("\n")
+                f.write("\n")
+            
+            # Key Points (Top 10)
+            f.write("## Key Points\n\n")
+            top_points = sorted(video.key_points, 
+                              key=lambda p: p.importance if hasattr(p, 'importance') else 0.5, 
+                              reverse=True)[:10]
+            
+            for i, point in enumerate(top_points, 1):
+                f.write(f"{i}. {point.text}\n")
+            f.write("\n")
+            
+            # File Index
+            f.write("## Generated Files\n\n")
+            f.write("| File | Description |\n")
+            f.write("|------|-------------|\n")
+            f.write("| `transcript.txt` | Plain text transcript |\n")
+            f.write("| `transcript.json` | Full structured data |\n")
+            f.write("| `entities.csv` | All entities in CSV format |\n")
+            if "relationships_csv" in paths:
+                f.write("| `relationships.csv` | All relationships in CSV format |\n")
+            if "knowledge_graph" in paths:
+                f.write("| `knowledge_graph.json` | Graph structure |\n")
+            if "gexf" in paths:
+                f.write("| `knowledge_graph.gexf` | Gephi-compatible graph |\n")
+            f.write("| `metadata.json` | Video metadata |\n")
+            f.write("| `manifest.json` | File index with sizes |\n")
+            f.write("\n")
+            
+            # Footer
+            f.write("---\n")
+            f.write(f"*Generated by ClipScribe v{video.processing_stats.get('version', '2.5.0') if hasattr(video, 'processing_stats') else '2.5.0'}*\n")
+        
+        paths["report"] = markdown_path
+        logger.info("Generated markdown report :-)")
+        
+        # 12. Manifest file (index of all files)
         manifest = {
             "version": "2.2",
             "created_at": datetime.now().isoformat(),
@@ -745,6 +913,34 @@ class VideoIntelligenceRetriever:
                 "format": "plain_text",
                 "size": os.path.getsize(paths["facts"]),
                 "count": len(video.key_moments) if hasattr(video, 'key_moments') else 0
+            }
+        
+        # Add CSV files to manifest
+        if "entities_csv" in paths:
+            manifest["files"]["entities_csv"] = {
+                "path": "entities.csv",
+                "format": "csv",
+                "size": os.path.getsize(paths["entities_csv"]),
+                "description": "All entities in CSV format",
+                "count": len(video.entities) + len(getattr(video, 'custom_entities', []))
+            }
+        
+        if "relationships_csv" in paths:
+            manifest["files"]["relationships_csv"] = {
+                "path": "relationships.csv",
+                "format": "csv",
+                "size": os.path.getsize(paths["relationships_csv"]),
+                "description": "All relationships in CSV format",
+                "count": len(getattr(video, 'relationships', []))
+            }
+        
+        # Add markdown report to manifest
+        if "report" in paths:
+            manifest["files"]["report"] = {
+                "path": "report.md",
+                "format": "markdown",
+                "size": os.path.getsize(paths["report"]),
+                "description": "Human-readable intelligence report"
             }
         
         with open(paths["manifest"], 'w', encoding='utf-8') as f:

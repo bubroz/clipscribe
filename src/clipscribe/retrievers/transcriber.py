@@ -6,7 +6,7 @@ import tempfile
 from typing import Dict, List, Optional, Any, Tuple
 from datetime import datetime
 import google.generativeai as genai
-from google.generativeai.types import RequestOptions
+from google.generativeai.types import RequestOptions, GenerationConfig
 import json
 import re
 from pathlib import Path
@@ -201,112 +201,161 @@ class GeminiFlashTranscriber:
             # Use fresh models for each analysis task
             analysis_model = self.pool.get_model(TaskType.KEY_POINTS)
             
-            # Extract key points
-            key_points_prompt = f"""
-            Based on this transcript, extract 30-50 key points or important moments.
-            Include timestamps if mentioned. For a {duration//60}-minute video, aim for comprehensive coverage.
+            # OPTIMIZED: Combined extraction in ONE API call instead of 5
+            combined_prompt = f"""
+            Analyze this transcript and extract ALL of the following in one comprehensive response.
+            Be thorough and extract as much information as possible.
             
             Transcript:
-            {transcript_text[:8000]}
+            {transcript_text[:10000]}  # Increased from 8000 for better coverage
             
-            Return as JSON array:
-            [
-                {{"timestamp": 0, "text": "Key point 1", "importance": 0.9}},
-                {{"timestamp": 60, "text": "Key point 2", "importance": 0.8}}
-            ]
+            Return a JSON object with this EXACT structure:
+            {{
+                "summary": "Write a comprehensive 3-4 paragraph summary covering all main points",
+                "key_points": [
+                    {{"timestamp": 0, "text": "Important point or moment", "importance": 0.9}},
+                    // Extract 30-50 key points for comprehensive coverage
+                ],
+                "topics": ["main topic 1", "main topic 2", "topic 3"],
+                "entities": [
+                    {{"name": "Person/Org/Location Name", "type": "PERSON/ORGANIZATION/LOCATION", "confidence": 0.9}},
+                    // Extract ALL named entities
+                ],
+                "relationships": [
+                    {{"subject": "Entity A", "predicate": "specific action", "object": "Entity B", "confidence": 0.9}},
+                    // Use specific predicates: founded, acquired, partnered with, invested in, developed, etc.
+                    // Extract 20-50 relationships
+                ]
+            }}
+            
+            Be comprehensive and don't miss important information. Quality over speed.
             """
             
-            logger.info("Extracting key points...")
+            logger.info("Performing combined extraction (summary, key points, topics, entities, relationships)...")
+            
+            # Use response_schema for guaranteed JSON format
+            response_schema = {
+                "type": "OBJECT",
+                "properties": {
+                    "summary": {"type": "STRING"},
+                    "key_points": {
+                        "type": "ARRAY",
+                        "items": {
+                            "type": "OBJECT",
+                            "properties": {
+                                "timestamp": {"type": "NUMBER"},
+                                "text": {"type": "STRING"},
+                                "importance": {"type": "NUMBER"}
+                            },
+                            "required": ["timestamp", "text", "importance"]
+                        }
+                    },
+                    "topics": {
+                        "type": "ARRAY",
+                        "items": {"type": "STRING"}
+                    },
+                    "entities": {
+                        "type": "ARRAY",
+                        "items": {
+                            "type": "OBJECT",
+                            "properties": {
+                                "name": {"type": "STRING"},
+                                "type": {"type": "STRING", "enum": ["PERSON", "ORGANIZATION", "LOCATION", "PRODUCT", "EVENT"]},
+                                "confidence": {"type": "NUMBER"}
+                            },
+                            "required": ["name", "type", "confidence"]
+                        }
+                    },
+                    "relationships": {
+                        "type": "ARRAY",
+                        "items": {
+                            "type": "OBJECT",
+                            "properties": {
+                                "subject": {"type": "STRING"},
+                                "predicate": {"type": "STRING"},
+                                "object": {"type": "STRING"},
+                                "confidence": {"type": "NUMBER"}
+                            },
+                            "required": ["subject", "predicate", "object", "confidence"]
+                        }
+                    }
+                },
+                "required": ["summary", "key_points", "topics", "entities", "relationships"]
+            }
+            
+            # Make the combined API call with structured output
             response = await analysis_model.generate_content_async(
-                key_points_prompt,
+                combined_prompt,
+                generation_config={
+                    "response_mime_type": "application/json",
+                    "response_schema": response_schema
+                },
                 request_options=RequestOptions(timeout=self.request_timeout)
             )
-            key_points = self._parse_json_response(response.text, "array") or []
             
-            # Generate summary
-            summary_prompt = f"""
-            Create a comprehensive summary of this transcript in 3-4 paragraphs.
+            # Parse the combined response
+            combined_data = self._parse_json_response(response.text, "object") or {}
             
-            Transcript:
-            {transcript_text[:8000]}
-            """
+            # Extract individual components with defaults
+            summary = combined_data.get("summary", "No summary generated")
+            key_points = combined_data.get("key_points", [])
+            topics = combined_data.get("topics", [])
+            entities = combined_data.get("entities", [])
+            relationships = combined_data.get("relationships", [])
             
-            summary_model = self.pool.get_model(TaskType.SUMMARY)
-            logger.info("Generating summary...")
-            response = await summary_model.generate_content_async(
-                summary_prompt,
-                request_options=RequestOptions(timeout=self.request_timeout)
-            )
-            summary = response.text.strip()
-            
-            # Extract entities
-            entities_prompt = f"""
-            Extract all named entities (people, organizations, locations, products) from this transcript.
-            Include confidence scores.
-            
-            Transcript:
-            {transcript_text[:8000]}
-            
-            Return as JSON array:
-            [
-                {{"name": "Entity Name", "type": "PERSON", "confidence": 0.9}},
-                {{"name": "Company Name", "type": "ORGANIZATION", "confidence": 0.95}}
-            ]
-            """
-            
-            logger.info("Extracting entities...")
-            response = await analysis_model.generate_content_async(
-                entities_prompt,
-                request_options=RequestOptions(timeout=self.request_timeout)
-            )
-            entities = self._parse_json_response(response.text, "array") or []
-            
-            # Extract topics
-            topics_prompt = f"""
-            Identify the main topics discussed in this transcript.
-            
-            Transcript:
-            {transcript_text[:8000]}
-            
-            Return as JSON array of strings:
-            ["topic1", "topic2", "topic3"]
-            """
-            
-            logger.info("Extracting topics...")
-            response = await analysis_model.generate_content_async(
-                topics_prompt,
-                request_options=RequestOptions(timeout=self.request_timeout)
-            )
-            topics = self._parse_json_response(response.text, "array") or []
-            
-            # Extract relationships (for advanced extraction)
-            relationships_prompt = f"""
-            Extract relationships between entities in this transcript.
-            Focus on concrete actions and connections.
-            
-            Transcript:
-            {transcript_text[:8000]}
-            
-            Return as JSON array:
-            [
-                {{"subject": "Person A", "predicate": "founded", "object": "Company B", "confidence": 0.9}},
-                {{"subject": "Company X", "predicate": "acquired", "object": "Company Y", "confidence": 0.85}}
-            ]
-            
-            Use specific predicates like: founded, acquired, partnered with, invested in, developed, launched, etc.
-            Avoid generic predicates like: mentioned, related to, is, has.
-            """
-            
-            logger.info("Extracting relationships...")
-            response = await analysis_model.generate_content_async(
-                relationships_prompt,
-                request_options=RequestOptions(timeout=self.request_timeout)
-            )
-            relationships = self._parse_json_response(response.text, "array") or []
+            # Optional: Second pass for entity/relationship extraction if first pass seems incomplete
+            if len(entities) < 10 or len(relationships) < 5:
+                logger.info("Performing second pass for better entity/relationship extraction...")
+                
+                second_pass_prompt = f"""
+                This is a second pass to catch any missed entities and relationships.
+                Look carefully for:
+                - People mentioned by title/role even without names
+                - Organizations, companies, agencies
+                - Locations, countries, cities
+                - Products, technologies, systems
+                - Events, dates, meetings
+                
+                Transcript:
+                {transcript_text[:10000]}
+                
+                Already found entities: {[e['name'] for e in entities][:20]}
+                
+                Find ADDITIONAL entities and relationships not in the above list.
+                
+                Return JSON:
+                {{
+                    "additional_entities": [
+                        {{"name": "Entity", "type": "TYPE", "confidence": 0.9}}
+                    ],
+                    "additional_relationships": [
+                        {{"subject": "A", "predicate": "action", "object": "B", "confidence": 0.9}}
+                    ]
+                }}
+                """
+                
+                second_model = self.pool.get_model(TaskType.ENTITIES)
+                response = await second_model.generate_content_async(
+                    second_pass_prompt,
+                    generation_config={"response_mime_type": "application/json"},
+                    request_options=RequestOptions(timeout=self.request_timeout)
+                )
+                
+                second_pass_data = self._parse_json_response(response.text, "object") or {}
+                
+                # Merge additional findings
+                additional_entities = second_pass_data.get("additional_entities", [])
+                additional_relationships = second_pass_data.get("additional_relationships", [])
+                
+                entities.extend(additional_entities)
+                relationships.extend(additional_relationships)
+                
+                logger.info(f"Second pass found {len(additional_entities)} more entities and {len(additional_relationships)} more relationships")
             
             processing_time = 0  # We'll calculate this properly
             
             logger.info(f"Transcription completed in {processing_time}s, cost: ${total_cost:.4f}")
+            logger.info(f"Extracted: {len(entities)} entities, {len(relationships)} relationships, {len(key_points)} key points")
             
             # Clean up
             genai.delete_file(file)
