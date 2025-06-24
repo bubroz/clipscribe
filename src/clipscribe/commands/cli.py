@@ -188,7 +188,7 @@ async def transcribe(
             saved_files = retriever.save_all_formats(
                 video_result,
                 output_dir=str(output_dir),
-                include_chimera_format=False
+                include_chimera_format=True
             )
             
             # Display results

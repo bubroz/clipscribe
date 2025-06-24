@@ -272,9 +272,10 @@ class AdvancedHybridExtractor:
         return video_intel
         
     def _extract_key_facts(self, video_intel: VideoIntelligence) -> VideoIntelligence:
-        """Extract key facts from relationships."""
+        """Extract key facts from relationships and key points."""
         facts = []
         
+        # Extract facts from relationships
         for rel in video_intel.relationships:
             # Format as human-readable fact
             fact = f"{rel.subject} {rel.predicate} {rel.object}"
@@ -283,14 +284,57 @@ class AdvancedHybridExtractor:
                 "confidence": rel.confidence,
                 "subject": rel.subject,
                 "predicate": rel.predicate,
-                "object": rel.object
+                "object": rel.object,
+                "type": "relationship"
             })
-            
-        # Sort by confidence
-        facts.sort(key=lambda x: x["confidence"], reverse=True)
         
-        # Store top facts as key moments
-        video_intel.key_moments = facts[:20]  # Top 20 facts
+        # Extract facts from key points
+        if hasattr(video_intel, 'key_points') and video_intel.key_points:
+            for kp in video_intel.key_points:
+                facts.append({
+                    "fact": kp.text,
+                    "confidence": 0.9,  # Key points are typically high quality
+                    "timestamp": kp.timestamp,
+                    "type": "key_point"
+                })
+        
+        # Extract facts from entities with high confidence
+        high_conf_entities = [e for e in video_intel.entities if e.confidence > 0.85]
+        for entity in high_conf_entities[:20]:  # Top 20 high confidence entities
+            if entity.properties:
+                for prop, value in entity.properties.items():
+                    fact = f"{entity.name} has {prop}: {value}"
+                    facts.append({
+                        "fact": fact,
+                        "confidence": entity.confidence,
+                        "subject": entity.name,
+                        "type": "entity_property"
+                    })
+        
+        # Sort by confidence and diversity
+        # First, group by type to ensure diversity
+        facts_by_type = {}
+        for fact in facts:
+            fact_type = fact.get('type', 'unknown')
+            if fact_type not in facts_by_type:
+                facts_by_type[fact_type] = []
+            facts_by_type[fact_type].append(fact)
+        
+        # Sort each type by confidence
+        for fact_type in facts_by_type:
+            facts_by_type[fact_type].sort(key=lambda x: x['confidence'], reverse=True)
+        
+        # Interleave facts from different types for diversity
+        final_facts = []
+        max_per_type = max(len(facts) for facts in facts_by_type.values()) if facts_by_type else 0
+        
+        for i in range(max_per_type):
+            for fact_type in ['relationship', 'key_point', 'entity_property']:
+                if fact_type in facts_by_type and i < len(facts_by_type[fact_type]):
+                    final_facts.append(facts_by_type[fact_type][i])
+        
+        # Store more facts (was 20, now up to 100)
+        video_intel.key_moments = final_facts[:100]
         
         return video_intel
         
@@ -320,17 +364,26 @@ Return a simple list of validated entities in format: "name (type)"
         rel_list = "\n".join([f"- {r.subject} | {r.predicate} | {r.object}" for r in relationships])
         
         return f"""
-Please validate these relationships extracted from the video transcript.
-Return ONLY the relationships that are factually correct based on the transcript.
+Please validate and IMPROVE these relationships extracted from the video transcript.
+For each relationship, either:
+1. Keep it if it's meaningful and specific
+2. Replace generic predicates with more specific ones
+3. Remove it if it's too vague or not supported by the transcript
 
-Transcript excerpt: {transcript[:1000]}...
+Transcript excerpt: {transcript[:2000]}...
 
 Relationships to validate:
 {rel_list}
 
-For each relationship, verify it's actually stated or strongly implied in the transcript.
+AVOID generic predicates like: mentioned, referenced, discussed, talked about
+PREFER specific predicates like: signed, announced, vetoed, partnered with, acquired, defeated, funded, criticized, supported
+
+For example:
+- BAD: "Biden | mentioned | Ukraine" 
+- GOOD: "Biden | signed security pact with | Ukraine"
 
 Return validated relationships in format: "subject | predicate | object"
+Include ONLY meaningful, specific relationships that convey real information.
 """
         
     def _parse_entity_validation(self, response: str, original: List[Entity]) -> List[Entity]:

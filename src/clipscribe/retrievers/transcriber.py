@@ -58,7 +58,8 @@ Return ONLY the transcription text, no additional commentary.
 """,
             
             "key_points": """
-Extract the key points from this audio with timestamps. For each key point provide:
+Extract ALL significant key points from this audio with timestamps. Be comprehensive - for a 60-minute video, 
+we expect 30-50 key points. For each key point provide:
 1. The exact timestamp (in seconds)
 2. The key point in clear, concise language
 3. Brief context if needed
@@ -72,12 +73,26 @@ Format as JSON:
     }
 ]
 
-Focus on:
-- Major announcements or revelations
-- Important statistics or data
-- Key arguments or conclusions
-- Significant quotes
-- Technical specifications or details
+Include ALL of the following:
+- Major announcements, decisions, or revelations
+- Important statistics, numbers, or data points
+- Key arguments, positions, or conclusions
+- Significant quotes or statements
+- Technical specifications or important details
+- Policy changes or new initiatives
+- Breaking news or updates
+- Expert opinions or analysis
+- Controversial statements or debates
+- Action items or next steps mentioned
+
+For news programs, include:
+- Each major story or segment
+- Key facts from each story
+- Important quotes from officials
+- Statistical data mentioned
+- Policy implications discussed
+
+Be thorough - it's better to include too many key points than too few.
 """,
             
             "summary": """
@@ -109,6 +124,35 @@ Be comprehensive - include all people, companies, technologies, locations, event
 List the main topics discussed in this audio. Return as a JSON array of strings.
 Focus on high-level themes and subjects, not specific details.
 Example: ["artificial intelligence", "climate change", "economic policy"]
+""",
+            
+            "relationships": """
+Extract meaningful relationships between entities from this audio. Focus on SPECIFIC, ACTIONABLE relationships.
+
+Return as JSON:
+[
+    {
+        "subject": "Entity name",
+        "predicate": "specific action/relationship",
+        "object": "Entity name",
+        "timestamp": 120,
+        "confidence": 0.95
+    }
+]
+
+Examples of GOOD predicates:
+- signed agreement with, vetoed bill from, acquired company
+- defeated candidate, funded project, criticized policy
+- announced partnership with, launched product, published research
+- testified before, sanctioned country, awarded contract to
+
+AVOID vague predicates like: mentioned, discussed, talked about, referenced
+
+Focus on relationships that represent:
+- Actions taken (signed, vetoed, launched)
+- Formal relationships (partnered with, acquired, funded)
+- Positions/stances (opposed, supported, criticized)
+- Events/outcomes (defeated, won, achieved)
 """
         }
     
@@ -233,6 +277,17 @@ Format: Provide a comprehensive transcript that captures both audio and visual c
             )
             results["topics"] = self._parse_json_response(
                 topics_response.text,
+                default=[]
+            )
+            
+            # 6. Relationship extraction
+            logger.info("Extracting relationships...")
+            relationships_response = await self.model.generate_content_async(
+                [media_file, self.prompts["relationships"]],
+                request_options=RequestOptions(timeout=self.request_timeout)
+            )
+            results["relationships"] = self._parse_json_response(
+                relationships_response.text,
                 default=[]
             )
             
