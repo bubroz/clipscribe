@@ -141,11 +141,14 @@ clipscribe/
 │   └── clipscribe/           # Main package
 │       ├── commands/         # CLI implementation
 │       ├── config/           # Configuration management
-│       ├── utils/            # Utilities and helpers
-│       └── chimera_video/    # Video processing core
+│       ├── extractors/       # Entity & relationship extraction
+│       ├── retrievers/       # Video processing core
+│       └── utils/            # Utilities and helpers
 ├── tests/                    # Test suite
 ├── docs/                     # Documentation
-└── examples/                 # Usage examples
+├── examples/                 # Usage examples
+├── .cursor/rules/            # AI assistant rules & patterns
+└── output/                   # Generated transcripts & graphs
 ```
 
 ## 🔧 Configuration
