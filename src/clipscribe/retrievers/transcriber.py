@@ -6,11 +6,13 @@ import tempfile
 from typing import Dict, List, Optional, Any
 from datetime import datetime
 import google.generativeai as genai
+from google.generativeai.types import RequestOptions
 import json
 import re
 from pathlib import Path
 
 from ..models import VideoTranscript, KeyPoint, Entity
+from ..config.settings import Settings
 
 logger = logging.getLogger(__name__)
 
@@ -26,6 +28,11 @@ class GeminiFlashTranscriber:
         
         genai.configure(api_key=api_key)
         self.model = genai.GenerativeModel("gemini-1.5-flash")
+        
+        # Get settings
+        self.settings = Settings()
+        self.request_timeout = self.settings.gemini_request_timeout
+        logger.info(f"Using Gemini request timeout: {self.request_timeout}s")
         
         # Cost tracking (Gemini 2.5 Flash pricing)
         self.audio_cost_per_minute = 0.002  # $0.002/minute for audio
@@ -182,18 +189,18 @@ Format: Provide a comprehensive transcript that captures both audio and visual c
             
             # 1. Full transcription
             logger.info("Generating transcription...")
-            transcript_response = await self.model.generate_content_async([
-                media_file,
-                transcribe_prompt
-            ])
+            transcript_response = await self.model.generate_content_async(
+                [media_file, transcribe_prompt],
+                request_options=RequestOptions(timeout=self.request_timeout)
+            )
             results["transcript"] = transcript_response.text.strip()
             
             # 2. Key points extraction
             logger.info("Extracting key points...")
-            keypoints_response = await self.model.generate_content_async([
-                media_file,
-                self.prompts["key_points"]
-            ])
+            keypoints_response = await self.model.generate_content_async(
+                [media_file, self.prompts["key_points"]],
+                request_options=RequestOptions(timeout=self.request_timeout)
+            )
             results["key_points"] = self._parse_json_response(
                 keypoints_response.text,
                 default=[]
@@ -201,18 +208,18 @@ Format: Provide a comprehensive transcript that captures both audio and visual c
             
             # 3. Summary generation
             logger.info("Generating summary...")
-            summary_response = await self.model.generate_content_async([
-                media_file,
-                self.prompts["summary"]
-            ])
+            summary_response = await self.model.generate_content_async(
+                [media_file, self.prompts["summary"]],
+                request_options=RequestOptions(timeout=self.request_timeout)
+            )
             results["summary"] = summary_response.text.strip()
             
             # 4. Entity extraction
             logger.info("Extracting entities...")
-            entities_response = await self.model.generate_content_async([
-                media_file,
-                self.prompts["entities"]
-            ])
+            entities_response = await self.model.generate_content_async(
+                [media_file, self.prompts["entities"]],
+                request_options=RequestOptions(timeout=self.request_timeout)
+            )
             results["entities"] = self._parse_json_response(
                 entities_response.text,
                 default=[]
@@ -220,10 +227,10 @@ Format: Provide a comprehensive transcript that captures both audio and visual c
             
             # 5. Topic extraction
             logger.info("Extracting topics...")
-            topics_response = await self.model.generate_content_async([
-                media_file,
-                self.prompts["topics"]
-            ])
+            topics_response = await self.model.generate_content_async(
+                [media_file, self.prompts["topics"]],
+                request_options=RequestOptions(timeout=self.request_timeout)
+            )
             results["topics"] = self._parse_json_response(
                 topics_response.text,
                 default=[]

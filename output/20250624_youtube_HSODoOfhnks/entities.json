@@ -1,0 +1,1634 @@
+{
+  "video_url": "https://www.youtube.com/watch?v=HSODoOfhnks",
+  "video_title": "PBS News Hour full episode, June 23, 2025",
+  "entities": [
+    {
+      "name": "New York City",
+      "type": "LOCATION",
+      "confidence": 1.0,
+      "properties": {
+        "spacy_label": "GPE",
+        "start_char": 266,
+        "end_char": 279
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Nick Schifrin",
+      "type": "PERSON",
+      "confidence": 1.0,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 1926,
+        "end_char": 1939
+      },
+      "timestamp": null
+    },
+    {
+      "name": "United States",
+      "type": "LOCATION",
+      "confidence": 1.0,
+      "properties": {
+        "spacy_label": "GPE",
+        "start_char": 17608,
+        "end_char": 17621
+      },
+      "timestamp": null
+    },
+    {
+      "name": "The Supreme Court",
+      "type": "ORGANIZATION",
+      "confidence": 1.0,
+      "properties": {
+        "spacy_label": "ORG",
+        "start_char": 21047,
+        "end_char": 21064
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Zo\u00ebran Mamdani",
+      "type": "PERSON",
+      "confidence": 1.0,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 27032,
+        "end_char": 27046
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Andrew Cuomo",
+      "type": "PERSON",
+      "confidence": 1.0,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 28091,
+        "end_char": 28103
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Donald Trump",
+      "type": "PERSON",
+      "confidence": 1.0,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 31109,
+        "end_char": 31121
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Far From Home",
+      "type": "ORGANIZATION",
+      "confidence": 1.0,
+      "properties": {
+        "spacy_label": "ORG",
+        "start_char": 34645,
+        "end_char": 34658
+      },
+      "timestamp": null
+    },
+    {
+      "name": "the United States",
+      "type": "LOCATION",
+      "confidence": 0.95,
+      "properties": {
+        "spacy_label": "GPE",
+        "start_char": 2897,
+        "end_char": 2914
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Far From Home",
+      "type": "PRODUCT",
+      "confidence": 0.95,
+      "properties": {
+        "spacy_label": "WORK_OF_ART",
+        "start_char": 36523,
+        "end_char": 36536
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Trump",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 89,
+        "end_char": 94
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Israel",
+      "type": "LOCATION",
+      "confidence": 0.9,
+      "properties": {
+        "spacy_label": "GPE",
+        "start_char": 125,
+        "end_char": 131
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Iran",
+      "type": "LOCATION",
+      "confidence": 0.9,
+      "properties": {
+        "spacy_label": "GPE",
+        "start_char": 136,
+        "end_char": 140
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Lisa Murkowski",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 532,
+        "end_char": 546
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Washington",
+      "type": "LOCATION",
+      "confidence": 0.9,
+      "properties": {
+        "spacy_label": "GPE",
+        "start_char": 590,
+        "end_char": 600
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Al Udeid",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 2229,
+        "end_char": 2237
+      },
+      "timestamp": null
+    },
+    {
+      "name": "The Islamic Republic of Iran",
+      "type": "LOCATION",
+      "confidence": 0.9,
+      "properties": {
+        "spacy_label": "GPE",
+        "start_char": 2422,
+        "end_char": 2450
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Tehran",
+      "type": "LOCATION",
+      "confidence": 0.9,
+      "properties": {
+        "spacy_label": "GPE",
+        "start_char": 3454,
+        "end_char": 3460
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Fordo",
+      "type": "LOCATION",
+      "confidence": 0.9,
+      "properties": {
+        "spacy_label": "GPE",
+        "start_char": 4352,
+        "end_char": 4357
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Nick",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 4804,
+        "end_char": 4808
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Jeff",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 5817,
+        "end_char": 5821
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Nick",
+      "type": "LOCATION",
+      "confidence": 0.9,
+      "properties": {
+        "spacy_label": "GPE",
+        "start_char": 6612,
+        "end_char": 6616
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Kevin Donohue",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 8732,
+        "end_char": 8745
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Congress",
+      "type": "ORGANIZATION",
+      "confidence": 0.9,
+      "properties": {
+        "spacy_label": "ORG",
+        "start_char": 15770,
+        "end_char": 15778
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Lisa Desjardins",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 15850,
+        "end_char": 15865
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Lisa",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 15870,
+        "end_char": 15874
+      },
+      "timestamp": null
+    },
+    {
+      "name": "House",
+      "type": "ORGANIZATION",
+      "confidence": 0.9,
+      "properties": {
+        "spacy_label": "ORG",
+        "start_char": 16583,
+        "end_char": 16588
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Senate",
+      "type": "ORGANIZATION",
+      "confidence": 0.9,
+      "properties": {
+        "spacy_label": "ORG",
+        "start_char": 16597,
+        "end_char": 16603
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Mar",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 19121,
+        "end_char": 19124
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Rod Nordland",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 25461,
+        "end_char": 25473
+      },
+      "timestamp": null
+    },
+    {
+      "name": "William Branham",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 26881,
+        "end_char": 26896
+      },
+      "timestamp": null
+    },
+    {
+      "name": "New York",
+      "type": "LOCATION",
+      "confidence": 0.9,
+      "properties": {
+        "spacy_label": "GPE",
+        "start_char": 27143,
+        "end_char": 27151
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Trump",
+      "type": "ORGANIZATION",
+      "confidence": 0.9,
+      "properties": {
+        "spacy_label": "ORG",
+        "start_char": 27276,
+        "end_char": 27281
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Zo\u00ebran",
+      "type": "ORGANIZATION",
+      "confidence": 0.9,
+      "properties": {
+        "spacy_label": "ORG",
+        "start_char": 27608,
+        "end_char": 27614
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Mamdani",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 27945,
+        "end_char": 27952
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Cuomo",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 28536,
+        "end_char": 28541
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Mayor",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 32245,
+        "end_char": 32250
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Adams",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 32440,
+        "end_char": 32445
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Adams",
+      "type": "ORGANIZATION",
+      "confidence": 0.9,
+      "properties": {
+        "spacy_label": "ORG",
+        "start_char": 32620,
+        "end_char": 32625
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Murkowski",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 34719,
+        "end_char": 34728
+      },
+      "timestamp": null
+    },
+    {
+      "name": "the Middle East",
+      "type": "LOCATION",
+      "confidence": 0.8999999999999999,
+      "properties": {
+        "spacy_label": "LOC",
+        "start_char": 192,
+        "end_char": 207
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Jeff Bennett",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 18,
+        "end_char": 30
+      },
+      "timestamp": null
+    },
+    {
+      "name": "NewsHour",
+      "type": "PRODUCT",
+      "confidence": 0.85,
+      "properties": {
+        "spacy_label": "PRODUCT",
+        "start_char": 801,
+        "end_char": 809
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Norma Klorfine",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 942,
+        "end_char": 956
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Peter Bloom Kovler Foundation",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 974,
+        "end_char": 1003
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Raymond James",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 1117,
+        "end_char": 1130
+      },
+      "timestamp": null
+    },
+    {
+      "name": "The Ford Foundation",
+      "type": "ORGANIZATION",
+      "confidence": 0.85,
+      "properties": {
+        "spacy_label": "ORG",
+        "start_char": 1228,
+        "end_char": 1247
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Al Udeid Air Base",
+      "type": "ORGANIZATION",
+      "confidence": 0.85,
+      "properties": {
+        "spacy_label": "ORG",
+        "start_char": 2160,
+        "end_char": 2177
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Revolutionary Guard Corps",
+      "type": "ORGANIZATION",
+      "confidence": 0.85,
+      "properties": {
+        "spacy_label": "ORG",
+        "start_char": 2358,
+        "end_char": 2383
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Efi Daffrin",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 4050,
+        "end_char": 4061
+      },
+      "timestamp": null
+    },
+    {
+      "name": "the Middle East Institute",
+      "type": "ORGANIZATION",
+      "confidence": 0.85,
+      "properties": {
+        "spacy_label": "ORG",
+        "start_char": 15647,
+        "end_char": 15672
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Capitol Hill",
+      "type": "ORGANIZATION",
+      "confidence": 0.85,
+      "properties": {
+        "spacy_label": "ORG",
+        "start_char": 15823,
+        "end_char": 15835
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Lindsey Graham",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 18752,
+        "end_char": 18766
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Marjorie Taylor Greene",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 19157,
+        "end_char": 19179
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Mike Johnson",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 20206,
+        "end_char": 20218
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Hakeem Jeffries",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 20452,
+        "end_char": 20467
+      },
+      "timestamp": null
+    },
+    {
+      "name": "South Sudan",
+      "type": "LOCATION",
+      "confidence": 0.85,
+      "properties": {
+        "spacy_label": "GPE",
+        "start_char": 20862,
+        "end_char": 20873
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Netherlands",
+      "type": "LOCATION",
+      "confidence": 0.85,
+      "properties": {
+        "spacy_label": "GPE",
+        "start_char": 23625,
+        "end_char": 23636
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Trump Media and Technology Group",
+      "type": "ORGANIZATION",
+      "confidence": 0.85,
+      "properties": {
+        "spacy_label": "ORG",
+        "start_char": 24474,
+        "end_char": 24506
+      },
+      "timestamp": null
+    },
+    {
+      "name": "The Vera C. Rubin Observatory",
+      "type": "ORGANIZATION",
+      "confidence": 0.85,
+      "properties": {
+        "spacy_label": "ORG",
+        "start_char": 24996,
+        "end_char": 25025
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Tamron Hall",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 26279,
+        "end_char": 26290
+      },
+      "timestamp": null
+    },
+    {
+      "name": "West",
+      "type": "LOCATION",
+      "confidence": 0.85,
+      "properties": {
+        "spacy_label": "LOC",
+        "start_char": 26445,
+        "end_char": 26449
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Arizona State University",
+      "type": "ORGANIZATION",
+      "confidence": 0.85,
+      "properties": {
+        "spacy_label": "ORG",
+        "start_char": 26499,
+        "end_char": 26523
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Zo\u00ebran Mandani",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 26934,
+        "end_char": 26948
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Patrick Gaspard",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 30516,
+        "end_char": 30531
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Barack Obama",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 30616,
+        "end_char": 30628
+      },
+      "timestamp": null
+    },
+    {
+      "name": "City Controller",
+      "type": "ORGANIZATION",
+      "confidence": 0.85,
+      "properties": {
+        "spacy_label": "ORG",
+        "start_char": 31868,
+        "end_char": 31883
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Brad Lander",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 31906,
+        "end_char": 31917
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Michael Bloomberg",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 33905,
+        "end_char": 33922
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Nawaz",
+      "type": "ORGANIZATION",
+      "confidence": 0.8,
+      "properties": {
+        "spacy_label": "ORG",
+        "start_char": 40,
+        "end_char": 45
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Alaska",
+      "type": "LOCATION",
+      "confidence": 0.8,
+      "properties": {
+        "spacy_label": "GPE",
+        "start_char": 504,
+        "end_char": 510
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Eastern",
+      "type": "ORGANIZATION",
+      "confidence": 0.8,
+      "properties": {
+        "spacy_label": "ORG",
+        "start_char": 4960,
+        "end_char": 4967
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Vance",
+      "type": "PERSON",
+      "confidence": 0.8,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 7677,
+        "end_char": 7682
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Johnson",
+      "type": "PERSON",
+      "confidence": 0.8,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 16692,
+        "end_char": 16699
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Virginia",
+      "type": "LOCATION",
+      "confidence": 0.8,
+      "properties": {
+        "spacy_label": "GPE",
+        "start_char": 17261,
+        "end_char": 17269
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Kaine",
+      "type": "PERSON",
+      "confidence": 0.8,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 17510,
+        "end_char": 17515
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Boston",
+      "type": "LOCATION",
+      "confidence": 0.8,
+      "properties": {
+        "spacy_label": "GPE",
+        "start_char": 20930,
+        "end_char": 20936
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Ukraine",
+      "type": "LOCATION",
+      "confidence": 0.8,
+      "properties": {
+        "spacy_label": "GPE",
+        "start_char": 23276,
+        "end_char": 23283
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Rutte",
+      "type": "PERSON",
+      "confidence": 0.8,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 23759,
+        "end_char": 23764
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Spain",
+      "type": "LOCATION",
+      "confidence": 0.8,
+      "properties": {
+        "spacy_label": "GPE",
+        "start_char": 24121,
+        "end_char": 24126
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Chile",
+      "type": "LOCATION",
+      "confidence": 0.8,
+      "properties": {
+        "spacy_label": "GPE",
+        "start_char": 25029,
+        "end_char": 25034
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Nordland",
+      "type": "PERSON",
+      "confidence": 0.8,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 25596,
+        "end_char": 25604
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Eric Adams",
+      "type": "PERSON",
+      "confidence": 0.8,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 26669,
+        "end_char": 26679
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Obama",
+      "type": "PERSON",
+      "confidence": 0.8,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 30697,
+        "end_char": 30702
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Lander",
+      "type": "PERSON",
+      "confidence": 0.8,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 33566,
+        "end_char": 33572
+      },
+      "timestamp": null
+    },
+    {
+      "name": "the Corporation for Public Broadcasting",
+      "type": "ORGANIZATION",
+      "confidence": 0.7999999999999999,
+      "properties": {
+        "spacy_label": "ORG",
+        "start_char": 1426,
+        "end_char": 1465
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Northern Tehran",
+      "type": "LOCATION",
+      "confidence": 0.7999999999999999,
+      "properties": {
+        "spacy_label": "LOC",
+        "start_char": 3598,
+        "end_char": 3613
+      },
+      "timestamp": null
+    },
+    {
+      "name": "the Middle East Institute",
+      "type": "LOCATION",
+      "confidence": 0.7999999999999999,
+      "properties": {
+        "spacy_label": "LOC",
+        "start_char": 8851,
+        "end_char": 8876
+      },
+      "timestamp": null
+    },
+    {
+      "name": "the Fifth Fleet",
+      "type": "ORGANIZATION",
+      "confidence": 0.7999999999999999,
+      "properties": {
+        "spacy_label": "ORG",
+        "start_char": 11664,
+        "end_char": 11679
+      },
+      "timestamp": null
+    },
+    {
+      "name": "the Truth Social",
+      "type": "ORGANIZATION",
+      "confidence": 0.7999999999999999,
+      "properties": {
+        "spacy_label": "ORG",
+        "start_char": 24519,
+        "end_char": 24535
+      },
+      "timestamp": null
+    },
+    {
+      "name": "the European Southern Observatory's",
+      "type": "ORGANIZATION",
+      "confidence": 0.7999999999999999,
+      "properties": {
+        "spacy_label": "ORG",
+        "start_char": 25304,
+        "end_char": 25339
+      },
+      "timestamp": null
+    },
+    {
+      "name": "the New York Times",
+      "type": "ORGANIZATION",
+      "confidence": 0.7999999999999999,
+      "properties": {
+        "spacy_label": "ORG",
+        "start_char": 25553,
+        "end_char": 25571
+      },
+      "timestamp": null
+    },
+    {
+      "name": "the Democratic Party",
+      "type": "ORGANIZATION",
+      "confidence": 0.7999999999999999,
+      "properties": {
+        "spacy_label": "ORG",
+        "start_char": 26194,
+        "end_char": 26214
+      },
+      "timestamp": null
+    },
+    {
+      "name": "the Walter Cronkite School of Journalism",
+      "type": "ORGANIZATION",
+      "confidence": 0.7999999999999999,
+      "properties": {
+        "spacy_label": "ORG",
+        "start_char": 26455,
+        "end_char": 26495
+      },
+      "timestamp": null
+    },
+    {
+      "name": "the Service Employees International Union",
+      "type": "ORGANIZATION",
+      "confidence": 0.7999999999999999,
+      "properties": {
+        "spacy_label": "ORG",
+        "start_char": 27877,
+        "end_char": 27918
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Constitution",
+      "type": "CONCEPT",
+      "confidence": 0.7999999999999999,
+      "properties": {
+        "spacy_label": "LAW",
+        "start_char": 31711,
+        "end_char": 31723
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Leonard",
+      "type": "PERSON",
+      "confidence": 0.75,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 930,
+        "end_char": 937
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Judy",
+      "type": "PERSON",
+      "confidence": 0.75,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 965,
+        "end_char": 969
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Doha",
+      "type": "LOCATION",
+      "confidence": 0.75,
+      "properties": {
+        "spacy_label": "GPE",
+        "start_char": 1968,
+        "end_char": 1972
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Qatar",
+      "type": "LOCATION",
+      "confidence": 0.75,
+      "properties": {
+        "spacy_label": "GPE",
+        "start_char": 2624,
+        "end_char": 2629
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Natanz",
+      "type": "ORGANIZATION",
+      "confidence": 0.75,
+      "properties": {
+        "spacy_label": "ORG",
+        "start_char": 6263,
+        "end_char": 6269
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Isfahan",
+      "type": "ORGANIZATION",
+      "confidence": 0.75,
+      "properties": {
+        "spacy_label": "ORG",
+        "start_char": 6294,
+        "end_char": 6301
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Fox",
+      "type": "ORGANIZATION",
+      "confidence": 0.75,
+      "properties": {
+        "spacy_label": "ORG",
+        "start_char": 6744,
+        "end_char": 6747
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Bahrain",
+      "type": "LOCATION",
+      "confidence": 0.75,
+      "properties": {
+        "spacy_label": "GPE",
+        "start_char": 8798,
+        "end_char": 8805
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Syria",
+      "type": "LOCATION",
+      "confidence": 0.75,
+      "properties": {
+        "spacy_label": "GPE",
+        "start_char": 10122,
+        "end_char": 10127
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Hezbollah",
+      "type": "ORGANIZATION",
+      "confidence": 0.75,
+      "properties": {
+        "spacy_label": "ORG",
+        "start_char": 10167,
+        "end_char": 10176
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Hamas",
+      "type": "ORGANIZATION",
+      "confidence": 0.75,
+      "properties": {
+        "spacy_label": "ORG",
+        "start_char": 10202,
+        "end_char": 10207
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Houthis",
+      "type": "PERSON",
+      "confidence": 0.75,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 10235,
+        "end_char": 10242
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Oman",
+      "type": "LOCATION",
+      "confidence": 0.75,
+      "properties": {
+        "spacy_label": "GPE",
+        "start_char": 14158,
+        "end_char": 14162
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Article 2",
+      "type": "CONCEPT",
+      "confidence": 0.75,
+      "properties": {
+        "spacy_label": "LAW",
+        "start_char": 16093,
+        "end_char": 16102
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Tim Kaine",
+      "type": "PERSON",
+      "confidence": 0.75,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 17271,
+        "end_char": 17280
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Rand Paul",
+      "type": "PERSON",
+      "confidence": 0.75,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 18083,
+        "end_char": 18092
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Georgia",
+      "type": "LOCATION",
+      "confidence": 0.75,
+      "properties": {
+        "spacy_label": "GPE",
+        "start_char": 19183,
+        "end_char": 19190
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Djibouti",
+      "type": "LOCATION",
+      "confidence": 0.75,
+      "properties": {
+        "spacy_label": "GPE",
+        "start_char": 20909,
+        "end_char": 20917
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Louisiana",
+      "type": "LOCATION",
+      "confidence": 0.75,
+      "properties": {
+        "spacy_label": "GPE",
+        "start_char": 21549,
+        "end_char": 21558
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Maine",
+      "type": "LOCATION",
+      "confidence": 0.75,
+      "properties": {
+        "spacy_label": "GPE",
+        "start_char": 21942,
+        "end_char": 21947
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Kiev",
+      "type": "LOCATION",
+      "confidence": 0.75,
+      "properties": {
+        "spacy_label": "GPE",
+        "start_char": 23415,
+        "end_char": 23419
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Mark Rutte",
+      "type": "PERSON",
+      "confidence": 0.75,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 23540,
+        "end_char": 23550
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Nasdaq",
+      "type": "ORGANIZATION",
+      "confidence": 0.75,
+      "properties": {
+        "spacy_label": "ORG",
+        "start_char": 24825,
+        "end_char": 24831
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Monsoon",
+      "type": "LOCATION",
+      "confidence": 0.75,
+      "properties": {
+        "spacy_label": "GPE",
+        "start_char": 25648,
+        "end_char": 25655
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Amy Walter",
+      "type": "PERSON",
+      "confidence": 0.75,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 26295,
+        "end_char": 26305
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Queens",
+      "type": "ORGANIZATION",
+      "confidence": 0.75,
+      "properties": {
+        "spacy_label": "ORG",
+        "start_char": 27081,
+        "end_char": 27087
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Brooklyn",
+      "type": "LOCATION",
+      "confidence": 0.75,
+      "properties": {
+        "spacy_label": "GPE",
+        "start_char": 27851,
+        "end_char": 27859
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Yang",
+      "type": "PERSON",
+      "confidence": 0.75,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 28999,
+        "end_char": 29003
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Medicaid",
+      "type": "ORGANIZATION",
+      "confidence": 0.75,
+      "properties": {
+        "spacy_label": "ORG",
+        "start_char": 30227,
+        "end_char": 30235
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Gaza",
+      "type": "LOCATION",
+      "confidence": 0.75,
+      "properties": {
+        "spacy_label": "GPE",
+        "start_char": 34076,
+        "end_char": 34080
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Amna Nawaz",
+      "type": "LOCATION",
+      "confidence": 0.75,
+      "properties": {
+        "spacy_label": "GPE",
+        "start_char": 34698,
+        "end_char": 34708
+      },
+      "timestamp": null
+    },
+    {
+      "name": "the White House",
+      "type": "LOCATION",
+      "confidence": 0.7499999999999999,
+      "properties": {
+        "spacy_label": "FAC",
+        "start_char": 2996,
+        "end_char": 3011
+      },
+      "timestamp": null
+    },
+    {
+      "name": "the East Coast",
+      "type": "LOCATION",
+      "confidence": 0.7499999999999999,
+      "properties": {
+        "spacy_label": "LOC",
+        "start_char": 6783,
+        "end_char": 6797
+      },
+      "timestamp": null
+    },
+    {
+      "name": "the Gulf Coast",
+      "type": "LOCATION",
+      "confidence": 0.7499999999999999,
+      "properties": {
+        "spacy_label": "LOC",
+        "start_char": 21887,
+        "end_char": 21901
+      },
+      "timestamp": null
+    },
+    {
+      "name": "the David M. Rubenstein Studio",
+      "type": "LOCATION",
+      "confidence": 0.7499999999999999,
+      "properties": {
+        "spacy_label": "FAC",
+        "start_char": 26381,
+        "end_char": 26411
+      },
+      "timestamp": null
+    },
+    {
+      "name": "B-2",
+      "type": "PRODUCT",
+      "confidence": 0.7,
+      "properties": {
+        "spacy_label": "PRODUCT",
+        "start_char": 6182,
+        "end_char": 6185
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Midwest",
+      "type": "LOCATION",
+      "confidence": 0.7,
+      "properties": {
+        "spacy_label": "LOC",
+        "start_char": 21915,
+        "end_char": 21922
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Roe v Wade",
+      "type": "CONCEPT",
+      "confidence": 0.7,
+      "properties": {
+        "spacy_label": "LAW",
+        "start_char": 22992,
+        "end_char": 23002
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Earth",
+      "type": "LOCATION",
+      "confidence": 0.7,
+      "properties": {
+        "spacy_label": "LOC",
+        "start_char": 25131,
+        "end_char": 25136
+      },
+      "timestamp": null
+    },
+    {
+      "name": "NewsHour",
+      "type": "channel",
+      "confidence": 0.601235032081604,
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "President Trump",
+      "type": "person",
+      "confidence": 0.919455885887146,
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "missiles",
+      "type": "weapon",
+      "confidence": 0.5563369393348694,
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Middle East",
+      "type": "location",
+      "confidence": 0.8872835636138916,
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Washington DC",
+      "type": "location",
+      "confidence": 0.724963366985321,
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "NewsHour",
+      "type": "show",
+      "confidence": 0.5452375411987305,
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Leonard and Norma Klorfine",
+      "type": "person",
+      "confidence": 0.7667787671089172,
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Raymond James",
+      "type": "channel",
+      "confidence": 0.5652132630348206,
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Corporation for Public Broadcasting",
+      "type": "organization",
+      "confidence": 0.6510216593742371,
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "PBS",
+      "type": "channel",
+      "confidence": 0.6247033476829529,
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Iran",
+      "type": "military_base",
+      "confidence": 0.5896003246307373,
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "ballistic missiles",
+      "type": "weapon",
+      "confidence": 0.7524672746658325,
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "US military base",
+      "type": "military_base",
+      "confidence": 0.7957437634468079,
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "ceasefire",
+      "type": "conflict",
+      "confidence": 0.5650930404663086,
+      "properties": {},
+      "timestamp": null
+    }
+  ],
+  "topics": [
+    {
+      "name": "Ceasefire between Israel and Iran",
+      "confidence": 0.85
+    },
+    {
+      "name": "US attack on Iranian nuclear facilities",
+      "confidence": 0.85
+    },
+    {
+      "name": "New York City mayoral primary",
+      "confidence": 0.85
+    },
+    {
+      "name": "Senator Lisa Murkowski's memoir",
+      "confidence": 0.85
+    },
+    {
+      "name": "US Supreme Court rulings on deportations and voting rights",
+      "confidence": 0.85
+    },
+    {
+      "name": "Heatwave in Eastern US",
+      "confidence": 0.85
+    },
+    {
+      "name": "Increase in abortions via telehealth",
+      "confidence": 0.85
+    },
+    {
+      "name": "NATO summit and defense spending",
+      "confidence": 0.85
+    },
+    {
+      "name": "Death of war correspondent Rod Nordland",
+      "confidence": 0.85
+    }
+  ],
+  "key_facts": [
+    "President Trump announces a ceasefire between Israel and Iran.",
+    "New York City Democratic mayoral primary could have national implications.",
+    "Iran launched a ballistic missile attack on a US military base in the Middle East.",
+    "President Trump calls Iran's response 'very weak'.",
+    "Israel conducted widespread airstrikes on Tehran."
+  ]
+}

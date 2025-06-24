@@ -75,6 +75,12 @@ class Settings(BaseSettings):
         description="Audio chunk size in seconds for processing"
     )
     
+    # Gemini API Settings
+    gemini_request_timeout: int = Field(
+        default=14400,  # 4 hours
+        description="Timeout for Gemini API requests in seconds"
+    )
+    
     # Cost Tracking
     enable_cost_tracking: bool = Field(
         default=True,

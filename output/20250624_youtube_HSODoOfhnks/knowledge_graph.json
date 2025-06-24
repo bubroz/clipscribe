@@ -1,0 +1,3022 @@
+{
+  "nodes": [
+    {
+      "id": "New York City",
+      "type": "LOCATION",
+      "confidence": 1.0
+    },
+    {
+      "id": "Nick Schifrin",
+      "type": "PERSON",
+      "confidence": 1.0
+    },
+    {
+      "id": "United States",
+      "type": "LOCATION",
+      "confidence": 1.0
+    },
+    {
+      "id": "The Supreme Court",
+      "type": "ORGANIZATION",
+      "confidence": 1.0
+    },
+    {
+      "id": "Zo\u00ebran Mamdani",
+      "type": "PERSON",
+      "confidence": 1.0
+    },
+    {
+      "id": "Andrew Cuomo",
+      "type": "PERSON",
+      "confidence": 1.0
+    },
+    {
+      "id": "Donald Trump",
+      "type": "PERSON",
+      "confidence": 1.0
+    },
+    {
+      "id": "Far From Home",
+      "type": "PRODUCT",
+      "confidence": 0.95
+    },
+    {
+      "id": "the United States",
+      "type": "LOCATION",
+      "confidence": 0.95
+    },
+    {
+      "id": "Trump",
+      "type": "ORGANIZATION",
+      "confidence": 0.9
+    },
+    {
+      "id": "Israel",
+      "type": "LOCATION",
+      "confidence": 0.9
+    },
+    {
+      "id": "Iran",
+      "type": "military_base",
+      "confidence": 0.5896003246307373
+    },
+    {
+      "id": "Lisa Murkowski",
+      "type": "PERSON",
+      "confidence": 0.9
+    },
+    {
+      "id": "Washington",
+      "type": "LOCATION",
+      "confidence": 0.9
+    },
+    {
+      "id": "Al Udeid",
+      "type": "PERSON",
+      "confidence": 0.9
+    },
+    {
+      "id": "The Islamic Republic of Iran",
+      "type": "LOCATION",
+      "confidence": 0.9
+    },
+    {
+      "id": "Tehran",
+      "type": "LOCATION",
+      "confidence": 0.9
+    },
+    {
+      "id": "Fordo",
+      "type": "LOCATION",
+      "confidence": 0.9
+    },
+    {
+      "id": "Nick",
+      "type": "LOCATION",
+      "confidence": 0.9
+    },
+    {
+      "id": "Jeff",
+      "type": "PERSON",
+      "confidence": 0.9
+    },
+    {
+      "id": "Kevin Donohue",
+      "type": "PERSON",
+      "confidence": 0.9
+    },
+    {
+      "id": "Congress",
+      "type": "ORGANIZATION",
+      "confidence": 0.9
+    },
+    {
+      "id": "Lisa Desjardins",
+      "type": "PERSON",
+      "confidence": 0.9
+    },
+    {
+      "id": "Lisa",
+      "type": "PERSON",
+      "confidence": 0.9
+    },
+    {
+      "id": "House",
+      "type": "ORGANIZATION",
+      "confidence": 0.9
+    },
+    {
+      "id": "Senate",
+      "type": "ORGANIZATION",
+      "confidence": 0.9
+    },
+    {
+      "id": "Mar",
+      "type": "PERSON",
+      "confidence": 0.9
+    },
+    {
+      "id": "Rod Nordland",
+      "type": "PERSON",
+      "confidence": 0.9
+    },
+    {
+      "id": "William Branham",
+      "type": "PERSON",
+      "confidence": 0.9
+    },
+    {
+      "id": "New York",
+      "type": "LOCATION",
+      "confidence": 0.9
+    },
+    {
+      "id": "Zo\u00ebran",
+      "type": "ORGANIZATION",
+      "confidence": 0.9
+    },
+    {
+      "id": "Mamdani",
+      "type": "PERSON",
+      "confidence": 0.9
+    },
+    {
+      "id": "Cuomo",
+      "type": "PERSON",
+      "confidence": 0.9
+    },
+    {
+      "id": "Mayor",
+      "type": "PERSON",
+      "confidence": 0.9
+    },
+    {
+      "id": "Adams",
+      "type": "ORGANIZATION",
+      "confidence": 0.9
+    },
+    {
+      "id": "Murkowski",
+      "type": "PERSON",
+      "confidence": 0.9
+    },
+    {
+      "id": "the Middle East",
+      "type": "LOCATION",
+      "confidence": 0.8999999999999999
+    },
+    {
+      "id": "Jeff Bennett",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "NewsHour",
+      "type": "show",
+      "confidence": 0.5452375411987305
+    },
+    {
+      "id": "Norma Klorfine",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "Peter Bloom Kovler Foundation",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "Raymond James",
+      "type": "channel",
+      "confidence": 0.5652132630348206
+    },
+    {
+      "id": "The Ford Foundation",
+      "type": "ORGANIZATION",
+      "confidence": 0.85
+    },
+    {
+      "id": "Al Udeid Air Base",
+      "type": "ORGANIZATION",
+      "confidence": 0.85
+    },
+    {
+      "id": "Revolutionary Guard Corps",
+      "type": "ORGANIZATION",
+      "confidence": 0.85
+    },
+    {
+      "id": "Efi Daffrin",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "the Middle East Institute",
+      "type": "LOCATION",
+      "confidence": 0.7999999999999999
+    },
+    {
+      "id": "Capitol Hill",
+      "type": "ORGANIZATION",
+      "confidence": 0.85
+    },
+    {
+      "id": "Lindsey Graham",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "Marjorie Taylor Greene",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "Mike Johnson",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "Hakeem Jeffries",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "South Sudan",
+      "type": "LOCATION",
+      "confidence": 0.85
+    },
+    {
+      "id": "Netherlands",
+      "type": "LOCATION",
+      "confidence": 0.85
+    },
+    {
+      "id": "Trump Media and Technology Group",
+      "type": "ORGANIZATION",
+      "confidence": 0.85
+    },
+    {
+      "id": "The Vera C. Rubin Observatory",
+      "type": "ORGANIZATION",
+      "confidence": 0.85
+    },
+    {
+      "id": "Tamron Hall",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "West",
+      "type": "LOCATION",
+      "confidence": 0.85
+    },
+    {
+      "id": "Arizona State University",
+      "type": "ORGANIZATION",
+      "confidence": 0.85
+    },
+    {
+      "id": "Zo\u00ebran Mandani",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "Patrick Gaspard",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "Barack Obama",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "City Controller",
+      "type": "ORGANIZATION",
+      "confidence": 0.85
+    },
+    {
+      "id": "Brad Lander",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "Michael Bloomberg",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "Nawaz",
+      "type": "ORGANIZATION",
+      "confidence": 0.8
+    },
+    {
+      "id": "Alaska",
+      "type": "LOCATION",
+      "confidence": 0.8
+    },
+    {
+      "id": "Eastern",
+      "type": "ORGANIZATION",
+      "confidence": 0.8
+    },
+    {
+      "id": "Vance",
+      "type": "PERSON",
+      "confidence": 0.8
+    },
+    {
+      "id": "Johnson",
+      "type": "PERSON",
+      "confidence": 0.8
+    },
+    {
+      "id": "Virginia",
+      "type": "LOCATION",
+      "confidence": 0.8
+    },
+    {
+      "id": "Kaine",
+      "type": "PERSON",
+      "confidence": 0.8
+    },
+    {
+      "id": "Boston",
+      "type": "LOCATION",
+      "confidence": 0.8
+    },
+    {
+      "id": "Ukraine",
+      "type": "LOCATION",
+      "confidence": 0.8
+    },
+    {
+      "id": "Rutte",
+      "type": "PERSON",
+      "confidence": 0.8
+    },
+    {
+      "id": "Spain",
+      "type": "LOCATION",
+      "confidence": 0.8
+    },
+    {
+      "id": "Chile",
+      "type": "LOCATION",
+      "confidence": 0.8
+    },
+    {
+      "id": "Nordland",
+      "type": "PERSON",
+      "confidence": 0.8
+    },
+    {
+      "id": "Eric Adams",
+      "type": "PERSON",
+      "confidence": 0.8
+    },
+    {
+      "id": "Obama",
+      "type": "PERSON",
+      "confidence": 0.8
+    },
+    {
+      "id": "Lander",
+      "type": "PERSON",
+      "confidence": 0.8
+    },
+    {
+      "id": "the Corporation for Public Broadcasting",
+      "type": "ORGANIZATION",
+      "confidence": 0.7999999999999999
+    },
+    {
+      "id": "Northern Tehran",
+      "type": "LOCATION",
+      "confidence": 0.7999999999999999
+    },
+    {
+      "id": "the Fifth Fleet",
+      "type": "ORGANIZATION",
+      "confidence": 0.7999999999999999
+    },
+    {
+      "id": "the Truth Social",
+      "type": "ORGANIZATION",
+      "confidence": 0.7999999999999999
+    },
+    {
+      "id": "the European Southern Observatory's",
+      "type": "ORGANIZATION",
+      "confidence": 0.7999999999999999
+    },
+    {
+      "id": "the New York Times",
+      "type": "ORGANIZATION",
+      "confidence": 0.7999999999999999
+    },
+    {
+      "id": "the Democratic Party",
+      "type": "ORGANIZATION",
+      "confidence": 0.7999999999999999
+    },
+    {
+      "id": "the Walter Cronkite School of Journalism",
+      "type": "ORGANIZATION",
+      "confidence": 0.7999999999999999
+    },
+    {
+      "id": "the Service Employees International Union",
+      "type": "ORGANIZATION",
+      "confidence": 0.7999999999999999
+    },
+    {
+      "id": "Constitution",
+      "type": "CONCEPT",
+      "confidence": 0.7999999999999999
+    },
+    {
+      "id": "Leonard",
+      "type": "PERSON",
+      "confidence": 0.75
+    },
+    {
+      "id": "Judy",
+      "type": "PERSON",
+      "confidence": 0.75
+    },
+    {
+      "id": "Doha",
+      "type": "LOCATION",
+      "confidence": 0.75
+    },
+    {
+      "id": "Qatar",
+      "type": "LOCATION",
+      "confidence": 0.75
+    },
+    {
+      "id": "Natanz",
+      "type": "ORGANIZATION",
+      "confidence": 0.75
+    },
+    {
+      "id": "Isfahan",
+      "type": "ORGANIZATION",
+      "confidence": 0.75
+    },
+    {
+      "id": "Fox",
+      "type": "ORGANIZATION",
+      "confidence": 0.75
+    },
+    {
+      "id": "Bahrain",
+      "type": "LOCATION",
+      "confidence": 0.75
+    },
+    {
+      "id": "Syria",
+      "type": "LOCATION",
+      "confidence": 0.75
+    },
+    {
+      "id": "Hezbollah",
+      "type": "ORGANIZATION",
+      "confidence": 0.75
+    },
+    {
+      "id": "Hamas",
+      "type": "ORGANIZATION",
+      "confidence": 0.75
+    },
+    {
+      "id": "Houthis",
+      "type": "PERSON",
+      "confidence": 0.75
+    },
+    {
+      "id": "Oman",
+      "type": "LOCATION",
+      "confidence": 0.75
+    },
+    {
+      "id": "Article 2",
+      "type": "CONCEPT",
+      "confidence": 0.75
+    },
+    {
+      "id": "Tim Kaine",
+      "type": "PERSON",
+      "confidence": 0.75
+    },
+    {
+      "id": "Rand Paul",
+      "type": "PERSON",
+      "confidence": 0.75
+    },
+    {
+      "id": "Georgia",
+      "type": "LOCATION",
+      "confidence": 0.75
+    },
+    {
+      "id": "Djibouti",
+      "type": "LOCATION",
+      "confidence": 0.75
+    },
+    {
+      "id": "Louisiana",
+      "type": "LOCATION",
+      "confidence": 0.75
+    },
+    {
+      "id": "Maine",
+      "type": "LOCATION",
+      "confidence": 0.75
+    },
+    {
+      "id": "Kiev",
+      "type": "LOCATION",
+      "confidence": 0.75
+    },
+    {
+      "id": "Mark Rutte",
+      "type": "PERSON",
+      "confidence": 0.75
+    },
+    {
+      "id": "Nasdaq",
+      "type": "ORGANIZATION",
+      "confidence": 0.75
+    },
+    {
+      "id": "Monsoon",
+      "type": "LOCATION",
+      "confidence": 0.75
+    },
+    {
+      "id": "Amy Walter",
+      "type": "PERSON",
+      "confidence": 0.75
+    },
+    {
+      "id": "Queens",
+      "type": "ORGANIZATION",
+      "confidence": 0.75
+    },
+    {
+      "id": "Brooklyn",
+      "type": "LOCATION",
+      "confidence": 0.75
+    },
+    {
+      "id": "Yang",
+      "type": "PERSON",
+      "confidence": 0.75
+    },
+    {
+      "id": "Medicaid",
+      "type": "ORGANIZATION",
+      "confidence": 0.75
+    },
+    {
+      "id": "Gaza",
+      "type": "LOCATION",
+      "confidence": 0.75
+    },
+    {
+      "id": "Amna Nawaz",
+      "type": "LOCATION",
+      "confidence": 0.75
+    },
+    {
+      "id": "the White House",
+      "type": "LOCATION",
+      "confidence": 0.7499999999999999
+    },
+    {
+      "id": "the East Coast",
+      "type": "LOCATION",
+      "confidence": 0.7499999999999999
+    },
+    {
+      "id": "the Gulf Coast",
+      "type": "LOCATION",
+      "confidence": 0.7499999999999999
+    },
+    {
+      "id": "the David M. Rubenstein Studio",
+      "type": "LOCATION",
+      "confidence": 0.7499999999999999
+    },
+    {
+      "id": "B-2",
+      "type": "PRODUCT",
+      "confidence": 0.7
+    },
+    {
+      "id": "Midwest",
+      "type": "LOCATION",
+      "confidence": 0.7
+    },
+    {
+      "id": "Roe v Wade",
+      "type": "CONCEPT",
+      "confidence": 0.7
+    },
+    {
+      "id": "Earth",
+      "type": "LOCATION",
+      "confidence": 0.7
+    },
+    {
+      "id": "President Trump",
+      "type": "person",
+      "confidence": 0.919455885887146
+    },
+    {
+      "id": "missiles",
+      "type": "weapon",
+      "confidence": 0.5563369393348694
+    },
+    {
+      "id": "Middle East",
+      "type": "location",
+      "confidence": 0.8872835636138916
+    },
+    {
+      "id": "Washington DC",
+      "type": "location",
+      "confidence": 0.724963366985321
+    },
+    {
+      "id": "Leonard and Norma Klorfine",
+      "type": "person",
+      "confidence": 0.7667787671089172
+    },
+    {
+      "id": "Corporation for Public Broadcasting",
+      "type": "organization",
+      "confidence": 0.6510216593742371
+    },
+    {
+      "id": "PBS",
+      "type": "channel",
+      "confidence": 0.6247033476829529
+    },
+    {
+      "id": "ballistic missiles",
+      "type": "weapon",
+      "confidence": 0.7524672746658325
+    },
+    {
+      "id": "US military base",
+      "type": "military_base",
+      "confidence": 0.7957437634468079
+    },
+    {
+      "id": "ceasefire",
+      "type": "conflict",
+      "confidence": 0.5650930404663086
+    },
+    {
+      "id": "diplomatic relation",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "part of",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "country",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "strikes on its nuclear facilities",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Democratic mayoral primary",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "applies to jurisdiction",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "member of political party",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Republican",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "opposite of",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "production company",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "distributed by",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "The NewsHour",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "attacked Iran and its nuclear program 12 days ago",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "participant",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "medium range ballistic missile",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "subclass of",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Islamic Republic of Iran",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "attacking Iran's nuclear facilities",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "White House",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "occupant",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "residence",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "national security team",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "chairperson",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "member of",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Evin prison",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "located in the administrative territorial entity",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "headquarters location",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "IRGC",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "has part",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Basij",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "military rank",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "military branch",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Fordo enrichment site",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "dropped a dozen bunker buster bombs",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "location",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Fordo enrichment",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "head of state",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "President",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "officeholder",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "position held",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "12-day war",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "participant in",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "significant event",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "B-2 bomber",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "country of origin",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "JD Vance",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Nick, JD Vance",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "US",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "destroyed it and quote obliterated it",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "highly enriched uranium",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "nuclear bomb",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "product or material produced",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "nuclear fuel",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "US Fifth Fleet",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Fifth Fleet",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "complete and total ceasefire",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "creator",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "retaliatory strike",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "retaliatory strike on Al Udeid",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "has effect",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "supreme leader",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "field of this occupation",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "United Kingdom",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "office held by head of government",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Fifth Fleet headquarters",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Israelis",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Vice President",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Iran's nuclear program",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Israeli",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "appointed by",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "different from",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "the President",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "war",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "war with Iran",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "first contact",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "facet of",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "shares border with",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "employer",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "1942",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "point in time",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Speaker",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "office held by head of the organization",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Democratic",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "legislative body",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "armed forces",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "declaration of war",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Republicans",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Democrats",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "country of citizenship",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "instance of",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "nuclear facilities partially damaged",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "bombs were dropped",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Trump's",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "movement",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "lifetime voting ban",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "lifetime voting ban for convicted felons",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "summer scorcher",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Damon Landor",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "religion",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "heat",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "temperatures",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "heat alert",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "2024",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "summer",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "capital",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "contains administrative territorial entity",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "media company",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "owned by",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "founded by",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "owner of",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Truth Social",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "subsidiary",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "parent organization",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Vera C. Rubin Observatory",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "galaxies",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "southern sky",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "very large telescope",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "operator",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "occupation",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "presenter",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "cast member",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Walter Cronkite School of Journalism",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "WETA",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "political ideology",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "place of birth",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "assemblyman",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "New York mayoral primary",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "We're ready to stand up and fight back!",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Service Employees International Union",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "location of formation",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "governor of New York",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "sexual harassment allegations",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "COVID",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Trip Yang",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Cuomo will never be milk toast",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "main subject",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "head of government",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "work location",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "picture of a kind of a dystopia in New York",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "bombing of Iran",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "recent bombing of Iran",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Democrats in New York",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "New York City Mayor",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "ranked choice voting",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "used by",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "uses",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "follows",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "PBS NewsHour",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "author",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "I don't want to deal with the fundraising",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "I don't have that",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "John F. Kennedy School of Government",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Harvard University",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "2008 Summer Olympics",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "2012 Olympic Games",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "2008 Beijing Olympics",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Far From Home um",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "narrative location",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "President of",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "first Trump administration",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Trump lacks the ability for strategic or linear thinking",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "first administration",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "followed by",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "second administration",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "replaced by",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "replaces",
+      "type": "unknown",
+      "confidence": 0.9
+    }
+  ],
+  "edges": [
+    {
+      "source": "New York City",
+      "target": "contains administrative territorial entity",
+      "predicate": "Brooklyn",
+      "confidence": 0.9
+    },
+    {
+      "source": "New York City",
+      "target": "office held by head of government",
+      "predicate": "Mayor",
+      "confidence": 0.9
+    },
+    {
+      "source": "United States",
+      "target": "diplomatic relation",
+      "predicate": "Iran",
+      "confidence": 0.9
+    },
+    {
+      "source": "United States",
+      "target": "Oman",
+      "predicate": "diplomatic relation",
+      "confidence": 0.9
+    },
+    {
+      "source": "United States",
+      "target": "legislative body",
+      "predicate": "Congress",
+      "confidence": 0.9
+    },
+    {
+      "source": "United States",
+      "target": "Iran",
+      "predicate": "country",
+      "confidence": 0.9
+    },
+    {
+      "source": "United States",
+      "target": "declaration of war",
+      "predicate": "diplomatic relation",
+      "confidence": 0.9
+    },
+    {
+      "source": "United States",
+      "target": "office held by head of government",
+      "predicate": "President",
+      "confidence": 0.9
+    },
+    {
+      "source": "Zo\u00ebran Mamdani",
+      "target": "place of birth",
+      "predicate": "Queens",
+      "confidence": 0.9
+    },
+    {
+      "source": "Zo\u00ebran Mamdani",
+      "target": "member of political party",
+      "predicate": "New York City Democratic",
+      "confidence": 0.9
+    },
+    {
+      "source": "Andrew Cuomo",
+      "target": "position held",
+      "predicate": "governor of New York",
+      "confidence": 0.9
+    },
+    {
+      "source": "Andrew Cuomo",
+      "target": "member of political party",
+      "predicate": "Democratic",
+      "confidence": 0.9
+    },
+    {
+      "source": "Andrew Cuomo",
+      "target": "work location",
+      "predicate": "New York",
+      "confidence": 0.9
+    },
+    {
+      "source": "Donald Trump",
+      "target": "member of political party",
+      "predicate": "Democrats",
+      "confidence": 0.9
+    },
+    {
+      "source": "Donald Trump",
+      "target": "position held",
+      "predicate": "President",
+      "confidence": 0.9
+    },
+    {
+      "source": "Far From Home",
+      "target": "author",
+      "predicate": "Senator Murkowski",
+      "confidence": 0.9
+    },
+    {
+      "source": "Far From Home",
+      "target": "cast member",
+      "predicate": "Amna Nawaz",
+      "confidence": 0.9
+    },
+    {
+      "source": "Trump",
+      "target": "position held",
+      "predicate": "President",
+      "confidence": 0.9
+    },
+    {
+      "source": "Israel",
+      "target": "diplomatic relation",
+      "predicate": "US",
+      "confidence": 0.9
+    },
+    {
+      "source": "Israel",
+      "target": "Middle East",
+      "predicate": "diplomatic relation",
+      "confidence": 0.9
+    },
+    {
+      "source": "Israel",
+      "target": "part of",
+      "predicate": "Middle East",
+      "confidence": 0.9
+    },
+    {
+      "source": "Israel",
+      "target": "member of",
+      "predicate": "the UN",
+      "confidence": 0.9
+    },
+    {
+      "source": "Israel",
+      "target": "head of state",
+      "predicate": "President Trump",
+      "confidence": 0.9
+    },
+    {
+      "source": "Israel",
+      "target": "Israel",
+      "predicate": "diplomatic relation",
+      "confidence": 0.9
+    },
+    {
+      "source": "Israel",
+      "target": "shares border with",
+      "predicate": "US",
+      "confidence": 0.9
+    },
+    {
+      "source": "Iran",
+      "target": "diplomatic relation",
+      "predicate": "Syria",
+      "confidence": 0.9
+    },
+    {
+      "source": "Iran",
+      "target": "participant in",
+      "predicate": "12-day war",
+      "confidence": 0.9
+    },
+    {
+      "source": "Iran",
+      "target": "significant event",
+      "predicate": "war",
+      "confidence": 0.9
+    },
+    {
+      "source": "Iran",
+      "target": "product or material produced",
+      "predicate": "nuclear bomb",
+      "confidence": 0.9
+    },
+    {
+      "source": "Iran",
+      "target": "part of",
+      "predicate": "Middle East",
+      "confidence": 0.9
+    },
+    {
+      "source": "Iran",
+      "target": "military branch",
+      "predicate": "IRGC",
+      "confidence": 0.9
+    },
+    {
+      "source": "Iran",
+      "target": "member of",
+      "predicate": "IRGC",
+      "confidence": 0.9
+    },
+    {
+      "source": "Iran",
+      "target": "office held by head of government",
+      "predicate": "supreme leader",
+      "confidence": 0.9
+    },
+    {
+      "source": "Iran",
+      "target": "armed forces",
+      "predicate": "diplomatic relation",
+      "confidence": 0.9
+    },
+    {
+      "source": "Lisa Murkowski",
+      "target": "member of political party",
+      "predicate": "independent",
+      "confidence": 0.9
+    },
+    {
+      "source": "Tehran",
+      "target": "Tehran",
+      "predicate": "located in the administrative territorial entity",
+      "confidence": 0.9
+    },
+    {
+      "source": "Nick",
+      "target": "position held",
+      "predicate": "Vice President",
+      "confidence": 0.9
+    },
+    {
+      "source": "Kevin Donohue",
+      "target": "employer",
+      "predicate": "Middle East Institute",
+      "confidence": 0.9
+    },
+    {
+      "source": "Kevin Donohue",
+      "target": "military rank",
+      "predicate": "Vice Admiral",
+      "confidence": 0.9
+    },
+    {
+      "source": "Congress",
+      "target": "different from",
+      "predicate": "President",
+      "confidence": 0.9
+    },
+    {
+      "source": "Congress",
+      "target": "has part",
+      "predicate": "House",
+      "confidence": 0.9
+    },
+    {
+      "source": "Congress",
+      "target": "Senate",
+      "predicate": "part of",
+      "confidence": 0.9
+    },
+    {
+      "source": "House",
+      "target": "office held by head of the organization",
+      "predicate": "Speaker",
+      "confidence": 0.9
+    },
+    {
+      "source": "Senate",
+      "target": "House",
+      "predicate": "has part",
+      "confidence": 0.9
+    },
+    {
+      "source": "Rod Nordland",
+      "target": "employer",
+      "predicate": "New York Times",
+      "confidence": 0.9
+    },
+    {
+      "source": "Rod Nordland",
+      "target": "occupation",
+      "predicate": "war correspondent",
+      "confidence": 0.9
+    },
+    {
+      "source": "Rod Nordland",
+      "target": "member of political party",
+      "predicate": "Democratic Party",
+      "confidence": 0.9
+    },
+    {
+      "source": "New York",
+      "target": "contains administrative territorial entity",
+      "predicate": "Queens",
+      "confidence": 0.9
+    },
+    {
+      "source": "New York",
+      "target": "head of government",
+      "predicate": "Andrew Cuomo",
+      "confidence": 0.9
+    },
+    {
+      "source": "Zo\u00ebran",
+      "target": "member of political party",
+      "predicate": "Democratic socialist",
+      "confidence": 0.9
+    },
+    {
+      "source": "Zo\u00ebran",
+      "target": "political ideology",
+      "predicate": "Democratic socialist",
+      "confidence": 0.9
+    },
+    {
+      "source": "Mayor",
+      "target": "applies to jurisdiction",
+      "predicate": "New York City",
+      "confidence": 0.9
+    },
+    {
+      "source": "NewsHour",
+      "target": "production company",
+      "predicate": "Corporation for Public Broadcasting",
+      "confidence": 0.9
+    },
+    {
+      "source": "NewsHour",
+      "target": "distributed by",
+      "predicate": "Corporation for Public Broadcasting",
+      "confidence": 0.9
+    },
+    {
+      "source": "NewsHour",
+      "target": "presenter",
+      "predicate": "Nick Schifrin",
+      "confidence": 0.9
+    },
+    {
+      "source": "NewsHour",
+      "target": "cast member",
+      "predicate": "Nick Schifrin",
+      "confidence": 0.9
+    },
+    {
+      "source": "Al Udeid Air Base",
+      "target": "country",
+      "predicate": "Iran",
+      "confidence": 0.9
+    },
+    {
+      "source": "Revolutionary Guard Corps",
+      "target": "country",
+      "predicate": "Islamic Republic of Iran",
+      "confidence": 0.9
+    },
+    {
+      "source": "Efi Daffrin",
+      "target": "military rank",
+      "predicate": "Brigadier General",
+      "confidence": 0.9
+    },
+    {
+      "source": "Efi Daffrin",
+      "target": "military branch",
+      "predicate": "IDF",
+      "confidence": 0.9
+    },
+    {
+      "source": "Lindsey Graham",
+      "target": "member of political party",
+      "predicate": "Republicans",
+      "confidence": 0.9
+    },
+    {
+      "source": "Marjorie Taylor Greene",
+      "target": "residence",
+      "predicate": "Georgia",
+      "confidence": 0.9
+    },
+    {
+      "source": "Marjorie Taylor Greene",
+      "target": "country of citizenship",
+      "predicate": "Georgia",
+      "confidence": 0.9
+    },
+    {
+      "source": "Mike Johnson",
+      "target": "position held",
+      "predicate": "Speaker",
+      "confidence": 0.9
+    },
+    {
+      "source": "Hakeem Jeffries",
+      "target": "member of political party",
+      "predicate": "Democratic",
+      "confidence": 0.9
+    },
+    {
+      "source": "South Sudan",
+      "target": "diplomatic relation",
+      "predicate": "Djibouti",
+      "confidence": 0.9
+    },
+    {
+      "source": "South Sudan",
+      "target": "shares border with",
+      "predicate": "Djibouti",
+      "confidence": 0.9
+    },
+    {
+      "source": "Netherlands",
+      "target": "member of",
+      "predicate": "NATO",
+      "confidence": 0.9
+    },
+    {
+      "source": "Trump Media and Technology Group",
+      "target": "owner of",
+      "predicate": "Truth Social",
+      "confidence": 0.9
+    },
+    {
+      "source": "Trump Media and Technology Group",
+      "target": "subsidiary",
+      "predicate": "Truth Social",
+      "confidence": 0.9
+    },
+    {
+      "source": "Trump Media and Technology Group",
+      "target": "product or material produced",
+      "predicate": "Truth Social",
+      "confidence": 0.9
+    },
+    {
+      "source": "Zo\u00ebran Mandani",
+      "target": "member of political party",
+      "predicate": "Democratic",
+      "confidence": 0.9
+    },
+    {
+      "source": "Zo\u00ebran Mandani",
+      "target": "political ideology",
+      "predicate": "Democratic socialist",
+      "confidence": 0.9
+    },
+    {
+      "source": "Barack Obama",
+      "target": "position held",
+      "predicate": "President",
+      "confidence": 0.9
+    },
+    {
+      "source": "Barack Obama",
+      "target": "member of political party",
+      "predicate": "Democratic Party",
+      "confidence": 0.9
+    },
+    {
+      "source": "City Controller",
+      "target": "officeholder",
+      "predicate": "Brad Lander",
+      "confidence": 0.9
+    },
+    {
+      "source": "Brad Lander",
+      "target": "position held",
+      "predicate": "City Controller",
+      "confidence": 0.9
+    },
+    {
+      "source": "Brad Lander",
+      "target": "occupation",
+      "predicate": "City Controller",
+      "confidence": 0.9
+    },
+    {
+      "source": "Michael Bloomberg",
+      "target": "position held",
+      "predicate": "New York Mayor",
+      "confidence": 0.9
+    },
+    {
+      "source": "Michael Bloomberg",
+      "target": "instance of",
+      "predicate": "billionaire",
+      "confidence": 0.9
+    },
+    {
+      "source": "Johnson",
+      "target": "position held",
+      "predicate": "Speaker",
+      "confidence": 0.9
+    },
+    {
+      "source": "Ukraine",
+      "target": "capital",
+      "predicate": "Kiev",
+      "confidence": 0.9
+    },
+    {
+      "source": "Ukraine",
+      "target": "contains administrative territorial entity",
+      "predicate": "Kiev",
+      "confidence": 0.9
+    },
+    {
+      "source": "Eric Adams",
+      "target": "position held",
+      "predicate": "Mayor",
+      "confidence": 0.9
+    },
+    {
+      "source": "Lander",
+      "target": "member of political party",
+      "predicate": "Mamdani",
+      "confidence": 0.9
+    },
+    {
+      "source": "Lander",
+      "target": "has part",
+      "predicate": "Mamdani",
+      "confidence": 0.9
+    },
+    {
+      "source": "Lander",
+      "target": "follows",
+      "predicate": "Mamdani",
+      "confidence": 0.9
+    },
+    {
+      "source": "Qatar",
+      "target": "diplomatic relation",
+      "predicate": "Islamic Republic of Iran",
+      "confidence": 0.9
+    },
+    {
+      "source": "Natanz",
+      "target": "country",
+      "predicate": "Israel",
+      "confidence": 0.9
+    },
+    {
+      "source": "Isfahan",
+      "target": "country",
+      "predicate": "Israel",
+      "confidence": 0.9
+    },
+    {
+      "source": "Syria",
+      "target": "diplomatic relation",
+      "predicate": "Iran",
+      "confidence": 0.9
+    },
+    {
+      "source": "Hezbollah",
+      "target": "country",
+      "predicate": "Syria",
+      "confidence": 0.9
+    },
+    {
+      "source": "Oman",
+      "target": "Iran",
+      "predicate": "diplomatic relation",
+      "confidence": 0.9
+    },
+    {
+      "source": "Tim Kaine",
+      "target": "member of political party",
+      "predicate": "Democratic",
+      "confidence": 0.9
+    },
+    {
+      "source": "Rand Paul",
+      "target": "member of political party",
+      "predicate": "Democrats",
+      "confidence": 0.9
+    },
+    {
+      "source": "Djibouti",
+      "target": "diplomatic relation",
+      "predicate": "South Sudan",
+      "confidence": 0.9
+    },
+    {
+      "source": "Djibouti",
+      "target": "shares border with",
+      "predicate": "South Sudan",
+      "confidence": 0.9
+    },
+    {
+      "source": "Kiev",
+      "target": "country",
+      "predicate": "Ukraine",
+      "confidence": 0.9
+    },
+    {
+      "source": "Kiev",
+      "target": "located in the administrative territorial entity",
+      "predicate": "Ukraine",
+      "confidence": 0.9
+    },
+    {
+      "source": "Mark Rutte",
+      "target": "position held",
+      "predicate": "NATO chief",
+      "confidence": 0.9
+    },
+    {
+      "source": "Mark Rutte",
+      "target": "member of",
+      "predicate": "NATO",
+      "confidence": 0.9
+    },
+    {
+      "source": "Queens",
+      "target": "located in the administrative territorial entity",
+      "predicate": "New York",
+      "confidence": 0.9
+    },
+    {
+      "source": "Brooklyn",
+      "target": "located in the administrative territorial entity",
+      "predicate": "New York City",
+      "confidence": 0.9
+    },
+    {
+      "source": "President Trump",
+      "target": "residence",
+      "predicate": "White House",
+      "confidence": 0.9
+    },
+    {
+      "source": "President Trump",
+      "target": "member of",
+      "predicate": "national security team",
+      "confidence": 0.9
+    },
+    {
+      "source": "President Trump",
+      "target": "diplomatic relation",
+      "predicate": "Israelis",
+      "confidence": 0.9
+    },
+    {
+      "source": "President Trump",
+      "target": "President Trump",
+      "predicate": "diplomatic relation",
+      "confidence": 0.9
+    },
+    {
+      "source": "President Trump",
+      "target": "member of political party",
+      "predicate": "Republican",
+      "confidence": 0.9
+    },
+    {
+      "source": "President Trump",
+      "target": "significant event",
+      "predicate": "bombing of Iran",
+      "confidence": 0.9
+    },
+    {
+      "source": "President Trump",
+      "target": "position held",
+      "predicate": "President of",
+      "confidence": 0.9
+    },
+    {
+      "source": "President Trump",
+      "target": "part of",
+      "predicate": "first Trump administration",
+      "confidence": 0.9
+    },
+    {
+      "source": "Middle East",
+      "target": "Iran",
+      "predicate": "part of",
+      "confidence": 0.9
+    },
+    {
+      "source": "diplomatic relation",
+      "target": "Israel",
+      "predicate": "United Kingdom",
+      "confidence": 0.9
+    },
+    {
+      "source": "diplomatic relation",
+      "target": "diplomatic relation",
+      "predicate": "Iran",
+      "confidence": 0.9
+    },
+    {
+      "source": "diplomatic relation",
+      "target": "United States",
+      "predicate": "Oman",
+      "confidence": 0.9
+    },
+    {
+      "source": "part of",
+      "target": "Iran",
+      "predicate": "launched missiles at a US base",
+      "confidence": 0.9
+    },
+    {
+      "source": "country",
+      "target": "part of",
+      "predicate": "strikes on its nuclear facilities",
+      "confidence": 0.9
+    },
+    {
+      "source": "country",
+      "target": "United States",
+      "predicate": "Iran",
+      "confidence": 0.9
+    },
+    {
+      "source": "strikes on its nuclear facilities",
+      "target": "country",
+      "predicate": "Iran",
+      "confidence": 0.9
+    },
+    {
+      "source": "Democratic mayoral primary",
+      "target": "applies to jurisdiction",
+      "predicate": "New York City",
+      "confidence": 0.9
+    },
+    {
+      "source": "Republican",
+      "target": "opposite of",
+      "predicate": "Democratic",
+      "confidence": 0.9
+    },
+    {
+      "source": "The NewsHour",
+      "target": "production company",
+      "predicate": "Corporation for Public Broadcasting",
+      "confidence": 0.9
+    },
+    {
+      "source": "attacked Iran and its nuclear program 12 days ago",
+      "target": "participant",
+      "predicate": "Iran",
+      "confidence": 0.9
+    },
+    {
+      "source": "medium range ballistic missile",
+      "target": "subclass of",
+      "predicate": "short",
+      "confidence": 0.9
+    },
+    {
+      "source": "Islamic Republic of Iran",
+      "target": "diplomatic relation",
+      "predicate": "Qatar",
+      "confidence": 0.9
+    },
+    {
+      "source": "attacking Iran's nuclear facilities",
+      "target": "participant",
+      "predicate": "US",
+      "confidence": 0.9
+    },
+    {
+      "source": "attacking Iran's nuclear facilities",
+      "target": "country",
+      "predicate": "United States",
+      "confidence": 0.9
+    },
+    {
+      "source": "White House",
+      "target": "occupant",
+      "predicate": "President Trump",
+      "confidence": 0.9
+    },
+    {
+      "source": "national security team",
+      "target": "chairperson",
+      "predicate": "President Trump",
+      "confidence": 0.9
+    },
+    {
+      "source": "Evin prison",
+      "target": "located in the administrative territorial entity",
+      "predicate": "Tehran",
+      "confidence": 0.9
+    },
+    {
+      "source": "located in the administrative territorial entity",
+      "target": "Tehran",
+      "predicate": "Basij",
+      "confidence": 0.9
+    },
+    {
+      "source": "headquarters location",
+      "target": "headquarters location",
+      "predicate": "Tehran",
+      "confidence": 0.9
+    },
+    {
+      "source": "IRGC",
+      "target": "has part",
+      "predicate": "Basij",
+      "confidence": 0.9
+    },
+    {
+      "source": "IRGC",
+      "target": "country",
+      "predicate": "Iran",
+      "confidence": 0.9
+    },
+    {
+      "source": "Basij",
+      "target": "part of",
+      "predicate": "IRGC",
+      "confidence": 0.9
+    },
+    {
+      "source": "Fordo enrichment site",
+      "target": "country",
+      "predicate": "Israel",
+      "confidence": 0.9
+    },
+    {
+      "source": "dropped a dozen bunker buster bombs",
+      "target": "location",
+      "predicate": "Fordo enrichment site",
+      "confidence": 0.9
+    },
+    {
+      "source": "Fordo enrichment",
+      "target": "country",
+      "predicate": "Israel",
+      "confidence": 0.9
+    },
+    {
+      "source": "President",
+      "target": "officeholder",
+      "predicate": "Donald Trump",
+      "confidence": 0.9
+    },
+    {
+      "source": "President",
+      "target": "appointed by",
+      "predicate": "Vice President",
+      "confidence": 0.9
+    },
+    {
+      "source": "President",
+      "target": "different from",
+      "predicate": "Congress",
+      "confidence": 0.9
+    },
+    {
+      "source": "President",
+      "target": "country",
+      "predicate": "United States",
+      "confidence": 0.9
+    },
+    {
+      "source": "12-day war",
+      "target": "participant",
+      "predicate": "Iran",
+      "confidence": 0.9
+    },
+    {
+      "source": "B-2 bomber",
+      "target": "country of origin",
+      "predicate": "United States",
+      "confidence": 0.9
+    },
+    {
+      "source": "JD Vance",
+      "target": "position held",
+      "predicate": "Vice President",
+      "confidence": 0.9
+    },
+    {
+      "source": "Nick, JD Vance",
+      "target": "position held",
+      "predicate": "Vice President",
+      "confidence": 0.9
+    },
+    {
+      "source": "US",
+      "target": "diplomatic relation",
+      "predicate": "Israel",
+      "confidence": 0.9
+    },
+    {
+      "source": "destroyed it and quote obliterated it",
+      "target": "country",
+      "predicate": "Iran",
+      "confidence": 0.9
+    },
+    {
+      "source": "highly enriched uranium",
+      "target": "subclass of",
+      "predicate": "uranium",
+      "confidence": 0.9
+    },
+    {
+      "source": "highly enriched uranium",
+      "target": "country",
+      "predicate": "US",
+      "confidence": 0.9
+    },
+    {
+      "source": "nuclear bomb",
+      "target": "has part",
+      "predicate": "highly enriched uranium",
+      "confidence": 0.9
+    },
+    {
+      "source": "nuclear bomb",
+      "target": "country",
+      "predicate": "Iran",
+      "confidence": 0.9
+    },
+    {
+      "source": "nuclear fuel",
+      "target": "has part",
+      "predicate": "uranium",
+      "confidence": 0.9
+    },
+    {
+      "source": "US Fifth Fleet",
+      "target": "country",
+      "predicate": "Bahrain",
+      "confidence": 0.9
+    },
+    {
+      "source": "US Fifth Fleet",
+      "target": "location",
+      "predicate": "Bahrain",
+      "confidence": 0.9
+    },
+    {
+      "source": "Fifth Fleet",
+      "target": "country",
+      "predicate": "Bahrain",
+      "confidence": 0.9
+    },
+    {
+      "source": "Fifth Fleet",
+      "target": "headquarters location",
+      "predicate": "Al Udeid",
+      "confidence": 0.9
+    },
+    {
+      "source": "Fifth Fleet",
+      "target": "location",
+      "predicate": "Al Udeid",
+      "confidence": 0.9
+    },
+    {
+      "source": "complete and total ceasefire",
+      "target": "creator",
+      "predicate": "President Trump",
+      "confidence": 0.9
+    },
+    {
+      "source": "retaliatory strike",
+      "target": "location",
+      "predicate": "Al Udeid",
+      "confidence": 0.9
+    },
+    {
+      "source": "retaliatory strike on Al Udeid",
+      "target": "participant",
+      "predicate": "US",
+      "confidence": 0.9
+    },
+    {
+      "source": "retaliatory strike on Al Udeid",
+      "target": "has effect",
+      "predicate": "ceasefire",
+      "confidence": 0.9
+    },
+    {
+      "source": "supreme leader",
+      "target": "field of this occupation",
+      "predicate": "command control",
+      "confidence": 0.9
+    },
+    {
+      "source": "supreme leader",
+      "target": "subclass of",
+      "predicate": "command control",
+      "confidence": 0.9
+    },
+    {
+      "source": "supreme leader",
+      "target": "country",
+      "predicate": "Iran",
+      "confidence": 0.9
+    },
+    {
+      "source": "United Kingdom",
+      "target": "United States",
+      "predicate": "diplomatic relation",
+      "confidence": 0.9
+    },
+    {
+      "source": "Fifth Fleet headquarters",
+      "target": "located in the administrative territorial entity",
+      "predicate": "Al Udeid",
+      "confidence": 0.9
+    },
+    {
+      "source": "Israelis",
+      "target": "diplomatic relation",
+      "predicate": "President Trump",
+      "confidence": 0.9
+    },
+    {
+      "source": "Vice President",
+      "target": "officeholder",
+      "predicate": "JD Vance",
+      "confidence": 0.9
+    },
+    {
+      "source": "Vice President",
+      "target": "appointed by",
+      "predicate": "the President",
+      "confidence": 0.9
+    },
+    {
+      "source": "Vice President",
+      "target": "different from",
+      "predicate": "President",
+      "confidence": 0.9
+    },
+    {
+      "source": "Iran's nuclear program",
+      "target": "country",
+      "predicate": "Iran",
+      "confidence": 0.9
+    },
+    {
+      "source": "Iran's nuclear program",
+      "target": "instance of",
+      "predicate": "militarily",
+      "confidence": 0.9
+    },
+    {
+      "source": "Israeli",
+      "target": "member of",
+      "predicate": "UN",
+      "confidence": 0.9
+    },
+    {
+      "source": "the President",
+      "target": "appointed by",
+      "predicate": "Vice President",
+      "confidence": 0.9
+    },
+    {
+      "source": "war",
+      "target": "participant",
+      "predicate": "Iran",
+      "confidence": 0.9
+    },
+    {
+      "source": "war with Iran",
+      "target": "participant",
+      "predicate": "both sides",
+      "confidence": 0.9
+    },
+    {
+      "source": "first contact",
+      "target": "facet of",
+      "predicate": "military operation",
+      "confidence": 0.9
+    },
+    {
+      "source": "first contact",
+      "target": "part of",
+      "predicate": "military operation",
+      "confidence": 0.9
+    },
+    {
+      "source": "1942",
+      "target": "point in time",
+      "predicate": "1942",
+      "confidence": 0.9
+    },
+    {
+      "source": "Speaker",
+      "target": "officeholder",
+      "predicate": "Mike Johnson",
+      "confidence": 0.9
+    },
+    {
+      "source": "Speaker",
+      "target": "part of",
+      "predicate": "House",
+      "confidence": 0.9
+    },
+    {
+      "source": "Democratic",
+      "target": "opposite of",
+      "predicate": "Republican",
+      "confidence": 0.9
+    },
+    {
+      "source": "Republicans",
+      "target": "opposite of",
+      "predicate": "Democrats",
+      "confidence": 0.9
+    },
+    {
+      "source": "Democrats",
+      "target": "opposite of",
+      "predicate": "Republicans",
+      "confidence": 0.9
+    },
+    {
+      "source": "nuclear facilities partially damaged",
+      "target": "country",
+      "predicate": "Iran",
+      "confidence": 0.9
+    },
+    {
+      "source": "bombs were dropped",
+      "target": "country",
+      "predicate": "Iran",
+      "confidence": 0.9
+    },
+    {
+      "source": "Trump's",
+      "target": "movement",
+      "predicate": "MAGA",
+      "confidence": 0.9
+    },
+    {
+      "source": "lifetime voting ban",
+      "target": "applies to jurisdiction",
+      "predicate": "Virginia",
+      "confidence": 0.9
+    },
+    {
+      "source": "lifetime voting ban for convicted felons",
+      "target": "applies to jurisdiction",
+      "predicate": "Virginia",
+      "confidence": 0.9
+    },
+    {
+      "source": "lifetime voting ban for convicted felons",
+      "target": "located in the administrative territorial entity",
+      "predicate": "Virginia",
+      "confidence": 0.9
+    },
+    {
+      "source": "summer scorcher",
+      "target": "instance of",
+      "predicate": "heatwave",
+      "confidence": 0.9
+    },
+    {
+      "source": "summer scorcher",
+      "target": "subclass of",
+      "predicate": "heatwave",
+      "confidence": 0.9
+    },
+    {
+      "source": "Damon Landor",
+      "target": "religion",
+      "predicate": "Rastafarian",
+      "confidence": 0.9
+    },
+    {
+      "source": "heat",
+      "target": "has part",
+      "predicate": "humidity",
+      "confidence": 0.9
+    },
+    {
+      "source": "temperatures",
+      "target": "has part",
+      "predicate": "humidity",
+      "confidence": 0.9
+    },
+    {
+      "source": "heat alert",
+      "target": "country",
+      "predicate": "Americans",
+      "confidence": 0.9
+    },
+    {
+      "source": "2024",
+      "target": "point in time",
+      "predicate": "2024",
+      "confidence": 0.9
+    },
+    {
+      "source": "summer",
+      "target": "subclass of",
+      "predicate": "temperatures",
+      "confidence": 0.9
+    },
+    {
+      "source": "summer",
+      "target": "has part",
+      "predicate": "temperatures",
+      "confidence": 0.9
+    },
+    {
+      "source": "media company",
+      "target": "owned by",
+      "predicate": "President Trump's",
+      "confidence": 0.9
+    },
+    {
+      "source": "media company",
+      "target": "founded by",
+      "predicate": "President Trump",
+      "confidence": 0.9
+    },
+    {
+      "source": "Truth Social",
+      "target": "owned by",
+      "predicate": "Trump Media and Technology Group",
+      "confidence": 0.9
+    },
+    {
+      "source": "Truth Social",
+      "target": "parent organization",
+      "predicate": "Trump Media and Technology Group",
+      "confidence": 0.9
+    },
+    {
+      "source": "Vera C. Rubin Observatory",
+      "target": "country",
+      "predicate": "Chile",
+      "confidence": 0.9
+    },
+    {
+      "source": "galaxies",
+      "target": "part of",
+      "predicate": "universe",
+      "confidence": 0.9
+    },
+    {
+      "source": "southern sky",
+      "target": "country",
+      "predicate": "Chile",
+      "confidence": 0.9
+    },
+    {
+      "source": "very large telescope",
+      "target": "operator",
+      "predicate": "European Southern Observatory",
+      "confidence": 0.9
+    },
+    {
+      "source": "Walter Cronkite School of Journalism",
+      "target": "part of",
+      "predicate": "Arizona State University",
+      "confidence": 0.9
+    },
+    {
+      "source": "WETA",
+      "target": "headquarters location",
+      "predicate": "Washington",
+      "confidence": 0.9
+    },
+    {
+      "source": "assemblyman",
+      "target": "applies to jurisdiction",
+      "predicate": "New York",
+      "confidence": 0.9
+    },
+    {
+      "source": "New York mayoral primary",
+      "target": "New York mayoral primary",
+      "predicate": "candidacy in election",
+      "confidence": 0.9
+    },
+    {
+      "source": "We're ready to stand up and fight back!",
+      "target": "creator",
+      "predicate": "Zo\u00ebran",
+      "confidence": 0.9
+    },
+    {
+      "source": "Service Employees International Union",
+      "target": "location of formation",
+      "predicate": "New York City",
+      "confidence": 0.9
+    },
+    {
+      "source": "governor of New York",
+      "target": "officeholder",
+      "predicate": "Andrew Cuomo",
+      "confidence": 0.9
+    },
+    {
+      "source": "sexual harassment allegations",
+      "target": "participant",
+      "predicate": "Andrew Cuomo",
+      "confidence": 0.9
+    },
+    {
+      "source": "COVID",
+      "target": "located in the administrative territorial entity",
+      "predicate": "New York City",
+      "confidence": 0.9
+    },
+    {
+      "source": "COVID",
+      "target": "location",
+      "predicate": "New York",
+      "confidence": 0.9
+    },
+    {
+      "source": "Trip Yang",
+      "target": "member of political party",
+      "predicate": "Democratic",
+      "confidence": 0.9
+    },
+    {
+      "source": "Cuomo will never be milk toast",
+      "target": "instance of",
+      "predicate": "milk toast",
+      "confidence": 0.9
+    },
+    {
+      "source": "Cuomo will never be milk toast",
+      "target": "facet of",
+      "predicate": "milk toast",
+      "confidence": 0.9
+    },
+    {
+      "source": "Cuomo will never be milk toast",
+      "target": "main subject",
+      "predicate": "milk toast",
+      "confidence": 0.9
+    },
+    {
+      "source": "picture of a kind of a dystopia in New York",
+      "target": "creator",
+      "predicate": "Donald Trump",
+      "confidence": 0.9
+    },
+    {
+      "source": "bombing of Iran",
+      "target": "participant",
+      "predicate": "President Trump",
+      "confidence": 0.9
+    },
+    {
+      "source": "recent bombing of Iran",
+      "target": "participant",
+      "predicate": "President Trump",
+      "confidence": 0.9
+    },
+    {
+      "source": "Democrats in New York",
+      "target": "part of",
+      "predicate": "Democrats",
+      "confidence": 0.9
+    },
+    {
+      "source": "New York City Mayor",
+      "target": "officeholder",
+      "predicate": "Eric Adams",
+      "confidence": 0.9
+    },
+    {
+      "source": "ranked choice voting",
+      "target": "facet of",
+      "predicate": "voters",
+      "confidence": 0.9
+    },
+    {
+      "source": "ranked choice voting",
+      "target": "used by",
+      "predicate": "voters",
+      "confidence": 0.9
+    },
+    {
+      "source": "ranked choice voting",
+      "target": "uses",
+      "predicate": "ranked",
+      "confidence": 0.9
+    },
+    {
+      "source": "PBS NewsHour",
+      "target": "headquarters location",
+      "predicate": "New York City",
+      "confidence": 0.9
+    },
+    {
+      "source": "I don't want to deal with the fundraising",
+      "target": "different from",
+      "predicate": "I don't have that",
+      "confidence": 0.9
+    },
+    {
+      "source": "I don't have that",
+      "target": "different from",
+      "predicate": "I don't want to deal with the fundraising",
+      "confidence": 0.9
+    },
+    {
+      "source": "John F. Kennedy School of Government",
+      "target": "part of",
+      "predicate": "Harvard University",
+      "confidence": 0.9
+    },
+    {
+      "source": "Harvard University",
+      "target": "subsidiary",
+      "predicate": "John F. Kennedy School of Government",
+      "confidence": 0.9
+    },
+    {
+      "source": "2008 Summer Olympics",
+      "target": "point in time",
+      "predicate": "2008",
+      "confidence": 0.9
+    },
+    {
+      "source": "2012 Olympic Games",
+      "target": "point in time",
+      "predicate": "2012",
+      "confidence": 0.9
+    },
+    {
+      "source": "2008 Beijing Olympics",
+      "target": "point in time",
+      "predicate": "2008",
+      "confidence": 0.9
+    },
+    {
+      "source": "Far From Home um",
+      "target": "narrative location",
+      "predicate": "Washington DC",
+      "confidence": 0.9
+    },
+    {
+      "source": "President of",
+      "target": "officeholder",
+      "predicate": "President Trump",
+      "confidence": 0.9
+    },
+    {
+      "source": "first Trump administration",
+      "target": "facet of",
+      "predicate": "President Trump",
+      "confidence": 0.9
+    },
+    {
+      "source": "first Trump administration",
+      "target": "has part",
+      "predicate": "President Trump",
+      "confidence": 0.9
+    },
+    {
+      "source": "Trump lacks the ability for strategic or linear thinking",
+      "target": "facet of",
+      "predicate": "President Trump",
+      "confidence": 0.9
+    },
+    {
+      "source": "first administration",
+      "target": "followed by",
+      "predicate": "second administration",
+      "confidence": 0.9
+    },
+    {
+      "source": "first administration",
+      "target": "replaced by",
+      "predicate": "second administration",
+      "confidence": 0.9
+    },
+    {
+      "source": "second administration",
+      "target": "follows",
+      "predicate": "first administration",
+      "confidence": 0.9
+    },
+    {
+      "source": "second administration",
+      "target": "replaces",
+      "predicate": "first administration",
+      "confidence": 0.9
+    }
+  ],
+  "node_count": 306,
+  "edge_count": 247,
+  "connected_components": 101,
+  "density": 0.002646523090110361
+}

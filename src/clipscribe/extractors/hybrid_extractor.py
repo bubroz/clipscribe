@@ -4,10 +4,13 @@ import logging
 from typing import List, Dict, Optional, Tuple
 import asyncio
 import json
+import google.generativeai as genai
+from google.generativeai.types import RequestOptions
 
 from .spacy_extractor import SpacyEntityExtractor
 from ..models import Entity
 from ..retrievers.transcriber import GeminiFlashTranscriber
+from ..config.settings import Settings
 
 logger = logging.getLogger(__name__)
 
@@ -40,6 +43,10 @@ class HybridEntityExtractor:
         self.llm_validator = GeminiFlashTranscriber()
         self.confidence_threshold = confidence_threshold
         self.batch_size = batch_size
+        
+        # Get timeout from settings
+        settings = Settings()
+        self.request_timeout = settings.gemini_request_timeout
         
         # Cost tracking
         self.enable_cost_tracking = enable_cost_tracking
@@ -136,7 +143,10 @@ class HybridEntityExtractor:
             
             try:
                 # Use Gemini for validation
-                response = await self.llm_validator.model.generate_content_async(prompt)
+                response = await self.llm_validator.model.generate_content_async(
+                    prompt,
+                    request_options=RequestOptions(timeout=self.request_timeout)
+                )
                 
                 # Parse validation results
                 validated_batch = self._parse_validation_response(
@@ -273,7 +283,10 @@ Return as JSON array:
 """
         
         try:
-            response = await self.llm_validator.model.generate_content_async(prompt)
+            response = await self.llm_validator.model.generate_content_async(
+                prompt,
+                request_options=RequestOptions(timeout=self.request_timeout)
+            )
             
             # Parse response
             import re

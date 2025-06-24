@@ -1,0 +1,68 @@
+{
+  "version": "2.2",
+  "created_at": "2025-06-24T06:39:12.182688",
+  "video": {
+    "title": "PBS News Hour full episode, June 23, 2025",
+    "url": "https://www.youtube.com/watch?v=HSODoOfhnks",
+    "platform": "youtube"
+  },
+  "extraction_stats": {
+    "spacy_entities": 135,
+    "gliner_entities": 14,
+    "llm_validated": 137,
+    "relationships": 282,
+    "graph_nodes": 306,
+    "graph_edges": 247
+  },
+  "files": {
+    "transcript_txt": {
+      "path": "transcript.txt",
+      "format": "plain_text",
+      "size": 38003
+    },
+    "transcript_json": {
+      "path": "transcript.json",
+      "format": "json",
+      "size": 297410
+    },
+    "transcript_srt": {
+      "path": "transcript.srt",
+      "format": "srt_subtitles",
+      "size": 41793
+    },
+    "transcript_vtt": {
+      "path": "transcript.vtt",
+      "format": "webvtt_subtitles",
+      "size": 41449
+    },
+    "metadata": {
+      "path": "metadata.json",
+      "format": "json",
+      "size": 2610
+    },
+    "entities": {
+      "path": "entities.json",
+      "format": "json",
+      "size": 35462
+    },
+    "relationships": {
+      "path": "relationships.json",
+      "format": "json",
+      "size": 74317,
+      "count": 282
+    },
+    "knowledge_graph": {
+      "path": "knowledge_graph.json",
+      "format": "json",
+      "size": 63739,
+      "nodes": 306,
+      "edges": 247
+    },
+    "facts": {
+      "path": "facts.txt",
+      "format": "plain_text",
+      "size": 1602,
+      "count": 20
+    }
+  }
+}

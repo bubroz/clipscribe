@@ -14,14 +14,25 @@ import logging
 from typing import List, Dict, Any, Optional, Tuple
 import asyncio
 from collections import defaultdict
+import os
 
 import networkx as nx
 import google.generativeai as genai
+from google.generativeai.types import RequestOptions
 
 from ..models import VideoIntelligence, Entity, Relationship
 from .spacy_extractor import SpacyEntityExtractor
 from .rebel_extractor import REBELExtractor
 from .gliner_extractor import GLiNERExtractor
+from ..config.settings import Settings
+
+try:
+    import torch
+    from gliner import GLiNER
+    from transformers import pipeline
+    ADVANCED_EXTRACTORS_AVAILABLE = True
+except ImportError:
+    ADVANCED_EXTRACTORS_AVAILABLE = False
 
 logger = logging.getLogger(__name__)
 
@@ -64,6 +75,10 @@ class AdvancedHybridExtractor:
         self.confidence_threshold = confidence_threshold
         self.llm_model = llm_model
         self.device = device
+        
+        # Get settings for timeout
+        self.settings = Settings()
+        self.request_timeout = self.settings.gemini_request_timeout
         
         # Initialize extractors
         self.spacy_extractor = SpacyEntityExtractor()
@@ -176,7 +191,10 @@ class AdvancedHybridExtractor:
             # Validate entities
             if entities_to_validate:
                 prompt = self._build_entity_validation_prompt(entities_to_validate, video_intel.transcript)
-                response = await model.generate_content_async(prompt)
+                response = await model.generate_content_async(
+                    prompt,
+                    request_options=RequestOptions(timeout=self.request_timeout)
+                )
                 validated = self._parse_entity_validation(response.text, entities_to_validate)
                 
                 # Update entities
@@ -188,7 +206,10 @@ class AdvancedHybridExtractor:
             # Validate relationships  
             if relationships_to_validate:
                 prompt = self._build_relationship_validation_prompt(relationships_to_validate, video_intel.transcript)
-                response = await model.generate_content_async(prompt)
+                response = await model.generate_content_async(
+                    prompt,
+                    request_options=RequestOptions(timeout=self.request_timeout)
+                )
                 validated = self._parse_relationship_validation(response.text, relationships_to_validate)
                 
                 # Update relationships
