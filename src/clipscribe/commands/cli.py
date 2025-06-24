@@ -271,7 +271,18 @@ async def transcribe(
                             html_path = kg_path.parent / "knowledge_graph_interactive.html"
                             if html_path.exists():
                                 import webbrowser
-                                webbrowser.open(f"file://{html_path}")
+                                import platform
+                                
+                                # Use absolute path for better compatibility
+                                file_url = html_path.absolute().as_uri()
+                                
+                                # On macOS, use 'open' command for better reliability
+                                if platform.system() == 'Darwin':
+                                    import subprocess as sp
+                                    sp.run(['open', str(html_path)], check=False)
+                                else:
+                                    webbrowser.open(file_url)
+                                    
                                 console.print("[green]✓ Interactive visualization opened in browser![/green]")
                         else:
                             console.print(f"[red]Visualization failed: {result.stderr}[/red]")

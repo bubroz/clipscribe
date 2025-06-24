@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gexf xmlns="http://www.gexf.net/1.2draft" xmlns:viz="http://www.gexf.net/1.2draft/viz" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.gexf.net/1.2draft http://www.gexf.net/1.2draft/gexf.xsd" version="1.2">
+  <meta lastmodifieddate="2025-06-24">
+    <creator>ClipScribe</creator>
+    <description>Knowledge graph extracted from video content</description>
+  </meta>
+  <graph mode="static" defaultedgetype="directed">
+    <attributes class="node">
+      <attribute id="0" title="Type" type="string"/>
+      <attribute id="1" title="Confidence" type="float"/>
+    </attributes>
+    <attributes class="edge">
+      <attribute id="0" title="Predicate" type="string"/>
+      <attribute id="1" title="Confidence" type="float"/>
+    </attributes>
+    <nodes>
+      <node id="Harry Potter" label="Harry Potter">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="1.0"/>
+        </attvalues>
+        <viz:color r="255" g="107" b="107" a="1.0"/>
+        <viz:size value="50.0"/>
+      </node>
+      <node id="Transcript Wiki" label="Transcript Wiki">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="1.0"/>
+        </attvalues>
+        <viz:color r="78" g="205" b="196" a="1.0"/>
+        <viz:size value="50.0"/>
+      </node>
+      <node id="Google Colab" label="Google Colab">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="1.0"/>
+        </attvalues>
+        <viz:color r="78" g="205" b="196" a="1.0"/>
+        <viz:size value="50.0"/>
+      </node>
+      <node id="Hugging Face" label="Hugging Face">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="1.0"/>
+        </attvalues>
+        <viz:color r="78" g="205" b="196" a="1.0"/>
+        <viz:size value="50.0"/>
+      </node>
+      <node id="Uptime Robot" label="Uptime Robot">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="1.0"/>
+        </attvalues>
+        <viz:color r="78" g="205" b="196" a="1.0"/>
+        <viz:size value="50.0"/>
+      </node>
+      <node id="Discord" label="Discord">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="78" g="205" b="196" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="Python" label="Python">
+        <attvalues>
+          <attvalue for="0" value="programming_language"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="Kaggle" label="Kaggle">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="78" g="205" b="196" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="Google" label="Google">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="78" g="205" b="196" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="Peppa Pig" label="Peppa Pig">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="255" g="107" b="107" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="Peppa" label="Peppa">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="255" g="107" b="107" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="Harry" label="Harry">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="255" g="107" b="107" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="Git" label="Git">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="78" g="205" b="196" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="JavaScript" label="JavaScript">
+        <attvalues>
+          <attvalue for="0" value="programming_language"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="ChattyBot" label="ChattyBot">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="78" g="205" b="196" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="Repl" label="Repl">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="78" g="205" b="196" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="the Discord" label="the Discord">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.8999999999999999"/>
+        </attvalues>
+        <viz:color r="78" g="205" b="196" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="Google Drive" label="Google Drive">
+        <attvalues>
+          <attvalue for="0" value="APPLICATION"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Git Large File Storage" label="Git Large File Storage">
+        <attvalues>
+          <attvalue for="0" value="APPLICATION"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Rick" label="Rick">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.8"/>
+        </attvalues>
+        <viz:color r="255" g="107" b="107" a="1.0"/>
+        <viz:size value="44.0"/>
+      </node>
+      <node id="Morty" label="Morty">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.8"/>
+        </attvalues>
+        <viz:color r="255" g="107" b="107" a="1.0"/>
+        <viz:size value="44.0"/>
+      </node>
+      <node id="Lynn" label="Lynn">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.8"/>
+        </attvalues>
+        <viz:color r="255" g="107" b="107" a="1.0"/>
+        <viz:size value="44.0"/>
+      </node>
+      <node id="Pandas" label="Pandas">
+        <attvalues>
+          <attvalue for="0" value="LIBRARY"/>
+          <attvalue for="1" value="0.8"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="44.0"/>
+      </node>
+      <node id="PyTorch" label="PyTorch">
+        <attvalues>
+          <attvalue for="0" value="LIBRARY"/>
+          <attvalue for="1" value="0.8"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="44.0"/>
+      </node>
+      <node id="OAuth" label="OAuth">
+        <attvalues>
+          <attvalue for="0" value="PROTOCOL"/>
+          <attvalue for="1" value="0.8"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="44.0"/>
+      </node>
+      <node id="the University of Chicago" label="the University of Chicago">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.7999999999999999"/>
+        </attvalues>
+        <viz:color r="78" g="205" b="196" a="1.0"/>
+        <viz:size value="44.0"/>
+      </node>
+      <node id="George" label="George">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.75"/>
+        </attvalues>
+        <viz:color r="255" g="107" b="107" a="1.0"/>
+        <viz:size value="42.5"/>
+      </node>
+      <node id="Microsoft" label="Microsoft">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.75"/>
+        </attvalues>
+        <viz:color r="78" g="205" b="196" a="1.0"/>
+        <viz:size value="42.5"/>
+      </node>
+      <node id="Dev Lab" label="Dev Lab">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.75"/>
+        </attvalues>
+        <viz:color r="78" g="205" b="196" a="1.0"/>
+        <viz:size value="42.5"/>
+      </node>
+      <node id="UTF-8" label="UTF-8">
+        <attvalues>
+          <attvalue for="0" value="ENCODING"/>
+          <attvalue for="1" value="0.75"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="42.5"/>
+      </node>
+      <node id="University of Chicago" label="University of Chicago">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.5574175715446472"/>
+        </attvalues>
+        <viz:color r="78" g="205" b="196" a="1.0"/>
+        <viz:size value="36.72252714633942"/>
+      </node>
+      <node id="model" label="model">
+        <attvalues>
+          <attvalue for="0" value="MODEL"/>
+          <attvalue for="1" value="0.8357990384101868"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="45.0739711523056"/>
+      </node>
+    </nodes>
+    <edges>
+      <edge id="0" source="Google Colab" target="Google Drive" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="has part"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="1" source="Hugging Face" target="Discord" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="part of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="2" source="Python" target="JavaScript" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="influenced by"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="3" source="Peppa Pig" target="George" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="sibling of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="4" source="JavaScript" target="Python" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="influenced by"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="5" source="Google Drive" target="Google Colab" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="has part"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+    </edges>
+  </graph>
+</gexf>
