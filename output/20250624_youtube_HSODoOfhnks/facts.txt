@@ -2,7 +2,7 @@
 
 Video: PBS News Hour full episode, June 23, 2025
 URL: https://www.youtube.com/watch?v=HSODoOfhnks
-Extracted: 2025-06-24T06:39:12.182242
+Extracted: 2025-06-24T08:22:44.778426
 
 1. Israel Iran diplomatic relation (confidence: 0.90)
 2. Middle East part of Iran (confidence: 0.90)

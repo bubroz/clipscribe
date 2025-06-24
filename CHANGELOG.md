@@ -202,16 +202,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.2.2] - 2025-06-24
 
-## [2.4.0] - 2025-06-24
+## [2.4.1] - 2024-06-25
+
+### Fixed
+- Fixed GEXF edge generation - edges now properly connect entities with predicates as attributes
+- Added validation to REBEL extractor to fix malformed relationships where predicates appear as subjects/objects
+- Replaced NetworkX GEXF export with custom generator for more control over format
+
+## [2.4.0] - 2024-06-24
 
 ### Added
-- GEXF format (Gephi-compatible) generated automatically from knowledge graphs
+- GEXF format for Gephi visualization
+  - Node colors by entity type
+  - Node sizes by confidence scores
+  - Edge attributes for relationship predicates
+  - Direct import into Gephi network analysis tool
 
 ### Removed
-- SRT and VTT subtitle formats (unnecessary for intelligence extraction)
+- SRT subtitle format (use transcript.txt instead for plain text)
+- VTT subtitle format (use transcript.json for structured data)
 
 ### Changed
-- Focus shifted from video captioning to pure intelligence extraction
+- Focused output formats on intelligence extraction (9 formats total)
+- Improved documentation for visualization tools
 
 ## [2.3.0] - 2025-06-24
 

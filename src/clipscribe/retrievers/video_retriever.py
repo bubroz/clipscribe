@@ -718,8 +718,10 @@ class VideoIntelligenceRetriever:
             # Generate GEXF file for Gephi
             gexf_path = paths["directory"] / "knowledge_graph.gexf"
             try:
-                G = self._convert_to_gexf(video.knowledge_graph)
-                nx.write_gexf(G, str(gexf_path))
+                # Create GEXF manually to ensure correct format
+                gexf_content = self._generate_gexf_content(video.knowledge_graph)
+                with open(gexf_path, 'w', encoding='utf-8') as f:
+                    f.write(gexf_content)
                 paths["gexf"] = gexf_path
                 logger.info(f"Saved GEXF file for Gephi visualization :-)")
             except Exception as e:
@@ -869,9 +871,26 @@ class VideoIntelligenceRetriever:
             }
         }
     
-    def _convert_to_gexf(self, knowledge_graph: Dict[str, Any]) -> nx.DiGraph:
-        """Convert ClipScribe knowledge graph to NetworkX format for GEXF export."""
-        G = nx.DiGraph()
+    def _generate_gexf_content(self, knowledge_graph: Dict[str, Any]) -> str:
+        """Generate GEXF content from knowledge graph."""
+        from xml.sax.saxutils import escape
+        
+        gexf_content = '<?xml version="1.0" encoding="UTF-8"?>\n'
+        gexf_content += '<gexf xmlns="http://www.gexf.net/1.2draft" xmlns:viz="http://www.gexf.net/1.2draft/viz" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.gexf.net/1.2draft http://www.gexf.net/1.2draft/gexf.xsd" version="1.2">\n'
+        gexf_content += '  <meta lastmodifieddate="' + datetime.now().strftime('%Y-%m-%d') + '">\n'
+        gexf_content += '    <creator>ClipScribe</creator>\n'
+        gexf_content += '    <description>Knowledge graph extracted from video content</description>\n'
+        gexf_content += '  </meta>\n'
+        gexf_content += '  <graph mode="static" defaultedgetype="directed">\n'
+        gexf_content += '    <attributes class="node">\n'
+        gexf_content += '      <attribute id="0" title="Type" type="string"/>\n'
+        gexf_content += '      <attribute id="1" title="Confidence" type="float"/>\n'
+        gexf_content += '    </attributes>\n'
+        gexf_content += '    <attributes class="edge">\n'
+        gexf_content += '      <attribute id="0" title="Predicate" type="string"/>\n'
+        gexf_content += '      <attribute id="1" title="Confidence" type="float"/>\n'
+        gexf_content += '    </attributes>\n'
+        gexf_content += '    <nodes>\n'
         
         # Color map for entity types
         color_map = {
@@ -888,48 +907,41 @@ class VideoIntelligenceRetriever:
         
         # Add nodes with attributes
         for node in knowledge_graph.get('nodes', []):
-            node_id = node['id']
+            node_id = escape(str(node['id']))
             node_type = node.get('type', 'unknown')
             confidence = node.get('confidence', 0.9)
             
             # Get color for node type
             hex_color = color_map.get(node_type, color_map['unknown'])
             
-            G.add_node(
-                node_id,
-                label=node_id,
-                type=node_type,
-                confidence=confidence,
-                size=20 + (confidence * 30),  # Size based on confidence
-                color=hex_color,
-                viz={'color': {
-                    'r': int(hex_color[1:3], 16),
-                    'g': int(hex_color[3:5], 16),
-                    'b': int(hex_color[5:7], 16),
-                    'a': 1.0
-                }}
-            )
+            gexf_content += f'      <node id="{node_id}" label="{node_id}">\n'
+            gexf_content += f'        <attvalues>\n'
+            gexf_content += f'          <attvalue for="0" value="{escape(node_type)}"/>\n'
+            gexf_content += f'          <attvalue for="1" value="{confidence}"/>\n'
+            gexf_content += f'        </attvalues>\n'
+            gexf_content += f'        <viz:color r="{int(hex_color[1:3], 16)}" g="{int(hex_color[3:5], 16)}" b="{int(hex_color[5:7], 16)}" a="1.0"/>\n'
+            gexf_content += f'        <viz:size value="{20 + (confidence * 30)}"/>\n'
+            gexf_content += f'      </node>\n'
+        
+        gexf_content += '    </nodes>\n'
+        gexf_content += '    <edges>\n'
         
         # Add edges with attributes
-        for edge in knowledge_graph.get('edges', []):
-            source = edge['source']
-            target = edge['target']
-            predicate = edge.get('predicate', 'related_to')
+        for i, edge in enumerate(knowledge_graph.get('edges', [])):
+            source = escape(str(edge['source']))
+            target = escape(str(edge['target']))
+            predicate = escape(str(edge.get('predicate', 'related_to')))
             confidence = edge.get('confidence', 0.9)
             
-            G.add_edge(
-                source,
-                target,
-                label=predicate,
-                weight=confidence,
-                confidence=confidence,
-                predicate=predicate
-            )
+            gexf_content += f'      <edge id="{i}" source="{source}" target="{target}" weight="{confidence}">\n'
+            gexf_content += f'        <attvalues>\n'
+            gexf_content += f'          <attvalue for="0" value="{predicate}"/>\n'
+            gexf_content += f'          <attvalue for="1" value="{confidence}"/>\n'
+            gexf_content += f'        </attvalues>\n'
+            gexf_content += f'      </edge>\n'
         
-        # Add graph metadata
-        G.graph['name'] = 'ClipScribe Knowledge Graph'
-        G.graph['description'] = f"Extracted on {datetime.now().isoformat()}"
-        G.graph['node_count'] = knowledge_graph.get('node_count', 0)
-        G.graph['edge_count'] = knowledge_graph.get('edge_count', 0)
+        gexf_content += '    </edges>\n'
+        gexf_content += '  </graph>\n'
+        gexf_content += '</gexf>\n'
         
-        return G 
+        return gexf_content 

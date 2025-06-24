@@ -2636,7 +2636,7 @@
   "processing": {
     "cost": 0.11400000700825,
     "time": 316.457935,
-    "processed_at": "2025-06-24T06:39:12.169871",
+    "processed_at": "2025-06-24T08:22:44.757255",
     "model": "gemini-1.5-flash",
     "extractor": "advanced_hybrid_v2.2"
   },

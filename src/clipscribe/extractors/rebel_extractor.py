@@ -124,11 +124,13 @@ class REBELExtractor:
                     relations = self._parse_rebel_output(output['generated_text'])
                     logger.debug(f"Parsed {len(relations)} relations from: {output['generated_text']}")
                     for rel in relations:
-                        if self._is_valid_relation(rel):
+                        # Fix malformed relations first
+                        fixed_rel = self._fix_malformed_relation(rel)
+                        if fixed_rel and self._is_valid_relation(fixed_rel):
                             relationships.append(Relationship(
-                                subject=rel[0],
-                                predicate=rel[1],
-                                object=rel[2],
+                                subject=fixed_rel[0],
+                                predicate=fixed_rel[1],
+                                object=fixed_rel[2],
                                 confidence=0.9,  # REBEL doesn't provide confidence
                                 context=chunk[:100]  # First 100 chars as context
                             ))
@@ -250,8 +252,43 @@ class REBELExtractor:
         special_chars = ['<', '>', '[', ']', '{', '}']
         if any(char in text for text in [subject, predicate, obj] for char in special_chars):
             return False
+        
+        # Filter out relations where subject is a predicate-like word
+        predicate_words = ['part of', 'contains', 'has', 'is', 'was', 'are', 'were', 'member of', 
+                          'located in', 'president of', 'capital of', 'instance of', 'occupation',
+                          'office held by', 'diplomatic relation', 'affiliated with', 'subsidiary of']
+        if subject.lower() in predicate_words:
+            return False
             
         return True
+        
+    def _fix_malformed_relation(self, relation: Tuple[str, str, str]) -> Optional[Tuple[str, str, str]]:
+        """Fix common malformations in relationships."""
+        subject, predicate, obj = relation
+        
+        # Common predicates that should not be subjects or objects
+        known_predicates = {
+            'part of', 'contains', 'has', 'is', 'was', 'are', 'were', 'member of',
+            'located in', 'president of', 'capital of', 'instance of', 'occupation',
+            'office held by', 'diplomatic relation', 'affiliated with', 'subsidiary of',
+            'founded by', 'owned by', 'created by', 'born in', 'died in', 'works for',
+            'married to', 'parent of', 'child of', 'sibling of', 'influenced by',
+            'succeeded by', 'preceded by', 'contains administrative territorial entity',
+            'office held by head of government', 'has part', 'related to'
+        }
+        
+        # Check if predicate and object are swapped (common REBEL error)
+        if obj.lower() in known_predicates and predicate.lower() not in known_predicates:
+            # Swap predicate and object
+            logger.debug(f"Fixing swapped relation: {subject} | {predicate} | {obj} -> {subject} | {obj} | {predicate}")
+            return (subject, obj, predicate)
+        
+        # Check if subject is actually a predicate (another common error)
+        if subject.lower() in known_predicates:
+            logger.debug(f"Skipping relation with predicate as subject: {subject} | {predicate} | {obj}")
+            return None
+            
+        return relation
         
     def _deduplicate_relations(self, relations: List[Relationship]) -> List[Relationship]:
         """Remove duplicate relationships."""

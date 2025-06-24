@@ -3,17 +3,6 @@
   "video_title": "Pentagon holds briefing after US strikes Iran nuclear sites",
   "entities": [
     {
-      "name": "Joint Force",
-      "type": "ORGANIZATION",
-      "confidence": 1.0,
-      "properties": {
-        "spacy_label": "ORG",
-        "start_char": 4730,
-        "end_char": 4741
-      },
-      "timestamp": null
-    },
-    {
       "name": "United States",
       "type": "LOCATION",
       "confidence": 1.0,
@@ -30,8 +19,8 @@
       "confidence": 0.95,
       "properties": {
         "spacy_label": "GPE",
-        "start_char": 2040,
-        "end_char": 2057
+        "start_char": 2041,
+        "end_char": 2058
       },
       "timestamp": null
     },
@@ -69,24 +58,13 @@
       "timestamp": null
     },
     {
-      "name": "Fordo",
-      "type": "LOCATION",
-      "confidence": 0.9,
-      "properties": {
-        "spacy_label": "GPE",
-        "start_char": 202,
-        "end_char": 207
-      },
-      "timestamp": null
-    },
-    {
       "name": "Eric Corrilla",
       "type": "PERSON",
       "confidence": 0.9,
       "properties": {
         "spacy_label": "PERSON",
-        "start_char": 2255,
-        "end_char": 2268
+        "start_char": 2256,
+        "end_char": 2269
       },
       "timestamp": null
     },
@@ -96,8 +74,8 @@
       "confidence": 0.9,
       "properties": {
         "spacy_label": "ORG",
-        "start_char": 2272,
-        "end_char": 2279
+        "start_char": 2273,
+        "end_char": 2280
       },
       "timestamp": null
     },
@@ -107,8 +85,8 @@
       "confidence": 0.9,
       "properties": {
         "spacy_label": "GPE",
-        "start_char": 2858,
-        "end_char": 2864
+        "start_char": 2860,
+        "end_char": 2866
       },
       "timestamp": null
     },
@@ -118,8 +96,8 @@
       "confidence": 0.9,
       "properties": {
         "spacy_label": "GPE",
-        "start_char": 4095,
-        "end_char": 4102
+        "start_char": 4098,
+        "end_char": 4105
       },
       "timestamp": null
     },
@@ -129,8 +107,19 @@
       "confidence": 0.9,
       "properties": {
         "spacy_label": "ORG",
-        "start_char": 7223,
-        "end_char": 7228
+        "start_char": 7224,
+        "end_char": 7229
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Fordo",
+      "type": "LOCATION",
+      "confidence": 0.9,
+      "properties": {
+        "spacy_label": "GPE",
+        "start_char": 7725,
+        "end_char": 7730
       },
       "timestamp": null
     },
@@ -140,8 +129,8 @@
       "confidence": 0.9,
       "properties": {
         "spacy_label": "PERSON",
-        "start_char": 9572,
-        "end_char": 9580
+        "start_char": 9573,
+        "end_char": 9581
       },
       "timestamp": null
     },
@@ -151,8 +140,8 @@
       "confidence": 0.9,
       "properties": {
         "spacy_label": "GPE",
-        "start_char": 9649,
-        "end_char": 9653
+        "start_char": 9650,
+        "end_char": 9654
       },
       "timestamp": null
     },
@@ -173,8 +162,8 @@
       "confidence": 0.9,
       "properties": {
         "spacy_label": "PERSON",
-        "start_char": 17651,
-        "end_char": 17662
+        "start_char": 17644,
+        "end_char": 17655
       },
       "timestamp": null
     },
@@ -195,8 +184,8 @@
       "confidence": 0.85,
       "properties": {
         "spacy_label": "PERSON",
-        "start_char": 2059,
-        "end_char": 2074
+        "start_char": 2060,
+        "end_char": 2075
       },
       "timestamp": null
     },
@@ -206,8 +195,8 @@
       "confidence": 0.85,
       "properties": {
         "spacy_label": "PRODUCT",
-        "start_char": 3333,
-        "end_char": 3336
+        "start_char": 3336,
+        "end_char": 3339
       },
       "timestamp": null
     },
@@ -217,8 +206,8 @@
       "confidence": 0.85,
       "properties": {
         "spacy_label": "EVENT",
-        "start_char": 4531,
-        "end_char": 4549
+        "start_char": 4532,
+        "end_char": 4550
       },
       "timestamp": null
     },
@@ -228,8 +217,8 @@
       "confidence": 0.85,
       "properties": {
         "spacy_label": "LOC",
-        "start_char": 9670,
-        "end_char": 9674
+        "start_char": 9671,
+        "end_char": 9675
       },
       "timestamp": null
     },
@@ -239,8 +228,19 @@
       "confidence": 0.85,
       "properties": {
         "spacy_label": "ORG",
-        "start_char": 22118,
-        "end_char": 22139
+        "start_char": 22096,
+        "end_char": 22117
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Fordo,",
+      "type": "ORGANIZATION",
+      "confidence": 0.8,
+      "properties": {
+        "spacy_label": "ORG",
+        "start_char": 202,
+        "end_char": 208
       },
       "timestamp": null
     },
@@ -272,8 +272,8 @@
       "confidence": 0.8,
       "properties": {
         "spacy_label": "GPE",
-        "start_char": 3160,
-        "end_char": 3166
+        "start_char": 3162,
+        "end_char": 3168
       },
       "timestamp": null
     },
@@ -283,8 +283,8 @@
       "confidence": 0.8,
       "properties": {
         "spacy_label": "PERSON",
-        "start_char": 4063,
-        "end_char": 4066
+        "start_char": 4066,
+        "end_char": 4069
       },
       "timestamp": null
     },
@@ -305,8 +305,8 @@
       "confidence": 0.8,
       "properties": {
         "spacy_label": "ORG",
-        "start_char": 5858,
-        "end_char": 5864
+        "start_char": 5857,
+        "end_char": 5863
       },
       "timestamp": null
     },
@@ -316,8 +316,8 @@
       "confidence": 0.8,
       "properties": {
         "spacy_label": "GPE",
-        "start_char": 9655,
-        "end_char": 9660
+        "start_char": 9656,
+        "end_char": 9661
       },
       "timestamp": null
     },
@@ -327,8 +327,8 @@
       "confidence": 0.7999999999999999,
       "properties": {
         "spacy_label": "GPE",
-        "start_char": 1918,
-        "end_char": 1946
+        "start_char": 1919,
+        "end_char": 1947
       },
       "timestamp": null
     },
@@ -338,8 +338,8 @@
       "confidence": 0.7999999999999999,
       "properties": {
         "spacy_label": "ORG",
-        "start_char": 2199,
-        "end_char": 2224
+        "start_char": 2200,
+        "end_char": 2225
       },
       "timestamp": null
     },
@@ -349,8 +349,8 @@
       "confidence": 0.7999999999999999,
       "properties": {
         "spacy_label": "ORG",
-        "start_char": 4879,
-        "end_char": 4909
+        "start_char": 4880,
+        "end_char": 4910
       },
       "timestamp": null
     },
@@ -360,8 +360,19 @@
       "confidence": 0.7999999999999999,
       "properties": {
         "spacy_label": "ORG",
-        "start_char": 6526,
-        "end_char": 6545
+        "start_char": 6525,
+        "end_char": 6544
+      },
+      "timestamp": null
+    },
+    {
+      "name": "the Congressional",
+      "type": "ORGANIZATION",
+      "confidence": 0.7999999999999999,
+      "properties": {
+        "spacy_label": "ORG",
+        "start_char": 13351,
+        "end_char": 13368
       },
       "timestamp": null
     },
@@ -371,8 +382,8 @@
       "confidence": 0.7999999999999999,
       "properties": {
         "spacy_label": "LOC",
-        "start_char": 15644,
-        "end_char": 15659
+        "start_char": 15646,
+        "end_char": 15661
       },
       "timestamp": null
     },
@@ -382,8 +393,8 @@
       "confidence": 0.75,
       "properties": {
         "spacy_label": "PRODUCT",
-        "start_char": 3127,
-        "end_char": 3131
+        "start_char": 3129,
+        "end_char": 3133
       },
       "timestamp": null
     },
@@ -393,8 +404,8 @@
       "confidence": 0.75,
       "properties": {
         "spacy_label": "GPE",
-        "start_char": 5804,
-        "end_char": 5809
+        "start_char": 5803,
+        "end_char": 5808
       },
       "timestamp": null
     },
@@ -404,8 +415,8 @@
       "confidence": 0.75,
       "properties": {
         "spacy_label": "PRODUCT",
-        "start_char": 6598,
-        "end_char": 6606
+        "start_char": 6597,
+        "end_char": 6605
       },
       "timestamp": null
     },
@@ -415,8 +426,8 @@
       "confidence": 0.75,
       "properties": {
         "spacy_label": "GPE",
-        "start_char": 14828,
-        "end_char": 14833
+        "start_char": 14829,
+        "end_char": 14834
       },
       "timestamp": null
     },
@@ -426,19 +437,19 @@
       "confidence": 0.75,
       "properties": {
         "spacy_label": "PERSON",
-        "start_char": 15495,
-        "end_char": 15499
+        "start_char": 15497,
+        "end_char": 15501
       },
       "timestamp": null
     },
     {
-      "name": "Hexseth",
+      "name": "Hexeth",
       "type": "PERSON",
       "confidence": 0.75,
       "properties": {
         "spacy_label": "PERSON",
-        "start_char": 15675,
-        "end_char": 15682
+        "start_char": 15677,
+        "end_char": 15683
       },
       "timestamp": null
     },
@@ -448,8 +459,8 @@
       "confidence": 0.75,
       "properties": {
         "spacy_label": "GPE",
-        "start_char": 21390,
-        "end_char": 21398
+        "start_char": 21369,
+        "end_char": 21377
       },
       "timestamp": null
     },
@@ -459,8 +470,8 @@
       "confidence": 0.75,
       "properties": {
         "spacy_label": "PERSON",
-        "start_char": 22239,
-        "end_char": 22247
+        "start_char": 22215,
+        "end_char": 22223
       },
       "timestamp": null
     },
@@ -481,8 +492,8 @@
       "confidence": 0.7499999999999999,
       "properties": {
         "spacy_label": "EVENT",
-        "start_char": 13495,
-        "end_char": 13513
+        "start_char": 13492,
+        "end_char": 13510
       },
       "timestamp": null
     },
@@ -492,8 +503,8 @@
       "confidence": 0.7,
       "properties": {
         "spacy_label": "LOC",
-        "start_char": 1347,
-        "end_char": 1352
+        "start_char": 1348,
+        "end_char": 1353
       },
       "timestamp": null
     },
@@ -503,8 +514,8 @@
       "confidence": 0.7,
       "properties": {
         "spacy_label": "LOC",
-        "start_char": 1470,
-        "end_char": 1479
+        "start_char": 1471,
+        "end_char": 1480
       },
       "timestamp": null
     },
@@ -525,117 +536,129 @@
       "confidence": 0.7,
       "properties": {
         "spacy_label": "EVENT",
-        "start_char": 15689,
-        "end_char": 15699
+        "start_char": 15690,
+        "end_char": 15700
       },
       "timestamp": null
     },
     {
       "name": "Last night",
       "type": "time",
-      "confidence": 0.6247420907020569,
+      "confidence": 0.6291399002075195,
       "properties": {},
       "timestamp": null
     },
     {
       "name": "President Trump",
       "type": "person",
-      "confidence": 0.8931928277015686,
+      "confidence": 0.8806020617485046,
       "properties": {},
       "timestamp": null
     },
     {
       "name": "US Central Command",
       "type": "organization",
-      "confidence": 0.7375033497810364,
+      "confidence": 0.7527276873588562,
       "properties": {},
       "timestamp": null
     },
     {
       "name": "precision strike",
       "type": "operation",
-      "confidence": 0.7091328501701355,
+      "confidence": 0.6808069348335266,
       "properties": {},
       "timestamp": null
     },
     {
       "name": "Natanz",
       "type": "location",
-      "confidence": 0.9490494132041931,
+      "confidence": 0.934268593788147,
       "properties": {},
       "timestamp": null
     },
     {
       "name": "nuclear program",
       "type": "weapon",
-      "confidence": 0.6748638153076172,
+      "confidence": 0.6853196024894714,
       "properties": {},
       "timestamp": null
     },
     {
       "name": "operation",
       "type": "operation",
-      "confidence": 0.7049955129623413,
+      "confidence": 0.7034446597099304,
       "properties": {},
       "timestamp": null
     },
     {
       "name": "nuclear weapon",
       "type": "weapon",
-      "confidence": 0.5419573187828064,
+      "confidence": 0.5449026823043823,
       "properties": {},
       "timestamp": null
     },
     {
       "name": "Soleimani",
       "type": "person",
-      "confidence": 0.7126507759094238,
+      "confidence": 0.7125605940818787,
       "properties": {},
       "timestamp": null
     },
     {
       "name": "POTUS",
       "type": "person",
-      "confidence": 0.6199544668197632,
+      "confidence": 0.6237176656723022,
       "properties": {},
       "timestamp": null
     }
   ],
   "topics": [
     {
-      "name": "US military strike on Iranian nuclear facilities",
+      "name": "US airstrike on Iranian nuclear facilities",
       "confidence": 0.85
     },
     {
-      "name": "President Trump's orders and rationale",
+      "name": "President Trump's orders and justification",
       "confidence": 0.85
     },
     {
-      "name": "Details of the military operation (mission, aircraft, weapons)",
+      "name": "Military operation details and success",
       "confidence": 0.85
     },
     {
-      "name": "Assessment of damage and success",
+      "name": "Regime change",
       "confidence": 0.85
     },
     {
-      "name": "US response to potential Iranian retaliation",
+      "name": "Post-strike response and potential retaliation",
       "confidence": 0.85
     },
     {
-      "name": "Coordination with allies (Israel)",
+      "name": "US-Israel cooperation",
       "confidence": 0.85
     },
     {
-      "name": "Future implications and diplomatic efforts",
+      "name": "Force protection measures",
+      "confidence": 0.85
+    },
+    {
+      "name": "Congressional notification",
+      "confidence": 0.85
+    },
+    {
+      "name": "Future steps and diplomacy",
+      "confidence": 0.85
+    },
+    {
+      "name": "Assessment of damage",
       "confidence": 0.85
     }
   ],
   "key_facts": [
-    "US Central Command conducted a precision strike against three Iranian nuclear facilities.",
-    "The operation aimed to destroy or severely degrade Iran's nuclear program.",
-    "The operation was an overwhelming success.",
-    "The operation did not target Iranian troops or the Iranian people.",
-    "President Trump has consistently stated for over 10 years that Iran must not get a nuclear weapon."
+    "US Central Command conducted a precision strike against three nuclear facilities in Iran.",
+    "The targets were Fordo, Natanz, and Esfahan.",
+    "The goal was to destroy or severely degrade Iran's nuclear program.",
+    "The operation was an incredible and overwhelming success.",
+    "The order from the Commander-in-Chief was focused, powerful, and clear."
   ]
 }

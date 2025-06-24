@@ -1,6 +1,6 @@
 {
   "version": "2.2",
-  "created_at": "2025-06-24T06:39:12.182688",
+  "created_at": "2025-06-24T08:22:44.778905",
   "video": {
     "title": "PBS News Hour full episode, June 23, 2025",
     "url": "https://www.youtube.com/watch?v=HSODoOfhnks",
@@ -25,16 +25,6 @@
       "format": "json",
       "size": 297410
     },
-    "transcript_srt": {
-      "path": "transcript.srt",
-      "format": "srt_subtitles",
-      "size": 41793
-    },
-    "transcript_vtt": {
-      "path": "transcript.vtt",
-      "format": "webvtt_subtitles",
-      "size": 41449
-    },
     "metadata": {
       "path": "metadata.json",
       "format": "json",
@@ -57,6 +47,12 @@
       "size": 63739,
       "nodes": 306,
       "edges": 247
+    },
+    "knowledge_graph_gexf": {
+      "path": "knowledge_graph.gexf",
+      "format": "gexf",
+      "size": 170380,
+      "description": "Gephi-compatible graph file"
     },
     "facts": {
       "path": "facts.txt",

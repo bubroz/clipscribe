@@ -2,7 +2,54 @@
 
 This document captures the current state of ClipScribe for future AI assistants or developers who need to continue work on this project.
 
-## Current State (June 24, 2025 - 08:15 UTC)
+## Current State (2024-06-25)
+
+### Just Completed
+- Fixed GEXF edge generation bug where predicates were being used as targets
+- Replaced NetworkX GEXF export with custom generator for proper edge formatting
+- Added REBEL relationship validation to fix malformed subject-predicate-object triples
+- Updated to v2.4.1 with the fixes
+
+### Working Well
+- 4-hour timeout support for long videos (tested with 57-minute PBS News Hour)
+- 9 output formats focused on intelligence extraction:
+  - Plain text (transcript.txt)
+  - Full JSON (transcript.json)
+  - Metadata (metadata.json)
+  - Entities (entities.json)
+  - Relationships (relationships.json)
+  - Knowledge graph (knowledge_graph.json)
+  - GEXF for Gephi (knowledge_graph.gexf) - NOW PROPERLY FORMATTED!
+  - Facts (facts.txt)
+  - Chimera format (chimera_format.json)
+- Advanced extraction with SpaCy + GLiNER + REBEL + LLM validation
+- Cost optimization (92% reduction vs full video processing)
+
+### Known Issues
+- REBEL model sometimes produces malformed relationships (partially mitigated)
+- LLM validation occasionally fails with VideoTranscript subscript error (non-critical)
+- Some relationships still have awkward predicate/object ordering
+
+### Next Steps
+1. Improve REBEL output parsing to better handle various formats
+2. Add more sophisticated relationship validation
+3. Consider alternative relationship extraction methods
+4. Add graph visualization examples to documentation
+5. Create video tutorials for Gephi usage
+
+### Recent Changes Summary
+- v2.4.1: Fixed GEXF edge generation
+- v2.4.0: Removed SRT/VTT formats, added GEXF
+- v2.3.0: Added timeout support and extraction improvements
+- v2.2.2: Starting point with missing .cursor/rules
+
+### Technical Details
+- GEXF edges now properly connect source entities to target entities
+- Predicates stored as edge attributes (id="0")
+- Node colors mapped by entity type
+- Custom GEXF generator in `video_retriever._generate_gexf_content()`
+
+Remember: Always test with news content, not music videos! :-)
 
 ### Version 2.4.0 Released! 🎉
 
