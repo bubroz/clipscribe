@@ -165,4 +165,158 @@ Communities: 3 clusters (Companies, Technologies, Concepts)
 3. Create presentation-ready exports
 4. Share your visualizations!
 
-Remember: Knowledge graphs reveal hidden connections in video content that would be impossible to see in raw transcripts :-) 
+Remember: Knowledge graphs reveal hidden connections in video content that would be impossible to see in raw transcripts :-)
+
+## Built-in Beautiful Visualizations (NEW!)
+
+### 1. Interactive 2D Network (Pyvis)
+The prettiest option! Creates an interactive HTML file with:
+- Nodes colored by entity type
+- Sizes based on importance (connections)
+- Smooth animations and physics
+- Dark theme that looks professional
+
+```bash
+# Basic usage
+poetry run python scripts/visualize_knowledge_graph.py output/YOUR_VIDEO_ID/knowledge_graph.json
+
+# Custom output path
+poetry run python scripts/visualize_knowledge_graph.py output/YOUR_VIDEO_ID/knowledge_graph.json -o my_graph.html
+```
+
+**Features:**
+- Click and drag nodes to rearrange
+- Hover for entity details
+- Scroll to zoom
+- Double-click to focus on a node
+- Navigation controls included
+
+### 2. 3D Rotating Graph (Plotly)
+For that extra wow factor! Creates a 3D visualization that auto-rotates:
+
+```bash
+# Create 3D visualization
+poetry run python scripts/visualize_knowledge_graph_plotly.py output/YOUR_VIDEO_ID/knowledge_graph.json
+```
+
+**Features:**
+- Full 3D rotation and zoom
+- Auto-rotating camera (stops when you interact)
+- Export to high-res PNG
+- Smooth performance even with large graphs
+
+## Output Formats
+
+### GEXF Format (For Gephi)
+ClipScribe automatically generates `.gexf` files that work with Gephi:
+
+```
+output/
+└── 20240625_youtube_VIDEO_ID/
+    └── knowledge_graph.gexf    # Import this into Gephi
+```
+
+### Knowledge Graph JSON
+The raw data for custom visualizations:
+
+```json
+{
+  "nodes": [
+    {
+      "id": "Joe Biden",
+      "type": "PERSON",
+      "confidence": 0.95
+    }
+  ],
+  "edges": [
+    {
+      "source": "Joe Biden",
+      "target": "United States",
+      "predicate": "president of",
+      "confidence": 0.9
+    }
+  ]
+}
+```
+
+## Gephi Import (If You Must)
+
+Yes, Gephi is "kinda booty" as you said, but here's how to make it less ugly:
+
+1. **Import**: File → Open → Select `.gexf` file
+2. **Layout**: 
+   - Run "Force Atlas 2" with these settings:
+     - Scaling: 10.0
+     - Gravity: 1.0
+     - Run for ~30 seconds
+   - Then run "Noverlap" to prevent overlaps
+3. **Appearance**:
+   - Nodes → Color → Attribute → Type
+   - Nodes → Size → Attribute → Confidence
+   - Edges → Color → Grayscale
+4. **Preview**:
+   - Background: Black
+   - Show Labels: Yes
+   - Label Font: White
+   - Edge thickness: 0.5
+
+## Quick Comparison
+
+| Tool | Beauty | Ease of Use | Performance | Export Options |
+|------|--------|-------------|-------------|----------------|
+| Pyvis | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ | HTML |
+| Plotly 3D | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐ | HTML, PNG |
+| Gephi | ⭐⭐ | ⭐ | ⭐⭐⭐⭐⭐ | Many formats |
+
+## Creating Custom Visualizations
+
+You can use the `knowledge_graph.json` file with any visualization library:
+
+### Python Example with NetworkX and Matplotlib
+```python
+import json
+import networkx as nx
+import matplotlib.pyplot as plt
+
+# Load the graph
+with open('knowledge_graph.json', 'r') as f:
+    data = json.load(f)
+
+# Create NetworkX graph
+G = nx.DiGraph()
+for node in data['nodes']:
+    G.add_node(node['id'], **node)
+for edge in data['edges']:
+    G.add_edge(edge['source'], edge['target'], 
+               label=edge['predicate'])
+
+# Visualize
+pos = nx.spring_layout(G)
+nx.draw(G, pos, with_labels=True, node_color='lightblue')
+plt.show()
+```
+
+### JavaScript with D3.js
+The knowledge graph JSON is directly compatible with D3.js force-directed graphs.
+
+## Tips for Large Graphs
+
+For videos with 100+ entities:
+1. Use the Pyvis visualizer - it handles large graphs well
+2. Filter by confidence: Only show high-confidence relationships
+3. Focus on specific entity types (e.g., only PERSON and ORG)
+4. Use the 3D visualization for better spatial distribution
+
+## Troubleshooting
+
+**Graph looks too cluttered?**
+- Increase the minimum confidence threshold
+- Filter out common entities like dates
+- Use the 3D visualization for better spacing
+
+**Can't see all labels?**
+- Zoom in on specific areas
+- Adjust font sizes in the visualization scripts
+- Export to high-res image and view separately
+
+Remember: The built-in visualizers are much prettier than Gephi! :-) 
