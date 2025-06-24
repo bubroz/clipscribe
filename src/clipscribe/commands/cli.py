@@ -131,6 +131,11 @@ def cli(ctx: click.Context, debug: bool) -> None:
     help='Clean knowledge graph with AI to remove noise and fix errors (adds small cost).'
 )
 @click.option(
+    '--skip-cleaning',
+    is_flag=True,
+    help='Skip graph cleaning entirely to see raw extraction results.'
+)
+@click.option(
     '--visualize',
     is_flag=True,
     help='Generate interactive visualization after extraction.'
@@ -148,6 +153,7 @@ async def transcribe(
     use_cache: bool,
     enhance_transcript: bool,
     clean_graph: bool,
+    skip_cleaning: bool,
     visualize: bool
 ) -> None:
     """Transcribe a video from URL using Gemini 2.5 Flash.
@@ -182,7 +188,10 @@ async def transcribe(
                 retriever = VideoIntelligenceRetriever()
             
             # Set graph cleaning flag if requested
-            if clean_graph:
+            if skip_cleaning:
+                retriever.clean_graph = False
+                console.print("[yellow]Graph cleaning DISABLED - showing raw extraction results[/yellow]")
+            elif clean_graph:
                 retriever.clean_graph = True
                 console.print("[yellow]Graph cleaning enabled - will use AI to clean extracted knowledge graphs[/yellow]")
             

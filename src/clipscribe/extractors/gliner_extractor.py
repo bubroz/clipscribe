@@ -132,7 +132,8 @@ class GLiNERExtractor:
         entities = []
         
         # Chunk long text to avoid truncation
-        chunks = self._chunk_text(text, max_length=2000)  # Conservative chunk size
+        # GLiNER has a hard limit of 384 tokens, which is roughly 1000-1200 chars
+        chunks = self._chunk_text(text, max_length=800)  # Very conservative to avoid any truncation
         
         for chunk_idx, (chunk_text, chunk_offset) in enumerate(chunks):
             try:

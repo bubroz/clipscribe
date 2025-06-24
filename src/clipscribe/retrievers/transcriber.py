@@ -363,7 +363,10 @@ Format: Provide a comprehensive transcript that captures both audio and visual c
                         return json.loads(json_str)
                     except json.JSONDecodeError as e:
                         logger.warning(f"Failed to parse JSON after fixes: {e}")
-                        logger.debug(f"Problematic JSON: {json_str[:500]}...")
+                        # Log more details to help debug
+                        logger.debug(f"JSON length: {len(json_str)}")
+                        logger.debug(f"Error position: {e.pos if hasattr(e, 'pos') else 'unknown'}")
+                        logger.debug(f"JSON around error: {json_str[max(0, e.pos-100):e.pos+100] if hasattr(e, 'pos') else json_str[:200]}")
                         
                         # Last resort: try to extract valid portions
                         # For arrays, extract individual valid objects

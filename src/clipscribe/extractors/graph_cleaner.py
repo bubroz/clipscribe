@@ -106,13 +106,15 @@ Return a JSON object with these exact keys:
     "keep_important": ["entity1", "entity2"]  // Entities that are definitely important
 }}
 
-IMPORTANT: Be VERY conservative. When in doubt, KEEP the entity. We want a rich graph.
-Only remove truly meaningless text fragments. Keep ALL:
-- People, places, organizations, events
-- Concepts, ideas, topics
-- Products, technologies, methods
-- Roles, positions, titles
-- Any other meaningful words or phrases
+CRITICAL RULES:
+1. DEFAULT TO KEEPING EVERYTHING - Only remove if 100% certain it's garbage
+2. Keep ALL real words, even if they seem generic
+3. Keep ALL proper nouns, titles, concepts, ideas
+4. ONLY remove: typos, fragments like "um", "uh", or obvious extraction errors
+5. When you have ANY doubt, KEEP THE ENTITY
+
+We want a RICH, COMPREHENSIVE graph. It's better to have too much data than too little.
+Every entity might be important for understanding relationships.
 """
         
         try:
@@ -206,8 +208,12 @@ Return JSON:
     "notes": "Brief explanation"
 }}
 
-IMPORTANT: Default to KEEPING relationships. Only remove if completely nonsensical.
-Generic relationships still provide value in the knowledge graph.
+CRITICAL: We want to keep 90%+ of relationships. Only remove if:
+- The subject/predicate/object are completely gibberish (not real words)
+- The relationship is logically impossible (e.g., "Monday | capital of | Blue")
+
+Even generic relationships like "mentioned" or "related to" provide value!
+It's better to have too many relationships than too few.
 """
         
         try:
@@ -235,14 +241,14 @@ Generic relationships still provide value in the knowledge graph.
                     rel.predicate = fix["predicate"] 
                     rel.object = fix["object"]
                 
-                # Validate entities exist
-                if rel.subject in entity_names and rel.object in entity_names:
-                    cleaned_relationships.append(rel)
+                # Always add the relationship - don't filter by entity existence
+                # The entities might have been cleaned but the relationship is still valid
+                cleaned_relationships.append(rel)
                     
-            # Add remaining relationships if they're valid
+            # Add remaining relationships without entity filtering
+            # They passed REBEL extraction so they're likely valid
             for rel in relationships[50:]:
-                if rel.subject in entity_names and rel.object in entity_names:
-                    cleaned_relationships.append(rel)
+                cleaned_relationships.append(rel)
                     
             return cleaned_relationships
             
