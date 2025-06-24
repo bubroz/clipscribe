@@ -29,7 +29,7 @@ async def demonstrate_output_formats():
     result = await client.transcribe_video(
         video_url,
         save_outputs=True,
-        output_formats=['txt', 'srt', 'vtt', 'json', 'md']  # All formats
+        output_formats=['txt', 'json']  # Core formats for intelligence extraction
     )
     
     print("\n✅ Video processed! Demonstrating output formats:\n")
@@ -44,42 +44,14 @@ async def demonstrate_output_formats():
     print("\nExample:")
     print(result.transcript.full_text[:200] + "...\n")
     
-    # 2. SRT Subtitles (.srt)
-    print("2️⃣ SRT Subtitles (.srt)")
-    print("-" * 40)
-    print("Standard subtitle format with timestamps:")
-    print("  • Upload to YouTube")
-    print("  • Use in video editors")
-    print("  • Compatible with most players")
-    print("\nExample:")
-    print("1")
-    print("00:00:00,000 --> 00:00:03,000")
-    print("Hello, this is the first subtitle.")
-    print("\n2")
-    print("00:00:03,000 --> 00:00:06,000")
-    print("And this is the second subtitle.\n")
-    
-    # 3. WebVTT (.vtt)
-    print("3️⃣ WebVTT (.vtt)")
-    print("-" * 40)
-    print("Web-standard subtitle format:")
-    print("  • HTML5 video players")
-    print("  • Streaming platforms")
-    print("  • Better styling options")
-    print("\nExample:")
-    print("WEBVTT")
-    print("\n00:00:00.000 --> 00:00:03.000")
-    print("Hello, this is the first subtitle.")
-    print("\n00:00:03.000 --> 00:00:06.000")
-    print("And this is the second subtitle.\n")
-    
-    # 4. JSON (.json)
-    print("4️⃣ JSON (.json)")
+    # 2. JSON (.json)
+    print("2️⃣ JSON (.json)")
     print("-" * 40)
     print("Structured data format with full metadata:")
     print("  • API integration")
     print("  • Database import")
     print("  • Custom processing")
+    print("  • Knowledge graph generation")
     print("\nExample structure:")
     example_json = {
         "metadata": {
@@ -93,126 +65,137 @@ async def demonstrate_output_formats():
                 {"start": 0.0, "end": 3.0, "text": "..."}
             ]
         },
+        "entities": [
+            {"name": "Person Name", "type": "PERSON", "confidence": 0.95}
+        ],
+        "relationships": [
+            {"subject": "Person", "predicate": "works_at", "object": "Company"}
+        ],
         "processing": {
             "cost": result.processing_cost,
             "time": result.processing_time
         }
     }
-    print(json.dumps(example_json, indent=2)[:300] + "...\n")
+    print(json.dumps(example_json, indent=2)[:400] + "...\n")
     
-    # 5. Markdown (.md)
-    print("5️⃣ Markdown (.md)")
+    # 3. Knowledge Graph Files
+    print("3️⃣ Knowledge Graph Formats")
     print("-" * 40)
-    print("Formatted documentation:")
-    print("  • GitHub/GitLab")
-    print("  • Documentation sites")
-    print("  • Note-taking apps")
-    print("\nExample:")
-    print(f"# {result.metadata.title}")
-    print(f"\n**Duration:** {result.metadata.duration}s")
-    print(f"**URL:** [{result.metadata.url}]({result.metadata.url})")
-    print("\n## Transcript")
-    print("The transcript content goes here...")
+    print("Extracted intelligence in graph format:")
+    print("  • knowledge_graph.json - Raw graph data")
+    print("  • knowledge_graph.gexf - Gephi visualization")
+    print("  • relationships.json - Entity relationships")
+    print("  • entities.json - Extracted entities")
+    print("  • facts.txt - Key facts from video")
     
     return result
 
 
-async def custom_format_examples(result: VideoIntelligence):
-    """Show how to create custom output formats."""
+async def intelligence_format_examples(result: VideoIntelligence):
+    """Show intelligence extraction output formats."""
     
-    print("\n\n🎨 Custom Format Examples")
+    print("\n\n🧠 Intelligence Extraction Formats")
     print("=" * 50)
     
-    # 1. CSV format for spreadsheets
-    print("\n1️⃣ CSV Format (for Excel/Google Sheets):")
+    # 1. Entities format
+    print("\n1️⃣ Entities JSON Format:")
     print("-" * 40)
-    print("timestamp,text")
-    if result.transcript.segments:
-        for seg in result.transcript.segments[:3]:
-            print(f"{seg['start']},{seg['text']}")
+    entities_example = {
+        "video_url": result.metadata.url,
+        "entities": [
+            {"name": "John Smith", "type": "PERSON", "confidence": 0.95},
+            {"name": "Apple Inc.", "type": "ORGANIZATION", "confidence": 0.98},
+            {"name": "San Francisco", "type": "LOCATION", "confidence": 0.92}
+        ],
+        "topics": ["technology", "business", "innovation"]
+    }
+    print(json.dumps(entities_example, indent=2))
+    
+    # 2. Relationships format
+    print("\n2️⃣ Relationships JSON Format:")
+    print("-" * 40)
+    relationships_example = {
+        "relationships": [
+            {
+                "subject": "John Smith",
+                "predicate": "CEO_of",
+                "object": "Apple Inc.",
+                "confidence": 0.89
+            },
+            {
+                "subject": "Apple Inc.",
+                "predicate": "headquartered_in",
+                "object": "San Francisco",
+                "confidence": 0.95
+            }
+        ]
+    }
+    print(json.dumps(relationships_example, indent=2))
+    
+    # 3. Knowledge Graph GEXF
+    print("\n3️⃣ GEXF Format (for Gephi):")
+    print("-" * 40)
+    print("XML-based graph format that includes:")
+    print("  • Node colors by entity type")
+    print("  • Node sizes by confidence")
+    print("  • Edge weights from relationships")
+    print("  • Ready for Gephi import")
+    
+    # 4. Facts format
+    print("\n4️⃣ Facts Text Format:")
+    print("-" * 40)
+    print("# Key Facts Extracted from Video")
+    print("")
+    print("1. John Smith is the CEO of Apple Inc. (confidence: 0.89)")
+    print("2. Apple Inc. is headquartered in San Francisco (confidence: 0.95)")
+    print("3. The company announced a new product launch (confidence: 0.87)")
     print("...")
-    
-    # 2. HTML format
-    print("\n2️⃣ HTML Format (for web display):")
-    print("-" * 40)
-    html_output = f"""<!DOCTYPE html>
-<html>
-<head>
-    <title>{result.metadata.title}</title>
-</head>
-<body>
-    <h1>{result.metadata.title}</h1>
-    <video controls width="640">
-        <source src="{result.metadata.url}">
-        <track src="subtitles.vtt" kind="subtitles" srclang="en" label="English">
-    </video>
-    <div id="transcript">
-        <p>{result.transcript.full_text[:200]}...</p>
-    </div>
-</body>
-</html>"""
-    print(html_output)
-    
-    # 3. Chapter format
-    print("\n3️⃣ YouTube Chapter Format:")
-    print("-" * 40)
-    print("00:00 Introduction")
-    print("02:15 Main Topic")
-    print("05:30 Examples")
-    print("08:45 Conclusion")
-    
-    # 4. Summary format
-    print("\n4️⃣ Executive Summary Format:")
-    print("-" * 40)
-    print(f"**Video:** {result.metadata.title}")
-    print(f"**Length:** {result.metadata.duration // 60} minutes")
-    print(f"**Key Points:**")
-    print("• Main topic discussed...")
-    print("• Important findings...")
-    print("• Action items...")
 
 
-async def save_custom_formats(result: VideoIntelligence, output_dir: str = "custom_outputs"):
-    """Save transcripts in custom formats."""
+async def save_intelligence_outputs(result: VideoIntelligence, output_dir: str = "intelligence_output"):
+    """Save intelligence extraction outputs."""
     
     output_path = Path(output_dir)
     output_path.mkdir(exist_ok=True)
     
-    base_name = result.metadata.title.lower().replace(' ', '_')[:50]
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     
-    # Save as CSV
-    csv_path = output_path / f"{base_name}.csv"
-    with open(csv_path, 'w') as f:
-        f.write("start_time,end_time,text\n")
-        for seg in result.transcript.segments:
-            f.write(f"{seg['start']},{seg['end']},\"{seg['text']}\"\n")
+    # Create structured output directory
+    video_dir = output_path / f"{timestamp}_analysis"
+    video_dir.mkdir(exist_ok=True)
     
-    # Save as HTML
-    html_path = output_path / f"{base_name}.html"
-    with open(html_path, 'w') as f:
-        f.write(f"""<!DOCTYPE html>
-<html>
-<head>
-    <title>{result.metadata.title}</title>
-    <style>
-        body {{ font-family: Arial, sans-serif; margin: 40px; }}
-        .segment {{ margin: 10px 0; }}
-        .timestamp {{ color: #666; font-size: 0.9em; }}
-    </style>
-</head>
-<body>
-    <h1>{result.metadata.title}</h1>
-    <div id="transcript">
-""")
-        for seg in result.transcript.segments:
-            f.write(f'<div class="segment">')
-            f.write(f'<span class="timestamp">[{seg["start"]:.1f}s]</span> ')
-            f.write(f'{seg["text"]}</div>\n')
-        f.write("</div></body></html>")
+    # Save transcript
+    txt_path = video_dir / "transcript.txt"
+    with open(txt_path, 'w') as f:
+        f.write(result.transcript.full_text)
     
-    print(f"\n💾 Custom formats saved to {output_dir}/")
-    print(f"  • CSV: {csv_path.name}")
-    print(f"  • HTML: {html_path.name}")
+    # Save full JSON
+    json_path = video_dir / "transcript.json"
+    with open(json_path, 'w') as f:
+        json.dump(result.dict(), f, indent=2, default=str)
+    
+    # Save manifest
+    manifest = {
+        "version": "2.4",
+        "created_at": datetime.now().isoformat(),
+        "video": {
+            "title": result.metadata.title,
+            "url": result.metadata.url
+        },
+        "files": {
+            "transcript.txt": {"format": "plain_text"},
+            "transcript.json": {"format": "json"}
+        }
+    }
+    
+    manifest_path = video_dir / "manifest.json"
+    with open(manifest_path, 'w') as f:
+        json.dump(manifest, f, indent=2)
+    
+    print(f"\n💾 Intelligence outputs saved to {video_dir}/")
+    print(f"  • Transcript: transcript.txt")
+    print(f"  • Full data: transcript.json")
+    print(f"  • Manifest: manifest.json")
 
 
 async def main():
@@ -228,18 +211,17 @@ async def main():
     # Show all standard formats
     result = await demonstrate_output_formats()
     
-    # Show custom format examples
-    await custom_format_examples(result)
+    # Show intelligence extraction format examples
+    await intelligence_format_examples(result)
     
-    # Save custom formats
-    await save_custom_formats(result)
+    # Save outputs
+    await save_intelligence_outputs(result)
     
     print("\n\n🎯 Format Selection Guide:")
-    print("  • TXT: General purpose, human-readable")
-    print("  • SRT/VTT: Video subtitles and captions")
-    print("  • JSON: Programmatic access and APIs")
-    print("  • MD: Documentation and notes")
-    print("  • Custom: Tailored to your specific needs")
+    print("  • TXT: General purpose, human-readable transcript")
+    print("  • JSON: Full structured data with entities and relationships")
+    print("  • GEXF: Knowledge graph for Gephi visualization")
+    print("  • Intelligence files: Entities, relationships, facts for analysis")
 
 
 if __name__ == "__main__":

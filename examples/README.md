@@ -21,7 +21,7 @@ The simplest way to transcribe a video in just a few lines of code.
 ### 2. **structured_output_demo.py** - Machine-Readable Output
 Creates structured output with multiple formats for Chimera integration.
 - Machine-readable directory structure
-- Multiple output formats (TXT, JSON, SRT, VTT)
+- Multiple output formats (TXT, JSON, plus knowledge graphs)
 - Metadata and entity extraction
 - Manifest file with checksums
 - Chimera-compatible format
@@ -42,7 +42,7 @@ Strategies for minimizing transcription costs.
 
 ### 5. **output_formats.py** - Export Options
 All available output formats and custom export examples.
-- Standard formats: TXT, SRT, VTT, JSON, Markdown
+- Standard formats: TXT, JSON, plus knowledge graph formats
 - Custom formats: CSV, HTML
 - Format selection guide
 
@@ -77,7 +77,7 @@ poetry run python examples/test_improvements.py
 Shows:
 - SpaCy entity extraction (zero cost)
 - Hybrid extraction with selective LLM validation
-- Proper subtitle segmentation (vs one giant block)
+- Proper transcript segmentation for readability
 - Cost metrics and performance stats
 
 ### 10. **advanced_extraction_demo.py** - 🔥 NEW v2.2 Intelligence Extraction
@@ -172,7 +172,7 @@ if cost <= budget:
 result = await client.transcribe_video(
     url,
     save_outputs=True,
-    output_formats=['txt', 'srt', 'json']
+    output_formats=['txt', 'json']
 )
 ```
 

@@ -160,7 +160,7 @@ async def transcribe(
         clipscribe transcribe "https://youtube.com/watch?v=..."
         
         # With options
-        clipscribe transcribe "https://vimeo.com/..." -o transcripts -f srt --enhance
+        clipscribe transcribe "https://vimeo.com/..." -o transcripts -f json --enhance
     """
     settings = ctx.obj["settings"]
     

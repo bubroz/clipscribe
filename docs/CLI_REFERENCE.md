@@ -34,7 +34,7 @@ clipscribe transcribe [OPTIONS] URL
 | Option | Short | Default | Description |
 |--------|-------|---------|-------------|
 | `--output-dir` | `-o` | `output` | Directory to save transcripts |
-| `--format` | `-f` | `txt` | Output format: txt, json, srt, vtt, all |
+| `--format` | `-f` | `txt` | Output format: txt, json, md, all |
 | `--language` | `-l` | `en` | Language code (e.g., en, es, fr) |
 | `--include-timestamps` | | False | Include word-level timestamps |
 | `--enhance` | | False | Enable AI enhancement for better formatting |
@@ -45,8 +45,8 @@ clipscribe transcribe [OPTIONS] URL
 # Basic transcription
 clipscribe transcribe "https://youtube.com/watch?v=dQw4w9WgXcQ"
 
-# Save to specific directory with SRT format
-clipscribe transcribe "https://vimeo.com/123456" -o my-project/ -f srt
+# Save to specific directory with JSON format
+clipscribe transcribe "https://vimeo.com/123456" -o my-project/ -f json
 
 # Transcribe Spanish video with enhancement
 clipscribe transcribe "https://youtube.com/watch?v=..." -l es --enhance

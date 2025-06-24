@@ -132,7 +132,7 @@ class Settings(BaseSettings):
     @field_validator("default_output_formats")
     def validate_output_formats(cls, v: List[str]) -> List[str]:
         """Validate output formats."""
-        valid_formats = {"txt", "json", "srt", "vtt"}
+        valid_formats = {"txt", "json"}
         for format in v:
             if format not in valid_formats:
                 raise ValueError(f"Invalid output format: {format}")

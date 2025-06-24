@@ -394,7 +394,7 @@ class VideoIntelligenceRetriever:
         Args:
             video: VideoIntelligence object with transcript
             output_dir: Directory to save files (default: current directory)
-            formats: List of formats to save (txt, json, srt, vtt)
+            formats: List of formats to save (txt, json)
             
         Returns:
             Dictionary of format -> Path for saved files
@@ -423,90 +423,10 @@ class VideoIntelligenceRetriever:
                 with open(output_file, 'w', encoding='utf-8') as f:
                     json.dump(video.dict(), f, default=str, indent=2)
                 saved_files["json"] = output_file
-                
-            elif format_type == "srt":
-                # Save as SRT subtitles
-                output_file = create_output_filename(
-                    video.metadata.title, 
-                    "srt", 
-                    output_dir
-                )
-                srt_content = self._generate_srt(video)
-                with open(output_file, 'w', encoding='utf-8') as f:
-                    f.write(srt_content)
-                saved_files["srt"] = output_file
-                
-            elif format_type == "vtt":
-                # Save as WebVTT
-                output_file = create_output_filename(
-                    video.metadata.title, 
-                    "vtt", 
-                    output_dir
-                )
-                vtt_content = self._generate_vtt(video)
-                with open(output_file, 'w', encoding='utf-8') as f:
-                    f.write(vtt_content)
-                saved_files["vtt"] = output_file
         
         return saved_files
     
-    def _generate_srt(self, video: VideoIntelligence) -> str:
-        """Generate SRT subtitle format."""
-        # If we have segments, use them
-        if video.transcript.segments:
-            srt_lines = []
-            for i, segment in enumerate(video.transcript.segments, 1):
-                start_time = self._seconds_to_srt_time(segment.get('start', 0))
-                end_time = self._seconds_to_srt_time(segment.get('end', 0))
-                text = segment.get('text', '')
-                
-                srt_lines.append(f"{i}")
-                srt_lines.append(f"{start_time} --> {end_time}")
-                srt_lines.append(text)
-                srt_lines.append("")  # Empty line between entries
-            
-            return "\n".join(srt_lines)
-        else:
-            # Create a single subtitle for the whole transcript
-            duration = video.metadata.duration
-            return f"1\n00:00:00,000 --> {self._seconds_to_srt_time(duration)}\n{video.transcript.full_text}\n"
-    
-    def _generate_vtt(self, video: VideoIntelligence) -> str:
-        """Generate WebVTT format."""
-        vtt_lines = ["WEBVTT", ""]
-        
-        if video.transcript.segments:
-            for segment in video.transcript.segments:
-                start_time = self._seconds_to_vtt_time(segment.get('start', 0))
-                end_time = self._seconds_to_vtt_time(segment.get('end', 0))
-                text = segment.get('text', '')
-                
-                vtt_lines.append(f"{start_time} --> {end_time}")
-                vtt_lines.append(text)
-                vtt_lines.append("")  # Empty line between entries
-        else:
-            # Create a single subtitle for the whole transcript
-            duration = video.metadata.duration
-            vtt_lines.append(f"00:00:00.000 --> {self._seconds_to_vtt_time(duration)}")
-            vtt_lines.append(video.transcript.full_text)
-        
-        return "\n".join(vtt_lines)
-    
-    def _seconds_to_srt_time(self, seconds: float) -> str:
-        """Convert seconds to SRT time format (00:00:00,000)."""
-        hours = int(seconds // 3600)
-        minutes = int((seconds % 3600) // 60)
-        secs = int(seconds % 60)
-        millis = int((seconds % 1) * 1000)
-        return f"{hours:02d}:{minutes:02d}:{secs:02d},{millis:03d}"
-    
-    def _seconds_to_vtt_time(self, seconds: float) -> str:
-        """Convert seconds to WebVTT time format (00:00:00.000)."""
-        hours = int(seconds // 3600)
-        minutes = int((seconds % 3600) // 60)
-        secs = int(seconds % 60)
-        millis = int((seconds % 1) * 1000)
-        return f"{hours:02d}:{minutes:02d}:{secs:02d}.{millis:03d}"
+
     
     def _generate_segments(
         self, 
@@ -575,8 +495,6 @@ class VideoIntelligenceRetriever:
         - {date}_{platform}_{video_id}/
             - transcript.txt (plain text)
             - transcript.json (full data)
-            - transcript.srt (subtitles)
-            - transcript.vtt (web subtitles)
             - metadata.json (video metadata)
             - entities.json (extracted entities)
             - manifest.json (file index)

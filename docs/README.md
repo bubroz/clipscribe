@@ -10,7 +10,7 @@ Welcome to the ClipScribe documentation! This guide will help you get started wi
 - [**Supported Platforms**](PLATFORMS.md) - List of 1800+ supported video platforms
 
 ### Features & Guides
-- [**Output Formats**](OUTPUT_FORMATS.md) - Understanding transcript formats (TXT, SRT, VTT, JSON)
+- [**Output Formats**](OUTPUT_FORMATS.md) - Understanding transcript formats (TXT, JSON) and knowledge graphs (GEXF)
 - [**Visualizing Knowledge Graphs**](VISUALIZING_GRAPHS.md) - View extracted relationships with Gephi
 - [**Development Guide**](DEVELOPMENT.md) - Architecture, API reference, and contribution guidelines
 - [**Troubleshooting**](TROUBLESHOOTING.md) - Common issues and solutions
@@ -34,7 +34,7 @@ clipscribe transcribe "https://youtube.com/watch?v=..."
 - **AI-Powered**: Uses Google's Gemini 2.5 Flash for accurate transcription
 - **Cost-Effective**: 92% cheaper than traditional transcription services
 - **Fast**: Process 1 hour of video in just 2-5 minutes
-- **Multiple Formats**: TXT, JSON, SRT, VTT outputs
+- **Multiple Formats**: TXT, JSON, and GEXF graph outputs
 
 ## 🔗 Links
 

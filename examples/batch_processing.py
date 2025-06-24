@@ -53,7 +53,7 @@ async def process_single_video(client: UniversalVideoClient, url: str, output_di
             url,
             output_dir=str(output_dir),
             save_outputs=True,
-            output_formats=['txt', 'json', 'srt']
+            output_formats=['txt', 'json']
         )
         print(f"  ✅ Completed: {result.metadata.title}")
         return result
@@ -111,7 +111,7 @@ async def main():
         
         print(f"\n📁 Output saved to: batch_output/")
         print(f"  • Each video has its own subdirectory")
-        print(f"  • Formats: TXT, JSON, SRT")
+        print(f"  • Formats: TXT, JSON")
     
     # Show failed videos
     if failed:

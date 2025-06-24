@@ -246,4 +246,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Timeout errors when processing videos longer than 15 minutes
 - Missing dependency that prevented ClipScribe from running
-- Generic relationship predicates like "mentioned" replaced with specific actions 
+- Generic relationship predicates like "mentioned" replaced with specific actions
+
+## [2.4.2] - 2025-01-24
+
+### Removed
+- Completely removed SRT and VTT subtitle generation code
+- Removed subtitle format options from CLI and configuration
+- Removed all references to subtitle formats in documentation
+- Removed `_generate_srt`, `_generate_vtt`, `_seconds_to_srt_time`, and `_seconds_to_vtt_time` methods
+
+### Changed
+- Focused output formats on intelligence extraction (TXT, JSON) rather than video captioning
+- Updated all examples to use JSON instead of SRT for structured output
+
+### Fixed
+- Fixed missing `use_advanced_extraction` attribute error in VideoIntelligenceRetriever
+- Fixed `sys` module import shadowing issue in CLI 

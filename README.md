@@ -26,7 +26,7 @@ ClipScribe is a modern video transcription tool that leverages Google's Gemini 2
 - 🚀 **Gemini 2.5 Flash** - Native audio transcription with 92% cost reduction
 - ⚡ **10x Faster** - Process 1 hour of video in 2-5 minutes
 - 🎯 **High Accuracy** - Native audio understanding outperforms traditional ASR
-- 📊 **Multiple Formats** - Export as TXT, JSON, SRT, or VTT
+- 📊 **Multiple Formats** - Export as TXT or JSON, plus GEXF for knowledge graphs
 - 💰 **Cost Tracking** - Real-time cost calculation per video
 - 🔄 **Async Processing** - Handle multiple videos concurrently
 - 🎨 **Beautiful CLI** - Modern terminal interface with Rich
@@ -75,7 +75,7 @@ poetry run clipscribe transcribe "https://vimeo.com/123456789"
 # With options
 poetry run clipscribe transcribe "https://tiktok.com/@user/video/..." \
   --output-dir transcripts \
-  --format srt \
+  --format json \
   --enhance
 ```
 

@@ -51,8 +51,8 @@ poetry run clipscribe transcribe "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
 # Save to specific directory
 poetry run clipscribe transcribe "https://vimeo.com/123456789" -o transcripts/
 
-# Get subtitles in SRT format
-poetry run clipscribe transcribe "https://twitter.com/user/status/123456" -f srt
+# Get full analysis in JSON format
+poetry run clipscribe transcribe "https://twitter.com/user/status/123456" -f json
 
 # Enable AI enhancement for better formatting
 poetry run clipscribe transcribe "https://tiktok.com/@user/video/123" --enhance
@@ -64,8 +64,7 @@ ClipScribe supports multiple output formats:
 
 - **txt** - Plain text transcript (default)
 - **json** - Structured data with metadata
-- **srt** - Subtitle format with timestamps
-- **vtt** - WebVTT subtitle format
+
 - **all** - Generate all formats
 
 ```bash
@@ -97,7 +96,7 @@ poetry run clipscribe transcribe "https://www.youtube.com/watch?v=dQw4w9WgXcQ" \
 
 ```bash
 poetry run clipscribe transcribe "https://vimeo.com/12345" \
-  -f srt \
+  -f json \
   -o subtitles/
 ```
 
