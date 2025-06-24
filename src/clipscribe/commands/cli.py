@@ -75,7 +75,7 @@ def cli(ctx: click.Context, debug: bool) -> None:
 @click.option(
     "--format",
     "-f",
-    type=click.Choice(['txt', 'srt', 'vtt', 'json', 'md', 'all'], case_sensitive=False),
+    type=click.Choice(['txt', 'json', 'md', 'all'], case_sensitive=False),
     default='txt',
     help='Output format for transcription'
 )
@@ -150,7 +150,7 @@ async def transcribe(
             try:
                 retriever = VideoIntelligenceRetriever(
                     enhance_transcript=enhance,
-                    output_formats=[format] if format != "all" else ["txt", "json", "srt", "vtt"],
+                    output_formats=[format] if format != "all" else ["txt", "json"],
                     output_dir=output_dir,
                     mode=mode,
                     use_cache=use_cache

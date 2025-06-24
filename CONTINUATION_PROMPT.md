@@ -2,11 +2,11 @@
 
 This document captures the current state of ClipScribe for future AI assistants or developers who need to continue work on this project.
 
-## Current State (June 24, 2025 - 07:00 UTC)
+## Current State (June 24, 2025 - 08:15 UTC)
 
-### Version 2.3.0 Released! 🎉
+### Version 2.4.0 Released! 🎉
 
-Major improvements to extraction quality and long video support have been completed and tested.
+Major improvements to extraction quality, long video support, and graph visualization have been completed and tested.
 
 ### Recent Major Updates
 
@@ -18,13 +18,19 @@ Major improvements to extraction quality and long video support have been comple
    - Direct LLM relationship extraction added to complement REBEL
    - Created `convert_to_chimera.py` script for existing outputs
 
-2. **Timeout Support for Long Videos** ✅
+2. **Graph Visualization Support** ✅
+   - Removed SRT/VTT subtitle formats (unnecessary for intelligence extraction)
+   - Added automatic GEXF generation for Gephi visualization
+   - Knowledge graphs now directly importable into Gephi
+   - Node colors by entity type, sizes by confidence
+
+3. **Timeout Support for Long Videos** ✅
    - Added `GEMINI_REQUEST_TIMEOUT` setting (default: 14400 seconds / 4 hours)
    - Updated all Gemini API calls to use `RequestOptions(timeout=...)`
    - Successfully tested with 57-minute PBS News Hour episode
    - Fixed issue where videos >15 minutes would timeout with "504 Deadline Exceeded"
 
-3. **Comprehensive .cursor/rules System** ✅
+4. **Comprehensive .cursor/rules System** ✅
    - Created 15 rule files aligned with Chimera project standards
    - Established master rule (README.mdc) with task completion checklist
    - Added always-apply rules for cost optimization and file organization
@@ -34,7 +40,8 @@ Major improvements to extraction quality and long video support have been comple
 - **Video Processing**: Successfully processes videos up to 4 hours long
 - **Entity Extraction**: SpaCy + GLiNER + REBEL hybrid working smoothly
 - **Cost Efficiency**: 92% cost reduction vs GPT-4 while maintaining quality
-- **Output Quality**: All 11 output formats generating correctly
+- **Output Quality**: All 9 output formats generating correctly
+- **Graph Visualization**: GEXF files ready for direct Gephi import
 - **Platform Support**: 1800+ platforms via yt-dlp
 - **Async Performance**: Fast concurrent processing
 - **Caching**: Smart caching reduces redundant API calls
@@ -71,7 +78,7 @@ ClipScribe
 ├── Entity Extraction (SpaCy + GLiNER + REBEL)
 ├── Relationship Extraction (REBEL + LLM)
 ├── Knowledge Graph Generation
-└── Multiple Export Formats (11 formats including Chimera)
+└── Multiple Export Formats (9 formats including Chimera + GEXF)
 ```
 
 ### Environment Setup

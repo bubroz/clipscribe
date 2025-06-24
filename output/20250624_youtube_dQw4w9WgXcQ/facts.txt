@@ -2,7 +2,7 @@
 
 Video: Rick Astley - Never Gonna Give You Up (Official Video) (4K Remaster)
 URL: https://www.youtube.com/watch?v=dQw4w9WgXcQ
-Extracted: 2025-06-24T06:57:04.355869
+Extracted: 2025-06-24T08:12:59.670360
 
 1. has part has part has part (confidence: 0.90)
 2. The singer acknowledges a long-standing relationship. (confidence: 0.90)

@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='utf-8'?>
+<gexf xmlns:viz="http://www.gexf.net/1.2draft/viz" xmlns="http://www.gexf.net/1.2draft" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.gexf.net/1.2draft http://www.gexf.net/1.2draft/gexf.xsd" version="1.2">
+  <meta lastmodifieddate="2025-06-24">
+    <creator>NetworkX 3.5</creator>
+  </meta>
+  <graph defaultedgetype="directed" mode="static" name="ClipScribe Knowledge Graph">
+    <attributes mode="static" class="edge">
+      <attribute id="4" title="confidence" type="double" />
+      <attribute id="5" title="predicate" type="string" />
+    </attributes>
+    <attributes mode="static" class="node">
+      <attribute id="0" title="type" type="string" />
+      <attribute id="1" title="confidence" type="double" />
+      <attribute id="2" title="size" type="double" />
+      <attribute id="3" title="color" type="string" />
+    </attributes>
+    <nodes>
+      <node id="You" label="You">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="person" />
+          <attvalue for="1" value="0.6232078075408936" />
+          <attvalue for="2" value="38.69623422622681" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="I" label="I">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="person" />
+          <attvalue for="1" value="0.6146770119667053" />
+          <attvalue for="2" value="38.44031035900116" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="We" label="We">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="person" />
+          <attvalue for="1" value="0.5251541137695312" />
+          <attvalue for="2" value="35.75462341308594" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="Your heart" label="Your heart">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="symptom" />
+          <attvalue for="1" value="0.6320360898971558" />
+          <attvalue for="2" value="38.96108269691467" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="aching" label="aching">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="symptom" />
+          <attvalue for="1" value="0.51409912109375" />
+          <attvalue for="2" value="35.4229736328125" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="game" label="game">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="game" />
+          <attvalue for="1" value="0.895375669002533" />
+          <attvalue for="2" value="46.86127007007599" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="has part" label="has part">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="neoliberal" label="neoliberal">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+    </nodes>
+    <edges>
+      <edge source="has part" target="has part" id="0" label="has part" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="has part" />
+        </attvalues>
+      </edge>
+      <edge source="neoliberal" target="neoliberal" id="1" label="has part" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="has part" />
+        </attvalues>
+      </edge>
+    </edges>
+  </graph>
+</gexf>

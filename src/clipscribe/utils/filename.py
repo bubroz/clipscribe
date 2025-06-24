@@ -222,8 +222,6 @@ def create_output_structure(
     - {base_dir}/{date}_{platform}_{video_id}/
         - transcript.txt
         - transcript.json
-        - transcript.srt
-        - transcript.vtt
         - metadata.json
         - entities.json
         - manifest.json
@@ -250,8 +248,6 @@ def create_output_structure(
     paths = {
         "transcript_txt": output_dir / "transcript.txt",
         "transcript_json": output_dir / "transcript.json",
-        "transcript_srt": output_dir / "transcript.srt",
-        "transcript_vtt": output_dir / "transcript.vtt",
         "metadata": output_dir / "metadata.json",
         "entities": output_dir / "entities.json",
         "manifest": output_dir / "manifest.json",

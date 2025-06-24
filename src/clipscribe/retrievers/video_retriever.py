@@ -7,6 +7,7 @@ from datetime import datetime
 import os
 import json
 from pathlib import Path
+import networkx as nx
 
 from ..models import VideoIntelligence, VideoTranscript, KeyPoint, Entity, Topic, Relationship
 from .universal_video_client import UniversalVideoClient
@@ -642,17 +643,7 @@ class VideoIntelligenceRetriever:
         with open(paths["transcript_json"], 'w', encoding='utf-8') as f:
             json.dump(full_data, f, default=str, indent=2)
         
-        # 3. SRT subtitles
-        srt_content = self._generate_srt(video)
-        with open(paths["transcript_srt"], 'w', encoding='utf-8') as f:
-            f.write(srt_content)
-        
-        # 4. WebVTT subtitles
-        vtt_content = self._generate_vtt(video)
-        with open(paths["transcript_vtt"], 'w', encoding='utf-8') as f:
-            f.write(vtt_content)
-        
-        # 5. Metadata file (lighter than full JSON)
+        # 3. Metadata file (lighter than full JSON)
         with open(paths["metadata"], 'w', encoding='utf-8') as f:
             json.dump({
                 "video": metadata,
@@ -723,6 +714,16 @@ class VideoIntelligenceRetriever:
                 f"Saved knowledge graph with {video.knowledge_graph.get('node_count', 0)} nodes "
                 f"and {video.knowledge_graph.get('edge_count', 0)} edges :-)"
             )
+            
+            # Generate GEXF file for Gephi
+            gexf_path = paths["directory"] / "knowledge_graph.gexf"
+            try:
+                G = self._convert_to_gexf(video.knowledge_graph)
+                nx.write_gexf(G, str(gexf_path))
+                paths["gexf"] = gexf_path
+                logger.info(f"Saved GEXF file for Gephi visualization :-)")
+            except Exception as e:
+                logger.warning(f"Failed to generate GEXF: {e}")
         
         # 9. Facts file (NEW in v2.2)
         if hasattr(video, 'key_moments') and video.key_moments:
@@ -759,16 +760,6 @@ class VideoIntelligenceRetriever:
                     "format": "json",
                     "size": os.path.getsize(paths["transcript_json"])
                 },
-                "transcript_srt": {
-                    "path": "transcript.srt",
-                    "format": "srt_subtitles",
-                    "size": os.path.getsize(paths["transcript_srt"])
-                },
-                "transcript_vtt": {
-                    "path": "transcript.vtt",
-                    "format": "webvtt_subtitles",
-                    "size": os.path.getsize(paths["transcript_vtt"])
-                },
                 "metadata": {
                     "path": "metadata.json",
                     "format": "json",
@@ -798,6 +789,14 @@ class VideoIntelligenceRetriever:
                 "size": os.path.getsize(paths["knowledge_graph"]),
                 "nodes": video.knowledge_graph.get('node_count', 0) if hasattr(video, 'knowledge_graph') else 0,
                 "edges": video.knowledge_graph.get('edge_count', 0) if hasattr(video, 'knowledge_graph') else 0
+            }
+        
+        if "gexf" in paths:
+            manifest["files"]["knowledge_graph_gexf"] = {
+                "path": "knowledge_graph.gexf",
+                "format": "gexf",
+                "size": os.path.getsize(paths["gexf"]),
+                "description": "Gephi-compatible graph file"
             }
         
         if "facts" in paths:
@@ -868,4 +867,69 @@ class VideoIntelligenceRetriever:
                 "sentiment": video.sentiment,
                 "processing_cost": video.processing_cost
             }
-        } 
+        }
+    
+    def _convert_to_gexf(self, knowledge_graph: Dict[str, Any]) -> nx.DiGraph:
+        """Convert ClipScribe knowledge graph to NetworkX format for GEXF export."""
+        G = nx.DiGraph()
+        
+        # Color map for entity types
+        color_map = {
+            'PERSON': '#FF6B6B',        # Red
+            'ORGANIZATION': '#4ECDC4',   # Teal
+            'LOCATION': '#45B7D1',       # Blue
+            'EVENT': '#F7DC6F',          # Yellow
+            'CONCEPT': '#BB8FCE',        # Purple
+            'TECHNOLOGY': '#52BE80',     # Green
+            'DATE': '#F39C12',           # Orange
+            'MONEY': '#85C1E2',          # Light Blue
+            'unknown': '#95A5A6'         # Gray
+        }
+        
+        # Add nodes with attributes
+        for node in knowledge_graph.get('nodes', []):
+            node_id = node['id']
+            node_type = node.get('type', 'unknown')
+            confidence = node.get('confidence', 0.9)
+            
+            # Get color for node type
+            hex_color = color_map.get(node_type, color_map['unknown'])
+            
+            G.add_node(
+                node_id,
+                label=node_id,
+                type=node_type,
+                confidence=confidence,
+                size=20 + (confidence * 30),  # Size based on confidence
+                color=hex_color,
+                viz={'color': {
+                    'r': int(hex_color[1:3], 16),
+                    'g': int(hex_color[3:5], 16),
+                    'b': int(hex_color[5:7], 16),
+                    'a': 1.0
+                }}
+            )
+        
+        # Add edges with attributes
+        for edge in knowledge_graph.get('edges', []):
+            source = edge['source']
+            target = edge['target']
+            predicate = edge.get('predicate', 'related_to')
+            confidence = edge.get('confidence', 0.9)
+            
+            G.add_edge(
+                source,
+                target,
+                label=predicate,
+                weight=confidence,
+                confidence=confidence,
+                predicate=predicate
+            )
+        
+        # Add graph metadata
+        G.graph['name'] = 'ClipScribe Knowledge Graph'
+        G.graph['description'] = f"Extracted on {datetime.now().isoformat()}"
+        G.graph['node_count'] = knowledge_graph.get('node_count', 0)
+        G.graph['edge_count'] = knowledge_graph.get('edge_count', 0)
+        
+        return G 
