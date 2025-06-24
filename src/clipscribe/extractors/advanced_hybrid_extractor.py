@@ -25,6 +25,7 @@ from .spacy_extractor import SpacyEntityExtractor
 from .rebel_extractor import REBELExtractor
 from .gliner_extractor import GLiNERExtractor
 from ..config.settings import Settings
+from ..retrievers.gemini_pool import GeminiPool
 
 try:
     import torch
@@ -56,7 +57,8 @@ class AdvancedHybridExtractor:
         use_llm: bool = True,
         confidence_threshold: float = 0.7,
         llm_model: str = "gemini-1.5-flash",
-        device: str = "auto"
+        device: str = "auto",
+        api_key: Optional[str] = None
     ):
         """
         Initialize advanced hybrid extractor.
@@ -68,6 +70,7 @@ class AdvancedHybridExtractor:
             confidence_threshold: Min confidence before LLM validation
             llm_model: Gemini model for validation
             device: Device for ML models ("auto", "cpu", "cuda", "mps")
+            api_key: Google API key for LLM validation
         """
         self.use_gliner = use_gliner
         self.use_rebel = use_rebel
@@ -93,6 +96,15 @@ class AdvancedHybridExtractor:
         else:
             self.rebel_extractor = None
             
+        # Initialize GeminiPool for LLM validation
+        if api_key:
+            genai.configure(api_key=api_key)
+            self.pool = GeminiPool(api_key=api_key, pool_size=2)
+            self.llm_enabled = True
+        else:
+            self.llm_enabled = False
+            logger.warning("No API key provided, LLM validation disabled")
+        
         logger.info(f"Advanced hybrid extractor initialized with GLiNER={use_gliner}, REBEL={use_rebel}, LLM={use_llm} :-)")
         
     async def extract_all(
@@ -184,14 +196,13 @@ class AdvancedHybridExtractor:
             return video_intel
             
         try:
-            # Configure Gemini
-            genai.configure(api_key=None)  # Uses GOOGLE_API_KEY env var
-            model = genai.GenerativeModel(self.llm_model)
+            # Get a validation model from the pool
+            validation_model = self.pool.get_model("validation")
             
             # Validate entities
             if entities_to_validate:
                 prompt = self._build_entity_validation_prompt(entities_to_validate, video_intel.transcript.full_text)
-                response = await model.generate_content_async(
+                response = await validation_model.generate_content_async(
                     prompt,
                     request_options=RequestOptions(timeout=self.request_timeout)
                 )
@@ -206,7 +217,7 @@ class AdvancedHybridExtractor:
             # Validate relationships  
             if relationships_to_validate:
                 prompt = self._build_relationship_validation_prompt(relationships_to_validate, video_intel.transcript.full_text)
-                response = await model.generate_content_async(
+                response = await validation_model.generate_content_async(
                     prompt,
                     request_options=RequestOptions(timeout=self.request_timeout)
                 )
@@ -412,3 +423,16 @@ Include ONLY meaningful, specific relationships that convey real information.
                 validated.append(rel)
                 
         return validated 
+
+    def get_total_cost(self) -> float:
+        """Get total cost of LLM operations."""
+        # Include costs from all components
+        total = 0.0
+        
+        if self.use_gliner and self.gliner_extractor:
+            total += self.gliner_extractor.get_total_cost()
+            
+        if self.use_rebel and self.rebel_extractor:
+            total += self.rebel_extractor.get_total_cost()
+            
+        return total 

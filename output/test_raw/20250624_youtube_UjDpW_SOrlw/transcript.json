@@ -1,0 +1,3373 @@
+{
+  "metadata": {
+    "title": "Code a Discord Chat Bot That Talks Like Your Favorite Character - Tutorial",
+    "url": "https://www.youtube.com/watch?v=UjDpW_SOrlw",
+    "channel": "freeCodeCamp.org",
+    "duration": 3472,
+    "published_at": "2021-08-26T06:30:35",
+    "view_count": 210967,
+    "description": "Use AI to create a Discord chat bot that talks like your favorite characters. Learn how to code it in Python and JavaScript.\n\n\u270f\ufe0f This course was developed by Lynn Zheng. Check out Lynn's YouTube channel, Lynn's DevLab: https://www.youtube.com/channel/UCZ2MeG5jTIqgzEMiByrIzsw\n\n\ud83d\udcbb Lynn's GitHub resource for this video: https://github.com/RuolinZheng08/twewy-discord-chatbot\n\n\ud83d\udd17 Lynn's personal website: https://ruolinzheng08.github.io/\n\nfreeCodeCamp tutorials referenced in this video:\n\ud83d\udd17 https://www.freecodecamp.org/news/create-a-discord-bot-with-python/\n\ud83d\udd17 https://www.freecodecamp.org/news/create-a-discord-bot-with-javascript-nodejs/\n\n\u2b50\ufe0f Course Contents \u2b50\ufe0f\n\u2328\ufe0f (00:00) Intro\n\u2328\ufe0f (01:38) Gather data\n\u2328\ufe0f (12:27) Train the model\n\u2328\ufe0f (24:27) Deploy the model\n\u2328\ufe0f (29:42) Build the Discord bot in Python\n\u2328\ufe0f (41:17) Build the Discord bot in JavaScript\n\u2328\ufe0f (51:35) Keep the bots online\n\n\ud83c\udf89 Thanks to our Champion and Sponsor supporters:\n\ud83d\udc7e Wong Voon jinq\n\ud83d\udc7e hexploitation\n\ud83d\udc7e Katia Moran\n\ud83d\udc7e BlckPhantom\n\ud83d\udc7e Nick Raker\n\ud83d\udc7e Otis Morgan\n\ud83d\udc7e DeezMaster\n\ud83d\udc7e AppWrite\n\n--\n\nLearn to code for free and get a developer job: https://www.freecodecamp.org\n\nRead hundreds of articles on programming: https://freecodecamp.org/news \n\n\u2764\ufe0f Support for this channel comes from our friends at Scrimba \u2013 the coding platform that's reinvented interactive learning: https://scrimba.com/freecodecamp"
+  },
+  "transcript": {
+    "full_text": "Wanna make a Discord bot that talks like characters from Rick and Morty or Harry Potter? Maybe you wanna make it talk like another favorite character. In this course, Lynn will show you how to create a Discord bot that uses artificial intelligence to talk like a character of your choice.\n\nHi there. I'm Lynn. I'm a software engineer, hobbyist game developer, and recent graduate from the University of Chicago.\n\nIn this tutorial, we're going to build a Discord AI chatbot that can speak like your favorite character.\n\nBefore we start, if you have seen that video by any chance, know that this video is something different and more comprehensive. So keep watching till the end. The original tutorial and my first Discord bot started as a joke between me and my friends when we were playing video games, and it really surprised me how popular it became, and a lot of people wanted to build their own bot based on that tutorial.\n\nTherefore, I decided to update that tutorial to include more characters, as well as to show you how to find data for your favorite character.\n\nOther topics that we will cover here include, but are not limited to, how to train the model, how to deploy the model, common errors you might see during this model training and deployment pipeline, and how to solve them.\n\nMoreover, we will cover how to build the bot in Python and how to build it in JavaScript.\n\nLastly, we will cover how to properly deploy the bot to a Discord server and limit it to certain channels, and how to keep the bot running indefinitely. I hope you're excited and let's jump into the tutorial.\n\nFirst, we are going to find data for our character.\n\nMy favorite sources are Kaggle, Transcript Wiki, and just random fandom websites that came out from the Google search. And my research process goes like this. I first search on Kaggle to see if there are pre-made dialogue datasets.\n\nFor example, if we search for Rick and Morty,\n\nwe get this nicely formatted dataset that includes the name of the character and the line they're speaking.\n\nIf we search for Harry Potter,\n\nhere is another dataset that includes the character and the sentence they're speaking. Since we're building a chatbot, we need only these two columns in our dataset, the character name and the line they're speaking. So these dialogue datasets on Kaggle are perfect for our requirement.\n\nAll right. If we succeeded in finding our data on Kaggle, we can move on to the model training step. But what if we cannot find a dataset for our character on Kaggle? For example, if I want to find a dataset for Peppa Pig,\n\nit looks like there is no dataset for the character. In this case, we may need to find the raw transcript of the media, be it a video game or cartoon or a show. And I've found that Transcript Wiki has some great resources.\n\nSo here we have a list of movies, shows, video games, musicals, commercials.\n\nFor example, I was able to find a transcript for Peppa Pig and also movies like Batman on Transcript Wiki.\n\nThe transcript looks like this. So we have the character name and their actions or the lines they're speaking. We will see shortly how to turn a raw transcript like this into a dataset like those we saw on Kaggle.\n\nBesides Transcript Wiki, you may also just Google the name of your media with the keyword transcript. For example, my first bot was based on the game, The Word Ends With You, and it has no results either on Kaggle or Transcript Wiki. So what I did was to just Google the name of the game and game transcript.\n\nAnd it just happened that this fandom website has the full game transcript. So be sure to utilize your Google search skills to find data for your character.\n\nIf, rather than fictional character, you are more interested in real-life character, you may search for interview scripts as your data source. If you want to create a chatbot that speaks like yourself or your friends, you can treat text messages between you and your friends as dialogues and handcraft your dataset.\n\nThere are tons of ways to get data for your character, so be creative. And now we will look at how to turn raw transcript into dataset.\n\nNow, suppose we have found our raw transcript. Let's see how we can turn it into a two-column character line dataset. Suppose we take this Peppa Pig transcripts and copy them into a text file.\n\nNow we go to Google Colab and upload our data file.\n\nThen we create a Google Colab notebook,\n\nand use this to parse our script. So I'm going to name this parse script.ipynb. And we are going to from Google Colab import drive, and then call drive.mount content drive.\n\nThis will allow us to read the data from our Google Drive.\n\nAll right. Now that our drive has been mounted, let's import OS and then OS change directory into content drive my drive.\n\nAnd now we see if there is anything in it. Yeah, we have our PeppaPig.txt. So here we are going to import regular expression to parse our transcript, put the parsed result into a pandas data frame, and export it as a CSV file, just like those we saw on Kaggle.\n\nThis is going to be our regular expression pattern.\n\nYou don't have to be a pro in regular expression to understand this part. If we take the pattern to this site, and our test string is Peppa Pig,\n\nyou will see that we have two match capture groups, the first being the character's name, the second being the line spoken. And also for the second line, Mama Pig, we have the character name and the line being spoken.\n\nGreat. So that's our regular expression.\n\nNow let's define a dictionary that will store our data. So we know that we need the column name and the column line in our result data frame.\n\nAnd now we open and read the file.\n\nFor each line, we match it with our regular expression pattern.\n\nIf there is a match, we extract name and line from this regular expression match, and then append it to our dictionary here.\n\nAnd then we convert this dictionary into a data frame.\n\nNow we can inspect the data frame. Cool. So we have the name is Peppa Pig, saying that I'm Peppa Pig. And then George makes a sound, and Mama Pig makes a sound. Great.\n\nWe can also count the number of lines that belong to our character. So we do sum, df name is equal to Peppa Pig, and we saw that Peppa Pig has 38 lines in our entire data frame.\n\nSo the length of our data frame is over 100 and Peppa Pig has one third of the lines. Great. The last step will be to export the data frame. So df.to_csv, the name will be Peppa Pig CSV, and and we will drop the index. Cool. Now we should have a PeppaPig.csv in the over drive.\n\nAnd here it is. Name and line. This is how we parse those raw transcript into a file that could be used in our model training. So next, let's proceed onto the exciting step, model training.\n\nNow we are going to train the model. Go to my GitHub repository linked to in the description below and download the content.\n\nWe're going to use this model train upload workflow.ipynb, which looks like this. All right. Now our file has been downloaded. We unzip the content.\n\nAnd in here we have a model train upload workflow.ipynb.\n\nWe upload this notebook file to Google Drive and open it in Google Colab.\n\nWe're going to train a GPT model, which is short for generative pre-trained transformer. In the runtime, change runtime type. Make sure to select GPU because this will accelerate our model training.\n\nSo now here we mount the driver.\n\nWe install the transformers module that we will be using,\n\nand we change directory into my drive.\n\nHere are all the modules that we are importing.\n\nIf we're using the dataset from Kaggle, we need to obtain our API key from Kaggle.\n\nSo go to our Kaggle profile, go to account, scroll down to the API key section, create a new API token and download this file as kaggle.json.\n\nWe will go back to Google Drive and upload kaggle.json.\n\nNow we can download our dataset from Kaggle. We're going to use the Harry Potter dataset as an example. So grab this username and the dataset name, and our file is Harry Potter 1.csv.\n\nNote that because there are white spaces in our file name, we got special characters in the file name. So let's inspect the content of our data file.\n\nWell, CSV files are usually separated by commas, has the name CSV. However, this one looks like it's separated by semicolons. So we need to take care of the semicolons when we are reading in the data into a pandas data frame. So separation is semicolon instead of a comma. Cool. So let's sample our data to see what's inside. All right. So we have character and sentence.\n\nNotice that these two column names aren't exactly what we need. We want the two columns of our data frame to be named as name and line, as used down here in this cell. So we need to change the name of our columns.\n\nAll right. Let's resample our data. Looks like we have successfully changed the name of our columns.\n\nNow let's see how big our data is. So it only has a thousand or so lines, and let's see how many lines our character has.\n\nOur character has 155 lines. So here we change our character name to Harry,\n\nand we now run this cell to create a context data frame that includes the current line our character is speaking and several lines directly preceding the line.\n\nA context data frame is useful here because we are creating a conversational chatbot and we want to generate a response based on the conversation context. So let's sample our context data frame. So in the context of clearly something something, our character responds with seems a pity not to ask her.\n\nGreat. Now we have our dataset. We split the dataset into a training set and a test set. This is because we don't want to overfit the model. In the case of overfitting, the model will just memorize lines from the dataset and talk back to us using the exact lines. We don't want that. We want the conversation to be more organic.\n\nSo we're only training the model on the training set and evaluating the model on the test set.\n\nSo we continue running these cells to build datasets, caching checkpoints, and down here we build the model. We will build our model by fine-tuning Microsoft's pre-trained GPT small. Small here refers to the number of parameters in the model. There are also a medium and a large model. Generally, the larger the model, the longer it takes to train, but the smarter the model can get.\n\nI would recommend training a medium model as it's pretty smart and not too hard to train. My production chatbot that is currently running on a server with a thousand plus users is also a medium model. For this tutorial, for the sake of time, I'm training just a small model.\n\nYou can see here, it's downloading the model, and this may take some time because it's essentially 300 megabytes.\n\nHere are some hyperparameters that you may find useful. For example, num train epochs is the number of training epochs. This is defined to be four here, and this is the number of times that the model will cycle through the training set. As long as the model is not overfitting, increasing the number of training epochs usually results in smarter models because the model has more time to cycle through the dataset and pick up the nitty-gritty details.\n\nThere is another hyperparameter called the batch size. This is the number of training examples that the model will see in a batch before it updates its gradient. I wouldn't recommend changing this unless you know what you're doing, since other hyperparameters like learning rate and temperature might be sensitive to this change in batch size. However, if you're training a larger model on a larger dataset and are running into memory errors, to make the error go away, it might help to decrease the batch size.\n\nThe remaining cells have been configured to take in this context data frame we created, train the model, and save it to a folder called output small. Now let's run this main function.\n\nTraining will take some time. I trained my medium model for 12 epochs, and it took around two hours. So do sit back and grab a snack while the model is training.\n\nYou can see the progress in the progress bars above.\n\nAll right. Here we get back a perplexing answer. This usually refers to how confused the model is. If a model has a large perplexity, it means that the model is pretty confused as to which words to choose to respond to a given situation, and the model might not be very smart. In our case, our dataset is pretty small and only has 150 plus lines. So it makes sense that the perplexity is high. To decrease the perplexity, we might need to train for more epochs. Cool. But now that the training is complete, we can load and chat with the model here.\n\nAll right. Let's change the name of the bot.\n\nHello, fellow Red Writer. So let's ask how's\n\ncreated?\n\nThere is no such thing as a bad Red Writer.\n\nGreat. It looks like our chatbot is capable of making and maintaining a conversation.\n\nNow we can push the model to Hugging Face and start building our Discord chatbot.\n\nAll right. Now let's change directory just into the content folder because we'll be doing our push there. And we do pip install Hugging Face command line client, and then we log in using our credentials.\n\nAll right. After logging, we're assigned this token. We need to grab this token for the cell that we need to do afterwards. So we can create a repository to store our model from the command line. Mine is going to be called dialogue GPT small Harry Potter.\n\nAnd our empty model repository is right here. There is nothing except for the Git attributes file, but we will be adding the model files soon.\n\nNow we install Git LFS, which stands for Git large file storage. This will allows us to push and pull our models. And we replace this token with the token we just copied from above.\n\nSo here's my username and my token.\n\nAnd we call that our training result is stored in this output small directory.\n\nAnd now we change our directory into our dialogue GPT small directory because we need to do get, add, and commit from there. We install the Git LFS, and inspect the content of our current directory, which should be dialogue GPT small Harry Potter. And also just print out the working directory we are in to make sure that we are inside content. Cool. Now we check the file status on Git. So these files that we need to add to Git. So we do a Git add. This will take some time because the PyTorch model.bin is pretty large. And we configure the global username and user email. These are just my Hugging Face credentials.\n\nAnd we commit with message initial commit. And finally we push the model. It's about 400 megabytes because the PyTorch model is itself about 400 megabytes.\n\nAll right. Looks like the push is complete.\n\nNow we see our PyTorch model here. However, there's one more thing that we need to do before we can converse with the model on Hugging Face. That is, you see here, it's tagged as text generation. However, we know that we are training a chatbot model, and we want our model to be conversational. For that purpose, we need to add a model card.\n\nSo we create a model card here, and we're putting in our desired model tags. So our tags is conversational.\n\nAnd we commit our model card. And now our model is correctly tagged as conversational. If we go to the main model page, we can start chatting with the model here.\n\nAll right. Now that we have pushed our model to Hugging Face, we're ready to use it in our Discord chatbot.\n\nNow we have our model. Let's build the Discord bot. Here, on Discord, I have my server, Lynn's Dev Lab. I have two channels, one for the Python bot and one for the JavaScript bot. The reason why we have separate channel for the bots is because we don't want the bots to be talking to each other.\n\nSo after we build the bot, we will learn how to set their permissions correctly so that they don't go outside of their dedicated channel.\n\nSo we go to Discord's developer's page, create an application. We need one application per bot. So our name will be ChattyBot Python.\n\nSo here we create a bot,\n\nand I'm going to name this Harry Potter Bot Python, and upload an icon.\n\nWe will be using this API token here when we create our bot in Python. We're going to host our bot on Repl.it. So sign up for Repl.it and create a new Python Repl here. Going to name this ChattyBot Python.\n\nAnd in here, we will need to store our API tokens for Hugging Face and Discord as environmental variables. So here is a tab for the secrets for the environment variables. So the first one will be Hugging Face token.\n\nAnd for the value, we will go to our Hugging Face profile, edit profile, API tokens, copy the API token, come back here, and fill in the value. Next we'll create a Discord token.\n\nAnd for this value, we go to this Discord developer's portal and copy the token. We add the token here.\n\nAnd our environment variables are all set.\n\nNext, I have the Python file in my GitHub repository called discord_bot.py.\n\nSo we grab the code from here, and I will explain the code line by line. Starting from line one, we first import the OS module that will help us reading our environment variables.\n\nNext, we import modules that are useful for querying the Hugging Face model. Finally, we import the Discord module. And here I have my API URL pointing to my username.\n\nAnd we define a bot as follows. In the on_ready function,\n\nit takes in a model name, which for me will be dialogue GPT small Harry Potter.\n\nThen we store this API endpoint by concatenating this API URL, which is my profile link, with the model name. Then we retrieve the secret API token from the system environment by looking up OS.environment Hugging Face token.\n\nNext, we format the header in our request to Hugging Face. For the authorization part, we put in bearer and the Hugging Face token. Next, we define a query method that takes in the payload. We dump the payload as a JSON string, and use the request module to make an HTTP post request to the API endpoint, using our defined request headers, which contains our Hugging Face API key, and passing in the data.\n\nOnce the request finishes, it should give us a response object, and we decode it from UTF-8, and load the result as a string and return the string. Next, we define an asynchronous function named on_ready.\n\nThe next two function definitions are based on the Discord API. Both are asynchronous function. The first one is on_ready. This function will be called when the bot is logging in. So when the bot is logging in, we will print out logged in as, print out the bot's name and the bot's ID, so that we know that the bot is functioning.\n\nNext, because our bot is a chatbot, it needs to respond to messages. So on_message is a method that will be called each time the bot sees a message in the channel. So given the message, if the message is coming from the bot itself, the bot ignores the message and does not reply to it. Otherwise, it will form a query payload with the content of the message.\n\nAnd to make the bot more user-friendly, while the bot is waiting for the HTTP response from the model, we set its status as typing so that the user will know that the bot is generating its response. So this is an asynchronous call with message.channel.typing. We call self.query using the payload and get back the response.\n\nIf there is a valid generated response, there will be a generated text field in this response, and we'll be able to get that out as the bot's response. Otherwise, there might be an error in the response. We just log out the error message so that we can debug the bot later on.\n\nFinally, we use another asynchronous method to send the bot's response to the channel using message.channel.send. And that's it about our bot definition. In the main function, we just create a bot and passing in the model name. So for me, this is dialogue GPT small Harry Potter.\n\nAnd use client.run, looking up the Discord token from the environment variables. Great. Now that our bot should be all set up, let's invite the bot to our channel.\n\nIn the OAuth2 tab, we are going to select the bot.\n\nAnd for the bot permissions, the only thing it needs is to send messages.\n\nSo we copy this URL, paste it in a new browser window, and invite it to my server.\n\nAll right. Now that we see that our bot has appeared. However, it shows as offline. So we need to run the Repl. So we hit run here.\n\nAnd Repl.it is installing all our dependencies and imports.\n\nGreat. Now that our bot has logged in as Harry Potter Bot Python, and this is its unique ID. Let's go to the server and now that the bot is online.\n\nI don't want the bot to appear in the general channel, so we go to the channel setting, permissions, advanced permissions, add the bot,\n\nand we remove its permission to send messages and save the changes.\n\nNow let's see what happens if I type something in the general channel. Nothing should happen because the bot shouldn't be able to send a message.\n\nNothing happens although the bot is online. And now this bot should work in this Python bot channel. So let's do hello.\n\nAnd we briefly saw that there's a typing prompt.\n\nCool. So yeah, this is how we built a bot in Python. One thing to know in our Repl.it is that because we took away the bot's permission to send the messages in the general channel, it is showing an exception, and this is totally okay. If you don't like seeing this exception, you can use a try except block and log out this exception.\n\nGreat. So now we're going to repeat the process for the JavaScript bot. So we go back to the Discord developer portal and create new application. This time, I'm going to call it ChattyBot JavaScript.\n\nAnd we create a bot. Back to Repl.it, we create a Node.js app. Going to call it ChattyBot.js.\n\nWe again create two environmental variables. The first one is Hugging Face token.\n\nCopying my API token from my profile, edit profile, putting here, and copy my Discord bot token. Call this one Discord token, and adding the value. Great. Now we have our environment variables set up.\n\nGo to my GitHub repository. There is a discord_bot.js file that contains the code that we will use for this JavaScript chatbot. Let's copy paste, and I will go through the code line by line.\n\nSo first we import the Discord API for the JavaScript module, and we import fetch for making HTTP requests, just like we did in Python. And we initialize a new Discord client and define the model URL just as my username and the model name. So this guy is dialogue GPT small Harry Potter.\n\nAnd this is the same callback that is called when the bot is ready, just like the on_ready function we saw in Python. So when the bot is ready and logged in, we print out logged in as client.user.tag.\n\nAnd here is another callback, this time on message. We use an asynchronous callback because we are making HTTP requests. Like in the Python script, we ignore the message if the message is from the bot itself, by checking if message.author is the bot.\n\nNow we form the payload. So the payload is a dictionary containing inputs with text message.content, which is the message that the bot has received. And we form the request headers, by again using the Hugging Face API key. So we read the Hugging Face token from the environment, process.env.Hugging Face token, and form the headers.\n\nRight before we start making the HTTP request, we set the bot status to typing. Now we query the server. So the response is the result from this call to fetch, using HTTP post, given the payload as the body and the headers using the Hugging Face token. And we convert the response into JSON format and extract out the generated text field.\n\nIf there isn't a generated text field in the response, but instead the response contains an error field, this means that the bot has encountered some errors, and we may want to print out the error for further debugging. Now that we have the bot's response, we can clear out its typing status and send the message to the channel as a reply.\n\nThis ends the definition of our client.on_message call. Down here, we log in using the Discord token.\n\nNow let's invite the bot to our server. So we go to OAuth, check the bot. Its only permission is to send messages. We copy this, paste in a new browser window, and invite it to our server.\n\nGreat. Looks like we have another bot.\n\nRemember to click on save changes, otherwise the bot's icon wouldn't be showing. Now that we have our bot, however, it's not logged in. So we need to go back to Repl to run our script. But before we run our Repl, let's make sure that the bot doesn't have access to the general channel, nor does it have access to the Python channel because it's not supposed to go there. So in permissions,\n\nwe find this ChattyBot JavaScript, remove its permission to send messages, and always remember to save the changes. We do the same thing for it on the Python channel.\n\nAnd go to the JS channel. This time, the one we need to remove is the Python bot. So this Python bot shouldn't be able to send messages to this JavaScript channel.\n\nNow we go back to run our Repl.it.\n\nIf you see this error, this means that the Discord version that npm is trying to install is wrong. You can see that there are those warnings that the newest Discord module is not compatible with Repl.it's version of Node or npm. So we need to manually change something in package.json. So here, we just use the older version and rerun it.\n\nNow that we are logged in as ChattyBot JavaScript 1048, let's go back to our Discord channel. Cool. The ChattyBot is also online. Let's see if it responds to our messages.\n\nAll right. So this is now an error message telling us that the model is still loading. The model will usually take one or two minutes to load, so let's give it some time.\n\nGreat. Looks like our bot is responding to us.\n\nAnd because we have set the bot's permissions correctly, the Python bot is not responding to any messages here, and the JavaScript bot shouldn't be able to talk here.\n\nAnd in our general channel, no bot is ever allowed to talk here. Cool. So now we have successfully built the bot both in Python and in JavaScript.\n\nOne thing to note is that if I close the browser tab for the Python bot,\n\nthe bot is no longer responding, although it still shows that the bot is online.\n\nSo in the next part, we're going to look at how to keep the bot running indefinitely in the browser, even when we close the browser tab.\n\nIn order to get our bot to run indefinitely, we need to create a web server in Repl.it and set up a service called Uptime Robot to continuously ping the web server.\n\nSo this is for the Python bot, and we create a new file called keep_alive.py.\n\nAnd we add the code for a web server like this.\n\nAnd in our main.py, we import that part.\n\nAnd down here in the main function, right before the bot runs, we ask it to be kept alive.\n\nAnd we run it.\n\nWhen the code runs, we see a URL shown in this tab. And we copy this URL and bring it to our Uptime Robot service. So here is the Uptime Robot website, and I already have an account, so I'll just go to my dashboard and add a new monitor. Monitor type is going to be HTTPS, friendly name, Discord Python bot, the URL is the one we copied from here. And the monitoring level will be a ping every five minutes. That should be sufficient. And finally we create monitor.\n\nAnd close it. Now let's see if our Python bot is capable of running indefinitely.\n\nAll right. I'm going to close this tab containing my Python script.\n\nAnd it looks like our model is still up. It's just that after some time, the model on Hugging Face backend will reload. But because the bot itself is responding, we know that our web server approach has worked.\n\nNow let's repeat this process for the JavaScript bot.\n\nWe create a new file called server.js,\n\nand copy paste this code.\n\nThen we import this part from the file that we just created.\n\nFinally, right before the bot runs, we are going to call keep_alive. We stop the service and run it.\n\nAll right. The server is now ready. We copy this URL, go to Uptime Robot, and add a new monitor. It's again an HTTP monitor, Discord JS bot, and the URL is like this, and we create a monitor.\n\nNow we can safely close this browser window and go back to our Discord chat.\n\nAnd the bot is still running.\n\nGreat. Now we're all done. We have a cool Python chatbot and a cool JavaScript chatbot that can run indefinitely.\n\nI hope you enjoyed this video. Please subscribe for more content like this, and I'll see you in the next one.",
+    "segments": [
+      {
+        "start": 0.0,
+        "end": 30.19,
+        "text": "Wanna make a Discord bot that talks like characters from Rick and Morty or Harry Potter? Maybe you wanna make it talk like another favorite character. In this course, Lynn will show you how to create a Discord bot that uses artificial intelligence to talk"
+      },
+      {
+        "start": 29.86,
+        "end": 60.05,
+        "text": "like a character of your choice. Hi there. I'm Lynn. I'm a software engineer, hobbyist game developer, and recent graduate from the University of Chicago. In this tutorial, we're going to build a Discord AI chatbot that can speak like your favorite character. Before we"
+      },
+      {
+        "start": 59.72,
+        "end": 89.92,
+        "text": "start, if you have seen that video by any chance, know that this video is something different and more comprehensive. So keep watching till the end. The original tutorial and my first Discord bot started as a joke between me and my friends when we"
+      },
+      {
+        "start": 89.59,
+        "end": 119.78,
+        "text": "were playing video games, and it really surprised me how popular it became, and a lot of people wanted to build their own bot based on that tutorial. Therefore, I decided to update that tutorial to include more characters, as well as to show you"
+      },
+      {
+        "start": 119.45,
+        "end": 149.64,
+        "text": "how to find data for your favorite character. Other topics that we will cover here include, but are not limited to, how to train the model, how to deploy the model, common errors you might see during this model training and deployment pipeline, and how"
+      },
+      {
+        "start": 149.31,
+        "end": 179.5,
+        "text": "to solve them. Moreover, we will cover how to build the bot in Python and how to build it in JavaScript. Lastly, we will cover how to properly deploy the bot to a Discord server and limit it to certain channels, and how to keep"
+      },
+      {
+        "start": 179.17,
+        "end": 209.37,
+        "text": "the bot running indefinitely. I hope you're excited and let's jump into the tutorial. First, we are going to find data for our character. My favorite sources are Kaggle, Transcript Wiki, and just random fandom websites that came out from the Google search. And my"
+      },
+      {
+        "start": 209.04,
+        "end": 239.23,
+        "text": "research process goes like this. I first search on Kaggle to see if there are pre-made dialogue datasets. For example, if we search for Rick and Morty, we get this nicely formatted dataset that includes the name of the character and the line they're speaking."
+      },
+      {
+        "start": 238.9,
+        "end": 269.09,
+        "text": "If we search for Harry Potter, here is another dataset that includes the character and the sentence they're speaking. Since we're building a chatbot, we need only these two columns in our dataset, the character name and the line they're speaking. So these dialogue datasets"
+      },
+      {
+        "start": 268.76,
+        "end": 298.95,
+        "text": "on Kaggle are perfect for our requirement. All right. If we succeeded in finding our data on Kaggle, we can move on to the model training step. But what if we cannot find a dataset for our character on Kaggle? For example, if I want"
+      },
+      {
+        "start": 298.62,
+        "end": 328.82,
+        "text": "to find a dataset for Peppa Pig, it looks like there is no dataset for the character. In this case, we may need to find the raw transcript of the media, be it a video game or cartoon or a show. And I've found that"
+      },
+      {
+        "start": 328.49,
+        "end": 358.68,
+        "text": "Transcript Wiki has some great resources. So here we have a list of movies, shows, video games, musicals, commercials. For example, I was able to find a transcript for Peppa Pig and also movies like Batman on Transcript Wiki. The transcript looks like this. So"
+      },
+      {
+        "start": 358.35,
+        "end": 388.54,
+        "text": "we have the character name and their actions or the lines they're speaking. We will see shortly how to turn a raw transcript like this into a dataset like those we saw on Kaggle. Besides Transcript Wiki, you may also just Google the name of"
+      },
+      {
+        "start": 388.21,
+        "end": 418.4,
+        "text": "your media with the keyword transcript. For example, my first bot was based on the game, The Word Ends With You, and it has no results either on Kaggle or Transcript Wiki. So what I did was to just Google the name of the game"
+      },
+      {
+        "start": 418.07,
+        "end": 448.26,
+        "text": "and game transcript. And it just happened that this fandom website has the full game transcript. So be sure to utilize your Google search skills to find data for your character. If, rather than fictional character, you are more interested in real-life character, you may"
+      },
+      {
+        "start": 447.94,
+        "end": 478.13,
+        "text": "search for interview scripts as your data source. If you want to create a chatbot that speaks like yourself or your friends, you can treat text messages between you and your friends as dialogues and handcraft your dataset. There are tons of ways to get"
+      },
+      {
+        "start": 477.8,
+        "end": 507.99,
+        "text": "data for your character, so be creative. And now we will look at how to turn raw transcript into dataset. Now, suppose we have found our raw transcript. Let's see how we can turn it into a two-column character line dataset. Suppose we take this"
+      },
+      {
+        "start": 507.66,
+        "end": 537.85,
+        "text": "Peppa Pig transcripts and copy them into a text file. Now we go to Google Colab and upload our data file. Then we create a Google Colab notebook, and use this to parse our script. So I'm going to name this parse script.ipynb. And we"
+      },
+      {
+        "start": 537.52,
+        "end": 567.71,
+        "text": "are going to from Google Colab import drive, and then call drive.mount content drive. This will allow us to read the data from our Google Drive. All right. Now that our drive has been mounted, let's import OS and then OS change directory into content"
+      },
+      {
+        "start": 567.39,
+        "end": 597.58,
+        "text": "drive my drive. And now we see if there is anything in it. Yeah, we have our PeppaPig.txt. So here we are going to import regular expression to parse our transcript, put the parsed result into a pandas data frame, and export it as a"
+      },
+      {
+        "start": 597.25,
+        "end": 627.44,
+        "text": "CSV file, just like those we saw on Kaggle. This is going to be our regular expression pattern. You don't have to be a pro in regular expression to understand this part. If we take the pattern to this site, and our test string is"
+      },
+      {
+        "start": 627.11,
+        "end": 657.3,
+        "text": "Peppa Pig, you will see that we have two match capture groups, the first being the character's name, the second being the line spoken. And also for the second line, Mama Pig, we have the character name and the line being spoken. Great. So that's"
+      },
+      {
+        "start": 656.97,
+        "end": 687.16,
+        "text": "our regular expression. Now let's define a dictionary that will store our data. So we know that we need the column name and the column line in our result data frame. And now we open and read the file. For each line, we match it"
+      },
+      {
+        "start": 686.83,
+        "end": 717.03,
+        "text": "with our regular expression pattern. If there is a match, we extract name and line from this regular expression match, and then append it to our dictionary here. And then we convert this dictionary into a data frame. Now we can inspect the data frame."
+      },
+      {
+        "start": 716.7,
+        "end": 746.89,
+        "text": "Cool. So we have the name is Peppa Pig, saying that I'm Peppa Pig. And then George makes a sound, and Mama Pig makes a sound. Great. We can also count the number of lines that belong to our character. So we do sum, df"
+      },
+      {
+        "start": 746.56,
+        "end": 776.75,
+        "text": "name is equal to Peppa Pig, and we saw that Peppa Pig has 38 lines in our entire data frame. So the length of our data frame is over 100 and Peppa Pig has one third of the lines. Great. The last step will be"
+      },
+      {
+        "start": 776.42,
+        "end": 806.61,
+        "text": "to export the data frame. So df.to_csv, the name will be Peppa Pig CSV, and and we will drop the index. Cool. Now we should have a PeppaPig.csv in the over drive. And here it is. Name and line. This is how we parse those"
+      },
+      {
+        "start": 806.28,
+        "end": 836.48,
+        "text": "raw transcript into a file that could be used in our model training. So next, let's proceed onto the exciting step, model training. Now we are going to train the model. Go to my GitHub repository linked to in the description below and download the"
+      },
+      {
+        "start": 836.15,
+        "end": 866.34,
+        "text": "content. We're going to use this model train upload workflow.ipynb, which looks like this. All right. Now our file has been downloaded. We unzip the content. And in here we have a model train upload workflow.ipynb. We upload this notebook file to Google Drive and"
+      },
+      {
+        "start": 866.01,
+        "end": 896.2,
+        "text": "open it in Google Colab. We're going to train a GPT model, which is short for generative pre-trained transformer. In the runtime, change runtime type. Make sure to select GPU because this will accelerate our model training. So now here we mount the driver. We"
+      },
+      {
+        "start": 895.87,
+        "end": 926.06,
+        "text": "install the transformers module that we will be using, and we change directory into my drive. Here are all the modules that we are importing. If we're using the dataset from Kaggle, we need to obtain our API key from Kaggle. So go to our"
+      },
+      {
+        "start": 925.73,
+        "end": 955.93,
+        "text": "Kaggle profile, go to account, scroll down to the API key section, create a new API token and download this file as kaggle.json. We will go back to Google Drive and upload kaggle.json. Now we can download our dataset from Kaggle. We're going to use"
+      },
+      {
+        "start": 955.6,
+        "end": 985.79,
+        "text": "the Harry Potter dataset as an example. So grab this username and the dataset name, and our file is Harry Potter 1.csv. Note that because there are white spaces in our file name, we got special characters in the file name. So let's inspect the"
+      },
+      {
+        "start": 985.46,
+        "end": 1015.65,
+        "text": "content of our data file. Well, CSV files are usually separated by commas, has the name CSV. However, this one looks like it's separated by semicolons. So we need to take care of the semicolons when we are reading in the data into a pandas"
+      },
+      {
+        "start": 1015.32,
+        "end": 1045.51,
+        "text": "data frame. So separation is semicolon instead of a comma. Cool. So let's sample our data to see what's inside. All right. So we have character and sentence. Notice that these two column names aren't exactly what we need. We want the two columns of"
+      },
+      {
+        "start": 1045.18,
+        "end": 1075.37,
+        "text": "our data frame to be named as name and line, as used down here in this cell. So we need to change the name of our columns. All right. Let's resample our data. Looks like we have successfully changed the name of our columns. Now"
+      },
+      {
+        "start": 1075.05,
+        "end": 1105.24,
+        "text": "let's see how big our data is. So it only has a thousand or so lines, and let's see how many lines our character has. Our character has 155 lines. So here we change our character name to Harry, and we now run this cell"
+      },
+      {
+        "start": 1104.91,
+        "end": 1135.1,
+        "text": "to create a context data frame that includes the current line our character is speaking and several lines directly preceding the line. A context data frame is useful here because we are creating a conversational chatbot and we want to generate a response based on"
+      },
+      {
+        "start": 1134.77,
+        "end": 1164.96,
+        "text": "the conversation context. So let's sample our context data frame. So in the context of clearly something something, our character responds with seems a pity not to ask her. Great. Now we have our dataset. We split the dataset into a training set and a"
+      },
+      {
+        "start": 1164.63,
+        "end": 1194.82,
+        "text": "test set. This is because we don't want to overfit the model. In the case of overfitting, the model will just memorize lines from the dataset and talk back to us using the exact lines. We don't want that. We want the conversation to be"
+      },
+      {
+        "start": 1194.5,
+        "end": 1224.69,
+        "text": "more organic. So we're only training the model on the training set and evaluating the model on the test set. So we continue running these cells to build datasets, caching checkpoints, and down here we build the model. We will build our model by fine-tuning"
+      },
+      {
+        "start": 1224.36,
+        "end": 1254.55,
+        "text": "Microsoft's pre-trained GPT small. Small here refers to the number of parameters in the model. There are also a medium and a large model. Generally, the larger the model, the longer it takes to train, but the smarter the model can get. I would recommend"
+      },
+      {
+        "start": 1254.22,
+        "end": 1284.41,
+        "text": "training a medium model as it's pretty smart and not too hard to train. My production chatbot that is currently running on a server with a thousand plus users is also a medium model. For this tutorial, for the sake of time, I'm training just"
+      },
+      {
+        "start": 1284.08,
+        "end": 1314.27,
+        "text": "a small model. You can see here, it's downloading the model, and this may take some time because it's essentially 300 megabytes. Here are some hyperparameters that you may find useful. For example, num train epochs is the number of training epochs. This is defined"
+      },
+      {
+        "start": 1313.94,
+        "end": 1344.14,
+        "text": "to be four here, and this is the number of times that the model will cycle through the training set. As long as the model is not overfitting, increasing the number of training epochs usually results in smarter models because the model has more time"
+      },
+      {
+        "start": 1343.81,
+        "end": 1374.0,
+        "text": "to cycle through the dataset and pick up the nitty-gritty details. There is another hyperparameter called the batch size. This is the number of training examples that the model will see in a batch before it updates its gradient. I wouldn't recommend changing this unless"
+      },
+      {
+        "start": 1373.67,
+        "end": 1403.86,
+        "text": "you know what you're doing, since other hyperparameters like learning rate and temperature might be sensitive to this change in batch size. However, if you're training a larger model on a larger dataset and are running into memory errors, to make the error go away,"
+      },
+      {
+        "start": 1403.53,
+        "end": 1433.72,
+        "text": "it might help to decrease the batch size. The remaining cells have been configured to take in this context data frame we created, train the model, and save it to a folder called output small. Now let's run this main function. Training will take some"
+      },
+      {
+        "start": 1433.39,
+        "end": 1463.59,
+        "text": "time. I trained my medium model for 12 epochs, and it took around two hours. So do sit back and grab a snack while the model is training. You can see the progress in the progress bars above. All right. Here we get back a"
+      },
+      {
+        "start": 1463.26,
+        "end": 1493.45,
+        "text": "perplexing answer. This usually refers to how confused the model is. If a model has a large perplexity, it means that the model is pretty confused as to which words to choose to respond to a given situation, and the model might not be very"
+      },
+      {
+        "start": 1493.12,
+        "end": 1523.31,
+        "text": "smart. In our case, our dataset is pretty small and only has 150 plus lines. So it makes sense that the perplexity is high. To decrease the perplexity, we might need to train for more epochs. Cool. But now that the training is complete, we"
+      },
+      {
+        "start": 1522.98,
+        "end": 1553.17,
+        "text": "can load and chat with the model here. All right. Let's change the name of the bot. Hello, fellow Red Writer. So let's ask how's created? There is no such thing as a bad Red Writer. Great. It looks like our chatbot is capable of"
+      },
+      {
+        "start": 1552.84,
+        "end": 1583.04,
+        "text": "making and maintaining a conversation. Now we can push the model to Hugging Face and start building our Discord chatbot. All right. Now let's change directory just into the content folder because we'll be doing our push there. And we do pip install Hugging Face"
+      },
+      {
+        "start": 1582.71,
+        "end": 1612.9,
+        "text": "command line client, and then we log in using our credentials. All right. After logging, we're assigned this token. We need to grab this token for the cell that we need to do afterwards. So we can create a repository to store our model from"
+      },
+      {
+        "start": 1612.57,
+        "end": 1642.76,
+        "text": "the command line. Mine is going to be called dialogue GPT small Harry Potter. And our empty model repository is right here. There is nothing except for the Git attributes file, but we will be adding the model files soon. Now we install Git LFS,"
+      },
+      {
+        "start": 1642.43,
+        "end": 1672.62,
+        "text": "which stands for Git large file storage. This will allows us to push and pull our models. And we replace this token with the token we just copied from above. So here's my username and my token. And we call that our training result is"
+      },
+      {
+        "start": 1672.29,
+        "end": 1702.48,
+        "text": "stored in this output small directory. And now we change our directory into our dialogue GPT small directory because we need to do get, add, and commit from there. We install the Git LFS, and inspect the content of our current directory, which should be"
+      },
+      {
+        "start": 1702.16,
+        "end": 1732.35,
+        "text": "dialogue GPT small Harry Potter. And also just print out the working directory we are in to make sure that we are inside content. Cool. Now we check the file status on Git. So these files that we need to add to Git. So we"
+      },
+      {
+        "start": 1732.02,
+        "end": 1762.21,
+        "text": "do a Git add. This will take some time because the PyTorch model.bin is pretty large. And we configure the global username and user email. These are just my Hugging Face credentials. And we commit with message initial commit. And finally we push the model."
+      },
+      {
+        "start": 1761.88,
+        "end": 1792.07,
+        "text": "It's about 400 megabytes because the PyTorch model is itself about 400 megabytes. All right. Looks like the push is complete. Now we see our PyTorch model here. However, there's one more thing that we need to do before we can converse with the model"
+      },
+      {
+        "start": 1791.74,
+        "end": 1821.93,
+        "text": "on Hugging Face. That is, you see here, it's tagged as text generation. However, we know that we are training a chatbot model, and we want our model to be conversational. For that purpose, we need to add a model card. So we create a"
+      },
+      {
+        "start": 1821.61,
+        "end": 1851.8,
+        "text": "model card here, and we're putting in our desired model tags. So our tags is conversational. And we commit our model card. And now our model is correctly tagged as conversational. If we go to the main model page, we can start chatting with the"
+      },
+      {
+        "start": 1851.47,
+        "end": 1881.66,
+        "text": "model here. All right. Now that we have pushed our model to Hugging Face, we're ready to use it in our Discord chatbot. Now we have our model. Let's build the Discord bot. Here, on Discord, I have my server, Lynn's Dev Lab. I have"
+      },
+      {
+        "start": 1881.33,
+        "end": 1911.52,
+        "text": "two channels, one for the Python bot and one for the JavaScript bot. The reason why we have separate channel for the bots is because we don't want the bots to be talking to each other. So after we build the bot, we will learn"
+      },
+      {
+        "start": 1911.19,
+        "end": 1941.38,
+        "text": "how to set their permissions correctly so that they don't go outside of their dedicated channel. So we go to Discord's developer's page, create an application. We need one application per bot. So our name will be ChattyBot Python. So here we create a bot,"
+      },
+      {
+        "start": 1941.06,
+        "end": 1971.25,
+        "text": "and I'm going to name this Harry Potter Bot Python, and upload an icon. We will be using this API token here when we create our bot in Python. We're going to host our bot on Repl.it. So sign up for Repl.it and create a"
+      },
+      {
+        "start": 1970.92,
+        "end": 2001.11,
+        "text": "new Python Repl here. Going to name this ChattyBot Python. And in here, we will need to store our API tokens for Hugging Face and Discord as environmental variables. So here is a tab for the secrets for the environment variables. So the first one"
+      },
+      {
+        "start": 2000.78,
+        "end": 2030.97,
+        "text": "will be Hugging Face token. And for the value, we will go to our Hugging Face profile, edit profile, API tokens, copy the API token, come back here, and fill in the value. Next we'll create a Discord token. And for this value, we go"
+      },
+      {
+        "start": 2030.64,
+        "end": 2060.83,
+        "text": "to this Discord developer's portal and copy the token. We add the token here. And our environment variables are all set. Next, I have the Python file in my GitHub repository called discord_bot.py. So we grab the code from here, and I will explain the"
+      },
+      {
+        "start": 2060.5,
+        "end": 2090.7,
+        "text": "code line by line. Starting from line one, we first import the OS module that will help us reading our environment variables. Next, we import modules that are useful for querying the Hugging Face model. Finally, we import the Discord module. And here I have"
+      },
+      {
+        "start": 2090.37,
+        "end": 2120.56,
+        "text": "my API URL pointing to my username. And we define a bot as follows. In the on_ready function, it takes in a model name, which for me will be dialogue GPT small Harry Potter. Then we store this API endpoint by concatenating this API URL,"
+      },
+      {
+        "start": 2120.23,
+        "end": 2150.42,
+        "text": "which is my profile link, with the model name. Then we retrieve the secret API token from the system environment by looking up OS.environment Hugging Face token. Next, we format the header in our request to Hugging Face. For the authorization part, we put in"
+      },
+      {
+        "start": 2150.09,
+        "end": 2180.28,
+        "text": "bearer and the Hugging Face token. Next, we define a query method that takes in the payload. We dump the payload as a JSON string, and use the request module to make an HTTP post request to the API endpoint, using our defined request headers,"
+      },
+      {
+        "start": 2179.95,
+        "end": 2210.15,
+        "text": "which contains our Hugging Face API key, and passing in the data. Once the request finishes, it should give us a response object, and we decode it from UTF-8, and load the result as a string and return the string. Next, we define an asynchronous"
+      },
+      {
+        "start": 2209.82,
+        "end": 2240.01,
+        "text": "function named on_ready. The next two function definitions are based on the Discord API. Both are asynchronous function. The first one is on_ready. This function will be called when the bot is logging in. So when the bot is logging in, we will print out"
+      },
+      {
+        "start": 2239.68,
+        "end": 2269.87,
+        "text": "logged in as, print out the bot's name and the bot's ID, so that we know that the bot is functioning. Next, because our bot is a chatbot, it needs to respond to messages. So on_message is a method that will be called each time"
+      },
+      {
+        "start": 2269.54,
+        "end": 2299.73,
+        "text": "the bot sees a message in the channel. So given the message, if the message is coming from the bot itself, the bot ignores the message and does not reply to it. Otherwise, it will form a query payload with the content of the message."
+      },
+      {
+        "start": 2299.4,
+        "end": 2329.59,
+        "text": "And to make the bot more user-friendly, while the bot is waiting for the HTTP response from the model, we set its status as typing so that the user will know that the bot is generating its response. So this is an asynchronous call with"
+      },
+      {
+        "start": 2329.27,
+        "end": 2359.46,
+        "text": "message.channel.typing. We call self.query using the payload and get back the response. If there is a valid generated response, there will be a generated text field in this response, and we'll be able to get that out as the bot's response. Otherwise, there might be"
+      },
+      {
+        "start": 2359.13,
+        "end": 2389.32,
+        "text": "an error in the response. We just log out the error message so that we can debug the bot later on. Finally, we use another asynchronous method to send the bot's response to the channel using message.channel.send. And that's it about our bot definition. In"
+      },
+      {
+        "start": 2388.99,
+        "end": 2419.18,
+        "text": "the main function, we just create a bot and passing in the model name. So for me, this is dialogue GPT small Harry Potter. And use client.run, looking up the Discord token from the environment variables. Great. Now that our bot should be all set"
+      },
+      {
+        "start": 2418.85,
+        "end": 2449.04,
+        "text": "up, let's invite the bot to our channel. In the OAuth2 tab, we are going to select the bot. And for the bot permissions, the only thing it needs is to send messages. So we copy this URL, paste it in a new browser window,"
+      },
+      {
+        "start": 2448.72,
+        "end": 2478.91,
+        "text": "and invite it to my server. All right. Now that we see that our bot has appeared. However, it shows as offline. So we need to run the Repl. So we hit run here. And Repl.it is installing all our dependencies and imports. Great. Now"
+      },
+      {
+        "start": 2478.58,
+        "end": 2508.77,
+        "text": "that our bot has logged in as Harry Potter Bot Python, and this is its unique ID. Let's go to the server and now that the bot is online. I don't want the bot to appear in the general channel, so we go to the"
+      },
+      {
+        "start": 2508.44,
+        "end": 2538.63,
+        "text": "channel setting, permissions, advanced permissions, add the bot, and we remove its permission to send messages and save the changes. Now let's see what happens if I type something in the general channel. Nothing should happen because the bot shouldn't be able to send a"
+      },
+      {
+        "start": 2538.3,
+        "end": 2568.49,
+        "text": "message. Nothing happens although the bot is online. And now this bot should work in this Python bot channel. So let's do hello. And we briefly saw that there's a typing prompt. Cool. So yeah, this is how we built a bot in Python. One"
+      },
+      {
+        "start": 2568.17,
+        "end": 2598.36,
+        "text": "thing to know in our Repl.it is that because we took away the bot's permission to send the messages in the general channel, it is showing an exception, and this is totally okay. If you don't like seeing this exception, you can use a try"
+      },
+      {
+        "start": 2598.03,
+        "end": 2628.22,
+        "text": "except block and log out this exception. Great. So now we're going to repeat the process for the JavaScript bot. So we go back to the Discord developer portal and create new application. This time, I'm going to call it ChattyBot JavaScript. And we create"
+      },
+      {
+        "start": 2627.89,
+        "end": 2658.08,
+        "text": "a bot. Back to Repl.it, we create a Node.js app. Going to call it ChattyBot.js. We again create two environmental variables. The first one is Hugging Face token. Copying my API token from my profile, edit profile, putting here, and copy my Discord bot token."
+      },
+      {
+        "start": 2657.75,
+        "end": 2687.94,
+        "text": "Call this one Discord token, and adding the value. Great. Now we have our environment variables set up. Go to my GitHub repository. There is a discord_bot.js file that contains the code that we will use for this JavaScript chatbot. Let's copy paste, and I"
+      },
+      {
+        "start": 2687.61,
+        "end": 2717.81,
+        "text": "will go through the code line by line. So first we import the Discord API for the JavaScript module, and we import fetch for making HTTP requests, just like we did in Python. And we initialize a new Discord client and define the model URL"
+      },
+      {
+        "start": 2717.48,
+        "end": 2747.67,
+        "text": "just as my username and the model name. So this guy is dialogue GPT small Harry Potter. And this is the same callback that is called when the bot is ready, just like the on_ready function we saw in Python. So when the bot is"
+      },
+      {
+        "start": 2747.34,
+        "end": 2777.53,
+        "text": "ready and logged in, we print out logged in as client.user.tag. And here is another callback, this time on message. We use an asynchronous callback because we are making HTTP requests. Like in the Python script, we ignore the message if the message is from"
+      },
+      {
+        "start": 2777.2,
+        "end": 2807.39,
+        "text": "the bot itself, by checking if message.author is the bot. Now we form the payload. So the payload is a dictionary containing inputs with text message.content, which is the message that the bot has received. And we form the request headers, by again using the"
+      },
+      {
+        "start": 2807.06,
+        "end": 2837.26,
+        "text": "Hugging Face API key. So we read the Hugging Face token from the environment, process.env.Hugging Face token, and form the headers. Right before we start making the HTTP request, we set the bot status to typing. Now we query the server. So the response is"
+      },
+      {
+        "start": 2836.93,
+        "end": 2867.12,
+        "text": "the result from this call to fetch, using HTTP post, given the payload as the body and the headers using the Hugging Face token. And we convert the response into JSON format and extract out the generated text field. If there isn't a generated text"
+      },
+      {
+        "start": 2866.79,
+        "end": 2896.98,
+        "text": "field in the response, but instead the response contains an error field, this means that the bot has encountered some errors, and we may want to print out the error for further debugging. Now that we have the bot's response, we can clear out its"
+      },
+      {
+        "start": 2896.65,
+        "end": 2926.84,
+        "text": "typing status and send the message to the channel as a reply. This ends the definition of our client.on_message call. Down here, we log in using the Discord token. Now let's invite the bot to our server. So we go to OAuth, check the bot."
+      },
+      {
+        "start": 2926.51,
+        "end": 2956.71,
+        "text": "Its only permission is to send messages. We copy this, paste in a new browser window, and invite it to our server. Great. Looks like we have another bot. Remember to click on save changes, otherwise the bot's icon wouldn't be showing. Now that we"
+      },
+      {
+        "start": 2956.38,
+        "end": 2986.57,
+        "text": "have our bot, however, it's not logged in. So we need to go back to Repl to run our script. But before we run our Repl, let's make sure that the bot doesn't have access to the general channel, nor does it have access to"
+      },
+      {
+        "start": 2986.24,
+        "end": 3016.43,
+        "text": "the Python channel because it's not supposed to go there. So in permissions, we find this ChattyBot JavaScript, remove its permission to send messages, and always remember to save the changes. We do the same thing for it on the Python channel. And go to"
+      },
+      {
+        "start": 3016.1,
+        "end": 3046.29,
+        "text": "the JS channel. This time, the one we need to remove is the Python bot. So this Python bot shouldn't be able to send messages to this JavaScript channel. Now we go back to run our Repl.it. If you see this error, this means that"
+      },
+      {
+        "start": 3045.96,
+        "end": 3076.15,
+        "text": "the Discord version that npm is trying to install is wrong. You can see that there are those warnings that the newest Discord module is not compatible with Repl.it's version of Node or npm. So we need to manually change something in package.json. So here,"
+      },
+      {
+        "start": 3075.83,
+        "end": 3106.02,
+        "text": "we just use the older version and rerun it. Now that we are logged in as ChattyBot JavaScript 1048, let's go back to our Discord channel. Cool. The ChattyBot is also online. Let's see if it responds to our messages. All right. So this is"
+      },
+      {
+        "start": 3105.69,
+        "end": 3135.88,
+        "text": "now an error message telling us that the model is still loading. The model will usually take one or two minutes to load, so let's give it some time. Great. Looks like our bot is responding to us. And because we have set the bot's"
+      },
+      {
+        "start": 3135.55,
+        "end": 3165.74,
+        "text": "permissions correctly, the Python bot is not responding to any messages here, and the JavaScript bot shouldn't be able to talk here. And in our general channel, no bot is ever allowed to talk here. Cool. So now we have successfully built the bot both"
+      },
+      {
+        "start": 3165.41,
+        "end": 3195.6,
+        "text": "in Python and in JavaScript. One thing to note is that if I close the browser tab for the Python bot, the bot is no longer responding, although it still shows that the bot is online. So in the next part, we're going to look"
+      },
+      {
+        "start": 3195.28,
+        "end": 3225.47,
+        "text": "at how to keep the bot running indefinitely in the browser, even when we close the browser tab. In order to get our bot to run indefinitely, we need to create a web server in Repl.it and set up a service called Uptime Robot to"
+      },
+      {
+        "start": 3225.14,
+        "end": 3255.33,
+        "text": "continuously ping the web server. So this is for the Python bot, and we create a new file called keep_alive.py. And we add the code for a web server like this. And in our main.py, we import that part. And down here in the main"
+      },
+      {
+        "start": 3255.0,
+        "end": 3285.19,
+        "text": "function, right before the bot runs, we ask it to be kept alive. And we run it. When the code runs, we see a URL shown in this tab. And we copy this URL and bring it to our Uptime Robot service. So here is"
+      },
+      {
+        "start": 3284.86,
+        "end": 3315.05,
+        "text": "the Uptime Robot website, and I already have an account, so I'll just go to my dashboard and add a new monitor. Monitor type is going to be HTTPS, friendly name, Discord Python bot, the URL is the one we copied from here. And the"
+      },
+      {
+        "start": 3314.72,
+        "end": 3344.92,
+        "text": "monitoring level will be a ping every five minutes. That should be sufficient. And finally we create monitor. And close it. Now let's see if our Python bot is capable of running indefinitely. All right. I'm going to close this tab containing my Python script."
+      },
+      {
+        "start": 3344.59,
+        "end": 3374.78,
+        "text": "And it looks like our model is still up. It's just that after some time, the model on Hugging Face backend will reload. But because the bot itself is responding, we know that our web server approach has worked. Now let's repeat this process for"
+      },
+      {
+        "start": 3374.45,
+        "end": 3404.64,
+        "text": "the JavaScript bot. We create a new file called server.js, and copy paste this code. Then we import this part from the file that we just created. Finally, right before the bot runs, we are going to call keep_alive. We stop the service and run"
+      },
+      {
+        "start": 3404.31,
+        "end": 3434.5,
+        "text": "it. All right. The server is now ready. We copy this URL, go to Uptime Robot, and add a new monitor. It's again an HTTP monitor, Discord JS bot, and the URL is like this, and we create a monitor. Now we can safely close"
+      },
+      {
+        "start": 3434.17,
+        "end": 3464.37,
+        "text": "this browser window and go back to our Discord chat. And the bot is still running. Great. Now we're all done. We have a cool Python chatbot and a cool JavaScript chatbot that can run indefinitely. I hope you enjoyed this video. Please subscribe for"
+      },
+      {
+        "start": 3464.04,
+        "end": 3472,
+        "text": "more content like this, and I'll see you in the next one."
+      }
+    ],
+    "language": "en",
+    "confidence": 0.95
+  },
+  "analysis": {
+    "summary": "This video tutorial demonstrates how to build a Discord chatbot using artificial intelligence to mimic the speech patterns of a chosen character (e.g., Rick and Morty, Harry Potter).  The primary goal is to provide a comprehensive guide exceeding a previous, less detailed tutorial.\n\nThe process involves three main stages: data acquisition, model training, and Discord bot deployment.  Data is sourced from Kaggle, Transcript Wiki, and general web searches, focusing on dialogue datasets or raw transcripts.  The presenter emphasizes creative data gathering methods, even using text messages for real-life character replication.  Raw transcripts are cleaned and transformed into a usable dataset using Google Colab and regular expressions.\n\nModel training uses a fine-tuned GPT (Generative Pre-trained Transformer) model, with options for small, medium, and large models (medium is recommended for balance between training time and performance).  The presenter trains a smaller model in the video. Hyperparameters like training epochs and batch size are discussed.  The trained model is then pushed to Hugging Face for deployment.\n\nDiscord bot creation is shown using both Python and Javascript, emphasizing the need for separate channels to prevent bot-to-bot interactions and proper permission settings to restrict bot activity to designated channels. UptimeRobot is integrated to ensure continuous bot operation.\n\nKey findings include the successful creation of functional chatbots in both Python and Javascript, capable of maintaining conversations and replicating a character's speaking style.  The presenter notes a perplexity issue (model confusion) due to the relatively small dataset used.  The tutorial concludes by showing how to keep the bots running indefinitely using a web server and UptimeRobot for continuous pinging.",
+    "key_points": [
+      {
+        "timestamp": 6,
+        "text": "Create a Discord bot that talks like characters from Rick and Morty or Harry Potter.",
+        "importance": 0.8,
+        "context": "Introduction to the course topic."
+      },
+      {
+        "timestamp": 17,
+        "text": "The course will teach how to create a Discord bot that uses AI to talk like a chosen character.",
+        "importance": 0.8,
+        "context": "Course objective."
+      },
+      {
+        "timestamp": 28,
+        "text": "Lynn, a software engineer, hobbyist game developer, and recent University of Chicago graduate, introduces herself.",
+        "importance": 0.8,
+        "context": "Instructor introduction."
+      },
+      {
+        "timestamp": 42,
+        "text": "Build a Discord AI chatbot that speaks like your favorite character.",
+        "importance": 0.8,
+        "context": "Tutorial goal."
+      },
+      {
+        "timestamp": 51,
+        "text": "This tutorial is different and more comprehensive than a previous one.",
+        "importance": 0.8,
+        "context": "Comparison with prior work."
+      },
+      {
+        "timestamp": 66,
+        "text": "The original tutorial started as a joke between friends while playing video games.",
+        "importance": 0.8,
+        "context": "Origin of the project."
+      },
+      {
+        "timestamp": 82,
+        "text": "The tutorial's popularity led to this updated version with more characters and data acquisition methods.",
+        "importance": 0.8,
+        "context": "Motivation for the update."
+      },
+      {
+        "timestamp": 100,
+        "text": "Topics covered include model training, deployment, common errors, and solutions.",
+        "importance": 0.8,
+        "context": "Course content overview."
+      },
+      {
+        "timestamp": 110,
+        "text": "Building the bot will be shown in Python and JavaScript.",
+        "importance": 0.8,
+        "context": "Programming languages used."
+      },
+      {
+        "timestamp": 119,
+        "text": "Proper bot deployment to a Discord server and channel restriction will be covered.",
+        "importance": 0.8,
+        "context": "Deployment and access control."
+      },
+      {
+        "timestamp": 128,
+        "text": "Keeping the bot running indefinitely will also be addressed.",
+        "importance": 0.8,
+        "context": "Bot uptime."
+      },
+      {
+        "timestamp": 138,
+        "text": "First step: Finding data for the character.",
+        "importance": 0.8,
+        "context": "Beginning the process."
+      },
+      {
+        "timestamp": 145,
+        "text": "Data sources include Kaggle, Transcript Wiki, and fandom websites found through Google Search.",
+        "importance": 0.8,
+        "context": "Data source identification."
+      },
+      {
+        "timestamp": 158,
+        "text": "Research process: Check Kaggle first for pre-made dialogue datasets.",
+        "importance": 0.8,
+        "context": "Step-by-step explanation."
+      },
+      {
+        "timestamp": 177,
+        "text": "Searching for 'Rick and Morty' on Kaggle yields a dataset with character names and lines.",
+        "importance": 0.8,
+        "context": "Example of successful Kaggle search."
+      },
+      {
+        "timestamp": 192,
+        "text": "Searching for 'Harry Potter' on Kaggle provides another dataset with character names and lines.",
+        "importance": 0.8,
+        "context": "Another example of successful Kaggle search."
+      },
+      {
+        "timestamp": 204,
+        "text": "Only two columns (character name and line) are needed for the chatbot.",
+        "importance": 0.8,
+        "context": "Data requirements."
+      },
+      {
+        "timestamp": 213,
+        "text": "Kaggle dialogue datasets are ideal for this project.",
+        "importance": 0.8,
+        "context": "Suitability of Kaggle data."
+      },
+      {
+        "timestamp": 222,
+        "text": "If Kaggle doesn't have data, find raw transcripts from the media source (video game, cartoon, show).",
+        "importance": 0.8,
+        "context": "Alternative data acquisition."
+      },
+      {
+        "timestamp": 233,
+        "text": "Transcript Wiki is suggested as a resource for raw transcripts.",
+        "importance": 0.8,
+        "context": "Recommended transcript resource."
+      },
+      {
+        "timestamp": 253,
+        "text": "Transcript Wiki offers a list of movies, shows, video games, musicals, and commercials.",
+        "importance": 0.8,
+        "context": "Transcript Wiki content."
+      },
+      {
+        "timestamp": 267,
+        "text": "Example: Transcripts for Peppa Pig and Batman were found on Transcript Wiki.",
+        "importance": 0.8,
+        "context": "Examples of transcripts found."
+      },
+      {
+        "timestamp": 278,
+        "text": "Transcripts contain character names and actions/lines.",
+        "importance": 0.8,
+        "context": "Transcript format."
+      },
+      {
+        "timestamp": 288,
+        "text": "Converting raw transcripts to datasets like those from Kaggle will be shown.",
+        "importance": 0.8,
+        "context": "Upcoming step in data processing."
+      },
+      {
+        "timestamp": 298,
+        "text": "Alternative method: Google the media name with the keyword 'transcript'.",
+        "importance": 0.8,
+        "context": "Another data acquisition method."
+      },
+      {
+        "timestamp": 308,
+        "text": "Example: A fandom website was used to find a transcript for the game 'The Word Ends With You'.",
+        "importance": 0.8,
+        "context": "Example using Google Search."
+      },
+      {
+        "timestamp": 322,
+        "text": "Use Google Search skills to find data for your character.",
+        "importance": 0.8,
+        "context": "Importance of Google Search skills."
+      },
+      {
+        "timestamp": 330,
+        "text": "For real-life characters, use interview scripts as a data source.",
+        "importance": 0.8,
+        "context": "Data source for real-life characters."
+      },
+      {
+        "timestamp": 340,
+        "text": "For chatbots based on yourself or friends, use text messages as dialogues and create a dataset manually.",
+        "importance": 0.8,
+        "context": "Data source for personal chatbots."
+      },
+      {
+        "timestamp": 352,
+        "text": "Be creative in getting data for your character.",
+        "importance": 0.8,
+        "context": "Encouragement for creative data acquisition."
+      },
+      {
+        "timestamp": 358,
+        "text": "Next: Turn raw transcripts into datasets.",
+        "importance": 0.8,
+        "context": "Transition to the next step."
+      },
+      {
+        "timestamp": 367,
+        "text": "Assume a raw transcript has been found; convert it into a two-column (character, line) dataset.",
+        "importance": 0.8,
+        "context": "Starting data transformation."
+      },
+      {
+        "timestamp": 378,
+        "text": "Copy Peppa Pig transcript into a text file.",
+        "importance": 0.8,
+        "context": "Example data file."
+      },
+      {
+        "timestamp": 396,
+        "text": "Upload the data file to Google Colab.",
+        "importance": 0.8,
+        "context": "Uploading data to the environment."
+      },
+      {
+        "timestamp": 405,
+        "text": "Create a Google Colab notebook to parse the script.",
+        "importance": 0.8,
+        "context": "Setting up the parsing environment."
+      },
+      {
+        "timestamp": 416,
+        "text": "Notebook named parse_script.ipynb",
+        "importance": 0.8,
+        "context": "Notebook file name."
+      },
+      {
+        "timestamp": 422,
+        "text": "Use Google Colab's drive to import and mount the drive.",
+        "importance": 0.8,
+        "context": "Importing the drive."
+      },
+      {
+        "timestamp": 442,
+        "text": "Import OS to change the directory to the content drive.",
+        "importance": 0.8,
+        "context": "Using the OS module."
+      },
+      {
+        "timestamp": 459,
+        "text": "Check if PeppaPig.txt exists in the directory.",
+        "importance": 0.8,
+        "context": "Verification step."
+      },
+      {
+        "timestamp": 468,
+        "text": "Import regular expression to parse the transcript, put it in a Pandas DataFrame, and export as a CSV.",
+        "importance": 0.8,
+        "context": "Data parsing and export."
+      },
+      {
+        "timestamp": 498,
+        "text": "Regular expression pattern shown.",
+        "importance": 0.8,
+        "context": "Regex pattern details."
+      },
+      {
+        "timestamp": 516,
+        "text": "You don't need to be a regex pro to understand this.",
+        "importance": 0.8,
+        "context": "Encouragement for understanding regex."
+      },
+      {
+        "timestamp": 524,
+        "text": "Two match capture groups: character's name and spoken line.",
+        "importance": 0.8,
+        "context": "Explanation of the capture groups."
+      },
+      {
+        "timestamp": 544,
+        "text": "Define a dictionary to store the data.",
+        "importance": 0.8,
+        "context": "Data structure used."
+      },
+      {
+        "timestamp": 552,
+        "text": "Column names: 'name' and 'line'.",
+        "importance": 0.8,
+        "context": "Column names in the dataframe."
+      },
+      {
+        "timestamp": 565,
+        "text": "Open and read the file.",
+        "importance": 0.8,
+        "context": "File processing."
+      },
+      {
+        "timestamp": 589,
+        "text": "Match each line with the regex pattern.",
+        "importance": 0.8,
+        "context": "Regex application."
+      },
+      {
+        "timestamp": 602,
+        "text": "Extract name and line from the regex match.",
+        "importance": 0.8,
+        "context": "Data extraction."
+      },
+      {
+        "timestamp": 609,
+        "text": "Append data to the dictionary.",
+        "importance": 0.8,
+        "context": "Data appending."
+      },
+      {
+        "timestamp": 622,
+        "text": "Convert the dictionary to a DataFrame.",
+        "importance": 0.8,
+        "context": "Data transformation."
+      },
+      {
+        "timestamp": 630,
+        "text": "Inspect the DataFrame.",
+        "importance": 0.8,
+        "context": "Verification step."
+      },
+      {
+        "timestamp": 636,
+        "text": "Count lines belonging to Peppa Pig.",
+        "importance": 0.8,
+        "context": "Data analysis."
+      },
+      {
+        "timestamp": 651,
+        "text": "Peppa Pig has 38 lines in the DataFrame.",
+        "importance": 0.8,
+        "context": "Data analysis result."
+      },
+      {
+        "timestamp": 660,
+        "text": "The DataFrame has over 100 lines; Peppa Pig has one-third of them.",
+        "importance": 0.8,
+        "context": "Data proportions."
+      },
+      {
+        "timestamp": 670,
+        "text": "Export the DataFrame as PeppaPig.csv.",
+        "importance": 0.8,
+        "context": "Exporting the dataset."
+      },
+      {
+        "timestamp": 686,
+        "text": "The resulting CSV file has 'name' and 'line' columns.",
+        "importance": 0.8,
+        "context": "Resulting CSV file details."
+      },
+      {
+        "timestamp": 696,
+        "text": "The raw transcript has been parsed into a usable format for model training.",
+        "importance": 0.8,
+        "context": "Data processing summary."
+      },
+      {
+        "timestamp": 704,
+        "text": "Next step: Model training.",
+        "importance": 0.8,
+        "context": "Transition to model training."
+      },
+      {
+        "timestamp": 713,
+        "text": "Download the content from the provided GitHub repository link.",
+        "importance": 0.8,
+        "context": "Accessing training materials."
+      },
+      {
+        "timestamp": 726,
+        "text": "Use the model_train_upload_workflow.ipynb notebook.",
+        "importance": 0.8,
+        "context": "Training notebook."
+      },
+      {
+        "timestamp": 741,
+        "text": "Unzip the downloaded content.",
+        "importance": 0.8,
+        "context": "Extracting files."
+      },
+      {
+        "timestamp": 753,
+        "text": "Upload the notebook to Google Drive and open it in Google Colab.",
+        "importance": 0.8,
+        "context": "Setting up the training environment."
+      },
+      {
+        "timestamp": 769,
+        "text": "Train a GPT (Generative Pre-trained Transformer) model.",
+        "importance": 0.8,
+        "context": "Model type used."
+      },
+      {
+        "timestamp": 779,
+        "text": "Select GPU runtime for faster model training.",
+        "importance": 0.8,
+        "context": "Hardware acceleration."
+      },
+      {
+        "timestamp": 791,
+        "text": "Mount the drive in Google Colab.",
+        "importance": 0.8,
+        "context": "Mounting the drive."
+      },
+      {
+        "timestamp": 799,
+        "text": "Install the transformers module.",
+        "importance": 0.8,
+        "context": "Installing necessary libraries."
+      },
+      {
+        "timestamp": 809,
+        "text": "Change directory to the mounted drive.",
+        "importance": 0.8,
+        "context": "Navigating directories."
+      },
+      {
+        "timestamp": 820,
+        "text": "Import necessary modules.",
+        "importance": 0.8,
+        "context": "Module imports."
+      },
+      {
+        "timestamp": 833,
+        "text": "Obtain API key from Kaggle if using Kaggle datasets.",
+        "importance": 0.8,
+        "context": "API key acquisition."
+      },
+      {
+        "timestamp": 846,
+        "text": "Go to Kaggle profile, then Account, scroll down to API key section, create a new API token, and download as kaggle.json.",
+        "importance": 0.8,
+        "context": "Detailed steps to acquire Kaggle API key."
+      },
+      {
+        "timestamp": 869,
+        "text": "Upload kaggle.json to Google Drive.",
+        "importance": 0.8,
+        "context": "Uploading Kaggle credentials."
+      },
+      {
+        "timestamp": 878,
+        "text": "Download the Harry Potter dataset from Kaggle as an example.",
+        "importance": 0.8,
+        "context": "Example dataset download."
+      },
+      {
+        "timestamp": 892,
+        "text": "Note that whitespace in filenames can cause special characters in the filename.",
+        "importance": 0.8,
+        "context": "Handling file name whitespace."
+      },
+      {
+        "timestamp": 904,
+        "text": "Inspect the dataset file.",
+        "importance": 0.8,
+        "context": "Data file inspection."
+      },
+      {
+        "timestamp": 914,
+        "text": "CSV files are usually separated by commas, but this one uses semicolons.",
+        "importance": 0.8,
+        "context": "Handling different delimiters."
+      },
+      {
+        "timestamp": 926,
+        "text": "Specify semicolon as the separator when reading into a Pandas DataFrame.",
+        "importance": 0.8,
+        "context": "Setting the delimiter."
+      },
+      {
+        "timestamp": 938,
+        "text": "Sample the data to check the contents.",
+        "importance": 0.8,
+        "context": "Data verification."
+      },
+      {
+        "timestamp": 946,
+        "text": "The data has 'character' and 'sentence' columns; rename them to 'name' and 'line'.",
+        "importance": 0.8,
+        "context": "Data column renaming."
+      },
+      {
+        "timestamp": 967,
+        "text": "Check the dataset size.",
+        "importance": 0.8,
+        "context": "Dataset size verification."
+      },
+      {
+        "timestamp": 976,
+        "text": "The dataset has around 1000 lines.",
+        "importance": 0.8,
+        "context": "Dataset size."
+      },
+      {
+        "timestamp": 982,
+        "text": "Count the lines belonging to Harry.",
+        "importance": 0.8,
+        "context": "Counting character lines."
+      },
+      {
+        "timestamp": 994,
+        "text": "Harry has 155 lines.",
+        "importance": 0.8,
+        "context": "Character lines count."
+      },
+      {
+        "timestamp": 1000,
+        "text": "Create a context DataFrame including the current line and preceding lines.",
+        "importance": 0.8,
+        "context": "Contextual data creation."
+      },
+      {
+        "timestamp": 1018,
+        "text": "A context DataFrame is useful for conversational chatbots.",
+        "importance": 0.8,
+        "context": "Importance of context data."
+      },
+      {
+        "timestamp": 1028,
+        "text": "Sample the context DataFrame.",
+        "importance": 0.8,
+        "context": "Context data verification."
+      },
+      {
+        "timestamp": 1040,
+        "text": "Split the dataset into training and test sets to avoid overfitting.",
+        "importance": 0.8,
+        "context": "Data splitting for model training."
+      },
+      {
+        "timestamp": 1056,
+        "text": "Overfitting causes the model to memorize lines instead of generating organic conversations.",
+        "importance": 0.8,
+        "context": "Explanation of overfitting."
+      },
+      {
+        "timestamp": 1072,
+        "text": "Train the model on the training set and evaluate on the test set.",
+        "importance": 0.8,
+        "context": "Model training and evaluation process."
+      },
+      {
+        "timestamp": 1085,
+        "text": "Build the dataset, cache checkpoints, and build the model.",
+        "importance": 0.8,
+        "context": "Model training steps."
+      },
+      {
+        "timestamp": 1098,
+        "text": "Fine-tune a Microsoft pre-trained GPT-small model.",
+        "importance": 0.8,
+        "context": "Model fine-tuning."
+      },
+      {
+        "timestamp": 1109,
+        "text": "'Small' refers to the number of parameters in the model.",
+        "importance": 0.8,
+        "context": "Model size explanation."
+      },
+      {
+        "timestamp": 1117,
+        "text": "Medium models are recommended for a balance of performance and training time.",
+        "importance": 0.8,
+        "context": "Model size recommendation."
+      },
+      {
+        "timestamp": 1134,
+        "text": "A medium model runs the production chatbot with 1000+ users.",
+        "importance": 0.8,
+        "context": "Production model specification."
+      },
+      {
+        "timestamp": 1146,
+        "text": "For this tutorial, a small model is used for time's sake.",
+        "importance": 0.8,
+        "context": "Model size chosen for the tutorial."
+      },
+      {
+        "timestamp": 1169,
+        "text": "Model download may take some time (around 300 MB).",
+        "importance": 0.8,
+        "context": "Model download time and size."
+      },
+      {
+        "timestamp": 1191,
+        "text": "Hyperparameters: Number of training epochs (4), batch size (don't change unless you know what you're doing).",
+        "importance": 0.8,
+        "context": "Hyperparameter explanation."
+      },
+      {
+        "timestamp": 1220,
+        "text": "Increasing epochs generally results in smarter models, but avoid overfitting.",
+        "importance": 0.8,
+        "context": "Impact of epochs on model performance."
+      },
+      {
+        "timestamp": 1238,
+        "text": "Batch size can be decreased to address memory errors when training large models.",
+        "importance": 0.8,
+        "context": "Batch size adjustment for memory issues."
+      },
+      {
+        "timestamp": 1261,
+        "text": "The remaining cells train and save the model to the 'output_small' folder.",
+        "importance": 0.8,
+        "context": "Model training and saving process."
+      },
+      {
+        "timestamp": 1274,
+        "text": "Run the main function to start training.",
+        "importance": 0.8,
+        "context": "Initiating model training."
+      },
+      {
+        "timestamp": 1283,
+        "text": "Training time: Medium model takes ~2 hours for 12 epochs.",
+        "importance": 0.8,
+        "context": "Training time estimation."
+      },
+      {
+        "timestamp": 1303,
+        "text": "High perplexity indicates model confusion in word choice.  Small datasets can result in high perplexity.",
+        "importance": 0.8,
+        "context": "Perplexity explanation and its relation to dataset size."
+      },
+      {
+        "timestamp": 1328,
+        "text": "To decrease perplexity, train for more epochs.",
+        "importance": 0.8,
+        "context": "Solution to high perplexity."
+      },
+      {
+        "timestamp": 1336,
+        "text": "Training is complete; load and chat with the model.",
+        "importance": 0.8,
+        "context": "Transition to model interaction."
+      },
+      {
+        "timestamp": 1351,
+        "text": "Change the bot's name.",
+        "importance": 0.8,
+        "context": "Renaming the bot."
+      },
+      {
+        "timestamp": 1372,
+        "text": "The chatbot can maintain a conversation.",
+        "importance": 0.8,
+        "context": "Chatbot capability demonstration."
+      },
+      {
+        "timestamp": 1383,
+        "text": "Push the model to Hugging Face.",
+        "importance": 0.8,
+        "context": "Deployment to Hugging Face."
+      },
+      {
+        "timestamp": 1399,
+        "text": "Change directory to the content folder.",
+        "importance": 0.8,
+        "context": "Navigating directories."
+      },
+      {
+        "timestamp": 1406,
+        "text": "Install Hugging Face command-line client.",
+        "importance": 0.8,
+        "context": "Installing Hugging Face CLI."
+      },
+      {
+        "timestamp": 1417,
+        "text": "Log in using Hugging Face credentials.",
+        "importance": 0.8,
+        "context": "Hugging Face login."
+      },
+      {
+        "timestamp": 1435,
+        "text": "After logging in, grab the assigned token for later use.",
+        "importance": 0.8,
+        "context": "Saving the token."
+      },
+      {
+        "timestamp": 1447,
+        "text": "Create a repository to store the model (e.g., 'dialogue-gpt-small-harry-potter').",
+        "importance": 0.8,
+        "context": "Creating a model repository."
+      },
+      {
+        "timestamp": 1470,
+        "text": "The empty model repository is created.",
+        "importance": 0.8,
+        "context": "Repository creation confirmation."
+      },
+      {
+        "timestamp": 1482,
+        "text": "Install Git LFS (Large File Storage) to push/pull models.",
+        "importance": 0.8,
+        "context": "Installing Git LFS."
+      },
+      {
+        "timestamp": 1496,
+        "text": "Replace the token placeholder with the copied token.",
+        "importance": 0.8,
+        "context": "Replacing token placeholder."
+      },
+      {
+        "timestamp": 1516,
+        "text": "Username and token are inserted.",
+        "importance": 0.8,
+        "context": "Credentials insertion confirmation."
+      },
+      {
+        "timestamp": 1526,
+        "text": "The training result is in the 'output_small' directory.",
+        "importance": 0.8,
+        "context": "Location of training results."
+      },
+      {
+        "timestamp": 1536,
+        "text": "Change directory to the model repository.",
+        "importance": 0.8,
+        "context": "Navigating directories."
+      },
+      {
+        "timestamp": 1548,
+        "text": "Use Git add, commit, and push to upload the model.",
+        "importance": 0.8,
+        "context": "Git commands for model upload."
+      },
+      {
+        "timestamp": 1565,
+        "text": "Git add may take time due to the large PyTorch model size.",
+        "importance": 0.8,
+        "context": "Time estimation for Git add."
+      },
+      {
+        "timestamp": 1575,
+        "text": "Configure global username and user email.",
+        "importance": 0.8,
+        "context": "Configuring git user information."
+      },
+      {
+        "timestamp": 1590,
+        "text": "Commit with message 'initial commit'.",
+        "importance": 0.8,
+        "context": "Git commit message."
+      },
+      {
+        "timestamp": 1598,
+        "text": "Push the model.",
+        "importance": 0.8,
+        "context": "Model pushing to Hugging Face."
+      },
+      {
+        "timestamp": 1610,
+        "text": "The push is complete (around 400 MB).",
+        "importance": 0.8,
+        "context": "Push completion and size confirmation."
+      },
+      {
+        "timestamp": 1627,
+        "text": "The PyTorch model is visible on Hugging Face.",
+        "importance": 0.8,
+        "context": "Model visibility confirmation."
+      },
+      {
+        "timestamp": 1636,
+        "text": "Add 'conversational' tag to the model card.",
+        "importance": 0.8,
+        "context": "Adding tag to the model card."
+      },
+      {
+        "timestamp": 1665,
+        "text": "The model is correctly tagged as conversational.",
+        "importance": 0.8,
+        "context": "Tagging confirmation."
+      },
+      {
+        "timestamp": 1673,
+        "text": "Chat with the model on the main model page.",
+        "importance": 0.8,
+        "context": "Testing the model."
+      },
+      {
+        "timestamp": 1700,
+        "text": "The model is ready to use in the Discord chatbot.",
+        "importance": 0.8,
+        "context": "Transition to Discord bot integration."
+      },
+      {
+        "timestamp": 1714,
+        "text": "Build the Discord bot.",
+        "importance": 0.8,
+        "context": "Beginning Discord bot development."
+      },
+      {
+        "timestamp": 1721,
+        "text": "There are two channels, one for the Python bot and one for the JavaScript bot.",
+        "importance": 0.8,
+        "context": "Discord channel setup."
+      },
+      {
+        "timestamp": 1737,
+        "text": "Separate channels prevent bots from talking to each other.",
+        "importance": 0.8,
+        "context": "Reason for separate channels."
+      },
+      {
+        "timestamp": 1750,
+        "text": "After bot creation, set permissions to restrict their channels.",
+        "importance": 0.8,
+        "context": "Access control for bots."
+      },
+      {
+        "timestamp": 1766,
+        "text": "Go to Discord Developer portal and create an application (one per bot).",
+        "importance": 0.8,
+        "context": "Creating Discord applications."
+      },
+      {
+        "timestamp": 1784,
+        "text": "Name the Python bot application (e.g., ChattyBot Python).",
+        "importance": 0.8,
+        "context": "Naming the Python bot application."
+      },
+      {
+        "timestamp": 1806,
+        "text": "Create a bot.",
+        "importance": 0.8,
+        "context": "Creating the Discord bot."
+      },
+      {
+        "timestamp": 1820,
+        "text": "Name the bot (e.g., Harry Potter Bot Python) and upload an icon.",
+        "importance": 0.8,
+        "context": "Naming and customizing the bot."
+      },
+      {
+        "timestamp": 1847,
+        "text": "Use the API token when creating the Python bot.",
+        "importance": 0.8,
+        "context": "Using the API token."
+      },
+      {
+        "timestamp": 1856,
+        "text": "Host the bot on Repl.it; create a new Python Repl.",
+        "importance": 0.8,
+        "context": "Hosting the bot on Repl.it."
+      },
+      {
+        "timestamp": 1871,
+        "text": "Name the Repl (e.g., ChattyBot Python).",
+        "importance": 0.8,
+        "context": "Naming the Repl."
+      },
+      {
+        "timestamp": 1895,
+        "text": "Store Hugging Face and Discord API tokens as environment variables.",
+        "importance": 0.8,
+        "context": "Storing API tokens as environment variables."
+      },
+      {
+        "timestamp": 1911,
+        "text": "Create environment variables for Hugging Face and Discord tokens.",
+        "importance": 0.8,
+        "context": "Setting environment variables."
+      },
+      {
+        "timestamp": 1947,
+        "text": "Get Hugging Face API token from profile.",
+        "importance": 0.8,
+        "context": "Acquiring Hugging Face API token."
+      },
+      {
+        "timestamp": 1966,
+        "text": "Get Discord token from the Discord Developer Portal.",
+        "importance": 0.8,
+        "context": "Acquiring Discord token."
+      },
+      {
+        "timestamp": 1986,
+        "text": "Environment variables are set.",
+        "importance": 0.8,
+        "context": "Confirmation of environment variable setup."
+      },
+      {
+        "timestamp": 2000,
+        "text": "Use the Discord bot Python file from the GitHub repository.",
+        "importance": 0.8,
+        "context": "Accessing the Python bot code."
+      },
+      {
+        "timestamp": 2015,
+        "text": "Code explanation line by line.",
+        "importance": 0.8,
+        "context": "Code walkthrough."
+      },
+      {
+        "timestamp": 2036,
+        "text": "Import OS module to read environment variables.",
+        "importance": 0.8,
+        "context": "Importing OS module."
+      },
+      {
+        "timestamp": 2053,
+        "text": "Import modules for querying Hugging Face model.",
+        "importance": 0.8,
+        "context": "Importing necessary modules."
+      },
+      {
+        "timestamp": 2063,
+        "text": "Import Discord module.",
+        "importance": 0.8,
+        "context": "Importing Discord module."
+      },
+      {
+        "timestamp": 2071,
+        "text": "Define API URL pointing to username.",
+        "importance": 0.8,
+        "context": "Defining API endpoint."
+      },
+      {
+        "timestamp": 2090,
+        "text": "Define the bot.",
+        "importance": 0.8,
+        "context": "Bot definition."
+      },
+      {
+        "timestamp": 2101,
+        "text": "The init function takes in a model name.",
+        "importance": 0.8,
+        "context": "Initialization function parameters."
+      },
+      {
+        "timestamp": 2117,
+        "text": "Model name: dialogue-gpt-small-harry-potter",
+        "importance": 0.8,
+        "context": "Model name used."
+      },
+      {
+        "timestamp": 2131,
+        "text": "Store API endpoint by concatenating API URL and model name.",
+        "importance": 0.8,
+        "context": "API endpoint construction."
+      },
+      {
+        "timestamp": 2148,
+        "text": "Retrieve secret API token from environment variables.",
+        "importance": 0.8,
+        "context": "Retrieving API token from environment variables."
+      },
+      {
+        "timestamp": 2161,
+        "text": "Format request headers for Hugging Face (authorization: Bearer + Hugging Face token).",
+        "importance": 0.8,
+        "context": "Request header formatting."
+      },
+      {
+        "timestamp": 2183,
+        "text": "Define a query method that takes in the payload.",
+        "importance": 0.8,
+        "context": "Query method definition."
+      },
+      {
+        "timestamp": 2193,
+        "text": "Dump the payload as a JSON string.",
+        "importance": 0.8,
+        "context": "Payload handling."
+      },
+      {
+        "timestamp": 2202,
+        "text": "Use the requests module to make an HTTP POST request to the API endpoint.",
+        "importance": 0.8,
+        "context": "Making API request."
+      },
+      {
+        "timestamp": 2232,
+        "text": "Decode the response from UTF-8 and return it as a string.",
+        "importance": 0.8,
+        "context": "Response handling."
+      },
+      {
+        "timestamp": 2252,
+        "text": "Define an asynchronous function named 'on_ready'.",
+        "importance": 0.8,
+        "context": "Asynchronous function definition."
+      },
+      {
+        "timestamp": 2268,
+        "text": "The next two function definitions are based on the Discord API.",
+        "importance": 0.8,
+        "context": "Discord API usage."
+      },
+      {
+        "timestamp": 2283,
+        "text": "On ready function is called when the bot is logging in.",
+        "importance": 0.8,
+        "context": "on_ready function behavior."
+      },
+      {
+        "timestamp": 2301,
+        "text": "Print 'logged in as' along with bot name and ID upon login.",
+        "importance": 0.8,
+        "context": "Login message."
+      },
+      {
+        "timestamp": 2323,
+        "text": "The 'on_message' method is called when the bot sees a message.",
+        "importance": 0.8,
+        "context": "on_message function behavior."
+      },
+      {
+        "timestamp": 2342,
+        "text": "If the message is from the bot itself, ignore it.",
+        "importance": 0.8,
+        "context": "Self-message handling."
+      },
+      {
+        "timestamp": 2358,
+        "text": "Otherwise, form a query payload with the message content.",
+        "importance": 0.8,
+        "context": "Payload creation."
+      },
+      {
+        "timestamp": 2373,
+        "text": "Set bot status to 'typing' while waiting for the HTTP response.",
+        "importance": 0.8,
+        "context": "User feedback during processing."
+      },
+      {
+        "timestamp": 2397,
+        "text": "Make an asynchronous call using message.channel.typing.",
+        "importance": 0.8,
+        "context": "Asynchronous API call."
+      },
+      {
+        "timestamp": 2408,
+        "text": "Call the query function with the payload.",
+        "importance": 0.8,
+        "context": "Calling the query function."
+      },
+      {
+        "timestamp": 2416,
+        "text": "If a generated response is valid, extract the generated text.",
+        "importance": 0.8,
+        "context": "Response validation and extraction."
+      },
+      {
+        "timestamp": 2434,
+        "text": "Otherwise, log any error messages for debugging.",
+        "importance": 0.8,
+        "context": "Error handling."
+      },
+      {
+        "timestamp": 2451,
+        "text": "Use an asynchronous method to send the bot's response to the channel.",
+        "importance": 0.8,
+        "context": "Sending response to channel."
+      },
+      {
+        "timestamp": 2470,
+        "text": "Bot definition complete.",
+        "importance": 0.8,
+        "context": "Summary of bot definition."
+      },
+      {
+        "timestamp": 2478,
+        "text": "In the main function, create the bot and pass in the model name.",
+        "importance": 0.8,
+        "context": "Main function description."
+      },
+      {
+        "timestamp": 2500,
+        "text": "Model name: dialogue-gpt-small-harry-potter",
+        "importance": 0.8,
+        "context": "Model name used in main function."
+      },
+      {
+        "timestamp": 2514,
+        "text": "Use client.run() with the Discord token from environment variables.",
+        "importance": 0.8,
+        "context": "Running the bot."
+      },
+      {
+        "timestamp": 2533,
+        "text": "The bot is set up; invite it to the channel.",
+        "importance": 0.8,
+        "context": "Inviting bot to Discord."
+      },
+      {
+        "timestamp": 2553,
+        "text": "In the OAuth2 tab, select the bot.",
+        "importance": 0.8,
+        "context": "Selecting the bot."
+      },
+      {
+        "timestamp": 2567,
+        "text": "Bot permissions: Only 'Send Messages' is needed.",
+        "importance": 0.8,
+        "context": "Setting bot permissions."
+      }
+    ],
+    "entities": [
+      {
+        "name": "Harry Potter",
+        "type": "game",
+        "properties": {
+          "spacy_label": "PERSON",
+          "start_char": 75,
+          "end_char": 87
+        },
+        "confidence": 1.0,
+        "timestamp": null
+      },
+      {
+        "name": "Transcript Wiki",
+        "type": "ORGANIZATION",
+        "properties": {
+          "spacy_label": "PERSON",
+          "start_char": 1680,
+          "end_char": 1695
+        },
+        "confidence": 1.0,
+        "timestamp": null
+      },
+      {
+        "name": "Google Colab",
+        "type": "framework",
+        "properties": {
+          "spacy_label": "ORG",
+          "start_char": 4520,
+          "end_char": 4532
+        },
+        "confidence": 1.0,
+        "timestamp": null
+      },
+      {
+        "name": "Hugging Face",
+        "type": "ORGANIZATION",
+        "properties": {
+          "spacy_label": "ORG",
+          "start_char": 12886,
+          "end_char": 12898
+        },
+        "confidence": 1.0,
+        "timestamp": null
+      },
+      {
+        "name": "Uptime Robot",
+        "type": "ORGANIZATION",
+        "properties": {
+          "spacy_label": "ORG",
+          "start_char": 26461,
+          "end_char": 26473
+        },
+        "confidence": 1.0,
+        "timestamp": null
+      },
+      {
+        "name": "the Discord",
+        "type": "ORGANIZATION",
+        "properties": {
+          "spacy_label": "ORG",
+          "start_char": 13,
+          "end_char": 20
+        },
+        "confidence": 0.9,
+        "timestamp": null
+      },
+      {
+        "name": "Python",
+        "type": "programming_language",
+        "properties": {
+          "spacy_label": "GPE",
+          "start_char": 1342,
+          "end_char": 1348
+        },
+        "confidence": 0.9,
+        "timestamp": null
+      },
+      {
+        "name": "kaggle",
+        "type": "ORGANIZATION",
+        "properties": {
+          "spacy_label": "PERSON",
+          "start_char": 1672,
+          "end_char": 1678
+        },
+        "confidence": 0.9,
+        "timestamp": null
+      },
+      {
+        "name": "Google",
+        "type": "ORGANIZATION",
+        "properties": {
+          "spacy_label": "ORG",
+          "start_char": 1752,
+          "end_char": 1758
+        },
+        "confidence": 0.9,
+        "timestamp": null
+      },
+      {
+        "name": "Peppa Pig",
+        "type": "ORGANIZATION",
+        "properties": {
+          "spacy_label": "ORG",
+          "start_char": 2568,
+          "end_char": 2577
+        },
+        "confidence": 0.9,
+        "timestamp": null
+      },
+      {
+        "name": "Git",
+        "type": "software",
+        "properties": {
+          "spacy_label": "PERSON",
+          "start_char": 13480,
+          "end_char": 13483
+        },
+        "confidence": 0.9,
+        "timestamp": null
+      },
+      {
+        "name": "JavaScript",
+        "type": "programming_language",
+        "properties": {
+          "spacy_label": "ORG",
+          "start_char": 15558,
+          "end_char": 15568
+        },
+        "confidence": 0.9,
+        "timestamp": null
+      },
+      {
+        "name": "ChattyBot Python",
+        "type": "ORGANIZATION",
+        "properties": {
+          "spacy_label": "ORG",
+          "start_char": 15946,
+          "end_char": 15962
+        },
+        "confidence": 0.9,
+        "timestamp": null
+      },
+      {
+        "name": "Harry Potter Bot Python",
+        "type": "PERSON",
+        "properties": {
+          "spacy_label": "PERSON",
+          "start_char": 16018,
+          "end_char": 16041
+        },
+        "confidence": 0.9,
+        "timestamp": null
+      },
+      {
+        "name": "Repl",
+        "type": "ORGANIZATION",
+        "properties": {
+          "spacy_label": "ORG",
+          "start_char": 20281,
+          "end_char": 20285
+        },
+        "confidence": 0.9,
+        "timestamp": null
+      },
+      {
+        "name": "Besides Transcript Wiki",
+        "type": "PERSON",
+        "properties": {
+          "spacy_label": "PERSON",
+          "start_char": 3205,
+          "end_char": 3228
+        },
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Google Drive",
+        "type": "PRODUCT",
+        "properties": {
+          "spacy_label": "FAC",
+          "start_char": 4634,
+          "end_char": 4646
+        },
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Harry Potter 1.csv",
+        "type": "PRODUCT",
+        "properties": {
+          "spacy_label": "PERSON",
+          "start_char": 7977,
+          "end_char": 7995
+        },
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Discord Python",
+        "type": "ORGANIZATION",
+        "properties": {
+          "spacy_label": "ORG",
+          "start_char": 27078,
+          "end_char": 27092
+        },
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Wanna",
+        "type": "PERSON",
+        "properties": {
+          "spacy_label": "PERSON",
+          "start_char": 0,
+          "end_char": 5
+        },
+        "confidence": 0.8,
+        "timestamp": null
+      },
+      {
+        "name": "Rick",
+        "type": "PERSON",
+        "properties": {
+          "spacy_label": "PERSON",
+          "start_char": 57,
+          "end_char": 61
+        },
+        "confidence": 0.8,
+        "timestamp": null
+      },
+      {
+        "name": "Morty",
+        "type": "PERSON",
+        "properties": {
+          "spacy_label": "PERSON",
+          "start_char": 66,
+          "end_char": 71
+        },
+        "confidence": 0.8,
+        "timestamp": null
+      },
+      {
+        "name": "Lynn",
+        "type": "PERSON",
+        "properties": {
+          "spacy_label": "PERSON",
+          "start_char": 167,
+          "end_char": 171
+        },
+        "confidence": 0.8,
+        "timestamp": null
+      },
+      {
+        "name": "Red Writer",
+        "type": "PERSON",
+        "properties": {
+          "spacy_label": "ORG",
+          "start_char": 12683,
+          "end_char": 12693
+        },
+        "confidence": 0.8,
+        "timestamp": null
+      },
+      {
+        "name": "PyTorch",
+        "type": "ORGANIZATION",
+        "properties": {
+          "spacy_label": "ORG",
+          "start_char": 14334,
+          "end_char": 14341
+        },
+        "confidence": 0.8,
+        "timestamp": null
+      },
+      {
+        "name": "Node",
+        "type": "programming_language",
+        "properties": {
+          "spacy_label": "GPE",
+          "start_char": 25219,
+          "end_char": 25223
+        },
+        "confidence": 0.8,
+        "timestamp": null
+      },
+      {
+        "name": "the University of Chicago",
+        "type": "ORGANIZATION",
+        "properties": {
+          "spacy_label": "ORG",
+          "start_char": 385,
+          "end_char": 410
+        },
+        "confidence": 0.7999999999999999,
+        "timestamp": null
+      },
+      {
+        "name": "Batman on Transcript Wiki",
+        "type": "PRODUCT",
+        "properties": {
+          "spacy_label": "WORK_OF_ART",
+          "start_char": 2962,
+          "end_char": 2987
+        },
+        "confidence": 0.7999999999999999,
+        "timestamp": null
+      },
+      {
+        "name": "The Word Ends With You",
+        "type": "PRODUCT",
+        "properties": {
+          "spacy_label": "WORK_OF_ART",
+          "start_char": 3356,
+          "end_char": 3378
+        },
+        "confidence": 0.7999999999999999,
+        "timestamp": null
+      },
+      {
+        "name": "script.ipynb",
+        "type": "PRODUCT",
+        "properties": {
+          "spacy_label": "ORG",
+          "start_char": 4481,
+          "end_char": 4493
+        },
+        "confidence": 0.7999999999999999,
+        "timestamp": null
+      },
+      {
+        "name": "PeppaPig.csv",
+        "type": "PRODUCT",
+        "properties": {
+          "spacy_label": "PRODUCT",
+          "start_char": 6514,
+          "end_char": 6526
+        },
+        "confidence": 0.7999999999999999,
+        "timestamp": null
+      },
+      {
+        "name": "discord_bot.js",
+        "type": "PRODUCT",
+        "properties": {
+          "spacy_label": "GPE",
+          "start_char": 21998,
+          "end_char": 22012
+        },
+        "confidence": 0.7999999999999999,
+        "timestamp": null
+      },
+      {
+        "name": "keep_alive.py",
+        "type": "PRODUCT",
+        "properties": {
+          "spacy_label": "ORG",
+          "start_char": 26575,
+          "end_char": 26588
+        },
+        "confidence": 0.7999999999999999,
+        "timestamp": null
+      },
+      {
+        "name": "George",
+        "type": "PERSON",
+        "properties": {
+          "spacy_label": "PERSON",
+          "start_char": 6031,
+          "end_char": 6037
+        },
+        "confidence": 0.75,
+        "timestamp": null
+      },
+      {
+        "name": "Microsoft",
+        "type": "ORGANIZATION",
+        "properties": {
+          "spacy_label": "ORG",
+          "start_char": 10077,
+          "end_char": 10086
+        },
+        "confidence": 0.75,
+        "timestamp": null
+      },
+      {
+        "name": "Dev Lab",
+        "type": "ORGANIZATION",
+        "properties": {
+          "spacy_label": "PERSON",
+          "start_char": 15489,
+          "end_char": 15496
+        },
+        "confidence": 0.75,
+        "timestamp": null
+      },
+      {
+        "name": "UTF-8",
+        "type": "PRODUCT",
+        "properties": {
+          "spacy_label": "GPE",
+          "start_char": 18103,
+          "end_char": 18108
+        },
+        "confidence": 0.75,
+        "timestamp": null
+      },
+      {
+        "name": "message.content",
+        "type": "PRODUCT",
+        "properties": {
+          "spacy_label": "PRODUCT",
+          "start_char": 22978,
+          "end_char": 22993
+        },
+        "confidence": 0.7499999999999999,
+        "timestamp": null
+      },
+      {
+        "name": "model",
+        "type": "model",
+        "properties": {},
+        "confidence": 0.8415563702583313,
+        "timestamp": null
+      },
+      {
+        "name": "Rick and Morty",
+        "type": "game",
+        "properties": {},
+        "confidence": 0.95,
+        "timestamp": null
+      },
+      {
+        "name": "PeppaPig",
+        "type": "character",
+        "properties": {},
+        "confidence": 0.8711272478103638,
+        "timestamp": null
+      },
+      {
+        "name": "Mama Pig",
+        "type": "character",
+        "properties": {},
+        "confidence": 0.7918107509613037,
+        "timestamp": null
+      },
+      {
+        "name": "our character",
+        "type": "character",
+        "properties": {},
+        "confidence": 0.8630357980728149,
+        "timestamp": null
+      },
+      {
+        "name": "character",
+        "type": "character",
+        "properties": {},
+        "confidence": 0.7023147940635681,
+        "timestamp": null
+      },
+      {
+        "name": "PyTorch model",
+        "type": "model",
+        "properties": {},
+        "confidence": 0.9532848000526428,
+        "timestamp": null
+      },
+      {
+        "name": "HTTP",
+        "type": "protocol",
+        "properties": {},
+        "confidence": 0.9448840618133545,
+        "timestamp": null
+      },
+      {
+        "name": "Hugging Face API",
+        "type": "api",
+        "properties": {},
+        "confidence": 0.8358596563339233,
+        "timestamp": null
+      },
+      {
+        "name": "Discord API",
+        "type": "api",
+        "properties": {},
+        "confidence": 0.8780717849731445,
+        "timestamp": null
+      },
+      {
+        "name": "bot",
+        "type": "software",
+        "properties": {},
+        "confidence": 0.95,
+        "timestamp": null
+      },
+      {
+        "name": "Node.js",
+        "type": "programming_language",
+        "properties": {},
+        "confidence": 0.95,
+        "timestamp": null
+      },
+      {
+        "name": "Python channel",
+        "type": "channel",
+        "properties": {},
+        "confidence": 0.9417365789413452,
+        "timestamp": null
+      },
+      {
+        "name": "JS channel",
+        "type": "channel",
+        "properties": {},
+        "confidence": 0.8298271894454956,
+        "timestamp": null
+      },
+      {
+        "name": "JavaScript channel",
+        "type": "channel",
+        "properties": {},
+        "confidence": 0.7982146143913269,
+        "timestamp": null
+      },
+      {
+        "name": "Discord channel",
+        "type": "channel",
+        "properties": {},
+        "confidence": 0.7763413190841675,
+        "timestamp": null
+      },
+      {
+        "name": "Discord JS bot",
+        "type": "software",
+        "properties": {},
+        "confidence": 0.7469636797904968,
+        "timestamp": null
+      }
+    ],
+    "topics": [
+      {
+        "name": "Creating a Discord bot that uses AI to talk like a chosen character",
+        "confidence": 0.85
+      },
+      {
+        "name": "Finding data for the character (Kaggle, Transcript Wiki, fandom websites)",
+        "confidence": 0.85
+      },
+      {
+        "name": "Transforming raw transcripts into usable datasets",
+        "confidence": 0.85
+      },
+      {
+        "name": "Training the model (using a pre-trained GPT model)",
+        "confidence": 0.85
+      },
+      {
+        "name": "Hyperparameters in model training",
+        "confidence": 0.85
+      },
+      {
+        "name": "Deploying the model to Hugging Face",
+        "confidence": 0.85
+      },
+      {
+        "name": "Building the Discord bot in Python",
+        "confidence": 0.85
+      },
+      {
+        "name": "Building the Discord bot in JavaScript",
+        "confidence": 0.85
+      },
+      {
+        "name": "Setting bot permissions and channel access",
+        "confidence": 0.85
+      },
+      {
+        "name": "Keeping the bot running indefinitely using a web server and Uptime Robot",
+        "confidence": 0.85
+      }
+    ],
+    "sentiment": null
+  },
+  "processing": {
+    "cost": 0.11573334298470835,
+    "time": 432.239654,
+    "processed_at": "2025-06-24T11:05:10.305227",
+    "model": "gemini-1.5-flash",
+    "extractor": "advanced_hybrid_v2.2"
+  },
+  "relationships": [
+    {
+      "subject": "Python",
+      "predicate": "influenced by",
+      "object": "JavaScript",
+      "confidence": 0.9,
+      "context": "The original tutorial and my first Discord bot started as a joke between me and my friends when we w"
+    },
+    {
+      "subject": "JavaScript",
+      "predicate": "influenced by",
+      "object": "Python",
+      "confidence": 0.9,
+      "context": "The original tutorial and my first Discord bot started as a joke between me and my friends when we w"
+    },
+    {
+      "subject": "Google Colab",
+      "predicate": "has part",
+      "object": "Google Drive",
+      "confidence": 0.9,
+      "context": "And we are going to from Google Colab import drive, and then call drive.mount content drive.\n\nThis w"
+    },
+    {
+      "subject": "Google Drive",
+      "predicate": "part of",
+      "object": "Google Colab",
+      "confidence": 0.9,
+      "context": "And we are going to from Google Colab import drive, and then call drive.mount content drive.\n\nThis w"
+    },
+    {
+      "subject": "Google Colab",
+      "predicate": "part of",
+      "object": "Google Drive",
+      "confidence": 0.9,
+      "context": "And we are going to from Google Colab import drive, and then call drive.mount content drive.\n\nThis w"
+    },
+    {
+      "subject": "Google Colab",
+      "predicate": "uses",
+      "object": "Google Drive",
+      "confidence": 0.9,
+      "context": "And also for the second line, Mama Pig, we have the character name and the line being spoken.\n\nGreat"
+    },
+    {
+      "subject": "Google Drive",
+      "predicate": "used by",
+      "object": "Google Colab",
+      "confidence": 0.9,
+      "context": "And also for the second line, Mama Pig, we have the character name and the line being spoken.\n\nGreat"
+    },
+    {
+      "subject": "Google Colab",
+      "predicate": "is part of",
+      "object": "Google Drive",
+      "confidence": 0.9,
+      "context": "And also for the second line, Mama Pig, we have the character name and the line being spoken.\n\nGreat"
+    },
+    {
+      "subject": "Google Drive",
+      "predicate": "has as part",
+      "object": "Google Colab",
+      "confidence": 0.9,
+      "context": "And also for the second line, Mama Pig, we have the character name and the line being spoken.\n\nGreat"
+    },
+    {
+      "subject": "PyTorch",
+      "predicate": "part of",
+      "object": "Git",
+      "confidence": 0.9,
+      "context": "And also just print out the working directory we are in to make sure that we are inside content. Coo"
+    },
+    {
+      "subject": "Harry Potter Bot Python",
+      "predicate": "instance of",
+      "object": "bot",
+      "confidence": 0.9,
+      "context": "Now that our bot has logged in as Harry Potter Bot Python, and this is its unique ID. Let's go to th"
+    },
+    {
+      "subject": "Node",
+      "predicate": "influenced by",
+      "object": "JavaScript",
+      "confidence": 0.9,
+      "context": "So this Python bot shouldn't be able to send messages to this JavaScript channel.\n\nNow we go back to"
+    }
+  ],
+  "knowledge_graph": {
+    "nodes": [
+      {
+        "id": "Harry Potter",
+        "type": "game",
+        "confidence": 1.0
+      },
+      {
+        "id": "Transcript Wiki",
+        "type": "ORGANIZATION",
+        "confidence": 1.0
+      },
+      {
+        "id": "Google Colab",
+        "type": "framework",
+        "confidence": 1.0
+      },
+      {
+        "id": "Hugging Face",
+        "type": "ORGANIZATION",
+        "confidence": 1.0
+      },
+      {
+        "id": "Uptime Robot",
+        "type": "ORGANIZATION",
+        "confidence": 1.0
+      },
+      {
+        "id": "the Discord",
+        "type": "ORGANIZATION",
+        "confidence": 0.9
+      },
+      {
+        "id": "Python",
+        "type": "programming_language",
+        "confidence": 0.9
+      },
+      {
+        "id": "kaggle",
+        "type": "ORGANIZATION",
+        "confidence": 0.9
+      },
+      {
+        "id": "Google",
+        "type": "ORGANIZATION",
+        "confidence": 0.9
+      },
+      {
+        "id": "Peppa Pig",
+        "type": "ORGANIZATION",
+        "confidence": 0.9
+      },
+      {
+        "id": "Git",
+        "type": "software",
+        "confidence": 0.9
+      },
+      {
+        "id": "JavaScript",
+        "type": "programming_language",
+        "confidence": 0.9
+      },
+      {
+        "id": "ChattyBot Python",
+        "type": "ORGANIZATION",
+        "confidence": 0.9
+      },
+      {
+        "id": "Harry Potter Bot Python",
+        "type": "PERSON",
+        "confidence": 0.9
+      },
+      {
+        "id": "Repl",
+        "type": "ORGANIZATION",
+        "confidence": 0.9
+      },
+      {
+        "id": "Besides Transcript Wiki",
+        "type": "PERSON",
+        "confidence": 0.85
+      },
+      {
+        "id": "Google Drive",
+        "type": "PRODUCT",
+        "confidence": 0.85
+      },
+      {
+        "id": "Harry Potter 1.csv",
+        "type": "PRODUCT",
+        "confidence": 0.85
+      },
+      {
+        "id": "Discord Python",
+        "type": "ORGANIZATION",
+        "confidence": 0.85
+      },
+      {
+        "id": "Wanna",
+        "type": "PERSON",
+        "confidence": 0.8
+      },
+      {
+        "id": "Rick",
+        "type": "PERSON",
+        "confidence": 0.8
+      },
+      {
+        "id": "Morty",
+        "type": "PERSON",
+        "confidence": 0.8
+      },
+      {
+        "id": "Lynn",
+        "type": "PERSON",
+        "confidence": 0.8
+      },
+      {
+        "id": "Red Writer",
+        "type": "PERSON",
+        "confidence": 0.8
+      },
+      {
+        "id": "PyTorch",
+        "type": "ORGANIZATION",
+        "confidence": 0.8
+      },
+      {
+        "id": "Node",
+        "type": "programming_language",
+        "confidence": 0.8
+      },
+      {
+        "id": "the University of Chicago",
+        "type": "ORGANIZATION",
+        "confidence": 0.7999999999999999
+      },
+      {
+        "id": "Batman on Transcript Wiki",
+        "type": "PRODUCT",
+        "confidence": 0.7999999999999999
+      },
+      {
+        "id": "The Word Ends With You",
+        "type": "PRODUCT",
+        "confidence": 0.7999999999999999
+      },
+      {
+        "id": "script.ipynb",
+        "type": "PRODUCT",
+        "confidence": 0.7999999999999999
+      },
+      {
+        "id": "PeppaPig.csv",
+        "type": "PRODUCT",
+        "confidence": 0.7999999999999999
+      },
+      {
+        "id": "discord_bot.js",
+        "type": "PRODUCT",
+        "confidence": 0.7999999999999999
+      },
+      {
+        "id": "keep_alive.py",
+        "type": "PRODUCT",
+        "confidence": 0.7999999999999999
+      },
+      {
+        "id": "George",
+        "type": "PERSON",
+        "confidence": 0.75
+      },
+      {
+        "id": "Microsoft",
+        "type": "ORGANIZATION",
+        "confidence": 0.75
+      },
+      {
+        "id": "Dev Lab",
+        "type": "ORGANIZATION",
+        "confidence": 0.75
+      },
+      {
+        "id": "UTF-8",
+        "type": "PRODUCT",
+        "confidence": 0.75
+      },
+      {
+        "id": "message.content",
+        "type": "PRODUCT",
+        "confidence": 0.7499999999999999
+      },
+      {
+        "id": "model",
+        "type": "model",
+        "confidence": 0.8415563702583313
+      },
+      {
+        "id": "Rick and Morty",
+        "type": "game",
+        "confidence": 0.95
+      },
+      {
+        "id": "PeppaPig",
+        "type": "character",
+        "confidence": 0.8711272478103638
+      },
+      {
+        "id": "Mama Pig",
+        "type": "character",
+        "confidence": 0.7918107509613037
+      },
+      {
+        "id": "our character",
+        "type": "character",
+        "confidence": 0.8630357980728149
+      },
+      {
+        "id": "character",
+        "type": "character",
+        "confidence": 0.7023147940635681
+      },
+      {
+        "id": "PyTorch model",
+        "type": "model",
+        "confidence": 0.9532848000526428
+      },
+      {
+        "id": "HTTP",
+        "type": "protocol",
+        "confidence": 0.9448840618133545
+      },
+      {
+        "id": "Hugging Face API",
+        "type": "api",
+        "confidence": 0.8358596563339233
+      },
+      {
+        "id": "Discord API",
+        "type": "api",
+        "confidence": 0.8780717849731445
+      },
+      {
+        "id": "bot",
+        "type": "software",
+        "confidence": 0.95
+      },
+      {
+        "id": "Node.js",
+        "type": "programming_language",
+        "confidence": 0.95
+      },
+      {
+        "id": "Python channel",
+        "type": "channel",
+        "confidence": 0.9417365789413452
+      },
+      {
+        "id": "JS channel",
+        "type": "channel",
+        "confidence": 0.8298271894454956
+      },
+      {
+        "id": "JavaScript channel",
+        "type": "channel",
+        "confidence": 0.7982146143913269
+      },
+      {
+        "id": "Discord channel",
+        "type": "channel",
+        "confidence": 0.7763413190841675
+      },
+      {
+        "id": "Discord JS bot",
+        "type": "software",
+        "confidence": 0.7469636797904968
+      }
+    ],
+    "edges": [
+      {
+        "source": "Google Colab",
+        "target": "Google Drive",
+        "predicate": "is part of",
+        "confidence": 0.9
+      },
+      {
+        "source": "Python",
+        "target": "JavaScript",
+        "predicate": "influenced by",
+        "confidence": 0.9
+      },
+      {
+        "source": "JavaScript",
+        "target": "Python",
+        "predicate": "influenced by",
+        "confidence": 0.9
+      },
+      {
+        "source": "Harry Potter Bot Python",
+        "target": "bot",
+        "predicate": "instance of",
+        "confidence": 0.9
+      },
+      {
+        "source": "Google Drive",
+        "target": "Google Colab",
+        "predicate": "has as part",
+        "confidence": 0.9
+      },
+      {
+        "source": "PyTorch",
+        "target": "Git",
+        "predicate": "part of",
+        "confidence": 0.9
+      },
+      {
+        "source": "Node",
+        "target": "JavaScript",
+        "predicate": "influenced by",
+        "confidence": 0.9
+      }
+    ],
+    "node_count": 55,
+    "edge_count": 7,
+    "cleaned": true
+  },
+  "key_facts": [
+    {
+      "fact": "Discord bot artificial intelligence use",
+      "confidence": 0.9,
+      "subject": "Discord bot",
+      "predicate": "artificial intelligence",
+      "object": "use",
+      "type": "relationship"
+    },
+    {
+      "fact": "Create a Discord bot that talks like characters from Rick and Morty or Harry Potter.",
+      "confidence": 0.9,
+      "timestamp": 6,
+      "type": "key_point"
+    },
+    {
+      "fact": "Harry Potter has spacy_label: PERSON",
+      "confidence": 1.0,
+      "subject": "Harry Potter",
+      "type": "entity_property"
+    },
+    {
+      "fact": "Discord bot instance of artificial intelligence",
+      "confidence": 0.9,
+      "subject": "Discord bot",
+      "predicate": "instance of",
+      "object": "artificial intelligence",
+      "type": "relationship"
+    },
+    {
+      "fact": "The course will teach how to create a Discord bot that uses AI to talk like a chosen character.",
+      "confidence": 0.9,
+      "timestamp": 17,
+      "type": "key_point"
+    },
+    {
+      "fact": "Harry Potter has start_char: 75",
+      "confidence": 1.0,
+      "subject": "Harry Potter",
+      "type": "entity_property"
+    },
+    {
+      "fact": "Discord bot artificial intelligence uses",
+      "confidence": 0.9,
+      "subject": "Discord bot",
+      "predicate": "artificial intelligence",
+      "object": "uses",
+      "type": "relationship"
+    },
+    {
+      "fact": "Lynn, a software engineer, hobbyist game developer, and recent University of Chicago graduate, introduces herself.",
+      "confidence": 0.9,
+      "timestamp": 28,
+      "type": "key_point"
+    },
+    {
+      "fact": "Harry Potter has end_char: 87",
+      "confidence": 1.0,
+      "subject": "Harry Potter",
+      "type": "entity_property"
+    },
+    {
+      "fact": "chatbot AI subclass of",
+      "confidence": 0.9,
+      "subject": "chatbot",
+      "predicate": "AI",
+      "object": "subclass of",
+      "type": "relationship"
+    },
+    {
+      "fact": "Build a Discord AI chatbot that speaks like your favorite character.",
+      "confidence": 0.9,
+      "timestamp": 42,
+      "type": "key_point"
+    },
+    {
+      "fact": "Transcript Wiki has spacy_label: PERSON",
+      "confidence": 1.0,
+      "subject": "Transcript Wiki",
+      "type": "entity_property"
+    },
+    {
+      "fact": "Discord instance of chatbot",
+      "confidence": 0.9,
+      "subject": "Discord",
+      "predicate": "instance of",
+      "object": "chatbot",
+      "type": "relationship"
+    },
+    {
+      "fact": "This tutorial is different and more comprehensive than a previous one.",
+      "confidence": 0.9,
+      "timestamp": 51,
+      "type": "key_point"
+    },
+    {
+      "fact": "Transcript Wiki has start_char: 1680",
+      "confidence": 1.0,
+      "subject": "Transcript Wiki",
+      "type": "entity_property"
+    },
+    {
+      "fact": "Discord instance of AI chatbot",
+      "confidence": 0.9,
+      "subject": "Discord",
+      "predicate": "instance of",
+      "object": "AI chatbot",
+      "type": "relationship"
+    },
+    {
+      "fact": "The original tutorial started as a joke between friends while playing video games.",
+      "confidence": 0.9,
+      "timestamp": 66,
+      "type": "key_point"
+    },
+    {
+      "fact": "Transcript Wiki has end_char: 1695",
+      "confidence": 1.0,
+      "subject": "Transcript Wiki",
+      "type": "entity_property"
+    },
+    {
+      "fact": "Python influenced by JavaScript",
+      "confidence": 0.9,
+      "subject": "Python",
+      "predicate": "influenced by",
+      "object": "JavaScript",
+      "type": "relationship"
+    },
+    {
+      "fact": "The tutorial's popularity led to this updated version with more characters and data acquisition methods.",
+      "confidence": 0.9,
+      "timestamp": 82,
+      "type": "key_point"
+    },
+    {
+      "fact": "Google Colab has spacy_label: ORG",
+      "confidence": 1.0,
+      "subject": "Google Colab",
+      "type": "entity_property"
+    },
+    {
+      "fact": "JavaScript influenced by Python",
+      "confidence": 0.9,
+      "subject": "JavaScript",
+      "predicate": "influenced by",
+      "object": "Python",
+      "type": "relationship"
+    },
+    {
+      "fact": "Topics covered include model training, deployment, common errors, and solutions.",
+      "confidence": 0.9,
+      "timestamp": 100,
+      "type": "key_point"
+    },
+    {
+      "fact": "Google Colab has start_char: 4520",
+      "confidence": 1.0,
+      "subject": "Google Colab",
+      "type": "entity_property"
+    },
+    {
+      "fact": "Discord bot Python programming language",
+      "confidence": 0.9,
+      "subject": "Discord bot",
+      "predicate": "Python",
+      "object": "programming language",
+      "type": "relationship"
+    },
+    {
+      "fact": "Building the bot will be shown in Python and JavaScript.",
+      "confidence": 0.9,
+      "timestamp": 110,
+      "type": "key_point"
+    },
+    {
+      "fact": "Google Colab has end_char: 4532",
+      "confidence": 1.0,
+      "subject": "Google Colab",
+      "type": "entity_property"
+    },
+    {
+      "fact": "Kaggle owned by Google",
+      "confidence": 0.9,
+      "subject": "Kaggle",
+      "predicate": "owned by",
+      "object": "Google",
+      "type": "relationship"
+    },
+    {
+      "fact": "Proper bot deployment to a Discord server and channel restriction will be covered.",
+      "confidence": 0.9,
+      "timestamp": 119,
+      "type": "key_point"
+    },
+    {
+      "fact": "Hugging Face has spacy_label: ORG",
+      "confidence": 1.0,
+      "subject": "Hugging Face",
+      "type": "entity_property"
+    },
+    {
+      "fact": "Google Kaggle owner of",
+      "confidence": 0.9,
+      "subject": "Google",
+      "predicate": "Kaggle",
+      "object": "owner of",
+      "type": "relationship"
+    },
+    {
+      "fact": "Keeping the bot running indefinitely will also be addressed.",
+      "confidence": 0.9,
+      "timestamp": 128,
+      "type": "key_point"
+    },
+    {
+      "fact": "Hugging Face has start_char: 12886",
+      "confidence": 1.0,
+      "subject": "Hugging Face",
+      "type": "entity_property"
+    },
+    {
+      "fact": "Kaggle instance of Google search",
+      "confidence": 0.9,
+      "subject": "Kaggle",
+      "predicate": "instance of",
+      "object": "Google search",
+      "type": "relationship"
+    },
+    {
+      "fact": "First step: Finding data for the character.",
+      "confidence": 0.9,
+      "timestamp": 138,
+      "type": "key_point"
+    },
+    {
+      "fact": "Hugging Face has end_char: 12898",
+      "confidence": 1.0,
+      "subject": "Hugging Face",
+      "type": "entity_property"
+    },
+    {
+      "fact": "Rick and Morty dialogue genre",
+      "confidence": 0.9,
+      "subject": "Rick and Morty",
+      "predicate": "dialogue",
+      "object": "genre",
+      "type": "relationship"
+    },
+    {
+      "fact": "Data sources include Kaggle, Transcript Wiki, and fandom websites found through Google Search.",
+      "confidence": 0.9,
+      "timestamp": 145,
+      "type": "key_point"
+    },
+    {
+      "fact": "Uptime Robot has spacy_label: ORG",
+      "confidence": 1.0,
+      "subject": "Uptime Robot",
+      "type": "entity_property"
+    },
+    {
+      "fact": "datasets part of Kaggle",
+      "confidence": 0.9,
+      "subject": "datasets",
+      "predicate": "part of",
+      "object": "Kaggle",
+      "type": "relationship"
+    },
+    {
+      "fact": "Research process: Check Kaggle first for pre-made dialogue datasets.",
+      "confidence": 0.9,
+      "timestamp": 158,
+      "type": "key_point"
+    },
+    {
+      "fact": "Uptime Robot has start_char: 26461",
+      "confidence": 1.0,
+      "subject": "Uptime Robot",
+      "type": "entity_property"
+    },
+    {
+      "fact": "datasets Kaggle used by",
+      "confidence": 0.9,
+      "subject": "datasets",
+      "predicate": "Kaggle",
+      "object": "used by",
+      "type": "relationship"
+    },
+    {
+      "fact": "Searching for 'Rick and Morty' on Kaggle yields a dataset with character names and lines.",
+      "confidence": 0.9,
+      "timestamp": 177,
+      "type": "key_point"
+    },
+    {
+      "fact": "Uptime Robot has end_char: 26473",
+      "confidence": 1.0,
+      "subject": "Uptime Robot",
+      "type": "entity_property"
+    },
+    {
+      "fact": "Peppa Pig instance of dataset",
+      "confidence": 0.9,
+      "subject": "Peppa Pig",
+      "predicate": "instance of",
+      "object": "dataset",
+      "type": "relationship"
+    },
+    {
+      "fact": "Searching for 'Harry Potter' on Kaggle provides another dataset with character names and lines.",
+      "confidence": 0.9,
+      "timestamp": 192,
+      "type": "key_point"
+    },
+    {
+      "fact": "Google Colab has spacy_label: FAC",
+      "confidence": 0.95,
+      "subject": "Google Colab",
+      "type": "entity_property"
+    },
+    {
+      "fact": "Peppa Pig instance of video game",
+      "confidence": 0.9,
+      "subject": "Peppa Pig",
+      "predicate": "instance of",
+      "object": "video game",
+      "type": "relationship"
+    },
+    {
+      "fact": "Only two columns (character name and line) are needed for the chatbot.",
+      "confidence": 0.9,
+      "timestamp": 204,
+      "type": "key_point"
+    },
+    {
+      "fact": "Google Colab has start_char: 4334",
+      "confidence": 0.95,
+      "subject": "Google Colab",
+      "type": "entity_property"
+    },
+    {
+      "fact": "Batman instance of movies",
+      "confidence": 0.9,
+      "subject": "Batman",
+      "predicate": "instance of",
+      "object": "movies",
+      "type": "relationship"
+    },
+    {
+      "fact": "Kaggle dialogue datasets are ideal for this project.",
+      "confidence": 0.9,
+      "timestamp": 213,
+      "type": "key_point"
+    },
+    {
+      "fact": "Google Colab has end_char: 4346",
+      "confidence": 0.95,
+      "subject": "Google Colab",
+      "type": "entity_property"
+    },
+    {
+      "fact": "Peppa Pig Batman present in work",
+      "confidence": 0.9,
+      "subject": "Peppa Pig",
+      "predicate": "Batman",
+      "object": "present in work",
+      "type": "relationship"
+    },
+    {
+      "fact": "If Kaggle doesn't have data, find raw transcripts from the media source (video game, cartoon, show).",
+      "confidence": 0.9,
+      "timestamp": 222,
+      "type": "key_point"
+    },
+    {
+      "fact": "Discord has spacy_label: ORG",
+      "confidence": 0.9,
+      "subject": "Discord",
+      "type": "entity_property"
+    },
+    {
+      "fact": "Batman Peppa Pig present in work",
+      "confidence": 0.9,
+      "subject": "Batman",
+      "predicate": "Peppa Pig",
+      "object": "present in work",
+      "type": "relationship"
+    },
+    {
+      "fact": "Transcript Wiki is suggested as a resource for raw transcripts.",
+      "confidence": 0.9,
+      "timestamp": 233,
+      "type": "key_point"
+    },
+    {
+      "fact": "Discord has start_char: 13",
+      "confidence": 0.9,
+      "subject": "Discord",
+      "type": "entity_property"
+    },
+    {
+      "fact": "The Word Ends With You instance of game",
+      "confidence": 0.9,
+      "subject": "The Word Ends With You",
+      "predicate": "instance of",
+      "object": "game",
+      "type": "relationship"
+    },
+    {
+      "fact": "Transcript Wiki offers a list of movies, shows, video games, musicals, and commercials.",
+      "confidence": 0.9,
+      "timestamp": 253,
+      "type": "key_point"
+    },
+    {
+      "fact": "Discord has end_char: 20",
+      "confidence": 0.9,
+      "subject": "Discord",
+      "type": "entity_property"
+    },
+    {
+      "fact": "The Word Ends With You instance of fandom website",
+      "confidence": 0.9,
+      "subject": "The Word Ends With You",
+      "predicate": "instance of",
+      "object": "fandom website",
+      "type": "relationship"
+    },
+    {
+      "fact": "Example: Transcripts for Peppa Pig and Batman were found on Transcript Wiki.",
+      "confidence": 0.9,
+      "timestamp": 267,
+      "type": "key_point"
+    },
+    {
+      "fact": "Python has spacy_label: GPE",
+      "confidence": 0.9,
+      "subject": "Python",
+      "type": "entity_property"
+    },
+    {
+      "fact": "The Word Ends With You instance of fandom",
+      "confidence": 0.9,
+      "subject": "The Word Ends With You",
+      "predicate": "instance of",
+      "object": "fandom",
+      "type": "relationship"
+    },
+    {
+      "fact": "Transcripts contain character names and actions/lines.",
+      "confidence": 0.9,
+      "timestamp": 278,
+      "type": "key_point"
+    },
+    {
+      "fact": "Python has start_char: 1342",
+      "confidence": 0.9,
+      "subject": "Python",
+      "type": "entity_property"
+    },
+    {
+      "fact": "chatbot text messages uses",
+      "confidence": 0.9,
+      "subject": "chatbot",
+      "predicate": "text messages",
+      "object": "uses",
+      "type": "relationship"
+    },
+    {
+      "fact": "Converting raw transcripts to datasets like those from Kaggle will be shown.",
+      "confidence": 0.9,
+      "timestamp": 288,
+      "type": "key_point"
+    },
+    {
+      "fact": "Python has end_char: 1348",
+      "confidence": 0.9,
+      "subject": "Python",
+      "type": "entity_property"
+    },
+    {
+      "fact": "text messages chatbot used by",
+      "confidence": 0.9,
+      "subject": "text messages",
+      "predicate": "chatbot",
+      "object": "used by",
+      "type": "relationship"
+    },
+    {
+      "fact": "Alternative method: Google the media name with the keyword 'transcript'.",
+      "confidence": 0.9,
+      "timestamp": 298,
+      "type": "key_point"
+    },
+    {
+      "fact": "Kaggle has spacy_label: PERSON",
+      "confidence": 0.9,
+      "subject": "Kaggle",
+      "type": "entity_property"
+    },
+    {
+      "fact": "chatbot dialogues uses",
+      "confidence": 0.9,
+      "subject": "chatbot",
+      "predicate": "dialogues",
+      "object": "uses",
+      "type": "relationship"
+    },
+    {
+      "fact": "Example: A fandom website was used to find a transcript for the game 'The Word Ends With You'.",
+      "confidence": 0.9,
+      "timestamp": 308,
+      "type": "key_point"
+    },
+    {
+      "fact": "Kaggle has start_char: 1672",
+      "confidence": 0.9,
+      "subject": "Kaggle",
+      "type": "entity_property"
+    },
+    {
+      "fact": "dialogues chatbot used by",
+      "confidence": 0.9,
+      "subject": "dialogues",
+      "predicate": "chatbot",
+      "object": "used by",
+      "type": "relationship"
+    },
+    {
+      "fact": "Use Google Search skills to find data for your character.",
+      "confidence": 0.9,
+      "timestamp": 322,
+      "type": "key_point"
+    },
+    {
+      "fact": "Kaggle has end_char: 1678",
+      "confidence": 0.9,
+      "subject": "Kaggle",
+      "type": "entity_property"
+    },
+    {
+      "fact": "chatbot dialogue uses",
+      "confidence": 0.9,
+      "subject": "chatbot",
+      "predicate": "dialogue",
+      "object": "uses",
+      "type": "relationship"
+    },
+    {
+      "fact": "For real-life characters, use interview scripts as a data source.",
+      "confidence": 0.9,
+      "timestamp": 330,
+      "type": "key_point"
+    },
+    {
+      "fact": "Google has spacy_label: ORG",
+      "confidence": 0.9,
+      "subject": "Google",
+      "type": "entity_property"
+    },
+    {
+      "fact": "dialogue chatbot used by",
+      "confidence": 0.9,
+      "subject": "dialogue",
+      "predicate": "chatbot",
+      "object": "used by",
+      "type": "relationship"
+    },
+    {
+      "fact": "For chatbots based on yourself or friends, use text messages as dialogues and create a dataset manually.",
+      "confidence": 0.9,
+      "timestamp": 340,
+      "type": "key_point"
+    },
+    {
+      "fact": "Google has start_char: 1752",
+      "confidence": 0.9,
+      "subject": "Google",
+      "type": "entity_property"
+    },
+    {
+      "fact": "dataset has part text file",
+      "confidence": 0.9,
+      "subject": "dataset",
+      "predicate": "has part",
+      "object": "text file",
+      "type": "relationship"
+    },
+    {
+      "fact": "Be creative in getting data for your character.",
+      "confidence": 0.9,
+      "timestamp": 352,
+      "type": "key_point"
+    },
+    {
+      "fact": "Google has end_char: 1758",
+      "confidence": 0.9,
+      "subject": "Google",
+      "type": "entity_property"
+    },
+    {
+      "fact": "text file part of dataset",
+      "confidence": 0.9,
+      "subject": "text file",
+      "predicate": "part of",
+      "object": "dataset",
+      "type": "relationship"
+    },
+    {
+      "fact": "Next: Turn raw transcripts into datasets.",
+      "confidence": 0.9,
+      "timestamp": 358,
+      "type": "key_point"
+    },
+    {
+      "fact": "Peppa Pig has spacy_label: ORG",
+      "confidence": 0.9,
+      "subject": "Peppa Pig",
+      "type": "entity_property"
+    },
+    {
+      "fact": "two-column character line uses",
+      "confidence": 0.9,
+      "subject": "two-column",
+      "predicate": "character line",
+      "object": "uses",
+      "type": "relationship"
+    },
+    {
+      "fact": "Assume a raw transcript has been found; convert it into a two-column (character, line) dataset.",
+      "confidence": 0.9,
+      "timestamp": 367,
+      "type": "key_point"
+    },
+    {
+      "fact": "Peppa Pig has start_char: 2568",
+      "confidence": 0.9,
+      "subject": "Peppa Pig",
+      "type": "entity_property"
+    },
+    {
+      "fact": "character line two-column used by",
+      "confidence": 0.9,
+      "subject": "character line",
+      "predicate": "two-column",
+      "object": "used by",
+      "type": "relationship"
+    },
+    {
+      "fact": "Copy Peppa Pig transcript into a text file.",
+      "confidence": 0.9,
+      "timestamp": 378,
+      "type": "key_point"
+    },
+    {
+      "fact": "Peppa Pig has end_char: 2577",
+      "confidence": 0.9,
+      "subject": "Peppa Pig",
+      "type": "entity_property"
+    },
+    {
+      "fact": "character line two-column use",
+      "confidence": 0.9,
+      "subject": "character line",
+      "predicate": "two-column",
+      "object": "use",
+      "type": "relationship"
+    }
+  ],
+  "extraction_stats": {
+    "spacy_entities": 49,
+    "gliner_entities": 57,
+    "llm_validated": 83,
+    "relationships": 183,
+    "graph_nodes": 175,
+    "graph_edges": 162
+  }
+}

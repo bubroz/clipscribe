@@ -75,8 +75,18 @@ class VideoIntelligenceRetriever:
         # Choose entity extractor based on advanced extraction setting
         if use_advanced_extraction:
             logger.info("Using advanced extraction with REBEL+GLiNER :-)")
-            from ..extractors.advanced_hybrid_extractor import AdvancedHybridExtractor
-            self.entity_extractor = AdvancedHybridExtractor()
+            try:
+                from ..extractors.advanced_hybrid_extractor import AdvancedHybridExtractor
+                self.entity_extractor = AdvancedHybridExtractor(
+                    use_gliner=True,
+                    use_rebel=True,
+                    use_llm=True,
+                    api_key=settings.GOOGLE_API_KEY  # Pass API key for GeminiPool
+                )
+            except ImportError:
+                logger.warning("Advanced extractors not available, falling back to hybrid")
+                from ..extractors.hybrid_extractor import HybridEntityExtractor
+                self.entity_extractor = HybridEntityExtractor()
         else:
             logger.info("Using basic hybrid extraction")
             from ..extractors.hybrid_extractor import HybridEntityExtractor
