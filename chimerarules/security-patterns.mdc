@@ -1,0 +1,228 @@
+---
+description: Security-first principles including input validation, authentication, rate limiting, and secure file handling patterns
+globs: 
+alwaysApply: false
+---
+---
+description: Security-first principles including input validation, authentication, rate limiting, and secure file handling patterns
+globs: ["**/*security*.py", "**/*auth*.py", "backend/middleware/*.py", "backend/server/*.py", "chimera_researcher/security/*.py", "tests/security/*.py"]
+alwaysApply: false
+---
+# Security Patterns
+
+> **Related Rules:**
+> - `@backend-fastapi` - Backend security implementation
+> - `@frontend-nextjs` - Frontend security patterns
+> - `@docker-devops` - Container security
+> - `@testing-patterns` - Security testing
+> 
+> **Detailed Examples:** See [`docs/development/security-examples.md`](mdc:docs/development/security-examples.md) for complete implementations
+
+## Core Security Principles
+
+### Security-First Philosophy
+1. **Defense in Depth** - Multiple layers of security
+2. **Least Privilege** - Minimal permissions by default
+3. **Zero Trust** - Verify everything, trust nothing
+4. **Fail Secure** - Deny by default on errors
+5. **Security by Design** - Built-in, not bolted-on
+
+## Input Validation & Sanitization
+
+### Validation Strategy
+- **Whitelist over Blacklist** - Define what's allowed
+- **Type Validation** - Use Pydantic models
+- **Length Limits** - Prevent DoS attacks
+- **Content Sanitization** - Remove dangerous patterns
+
+### Key Patterns
+```python
+# Use Pydantic for automatic validation
+class SecureRequest(BaseModel):
+    query: constr(min_length=1, max_length=1000)
+    report_type: str = Field(regex="^(research|summary)$")
+    
+    @validator('query')
+    def sanitize_query(cls, v: str) -> str:
+        # Remove HTML/scripts, check SQL injection patterns
+        return sanitize_input(v)
+```
+
+### Common Attack Vectors to Block
+- SQL Injection patterns
+- XSS (Cross-Site Scripting)
+- Path traversal (../, ..\)
+- Command injection
+- LDAP injection
+- XML external entities
+
+## Authentication & Authorization
+
+### JWT Token Strategy
+- **Short-lived access tokens** (15-30 minutes)
+- **Longer refresh tokens** (7 days)
+- **Token rotation** on refresh
+- **Secure storage** (httpOnly cookies preferred)
+- **Strong secret keys** (256-bit minimum)
+
+### Password Security
+- **Bcrypt hashing** with cost factor 12+
+- **Password complexity requirements**
+- **No password history storage**
+- **Secure password reset flow**
+
+### Authorization Patterns
+```python
+# Role-based access control
+@requires_role(["admin", "researcher"])
+async def sensitive_endpoint():
+    pass
+
+# Resource-based permissions
+@requires_permission("research:write")
+async def create_research():
+    pass
+```
+
+## Rate Limiting & DoS Protection
+
+### Rate Limiting Strategy
+- **Per-IP limits** for anonymous users
+- **Per-user limits** for authenticated users
+- **Endpoint-specific limits** based on cost
+- **Sliding window** algorithm
+- **Redis backend** for distributed systems
+
+### Example Limits
+```python
+# Decorator pattern for rate limiting
+@rate_limit(requests=10, window=60)  # 10 req/min
+async def search_endpoint():
+    pass
+
+@rate_limit(requests=100, window=3600)  # 100 req/hour
+async def research_endpoint():
+    pass
+```
+
+## API Security Headers
+
+### Required Headers
+```python
+security_headers = {
+    "X-Content-Type-Options": "nosniff",
+    "X-Frame-Options": "DENY",
+    "X-XSS-Protection": "1; mode=block",
+    "Strict-Transport-Security": "max-age=31536000",
+    "Referrer-Policy": "strict-origin-when-cross-origin",
+    "Content-Security-Policy": "default-src 'self'",
+    "Permissions-Policy": "geolocation=()"
+}
+```
+
+### CORS Configuration
+- **Strict origin validation**
+- **Limit allowed methods**
+- **Credentials only when necessary**
+- **Specific headers whitelist**
+
+## Secure File Handling
+
+### Upload Security Checklist
+1. **File size limits** (10MB default)
+2. **MIME type validation** (use python-magic)
+3. **Extension whitelist** (.pdf, .docx, .txt, .md)
+4. **Content scanning** for malicious patterns
+5. **Secure filename generation**
+6. **Isolated storage location**
+7. **Virus scanning** (ClamAV integration)
+
+### Storage Security
+- Store outside web root
+- Use UUID filenames
+- Set restrictive permissions (600)
+- Regular cleanup of old files
+- Encrypted storage for sensitive files
+
+## Security Logging & Monitoring
+
+### What to Log
+- Authentication attempts (success/failure)
+- Authorization violations
+- Rate limit breaches
+- Input validation failures
+- File upload rejections
+- Suspicious request patterns
+
+### Log Format
+```python
+{
+    "timestamp": "2025-06-21T16:00:00Z",
+    "event_type": "auth_failure",
+    "user_id": "user123",
+    "ip_address": "192.168.1.1",
+    "user_agent": "Mozilla/5.0...",
+    "details": {"reason": "invalid_password"}
+}
+```
+
+## Environment & Secrets Management
+
+### Secret Storage Rules
+1. **Never commit secrets** to version control
+2. **Use environment variables** for configuration
+3. **Encrypt sensitive data** at rest
+4. **Rotate secrets** regularly (90 days)
+5. **Use secret management services** in production
+
+### Configuration Pattern
+```python
+# Use a secure config class
+config = SecureConfig()
+api_key = config.get_secret("API_KEY")
+db_url = config.get_secret("DATABASE_URL")
+```
+
+## Security Testing Checklist
+
+### Regular Security Tests
+- [ ] Input validation bypass attempts
+- [ ] Authentication/authorization tests
+- [ ] Rate limiting verification
+- [ ] File upload security
+- [ ] OWASP Top 10 vulnerabilities
+- [ ] Dependency vulnerability scanning
+- [ ] Container security scanning
+
+## Quick Security Commands
+
+```bash
+# Scan dependencies for vulnerabilities
+pip-audit
+safety check
+
+# Check for secrets in code
+trufflehog filesystem .
+gitleaks detect
+
+# Container security scan
+docker scan myimage:latest
+
+# OWASP dependency check
+dependency-check --scan .
+```
+
+## Production Security Checklist
+
+1. ✅ **HTTPS only** with valid certificates
+2. ✅ **WAF configured** (CloudFlare, AWS WAF)
+3. ✅ **DDoS protection** enabled
+4. ✅ **Security headers** verified
+5. ✅ **Monitoring/alerting** configured
+6. ✅ **Backup encryption** enabled
+7. ✅ **Incident response plan** documented
+8. ✅ **Regular penetration testing**
+
+Remember: Security is a continuous process. Stay updated on threats and patch regularly :-)
+
+For complete security implementations, see [`docs/development/security-examples.md`](mdc:docs/development/security-examples.md)

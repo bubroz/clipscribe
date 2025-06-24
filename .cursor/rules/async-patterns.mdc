@@ -1,0 +1,264 @@
+---
+description: Best practices for async/await patterns in ClipScribe
+globs: 
+alwaysApply: false
+---
+---
+description: "Best practices for async/await patterns in ClipScribe"
+globs: ["**/*.py"]
+alwaysApply: false
+---
+
+# Async Programming Patterns
+
+## Core Principles
+
+ClipScribe uses async/await throughout for efficient I/O operations. Follow these patterns for consistency.
+
+## Basic Async Structure
+
+### Async Functions
+```python
+async def process_video(url: str) -> VideoIntelligence:
+    """Always use async for I/O operations."""
+    # Download video (I/O bound)
+    video_file = await download_video(url)
+    
+    # Transcribe (API call)
+    transcript = await transcribe_audio(video_file)
+    
+    # Extract entities (CPU bound - but may call APIs)
+    entities = await extract_entities(transcript)
+    
+    return VideoIntelligence(...)
+```
+
+### Async Context Managers
+```python
+class VideoClient:
+    async def __aenter__(self):
+        self.session = aiohttp.ClientSession()
+        return self
+    
+    async def __aexit__(self, exc_type, exc_val, exc_tb):
+        await self.session.close()
+
+# Usage
+async with VideoClient() as client:
+    result = await client.process(url)
+```
+
+## Concurrent Operations
+
+### Gather Multiple Tasks
+```python
+# Process multiple videos concurrently
+async def batch_process(urls: List[str]) -> List[VideoIntelligence]:
+    tasks = [process_video(url) for url in urls]
+    
+    # Simple gathering
+    results = await asyncio.gather(*tasks)
+    
+    # With error handling
+    results = await asyncio.gather(*tasks, return_exceptions=True)
+    
+    # Filter out errors
+    return [r for r in results if not isinstance(r, Exception)]
+```
+
+### Limited Concurrency
+```python
+async def process_with_limit(urls: List[str], max_concurrent: int = 3):
+    """Process with concurrency limit."""
+    semaphore = asyncio.Semaphore(max_concurrent)
+    
+    async def process_one(url: str):
+        async with semaphore:
+            return await process_video(url)
+    
+    tasks = [process_one(url) for url in urls]
+    return await asyncio.gather(*tasks)
+```
+
+## Error Handling
+
+### Async Try-Except
+```python
+async def safe_process(url: str) -> Optional[VideoIntelligence]:
+    """Safe async processing with error handling."""
+    try:
+        return await process_video(url)
+    except asyncio.TimeoutError:
+        logger.error(f"Timeout processing {url}")
+        return None
+    except Exception as e:
+        logger.error(f"Failed to process {url}: {e}")
+        return None
+```
+
+### Timeout Handling
+```python
+async def process_with_timeout(url: str, timeout: int = 300):
+    """Process with timeout."""
+    try:
+        return await asyncio.wait_for(
+            process_video(url),
+            timeout=timeout
+        )
+    except asyncio.TimeoutError:
+        logger.error(f"Processing {url} exceeded {timeout}s timeout")
+        raise
+```
+
+## Progress Tracking
+
+### With Progress Callback
+```python
+async def process_with_progress(
+    urls: List[str],
+    progress_callback: Callable[[int, int], None]
+):
+    """Process with progress updates."""
+    total = len(urls)
+    completed = 0
+    
+    async def process_one(url: str):
+        nonlocal completed
+        result = await process_video(url)
+        completed += 1
+        progress_callback(completed, total)
+        return result
+    
+    tasks = [process_one(url) for url in urls]
+    return await asyncio.gather(*tasks)
+```
+
+### With Rich Progress
+```python
+from rich.progress import Progress, TaskID
+
+async def process_with_rich_progress(urls: List[str]):
+    with Progress() as progress:
+        task = progress.add_task("[green]Processing...", total=len(urls))
+        
+        async def process_one(url: str):
+            result = await process_video(url)
+            progress.update(task, advance=1)
+            return result
+        
+        tasks = [process_one(url) for url in urls]
+        return await asyncio.gather(*tasks)
+```
+
+## Async Generators
+
+### For Streaming Results
+```python
+async def stream_transcription(audio_file: Path):
+    """Stream transcription chunks as they're ready."""
+    async for chunk in transcriber.stream_transcribe(audio_file):
+        # Process chunk immediately
+        yield process_chunk(chunk)
+```
+
+### Batch Processing
+```python
+async def process_in_batches(items: List[str], batch_size: int = 10):
+    """Process items in batches."""
+    for i in range(0, len(items), batch_size):
+        batch = items[i:i + batch_size]
+        batch_results = await asyncio.gather(*[
+            process_item(item) for item in batch
+        ])
+        for result in batch_results:
+            yield result
+```
+
+## CLI Integration
+
+### Async Command Wrapper
+```python
+def run_async_command(async_func):
+    """Decorator to run async functions in Click commands."""
+    def wrapper(*args, **kwargs):
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        try:
+            return loop.run_until_complete(async_func(*args, **kwargs))
+        finally:
+            loop.close()
+    return wrapper
+
+@cli.command()
+@run_async_command
+async def my_command():
+    await async_operation()
+```
+
+## Testing Async Code
+
+### Pytest Async
+```python
+import pytest
+
+@pytest.mark.asyncio
+async def test_async_function():
+    result = await process_video("test_url")
+    assert result is not None
+
+# With fixtures
+@pytest.fixture
+async def async_client():
+    async with VideoClient() as client:
+        yield client
+
+@pytest.mark.asyncio
+async def test_with_client(async_client):
+    result = await async_client.process("url")
+    assert result.success
+```
+
+## Best Practices
+
+1. **Always await async calls** - Never forget `await`
+2. **Use async context managers** - For resource cleanup
+3. **Limit concurrency** - Don't overwhelm APIs
+4. **Handle timeouts** - Set reasonable limits
+5. **Log async operations** - Track what's happening
+6. **Test async code properly** - Use pytest-asyncio
+7. **Avoid blocking operations** - Use async alternatives
+
+## Common Pitfalls
+
+### Don't Mix Sync and Async
+```python
+# Bad
+def process():
+    result = async_function()  # Returns coroutine, not result!
+
+# Good
+async def process():
+    result = await async_function()
+```
+
+### Don't Block Event Loop
+```python
+# Bad
+async def process():
+    time.sleep(5)  # Blocks entire event loop!
+
+# Good
+async def process():
+    await asyncio.sleep(5)  # Non-blocking
+```
+
+### Don't Create Event Loops in Async
+```python
+# Bad
+async def process():
+    loop = asyncio.new_event_loop()  # Don't do this!
+
+# Good - use existing loop
+async def process():
+    loop = asyncio.get_event_loop()
+```

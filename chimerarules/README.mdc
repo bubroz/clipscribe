@@ -1,0 +1,97 @@
+---
+description: 
+globs: .cursor/rules/**/*
+alwaysApply: false
+---
+---
+description: Overview of the cursor rules system, categories, and testing guidelines. Read this to understand how rules are organized
+globs: [".cursor/rules/**/*"]
+alwaysApply: false
+---
+# Chimera Researcher Cursor Rules - Optimized Structure
+
+*Last Updated: June 22, 2025 at 05:49 PM PDT*
+
+## 🚀 Optimized Rule System
+
+This rule system has been optimized based on the strategy in `docs/development/rules-optimization-strategy.md`.
+
+### Key Improvements:
+1. ✅ **Nested Structure** - Rules organized by category
+2. ✅ **Auto-Attachment** - Smart glob patterns for automatic rule loading
+3. ✅ **Testing Framework** - Validate rules with `scripts/test_rules.py`
+4. ✅ **Better Organization** - Clear separation of concerns
+
+## 📁 Rule Categories
+
+### Core Rules (Always Active)
+Located in `core/` - These fundamental rules are always loaded:
+- `core-identity.mdc` - Project identity and principles
+- `file-organization.mdc` - File structure discipline
+- `analytic-tradecraft-sop.mdc` - Intelligence analysis standards
+- `critical-files-checklist.mdc` - Important files to update
+- `documentation-updates.mdc` - Documentation maintenance
+- `documentation-standards.mdc` - Documentation organization
+
+### Feature Rules (Auto-Attached)
+Located in `features/` - Load automatically when working on specific features:
+
+#### Intelligence (`features/intelligence/`)
+- `intelligence-frameworks.mdc` - Core intelligence doctrines
+- `sat-analytics.mdc` - Structured Analytic Techniques
+- `prompt-evaluation.mdc` - Prompt testing framework
+
+#### Knowledge Graph (`features/knowledge-graph/`)
+- `knowledge-graph-kuzu.mdc` - Kuzu database integration
+- `cost-optimized-extraction.mdc` - Entity extraction optimization
+
+#### Monitoring & Reporting (`features/monitoring/`)
+- `integrated-reporting.mdc` - Integrated intelligence reports
+- `visualization-diagrams.mdc` - Diagram standards
+
+### Platform Rules (Auto-Attached)
+Located in `platforms/` - Platform-specific integrations:
+- `ai-gemini-integration.mdc` - Gemini 2.5 Pro patterns
+- `ai-xai-integration.mdc` - X.AI Live Search patterns
+
+### Development Rules (Context-Specific)
+Located in `development/` - Development and deployment patterns:
+- `backend-fastapi.mdc` - Python backend patterns
+- `frontend-nextjs.mdc` - React/Next.js patterns
+- `testing-patterns.mdc` - Testing strategies
+- `docker-devops.mdc` - Container and CI/CD
+- `security-patterns.mdc` - Security best practices
+- `documentation-lifecycle.mdc` - Doc creation process
+- `troubleshooting-guide.mdc` - Common issue solutions
+
+## 🎯 How Rules Load
+
+1. **Core Rules** - Always loaded for every file
+2. **Auto-Attached Rules** - Load based on file glob patterns
+3. **Agent-Requested** - Can be manually invoked with `@ruleName`
+4. **Nested Rules** - Load when working in specific feature directories
+
+## 🧪 Testing Your Rules
+
+Run the validation framework:
+```bash
+python scripts/test_rules.py
+```
+
+This will check:
+- ✅ Frontmatter validity
+- ✅ Glob pattern coverage
+- ✅ Rule conflicts
+- ✅ Performance impact
+
+## 📊 Rule Metrics
+
+Based on optimization analysis:
+- **Total Rules**: 25
+- **Auto-Attached**: 16 (with glob patterns)
+- **Always Active**: 6 (core rules)
+- **Agent-Requested**: 3 (situational)
+
+---
+
+*For the complete optimization strategy, see `docs/development/rules-optimization-strategy.md`*

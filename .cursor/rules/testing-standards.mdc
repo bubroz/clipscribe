@@ -1,0 +1,152 @@
+---
+description: Testing requirements and patterns for ClipScribe
+globs: 
+alwaysApply: false
+---
+---
+description: "Testing requirements and patterns for ClipScribe"
+globs: ["tests/**/*.py", "**/test_*.py", "**/*_test.py", "pytest.ini"]
+alwaysApply: false
+---
+
+# Testing Standards
+
+## Test Structure
+
+Follow the project test organization:
+
+```
+tests/
+├── unit/              # Fast, isolated unit tests
+├── integration/       # Tests with external dependencies
+└── fixtures/          # Test data and mocks
+```
+
+## Testing Guidelines
+
+### Naming Conventions
+- Test files: `test_<module_name>.py`
+- Test classes: `Test<ClassName>`
+- Test methods: `test_<behavior>_<expected_result>`
+
+### Example Test Structure
+```python
+import pytest
+from unittest.mock import Mock, patch
+
+from clipscribe.extractors import SpacyExtractor
+
+
+class TestSpacyExtractor:
+    """Test SpaCy entity extraction functionality."""
+    
+    @pytest.fixture
+    def extractor(self):
+        """Create a SpaCy extractor instance."""
+        return SpacyExtractor()
+    
+    def test_extract_entities_returns_correct_format(self, extractor):
+        """Test that extract returns properly formatted results."""
+        text = "Apple Inc. is located in Cupertino."
+        results = extractor.extract(text)
+        
+        assert "entities" in results
+        assert "relationships" in results
+        assert isinstance(results["entities"], list)
+    
+    @patch('clipscribe.extractors.spacy_extractor.spacy.load')
+    def test_model_loading_error_handling(self, mock_load):
+        """Test graceful handling of model loading errors."""
+        mock_load.side_effect = Exception("Model not found")
+        
+        with pytest.raises(ModelLoadError):
+            SpacyExtractor()
+```
+
+## Test Categories
+
+### Unit Tests
+- Test individual functions/methods in isolation
+- Mock all external dependencies
+- Should run in < 1 second
+- No network calls, file I/O, or database access
+
+### Integration Tests
+- Test component interactions
+- May use real external services (with proper setup/teardown)
+- Can take longer to run
+- Should be skipped in CI if dependencies unavailable
+
+## Fixtures and Mocking
+
+### Common Fixtures
+```python
+@pytest.fixture
+def sample_transcript():
+    """Sample transcript for testing."""
+    return {
+        "text": "This is a test transcript.",
+        "segments": [
+            {"start": 0.0, "end": 2.0, "text": "This is"},
+            {"start": 2.0, "end": 4.0, "text": "a test transcript."}
+        ]
+    }
+
+@pytest.fixture
+def mock_youtube_client():
+    """Mock YouTube client for testing."""
+    client = Mock()
+    client.get_video_info.return_value = {
+        "title": "Test Video",
+        "duration": 120,
+        "author": "Test Author"
+    }
+    return client
+```
+
+## Coverage Requirements
+
+- Maintain minimum 80% code coverage
+- Focus on testing business logic
+- Don't test third-party library internals
+- Use `# pragma: no cover` sparingly and with justification
+
+## Running Tests
+
+```bash
+# Run all tests
+poetry run pytest
+
+# Run with coverage
+poetry run pytest --cov=clipscribe --cov-report=html
+
+# Run specific test file
+poetry run pytest tests/unit/test_extractors.py
+
+# Run tests matching pattern
+poetry run pytest -k "extract"
+
+# Run with verbose output
+poetry run pytest -v
+```
+
+## Test Data Management
+
+- Store test data in `tests/fixtures/`
+- Use small, representative samples
+- Don't commit large test files
+- Mock external API responses
+
+## Performance Testing
+
+For performance-critical code:
+
+```python
+def test_extraction_performance(extractor, benchmark):
+    """Test extraction performance."""
+    text = "Large text sample..." * 1000
+    
+    result = benchmark(extractor.extract, text)
+    
+    assert benchmark.stats["mean"] < 1.0  # Should complete in < 1 second
+```

@@ -1,0 +1,172 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+---
+description: CRITICAL file organization rules to keep the project clean and maintainable. Prevents root directory pollution
+globs: ["**/*", "!.git/**", "!venv/**", "!__pycache__/**", "!*.pyc", "!node_modules/**"]
+alwaysApply: true
+---
+# File Organization Rules
+
+> **Related Rules:**
+> - `@documentation-management` - Documentation file organization
+> - `@backend-fastapi` - Backend-specific organization
+> - `@frontend-nextjs` - Frontend-specific organization
+> - `@docker-devops` - DevOps file organization
+
+## 🚨 CRITICAL: Root Directory Discipline
+
+**NEVER create files in the root directory unless they are:**
+1. **Standard project files**: README.md, LICENSE, CHANGELOG.md, CONTRIBUTING.md, CODE_OF_CONDUCT.md
+2. **Essential configs**: .gitignore, pyproject.toml, poetry.lock, requirements.txt, docker-compose.yml
+3. **Entry points**: main.py (for FastAPI), setup.py, cli.py
+4. **CI/CD files**: .github/, Dockerfile, Procfile
+
+**If you're about to create a file in root, STOP and ask:**
+- Is this a standard project file that MUST be in root?
+- Can this go in an existing subdirectory?
+- Should I create a new subdirectory for this feature?
+
+## 📁 Project Directory Structure
+
+```
+chimera-researcher/
+├── chimera_researcher/         # Main Python package
+│   ├── agent.py               # Core functionality
+│   ├── config/                # Configuration modules
+│   ├── models/                # Data models (source_tracking.py, etc.)
+│   ├── retrievers/            # Search implementations
+│   ├── storage/               # Storage backends (project_storage.py, etc.)
+│   ├── graph/                 # Knowledge graph components
+│   ├── monitoring/            # Monitoring agents
+│   └── utils/                 # Utilities
+│
+├── backend/                   # FastAPI application
+│   ├── server/                # API server
+│   └── services/              # Business logic
+│
+├── frontend/                  # All frontend code
+│   ├── nextjs/                # Next.js application
+│   └── vanilla/               # Vanilla JS version
+│
+├── tests/                     # All test files
+│   ├── unit/                  # Unit tests
+│   ├── integration/           # Integration tests
+│   └── e2e/                   # End-to-end tests
+│
+├── docs/                      # All documentation
+│   ├── status/                # Project status
+│   ├── architecture/          # System design
+│   ├── features/              # Feature docs
+│   ├── api/                   # API reference
+│   └── guides/                # User guides
+│
+├── examples/                  # Example scripts
+│   ├── basic/                 # Simple examples
+│   ├── advanced/              # Complex examples
+│   └── templates/             # Reusable templates
+│
+├── scripts/                   # Automation scripts
+│   ├── setup/                 # Setup scripts
+│   └── deploy/                # Deployment scripts
+│
+├── mcp_servers/               # MCP server implementations
+├── monitoring_reports/        # Generated reports
+├── monitoring_projects/       # Long-term project storage
+├── logs/                      # Application logs
+└── .archive/                  # Deprecated/old files
+```
+
+## 📝 File Creation Guidelines
+
+### Python Files
+- **Source code**: Always in `chimera_researcher/` or `backend/`
+- **Tests**: Always in `tests/` with proper subdirectories
+- **Scripts**: Utility scripts go in `scripts/`
+- **Examples**: Demo code goes in `examples/`
+
+### Documentation
+- **User docs**: `docs/` with category subdirectories
+- **API docs**: `docs/api/`
+- **Internal docs**: `docs/internal/`
+- **Feature docs**: `docs/features/`
+- **NEVER** scatter .md files in root (except standard ones)
+
+### Configuration
+- **App configs**: Use `config/` directories within modules
+- **Environment examples**: `config_examples/`
+- **Docker configs**: Root level is OK for docker-compose.yml
+
+### Generated Files
+- **Reports**: `monitoring_reports/` or feature-specific directories
+- **Logs**: `logs/` directory
+- **Temp files**: Use system temp or `.tmp/` directory
+- **Build artifacts**: `.build/` or `dist/`
+
+## 🎯 Decision Tree for File Placement
+
+```
+Need to create a file?
+│
+├─ Is it a standard root file? (README, LICENSE, etc.)
+│  └─ Yes → Create in root
+│  └─ No → Continue ↓
+│
+├─ Is it Python source code?
+│  └─ Yes → chimera_researcher/ or backend/
+│  └─ No → Continue ↓
+│
+├─ Is it a test?
+│  └─ Yes → tests/ with proper subdirectory
+│  └─ No → Continue ↓
+│
+├─ Is it documentation?
+│  └─ Yes → docs/ with category subdirectory
+│  └─ No → Continue ↓
+│
+├─ Is it frontend code?
+│  └─ Yes → frontend/nextjs/ or frontend/vanilla/
+│  └─ No → Continue ↓
+│
+├─ Is it an example/demo?
+│  └─ Yes → examples/
+│  └─ No → Continue ↓
+│
+└─ Create appropriate new subdirectory
+```
+
+## ⚠️ Common Mistakes to Avoid
+
+1. **Creating test_*.py files in root** → Use `tests/`
+2. **Putting documentation in root** → Use `docs/`
+3. **Scattered config files** → Group in `config/` or `config_examples/`
+4. **Random utility scripts in root** → Use `scripts/`
+5. **Feature files in root** → Create feature directory in appropriate module
+
+## 🏆 Good Examples
+
+✅ **Creating a new monitoring feature:**
+```
+chimera_researcher/monitoring/continuous_watcher.py  # Source
+tests/unit/monitoring/test_continuous_watcher.py     # Tests
+docs/features/continuous-monitoring.md                # Docs
+examples/continuous_monitoring_demo.py                # Demo
+```
+
+✅ **Adding a new storage backend:**
+```
+chimera_researcher/storage/redis_storage.py          # Implementation
+tests/integration/test_redis_storage.py              # Tests
+docs/architecture/STORAGE_BACKENDS.md                # Documentation
+```
+
+❌ **Bad Example:**
+```
+test_new_feature.py                                  # Wrong! Test in root
+NEW_FEATURE_PLAN.md                                  # Wrong! Doc in root
+my_utility_script.py                                 # Wrong! Script in root
+```
+
+Remember: A clean project structure makes everyone's life easier :-)

@@ -1,0 +1,180 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+---
+description: "File organization rules to keep ClipScribe clean and maintainable"
+globs: ["**/*", "!.git/**", "!__pycache__/**", "!*.pyc", "!output/**", "!logs/**"]
+alwaysApply: true
+---
+
+# File Organization Rules
+
+## 🚨 CRITICAL: Root Directory Discipline
+
+**NEVER create files in the root directory unless they are:**
+1. **Standard project files**: README.md, LICENSE, CHANGELOG.md, pyproject.toml, poetry.lock
+2. **Essential configs**: .gitignore, .env.example, pytest.ini
+3. **Entry points**: None for ClipScribe (it's installed as a package)
+
+**If you're about to create a file in root, STOP and ask:**
+- Is this a standard project file that MUST be in root?
+- Can this go in an existing subdirectory?
+- Should I create a new subdirectory for this type of file?
+
+## 📁 ClipScribe Directory Structure
+
+```
+clipscribe/
+├── src/clipscribe/         # Main package source
+│   ├── __init__.py
+│   ├── commands/           # CLI commands
+│   │   ├── __init__.py
+│   │   └── cli.py
+│   ├── config/             # Configuration
+│   │   ├── __init__.py
+│   │   └── settings.py
+│   ├── extractors/         # Knowledge extractors
+│   │   ├── __init__.py
+│   │   ├── spacy_extractor.py
+│   │   ├── gliner_extractor.py
+│   │   ├── rebel_extractor.py
+│   │   └── hybrid_extractor.py
+│   ├── retrievers/         # Video/audio processing
+│   │   ├── __init__.py
+│   │   ├── youtube_client.py
+│   │   ├── transcriber.py
+│   │   └── video_retriever.py
+│   ├── utils/              # Utilities
+│   │   ├── __init__.py
+│   │   ├── filename.py
+│   │   └── logging.py
+│   ├── models.py           # Data models
+│   └── version.py          # Version info
+│
+├── tests/                  # All tests
+│   ├── __init__.py
+│   ├── conftest.py
+│   ├── unit/               # Unit tests
+│   ├── integration/        # Integration tests
+│   └── fixtures/           # Test data
+│
+├── docs/                   # Documentation
+│   ├── README.md           # Docs overview
+│   ├── GETTING_STARTED.md
+│   ├── CLI_REFERENCE.md
+│   ├── DEVELOPMENT.md
+│   ├── OUTPUT_FORMATS.md
+│   ├── PLATFORMS.md
+│   └── VISUALIZING_GRAPHS.md
+│
+├── examples/               # Example scripts
+│   ├── README.md
+│   ├── quick_start.py
+│   ├── advanced_extraction_demo.py
+│   └── batch_processing.py
+│
+├── scripts/                # Utility scripts
+│   ├── convert_to_gephi.py
+│   └── view_knowledge_graph.py
+│
+├── output/                 # Generated output (git-ignored)
+│   └── YYYYMMDD_platform_id/
+│
+├── logs/                   # Log files (git-ignored)
+│
+├── .cursor/                # Cursor IDE rules
+│   └── rules/
+│
+└── structured_output/      # Legacy output directory
+```
+
+## 📝 File Placement Guidelines
+
+### Python Source Files
+- **Package code**: Always in `src/clipscribe/`
+- **Tests**: Always in `tests/` with proper subdirectories
+- **Scripts**: Utility scripts in `scripts/`
+- **Examples**: Demo code in `examples/`
+
+### Documentation
+- **User docs**: In `docs/`
+- **Code docs**: Docstrings in source files
+- **Rule docs**: In `.cursor/rules/`
+- **NEVER** scatter .md files in root (except README, CHANGELOG, LICENSE)
+
+### Generated Files
+- **Output**: Always in `output/` subdirectories
+- **Logs**: Always in `logs/`
+- **Cache**: Use system temp or `.cache/`
+- **Never** commit generated files
+
+### Configuration
+- **Package config**: `src/clipscribe/config/`
+- **Environment**: `.env` files in root (git-ignored)
+- **Examples**: `.env.example` in root
+
+## 🎯 Decision Tree for File Placement
+
+```
+Need to create a file?
+│
+├─ Is it a standard root file? (README, LICENSE, etc.)
+│  └─ Yes → Create in root
+│  └─ No → Continue ↓
+│
+├─ Is it Python source code?
+│  └─ Yes → src/clipscribe/ with appropriate submodule
+│  └─ No → Continue ↓
+│
+├─ Is it a test?
+│  └─ Yes → tests/ with proper subdirectory
+│  └─ No → Continue ↓
+│
+├─ Is it documentation?
+│  └─ Yes → docs/
+│  └─ No → Continue ↓
+│
+├─ Is it an example/demo?
+│  └─ Yes → examples/
+│  └─ No → Continue ↓
+│
+├─ Is it a utility script?
+│  └─ Yes → scripts/
+│  └─ No → Continue ↓
+│
+└─ Create appropriate subdirectory or reconsider
+```
+
+## ⚠️ Common Mistakes to Avoid
+
+1. **Creating random .py files in root** → Use appropriate directories
+2. **Putting docs in root** → Use `docs/` directory
+3. **Mixing test files with source** → Keep tests separate
+4. **Committing output files** → These should be git-ignored
+5. **Creating new top-level directories** → Consider existing structure first
+
+## 🏆 Good Examples
+
+✅ **Adding a new extractor:**
+```
+src/clipscribe/extractors/gemini_extractor.py
+tests/unit/test_gemini_extractor.py
+docs/EXTRACTORS.md (if needed)
+```
+
+✅ **Adding a utility function:**
+```
+src/clipscribe/utils/cost_calculator.py
+tests/unit/test_cost_calculator.py
+```
+
+❌ **Bad Example:**
+```
+gemini_test.py          # Wrong! Test file in root
+NEW_FEATURE_NOTES.md    # Wrong! Doc in root
+my_script.py            # Wrong! Script in root
+```
+
+Remember: A clean project structure makes development and maintenance easier :-)

@@ -1,0 +1,192 @@
+---
+description: Docker, CI/CD, and infrastructure patterns including multi-stage builds, container orchestration, and GitHub Actions workflows
+globs: 
+alwaysApply: false
+---
+---
+description: Docker, CI/CD, and infrastructure patterns including multi-stage builds, container orchestration, and GitHub Actions workflows
+globs: ["Dockerfile*", "docker-compose*.yml", ".github/workflows/*.yml", "nginx/*.conf", "scripts/deploy*.sh", "kubernetes/*.yml"]
+alwaysApply: false
+---
+# Docker & DevOps Deployment Rules
+
+> **Related Rules:**
+> - `@security-patterns` - Security considerations for containers
+> - `@backend-fastapi` - Backend application patterns
+> - `@frontend-nextjs` - Frontend application patterns
+> 
+> **Detailed Examples:** See [`docs/development/docker-examples.md`](mdc:docs/development/docker-examples.md) for complete implementations
+
+## Container Strategy
+
+### Core Principles
+1. **Multi-stage builds** - Separate build and runtime for smaller images
+2. **Security-first** - Non-root users, minimal base images
+3. **Layer optimization** - Order commands for efficient caching
+4. **Environment separation** - Dev vs prod configurations
+5. **Health checks** - Built-in container health monitoring
+
+### Image Guidelines
+- Use official base images (python:3.11-slim, node:18-alpine)
+- Pin versions explicitly (no :latest tags)
+- Remove build dependencies in production stages
+- Include only necessary files with .dockerignore
+- Label images with metadata (version, maintainer, etc.)
+
+## Dockerfile Patterns
+
+### Multi-stage Structure
+```dockerfile
+# Base stage - common dependencies
+FROM python:3.11-slim as base
+ENV PYTHONUNBUFFERED=1
+WORKDIR /app
+
+# Development stage
+FROM base as development
+# Dev-specific dependencies and tools
+
+# Production stage
+FROM base as production
+# Minimal production dependencies
+# Non-root user
+# Health checks
+```
+
+### Security Best Practices
+- Create and use non-root user
+- Set read-only filesystem where possible
+- Drop unnecessary capabilities
+- Scan images for vulnerabilities
+- Use secrets for sensitive data (never in image)
+
+## Docker Compose Strategy
+
+### Development Environment
+- Mount source code as volumes for hot reload
+- Expose all ports for debugging
+- Use environment variable files
+- Include development tools and databases
+
+### Production Environment
+- No source code volumes
+- Internal networking only (except nginx)
+- Resource limits and restart policies
+- Separate data volumes for persistence
+- Health checks and dependencies
+
+### Service Configuration
+```yaml
+services:
+  backend:
+    build: .
+    environment_file: .env
+    depends_on:
+      - database
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+    restart: unless-stopped
+```
+
+## CI/CD Pipeline Structure
+
+### GitHub Actions Workflow
+1. **Test Stage** - Run tests in parallel
+   - Backend: pytest, linting, type checking
+   - Frontend: jest, eslint, type checking
+   
+2. **Build Stage** - Create Docker images
+   - Multi-platform builds (amd64, arm64)
+   - Tag with version and commit SHA
+   
+3. **Deploy Stage** - Environment-specific
+   - Dev: Auto-deploy on push to develop
+   - Staging: Deploy on successful PR merge
+   - Production: Manual approval required
+
+### Key Workflow Features
+- Matrix builds for multiple versions
+- Dependency caching for speed
+- Artifact uploads for debugging
+- Secret management with GitHub Secrets
+- Status checks before deployment
+
+## Deployment Patterns
+
+### Blue-Green Deployment
+- Maintain two identical environments
+- Switch traffic after validation
+- Quick rollback capability
+- Zero-downtime updates
+
+### Health Checks & Monitoring
+- Application health endpoints
+- Container health checks
+- External monitoring integration
+- Automated rollback on failures
+
+### Database Migrations
+- Run migrations as init containers
+- Version control migration scripts
+- Backup before migrations
+- Test rollback procedures
+
+## Nginx Configuration
+
+### Development Setup
+- Simple reverse proxy
+- WebSocket support
+- No SSL (handled by dev tools)
+- Permissive CORS for testing
+
+### Production Setup
+- SSL/TLS termination
+- Rate limiting per endpoint
+- Security headers (HSTS, CSP, etc.)
+- Gzip compression
+- Cache static assets
+
+## Kubernetes Considerations
+
+### When to Use K8s
+- Multi-service architectures
+- Need for auto-scaling
+- Complex networking requirements
+- Multi-cloud deployments
+
+### K8s Patterns
+- ConfigMaps for configuration
+- Secrets for sensitive data
+- Horizontal Pod Autoscaling
+- Rolling updates
+- Liveness and readiness probes
+
+## Best Practices Summary
+
+1. **Keep images small** - Multi-stage builds, minimal base images
+2. **Security first** - Non-root users, vulnerability scanning
+3. **Environment parity** - Dev/prod as similar as possible
+4. **Automate everything** - CI/CD for all changes
+5. **Monitor and log** - Centralized logging, health checks
+6. **Document deployment** - Clear runbooks and procedures
+7. **Test disaster recovery** - Regular backup/restore drills
+
+## Quick Commands
+
+```bash
+# Build with proper tagging
+docker build -t myapp:$(git rev-parse --short HEAD) .
+
+# Run security scan
+docker scan myapp:latest
+
+# Multi-platform build
+docker buildx build --platform linux/amd64,linux/arm64 -t myapp:latest .
+
+# Clean up unused resources
+docker system prune -a --volumes
+```
+
+Remember: Containers should be ephemeral and stateless. Keep data in volumes, config in environment variables, and secrets in secure stores :-)
+
+For complete implementation examples, see [`docs/development/docker-examples.md`](mdc:docs/development/docker-examples.md)

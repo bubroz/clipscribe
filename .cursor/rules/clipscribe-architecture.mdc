@@ -1,0 +1,75 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+---
+description: "Core architecture and design patterns for ClipScribe"
+globs: ["src/**/*.py", "pyproject.toml"]
+alwaysApply: true
+---
+
+# ClipScribe Architecture Guidelines
+
+## Project Structure
+
+ClipScribe follows a modular architecture with clear separation of concerns:
+
+```
+src/clipscribe/
+├── commands/       # CLI interface
+├── config/         # Configuration management
+├── extractors/     # Knowledge extraction modules
+├── models.py       # Data models and schemas
+├── retrievers/     # Video/audio retrieval and processing
+└── utils/          # Shared utilities
+```
+
+## Core Principles
+
+1. **Modularity**: Each component should be independently testable and replaceable
+2. **Type Safety**: Use type hints throughout the codebase
+3. **Configuration**: All settings should be centralized in `config/settings.py`
+4. **Error Handling**: Use custom exceptions and proper error propagation
+
+## Key Components
+
+### Retrievers
+- Handle platform-specific video/audio retrieval
+- Use `UniversalVideoClient` as the main interface
+- Implement platform-specific clients (YouTube, etc.)
+
+### Extractors
+- Process transcripts to extract structured knowledge
+- Support multiple extraction strategies (SpaCy, GLiNER, REBEL, etc.)
+- Return standardized output formats
+
+### Models
+- Define Pydantic models for all data structures
+- Ensure backward compatibility when updating schemas
+- Use proper validation for all inputs
+
+## Coding Standards
+
+- Use Poetry for dependency management
+- Follow PEP 8 with Black formatting
+- Maintain comprehensive docstrings (Google style)
+- Keep functions focused and under 50 lines
+- Prefer composition over inheritance
+
+## Import Organization
+
+```python
+# Standard library imports
+import os
+import sys
+from typing import Dict, List, Optional
+
+# Third-party imports
+import pydantic
+from loguru import logger
+
+# Local imports
+from clipscribe.config import settings
+from clipscribe.models import TranscriptData
+```

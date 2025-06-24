@@ -1,0 +1,641 @@
+{
+  "video_url": "https://www.youtube.com/watch?v=668oKOJ43_E",
+  "video_title": "Pentagon holds briefing after US strikes Iran nuclear sites",
+  "entities": [
+    {
+      "name": "Joint Force",
+      "type": "ORGANIZATION",
+      "confidence": 1.0,
+      "properties": {
+        "spacy_label": "ORG",
+        "start_char": 4730,
+        "end_char": 4741
+      },
+      "timestamp": null
+    },
+    {
+      "name": "United States",
+      "type": "LOCATION",
+      "confidence": 1.0,
+      "properties": {
+        "spacy_label": "GPE",
+        "start_char": 5546,
+        "end_char": 5559
+      },
+      "timestamp": null
+    },
+    {
+      "name": "the United States",
+      "type": "LOCATION",
+      "confidence": 0.95,
+      "properties": {
+        "spacy_label": "GPE",
+        "start_char": 2040,
+        "end_char": 2057
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Trump",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 69,
+        "end_char": 74
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Central Command",
+      "type": "ORGANIZATION",
+      "confidence": 0.9,
+      "properties": {
+        "spacy_label": "ORG",
+        "start_char": 88,
+        "end_char": 103
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Iran",
+      "type": "LOCATION",
+      "confidence": 0.9,
+      "properties": {
+        "spacy_label": "GPE",
+        "start_char": 196,
+        "end_char": 200
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Fordo",
+      "type": "LOCATION",
+      "confidence": 0.9,
+      "properties": {
+        "spacy_label": "GPE",
+        "start_char": 202,
+        "end_char": 207
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Eric Corrilla",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 2255,
+        "end_char": 2268
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Centcom",
+      "type": "ORGANIZATION",
+      "confidence": 0.9,
+      "properties": {
+        "spacy_label": "ORG",
+        "start_char": 2272,
+        "end_char": 2279
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Israel",
+      "type": "LOCATION",
+      "confidence": 0.9,
+      "properties": {
+        "spacy_label": "GPE",
+        "start_char": 2858,
+        "end_char": 2864
+      },
+      "timestamp": null
+    },
+    {
+      "name": "America",
+      "type": "LOCATION",
+      "confidence": 0.9,
+      "properties": {
+        "spacy_label": "GPE",
+        "start_char": 4095,
+        "end_char": 4102
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Fordo",
+      "type": "ORGANIZATION",
+      "confidence": 0.9,
+      "properties": {
+        "spacy_label": "ORG",
+        "start_char": 7223,
+        "end_char": 7228
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Corrilla",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 9572,
+        "end_char": 9580
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Iraq",
+      "type": "LOCATION",
+      "confidence": 0.9,
+      "properties": {
+        "spacy_label": "GPE",
+        "start_char": 9649,
+        "end_char": 9653
+      },
+      "timestamp": null
+    },
+    {
+      "name": "North Korea",
+      "type": "LOCATION",
+      "confidence": 0.9,
+      "properties": {
+        "spacy_label": "GPE",
+        "start_char": 14680,
+        "end_char": 14691
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Corrilla at",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 17651,
+        "end_char": 17662
+      },
+      "timestamp": null
+    },
+    {
+      "name": "the Joint Chiefs",
+      "type": "ORGANIZATION",
+      "confidence": 0.85,
+      "properties": {
+        "spacy_label": "ORG",
+        "start_char": 316,
+        "end_char": 332
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Donald J. Trump",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 2059,
+        "end_char": 2074
+      },
+      "timestamp": null
+    },
+    {
+      "name": "B-2",
+      "type": "PRODUCT",
+      "confidence": 0.85,
+      "properties": {
+        "spacy_label": "PRODUCT",
+        "start_char": 3333,
+        "end_char": 3336
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Operation Midnight",
+      "type": "EVENT",
+      "confidence": 0.85,
+      "properties": {
+        "spacy_label": "EVENT",
+        "start_char": 4531,
+        "end_char": 4549
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Gulf",
+      "type": "LOCATION",
+      "confidence": 0.85,
+      "properties": {
+        "spacy_label": "LOC",
+        "start_char": 9670,
+        "end_char": 9674
+      },
+      "timestamp": null
+    },
+    {
+      "name": "National Intelligence",
+      "type": "ORGANIZATION",
+      "confidence": 0.85,
+      "properties": {
+        "spacy_label": "ORG",
+        "start_char": 22118,
+        "end_char": 22139
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Natanz",
+      "type": "ORGANIZATION",
+      "confidence": 0.8,
+      "properties": {
+        "spacy_label": "ORG",
+        "start_char": 209,
+        "end_char": 215
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Esfahan",
+      "type": "LOCATION",
+      "confidence": 0.8,
+      "properties": {
+        "spacy_label": "GPE",
+        "start_char": 221,
+        "end_char": 228
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Tehran",
+      "type": "LOCATION",
+      "confidence": 0.8,
+      "properties": {
+        "spacy_label": "GPE",
+        "start_char": 3160,
+        "end_char": 3166
+      },
+      "timestamp": null
+    },
+    {
+      "name": "God",
+      "type": "PERSON",
+      "confidence": 0.8,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 4063,
+        "end_char": 4066
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Washington",
+      "type": "LOCATION",
+      "confidence": 0.8,
+      "properties": {
+        "spacy_label": "GPE",
+        "start_char": 5271,
+        "end_char": 5281
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Spirit",
+      "type": "ORGANIZATION",
+      "confidence": 0.8,
+      "properties": {
+        "spacy_label": "ORG",
+        "start_char": 5858,
+        "end_char": 5864
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Syria",
+      "type": "LOCATION",
+      "confidence": 0.8,
+      "properties": {
+        "spacy_label": "GPE",
+        "start_char": 9655,
+        "end_char": 9660
+      },
+      "timestamp": null
+    },
+    {
+      "name": "the United States of America",
+      "type": "LOCATION",
+      "confidence": 0.7999999999999999,
+      "properties": {
+        "spacy_label": "GPE",
+        "start_char": 1918,
+        "end_char": 1946
+      },
+      "timestamp": null
+    },
+    {
+      "name": "the Joint Chiefs of Staff",
+      "type": "ORGANIZATION",
+      "confidence": 0.7999999999999999,
+      "properties": {
+        "spacy_label": "ORG",
+        "start_char": 2199,
+        "end_char": 2224
+      },
+      "timestamp": null
+    },
+    {
+      "name": "the United States Armed Forces",
+      "type": "ORGANIZATION",
+      "confidence": 0.7999999999999999,
+      "properties": {
+        "spacy_label": "ORG",
+        "start_char": 4879,
+        "end_char": 4909
+      },
+      "timestamp": null
+    },
+    {
+      "name": "the Central Command",
+      "type": "ORGANIZATION",
+      "confidence": 0.7999999999999999,
+      "properties": {
+        "spacy_label": "ORG",
+        "start_char": 6526,
+        "end_char": 6545
+      },
+      "timestamp": null
+    },
+    {
+      "name": "the Middle East",
+      "type": "LOCATION",
+      "confidence": 0.7999999999999999,
+      "properties": {
+        "spacy_label": "LOC",
+        "start_char": 15644,
+        "end_char": 15659
+      },
+      "timestamp": null
+    },
+    {
+      "name": "B-2s",
+      "type": "PRODUCT",
+      "confidence": 0.75,
+      "properties": {
+        "spacy_label": "PRODUCT",
+        "start_char": 3127,
+        "end_char": 3131
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Tampa",
+      "type": "LOCATION",
+      "confidence": 0.75,
+      "properties": {
+        "spacy_label": "GPE",
+        "start_char": 5804,
+        "end_char": 5809
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Tomahawk",
+      "type": "PRODUCT",
+      "confidence": 0.75,
+      "properties": {
+        "spacy_label": "PRODUCT",
+        "start_char": 6598,
+        "end_char": 6606
+      },
+      "timestamp": null
+    },
+    {
+      "name": "China",
+      "type": "LOCATION",
+      "confidence": 0.75,
+      "properties": {
+        "spacy_label": "GPE",
+        "start_char": 14828,
+        "end_char": 14833
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Kane",
+      "type": "PERSON",
+      "confidence": 0.75,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 15495,
+        "end_char": 15499
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Hexseth",
+      "type": "PERSON",
+      "confidence": 0.75,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 15675,
+        "end_char": 15682
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Missouri",
+      "type": "LOCATION",
+      "confidence": 0.75,
+      "properties": {
+        "spacy_label": "GPE",
+        "start_char": 21390,
+        "end_char": 21398
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Khamenei",
+      "type": "PERSON",
+      "confidence": 0.75,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 22239,
+        "end_char": 22247
+      },
+      "timestamp": null
+    },
+    {
+      "name": "operation President",
+      "type": "EVENT",
+      "confidence": 0.7499999999999999,
+      "properties": {
+        "spacy_label": "EVENT",
+        "start_char": 1057,
+        "end_char": 1076
+      },
+      "timestamp": null
+    },
+    {
+      "name": "the War Powers Act",
+      "type": "EVENT",
+      "confidence": 0.7499999999999999,
+      "properties": {
+        "spacy_label": "EVENT",
+        "start_char": 13495,
+        "end_char": 13513
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Earth",
+      "type": "LOCATION",
+      "confidence": 0.7,
+      "properties": {
+        "spacy_label": "LOC",
+        "start_char": 1347,
+        "end_char": 1352
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Soleimani",
+      "type": "LOCATION",
+      "confidence": 0.7,
+      "properties": {
+        "spacy_label": "LOC",
+        "start_char": 1470,
+        "end_char": 1479
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Pacific",
+      "type": "LOCATION",
+      "confidence": 0.7,
+      "properties": {
+        "spacy_label": "LOC",
+        "start_char": 5667,
+        "end_char": 5674
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Global War",
+      "type": "EVENT",
+      "confidence": 0.7,
+      "properties": {
+        "spacy_label": "EVENT",
+        "start_char": 15689,
+        "end_char": 15699
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Last night",
+      "type": "time",
+      "confidence": 0.6247420907020569,
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "President Trump",
+      "type": "person",
+      "confidence": 0.8931928277015686,
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "US Central Command",
+      "type": "organization",
+      "confidence": 0.7375033497810364,
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "precision strike",
+      "type": "operation",
+      "confidence": 0.7091328501701355,
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Natanz",
+      "type": "location",
+      "confidence": 0.9490494132041931,
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "nuclear program",
+      "type": "weapon",
+      "confidence": 0.6748638153076172,
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "operation",
+      "type": "operation",
+      "confidence": 0.7049955129623413,
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "nuclear weapon",
+      "type": "weapon",
+      "confidence": 0.5419573187828064,
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Soleimani",
+      "type": "person",
+      "confidence": 0.7126507759094238,
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "POTUS",
+      "type": "person",
+      "confidence": 0.6199544668197632,
+      "properties": {},
+      "timestamp": null
+    }
+  ],
+  "topics": [
+    {
+      "name": "US military strike on Iranian nuclear facilities",
+      "confidence": 0.85
+    },
+    {
+      "name": "President Trump's orders and rationale",
+      "confidence": 0.85
+    },
+    {
+      "name": "Details of the military operation (mission, aircraft, weapons)",
+      "confidence": 0.85
+    },
+    {
+      "name": "Assessment of damage and success",
+      "confidence": 0.85
+    },
+    {
+      "name": "US response to potential Iranian retaliation",
+      "confidence": 0.85
+    },
+    {
+      "name": "Coordination with allies (Israel)",
+      "confidence": 0.85
+    },
+    {
+      "name": "Future implications and diplomatic efforts",
+      "confidence": 0.85
+    }
+  ],
+  "key_facts": [
+    "US Central Command conducted a precision strike against three Iranian nuclear facilities.",
+    "The operation aimed to destroy or severely degrade Iran's nuclear program.",
+    "The operation was an overwhelming success.",
+    "The operation did not target Iranian troops or the Iranian people.",
+    "President Trump has consistently stated for over 10 years that Iran must not get a nuclear weapon."
+  ]
+}

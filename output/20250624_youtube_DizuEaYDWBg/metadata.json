@@ -1,0 +1,24 @@
+{
+  "video": {
+    "title": "Supreme Court allows Trump to deport migrants to \u2018third countries'",
+    "url": "https://www.youtube.com/watch?v=DizuEaYDWBg",
+    "channel": "NBCLA",
+    "duration": 231,
+    "published_at": "2025-06-23T20:05:03",
+    "view_count": 53390,
+    "description": "A divided Supreme Court on Monday allowed the Trump administration to restart swift removals of migrants to countries other than their homeland. This video was broadcast during the NBC4 News at 7 p.m. on Monday, June 23, 2025."
+  },
+  "processing": {
+    "cost": 0.007700001191125,
+    "time": 26.216075,
+    "processed_at": "2025-06-24T00:30:18.080208",
+    "clipscribe_version": "2.0.0"
+  },
+  "statistics": {
+    "transcript_length": 3869,
+    "word_count": 669,
+    "entity_count": 9,
+    "key_point_count": 9,
+    "topic_count": 5
+  }
+}

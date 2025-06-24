@@ -1,0 +1,68 @@
+{
+  "version": "2.2",
+  "created_at": "2025-06-24T01:35:17.039141",
+  "video": {
+    "title": "Pentagon holds briefing after US strikes Iran nuclear sites",
+    "url": "https://www.youtube.com/watch?v=668oKOJ43_E",
+    "platform": "youtube"
+  },
+  "extraction_stats": {
+    "spacy_entities": 48,
+    "gliner_entities": 10,
+    "llm_validated": 50,
+    "relationships": 193,
+    "graph_nodes": 165,
+    "graph_edges": 155
+  },
+  "files": {
+    "transcript_txt": {
+      "path": "transcript.txt",
+      "format": "plain_text",
+      "size": 23364
+    },
+    "transcript_json": {
+      "path": "transcript.json",
+      "format": "json",
+      "size": 174090
+    },
+    "transcript_srt": {
+      "path": "transcript.srt",
+      "format": "srt_subtitles",
+      "size": 25281
+    },
+    "transcript_vtt": {
+      "path": "transcript.vtt",
+      "format": "webvtt_subtitles",
+      "size": 25127
+    },
+    "metadata": {
+      "path": "metadata.json",
+      "format": "json",
+      "size": 2801
+    },
+    "entities": {
+      "path": "entities.json",
+      "format": "json",
+      "size": 14101
+    },
+    "relationships": {
+      "path": "relationships.json",
+      "format": "json",
+      "size": 50443,
+      "count": 193
+    },
+    "knowledge_graph": {
+      "path": "knowledge_graph.json",
+      "format": "json",
+      "size": 37067,
+      "nodes": 165,
+      "edges": 155
+    },
+    "facts": {
+      "path": "facts.txt",
+      "format": "plain_text",
+      "size": 1407,
+      "count": 20
+    }
+  }
+}

@@ -1,0 +1,174 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+---
+description: "Master rule governing all project rules, documentation, and task completion processes"
+globs: []
+alwaysApply: true
+---
+
+# Master Rules & Task Completion Guide
+
+This is the central rule that governs all other rules and ensures proper task completion in the ClipScribe project.
+
+## Rule Management
+
+### Rule Format
+Each `.mdc` file in `.cursor/rules/` follows this structure:
+
+```yaml
+---
+description: "Brief description of the rule's purpose"
+globs: ["**/*.py", "src/**/*.ts"]  # File patterns for auto-attachment
+alwaysApply: false  # Whether the rule always applies
+---
+
+# Rule Content
+```
+
+### Available Rules
+- `README.mdc` (this file) - Master rule for all project governance
+- `clipscribe-architecture.mdc` - Core architecture and design patterns
+- `video-processing.mdc` - Guidelines for video/audio processing code
+- `extractor-patterns.mdc` - Best practices for knowledge extractors
+- `testing-standards.mdc` - Testing requirements and patterns
+- `cli-command-patterns.mdc` - Patterns and conventions for CLI commands
+- `error-handling-logging.mdc` - Consistent error handling and logging
+- `api-integration-patterns.mdc` - External API integration patterns
+- `configuration-management.mdc` - Settings and configuration guidelines
+- `cost-optimization.mdc` - Keeping API costs low (always applies!)
+- `async-patterns.mdc` - Best practices for async/await code
+- `output-format-management.mdc` - Managing and adding output formats
+- `model-data-structures.mdc` - Pydantic models and data validation
+
+### How Rules Work
+1. **Auto-attachment**: Rules with matching `globs` patterns automatically apply when working on those files
+2. **Always Apply**: Rules with `alwaysApply: true` are active for all interactions
+3. **Manual Reference**: You can reference any rule using `@rules/rule-name`
+
+### Creating New Rules
+When adding a new rule:
+1. Use descriptive kebab-case filenames (e.g., `api-patterns.mdc`)
+2. Include proper frontmatter with:
+   - `description`: Brief explanation of what the rule covers
+   - `globs`: File patterns where rule auto-applies (can be empty `[]`)
+   - `alwaysApply`: true/false - whether rule is always active
+3. Keep rules focused on a single concern
+4. Include practical examples and code snippets
+5. Use clear section headers and formatting
+6. Add the rule to this README's Available Rules list
+
+### When to Create Rules
+Create a new rule when:
+- You find yourself explaining the same pattern multiple times
+- There's a specific convention unique to this project
+- You want to document best practices for a component
+- There are gotchas or non-obvious patterns to remember
+- You need to ensure consistency across the codebase
+
+### Updating Existing Rules
+When modifying rules:
+1. Preserve the frontmatter structure
+2. Document why the change was made (in commit message)
+3. Verify glob patterns still match intended files
+4. Check for conflicts with other rules
+5. Update any documentation that references the old behavior
+
+## Task Completion Checklist
+
+**CRITICAL: At the completion of EVERY task, ensure the following are updated:**
+
+### 1. Documentation Updates
+- [ ] Update relevant files in `docs/` directory:
+  - `README.md` - Main project documentation
+  - `GETTING_STARTED.md` - For setup/installation changes
+  - `CLI_REFERENCE.md` - For command changes
+  - `DEVELOPMENT.md` - For development workflow changes
+  - `OUTPUT_FORMATS.md` - For output format changes
+  - `PLATFORMS.md` - For platform support changes
+  - `VISUALIZING_GRAPHS.md` - For visualization changes
+
+### 2. Code Documentation
+- [ ] Update docstrings for modified functions/classes
+- [ ] Ensure type hints are present and accurate
+- [ ] Add inline comments for complex logic
+
+### 3. Rule Updates
+- [ ] Check if any `.cursor/rules/*.mdc` files need updating:
+  - Architecture changes → Update `clipscribe-architecture.mdc`
+  - New extractors → Update `extractor-patterns.mdc`
+  - Process changes → Update relevant rule files
+  - New patterns → Create new rule file if needed
+
+### 4. Version & Changelog
+- [ ] Update `CHANGELOG.md` with:
+  - Version number
+  - Date
+  - Clear description of changes
+  - Breaking changes clearly marked
+- [ ] Update version in `pyproject.toml` if releasing
+- [ ] Update version in `src/clipscribe/version.py`
+
+### 5. Continuation Prompt
+- [ ] Update `CONTINUATION_PROMPT.md` with:
+  - Current project state
+  - Recent major changes
+  - Known issues or TODOs
+  - Next planned features
+  - Any context future AI assistants need
+
+### 6. Tests
+- [ ] Add/update tests for new functionality
+- [ ] Ensure all tests pass
+- [ ] Update test documentation if test structure changes
+
+### 7. Dependencies
+- [ ] If dependencies added/removed, update:
+  - `pyproject.toml`
+  - Run `poetry lock` to update `poetry.lock`
+  - Update installation docs if needed
+
+### 8. Examples
+- [ ] Update example scripts in `examples/` if APIs change
+- [ ] Ensure examples still run correctly
+- [ ] Add new examples for new features
+
+### 9. Configuration
+- [ ] Update `env.example` if new environment variables added
+- [ ] Update configuration documentation
+- [ ] Ensure backward compatibility or document breaking changes
+
+### 10. Git Commit
+- [ ] Use conventional commit format: `type(scope): description`
+- [ ] Include comprehensive commit message
+- [ ] Reference any related issues
+
+## Rule Precedence
+
+When rules conflict:
+1. This master rule (README.mdc) takes highest precedence
+2. `alwaysApply: true` rules override others
+3. More specific glob patterns override general ones
+4. Newer rules override older ones for the same scope
+
+## Best Practices
+
+1. **Consistency**: Follow established patterns unless changing them intentionally
+2. **Documentation**: Every change should be documented
+3. **Testing**: Every feature should be tested
+4. **Communication**: Use clear commit messages and update all relevant docs
+5. **Completeness**: Use the task completion checklist for EVERY task
+
+## Quick Reference Commands
+
+```bash
+# After making changes, common commands:
+poetry run black src/              # Format code
+poetry run pytest                  # Run tests
+poetry run pytest --cov=clipscribe # Check coverage
+poetry check                       # Validate pyproject.toml
+```
+
+Remember: This rule is the governance framework for the entire project. When in doubt, refer back to this document and ensure all checklist items are completed.

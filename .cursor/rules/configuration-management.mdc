@@ -1,0 +1,235 @@
+---
+description: Guidelines for managing configuration and settings
+globs: 
+alwaysApply: false
+---
+---
+description: "Guidelines for managing configuration and settings"
+globs: ["src/clipscribe/config/**/*.py", "**/settings.py", ".env*", "**/*.toml"]
+alwaysApply: false
+---
+
+# Configuration Management
+
+## Settings Structure
+
+Use Pydantic BaseSettings for configuration:
+
+```python
+from pydantic_settings import BaseSettings
+from pydantic import Field, field_validator
+from pathlib import Path
+
+class Settings(BaseSettings):
+    """Application settings with environment variable support."""
+    
+    # API Keys
+    google_api_key: str = Field(
+        default=os.getenv("GOOGLE_API_KEY", ""),
+        description="Google API key for Gemini"
+    )
+    
+    # Feature Flags
+    enable_advanced_extraction: bool = Field(
+        default=True,
+        description="Use REBEL+GLiNER extraction"
+    )
+    
+    # Performance Settings
+    max_concurrent_downloads: int = Field(
+        default=3,
+        ge=1,
+        le=10,
+        description="Maximum concurrent downloads"
+    )
+    
+    class Config:
+        """Pydantic configuration."""
+        env_file = ".env"
+        env_file_encoding = "utf-8"
+        case_sensitive = False
+```
+
+## Environment Variables
+
+### Naming Convention
+- Use SCREAMING_SNAKE_CASE
+- Prefix with app name if needed: `CLIPSCRIBE_API_KEY`
+- Group related settings: `GEMINI_MODEL`, `GEMINI_TEMPERATURE`
+
+### Environment Files
+```bash
+# .env (local development)
+GOOGLE_API_KEY=your-key-here
+LOG_LEVEL=DEBUG
+
+# .env.example (committed to git)
+GOOGLE_API_KEY=
+LOG_LEVEL=INFO
+```
+
+## Validation Patterns
+
+### Required Settings
+```python
+@field_validator("google_api_key")
+def validate_api_key(cls, v: str) -> str:
+    """Validate API key is set."""
+    if not v:
+        raise ValueError(
+            "GOOGLE_API_KEY environment variable is required. "
+            "Get one at: https://makersuite.google.com/app/apikey"
+        )
+    return v
+```
+
+### Directory Creation
+```python
+@field_validator("output_dir", "log_dir", mode="before")
+def create_directories(cls, v: Path) -> Path:
+    """Ensure directories exist."""
+    if isinstance(v, str):
+        v = Path(v)
+    v.mkdir(parents=True, exist_ok=True)
+    return v
+```
+
+### Value Constraints
+```python
+chunk_size: int = Field(
+    default=600,
+    ge=60,      # minimum 1 minute
+    le=3600,    # maximum 1 hour
+    description="Audio chunk size in seconds"
+)
+```
+
+## Configuration Methods
+
+### Cost Estimation
+```python
+def estimate_cost(self, duration_seconds: int, mode: str = "audio") -> float:
+    """Estimate processing cost."""
+    if mode == "audio":
+        # ~25 tokens per second of audio
+        tokens = duration_seconds * 25
+        return (tokens / 1000) * 0.0001875
+    else:  # video mode
+        # ~250 tokens per second for video
+        tokens = duration_seconds * 250
+        return (tokens / 1000) * 0.001875
+```
+
+### Configuration Export
+```python
+def get_gemini_config(self) -> dict:
+    """Get Gemini-specific configuration."""
+    return {
+        "api_key": self.google_api_key,
+        "model": self.ai_model,
+        "temperature": self.temperature,
+        "safety_settings": self._safety_settings()
+    }
+```
+
+## Dynamic Configuration
+
+### Feature Toggles
+```python
+class FeatureFlags:
+    """Runtime feature toggles."""
+    
+    def __init__(self, settings: Settings):
+        self.settings = settings
+    
+    @property
+    def use_advanced_extraction(self) -> bool:
+        """Check if advanced extraction is enabled."""
+        return (
+            self.settings.enable_advanced_extraction and
+            self._models_available()
+        )
+    
+    def _models_available(self) -> bool:
+        """Check if required models are installed."""
+        try:
+            import transformers
+            return True
+        except ImportError:
+            return False
+```
+
+### Mode Selection
+```python
+def get_processing_mode(self, url: str, user_mode: str = "auto") -> str:
+    """Determine processing mode."""
+    if user_mode != "auto":
+        return user_mode
+    
+    # Auto-detect based on content type
+    if "tutorial" in url.lower() or "howto" in url.lower():
+        return "video"
+    
+    # Check filename hints
+    if any(hint in url.lower() for hint in ["slides", "presentation", "demo"]):
+        return "video"
+    
+    return "audio"  # default
+```
+
+## Configuration Loading
+
+### Singleton Pattern
+```python
+_settings: Optional[Settings] = None
+
+def get_settings() -> Settings:
+    """Get or create settings singleton."""
+    global _settings
+    if _settings is None:
+        _settings = Settings()
+    return _settings
+```
+
+### CLI Integration
+```python
+@click.pass_context
+def cli(ctx: click.Context):
+    """Initialize with settings."""
+    ctx.ensure_object(dict)
+    ctx.obj["settings"] = get_settings()
+```
+
+## Testing Configuration
+
+### Mock Settings
+```python
+@pytest.fixture
+def test_settings():
+    """Test settings with overrides."""
+    return Settings(
+        google_api_key="test-key",
+        output_dir=Path("/tmp/test"),
+        enable_cost_tracking=False
+    )
+```
+
+### Environment Override
+```python
+def test_with_env_override(monkeypatch):
+    """Test with environment variables."""
+    monkeypatch.setenv("GOOGLE_API_KEY", "test-key")
+    monkeypatch.setenv("LOG_LEVEL", "DEBUG")
+    
+    settings = Settings()
+    assert settings.google_api_key == "test-key"
+    assert settings.log_level == "DEBUG"
+```
+
+## Configuration Documentation
+
+Always document settings in:
+1. `.env.example` - Example values
+2. `README.md` - Setup instructions
+3. Class docstrings - Detailed descriptions
+4. `--help` text - User-facing explanations

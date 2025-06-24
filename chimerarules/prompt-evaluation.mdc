@@ -1,0 +1,440 @@
+---
+description: Rules for prompt engineering evaluation and feedback loops, including A/B testing and optimization strategies
+globs: 
+alwaysApply: false
+---
+---
+description: Rules for prompt engineering evaluation and feedback loops, including A/B testing and optimization strategies
+globs: ["chimera_researcher/prompts/*.py", "tools/prompt_evaluator.py", "tests/test_prompts.py", "examples/*prompt*.py", "chimera_researcher/prompts/**/*.py"]
+alwaysApply: false
+---
+# Prompt Engineering & Evaluation Rules
+
+## Core Principles
+1. **Measure Everything**: Track prompt performance with concrete metrics
+2. **Iterate Based on Data**: Use evaluation results to improve prompts
+3. **Version Control Prompts**: Treat prompts as code with proper versioning
+4. **Test Edge Cases**: Ensure prompts handle unexpected inputs gracefully
+5. **Optimize for Cost**: Balance quality with token usage
+
+## Prompt Evaluation Framework
+
+### Evaluation Metrics
+```python
+from typing import Dict, List, Any, Optional
+import logging
+from dataclasses import dataclass
+from datetime import datetime
+
+logger = logging.getLogger(__name__)
+
+@dataclass
+class PromptMetrics:
+    """Metrics for prompt evaluation."""
+    accuracy: float  # 0-1, how well output matches expected
+    relevance: float  # 0-1, how relevant the output is
+    completeness: float  # 0-1, how complete the answer is
+    token_efficiency: float  # output_quality / tokens_used
+    latency_ms: int  # Response time in milliseconds
+    cost_usd: float  # Actual cost in USD
+    error_rate: float  # Percentage of failed attempts
+
+class PromptEvaluator:
+    """Evaluate prompt effectiveness."""
+    
+    def __init__(self, llm_provider):
+        self.llm = llm_provider
+        self.evaluation_history = []
+    
+    async def evaluate_prompt(
+        self,
+        prompt_template: str,
+        test_cases: List[Dict[str, Any]],
+        expected_outputs: List[Dict[str, Any]]
+    ) -> Dict[str, Any]:
+        """Evaluate a prompt against test cases."""
+        results = {
+            "prompt_template": prompt_template,
+            "timestamp": datetime.utcnow().isoformat(),
+            "test_results": [],
+            "aggregate_metrics": {}
+        }
+        
+        for test_case, expected in zip(test_cases, expected_outputs):
+            # Run the prompt
+            start_time = datetime.utcnow()
+            
+            try:
+                prompt = prompt_template.format(**test_case)
+                response = await self.llm.agenerate([prompt])
+                
+                latency_ms = int((datetime.utcnow() - start_time).total_seconds() * 1000)
+                
+                # Evaluate the response
+                metrics = await self._evaluate_response(
+                    response=response,
+                    expected=expected,
+                    latency_ms=latency_ms
+                )
+                
+                results["test_results"].append({
+                    "test_case": test_case,
+                    "response": response,
+                    "expected": expected,
+                    "metrics": metrics.__dict__
+                })
+                
+            except Exception as e:
+                logger.error(f"Evaluation error: {e}")
+                results["test_results"].append({
+                    "test_case": test_case,
+                    "error": str(e),
+                    "metrics": None
+                })
+        
+        # Calculate aggregate metrics
+        results["aggregate_metrics"] = self._calculate_aggregates(results["test_results"])
+        
+        # Store for history
+        self.evaluation_history.append(results)
+        
+        return results
+    
+    async def _evaluate_response(
+        self,
+        response: str,
+        expected: Dict[str, Any],
+        latency_ms: int
+    ) -> PromptMetrics:
+        """Evaluate a single response."""
+        # Use LLM to evaluate quality
+        eval_prompt = f"""
+        Evaluate the following response against expected criteria.
+        
+        Response: {response}
+        
+        Expected Criteria:
+        - Should contain: {expected.get('must_contain', [])}
+        - Should not contain: {expected.get('must_not_contain', [])}
+        - Format: {expected.get('format', 'any')}
+        - Length: {expected.get('length', 'any')}
+        
+        Rate on a scale of 0-1 for:
+        1. Accuracy (matches expected criteria)
+        2. Relevance (stays on topic)
+        3. Completeness (covers all aspects)
+        
+        Return JSON: {{"accuracy": 0.0, "relevance": 0.0, "completeness": 0.0}}
+        """
+        
+        eval_response = await self.llm.agenerate([eval_prompt])
+        # Parse evaluation (with error handling)
+        
+        # Calculate token efficiency
+        tokens_used = len(response.split())  # Simplified
+        quality_score = (accuracy + relevance + completeness) / 3
+        token_efficiency = quality_score / max(tokens_used, 1)
+        
+        # Estimate cost (example rates)
+        cost_usd = tokens_used * 0.00002  # Example rate
+        
+        return PromptMetrics(
+            accuracy=accuracy,
+            relevance=relevance,
+            completeness=completeness,
+            token_efficiency=token_efficiency,
+            latency_ms=latency_ms,
+            cost_usd=cost_usd,
+            error_rate=0.0
+        )
+```
+
+### A/B Testing Framework
+```python
+class PromptABTester:
+    """A/B test different prompt versions."""
+    
+    async def run_ab_test(
+        self,
+        prompt_a: str,
+        prompt_b: str,
+        test_inputs: List[Dict[str, Any]],
+        evaluation_criteria: Dict[str, Any],
+        sample_size: int = 100
+    ) -> Dict[str, Any]:
+        """Run A/B test between two prompts."""
+        results_a = []
+        results_b = []
+        
+        # Randomly assign inputs to each variant
+        for i, test_input in enumerate(test_inputs[:sample_size]):
+            if i % 2 == 0:
+                result = await self._test_prompt(prompt_a, test_input, "A")
+                results_a.append(result)
+            else:
+                result = await self._test_prompt(prompt_b, test_input, "B")
+                results_b.append(result)
+        
+        # Statistical analysis
+        analysis = {
+            "variant_a": self._analyze_results(results_a),
+            "variant_b": self._analyze_results(results_b),
+            "winner": None,
+            "confidence": 0.0
+        }
+        
+        # Determine winner
+        if analysis["variant_a"]["avg_quality"] > analysis["variant_b"]["avg_quality"]:
+            analysis["winner"] = "A"
+            analysis["confidence"] = self._calculate_confidence(results_a, results_b)
+        else:
+            analysis["winner"] = "B"
+            analysis["confidence"] = self._calculate_confidence(results_b, results_a)
+        
+        return analysis
+```
+
+## Prompt Optimization Patterns
+
+### 1. Iterative Refinement
+```python
+class PromptOptimizer:
+    """Optimize prompts based on evaluation feedback."""
+    
+    async def optimize_prompt(
+        self,
+        initial_prompt: str,
+        test_cases: List[Dict],
+        target_metrics: Dict[str, float],
+        max_iterations: int = 5
+    ) -> Dict[str, Any]:
+        """Iteratively improve a prompt."""
+        current_prompt = initial_prompt
+        optimization_history = []
+        
+        for iteration in range(max_iterations):
+            # Evaluate current prompt
+            evaluation = await self.evaluator.evaluate_prompt(
+                current_prompt, test_cases, expected_outputs
+            )
+            
+            # Check if targets are met
+            if self._targets_met(evaluation["aggregate_metrics"], target_metrics):
+                break
+            
+            # Generate improvement suggestions
+            suggestions = await self._generate_suggestions(
+                current_prompt, evaluation
+            )
+            
+            # Apply best suggestion
+            current_prompt = await self._apply_suggestion(
+                current_prompt, suggestions[0]
+            )
+            
+            optimization_history.append({
+                "iteration": iteration,
+                "prompt": current_prompt,
+                "metrics": evaluation["aggregate_metrics"],
+                "suggestion_applied": suggestions[0]
+            })
+        
+        return {
+            "final_prompt": current_prompt,
+            "optimization_history": optimization_history,
+            "improvement": self._calculate_improvement(
+                optimization_history[0]["metrics"],
+                optimization_history[-1]["metrics"]
+            )
+        }
+```
+
+### 2. Prompt Templates
+```python
+class PromptTemplateLibrary:
+    """Manage reusable prompt templates."""
+    
+    TEMPLATES = {
+        "entity_extraction": """
+Extract {entity_type} entities from the following text.
+Return as JSON array with properties: name, type, confidence.
+
+Text: {text}
+
+JSON Output:
+""",
+        
+        "summarization": """
+Summarize the following {content_type} in {length} words.
+Focus on: {focus_areas}
+Style: {style}
+
+Content: {content}
+
+Summary:
+""",
+        
+        "analysis": """
+Analyze the following {data_type} for {analysis_goal}.
+Use framework: {framework}
+Consider: {considerations}
+
+Data: {data}
+
+Analysis:
+"""
+    }
+    
+    @classmethod
+    def get_template(cls, template_name: str) -> str:
+        """Get a prompt template with validation."""
+        if template_name not in cls.TEMPLATES:
+            raise ValueError(f"Unknown template: {template_name}")
+        return cls.TEMPLATES[template_name]
+```
+
+### 3. Chain-of-Thought Optimization
+```python
+def optimize_cot_prompt(base_prompt: str) -> str:
+    """Add chain-of-thought reasoning to prompts."""
+    cot_additions = [
+        "Let's think step by step:",
+        "First, I'll identify the key components...",
+        "Next, I'll analyze each part...",
+        "Finally, I'll synthesize the findings..."
+    ]
+    
+    return f"{base_prompt}\n\n{chr(10).join(cot_additions)}"
+```
+
+## Testing Strategies
+
+### 1. Edge Case Testing
+```python
+EDGE_CASE_INPUTS = [
+    {"text": ""},  # Empty input
+    {"text": "a" * 10000},  # Very long input
+    {"text": "🌍🚀💡"},  # Unicode/emojis
+    {"text": "<script>alert('xss')</script>"},  # Malicious input
+    {"text": '{"broken": "json}'},  # Malformed data
+]
+
+async def test_edge_cases(prompt_template: str):
+    """Test prompt with edge cases."""
+    for edge_case in EDGE_CASE_INPUTS:
+        try:
+            prompt = prompt_template.format(**edge_case)
+            response = await llm.agenerate([prompt])
+            # Validate response is reasonable
+        except Exception as e:
+            logger.error(f"Edge case failure: {edge_case}, Error: {e}")
+```
+
+### 2. Regression Testing
+```python
+class PromptRegressionTester:
+    """Ensure prompt changes don't break existing functionality."""
+    
+    def __init__(self):
+        self.baseline_results = {}
+    
+    async def create_baseline(self, prompt: str, test_suite: List[Dict]):
+        """Create baseline results for comparison."""
+        results = []
+        for test in test_suite:
+            response = await self._run_prompt(prompt, test)
+            results.append({
+                "input": test,
+                "output": response,
+                "metrics": await self._calculate_metrics(response)
+            })
+        
+        self.baseline_results[prompt] = results
+    
+    async def test_regression(self, new_prompt: str, test_suite: List[Dict]):
+        """Test if new prompt maintains quality."""
+        if new_prompt not in self.baseline_results:
+            await self.create_baseline(new_prompt, test_suite)
+            return {"status": "baseline_created"}
+        
+        baseline = self.baseline_results[new_prompt]
+        regressions = []
+        
+        for baseline_result, test in zip(baseline, test_suite):
+            new_response = await self._run_prompt(new_prompt, test)
+            new_metrics = await self._calculate_metrics(new_response)
+            
+            # Check for regressions
+            for metric, baseline_value in baseline_result["metrics"].items():
+                if new_metrics[metric] < baseline_value * 0.95:  # 5% tolerance
+                    regressions.append({
+                        "test": test,
+                        "metric": metric,
+                        "baseline": baseline_value,
+                        "new": new_metrics[metric]
+                    })
+        
+        return {
+            "passed": len(regressions) == 0,
+            "regressions": regressions
+        }
+```
+
+## Best Practices
+
+1. **Version Control**
+   ```python
+   PROMPT_VERSION = "1.2.3"
+   PROMPT_CHANGELOG = {
+       "1.2.3": "Added chain-of-thought reasoning",
+       "1.2.2": "Improved JSON output formatting",
+       "1.2.1": "Fixed edge case with empty inputs"
+   }
+   ```
+
+2. **Cost Monitoring**
+   ```python
+   def track_prompt_costs(prompt: str, model: str) -> float:
+       """Track costs for different prompts."""
+       token_count = len(prompt.split())
+       model_rates = {
+           "gpt-4": 0.00003,
+           "gpt-3.5": 0.000002,
+           "gemini-pro": 0.00001
+       }
+       return token_count * model_rates.get(model, 0.00001)
+   ```
+
+3. **Prompt Caching**
+   ```python
+   from functools import lru_cache
+   
+   @lru_cache(maxsize=1000)
+   def get_cached_response(prompt_hash: str) -> Optional[str]:
+       """Cache common prompt responses."""
+       return prompt_cache.get(prompt_hash)
+   ```
+
+4. **Error Handling**
+   ```python
+   async def safe_prompt_execution(prompt: str, max_retries: int = 3):
+       """Execute prompt with retry logic."""
+       for attempt in range(max_retries):
+           try:
+               return await llm.agenerate([prompt])
+           except Exception as e:
+               if attempt == max_retries - 1:
+                   raise
+               logger.warning(f"Retry {attempt + 1}: {e}")
+               await asyncio.sleep(2 ** attempt)
+   ```
+
+## Continuous Improvement
+
+1. **Weekly Reviews**: Analyze prompt performance metrics
+2. **User Feedback**: Collect and incorporate user feedback
+3. **Cost Optimization**: Regularly review and optimize expensive prompts
+4. **Documentation**: Keep prompt documentation up-to-date
+5. **Benchmarking**: Compare against industry standards
+
+Remember: Great prompts are born from iteration and measurement :-)

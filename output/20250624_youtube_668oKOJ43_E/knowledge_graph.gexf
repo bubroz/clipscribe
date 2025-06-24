@@ -1,0 +1,2437 @@
+<?xml version='1.0' encoding='utf-8'?>
+<gexf xmlns:viz="http://www.gexf.net/1.2draft/viz" xmlns="http://www.gexf.net/1.2draft" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.gexf.net/1.2draft http://www.gexf.net/1.2draft/gexf.xsd" version="1.2">
+  <meta lastmodifieddate="2025-06-24">
+    <creator>NetworkX 3.5</creator>
+  </meta>
+  <graph defaultedgetype="directed" mode="static" name="ClipScribe Knowledge Graph">
+    <attributes mode="static" class="edge">
+      <attribute id="4" title="confidence" type="double" />
+      <attribute id="5" title="predicate" type="string" />
+    </attributes>
+    <attributes mode="static" class="node">
+      <attribute id="0" title="type" type="string" />
+      <attribute id="1" title="confidence" type="double" />
+      <attribute id="2" title="size" type="double" />
+      <attribute id="3" title="color" type="string" />
+    </attributes>
+    <nodes>
+      <node id="Joint Force" label="Joint Force">
+        <viz:color r="78" g="205" b="196" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION" />
+          <attvalue for="1" value="1.0" />
+          <attvalue for="2" value="50.0" />
+          <attvalue for="3" value="#4ECDC4" />
+        </attvalues>
+      </node>
+      <node id="United States" label="United States">
+        <viz:color r="69" g="183" b="209" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="LOCATION" />
+          <attvalue for="1" value="1.0" />
+          <attvalue for="2" value="50.0" />
+          <attvalue for="3" value="#45B7D1" />
+        </attvalues>
+      </node>
+      <node id="the United States" label="the United States">
+        <viz:color r="69" g="183" b="209" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="LOCATION" />
+          <attvalue for="1" value="0.95" />
+          <attvalue for="2" value="48.5" />
+          <attvalue for="3" value="#45B7D1" />
+        </attvalues>
+      </node>
+      <node id="Trump" label="Trump">
+        <viz:color r="255" g="107" b="107" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="PERSON" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#FF6B6B" />
+        </attvalues>
+      </node>
+      <node id="Central Command" label="Central Command">
+        <viz:color r="78" g="205" b="196" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#4ECDC4" />
+        </attvalues>
+      </node>
+      <node id="Iran" label="Iran">
+        <viz:color r="69" g="183" b="209" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="LOCATION" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#45B7D1" />
+        </attvalues>
+      </node>
+      <node id="Fordo" label="Fordo">
+        <viz:color r="78" g="205" b="196" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#4ECDC4" />
+        </attvalues>
+      </node>
+      <node id="Eric Corrilla" label="Eric Corrilla">
+        <viz:color r="255" g="107" b="107" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="PERSON" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#FF6B6B" />
+        </attvalues>
+      </node>
+      <node id="Centcom" label="Centcom">
+        <viz:color r="78" g="205" b="196" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#4ECDC4" />
+        </attvalues>
+      </node>
+      <node id="Israel" label="Israel">
+        <viz:color r="69" g="183" b="209" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="LOCATION" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#45B7D1" />
+        </attvalues>
+      </node>
+      <node id="America" label="America">
+        <viz:color r="69" g="183" b="209" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="LOCATION" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#45B7D1" />
+        </attvalues>
+      </node>
+      <node id="Corrilla" label="Corrilla">
+        <viz:color r="255" g="107" b="107" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="PERSON" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#FF6B6B" />
+        </attvalues>
+      </node>
+      <node id="Iraq" label="Iraq">
+        <viz:color r="69" g="183" b="209" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="LOCATION" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#45B7D1" />
+        </attvalues>
+      </node>
+      <node id="North Korea" label="North Korea">
+        <viz:color r="69" g="183" b="209" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="LOCATION" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#45B7D1" />
+        </attvalues>
+      </node>
+      <node id="Corrilla at" label="Corrilla at">
+        <viz:color r="255" g="107" b="107" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="PERSON" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#FF6B6B" />
+        </attvalues>
+      </node>
+      <node id="the Joint Chiefs" label="the Joint Chiefs">
+        <viz:color r="78" g="205" b="196" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION" />
+          <attvalue for="1" value="0.85" />
+          <attvalue for="2" value="45.5" />
+          <attvalue for="3" value="#4ECDC4" />
+        </attvalues>
+      </node>
+      <node id="Donald J. Trump" label="Donald J. Trump">
+        <viz:color r="255" g="107" b="107" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="PERSON" />
+          <attvalue for="1" value="0.85" />
+          <attvalue for="2" value="45.5" />
+          <attvalue for="3" value="#FF6B6B" />
+        </attvalues>
+      </node>
+      <node id="B-2" label="B-2">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="PRODUCT" />
+          <attvalue for="1" value="0.85" />
+          <attvalue for="2" value="45.5" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="Operation Midnight" label="Operation Midnight">
+        <viz:color r="247" g="220" b="111" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="EVENT" />
+          <attvalue for="1" value="0.85" />
+          <attvalue for="2" value="45.5" />
+          <attvalue for="3" value="#F7DC6F" />
+        </attvalues>
+      </node>
+      <node id="Gulf" label="Gulf">
+        <viz:color r="69" g="183" b="209" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="LOCATION" />
+          <attvalue for="1" value="0.85" />
+          <attvalue for="2" value="45.5" />
+          <attvalue for="3" value="#45B7D1" />
+        </attvalues>
+      </node>
+      <node id="National Intelligence" label="National Intelligence">
+        <viz:color r="78" g="205" b="196" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION" />
+          <attvalue for="1" value="0.85" />
+          <attvalue for="2" value="45.5" />
+          <attvalue for="3" value="#4ECDC4" />
+        </attvalues>
+      </node>
+      <node id="Natanz" label="Natanz">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="location" />
+          <attvalue for="1" value="0.9490494132041931" />
+          <attvalue for="2" value="48.47148239612579" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="Esfahan" label="Esfahan">
+        <viz:color r="69" g="183" b="209" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="LOCATION" />
+          <attvalue for="1" value="0.8" />
+          <attvalue for="2" value="44.0" />
+          <attvalue for="3" value="#45B7D1" />
+        </attvalues>
+      </node>
+      <node id="Tehran" label="Tehran">
+        <viz:color r="69" g="183" b="209" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="LOCATION" />
+          <attvalue for="1" value="0.8" />
+          <attvalue for="2" value="44.0" />
+          <attvalue for="3" value="#45B7D1" />
+        </attvalues>
+      </node>
+      <node id="God" label="God">
+        <viz:color r="255" g="107" b="107" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="PERSON" />
+          <attvalue for="1" value="0.8" />
+          <attvalue for="2" value="44.0" />
+          <attvalue for="3" value="#FF6B6B" />
+        </attvalues>
+      </node>
+      <node id="Washington" label="Washington">
+        <viz:color r="69" g="183" b="209" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="LOCATION" />
+          <attvalue for="1" value="0.8" />
+          <attvalue for="2" value="44.0" />
+          <attvalue for="3" value="#45B7D1" />
+        </attvalues>
+      </node>
+      <node id="Spirit" label="Spirit">
+        <viz:color r="78" g="205" b="196" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION" />
+          <attvalue for="1" value="0.8" />
+          <attvalue for="2" value="44.0" />
+          <attvalue for="3" value="#4ECDC4" />
+        </attvalues>
+      </node>
+      <node id="Syria" label="Syria">
+        <viz:color r="69" g="183" b="209" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="LOCATION" />
+          <attvalue for="1" value="0.8" />
+          <attvalue for="2" value="44.0" />
+          <attvalue for="3" value="#45B7D1" />
+        </attvalues>
+      </node>
+      <node id="the United States of America" label="the United States of America">
+        <viz:color r="69" g="183" b="209" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="LOCATION" />
+          <attvalue for="1" value="0.7999999999999999" />
+          <attvalue for="2" value="44.0" />
+          <attvalue for="3" value="#45B7D1" />
+        </attvalues>
+      </node>
+      <node id="the Joint Chiefs of Staff" label="the Joint Chiefs of Staff">
+        <viz:color r="78" g="205" b="196" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION" />
+          <attvalue for="1" value="0.7999999999999999" />
+          <attvalue for="2" value="44.0" />
+          <attvalue for="3" value="#4ECDC4" />
+        </attvalues>
+      </node>
+      <node id="the United States Armed Forces" label="the United States Armed Forces">
+        <viz:color r="78" g="205" b="196" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION" />
+          <attvalue for="1" value="0.7999999999999999" />
+          <attvalue for="2" value="44.0" />
+          <attvalue for="3" value="#4ECDC4" />
+        </attvalues>
+      </node>
+      <node id="the Central Command" label="the Central Command">
+        <viz:color r="78" g="205" b="196" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION" />
+          <attvalue for="1" value="0.7999999999999999" />
+          <attvalue for="2" value="44.0" />
+          <attvalue for="3" value="#4ECDC4" />
+        </attvalues>
+      </node>
+      <node id="the Middle East" label="the Middle East">
+        <viz:color r="69" g="183" b="209" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="LOCATION" />
+          <attvalue for="1" value="0.7999999999999999" />
+          <attvalue for="2" value="44.0" />
+          <attvalue for="3" value="#45B7D1" />
+        </attvalues>
+      </node>
+      <node id="B-2s" label="B-2s">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="PRODUCT" />
+          <attvalue for="1" value="0.75" />
+          <attvalue for="2" value="42.5" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="Tampa" label="Tampa">
+        <viz:color r="69" g="183" b="209" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="LOCATION" />
+          <attvalue for="1" value="0.75" />
+          <attvalue for="2" value="42.5" />
+          <attvalue for="3" value="#45B7D1" />
+        </attvalues>
+      </node>
+      <node id="Tomahawk" label="Tomahawk">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="PRODUCT" />
+          <attvalue for="1" value="0.75" />
+          <attvalue for="2" value="42.5" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="China" label="China">
+        <viz:color r="69" g="183" b="209" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="LOCATION" />
+          <attvalue for="1" value="0.75" />
+          <attvalue for="2" value="42.5" />
+          <attvalue for="3" value="#45B7D1" />
+        </attvalues>
+      </node>
+      <node id="Kane" label="Kane">
+        <viz:color r="255" g="107" b="107" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="PERSON" />
+          <attvalue for="1" value="0.75" />
+          <attvalue for="2" value="42.5" />
+          <attvalue for="3" value="#FF6B6B" />
+        </attvalues>
+      </node>
+      <node id="Hexseth" label="Hexseth">
+        <viz:color r="255" g="107" b="107" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="PERSON" />
+          <attvalue for="1" value="0.75" />
+          <attvalue for="2" value="42.5" />
+          <attvalue for="3" value="#FF6B6B" />
+        </attvalues>
+      </node>
+      <node id="Missouri" label="Missouri">
+        <viz:color r="69" g="183" b="209" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="LOCATION" />
+          <attvalue for="1" value="0.75" />
+          <attvalue for="2" value="42.5" />
+          <attvalue for="3" value="#45B7D1" />
+        </attvalues>
+      </node>
+      <node id="Khamenei" label="Khamenei">
+        <viz:color r="255" g="107" b="107" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="PERSON" />
+          <attvalue for="1" value="0.75" />
+          <attvalue for="2" value="42.5" />
+          <attvalue for="3" value="#FF6B6B" />
+        </attvalues>
+      </node>
+      <node id="operation President" label="operation President">
+        <viz:color r="247" g="220" b="111" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="EVENT" />
+          <attvalue for="1" value="0.7499999999999999" />
+          <attvalue for="2" value="42.5" />
+          <attvalue for="3" value="#F7DC6F" />
+        </attvalues>
+      </node>
+      <node id="the War Powers Act" label="the War Powers Act">
+        <viz:color r="247" g="220" b="111" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="EVENT" />
+          <attvalue for="1" value="0.7499999999999999" />
+          <attvalue for="2" value="42.5" />
+          <attvalue for="3" value="#F7DC6F" />
+        </attvalues>
+      </node>
+      <node id="Earth" label="Earth">
+        <viz:color r="69" g="183" b="209" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="LOCATION" />
+          <attvalue for="1" value="0.7" />
+          <attvalue for="2" value="41.0" />
+          <attvalue for="3" value="#45B7D1" />
+        </attvalues>
+      </node>
+      <node id="Soleimani" label="Soleimani">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="person" />
+          <attvalue for="1" value="0.7126507759094238" />
+          <attvalue for="2" value="41.379523277282715" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="Pacific" label="Pacific">
+        <viz:color r="69" g="183" b="209" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="LOCATION" />
+          <attvalue for="1" value="0.7" />
+          <attvalue for="2" value="41.0" />
+          <attvalue for="3" value="#45B7D1" />
+        </attvalues>
+      </node>
+      <node id="Global War" label="Global War">
+        <viz:color r="247" g="220" b="111" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="EVENT" />
+          <attvalue for="1" value="0.7" />
+          <attvalue for="2" value="41.0" />
+          <attvalue for="3" value="#F7DC6F" />
+        </attvalues>
+      </node>
+      <node id="Last night" label="Last night">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="time" />
+          <attvalue for="1" value="0.6247420907020569" />
+          <attvalue for="2" value="38.74226272106171" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="President Trump" label="President Trump">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="person" />
+          <attvalue for="1" value="0.8931928277015686" />
+          <attvalue for="2" value="46.79578483104706" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="US Central Command" label="US Central Command">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="organization" />
+          <attvalue for="1" value="0.7375033497810364" />
+          <attvalue for="2" value="42.12510049343109" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="precision strike" label="precision strike">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="operation" />
+          <attvalue for="1" value="0.7091328501701355" />
+          <attvalue for="2" value="41.273985505104065" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="nuclear program" label="nuclear program">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="weapon" />
+          <attvalue for="1" value="0.6748638153076172" />
+          <attvalue for="2" value="40.245914459228516" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="operation" label="operation">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="operation" />
+          <attvalue for="1" value="0.7049955129623413" />
+          <attvalue for="2" value="41.14986538887024" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="nuclear weapon" label="nuclear weapon">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="weapon" />
+          <attvalue for="1" value="0.5419573187828064" />
+          <attvalue for="2" value="36.25871956348419" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="POTUS" label="POTUS">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="person" />
+          <attvalue for="1" value="0.6199544668197632" />
+          <attvalue for="2" value="38.598634004592896" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="country" label="country">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="Iran's nuclear program" label="Iran's nuclear program">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="position held" label="position held">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="commander in chief" label="commander in chief">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="appointed by" label="appointed by">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="Iran's nuclear ambitions" label="Iran's nuclear ambitions">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="facet of" label="facet of">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="diplomatic relation" label="diplomatic relation">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="US" label="US">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="participant" label="participant">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="participant in" label="participant in">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="President" label="President">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="officeholder" label="officeholder">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="first term" label="first term">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="follows" label="follows">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="previous administration" label="previous administration">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="followed by" label="followed by">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="President of the United States" label="President of the United States">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="United States of America" label="United States of America">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="office held by head of government" label="office held by head of government">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="chairman of the Joint Chiefs of Staff" label="chairman of the Joint Chiefs of Staff">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="part of" label="part of">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="MOP" label="MOP">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="instance of" label="instance of">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="B-2 Spirit" label="B-2 Spirit">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="subclass of" label="subclass of">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="Donald Trump" label="Donald Trump">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="God bless America" label="God bless America">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="has cause" label="has cause">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="providence" label="providence">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="has effect" label="has effect">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="military branch" label="military branch">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="employer" label="employer">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="Operation Midnight Hammer" label="Operation Midnight Hammer">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="nuclear weapons infrastructure" label="nuclear weapons infrastructure">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="product or material produced" label="product or material produced">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="contains administrative territorial entity" label="contains administrative territorial entity">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="Tomahawk land attack cruise missile" label="Tomahawk land attack cruise missile">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="operator" label="operator">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="decoy" label="decoy">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="decoys" label="decoys">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="twinned administrative body" label="twinned administrative body">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="GBU-57" label="GBU-57">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="Tomahawk missile" label="Tomahawk missile">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="Operation Enduring Freedom" label="Operation Enduring Freedom">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="Operation Enduring Freedom II" label="Operation Enduring Freedom II">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="Operation Enduring Freedom III" label="Operation Enduring Freedom III">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="has part" label="has part">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="B-2 stealth bomber" label="B-2 stealth bomber">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="country of origin" label="country of origin">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="located in or next to body of water" label="located in or next to body of water">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="shares border with" label="shares border with">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="United States military" label="United States military">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="office held by head of the organization" label="office held by head of the organization">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="president" label="president">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="military" label="military">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="secretary" label="secretary">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="General Corrilla" label="General Corrilla">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="region" label="region">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="significant event" label="significant event">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="Iranian nuclear program" label="Iranian nuclear program">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="BDA" label="BDA">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="Green" label="Green">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="No" label="No">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="the president" label="the president">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="peace process" label="peace process">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="Secretary" label="Secretary">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="the nuclear program" label="the nuclear program">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="basin country" label="basin country">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="War Powers Act" label="War Powers Act">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="legislated by" label="legislated by">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="notified" label="notified">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="located in the administrative territorial entity" label="located in the administrative territorial entity">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="Uh" label="Uh">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="stonewalling" label="stonewalling">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="Global War on Terrorism" label="Global War on Terrorism">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="location" label="location">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="reactive" label="reactive">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="opposite of" label="opposite of">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="postured" label="postured">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="Iran cannot have a nuclear capability" label="Iran cannot have a nuclear capability">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="head of state" label="head of state">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="different from" label="different from">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="chairman" label="chairman">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="the secretary" label="the secretary">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="Israeli military" label="Israeli military">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="MRBM" label="MRBM">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="ongoing defense of Israel" label="ongoing defense of Israel">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="airspace" label="airspace">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="sky" label="sky">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="air space" label="air space">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="US allies" label="US allies">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="American troops" label="American troops">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="Russia" label="Russia">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="the Iranians" label="the Iranians">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="chairperson" label="chairperson">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="Osama bin Laden" label="Osama bin Laden">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="member of political party" label="member of political party">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="American" label="American">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="I will take one more" label="I will take one more">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="one more question" label="one more question">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="threat assessment" label="threat assessment">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="publisher" label="publisher">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="author" label="author">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="creator" label="creator">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="US sources and methods" label="US sources and methods">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="sources and methods" label="sources and methods">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="allies" label="allies">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="WC-135" label="WC-135">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+      <node id="WC-135 sub" label="WC-135 sub">
+        <viz:color r="149" g="165" b="166" a="1.0" />
+        <attvalues>
+          <attvalue for="0" value="unknown" />
+          <attvalue for="1" value="0.9" />
+          <attvalue for="2" value="47.0" />
+          <attvalue for="3" value="#95A5A6" />
+        </attvalues>
+      </node>
+    </nodes>
+    <edges>
+      <edge source="Joint Force" target="country" id="0" label="United States" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="United States" />
+        </attvalues>
+      </edge>
+      <edge source="United States" target="office held by head of government" id="1" label="President" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="President" />
+        </attvalues>
+      </edge>
+      <edge source="United States" target="diplomatic relation" id="2" label="Iran" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="Iran" />
+        </attvalues>
+      </edge>
+      <edge source="United States" target="contains administrative territorial entity" id="3" label="Washington" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="Washington" />
+        </attvalues>
+      </edge>
+      <edge source="the United States" target="diplomatic relation" id="4" label="Iran" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="Iran" />
+        </attvalues>
+      </edge>
+      <edge source="Trump" target="position held" id="5" label="President" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="President" />
+        </attvalues>
+      </edge>
+      <edge source="Iran" target="product or material produced" id="6" label="nuclear" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="nuclear" />
+        </attvalues>
+      </edge>
+      <edge source="Iran" target="diplomatic relation" id="7" label="allies" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="allies" />
+        </attvalues>
+      </edge>
+      <edge source="Iran" target="significant event" id="8" label="the nuclear program" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="the nuclear program" />
+        </attvalues>
+      </edge>
+      <edge source="Iran" target="China" id="9" label="diplomatic relation" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="diplomatic relation" />
+        </attvalues>
+      </edge>
+      <edge source="Iran" target="head of state" id="10" label="the president" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="the president" />
+        </attvalues>
+      </edge>
+      <edge source="Iran" target="Iran" id="11" label="diplomatic relation" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="diplomatic relation" />
+        </attvalues>
+      </edge>
+      <edge source="Fordo" target="country" id="12" label="Iran" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="Iran" />
+        </attvalues>
+      </edge>
+      <edge source="Fordo" target="twinned administrative body" id="13" label="Natanz" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="Natanz" />
+        </attvalues>
+      </edge>
+      <edge source="Fordo" target="located in the administrative territorial entity" id="14" label="Uh" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="Uh" />
+        </attvalues>
+      </edge>
+      <edge source="Eric Corrilla" target="position held" id="15" label="chairman of the Joint Chiefs of Staff" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="chairman of the Joint Chiefs of Staff" />
+        </attvalues>
+      </edge>
+      <edge source="Eric Corrilla" target="military branch" id="16" label="US Central Command" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="US Central Command" />
+        </attvalues>
+      </edge>
+      <edge source="Eric Corrilla" target="employer" id="17" label="US Central Command" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="US Central Command" />
+        </attvalues>
+      </edge>
+      <edge source="Centcom" target="chairperson" id="18" label="General Corrilla" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="General Corrilla" />
+        </attvalues>
+      </edge>
+      <edge source="Israel" target="office held by head of government" id="19" label="President of the United States" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="President of the United States" />
+        </attvalues>
+      </edge>
+      <edge source="Israel" target="diplomatic relation" id="20" label="US" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="US" />
+        </attvalues>
+      </edge>
+      <edge source="Israel" target="instance of" id="21" label="ally" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="ally" />
+        </attvalues>
+      </edge>
+      <edge source="America" target="contains administrative territorial entity" id="22" label="Missouri" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="Missouri" />
+        </attvalues>
+      </edge>
+      <edge source="Iraq" target="located in or next to body of water" id="23" label="Gulf" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="Gulf" />
+        </attvalues>
+      </edge>
+      <edge source="Iraq" target="shares border with" id="24" label="Syria" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="Syria" />
+        </attvalues>
+      </edge>
+      <edge source="Iraq" target="significant event" id="25" label="Operation Enduring Freedom" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="Operation Enduring Freedom" />
+        </attvalues>
+      </edge>
+      <edge source="Iraq" target="part of" id="26" label="Middle East" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="Middle East" />
+        </attvalues>
+      </edge>
+      <edge source="North Korea" target="diplomatic relation" id="27" label="Iran" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="Iran" />
+        </attvalues>
+      </edge>
+      <edge source="Donald J. Trump" target="position held" id="28" label="President of the United States" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="President of the United States" />
+        </attvalues>
+      </edge>
+      <edge source="Donald J. Trump" target="President of the United States" id="29" label="head of government" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="head of government" />
+        </attvalues>
+      </edge>
+      <edge source="Donald J. Trump" target="Donald J. Trump" id="30" label="officeholder" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="officeholder" />
+        </attvalues>
+      </edge>
+      <edge source="B-2" target="subclass of" id="31" label="stealth bomber" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="stealth bomber" />
+        </attvalues>
+      </edge>
+      <edge source="Gulf" target="basin country" id="32" label="US" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="US" />
+        </attvalues>
+      </edge>
+      <edge source="Gulf" target="participant" id="33" label="US allies" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="US allies" />
+        </attvalues>
+      </edge>
+      <edge source="Natanz" target="country" id="34" label="Iran" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="Iran" />
+        </attvalues>
+      </edge>
+      <edge source="Natanz" target="twinned administrative body" id="35" label="Fordo" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="Fordo" />
+        </attvalues>
+      </edge>
+      <edge source="Esfahan" target="country" id="36" label="Iran" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="Iran" />
+        </attvalues>
+      </edge>
+      <edge source="Washington" target="country" id="37" label="United States" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="United States" />
+        </attvalues>
+      </edge>
+      <edge source="Syria" target="located in or next to body of water" id="38" label="Gulf" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="Gulf" />
+        </attvalues>
+      </edge>
+      <edge source="Syria" target="shares border with" id="39" label="Iraq" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="Iraq" />
+        </attvalues>
+      </edge>
+      <edge source="Tampa" target="country" id="40" label="United States" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="United States" />
+        </attvalues>
+      </edge>
+      <edge source="Tomahawk" target="subclass of" id="41" label="cruise missile" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="cruise missile" />
+        </attvalues>
+      </edge>
+      <edge source="China" target="North Korea" id="42" label="diplomatic relation" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="diplomatic relation" />
+        </attvalues>
+      </edge>
+      <edge source="China" target="China" id="43" label="diplomatic relation" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="diplomatic relation" />
+        </attvalues>
+      </edge>
+      <edge source="Missouri" target="country" id="44" label="American" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="American" />
+        </attvalues>
+      </edge>
+      <edge source="Missouri" target="located in the administrative territorial entity" id="45" label="America" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="America" />
+        </attvalues>
+      </edge>
+      <edge source="President Trump" target="position held" id="46" label="President of the United States" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="President of the United States" />
+        </attvalues>
+      </edge>
+      <edge source="President Trump" target="significant event" id="47" label="stonewalling" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="stonewalling" />
+        </attvalues>
+      </edge>
+      <edge source="nuclear program" target="country" id="48" label="Iran" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="Iran" />
+        </attvalues>
+      </edge>
+      <edge source="Iran's nuclear program" target="country" id="49" label="Iran" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="Iran" />
+        </attvalues>
+      </edge>
+      <edge source="Iran's nuclear program" target="diplomatic relation" id="50" label="US" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="US" />
+        </attvalues>
+      </edge>
+      <edge source="Iran's nuclear program" target="participant" id="51" label="US" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="US" />
+        </attvalues>
+      </edge>
+      <edge source="commander in chief" target="appointed by" id="52" label="President Trump" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="President Trump" />
+        </attvalues>
+      </edge>
+      <edge source="Iran's nuclear ambitions" target="country" id="53" label="Iran" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="Iran" />
+        </attvalues>
+      </edge>
+      <edge source="Iran's nuclear ambitions" target="facet of" id="54" label="Iran" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="Iran" />
+        </attvalues>
+      </edge>
+      <edge source="diplomatic relation" target="Iran" id="55" label="China" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="China" />
+        </attvalues>
+      </edge>
+      <edge source="diplomatic relation" target="diplomatic relation" id="56" label="North Korea" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="North Korea" />
+        </attvalues>
+      </edge>
+      <edge source="diplomatic relation" target="North Korea" id="57" label="China" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="China" />
+        </attvalues>
+      </edge>
+      <edge source="US" target="diplomatic relation" id="58" label="Israel" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="Israel" />
+        </attvalues>
+      </edge>
+      <edge source="US" target="participant in" id="59" label="Iran's nuclear program" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="Iran's nuclear program" />
+        </attvalues>
+      </edge>
+      <edge source="President" target="officeholder" id="60" label="Donald Trump" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="Donald Trump" />
+        </attvalues>
+      </edge>
+      <edge source="President" target="country" id="61" label="United States" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="United States" />
+        </attvalues>
+      </edge>
+      <edge source="officeholder" target="President of the United States" id="62" label="Donald J. Trump" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="Donald J. Trump" />
+        </attvalues>
+      </edge>
+      <edge source="first term" target="follows" id="63" label="previous administration" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="previous administration" />
+        </attvalues>
+      </edge>
+      <edge source="first term" target="facet of" id="64" label="President Trump" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="President Trump" />
+        </attvalues>
+      </edge>
+      <edge source="previous administration" target="followed by" id="65" label="first term" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="first term" />
+        </attvalues>
+      </edge>
+      <edge source="President of the United States" target="officeholder" id="66" label="President Trump" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="President Trump" />
+        </attvalues>
+      </edge>
+      <edge source="President of the United States" target="country" id="67" label="United States of America" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="United States of America" />
+        </attvalues>
+      </edge>
+      <edge source="President of the United States" target="appointed by" id="68" label="President Trump" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="President Trump" />
+        </attvalues>
+      </edge>
+      <edge source="United States of America" target="office held by head of government" id="69" label="President of the United States" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="President of the United States" />
+        </attvalues>
+      </edge>
+      <edge source="United States of America" target="Donald J. Trump" id="70" label="country" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="country" />
+        </attvalues>
+      </edge>
+      <edge source="chairman of the Joint Chiefs of Staff" target="part of" id="71" label="Joint Staff" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="Joint Staff" />
+        </attvalues>
+      </edge>
+      <edge source="MOP" target="instance of" id="72" label="ordnance penetrator" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="ordnance penetrator" />
+        </attvalues>
+      </edge>
+      <edge source="B-2 Spirit" target="subclass of" id="73" label="bombers" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="bombers" />
+        </attvalues>
+      </edge>
+      <edge source="Donald Trump" target="position held" id="74" label="President" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="President" />
+        </attvalues>
+      </edge>
+      <edge source="God bless America" target="has cause" id="75" label="providence" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="providence" />
+        </attvalues>
+      </edge>
+      <edge source="providence" target="has effect" id="76" label="God bless America" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="God bless America" />
+        </attvalues>
+      </edge>
+      <edge source="Operation Midnight Hammer" target="participant" id="77" label="US Central Command" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="US Central Command" />
+        </attvalues>
+      </edge>
+      <edge source="nuclear weapons infrastructure" target="country" id="78" label="Iran's" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="Iran's" />
+        </attvalues>
+      </edge>
+      <edge source="Tomahawk land attack cruise missile" target="operator" id="79" label="Central Command" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="Central Command" />
+        </attvalues>
+      </edge>
+      <edge source="decoy" target="subclass of" id="80" label="deception tactics" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="deception tactics" />
+        </attvalues>
+      </edge>
+      <edge source="decoys" target="subclass of" id="81" label="deception" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="deception" />
+        </attvalues>
+      </edge>
+      <edge source="GBU-57" target="instance of" id="82" label="precision-guided weapons" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="precision-guided weapons" />
+        </attvalues>
+      </edge>
+      <edge source="GBU-57" target="subclass of" id="83" label="precision-guided weapon" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="precision-guided weapon" />
+        </attvalues>
+      </edge>
+      <edge source="Tomahawk missile" target="subclass of" id="84" label="surface-to-air missile" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="surface-to-air missile" />
+        </attvalues>
+      </edge>
+      <edge source="Tomahawk missile" target="instance of" id="85" label="surface-to-air missile" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="surface-to-air missile" />
+        </attvalues>
+      </edge>
+      <edge source="Operation Enduring Freedom" target="followed by" id="86" label="Operation Enduring Freedom" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="Operation Enduring Freedom" />
+        </attvalues>
+      </edge>
+      <edge source="Operation Enduring Freedom" target="part of" id="87" label="Operation Enduring Freedom" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="Operation Enduring Freedom" />
+        </attvalues>
+      </edge>
+      <edge source="Operation Enduring Freedom" target="has part" id="88" label="Operation Enduring Freedom" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="Operation Enduring Freedom" />
+        </attvalues>
+      </edge>
+      <edge source="Operation Enduring Freedom" target="country" id="89" label="Iraq" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="Iraq" />
+        </attvalues>
+      </edge>
+      <edge source="Operation Enduring Freedom" target="location" id="90" label="Iraq" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="Iraq" />
+        </attvalues>
+      </edge>
+      <edge source="Operation Enduring Freedom" target="follows" id="91" label="Operation Enduring Freedom" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="Operation Enduring Freedom" />
+        </attvalues>
+      </edge>
+      <edge source="Operation Enduring Freedom II" target="follows" id="92" label="Operation Enduring Freedom" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="Operation Enduring Freedom" />
+        </attvalues>
+      </edge>
+      <edge source="Operation Enduring Freedom III" target="follows" id="93" label="Operation Enduring Freedom" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="Operation Enduring Freedom" />
+        </attvalues>
+      </edge>
+      <edge source="B-2 stealth bomber" target="country of origin" id="94" label="US" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="US" />
+        </attvalues>
+      </edge>
+      <edge source="B-2 stealth bomber" target="country" id="95" label="US" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="US" />
+        </attvalues>
+      </edge>
+      <edge source="United States military" target="office held by head of the organization" id="96" label="president" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="president" />
+        </attvalues>
+      </edge>
+      <edge source="president" target="military branch" id="97" label="United States military" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="United States military" />
+        </attvalues>
+      </edge>
+      <edge source="president" target="position held" id="98" label="Secretary" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="Secretary" />
+        </attvalues>
+      </edge>
+      <edge source="president" target="appointed by" id="99" label="secretary" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="secretary" />
+        </attvalues>
+      </edge>
+      <edge source="military" target="country" id="100" label="United States" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="United States" />
+        </attvalues>
+      </edge>
+      <edge source="secretary" target="officeholder" id="101" label="General Corrilla" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="General Corrilla" />
+        </attvalues>
+      </edge>
+      <edge source="secretary" target="different from" id="102" label="chairman" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="chairman" />
+        </attvalues>
+      </edge>
+      <edge source="General Corrilla" target="position held" id="103" label="Centcom" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="Centcom" />
+        </attvalues>
+      </edge>
+      <edge source="General Corrilla" target="employer" id="104" label="Centcom" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="Centcom" />
+        </attvalues>
+      </edge>
+      <edge source="region" target="diplomatic relation" id="105" label="United States" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="United States" />
+        </attvalues>
+      </edge>
+      <edge source="Iranian nuclear program" target="country" id="106" label="Iran" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="Iran" />
+        </attvalues>
+      </edge>
+      <edge source="BDA" target="has part" id="107" label="Green" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="Green" />
+        </attvalues>
+      </edge>
+      <edge source="Green" target="part of" id="108" label="BDA" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="BDA" />
+        </attvalues>
+      </edge>
+      <edge source="Green" target="instance of" id="109" label="No" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="No" />
+        </attvalues>
+      </edge>
+      <edge source="No" target="No" id="110" label="instance of" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="instance of" />
+        </attvalues>
+      </edge>
+      <edge source="the president" target="participant in" id="111" label="peace process" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="peace process" />
+        </attvalues>
+      </edge>
+      <edge source="peace process" target="participant" id="112" label="the president" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="the president" />
+        </attvalues>
+      </edge>
+      <edge source="Secretary" target="appointed by" id="113" label="president" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="president" />
+        </attvalues>
+      </edge>
+      <edge source="the nuclear program" target="country" id="114" label="Iran" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="Iran" />
+        </attvalues>
+      </edge>
+      <edge source="War Powers Act" target="legislated by" id="115" label="congressional" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="congressional" />
+        </attvalues>
+      </edge>
+      <edge source="notified" target="part of" id="116" label="War Powers Act" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="War Powers Act" />
+        </attvalues>
+      </edge>
+      <edge source="notified" target="facet of" id="117" label="War Powers Act" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="War Powers Act" />
+        </attvalues>
+      </edge>
+      <edge source="Uh" target="contains administrative territorial entity" id="118" label="Fordo" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="Fordo" />
+        </attvalues>
+      </edge>
+      <edge source="stonewalling" target="participant" id="119" label="President Trump" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="President Trump" />
+        </attvalues>
+      </edge>
+      <edge source="Global War on Terrorism" target="location" id="120" label="Iraq" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="Iraq" />
+        </attvalues>
+      </edge>
+      <edge source="reactive" target="opposite of" id="121" label="proactive" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="proactive" />
+        </attvalues>
+      </edge>
+      <edge source="postured" target="facet of" id="122" label="military" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="military" />
+        </attvalues>
+      </edge>
+      <edge source="postured" target="part of" id="123" label="military" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="military" />
+        </attvalues>
+      </edge>
+      <edge source="Iran cannot have a nuclear capability" target="country" id="124" label="Iranian regime" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="Iranian regime" />
+        </attvalues>
+      </edge>
+      <edge source="chairman" target="different from" id="125" label="the secretary" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="the secretary" />
+        </attvalues>
+      </edge>
+      <edge source="the secretary" target="different from" id="126" label="chairman" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="chairman" />
+        </attvalues>
+      </edge>
+      <edge source="Israeli military" target="country" id="127" label="Israel" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="Israel" />
+        </attvalues>
+      </edge>
+      <edge source="MRBM" target="subclass of" id="128" label="Iranian launchers" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="Iranian launchers" />
+        </attvalues>
+      </edge>
+      <edge source="ongoing defense of Israel" target="country" id="129" label="Israel" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="Israel" />
+        </attvalues>
+      </edge>
+      <edge source="ongoing defense of Israel" target="location" id="130" label="Israel" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="Israel" />
+        </attvalues>
+      </edge>
+      <edge source="airspace" target="different from" id="131" label="sky" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="sky" />
+        </attvalues>
+      </edge>
+      <edge source="airspace" target="part of" id="132" label="sky" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="sky" />
+        </attvalues>
+      </edge>
+      <edge source="sky" target="different from" id="133" label="airspace" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="airspace" />
+        </attvalues>
+      </edge>
+      <edge source="sky" target="has part" id="134" label="airspace" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="airspace" />
+        </attvalues>
+      </edge>
+      <edge source="air space" target="part of" id="135" label="sky" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="sky" />
+        </attvalues>
+      </edge>
+      <edge source="US allies" target="location" id="136" label="Gulf" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="Gulf" />
+        </attvalues>
+      </edge>
+      <edge source="American troops" target="country" id="137" label="Iraq" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="Iraq" />
+        </attvalues>
+      </edge>
+      <edge source="Russia" target="diplomatic relation" id="138" label="Iran" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="Iran" />
+        </attvalues>
+      </edge>
+      <edge source="the Iranians" target="diplomatic relation" id="139" label="Iran" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="Iran" />
+        </attvalues>
+      </edge>
+      <edge source="Osama bin Laden" target="significant event" id="140" label="September 11, 2001" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="September 11, 2001" />
+        </attvalues>
+      </edge>
+      <edge source="Osama bin Laden" target="member of political party" id="141" label="al-Qaeda" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="al-Qaeda" />
+        </attvalues>
+      </edge>
+      <edge source="American" target="contains administrative territorial entity" id="142" label="Missouri" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="Missouri" />
+        </attvalues>
+      </edge>
+      <edge source="I will take one more" target="followed by" id="143" label="one more question" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="one more question" />
+        </attvalues>
+      </edge>
+      <edge source="one more question" target="follows" id="144" label="I will take one more" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="I will take one more" />
+        </attvalues>
+      </edge>
+      <edge source="threat assessment" target="publisher" id="145" label="office of the director of National Intelligence" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="office of the director of National Intelligence" />
+        </attvalues>
+      </edge>
+      <edge source="threat assessment" target="author" id="146" label="office of the director of National Intelligence" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="office of the director of National Intelligence" />
+        </attvalues>
+      </edge>
+      <edge source="threat assessment" target="creator" id="147" label="office of the director of National Intelligence" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="office of the director of National Intelligence" />
+        </attvalues>
+      </edge>
+      <edge source="US sources and methods" target="subclass of" id="148" label="intelligence" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="intelligence" />
+        </attvalues>
+      </edge>
+      <edge source="sources and methods" target="subclass of" id="149" label="intelligence" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="intelligence" />
+        </attvalues>
+      </edge>
+      <edge source="sources and methods" target="facet of" id="150" label="intelligence" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="intelligence" />
+        </attvalues>
+      </edge>
+      <edge source="allies" target="diplomatic relation" id="151" label="Iran" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="Iran" />
+        </attvalues>
+      </edge>
+      <edge source="WC-135" target="subclass of" id="152" label="sub" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="sub" />
+        </attvalues>
+      </edge>
+      <edge source="WC-135" target="instance of" id="153" label="sub" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="sub" />
+        </attvalues>
+      </edge>
+      <edge source="WC-135 sub" target="subclass of" id="154" label="radioactive material" weight="0.9">
+        <attvalues>
+          <attvalue for="4" value="0.9" />
+          <attvalue for="5" value="radioactive material" />
+        </attvalues>
+      </edge>
+    </edges>
+  </graph>
+</gexf>

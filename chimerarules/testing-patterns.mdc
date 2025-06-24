@@ -1,0 +1,228 @@
+---
+description: Comprehensive testing strategies for frontend and backend, including unit tests, integration tests, and E2E testing patterns
+globs: 
+alwaysApply: false
+---
+---
+description: Comprehensive testing strategies for frontend and backend, including unit tests, integration tests, and E2E testing patterns
+globs: ["tests/**/*.py", "**/__tests__/**/*", "*.test.ts", "*.test.tsx", "*.test.js", "*.test.jsx", "test_*.py", "e2e/**/*.spec.ts", "conftest.py", "jest.config.js", "playwright.config.ts"]
+alwaysApply: false
+---
+# Testing Patterns
+
+> **Related Rules:**
+> - `@backend-fastapi` - Backend patterns to test
+> - `@frontend-nextjs` - Frontend patterns to test
+> - `@docker-devops` - Testing in CI/CD pipelines
+> 
+> **Detailed Examples:** See [`docs/development/testing-examples.md`](mdc:docs/development/testing-examples.md) for complete implementations
+
+## Testing Philosophy
+
+### Core Principles
+1. **Test behavior, not implementation** - Focus on what, not how
+2. **Isolation** - Each test should be independent
+3. **Fast feedback** - Unit tests < 100ms, integration < 1s
+4. **Comprehensive coverage** - Critical paths need 90%+ coverage
+5. **Readable tests** - Tests are documentation
+
+### Test Pyramid
+```
+         /\
+        /E2E\      <- Few, slow, comprehensive
+       /------\
+      /Integration\  <- Some, moderate speed
+     /------------\
+    /  Unit Tests  \ <- Many, fast, focused
+   /----------------\
+```
+
+## Python Testing Strategy
+
+### Test Structure
+```
+tests/
+├── unit/              # Fast, isolated tests
+├── integration/       # Service interaction tests
+├── e2e/              # Full workflow tests
+├── fixtures/         # Shared test data
+├── utils/            # Test helpers
+└── conftest.py       # Shared fixtures
+```
+
+### Test Markers
+```python
+# Use pytest markers for test organization
+@pytest.mark.unit         # Fast, no external dependencies
+@pytest.mark.integration  # May use databases, APIs
+@pytest.mark.e2e         # Full system tests
+@pytest.mark.slow        # Tests taking > 1 second
+@pytest.mark.gemini      # Requires Gemini API
+```
+
+### Key Testing Patterns
+
+#### 1. Async Testing
+```python
+@pytest.mark.asyncio
+async def test_async_operation():
+    """Test async functions properly."""
+    result = await async_function()
+    assert result is not None
+```
+
+#### 2. Mocking External Services
+```python
+@patch('module.external_service')
+def test_with_mock(mock_service):
+    """Mock external dependencies."""
+    mock_service.return_value = {"status": "ok"}
+    # Test logic here
+```
+
+#### 3. Fixture Composition
+```python
+@pytest.fixture
+def base_config():
+    """Base configuration."""
+    return {"api_key": "test"}
+
+@pytest.fixture
+def researcher(base_config, mock_llm):
+    """Composed fixture."""
+    return Researcher(config=base_config, llm=mock_llm)
+```
+
+## Frontend Testing Strategy
+
+### Testing Stack
+- **Unit Tests**: Jest + React Testing Library
+- **Integration**: Testing Library + MSW for API mocking
+- **E2E**: Playwright for cross-browser testing
+
+### Component Testing Principles
+1. **Test user interactions** - Click, type, submit
+2. **Query by accessibility** - Role, label, text
+3. **Avoid implementation details** - No enzyme, no state testing
+4. **Mock at boundaries** - API calls, router, external libs
+
+### Key Patterns
+```typescript
+// Test what users see and do
+const user = userEvent.setup();
+await user.type(screen.getByLabelText('Email'), 'test@example.com');
+await user.click(screen.getByRole('button', { name: 'Submit' }));
+expect(await screen.findByText('Success!')).toBeInTheDocument();
+```
+
+## E2E Testing Strategy
+
+### Playwright Best Practices
+1. **Use data-testid sparingly** - Prefer user-visible selectors
+2. **Wait for elements** - Use expect with built-in waiting
+3. **Test critical paths** - Login, core features, payment
+4. **Run in CI** - Multiple browsers, headed/headless
+
+### Test Organization
+```typescript
+test.describe('Feature', () => {
+  test.beforeEach(async ({ page }) => {
+    // Setup
+  });
+
+  test('should perform action', async ({ page }) => {
+    // Test steps
+  });
+});
+```
+
+## Testing AI/LLM Features
+
+### Strategies
+1. **Mock LLM responses** - Deterministic testing
+2. **Test fallback behavior** - When AI fails
+3. **Validate cost tracking** - Ensure accuracy
+4. **Test prompt variations** - Edge cases
+
+### Example Pattern
+```python
+def test_llm_fallback():
+    """Test graceful degradation when LLM fails."""
+    with patch('llm.generate') as mock:
+        mock.side_effect = APIError("Rate limited")
+        result = research_with_fallback("query")
+        assert result.used_fallback is True
+```
+
+## Common Testing Pitfalls
+
+### 1. **kwargs Duplication
+- **Problem**: Passing same argument in kwargs and explicitly
+- **Solution**: Check for existing keys before adding
+
+### 2. Flaky Tests
+- **Problem**: Tests that pass/fail randomly
+- **Solution**: Remove time dependencies, use proper waits
+
+### 3. Over-mocking
+- **Problem**: Tests pass but code fails in production
+- **Solution**: Use real implementations when possible
+
+### 4. Test Interdependence
+- **Problem**: Tests fail when run in different order
+- **Solution**: Proper setup/teardown, isolated state
+
+## Performance Testing
+
+### Load Testing Pattern
+```python
+async def test_concurrent_requests():
+    """Test system under load."""
+    tasks = [make_request(i) for i in range(100)]
+    results = await asyncio.gather(*tasks)
+    assert all(r.status == 200 for r in results)
+```
+
+### Benchmark Key Operations
+- Research query processing
+- Report generation
+- Database operations
+- API response times
+
+## Test Maintenance
+
+### Keep Tests Healthy
+1. **Run tests before committing**
+2. **Fix broken tests immediately**
+3. **Remove obsolete tests**
+4. **Update tests with code changes**
+5. **Monitor test execution time**
+
+### Coverage Guidelines
+- **Critical paths**: 90%+ coverage
+- **Business logic**: 80%+ coverage
+- **Utilities**: 70%+ coverage
+- **UI components**: 60%+ coverage
+
+## Quick Commands
+
+```bash
+# Python testing
+pytest -v                    # Verbose output
+pytest -m unit              # Run only unit tests
+pytest --cov=module         # With coverage
+pytest -k "test_feature"    # Run specific tests
+
+# JavaScript testing
+npm test                    # Run all tests
+npm test -- --coverage      # With coverage
+npm test -- --watch         # Watch mode
+
+# E2E testing
+npx playwright test         # Run all E2E tests
+npx playwright test --ui    # Interactive mode
+```
+
+Remember: Good tests enable confident refactoring and prevent regressions :-)
+
+For complete test implementations and examples, see [`docs/development/testing-examples.md`](mdc:docs/development/testing-examples.md)

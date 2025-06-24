@@ -1,0 +1,492 @@
+---
+description: Kuzu embedded graph database integration. Simpler, no server required, Cypher compatible. Complete offline documentation available
+globs: 
+alwaysApply: false
+---
+---
+description: Kuzu embedded graph database integration. Simpler, no server required, Cypher compatible. Complete offline documentation available
+globs: ["chimera_researcher/graph/**/*.py", "chimera_researcher/storage/graph_db.py", "tests/graph/**/*.py", "examples/*graph*.py", "examples/*kuzu*.py", "docs/external/kuzu-reference/**/*.md"]
+alwaysApply: false
+---
+# Knowledge Graph & Kuzu Integration Rules
+
+> 🌍 **ACTIVE IMPLEMENTATION**: Kuzu has been selected as the embedded graph database to replace Neo4j. Basic implementation is complete in `chimera_researcher/graph/kuzu_service.py`.
+
+## Why Kuzu Over Neo4j
+
+1. **Embedded Architecture** - No separate server process needed
+2. **Zero Configuration** - Works out of the box, no connection management  
+3. **Cypher Compatible** - Minimal query language changes required
+4. **Better Performance** - Optimized for analytical workloads with modern join algorithms
+5. **Simpler Deployment** - Just a Python dependency, no Docker containers
+6. **Data Interoperability** - Native support for CSV, Parquet, NumPy, DataFrames
+7. **Lower Resource Usage** - No server overhead, runs in-process
+
+## Implementation Strategy
+
+### Environment Setup
+```python
+# Simple - just pip install!
+# No environment variables needed for basic usage
+pip install kuzu
+```
+
+### Basic Kuzu Integration Pattern
+```python
+import kuzu
+from pathlib import Path
+from typing import List, Dict, Any, Optional
+import logging
+
+logger = logging.getLogger(__name__)
+
+class KuzuGraphManager:
+    """Manage Kuzu embedded graph operations."""
+    
+    def __init__(self, db_path: str = "./data/kuzu_graph"):
+        """Initialize Kuzu database."""
+        self.db_path = Path(db_path)
+        self.db_path.mkdir(parents=True, exist_ok=True)
+        
+        # Create database connection
+        self.db = kuzu.Database(str(self.db_path))
+        self.conn = kuzu.Connection(self.db)
+        
+        # Initialize schema
+        self._init_schema()
+    
+    def _init_schema(self):
+        """Create graph schema if not exists."""
+        try:
+            # Create node tables
+            self.conn.execute("""
+                CREATE NODE TABLE IF NOT EXISTS Entity(
+                    name STRING PRIMARY KEY,
+                    type STRING,
+                    properties STRING,
+                    embedding DOUBLE[],
+                    last_updated TIMESTAMP,
+                    source_ids STRING[]
+                )
+            """)
+            
+            # Create relationship tables
+            self.conn.execute("""
+                CREATE REL TABLE IF NOT EXISTS RELATIONSHIP(
+                    FROM Entity TO Entity,
+                    type STRING,
+                    properties STRING,
+                    confidence DOUBLE,
+                    source_ids STRING[]
+                )
+            """)
+            
+            logger.info("Kuzu schema initialized successfully")
+            
+        except Exception as e:
+            logger.error(f"Failed to initialize schema: {e}")
+            raise
+    
+    def add_entities(self, entities: List[Dict[str, Any]], source_id: str) -> List[str]:
+        """Add entities to the graph - similar to Neo4j interface."""
+        created = []
+        
+        for entity in entities:
+            try:
+                # Merge entity (insert or update)
+                self.conn.execute("""
+                    MERGE (e:Entity {name: $name})
+                    SET e.type = $type,
+                        e.properties = $properties,
+                        e.last_updated = NOW(),
+                        e.source_ids = CASE
+                            WHEN e.source_ids IS NULL THEN [$source_id]
+                            WHEN NOT $source_id IN e.source_ids THEN e.source_ids || $source_id
+                            ELSE e.source_ids
+                        END
+                """, {
+                    "name": entity["name"],
+                    "type": entity.get("type", "UNKNOWN"),
+                    "properties": str(entity.get("properties", {})),
+                    "source_id": source_id
+                })
+                
+                created.append(entity["name"])
+                
+            except Exception as e:
+                logger.error(f"Failed to add entity {entity.get('name')}: {e}")
+        
+        logger.info(f"Created/updated {len(created)} entities")
+        return created
+    
+    def get_entity_context(self, entity_name: str, depth: int = 2) -> Dict[str, Any]:
+        """Get entity with its relationships up to specified depth."""
+        query = f"""
+            MATCH (e:Entity {{name: $entity_name}})-[*0..{depth}]-(connected)
+            RETURN e, connected
+        """
+        
+        result = self.conn.execute(query, {"entity_name": entity_name})
+        
+        # Process results
+        context = {
+            "entity": None,
+            "connected_nodes": [],
+            "relationships": []
+        }
+        
+        # Extract data from result
+        # (Implementation details depend on Kuzu's result format)
+        
+        return context
+    
+    def close(self):
+        """Close database connection."""
+        # Kuzu handles cleanup automatically
+        pass
+```
+
+## Cypher Query Language Reference
+
+### Basic Query Patterns
+```cypher
+-- Find all entities
+MATCH (e:Entity) RETURN e;
+
+-- Find entities by property
+MATCH (e:Entity {type: 'PERSON'}) 
+WHERE e.confidence > 0.8
+RETURN e.name, e.properties;
+
+-- Find relationships
+MATCH (a:Entity)-[r:RELATES_TO]->(b:Entity)
+RETURN a.name, r.type, b.name;
+
+-- Variable-length paths (1 to 3 hops)
+MATCH (a:Entity)-[:RELATES_TO*1..3]->(b:Entity)
+WHERE a.name = 'OpenAI'
+RETURN a.name, b.name;
+
+-- Optional matches (returns null if not found)
+MATCH (p:Person)
+OPTIONAL MATCH (p)-[:WORKS_AT]->(c:Company)
+RETURN p.name, c.name;
+```
+
+### Data Manipulation
+```cypher
+-- Create nodes
+CREATE (e:Entity {
+    name: 'OpenAI',
+    type: 'ORGANIZATION',
+    properties: '{"industry": "AI Research"}',
+    confidence: 0.95,
+    first_seen: CAST('2023-01-01' AS TIMESTAMP)
+});
+
+-- Create relationships
+MATCH (a:Entity {name: 'Sam Altman'}), 
+      (b:Entity {name: 'OpenAI'})
+CREATE (a)-[:LEADS {since: 2019, confidence: 0.99}]->(b);
+
+-- MERGE (create if not exists)
+MERGE (e:Entity {name: 'Google'})
+ON CREATE SET 
+    e.type = 'ORGANIZATION',
+    e.first_seen = CAST($timestamp AS TIMESTAMP)
+ON MATCH SET 
+    e.last_updated = CAST($timestamp AS TIMESTAMP);
+
+-- Update properties
+MATCH (e:Entity {name: 'OpenAI'})
+SET e.properties = '{"industry": "AI Research", "founded": 2015}';
+
+-- Delete (use with caution!)
+MATCH (e:Entity {name: 'test'})
+DELETE e;
+```
+
+### Aggregations and Analytics
+```cypher
+-- Count relationships by type
+MATCH ()-[r]->()
+RETURN r.type, COUNT(*) as count
+ORDER BY count DESC;
+
+-- Group by with filtering
+MATCH (p:Person)-[:POSTED]->(post:Post)
+WITH p, COUNT(post) as num_posts
+WHERE num_posts > 10
+RETURN p.name, num_posts
+ORDER BY num_posts DESC;
+
+-- Complex aggregation with UNWIND
+UNWIND ["OpenAI", "Anthropic", "Google"] AS company
+MATCH (e:Entity {name: company})
+OPTIONAL MATCH (e)<-[:WORKS_AT]-(p:Person)
+RETURN company, COUNT(p) as employee_count;
+```
+
+### Working with Lists and Maps
+```cypher
+-- List operations
+MATCH (e:Entity)
+WHERE 'AI' IN e.tags
+RETURN e.name, SIZE(e.tags) as tag_count;
+
+-- Path operations
+MATCH path = (a:Entity)-[*1..3]->(b:Entity)
+RETURN a.name, b.name, LENGTH(path) as distance;
+
+-- CASE expressions
+MATCH (e:Entity)
+RETURN e.name,
+    CASE 
+        WHEN e.confidence > 0.9 THEN 'High'
+        WHEN e.confidence > 0.6 THEN 'Medium'
+        ELSE 'Low'
+    END as confidence_level;
+```
+
+## Migration Path from Neo4j
+
+### 1. Key Syntax Differences
+
+**Timestamps:**
+```cypher
+-- Neo4j
+SET n.updated = timestamp()
+
+-- Kuzu 
+SET n.updated = CAST($timestamp AS TIMESTAMP)
+```
+
+**List operations:**
+```cypher
+-- Both support standard list operations
+SET n.tags = n.tags + 'new_tag'  -- Append
+SET n.tags = list_distinct(n.tags)  -- Remove duplicates
+```
+
+### 2. Data Import/Export
+
+**CSV Import:**
+```python
+# Import nodes from CSV
+conn.execute('COPY Entity FROM "entities.csv" (HEADER=true);')
+
+# Import relationships from CSV
+conn.execute('COPY RELATES_TO FROM "relationships.csv" (HEADER=true);')
+```
+
+**Parquet Export:**
+```python
+# Export nodes to Parquet
+conn.execute("COPY (MATCH (e:Entity) RETURN e.*) TO 'entities.parquet';")
+
+# Export relationships
+conn.execute("COPY (MATCH ()-[r:RELATES_TO]->() RETURN r.*) TO 'relations.parquet';")
+```
+
+**DataFrame Integration:**
+```python
+# Query to Pandas DataFrame
+df = conn.execute("MATCH (e:Entity) RETURN e.*;").get_as_df()
+
+# Query to Polars DataFrame (more efficient)
+pl_df = conn.execute("MATCH (e:Entity) RETURN e.*;").get_as_pl()
+
+# Query to PyArrow Table
+arrow_table = conn.execute("MATCH (e:Entity) RETURN e.*;").get_as_arrow()
+
+# From DataFrame to Kuzu
+conn.execute("COPY Entity FROM df;", {"df": pandas_df})
+```
+
+### 3. Data Migration Script
+```python
+async def migrate_from_neo4j_to_kuzu(neo4j_manager, kuzu_db_path):
+    """Migrate data from Neo4j to Kuzu."""
+    # Create Kuzu service
+    from chimera_researcher.graph.kuzu_service import KuzuGraphService
+    kuzu_service = KuzuGraphService(kuzu_db_path)
+    
+    # Export entities from Neo4j
+    entities_query = """
+    MATCH (n)
+    RETURN n.name as name, labels(n)[0] as type, 
+           n.properties as properties, n.source_ids as source_ids,
+           n.confidence as confidence
+    """
+    entities = await neo4j_manager.query(entities_query)
+    
+    # Batch import to Kuzu
+    for entity in entities:
+        await kuzu_service.add_entity(GraphEntity(
+            name=entity['name'],
+            type=entity['type'],
+            properties=json.loads(entity['properties'] or '{}'),
+            source_ids=entity['source_ids'] or [],
+            confidence=entity['confidence'] or 1.0
+        ))
+    
+    # Export relationships
+    rels_query = """
+    MATCH (a)-[r]->(b)
+    RETURN a.name as source, b.name as target, type(r) as type,
+           r.properties as properties, r.source_ids as source_ids
+    """
+    relationships = await neo4j_manager.query(rels_query)
+    
+    # Batch import relationships
+    for rel in relationships:
+        await kuzu_service.add_relationship(GraphRelationship(
+            source=rel['source'],
+            target=rel['target'],
+            type=rel['type'],
+            properties=json.loads(rel['properties'] or '{}'),
+            source_ids=rel['source_ids'] or []
+        ))
+    
+    logger.info(f"Migration completed: {len(entities)} entities, {len(relationships)} relationships")
+```
+
+## Best Practices
+
+1. **Use Transactions** for batch operations
+2. **Keep the Database Path Configurable** for different environments
+3. **Regular Backups** - Simple file copy of the database directory
+4. **Index Key Properties** for better query performance
+5. **Use Prepared Statements** to prevent injection
+6. **Handle Schema Evolution** gracefully
+
+## Testing Strategy
+
+```python
+def test_kuzu_basic_operations():
+    """Test basic Kuzu operations."""
+    # Use in-memory database for tests
+    db = kuzu.Database(":memory:")
+    conn = kuzu.Connection(db)
+    
+    # Create schema
+    conn.execute("CREATE NODE TABLE Entity(name STRING PRIMARY KEY)")
+    
+    # Test operations
+    conn.execute("CREATE (:Entity {name: 'test'})")
+    result = conn.execute("MATCH (n:Entity) RETURN n.name")
+    
+    assert result.get_next()[0] == "test"
+```
+
+## Performance Considerations
+
+1. **Batch Operations** - Kuzu excels at batch inserts
+   ```python
+   # Use transactions for bulk operations
+   conn.execute("BEGIN TRANSACTION;")
+   for entity in entities:
+       conn.execute("CREATE (:Entity {name: $name, type: $type})", 
+                   {"name": entity.name, "type": entity.type})
+   conn.execute("COMMIT;")
+   ```
+
+2. **Query Planning** - Use EXPLAIN to optimize queries
+   ```cypher
+   EXPLAIN MATCH (a:Entity)-[:RELATES_TO*1..3]->(b:Entity) RETURN a, b;
+   ```
+
+3. **Memory Management** - Configure buffer pool size
+   ```python
+   # Set buffer pool to 4GB
+   db = kuzu.Database("./data/graph", buffer_pool_size=4*1024*1024*1024)
+   ```
+
+4. **Indexes** - Primary keys are automatically indexed
+   ```cypher
+   -- Primary keys provide fast lookups
+   MATCH (e:Entity {name: 'OpenAI'}) RETURN e;  -- Fast!
+   ```
+
+5. **Connection Pooling** - Reuse connections
+   ```python
+   # Create once, use many times
+   conn = kuzu.Connection(db)
+   # Don't create new connections for each query
+   ```
+
+## Common Issues and Solutions
+
+### Timestamp Handling
+```python
+# ❌ Wrong - will fail
+conn.execute("SET e.updated = $ts", {"ts": datetime.now()})
+
+# ✅ Correct - use CAST
+conn.execute("SET e.updated = CAST($ts AS TIMESTAMP)", 
+            {"ts": datetime.now().isoformat()})
+```
+
+### List Operations
+```python
+# ❌ Wrong - direct list append
+conn.execute("SET e.tags = e.tags + $tag", {"tag": "AI"})
+
+# ✅ Correct - use list operations
+conn.execute("SET e.tags = list_append(e.tags, $tag)", {"tag": "AI"})
+```
+
+### NULL Handling
+```cypher
+-- Check for NULL before operations
+MATCH (e:Entity)
+WHERE e.properties IS NOT NULL
+SET e.properties = e.properties || ', new_data'
+```
+
+## Future Enhancements
+
+1. **Vector Similarity Search** - Native embedding support
+2. **Streaming Updates** - Real-time graph updates with CocoIndex
+3. **Graph Analytics** - Built-in algorithms (PageRank, community detection)
+4. **Visualization** - Direct integration with graph viz tools
+5. **LangChain Integration** - Use `langchain-kuzu` for Text2Cypher
+
+## Resources
+
+### 📚 Complete Local Documentation Available!
+We have **comprehensive offline documentation** at `docs/external/kuzu-reference/` (143 files)
+
+#### Quick Access to Key Docs:
+- **Python API**: `docs/external/kuzu-reference/docs.kuzudb.com_client-apis_python_.md`
+- **Cypher Syntax**: `docs/external/kuzu-reference/docs.kuzudb.com_cypher_*.md`
+- **Data Import**: `docs/external/kuzu-reference/docs.kuzudb.com_import_*.md`
+- **Performance**: `docs/external/kuzu-reference/docs.kuzudb.com_developer-guide_performance-debugging_.md`
+
+See `docs/external/kuzu-reference/README.md` for complete index.
+
+### Official Documentation (Online)
+- [Kuzu Documentation](mdc:https:/docs.kuzudb.com)
+- [Cypher Manual](mdc:https:/docs.kuzudb.com/cypher)
+- [Python API Reference](mdc:https:/kuzudb.com/api-docs/python/kuzu.html)
+- [Data Import/Export Guide](mdc:https:/docs.kuzudb.com/import)
+
+### Tutorials and Examples
+- [Getting Started Guide](mdc:https:/docs.kuzudb.com/get-started)
+- [Cypher Tutorial](mdc:https:/docs.kuzudb.com/tutorials/cypher)
+- [Python Tutorial](mdc:https:/docs.kuzudb.com/tutorials/python)
+- [Performance Debugging](mdc:https:/docs.kuzudb.com/developer-guide/performance)
+
+### Integration Examples
+- [LangChain + Kuzu](mdc:https:/python.langchain.com/docs/integrations/graphs/kuzu_db)
+- [PyTorch Geometric Backend](mdc:https:/docs.kuzudb.com/client-apis/python/#get_torch_geometric_remote_backend)
+- [NetworkX Export](mdc:https:/docs.kuzudb.com/client-apis/python/#get_as_networkx)
+
+### Key Differences from Neo4j
+1. **No Bolt Protocol** - Direct Python API only
+2. **Embedded Only** - No client-server architecture
+3. **File-based Storage** - Simple backup/restore
+4. **Different Timestamp Syntax** - Requires CAST()
+5. **No Plugins/Extensions** - Core functionality only
+
+Remember: The goal is a simpler, more reliable graph database that "just works" without the operational overhead of Neo4j! :-)

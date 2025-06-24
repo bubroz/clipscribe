@@ -1,0 +1,80 @@
+---
+description: Guidelines for video/audio processing and transcription
+globs: 
+alwaysApply: false
+---
+---
+description: "Guidelines for video/audio processing and transcription"
+globs: ["src/clipscribe/retrievers/**/*.py", "**/transcriber.py"]
+alwaysApply: false
+---
+
+# Video Processing Guidelines
+
+## Platform Support
+
+ClipScribe supports multiple video platforms through a unified interface:
+
+- YouTube (primary)
+- Twitter/X
+- Instagram
+- TikTok
+- Generic URLs (via yt-dlp)
+
+## Processing Pipeline
+
+1. **URL Validation**: Verify the URL format and platform
+2. **Metadata Retrieval**: Extract video title, duration, author, etc.
+3. **Transcript Acquisition**: 
+   - Check for existing captions/subtitles
+   - Use YouTube Transcript API when available
+   - Fall back to Gemini transcription for audio
+4. **Output Generation**: Save in multiple formats (SRT, VTT, JSON, TXT)
+
+## Best Practices
+
+### Error Handling
+```python
+try:
+    transcript = retriever.get_transcript(url)
+except TranscriptNotAvailable:
+    logger.warning("No transcript available, falling back to audio transcription")
+    transcript = transcriber.transcribe_audio(url)
+except Exception as e:
+    logger.error(f"Failed to process video: {e}")
+    raise VideoProcessingError(f"Unable to process video: {e}")
+```
+
+### Resource Management
+- Clean up temporary files after processing
+- Implement proper timeout handling
+- Use streaming for large files when possible
+- Cache results to avoid redundant processing
+
+### API Key Management
+- Store API keys in environment variables
+- Implement rate limiting for external APIs
+- Provide clear error messages for missing credentials
+
+## Output Formats
+
+Ensure all outputs follow consistent patterns:
+
+```python
+# Directory structure
+output/
+└── YYYYMMDD_platform_videoid/
+    ├── metadata.json
+    ├── transcript.json
+    ├── transcript.txt
+    ├── transcript.srt
+    ├── transcript.vtt
+    └── manifest.json
+```
+
+## Performance Considerations
+
+- Use async operations where possible
+- Implement progress callbacks for long operations
+- Batch process multiple videos efficiently
+- Monitor and log processing times

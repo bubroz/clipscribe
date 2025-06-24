@@ -1,0 +1,26 @@
+# Key Facts Extracted from Video
+
+Video: Pentagon holds briefing after US strikes Iran nuclear sites
+URL: https://www.youtube.com/watch?v=668oKOJ43_E
+Extracted: 2025-06-24T01:35:17.038703
+
+1. Fordo Iran country (confidence: 0.90)
+2. Natanz Iran country (confidence: 0.90)
+3. Esfahan Iran country (confidence: 0.90)
+4. Iran's nuclear program Iran country (confidence: 0.90)
+5. President Trump commander in chief position held (confidence: 0.90)
+6. commander in chief President Trump appointed by (confidence: 0.90)
+7. Iran's nuclear ambitions Iran country (confidence: 0.90)
+8. President Trump President position held (confidence: 0.90)
+9. Iran's nuclear ambitions Iran facet of (confidence: 0.90)
+10. Iran's nuclear program US diplomatic relation (confidence: 0.90)
+11. US Iran's nuclear program diplomatic relation (confidence: 0.90)
+12. Iran's nuclear program US participant (confidence: 0.90)
+13. US Iran's nuclear program participant in (confidence: 0.90)
+14. President Trump presidents position held (confidence: 0.90)
+15. President Trump officeholder (confidence: 0.90)
+16. Trump President position held (confidence: 0.90)
+17. first term previous administration follows (confidence: 0.90)
+18. previous administration first term followed by (confidence: 0.90)
+19. first term President Trump facet of (confidence: 0.90)
+20. President of the United States Donald J. Trump officeholder (confidence: 0.90)

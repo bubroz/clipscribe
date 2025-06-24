@@ -1,0 +1,231 @@
+---
+description: Database selection rules for choosing between SQLite (transactional) and DuckDB (analytics). Includes integration patterns and performance guidelines
+globs: 
+alwaysApply: false
+---
+---
+description: "Database selection rules for choosing between SQLite (transactional) and DuckDB (analytics). Includes integration patterns and performance guidelines"
+globs: ["**/*storage*.py", "**/*analytics*.py", "**/*repository*.py", "data/*.db", "data/*.duckdb", "chimera_researcher/storage/**/*.py"]
+alwaysApply: false
+---
+# Database Selection Rules: DuckDB vs SQLite
+
+This rule helps developers choose the right database for their use case. We use a dual-database strategy: SQLite for transactional data, DuckDB for analytics.
+
+## Quick Decision Guide
+
+```
+Is this for analytics/reporting? → Use DuckDB
+Is this for CRUD operations? → Use SQLite
+Is this time-series data? → Use DuckDB  
+Is this user state/config? → Use SQLite
+Need complex aggregations? → Use DuckDB
+Need ORM integration? → Use SQLite
+```
+
+## Database Responsibilities
+
+### SQLite (Transactional)
+```python
+# Use SQLite for:
+# - Project metadata
+# - User configurations  
+# - Validation feedback
+# - Session state
+# - Simple lookups
+# - ORM models
+
+import sqlite3
+
+class ProjectStorage:
+    """Example: SQLite for project CRUD"""
+    def __init__(self):
+        self.conn = sqlite3.connect("data/projects.db")
+    
+    def save_project(self, project):
+        # Simple INSERT/UPDATE operations
+        self.conn.execute(
+            "INSERT OR REPLACE INTO projects VALUES (?, ?, ?)",
+            [project.id, project.name, project.data]
+        )
+```
+
+### DuckDB (Analytics)
+```python
+# Use DuckDB for:
+# - Usage analytics
+# - Performance metrics
+# - Cost tracking
+# - Time-series analysis
+# - Complex reporting
+# - Data aggregations
+
+import duckdb
+
+class AnalyticsService:
+    """Example: DuckDB for analytics"""
+    def __init__(self):
+        self.conn = duckdb.connect("data/analytics.duckdb")
+    
+    def get_daily_metrics(self):
+        # Complex aggregation query
+        return self.conn.execute("""
+            SELECT 
+                DATE_TRUNC('day', timestamp) as date,
+                COUNT(*) as events,
+                AVG(duration_ms) as avg_duration
+            FROM events
+            GROUP BY date
+            ORDER BY date DESC
+        """).df()
+```
+
+## Integration Patterns
+
+### 1. Dual Write Pattern
+```python
+async def save_research_report(self, report):
+    # Transactional save to SQLite
+    await self.sqlite_storage.save_report(report)
+    
+    # Analytics event to DuckDB
+    await self.analytics.track_event("report_created", {
+        "report_id": report.id,
+        "type": report.type,
+        "cost": report.cost,
+        "tokens": report.token_count
+    })
+```
+
+### 2. GraphQL Resolver Pattern
+```python
+@strawberry.type
+class Query:
+    @strawberry.field
+    async def get_project(self, id: str) -> Project:
+        # Transactional data from SQLite
+        storage = ProjectStorage()
+        return storage.get_project(id)
+    
+    @strawberry.field
+    async def get_analytics(self) -> Analytics:
+        # Analytics from DuckDB
+        service = AnalyticsService()
+        return service.get_current_metrics()
+```
+
+### 3. Hybrid Query Pattern
+```python
+class HybridDataService:
+    """Combines data from both databases"""
+    
+    async def get_project_with_analytics(self, project_id: str):
+        # Get project from SQLite
+        project = self.sqlite.get_project(project_id)
+        
+        # Get analytics from DuckDB
+        analytics = self.duckdb.execute("""
+            SELECT COUNT(*) as views, AVG(rating) as avg_rating
+            FROM project_events
+            WHERE project_id = ?
+        """, [project_id]).fetchone()
+        
+        return {**project, "analytics": analytics}
+```
+
+## Common Mistakes to Avoid
+
+### ❌ Wrong: Using SQLite for Analytics
+```python
+# DON'T DO THIS - SQLite is slow for aggregations
+conn.execute("""
+    SELECT 
+        DATE(created_at) as date,
+        COUNT(*) as total,
+        AVG(cost) as avg_cost
+    FROM reports
+    GROUP BY DATE(created_at)
+    ORDER BY date
+""")
+```
+
+### ✅ Right: Using DuckDB for Analytics
+```python
+# DO THIS - DuckDB is optimized for analytics
+duckdb_conn.execute("""
+    SELECT 
+        DATE_TRUNC('day', created_at) as date,
+        COUNT(*) as total,
+        AVG(cost) as avg_cost
+    FROM report_events
+    GROUP BY date
+    ORDER BY date
+""")
+```
+
+### ❌ Wrong: Using DuckDB for Single Lookups
+```python
+# DON'T DO THIS - Overkill for simple queries
+duckdb_conn.execute(
+    "SELECT * FROM users WHERE id = ?", [user_id]
+).fetchone()
+```
+
+### ✅ Right: Using SQLite for Single Lookups
+```python
+# DO THIS - SQLite is perfect for simple queries
+sqlite_conn.execute(
+    "SELECT * FROM users WHERE id = ?", [user_id]
+).fetchone()
+```
+
+## File Naming Conventions
+
+- `*_storage.py` → SQLite transactional storage
+- `*_analytics.py` → DuckDB analytics
+- `*_metrics.py` → DuckDB metrics tracking
+- `*_repository.py` → SQLite with ORM
+
+## Performance Guidelines
+
+### SQLite Performance Tips
+- Use transactions for bulk inserts
+- Create indexes for lookup columns
+- Keep database file on SSD
+- Use WAL mode for concurrency
+
+### DuckDB Performance Tips
+- Use DATE_TRUNC for time grouping
+- Leverage columnar storage
+- Export large results to Parquet
+- Use CTEs for complex queries
+
+## Migration Checklist
+
+When adding new data storage:
+
+1. **Identify the pattern**: Is this OLTP or OLAP?
+2. **Choose the database**: SQLite for OLTP, DuckDB for OLAP
+3. **Design the schema**: Normalized for SQLite, denormalized for DuckDB
+4. **Implement the service**: Follow the patterns above
+5. **Add tests**: Test both databases appropriately
+6. **Document the choice**: Add comments explaining why
+
+## Environment Configuration
+
+```python
+# config.py
+import os
+
+# SQLite for transactional data
+SQLITE_DB_PATH = os.getenv("DATABASE_URL", "sqlite:///data/chimera.db")
+
+# DuckDB for analytics
+DUCKDB_ANALYTICS_PATH = os.getenv("ANALYTICS_DB", "data/analytics.duckdb")
+
+# Optional MotherDuck for cloud analytics
+MOTHERDUCK_TOKEN = os.getenv("MOTHERDUCK_TOKEN")
+USE_MOTHERDUCK = bool(MOTHERDUCK_TOKEN)
+```
+
+Remember: When in doubt, ask "Is this analytics?" If yes → DuckDB. If no → SQLite :-)

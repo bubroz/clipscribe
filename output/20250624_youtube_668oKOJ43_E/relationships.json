@@ -1,0 +1,1358 @@
+{
+  "video_url": "https://www.youtube.com/watch?v=668oKOJ43_E",
+  "video_title": "Pentagon holds briefing after US strikes Iran nuclear sites",
+  "relationships": [
+    {
+      "subject": "Fordo",
+      "predicate": "Iran",
+      "object": "country",
+      "confidence": 0.9,
+      "context": "Well, thank you for joining us this morning. Last night on President Trump's orders, US Central Comm"
+    },
+    {
+      "subject": "Natanz",
+      "predicate": "Iran",
+      "object": "country",
+      "confidence": 0.9,
+      "context": "Well, thank you for joining us this morning. Last night on President Trump's orders, US Central Comm"
+    },
+    {
+      "subject": "Esfahan",
+      "predicate": "Iran",
+      "object": "country",
+      "confidence": 0.9,
+      "context": "Well, thank you for joining us this morning. Last night on President Trump's orders, US Central Comm"
+    },
+    {
+      "subject": "Iran's nuclear program",
+      "predicate": "Iran",
+      "object": "country",
+      "confidence": 0.9,
+      "context": "Well, thank you for joining us this morning. Last night on President Trump's orders, US Central Comm"
+    },
+    {
+      "subject": "President Trump",
+      "predicate": "commander in chief",
+      "object": "position held",
+      "confidence": 0.9,
+      "context": "Well, thank you for joining us this morning. Last night on President Trump's orders, US Central Comm"
+    },
+    {
+      "subject": "commander in chief",
+      "predicate": "President Trump",
+      "object": "appointed by",
+      "confidence": 0.9,
+      "context": "Well, thank you for joining us this morning. Last night on President Trump's orders, US Central Comm"
+    },
+    {
+      "subject": "Iran's nuclear ambitions",
+      "predicate": "Iran",
+      "object": "country",
+      "confidence": 0.9,
+      "context": "We devastated the Iranian nuclear program. But it's worth noting the operation did not target Irania"
+    },
+    {
+      "subject": "President Trump",
+      "predicate": "President",
+      "object": "position held",
+      "confidence": 0.9,
+      "context": "We devastated the Iranian nuclear program. But it's worth noting the operation did not target Irania"
+    },
+    {
+      "subject": "Iran's nuclear ambitions",
+      "predicate": "Iran",
+      "object": "facet of",
+      "confidence": 0.9,
+      "context": "We devastated the Iranian nuclear program. But it's worth noting the operation did not target Irania"
+    },
+    {
+      "subject": "Iran's nuclear program",
+      "predicate": "US",
+      "object": "diplomatic relation",
+      "confidence": 0.9,
+      "context": "Many presidents have dreamed of delivering the final blow to Iran's nuclear program, and none could "
+    },
+    {
+      "subject": "US",
+      "predicate": "Iran's nuclear program",
+      "object": "diplomatic relation",
+      "confidence": 0.9,
+      "context": "Many presidents have dreamed of delivering the final blow to Iran's nuclear program, and none could "
+    },
+    {
+      "subject": "Iran's nuclear program",
+      "predicate": "US",
+      "object": "participant",
+      "confidence": 0.9,
+      "context": "Many presidents have dreamed of delivering the final blow to Iran's nuclear program, and none could "
+    },
+    {
+      "subject": "US",
+      "predicate": "Iran's nuclear program",
+      "object": "participant in",
+      "confidence": 0.9,
+      "context": "Many presidents have dreamed of delivering the final blow to Iran's nuclear program, and none could "
+    },
+    {
+      "subject": "President Trump",
+      "predicate": "presidents",
+      "object": "position held",
+      "confidence": 0.9,
+      "context": "Many presidents have dreamed of delivering the final blow to Iran's nuclear program, and none could "
+    },
+    {
+      "subject": "President",
+      "predicate": "Trump",
+      "object": "officeholder",
+      "confidence": 0.9,
+      "context": "No other country on planet Earth could have conducted the operation that the chairman is going to ou"
+    },
+    {
+      "subject": "Trump",
+      "predicate": "President",
+      "object": "position held",
+      "confidence": 0.9,
+      "context": "No other country on planet Earth could have conducted the operation that the chairman is going to ou"
+    },
+    {
+      "subject": "first term",
+      "predicate": "previous administration",
+      "object": "follows",
+      "confidence": 0.9,
+      "context": "No other country on planet Earth could have conducted the operation that the chairman is going to ou"
+    },
+    {
+      "subject": "previous administration",
+      "predicate": "first term",
+      "object": "followed by",
+      "confidence": 0.9,
+      "context": "No other country on planet Earth could have conducted the operation that the chairman is going to ou"
+    },
+    {
+      "subject": "first term",
+      "predicate": "President Trump",
+      "object": "facet of",
+      "confidence": 0.9,
+      "context": "No other country on planet Earth could have conducted the operation that the chairman is going to ou"
+    },
+    {
+      "subject": "President of the United States",
+      "predicate": "Donald J. Trump",
+      "object": "officeholder",
+      "confidence": 0.9,
+      "context": "He seeks peace, and Iran should take that path. Uh, he sent out a truth last night saying this: Any "
+    },
+    {
+      "subject": "Donald J. Trump",
+      "predicate": "President of the United States",
+      "object": "position held",
+      "confidence": 0.9,
+      "context": "He seeks peace, and Iran should take that path. Uh, he sent out a truth last night saying this: Any "
+    },
+    {
+      "subject": "United States of America",
+      "predicate": "President of the United States",
+      "object": "office held by head of government",
+      "confidence": 0.9,
+      "context": "He seeks peace, and Iran should take that path. Uh, he sent out a truth last night saying this: Any "
+    },
+    {
+      "subject": "Donald J. Trump",
+      "predicate": "head of government",
+      "object": "President of the United States",
+      "confidence": 0.9,
+      "context": "He seeks peace, and Iran should take that path. Uh, he sent out a truth last night saying this: Any "
+    },
+    {
+      "subject": "United States of America",
+      "predicate": "country",
+      "object": "Donald J. Trump",
+      "confidence": 0.9,
+      "context": "He seeks peace, and Iran should take that path. Uh, he sent out a truth last night saying this: Any "
+    },
+    {
+      "subject": "officeholder",
+      "predicate": "Donald J. Trump",
+      "object": "President of the United States",
+      "confidence": 0.9,
+      "context": "He seeks peace, and Iran should take that path. Uh, he sent out a truth last night saying this: Any "
+    },
+    {
+      "subject": "President of the United States",
+      "predicate": "United States of America",
+      "object": "country",
+      "confidence": 0.9,
+      "context": "He seeks peace, and Iran should take that path. Uh, he sent out a truth last night saying this: Any "
+    },
+    {
+      "subject": "Donald J. Trump",
+      "predicate": "officeholder",
+      "object": "Donald J. Trump",
+      "confidence": 0.9,
+      "context": "He seeks peace, and Iran should take that path. Uh, he sent out a truth last night saying this: Any "
+    },
+    {
+      "subject": "Eric Corrilla",
+      "predicate": "chairman of the Joint Chiefs of Staff",
+      "object": "position held",
+      "confidence": 0.9,
+      "context": "I want to give recognition to the chairman of the Joint Chiefs of Staff, uh, the Joint Staff, Genera"
+    },
+    {
+      "subject": "chairman of the Joint Chiefs of Staff",
+      "predicate": "Joint Staff",
+      "object": "part of",
+      "confidence": 0.9,
+      "context": "I want to give recognition to the chairman of the Joint Chiefs of Staff, uh, the Joint Staff, Genera"
+    },
+    {
+      "subject": "Israel",
+      "predicate": "President of the United States",
+      "object": "office held by head of government",
+      "confidence": 0.9,
+      "context": "And I want to recognize our soldiers doing air defense, base defense, QRF, warriors, all of them. Ev"
+    },
+    {
+      "subject": "President",
+      "predicate": "United States",
+      "object": "country",
+      "confidence": 0.9,
+      "context": "And I want to recognize our soldiers doing air defense, base defense, QRF, warriors, all of them. Ev"
+    },
+    {
+      "subject": "United States",
+      "predicate": "President",
+      "object": "office held by head of government",
+      "confidence": 0.9,
+      "context": "And I want to recognize our soldiers doing air defense, base defense, QRF, warriors, all of them. Ev"
+    },
+    {
+      "subject": "United States",
+      "predicate": "Israel",
+      "object": "diplomatic relation",
+      "confidence": 0.9,
+      "context": "And I want to recognize our soldiers doing air defense, base defense, QRF, warriors, all of them. Ev"
+    },
+    {
+      "subject": "Israel",
+      "predicate": "United States",
+      "object": "diplomatic relation",
+      "confidence": 0.9,
+      "context": "And I want to recognize our soldiers doing air defense, base defense, QRF, warriors, all of them. Ev"
+    },
+    {
+      "subject": "MOP",
+      "predicate": "ordnance penetrator",
+      "object": "instance of",
+      "confidence": 0.9,
+      "context": "Our B-2s went in and out of downtown Tehran, not Tehran, excuse me, of these nuclear sites, in and o"
+    },
+    {
+      "subject": "B-2 Spirit",
+      "predicate": "B-2",
+      "object": "subclass of",
+      "confidence": 0.9,
+      "context": "Our B-2s went in and out of downtown Tehran, not Tehran, excuse me, of these nuclear sites, in and o"
+    },
+    {
+      "subject": "B-2 Spirit",
+      "predicate": "B-2s",
+      "object": "subclass of",
+      "confidence": 0.9,
+      "context": "Our B-2s went in and out of downtown Tehran, not Tehran, excuse me, of these nuclear sites, in and o"
+    },
+    {
+      "subject": "President Trump",
+      "predicate": "President of the United States",
+      "object": "position held",
+      "confidence": 0.9,
+      "context": "As President Trump has stated, the United States does not seek war, but let me be clear, we will act"
+    },
+    {
+      "subject": "President of the United States",
+      "predicate": "President Trump",
+      "object": "officeholder",
+      "confidence": 0.9,
+      "context": "As President Trump has stated, the United States does not seek war, but let me be clear, we will act"
+    },
+    {
+      "subject": "President of the United States",
+      "predicate": "President Trump",
+      "object": "appointed by",
+      "confidence": 0.9,
+      "context": "As President Trump has stated, the United States does not seek war, but let me be clear, we will act"
+    },
+    {
+      "subject": "President",
+      "predicate": "Donald Trump",
+      "object": "officeholder",
+      "confidence": 0.9,
+      "context": "God bless our troops, God bless America, and we give glory to God for his providence and continue to"
+    },
+    {
+      "subject": "Donald Trump",
+      "predicate": "President",
+      "object": "position held",
+      "confidence": 0.9,
+      "context": "God bless our troops, God bless America, and we give glory to God for his providence and continue to"
+    },
+    {
+      "subject": "God bless America",
+      "predicate": "providence",
+      "object": "has cause",
+      "confidence": 0.9,
+      "context": "God bless our troops, God bless America, and we give glory to God for his providence and continue to"
+    },
+    {
+      "subject": "providence",
+      "predicate": "God",
+      "object": "has effect",
+      "confidence": 0.9,
+      "context": "God bless our troops, God bless America, and we give glory to God for his providence and continue to"
+    },
+    {
+      "subject": "providence",
+      "predicate": "God bless America",
+      "object": "has effect",
+      "confidence": 0.9,
+      "context": "God bless our troops, God bless America, and we give glory to God for his providence and continue to"
+    },
+    {
+      "subject": "Eric Corrilla",
+      "predicate": "US Central Command",
+      "object": "military branch",
+      "confidence": 0.9,
+      "context": "Last night on the President's orders, US Central Command, under the command of General Eric Corrilla"
+    },
+    {
+      "subject": "Eric Corrilla",
+      "predicate": "US Central Command",
+      "object": "employer",
+      "confidence": 0.9,
+      "context": "Last night on the President's orders, US Central Command, under the command of General Eric Corrilla"
+    },
+    {
+      "subject": "Operation Midnight Hammer",
+      "predicate": "US Central Command",
+      "object": "participant",
+      "confidence": 0.9,
+      "context": "Last night on the President's orders, US Central Command, under the command of General Eric Corrilla"
+    },
+    {
+      "subject": "nuclear weapons infrastructure",
+      "predicate": "Iran",
+      "object": "country",
+      "confidence": 0.9,
+      "context": "This operation was designed to severely degrade uh, Iran's nuclear weapons infrastructure. It was pl"
+    },
+    {
+      "subject": "nuclear weapons infrastructure",
+      "predicate": "Iran's",
+      "object": "country",
+      "confidence": 0.9,
+      "context": "This operation was designed to severely degrade uh, Iran's nuclear weapons infrastructure. It was pl"
+    },
+    {
+      "subject": "Iran",
+      "predicate": "nuclear weapons",
+      "object": "product or material produced",
+      "confidence": 0.9,
+      "context": "This operation was designed to severely degrade uh, Iran's nuclear weapons infrastructure. It was pl"
+    },
+    {
+      "subject": "Washington",
+      "predicate": "United States",
+      "object": "country",
+      "confidence": 0.9,
+      "context": "Uh, I'll refer you to the graphic on the side as I walk you through some of the operational details."
+    },
+    {
+      "subject": "United States",
+      "predicate": "Washington",
+      "object": "contains administrative territorial entity",
+      "confidence": 0.9,
+      "context": "Uh, I'll refer you to the graphic on the side as I walk you through some of the operational details."
+    },
+    {
+      "subject": "B-2",
+      "predicate": "bombers",
+      "object": "subclass of",
+      "confidence": 0.9,
+      "context": "Uh, I'll refer you to the graphic on the side as I walk you through some of the operational details."
+    },
+    {
+      "subject": "Tampa",
+      "predicate": "United States",
+      "object": "country",
+      "confidence": 0.9,
+      "context": "Uh, I'll refer you to the graphic on the side as I walk you through some of the operational details."
+    },
+    {
+      "subject": "B-2 Spirit",
+      "predicate": "bombers",
+      "object": "subclass of",
+      "confidence": 0.9,
+      "context": "The main strike package comprised of seven B-2 Spirit bombers, each with two crew members, proceeded"
+    },
+    {
+      "subject": "Tomahawk",
+      "predicate": "land attack cruise missile",
+      "object": "subclass of",
+      "confidence": 0.9,
+      "context": "This type of integration is exactly what our Joint Force does better than anyone else in the world. "
+    },
+    {
+      "subject": "Tomahawk",
+      "predicate": "cruise missile",
+      "object": "subclass of",
+      "confidence": 0.9,
+      "context": "This type of integration is exactly what our Joint Force does better than anyone else in the world. "
+    },
+    {
+      "subject": "Tomahawk land attack cruise missile",
+      "predicate": "Central Command",
+      "object": "operator",
+      "confidence": 0.9,
+      "context": "This type of integration is exactly what our Joint Force does better than anyone else in the world. "
+    },
+    {
+      "subject": "decoy",
+      "predicate": "deception",
+      "object": "subclass of",
+      "confidence": 0.9,
+      "context": "As the Operation Midnight Hammer strike package entered Iranian airspace, the US employed several de"
+    },
+    {
+      "subject": "decoys",
+      "predicate": "deception",
+      "object": "subclass of",
+      "confidence": 0.9,
+      "context": "As the Operation Midnight Hammer strike package entered Iranian airspace, the US employed several de"
+    },
+    {
+      "subject": "decoy",
+      "predicate": "deception tactics",
+      "object": "subclass of",
+      "confidence": 0.9,
+      "context": "As the Operation Midnight Hammer strike package entered Iranian airspace, the US employed several de"
+    },
+    {
+      "subject": "Fordo",
+      "predicate": "Natanz",
+      "object": "twinned administrative body",
+      "confidence": 0.9,
+      "context": "As the strike package approached Fordo and Natanz, the US protection package employed high-speed sup"
+    },
+    {
+      "subject": "Natanz",
+      "predicate": "Fordo",
+      "object": "twinned administrative body",
+      "confidence": 0.9,
+      "context": "As the strike package approached Fordo and Natanz, the US protection package employed high-speed sup"
+    },
+    {
+      "subject": "GBU-57",
+      "predicate": "massive ordnance penetrator",
+      "object": "instance of",
+      "confidence": 0.9,
+      "context": "At approximately 6:40 PM Eastern Standard Time, 2:10 AM Iran time, the lead B-2 dropped two GBU-57 m"
+    },
+    {
+      "subject": "GBU-57",
+      "predicate": "massive ordnance penetrator",
+      "object": "subclass of",
+      "confidence": 0.9,
+      "context": "At approximately 6:40 PM Eastern Standard Time, 2:10 AM Iran time, the lead B-2 dropped two GBU-57 m"
+    },
+    {
+      "subject": "GBU-57",
+      "predicate": "massive ordnance penetrators",
+      "object": "instance of",
+      "confidence": 0.9,
+      "context": "At approximately 6:40 PM Eastern Standard Time, 2:10 AM Iran time, the lead B-2 dropped two GBU-57 m"
+    },
+    {
+      "subject": "Tomahawk missile",
+      "predicate": "surface-to-air missile",
+      "object": "subclass of",
+      "confidence": 0.9,
+      "context": "Again, that's about 2:10 in the morning uh, local time in Iran, with the Tomahawk missiles being the"
+    },
+    {
+      "subject": "Tomahawk missile",
+      "predicate": "surface-to-air missile",
+      "object": "instance of",
+      "confidence": 0.9,
+      "context": "Again, that's about 2:10 in the morning uh, local time in Iran, with the Tomahawk missiles being the"
+    },
+    {
+      "subject": "GBU-57",
+      "predicate": "precision-guided weapon",
+      "object": "instance of",
+      "confidence": 0.9,
+      "context": "Throughout the mission, we retained the element of surprise. In total, US forces employed approximat"
+    },
+    {
+      "subject": "GBU-57",
+      "predicate": "precision-guided weapon",
+      "object": "subclass of",
+      "confidence": 0.9,
+      "context": "Throughout the mission, we retained the element of surprise. In total, US forces employed approximat"
+    },
+    {
+      "subject": "GBU-57",
+      "predicate": "precision-guided weapons",
+      "object": "instance of",
+      "confidence": 0.9,
+      "context": "Throughout the mission, we retained the element of surprise. In total, US forces employed approximat"
+    },
+    {
+      "subject": "Operation Enduring Freedom",
+      "predicate": "Operation Enduring Freedom II",
+      "object": "followed by",
+      "confidence": 0.9,
+      "context": "Final battle damage will take some time, but initial battle damage assessments indicate that all thr"
+    },
+    {
+      "subject": "Operation Enduring Freedom II",
+      "predicate": "Operation Enduring Freedom",
+      "object": "follows",
+      "confidence": 0.9,
+      "context": "Final battle damage will take some time, but initial battle damage assessments indicate that all thr"
+    },
+    {
+      "subject": "Operation Enduring Freedom",
+      "predicate": "Operation Enduring Freedom III",
+      "object": "followed by",
+      "confidence": 0.9,
+      "context": "Final battle damage will take some time, but initial battle damage assessments indicate that all thr"
+    },
+    {
+      "subject": "Operation Enduring Freedom III",
+      "predicate": "Operation Enduring Freedom",
+      "object": "follows",
+      "confidence": 0.9,
+      "context": "Final battle damage will take some time, but initial battle damage assessments indicate that all thr"
+    },
+    {
+      "subject": "Operation Enduring Freedom",
+      "predicate": "Operation Enduring Freedom",
+      "object": "part of",
+      "confidence": 0.9,
+      "context": "Final battle damage will take some time, but initial battle damage assessments indicate that all thr"
+    },
+    {
+      "subject": "Operation Enduring Freedom",
+      "predicate": "Operation Enduring Freedom",
+      "object": "has part",
+      "confidence": 0.9,
+      "context": "Final battle damage will take some time, but initial battle damage assessments indicate that all thr"
+    },
+    {
+      "subject": "B-2 stealth bomber",
+      "predicate": "US",
+      "object": "country of origin",
+      "confidence": 0.9,
+      "context": "More than 125 US aircraft participated in this mission, including B-2 stealth bombers, multiple flig"
+    },
+    {
+      "subject": "B-2",
+      "predicate": "stealth bomber",
+      "object": "subclass of",
+      "confidence": 0.9,
+      "context": "More than 125 US aircraft participated in this mission, including B-2 stealth bombers, multiple flig"
+    },
+    {
+      "subject": "B-2 stealth bomber",
+      "predicate": "US",
+      "object": "country",
+      "confidence": 0.9,
+      "context": "More than 125 US aircraft participated in this mission, including B-2 stealth bombers, multiple flig"
+    },
+    {
+      "subject": "Iraq",
+      "predicate": "Gulf",
+      "object": "located in or next to body of water",
+      "confidence": 0.9,
+      "context": "As the secretary said, this was the largest B-2 operational strike in US history and the second long"
+    },
+    {
+      "subject": "Syria",
+      "predicate": "Gulf",
+      "object": "located in or next to body of water",
+      "confidence": 0.9,
+      "context": "As the secretary said, this was the largest B-2 operational strike in US history and the second long"
+    },
+    {
+      "subject": "Iraq",
+      "predicate": "Syria",
+      "object": "shares border with",
+      "confidence": 0.9,
+      "context": "As the secretary said, this was the largest B-2 operational strike in US history and the second long"
+    },
+    {
+      "subject": "Syria",
+      "predicate": "Iraq",
+      "object": "shares border with",
+      "confidence": 0.9,
+      "context": "As the secretary said, this was the largest B-2 operational strike in US history and the second long"
+    },
+    {
+      "subject": "United States military",
+      "predicate": "president",
+      "object": "office held by head of the organization",
+      "confidence": 0.9,
+      "context": "The safety of our service members and civilians remains our highest priority. This mission demonstra"
+    },
+    {
+      "subject": "president",
+      "predicate": "United States military",
+      "object": "military branch",
+      "confidence": 0.9,
+      "context": "The safety of our service members and civilians remains our highest priority. This mission demonstra"
+    },
+    {
+      "subject": "military",
+      "predicate": "United States",
+      "object": "country",
+      "confidence": 0.9,
+      "context": "The safety of our service members and civilians remains our highest priority. This mission demonstra"
+    },
+    {
+      "subject": "secretary",
+      "predicate": "General Corrilla",
+      "object": "officeholder",
+      "confidence": 0.9,
+      "context": "I join the president and the secretary in being incredibly proud of the air crews, naval forces, cyb"
+    },
+    {
+      "subject": "General Corrilla",
+      "predicate": "secretary",
+      "object": "position held",
+      "confidence": 0.9,
+      "context": "I join the president and the secretary in being incredibly proud of the air crews, naval forces, cyb"
+    },
+    {
+      "subject": "Joint Force",
+      "predicate": "United States",
+      "object": "country",
+      "confidence": 0.9,
+      "context": "As we stand here this morning, many assets are still airborne, and we have hundreds deployed. I ask "
+    },
+    {
+      "subject": "United States",
+      "predicate": "region",
+      "object": "diplomatic relation",
+      "confidence": 0.9,
+      "context": "As we stand here this morning, many assets are still airborne, and we have hundreds deployed. I ask "
+    },
+    {
+      "subject": "region",
+      "predicate": "United States",
+      "object": "diplomatic relation",
+      "confidence": 0.9,
+      "context": "As we stand here this morning, many assets are still airborne, and we have hundreds deployed. I ask "
+    },
+    {
+      "subject": "Operation Enduring Freedom",
+      "predicate": "Iraq",
+      "object": "country",
+      "confidence": 0.9,
+      "context": "As we stand here this morning, many assets are still airborne, and we have hundreds deployed. I ask "
+    },
+    {
+      "subject": "Iraq",
+      "predicate": "Operation Enduring Freedom",
+      "object": "significant event",
+      "confidence": 0.9,
+      "context": "As we stand here this morning, many assets are still airborne, and we have hundreds deployed. I ask "
+    },
+    {
+      "subject": "Iran",
+      "predicate": "Israel",
+      "object": "diplomatic relation",
+      "confidence": 0.9,
+      "context": "Secretary? And to the chairman, um, you know, you you said the battle damage assessment is still ong"
+    },
+    {
+      "subject": "Israel",
+      "predicate": "Iran",
+      "object": "diplomatic relation",
+      "confidence": 0.9,
+      "context": "Secretary? And to the chairman, um, you know, you you said the battle damage assessment is still ong"
+    },
+    {
+      "subject": "Iranian nuclear program",
+      "predicate": "Iran",
+      "object": "country",
+      "confidence": 0.9,
+      "context": "Secretary? And to the chairman, um, you know, you you said the battle damage assessment is still ong"
+    },
+    {
+      "subject": "BDA",
+      "predicate": "Green",
+      "object": "has part",
+      "confidence": 0.9,
+      "context": "I think BDA is is still pending, and it would be way too early for me to comment on what may or may "
+    },
+    {
+      "subject": "Green",
+      "predicate": "BDA",
+      "object": "part of",
+      "confidence": 0.9,
+      "context": "I think BDA is is still pending, and it would be way too early for me to comment on what may or may "
+    },
+    {
+      "subject": "Green",
+      "predicate": "No",
+      "object": "instance of",
+      "confidence": 0.9,
+      "context": "I think BDA is is still pending, and it would be way too early for me to comment on what may or may "
+    },
+    {
+      "subject": "No",
+      "predicate": "instance of",
+      "object": "No",
+      "confidence": 0.9,
+      "context": "I think BDA is is still pending, and it would be way too early for me to comment on what may or may "
+    },
+    {
+      "subject": "the president",
+      "predicate": "peace process",
+      "object": "participant in",
+      "confidence": 0.9,
+      "context": "Secretary, can you tell me was there a particular moment when the president decided to pull the trig"
+    },
+    {
+      "subject": "peace process",
+      "predicate": "the president",
+      "object": "participant",
+      "confidence": 0.9,
+      "context": "Secretary, can you tell me was there a particular moment when the president decided to pull the trig"
+    },
+    {
+      "subject": "Secretary",
+      "predicate": "president",
+      "object": "appointed by",
+      "confidence": 0.9,
+      "context": "Secretary, can you tell me was there a particular moment when the president decided to pull the trig"
+    },
+    {
+      "subject": "president",
+      "predicate": "Secretary",
+      "object": "position held",
+      "confidence": 0.9,
+      "context": "Secretary, can you tell me was there a particular moment when the president decided to pull the trig"
+    },
+    {
+      "subject": "Iran",
+      "predicate": "nuclear program",
+      "object": "significant event",
+      "confidence": 0.9,
+      "context": "Wanted wanted a negotiated outcome, gave Iran every single opportunity and unfortunately was met by "
+    },
+    {
+      "subject": "nuclear program",
+      "predicate": "Iran",
+      "object": "country",
+      "confidence": 0.9,
+      "context": "Wanted wanted a negotiated outcome, gave Iran every single opportunity and unfortunately was met by "
+    },
+    {
+      "subject": "Iran",
+      "predicate": "the nuclear program",
+      "object": "significant event",
+      "confidence": 0.9,
+      "context": "Wanted wanted a negotiated outcome, gave Iran every single opportunity and unfortunately was met by "
+    },
+    {
+      "subject": "the nuclear program",
+      "predicate": "Iran",
+      "object": "country",
+      "confidence": 0.9,
+      "context": "Wanted wanted a negotiated outcome, gave Iran every single opportunity and unfortunately was met by "
+    },
+    {
+      "subject": "Gulf",
+      "predicate": "Iraq",
+      "object": "basin country",
+      "confidence": 0.9,
+      "context": "General, you say that General Corrilla increased force protection in Iraq, Syria, and Gulf in those "
+    },
+    {
+      "subject": "War Powers Act",
+      "predicate": "congressional",
+      "object": "legislated by",
+      "confidence": 0.9,
+      "context": "Uh, based on that and not a particular awareness of this operation, uh, we've made smart decisions t"
+    },
+    {
+      "subject": "notified",
+      "predicate": "War Powers Act",
+      "object": "part of",
+      "confidence": 0.9,
+      "context": "Uh, based on that and not a particular awareness of this operation, uh, we've made smart decisions t"
+    },
+    {
+      "subject": "notified",
+      "predicate": "War Powers Act",
+      "object": "facet of",
+      "confidence": 0.9,
+      "context": "Uh, based on that and not a particular awareness of this operation, uh, we've made smart decisions t"
+    },
+    {
+      "subject": "Israel",
+      "predicate": "US",
+      "object": "diplomatic relation",
+      "confidence": 0.9,
+      "context": "Do you believe you completely destroyed Iranian nuclear program? And how about Iranian ballistic mis"
+    },
+    {
+      "subject": "US",
+      "predicate": "Israel",
+      "object": "diplomatic relation",
+      "confidence": 0.9,
+      "context": "Do you believe you completely destroyed Iranian nuclear program? And how about Iranian ballistic mis"
+    },
+    {
+      "subject": "Fordo",
+      "predicate": "Uh",
+      "object": "located in the administrative territorial entity",
+      "confidence": 0.9,
+      "context": "Um, the battle damage assessment is ongoing, but our initial assessment is the chairman said is that"
+    },
+    {
+      "subject": "Uh",
+      "predicate": "Fordo",
+      "object": "contains administrative territorial entity",
+      "confidence": 0.9,
+      "context": "Um, the battle damage assessment is ongoing, but our initial assessment is the chairman said is that"
+    },
+    {
+      "subject": "Iran",
+      "predicate": "North Korea",
+      "object": "diplomatic relation",
+      "confidence": 0.9,
+      "context": "Um, ultimately, wherever it may be, whether it's in Iraq or Syria or bases in the Gulf, um, as the p"
+    },
+    {
+      "subject": "North Korea",
+      "predicate": "Iran",
+      "object": "diplomatic relation",
+      "confidence": 0.9,
+      "context": "Um, ultimately, wherever it may be, whether it's in Iraq or Syria or bases in the Gulf, um, as the p"
+    },
+    {
+      "subject": "China",
+      "predicate": "diplomatic relation",
+      "object": "North Korea",
+      "confidence": 0.9,
+      "context": "Do you think there is a possibility that Iran, North Korea and other forces such as China will join "
+    },
+    {
+      "subject": "Iran",
+      "predicate": "diplomatic relation",
+      "object": "China",
+      "confidence": 0.9,
+      "context": "Do you think there is a possibility that Iran, North Korea and other forces such as China will join "
+    },
+    {
+      "subject": "diplomatic relation",
+      "predicate": "China",
+      "object": "Iran",
+      "confidence": 0.9,
+      "context": "Do you think there is a possibility that Iran, North Korea and other forces such as China will join "
+    },
+    {
+      "subject": "diplomatic relation",
+      "predicate": "North Korea",
+      "object": "diplomatic relation",
+      "confidence": 0.9,
+      "context": "Do you think there is a possibility that Iran, North Korea and other forces such as China will join "
+    },
+    {
+      "subject": "China",
+      "predicate": "diplomatic relation",
+      "object": "China",
+      "confidence": 0.9,
+      "context": "Do you think there is a possibility that Iran, North Korea and other forces such as China will join "
+    },
+    {
+      "subject": "diplomatic relation",
+      "predicate": "China",
+      "object": "North Korea",
+      "confidence": 0.9,
+      "context": "Do you think there is a possibility that Iran, North Korea and other forces such as China will join "
+    },
+    {
+      "subject": "President Trump",
+      "predicate": "stonewalling",
+      "object": "significant event",
+      "confidence": 0.9,
+      "context": "That's our focus here is to not just say that they can't have, but President Trump has said from ove"
+    },
+    {
+      "subject": "stonewalling",
+      "predicate": "President Trump",
+      "object": "participant",
+      "confidence": 0.9,
+      "context": "That's our focus here is to not just say that they can't have, but President Trump has said from ove"
+    },
+    {
+      "subject": "Iraq",
+      "predicate": "Middle East",
+      "object": "part of",
+      "confidence": 0.9,
+      "context": "Can you say at all what security procedures are being taken to protect US troops in Iraq and elsewhe"
+    },
+    {
+      "subject": "Global War on Terrorism",
+      "predicate": "Middle East",
+      "object": "location",
+      "confidence": 0.9,
+      "context": "Can you say at all what security procedures are being taken to protect US troops in Iraq and elsewhe"
+    },
+    {
+      "subject": "Global War on Terrorism",
+      "predicate": "Iraq",
+      "object": "location",
+      "confidence": 0.9,
+      "context": "Can you say at all what security procedures are being taken to protect US troops in Iraq and elsewhe"
+    },
+    {
+      "subject": "reactive",
+      "predicate": "proactive",
+      "object": "opposite of",
+      "confidence": 0.9,
+      "context": "Uh, what I will say is we're being uh, proactive and not reactive. Um, and being very thoughtful abo"
+    },
+    {
+      "subject": "postured",
+      "predicate": "military",
+      "object": "facet of",
+      "confidence": 0.9,
+      "context": "Uh, what I will say is we're being uh, proactive and not reactive. Um, and being very thoughtful abo"
+    },
+    {
+      "subject": "postured",
+      "predicate": "military",
+      "object": "part of",
+      "confidence": 0.9,
+      "context": "Uh, what I will say is we're being uh, proactive and not reactive. Um, and being very thoughtful abo"
+    },
+    {
+      "subject": "Iran cannot have a nuclear capability",
+      "predicate": "Iranian regime",
+      "object": "country",
+      "confidence": 0.9,
+      "context": "But what the president gave us, as I said, was a focused, powerful, and clear mission on the destruc"
+    },
+    {
+      "subject": "Iran",
+      "predicate": "nuclear",
+      "object": "product or material produced",
+      "confidence": 0.9,
+      "context": "But what the president gave us, as I said, was a focused, powerful, and clear mission on the destruc"
+    },
+    {
+      "subject": "Iran",
+      "predicate": "the president",
+      "object": "head of state",
+      "confidence": 0.9,
+      "context": "But what the president gave us, as I said, was a focused, powerful, and clear mission on the destruc"
+    },
+    {
+      "subject": "secretary",
+      "predicate": "chairman",
+      "object": "different from",
+      "confidence": 0.9,
+      "context": "That is a very clear mission set on this operation. Yes. Um, hold on. Yes, right there. Uh, thank yo"
+    },
+    {
+      "subject": "chairman",
+      "predicate": "secretary",
+      "object": "different from",
+      "confidence": 0.9,
+      "context": "That is a very clear mission set on this operation. Yes. Um, hold on. Yes, right there. Uh, thank yo"
+    },
+    {
+      "subject": "the secretary",
+      "predicate": "chairman",
+      "object": "different from",
+      "confidence": 0.9,
+      "context": "That is a very clear mission set on this operation. Yes. Um, hold on. Yes, right there. Uh, thank yo"
+    },
+    {
+      "subject": "chairman",
+      "predicate": "the secretary",
+      "object": "different from",
+      "confidence": 0.9,
+      "context": "That is a very clear mission set on this operation. Yes. Um, hold on. Yes, right there. Uh, thank yo"
+    },
+    {
+      "subject": "Israeli military",
+      "predicate": "Israel",
+      "object": "country",
+      "confidence": 0.9,
+      "context": "Um, how was this strike uh, coordinated uh, with the Israelis um, on a strategic level militarily um"
+    },
+    {
+      "subject": "MRBM",
+      "predicate": "Iranian launchers",
+      "object": "subclass of",
+      "confidence": 0.9,
+      "context": "Um, how was this strike uh, coordinated uh, with the Israelis um, on a strategic level militarily um"
+    },
+    {
+      "subject": "Israel",
+      "predicate": "ally",
+      "object": "instance of",
+      "confidence": 0.9,
+      "context": "Um, how was this strike uh, coordinated uh, with the Israelis um, on a strategic level militarily um"
+    },
+    {
+      "subject": "General Corrilla",
+      "predicate": "Centcom",
+      "object": "employer",
+      "confidence": 0.9,
+      "context": "Uh, and there certainly have been conversations. I mean General Corrilla at Centcom has worked close"
+    },
+    {
+      "subject": "ongoing defense of Israel",
+      "predicate": "Israel",
+      "object": "country",
+      "confidence": 0.9,
+      "context": "Uh, and there certainly have been conversations. I mean General Corrilla at Centcom has worked close"
+    },
+    {
+      "subject": "ongoing defense of Israel",
+      "predicate": "Israel",
+      "object": "location",
+      "confidence": 0.9,
+      "context": "Uh, and there certainly have been conversations. I mean General Corrilla at Centcom has worked close"
+    },
+    {
+      "subject": "airspace",
+      "predicate": "sky",
+      "object": "different from",
+      "confidence": 0.9,
+      "context": "I won't get into the particulars, but as the secretary said it was a it was a US strike. Um, uh, we "
+    },
+    {
+      "subject": "sky",
+      "predicate": "airspace",
+      "object": "different from",
+      "confidence": 0.9,
+      "context": "I won't get into the particulars, but as the secretary said it was a it was a US strike. Um, uh, we "
+    },
+    {
+      "subject": "air space",
+      "predicate": "sky",
+      "object": "part of",
+      "confidence": 0.9,
+      "context": "I won't get into the particulars, but as the secretary said it was a it was a US strike. Um, uh, we "
+    },
+    {
+      "subject": "sky",
+      "predicate": "air space",
+      "object": "has part",
+      "confidence": 0.9,
+      "context": "I won't get into the particulars, but as the secretary said it was a it was a US strike. Um, uh, we "
+    },
+    {
+      "subject": "airspace",
+      "predicate": "sky",
+      "object": "part of",
+      "confidence": 0.9,
+      "context": "I won't get into the particulars, but as the secretary said it was a it was a US strike. Um, uh, we "
+    },
+    {
+      "subject": "sky",
+      "predicate": "airspace",
+      "object": "has part",
+      "confidence": 0.9,
+      "context": "I won't get into the particulars, but as the secretary said it was a it was a US strike. Um, uh, we "
+    },
+    {
+      "subject": "Gulf",
+      "predicate": "US allies",
+      "object": "participant",
+      "confidence": 0.9,
+      "context": "Are you concerned whatsoever now about the reaction from US allies given this strike, particularly t"
+    },
+    {
+      "subject": "Gulf",
+      "predicate": "US",
+      "object": "basin country",
+      "confidence": 0.9,
+      "context": "Are you concerned whatsoever now about the reaction from US allies given this strike, particularly t"
+    },
+    {
+      "subject": "US allies",
+      "predicate": "Gulf",
+      "object": "location",
+      "confidence": 0.9,
+      "context": "Are you concerned whatsoever now about the reaction from US allies given this strike, particularly t"
+    },
+    {
+      "subject": "American troops",
+      "predicate": "Iraq",
+      "object": "country",
+      "confidence": 0.9,
+      "context": "Um, ultimately, they've got a lot of assets and people in those locations also where American troops"
+    },
+    {
+      "subject": "Operation Enduring Freedom",
+      "predicate": "Iraq",
+      "object": "location",
+      "confidence": 0.9,
+      "context": "Um, ultimately, they've got a lot of assets and people in those locations also where American troops"
+    },
+    {
+      "subject": "president",
+      "predicate": "secretary",
+      "object": "appointed by",
+      "confidence": 0.9,
+      "context": "We we are always carefully considering our force posture around the world, uh, and then offering opt"
+    },
+    {
+      "subject": "Iran",
+      "predicate": "United States",
+      "object": "diplomatic relation",
+      "confidence": 0.9,
+      "context": "Um, what communications are being sent to the Iranians right now? And is there any possibility of di"
+    },
+    {
+      "subject": "United States",
+      "predicate": "Iran",
+      "object": "diplomatic relation",
+      "confidence": 0.9,
+      "context": "Um, what communications are being sent to the Iranians right now? And is there any possibility of di"
+    },
+    {
+      "subject": "Iran",
+      "predicate": "the United States",
+      "object": "diplomatic relation",
+      "confidence": 0.9,
+      "context": "Um, what communications are being sent to the Iranians right now? And is there any possibility of di"
+    },
+    {
+      "subject": "the United States",
+      "predicate": "Iran",
+      "object": "diplomatic relation",
+      "confidence": 0.9,
+      "context": "Um, what communications are being sent to the Iranians right now? And is there any possibility of di"
+    },
+    {
+      "subject": "Iran",
+      "predicate": "Russia",
+      "object": "diplomatic relation",
+      "confidence": 0.9,
+      "context": "Um, what communications are being sent to the Iranians right now? And is there any possibility of di"
+    },
+    {
+      "subject": "Russia",
+      "predicate": "Iran",
+      "object": "diplomatic relation",
+      "confidence": 0.9,
+      "context": "Um, what communications are being sent to the Iranians right now? And is there any possibility of di"
+    },
+    {
+      "subject": "Iran",
+      "predicate": "diplomatic relation",
+      "object": "Iran",
+      "confidence": 0.9,
+      "context": "Uh, the president may not want an open-ended conflict. Uh, the Iranians may disagree. Are you prepar"
+    },
+    {
+      "subject": "Iran",
+      "predicate": "the Iranians",
+      "object": "diplomatic relation",
+      "confidence": 0.9,
+      "context": "Uh, the president may not want an open-ended conflict. Uh, the Iranians may disagree. Are you prepar"
+    },
+    {
+      "subject": "the Iranians",
+      "predicate": "Iran",
+      "object": "diplomatic relation",
+      "confidence": 0.9,
+      "context": "Uh, the president may not want an open-ended conflict. Uh, the Iranians may disagree. Are you prepar"
+    },
+    {
+      "subject": "Centcom",
+      "predicate": "General Corrilla",
+      "object": "chairperson",
+      "confidence": 0.9,
+      "context": "This is the line that the president set, and we set that back. Now is the time to come forward for p"
+    },
+    {
+      "subject": "General Corrilla",
+      "predicate": "Centcom",
+      "object": "position held",
+      "confidence": 0.9,
+      "context": "This is the line that the president set, and we set that back. Now is the time to come forward for p"
+    },
+    {
+      "subject": "Osama bin Laden",
+      "predicate": "September 11, 2001 attacks",
+      "object": "significant event",
+      "confidence": 0.9,
+      "context": "What they've done to look around the corner, to pre-position, to understand how an operation like th"
+    },
+    {
+      "subject": "Osama bin Laden",
+      "predicate": "September 11, 2001",
+      "object": "significant event",
+      "confidence": 0.9,
+      "context": "What they've done to look around the corner, to pre-position, to understand how an operation like th"
+    },
+    {
+      "subject": "Osama bin Laden",
+      "predicate": "al-Qaeda",
+      "object": "member of political party",
+      "confidence": 0.9,
+      "context": "What they've done to look around the corner, to pre-position, to understand how an operation like th"
+    },
+    {
+      "subject": "America",
+      "predicate": "Missouri",
+      "object": "contains administrative territorial entity",
+      "confidence": 0.9,
+      "context": "Uh, and I think Tehran is certainly calculating the reality that um, planes flew from the middle of "
+    },
+    {
+      "subject": "Missouri",
+      "predicate": "America",
+      "object": "country",
+      "confidence": 0.9,
+      "context": "Uh, and I think Tehran is certainly calculating the reality that um, planes flew from the middle of "
+    },
+    {
+      "subject": "American",
+      "predicate": "Missouri",
+      "object": "contains administrative territorial entity",
+      "confidence": 0.9,
+      "context": "Uh, and I think Tehran is certainly calculating the reality that um, planes flew from the middle of "
+    },
+    {
+      "subject": "Missouri",
+      "predicate": "American",
+      "object": "country",
+      "confidence": 0.9,
+      "context": "Uh, and I think Tehran is certainly calculating the reality that um, planes flew from the middle of "
+    },
+    {
+      "subject": "Missouri",
+      "predicate": "America",
+      "object": "located in the administrative territorial entity",
+      "confidence": 0.9,
+      "context": "Uh, and I think Tehran is certainly calculating the reality that um, planes flew from the middle of "
+    },
+    {
+      "subject": "I will take one more",
+      "predicate": "one more question",
+      "object": "followed by",
+      "confidence": 0.9,
+      "context": "But I could not be more proud of of how this building operated, of the uh, the precision, the sensit"
+    },
+    {
+      "subject": "one more question",
+      "predicate": "I will take one more",
+      "object": "follows",
+      "confidence": 0.9,
+      "context": "But I could not be more proud of of how this building operated, of the uh, the precision, the sensit"
+    },
+    {
+      "subject": "Operation Enduring Freedom",
+      "predicate": "Operation Enduring Freedom",
+      "object": "followed by",
+      "confidence": 0.9,
+      "context": "But I could not be more proud of of how this building operated, of the uh, the precision, the sensit"
+    },
+    {
+      "subject": "Operation Enduring Freedom",
+      "predicate": "Operation Enduring Freedom",
+      "object": "follows",
+      "confidence": 0.9,
+      "context": "But I could not be more proud of of how this building operated, of the uh, the precision, the sensit"
+    },
+    {
+      "subject": "threat assessment",
+      "predicate": "office of the director of National Intelligence",
+      "object": "publisher",
+      "confidence": 0.9,
+      "context": "In March, uh, the office of the director of National Intelligence released their threat assessment, "
+    },
+    {
+      "subject": "threat assessment",
+      "predicate": "office of the director of National Intelligence",
+      "object": "author",
+      "confidence": 0.9,
+      "context": "In March, uh, the office of the director of National Intelligence released their threat assessment, "
+    },
+    {
+      "subject": "threat assessment",
+      "predicate": "office of the director of National Intelligence",
+      "object": "creator",
+      "confidence": 0.9,
+      "context": "In March, uh, the office of the director of National Intelligence released their threat assessment, "
+    },
+    {
+      "subject": "US sources and methods",
+      "predicate": "intelligence",
+      "object": "subclass of",
+      "confidence": 0.9,
+      "context": "So what new intelligence does the US have since then that the Iranians have changed their position o"
+    },
+    {
+      "subject": "sources and methods",
+      "predicate": "intelligence",
+      "object": "subclass of",
+      "confidence": 0.9,
+      "context": "So what new intelligence does the US have since then that the Iranians have changed their position o"
+    },
+    {
+      "subject": "sources and methods",
+      "predicate": "intelligence",
+      "object": "facet of",
+      "confidence": 0.9,
+      "context": "So what new intelligence does the US have since then that the Iranians have changed their position o"
+    },
+    {
+      "subject": "Iran",
+      "predicate": "allies",
+      "object": "diplomatic relation",
+      "confidence": 0.9,
+      "context": "Uh, and was willing to take uh, this precision operation to neutralize that threat in order to advan"
+    },
+    {
+      "subject": "allies",
+      "predicate": "Iran",
+      "object": "diplomatic relation",
+      "confidence": 0.9,
+      "context": "Uh, and was willing to take uh, this precision operation to neutralize that threat in order to advan"
+    },
+    {
+      "subject": "WC-135",
+      "predicate": "sub",
+      "object": "subclass of",
+      "confidence": 0.9,
+      "context": "Chairman, you have any needs of the WC-135 sub to check for radioactive material, not this morning.."
+    },
+    {
+      "subject": "WC-135",
+      "predicate": "sub",
+      "object": "instance of",
+      "confidence": 0.9,
+      "context": "Chairman, you have any needs of the WC-135 sub to check for radioactive material, not this morning.."
+    },
+    {
+      "subject": "WC-135 sub",
+      "predicate": "radioactive material",
+      "object": "subclass of",
+      "confidence": 0.9,
+      "context": "Chairman, you have any needs of the WC-135 sub to check for radioactive material, not this morning.."
+    }
+  ],
+  "total_count": 193
+}

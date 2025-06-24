@@ -1,0 +1,211 @@
+---
+description: Guidelines for keeping API costs low while maintaining quality
+globs: 
+alwaysApply: false
+---
+---
+description: "Guidelines for keeping API costs low while maintaining quality"
+globs: ["**/*.py"]
+alwaysApply: true
+---
+
+# Cost Optimization Guidelines
+
+## Core Principle
+
+ClipScribe achieves 92% cost reduction through smart routing and caching. Always consider cost implications of API calls.
+
+## Cost Hierarchy
+
+From cheapest to most expensive:
+
+1. **Free Tier** ($0/operation)
+   - SpaCy entity extraction
+   - YouTube Transcript API
+   - Local model inference (GLiNER/REBEL)
+   - Cached results
+
+2. **Low Cost** (~$0.002/minute)
+   - Gemini 1.5 Flash audio transcription
+   - Basic text processing
+
+3. **Medium Cost** (~$0.02/minute)
+   - Gemini video mode processing
+   - Visual element extraction
+
+4. **High Cost** (~$0.10+/operation)
+   - Pure LLM entity extraction
+   - Large context window operations
+
+## Implementation Strategies
+
+### 1. Use Hybrid Extraction
+```python
+# Bad - Pure LLM extraction
+entities = await llm.extract_entities(text)  # $0.10+
+
+# Good - Hybrid approach
+entities = spacy_extractor.extract(text)     # Free
+if confidence < 0.8:
+    entities = await llm.validate(entities)  # $0.001
+```
+
+### 2. Cache Everything
+```python
+class CachedRetriever:
+    def _get_cache_key(self, url: str) -> str:
+        return hashlib.md5(url.encode()).hexdigest()
+    
+    async def process(self, url: str):
+        cache_key = self._get_cache_key(url)
+        
+        # Check cache first
+        if cached := self._load_from_cache(cache_key):
+            logger.info("Cache hit - $0 cost!")
+            return cached
+        
+        # Process and cache
+        result = await self._process_video(url)
+        self._save_to_cache(cache_key, result)
+        return result
+```
+
+### 3. Mode Selection
+```python
+# Let users choose processing mode
+if mode == "auto":
+    # Intelligently detect if video mode is needed
+    if self._needs_visual_analysis(url):
+        mode = "video"  # 10x cost
+    else:
+        mode = "audio"  # Base cost
+```
+
+### 4. Batch Processing
+```python
+# Process multiple items efficiently
+async def batch_process(urls: List[str]):
+    # Reuse models across batch
+    extractor = load_model()  # Load once
+    
+    tasks = [process_with_model(url, extractor) for url in urls]
+    return await asyncio.gather(*tasks)
+```
+
+## Cost Tracking
+
+### Track Every Operation
+```python
+class CostTracker:
+    COSTS = {
+        "gemini_audio": 0.0001875,     # per 1k tokens
+        "gemini_video": 0.001875,       # per 1k tokens
+        "spacy": 0.0,                   # Free
+        "gliner": 0.0,                  # Local model
+        "rebel": 0.0,                   # Local model
+    }
+    
+    def track_operation(self, operation: str, units: float):
+        cost = units * self.COSTS.get(operation, 0.0)
+        self.total_cost += cost
+        logger.info(f"{operation}: ${cost:.4f}")
+```
+
+### Display Costs to Users
+```python
+# In CLI output
+table.add_row("Processing Cost", f"${video.processing_cost:.4f}")
+table.add_row("Cost Breakdown", f"Audio: ${audio_cost:.4f}, Extraction: ${extract_cost:.4f}")
+
+# Warn on high costs
+if estimated_cost > settings.cost_warning_threshold:
+    console.print(f"[yellow]⚠ Estimated cost: ${estimated_cost:.2f}[/yellow]")
+    if not click.confirm("Continue?"):
+        return
+```
+
+## Token Optimization
+
+### Efficient Prompts
+```python
+# Bad - Verbose prompt
+prompt = """
+Please transcribe the following audio file. Make sure to include
+every single word that is spoken, with proper punctuation and
+formatting. Also ensure that...
+"""  # Many tokens
+
+# Good - Concise prompt
+prompt = "Transcribe this audio precisely. Include all speech."  # Fewer tokens
+```
+
+### Chunk Processing
+```python
+# Process long content in chunks
+CHUNK_SIZE = 600  # 10 minutes
+
+for chunk in audio_chunks:
+    transcript = await transcribe_chunk(chunk)
+    # Process incrementally, stop if needed
+```
+
+## Free Tier Maximization
+
+### YouTube Transcript API
+```python
+# Always try free transcript first
+try:
+    transcript = youtube_transcript_api.get_transcript(video_id)
+    cost = 0.0  # Free!
+except:
+    # Fall back to paid transcription
+    transcript = await gemini_transcribe(audio)
+    cost = calculate_cost(audio_duration)
+```
+
+### Local Models
+```python
+# Use local models for extraction
+if torch.cuda.is_available() or torch.backends.mps.is_available():
+    # GPU available - use larger local models
+    extractor = AdvancedLocalExtractor()
+else:
+    # CPU only - use lightweight models
+    extractor = BasicLocalExtractor()
+```
+
+## Cost Estimation
+
+Always estimate before processing:
+```python
+def estimate_cost(url: str, mode: str) -> float:
+    """Estimate processing cost before starting."""
+    duration = get_video_duration(url)
+    
+    if mode == "audio":
+        # ~25 tokens per second
+        tokens = duration * 25
+        return (tokens / 1000) * 0.0001875
+    else:
+        # ~250 tokens per second for video
+        tokens = duration * 250
+        return (tokens / 1000) * 0.001875
+```
+
+## Best Practices
+
+1. **Default to audio mode** - It's 10x cheaper
+2. **Cache aggressively** - Disk space is cheaper than API calls
+3. **Use free APIs first** - YouTube API, local models
+4. **Batch operations** - Reduce overhead
+5. **Monitor costs** - Log and track every operation
+6. **Set cost limits** - Implement daily/monthly caps
+7. **Educate users** - Show cost implications in UI
+
+## Common Pitfalls
+
+- Don't use video mode for podcasts
+- Don't skip caching to "save time"
+- Don't use LLMs for simple NER
+- Don't process entire videos if you only need clips
+- Don't forget to clean up uploaded files (Gemini)

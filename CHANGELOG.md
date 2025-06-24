@@ -1,0 +1,181 @@
+# ClipScribe Changelog
+
+All notable changes to ClipScribe will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [Unreleased]
+
+### Added
+- **Comprehensive Rules System**: 19 specialized `.cursor/rules/*.mdc` files
+  - Master rule (README.mdc) governing all project rules
+  - Core identity rule defining project mission
+  - File organization rule preventing root pollution
+  - Documentation management and update rules
+  - Visualization guidelines for knowledge graphs
+  - Troubleshooting guide with common issues
+  - Aligned with Chimera Researcher patterns
+- **Documentation Improvements**:
+  - Created comprehensive CONTINUATION_PROMPT.md
+  - Reorganized documentation structure
+  - Added clear task completion checklist
+- **Video Mode Support**: Process full videos with visual content extraction (--mode video)
+- **Auto Mode Detection**: Intelligently choose between audio/video processing (--mode auto)
+- **Visual Element Extraction**: Capture slides, code, diagrams, and on-screen text
+- **Cost Transparency**: Clear explanations of processing costs for each mode
+- **Video Mode Demo**: New example showing when to use each processing mode
+- Updated Python requirement to 3.12 for better dependency compatibility
+- Updated SpaCy to 3.8.7 for Python 3.12 support
+- Fixed pyproject.toml typo and dependency resolution
+
+### Changed
+- Consolidated redundant documentation update instructions
+- Enhanced task completion checklist location (now in documentation-updates.mdc)
+- Improved rule organization and precedence
+
+### Fixed
+- Fixed Topic validation error when Gemini returns string topics instead of Topic objects
+- Fixed GLiNER and REBEL extractors expecting strings but receiving VideoTranscript objects
+- Fixed JSON serialization of Topic objects in save_all_formats()
+- Fixed SpaCy frequency calculation to use doc.text instead of undefined text variable
+- Fixed Rich markup error in advanced_extraction_demo.py
+- **GLiNER Type Error**: Fixed API usage - now correctly passes string instead of list to predict_entities
+- **REBEL Parser**: Enhanced to handle multiple output formats (with and without `<triplet>` tags)
+- Both extractors now run without errors and successfully extract entities/relationships
+
+## [2.2.0] - 2025-01-15
+
+### Added
+- **REBEL Integration** - Extract entity relationships from video transcripts
+  - Extracts (subject, predicate, object) triples
+  - Builds comprehensive fact databases from videos
+  - Example: "Elon Musk → founded → SpaceX"
+- **GLiNER Integration** - Detect custom entity types beyond standard NER
+  - Domain-specific entities (weapons, operations, technologies)
+  - Specialized extraction for military, tech, finance, medical domains
+  - Detects ANY entity type you specify
+- **Knowledge Graph Generation** - Build NetworkX-compatible graphs
+  - Nodes from entities, edges from relationships
+  - Graph statistics (density, connected components)
+  - Export to JSON for visualization tools
+- **Advanced Hybrid Extractor** - Complete intelligence extraction pipeline
+  - SpaCy for basic NER (free)
+  - GLiNER for custom entities
+  - REBEL for relationships
+  - Selective LLM validation for low-confidence items
+  - 98.6% cost reduction vs pure LLM approach
+- **Domain-Specific Extraction** - Optimized for different content types
+  - Military: weapons, operations, units, bases
+  - Technology: software, algorithms, frameworks
+  - Finance: stocks, metrics, investments
+  - Medical: diseases, treatments, procedures
+- **New Output Formats**:
+  - `relationships.json` - All extracted relationships with confidence
+  - `knowledge_graph.json` - Complete graph structure
+  - `facts.txt` - Human-readable fact list
+- **Advanced Extraction Demo** - `examples/advanced_extraction_demo.py`
+  - Shows entity distribution, top relationships, key facts
+  - Visualizes knowledge graph statistics
+  - Domain-specific extraction examples
+- **Processing Statistics** - Track extraction performance
+  - Entity counts by source (SpaCy vs GLiNER)
+  - Relationship extraction metrics
+  - Graph complexity measures
+
+### Changed
+- `VideoIntelligence` model now includes relationships and knowledge_graph fields
+- `VideoIntelligenceRetriever` supports `use_advanced_extraction` parameter
+- Manifest format updated to version 2.2 with extraction stats
+- Dependencies updated to include torch, transformers, gliner, networkx
+- Enhanced transcriber to support both audio and video file processing
+- Updated CLI with helpful mode selection guidance
+- UniversalVideoClient now supports downloading full video files
+
+### Technical Details
+- ~2GB model download on first run (cached thereafter)
+- GPU acceleration supported (CUDA, MPS/Apple Metal)
+- Processes in chunks to handle long transcripts
+- Async processing for efficient extraction
+
+### Previous Updates (Moved from Unreleased)
+- Meaningful filename generation for transcripts
+  - Transcripts now saved using video title as filename
+  - Automatic filename sanitization for OS compatibility
+  - Duplicate handling with numbered suffixes
+  - `create_output_filename()` utility function
+- Structured machine-readable output format
+  - Directory naming: `{date}_{platform}_{video_id}/`
+  - Multiple output formats saved simultaneously (txt, json, srt, vtt)
+  - Manifest file with file index and checksums
+  - Metadata file with video info and statistics
+  - Entities file for knowledge graph integration
+  - Chimera-compatible format for easy integration
+  - `save_all_formats()` method for complete output
+  - `structured_output_demo.py` example
+- Updated examples to save transcripts with video titles
+- Enhanced `VideoIntelligenceRetriever` with `save_transcript()` method
+- Enhanced `VideoIntelligenceRetriever` with `save_all_formats()` method
+- Improved filename utilities with platform/video ID extraction
+- Transitioned to Poetry-only dependency management
+- Removed all pip/tox references from project
+
+## [2.1.0] - 2025-06-23
+
+### Added
+- Hybrid entity extraction system using SpaCy + selective LLM validation
+- Proper subtitle segment generation (30-second segments)
+- Comprehensive output format documentation (`docs/OUTPUT_FORMATS.md`)
+- `SpacyEntityExtractor` for zero-cost named entity recognition
+- `HybridEntityExtractor` with confidence-based routing
+- Cost tracking for entity extraction operations
+- Test script for improvements (`examples/test_improvements.py`)
+
+### Changed
+- Entity extraction now uses hybrid approach (98.6% cost reduction)
+- SRT/VTT files now have proper time segments instead of one giant block
+- Added spacy dependency for reliable entity extraction
+
+## [2.0.0] - 2025-06-23
+
+### Added
+- Complete project restructure with `src/clipscribe/` layout
+- Comprehensive documentation suite in `docs/` directory
+- 7 production-ready example scripts with full documentation
+- CONTINUATION_PROMPT.md for session continuity
+- Pydantic models for type-safe data structures
+- VideoIntelligenceRetriever for unified video processing
+- Cost tracking ($0.002/minute with Gemini)
+- Processing time metrics
+- Entity extraction (people, places, organizations, products)
+- Key points extraction with timestamps
+- Sentiment analysis
+- Topic identification
+- Summary generation
+- SRT subtitle generation
+- JSON metadata export
+
+### Changed
+- Migrated from old flat structure to modern Python project layout
+- Updated to use Gemini 1.5 Flash (from 2.5 Flash preview)
+- Improved error handling with proper retry logic
+- Better platform-specific configurations
+- Enhanced progress tracking during processing
+
+### Fixed
+- Python 3.13 compatibility issues
+- Data model mapping between transcriber and retriever
+- Import errors in example scripts
+- Virtual environment setup issues
+
+### Removed
+- Legacy ML dependencies (temporarily removed for compatibility)
+- Old file structure and scripts
+- Large files from git history (WAV files, venv binaries)
+
+## [1.0.0] - 2024-12-01
+
+### Added
+- Initial release with Google Cloud Speech-to-Text v2
+- Basic YouTube video transcription
+- Simple file output 

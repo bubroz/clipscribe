@@ -1,0 +1,63 @@
+---
+description: Critical files checklist that must be kept updated when making significant project changes globs: ["README.md", "CHANGELOG.md", "CONTINUATION_PROMPT.md", "docs/**/*.md", ".cursor/rules/*.mdc", "pyproject.toml", "package.json"
+globs: 
+alwaysApply: false
+---
+---
+description: Critical files checklist that must be kept updated when making significant project changes
+globs: ["README.md", "CHANGELOG.md", "CONTINUATION_PROMPT.md", "docs/**/*.md", ".cursor/rules/*.mdc", "pyproject.toml", "package.json"]
+alwaysApply: false
+---
+# Critical Files Checklist
+
+## 🚨 Quick Reference: Files to Update
+
+This is a quick checklist. For detailed update instructions, see `@documentation-updates`.
+
+### 📁 After Any Change:
+- [ ] `CONTINUATION_PROMPT.md` - Session continuity (see `@documentation-updates` for details)
+
+### 📁 After Feature Implementation:
+- [ ] `CONTINUATION_PROMPT.md` (always!)
+- [ ] `docs/status/STATUS_AND_ROADMAP.md` - Update roadmap
+- [ ] `README.md` - If user-facing
+- [ ] `docs/features/[feature-name].md` - Feature documentation
+- [ ] `CHANGELOG.md` - If releasing
+
+### 📁 After Architecture Changes:
+- [ ] `CONTINUATION_PROMPT.md` (always!)
+- [ ] `docs/architecture/[component].md` - Technical docs
+- [ ] `.cursor/rules/[relevant-rule].mdc` - Update patterns
+- [ ] `docs/status/STATUS_AND_ROADMAP.md` - Update technical debt
+
+### 📁 After Dependency Changes:
+- [ ] `pyproject.toml` or `package.json` - Dependencies
+- [ ] `README.md` - Setup instructions
+- [ ] `config_examples/` - New configuration options
+
+### 📁 Weekly/Sprint Updates:
+- [ ] `docs/status/weekly-reports/YYYY-week-WW.md` - Progress
+- [ ] `docs/status/README.md` - Sprint status
+- [ ] `README.md` - Current project state
+
+## 🎯 Quick Commands
+
+```bash
+# Check current date/time before updating
+date
+
+# Find recently modified files
+find . -name "*.md" -type f -mtime -7 | grep -v node_modules
+
+# Check for TODOs
+grep -r "TODO" docs/ README.md CHANGELOG.md
+```
+
+## 📋 Update Order
+1. Implementation files
+2. Feature/technical documentation
+3. CONTINUATION_PROMPT.md
+4. STATUS_AND_ROADMAP.md
+5. README.md and CHANGELOG.md
+
+Remember: For detailed instructions on WHAT to include in each file, see `@documentation-updates` :-)

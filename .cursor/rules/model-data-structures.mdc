@@ -1,0 +1,300 @@
+---
+description: Guidelines for using Pydantic models and data structures
+globs: 
+alwaysApply: false
+---
+---
+description: "Guidelines for using Pydantic models and data structures"
+globs: ["**/models.py", "src/clipscribe/models/**/*.py", "**/schemas*.py"]
+alwaysApply: false
+---
+
+# Model & Data Structure Patterns
+
+## Pydantic Model Guidelines
+
+ClipScribe uses Pydantic v2 for all data validation. Follow these patterns:
+
+### Basic Model Structure
+```python
+from pydantic import BaseModel, Field, field_validator
+from typing import List, Dict, Optional, Any
+from datetime import datetime
+
+class VideoMetadata(BaseModel):
+    """Video metadata with validation."""
+    
+    # Required fields
+    video_id: str
+    title: str
+    channel: str
+    duration: int  # seconds
+    
+    # Optional fields with defaults
+    published_at: Optional[datetime] = None
+    view_count: Optional[int] = None
+    description: Optional[str] = Field(None, max_length=5000)
+    
+    # Fields with validation
+    tags: List[str] = Field(default_factory=list)
+    url: str = Field(..., pattern=r'^https?://')
+    
+    # Computed fields
+    @property
+    def duration_formatted(self) -> str:
+        """Format duration as HH:MM:SS."""
+        hours = self.duration // 3600
+        minutes = (self.duration % 3600) // 60
+        seconds = self.duration % 60
+        return f"{hours:02d}:{minutes:02d}:{seconds:02d}"
+```
+
+### Field Validation
+```python
+class Entity(BaseModel):
+    """Entity with validation."""
+    name: str
+    type: str
+    confidence: float = Field(1.0, ge=0, le=1)
+    
+    @field_validator('type')
+    def validate_type(cls, v: str) -> str:
+        """Ensure valid entity type."""
+        valid_types = {
+            'PERSON', 'ORGANIZATION', 'LOCATION', 
+            'EVENT', 'PRODUCT', 'TECHNOLOGY'
+        }
+        if v.upper() not in valid_types:
+            raise ValueError(f"Invalid entity type: {v}")
+        return v.upper()
+    
+    @field_validator('name')
+    def normalize_name(cls, v: str) -> str:
+        """Normalize entity name."""
+        return v.strip().title()
+```
+
+### Model Inheritance
+```python
+class BaseExtractorResult(BaseModel):
+    """Base class for extractor results."""
+    entities: List[Entity] = Field(default_factory=list)
+    metadata: Dict[str, Any] = Field(default_factory=dict)
+    processing_time: float = 0.0
+    
+class AdvancedExtractorResult(BaseExtractorResult):
+    """Extended result with relationships."""
+    relationships: List[Relationship] = Field(default_factory=list)
+    knowledge_graph: Optional[Dict[str, Any]] = None
+    confidence_scores: Dict[str, float] = Field(default_factory=dict)
+```
+
+## Complex Types
+
+### Nested Models
+```python
+class VideoTranscript(BaseModel):
+    """Transcript with segments."""
+    full_text: str
+    segments: List[Segment] = Field(default_factory=list)
+    language: str = Field("en", pattern=r'^[a-z]{2}$')
+    confidence: float = Field(1.0, ge=0, le=1)
+
+class Segment(BaseModel):
+    """Transcript segment."""
+    start_time: float = Field(ge=0.0)
+    end_time: float = Field(ge=0.0)
+    text: str
+    speaker: Optional[str] = None
+    
+    @field_validator('end_time')
+    def validate_timing(cls, v: float, info) -> float:
+        """Ensure end > start."""
+        if 'start_time' in info.data and v <= info.data['start_time']:
+            raise ValueError("end_time must be greater than start_time")
+        return v
+```
+
+### Union Types
+```python
+from typing import Union
+
+class Topic(BaseModel):
+    """Topic can be string or structured."""
+    name: str
+    confidence: float = 0.9
+    
+    @classmethod
+    def from_string(cls, topic: str) -> 'Topic':
+        """Create from string."""
+        return cls(name=topic)
+
+# Handle both formats
+TopicInput = Union[str, Topic]
+
+def process_topics(topics: List[TopicInput]) -> List[Topic]:
+    """Normalize topics to Topic objects."""
+    return [
+        Topic.from_string(t) if isinstance(t, str) else t
+        for t in topics
+    ]
+```
+
+## Serialization
+
+### Custom JSON Encoding
+```python
+class VideoIntelligence(BaseModel):
+    """Model with custom serialization."""
+    metadata: VideoMetadata
+    transcript: VideoTranscript
+    processing_cost: float = 0.0
+    
+    class Config:
+        """Pydantic configuration."""
+        json_encoders = {
+            datetime: lambda v: v.isoformat() if v else None,
+            Path: lambda v: str(v),
+            Decimal: lambda v: float(v)
+        }
+    
+    def to_chimera_format(self) -> Dict[str, Any]:
+        """Custom export format."""
+        return {
+            "type": "video",
+            "url": self.metadata.url,
+            "content": self.transcript.full_text,
+            # Custom transformation
+        }
+```
+
+### Model Export
+```python
+# Different export formats
+video = VideoIntelligence(...)
+
+# Pydantic v2 methods
+json_str = video.model_dump_json(indent=2)
+dict_data = video.model_dump(exclude_none=True)
+dict_subset = video.model_dump(include={'metadata', 'transcript'})
+
+# Custom exports
+chimera_format = video.to_chimera_format()
+```
+
+## Factory Methods
+
+### Creating Models
+```python
+class VideoMetadata(BaseModel):
+    """Model with factory methods."""
+    
+    @classmethod
+    def from_youtube_api(cls, api_response: dict) -> 'VideoMetadata':
+        """Create from YouTube API response."""
+        snippet = api_response['snippet']
+        content = api_response['contentDetails']
+        
+        return cls(
+            video_id=api_response['id'],
+            title=snippet['title'],
+            channel=snippet['channelTitle'],
+            duration=parse_duration(content['duration']),
+            published_at=datetime.fromisoformat(snippet['publishedAt']),
+            description=snippet.get('description'),
+            tags=snippet.get('tags', [])
+        )
+    
+    @classmethod
+    def from_ytdlp(cls, info: dict) -> 'VideoMetadata':
+        """Create from yt-dlp info."""
+        return cls(
+            video_id=info['id'],
+            title=info['title'],
+            channel=info.get('uploader', 'Unknown'),
+            duration=info.get('duration', 0),
+            view_count=info.get('view_count'),
+            description=info.get('description')
+        )
+```
+
+## Validation Patterns
+
+### Cross-Field Validation
+```python
+from pydantic import model_validator
+
+class ProcessingResult(BaseModel):
+    """Result with cross-field validation."""
+    success: bool
+    error: Optional[str] = None
+    data: Optional[Dict[str, Any]] = None
+    
+    @model_validator(mode='after')
+    def validate_consistency(self) -> 'ProcessingResult':
+        """Ensure data consistency."""
+        if self.success and self.error:
+            raise ValueError("Success cannot have error")
+        if not self.success and not self.error:
+            raise ValueError("Failure must have error message")
+        if self.success and not self.data:
+            raise ValueError("Success must have data")
+        return self
+```
+
+### Dynamic Validation
+```python
+def create_validator(min_confidence: float = 0.8):
+    """Create model with dynamic validation."""
+    
+    class DynamicEntity(BaseModel):
+        name: str
+        confidence: float = Field(..., ge=min_confidence)
+    
+    return DynamicEntity
+```
+
+## Best Practices
+
+1. **Use descriptive field names** - Clear, consistent naming
+2. **Add field descriptions** - Use Field(..., description="...")
+3. **Set appropriate defaults** - Use Field(default=...) or default_factory
+4. **Validate early** - Use validators for business logic
+5. **Keep models focused** - Single responsibility
+6. **Document with docstrings** - Explain complex models
+7. **Version your schemas** - Track changes over time
+8. **Use type hints** - Full type coverage
+
+## Common Patterns
+
+### Optional vs Default
+```python
+# Optional field (can be None)
+optional_field: Optional[str] = None
+
+# Required field with default
+required_with_default: str = Field(default="default_value")
+
+# List with default empty
+items: List[str] = Field(default_factory=list)
+
+# Dict with default empty
+metadata: Dict[str, Any] = Field(default_factory=dict)
+```
+
+### Backwards Compatibility
+```python
+class VideoMetadataV2(BaseModel):
+    """Updated model with compatibility."""
+    # New required field with default for old data
+    platform: str = Field(default="youtube")
+    
+    # Renamed field with alias
+    video_title: str = Field(alias="title")
+    
+    # Deprecated field (still accepted)
+    @field_validator('old_field', mode='before')
+    def handle_deprecated(cls, v):
+        logger.warning("old_field is deprecated")
+        return v
+```

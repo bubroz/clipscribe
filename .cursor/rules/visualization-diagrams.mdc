@@ -1,0 +1,219 @@
+---
+description: Guidelines for creating diagrams and visualizing knowledge graphs in ClipScribe
+globs: 
+alwaysApply: false
+---
+---
+description: "Guidelines for creating diagrams and visualizing knowledge graphs in ClipScribe"
+globs: ["scripts/**/*.py", "**/visualiz*.py", "**/graph*.py", "docs/**/*.md"]
+alwaysApply: false
+---
+
+# Visualization & Diagrams Guidelines
+
+## 🎨 Knowledge Graph Visualization
+
+ClipScribe generates complex knowledge graphs from video content. Proper visualization is crucial for understanding extracted knowledge.
+
+## 📊 Visualization Tools
+
+### 1. Built-in Python Visualization
+```python
+# Using the provided script
+python scripts/view_knowledge_graph.py output/20241215_youtube_VIDEO_ID/knowledge_graph.json
+
+# Features:
+# - Interactive NetworkX/Matplotlib rendering
+# - Entity-colored nodes
+# - Relationship labels on edges
+# - Automatic layout optimization
+```
+
+### 2. Gephi Export
+```python
+# Convert to Gephi-compatible format
+python scripts/convert_to_gephi.py output/20241215_youtube_VIDEO_ID/knowledge_graph.json output.gexf
+
+# Gephi advantages:
+# - Professional network analysis
+# - Advanced layout algorithms
+# - Statistical analysis
+# - Publication-quality exports
+```
+
+### 3. Web-based Visualization (Future)
+```javascript
+// Planned: D3.js interactive viewer
+// - Zoom/pan capabilities
+// - Click-to-expand nodes
+// - Real-time filtering
+// - Embedded in web reports
+```
+
+## 📐 Diagram Standards
+
+### Mermaid Diagrams
+Use Mermaid for documentation diagrams:
+
+```markdown
+```mermaid
+graph TD
+    A[Video URL] -->|Retrieve| B[Video Content]
+    B -->|Transcribe| C[Transcript]
+    C -->|Extract| D[Entities]
+    C -->|Extract| E[Relationships]
+    D --> F[Knowledge Graph]
+    E --> F
+```
+```
+
+### ASCII Diagrams
+For simple console output:
+```
+Video → Transcript → Entities → Knowledge Graph
+  ↓         ↓           ↓
+Audio → Gemini API → SpaCy/GLiNER → JSON/Graph
+```
+
+## 🎯 Visualization Best Practices
+
+### Node Design
+```python
+# Entity nodes should be:
+node_colors = {
+    'PERSON': '#FF6B6B',      # Red
+    'ORG': '#4ECDC4',         # Teal
+    'GPE': '#45B7D1',         # Blue
+    'DATE': '#96CEB4',        # Green
+    'MONEY': '#FECA57',       # Yellow
+    'default': '#95A5A6'      # Gray
+}
+
+# Size by importance
+node_sizes = {
+    'central': 3000,
+    'important': 2000,
+    'regular': 1000,
+    'peripheral': 500
+}
+```
+
+### Edge Design
+```python
+# Relationship edges should show:
+edge_styles = {
+    'strong': {'width': 3, 'style': 'solid'},
+    'medium': {'width': 2, 'style': 'solid'},
+    'weak': {'width': 1, 'style': 'dashed'},
+    'inferred': {'width': 1, 'style': 'dotted'}
+}
+```
+
+### Layout Algorithms
+1. **Spring Layout**: Default for most graphs
+2. **Circular Layout**: For simple relationships
+3. **Hierarchical**: For tree-like structures
+4. **Force-directed**: For complex networks
+
+## 📊 Graph Metrics to Display
+
+Always show these key metrics:
+```python
+metrics = {
+    'nodes': len(graph.nodes),
+    'edges': len(graph.edges),
+    'density': nx.density(graph),
+    'avg_degree': sum(dict(graph.degree()).values()) / len(graph.nodes),
+    'components': nx.number_connected_components(graph),
+    'central_nodes': nx.degree_centrality(graph)  # Top 5
+}
+```
+
+## 🖼️ Output Formats
+
+### Static Images
+```python
+# High-resolution PNG for reports
+plt.figure(figsize=(20, 16), dpi=300)
+# ... graph code ...
+plt.savefig('knowledge_graph.png', bbox_inches='tight', dpi=300)
+```
+
+### Interactive HTML
+```python
+# Using Plotly for web viewing
+import plotly.graph_objects as go
+fig = go.Figure(data=[...])
+fig.write_html('knowledge_graph.html')
+```
+
+### Data Formats
+- **GraphML**: For graph analysis tools
+- **GEXF**: For Gephi
+- **JSON**: For web applications
+- **CSV**: Edge/node lists for spreadsheets
+
+## 🎨 Visual Guidelines
+
+### Color Scheme
+- Use colorblind-friendly palettes
+- Consistent entity-type coloring
+- High contrast for readability
+- Semantic color choices
+
+### Text and Labels
+- Readable font sizes (min 10pt)
+- Clear relationship labels
+- No overlapping text
+- UTF-8 encoding for special characters
+
+### Performance
+- Limit initial display to 100 nodes
+- Implement level-of-detail rendering
+- Cache layout calculations
+- Progressive loading for large graphs
+
+## 📈 Analysis Visualizations
+
+Beyond the graph itself, visualize:
+
+1. **Entity Distribution**
+```python
+# Bar chart of entity types
+entity_counts = df['entity_type'].value_counts()
+entity_counts.plot(kind='bar', color=colors)
+```
+
+2. **Relationship Patterns**
+```python
+# Heatmap of entity co-occurrences
+sns.heatmap(co_occurrence_matrix, cmap='Blues')
+```
+
+3. **Timeline Views**
+```python
+# For temporal entities
+timeline_plot(temporal_entities, video_duration)
+```
+
+## 🛠️ Troubleshooting Visualization Issues
+
+### Large Graphs (>500 nodes)
+- Use sampling or filtering
+- Implement clustering
+- Offer drill-down views
+- Consider hierarchical visualization
+
+### Overlapping Elements
+- Adjust layout parameters
+- Increase figure size
+- Use interactive tools
+- Implement smart labeling
+
+### Performance Problems
+- Pre-calculate layouts
+- Use WebGL rendering
+- Implement pagination
+- Cache rendered views
+
+Remember: A good visualization tells the story hidden in the data :-)

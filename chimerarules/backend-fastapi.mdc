@@ -1,0 +1,448 @@
+---
+description: Python & FastAPI backend development patterns, including async patterns, error handling, and database integration
+globs: 
+alwaysApply: false
+---
+---
+description: Python & FastAPI backend development patterns, including async patterns, error handling, and database integration
+globs: ["backend/**/*.py", "chimera_researcher/**/*.py", "main.py", "cli.py", "setup.py", "multi_agents/**/*.py", "tests/**/*.py"]
+alwaysApply: false
+---
+# Backend Development Rules - Python & FastAPI
+
+## Technology Stack
+- **Framework**: FastAPI with async/await patterns
+- **Language**: Python 3.11+ with comprehensive type hints
+- **AI Integration**: LangChain + LangGraph for multi-agent coordination
+- **Document Processing**: PyMuPDF for PDFs, Unstructured, python-docx
+- **Database**: SQLAlchemy with async support, optional vector stores
+- **Testing**: pytest with async support, factoryboy for fixtures
+
+## Python Type Hints & Patterns
+
+### Comprehensive Type Annotations
+```python
+from typing import Optional, List, Dict, Any, Union, AsyncGenerator
+from pydantic import BaseModel, Field, validator
+from fastapi import HTTPException, Depends, BackgroundTasks
+from datetime import datetime
+import asyncio
+
+class ResearchRequest(BaseModel):
+    query: str = Field(..., min_length=1, max_length=1000, description="Research query")
+    report_type: str = Field(default="research_report", regex="^(research_report|summary|deep_research)$")
+    max_results: Optional[int] = Field(default=7, ge=1, le=20)
+    domains: Optional[List[str]] = Field(default=None)
+    
+    @validator('query')
+    def validate_query(cls, v: str) -> str:
+        if not v.strip():
+            raise ValueError('Query cannot be empty')
+        return v.strip()
+
+class ResearchResponse(BaseModel):
+    research_id: str
+    query: str
+    report: str
+    sources: List[Dict[str, Any]]
+    metadata: Dict[str, Any]
+    created_at: datetime
+    cost: float
+```
+
+### FastAPI Endpoint Patterns
+```python
+@app.post("/api/research", response_model=ResearchResponse)
+async def conduct_research(
+    request: ResearchRequest,
+    background_tasks: BackgroundTasks,
+    current_user: User = Depends(get_current_user)
+) -> ResearchResponse:
+    """
+    Conduct comprehensive research using Gemini 2.5 Pro.
+    
+    Args:
+        request: Research configuration and parameters
+        background_tasks: Background task queue for long operations
+        current_user: Authenticated user context
+        
+    Returns:
+        ResearchResponse: Complete research results with metadata
+        
+    Raises:
+        HTTPException: When research fails or user lacks permissions
+    """
+    try:
+        # Validate user permissions
+        if not current_user.can_conduct_research():
+            raise HTTPException(status_code=403, detail="Insufficient permissions")
+        
+        # Log research initiation
+        logger.info(f"Starting research for user {current_user.id}: {request.query}")
+        
+        # Initialize researcher with proper configuration
+        researcher = GPTResearcher(
+            query=request.query,
+            report_type=request.report_type,
+            config_path={
+                "MAX_SEARCH_RESULTS_PER_QUERY": request.max_results,
+                "QUERY_DOMAINS": request.domains or []
+            },
+            headers={"user_id": str(current_user.id)}
+        )
+        
+        # Conduct research with proper error handling
+        context = await researcher.conduct_research()
+        report = await researcher.write_report()
+        
+        # Build comprehensive response
+        response = ResearchResponse(
+            research_id=generate_research_id(),
+            query=request.query,
+            report=report,
+            sources=researcher.get_source_urls(),
+            metadata={
+                "report_type": request.report_type,
+                "total_sources": len(researcher.get_source_urls()),
+                "research_time": researcher.get_research_time(),
+                "model_used": researcher.cfg.smart_llm
+            },
+            created_at=datetime.utcnow(),
+            cost=researcher.get_costs()
+        )
+        
+        # Log successful completion
+        logger.info(f"Research completed for user {current_user.id}: {response.research_id}")
+        
+        return response
+        
+    except ValidationError as e:
+        logger.error(f"Validation error: {e}")
+        raise HTTPException(status_code=422, detail=str(e))
+    except PermissionError as e:
+        logger.error(f"Permission error: {e}")
+        raise HTTPException(status_code=403, detail="Insufficient permissions")
+    except Exception as e:
+        logger.error(f"Research failed: {e}", exc_info=True)
+        raise HTTPException(status_code=500, detail="Research operation failed")
+```
+
+## Async Patterns
+
+### Async Context Managers
+```python
+from contextlib import asynccontextmanager
+
+@asynccontextmanager
+async def research_session(user_id: str):
+    """Context manager for research sessions with proper cleanup."""
+    session = ResearchSession(user_id=user_id)
+    try:
+        await session.initialize()
+        yield session
+    except Exception as e:
+        logger.error(f"Research session error: {e}")
+        await session.rollback()
+        raise
+    finally:
+        await session.cleanup()
+```
+
+### Concurrent Processing
+```python
+async def process_multiple_queries(queries: List[str]) -> List[ResearchResult]:
+    """Process multiple research queries concurrently."""
+    semaphore = asyncio.Semaphore(5)  # Limit concurrent operations
+    
+    async def process_single_query(query: str) -> ResearchResult:
+        async with semaphore:
+            researcher = GPTResearcher(query=query)
+            return await researcher.conduct_research()
+    
+    tasks = [process_single_query(query) for query in queries]
+    results = await asyncio.gather(*tasks, return_exceptions=True)
+    
+    # Handle exceptions
+    valid_results = []
+    for i, result in enumerate(results):
+        if isinstance(result, Exception):
+            logger.error(f"Query {queries[i]} failed: {result}")
+        else:
+            valid_results.append(result)
+    
+    return valid_results
+```
+
+## Error Handling Patterns
+
+### Custom Exception Classes
+```python
+class ResearchError(Exception):
+    """Base exception for research operations."""
+    pass
+
+class APIQuotaExceededError(ResearchError):
+    """Raised when API quota is exceeded."""
+    pass
+
+class SearchError(ResearchError):
+    """Raised when search operations fail."""
+    pass
+
+class ValidationError(ResearchError):
+    """Raised when input validation fails."""
+    pass
+
+# Global exception handler
+@app.exception_handler(ResearchError)
+async def research_exception_handler(request: Request, exc: ResearchError):
+    return JSONResponse(
+        status_code=400,
+        content={"detail": str(exc), "type": exc.__class__.__name__}
+    )
+```
+
+### Retry Logic with Exponential Backoff
+```python
+import asyncio
+from functools import wraps
+
+def retry_with_backoff(max_retries: int = 3, base_delay: float = 1.0):
+    """Decorator for retry logic with exponential backoff."""
+    def decorator(func):
+        @wraps(func)
+        async def wrapper(*args, **kwargs):
+            for attempt in range(max_retries):
+                try:
+                    return await func(*args, **kwargs)
+                except (APIQuotaExceededError, ConnectionError) as e:
+                    if attempt == max_retries - 1:
+                        raise
+                    
+                    delay = base_delay * (2 ** attempt)
+                    logger.warning(f"Attempt {attempt + 1} failed, retrying in {delay}s: {e}")
+                    await asyncio.sleep(delay)
+                except Exception as e:
+                    logger.error(f"Non-retryable error: {e}")
+                    raise
+            
+            raise ResearchError("Max retries exceeded")
+        return wrapper
+    return decorator
+
+@retry_with_backoff(max_retries=3)
+async def call_external_api(url: str, data: Dict[str, Any]) -> Dict[str, Any]:
+    """Make external API call with retry logic."""
+    async with httpx.AsyncClient() as client:
+        response = await client.post(url, json=data)
+        response.raise_for_status()
+        return response.json()
+```
+
+## Database Patterns (if using SQLAlchemy)
+
+### Async Database Models
+```python
+from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
+from sqlalchemy.orm import declarative_base, sessionmaker
+from sqlalchemy import Column, Integer, String, DateTime, Text, Float
+from datetime import datetime
+
+Base = declarative_base()
+
+class ResearchRecord(Base):
+    __tablename__ = "research_records"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    research_id = Column(String, unique=True, index=True)
+    user_id = Column(String, index=True)
+    query = Column(Text, nullable=False)
+    report = Column(Text)
+    cost = Column(Float, default=0.0)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+# Database dependency
+async def get_db() -> AsyncGenerator[AsyncSession, None]:
+    async with async_session() as session:
+        try:
+            yield session
+            await session.commit()
+        except Exception:
+            await session.rollback()
+            raise
+        finally:
+            await session.close()
+
+# Repository pattern
+class ResearchRepository:
+    def __init__(self, db: AsyncSession):
+        self.db = db
+    
+    async def create_research(self, research_data: Dict[str, Any]) -> ResearchRecord:
+        research = ResearchRecord(**research_data)
+        self.db.add(research)
+        await self.db.flush()
+        await self.db.refresh(research)
+        return research
+    
+    async def get_research_by_id(self, research_id: str) -> Optional[ResearchRecord]:
+        result = await self.db.execute(
+            select(ResearchRecord).where(ResearchRecord.research_id == research_id)
+        )
+        return result.scalar_one_or_none()
+```
+
+## Configuration Management
+
+### Environment-based Configuration
+```python
+from pydantic import BaseSettings
+from typing import Optional
+
+class Settings(BaseSettings):
+    # API Keys
+    google_api_key: str
+    openai_api_key: Optional[str] = None
+    tavily_api_key: Optional[str] = None
+    
+    # AI Configuration
+    retriever: str = "gemini"
+    fast_llm: str = "google_genai:gemini-2.5-flash-preview-05-20"
+    smart_llm: str = "google_genai:gemini-2.5-pro-preview-06-05"
+    temperature: float = 0.3
+    
+    # Application Settings
+    max_search_results: int = 7
+    total_words: int = 1500
+    verbose: bool = False
+    
+    # Database
+    database_url: Optional[str] = None
+    
+    class Config:
+        env_file = ".env"
+        case_sensitive = False
+
+settings = Settings()
+```
+
+## Logging Configuration
+
+### Structured Logging
+```python
+import logging
+import sys
+from pathlib import Path
+from logging.handlers import RotatingFileHandler
+import json
+
+class StructuredFormatter(logging.Formatter):
+    def format(self, record):
+        log_data = {
+            "timestamp": self.formatTime(record),
+            "level": record.levelname,
+            "logger": record.name,
+            "message": record.getMessage(),
+            "module": record.module,
+            "function": record.funcName,
+            "line": record.lineno
+        }
+        
+        if hasattr(record,'user_id'):
+            log_data['user_id'] = record.user_id
+        if hasattr(record, 'research_id'):
+            log_data['research_id'] = record.research_id
+            
+        return json.dumps(log_data)
+
+def setup_logging():
+    logs_dir = Path("logs")
+    logs_dir.mkdir(exist_ok=True)
+    
+    # Configure root logger
+    logger = logging.getLogger()
+    logger.setLevel(logging.INFO)
+    logger.handlers.clear()
+    
+    # Console handler
+    console_handler = logging.StreamHandler(sys.stdout)
+    console_handler.setFormatter(StructuredFormatter())
+    logger.addHandler(console_handler)
+    
+    # File handler
+    file_handler = RotatingFileHandler(
+        logs_dir / "app.log",
+        maxBytes=10*1024*1024,
+        backupCount=5
+    )
+    file_handler.setFormatter(StructuredFormatter())
+    logger.addHandler(file_handler)
+```
+
+## Testing Patterns
+
+### Async Test Fixtures
+```python
+import pytest
+from unittest.mock import AsyncMock, patch
+from httpx import AsyncClient
+from fastapi.testclient import TestClient
+
+@pytest.fixture
+async def async_client():
+    async with AsyncClient(app=app, base_url="http://test") as client:
+        yield client
+
+@pytest.fixture
+def mock_researcher():
+    with patch('gpt_researcher.GPTResearcher') as mock:
+        researcher_instance = AsyncMock()
+        researcher_instance.conduct_research.return_value = ["mock context"]
+        researcher_instance.write_report.return_value = "mock report"
+        researcher_instance.get_costs.return_value = 0.05
+        researcher_instance.get_source_urls.return_value = ["http://example.com"]
+        mock.return_value = researcher_instance
+        yield researcher_instance
+
+@pytest.mark.asyncio
+async def test_conduct_research_success(async_client, mock_researcher):
+    research_data = {
+        "query": "What is artificial intelligence?",
+        "report_type": "research_report",
+        "max_results": 5
+    }
+    
+    response = await async_client.post("/api/research", json=research_data)
+    
+    assert response.status_code == 200
+    data = response.json()
+    assert data["query"] == research_data["query"]
+    assert "report" in data
+    assert "sources" in data
+    assert data["cost"] >= 0
+```
+
+## Best Practices
+
+1. **Always use type hints** for function parameters and return values
+2. **Use Pydantic models** for all request/response schemas and validation
+3. **Implement proper error handling** with custom exception classes
+4. **Use async/await patterns** consistently throughout the codebase
+5. **Log structured data** with correlation IDs for traceability
+6. **Validate all inputs** at the API boundary
+7. **Use dependency injection** for database sessions and external services
+8. **Implement retry logic** for external API calls
+9. **Use context managers** for resource management
+10. **Test async code** with proper fixtures and mocking
+11. **Follow file organization** - See `@file-organization` for backend file structure
+
+Always maintain clean separation of concerns and follow SOLID principles :-)
+
+### 11. Dependency Injection and Context Passing
+- **Ensure Proper Context**: Components should be initialized with all the context they need to perform their tasks. Avoid situations where a method on an object needs to access a handler or service that wasn't passed during its creation.
+- **Example**: Our `Researcher` class needed access to the `CustomLogsHandler` to retrieve the final log file path. The fix was to explicitly pass the `logs_handler` instance to the `Researcher` during its instantiation, ensuring it had the necessary context.
+
+### 12. Comprehensive Event Logging
+- **Avoid Overly Restrictive Handlers**: When designing log handlers, especially for persistence, ensure they capture all relevant event types, not just a narrow subset. A log file that is missing critical events is misleading.
+- **Example**: Our `CustomLogsHandler` was only writing events of type `'logs'` to the final JSON artifact, ignoring other crucial events like `'report'` or `'sources'`. The fix was to modify the handler to treat every message it receives as an event worth persisting in the log file, while still updating the main `content` block for other data types.

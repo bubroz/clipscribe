@@ -1,0 +1,119 @@
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "clipscribe"
+version = "2.2.2"
+description = "AI-powered video transcription and analysis tool"
+authors = ["ClipScribe Team"]
+readme = "README.md"
+packages = [{include = "clipscribe", from = "src"}]
+
+[tool.black]
+line-length = 100
+target-version = ['py312']
+include = '\.pyi?$'
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+line_length = 100
+
+[tool.mypy]
+python_version = "3.12"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_unreachable = true
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q --cov=src --cov-report=term-missing"
+testpaths = ["tests"]
+
+[tool.coverage.run]
+source = ["src"]
+omit = ["tests/*"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if self.debug:",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "pass",
+    "raise ImportError"
+]
+
+[tool.bandit]
+exclude_dirs = ["tests"]
+skips = ["B101"]
+
+[tool.poetry.dependencies]
+python = "^3.12,<3.13"
+click = "^8.1.7"
+rich = "^13.7.0"
+python-dotenv = "^1.0.0"
+google-generativeai = "^0.8.3"
+yt-dlp = "^2024.12.6"
+pydantic = "^2.10.4"
+pytest = "^8.3.4"
+pytest-asyncio = "^0.25.2"
+pytest-cov = "^6.0.0"
+spacy = "^3.8.7"
+torch = "^2.0.0"
+transformers = "^4.35.0"
+gliner = "^0.2.0"
+networkx = "^3.0.0"
+# ML dependencies commented out for basic functionality
+# nltk = "^3.8.1"
+# textstat = "^0.7.4"
+# textblob = "^0.18.0"
+# ffmpeg-python = "^0.2.0"
+pytz = "^2024.1"
+numpy = "^2.1.0"  # Required for Python 3.13 support
+# pandas = "^2.2.2"
+pydantic-settings = "^2.0.0"
+aiofiles = "^23.0.0"
+pyyaml = "^6.0.0"
+
+[tool.poetry.group.dev.dependencies]
+black = "^24.10.0"
+flake8 = "^7.1.1"
+mypy = "^1.14.1"
+isort = "^5.13.2"
+pre-commit = "^3.6.0"
+matplotlib = "^3.10.3"
+
+[tool.poetry.scripts]
+clipscribe = "clipscribe.commands.cli:run_cli"
+
+[tool.poetry.extras]
+ml = ["nltk", "spacy", "textstat", "textblob", "numpy", "pandas"]
+
+[tool.poetry.group.test]
+optional = true
+
+[tool.poetry.group.test.dependencies]
+pytest-mock = "^3.12.0"
+pytest-xdist = "^3.5.0"
+pytest-timeout = "^2.2.0"
+coverage = "^7.4.1"
+
+[tool.poetry.urls]
+Homepage = "https://github.com/bubroz/clipscribe"
+Documentation = "https://github.com/bubroz/clipscribe#readme"
+Repository = "https://github.com/bubroz/clipscribe.git"
+Changelog = "https://github.com/bubroz/clipscribe/blob/main/CHANGELOG.md" 

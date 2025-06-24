@@ -1,0 +1,152 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+---
+description: "Rules for WHEN to update critical documentation files in ClipScribe"
+globs: ["**/*.md", "docs/**/*", "README.md", "CHANGELOG.md", "CONTINUATION_PROMPT.md"]
+alwaysApply: true
+---
+
+# Documentation Update Rules
+
+## 🚨 CRITICAL: Documentation Update Triggers
+
+This rule ensures all critical documentation stays current. When making changes to ClipScribe, you MUST check and update these documents as appropriate.
+
+## 📋 Documentation Update Schedule
+
+### 1. CONTINUATION_PROMPT.md
+**Update Frequency**: AFTER EVERY SIGNIFICANT CHANGE
+**When to Update**:
+- ✅ After implementing new features
+- ✅ After fixing major bugs
+- ✅ After changing architecture
+- ✅ After updating dependencies
+- ✅ When leaving unfinished work
+- ✅ Before switching to a new task
+
+**What to Include**:
+```markdown
+## Current State (Date)
+- Just completed: [what was done]
+- Working well: [what's stable]
+- Known issues: [what needs attention]
+- Next steps: [what should be done next]
+```
+
+### 2. README.md
+**Update Frequency**: AFTER USER-FACING CHANGES
+**When to Update**:
+- ✅ New features added
+- ✅ Installation process changed
+- ✅ New platforms supported
+- ✅ Performance improvements achieved
+- ✅ Breaking changes introduced
+
+**Sections to Update**:
+- Features list
+- Installation instructions
+- Usage examples
+- Performance metrics
+- Platform support
+
+### 3. CHANGELOG.md
+**Update Frequency**: WITH EVERY MERGE/RELEASE
+**When to Update**:
+- ✅ Before merging any PR
+- ✅ When completing a feature
+- ✅ When fixing bugs
+- ✅ When updating dependencies
+- ✅ Before any release
+
+**Format**:
+```markdown
+## [Unreleased]
+
+### Added
+- New video intelligence analysis features
+- Support for TikTok platform
+
+### Changed
+- Improved entity extraction accuracy
+
+### Fixed
+- Fixed memory leak in batch processing
+
+### Removed
+- Deprecated old API methods
+```
+
+### 4. CLI_REFERENCE.md
+**Update Frequency**: WHEN COMMANDS CHANGE
+**When to Update**:
+- ✅ New command added
+- ✅ Command options changed
+- ✅ Command behavior modified
+- ✅ Default values updated
+
+### 5. docs/ Directory Files
+**Update Frequency**: WITH RELEVANT CHANGES
+**When to Update**:
+- `GETTING_STARTED.md` → Setup/installation changes
+- `DEVELOPMENT.md` → Development process changes
+- `OUTPUT_FORMATS.md` → New output formats
+- `PLATFORMS.md` → Platform support changes
+- `VISUALIZING_GRAPHS.md` → Visualization changes
+- `TROUBLESHOOTING.md` → New common issues
+
+## 🎯 Quick Decision Guide
+
+Ask yourself after making changes:
+
+1. **Will users notice this change?** → Update README.md
+2. **Is this a new feature or bug fix?** → Update CHANGELOG.md
+3. **Did I change how commands work?** → Update CLI_REFERENCE.md
+4. **Did I leave work unfinished?** → Update CONTINUATION_PROMPT.md
+5. **Could someone get confused?** → Update relevant docs/
+
+## 📊 Update Priority Matrix
+
+| Priority | Document | Update Trigger | Impact of Not Updating |
+|----------|----------|----------------|------------------------|
+| CRITICAL | CONTINUATION_PROMPT.md | Any significant change | Lost context |
+| HIGH | README.md | User-facing changes | Confused users |
+| HIGH | CHANGELOG.md | Any code change | No version tracking |
+| MEDIUM | CLI_REFERENCE.md | Command changes | Incorrect usage |
+| MEDIUM | docs/*.md | Feature changes | Outdated guides |
+
+## 🔄 Update Checklist Template
+
+When completing a task, run through this checklist:
+
+```
+## Documentation Update Checklist
+
+- [ ] CONTINUATION_PROMPT.md updated with current state?
+- [ ] README.md reflects any user-visible changes?
+- [ ] CHANGELOG.md entry added for this change?
+- [ ] CLI_REFERENCE.md updated if commands changed?
+- [ ] Relevant docs/ files updated?
+- [ ] Examples still work with changes?
+- [ ] All links still valid?
+```
+
+## 🚫 Anti-Patterns to Avoid
+
+1. **"I'll document it later"** → Document as you go
+2. **"It's a small change"** → Small changes accumulate
+3. **"The code is self-documenting"** → Users don't read code
+4. **"I'll remember what I did"** → You won't in 2 weeks
+5. **"No one reads docs anyway"** → They do when things break
+
+## 💡 Pro Tips
+
+1. **Write docs before code** → Clarifies thinking
+2. **Update docs with code** → In the same commit
+3. **Test examples** → Ensure they actually work
+4. **Use templates** → Consistency saves time
+5. **Review quarterly** → Catch drift early
+
+Remember: Future you (and other developers) will thank current you for good documentation :-)

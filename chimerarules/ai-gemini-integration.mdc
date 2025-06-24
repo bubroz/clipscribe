@@ -1,0 +1,524 @@
+---
+description: Gemini 2.5 Pro specific AI integration patterns and best practices for LLM operations
+globs: 
+alwaysApply: false
+---
+---
+description: Gemini 2.5 Pro specific AI integration patterns and best practices for LLM operations
+globs: ["chimera_researcher/**/*.py", "backend/**/*.py", "tools/**/*.py", "examples/*gemini*.py", "tests/*gemini*.py", "*.py"]
+alwaysApply: false
+---
+# AI Integration Rules - Gemini 2.5 Pro
+
+> **Related Rules:**
+> - `@ai-xai-integration` - X.AI search integration
+> - `@cost-optimized-extraction` - Cost optimization strategies
+> - `@backend-fastapi` - Backend integration patterns
+> - `@testing-patterns` - Testing AI features
+
+## Primary AI Stack
+
+## Core Integration Strategy
+- **Primary AI Provider**: Google Gemini 2.5 Pro for all LLM operations
+- **Search**: Use the dedicated `google` retriever. The `gemini` retriever is a placeholder and does NOT perform a web search.
+- **Grounded Search**: True "search grounding" requires a Vertex AI setup. Our current implementation uses the standard `google` retriever for web search.
+- **Cost Optimization**: Gemini for AI processing + a separate search retriever (Google/XAI) for search.
+- **Embeddings**: Always use "models/" prefix for Google GenAI embeddings (e.g., "models/text-embedding-004")
+
+## Model Configuration
+
+### Model Selection Strategy
+```python
+# Preferred model usage patterns
+GEMINI_MODELS = {
+    "fast": "google_genai:gemini-2.5-flash-preview-05-20",       # Quick operations
+    "smart": "google_genai:gemini-2.5-pro-preview-06-05",        # Complex reasoning  
+    "strategic": "google_genai:gemini-2.5-pro-preview-06-05"     # Deep analysis
+}
+
+# Token limits by model
+GEMINI_TOKEN_LIMITS = {
+    "fast": 4000,
+    "smart": 8000,
+    "strategic": 8000
+}
+
+# Use appropriate model based on task complexity
+def select_model_for_task(task_type: str) -> str:
+    task_model_mapping = {
+        "quick_summary": "fast",
+        "simple_query": "fast", 
+        "research_planning": "smart",
+        "report_generation": "smart",
+        "deep_analysis": "strategic",
+        "multi_step_reasoning": "strategic"
+    }
+    return GEMINI_MODELS[task_model_mapping.get(task_type, "smart")]
+```
+
+### Environment Configuration
+```python
+# Required environment variables
+GOOGLE_API_KEY=your_google_api_key_here
+RETRIEVER=google  # Use the dedicated Google search retriever
+FAST_LLM=google_genai:gemini-2.5-flash-preview-05-20
+SMART_LLM=google_genai:gemini-2.5-pro-preview-06-05
+STRATEGIC_LLM=google_genai:gemini-2.5-pro-preview-06-05
+EMBEDDING=google_genai:models/text-embedding-004
+
+# Performance settings
+FAST_TOKEN_LIMIT=4000
+SMART_TOKEN_LIMIT=8000
+STRATEGIC_TOKEN_LIMIT=8000
+TEMPERATURE=0.3
+REASONING_EFFORT=high
+
+# Fallback configuration (for reliability)
+OPENAI_API_KEY=your_openai_fallback_key  # Optional fallback
+```
+
+## Gemini Configuration Class
+
+### Robust Configuration Management
+```python
+import os
+from typing import Dict, Optional
+import google.generativeai as genai
+from google.api_core import exceptions as google_exceptions
+
+class GeminiConfig:
+    """Centralized Gemini configuration management."""
+    
+    def __init__(self):
+        self.api_key = self._get_api_key()
+        self.models = self._configure_models()
+        self.safety_settings = self._configure_safety_settings()
+        self.generation_config = self._configure_generation()
+        
+    def _get_api_key(self) -> str:
+        """Get and validate Google API key."""
+        api_key = os.getenv("GOOGLE_API_KEY")
+        if not api_key:
+            raise ValueError(
+                "GOOGLE_API_KEY not found. Get one at: "
+                "https://makersuite.google.com/app/apikey"
+            )
+        return api_key
+    
+    def _configure_models(self) -> Dict[str, str]:
+        """Configure model mappings."""
+        return {
+            "fast": os.getenv("FAST_LLM", "google_genai:gemini-2.5-flash-preview-05-20"),
+            "smart": os.getenv("SMART_LLM", "google_genai:gemini-2.5-pro-preview-06-05"),
+            "strategic": os.getenv("STRATEGIC_LLM", "google_genai:gemini-2.5-pro-preview-06-05")
+        }
+    
+    def _configure_safety_settings(self):
+        """Configure safety settings for content filtering."""
+        return {
+            genai.types.HarmCategory.HARM_CATEGORY_HARASSMENT: genai.types.HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+            genai.types.HarmCategory.HARM_CATEGORY_HATE_SPEECH: genai.types.HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+            genai.types.HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: genai.types.HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+            genai.types.HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: genai.types.HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+        }
+    
+    def _configure_generation(self):
+        """Configure generation parameters."""
+        return genai.types.GenerationConfig(
+            max_output_tokens=8000,
+            temperature=float(os.getenv("TEMPERATURE", 0.3)),
+            top_p=0.8,
+            top_k=40
+        )
+    
+    def get_model_instance(self, model_type: str = "smart"):
+        """Get configured Gemini model instance."""
+        genai.configure(api_key=self.api_key)
+        model_name = self.models[model_type].replace("google_genai:", "")
+        return genai.GenerativeModel(model_name)
+```
+
+## Safe Gemini API Calls
+
+### Robust Error Handling
+```python
+# In chimera_researcher/utils/llm.py
+
+async def create_chat_completion(...):
+    # ... (provider setup)
+    
+    response = None
+    try:
+        response = await provider.get_chat_response(...)
+    except Exception as e:
+        logger.error(f"LLM provider call failed: {e}", exc_info=True)
+    
+    # Robust handling of None response
+    if response is None:
+        raise ValueError(f"LLM provider returned a None response.")
+        
+    # ... (cost calculation)
+    return response
+```
+**Lesson Learned**: Always check for `None` responses from the LLM API to prevent downstream `TypeError` crashes. Wrap LLM calls in `try...except` blocks that can handle these failures gracefully.
+
+## Google Search Grounding Implementation
+
+### Gemini Search Class
+```python
+from typing import List, Dict, Any, Optional
+import logging
+
+logger = logging.getLogger(__name__)
+
+class GeminiSearch:
+    """Google Search Grounding via Gemini 2.5 Pro."""
+    
+    def __init__(self, query: str, headers: Optional[Dict] = None, query_domains: Optional[List[str]] = None):
+        self.query = query
+        self.headers = headers or {}
+        self.query_domains = query_domains or []
+        self.config = GeminiConfig()
+        
+    async def search(self, max_results: int = 7) -> List[Dict[str, str]]:
+        """
+        Execute search with Google Search Grounding.
+        
+        Args:
+            max_results: Maximum number of search results to return
+            
+        Returns:
+            List[Dict[str, str]]: Search results with title, href, and body
+        """
+        try:
+            # NOTE: 'google_search_retrieval' returns "400 Search Grounding is not supported"
+            # Use 'google_search' tool or X.AI for search functionality
+            model = genai.GenerativeModel(
+                'gemini-2.5-pro-preview-06-05',
+                tools=['google_search']  # Changed from 'google_search_retrieval'
+            )
+            
+            # Build search query
+            search_prompt = self._build_search_prompt()
+            
+            logger.info(f"Searching with Gemini + Google Search grounding: {self.query}")
+            
+            # Generate content with search grounding
+            response = await model.generate_content_async(
+                search_prompt,
+                generation_config=self.config.generation_config
+            )
+            
+            # Extract search results from grounding metadata
+            search_results = self._extract_search_results(response, max_results)
+            
+            if not search_results:
+                logger.warning("No search results found with Gemini Search grounding")
+                return []
+                
+            return search_results[:max_results]
+            
+        except Exception as e:
+            logger.error(f"Gemini search failed: {e}")
+            return []
+    
+    def _build_search_prompt(self) -> str:
+        """Build optimized search prompt for Gemini."""
+        base_prompt = f"Search for comprehensive information about: {self.query}"
+        
+        if self.query_domains:
+            domain_clause = " OR ".join([f"site:{domain}" for domain in self.query_domains])
+            base_prompt += f"\n\nFocus on results from these domains: {domain_clause}"
+            
+        base_prompt += """
+
+Please provide detailed, factual information with:
+1. Key facts and statistics
+2. Recent developments and trends  
+3. Expert opinions and analysis
+4. Relevant examples and case studies
+
+Ensure all information is accurate and from reliable sources."""
+        
+        return base_prompt
+    
+    def _extract_search_results(self, response, max_results: int) -> List[Dict[str, str]]:
+        """Extract and format search results from Gemini response."""
+        search_results = []
+        
+        try:
+            # Check for grounding metadata
+            if not hasattr(response, 'candidates') or not response.candidates:
+                return self._create_fallback_result(response)
+                
+            candidate = response.candidates[0]
+            if not hasattr(candidate, 'grounding_metadata') or not candidate.grounding_metadata:
+                return self._create_fallback_result(response)
+                
+            grounding_metadata = candidate.grounding_metadata
+            
+            # Extract grounding chunks (search sources)
+            if hasattr(grounding_metadata, 'grounding_chunks'):
+                for i, chunk in enumerate(grounding_metadata.grounding_chunks):
+                    if i >= max_results:
+                        break
+                        
+                    if hasattr(chunk, 'web') and chunk.web:
+                        web_chunk = chunk.web
+                        url = getattr(web_chunk, 'uri', '')
+                        title = getattr(web_chunk, 'title', '')
+                        content = self._extract_content_for_chunk(grounding_metadata, i)
+                        
+                        if url and content:
+                            search_results.append({
+                                "title": title or self._extract_title_from_url(url),
+                                "href": url,
+                                "body": content
+                            })
+            
+            # Fallback to response text if no grounding chunks
+            if not search_results and hasattr(response, 'text') and response.text:
+                search_results = self._create_fallback_result(response)
+                
+        except Exception as e:
+            logger.warning(f"Error extracting search results: {e}")
+            search_results = self._create_fallback_result(response)
+        
+        return search_results
+    
+    def _create_fallback_result(self, response) -> List[Dict[str, str]]:
+        """Create fallback result when grounding extraction fails."""
+        if hasattr(response, 'text') and response.text:
+            return [{
+                "title": f"Gemini Search Results: {self.query}",
+                "href": "https://gemini.google.com",
+                "body": response.text
+            }]
+        return []
+    
+    def _extract_content_for_chunk(self, grounding_metadata, chunk_index: int) -> str:
+        """Extract content associated with a specific grounding chunk."""
+        content_parts = []
+        
+        try:
+            if hasattr(grounding_metadata, 'grounding_supports'):
+                for support in grounding_metadata.grounding_supports:
+                    if (hasattr(support, 'grounding_chunk_indices') and 
+                        chunk_index in support.grounding_chunk_indices):
+                        
+                        if hasattr(support, 'segment') and hasattr(support.segment, 'text'):
+                            content_parts.append(support.segment.text)
+                            
+        except Exception as e:
+            logger.warning(f"Error extracting content for chunk {chunk_index}: {e}")
+            
+        return " ".join(content_parts) if content_parts else ""
+    
+    def _extract_title_from_url(self, url: str) -> str:
+        """Extract a reasonable title from URL."""
+        try:
+            from urllib.parse import urlparse
+            parsed = urlparse(url)
+            domain = parsed.netloc.replace('www.', '')
+            return domain.title() if domain else "Search Result"
+        except:
+            return "Search Result"
+```
+
+## Fallback Strategy
+
+### Automatic Fallback Implementation
+```python
+from typing import Union
+import logging
+
+logger = logging.getLogger(__name__)
+
+class AIProviderManager:
+    """Manage multiple AI providers with automatic fallback."""
+    
+    def __init__(self):
+        self.gemini_config = GeminiConfig()
+        self.providers = ["gemini", "openai", "tavily"]
+        self.current_provider = "gemini"
+    
+    async def call_with_fallback(self, prompt: str, task_type: str = "smart") -> str:
+        """
+        Call AI provider with automatic fallback to alternatives.
+        
+        Args:
+            prompt: The input prompt
+            task_type: Type of task (fast, smart, strategic)
+            
+        Returns:
+            str: AI response
+        """
+        for provider in self.providers:
+            try:
+                if provider == "gemini":
+                    return await safe_gemini_call(prompt, task_type, config=self.gemini_config)
+                elif provider == "openai":
+                    return await self._call_openai(prompt, task_type)
+                elif provider == "tavily":
+                    return await self._call_tavily(prompt, task_type)
+                    
+            except Exception as e:
+                logger.warning(f"Provider {provider} failed: {e}")
+                if provider == self.providers[-1]:  # Last provider
+                    raise
+                continue
+        
+        raise Exception("All AI providers failed")
+    
+    async def search_with_fallback(self, query: str, max_results: int = 7) -> List[Dict[str, str]]:
+        """Search with automatic fallback from Gemini to other providers."""
+        # Try Gemini Search Grounding first
+        try:
+            gemini_search = GeminiSearch(query)
+            results = await gemini_search.search(max_results)
+            if results:
+                return results
+        except Exception as e:
+            logger.warning(f"Gemini search failed: {e}")
+        
+        # Fallback to X.AI search
+        try:
+            from gpt_researcher.retrievers.xai_live_search import XAILiveSearchRetriever
+            xai_search = XAILiveSearchRetriever(query)
+            return await xai_search.search(query, max_results=max_results)
+        except Exception as e:
+            logger.error(f"All search providers failed: {e}")
+            return []
+```
+
+## Cost Optimization
+
+### Cost Tracking and Optimization
+```python
+class GeminiCostTracker:
+    """Track and optimize Gemini API costs."""
+    
+    def __init__(self):
+        self.cost_per_token = {
+            "gemini-2.5-flash": {"input": 0.075/1000000, "output": 0.30/1000000},
+            "gemini-2.5-pro": {"input": 1.25/1000000, "output": 5.00/1000000}
+        }
+        self.session_costs = 0.0
+    
+    def estimate_cost(self, prompt: str, model_type: str, expected_output_tokens: int = 1000) -> float:
+        """Estimate cost for a Gemini API call."""
+        input_tokens = len(prompt.split()) * 1.3  # Rough token estimation
+        
+        model_name = "gemini-2.5-flash" if model_type == "fast" else "gemini-2.5-pro"
+        rates = self.cost_per_token[model_name]
+        
+        estimated_cost = (input_tokens * rates["input"]) + (expected_output_tokens * rates["output"])
+        return estimated_cost
+    
+    def track_call(self, prompt: str, response: str, model_type: str):
+        """Track actual cost of a completed call."""
+        input_tokens = len(prompt.split()) * 1.3
+        output_tokens = len(response.split()) * 1.3
+        
+        model_name = "gemini-2.5-flash" if model_type == "fast" else "gemini-2.5-pro"
+        rates = self.cost_per_token[model_name]
+        
+        actual_cost = (input_tokens * rates["input"]) + (output_tokens * rates["output"])
+        self.session_costs += actual_cost
+        
+        logger.info(f"Gemini call cost: ${actual_cost:.6f} (Session total: ${self.session_costs:.6f})")
+        return actual_cost
+    
+    def optimize_model_selection(self, task_complexity: str, budget_limit: float) -> str:
+        """Select optimal model based on task complexity and budget."""
+        if budget_limit < 0.001:  # Very low budget
+            return "fast"
+        elif task_complexity in ["simple", "quick_summary"]:
+            return "fast"
+        elif task_complexity in ["complex", "deep_analysis"] and budget_limit > 0.01:
+            return "strategic"
+        else:
+            return "smart"
+```
+
+## X.AI Integration for Search
+
+### X.AI Live Search Configuration
+```python
+from gpt_researcher.retrievers.xai_live_search import XAILiveSearchRetriever
+
+class XAISearchManager:
+    """Manage X.AI search operations with user targeting."""
+    
+    async def targeted_search(
+        self,
+        query: str,
+        x_handles: Optional[List[str]] = None,
+        country: Optional[str] = None,
+        from_date: Optional[str] = None,
+        source: Literal["web", "x", "news", "all"] = "all"
+    ) -> List[Dict[str, str]]:
+        """
+        Perform targeted search with X.AI.
+        
+        Args:
+            query: Search query
+            x_handles: List of X platform handles to target
+            country: ISO alpha-2 country code
+            from_date: Start date in YYYY-MM-DD format
+            source: Search source type
+        """
+        xai = XAILiveSearchRetriever(query)
+        return await xai.search(
+            query=query,
+            x_handles=x_handles,
+            country=country,
+            from_date=from_date,
+            source=source,
+            max_results=20
+        )
+```
+
+### User Targeting Capabilities
+- **X Platform Handles**: Target specific users with `x_handles` parameter
+- **Geographic Targeting**: Use `country` parameter for regional searches
+- **Temporal Filtering**: Use `from_date` and `to_date` for time-based queries
+- **Source Selection**: Choose between web, X platform, news, or RSS feeds
+- **Website Filtering**: Allow/exclude specific domains (max 5 each)
+
+## Best Practices
+
+1. **Use Gemini for AI processing** and X.AI for real-time search
+2. **Monitor API quotas** for both Gemini and X.AI
+3. **Optimize model selection** based on task complexity
+4. **Leverage X.AI targeting** for social intelligence
+5. **Implement proper error handling** for search failures
+6. **Log all API interactions** for debugging and cost tracking
+7. **Cache search results** when appropriate
+8. **Test with mock responses** during development
+9. **Handle search grounding failures** gracefully
+10. **Keep both API keys secure** and rotate regularly
+
+## Common Issues & Solutions
+
+### 1. Search Functionality
+**Problem**: Trying to use the `gemini` retriever for web search.
+**Solution**: The `gemini` retriever is a placeholder. For actual web search, use the `google` retriever, which requires a `GOOGLE_CX_KEY`.
+
+### 2. Embedding Model Error
+**Problem**: Model not found when using embeddings.
+**Solution**: Always prefix Google GenAI embedding models with "models/" (e.g., `models/text-embedding-004`). This is handled automatically in `chimera_researcher/memory/embeddings.py`.
+
+### 3. JSON Extraction from Gemini
+**Problem**: Gemini may return malformed or incomplete JSON.
+**Solution**: Use schema-enforced JSON output with Pydantic models. This is implemented in `chimera_researcher/graph/extractor.py` and `chimera_researcher/skills/curator.py`.
+
+### 4. Time-Bounded Search
+**Problem**: Need to search within specific date ranges.
+**Solution**: Use Google search operators within the query string itself.
+```python
+# For date-bounded queries
+query = f'{base_query} after:YYYY-MM-DD before:YYYY-MM-DD'
+```
+
+Always prioritize reliability and use components for their intended purpose :-)

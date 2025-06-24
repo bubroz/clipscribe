@@ -1,0 +1,248 @@
+---
+description: Patterns for integrating with external APIs (YouTube, Gemini, etc.)
+globs: 
+alwaysApply: false
+---
+---
+description: "Patterns for integrating with external APIs (YouTube, Gemini, etc.)"
+globs: ["src/clipscribe/retrievers/**/*.py", "**/client.py", "**/transcriber.py"]
+alwaysApply: false
+---
+
+# API Integration Patterns
+
+## Client Structure
+
+All API clients should follow this pattern:
+
+```python
+class PlatformClient:
+    """Client for Platform API integration."""
+    
+    def __init__(self, api_key: Optional[str] = None):
+        self.api_key = api_key or os.getenv("PLATFORM_API_KEY")
+        self.session = None
+        self._setup_client()
+    
+    def _setup_client(self):
+        """Initialize API client with retry logic."""
+        # Setup code
+    
+    async def __aenter__(self):
+        """Async context manager entry."""
+        self.session = aiohttp.ClientSession()
+        return self
+    
+    async def __aexit__(self, exc_type, exc_val, exc_tb):
+        """Cleanup resources."""
+        if self.session:
+            await self.session.close()
+```
+
+## Rate Limiting
+
+Implement rate limiting for API calls:
+```python
+from asyncio import Semaphore
+
+class APIClient:
+    def __init__(self, max_concurrent: int = 3):
+        self._semaphore = Semaphore(max_concurrent)
+        self._rate_limit_delay = 1.0  # seconds
+    
+    async def _api_call(self, endpoint: str, **kwargs):
+        async with self._semaphore:
+            try:
+                response = await self._make_request(endpoint, **kwargs)
+                await asyncio.sleep(self._rate_limit_delay)
+                return response
+            except RateLimitError:
+                logger.warning("Rate limit hit, backing off")
+                await asyncio.sleep(60)
+                return await self._api_call(endpoint, **kwargs)
+```
+
+## Error Handling for APIs
+
+```python
+class APIError(Exception):
+    """Base API error."""
+    pass
+
+class RateLimitError(APIError):
+    """Rate limit exceeded."""
+    pass
+
+class AuthenticationError(APIError):
+    """Authentication failed."""
+    pass
+
+async def api_call_with_retry(func, max_retries: int = 3):
+    """Retry API calls with exponential backoff."""
+    for attempt in range(max_retries):
+        try:
+            return await func()
+        except RateLimitError:
+            wait_time = 2 ** attempt
+            logger.warning(f"Rate limited, waiting {wait_time}s")
+            await asyncio.sleep(wait_time)
+        except AuthenticationError:
+            logger.error("Authentication failed")
+            raise
+        except Exception as e:
+            if attempt == max_retries - 1:
+                raise
+            logger.warning(f"Attempt {attempt + 1} failed: {e}")
+```
+
+## API Key Management
+
+```python
+from pydantic import SecretStr
+
+class APIConfig:
+    """Centralized API configuration."""
+    
+    @staticmethod
+    def get_api_key(service: str) -> str:
+        """Get API key with validation."""
+        key = os.getenv(f"{service.upper()}_API_KEY")
+        if not key:
+            raise ValueError(
+                f"{service} API key not found. "
+                f"Set {service.upper()}_API_KEY environment variable."
+            )
+        return key
+    
+    @staticmethod
+    def mask_api_key(key: str) -> str:
+        """Mask API key for logging."""
+        if not key:
+            return "[not set]"
+        return f"{key[:8]}...{key[-4:]}"
+```
+
+## Response Validation
+
+Use Pydantic for response validation:
+```python
+from pydantic import BaseModel, ValidationError
+
+class VideoMetadataResponse(BaseModel):
+    """YouTube API response model."""
+    video_id: str
+    title: str
+    duration: int
+    # ... other fields
+
+async def get_video_info(video_id: str) -> VideoMetadata:
+    """Get video info with validation."""
+    response = await api_client.get(f"/videos/{video_id}")
+    
+    try:
+        validated = VideoMetadataResponse(**response)
+        return VideoMetadata.from_api_response(validated)
+    except ValidationError as e:
+        logger.error(f"Invalid API response: {e}")
+        raise APIError(f"Invalid response format: {e}")
+```
+
+## Cost Tracking
+
+Track API usage and costs:
+```python
+class CostTracker:
+    """Track API usage costs."""
+    
+    # Pricing per service
+    COSTS = {
+        "gemini_audio": 0.0001875,  # per 1k tokens
+        "gemini_video": 0.001875,    # per 1k tokens
+        "youtube_api": 0.0,          # free tier
+    }
+    
+    def __init__(self):
+        self.usage = defaultdict(float)
+    
+    def track(self, service: str, units: float):
+        """Track usage."""
+        self.usage[service] += units
+    
+    def get_total_cost(self) -> float:
+        """Calculate total cost."""
+        total = 0.0
+        for service, units in self.usage.items():
+            rate = self.COSTS.get(service, 0.0)
+            total += units * rate
+        return total
+```
+
+## Caching API Responses
+
+```python
+import hashlib
+from pathlib import Path
+
+class APICache:
+    """Cache API responses to reduce costs."""
+    
+    def __init__(self, cache_dir: str = ".api_cache"):
+        self.cache_dir = Path(cache_dir)
+        self.cache_dir.mkdir(exist_ok=True)
+    
+    def _get_cache_key(self, endpoint: str, params: dict) -> str:
+        """Generate cache key."""
+        key_data = f"{endpoint}:{json.dumps(params, sort_keys=True)}"
+        return hashlib.md5(key_data.encode()).hexdigest()
+    
+    async def get_or_fetch(self, endpoint: str, params: dict, fetcher):
+        """Get from cache or fetch."""
+        cache_key = self._get_cache_key(endpoint, params)
+        cache_file = self.cache_dir / f"{cache_key}.json"
+        
+        if cache_file.exists():
+            logger.debug(f"Cache hit: {cache_key}")
+            return json.loads(cache_file.read_text())
+        
+        logger.debug(f"Cache miss: {cache_key}")
+        result = await fetcher()
+        cache_file.write_text(json.dumps(result))
+        return result
+```
+
+## Platform-Specific Patterns
+
+### YouTube Client
+```python
+async def get_video_metadata(self, video_id: str) -> dict:
+    """YouTube-specific metadata retrieval."""
+    # Try YouTube API first (free, has captions)
+    try:
+        return await self._youtube_api_metadata(video_id)
+    except Exception as e:
+        logger.warning(f"YouTube API failed: {e}, falling back to yt-dlp")
+        return await self._ytdlp_metadata(video_id)
+```
+
+### Gemini Integration
+```python
+async def transcribe_with_gemini(self, audio_file: Path) -> str:
+    """Gemini-specific transcription."""
+    # Configure for optimal cost/performance
+    config = genai.GenerationConfig(
+        temperature=0.1,  # Low for accuracy
+        candidate_count=1,
+        max_output_tokens=8192,
+    )
+    
+    # Use native audio support
+    audio_file_obj = genai.upload_file(str(audio_file))
+    
+    prompt = "Transcribe this audio precisely. Include all speech."
+    response = await model.generate_content_async(
+        [prompt, audio_file_obj],
+        generation_config=config
+    )
+    
+    return response.text
+```

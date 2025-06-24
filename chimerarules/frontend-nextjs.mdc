@@ -1,0 +1,300 @@
+---
+description: Next.js 14+, React, and TypeScript frontend patterns including App Router, server components, and Tailwind CSS styling
+globs: 
+alwaysApply: false
+---
+---
+description: Next.js 14+, React, and TypeScript frontend patterns including App Router, server components, and Tailwind CSS styling
+globs: ["frontend/nextjs/**/*.{ts,tsx,js,jsx}", "frontend/nextjs/**/*.{css,scss}", "frontend/components/**/*.{ts,tsx,js,jsx}", "frontend/vanilla/**/*.{js,css,html}"]
+alwaysApply: false
+---
+# Frontend Development Rules - Next.js & React
+
+## Technology Stack
+- **Framework**: Next.js 14+ with App Router (not Pages Router)
+- **Language**: TypeScript with strict mode enabled
+- **Styling**: Tailwind CSS with custom design system
+- **Components**: shadcn/ui compatible patterns
+- **State Management**: React hooks, Context API, and Zustand for complex state
+- **Testing**: React Testing Library, Jest, Playwright for E2E
+
+## TypeScript Patterns
+
+### Component Definition
+```typescript
+interface ComponentProps {
+  query: string;
+  onResult: (result: ResearchResult) => void;
+  className?: string;
+}
+
+export const ResearchComponent: React.FC<ComponentProps> = ({ 
+  query, 
+  onResult,
+  className = "" 
+}) => {
+  const [state, setState] = useState<ResearchState>({
+    loading: false,
+    error: null,
+    data: null
+  });
+
+  const handleResearch = useCallback(async () => {
+    try {
+      setState(prev => ({ ...prev, loading: true, error: null }));
+      const result = await conductResearch(query);
+      onResult(result);
+      setState(prev => ({ ...prev, data: result }));
+    } catch (error) {
+      setState(prev => ({ 
+        ...prev, 
+        error: error instanceof Error ? error.message : 'Research failed' 
+      }));
+    } finally {
+      setState(prev => ({ ...prev, loading: false }));
+    }
+  }, [query, onResult]);
+
+  return (
+    <div className={cn("research-container", className)}>
+      {state.loading && <LoadingSpinner />}
+      {state.error && <ErrorAlert message={state.error} />}
+      <Button onClick={handleResearch} disabled={state.loading}>
+        {state.loading ? 'Researching...' : 'Start Research'}
+      </Button>
+    </div>
+  );
+};
+```
+
+## Next.js App Router Patterns
+
+### Server Components
+```typescript
+// app/research/page.tsx
+import { Suspense } from 'react';
+import { ResearchForm } from '@/components/research/ResearchForm';
+
+export default async function ResearchPage() {
+  return (
+    <div className="container mx-auto py-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="lg:col-span-2">
+          <ResearchForm />
+        </div>
+        <div className="lg:col-span-1">
+          <Suspense fallback={<ResearchSkeleton />}>
+            <RecentResearch />
+          </Suspense>
+        </div>
+      </div>
+    </div>
+  );
+}
+```
+
+### Server Actions
+```typescript
+// app/actions/research.ts
+'use server';
+
+import { z } from 'zod';
+import { redirect } from 'next/navigation';
+
+const ResearchSchema = z.object({
+  query: z.string().min(1).max(1000),
+  reportType: z.enum(['research_report', 'summary', 'deep_research']),
+  maxResults: z.number().min(1).max(20).default(7),
+});
+
+export async function createResearch(formData: FormData) {
+  const validatedFields = ResearchSchema.safeParse({
+    query: formData.get('query'),
+    reportType: formData.get('reportType'),
+    maxResults: Number(formData.get('maxResults')),
+  });
+
+  if (!validatedFields.success) {
+    return { errors: validatedFields.error.flatten().fieldErrors };
+  }
+
+  try {
+    const response = await fetch(`${process.env.API_URL}/api/research`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(validatedFields.data),
+    });
+
+    if (!response.ok) throw new Error('Research request failed');
+    const result = await response.json();
+    redirect(`/research/${result.research_id}`);
+  } catch (error) {
+    return { errors: { _form: ['Failed to initiate research. Please try again.'] } };
+  }
+}
+```
+
+## React Patterns
+
+### State Management
+- Use `useState` for local component state
+- Use `useContext` for shared state across components
+- Use `useCallback` for event handlers to prevent unnecessary re-renders
+- Use `useMemo` for expensive calculations
+- Use Zustand for complex global state management
+
+### Error Boundaries
+```typescript
+'use client';
+
+import { Component, ReactNode } from 'react';
+
+interface Props {
+  children: ReactNode;
+  fallback?: ReactNode;
+}
+
+interface State {
+  hasError: boolean;
+  error?: Error;
+}
+
+export class ErrorBoundary extends Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(error: Error): State {
+    return { hasError: true, error };
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return this.props.fallback || <DefaultErrorFallback error={this.state.error} />;
+    }
+
+    return this.props.children;
+  }
+}
+```
+
+## Styling with Tailwind CSS
+
+### Component Styling
+- Use `className` prop for styling
+- Implement responsive design with Tailwind breakpoints
+- Use CSS variables for theme colors
+- Implement dark mode support
+- Use `cn()` utility for conditional classes
+
+```typescript
+import { cn } from '@/lib/utils';
+
+interface ButtonProps {
+  variant?: 'primary' | 'secondary' | 'destructive';
+  size?: 'sm' | 'md' | 'lg';
+  className?: string;
+  children: ReactNode;
+}
+
+export const Button: React.FC<ButtonProps> = ({
+  variant = 'primary',
+  size = 'md',
+  className,
+  children,
+  ...props
+}) => {
+  return (
+    <button
+      className={cn(
+        'rounded-md font-medium transition-colors',
+        {
+          'bg-blue-600 text-white hover:bg-blue-700': variant === 'primary',
+          'bg-gray-200 text-gray-900 hover:bg-gray-300': variant === 'secondary',
+          'bg-red-600 text-white hover:bg-red-700': variant === 'destructive',
+        },
+        {
+          'px-2 py-1 text-sm': size === 'sm',
+          'px-4 py-2': size === 'md',
+          'px-6 py-3 text-lg': size === 'lg',
+        },
+        className
+      )}
+      {...props}
+    >
+      {children}
+    </button>
+  );
+};
+```
+
+## Performance Optimization
+
+### Code Splitting
+```typescript
+import dynamic from 'next/dynamic';
+
+const HeavyComponent = dynamic(() => import('./HeavyComponent'), {
+  loading: () => <ComponentSkeleton />,
+  ssr: false, // Disable SSR if needed
+});
+```
+
+### Image Optimization
+```typescript
+import Image from 'next/image';
+
+export const OptimizedImage = ({ src, alt, ...props }) => (
+  <Image
+    src={src}
+    alt={alt}
+    placeholder="blur"
+    blurDataURL="data:image/jpeg;base64,..."
+    {...props}
+  />
+);
+```
+
+## File Organization
+
+**CRITICAL: All frontend files MUST go in the `frontend/` directory structure!**
+
+```
+frontend/nextjs/             # NEVER create frontend files outside this directory!
+├── app/                     # Next.js App Router
+│   ├── layout.tsx          # Root layout
+│   ├── page.tsx            # Home page
+│   ├── research/           # Research pages
+│   └── api/                # API routes (if needed)
+├── components/             # Reusable UI components
+│   ├── ui/                 # shadcn/ui components
+│   ├── research/           # Research-specific components
+│   └── layout/             # Layout components
+├── hooks/                  # Custom React hooks
+├── types/                  # TypeScript definitions
+├── utils/                  # Client utilities
+├── public/                 # Static assets
+└── styles/                 # Global styles
+```
+
+**File Creation Rules:**
+1. NEVER create React/TypeScript files in the project root
+2. ALWAYS use the appropriate subdirectory within `frontend/`
+3. Group related components in feature directories
+4. Keep component files close to where they're used
+5. Use index files for cleaner imports when appropriate
+
+## Best Practices
+1. **Always use TypeScript strict mode**
+2. **Prefer Server Components** over Client Components when possible
+3. **Implement proper error handling** with Error Boundaries
+4. **Use semantic HTML** for accessibility
+5. **Optimize images** with Next.js Image component
+6. **Implement loading states** for all async operations
+7. **Use proper form validation** with zod schemas
+8. **Follow responsive design principles**
+9. **Test components** with React Testing Library
+10. **Use ESLint and Prettier** for code quality
+
+Remember to maintain consistent patterns across all frontend components :-)

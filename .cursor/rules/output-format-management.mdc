@@ -1,0 +1,265 @@
+---
+description: Guidelines for managing and adding output formats
+globs: 
+alwaysApply: false
+---
+---
+description: "Guidelines for managing and adding output formats"
+globs: ["src/clipscribe/retrievers/**/*.py", "**/output*.py", "**/save*.py"]
+alwaysApply: false
+---
+
+# Output Format Management
+
+## Directory Structure
+
+ClipScribe uses a structured, machine-readable output format:
+
+```
+output/
+└── 20250624_youtube_DizuEaYDWBg/  # {date}_{platform}_{id}
+    ├── manifest.json              # File index and metadata
+    ├── metadata.json              # Video metadata
+    ├── transcript.txt             # Plain text transcript
+    ├── transcript.json            # Full structured data
+    ├── transcript.srt             # SRT subtitles
+    ├── transcript.vtt             # WebVTT subtitles
+    ├── entities.json              # Extracted entities
+    ├── relationships.json         # Entity relationships (v2.2+)
+    ├── knowledge_graph.json       # Graph structure (v2.2+)
+    ├── facts.txt                  # Key facts (v2.2+)
+    └── chimera_format.json        # Chimera-compatible format
+```
+
+## Adding New Formats
+
+### 1. Define Format Function
+```python
+def _generate_markdown(self, video: VideoIntelligence) -> str:
+    """Generate Markdown format output."""
+    md_lines = [
+        f"# {video.metadata.title}",
+        f"**Channel:** {video.metadata.channel}",
+        f"**Duration:** {video.metadata.duration // 60}:{video.metadata.duration % 60:02d}",
+        "",
+        "## Transcript",
+        video.transcript.full_text,
+        "",
+        "## Key Points",
+    ]
+    
+    for point in video.key_points:
+        timestamp = f"{point.timestamp // 60}:{point.timestamp % 60:02d}"
+        md_lines.append(f"- [{timestamp}] {point.text}")
+    
+    return "\n".join(md_lines)
+```
+
+### 2. Add to Save Method
+```python
+def save_all_formats(self, video: VideoIntelligence, output_dir: str):
+    # ... existing formats ...
+    
+    # Markdown format
+    if "md" in self.output_formats:
+        md_path = paths["directory"] / "transcript.md"
+        md_content = self._generate_markdown(video)
+        with open(md_path, 'w', encoding='utf-8') as f:
+            f.write(md_content)
+        paths["markdown"] = md_path
+```
+
+### 3. Update Manifest
+```python
+# Add to manifest
+if "markdown" in paths:
+    manifest["files"]["markdown"] = {
+        "path": "transcript.md",
+        "format": "markdown",
+        "size": os.path.getsize(paths["markdown"])
+    }
+```
+
+## Format Generators
+
+### SRT Format
+```python
+def _generate_srt(self, video: VideoIntelligence) -> str:
+    """Generate SRT subtitle format."""
+    if video.transcript.segments:
+        srt_lines = []
+        for i, segment in enumerate(video.transcript.segments, 1):
+            start = self._seconds_to_srt_time(segment['start'])
+            end = self._seconds_to_srt_time(segment['end'])
+            
+            srt_lines.extend([
+                str(i),
+                f"{start} --> {end}",
+                segment['text'],
+                ""  # Empty line between entries
+            ])
+        return "\n".join(srt_lines)
+    else:
+        # Fallback for no segments
+        duration = video.metadata.duration
+        return f"1\n00:00:00,000 --> {self._seconds_to_srt_time(duration)}\n{video.transcript.full_text}\n"
+```
+
+### Time Formatting
+```python
+def _seconds_to_srt_time(self, seconds: float) -> str:
+    """Convert seconds to SRT format (00:00:00,000)."""
+    hours = int(seconds // 3600)
+    minutes = int((seconds % 3600) // 60)
+    secs = int(seconds % 60)
+    millis = int((seconds % 1) * 1000)
+    return f"{hours:02d}:{minutes:02d}:{secs:02d},{millis:03d}"
+
+def _seconds_to_vtt_time(self, seconds: float) -> str:
+    """Convert seconds to WebVTT format (00:00:00.000)."""
+    # Same as SRT but with . instead of ,
+    return self._seconds_to_srt_time(seconds).replace(',', '.')
+```
+
+## Specialized Formats
+
+### Knowledge Graph Export
+```python
+def export_knowledge_graph(video: VideoIntelligence, format: str = "json"):
+    """Export knowledge graph in various formats."""
+    if format == "json":
+        return {
+            "nodes": [
+                {"id": e.name, "type": e.type, "properties": e.properties}
+                for e in video.entities
+            ],
+            "edges": [
+                {"source": r.subject, "target": r.object, "type": r.predicate}
+                for r in video.relationships
+            ],
+            "metadata": {
+                "node_count": len(video.entities),
+                "edge_count": len(video.relationships),
+                "density": calculate_graph_density(video)
+            }
+        }
+    elif format == "gexf":  # Gephi format
+        return generate_gexf(video)
+    elif format == "graphml":
+        return generate_graphml(video)
+```
+
+### Chimera Format
+```python
+def _to_chimera_format(self, video: VideoIntelligence) -> Dict[str, Any]:
+    """Convert to Chimera research agent format."""
+    return {
+        "type": "video",
+        "source": "video_intelligence",
+        "url": video.metadata.url,
+        "title": video.metadata.title,
+        "content": video.transcript.full_text,
+        "summary": video.summary,
+        "metadata": {
+            "channel": video.metadata.channel,
+            "duration": video.metadata.duration,
+            "published_at": video.metadata.published_at.isoformat(),
+            "key_points": [kp.dict() for kp in video.key_points],
+            "entities": [e.dict() for e in video.entities],
+            "processing_cost": video.processing_cost
+        }
+    }
+```
+
+## Filename Management
+
+### Sanitization
+```python
+def sanitize_filename(text: str, max_length: int = 100) -> str:
+    """Create safe filename from text."""
+    # Remove invalid characters
+    text = re.sub(r'[<>:"/\\|?*]', '', text)
+    
+    # Replace spaces with underscores
+    text = text.replace(' ', '_')
+    
+    # Truncate if needed
+    if len(text) > max_length:
+        text = text[:max_length].rsplit('_', 1)[0]
+    
+    return text or "untitled"
+```
+
+### Structured Naming
+```python
+def create_output_structure(metadata: Dict[str, Any], base_dir: str) -> Dict[str, Path]:
+    """Create structured output directory."""
+    # Extract components
+    date = datetime.now().strftime("%Y%m%d")
+    platform = extract_platform_from_url(metadata['url'])
+    video_id = extract_video_id(metadata['url'])
+    
+    # Create directory name
+    dir_name = f"{date}_{platform}_{video_id}"
+    output_dir = Path(base_dir) / dir_name
+    output_dir.mkdir(parents=True, exist_ok=True)
+    
+    # Return path mapping
+    return {
+        "directory": output_dir,
+        "transcript_txt": output_dir / "transcript.txt",
+        "transcript_json": output_dir / "transcript.json",
+        "transcript_srt": output_dir / "transcript.srt",
+        "transcript_vtt": output_dir / "transcript.vtt",
+        "metadata": output_dir / "metadata.json",
+        "entities": output_dir / "entities.json",
+        "manifest": output_dir / "manifest.json"
+    }
+```
+
+## Format Validation
+
+### Output Verification
+```python
+def validate_output(paths: Dict[str, Path]) -> bool:
+    """Validate all output files were created."""
+    required_files = [
+        "transcript_txt", "transcript_json", 
+        "metadata", "manifest"
+    ]
+    
+    for file_key in required_files:
+        if file_key not in paths:
+            logger.error(f"Missing required file: {file_key}")
+            return False
+        
+        if not paths[file_key].exists():
+            logger.error(f"File not created: {paths[file_key]}")
+            return False
+        
+        if paths[file_key].stat().st_size == 0:
+            logger.warning(f"Empty file: {paths[file_key]}")
+    
+    return True
+```
+
+## Best Practices
+
+1. **Always use UTF-8 encoding** for text files
+2. **Include file size** in manifest for validation
+3. **Use consistent naming** across all formats
+4. **Validate output** after generation
+5. **Handle missing data gracefully** (empty lists, None values)
+6. **Version your formats** in manifest
+7. **Make formats self-documenting** with clear structure
+
+## CLI Integration
+
+```python
+@click.option(
+    "--format", "-f",
+    type=click.Choice(['txt', 'srt', 'vtt', 'json', 'md', 'all']),
+    default='txt',
+    help='Output format for transcription'
+)
+```
