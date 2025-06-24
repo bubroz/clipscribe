@@ -332,12 +332,58 @@ Format: Provide a comprehensive transcript that captures both audio and visual c
             # Find JSON content
             json_match = re.search(r'[\[\{].*[\]\}]', cleaned, re.DOTALL)
             if json_match:
-                return json.loads(json_match.group())
+                json_str = json_match.group()
+                
+                # Try to parse as-is first
+                try:
+                    return json.loads(json_str)
+                except json.JSONDecodeError:
+                    # Common fixes for malformed JSON
+                    # 1. Add missing commas between array/object items
+                    json_str = re.sub(r'}\s*{', '},{', json_str)
+                    json_str = re.sub(r']\s*\[', '],[', json_str)
+                    json_str = re.sub(r'}\s*\[', '},[', json_str)
+                    json_str = re.sub(r']\s*{', '],{', json_str)
+                    
+                    # 2. Fix missing commas after string values
+                    json_str = re.sub(r'"\s*\n\s*"', '",\n"', json_str)
+                    
+                    # 3. Remove trailing commas
+                    json_str = re.sub(r',\s*}', '}', json_str)
+                    json_str = re.sub(r',\s*]', ']', json_str)
+                    
+                    # 4. Fix unclosed strings (basic attempt)
+                    # Count quotes and add one if odd
+                    quote_count = json_str.count('"') - json_str.count('\\"')
+                    if quote_count % 2 == 1:
+                        json_str += '"'
+                    
+                    # Try parsing again
+                    try:
+                        return json.loads(json_str)
+                    except json.JSONDecodeError as e:
+                        logger.warning(f"Failed to parse JSON after fixes: {e}")
+                        logger.debug(f"Problematic JSON: {json_str[:500]}...")
+                        
+                        # Last resort: try to extract valid portions
+                        # For arrays, extract individual valid objects
+                        if json_str.strip().startswith('['):
+                            valid_items = []
+                            # Extract individual objects
+                            for match in re.finditer(r'{[^{}]*}', json_str):
+                                try:
+                                    valid_items.append(json.loads(match.group()))
+                                except:
+                                    pass
+                            if valid_items:
+                                return valid_items
+                        
+                        return default
             
             return default
             
-        except json.JSONDecodeError as e:
-            logger.warning(f"Failed to parse JSON: {e}")
+        except Exception as e:
+            logger.warning(f"Unexpected error parsing JSON: {e}")
             return default
     
     def _calculate_cost(self, duration_seconds: int) -> float:

@@ -190,7 +190,7 @@ class AdvancedHybridExtractor:
             
             # Validate entities
             if entities_to_validate:
-                prompt = self._build_entity_validation_prompt(entities_to_validate, video_intel.transcript)
+                prompt = self._build_entity_validation_prompt(entities_to_validate, video_intel.transcript.full_text)
                 response = await model.generate_content_async(
                     prompt,
                     request_options=RequestOptions(timeout=self.request_timeout)
@@ -205,7 +205,7 @@ class AdvancedHybridExtractor:
                 
             # Validate relationships  
             if relationships_to_validate:
-                prompt = self._build_relationship_validation_prompt(relationships_to_validate, video_intel.transcript)
+                prompt = self._build_relationship_validation_prompt(relationships_to_validate, video_intel.transcript.full_text)
                 response = await model.generate_content_async(
                     prompt,
                     request_options=RequestOptions(timeout=self.request_timeout)

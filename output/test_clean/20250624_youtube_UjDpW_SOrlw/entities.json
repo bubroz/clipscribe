@@ -1,0 +1,385 @@
+{
+  "video_url": "https://www.youtube.com/watch?v=UjDpW_SOrlw",
+  "video_title": "Code a Discord Chat Bot That Talks Like Your Favorite Character - Tutorial",
+  "entities": [
+    {
+      "name": "Harry Potter",
+      "type": "PERSON",
+      "confidence": 1.0,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 75,
+        "end_char": 87
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Transcript Wiki",
+      "type": "ORGANIZATION",
+      "confidence": 1.0,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 1683,
+        "end_char": 1698
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Google Colab",
+      "type": "ORGANIZATION",
+      "confidence": 1.0,
+      "properties": {
+        "spacy_label": "ORG",
+        "start_char": 4546,
+        "end_char": 4558
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Hugging Face",
+      "type": "ORGANIZATION",
+      "confidence": 1.0,
+      "properties": {
+        "spacy_label": "ORG",
+        "start_char": 12968,
+        "end_char": 12980
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Uptime Robot",
+      "type": "ORGANIZATION",
+      "confidence": 1.0,
+      "properties": {
+        "spacy_label": "ORG",
+        "start_char": 26608,
+        "end_char": 26620
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Discord",
+      "type": "ORGANIZATION",
+      "confidence": 0.9,
+      "properties": {
+        "spacy_label": "ORG",
+        "start_char": 13,
+        "end_char": 20
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Python",
+      "type": "programming_language",
+      "confidence": 0.9,
+      "properties": {
+        "spacy_label": "GPE",
+        "start_char": 1343,
+        "end_char": 1349
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Kaggle",
+      "type": "ORGANIZATION",
+      "confidence": 0.9,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 1675,
+        "end_char": 1681
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Google",
+      "type": "ORGANIZATION",
+      "confidence": 0.9,
+      "properties": {
+        "spacy_label": "ORG",
+        "start_char": 1753,
+        "end_char": 1759
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Peppa Pig",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 2578,
+        "end_char": 2587
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Peppa",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 2945,
+        "end_char": 2950
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Harry",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 9091,
+        "end_char": 9096
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Git",
+      "type": "ORGANIZATION",
+      "confidence": 0.9,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 13569,
+        "end_char": 13572
+      },
+      "timestamp": null
+    },
+    {
+      "name": "JavaScript",
+      "type": "programming_language",
+      "confidence": 0.9,
+      "properties": {
+        "spacy_label": "ORG",
+        "start_char": 15656,
+        "end_char": 15666
+      },
+      "timestamp": null
+    },
+    {
+      "name": "ChattyBot",
+      "type": "ORGANIZATION",
+      "confidence": 0.9,
+      "properties": {
+        "spacy_label": "ORG",
+        "start_char": 16044,
+        "end_char": 16060
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Repl",
+      "type": "ORGANIZATION",
+      "confidence": 0.9,
+      "properties": {
+        "spacy_label": "ORG",
+        "start_char": 20394,
+        "end_char": 20398
+      },
+      "timestamp": null
+    },
+    {
+      "name": "the Discord",
+      "type": "ORGANIZATION",
+      "confidence": 0.8999999999999999,
+      "properties": {
+        "spacy_label": "FAC",
+        "start_char": 18374,
+        "end_char": 18385
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Google Drive",
+      "type": "APPLICATION",
+      "confidence": 0.85,
+      "properties": {
+        "spacy_label": "FAC",
+        "start_char": 4659,
+        "end_char": 4671
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Git Large File Storage",
+      "type": "APPLICATION",
+      "confidence": 0.85,
+      "properties": {
+        "spacy_label": "ORG",
+        "start_char": 13676,
+        "end_char": 13698
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Rick",
+      "type": "PERSON",
+      "confidence": 0.8,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 57,
+        "end_char": 61
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Morty",
+      "type": "PERSON",
+      "confidence": 0.8,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 66,
+        "end_char": 71
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Lynn",
+      "type": "PERSON",
+      "confidence": 0.8,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 167,
+        "end_char": 171
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Pandas",
+      "type": "LIBRARY",
+      "confidence": 0.8,
+      "properties": {
+        "spacy_label": "ORG",
+        "start_char": 4975,
+        "end_char": 4981
+      },
+      "timestamp": null
+    },
+    {
+      "name": "PyTorch",
+      "type": "LIBRARY",
+      "confidence": 0.8,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 14667,
+        "end_char": 14674
+      },
+      "timestamp": null
+    },
+    {
+      "name": "OAuth",
+      "type": "PROTOCOL",
+      "confidence": 0.8,
+      "properties": {
+        "spacy_label": "ORG",
+        "start_char": 24201,
+        "end_char": 24206
+      },
+      "timestamp": null
+    },
+    {
+      "name": "the University of Chicago",
+      "type": "ORGANIZATION",
+      "confidence": 0.7999999999999999,
+      "properties": {
+        "spacy_label": "ORG",
+        "start_char": 385,
+        "end_char": 410
+      },
+      "timestamp": null
+    },
+    {
+      "name": "George",
+      "type": "PERSON",
+      "confidence": 0.75,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 6063,
+        "end_char": 6069
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Microsoft",
+      "type": "ORGANIZATION",
+      "confidence": 0.75,
+      "properties": {
+        "spacy_label": "ORG",
+        "start_char": 10144,
+        "end_char": 10153
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Dev Lab",
+      "type": "ORGANIZATION",
+      "confidence": 0.75,
+      "properties": {
+        "spacy_label": "PERSON",
+        "start_char": 15587,
+        "end_char": 15594
+      },
+      "timestamp": null
+    },
+    {
+      "name": "UTF-8",
+      "type": "ENCODING",
+      "confidence": 0.75,
+      "properties": {
+        "spacy_label": "GPE",
+        "start_char": 18207,
+        "end_char": 18212
+      },
+      "timestamp": null
+    },
+    {
+      "name": "University of Chicago",
+      "type": "ORGANIZATION",
+      "confidence": 0.5574175715446472,
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "model",
+      "type": "MODEL",
+      "confidence": 0.8357990384101868,
+      "properties": {},
+      "timestamp": null
+    }
+  ],
+  "topics": [
+    {
+      "name": "Creating a Discord bot that talks like a favorite character using AI",
+      "confidence": 0.85
+    },
+    {
+      "name": "Finding data for the character (Kaggle, Transcript Wiki, Fandom websites)",
+      "confidence": 0.85
+    },
+    {
+      "name": "Data preparation: Transforming raw transcripts into usable datasets",
+      "confidence": 0.85
+    },
+    {
+      "name": "Model training using a pre-trained GPT model (adjusting hyperparameters)",
+      "confidence": 0.85
+    },
+    {
+      "name": "Deploying the model to Hugging Face",
+      "confidence": 0.85
+    },
+    {
+      "name": "Building the Discord bot (Python and JavaScript versions)",
+      "confidence": 0.85
+    },
+    {
+      "name": "Setting bot permissions and preventing unintended interactions",
+      "confidence": 0.85
+    },
+    {
+      "name": "Keeping the bot running indefinitely using a web server and uptime robot",
+      "confidence": 0.85
+    }
+  ],
+  "key_facts": []
+}

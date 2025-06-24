@@ -254,7 +254,9 @@ async def transcribe(
                     import subprocess
                     
                     kg_path = saved_files['knowledge_graph']
-                    viz_script = Path(__file__).parent.parent.parent / "scripts" / "visualize_knowledge_graph.py"
+                    # Find project root and then scripts directory
+                    project_root = Path(__file__).parent.parent.parent.parent
+                    viz_script = project_root / "scripts" / "visualize_knowledge_graph.py"
                     
                     if viz_script.exists():
                         # Run visualization script

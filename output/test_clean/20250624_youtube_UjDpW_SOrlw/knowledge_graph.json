@@ -1,0 +1,205 @@
+{
+  "nodes": [
+    {
+      "id": "Harry Potter",
+      "type": "PERSON",
+      "confidence": 1.0
+    },
+    {
+      "id": "Transcript Wiki",
+      "type": "ORGANIZATION",
+      "confidence": 1.0
+    },
+    {
+      "id": "Google Colab",
+      "type": "ORGANIZATION",
+      "confidence": 1.0
+    },
+    {
+      "id": "Hugging Face",
+      "type": "ORGANIZATION",
+      "confidence": 1.0
+    },
+    {
+      "id": "Uptime Robot",
+      "type": "ORGANIZATION",
+      "confidence": 1.0
+    },
+    {
+      "id": "Discord",
+      "type": "ORGANIZATION",
+      "confidence": 0.9
+    },
+    {
+      "id": "Python",
+      "type": "programming_language",
+      "confidence": 0.9
+    },
+    {
+      "id": "Kaggle",
+      "type": "ORGANIZATION",
+      "confidence": 0.9
+    },
+    {
+      "id": "Google",
+      "type": "ORGANIZATION",
+      "confidence": 0.9
+    },
+    {
+      "id": "Peppa Pig",
+      "type": "PERSON",
+      "confidence": 0.9
+    },
+    {
+      "id": "Peppa",
+      "type": "PERSON",
+      "confidence": 0.9
+    },
+    {
+      "id": "Harry",
+      "type": "PERSON",
+      "confidence": 0.9
+    },
+    {
+      "id": "Git",
+      "type": "ORGANIZATION",
+      "confidence": 0.9
+    },
+    {
+      "id": "JavaScript",
+      "type": "programming_language",
+      "confidence": 0.9
+    },
+    {
+      "id": "ChattyBot",
+      "type": "ORGANIZATION",
+      "confidence": 0.9
+    },
+    {
+      "id": "Repl",
+      "type": "ORGANIZATION",
+      "confidence": 0.9
+    },
+    {
+      "id": "the Discord",
+      "type": "ORGANIZATION",
+      "confidence": 0.8999999999999999
+    },
+    {
+      "id": "Google Drive",
+      "type": "APPLICATION",
+      "confidence": 0.85
+    },
+    {
+      "id": "Git Large File Storage",
+      "type": "APPLICATION",
+      "confidence": 0.85
+    },
+    {
+      "id": "Rick",
+      "type": "PERSON",
+      "confidence": 0.8
+    },
+    {
+      "id": "Morty",
+      "type": "PERSON",
+      "confidence": 0.8
+    },
+    {
+      "id": "Lynn",
+      "type": "PERSON",
+      "confidence": 0.8
+    },
+    {
+      "id": "Pandas",
+      "type": "LIBRARY",
+      "confidence": 0.8
+    },
+    {
+      "id": "PyTorch",
+      "type": "LIBRARY",
+      "confidence": 0.8
+    },
+    {
+      "id": "OAuth",
+      "type": "PROTOCOL",
+      "confidence": 0.8
+    },
+    {
+      "id": "the University of Chicago",
+      "type": "ORGANIZATION",
+      "confidence": 0.7999999999999999
+    },
+    {
+      "id": "George",
+      "type": "PERSON",
+      "confidence": 0.75
+    },
+    {
+      "id": "Microsoft",
+      "type": "ORGANIZATION",
+      "confidence": 0.75
+    },
+    {
+      "id": "Dev Lab",
+      "type": "ORGANIZATION",
+      "confidence": 0.75
+    },
+    {
+      "id": "UTF-8",
+      "type": "ENCODING",
+      "confidence": 0.75
+    },
+    {
+      "id": "University of Chicago",
+      "type": "ORGANIZATION",
+      "confidence": 0.5574175715446472
+    },
+    {
+      "id": "model",
+      "type": "MODEL",
+      "confidence": 0.8357990384101868
+    }
+  ],
+  "edges": [
+    {
+      "source": "Google Colab",
+      "target": "Google Drive",
+      "predicate": "has part",
+      "confidence": 0.9
+    },
+    {
+      "source": "Hugging Face",
+      "target": "Discord",
+      "predicate": "part of",
+      "confidence": 0.9
+    },
+    {
+      "source": "Python",
+      "target": "JavaScript",
+      "predicate": "influenced by",
+      "confidence": 0.9
+    },
+    {
+      "source": "Peppa Pig",
+      "target": "George",
+      "predicate": "sibling of",
+      "confidence": 0.9
+    },
+    {
+      "source": "JavaScript",
+      "target": "Python",
+      "predicate": "influenced by",
+      "confidence": 0.9
+    },
+    {
+      "source": "Google Drive",
+      "target": "Google Colab",
+      "predicate": "has part",
+      "confidence": 0.9
+    }
+  ],
+  "node_count": 32,
+  "edge_count": 6,
+  "cleaned": true
+}

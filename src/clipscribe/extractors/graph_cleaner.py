@@ -81,31 +81,38 @@ class GraphCleaner:
             })
         
         prompt = f"""
-Review these entities extracted from a video and identify issues.
+Review these entities extracted from a video and identify ONLY obvious issues.
 
 {context}
 
 Entities to review:
 {json.dumps(entity_list, indent=2)}
 
-Identify:
-1. NOISE: Generic terms, extraction errors, or meaningless entities
-   Examples: "country", "participant", "the President has directed", "sources and methods"
+Identify ONLY:
+1. NOISE: Truly meaningless fragments or extraction errors
+   Examples: "um", "uh", "the the", sentence fragments like "has directed that"
+   DO NOT mark as noise: roles ("participant"), generic concepts ("country"), or any real words
    
-2. DUPLICATES: Different variations of the same entity
+2. DUPLICATES: Exact same entity with different spellings
    Examples: "U.S." and "United States", "Trump" and "Donald Trump"
    
-3. MISTYPED: Entities with wrong type classification
+3. MISTYPED: Obviously wrong type classification
 
 Return a JSON object with these exact keys:
 {{
-    "noise": ["entity1", "entity2"],  // Entities to remove
-    "duplicates": {{"variant": "primary", "US": "United States"}},  // Map variants to primary
-    "retype": {{"entity": "correct_type"}},  // Correct entity types
-    "keep_important": ["entity1", "entity2"]  // Important entities to definitely keep
+    "noise": ["entity1", "entity2"],  // ONLY fragments and errors
+    "duplicates": {{"variant": "primary", "US": "United States"}},  // Map variants  
+    "retype": {{"entity": "correct_type"}},  // Fix obvious type errors
+    "keep_important": ["entity1", "entity2"]  // Entities that are definitely important
 }}
 
-Be conservative - only mark obvious noise. Keep all specific people, places, organizations, and events.
+IMPORTANT: Be VERY conservative. When in doubt, KEEP the entity. We want a rich graph.
+Only remove truly meaningless text fragments. Keep ALL:
+- People, places, organizations, events
+- Concepts, ideas, topics
+- Products, technologies, methods
+- Roles, positions, titles
+- Any other meaningful words or phrases
 """
         
         try:
@@ -168,33 +175,39 @@ Be conservative - only mark obvious noise. Keep all specific people, places, org
             })
         
         prompt = f"""
-Review these relationships extracted from a video and fix issues.
+Review these relationships and fix ONLY clear errors. We want to keep as many relationships as possible.
 
 {context}
 
 Valid entities in the graph: {sorted(entity_names)}
 
-Relationships to review:
-{json.dumps(rel_list[:50], indent=2)}  // Showing first 50
+Relationships to review (first 50 of {len(rel_list)}):
+{json.dumps(rel_list[:50], indent=2)}
 
-Fix these issues:
-1. SWAPPED: Predicates and objects are swapped (e.g., subject="Israel", predicate="Iran", object="diplomatic relation")
-2. INVALID: Subject or object not in entity list
-3. NONSENSE: Relationships that don't make logical sense
-4. GENERIC: Overly vague predicates like "related to"
+Fix ONLY these clear issues:
+1. SWAPPED: When predicate and object are obviously swapped
+   Example: subject="Israel", predicate="Iran", object="diplomatic relation"
+   Fix to: subject="Israel", predicate="diplomatic relation", object="Iran"
 
-For SWAPPED relationships, return the corrected version.
-For INVALID/NONSENSE, mark for removal.
-For GENERIC, suggest a more specific predicate if possible.
+2. COMPLETELY INVALID: Subject or object is gibberish or not an entity at all
+   DO NOT remove relationships just because entities aren't in the list - they might be valid
+
+3. IMPROVE VAGUE: If predicate is too generic, suggest specific replacement
+   Examples: "related to" → "works at", "mentioned" → "criticized"
+   But KEEP the relationship even with generic predicate if you can't improve it
 
 Return JSON:
 {{
     "fixed": [
         {{"index": 0, "subject": "Israel", "predicate": "diplomatic relation", "object": "Iran"}},
     ],
-    "remove": [3, 4, 7],  // Indices to remove
-    "notes": "Brief explanation of major fixes"
+    "remove": [3, 4, 7],  // ONLY indices that are completely invalid
+    "improved_predicates": {{"index": predicate}},  // Better predicates for vague ones
+    "notes": "Brief explanation"
 }}
+
+IMPORTANT: Default to KEEPING relationships. Only remove if completely nonsensical.
+Generic relationships still provide value in the knowledge graph.
 """
         
         try:

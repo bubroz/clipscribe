@@ -131,36 +131,40 @@ class GLiNERExtractor:
             
         entities = []
         
-        try:
-            # GLiNER expects a single string, not a list
-            # Predict entities directly from the text
-            predictions = self.model.predict_entities(
-                text,
-                labels,
-                threshold=threshold,
-                flat_ner=flat_ner
-            )
-            
-            # Parse results - predictions is a list of entity dicts
-            for entity in predictions:
-                if isinstance(entity, dict) and all(key in entity for key in ["text", "label"]):
-                    entities.append(CustomEntity(
-                        text=entity["text"],
-                        label=entity["label"],
-                        start=entity.get("start", 0),
-                        end=entity.get("end", 0),
-                        confidence=entity.get("score", 0.9)
-                    ))
-                    
-        except Exception as e:
-            logger.warning(f"GLiNER extraction warning (non-critical): {e}")
-            # Return empty list instead of failing
-            return []
+        # Chunk long text to avoid truncation
+        chunks = self._chunk_text(text, max_length=2000)  # Conservative chunk size
+        
+        for chunk_idx, (chunk_text, chunk_offset) in enumerate(chunks):
+            try:
+                # GLiNER expects a single string, not a list
+                # Predict entities directly from the text chunk
+                predictions = self.model.predict_entities(
+                    chunk_text,
+                    labels,
+                    threshold=threshold,
+                    flat_ner=flat_ner
+                )
+                
+                # Parse results - predictions is a list of entity dicts
+                for entity in predictions:
+                    if isinstance(entity, dict) and all(key in entity for key in ["text", "label"]):
+                        entities.append(CustomEntity(
+                            text=entity["text"],
+                            label=entity["label"],
+                            start=entity.get("start", 0) + chunk_offset,
+                            end=entity.get("end", 0) + chunk_offset,
+                            confidence=entity.get("score", 0.9)
+                        ))
+                        
+            except Exception as e:
+                logger.warning(f"GLiNER extraction warning in chunk {chunk_idx} (non-critical): {e}")
+                # Continue with next chunk instead of failing
+                continue
             
         # Remove duplicates and filter
         unique_entities = self._deduplicate_entities(entities)
         
-        logger.info(f"Extracted {len(unique_entities)} custom entities :-)")
+        logger.info(f"Extracted {len(unique_entities)} custom entities from {len(chunks)} chunks :-)")
         return unique_entities
         
     def extract_domain_specific(
@@ -211,6 +215,45 @@ class GLiNERExtractor:
         
         return self.extract_entities(text, labels)
         
+    def _chunk_text(self, text: str, max_length: int = 2000) -> List[tuple[str, int]]:
+        """
+        Split text into chunks at sentence boundaries.
+        
+        Returns list of (chunk_text, offset) tuples.
+        """
+        import re
+        
+        # Split on sentence boundaries
+        sentences = re.split(r'(?<=[.!?])\s+', text)
+        
+        chunks = []
+        current_chunk = []
+        current_length = 0
+        current_offset = 0
+        
+        for sentence in sentences:
+            sentence_length = len(sentence)
+            
+            # If adding this sentence would exceed max_length, save current chunk
+            if current_length + sentence_length > max_length and current_chunk:
+                chunk_text = ' '.join(current_chunk)
+                chunks.append((chunk_text, current_offset))
+                
+                # Start new chunk
+                current_offset += current_length + 1  # +1 for space
+                current_chunk = [sentence]
+                current_length = sentence_length
+            else:
+                current_chunk.append(sentence)
+                current_length += sentence_length + 1  # +1 for space
+        
+        # Add final chunk
+        if current_chunk:
+            chunk_text = ' '.join(current_chunk)
+            chunks.append((chunk_text, current_offset))
+        
+        return chunks
+    
     def _deduplicate_entities(self, entities: List[CustomEntity]) -> List[CustomEntity]:
         """Remove duplicate and overlapping entities."""
         # Sort by start position

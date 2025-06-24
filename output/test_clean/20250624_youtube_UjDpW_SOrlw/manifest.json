@@ -1,0 +1,64 @@
+{
+  "version": "2.2",
+  "created_at": "2025-06-24T10:26:18.950338",
+  "video": {
+    "title": "Code a Discord Chat Bot That Talks Like Your Favorite Character - Tutorial",
+    "url": "https://www.youtube.com/watch?v=UjDpW_SOrlw",
+    "platform": "youtube"
+  },
+  "extraction_stats": {
+    "spacy_entities": 50,
+    "gliner_entities": 5,
+    "llm_validated": 54,
+    "relationships": 202,
+    "graph_nodes": 177,
+    "graph_edges": 190
+  },
+  "files": {
+    "transcript_txt": {
+      "path": "transcript.txt",
+      "format": "plain_text",
+      "size": 28595
+    },
+    "transcript_json": {
+      "path": "transcript.json",
+      "format": "json",
+      "size": 104178
+    },
+    "metadata": {
+      "path": "metadata.json",
+      "format": "json",
+      "size": 2276
+    },
+    "entities": {
+      "path": "entities.json",
+      "format": "json",
+      "size": 8497
+    },
+    "relationships": {
+      "path": "relationships.json",
+      "format": "json",
+      "size": 1972,
+      "count": 7
+    },
+    "knowledge_graph": {
+      "path": "knowledge_graph.json",
+      "format": "json",
+      "size": 3817,
+      "nodes": 32,
+      "edges": 6
+    },
+    "knowledge_graph_gexf": {
+      "path": "knowledge_graph.gexf",
+      "format": "gexf",
+      "size": 11168,
+      "description": "Gephi-compatible graph file"
+    },
+    "facts": {
+      "path": "facts.txt",
+      "format": "plain_text",
+      "size": 5518,
+      "count": 100
+    }
+  }
+}
