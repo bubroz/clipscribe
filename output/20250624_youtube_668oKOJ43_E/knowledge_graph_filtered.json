@@ -1,0 +1,704 @@
+{
+  "nodes": [
+    {
+      "id": "Iran",
+      "type": "LOCATION",
+      "confidence": 0.9
+    },
+    {
+      "id": "Eric Corrilla",
+      "type": "PERSON",
+      "confidence": 0.9
+    },
+    {
+      "id": "Israel",
+      "type": "LOCATION",
+      "confidence": 0.9
+    },
+    {
+      "id": "Fordo",
+      "type": "LOCATION",
+      "confidence": 0.9
+    },
+    {
+      "id": "Iraq",
+      "type": "LOCATION",
+      "confidence": 0.9
+    },
+    {
+      "id": "Donald J. Trump",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "Gulf",
+      "type": "LOCATION",
+      "confidence": 0.85
+    },
+    {
+      "id": "Natanz",
+      "type": "location",
+      "confidence": 0.934268593788147
+    },
+    {
+      "id": "Syria",
+      "type": "LOCATION",
+      "confidence": 0.8
+    },
+    {
+      "id": "China",
+      "type": "LOCATION",
+      "confidence": 0.75
+    },
+    {
+      "id": "Missouri",
+      "type": "LOCATION",
+      "confidence": 0.75
+    },
+    {
+      "id": "President Trump",
+      "type": "person",
+      "confidence": 0.8806020617485046
+    },
+    {
+      "id": "position held",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "office held by head of the organization",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "country",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Iran's nuclear program",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "appointed by",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "first term",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "follows",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "followed by",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "participant",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "facet of",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "President of the United States",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "officeholder",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "United States of America",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Joint Staff",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "President",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "subclass of",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "has cause",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "providence",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "employer",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "significant event",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "twinned administrative body",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "GBU-57",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Tomahawk missile",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Operation Enduring Freedom",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Secretary",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "General Corrilla",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Uh, green",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "opposite of",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Nope",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "different from",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "War Powers Act",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "notified",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "protect our forces out there",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Chairman",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "ongoing defense of Israel",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Operation Enduring Freedom in Iraq",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "American troops are co-located",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Russia",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "I will take one more uh we'll take one more question",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Uh, thank you",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "threat assessment",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "allies",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "WC-135",
+      "type": "unknown",
+      "confidence": 0.9
+    }
+  ],
+  "edges": [
+    {
+      "source": "President Trump",
+      "target": "position held",
+      "predicate": "President",
+      "confidence": 0.9
+    },
+    {
+      "source": "Iran",
+      "target": "significant event",
+      "predicate": "the nuclear program",
+      "confidence": 0.9
+    },
+    {
+      "source": "Iran",
+      "target": "Israel",
+      "predicate": "diplomatic relation",
+      "confidence": 0.9
+    },
+    {
+      "source": "Iran",
+      "target": "China",
+      "predicate": "diplomatic relation",
+      "confidence": 0.9
+    },
+    {
+      "source": "Iran",
+      "target": "President",
+      "predicate": "office held by head of government",
+      "confidence": 0.9
+    },
+    {
+      "source": "Iran",
+      "target": "allies",
+      "predicate": "diplomatic relation",
+      "confidence": 0.9
+    },
+    {
+      "source": "Eric Corrilla",
+      "target": "position held",
+      "predicate": "Chairman of the Joint Chiefs of Staff",
+      "confidence": 0.9
+    },
+    {
+      "source": "Eric Corrilla",
+      "target": "employer",
+      "predicate": "US Central Command",
+      "confidence": 0.9
+    },
+    {
+      "source": "Israel",
+      "target": "President of the United States",
+      "predicate": "office held by head of government",
+      "confidence": 0.9
+    },
+    {
+      "source": "Israel",
+      "target": "Iran",
+      "predicate": "diplomatic relation",
+      "confidence": 0.9
+    },
+    {
+      "source": "Fordo",
+      "target": "country",
+      "predicate": "Iran",
+      "confidence": 0.9
+    },
+    {
+      "source": "Fordo",
+      "target": "twinned administrative body",
+      "predicate": "Natanz",
+      "confidence": 0.9
+    },
+    {
+      "source": "Donald J. Trump",
+      "target": "position held",
+      "predicate": "President of the United States",
+      "confidence": 0.9
+    },
+    {
+      "source": "Donald J. Trump",
+      "target": "President of the United States",
+      "predicate": "head of government",
+      "confidence": 0.9
+    },
+    {
+      "source": "Gulf",
+      "target": "country",
+      "predicate": "US",
+      "confidence": 0.9
+    },
+    {
+      "source": "Gulf",
+      "target": "participant",
+      "predicate": "US",
+      "confidence": 0.9
+    },
+    {
+      "source": "Natanz",
+      "target": "country",
+      "predicate": "Iran",
+      "confidence": 0.9
+    },
+    {
+      "source": "Natanz",
+      "target": "twinned administrative body",
+      "predicate": "Fordo",
+      "confidence": 0.9
+    },
+    {
+      "source": "Syria",
+      "target": "Iraq",
+      "predicate": "diplomatic relation",
+      "confidence": 0.9
+    },
+    {
+      "source": "Missouri",
+      "target": "country",
+      "predicate": "America",
+      "confidence": 0.9
+    },
+    {
+      "source": "President Trump",
+      "target": "position held",
+      "predicate": "President of the United States",
+      "confidence": 0.9
+    },
+    {
+      "source": "President Trump",
+      "target": "significant event",
+      "predicate": "stonewalling",
+      "confidence": 0.9
+    },
+    {
+      "source": "Iran's nuclear program",
+      "target": "country",
+      "predicate": "Iran",
+      "confidence": 0.9
+    },
+    {
+      "source": "Iran's nuclear program",
+      "target": "country",
+      "predicate": "American",
+      "confidence": 0.9
+    },
+    {
+      "source": "first term",
+      "target": "follows",
+      "predicate": "previous administration",
+      "confidence": 0.9
+    },
+    {
+      "source": "first term",
+      "target": "participant",
+      "predicate": "Soleimani",
+      "confidence": 0.9
+    },
+    {
+      "source": "first term",
+      "target": "facet of",
+      "predicate": "President Trump",
+      "confidence": 0.9
+    },
+    {
+      "source": "President of the United States",
+      "target": "officeholder",
+      "predicate": "President Trump",
+      "confidence": 0.9
+    },
+    {
+      "source": "President of the United States",
+      "target": "country",
+      "predicate": "United States of America",
+      "confidence": 0.9
+    },
+    {
+      "source": "President of the United States",
+      "target": "appointed by",
+      "predicate": "President Trump",
+      "confidence": 0.9
+    },
+    {
+      "source": "officeholder",
+      "target": "President of the United States",
+      "predicate": "Donald J. Trump",
+      "confidence": 0.9
+    },
+    {
+      "source": "United States of America",
+      "target": "President of the United States",
+      "predicate": "office held by head of government",
+      "confidence": 0.9
+    },
+    {
+      "source": "United States of America",
+      "target": "Donald J. Trump",
+      "predicate": "country",
+      "confidence": 0.9
+    },
+    {
+      "source": "Joint Staff",
+      "target": "office held by head of the organization",
+      "predicate": "Chairman of the Joint Chiefs of Staff",
+      "confidence": 0.9
+    },
+    {
+      "source": "President",
+      "target": "country",
+      "predicate": "Iran",
+      "confidence": 0.9
+    },
+    {
+      "source": "President",
+      "target": "position held",
+      "predicate": "Chairman",
+      "confidence": 0.9
+    },
+    {
+      "source": "President",
+      "target": "officeholder",
+      "predicate": "Trump",
+      "confidence": 0.9
+    },
+    {
+      "source": "President",
+      "target": "appointed by",
+      "predicate": "Secretary",
+      "confidence": 0.9
+    },
+    {
+      "source": "providence",
+      "target": "has cause",
+      "predicate": "God",
+      "confidence": 0.9
+    },
+    {
+      "source": "GBU-57",
+      "target": "subclass of",
+      "predicate": "precision-guided weapon",
+      "confidence": 0.9
+    },
+    {
+      "source": "Tomahawk missile",
+      "target": "subclass of",
+      "predicate": "surface-to-air missile",
+      "confidence": 0.9
+    },
+    {
+      "source": "Operation Enduring Freedom",
+      "target": "followed by",
+      "predicate": "Operation Enduring Freedom III",
+      "confidence": 0.9
+    },
+    {
+      "source": "Operation Enduring Freedom",
+      "target": "Operation Enduring Freedom in Iraq",
+      "predicate": "part of",
+      "confidence": 0.9
+    },
+    {
+      "source": "Secretary",
+      "target": "officeholder",
+      "predicate": "General Corrilla",
+      "confidence": 0.9
+    },
+    {
+      "source": "Secretary",
+      "target": "appointed by",
+      "predicate": "President",
+      "confidence": 0.9
+    },
+    {
+      "source": "General Corrilla",
+      "target": "position held",
+      "predicate": "Secretary",
+      "confidence": 0.9
+    },
+    {
+      "source": "General Corrilla",
+      "target": "employer",
+      "predicate": "Centcom",
+      "confidence": 0.9
+    },
+    {
+      "source": "Uh, green",
+      "target": "opposite of",
+      "predicate": "Nope",
+      "confidence": 0.9
+    },
+    {
+      "source": "Uh, green",
+      "target": "different from",
+      "predicate": "Nope",
+      "confidence": 0.9
+    },
+    {
+      "source": "Uh, green",
+      "target": "followed by",
+      "predicate": "Nope",
+      "confidence": 0.9
+    },
+    {
+      "source": "Nope",
+      "target": "opposite of",
+      "predicate": "Uh, green",
+      "confidence": 0.9
+    },
+    {
+      "source": "Nope",
+      "target": "different from",
+      "predicate": "Uh, green",
+      "confidence": 0.9
+    },
+    {
+      "source": "Nope",
+      "target": "follows",
+      "predicate": "Uh, green",
+      "confidence": 0.9
+    },
+    {
+      "source": "notified",
+      "target": "War Powers Act",
+      "predicate": "part of",
+      "confidence": 0.9
+    },
+    {
+      "source": "notified",
+      "target": "facet of",
+      "predicate": "War Powers Act",
+      "confidence": 0.9
+    },
+    {
+      "source": "President Trump",
+      "target": "position held",
+      "predicate": "President",
+      "confidence": 0.9
+    },
+    {
+      "source": "Chairman",
+      "target": "position held",
+      "predicate": "Secretary",
+      "confidence": 0.9
+    },
+    {
+      "source": "Chairman",
+      "target": "subclass of",
+      "predicate": "Secretary",
+      "confidence": 0.9
+    },
+    {
+      "source": "Chairman",
+      "target": "appointed by",
+      "predicate": "President",
+      "confidence": 0.9
+    },
+    {
+      "source": "ongoing defense of Israel",
+      "target": "country",
+      "predicate": "Israel",
+      "confidence": 0.9
+    },
+    {
+      "source": "ongoing defense of Israel",
+      "target": "participant",
+      "predicate": "Israel",
+      "confidence": 0.9
+    },
+    {
+      "source": "Operation Enduring Freedom in Iraq",
+      "target": "Operation Enduring Freedom",
+      "predicate": "has part",
+      "confidence": 0.9
+    },
+    {
+      "source": "American troops are co-located",
+      "target": "country",
+      "predicate": "United States",
+      "confidence": 0.9
+    },
+    {
+      "source": "I will take one more uh we'll take one more question",
+      "target": "followed by",
+      "predicate": "Uh, thank you",
+      "confidence": 0.9
+    },
+    {
+      "source": "I will take one more uh we'll take one more question",
+      "target": "follows",
+      "predicate": "Uh, thank you",
+      "confidence": 0.9
+    },
+    {
+      "source": "Uh, thank you",
+      "target": "follows",
+      "predicate": "I will take one more uh we'll take one more question",
+      "confidence": 0.9
+    },
+    {
+      "source": "Uh, thank you",
+      "target": "followed by",
+      "predicate": "I will take one more uh we'll take one more question",
+      "confidence": 0.9
+    },
+    {
+      "source": "allies",
+      "target": "Iran",
+      "predicate": "diplomatic relation",
+      "confidence": 0.9
+    },
+    {
+      "source": "WC-135",
+      "target": "subclass of",
+      "predicate": "sub",
+      "confidence": 0.9
+    }
+  ],
+  "node_count": 55,
+  "edge_count": 69,
+  "filtered_stats": {
+    "original_nodes": 163,
+    "original_edges": 165,
+    "nodes_removed": 108,
+    "edges_removed": 96,
+    "merge_count": 11
+  }
+}

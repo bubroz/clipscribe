@@ -10,12 +10,17 @@ from pathlib import Path
 from typing import Optional, List
 import logging
 from urllib.parse import urlparse
+import os
 
 import click
 from rich.console import Console
-from rich.progress import Progress, SpinnerColumn, TextColumn
+from rich.panel import Panel
+from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn, TimeRemainingColumn
 from rich.table import Table
 from rich.logging import RichHandler
+from rich import box
+from rich.layout import Layout
+from rich.spinner import Spinner
 
 from ..retrievers import VideoIntelligenceRetriever
 from ..config.settings import Settings
@@ -115,6 +120,21 @@ def cli(ctx: click.Context, debug: bool) -> None:
     default=True,
     help='Use cached results if available'
 )
+@click.option(
+    '--enhance-transcript',
+    is_flag=True,
+    help='Add speaker diarization and timestamps to transcript (adds cost).'
+)
+@click.option(
+    '--clean-graph',
+    is_flag=True, 
+    help='Clean knowledge graph with AI to remove noise and fix errors (adds small cost).'
+)
+@click.option(
+    '--visualize',
+    is_flag=True,
+    help='Generate interactive visualization after extraction.'
+)
 @click.pass_context
 async def transcribe(
     ctx: click.Context,
@@ -125,7 +145,10 @@ async def transcribe(
     include_timestamps: bool,
     enhance: bool,
     mode: str,
-    use_cache: bool
+    use_cache: bool,
+    enhance_transcript: bool,
+    clean_graph: bool,
+    visualize: bool
 ) -> None:
     """Transcribe a video from URL using Gemini 2.5 Flash.
     
@@ -149,15 +172,19 @@ async def transcribe(
             # Create retriever
             try:
                 retriever = VideoIntelligenceRetriever(
-                    enhance_transcript=enhance,
-                    output_formats=[format] if format != "all" else ["txt", "json"],
-                    output_dir=output_dir,
+                    use_cache=use_cache,
                     mode=mode,
-                    use_cache=use_cache
+                    output_dir=output_dir,
+                    enhance_transcript=enhance_transcript
                 )
             except TypeError:
                 # Fallback for older retriever API
                 retriever = VideoIntelligenceRetriever()
+            
+            # Set graph cleaning flag if requested
+            if clean_graph:
+                retriever.clean_graph = True
+                console.print("[yellow]Graph cleaning enabled - will use AI to clean extracted knowledge graphs[/yellow]")
             
             # Show mode selection info
             console.print(f"\n[cyan]Processing mode:[/cyan] {mode.upper()}")
@@ -191,44 +218,68 @@ async def transcribe(
                 include_chimera_format=True
             )
             
-            # Display results
-            console.print("\n[bold green]✓ Transcription complete![/bold green]\n")
+            # Display results table  
+            results_table = Table(title="Transcription Results", box=box.ROUNDED)
+            results_table.add_column("Property", style="cyan")
+            results_table.add_column("Value", style="white")
             
-            # Create results table
-            table = Table(title="Transcription Results")
-            table.add_column("Property", style="cyan")
-            table.add_column("Value", style="green")
+            results_table.add_row("Video Title", video_result.metadata.title)
+            results_table.add_row("Duration", f"{video_result.metadata.duration // 60}:{video_result.metadata.duration % 60:02d}")
+            results_table.add_row("Platform", video_result.metadata.url.split('/')[2].replace('www.', '').capitalize())
+            results_table.add_row("Language", video_result.transcript.language)
+            results_table.add_row("Processing Mode", mode.upper())
+            results_table.add_row("Processing Time", f"{video_result.processing_time:.1f}s")
+            results_table.add_row("Cost", f"${video_result.processing_cost:.4f}")
             
-            # Video metadata
-            table.add_row("Video Title", video_result.metadata.title)
-            table.add_row("Duration", f"{video_result.metadata.duration // 60}:{video_result.metadata.duration % 60:02d}")
-            
-            # Extract platform from URL
-            parsed_url = urlparse(video_result.metadata.url)
-            platform = parsed_url.netloc.replace('www.', '').split('.')[0].title()
-            table.add_row("Platform", platform)
-            
-            table.add_row("Language", video_result.transcript.language)
-            
-            # Processing info
-            table.add_row("Processing Mode", mode.upper())
-            table.add_row("Processing Time", f"{video_result.processing_time:.1f}s")
-            table.add_row("Cost", f"${video_result.processing_cost:.4f}")
-            
-            # Entity extraction results
+            # Add extraction stats if available
             if hasattr(video_result, 'entities') and video_result.entities:
-                table.add_row("Entities Found", str(len(video_result.entities)))
-            
+                results_table.add_row("Entities Found", str(len(video_result.entities)))
             if hasattr(video_result, 'relationships') and video_result.relationships:
-                table.add_row("Relationships", str(len(video_result.relationships)))
+                results_table.add_row("Relationships", str(len(video_result.relationships)))
             
-            # Output files
-            table.add_row("Output Directory", str(output_dir))
-            if saved_files:
-                file_list = ", ".join(Path(f).name for f in saved_files.values())
-                table.add_row("Files Created", file_list)
+            results_table.add_row("Output Directory", str(output_dir))
+            results_table.add_row("Files Created", ", ".join([
+                os.path.basename(str(p)) for p in saved_files.values()
+            ]))
             
-            console.print(table)
+            console.print("\n")
+            console.print(results_table)
+            
+            # Generate visualization if requested
+            if visualize and 'knowledge_graph' in saved_files:
+                try:
+                    console.print("\n[cyan]Generating interactive visualization...[/cyan]")
+                    
+                    # Import visualization script
+                    import subprocess
+                    
+                    kg_path = saved_files['knowledge_graph']
+                    viz_script = Path(__file__).parent.parent.parent / "scripts" / "visualize_knowledge_graph.py"
+                    
+                    if viz_script.exists():
+                        # Run visualization script
+                        result = subprocess.run(
+                            [sys.executable, str(viz_script), str(kg_path)],
+                            capture_output=True,
+                            text=True
+                        )
+                        
+                        if result.returncode == 0:
+                            # Open the generated HTML
+                            html_path = kg_path.parent / "knowledge_graph_interactive.html"
+                            if html_path.exists():
+                                import webbrowser
+                                webbrowser.open(f"file://{html_path}")
+                                console.print("[green]✓ Interactive visualization opened in browser![/green]")
+                        else:
+                            console.print(f"[red]Visualization failed: {result.stderr}[/red]")
+                    else:
+                        console.print("[yellow]Visualization script not found[/yellow]")
+                    
+                except Exception as e:
+                    console.print(f"[red]Failed to generate visualization: {e}[/red]")
+            
+            console.print(f"\n[green]✓ Transcription complete![/green]\n")
             
     except KeyboardInterrupt:
         console.print("\n[yellow]Transcription cancelled by user[/yellow]")

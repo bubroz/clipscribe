@@ -58,6 +58,8 @@ class VideoIntelligenceRetriever:
         self.output_dir = output_dir
         self.output_formats = output_formats or ["txt"]
         self.enhance_transcript = enhance_transcript
+        self.clean_graph = False  # Will be set by CLI if --clean-graph is used
+        self.use_advanced_extraction = use_advanced_extraction  # Store this as instance variable
         
         # Initialize clients
         self.video_client = UniversalVideoClient()
@@ -285,36 +287,40 @@ class VideoIntelligenceRetriever:
                     processing_cost=analysis['processing_cost']
                 )
                 
-                # Extract entities (and relationships for advanced extractor)
-                if hasattr(self.entity_extractor, 'extract_all'):
-                    # Advanced extractor with async method
+                # Run intelligence extraction if requested
+                if self.use_advanced_extraction:
                     logger.info(f"Extracting intelligence with advanced extractor (domain={self.domain})...")
-                    video_intelligence = await self.entity_extractor.extract_all(
-                        video_intelligence,
-                        domain=self.domain
-                    )
-                    
-                    # Log extraction results
-                    if video_intelligence.processing_stats:
-                        stats = video_intelligence.processing_stats
+                    try:
+                        if hasattr(self.entity_extractor, 'extract_all'):
+                            # Advanced extraction with relationships and knowledge graph
+                            video_intelligence = await self.entity_extractor.extract_all(video_intelligence, domain=self.domain)
+                            
+                            # Optional: Clean the graph with Gemini
+                            if hasattr(video_intelligence, 'knowledge_graph') and video_intelligence.knowledge_graph:
+                                # Clean if explicitly requested OR if graph is large and messy
+                                should_clean = self.clean_graph or (
+                                    video_intelligence.knowledge_graph.get('node_count', 0) > 100 and
+                                    len(getattr(video_intelligence, 'relationships', [])) > 150
+                                )
+                                
+                                if should_clean:
+                                    try:
+                                        from ..extractors.graph_cleaner import GraphCleaner
+                                        cleaner = GraphCleaner()
+                                        video_intelligence = await cleaner.clean_knowledge_graph(video_intelligence)
+                                        logger.info("Knowledge graph cleaned with AI :-)")
+                                    except Exception as e:
+                                        logger.warning(f"Graph cleaning failed: {e}, using uncleaned graph")
+                        
                         logger.info(
-                            f"Extraction complete: {stats.get('spacy_entities', 0)} basic entities, "
-                            f"{stats.get('gliner_entities', 0)} custom entities, "
-                            f"{stats.get('relationships', 0)} relationships, "
-                            f"{stats.get('graph_nodes', 0)} graph nodes :-)"
+                            f"Extraction complete: {len(video_intelligence.entities)} basic entities, "
+                            f"{len(getattr(video_intelligence, 'custom_entities', []))} custom entities, "
+                            f"{len(getattr(video_intelligence, 'relationships', []))} relationships, "
+                            f"{getattr(video_intelligence.knowledge_graph, 'node_count', 0) if hasattr(video_intelligence, 'knowledge_graph') else 0} graph nodes :-)"
                         )
-                else:
-                    # Basic extractor
-                    logger.info("Extracting entities with basic hybrid approach...")
-                    entities = await self.entity_extractor.extract_entities(
-                        analysis['transcript']
-                    )
-                    video_intelligence.entities = entities
-                    
-                    # Log entity extraction stats
-                    stats = self.entity_extractor.get_statistics()
-                    logger.info(f"Entity extraction: {len(entities)} entities found, "
-                              f"{stats['validation_rate']:.1f}% required LLM validation")
+                    except Exception as e:
+                        logger.error(f"Entity extraction failed: {e}")
+                        # Continue without entities rather than failing completely
                 
                 # Update cost with extraction costs
                 if hasattr(self.entity_extractor, 'get_total_cost'):

@@ -5,12 +5,16 @@ This document captures the current state of ClipScribe for future AI assistants 
 ## Current State (2024-06-25)
 
 ### Just Completed
+- Added beautiful graph visualizations to replace "booty" Gephi
+  - Interactive 2D network with Pyvis (dark theme, smooth physics)
+  - 3D rotating graph with Plotly (auto-rotation, full 3D controls)
 - Fixed GEXF edge generation bug where predicates were being used as targets
 - Replaced NetworkX GEXF export with custom generator for proper edge formatting
 - Added REBEL relationship validation to fix malformed subject-predicate-object triples
 - Updated to v2.4.1 with the fixes
 
 ### Working Well
+- Beautiful interactive visualizations (way better than Gephi!)
 - 4-hour timeout support for long videos (tested with 57-minute PBS News Hour)
 - 9 output formats focused on intelligence extraction:
   - Plain text (transcript.txt)
@@ -31,14 +35,14 @@ This document captures the current state of ClipScribe for future AI assistants 
 - Some relationships still have awkward predicate/object ordering
 
 ### Next Steps
-1. Improve REBEL output parsing to better handle various formats
-2. Add more sophisticated relationship validation
-3. Consider alternative relationship extraction methods
-4. Add graph visualization examples to documentation
-5. Create video tutorials for Gephi usage
+1. Add visualization command directly to CLI (--visualize flag)
+2. Create filtering options for large graphs
+3. Add graph statistics and analytics
+4. Consider alternative relationship extraction methods
+5. Create video tutorials for the new visualizations
 
 ### Recent Changes Summary
-- v2.4.1: Fixed GEXF edge generation
+- v2.4.1: Fixed GEXF edge generation + added beautiful visualizations
 - v2.4.0: Removed SRT/VTT formats, added GEXF
 - v2.3.0: Added timeout support and extraction improvements
 - v2.2.2: Starting point with missing .cursor/rules
@@ -48,8 +52,19 @@ This document captures the current state of ClipScribe for future AI assistants 
 - Predicates stored as edge attributes (id="0")
 - Node colors mapped by entity type
 - Custom GEXF generator in `video_retriever._generate_gexf_content()`
+- Pyvis visualization in `scripts/visualize_knowledge_graph.py`
+- Plotly 3D visualization in `scripts/visualize_knowledge_graph_plotly.py`
 
-Remember: Always test with news content, not music videos! :-)
+### Visualization Usage
+```bash
+# Beautiful 2D interactive graph
+poetry run python scripts/visualize_knowledge_graph.py output/VIDEO_ID/knowledge_graph.json
+
+# Stunning 3D rotating graph
+poetry run python scripts/visualize_knowledge_graph_plotly.py output/VIDEO_ID/knowledge_graph.json
+```
+
+Remember: Always test with news content, not music videos! And now we have pretty graphs! :-)
 
 ### Version 2.4.0 Released! 🎉
 
