@@ -28,11 +28,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated Python requirement to 3.12 for better dependency compatibility
 - Updated SpaCy to 3.8.7 for Python 3.12 support
 - Fixed pyproject.toml typo and dependency resolution
+- Configurable Gemini API timeout via `GEMINI_REQUEST_TIMEOUT` environment variable
+- Support for processing videos up to 4 hours long (previously limited by ~15 minute timeout)
+- RequestOptions timeout parameter to all Gemini API calls
+- Missing `youtube-search-python` dependency
 
 ### Changed
 - Consolidated redundant documentation update instructions
 - Enhanced task completion checklist location (now in documentation-updates.mdc)
 - Improved rule organization and precedence
+- Migrated from old flat structure to modern Python project layout
+- Updated to use Gemini 1.5 Flash (from 2.5 Flash preview)
+- Improved error handling with proper retry logic
+- Better platform-specific configurations
+- Enhanced progress tracking during processing
 
 ### Fixed
 - Fixed Topic validation error when Gemini returns string topics instead of Topic objects
@@ -43,6 +52,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **GLiNER Type Error**: Fixed API usage - now correctly passes string instead of list to predict_entities
 - **REBEL Parser**: Enhanced to handle multiple output formats (with and without `<triplet>` tags)
 - Both extractors now run without errors and successfully extract entities/relationships
+- Timeout errors when processing videos longer than 15 minutes
+- Missing dependency that prevented ClipScribe from running
 
 ## [2.2.0] - 2025-01-15
 
@@ -178,4 +189,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Initial release with Google Cloud Speech-to-Text v2
 - Basic YouTube video transcription
-- Simple file output 
+- Simple file output
+
+## [2.2.2] - 2025-06-24 

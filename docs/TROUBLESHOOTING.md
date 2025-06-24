@@ -99,6 +99,42 @@ yt-dlp "URL" -o video.mp4
 clipscribe process video.mp4
 ```
 
+### Video Not Found
+
+```
+ERROR: Video unavailable
+```
+
+**Solutions:**
+- Check if the video is private or age-restricted
+- Try using cookies file for authentication
+- Verify the URL is correct
+
+### Timeout Errors with Long Videos
+
+```
+ERROR: 504 Deadline Exceeded
+```
+
+**This happens when processing videos longer than ~15 minutes with default settings.**
+
+**Solutions:**
+1. Set the `GEMINI_REQUEST_TIMEOUT` environment variable:
+   ```bash
+   # In your .env file
+   GEMINI_REQUEST_TIMEOUT=14400  # 4 hours
+   ```
+
+2. For very long videos, consider:
+   - Using `--start-time` and `--end-time` to process segments
+   - Processing in audio mode (faster than video mode)
+   - Breaking into smaller chunks
+
+**Example for processing a segment:**
+```bash
+clipscribe transcribe "URL" --start-time 0 --end-time 1800  # First 30 minutes
+```
+
 ## Performance Issues
 
 ### Slow Processing

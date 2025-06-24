@@ -122,3 +122,43 @@ poetry run clipscribe process "https://youtube.com/watch?v=..."
 ---
 
 *Remember: This is a living document. Update it whenever you make significant changes!*
+
+## Current State (June 24, 2025 - 06:45 UTC)
+
+### Recent Major Updates
+
+1. **Timeout Support for Long Videos** ✅
+   - Added `GEMINI_REQUEST_TIMEOUT` setting (default: 14400 seconds / 4 hours)
+   - Updated all Gemini API calls to use `RequestOptions(timeout=...)`
+   - Successfully tested with 57-minute PBS News Hour episode
+   - Fixed issue where videos >15 minutes would timeout with "504 Deadline Exceeded"
+
+2. **Comprehensive .cursor/rules System** ✅
+   - Created 15 rule files aligned with Chimera project standards
+   - Established master rule (README.mdc) with task completion checklist
+   - Added always-apply rules for cost optimization and file organization
+   - Implemented architecture, patterns, and standards documentation
+
+3. **Fixed Missing Dependencies** ✅
+   - Added `youtube-search-python` to pyproject.toml
+   - Resolved import errors in universal_video_client.py
+
+### What's Working Well
+
+- **Full Video Processing**: Can now handle videos up to 4 hours long
+- **Cost Efficiency**: ~$0.002/minute for audio processing
+- **Entity Extraction**: Advanced hybrid extractor with SpaCy + GLiNER + REBEL
+- **Knowledge Graphs**: Generated with relationships and confidence scores
+- **Multiple Output Formats**: JSON, TXT, SRT, VTT, and structured data
+- **Platform Support**: 1800+ video platforms via yt-dlp
+
+### Current Architecture
+
+```
+ClipScribe
+├── Video Retrieval (YouTube, Twitter/X, etc.)
+├── Transcription (Gemini API or YouTube captions)
+├── Entity Extraction (SpaCy + GLiNER + REBEL)
+├── Knowledge Graph Generation
+└── Multiple Export Formats
+```

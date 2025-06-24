@@ -171,6 +171,37 @@ Install ffmpeg for your system:
 - Ubuntu: `sudo apt install ffmpeg`
 - Windows: Download from [ffmpeg.org](https://ffmpeg.org/download.html)
 
+## Configuration
+
+ClipScribe uses environment variables for configuration. Create a `.env` file in the project root:
+
+```bash
+# Required
+GOOGLE_API_KEY=your_google_api_key_here
+
+# Optional - Timeout for long videos (default: 14400 seconds / 4 hours)
+GEMINI_REQUEST_TIMEOUT=14400
+
+# Optional - Cost warning threshold (default: $1.00)
+COST_WARNING_THRESHOLD=1.0
+
+# Optional - Default output directory (default: output)
+OUTPUT_DIR=output
+```
+
+### Long Video Support
+
+ClipScribe can process videos up to 4 hours long. If you're getting timeout errors with long videos:
+
+1. Ensure `GEMINI_REQUEST_TIMEOUT` is set in your `.env` file
+2. The default timeout is 14400 seconds (4 hours)
+3. For shorter videos, you can reduce this value to fail faster if needed
+
+Example for 1-hour timeout:
+```bash
+GEMINI_REQUEST_TIMEOUT=3600
+```
+
 ## What's Next?
 
 - Read the [CLI Reference](CLI_REFERENCE.md) for all commands
