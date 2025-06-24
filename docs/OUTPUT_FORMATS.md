@@ -20,8 +20,11 @@ When using `save_all_formats()`, ClipScribe creates a machine-readable directory
 ├── transcript.vtt       # Web subtitle file (WebVTT)
 ├── metadata.json        # Video metadata & statistics
 ├── entities.json        # Extracted entities for knowledge graph
-├── manifest.json        # File index with checksums
-└── chimera_format.json  # Chimera-compatible format
+├── relationships.json   # Entity relationships
+├── knowledge_graph.json # Graph representation
+├── facts.txt           # Key facts (up to 100)
+├── chimera_format.json  # Chimera-compatible format
+└── manifest.json        # File index with checksums
 ```
 
 ### Directory Naming Convention
@@ -259,7 +262,137 @@ Extracted entities for knowledge graph integration.
 - Content categorization
 - Search indexing
 
-### 7. Manifest File (manifest.json)
+### 7. Relationships File (relationships.json)
+
+Semantic relationships between entities:
+
+**Format**:
+```json
+{
+  "relationships": [
+    {
+      "subject": "Elon Musk",
+      "predicate": "partnered with",
+      "object": "Sam Altman",
+      "confidence": 0.95,
+      "context": "Sam Altman is a co-founder of OpenAI"
+    },
+    {
+      "subject": "San Francisco",
+      "predicate": "located in",
+      "object": "California",
+      "confidence": 0.92,
+      "context": "San Francisco is in the state of California"
+    }
+  ]
+}
+```
+
+**Use Cases**:
+- Entity relationship mapping
+- Content categorization
+- Search indexing
+
+### 8. Knowledge Graph File (knowledge_graph.json)
+
+Graph representation with:
+
+**Format**:
+```json
+{
+  "nodes": [
+    {
+      "id": "Elon Musk",
+      "type": "PERSON",
+      "properties": {}
+    },
+    {
+      "id": "Sam Altman",
+      "type": "PERSON",
+      "properties": {}
+    },
+    {
+      "id": "OpenAI",
+      "type": "ORGANIZATION",
+      "properties": {}
+    },
+    {
+      "id": "San Francisco",
+      "type": "LOCATION",
+      "properties": {}
+    }
+  ],
+  "edges": [
+    {
+      "source": "Elon Musk",
+      "target": "Sam Altman",
+      "predicate": "partnered with"
+    },
+    {
+      "source": "San Francisco",
+      "target": "California",
+      "predicate": "located in"
+    }
+  ]
+}
+```
+
+**Use Cases**:
+- Graph visualization
+- Entity relationship mapping
+- Content categorization
+- Search indexing
+
+### 9. Facts File (facts.txt)
+
+Human-readable key facts extracted from:
+
+**Format**:
+```
+1. OpenAI released GPT-4 in March 2023
+2. The model has 1.7 trillion parameters
+3. Training cost estimated at $100 million
+```
+
+**Use Cases**:
+- Quick summary access
+- Content categorization
+- Search indexing
+
+### 10. Chimera Format (chimera_format.json)
+
+Specialized format for Chimera Researcher integration.
+
+**Format**:
+```json
+{
+  "type": "video",
+  "source": "video_intelligence",
+  "url": "https://youtube.com/watch?v=...",
+  "title": "Video Title",
+  "content": "Full transcript text...",
+  "summary": "Executive summary of the video",
+  "metadata": {
+    "channel": "Channel Name",
+    "duration": 300,
+    "published_at": "2025-06-20T10:30:00Z",
+    "view_count": 150000,
+    "key_points": [...],
+    "entities": [...],
+    "topics": ["AI", "Technology"],
+    "sentiment": null,
+    "processing_cost": 0.0045
+  }
+}
+```
+
+**Use Cases**:
+- Chimera Researcher integration
+- Multi-source intelligence gathering
+- Research automation
+- Content aggregation
+
+### 11. Manifest File (manifest.json)
 
 Index of all generated files with metadata.
 
@@ -303,6 +436,26 @@ Index of all generated files with metadata.
       "path": "entities.json",
       "format": "json",
       "size": 1234
+    },
+    "relationships": {
+      "path": "relationships.json",
+      "format": "json",
+      "size": 1234
+    },
+    "knowledge_graph": {
+      "path": "knowledge_graph.json",
+      "format": "json",
+      "size": 1234
+    },
+    "facts": {
+      "path": "facts.txt",
+      "format": "txt",
+      "size": 48
+    },
+    "chimera_format": {
+      "path": "chimera_format.json",
+      "format": "json",
+      "size": 2534
     }
   }
 }
@@ -313,39 +466,6 @@ Index of all generated files with metadata.
 - Integrity checking
 - Automated processing
 - Archive management
-
-### 8. Chimera Format (chimera_format.json)
-
-Specialized format for Chimera Researcher integration.
-
-**Format**:
-```json
-{
-  "type": "video",
-  "source": "video_intelligence",
-  "url": "https://youtube.com/watch?v=...",
-  "title": "Video Title",
-  "content": "Full transcript text...",
-  "summary": "Executive summary of the video",
-  "metadata": {
-    "channel": "Channel Name",
-    "duration": 300,
-    "published_at": "2025-06-20T10:30:00Z",
-    "view_count": 150000,
-    "key_points": [...],
-    "entities": [...],
-    "topics": ["AI", "Technology"],
-    "sentiment": null,
-    "processing_cost": 0.0045
-  }
-}
-```
-
-**Use Cases**:
-- Chimera Researcher integration
-- Multi-source intelligence gathering
-- Research automation
-- Content aggregation
 
 ## Choosing the Right Format
 
@@ -410,3 +530,13 @@ with open(paths["entities"], 'r') as f:
 5. **Archive complete directories** for reproducibility
 
 Remember: The structured output format provides everything needed for both human review and machine processing! 🎯 
+
+## Converting Existing Outputs
+
+If you have existing ClipScribe outputs without chimera_format.json:
+
+```bash
+python scripts/convert_to_chimera.py output/YYYYMMDD_platform_videoId
+```
+
+This will generate the chimera_format.json file from your existing outputs. 

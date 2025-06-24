@@ -1,0 +1,21 @@
+{
+  "video_url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+  "video_title": "Rick Astley - Never Gonna Give You Up (Official Video) (4K Remaster)",
+  "relationships": [
+    {
+      "subject": "has part",
+      "predicate": "has part",
+      "object": "has part",
+      "confidence": 0.9,
+      "context": "They're no strangers to love\nYou know the rules and so do I\nA full commitment's what I'm thinking of"
+    },
+    {
+      "subject": "neoliberal",
+      "predicate": "has part",
+      "object": "neoliberal",
+      "confidence": 0.9,
+      "context": "They're no strangers to love\nYou know the rules and so do I\nA full commitment's what I'm thinking of"
+    }
+  ],
+  "total_count": 2
+}
