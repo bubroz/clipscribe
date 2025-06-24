@@ -25,7 +25,7 @@ from .spacy_extractor import SpacyEntityExtractor
 from .rebel_extractor import REBELExtractor
 from .gliner_extractor import GLiNERExtractor
 from ..config.settings import Settings
-from ..retrievers.gemini_pool import GeminiPool
+from ..retrievers.gemini_pool import GeminiPool, TaskType
 
 try:
     import torch
@@ -99,7 +99,7 @@ class AdvancedHybridExtractor:
         # Initialize GeminiPool for LLM validation
         if api_key:
             genai.configure(api_key=api_key)
-            self.pool = GeminiPool(api_key=api_key, pool_size=2)
+            self.pool = GeminiPool(api_key=api_key)
             self.llm_enabled = True
         else:
             self.llm_enabled = False
@@ -197,7 +197,7 @@ class AdvancedHybridExtractor:
             
         try:
             # Get a validation model from the pool
-            validation_model = self.pool.get_model("validation")
+            validation_model = self.pool.get_model(TaskType.VALIDATION)
             
             # Validate entities
             if entities_to_validate:

@@ -1,0 +1,2074 @@
+{
+  "nodes": [
+    {
+      "id": "Joint Force",
+      "type": "military_unit",
+      "confidence": 1.0
+    },
+    {
+      "id": "America",
+      "type": "LOCATION",
+      "confidence": 1.0
+    },
+    {
+      "id": "United States",
+      "type": "LOCATION",
+      "confidence": 0.95
+    },
+    {
+      "id": "Donald J. Trump",
+      "type": "PERSON",
+      "confidence": 0.9
+    },
+    {
+      "id": "Centcom",
+      "type": "ORGANIZATION",
+      "confidence": 0.9
+    },
+    {
+      "id": "Iranian regime",
+      "type": "LOCATION",
+      "confidence": 0.9
+    },
+    {
+      "id": "Eric Corrilla",
+      "type": "PERSON",
+      "confidence": 0.9
+    },
+    {
+      "id": "Israel",
+      "type": "LOCATION",
+      "confidence": 0.9
+    },
+    {
+      "id": "Fordo,",
+      "type": "ORGANIZATION",
+      "confidence": 0.9
+    },
+    {
+      "id": "Massive Ordnance Penetrators",
+      "type": "weapon",
+      "confidence": 0.9
+    },
+    {
+      "id": "Iraq",
+      "type": "LOCATION",
+      "confidence": 0.9
+    },
+    {
+      "id": "North Korea",
+      "type": "LOCATION",
+      "confidence": 0.9
+    },
+    {
+      "id": "the Joint Chiefs of Staff",
+      "type": "ORGANIZATION",
+      "confidence": 0.85
+    },
+    {
+      "id": "B-2",
+      "type": "military_unit",
+      "confidence": 0.85
+    },
+    {
+      "id": "Operation Midnight",
+      "type": "EVENT",
+      "confidence": 0.85
+    },
+    {
+      "id": "Gulf",
+      "type": "LOCATION",
+      "confidence": 0.85
+    },
+    {
+      "id": "National Intelligence",
+      "type": "ORGANIZATION",
+      "confidence": 0.85
+    },
+    {
+      "id": "Natanz",
+      "type": "military_base",
+      "confidence": 0.8
+    },
+    {
+      "id": "Esfahan",
+      "type": "location",
+      "confidence": 0.8
+    },
+    {
+      "id": "Tehran",
+      "type": "LOCATION",
+      "confidence": 0.8
+    },
+    {
+      "id": "God",
+      "type": "religious_figure",
+      "confidence": 0.8
+    },
+    {
+      "id": "Washington",
+      "type": "LOCATION",
+      "confidence": 0.8
+    },
+    {
+      "id": "Spirit",
+      "type": "military_unit",
+      "confidence": 0.8
+    },
+    {
+      "id": "Syria",
+      "type": "LOCATION",
+      "confidence": 0.8
+    },
+    {
+      "id": "the United States Armed Forces",
+      "type": "ORGANIZATION",
+      "confidence": 0.7999999999999999
+    },
+    {
+      "id": "Central Command",
+      "type": "ORGANIZATION",
+      "confidence": 0.7999999999999999
+    },
+    {
+      "id": "the Middle East",
+      "type": "LOCATION",
+      "confidence": 0.7999999999999999
+    },
+    {
+      "id": "B-2s",
+      "type": "military_unit",
+      "confidence": 0.75
+    },
+    {
+      "id": "Tampa",
+      "type": "LOCATION",
+      "confidence": 0.75
+    },
+    {
+      "id": "Tomahawk",
+      "type": "PRODUCT",
+      "confidence": 0.75
+    },
+    {
+      "id": "China",
+      "type": "LOCATION",
+      "confidence": 0.75
+    },
+    {
+      "id": "Kane",
+      "type": "PERSON",
+      "confidence": 0.75
+    },
+    {
+      "id": "Heckseth",
+      "type": "PERSON",
+      "confidence": 0.75
+    },
+    {
+      "id": "Missouri",
+      "type": "LOCATION",
+      "confidence": 0.75
+    },
+    {
+      "id": "Khamenei",
+      "type": "PERSON",
+      "confidence": 0.75
+    },
+    {
+      "id": "operation President",
+      "type": "EVENT",
+      "confidence": 0.7499999999999999
+    },
+    {
+      "id": "the War Powers Act",
+      "type": "EVENT",
+      "confidence": 0.7499999999999999
+    },
+    {
+      "id": "Earth",
+      "type": "LOCATION",
+      "confidence": 0.7
+    },
+    {
+      "id": "Soleimani",
+      "type": "person",
+      "confidence": 0.7
+    },
+    {
+      "id": "Pacific",
+      "type": "LOCATION",
+      "confidence": 0.7
+    },
+    {
+      "id": "Global War",
+      "type": "EVENT",
+      "confidence": 0.7
+    },
+    {
+      "id": "Last night",
+      "type": "time",
+      "confidence": 0.95
+    },
+    {
+      "id": "President Trump",
+      "type": "person",
+      "confidence": 0.9519768953323364
+    },
+    {
+      "id": "US Central Command",
+      "type": "organization",
+      "confidence": 0.7924772500991821
+    },
+    {
+      "id": "precision strike",
+      "type": "operation",
+      "confidence": 0.8458757996559143
+    },
+    {
+      "id": "middle of the night",
+      "type": "time",
+      "confidence": 0.95
+    },
+    {
+      "id": "nuclear program",
+      "type": "weapon",
+      "confidence": 0.7112902998924255
+    },
+    {
+      "id": "commander-in-chief",
+      "type": "person",
+      "confidence": 0.95
+    },
+    {
+      "id": "operation",
+      "type": "operation",
+      "confidence": 0.95
+    },
+    {
+      "id": "nuclear weapon",
+      "type": "weapon",
+      "confidence": 0.7636698484420776
+    },
+    {
+      "id": "US military",
+      "type": "organization",
+      "confidence": 0.7156870365142822
+    },
+    {
+      "id": "chairman",
+      "type": "person",
+      "confidence": 0.95
+    },
+    {
+      "id": "POTUS",
+      "type": "person",
+      "confidence": 0.7439286708831787
+    },
+    {
+      "id": "peace",
+      "type": "conflict",
+      "confidence": 0.95
+    },
+    {
+      "id": "General Eric Corrilla",
+      "type": "person",
+      "confidence": 0.9441074132919312
+    },
+    {
+      "id": "bombers",
+      "type": "weapon",
+      "confidence": 0.7923455834388733
+    },
+    {
+      "id": "fighters",
+      "type": "weapon",
+      "confidence": 0.7799932956695557
+    },
+    {
+      "id": "warriors",
+      "type": "military_unit",
+      "confidence": 0.880707323551178
+    },
+    {
+      "id": "sailors",
+      "type": "military_unit",
+      "confidence": 0.7632231712341309
+    },
+    {
+      "id": "destroyers",
+      "type": "military_unit",
+      "confidence": 0.7883754372596741
+    },
+    {
+      "id": "soldiers",
+      "type": "military_unit",
+      "confidence": 0.8193067908287048
+    },
+    {
+      "id": "President of the United States",
+      "type": "person",
+      "confidence": 0.7785427570343018
+    },
+    {
+      "id": "strike",
+      "type": "operation",
+      "confidence": 0.95
+    },
+    {
+      "id": "war",
+      "type": "conflict",
+      "confidence": 0.7739715576171875
+    },
+    {
+      "id": "President",
+      "type": "person",
+      "confidence": 0.742693305015564
+    },
+    {
+      "id": "Operation Midnight Hammer",
+      "type": "operation",
+      "confidence": 0.9104918241500854
+    },
+    {
+      "id": "three Iranian nuclear facilities",
+      "type": "military_base",
+      "confidence": 0.95
+    },
+    {
+      "id": "United States Armed Forces",
+      "type": "organization",
+      "confidence": 0.8435662388801575
+    },
+    {
+      "id": "midnight Friday into Saturday morning",
+      "type": "time",
+      "confidence": 0.730625569820404
+    },
+    {
+      "id": "continental United States",
+      "type": "location",
+      "confidence": 0.7426238656044006
+    },
+    {
+      "id": "B-2 Spirit bombers",
+      "type": "military_unit",
+      "confidence": 0.824767529964447
+    },
+    {
+      "id": "US submarine",
+      "type": "military_unit",
+      "confidence": 0.8008537292480469
+    },
+    {
+      "id": "Tomahawk land attack cruise missiles",
+      "type": "weapon",
+      "confidence": 0.8088831901550293
+    },
+    {
+      "id": "Iranian airspace",
+      "type": "location",
+      "confidence": 0.7523006796836853
+    },
+    {
+      "id": "US Strategic Command",
+      "type": "organization",
+      "confidence": 0.9144068956375122
+    },
+    {
+      "id": "US Transportation Command",
+      "type": "organization",
+      "confidence": 0.8975505828857422
+    },
+    {
+      "id": "US Cyber Command",
+      "type": "organization",
+      "confidence": 0.8743970990180969
+    },
+    {
+      "id": "US Space Command",
+      "type": "organization",
+      "confidence": 0.9075170755386353
+    },
+    {
+      "id": "US Space Force",
+      "type": "organization",
+      "confidence": 0.8862763047218323
+    },
+    {
+      "id": "US European Command",
+      "type": "organization",
+      "confidence": 0.8811925649642944
+    },
+    {
+      "id": "high-speed suppression weapons",
+      "type": "weapon",
+      "confidence": 0.7275040745735168
+    },
+    {
+      "id": "2:10 a.m.",
+      "type": "time",
+      "confidence": 0.8446753621101379
+    },
+    {
+      "id": "GBU-57 Massive Ordnance Penetrators",
+      "type": "weapon",
+      "confidence": 0.7744634747505188
+    },
+    {
+      "id": "7:05 p.m.",
+      "type": "time",
+      "confidence": 0.7899212837219238
+    },
+    {
+      "id": "Eastern Time",
+      "type": "time",
+      "confidence": 0.7598246335983276
+    },
+    {
+      "id": "Tomahawk missiles",
+      "type": "weapon",
+      "confidence": 0.7702562808990479
+    },
+    {
+      "id": "US forces",
+      "type": "organization",
+      "confidence": 0.8719556331634521
+    },
+    {
+      "id": "precision-guided weapons",
+      "type": "weapon",
+      "confidence": 0.95
+    },
+    {
+      "id": "battle damage",
+      "type": "conflict",
+      "confidence": 0.7059054970741272
+    },
+    {
+      "id": "B-2 stealth bombers",
+      "type": "military_unit",
+      "confidence": 0.7252275943756104
+    },
+    {
+      "id": "air refueling tankers",
+      "type": "military_unit",
+      "confidence": 0.7677452564239502
+    },
+    {
+      "id": "Secretary",
+      "type": "person",
+      "confidence": 0.7648903727531433
+    },
+    {
+      "id": "United States military",
+      "type": "organization",
+      "confidence": 0.8864428997039795
+    },
+    {
+      "id": "military",
+      "type": "organization",
+      "confidence": 0.95
+    },
+    {
+      "id": "the Secretary",
+      "type": "person",
+      "confidence": 0.9365572929382324
+    },
+    {
+      "id": "naval forces",
+      "type": "military_unit",
+      "confidence": 0.7856248021125793
+    },
+    {
+      "id": "warfighters",
+      "type": "military_unit",
+      "confidence": 0.7017433047294617
+    },
+    {
+      "id": "regime change",
+      "type": "operation",
+      "confidence": 0.7923380136489868
+    },
+    {
+      "id": "precision operation",
+      "type": "operation",
+      "confidence": 0.7922732830047607
+    },
+    {
+      "id": "Iranian nuclear program",
+      "type": "weapon",
+      "confidence": 0.95
+    },
+    {
+      "id": "BDA",
+      "type": "event",
+      "confidence": 0.7964929342269897
+    },
+    {
+      "id": "me",
+      "type": "person",
+      "confidence": 0.95
+    },
+    {
+      "id": "he",
+      "type": "person",
+      "confidence": 0.95
+    },
+    {
+      "id": "stonewalling",
+      "type": "conflict",
+      "confidence": 0.8463278412818909
+    },
+    {
+      "id": "General",
+      "type": "military_rank",
+      "confidence": 0.95
+    },
+    {
+      "id": "attacks",
+      "type": "operation",
+      "confidence": 0.725261926651001
+    },
+    {
+      "id": "region",
+      "type": "location",
+      "confidence": 0.8228356838226318
+    },
+    {
+      "id": "Iranian ballistic missiles",
+      "type": "weapon",
+      "confidence": 0.8358204960823059
+    },
+    {
+      "id": "Mr. Chairman",
+      "type": "person",
+      "confidence": 0.7656968832015991
+    },
+    {
+      "id": "precision munitions",
+      "type": "weapon",
+      "confidence": 0.7279188632965088
+    },
+    {
+      "id": "direct military action",
+      "type": "operation",
+      "confidence": 0.95
+    },
+    {
+      "id": "General Kane",
+      "type": "person",
+      "confidence": 0.8876597881317139
+    },
+    {
+      "id": "Middle East",
+      "type": "location",
+      "confidence": 0.9280921220779419
+    },
+    {
+      "id": "Secretary Heckseth",
+      "type": "person",
+      "confidence": 0.9575154185295105
+    },
+    {
+      "id": "Global War on Terrorism",
+      "type": "conflict",
+      "confidence": 0.8298963308334351
+    },
+    {
+      "id": "We",
+      "type": "person",
+      "confidence": 0.95
+    },
+    {
+      "id": "US allies",
+      "type": "organization",
+      "confidence": 0.7220637798309326
+    },
+    {
+      "id": "we",
+      "type": "person",
+      "confidence": 0.95
+    },
+    {
+      "id": "challenges",
+      "type": "conflict",
+      "confidence": 0.7041348814964294
+    },
+    {
+      "id": "American troops",
+      "type": "military_unit",
+      "confidence": 0.7559220194816589
+    },
+    {
+      "id": "I",
+      "type": "person",
+      "confidence": 0.7676985263824463
+    },
+    {
+      "id": "American people",
+      "type": "organization",
+      "confidence": 0.95
+    },
+    {
+      "id": "Iranians",
+      "type": "person",
+      "confidence": 0.7885874509811401
+    },
+    {
+      "id": "multiple channels",
+      "type": "channel",
+      "confidence": 0.8493962287902832
+    },
+    {
+      "id": "conflict",
+      "type": "conflict",
+      "confidence": 0.8718834519386292
+    },
+    {
+      "id": "March",
+      "type": "date",
+      "confidence": 0.7577211260795593
+    },
+    {
+      "id": "2003",
+      "type": "date",
+      "confidence": 0.7337512373924255
+    },
+    {
+      "id": "nuclear weapons",
+      "type": "weapon",
+      "confidence": 0.8364929556846619
+    },
+    {
+      "id": "position held",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "country",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Iran's nuclear ambitions",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "facet of",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Iran's nuclear program",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "US",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Trump",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "first term",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "officeholder",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "United States of America",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Chairman of the Joint Chiefs of Staff",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Joint Staff",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "B-2 Spirit",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "employer",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "decoy",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "subclass of",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Tomahawk land attack cruise missile",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "operator",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "decoys",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Fordo",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "twinned administrative body",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "GBU-57 Massive Ordnance Penetrator",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "used by",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "country of origin",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Tomahawk missile",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "surface-to-air missile",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "precision-guided weapon",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Operation Enduring Freedom",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "followed by",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Operation Enduring Freedom II",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "follows",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Operation Enduring Freedom III",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "B-2 stealth bomber",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "located in or next to body of water",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "shares border with",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "military branch",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "office held by head of the organization",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "General Corrilla",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "appointed by",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "significant event",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Iran",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Israeli nuclear program",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Green",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "named after",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Uh",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "the nuclear program",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "basin country",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "War Powers Act",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "legislated by",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "The attacks",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "has cause",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "located in the administrative territorial entity",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "battle damage assessment",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Donald Trump",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "country of citizenship",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "head of state",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "location",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "military in the world",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "protect our forces out there",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "protect our forces",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "parent organization",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Iran cannot have a nuclear capability",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "different from",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Chairman",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Israeli military",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "MRBM",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "ally",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "ongoing defense of Israel",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "airspace",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "sky",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "air space",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "participant",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "American troops are co-located",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "global picture",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Russia",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Osama bin Laden",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "American",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "I will take one more",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "one more question",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "we'll take one more question",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "John F. Kennedy School of Government",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Harvard University",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "subsidiary",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "suspended in 2003",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "point in time",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Iran is not building a nuclear weapon",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "inception",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "US sources and methods",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "sources and methods",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "allies",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "WC-135",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "sub",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "WC-135 sub",
+      "type": "unknown",
+      "confidence": 0.9
+    }
+  ],
+  "edges": [
+    {
+      "source": "Joint Force",
+      "target": "country",
+      "predicate": "United States",
+      "confidence": 0.9
+    },
+    {
+      "source": "America",
+      "target": "Missouri",
+      "predicate": "contains administrative territorial entity",
+      "confidence": 0.9
+    },
+    {
+      "source": "United States",
+      "target": "President",
+      "predicate": "country",
+      "confidence": 0.9
+    },
+    {
+      "source": "United States",
+      "target": "Israel",
+      "predicate": "diplomatic relation",
+      "confidence": 0.9
+    },
+    {
+      "source": "United States",
+      "target": "region",
+      "predicate": "diplomatic relation",
+      "confidence": 0.9
+    },
+    {
+      "source": "United States",
+      "target": "Iran",
+      "predicate": "diplomatic relation",
+      "confidence": 0.9
+    },
+    {
+      "source": "Donald J. Trump",
+      "target": "position held",
+      "predicate": "President of the United States",
+      "confidence": 0.9
+    },
+    {
+      "source": "Donald J. Trump",
+      "target": "United States of America",
+      "predicate": "country",
+      "confidence": 0.9
+    },
+    {
+      "source": "Donald J. Trump",
+      "target": "officeholder",
+      "predicate": "President of the United States",
+      "confidence": 0.9
+    },
+    {
+      "source": "Donald J. Trump",
+      "target": "Donald J. Trump",
+      "predicate": "officeholder",
+      "confidence": 0.9
+    },
+    {
+      "source": "Eric Corrilla",
+      "target": "Chairman of the Joint Chiefs of Staff",
+      "predicate": "position held",
+      "confidence": 0.9
+    },
+    {
+      "source": "Eric Corrilla",
+      "target": "employer",
+      "predicate": "US Central Command",
+      "confidence": 0.9
+    },
+    {
+      "source": "Israel",
+      "target": "United States",
+      "predicate": "diplomatic relation",
+      "confidence": 0.9
+    },
+    {
+      "source": "Israel",
+      "target": "Iran",
+      "predicate": "diplomatic relation",
+      "confidence": 0.9
+    },
+    {
+      "source": "Israel",
+      "target": "US",
+      "predicate": "diplomatic relation",
+      "confidence": 0.9
+    },
+    {
+      "source": "Israel",
+      "target": "ally",
+      "predicate": "instance of",
+      "confidence": 0.9
+    },
+    {
+      "source": "Iraq",
+      "target": "located in or next to body of water",
+      "predicate": "Gulf",
+      "confidence": 0.9
+    },
+    {
+      "source": "Iraq",
+      "target": "shares border with",
+      "predicate": "Syria",
+      "confidence": 0.9
+    },
+    {
+      "source": "Iraq",
+      "target": "significant event",
+      "predicate": "Operation Enduring Freedom",
+      "confidence": 0.9
+    },
+    {
+      "source": "Iraq",
+      "target": "Middle East",
+      "predicate": "part of",
+      "confidence": 0.9
+    },
+    {
+      "source": "North Korea",
+      "target": "Iran",
+      "predicate": "diplomatic relation",
+      "confidence": 0.9
+    },
+    {
+      "source": "B-2",
+      "target": "B-2 Spirit",
+      "predicate": "subclass of",
+      "confidence": 0.9
+    },
+    {
+      "source": "B-2",
+      "target": "subclass of",
+      "predicate": "stealth bomber",
+      "confidence": 0.9
+    },
+    {
+      "source": "Gulf",
+      "target": "basin country",
+      "predicate": "US",
+      "confidence": 0.9
+    },
+    {
+      "source": "Gulf",
+      "target": "participant",
+      "predicate": "US allies",
+      "confidence": 0.9
+    },
+    {
+      "source": "Natanz",
+      "target": "twinned administrative body",
+      "predicate": "Fordo",
+      "confidence": 0.9
+    },
+    {
+      "source": "Esfahan",
+      "target": "country",
+      "predicate": "Iran",
+      "confidence": 0.9
+    },
+    {
+      "source": "Washington",
+      "target": "country",
+      "predicate": "United States",
+      "confidence": 0.9
+    },
+    {
+      "source": "Syria",
+      "target": "located in or next to body of water",
+      "predicate": "Gulf",
+      "confidence": 0.9
+    },
+    {
+      "source": "Syria",
+      "target": "shares border with",
+      "predicate": "Iraq",
+      "confidence": 0.9
+    },
+    {
+      "source": "B-2s",
+      "target": "B-2 Spirit",
+      "predicate": "subclass of",
+      "confidence": 0.9
+    },
+    {
+      "source": "Tampa",
+      "target": "country",
+      "predicate": "United States",
+      "confidence": 0.9
+    },
+    {
+      "source": "Tomahawk",
+      "target": "subclass of",
+      "predicate": "land attack cruise missile",
+      "confidence": 0.9
+    },
+    {
+      "source": "China",
+      "target": "North Korea",
+      "predicate": "diplomatic relation",
+      "confidence": 0.9
+    },
+    {
+      "source": "China",
+      "target": "China",
+      "predicate": "diplomatic relation",
+      "confidence": 0.9
+    },
+    {
+      "source": "China",
+      "target": "Russia",
+      "predicate": "diplomatic relation",
+      "confidence": 0.9
+    },
+    {
+      "source": "Missouri",
+      "target": "country",
+      "predicate": "American",
+      "confidence": 0.9
+    },
+    {
+      "source": "President Trump",
+      "target": "position held",
+      "predicate": "commander-in-chief",
+      "confidence": 0.9
+    },
+    {
+      "source": "President Trump",
+      "target": "commander-in-chief",
+      "predicate": "officeholder",
+      "confidence": 0.9
+    },
+    {
+      "source": "President Trump",
+      "target": "US military",
+      "predicate": "chairperson",
+      "confidence": 0.9
+    },
+    {
+      "source": "President Trump",
+      "target": "President of the United States",
+      "predicate": "appointed by",
+      "confidence": 0.9
+    },
+    {
+      "source": "President Trump",
+      "target": "country of citizenship",
+      "predicate": "Iran",
+      "confidence": 0.9
+    },
+    {
+      "source": "US Central Command",
+      "target": "Eric Corrilla",
+      "predicate": "employer",
+      "confidence": 0.9
+    },
+    {
+      "source": "nuclear program",
+      "target": "country",
+      "predicate": "Iran",
+      "confidence": 0.9
+    },
+    {
+      "source": "General Eric Corrilla",
+      "target": "Chairman of the Joint Chiefs of Staff",
+      "predicate": "officeholder",
+      "confidence": 0.9
+    },
+    {
+      "source": "President of the United States",
+      "target": "officeholder",
+      "predicate": "Donald J. Trump",
+      "confidence": 0.9
+    },
+    {
+      "source": "President of the United States",
+      "target": "Donald J. Trump",
+      "predicate": "head of government",
+      "confidence": 0.9
+    },
+    {
+      "source": "President of the United States",
+      "target": "Israel",
+      "predicate": "office held by head of government",
+      "confidence": 0.9
+    },
+    {
+      "source": "President",
+      "target": "Trump",
+      "predicate": "position held",
+      "confidence": 0.9
+    },
+    {
+      "source": "President",
+      "target": "United States",
+      "predicate": "office held by head of government",
+      "confidence": 0.9
+    },
+    {
+      "source": "President",
+      "target": "military branch",
+      "predicate": "United States military",
+      "confidence": 0.9
+    },
+    {
+      "source": "President",
+      "target": "position held",
+      "predicate": "Chairman",
+      "confidence": 0.9
+    },
+    {
+      "source": "President",
+      "target": "officeholder",
+      "predicate": "Donald Trump",
+      "confidence": 0.9
+    },
+    {
+      "source": "President",
+      "target": "country",
+      "predicate": "Iran",
+      "confidence": 0.9
+    },
+    {
+      "source": "President",
+      "target": "appointed by",
+      "predicate": "Secretary",
+      "confidence": 0.9
+    },
+    {
+      "source": "Secretary",
+      "target": "officeholder",
+      "predicate": "General Corrilla",
+      "confidence": 0.9
+    },
+    {
+      "source": "Secretary",
+      "target": "appointed by",
+      "predicate": "Chairman",
+      "confidence": 0.9
+    },
+    {
+      "source": "Secretary",
+      "target": "different from",
+      "predicate": "Chairman",
+      "confidence": 0.9
+    },
+    {
+      "source": "United States military",
+      "target": "office held by head of the organization",
+      "predicate": "President",
+      "confidence": 0.9
+    },
+    {
+      "source": "Iranian nuclear program",
+      "target": "country",
+      "predicate": "Iran",
+      "confidence": 0.9
+    },
+    {
+      "source": "BDA",
+      "target": "facet of",
+      "predicate": "Green",
+      "confidence": 0.9
+    },
+    {
+      "source": "region",
+      "target": "United States",
+      "predicate": "diplomatic relation",
+      "confidence": 0.9
+    },
+    {
+      "source": "Global War on Terrorism",
+      "target": "location",
+      "predicate": "Middle East",
+      "confidence": 0.9
+    },
+    {
+      "source": "US allies",
+      "target": "location",
+      "predicate": "Gulf",
+      "confidence": 0.9
+    },
+    {
+      "source": "nuclear weapons",
+      "target": "country",
+      "predicate": "Iran",
+      "confidence": 0.9
+    },
+    {
+      "source": "position held",
+      "target": "President Trump",
+      "predicate": "presidents",
+      "confidence": 0.9
+    },
+    {
+      "source": "Iran's nuclear ambitions",
+      "target": "facet of",
+      "predicate": "Iran",
+      "confidence": 0.9
+    },
+    {
+      "source": "Iran's nuclear program",
+      "target": "US",
+      "predicate": "diplomatic relation",
+      "confidence": 0.9
+    },
+    {
+      "source": "US",
+      "target": "Iran's nuclear program",
+      "predicate": "diplomatic relation",
+      "confidence": 0.9
+    },
+    {
+      "source": "US",
+      "target": "Israel",
+      "predicate": "diplomatic relation",
+      "confidence": 0.9
+    },
+    {
+      "source": "Trump",
+      "target": "President",
+      "predicate": "officeholder",
+      "confidence": 0.9
+    },
+    {
+      "source": "first term",
+      "target": "facet of",
+      "predicate": "President Trump",
+      "confidence": 0.9
+    },
+    {
+      "source": "United States of America",
+      "target": "President of the United States",
+      "predicate": "country",
+      "confidence": 0.9
+    },
+    {
+      "source": "Chairman of the Joint Chiefs of Staff",
+      "target": "Joint Staff",
+      "predicate": "office held by head of the organization",
+      "confidence": 0.9
+    },
+    {
+      "source": "Chairman of the Joint Chiefs of Staff",
+      "target": "General Eric Corrilla",
+      "predicate": "position held",
+      "confidence": 0.9
+    },
+    {
+      "source": "B-2 Spirit",
+      "target": "subclass of",
+      "predicate": "bombers",
+      "confidence": 0.9
+    },
+    {
+      "source": "decoy",
+      "target": "subclass of",
+      "predicate": "deception tactics",
+      "confidence": 0.9
+    },
+    {
+      "source": "Tomahawk land attack cruise missile",
+      "target": "operator",
+      "predicate": "Central Command",
+      "confidence": 0.9
+    },
+    {
+      "source": "decoys",
+      "target": "subclass of",
+      "predicate": "deception",
+      "confidence": 0.9
+    },
+    {
+      "source": "Fordo",
+      "target": "twinned administrative body",
+      "predicate": "Natanz",
+      "confidence": 0.9
+    },
+    {
+      "source": "Fordo",
+      "target": "located in the administrative territorial entity",
+      "predicate": "Fordo",
+      "confidence": 0.9
+    },
+    {
+      "source": "Fordo",
+      "target": "significant event",
+      "predicate": "battle damage assessment",
+      "confidence": 0.9
+    },
+    {
+      "source": "Fordo",
+      "target": "battle damage assessment",
+      "predicate": "instance of",
+      "confidence": 0.9
+    },
+    {
+      "source": "GBU-57 Massive Ordnance Penetrator",
+      "target": "B-2",
+      "predicate": "instance of",
+      "confidence": 0.9
+    },
+    {
+      "source": "GBU-57 Massive Ordnance Penetrator",
+      "target": "used by",
+      "predicate": "B-2",
+      "confidence": 0.9
+    },
+    {
+      "source": "GBU-57 Massive Ordnance Penetrator",
+      "target": "country of origin",
+      "predicate": "Iran",
+      "confidence": 0.9
+    },
+    {
+      "source": "GBU-57 Massive Ordnance Penetrator",
+      "target": "precision-guided weapon",
+      "predicate": "instance of",
+      "confidence": 0.9
+    },
+    {
+      "source": "GBU-57 Massive Ordnance Penetrator",
+      "target": "subclass of",
+      "predicate": "precision-guided weapon",
+      "confidence": 0.9
+    },
+    {
+      "source": "GBU-57 Massive Ordnance Penetrator",
+      "target": "precision-guided weapons",
+      "predicate": "instance of",
+      "confidence": 0.9
+    },
+    {
+      "source": "Tomahawk missile",
+      "target": "subclass of",
+      "predicate": "surface-to-air missile",
+      "confidence": 0.9
+    },
+    {
+      "source": "Tomahawk missile",
+      "target": "surface-to-air missile",
+      "predicate": "instance of",
+      "confidence": 0.9
+    },
+    {
+      "source": "Operation Enduring Freedom",
+      "target": "followed by",
+      "predicate": "Operation Enduring Freedom III",
+      "confidence": 0.9
+    },
+    {
+      "source": "Operation Enduring Freedom",
+      "target": "Operation Enduring Freedom",
+      "predicate": "has part",
+      "confidence": 0.9
+    },
+    {
+      "source": "Operation Enduring Freedom",
+      "target": "country",
+      "predicate": "Iraq",
+      "confidence": 0.9
+    },
+    {
+      "source": "Operation Enduring Freedom II",
+      "target": "follows",
+      "predicate": "Operation Enduring Freedom",
+      "confidence": 0.9
+    },
+    {
+      "source": "Operation Enduring Freedom III",
+      "target": "follows",
+      "predicate": "Operation Enduring Freedom",
+      "confidence": 0.9
+    },
+    {
+      "source": "B-2 stealth bomber",
+      "target": "country of origin",
+      "predicate": "US",
+      "confidence": 0.9
+    },
+    {
+      "source": "B-2 stealth bomber",
+      "target": "country",
+      "predicate": "US",
+      "confidence": 0.9
+    },
+    {
+      "source": "General Corrilla",
+      "target": "position held",
+      "predicate": "Secretary",
+      "confidence": 0.9
+    },
+    {
+      "source": "General Corrilla",
+      "target": "employer",
+      "predicate": "Centcom",
+      "confidence": 0.9
+    },
+    {
+      "source": "Iran",
+      "target": "Israel",
+      "predicate": "diplomatic relation",
+      "confidence": 0.9
+    },
+    {
+      "source": "Iran",
+      "target": "significant event",
+      "predicate": "the nuclear program",
+      "confidence": 0.9
+    },
+    {
+      "source": "Iran",
+      "target": "North Korea",
+      "predicate": "diplomatic relation",
+      "confidence": 0.9
+    },
+    {
+      "source": "Iran",
+      "target": "China",
+      "predicate": "diplomatic relation",
+      "confidence": 0.9
+    },
+    {
+      "source": "Iran",
+      "target": "head of state",
+      "predicate": "Khamenei",
+      "confidence": 0.9
+    },
+    {
+      "source": "Iran",
+      "target": "President",
+      "predicate": "office held by head of government",
+      "confidence": 0.9
+    },
+    {
+      "source": "Iran",
+      "target": "United States",
+      "predicate": "diplomatic relation",
+      "confidence": 0.9
+    },
+    {
+      "source": "Iran",
+      "target": "Russia",
+      "predicate": "diplomatic relation",
+      "confidence": 0.9
+    },
+    {
+      "source": "Iran",
+      "target": "Iran",
+      "predicate": "diplomatic relation",
+      "confidence": 0.9
+    },
+    {
+      "source": "Iran",
+      "target": "allies",
+      "predicate": "diplomatic relation",
+      "confidence": 0.9
+    },
+    {
+      "source": "Israeli nuclear program",
+      "target": "country",
+      "predicate": "Israel",
+      "confidence": 0.9
+    },
+    {
+      "source": "Green",
+      "target": "named after",
+      "predicate": "Green",
+      "confidence": 0.9
+    },
+    {
+      "source": "Green",
+      "target": "Uh",
+      "predicate": "instance of",
+      "confidence": 0.9
+    },
+    {
+      "source": "Uh",
+      "target": "position held",
+      "predicate": "President",
+      "confidence": 0.9
+    },
+    {
+      "source": "Uh",
+      "target": "President",
+      "predicate": "office held by head of government",
+      "confidence": 0.9
+    },
+    {
+      "source": "the nuclear program",
+      "target": "country",
+      "predicate": "Iran",
+      "confidence": 0.9
+    },
+    {
+      "source": "War Powers Act",
+      "target": "legislated by",
+      "predicate": "Congressional",
+      "confidence": 0.9
+    },
+    {
+      "source": "The attacks",
+      "target": "War Powers Act",
+      "predicate": "part of",
+      "confidence": 0.9
+    },
+    {
+      "source": "The attacks",
+      "target": "has cause",
+      "predicate": "War Powers Act",
+      "confidence": 0.9
+    },
+    {
+      "source": "Donald Trump",
+      "target": "position held",
+      "predicate": "President",
+      "confidence": 0.9
+    },
+    {
+      "source": "military in the world",
+      "target": "protect our forces out there",
+      "predicate": "has part",
+      "confidence": 0.9
+    },
+    {
+      "source": "military in the world",
+      "target": "protect our forces",
+      "predicate": "has part",
+      "confidence": 0.9
+    },
+    {
+      "source": "protect our forces out there",
+      "target": "military in the world",
+      "predicate": "part of",
+      "confidence": 0.9
+    },
+    {
+      "source": "protect our forces out there",
+      "target": "parent organization",
+      "predicate": "military in the world",
+      "confidence": 0.9
+    },
+    {
+      "source": "protect our forces",
+      "target": "military in the world",
+      "predicate": "part of",
+      "confidence": 0.9
+    },
+    {
+      "source": "Iran cannot have a nuclear capability",
+      "target": "country",
+      "predicate": "Iranian regime",
+      "confidence": 0.9
+    },
+    {
+      "source": "Chairman",
+      "target": "different from",
+      "predicate": "Secretary",
+      "confidence": 0.9
+    },
+    {
+      "source": "Chairman",
+      "target": "appointed by",
+      "predicate": "President",
+      "confidence": 0.9
+    },
+    {
+      "source": "Chairman",
+      "target": "officeholder",
+      "predicate": "Secretary",
+      "confidence": 0.9
+    },
+    {
+      "source": "Chairman",
+      "target": "position held",
+      "predicate": "President",
+      "confidence": 0.9
+    },
+    {
+      "source": "Israeli military",
+      "target": "country",
+      "predicate": "Israel",
+      "confidence": 0.9
+    },
+    {
+      "source": "MRBM",
+      "target": "subclass of",
+      "predicate": "launchers",
+      "confidence": 0.9
+    },
+    {
+      "source": "ongoing defense of Israel",
+      "target": "country",
+      "predicate": "Israel",
+      "confidence": 0.9
+    },
+    {
+      "source": "ongoing defense of Israel",
+      "target": "location",
+      "predicate": "Israel",
+      "confidence": 0.9
+    },
+    {
+      "source": "airspace",
+      "target": "different from",
+      "predicate": "sky",
+      "confidence": 0.9
+    },
+    {
+      "source": "airspace",
+      "target": "sky",
+      "predicate": "part of",
+      "confidence": 0.9
+    },
+    {
+      "source": "sky",
+      "target": "different from",
+      "predicate": "airspace",
+      "confidence": 0.9
+    },
+    {
+      "source": "sky",
+      "target": "air space",
+      "predicate": "has part",
+      "confidence": 0.9
+    },
+    {
+      "source": "sky",
+      "target": "airspace",
+      "predicate": "has part",
+      "confidence": 0.9
+    },
+    {
+      "source": "air space",
+      "target": "sky",
+      "predicate": "part of",
+      "confidence": 0.9
+    },
+    {
+      "source": "American troops are co-located",
+      "target": "global picture",
+      "predicate": "part of",
+      "confidence": 0.9
+    },
+    {
+      "source": "global picture",
+      "target": "American troops are co-located",
+      "predicate": "has part",
+      "confidence": 0.9
+    },
+    {
+      "source": "global picture",
+      "target": "significant event",
+      "predicate": "American troops are co-located",
+      "confidence": 0.9
+    },
+    {
+      "source": "Russia",
+      "target": "Russia",
+      "predicate": "diplomatic relation",
+      "confidence": 0.9
+    },
+    {
+      "source": "Osama bin Laden",
+      "target": "significant event",
+      "predicate": "September 11 attacks",
+      "confidence": 0.9
+    },
+    {
+      "source": "American",
+      "target": "Missouri",
+      "predicate": "contains administrative territorial entity",
+      "confidence": 0.9
+    },
+    {
+      "source": "I will take one more",
+      "target": "followed by",
+      "predicate": "we'll take one more question",
+      "confidence": 0.9
+    },
+    {
+      "source": "one more question",
+      "target": "follows",
+      "predicate": "I will take one more",
+      "confidence": 0.9
+    },
+    {
+      "source": "we'll take one more question",
+      "target": "follows",
+      "predicate": "I will take one more",
+      "confidence": 0.9
+    },
+    {
+      "source": "John F. Kennedy School of Government",
+      "target": "Harvard University",
+      "predicate": "part of",
+      "confidence": 0.9
+    },
+    {
+      "source": "Harvard University",
+      "target": "subsidiary",
+      "predicate": "John F. Kennedy School of Government",
+      "confidence": 0.9
+    },
+    {
+      "source": "suspended in 2003",
+      "target": "point in time",
+      "predicate": "2003",
+      "confidence": 0.9
+    },
+    {
+      "source": "Iran is not building a nuclear weapon",
+      "target": "inception",
+      "predicate": "2003",
+      "confidence": 0.9
+    },
+    {
+      "source": "US sources and methods",
+      "target": "subclass of",
+      "predicate": "intelligence",
+      "confidence": 0.9
+    },
+    {
+      "source": "sources and methods",
+      "target": "subclass of",
+      "predicate": "intelligence",
+      "confidence": 0.9
+    },
+    {
+      "source": "sources and methods",
+      "target": "facet of",
+      "predicate": "intelligence",
+      "confidence": 0.9
+    },
+    {
+      "source": "allies",
+      "target": "Iran",
+      "predicate": "diplomatic relation",
+      "confidence": 0.9
+    },
+    {
+      "source": "WC-135",
+      "target": "subclass of",
+      "predicate": "sub",
+      "confidence": 0.9
+    },
+    {
+      "source": "WC-135",
+      "target": "sub",
+      "predicate": "instance of",
+      "confidence": 0.9
+    },
+    {
+      "source": "WC-135 sub",
+      "target": "subclass of",
+      "predicate": "radioactive material",
+      "confidence": 0.9
+    }
+  ],
+  "node_count": 221,
+  "edge_count": 160,
+  "cleaned": true
+}

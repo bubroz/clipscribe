@@ -323,4 +323,8 @@ class GLiNERExtractor:
         distribution = {}
         for entity in entities:
             distribution[entity.label] = distribution.get(entity.label, 0) + 1
-        return dict(sorted(distribution.items(), key=lambda x: x[1], reverse=True)) 
+        return dict(sorted(distribution.items(), key=lambda x: x[1], reverse=True))
+    
+    def get_total_cost(self) -> float:
+        """Get total cost of GLiNER operations (always 0 since it's local)."""
+        return 0.0 

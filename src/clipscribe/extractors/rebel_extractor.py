@@ -335,4 +335,8 @@ class REBELExtractor:
         ]
         
         logger.info(f"Added {len(relationships)} relationships to VideoIntelligence :-)") 
-        return video_intel 
+        return video_intel
+    
+    def get_total_cost(self) -> float:
+        """Get total cost of REBEL operations (always 0 since it's local)."""
+        return 0.0 

@@ -14,6 +14,7 @@ from .universal_video_client import UniversalVideoClient
 from .transcriber import GeminiFlashTranscriber
 from ..utils.filename import create_output_filename, create_output_structure, extract_platform_from_url
 from ..extractors import HybridEntityExtractor, AdvancedHybridExtractor
+from ..config.settings import Settings
 
 logger = logging.getLogger(__name__)
 
@@ -61,6 +62,9 @@ class VideoIntelligenceRetriever:
         self.clean_graph = False  # Will be set by CLI if --clean-graph is used
         self.use_advanced_extraction = use_advanced_extraction  # Store this as instance variable
         
+        # Get settings
+        settings = Settings()
+        
         # Initialize clients
         self.video_client = UniversalVideoClient()
         self.transcriber = GeminiFlashTranscriber()
@@ -81,7 +85,7 @@ class VideoIntelligenceRetriever:
                     use_gliner=True,
                     use_rebel=True,
                     use_llm=True,
-                    api_key=settings.GOOGLE_API_KEY  # Pass API key for GeminiPool
+                    api_key=settings.google_api_key  # Pass API key for GeminiPool
                 )
             except ImportError:
                 logger.warning("Advanced extractors not available, falling back to hybrid")

@@ -3,7 +3,7 @@
 import os
 import logging
 import tempfile
-from typing import Dict, List, Optional, Any
+from typing import Dict, List, Optional, Any, Tuple
 from datetime import datetime
 import google.generativeai as genai
 from google.generativeai.types import RequestOptions
@@ -13,9 +13,9 @@ from pathlib import Path
 import asyncio
 import mimetypes
 
-from ..models import VideoTranscript, KeyPoint, Entity
-from ..config import settings
-from .gemini_pool import GeminiPool
+from ..models import VideoTranscript, KeyPoint, Entity, Topic
+from ..config.settings import Settings
+from .gemini_pool import GeminiPool, TaskType
 
 logger = logging.getLogger(__name__)
 
@@ -30,17 +30,19 @@ class GeminiFlashTranscriber:
         Args:
             api_key: Google API key (optional, uses env var if not provided)
         """
-        self.api_key = api_key or settings.GOOGLE_API_KEY
+        # Get settings
+        settings = Settings()
+        self.api_key = api_key or settings.google_api_key
         if not self.api_key:
             raise ValueError("Google API key is required")
         
         genai.configure(api_key=self.api_key)
         
         # Initialize GeminiPool instead of single client
-        self.pool = GeminiPool(api_key=self.api_key, pool_size=3)
+        self.pool = GeminiPool(api_key=self.api_key)
         
         # Get timeout setting
-        self.request_timeout = settings.GEMINI_REQUEST_TIMEOUT
+        self.request_timeout = settings.gemini_request_timeout
         logger.info(f"Using Gemini request timeout: {self.request_timeout}s")
         
         # Track costs
@@ -62,6 +64,12 @@ class GeminiFlashTranscriber:
         Returns:
             Enhanced JSON string
         """
+        # Remove markdown code blocks if present
+        if '```json' in raw_text:
+            raw_text = raw_text.replace('```json', '').replace('```', '')
+        elif '```' in raw_text:
+            raw_text = raw_text.replace('```', '')
+            
         # Remove any text before the first { or [
         json_start = max(raw_text.find('{'), raw_text.find('['))
         if json_start > 0:
@@ -161,7 +169,7 @@ class GeminiFlashTranscriber:
             file = genai.get_file(file.name)
         
         # Use different model instances from pool for different tasks
-        transcription_model = self.pool.get_model("transcription")
+        transcription_model = self.pool.get_model(TaskType.TRANSCRIPTION)
         
         # Calculate cost (Gemini pricing)
         # Audio: $0.000125 per second
@@ -191,7 +199,7 @@ class GeminiFlashTranscriber:
             transcript_text = response.text.strip()
             
             # Use fresh models for each analysis task
-            analysis_model = self.pool.get_model("analysis")
+            analysis_model = self.pool.get_model(TaskType.KEY_POINTS)
             
             # Extract key points
             key_points_prompt = f"""
@@ -223,7 +231,7 @@ class GeminiFlashTranscriber:
             {transcript_text[:8000]}
             """
             
-            summary_model = self.pool.get_model("summary")
+            summary_model = self.pool.get_model(TaskType.SUMMARY)
             logger.info("Generating summary...")
             response = await summary_model.generate_content_async(
                 summary_prompt,
@@ -351,7 +359,7 @@ class GeminiFlashTranscriber:
             file = genai.get_file(file.name)
         
         # Use different model instances from pool
-        video_model = self.pool.get_model("video")
+        video_model = self.pool.get_model(TaskType.TRANSCRIPTION)
         
         # Calculate cost (Gemini pricing for video)
         # Video: $0.000125 per second (same as audio for now)
@@ -388,7 +396,7 @@ class GeminiFlashTranscriber:
             transcript_text = response.text.strip()
             
             # Use fresh models for analysis
-            analysis_model = self.pool.get_model("analysis")
+            analysis_model = self.pool.get_model(TaskType.ENTITIES)
             
             # Extract visual elements separately
             visual_prompt = f"""
@@ -430,7 +438,7 @@ class GeminiFlashTranscriber:
             ]
             """
             
-            summary_model = self.pool.get_model("summary")
+            summary_model = self.pool.get_model(TaskType.KEY_POINTS)
             logger.info("Extracting key points with visual context...")
             response = await summary_model.generate_content_async(
                 key_points_prompt,
