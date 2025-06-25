@@ -319,4 +319,57 @@ For videos with 100+ entities:
 - Adjust font sizes in the visualization scripts
 - Export to high-res image and view separately
 
-Remember: The built-in visualizers are much prettier than Gephi! :-) 
+Remember: The built-in visualizers are much prettier than Gephi! :-)
+
+## Visualizing Knowledge Graphs
+
+ClipScribe provides a powerful, unified script to visualize your extracted knowledge graphs in both 2D and 3D.
+
+### Quick Visualization
+
+To create a beautiful, interactive 2D graph, use the `visualize.py` script.
+
+```bash
+# Basic 2D visualization
+poetry run python scripts/visualize.py output/YOUR_VIDEO_ID/knowledge_graph.json
+```
+
+This will generate an `knowledge_graph_interactive.html` file in the same directory.
+
+### Filtering and Visualizing
+
+You can filter out noise and visualize in one step. This is highly recommended for cleaner graphs, especially with news content.
+
+```bash
+# Filter with moderate settings and visualize
+poetry run python scripts/visualize.py output/YOUR_VIDEO_ID/knowledge_graph.json --moderate
+
+# Filter aggressively and visualize
+poetry run python scripts/visualize.py output/YOUR_VIDEO_ID/knowledge_graph.json --aggressive
+```
+
+This creates a `knowledge_graph_filtered.json` and then visualizes it.
+
+### 3D Visualization
+
+For an impressive 3D visualization, use the `--3d` flag.
+
+```bash
+# Create a 3D graph (after filtering)
+poetry run python scripts/visualize.py output/YOUR_VIDEO_ID/knowledge_graph.json --moderate --3d
+```
+
+This will generate a `knowledge_graph_3d.html` file.
+
+### Advanced Options
+
+The visualization script has several options to customize the output. Run `poetry run python scripts/visualize.py --help` to see them all.
+
+## Using Gephi
+
+For more advanced, scientific-grade analysis and visualization, you can use the generated `.gexf` file with [Gephi](https://gephi.org/).
+
+1.  Run ClipScribe to generate a `knowledge_graph.gexf` file.
+2.  Open Gephi.
+3.  Go to `File > Open` and select your `.gexf` file.
+4.  Use Gephi's layout algorithms (like ForceAtlas2) and appearance settings to style your graph. 

@@ -39,8 +39,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Web UI Configuration**: Added controls to the Streamlit UI for processing mode, caching, and knowledge graph cleaning.
 
 ### Changed
-- Consolidated redundant documentation update instructions
-- Enhanced task completion checklist location (now in documentation-updates.mdc)
+- **Consolidated Scripts**: Merged multiple visualization scripts (`visualize_knowledge_graph.py`, `visualize_knowledge_graph_plotly.py`, etc.) into a single, unified `scripts/visualize.py`.
+- **Consolidated Examples**: Merged several advanced demo scripts into a single `examples/advanced_features_demo.py` and moved educational content to `docs/EXTRACTION_TECHNOLOGY.md`.
 - Improved rule organization and precedence
 - Migrated from old flat structure to modern Python project layout
 - Updated to use Gemini 1.5 Flash (from 2.5 Flash preview)
@@ -66,6 +66,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Generic relationship predicates like "mentioned" replaced with specific actions
 - Resolved issue where the markdown report was not being generated or displayed in the Streamlit UI.
 - Fixed a bug that caused the file download section in the UI to fail.
+
+### Removed
+- Deleted obsolete and redundant scripts from the `scripts/` and `examples/` directories to clean up the project structure.
 
 ## [2.2.0] - 2025-01-15
 

@@ -29,11 +29,12 @@ This version includes significant enhancements to the Streamlit Web UI, adding f
 
 ### In Progress 🚧
 - All planned work for this session is complete. The next step is to wrap up and prepare for a new session.
+- **Project Cleanup**: Starting Phase 1 (Workspace Sanitization) of the project cleanup plan.
+- **Review**: Moving on to review the example scripts.
 
 ### Roadmap 🗺️
-- **Next**: **Prepare for Demo & New Session**
-  - All documentation has been updated.
-  - The tool is ready to be demonstrated to colleagues.
+- **Next**: **Project Cleanup & Refinement**
+  - Complete the 4-phase project cleanup plan.
   - The next chat session can begin with a new set of goals.
 - **Soon**: Expand the `research` command to support platforms beyond YouTube.
 - **Future**: Deeper integration with the Chimera Researcher ecosystem.
@@ -50,6 +51,25 @@ poetry run streamlit run app.py
 ### Development Notes
 - The project's repository URL is `https://github.com/bubroz/clipscribe`. The name remains ClipScribe.
 - The documentation has been fully updated. The project is in a clean state, ready for the next phase of development.
+
+## Project Cleanup Plan 🧹
+
+This is the comprehensive plan to clean, consolidate, and document the ClipScribe project.
+
+### Phase 1: Workspace Sanitization
+- [x] **Action**: Delete all temporary, cached, and generated files and directories from the local workspace (`output/`, `test_*`, `.video_cache/`, `logs/`).
+- [x] **Justification**: Establish a clean baseline for the project.
+
+### Phase 2: Code Consolidation & Review
+- [x] **Step 2.1**: Consolidate redundant utility scripts in the `scripts/` directory.
+- [x] **Step 2.2**: Review, update, and remove obsolete examples in the `examples/` directory.
+
+### Phase 3: Core Code Refactoring
+- [ ] **Action**: Break down the large `save_all_formats` method in `video_retriever.py` into smaller, more focused private methods.
+
+### Phase 4: Documentation & Rule Synthesis
+- [ ] **Action**: Update all project documentation (`README.md`, `docs/`, etc.) to reflect the cleaned-up state.
+- [ ] **Action**: Review and update `.cursor/rules/` to incorporate lessons learned during the cleanup.
 
 ## Architecture Notes
 

@@ -122,6 +122,7 @@ poetry run clipscribe platforms
 We provide comprehensive examples to help you get started:
 
 - **[Quick Start](examples/quick_start.py)** - Simplest way to transcribe a video
+- **[Advanced Features Demo](examples/advanced_features_demo.py)** - A menu-driven demo of all advanced features.
 - **[Batch Processing](examples/batch_processing.py)** - Process multiple videos efficiently
 - **[Cost Optimization](examples/cost_optimization.py)** - Strategies to minimize costs
 - **[Output Formats](examples/output_formats.py)** - Export in various formats (TXT, SRT, JSON, etc.)
@@ -208,7 +209,7 @@ Video → Transcription → Entities → Relationships → Knowledge Graph → F
 
 ### Usage Example:
 ```python
-# See examples/advanced_extraction_demo.py for a full example
+# See examples/advanced_features_demo.py for a full example
 retriever = VideoIntelligenceRetriever(
     use_advanced_extraction=True,
     domain="technology"
@@ -217,8 +218,8 @@ retriever = VideoIntelligenceRetriever(
 
 **Try the demo:**
 ```bash
-# Run the advanced extraction demo
-poetry run python examples/advanced_extraction_demo.py "https://www.youtube.com/watch?v=some_tech_video"
+# Run the advanced features demo
+poetry run python examples/advanced_features_demo.py
 ```
 
 ## 🤝 Contributing

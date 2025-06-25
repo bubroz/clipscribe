@@ -6,4 +6,17 @@ lib/
 
 # Generated visualization files
 output/**/knowledge_graph_interactive.html
-output/**/knowledge_graph_3d.html 
+output/**/knowledge_graph_3d.html
+
+# ClipScribe specific
+/output/
+/test_*/
+/.video_cache/
+logs/
+.env
+
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+__pycache__/
+.DS_Store 
