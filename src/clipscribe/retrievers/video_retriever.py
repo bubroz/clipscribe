@@ -16,6 +16,7 @@ from .transcriber import GeminiFlashTranscriber
 from ..utils.filename import create_output_filename, create_output_structure, extract_platform_from_url
 from ..extractors import HybridEntityExtractor, AdvancedHybridExtractor
 from ..config.settings import Settings
+from ..utils.file_utils import calculate_sha256
 
 logger = logging.getLogger(__name__)
 
@@ -37,7 +38,10 @@ class VideoIntelligenceRetriever:
         use_cache: bool = True,
         output_dir: Optional[str] = None,
         output_formats: Optional[List[str]] = None,
-        enhance_transcript: bool = False
+        enhance_transcript: bool = False,
+        progress_tracker: Optional[Any] = None,
+        performance_monitor: Optional[Any] = None,
+        progress_hook: Optional[Any] = None
     ):
         """
         Initialize the video intelligence retriever.
@@ -51,6 +55,9 @@ class VideoIntelligenceRetriever:
             output_dir: Directory for output files
             output_formats: List of output formats
             enhance_transcript: Whether to enhance transcript
+            progress_tracker: Progress tracking instance
+            performance_monitor: Performance monitoring instance
+            progress_hook: Progress hook for progress updates
         """
         self.cache_dir = cache_dir or ".video_cache"
         os.makedirs(self.cache_dir, exist_ok=True)
@@ -62,13 +69,16 @@ class VideoIntelligenceRetriever:
         self.enhance_transcript = enhance_transcript
         self.clean_graph = False  # Will be set by CLI if --clean-graph is used
         self.use_advanced_extraction = use_advanced_extraction  # Store this as instance variable
+        self.progress_tracker = progress_tracker
+        self.performance_monitor = performance_monitor
+        self.progress_hook = progress_hook
         
         # Get settings
         settings = Settings()
         
         # Initialize clients
         self.video_client = UniversalVideoClient()
-        self.transcriber = GeminiFlashTranscriber()
+        self.transcriber = GeminiFlashTranscriber(performance_monitor=performance_monitor)
         
         # Initialize mode detector if using auto mode
         if mode == "auto":
@@ -159,7 +169,7 @@ class VideoIntelligenceRetriever:
             logger.error(f"Search failed: {e}")
             return []
     
-    async def process_url(self, video_url: str) -> Optional[VideoIntelligence]:
+    async def process_url(self, video_url: str, progress_state: Optional[Dict[str, Any]] = None) -> Optional[VideoIntelligence]:
         """
         Process a video from ANY supported platform (1800+ sites).
         
@@ -173,6 +183,7 @@ class VideoIntelligenceRetriever:
         
         Args:
             video_url: URL from any supported video platform
+            progress_state: Optional progress tracking state
             
         Returns:
             VideoIntelligence object or None if failed
@@ -182,21 +193,39 @@ class VideoIntelligenceRetriever:
             logger.error(f"URL not supported by yt-dlp: {video_url}")
             return None
             
-        return await self._process_video(video_url)
+        if self.progress_hook:
+            self.progress_hook({"description": "Downloading media..."})
+        
+        return await self._process_video(video_url, progress_state)
     
-    async def _process_video(self, video_url: str) -> Optional[VideoIntelligence]:
+    async def _process_video(self, video_url: str, progress_state: Optional[Dict[str, Any]] = None) -> Optional[VideoIntelligence]:
         """Process a single video URL."""
         try:
+            total_steps = 4  # download, transcribe, extract, facts
+            current_step = 0
+
+            def _update_progress(description: str):
+                nonlocal current_step
+                current_step += 1
+                progress_percentage = int((current_step / total_steps) * 100)
+                if self.progress_hook:
+                    self.progress_hook({"description": description, "progress": progress_percentage})
+                elif progress_state and self.progress_tracker:
+                    self.progress_tracker.update_phase(progress_state, description.lower().replace(" ", "_"), description)
+
             # Check cache first
             cache_key = self._get_cache_key(video_url)
             if self.use_cache:
                 cached_result = self._load_from_cache(cache_key)
                 if cached_result:
                     logger.info(f"Using cached result for: {video_url}")
+                    if self.progress_tracker and progress_state:
+                        self.progress_tracker.log_info("Using cached result")
                     return cached_result
             
             logger.info(f"Processing video: {video_url}")
             
+            _update_progress("Downloading media")
             # Determine processing mode
             processing_mode = self.mode
             if self.mode == "auto" and self.mode_detector:
@@ -212,18 +241,23 @@ class VideoIntelligenceRetriever:
             # Download media based on mode
             if processing_mode == "video":
                 logger.info("Downloading full video for visual analysis...")
+                if self.progress_tracker:
+                    self.progress_tracker.log_info("Downloading full video for visual analysis...")
                 media_file, metadata = await self.video_client.download_video(
                     video_url,
                     output_dir=self.cache_dir
                 )
             else:
                 logger.info("Downloading audio only (fast & efficient)...")
+                if self.progress_tracker:
+                    self.progress_tracker.log_info("Downloading audio only (fast & efficient)...")
                 media_file, metadata = await self.video_client.download_audio(
                     video_url,
                     output_dir=self.cache_dir
                 )
             
             try:
+                _update_progress("Transcribing media")
                 # Transcribe and analyze based on mode
                 if processing_mode == "video":
                     analysis = await self.transcriber.transcribe_video(
@@ -236,8 +270,10 @@ class VideoIntelligenceRetriever:
                         metadata.duration
                     )
                 
-                # Log mode used
+                # Log mode used and update cost tracker
                 logger.info(f"Transcribed using {processing_mode} mode, cost: ${analysis['processing_cost']:.4f}")
+                if self.progress_tracker:
+                    self.progress_tracker.update_cost(analysis['processing_cost'])
                 
                 # Update cost tracking
                 self.total_cost += analysis['processing_cost']
@@ -304,11 +340,18 @@ class VideoIntelligenceRetriever:
                 
                 # Run intelligence extraction if requested
                 if self.use_advanced_extraction:
+                    _update_progress("Extracting intelligence")
                     logger.info(f"Extracting intelligence with advanced extractor (domain={self.domain})...")
                     try:
                         if hasattr(self.entity_extractor, 'extract_all'):
                             # Advanced extraction with relationships and knowledge graph
                             video_intelligence = await self.entity_extractor.extract_all(video_intelligence, domain=self.domain)
+                            
+                            # Update cost if extractor tracks it
+                            if hasattr(self.entity_extractor, 'get_total_cost'):
+                                extraction_cost = self.entity_extractor.get_total_cost()
+                                if self.progress_tracker:
+                                    self.progress_tracker.update_cost(extraction_cost)
                             
                             # Optional: Clean the graph with Gemini
                             if hasattr(video_intelligence, 'knowledge_graph') and video_intelligence.knowledge_graph:
@@ -319,13 +362,21 @@ class VideoIntelligenceRetriever:
                                 )
                                 
                                 if should_clean:
+                                    # Update progress: Cleaning
+                                    if self.progress_tracker and progress_state:
+                                        self.progress_tracker.update_phase(progress_state, "clean", "Cleaning knowledge graph...")
+                                    
                                     try:
                                         from ..extractors.graph_cleaner import GraphCleaner
                                         cleaner = GraphCleaner()
                                         video_intelligence = await cleaner.clean_knowledge_graph(video_intelligence)
                                         logger.info("Knowledge graph cleaned with AI :-)")
+                                        if self.progress_tracker:
+                                            self.progress_tracker.log_success("Knowledge graph cleaned")
                                     except Exception as e:
                                         logger.warning(f"Graph cleaning failed: {e}, using uncleaned graph")
+                                        if self.progress_tracker:
+                                            self.progress_tracker.log_warning("Graph cleaning failed, using raw data")
                         
                         logger.info(
                             f"Extraction complete: {len(video_intelligence.entities)} basic entities, "
@@ -335,6 +386,8 @@ class VideoIntelligenceRetriever:
                         )
                     except Exception as e:
                         logger.error(f"Entity extraction failed: {e}")
+                        if self.progress_tracker:
+                            self.progress_tracker.log_error(f"Entity extraction failed: {e}")
                         # Continue without entities rather than failing completely
                 
                 # Update cost with extraction costs
@@ -344,6 +397,20 @@ class VideoIntelligenceRetriever:
                 # Cache the result
                 self._save_to_cache(cache_key, video_intelligence)
                 
+                # Record performance metrics if monitor is enabled
+                if self.performance_monitor:
+                    self.performance_monitor.record_metric(
+                        "extraction_quality",
+                        {
+                            "entities": len(video_intelligence.entities),
+                            "relationships": len(getattr(video_intelligence, 'relationships', [])),
+                            "key_points": len(video_intelligence.key_points),
+                            "duration": video_intelligence.metadata.duration,
+                        },
+                        platform=extract_platform_from_url(video_url),
+                        video_title=video_intelligence.metadata.title
+                    )
+
                 return video_intelligence
                 
             finally:
@@ -355,6 +422,8 @@ class VideoIntelligenceRetriever:
                     
         except Exception as e:
             logger.error(f"Failed to process video {video_url}: {e}")
+            if self.progress_tracker:
+                self.progress_tracker.log_error(f"Failed to process video: {e}")
             return None
     
     def _get_cache_key(self, video_url: str) -> str:
@@ -602,6 +671,7 @@ class VideoIntelligenceRetriever:
             }, f, indent=2)
         
         # 6. Entities file (for knowledge graph)
+        all_entities = list(video.entities) + list(getattr(video, 'custom_entities', []))
         entities_data = {
             "video_url": video.metadata.url,
             "video_title": video.metadata.title,
@@ -610,9 +680,10 @@ class VideoIntelligenceRetriever:
                     "name": e.name,
                     "type": e.type,
                     "confidence": e.confidence,
+                    "source": getattr(e, 'source', 'unknown'),
                     "properties": e.properties,
                     "timestamp": e.timestamp
-                } for e in video.entities
+                } for e in all_entities
             ],
             "topics": [t.dict() if hasattr(t, 'dict') else {"name": t.name, "confidence": t.confidence} for t in video.topics],
             "key_facts": [kp.text for kp in video.key_points[:5]]  # Top 5 key points
@@ -676,7 +747,8 @@ class VideoIntelligenceRetriever:
                 f.write(f"Extracted: {datetime.now().isoformat()}\n\n")
                 
                 for i, fact in enumerate(video.key_moments, 1):
-                    f.write(f"{i}. {fact['fact']} (confidence: {fact['confidence']:.2f})\n")
+                    source = fact.get('source', 'Fact')
+                    f.write(f"{i}. [{source}] {fact['fact']} (confidence: {fact['confidence']:.2f})\n")
             paths["facts"] = facts_path
             logger.info(f"Saved {len(video.key_moments)} key facts :-)")
         
@@ -737,7 +809,9 @@ class VideoIntelligenceRetriever:
             f.write(f"# Video Intelligence Report: {video.metadata.title}\n\n")
             f.write(f"**URL**: {video.metadata.url}\n")
             f.write(f"**Channel**: {video.metadata.channel}\n")
-            f.write(f"**Duration**: {video.metadata.duration // 60}:{video.metadata.duration % 60:02d}\n")
+            minutes = int(video.metadata.duration // 60)
+            seconds = int(video.metadata.duration % 60)
+            f.write(f"**Duration**: {minutes}:{seconds:02d}\n")
             f.write(f"**Published**: {video.metadata.published_at.strftime('%Y-%m-%d') if video.metadata.published_at else 'Unknown'}\n")
             f.write(f"**Processed**: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n")
             
@@ -750,31 +824,110 @@ class VideoIntelligenceRetriever:
             f.write("## Executive Summary\n\n")
             f.write(f"{video.summary}\n\n")
             
-            # Key Statistics
-            f.write("## Key Statistics\n\n")
-            f.write("| Metric | Count |\n")
-            f.write("|--------|-------|\n")
-            f.write(f"| Transcript Length | {len(video.transcript.full_text):,} chars |\n")
-            f.write(f"| Word Count | {len(video.transcript.full_text.split()):,} words |\n")
-            f.write(f"| Entities Extracted | {len(video.entities) + len(getattr(video, 'custom_entities', []))} |\n")
-            f.write(f"| Relationships Found | {len(getattr(video, 'relationships', []))} |\n")
-            f.write(f"| Key Points | {len(video.key_points)} |\n")
-            f.write(f"| Topics | {len(video.topics)} |\n")
+            # Quick Stats Dashboard
+            f.write("## 📊 Quick Stats Dashboard\n\n")
+            f.write('<details open>\n<summary><b>Click to toggle stats</b></summary>\n\n')
+            
+            # Key Statistics Table
+            f.write("| Metric | Count | Visualization |\n")
+            f.write("|--------|-------|---------------|\n")
+            
+            # Create simple bar charts with emoji
+            transcript_len = len(video.transcript.full_text)
+            word_count = len(video.transcript.full_text.split())
+            entity_count = len(video.entities) + len(getattr(video, 'custom_entities', []))
+            rel_count = len(getattr(video, 'relationships', []))
+            
+            f.write(f"| Transcript Length | {transcript_len:,} chars | {'█' * min(20, transcript_len // 2000)} |\n")
+            f.write(f"| Word Count | {word_count:,} words | {'█' * min(20, word_count // 500)} |\n")
+            f.write(f"| Entities Extracted | {entity_count} | {'🔵' * min(20, entity_count // 10)} |\n")
+            f.write(f"| Relationships Found | {rel_count} | {'🔗' * min(20, rel_count // 10)} |\n")
+            f.write(f"| Key Points | {len(video.key_points)} | {'📌' * min(10, len(video.key_points) // 3)} |\n")
+            f.write(f"| Topics | {len(video.topics)} | {'🏷️' * min(len(video.topics), 10)} |\n")
+            
             if hasattr(video, 'knowledge_graph') and video.knowledge_graph:
-                f.write(f"| Graph Nodes | {video.knowledge_graph.get('node_count', 0)} |\n")
-                f.write(f"| Graph Edges | {video.knowledge_graph.get('edge_count', 0)} |\n")
-            f.write("\n")
+                nodes = video.knowledge_graph.get('node_count', 0)
+                edges = video.knowledge_graph.get('edge_count', 0)
+                f.write(f"| Graph Nodes | {nodes} | {'⭕' * min(20, nodes // 10)} |\n")
+                f.write(f"| Graph Edges | {edges} | {'➡️' * min(20, edges // 10)} |\n")
             
-            # Topics
-            f.write("## Main Topics\n\n")
-            for topic in video.topics[:10]:
+            f.write("\n</details>\n\n")
+            
+            # Topics with emoji icons
+            f.write("## 🏷️ Main Topics\n\n")
+            f.write('<details>\n<summary><b>View all topics</b></summary>\n\n')
+            for i, topic in enumerate(video.topics[:15], 1):
                 topic_name = topic.name if hasattr(topic, 'name') else topic
-                f.write(f"- {topic_name}\n")
-            f.write("\n")
+                f.write(f"{i}. {topic_name}\n")
+            if len(video.topics) > 15:
+                f.write(f"\n*... and {len(video.topics) - 15} more topics*\n")
+            f.write("\n</details>\n\n")
             
-            # Top Entities by Type
-            f.write("## Key Entities\n\n")
-            all_entities = list(video.entities) + list(getattr(video, 'custom_entities', []))
+            # Knowledge Graph Visualization with Mermaid
+            if hasattr(video, 'relationships') and video.relationships:
+                f.write("## 🕸️ Knowledge Graph Visualization\n\n")
+                f.write('<details>\n<summary><b>Interactive relationship diagram (Mermaid)</b></summary>\n\n')
+                f.write("```mermaid\ngraph TD\n")
+                f.write("    %% Top Entity Relationships\n")
+                
+                # Get unique entities and their types for styling
+                all_entities_for_graph = list(getattr(video, 'entities', [])) + list(getattr(video, 'custom_entities', []))
+                entity_map = {e.name: e for e in all_entities_for_graph}
+                
+                top_relationships = sorted(video.relationships, key=lambda r: getattr(r, 'confidence', 0), reverse=True)
+
+                # Add top relationships to diagram
+                shown_relationships = set()
+                relationships_to_render = []
+                for rel in top_relationships:
+                    # Clean entity names for Mermaid
+                    subject_clean = rel.subject.replace('"', '').replace("'", "").replace(" ", "_")
+                    predicate_clean = rel.predicate.replace('"', '').replace("'", "")
+                    object_clean = rel.object.replace('"', '').replace("'", "").replace(" ", "_")
+                    
+                    rel_key = f"{subject_clean}-{predicate_clean}-{object_clean}"
+                    if rel_key not in shown_relationships:
+                        shown_relationships.add(rel_key)
+                        relationships_to_render.append(rel)
+                        f.write(f'    {subject_clean} -->|"{predicate_clean}"| {object_clean}\n')
+                    
+                    if len(relationships_to_render) >= 20:
+                        break
+
+                # Add styling based on entity types
+                f.write("\n    %% Styling\n")
+                styled_nodes = set()
+                for rel in relationships_to_render:
+                    subject_clean = rel.subject.replace('"', '').replace("'", "").replace(" ", "_")
+                    object_clean = rel.object.replace('"', '').replace("'", "").replace(" ", "_")
+
+                    # Style subject
+                    if subject_clean not in styled_nodes and rel.subject in entity_map:
+                        node_type = entity_map[rel.subject].type.lower()
+                        if node_type in ['person', 'organization', 'location', 'product']:
+                             f.write(f"    class {subject_clean} {node_type}Class\n")
+                        styled_nodes.add(subject_clean)
+                    
+                    # Style object
+                    if object_clean not in styled_nodes and rel.object in entity_map:
+                        node_type = entity_map[rel.object].type.lower()
+                        if node_type in ['person', 'organization', 'location', 'product']:
+                             f.write(f"    class {object_clean} {node_type}Class\n")
+                        styled_nodes.add(object_clean)
+
+                f.write("    classDef personClass fill:#ff9999,stroke:#333,stroke-width:2px\n")
+                f.write("    classDef organizationClass fill:#99ccff,stroke:#333,stroke-width:2px\n")
+                f.write("    classDef locationClass fill:#99ff99,stroke:#333,stroke-width:2px\n")
+                f.write("    classDef productClass fill:#ffcc99,stroke:#333,stroke-width:2px\n")
+                
+                f.write("```\n\n")
+                f.write("*Note: This diagram shows the top 20 relationships. ")
+                f.write("For the complete graph, use the GEXF file with Gephi.*\n")
+                f.write("\n</details>\n\n")
+            
+            # Entity Analysis with collapsible sections
+            f.write("## 🔍 Entity Analysis\n\n")
+            all_entities = list(getattr(video, 'entities', [])) + list(getattr(video, 'custom_entities', []))
             
             # Group by type
             entities_by_type = {}
@@ -784,72 +937,148 @@ class VideoIntelligenceRetriever:
                     entities_by_type[entity_type] = []
                 entities_by_type[entity_type].append(entity)
             
-            # Sort types by count
+            # Create entity type summary
+            if all_entities:
+                f.write("### Entity Type Distribution\n\n")
+                f.write("```mermaid\npie title Entity Distribution\n")
+                for entity_type, entities in sorted(entities_by_type.items(), key=lambda x: len(x[1]), reverse=True)[:8]:
+                    percentage = (len(entities) / len(all_entities)) * 100
+                    f.write(f'    "{entity_type}" : {len(entities)}\n')
+                if len(entities_by_type) > 8:
+                    others = sum(len(e) for t, e in list(entities_by_type.items())[8:])
+                    f.write(f'    "Others" : {others}\n')
+                f.write("```\n\n")
+            
+            # Detailed entity listings
             for entity_type in sorted(entities_by_type.keys()):
                 entities = sorted(entities_by_type[entity_type], 
                                 key=lambda e: getattr(e, 'confidence', 0), 
-                                reverse=True)[:10]
+                                reverse=True)
                 
-                f.write(f"### {entity_type} ({len(entities_by_type[entity_type])} total)\n\n")
-                f.write("| Name | Confidence |\n")
-                f.write("|------|------------|\n")
-                for entity in entities:
-                    conf = getattr(entity, 'confidence', 0.0)
-                    f.write(f"| {entity.name} | {conf:.2f} |\n")
-                f.write("\n")
+                # Use emoji for entity types
+                type_emoji = {
+                    'PERSON': '👤',
+                    'ORGANIZATION': '🏢',
+                    'LOCATION': '📍',
+                    'PRODUCT': '📦',
+                    'EVENT': '📅',
+                    'DATE': '📆',
+                    'MONEY': '💰',
+                    'software': '💻',
+                    'api': '🔌',
+                    'platform': '🌐',
+                    'framework': '🛠️',
+                    'model': '🤖',
+                    'channel': '📺'
+                }.get(entity_type, '🏷️')
+                
+                f.write(f"\n<details>\n")
+                f.write(f"<summary><b>{type_emoji} {entity_type} ({len(entities)} found)</b></summary>\n\n")
+                
+                if len(entities) > 0:
+                    f.write("| Name | Confidence | Source |\n")
+                    f.write("|------|------------|--------|\n")
+                    for entity in entities[:15]:
+                        conf = getattr(entity, 'confidence', 0.0)
+                        source = getattr(entity, 'source', 'SpaCy')
+                        conf_bar = '🟩' if conf > 0.8 else ('🟨' if conf > 0.6 else '🟥')
+                        f.write(f"| {entity.name} | {conf_bar} {conf:.2f} | {source} |\n")
+                    
+                    if len(entities) > 15:
+                        f.write(f"\n*... and {len(entities) - 15} more {entity_type.lower()} entities*\n")
+                
+                f.write("\n</details>\n")
             
-            # Key Relationships
+            # Relationship Network Analysis
             if hasattr(video, 'relationships') and video.relationships:
-                f.write("## Key Relationships\n\n")
-                # Sort by confidence
-                top_relationships = sorted(video.relationships, 
-                                         key=lambda r: getattr(r, 'confidence', 0), 
-                                         reverse=True)[:20]
+                f.write("\n## 🔗 Relationship Network\n\n")
                 
-                for rel in top_relationships:
-                    f.write(f"- **{rel.subject}** *{rel.predicate}* **{rel.object}**")
-                    if hasattr(rel, 'confidence'):
-                        f.write(f" (confidence: {rel.confidence:.2f})")
-                    f.write("\n")
-                f.write("\n")
+                # Relationship type distribution
+                rel_types = {}
+                for rel in video.relationships:
+                    pred = rel.predicate
+                    rel_types[pred] = rel_types.get(pred, 0) + 1
+                
+                f.write("<details>\n<summary><b>Relationship type distribution</b></summary>\n\n")
+                f.write("| Predicate | Count | Percentage |\n")
+                f.write("|-----------|--------|------------|\n")
+                
+                total_rels = len(video.relationships)
+                for pred, count in sorted(rel_types.items(), key=lambda x: x[1], reverse=True)[:15]:
+                    percentage = (count / total_rels) * 100
+                    bar = '█' * int(percentage / 5)
+                    f.write(f"| {pred} | {count} | {bar} {percentage:.1f}% |\n")
+                
+                f.write("\n</details>\n\n")
+                
+                # Top relationships
+                f.write("<details>\n<summary><b>Key relationships (top 30)</b></summary>\n\n")
+                
+                for i, rel in enumerate(sorted(video.relationships, 
+                                              key=lambda r: getattr(r, 'confidence', 0), 
+                                              reverse=True)[:30], 1):
+                    conf = getattr(rel, 'confidence', 0.0)
+                    conf_emoji = '🟩' if conf > 0.8 else ('🟨' if conf > 0.6 else '🟥')
+                    f.write(f"{i}. **{rel.subject}** *{rel.predicate}* **{rel.object}** {conf_emoji} ({conf:.2f})\n")
+                
+                f.write("\n</details>\n\n")
             
-            # Key Points (Top 10)
-            f.write("## Key Points\n\n")
+            # Key Insights
+            f.write("## 💡 Key Insights\n\n")
+            f.write("<details open>\n<summary><b>Top 10 key points</b></summary>\n\n")
+            
             top_points = sorted(video.key_points, 
-                              key=lambda p: p.importance if hasattr(p, 'importance') else 0.5, 
+                              key=lambda p: getattr(p, 'importance', 0.5), 
                               reverse=True)[:10]
             
             for i, point in enumerate(top_points, 1):
-                f.write(f"{i}. {point.text}\n")
-            f.write("\n")
+                importance = getattr(point, 'importance', 0.5)
+                imp_emoji = '🔴' if importance > 0.8 else ('🟡' if importance > 0.6 else '⚪')
+                f.write(f"{i}. {imp_emoji} {point.text}\n")
+            
+            f.write("\n</details>\n\n")
             
             # File Index
-            f.write("## Generated Files\n\n")
-            f.write("| File | Description |\n")
-            f.write("|------|-------------|\n")
-            f.write("| `transcript.txt` | Plain text transcript |\n")
-            f.write("| `transcript.json` | Full structured data |\n")
-            f.write("| `entities.csv` | All entities in CSV format |\n")
-            if "relationships_csv" in paths:
-                f.write("| `relationships.csv` | All relationships in CSV format |\n")
-            if "knowledge_graph" in paths:
-                f.write("| `knowledge_graph.json` | Graph structure |\n")
-            if "gexf" in paths:
-                f.write("| `knowledge_graph.gexf` | Gephi-compatible graph |\n")
-            f.write("| `metadata.json` | Video metadata |\n")
-            f.write("| `manifest.json` | File index with sizes |\n")
-            f.write("\n")
+            f.write("## 📁 Generated Files\n\n")
+            f.write("<details>\n<summary><b>Click to see all files</b></summary>\n\n")
+            f.write("| File | Format | Size | Description |\n")
+            f.write("|------|--------|------|-------------|\n")
+            
+            file_info = [
+                ("transcript.txt", "TXT", "Plain text transcript"),
+                ("transcript.json", "JSON", "Full structured data"),
+                ("entities.csv", "CSV", "All entities in spreadsheet format"),
+                ("relationships.csv", "CSV", "All relationships in spreadsheet format"),
+                ("knowledge_graph.json", "JSON", "Complete graph structure"),
+                ("knowledge_graph.gexf", "GEXF", "Import into Gephi for visualization"),
+                ("metadata.json", "JSON", "Video metadata and statistics"),
+                ("manifest.json", "JSON", "File index with checksums"),
+                ("report.md", "Markdown", "This report"),
+                ("chimera_format.json", "JSON", "Chimera-compatible format")
+            ]
+            
+            for filename, fmt, desc in file_info:
+                file_path = paths["directory"] / filename
+                if file_path.exists():
+                    size = os.path.getsize(file_path)
+                    size_str = f"{size / 1024:.1f} KB" if size > 1024 else f"{size} B"
+                    f.write(f"| `{filename}` | {fmt} | {size_str} | {desc} |\n")
+            
+            f.write("\n</details>\n\n")
             
             # Footer
             f.write("---\n")
-            f.write(f"*Generated by ClipScribe v{video.processing_stats.get('version', '2.5.0') if hasattr(video, 'processing_stats') else '2.5.0'}*\n")
+            f.write(f"*Generated by ClipScribe v{video.processing_stats.get('version', '2.5.2') if hasattr(video, 'processing_stats') else '2.5.2'} ")
+            f.write(f"on {datetime.now().strftime('%Y-%m-%d at %H:%M:%S')}*\n")
+            f.write("\n💡 **Tip**: This markdown file supports Mermaid diagrams. ")
+            f.write("View it in GitHub, GitLab, or any Markdown viewer with Mermaid support for interactive diagrams.\n")
         
         paths["report"] = markdown_path
-        logger.info("Generated markdown report :-)")
+        logger.info("Generated enhanced markdown report :-)")
         
         # 12. Manifest file (index of all files)
         manifest = {
-            "version": "2.2",
+            "version": "2.3",
             "created_at": datetime.now().isoformat(),
             "video": {
                 "title": video.metadata.title,
@@ -861,22 +1090,26 @@ class VideoIntelligenceRetriever:
                 "transcript_txt": {
                     "path": "transcript.txt",
                     "format": "plain_text",
-                    "size": os.path.getsize(paths["transcript_txt"])
+                    "size": os.path.getsize(paths["transcript_txt"]),
+                    "sha256": calculate_sha256(paths["transcript_txt"])
                 },
                 "transcript_json": {
                     "path": "transcript.json",
                     "format": "json",
-                    "size": os.path.getsize(paths["transcript_json"])
+                    "size": os.path.getsize(paths["transcript_json"]),
+                    "sha256": calculate_sha256(paths["transcript_json"])
                 },
                 "metadata": {
                     "path": "metadata.json",
                     "format": "json",
-                    "size": os.path.getsize(paths["metadata"])
+                    "size": os.path.getsize(paths["metadata"]),
+                    "sha256": calculate_sha256(paths["metadata"])
                 },
                 "entities": {
                     "path": "entities.json",
                     "format": "json",
-                    "size": os.path.getsize(paths["entities"])
+                    "size": os.path.getsize(paths["entities"]),
+                    "sha256": calculate_sha256(paths["entities"])
                 }
             }
         }
@@ -887,7 +1120,8 @@ class VideoIntelligenceRetriever:
                 "path": "relationships.json",
                 "format": "json",
                 "size": os.path.getsize(paths["relationships"]),
-                "count": len(video.relationships) if hasattr(video, 'relationships') else 0
+                "count": len(video.relationships) if hasattr(video, 'relationships') else 0,
+                "sha256": calculate_sha256(paths["relationships"])
             }
         
         if "knowledge_graph" in paths:
@@ -896,7 +1130,8 @@ class VideoIntelligenceRetriever:
                 "format": "json",
                 "size": os.path.getsize(paths["knowledge_graph"]),
                 "nodes": video.knowledge_graph.get('node_count', 0) if hasattr(video, 'knowledge_graph') else 0,
-                "edges": video.knowledge_graph.get('edge_count', 0) if hasattr(video, 'knowledge_graph') else 0
+                "edges": video.knowledge_graph.get('edge_count', 0) if hasattr(video, 'knowledge_graph') else 0,
+                "sha256": calculate_sha256(paths["knowledge_graph"])
             }
         
         if "gexf" in paths:
@@ -904,7 +1139,8 @@ class VideoIntelligenceRetriever:
                 "path": "knowledge_graph.gexf",
                 "format": "gexf",
                 "size": os.path.getsize(paths["gexf"]),
-                "description": "Gephi-compatible graph file"
+                "description": "Gephi-compatible graph file",
+                "sha256": calculate_sha256(paths["gexf"])
             }
         
         if "facts" in paths:
@@ -912,7 +1148,8 @@ class VideoIntelligenceRetriever:
                 "path": "facts.txt",
                 "format": "plain_text",
                 "size": os.path.getsize(paths["facts"]),
-                "count": len(video.key_moments) if hasattr(video, 'key_moments') else 0
+                "count": len(video.key_moments) if hasattr(video, 'key_moments') else 0,
+                "sha256": calculate_sha256(paths["facts"])
             }
         
         # Add CSV files to manifest
@@ -922,7 +1159,8 @@ class VideoIntelligenceRetriever:
                 "format": "csv",
                 "size": os.path.getsize(paths["entities_csv"]),
                 "description": "All entities in CSV format",
-                "count": len(video.entities) + len(getattr(video, 'custom_entities', []))
+                "count": len(video.entities) + len(getattr(video, 'custom_entities', [])),
+                "sha256": calculate_sha256(paths["entities_csv"])
             }
         
         if "relationships_csv" in paths:
@@ -931,7 +1169,8 @@ class VideoIntelligenceRetriever:
                 "format": "csv",
                 "size": os.path.getsize(paths["relationships_csv"]),
                 "description": "All relationships in CSV format",
-                "count": len(getattr(video, 'relationships', []))
+                "count": len(getattr(video, 'relationships', [])),
+                "sha256": calculate_sha256(paths["relationships_csv"])
             }
         
         # Add markdown report to manifest
@@ -940,9 +1179,20 @@ class VideoIntelligenceRetriever:
                 "path": "report.md",
                 "format": "markdown",
                 "size": os.path.getsize(paths["report"]),
-                "description": "Human-readable intelligence report"
+                "description": "Human-readable intelligence report",
+                "sha256": calculate_sha256(paths["report"])
             }
         
+        # Add Chimera format to manifest
+        if "chimera" in paths:
+            manifest["files"]["chimera"] = {
+                "path": "chimera_format.json",
+                "format": "json",
+                "size": os.path.getsize(paths["chimera"]),
+                "description": "Chimera-compatible format",
+                "sha256": calculate_sha256(paths["chimera"])
+            }
+            
         with open(paths["manifest"], 'w', encoding='utf-8') as f:
             json.dump(manifest, f, indent=2)
         

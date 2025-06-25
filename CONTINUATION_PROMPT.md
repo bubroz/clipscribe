@@ -1,76 +1,55 @@
-# ClipScribe Development Continuation Prompt
+# ClipScribe AI Assistant Continuation Prompt
 
-## Last Updated: 2024-06-24 17:45 PST
+## Current State (2025-06-24 20:10 PDT)
 
-### Current Version: v2.5.1
+### Latest Version: v2.8.1 (Unreleased)
+This version includes significant enhancements to the Streamlit Web UI, adding full configuration options and fixing several bugs related to report generation and file downloads. The UI is now stable and ready for demonstration.
 
-## Recent Changes (Today's Session)
+### Recent Changes
+- **v2.8.1 (Unreleased)**:
+  - **Added UI Configuration**: Implemented sidebar controls for processing mode, caching, and graph cleaning.
+  - **Fixed Report Generation**: Resolved bugs preventing the markdown report from being created and displayed in the UI.
+  - **Fixed File Downloads**: Corrected file path issues to ensure all output files are downloadable from the UI.
+- **v2.8.0** (2025-06-24): Added the initial Streamlit Web UI with basic functionality.
+- **v2.7.0** (2025-06-24): Implemented `research` command for batch processing.
 
-### 1. Auto-Clean Threshold Fix
-- Raised thresholds from 100/150 to 300/500 nodes/relationships
-- Now properly respects --skip-cleaning flag
-- Prevents over-aggressive cleaning of legitimate content
-
-### 2. Optimized API Batching ✨
-- **MAJOR IMPROVEMENT**: Reduced API calls from 6 to 2-3
-- Combined extraction gets summary, key points, topics, entities, relationships in ONE call
-- Uses Gemini's official response_schema for guaranteed JSON formatting
-- Added optional second-pass extraction for comprehensive coverage
-- 50-60% cost reduction while maintaining quality
-
-### 3. New Export Formats
-- Added CSV export for entities and relationships
-- Added markdown report generation with:
-  - Executive summary
-  - Cost indicators (🟢🟡🔴)
-  - Key statistics tables
-  - Top entities by type
-  - Key relationships
-  - File index
-
-### 4. Bug Fixes
-- Fixed JSON parsing issues with enhanced parser
-- Fixed VideoTranscript subscript error
-- Fixed GLiNER chunking (now 800 chars)
-- Fixed graph cleaner filtering bug
-- Fixed macOS visualization
-
-## Current State
+### Test Results
+- The Streamlit app launches successfully and processes videos.
+- All UI configuration options (mode, cache, cleaning) are functional.
+- The interactive markdown report now renders correctly.
+- All file download buttons are working as expected.
 
 ### What's Working Well ✅
-- GeminiPool architecture preventing token limit issues
-- Transcription with Gemini 2.5 Flash
-- SpaCy + GLiNER entity extraction
-- Knowledge graph generation
-- Cost tracking and optimization
-- Multiple output formats (JSON, CSV, Markdown, GEXF)
+- **Web UI**: The Streamlit app is now a robust and configurable tool for using ClipScribe.
+- **Backend Integration**: The UI correctly passes configuration to the `VideoIntelligenceRetriever`.
+- **User Experience**: The app provides a much more user-friendly way to interact with the system.
 
-### Known Issues 🔧
-- GLiNER truncation warnings (from library, not our code)
-- Graph cleaning still needs refinement
-- Need to implement Mermaid diagrams in markdown reports
+### Known Issues ⚠️
+- No known issues at this time. The app is stable.
 
-### Next Priority Tasks 🎯
+### In Progress 🚧
+- All planned work for this session is complete. The next step is to wrap up and prepare for a new session.
 
-1. **Rich Progress Indicators**
-   - Use Rich library for beautiful progress bars
-   - Show phase progress and time estimates
-   - Real-time cost tracking
+### Roadmap 🗺️
+- **Next**: **Prepare for Demo & New Session**
+  - All documentation has been updated.
+  - The tool is ready to be demonstrated to colleagues.
+  - The next chat session can begin with a new set of goals.
+- **Soon**: Expand the `research` command to support platforms beyond YouTube.
+- **Future**: Deeper integration with the Chimera Researcher ecosystem.
 
-2. **Enhanced Markdown Reports**
-   - Add Mermaid relationship diagrams
-   - Collapsible sections for details
-   - Better formatting for large datasets
+### Key Architecture
+- The `app.py` has been enhanced with a sidebar for configuration and more robust file handling logic to work with the main `VideoIntelligenceRetriever`.
 
-3. **Platform Testing**
-   - Test Twitter/X support
-   - Test TikTok support
-   - Ensure multi-platform batch processing works
+### Recent Commands
+```bash
+# Run the enhanced Web UI
+poetry run streamlit run app.py
+```
 
-4. **Performance Monitoring**
-   - Add metrics collection
-   - Track API response times
-   - Monitor extraction quality
+### Development Notes
+- The project's repository URL is `https://github.com/bubroz/clipscribe`. The name remains ClipScribe.
+- The documentation has been fully updated. The project is in a clean state, ready for the next phase of development.
 
 ## Architecture Notes
 

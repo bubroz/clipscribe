@@ -1,11 +1,11 @@
-# ClipScribe 2.5.1
+# ClipScribe v2.8.0
 
 <p align="center">
-  <strong>AI-powered video transcription and analysis for 1800+ platforms</strong>
+  <strong>AI-powered video intelligence for 1800+ platforms</strong>
 </p>
 
 <p align="center">
-  <em>v2.5.1 with Optimized API Batching & Export Formats 🚀</em>
+  <em>Now with an Interactive Web UI, Rich Progress Indicators & Interactive Markdown Reports 🚀</em>
 </p>
 
 <p align="center">
@@ -18,49 +18,48 @@
 
 ---
 
-ClipScribe is a modern video transcription tool that leverages Google's Gemini 2.5 Flash to provide fast, accurate, and cost-effective video intelligence. It supports **1800+ video platforms** through yt-dlp integration.
+ClipScribe is a modern video intelligence tool that leverages Google's Gemini to provide fast, accurate, and cost-effective analysis. It supports **1800+ video platforms** through yt-dlp integration.
 
 ## ✨ Features
 
-- 🌍 **Universal Platform Support** - YouTube, TikTok, Twitter/X, Vimeo, and 1800+ more sites
-- 🚀 **Gemini 2.5 Flash** - Native audio transcription with 92% cost reduction
-- ⚡ **10x Faster** - Process 1 hour of video in 2-5 minutes
-- 🎯 **High Accuracy** - Native audio understanding outperforms traditional ASR
-- 📊 **Multiple Export Formats** - TXT, JSON, CSV, Markdown reports, GEXF graphs
-- 💰 **50-60% Cost Savings** - Optimized API batching reduces calls from 6 to 2-3
-- 📈 **CSV Data Export** - Export entities and relationships for data analysis
-- 📝 **Markdown Reports** - Professional intelligence reports with statistics
-- 🔄 **Async Processing** - Handle multiple videos concurrently
-- 🎨 **Beautiful CLI** - Modern terminal interface with Rich
+- 🖥️ **Interactive Web UI** - An easy-to-use Streamlit app for running analysis in your browser.
+- 🌍 **Universal Platform Support** - YouTube, TikTok, Twitter/X, Vimeo, and 1800+ more.
+- 🚀 **Gemini Powered** - Native audio/video understanding for high accuracy.
+- 🔬 **Research Command** - Analyze multiple videos on a single topic to gather broad insights.
+- 📊 **Rich Interactive Reports** - Auto-generated markdown reports with:
+  - 📈 **Mermaid.js Diagrams** for knowledge graphs and entity distributions.
+  - 🗂️ **Collapsible Sections** for easy navigation.
+  -  dashboards with visual statistics.
+- 🎨 **Beautiful CLI** - Modern terminal interface with Rich progress indicators, live cost tracking, and phase timing.
+- 💰 **Cost Optimized** - Intelligent API batching reduces costs by 50-60%.
+- 📈 **Multiple Data Formats** - Export to TXT, JSON, CSV, GEXF, and interactive Markdown.
+- 🔗 **Full Knowledge Extraction** - Extracts entities, relationships, topics, and key points to build a complete knowledge graph.
+- 🔒 **Data Integrity** - Manifest files include SHA256 checksums for all outputs.
 
-## 🎉 What's New in v2.5.1
+## 🎉 What's New in v2.8.0
 
-### Major Performance Improvements
-- **50-60% Cost Reduction** - Optimized API batching combines multiple extractions into 2-3 calls (down from 6)
-- **Dual-Pass Extraction** - Optional second pass ensures comprehensive entity and relationship capture
-- **Smart Auto-Clean Thresholds** - Raised to 300/500 to prevent over-aggressive graph cleaning
+The latest versions of ClipScribe introduce major enhancements for usability and power:
 
-### New Export Formats
-- **CSV Export** - Export entities and relationships as CSV for data analysis
-  - `entities.csv` - All entities with type, confidence, and source
-  - `relationships.csv` - All relationships with subject, predicate, object
-- **Markdown Reports** - Professional intelligence reports featuring:
-  - Executive summary with cost indicators (🟢🟡🔴)
-  - Key statistics and metrics tables
-  - Top entities organized by type
-  - Key relationships and facts
-  - Generated file index
+### 🖥️ Interactive Web UI (v2.8.0)
+- **Run in Browser**: A new Streamlit-based web app (`app.py`) provides a graphical interface for ClipScribe.
+- **Live Progress**: See real-time updates as your video is processed.
+- **Download Results**: Get all output files directly from the UI.
+- **Full Configuration**: Control processing mode, caching, and graph cleaning directly from the sidebar.
 
-### Technical Improvements
-- **Structured JSON Output** - Uses Gemini's official `response_schema` for guaranteed valid JSON
-- **Enhanced Context** - Increased transcript context from 8k to 10k characters
-- **GeminiPool Architecture** - Separate instances per task prevent token buildup
+### 🔬 Research Command (v2.7.0)
+- **Topic-Based Analysis**: Use the new `research` command to analyze multiple videos on a single topic.
+- **Batch Processing**: Automatically finds and processes a list of relevant videos.
+
+### 📊 Performance Dashboards & Rich CLI (v2.6.0)
+- **Rich Progress Indicators**: Get real-time feedback in your terminal with beautiful progress bars.
+- **Cost & Time Tracking**: Live monitoring of API costs and processing time for each stage.
+- **Enhanced Markdown Reports**: Interactive reports with Mermaid diagrams, collapsible sections, and visual dashboards.
 
 ## 📋 Requirements
 
-- Python 3.11 or higher
-- Google Cloud API key with Gemini access
-- FFmpeg (for audio extraction)
+- Python 3.11+
+- A Google API key with Gemini access enabled.
+- [FFmpeg](https://ffmpeg.org/download.html) installed on your system.
 
 ## 🚀 Installation
 
@@ -88,28 +87,25 @@ ClipScribe is a modern video transcription tool that leverages Google's Gemini 2
 
 ## 💻 Usage
 
-### Basic Transcription
+### Command-Line Interface (CLI)
 
 ```bash
-# Transcribe a YouTube video
+# Transcribe a single video
 poetry run clipscribe transcribe "https://youtube.com/watch?v=..."
 
-# Transcribe from any supported platform
-poetry run clipscribe transcribe "https://vimeo.com/123456789"
-
-# With options
-poetry run clipscribe transcribe "https://tiktok.com/@user/video/..." \
-  --output-dir transcripts \
-  --format json \
-  --enhance
+# Research a topic across multiple videos
+poetry run clipscribe research "James Webb Telescope" --max-results 3
 ```
 
-### Research Mode (Coming Soon)
+### Web UI
+
+To launch the interactive web interface, run:
 
 ```bash
-# Analyze multiple videos on a topic
-poetry run clipscribe research "machine learning tutorials" --max-results 10
+poetry run streamlit run app.py
 ```
+
+This will open the application in your web browser.
 
 ### Configuration
 
@@ -141,21 +137,25 @@ poetry run python examples/quick_start.py
 ## 🐍 Python API
 
 ```python
-from clipscribe.chimera_video.retrievers.video import VideoIntelligenceRetriever
+import asyncio
+from clipscribe.retrievers import VideoIntelligenceRetriever
 
-# Initialize retriever
-retriever = VideoIntelligenceRetriever(
-    query="Transcribe this video",
-    output_dir="output"
-)
+async def main():
+    # Initialize retriever
+    retriever = VideoIntelligenceRetriever()
 
-# Process any video URL
-result = await retriever.process_url("https://youtube.com/watch?v=...")
+    # Process any video URL
+    result = await retriever.process_url("https://youtube.com/watch?v=...")
 
-# Access results
-print(f"Title: {result['title']}")
-print(f"Transcript: {result['transcript']}")
-print(f"Cost: ${result['cost']:.4f}")
+    if result:
+        # Access results
+        print(f"Title: {result.metadata.title}")
+        print(f"Summary: {result.summary}")
+        print(f"Cost: ${result.processing_cost:.4f}")
+        print(f"Entities found: {len(result.entities)}")
+
+if __name__ == "__main__":
+    asyncio.run(main())
 ```
 
 ## 📁 Project Structure
@@ -178,70 +178,52 @@ clipscribe/
 
 ## 🔧 Configuration
 
-Create a `.env` file with:
+Create a `.env` file in the project root:
 
 ```env
 # Required
-GOOGLE_API_KEY=your_gemini_api_key_here
+GOOGLE_API_KEY="your_gemini_api_key_here"
 
-# Optional
-OUTPUT_DIR=output
-LOG_LEVEL=INFO
-DEFAULT_LANGUAGE=en
+# Optional (defaults shown)
+# OUTPUT_DIR=output
+# LOG_LEVEL=INFO
+# DEFAULT_LANGUAGE=en
 ```
 
-See [docs/guides/configuration.md](docs/guides/configuration.md) for all options.
+## 🔥 Advanced Intelligence Extraction
 
-## 🔥 NEW in v2.2: Advanced Intelligence Extraction
-
-ClipScribe now includes complete video intelligence extraction:
+ClipScribe includes a complete video intelligence extraction pipeline:
 
 ### Relationship Extraction (REBEL)
-- Extract facts and relationships from videos automatically
-- Build knowledge graphs from video content
-- Example: "Elon Musk → founded → SpaceX"
+- Extract facts and relationships (`Subject -> Predicate -> Object`) from videos automatically.
+- Build knowledge graphs from video content.
 
 ### Custom Entity Detection (GLiNER) 
-- Detect domain-specific entities beyond standard NER
-- Specialized domains: Military, Technology, Finance, Medical
-- Custom entity types: weapons, operations, technologies, diseases
+- Detect domain-specific entities beyond standard NER (e.g., weapons, technologies, financial metrics).
 
 ### Complete Intelligence Stack
 ```
 Video → Transcription → Entities → Relationships → Knowledge Graph → Facts
 ```
 
-### New Features in v2.2:
-- **98% Cost Reduction** - Hybrid approach using SpaCy + selective LLM validation
-- **3 Extraction Levels** - Basic (SpaCy), Enhanced (SpaCy+LLM), Advanced (SpaCy+GLiNER+REBEL+LLM)
-- **Knowledge Graphs** - NetworkX-compatible graph format
-- **Fact Extraction** - Top facts from relationships
-- **Domain Optimization** - Specialized extraction for specific domains
-
 ### Usage Example:
 ```python
-# Advanced extraction with domain specialization
+# See examples/advanced_extraction_demo.py for a full example
 retriever = VideoIntelligenceRetriever(
     use_advanced_extraction=True,
-    domain="military"  # or: tech, finance, medical
+    domain="technology"
 )
-
-result = await retriever.process_url("https://youtube.com/watch?v=...")
-
-# Access advanced features
-print(f"Entities: {len(result.entities)}")
-print(f"Relationships: {len(result.relationships)}")
-print(f"Knowledge Graph Nodes: {result.knowledge_graph['node_count']}")
 ```
 
-**Try it now:**
+**Try the demo:**
 ```bash
-poetry run python examples/advanced_extraction_demo.py "VIDEO_URL" military
+# Run the advanced extraction demo
+poetry run python examples/advanced_extraction_demo.py "https://www.youtube.com/watch?v=some_tech_video"
 ```
 
 ## 🤝 Contributing
 
-We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
+We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details on setting up your development environment.
 
 ```bash
 # Run tests
