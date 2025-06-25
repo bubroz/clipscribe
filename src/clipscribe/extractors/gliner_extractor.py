@@ -8,11 +8,13 @@ This enables detecting domain-specific entities like military hardware, operatio
 import logging
 from typing import List, Dict, Any, Optional, Set
 from dataclasses import dataclass
+import warnings
 
 import torch
 from gliner import GLiNER
 
 from ..models import VideoIntelligence, Entity
+from .model_manager import model_manager
 
 logger = logging.getLogger(__name__)
 
@@ -71,35 +73,19 @@ class GLiNERExtractor:
             device: Device to run on ("auto", "cpu", "cuda", "mps") 
         """
         self.model_name = model_name
-        self.device = self._get_device(device)
+        self.device = device
         self.model = None
+        self._actual_device = None
         self._load_model()
         
-    def _get_device(self, device: str) -> str:
-        """Determine the best device to use."""
-        if device == "auto":
-            if torch.cuda.is_available():
-                return "cuda"
-            elif torch.backends.mps.is_available():
-                return "mps"  # Apple Silicon
-            else:
-                return "cpu"
-        return device
-        
     def _load_model(self):
-        """Load the GLiNER model."""
+        """Load the GLiNER model using the model manager."""
         try:
-            logger.info(f"Loading GLiNER model {self.model_name} on {self.device}...")
-            
-            # Load model
-            self.model = GLiNER.from_pretrained(self.model_name)
-            
-            # Move to device
-            if self.device != "cpu":
-                self.model = self.model.to(self.device)
+            # Suppress warnings during loading
+            with warnings.catch_warnings():
+                warnings.simplefilter("ignore")
+                self.model, self._actual_device = model_manager.get_gliner_model(self.model_name, self.device)
                 
-            logger.info("GLiNER model loaded successfully :-)")
-            
         except Exception as e:
             logger.error(f"Failed to load GLiNER model: {e}")
             raise
@@ -137,14 +123,17 @@ class GLiNERExtractor:
         
         for chunk_idx, (chunk_text, chunk_offset) in enumerate(chunks):
             try:
-                # GLiNER expects a single string, not a list
-                # Predict entities directly from the text chunk
-                predictions = self.model.predict_entities(
-                    chunk_text,
-                    labels,
-                    threshold=threshold,
-                    flat_ner=flat_ner
-                )
+                # Suppress warnings during prediction
+                with warnings.catch_warnings():
+                    warnings.simplefilter("ignore")
+                    # GLiNER expects a single string, not a list
+                    # Predict entities directly from the text chunk
+                    predictions = self.model.predict_entities(
+                        chunk_text,
+                        labels,
+                        threshold=threshold,
+                        flat_ner=flat_ner
+                    )
                 
                 # Parse results - predictions is a list of entity dicts
                 for entity in predictions:
@@ -311,7 +300,8 @@ class GLiNERExtractor:
                 video_intel.entities.append(Entity(
                     name=entity.text,
                     type=entity.label,
-                    confidence=entity.confidence
+                    confidence=entity.confidence,
+                    properties={"source": "GLiNER"}  # Track source
                 ))
                 existing_entities.add(key)
                 

@@ -202,6 +202,18 @@ async def transcribe(
 @cli.command()
 @click.argument("query")
 @click.option("--max-results", "-n", type=int, default=2)
+@click.option(
+    "--period",
+    type=click.Choice(['hour', 'day', 'week', 'month', 'year'], case_sensitive=False),
+    default=None,
+    help="Filter search results by time period."
+)
+@click.option(
+    "--sort-by",
+    type=click.Choice(['relevance', 'newest', 'oldest', 'popular'], case_sensitive=False),
+    default='relevance',
+    help="Sort order for channel or topic search."
+)
 @click.option("--output-dir", "-o", type=click.Path(path_type=Path), default=Path("output/research"))
 @click.option('--mode', '-m', type=click.Choice(['audio', 'video', 'auto']), default='audio')
 @click.option('--use-cache/--no-cache', default=True)
@@ -210,13 +222,27 @@ async def transcribe(
 @click.option('--skip-cleaning', is_flag=True)
 @click.option('--performance-report', is_flag=True)
 @click.pass_context
-async def research(ctx: click.Context, query: str, max_results: int, output_dir: Path, **kwargs):
+async def research(ctx: click.Context, query: str, max_results: int, period: Optional[str], sort_by: str, output_dir: Path, **kwargs):
     """Research a topic by analyzing multiple videos."""
-    console.print(f"🔬 Researching: '{query}'...")
+    # Create a semaphore to limit concurrency
+    concurrency = 3
+    semaphore = asyncio.Semaphore(concurrency)
+
+    console.print(f"🔬 Researching: '{query}' (max {max_results} videos, {concurrency} at a time)...")
     
     # 1. Search
     video_client = UniversalVideoClient()
-    search_results = await video_client.search_videos(query, max_results=max_results)
+    search_results = []
+
+    # Check if the query is a YouTube channel URL
+    is_channel_search = "youtube.com/" in query and ("@" in query or "/channel/" in query or "/c/" in query)
+
+    if is_channel_search:
+        console.print(f"Searching YouTube channel: {query}")
+        search_results = await video_client.search_channel(query, max_results=max_results, sort_by=sort_by)
+    else:
+        console.print(f"Searching for topic: {query}")
+        search_results = await video_client.search_videos(query, max_results=max_results, period=period)
     
     if not search_results:
         console.print(f"[red]No videos found for '{query}'.[/red]")
@@ -224,36 +250,47 @@ async def research(ctx: click.Context, query: str, max_results: int, output_dir:
         
     console.print(f"[green]✓ Found {len(search_results)} videos. Starting batch processing...[/green]")
 
-    async def process_video(video_meta):
-        video_output_dir = output_dir / f"youtube_{video_meta.video_id}"
-        
-        # Create a clean set of args for the retriever
-        retriever_kwargs = {
-            "use_cache": kwargs.get('use_cache', True),
-            "mode": kwargs.get('mode', 'audio'),
-            "output_dir": video_output_dir,
-            "enhance_transcript": kwargs.get('enhance_transcript', False),
-            "performance_monitor": PerformanceMonitor(video_output_dir) if kwargs.get('performance_report') else None
-        }
+    async def process_video(video_meta, batch_progress: BatchProgress):
+        """Helper to process a single video with progress and semaphore."""
+        async with semaphore:
+            task_id = batch_progress.add_video_task(video_meta.url)
+            video_output_dir = output_dir / f"youtube_{video_meta.video_id}"
+            
+            # Create a progress hook for the retriever to call
+            def progress_hook(update):
+                description = update.get("description", "Processing...")
+                progress = update.get("progress", 0) # Progress is 0-100
+                batch_progress.update_video_progress(video_meta.url, advance=(progress/100.0), description=description)
 
-        console.print(f"Processing: {video_meta.url}")
-        try:
-            retriever = VideoIntelligenceRetriever(**retriever_kwargs)
-            if kwargs.get('skip_cleaning'): retriever.clean_graph = False
-            elif kwargs.get('clean_graph'): retriever.clean_graph = True
+            retriever_kwargs = {
+                "use_cache": kwargs.get('use_cache', True),
+                "mode": kwargs.get('mode', 'audio'),
+                "output_dir": video_output_dir,
+                "enhance_transcript": kwargs.get('enhance_transcript', False),
+                "performance_monitor": PerformanceMonitor(video_output_dir) if kwargs.get('performance_report') else None,
+                "progress_hook": progress_hook # Pass the hook
+            }
 
-            video_result = await retriever.process_url(video_meta.url)
-            if video_result:
-                retriever.save_all_formats(video_result, str(video_output_dir), True)
-                console.print(f"[green]✓ Processed: {video_meta.title}[/green]")
-        except Exception as e:
-            console.print(f"[red]✗ Failed {video_meta.title}: {e}[/red]")
-        finally:
-            if retriever_kwargs["performance_monitor"]:
-                retriever_kwargs["performance_monitor"].save_report()
-        
-    tasks = [process_video(video) for video in search_results]
-    await asyncio.gather(*tasks)
+            try:
+                retriever = VideoIntelligenceRetriever(**retriever_kwargs)
+                if kwargs.get('skip_cleaning'): retriever.clean_graph = False
+                elif kwargs.get('clean_graph'): retriever.clean_graph = True
+
+                video_result = await retriever.process_url(video_meta.url)
+                if video_result:
+                    retriever.save_all_formats(video_result, str(video_output_dir), True)
+                
+                batch_progress.complete_video_task(video_meta.url)
+            except Exception as e:
+                batch_progress.fail_video_task(video_meta.url, f"Error: {e}")
+            finally:
+                if retriever_kwargs["performance_monitor"]:
+                    retriever_kwargs["performance_monitor"].save_report()
+
+    async with BatchProgress() as batch_progress:
+        batch_progress.add_overall_task(total=len(search_results))
+        tasks = [process_video(video, batch_progress) for video in search_results]
+        await asyncio.gather(*tasks)
 
     console.print(f"\n🎉 Research complete! Outputs are in {output_dir}")
 

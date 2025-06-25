@@ -1,38 +1,33 @@
 """
 REBEL (Relation Extraction By End-to-end Language generation) extractor.
 
-Extracts entity relationships from text using the REBEL model from Babelscape.
-This enables building knowledge graphs from video transcripts :-)
+Extracts relationships between entities using the REBEL model.
+This enables finding connections like "person works at organization" :-)
 """
 
 import logging
-from typing import List, Tuple, Optional, Dict, Any
-from dataclasses import dataclass
+from typing import List, Dict, Any, Optional, Tuple
+import re
+import warnings
 
 import torch
-from transformers import pipeline, AutoModelForSeq2SeqLM, AutoTokenizer
+from transformers import pipeline
 
-from ..models import VideoIntelligence
+from ..models import VideoIntelligence, Relationship
+from .model_manager import model_manager
 
 logger = logging.getLogger(__name__)
 
 
-@dataclass
-class Relationship:
-    """Represents a relationship between entities."""
-    subject: str
-    predicate: str
-    object: str
-    confidence: float = 0.9
-    context: Optional[str] = None
-
-
 class REBELExtractor:
     """
-    Extract entity relationships using REBEL model.
+    Extract relationships between entities using REBEL model.
     
-    REBEL extracts structured knowledge in the form of (subject, predicate, object)
-    triples from natural language text. Perfect for building knowledge graphs :-)
+    REBEL can detect relationships like:
+    - person -> works_at -> organization
+    - company -> headquartered_in -> location
+    - person -> founded -> company
+    - etc.
     """
     
     def __init__(self, model_name: str = "Babelscape/rebel-large", device: str = "auto"):
@@ -40,302 +35,205 @@ class REBELExtractor:
         Initialize REBEL extractor.
         
         Args:
-            model_name: HuggingFace model name (default: Babelscape/rebel-large)
+            model_name: HuggingFace model name
             device: Device to run on ("auto", "cpu", "cuda", "mps")
         """
         self.model_name = model_name
-        self.device = self._get_device(device)
-        self.pipeline = None
+        self.device = device
+        self.triplet_extractor = None
         self._load_model()
         
-    def _get_device(self, device: str) -> str:
-        """Determine the best device to use."""
-        if device == "auto":
-            if torch.cuda.is_available():
-                return "cuda"
-            elif torch.backends.mps.is_available():
-                return "mps"  # Apple Silicon
-            else:
-                return "cpu"
-        return device
-        
     def _load_model(self):
-        """Load the REBEL model."""
+        """Load the REBEL model using the model manager."""
         try:
-            logger.info(f"Loading REBEL model {self.model_name} on {self.device}...")
-            
-            # Load model and tokenizer
-            self.tokenizer = AutoTokenizer.from_pretrained(self.model_name)
-            self.model = AutoModelForSeq2SeqLM.from_pretrained(self.model_name)
-            
-            # Move to device
-            if self.device != "cpu":
-                self.model = self.model.to(self.device)
+            # Suppress warnings during loading
+            with warnings.catch_warnings():
+                warnings.simplefilter("ignore")
+                self.triplet_extractor = model_manager.get_rebel_model(self.model_name, self.device)
                 
-            # Create pipeline
-            self.pipeline = pipeline(
-                "text2text-generation",
-                model=self.model,
-                tokenizer=self.tokenizer,
-                device=0 if self.device == "cuda" else -1
-            )
-            
-            logger.info("REBEL model loaded successfully :-)") 
-            
         except Exception as e:
             logger.error(f"Failed to load REBEL model: {e}")
             raise
             
-    def extract_relations(self, text: str, max_length: int = 512) -> List[Relationship]:
+    def extract_triplets(self, text: str) -> List[Dict[str, str]]:
         """
-        Extract relationships from text.
+        Extract relationship triplets from text.
         
         Args:
-            text: Input text to extract relationships from
-            max_length: Maximum length for model input
+            text: Input text
             
         Returns:
-            List of extracted relationships
+            List of triplets with subject, predicate, object
         """
-        if not self.pipeline:
+        if not self.triplet_extractor:
             raise RuntimeError("Model not loaded")
             
-        relationships = []
+        # REBEL has a token limit, so chunk the text
+        chunks = self._chunk_text(text, max_length=512)
+        all_triplets = []
         
-        try:
-            # Split text into chunks if too long
-            chunks = self._split_text(text, max_length)
-            
-            for chunk in chunks:
-                # Generate relations
-                outputs = self.pipeline(
-                    chunk,
-                    max_length=256,
-                    num_beams=3,
-                    num_return_sequences=3
-                )
+        for chunk in chunks:
+            try:
+                # Suppress warnings during extraction
+                with warnings.catch_warnings():
+                    warnings.simplefilter("ignore")
+                    # Extract triplets from chunk
+                    extracted = self.triplet_extractor(chunk)
+                    
+                    # Parse the output
+                    if extracted and len(extracted) > 0:
+                        triplets_text = extracted[0]['generated_text']
+                        triplets = self._parse_triplets(triplets_text)
+                        all_triplets.extend(triplets)
+                        
+            except Exception as e:
+                logger.warning(f"REBEL extraction warning (non-critical): {e}")
+                continue
                 
-                # Debug logging
-                logger.debug(f"Processing chunk ({len(chunk)} chars): {chunk[:50]}...")
-                logger.debug(f"REBEL outputs: {outputs}")
+        # Deduplicate triplets
+        unique_triplets = self._deduplicate_triplets(all_triplets)
+        
+        logger.info(f"Extracted {len(unique_triplets)} unique relationships")
+        return unique_triplets
+        
+    def _parse_triplets(self, text: str) -> List[Dict[str, str]]:
+        """Parse REBEL output into structured triplets."""
+        triplets = []
+        
+        # REBEL output format: <triplet> subject | predicate | object </triplet>
+        triplet_pattern = r'<triplet>(.*?)</triplet>'
+        matches = re.findall(triplet_pattern, text)
+        
+        for match in matches:
+            parts = match.split(' | ')
+            if len(parts) == 3:
+                subject, predicate, object_ = parts
+                # Clean up the values
+                subject = subject.strip()
+                predicate = predicate.strip().replace('_', ' ')
+                object_ = object_.strip()
                 
-                # Parse outputs
-                for output in outputs:
-                    relations = self._parse_rebel_output(output['generated_text'])
-                    logger.debug(f"Parsed {len(relations)} relations from: {output['generated_text']}")
-                    for rel in relations:
-                        # Fix malformed relations first
-                        fixed_rel = self._fix_malformed_relation(rel)
-                        if fixed_rel and self._is_valid_relation(fixed_rel):
-                            relationships.append(Relationship(
-                                subject=fixed_rel[0],
-                                predicate=fixed_rel[1],
-                                object=fixed_rel[2],
-                                confidence=0.9,  # REBEL doesn't provide confidence
-                                context=chunk[:100]  # First 100 chars as context
-                            ))
-                            
-        except Exception as e:
-            logger.error(f"Error extracting relations: {e}")
-            
-        # Remove duplicates
-        unique_relations = self._deduplicate_relations(relationships)
+                # Skip if any part is empty
+                if subject and predicate and object_:
+                    triplets.append({
+                        'subject': subject,
+                        'predicate': predicate,
+                        'object': object_
+                    })
+                    
+        return triplets
         
-        logger.info(f"Extracted {len(unique_relations)} unique relationships :-)") 
-        return unique_relations
-        
-    def _split_text(self, text: str, max_length: int) -> List[str]:
-        """Split text into chunks for processing."""
-        # Simple sentence-based splitting
+    def _chunk_text(self, text: str, max_length: int = 512) -> List[str]:
+        """Split text into chunks suitable for REBEL."""
+        # Simple sentence-based chunking
         sentences = text.split('. ')
         chunks = []
-        current_chunk = ""
+        current_chunk = []
+        current_length = 0
         
         for sentence in sentences:
-            if len(current_chunk) + len(sentence) < max_length:
-                current_chunk += sentence + ". "
+            sentence_length = len(sentence.split())
+            if current_length + sentence_length > max_length and current_chunk:
+                chunks.append('. '.join(current_chunk) + '.')
+                current_chunk = [sentence]
+                current_length = sentence_length
             else:
-                if current_chunk:
-                    chunks.append(current_chunk.strip())
-                current_chunk = sentence + ". "
+                current_chunk.append(sentence)
+                current_length += sentence_length
                 
         if current_chunk:
-            chunks.append(current_chunk.strip())
+            chunks.append('. '.join(current_chunk) + '.')
             
         return chunks
         
-    def _parse_rebel_output(self, output: str) -> List[Tuple[str, str, str]]:
-        """
-        Parse REBEL output format.
-        
-        REBEL can output relations in different formats:
-        1. With tags: <triplet> subject | predicate | object <triplet>
-        2. Without tags: subject predicate object (space-separated)
-        """
-        relations = []
-        
-        # First try to extract with triplet tags
-        if '<triplet>' in output:
-            # Extract all triplets
-            triplets = output.split('<triplet>')
-            
-            for triplet in triplets:
-                if '|' in triplet:
-                    parts = triplet.strip().split('|')
-                    if len(parts) == 3:
-                        subject = parts[0].strip()
-                        predicate = parts[1].strip()
-                        obj = parts[2].strip()
-                        relations.append((subject, predicate, obj))
-        else:
-            # Try space-separated format
-            # REBEL often outputs multiple triples in a single string
-            # Look for common patterns
-            
-            # Clean the output
-            output = output.strip()
-            
-            # Common entity-relation patterns
-            # Try to identify entities (usually proper nouns or multi-word phrases)
-            import re
-            
-            # Split by multiple spaces (REBEL often uses 2+ spaces as delimiter)
-            parts = re.split(r'\s{2,}', output)
-            
-            if len(parts) >= 3:
-                # Try to form triples from the parts
-                i = 0
-                while i + 2 < len(parts):
-                    subject = parts[i].strip()
-                    predicate = parts[i + 1].strip()
-                    obj = parts[i + 2].strip()
-                    
-                    # Basic validation
-                    if subject and predicate and obj:
-                        # Check if this looks like a valid triple
-                        if len(subject) > 1 and len(predicate) > 1 and len(obj) > 1:
-                            relations.append((subject, predicate, obj))
-                    
-                    # Move to next potential triple
-                    i += 3
-                    
-            # If no triples found with double-space splitting, try another approach
-            if not relations:
-                # Look for known relation patterns
-                relation_patterns = [
-                    (r'(\w+(?:\s+\w+)*)\s+(is|was|are|were|has|have|had)\s+(\w+(?:\s+\w+)*)', None),
-                    (r'(\w+(?:\s+\w+)*)\s+(located in|president of|capital of|part of|member of)\s+(\w+(?:\s+\w+)*)', None),
-                    (r'(\w+(?:\s+\w+)*)\s+(position held|officeholder|instance of|occupation)\s*(\w+(?:\s+\w+)*)?', None),
-                ]
-                
-                for pattern, _ in relation_patterns:
-                    matches = re.finditer(pattern, output, re.IGNORECASE)
-                    for match in matches:
-                        if match.group(3):  # Ensure we have all three parts
-                            relations.append((match.group(1), match.group(2), match.group(3)))
-                            
-        return relations
-        
-    def _is_valid_relation(self, relation: Tuple[str, str, str]) -> bool:
-        """Check if a relation is valid."""
-        subject, predicate, obj = relation
-        
-        # Basic validation
-        if not all([subject, predicate, obj]):
-            return False
-            
-        # Filter out too short or too long
-        if any(len(x) < 2 or len(x) > 100 for x in [subject, predicate, obj]):
-            return False
-            
-        # Filter out relations with special characters
-        special_chars = ['<', '>', '[', ']', '{', '}']
-        if any(char in text for text in [subject, predicate, obj] for char in special_chars):
-            return False
-        
-        # Filter out relations where subject is a predicate-like word
-        predicate_words = ['part of', 'contains', 'has', 'is', 'was', 'are', 'were', 'member of', 
-                          'located in', 'president of', 'capital of', 'instance of', 'occupation',
-                          'office held by', 'diplomatic relation', 'affiliated with', 'subsidiary of']
-        if subject.lower() in predicate_words:
-            return False
-            
-        return True
-        
-    def _fix_malformed_relation(self, relation: Tuple[str, str, str]) -> Optional[Tuple[str, str, str]]:
-        """Fix common malformations in relationships."""
-        subject, predicate, obj = relation
-        
-        # Common predicates that should not be subjects or objects
-        known_predicates = {
-            'part of', 'contains', 'has', 'is', 'was', 'are', 'were', 'member of',
-            'located in', 'president of', 'capital of', 'instance of', 'occupation',
-            'office held by', 'diplomatic relation', 'affiliated with', 'subsidiary of',
-            'founded by', 'owned by', 'created by', 'born in', 'died in', 'works for',
-            'married to', 'parent of', 'child of', 'sibling of', 'influenced by',
-            'succeeded by', 'preceded by', 'contains administrative territorial entity',
-            'office held by head of government', 'has part', 'related to'
-        }
-        
-        # Check if predicate and object are swapped (common REBEL error)
-        if obj.lower() in known_predicates and predicate.lower() not in known_predicates:
-            # Swap predicate and object
-            logger.debug(f"Fixing swapped relation: {subject} | {predicate} | {obj} -> {subject} | {obj} | {predicate}")
-            return (subject, obj, predicate)
-        
-        # Check if subject is actually a predicate (another common error)
-        if subject.lower() in known_predicates:
-            logger.debug(f"Skipping relation with predicate as subject: {subject} | {predicate} | {obj}")
-            return None
-            
-        return relation
-        
-    def _deduplicate_relations(self, relations: List[Relationship]) -> List[Relationship]:
-        """Remove duplicate relationships."""
+    def _deduplicate_triplets(self, triplets: List[Dict[str, str]]) -> List[Dict[str, str]]:
+        """Remove duplicate triplets."""
         seen = set()
         unique = []
         
-        for rel in relations:
-            key = (rel.subject.lower(), rel.predicate.lower(), rel.object.lower())
+        for triplet in triplets:
+            key = (triplet['subject'].lower(), 
+                   triplet['predicate'].lower(), 
+                   triplet['object'].lower())
             if key not in seen:
                 seen.add(key)
-                unique.append(rel)
+                unique.append(triplet)
                 
         return unique
         
-    def extract_from_video_intelligence(self, video_intel: VideoIntelligence) -> VideoIntelligence:
+    def extract_from_video_intelligence(
+        self, 
+        video_intel: VideoIntelligence
+    ) -> VideoIntelligence:
         """
-        Extract relationships from a VideoIntelligence object.
+        Extract relationships from VideoIntelligence object.
         
         Args:
-            video_intel: VideoIntelligence object with transcript
+            video_intel: VideoIntelligence with transcript
             
         Returns:
             Updated VideoIntelligence with relationships
         """
         if not video_intel.transcript:
-            logger.warning("No transcript found in VideoIntelligence")
+            logger.warning("No transcript found")
             return video_intel
             
-        # Extract relationships
-        transcript_text = video_intel.transcript.full_text
-        relationships = self.extract_relations(transcript_text)
+        # Extract triplets
+        triplets = self.extract_triplets(video_intel.transcript.full_text)
         
-        # Convert to model format
-        from ..models import Relationship as ModelRelationship
-        video_intel.relationships = [
-            ModelRelationship(
-                subject=rel.subject,
-                predicate=rel.predicate,
-                object=rel.object,
-                confidence=rel.confidence,
-                context=rel.context
-            )
-            for rel in relationships
-        ]
+        # Get entity names for validation
+        entity_names = {e.name.lower() for e in video_intel.entities}
         
-        logger.info(f"Added {len(relationships)} relationships to VideoIntelligence :-)") 
+        # Convert to Relationship objects
+        relationships = []
+        for triplet in triplets:
+            # Only include if at least one entity is recognized
+            if (triplet['subject'].lower() in entity_names or 
+                triplet['object'].lower() in entity_names):
+                
+                rel = Relationship(
+                    subject=triplet['subject'],
+                    predicate=triplet['predicate'],
+                    object=triplet['object'],
+                    confidence=0.85,  # REBEL doesn't provide confidence
+                    properties={"source": "REBEL"}  # Track source
+                )
+                relationships.append(rel)
+                
+        # Add to video intelligence
+        if not hasattr(video_intel, 'relationships'):
+            video_intel.relationships = []
+        video_intel.relationships.extend(relationships)
+        
+        logger.info(f"Added {len(relationships)} relationships to VideoIntelligence")
         return video_intel
+        
+    def analyze_relationship_types(
+        self, 
+        relationships: List[Relationship]
+    ) -> Dict[str, int]:
+        """Analyze distribution of relationship types."""
+        distribution = {}
+        for rel in relationships:
+            predicate = rel.predicate
+            distribution[predicate] = distribution.get(predicate, 0) + 1
+        return dict(sorted(distribution.items(), key=lambda x: x[1], reverse=True))
+        
+    def get_entity_connections(
+        self, 
+        relationships: List[Relationship], 
+        entity_name: str
+    ) -> List[Relationship]:
+        """Get all relationships involving a specific entity."""
+        connections = []
+        entity_lower = entity_name.lower()
+        
+        for rel in relationships:
+            if (rel.subject.lower() == entity_lower or 
+                rel.object.lower() == entity_lower):
+                connections.append(rel)
+                
+        return connections
     
     def get_total_cost(self) -> float:
         """Get total cost of REBEL operations (always 0 since it's local)."""

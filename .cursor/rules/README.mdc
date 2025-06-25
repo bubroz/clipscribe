@@ -1,9 +1,8 @@
 ---
-description: "Master rule governing all project rules, documentation, and task completion processes"
-globs: []
+description: 
+globs: 
 alwaysApply: true
 ---
-
 # Master Rules & Task Completion Guide
 
 This is the central rule that governs all other rules and ensures proper task completion in the ClipScribe project.
@@ -119,3 +118,4 @@ poetry check                       # Validate pyproject.toml
 ```
 
 Remember: This rule is the governance framework for the entire project. When in doubt, refer back to this document and ensure all checklist items are completed.
+

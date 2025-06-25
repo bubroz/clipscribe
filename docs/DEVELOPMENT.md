@@ -1,69 +1,76 @@
-# ClipScribe 2.0 Development Guide
+# ClipScribe Development Guide
 
-*Last Updated: December 26, 2024*
+*Last Updated: June 25, 2025*
 
 ## Overview
 
-ClipScribe 2.0 is a powerful, AI-powered video transcription and analysis tool that supports **1800+ video platforms** through yt-dlp integration. It uses Google's Gemini 2.5 Flash for native audio processing, achieving 92% cost reduction and 10x speed improvement over traditional speech-to-text APIs.
+ClipScribe is a powerful, AI-powered video intelligence tool that supports **1800+ video platforms** through yt-dlp integration. It uses Google's Gemini 1.5 Flash for native audio/video processing, achieving significant cost reduction and speed improvement over traditional speech-to-text APIs.
 
 ## Key Features
 
-- **Universal Platform Support**: Works with YouTube, Twitter/X, TikTok, Instagram, Vimeo, and 1800+ other sites
-- **AI-Powered Transcription**: Uses Gemini 2.5 Flash for high-accuracy transcription
-- **Cost-Effective**: $0.002/minute ($0.12/hour) vs $1.44/hour for traditional APIs
-- **Fast Processing**: 2-5 minutes to process 1 hour of video
-- **Multiple Output Formats**: TXT, JSON, SRT, VTT
-- **Entity Extraction**: Identifies people, places, organizations, and more
-- **Key Points Extraction**: Automatically identifies important moments with timestamps
+- **Universal Platform Support**: Works with YouTube, Twitter/X, TikTok, Instagram, Vimeo, and 1800+ other sites.
+- **AI-Powered Transcription**: Uses Gemini 1.5 Flash for high-accuracy transcription from audio or video.
+- **Video Intelligence**: Extracts not just transcripts but structured knowledge including entities, relationships, key points, and summaries.
+- **Visual Analysis**: Processes video frames to capture on-screen text, slides, and other visual elements (`--mode video`).
+- **Batch Processing**: The `research` command allows concurrent processing of multiple videos from a search query.
+- **Cost-Effective**: ~$0.002/minute for audio, with clear cost tracking.
+- **Multiple Output Formats**: Generates 9+ formats including JSON, TXT, CSV, GEXF (for Gephi), and interactive Markdown reports.
+- **Knowledge Graphs**: Automatically builds and visualizes knowledge graphs from extracted relationships.
 
 ## Architecture
 
 ```
 src/clipscribe/
-├── chimera_video/                     # Core video intelligence module
-│   ├── models.py                      # Pydantic data models
-│   └── retrievers/video/
-│       ├── universal_video_client.py  # Multi-platform support (yt-dlp)
-│       ├── youtube_client.py          # YouTube-specific features
-│       ├── transcriber.py             # Gemini Flash integration
-│       └── video_retriever.py         # Main processing interface
-│
-├── commands/                          # CLI implementation
-│   └── cli.py                         # Click-based commands
-│
-├── config/                            # Configuration
-│   └── settings.py                    # Pydantic settings management
-│
-└── utils/                             # Utilities
-    └── logging.py                     # Logging configuration
+├── commands/           # CLI implementation (Click)
+│   └── cli.py
+├── config/             # Configuration (Pydantic)
+│   └── settings.py
+├── extractors/         # Knowledge extraction (SpaCy, GLiNER, REBEL)
+│   ├── model_manager.py        # NEW: Singleton model caching
+│   ├── hybrid_extractor.py
+│   └── advanced_hybrid_extractor.py
+├── models.py           # Core data structures (Pydantic)
+├── retrievers/         # Media retrieval and processing
+│   ├── universal_video_client.py
+│   ├── transcriber.py
+│   └── video_retriever.py
+└── utils/              # Shared utilities
+    ├── filename.py
+    └── logging.py
 ```
 
 ## Technology Stack
 
-- **Python 3.11+**: Modern Python features
-- **Poetry**: Exclusive dependency management (no pip/tox)
-- **Click + Rich**: Beautiful CLI interface
-- **yt-dlp**: Video downloading (1800+ sites)
-- **Gemini 1.5 Flash**: AI transcription (current stable model)
-- **Pydantic v2**: Data validation
-- **Async/Await**: High-performance I/O
+- **Python 3.12+**: Modern Python features (3.13 supported).
+- **Poetry**: Exclusive dependency management.
+- **Click**: For building the command-line interface.
+- **Rich**: For beautiful and informative CLI output (used for progress bars).
+- **yt-dlp**: Video downloading from 1800+ sites.
+- **Gemini 1.5 Flash**: The core AI model for transcription and analysis.
+- **Pydantic v2**: For data validation and settings management.
+- **Async/Await**: For high-performance, concurrent I/O operations.
+- **spaCy, GLiNER, REBEL**: For the hybrid entity and relationship extraction engine.
+- **NetworkX**: For building knowledge graphs.
+- **Model Caching**: Singleton pattern for ML model management (v2.10.1+).
 
 ## Cost Analysis
 
-| Component | Traditional (Speech-to-Text v2) | ClipScribe 2.0 (Gemini Flash) | Improvement |
-|-----------|--------------------------------|------------------------------|-------------|
-| API Cost | $1.44/hour | $0.12/hour | 92% reduction |
-| Processing Time | 20-30 min/hour | 2-5 min/hour | 10x faster |
-| Accuracy (WER) | 16-20% | <5% | 75% better |
-| Platform Support | YouTube only | 1800+ sites | 1800x coverage |
+| Component | Traditional (Speech-to-Text v2) | ClipScribe (Gemini 1.5 Flash - Audio Mode) |
+|-----------|--------------------------------|--------------------------------------------|
+| API Cost | $1.44/hour | ~$0.12/hour |
+| Processing Time | 20-30 min/hour | 2-5 min/hour |
+| Accuracy (WER) | 16-20% | <5% |
+| Platform Support | Limited | 1800+ sites |
+
+*Video mode costs are higher due to processing of individual frames, but provide much richer data.*
 
 ## Development Setup
 
 ### Prerequisites
-- Python 3.11, 3.12, or 3.13
-- Poetry for dependency management (exclusive - no pip/tox)
-- ffmpeg for audio processing
-- Google API key for Gemini
+- Python 3.12+ (3.13 supported)
+- Poetry for dependency management
+- `ffmpeg` for audio/video processing
+- A Google API key for Gemini
 
 ### Installation
 ```bash
@@ -71,30 +78,24 @@ src/clipscribe/
 git clone https://github.com/bubroz/clipscribe.git
 cd clipscribe
 
-# Install with Poetry
+# Install dependencies with Poetry
 poetry install
 
-# Set up environment
+# Set up your environment
 cp env.example .env
 # Edit .env and add your GOOGLE_API_KEY
 ```
 
 ### Poetry Tips
 ```bash
-# Install without dev dependencies
-poetry install --without dev
+# Install without development dependencies
+poetry install --sync --without dev
 
-# Install with ML extras (when available)
-poetry install --extras ml
+# Add a new dependency
+poetry add beautifulsoup4
 
-# Update dependencies
-poetry update
-
-# Add new dependency
-poetry add package-name
-
-# Add dev dependency
-poetry add --group dev package-name
+# Add a new development dependency
+poetry add --group dev pytest-mock
 ```
 
 ### Running Tests
@@ -102,187 +103,170 @@ poetry add --group dev package-name
 # Run all tests
 poetry run pytest
 
-# Run with coverage
-poetry run pytest --cov=src
+# Run with coverage report
+poetry run pytest --cov=src/clipscribe
 
-# Run specific test file
+# Run a specific test file
 poetry run pytest tests/unit/test_cli.py
 ```
 
 ### Code Quality
 ```bash
-# Format code
-poetry run black src/
+# Format code with Black
+poetry run black src/ tests/
 
-# Lint
-poetry run flake8 src/
+# Lint with Ruff (preferred over flake8)
+poetry run ruff check .
 
-# Type checking
+# Type checking with MyPy
 poetry run mypy src/
 ```
 
 ## Key Components
 
-### UniversalVideoClient
-Handles video downloading and metadata extraction from 1800+ platforms using yt-dlp.
+### `UniversalVideoClient`
+Handles video downloading and metadata extraction from 1800+ platforms using `yt-dlp`. It can download audio-only or the full video file.
 
-**Key methods:**
-- `is_supported_url()`: Check if URL is supported
-- `download_audio()`: Extract audio from any video
-- `get_video_info()`: Get metadata without downloading
-- `search_videos()`: Search YouTube (extensible to other platforms)
+### `GeminiFlashTranscriber`
+Processes audio or video files using Gemini 1.5 Flash's native multimodal capabilities. It performs the core transcription and initial analysis (summary, key points).
 
-### GeminiFlashTranscriber
-Processes audio using Gemini 2.5 Flash's native audio capabilities.
+### `VideoIntelligenceRetriever`
+The main orchestrator. It ties together the video client, transcriber, and extractors to perform the end-to-end intelligence gathering process. It manages caching, cost tracking, and output generation.
 
-**Features:**
-- Direct audio file upload (no conversion needed)
-- Multi-prompt analysis in single API call
-- Structured JSON output
-- Cost tracking
+### Model Manager (`model_manager.py`) - **NEW in v2.10.1**
+A singleton class that manages ML model instances to prevent repeated loading during batch processing. Provides 3-5x performance improvement by caching SpaCy, GLiNER, and REBEL models.
 
-### VideoIntelligenceRetriever
-Main interface for processing videos and extracting intelligence.
-
-**Capabilities:**
-- Process single URLs
-- Search and analyze multiple videos
-- Extract entities, key points, and summaries
-- Generate multiple output formats
-
-## Performance Metrics
-
-- **Setup Time**: < 5 minutes with API key
-- **Processing Speed**: 12-30x real-time
-- **Cost**: $0.002/minute of video
-- **Accuracy**: >95% transcription accuracy
-- **Caching**: Smart caching prevents reprocessing
-- **Concurrent Processing**: Up to 5 videos simultaneously
+### Extractors (`spacy_extractor`, `gliner_extractor`, `rebel_extractor`)
+These form the hybrid extraction pipeline. They work together to pull entities and relationships from the transcript, combining free, local models with more advanced ones for a cost-effective and comprehensive result. All extractors now use the ModelManager for efficient model reuse.
 
 ## Platform Support
 
-ClipScribe supports 1800+ video platforms through yt-dlp, including:
+ClipScribe supports 1800+ video platforms through yt-dlp.
 
-**Popular Platforms:**
-- YouTube, YouTube Shorts, YouTube Music
-- Twitter/X, TikTok, Instagram, Facebook
-- Vimeo, Dailymotion, Twitch, Reddit
-- BBC, CNN, TED, NBC, ABC News
-- SoundCloud, Bandcamp, Mixcloud
-
-**To check support for a specific URL:**
+**To check if a specific URL is supported:**
 ```python
-from clipscribe.chimera_video.retrievers.video import UniversalVideoClient
+from clipscribe.retrievers.universal_video_client import UniversalVideoClient
 
 client = UniversalVideoClient()
-is_supported = client.is_supported_url("https://example.com/video")
+is_supported = client.is_supported_url("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
 ```
 
 ## Contributing
 
 ### Adding New Features
-1. Create feature branch: `git checkout -b feature/your-feature`
-2. Add tests for new functionality
-3. Update documentation
-4. Submit pull request
+1. Create a feature branch: `git checkout -b feature/your-amazing-feature`
+2. Add tests for the new functionality.
+3. Update relevant documentation (`docs/`, `README.md`).
+4. Ensure all tests and code quality checks pass.
+5. Submit a pull request with a clear description of the changes.
 
 ### Code Style
-- Use Black for formatting
-- Follow PEP 8 conventions
-- Add type hints for all functions
-- Write docstrings for public APIs
+- Use **Black** for formatting.
+- Add type hints for all function signatures.
+- Write Google-style docstrings for all public modules, classes, and functions.
 
 ### Testing Guidelines
-- Write unit tests for new functions
-- Add integration tests for API interactions
-- Mock external API calls in tests
-- Maintain >80% code coverage
+- Write unit tests for new functions and logic.
+- Add integration tests for new features that involve multiple components.
+- Mock external API calls to keep tests fast and reliable.
+- Aim to maintain or increase code coverage.
 
 ## Troubleshooting
 
 ### Common Issues
 
-**ModuleNotFoundError for youtube_search_python:**
-- The correct import is `youtubesearchpython` (no underscores)
+**`ModuleNotFoundError` for `youtube_search_python`:**
+- The correct import is `youtubesearchpython` (no underscores). This is a known quirk of the library.
 
-**Pydantic v2 compatibility:**
-- Use `pydantic_settings` for BaseSettings
-- Use `field_validator` instead of `validator`
-- Use `mode="before"` instead of `pre=True`
+**Pydantic v2 Compatibility:**
+- For settings management, import `BaseSettings` from `pydantic_settings`.
+- Use `field_validator` from `pydantic` instead of the old `validator`.
 
-**yt-dlp errors:**
-- Update regularly: `poetry update yt-dlp`
-- Some sites may require cookies or authentication
+**`yt-dlp` Errors:**
+- `yt-dlp` is updated frequently to keep up with changes on video platforms. If you encounter download errors, the first step is often to update it: `poetry update yt-dlp`.
 
 ## Future Enhancements
 
-1. **Visual Analysis**: Extract information from video frames using Gemini's multimodal capabilities
-2. **Batch Processing**: Process multiple videos concurrently with progress tracking
-3. **Real-time Processing**: Support for live streams
-4. **Advanced Search**: Implement search for platforms beyond YouTube
-5. **Plugin System**: Allow custom processors and output formats
-6. **Web Interface**: Create a web UI for non-technical users
+1. **Real-time Processing**: Support for live streams.
+2. **Advanced Search**: Implement search for platforms beyond YouTube (e.g., Vimeo, Dailymotion).
+3. **Plugin System**: Create a more formal plugin system for custom extractors and output formats.
+4. **Web Interface**: Continue enhancing the Streamlit web UI with more features.
+5. **Deeper Chimera Integration**: Align more closely with the Chimera Researcher data models and workflows.
 
 ## Security Considerations
 
-- **API Keys**: Never commit API keys to version control
-- **Temporary Files**: Audio files are automatically cleaned up
-- **Content Filtering**: Respects MAX_VIDEO_DURATION limits
-- **Error Handling**: Graceful degradation if services unavailable
-- **Input Validation**: All URLs validated before processing
-
-## Keeping Dependencies Updated
-
-```bash
-# Update yt-dlp for new platform support
-poetry update yt-dlp
-
-# Update all dependencies
-poetry update
-
-# Check for outdated packages
-poetry show --outdated
-```
-
-## License
-
-MIT License - See LICENSE file for details
+- **API Keys**: Never commit API keys to version control. Use `.env` files.
+- **Temporary Files**: Downloaded media files are automatically cleaned up after processing.
+- **Content Filtering**: Respects `MAX_VIDEO_DURATION` limits to prevent accidental processing of extremely long videos.
+- **Error Handling**: Gracefully degrades if external services are unavailable.
+- **Input Validation**: All URLs are validated before processing.
 
 ## Advanced Entity & Relationship Extraction (v2.2+)
 
-ClipScribe implements a three-tier entity extraction system:
+ClipScribe implements a three-tier entity extraction system for a hybrid approach that balances cost and quality.
 
 ### 1. SpaCy (Tier 1 - Free)
-- Basic named entity recognition
-- Standard types: PERSON, ORGANIZATION, LOCATION
-- Zero cost, instant results
+- **Role**: Basic Named Entity Recognition (NER).
+- **Finds**: Standard types like PERSON, ORGANIZATION, LOCATION.
+- **Benefit**: Zero cost, very fast, and provides a good baseline.
 
-### 2. GLiNER (Tier 2 - Local)
-- Specialized entity detection
-- Custom types: TECHNOLOGY, WEAPON, OPERATION, etc.
-- Catches domain-specific entities SpaCy misses
+### 2. GLiNER (Tier 2 - Local Model)
+- **Role**: Specialized, fine-grained entity detection.
+- **Finds**: Custom, domain-specific entities (e.g., TECHNOLOGY, WEAPON, FINANCIAL_METRIC) that standard NER models would miss.
+- **Benefit**: High-quality, targeted extraction without API cost. Runs locally.
 
-### 3. REBEL (Tier 3 - Relationships)
-- Extracts entity relationships
-- Creates knowledge graph triples: (subject, predicate, object)
-- Examples: "Trump announced ceasefire" → (Trump, announced, ceasefire)
+### 3. REBEL (Tier 3 - Local Model)
+- **Role**: Relationship Extraction.
+- **Finds**: Knowledge graph triples (subject, predicate, object) that connect the entities.
+- **Example**: "Apple announced the iPhone" → (`Apple`, `announced`, `iPhone`).
+- **Benefit**: Builds the connections that form the knowledge graph. Runs locally.
 
-### Architecture
+### 4. Gemini (Tier 4 - LLM Validation & Augmentation)
+- **Role**: Selective validation of low-confidence extractions and augmentation where local models fail.
+- **Benefit**: Ensures high quality and fills in gaps, but is used sparingly to control costs.
+
+### Architecture Flow
 ```
-Text → SpaCy → GLiNER → REBEL → LLM Validation (selective)
-         ↓        ↓        ↓              ↓
-      Entities  Custom  Relations   Validated Results
+Transcript ───────────────────────────► 4. Gemini (for direct relationship extraction)
+     │
+     │
+     ▼
+1. SpaCy (basic entities) ─► Merge ◄─ 2. GLiNER (custom entities)
+                                │
+                                ▼
+                             Combined Entities
+                                │
+                                ▼
+                         3. REBEL (relationships between entities) ─► Final Knowledge Graph
 ```
 
 ### Benefits
-- **Complete intelligence extraction** from videos
-- **Knowledge graph ready** output
-- **98% cost reduction** vs pure LLM approach
-- **Rich relationships** for advanced analysis
+- **Comprehensive Intelligence**: Captures not just what is mentioned, but how things are related.
+- **Knowledge Graph Ready**: The output is designed for immediate use in graph databases and visualization tools like Gephi.
+- **Cost-Optimized**: This hybrid model can reduce extraction costs by over 98% compared to a pure-LLM approach by handling the majority of the work with free, local models.
+- **Rich, Actionable Insights**: Provides a much deeper understanding of the video content than a simple transcript.
 
 ## Performance Considerations
 
-// ... existing code ...
+### Model Caching (v2.10.1+)
+ClipScribe now implements intelligent model caching to dramatically improve batch processing performance:
+
+- **Singleton Pattern**: The `ModelManager` class ensures models are loaded only once per session
+- **Memory Efficiency**: Models are shared across all processing operations
+- **Performance Gains**: 3-5x faster batch processing compared to previous versions
+- **Automatic Management**: No configuration required - caching happens automatically
+
+### Error Recovery
+- **Retry Logic**: Automatic retry for ffmpeg errors with exponential backoff
+- **Graceful Degradation**: Processing continues even if individual videos fail
+- **Warning Suppression**: Cleaned up console output by removing harmless warnings
+
+### Memory Management
+```python
+# Clear model cache if needed (rarely required)
+from clipscribe.extractors import model_manager
+model_manager.clear_cache()
+```
 
 ### Testing
 - Comprehensive test suite for video processing

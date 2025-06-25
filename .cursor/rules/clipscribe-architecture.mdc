@@ -35,9 +35,10 @@ src/clipscribe/
 ## Key Components
 
 ### Retrievers
-- Handle platform-specific video/audio retrieval
-- Use `UniversalVideoClient` as the main interface
-- Implement platform-specific clients (YouTube, etc.)
+- Handle video/audio retrieval, transcription, and intelligence extraction.
+- `UniversalVideoClient`: Handles downloading from 1800+ platforms.
+- `GeminiFlashTranscriber`: Performs transcription and basic analysis.
+- `VideoIntelligenceRetriever`: The main orchestrator. It composes the other clients and extractors to create a full analysis. Its `save_all_formats` method was refactored into smaller, single-purpose methods for maintainability.
 
 ### Extractors
 - Process transcripts to extract structured knowledge
@@ -71,5 +72,5 @@ from loguru import logger
 
 # Local imports
 from clipscribe.config import settings
-from clipscribe.models import TranscriptData
+from clipscribe.models import VideoIntelligence
 ```

@@ -13,7 +13,7 @@ output/**/knowledge_graph_3d.html
 /test_*/
 /.video_cache/
 logs/
-.env
+.env*
 
 .pytest_cache/
 .mypy_cache/

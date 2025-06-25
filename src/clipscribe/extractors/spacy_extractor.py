@@ -1,243 +1,175 @@
-"""SpaCy-based entity extractor for zero-cost NER."""
+"""
+SpaCy-based entity extractor for ClipScribe.
+
+Uses SpaCy's pre-trained models for basic entity extraction.
+This is fast and free but limited to standard entity types :-)
+"""
 
 import logging
-from typing import List, Dict, Optional, Tuple
+from typing import List, Tuple, Optional
+
 import spacy
-from spacy.tokens import Doc
-import re
+from spacy.language import Language
 
 from ..models import Entity
+from .model_manager import model_manager
 
 logger = logging.getLogger(__name__)
 
 
 class SpacyEntityExtractor:
-    """Extract entities using SpaCy NLP - zero cost, high speed."""
+    """
+    Extract entities using SpaCy NLP models.
     
-    # Entity type mapping from SpaCy to our types
-    ENTITY_TYPE_MAP = {
-        "PERSON": "PERSON",
-        "ORG": "ORGANIZATION",
-        "GPE": "LOCATION",      # Geopolitical entities
-        "LOC": "LOCATION",      # Locations
-        "FAC": "LOCATION",      # Facilities
-        "EVENT": "EVENT",
-        "PRODUCT": "PRODUCT",
-        "WORK_OF_ART": "PRODUCT",
-        "LAW": "CONCEPT",
-        "LANGUAGE": "CONCEPT",
-        "DATE": None,           # Skip dates
-        "TIME": None,           # Skip times
-        "PERCENT": None,        # Skip percentages
-        "MONEY": None,          # Skip money amounts
-        "QUANTITY": None,       # Skip quantities
-        "ORDINAL": None,        # Skip ordinals
-        "CARDINAL": None        # Skip cardinals
-    }
+    Fast and efficient for basic entity types:
+    - PERSON, ORG, GPE (locations)
+    - DATE, TIME, MONEY, PERCENT
+    - PRODUCT, EVENT, FAC (facilities)
+    """
     
     def __init__(self, model_name: str = "en_core_web_sm"):
         """
         Initialize SpaCy extractor.
         
         Args:
-            model_name: SpaCy model to use (en_core_web_sm is lightweight)
+            model_name: SpaCy model to use (default: en_core_web_sm)
         """
+        self.model_name = model_name
+        self.nlp = None
+        self._load_model()
+        
+    def _load_model(self):
+        """Load SpaCy model using the model manager."""
         try:
-            self.nlp = spacy.load(model_name)
-            logger.info(f"Loaded SpaCy model: {model_name}")
-        except OSError:
-            logger.warning(f"SpaCy model {model_name} not found. Installing...")
+            self.nlp = model_manager.get_spacy_model(self.model_name)
+            logger.info(f"Using SpaCy model: {self.model_name}")
+        except Exception as e:
+            logger.error(f"Failed to load SpaCy model: {e}")
+            logger.info("Installing model...")
             import subprocess
-            subprocess.check_call(["python", "-m", "spacy", "download", model_name])
-            self.nlp = spacy.load(model_name)
+            subprocess.run([
+                "python", "-m", "spacy", "download", self.model_name
+            ])
+            # Try loading again
+            self.nlp = model_manager.get_spacy_model(self.model_name)
             
-        # Add custom patterns for news entities
-        self._add_custom_patterns()
-    
-    def _add_custom_patterns(self):
-        """Add custom entity patterns for news content."""
-        # Add ruler for common news patterns
-        ruler = self.nlp.add_pipe("entity_ruler", before="ner")
-        
-        patterns = [
-            # Military/Government patterns
-            {"label": "ORGANIZATION", "pattern": [{"LOWER": {"IN": ["pentagon", "nato", "un", "iaea"]}}]},
-            {"label": "ORGANIZATION", "pattern": [{"TEXT": {"REGEX": "^[A-Z]{2,5}$"}}]},  # Acronyms
-            
-            # Technology patterns
-            {"label": "TECHNOLOGY", "pattern": [{"LOWER": {"IN": ["ai", "llm", "gpt", "gemini"]}}]},
-            {"label": "TECHNOLOGY", "pattern": [{"TEXT": {"REGEX": "GPT-\\d+"}}]},
-            
-            # Military operations
-            {"label": "EVENT", "pattern": [{"LOWER": "operation"}, {"IS_TITLE": True}]},
-        ]
-        
-        ruler.add_patterns(patterns)
-    
-    def extract_entities(
-        self, 
-        text: str,
-        min_confidence: float = 0.0
-    ) -> List[Tuple[Entity, float]]:
+    def extract_entities(self, text: str) -> List[Tuple[Entity, float]]:
         """
-        Extract entities from text with confidence scores.
+        Extract entities from text.
         
         Args:
-            text: Text to extract entities from
-            min_confidence: Minimum confidence threshold
+            text: Input text to extract entities from
             
         Returns:
             List of (Entity, confidence) tuples
         """
+        if not self.nlp:
+            raise RuntimeError("SpaCy model not loaded")
+            
+        # Process text
         doc = self.nlp(text)
-        entities_with_conf = []
-        seen_entities = set()
+        
+        # Extract entities
+        entities = []
+        seen_entities = set()  # Track unique entities
         
         for ent in doc.ents:
-            # Skip if entity type should be ignored
-            entity_type = self.ENTITY_TYPE_MAP.get(ent.label_)
-            if entity_type is None:
-                continue
+            # Create unique key
+            entity_key = (ent.text.lower(), ent.label_)
+            
+            if entity_key not in seen_entities:
+                seen_entities.add(entity_key)
                 
-            # Deduplicate
-            entity_key = (ent.text.lower(), entity_type)
-            if entity_key in seen_entities:
-                continue
-            seen_entities.add(entity_key)
-            
-            # Calculate confidence based on various factors
-            confidence = self._calculate_confidence(ent, doc)
-            
-            if confidence >= min_confidence:
+                # Map SpaCy labels to our schema
+                entity_type = self._map_entity_type(ent.label_)
+                
+                # Create Entity object
                 entity = Entity(
                     name=ent.text,
                     type=entity_type,
-                    confidence=confidence,
-                    properties={
-                        "spacy_label": ent.label_,
-                        "start_char": ent.start_char,
-                        "end_char": ent.end_char
-                    }
+                    confidence=0.85  # SpaCy doesn't provide confidence scores
                 )
-                entities_with_conf.append((entity, confidence))
+                
+                entities.append((entity, 0.85))
+                
+        logger.info(f"Extracted {len(entities)} entities with SpaCy")
+        return entities
         
-        # Sort by confidence
-        entities_with_conf.sort(key=lambda x: x[1], reverse=True)
+    def _map_entity_type(self, spacy_label: str) -> str:
+        """Map SpaCy entity labels to our schema."""
+        mapping = {
+            "PERSON": "person",
+            "ORG": "organization", 
+            "GPE": "location",  # Geopolitical entity
+            "LOC": "location",
+            "DATE": "date",
+            "TIME": "time",
+            "MONEY": "money",
+            "PERCENT": "percentage",
+            "PRODUCT": "product",
+            "EVENT": "event",
+            "FAC": "facility",
+            "NORP": "group",  # Nationality/religious/political group
+            "WORK_OF_ART": "work_of_art",
+            "LAW": "law",
+            "LANGUAGE": "language",
+            "QUANTITY": "quantity",
+            "ORDINAL": "ordinal",
+            "CARDINAL": "cardinal"
+        }
         
-        logger.info(f"SpaCy extracted {len(entities_with_conf)} entities from {len(text)} chars")
-        return entities_with_conf
-    
-    def _calculate_confidence(self, ent, doc: Doc) -> float:
-        """
-        Calculate confidence score for an entity.
+        return mapping.get(spacy_label, spacy_label.lower())
         
-        Factors:
-        - Entity length (longer = more confident)
-        - Capitalization (proper nouns)
-        - Frequency in document
-        - Context words
-        """
-        confidence = 0.7  # Base confidence for SpaCy
-        
-        # Length factor (longer entities are often more specific)
-        if len(ent.text) > 10:
-            confidence += 0.1
-        elif len(ent.text) < 3:
-            confidence -= 0.1
-            
-        # Proper noun check
-        if ent.text[0].isupper():
-            confidence += 0.05
-            
-        # Frequency factor (mentioned multiple times = more important)
-        frequency = doc.text.lower().count(ent.text.lower())
-        if frequency > 3:
-            confidence += 0.1
-        elif frequency == 1:
-            confidence -= 0.05
-            
-        # Known entity types get higher confidence
-        if ent.label_ in ["PERSON", "ORG", "GPE"]:
-            confidence += 0.05
-            
-        # Clamp confidence between 0 and 1
-        return max(0.0, min(1.0, confidence))
-    
     def extract_with_context(
-        self,
-        text: str,
-        context_window: int = 50
-    ) -> List[Dict[str, any]]:
+        self, 
+        text: str, 
+        window_size: int = 50
+    ) -> List[Tuple[Entity, str]]:
         """
         Extract entities with surrounding context.
         
-        Useful for validation and disambiguation.
+        Args:
+            text: Input text
+            window_size: Characters of context on each side
+            
+        Returns:
+            List of (Entity, context) tuples
         """
+        if not self.nlp:
+            raise RuntimeError("SpaCy model not loaded")
+            
         doc = self.nlp(text)
         entities_with_context = []
         
         for ent in doc.ents:
-            entity_type = self.ENTITY_TYPE_MAP.get(ent.label_)
-            if entity_type is None:
-                continue
-                
-            # Get context
-            start = max(0, ent.start_char - context_window)
-            end = min(len(text), ent.end_char + context_window)
+            # Get context window
+            start = max(0, ent.start_char - window_size)
+            end = min(len(text), ent.end_char + window_size)
             context = text[start:end]
             
-            # Highlight entity in context
-            entity_start = ent.start_char - start
-            entity_end = ent.end_char - start
-            context_highlighted = (
-                context[:entity_start] + 
-                f"**{context[entity_start:entity_end]}**" + 
-                context[entity_end:]
+            # Create entity
+            entity = Entity(
+                name=ent.text,
+                type=self._map_entity_type(ent.label_),
+                confidence=0.85
             )
             
-            entities_with_context.append({
-                "entity": ent.text,
-                "type": entity_type,
-                "context": context_highlighted,
-                "confidence": self._calculate_confidence(ent, doc)
-            })
+            entities_with_context.append((entity, context))
             
         return entities_with_context
-    
-    def get_entity_statistics(self, text: str) -> Dict[str, any]:
-        """Get statistics about entities in the text."""
-        doc = self.nlp(text)
         
-        stats = {
-            "total_entities": len(doc.ents),
-            "by_type": {},
-            "unique_entities": set(),
-            "most_frequent": {}
-        }
+    def analyze_entity_distribution(self, text: str) -> dict:
+        """
+        Analyze the distribution of entity types in text.
         
-        entity_counts = {}
+        Returns:
+            Dictionary of entity_type -> count
+        """
+        entities = self.extract_entities(text)
         
-        for ent in doc.ents:
-            entity_type = self.ENTITY_TYPE_MAP.get(ent.label_)
-            if entity_type is None:
-                continue
-                
-            # Count by type
-            if entity_type not in stats["by_type"]:
-                stats["by_type"][entity_type] = 0
-            stats["by_type"][entity_type] += 1
+        distribution = {}
+        for entity, _ in entities:
+            entity_type = entity.type
+            distribution[entity_type] = distribution.get(entity_type, 0) + 1
             
-            # Track unique entities
-            stats["unique_entities"].add(ent.text)
-            
-            # Count frequency
-            if ent.text not in entity_counts:
-                entity_counts[ent.text] = 0
-            entity_counts[ent.text] += 1
-        
-        # Get most frequent entities
-        sorted_entities = sorted(entity_counts.items(), key=lambda x: x[1], reverse=True)
-        stats["most_frequent"] = sorted_entities[:10]
-        stats["unique_entities"] = len(stats["unique_entities"])
-        
-        return stats 
+        return distribution 

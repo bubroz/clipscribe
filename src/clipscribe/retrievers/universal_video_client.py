@@ -3,10 +3,17 @@
 import os
 import logging
 import tempfile
+import asyncio
 from typing import List, Dict, Optional, Tuple
 from datetime import datetime, timedelta
 import yt_dlp
-from youtubesearchpython import VideosSearch
+from youtubesearchpython.__future__ import (
+    VideosSearch,
+    Channel,
+    Playlist,
+    CustomSearch
+)
+from youtubesearchpython import VideoSortOrder, playlist_from_channel_id
 import json
 
 from ..models import VideoMetadata
@@ -102,7 +109,8 @@ class UniversalVideoClient:
         query: str, 
         max_results: int = 5,
         site: str = "youtube",
-        sort_by: str = "relevance"
+        sort_by: str = "relevance",
+        period: Optional[str] = None
     ) -> List[VideoMetadata]:
         """
         Search for videos. Currently supports YouTube search, but can be extended.
@@ -112,17 +120,21 @@ class UniversalVideoClient:
             max_results: Maximum number of results
             site: Site to search (currently only 'youtube' has search)
             sort_by: Sort order
+            period: Time period to filter (e.g., 'hour', 'day', 'week', 'month', 'year')
             
         Returns:
             List of VideoMetadata objects
         """
         if site.lower() == "youtube":
             try:
-                logger.info(f"Searching YouTube for: {query}")
+                logger.info(f"Searching YouTube for: {query}, period: {period}, sort_by: {sort_by}")
+
+                video_sort_order = self._get_video_sort_order(sort_by)
+
+                search = CustomSearch(query, video_sort_order, limit=max_results, region='US')
                 
-                # Use youtube-search-python for YouTube
-                videos_search = VideosSearch(query, limit=max_results)
-                results = videos_search.result()['result']
+                search_result = await search.next()
+                results = search_result['result'] if search_result and 'result' in search_result else []
                 
                 videos = []
                 for result in results:
@@ -170,6 +182,91 @@ class UniversalVideoClient:
             logger.warning(f"Search not implemented for site: {site}")
             return []
     
+    async def search_channel(
+        self,
+        channel_id_or_url: str,
+        max_results: int = 10,
+        sort_by: str = "newest"
+    ) -> List[VideoMetadata]:
+        """
+        Get videos from a specific YouTube channel.
+
+        Args:
+            channel_id_or_url: The ID or URL of the YouTube channel.
+            max_results: Maximum number of videos to return.
+            sort_by: How to sort the videos ('newest', 'oldest', 'popular').
+
+        Returns:
+            A list of VideoMetadata objects from the channel.
+        """
+        logger.info(f"Attempting to search channel '{channel_id_or_url}' for '{sort_by}' videos.")
+        try:
+            channel_info = await Channel.get(channel_id_or_url)
+            if not channel_info or 'id' not in channel_info:
+                logger.error(f"Could not retrieve channel info for {channel_id_or_url}")
+                return []
+            channel_id = channel_info['id']
+            logger.info(f"Successfully found channel ID: {channel_id} for '{channel_id_or_url}'")
+
+            playlist = Playlist(playlist_from_channel_id(channel_id))
+            if not playlist:
+                logger.error(f"Could not create playlist object for channel ID: {channel_id}")
+                return []
+            logger.info(f"Fetching videos from uploads playlist: {playlist.url}")
+            
+            await playlist.next()
+            results = playlist.videos or []
+            logger.info(f"Fetched initial batch of {len(results)} videos.")
+
+            while playlist.hasMoreVideos and len(results) < max_results:
+                logger.info(f"Fetching next batch of videos... (retrieved {len(results)})")
+                await playlist.next()
+                if playlist.videos:
+                    results.extend(playlist.videos)
+                else:
+                    logger.warning("Playlist returned no more videos on subsequent fetch.")
+                    break
+            
+            logger.info(f"Total videos fetched before sorting/slicing: {len(results)}")
+
+            if sort_by == 'popular':
+                logger.info("Sorting results by view count (popular).")
+                results.sort(key=lambda v: self._parse_view_count(v.get('viewCount', {}).get('text', '0')), reverse=True)
+            
+            results = results[:max_results]
+            logger.info(f"Final result count after filtering: {len(results)}")
+
+            videos = []
+            for result in results:
+                try:
+                    video_id = result.get('id', '')
+                    duration = self._parse_duration(result.get('duration', '0:00'))
+                    published_at = self._parse_published_date(result.get('publishedTime', ''))
+                    
+                    metadata = VideoMetadata(
+                        video_id=video_id,
+                        title=result.get('title', 'Unknown'),
+                        channel=channel_info.get('title', 'Unknown'),
+                        channel_id=channel_id,
+                        duration=duration,
+                        url=f"https://www.youtube.com/watch?v={video_id}",
+                        published_at=published_at,
+                        view_count=self._parse_view_count(result.get('viewCount', {}).get('text', '0')),
+                        description=result.get('description', ''),
+                        tags=result.get('keywords', [])
+                    )
+                    videos.append(metadata)
+                except Exception as e:
+                    logger.warning(f"Failed to parse channel video result: {e}")
+                    continue
+            
+            logger.info(f"Found {len(videos)} videos from channel.")
+            return videos
+
+        except Exception as e:
+            logger.error(f"YouTube channel search for '{channel_id_or_url}' failed: {e}")
+            return []
+    
     async def download_audio(
         self, 
         video_url: str,
@@ -200,44 +297,60 @@ class UniversalVideoClient:
         opts = self.ydl_opts.copy()
         opts['outtmpl'] = os.path.join(output_dir, '%(title)s-%(id)s.%(ext)s')
         
-        try:
-            logger.info(f"Downloading audio from: {video_url}")
-            
-            with yt_dlp.YoutubeDL(opts) as ydl:
-                # Extract video info first
-                info = ydl.extract_info(video_url, download=False)
+        max_retries = 3
+        retry_delay = 2  # seconds
+        
+        for attempt in range(max_retries):
+            try:
+                logger.info(f"Downloading audio from: {video_url} (attempt {attempt + 1}/{max_retries})")
                 
-                # Log the site being used
-                extractor = info.get('extractor', 'unknown')
-                logger.info(f"Using extractor: {extractor}")
+                with yt_dlp.YoutubeDL(opts) as ydl:
+                    # Extract video info first
+                    info = ydl.extract_info(video_url, download=False)
+                    
+                    # Log the site being used
+                    extractor = info.get('extractor', 'unknown')
+                    logger.info(f"Using extractor: {extractor}")
+                    
+                    # Create metadata from full info
+                    metadata = self._create_metadata_from_info(info)
+                    
+                    # Now download the audio
+                    ydl.download([video_url])
+                    
+                    # Find the downloaded file
+                    # yt-dlp might change the filename, so we need to search
+                    title = info.get('title', 'Unknown')
+                    video_id = info.get('id', '')
+                    
+                    # Look for the file
+                    audio_file = None
+                    for filename in os.listdir(output_dir):
+                        if video_id in filename and filename.endswith(('.mp3', '.m4a', '.opus', '.webm')):
+                            audio_file = os.path.join(output_dir, filename)
+                            break
+                    
+                    if not audio_file or not os.path.exists(audio_file):
+                        raise FileNotFoundError(f"Audio file not found after download")
+                    
+                    logger.info(f"Audio downloaded: {audio_file}")
+                    return audio_file, metadata
+                    
+            except Exception as e:
+                logger.error(f"Audio download failed (attempt {attempt + 1}/{max_retries}): {e}")
                 
-                # Create metadata from full info
-                metadata = self._create_metadata_from_info(info)
-                
-                # Now download the audio
-                ydl.download([video_url])
-                
-                # Find the downloaded file
-                # yt-dlp might change the filename, so we need to search
-                title = info.get('title', 'Unknown')
-                video_id = info.get('id', '')
-                
-                # Look for the file
-                audio_file = None
-                for filename in os.listdir(output_dir):
-                    if video_id in filename and filename.endswith(('.mp3', '.m4a', '.opus', '.webm')):
-                        audio_file = os.path.join(output_dir, filename)
-                        break
-                
-                if not audio_file or not os.path.exists(audio_file):
-                    raise FileNotFoundError(f"Audio file not found after download")
-                
-                logger.info(f"Audio downloaded: {audio_file}")
-                return audio_file, metadata
-                
-        except Exception as e:
-            logger.error(f"Audio download failed: {e}")
-            raise
+                # Check if it's an ffmpeg error
+                if "ffmpeg" in str(e).lower() and attempt < max_retries - 1:
+                    logger.info(f"Retrying in {retry_delay} seconds due to ffmpeg error...")
+                    await asyncio.sleep(retry_delay)
+                    retry_delay *= 2  # Exponential backoff
+                    continue
+                elif attempt == max_retries - 1:
+                    # Last attempt failed
+                    raise
+                else:
+                    # Non-ffmpeg error, raise immediately
+                    raise
     
     async def get_video_info(self, video_url: str) -> VideoMetadata:
         """Get video metadata from ANY supported site without downloading."""
@@ -411,3 +524,15 @@ class UniversalVideoClient:
         # This method is empty in the original code block
         # It's assumed to exist as it's called in the download_video method
         pass 
+
+    def _get_video_sort_order(self, sort_by: str) -> str:
+        """Map user-friendly sort option to library-specific value."""
+        sort_map = {
+            "relevance": VideoSortOrder.relevance,
+            "upload_date": VideoSortOrder.uploadDate,
+            "view_count": VideoSortOrder.viewCount,
+            "rating": VideoSortOrder.rating,
+            "newest": VideoSortOrder.uploadDate, # Alias for upload_date
+            "popular": VideoSortOrder.viewCount, # Alias for view_count
+        }
+        return sort_map.get(sort_by.lower(), VideoSortOrder.relevance) 

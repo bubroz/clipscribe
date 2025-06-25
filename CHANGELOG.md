@@ -5,9 +5,33 @@ All notable changes to ClipScribe will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.10.1] - 2025-06-25
+
+### Added
+- **Entity Source Tracking**: New `entity_sources.json` and `entity_sources.csv` files show which extraction method (SpaCy, GLiNER, REBEL) found each entity
+- **Model Manager**: Singleton pattern for ML model instances prevents repeated loading in batch processing
+- **Retry Logic**: Automatic retry for ffmpeg errors with exponential backoff
+
+### Fixed
+- **Model Reloading**: Models are now cached and reused across batch processing (3-5x performance improvement)
+- **Tokenizer Warnings**: Suppressed sentencepiece tokenizer warnings from GLiNER model loading
+- **ffmpeg Errors**: Exit code 183 errors now retry automatically up to 3 times
+- **Python Version**: Relaxed constraint to support Python 3.12+ (was 3.12,<3.13)
+
+### Changed
+- Improved batch processing performance through model caching
+- Better error handling and logging for download failures
+- Added source tracking to entity properties for better analysis
+
+### Documentation
+- Added troubleshooting entries for Python version warning and tokenizer warning
+- Updated documentation to reflect new entity source tracking feature
+
 ## [Unreleased]
 
 ### Added
+- **Streamlit Research UI**: Began work on integrating batch processing (`research` command) into the web UI.
+- **Batch Progress Utility**: New `BatchProgress` class for clean, concurrent terminal UIs.
 - **Comprehensive Rules System**: 19 specialized `.cursor/rules/*.mdc` files
   - Master rule (README.mdc) governing all project rules
   - Core identity rule defining project mission
@@ -39,6 +63,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Web UI Configuration**: Added controls to the Streamlit UI for processing mode, caching, and knowledge graph cleaning.
 
 ### Changed
+- **Enhanced `research` command**:
+  - Now supports searching specific YouTube channels by URL.
+  - Added time-based filtering (`--period`) for topic searches.
+  - Added sorting capabilities (`--sort-by`) for channel searches.
+  - Implemented a concurrency limiter (`asyncio.Semaphore`) to prevent API rate limiting and resource overload.
+  - Integrated a new `BatchProgress` dashboard for a clean, readable UI during batch processing.
 - **Consolidated Scripts**: Merged multiple visualization scripts (`visualize_knowledge_graph.py`, `visualize_knowledge_graph_plotly.py`, etc.) into a single, unified `scripts/visualize.py`.
 - **Consolidated Examples**: Merged several advanced demo scripts into a single `examples/advanced_features_demo.py` and moved educational content to `docs/EXTRACTION_TECHNOLOGY.md`.
 - Improved rule organization and precedence
@@ -451,6 +481,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - **Interactive Web UI**: Introduced a Streamlit-based graphical interface (`app.py`) for easy, browser-based analysis. The UI includes URL input, live progress updates, and an interactive display for results and reports.
 - **UI-Specific Progress Handling**: The `VideoIntelligenceRetriever` now accepts a `progress_hook` to integrate with front-end components.
+
+## [2.9.0] - 2025-06-24
+
+### Changed
+- **Enhanced `research` command**:
+  - Now supports searching specific YouTube channels by URL.
+  - Added time-based filtering (`--period`) for topic searches.
+  - Added sorting capabilities (`--sort-by`) for channel searches.
+  - Implemented a concurrency limiter (`asyncio.Semaphore`) to prevent API rate limiting and resource overload.
+  - Integrated a new `BatchProgress` dashboard for a clean, readable UI during batch processing.
+
+## [2.8.1] - 2025-06-24
+
+### Added
+- **Comprehensive Rules System**: 19 specialized `.cursor/rules/*.mdc` files
+  - Master rule (README.mdc) governing all project rules
+  - Core identity rule defining project mission
+  - File organization rule preventing root pollution
+  - Documentation management and update rules
+  - Visualization guidelines for knowledge graphs
+  - Troubleshooting guide with common issues
+  - Aligned with Chimera Researcher patterns
 
 ## [2.5.2-dev] - 2025-06-24
 

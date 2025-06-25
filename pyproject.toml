@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "clipscribe"
-version = "2.5.1"
+version = "2.10.1"
 description = "AI-powered video transcription and analysis tool using Gemini Flash"
 authors = ["Zac Forristall <zforristall@gmail.com>"]
 readme = "README.md"
@@ -73,7 +73,7 @@ exclude_dirs = ["tests"]
 skips = ["B101"]
 
 [tool.poetry.dependencies]
-python = "^3.12,<3.13"
+python = "^3.12"
 click = "^8.1.7"
 rich = "^13.7.0"
 python-dotenv = "^1.0.0"

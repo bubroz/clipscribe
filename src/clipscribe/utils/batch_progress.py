@@ -57,13 +57,28 @@ class BatchProgress:
         """Updates the progress for a specific video."""
         task_id = self.video_tasks.get(url)
         if task_id is not None:
-            self.video_progress.update(task_id, advance=advance, description=description)
+            # Assuming 4 main steps: download, transcribe, extract, save
+            # The hook sends progress from 0-100, so we advance by 1/4th (25)
+            # We don't use the 'advance' parameter directly to avoid overshooting
+            current_progress = self.video_progress._tasks[task_id].completed
+            new_progress = current_progress + 25
+            self.video_progress.update(task_id, completed=min(new_progress, 99), description=description)
 
     def complete_video_task(self, url: str):
         """Marks a video task as complete and advances the overall progress."""
         task_id = self.video_tasks.get(url)
         if task_id is not None:
             self.video_progress.update(task_id, completed=100, description="[green]✓ Done[/green]")
+        if self.overall_task is not None:
+            self.overall_progress.update(self.overall_task, advance=1)
+
+    def fail_video_task(self, url: str, reason: str = "Failed"):
+        """Marks a video task as failed and advances the overall progress."""
+        task_id = self.video_tasks.get(url)
+        if task_id is not None:
+            # Truncate reason to fit in the console
+            short_reason = (reason[:50] + '...') if len(reason) > 50 else reason
+            self.video_progress.update(task_id, completed=100, description=f"[red]✗ {short_reason}[/red]")
         if self.overall_task is not None:
             self.overall_progress.update(self.overall_task, advance=1)
 

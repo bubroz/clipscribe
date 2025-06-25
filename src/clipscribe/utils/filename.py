@@ -250,6 +250,8 @@ def create_output_structure(
         "transcript_json": output_dir / "transcript.json",
         "metadata": output_dir / "metadata.json",
         "entities": output_dir / "entities.json",
+        "entity_sources_json": output_dir / "entity_sources.json",
+        "entity_sources_csv": output_dir / "entity_sources.csv",
         "manifest": output_dir / "manifest.json",
         "directory": output_dir
     }

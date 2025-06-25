@@ -76,36 +76,39 @@ clipscribe transcribe "https://youtube.com/watch?v=..." --mode audio
 - Markdown report with statistics (v2.5.1+)
 - Shows cost estimate and processing time
 
-### `research` - Research a topic (Coming Soon)
+### `research` - Research a Topic or Channel
 
-Search and analyze multiple videos on a topic.
+Search and analyze multiple videos to gather broad insights on a topic or from a specific YouTube channel. This command processes videos concurrently and provides a clean, dashboard-like progress view in your terminal.
 
 ```bash
 clipscribe research [OPTIONS] QUERY
 ```
 
 **Arguments:**
-- `QUERY` (required) - Search query for video research
+- `QUERY` (required) - A search term (e.g., "James Webb Telescope") or a full YouTube channel URL (e.g., "https://www.youtube.com/@pbsnewshour").
 
 **Options:**
 
 | Option | Short | Default | Description |
 |--------|-------|---------|-------------|
-| `--max-results` | `-n` | `5` | Maximum videos to analyze |
-| `--output-dir` | `-o` | `output/research` | Output directory |
-| `--platforms` | `-p` | all | Specific platforms to search |
+| `--max-results` | `-n` | `2` | Maximum videos to analyze. **Use with caution**, high numbers can be resource-intensive. |
+| `--period` | | None | Filter topic search by time. Options: `hour`, `day`, `week`, `month`, `year`. |
+| `--sort-by` | | `relevance` | Sort order for channel search. Options: `relevance`, `newest`, `oldest`, `popular`. |
+| `--output-dir` | `-o` | `output/research` | Base directory for research results. Each video gets its own subdirectory. |
+| `--mode` | `-m` | `audio` | Processing mode for each video: `audio`, `video`, `auto`. |
+| `--no-cache` | | False | Disable caching and force fresh processing for all videos. |
 
 **Examples:**
 
 ```bash
-# Research AI tutorials
-clipscribe research "machine learning tutorials"
+# Research the 3 most recent videos about AI from the last week
+clipscribe research "latest on AI" -n 3 --period week
 
-# Analyze 10 videos from specific platforms
-clipscribe research "cooking recipes" -n 10 -p youtube -p vimeo
+# Get the 5 most popular videos from the PBS NewsHour channel
+clipscribe research "https://www.youtube.com/@pbsnewshour" -n 5 --sort-by popular
 
-# Save research to custom directory
-clipscribe research "climate change" -o research/climate/
+# Get the 2 newest videos from a channel and process them in video mode
+clipscribe research "https://www.youtube.com/@mkbhd" -n 2 --sort-by newest --mode video
 ```
 
 ### `config` - Show configuration
@@ -307,6 +310,7 @@ awk '{sum += $1} END {print "Total: $" sum}' costs.log
    - Videos under 10 minutes process quickest
    - Specify language if known: `-l en`
    - Use multiple terminal sessions for parallel processing
+   - **NEW in v2.10.1**: Model caching provides 3-5x faster batch processing
 
 2. **Better Quality**
    - Use `--enhance` for cleaner transcripts
@@ -317,6 +321,7 @@ awk '{sum += $1} END {print "Total: $" sum}' costs.log
    - JSON format includes all data but uses more space
    - Text format is most compact
    - Use `-o` to organize by project
+   - **NEW in v2.10.1**: Entity source tracking files (`entity_sources.json/csv`) help analyze extraction quality
 
 ## Troubleshooting
 

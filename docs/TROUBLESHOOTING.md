@@ -43,6 +43,38 @@ rm -rf poetry.lock
 poetry install --no-cache
 ```
 
+### Python Version Warning
+
+**Problem**: You see a warning like:
+```
+The currently activated Python version 3.13.5 is not supported by the project (^3.12,<3.13).
+Trying to find and use a compatible version. 
+Using python3.12 (3.12.11)
+```
+
+**Solution**: This is normal behavior. ClipScribe requires Python 3.12+ and Poetry will automatically find and use a compatible version. No action needed.
+
+**To avoid the warning**: Use Python 3.12 explicitly:
+```bash
+pyenv install 3.12.11
+pyenv local 3.12.11
+poetry install
+```
+
+### Tokenizer Warning
+
+**Problem**: You see repeated warnings about sentencepiece tokenizer:
+```
+UserWarning: The sentencepiece tokenizer that you are converting to a fast tokenizer uses the byte fallback option which is not implemented in the fast tokenizers.
+```
+
+**Solution**: This warning is harmless and has been suppressed in v2.10.0+. If you're still seeing it, update to the latest version:
+```bash
+poetry update
+```
+
+The warning comes from the GLiNER model loading and doesn't affect functionality.
+
 ## API Key Problems
 
 ### Missing Google API Key

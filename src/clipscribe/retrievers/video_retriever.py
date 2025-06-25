@@ -510,8 +510,6 @@ class VideoIntelligenceRetriever:
         
         return saved_files
     
-
-    
     def _generate_segments(
         self, 
         text: str, 
@@ -567,50 +565,63 @@ class VideoIntelligenceRetriever:
         return segments
     
     def save_all_formats(
-        self, 
-        video: VideoIntelligence, 
+        self,
+        video: VideoIntelligence,
         output_dir: str = "output",
         include_chimera_format: bool = True
     ) -> Dict[str, Path]:
         """
-        Save video data in all formats with structured directory.
-        
-        Creates a machine-readable directory structure:
-        - {date}_{platform}_{video_id}/
-            - transcript.txt (plain text)
-            - transcript.json (full data)
-            - metadata.json (video metadata)
-            - entities.json (extracted entities)
-            - manifest.json (file index)
-            
+        Save video data in all formats with a structured directory.
+
+        Orchestrates the saving of multiple file formats by calling dedicated
+        private methods for each format.
+
         Args:
-            video: VideoIntelligence object
-            output_dir: Base output directory
-            include_chimera_format: Include Chimera-compatible format
-            
+            video: VideoIntelligence object.
+            output_dir: Base output directory.
+            include_chimera_format: Include Chimera-compatible format.
+
         Returns:
-            Dictionary of file types to paths
+            Dictionary of file types to paths.
         """
-        # Create metadata dict
-        metadata = {
+        metadata = self._get_video_metadata_dict(video)
+        paths = create_output_structure(metadata, output_dir)
+
+        self._save_transcript_files(video, paths, metadata)
+        self._save_metadata_file(video, paths, metadata)
+        self._save_entities_files(video, paths)
+        self._save_entity_sources_file(video, paths)  # New method to track entity sources
+        self._save_relationships_files(video, paths)
+        self._save_knowledge_graph_files(video, paths)
+        self._save_facts_file(video, paths)
+        self._save_report_file(video, paths)
+        if include_chimera_format:
+            self._save_chimera_file(video, paths)
+
+        self._create_manifest_file(video, paths)
+
+        logger.info(f"Saved all formats to: {paths['directory']}")
+        return paths
+
+    def _get_video_metadata_dict(self, video: VideoIntelligence) -> Dict[str, Any]:
+        """Extracts video metadata into a dictionary."""
+        return {
             "title": video.metadata.title,
             "url": video.metadata.url,
             "channel": video.metadata.channel,
             "duration": video.metadata.duration,
             "published_at": video.metadata.published_at.isoformat() if video.metadata.published_at else None,
             "view_count": video.metadata.view_count,
-            "description": video.metadata.description
+            "description": video.metadata.description,
         }
-        
-        # Create directory structure
-        paths = create_output_structure(metadata, output_dir)
-        
-        # Save transcript in all formats
+
+    def _save_transcript_files(self, video: VideoIntelligence, paths: Dict[str, Path], metadata: Dict[str, Any]):
+        """Saves transcript.txt and transcript.json."""
         # 1. Plain text
         with open(paths["transcript_txt"], 'w', encoding='utf-8') as f:
             f.write(video.transcript.full_text)
-        
-        # 2. Full JSON (includes everything)
+
+        # 2. Full JSON
         full_data = {
             "metadata": metadata,
             "transcript": {
@@ -634,24 +645,20 @@ class VideoIntelligenceRetriever:
                 "extractor": "advanced_hybrid_v2.2" if hasattr(self.entity_extractor, 'extract_all') else "basic_hybrid"
             }
         }
-        
-        # Add v2.2 features if available
         if hasattr(video, 'relationships') and video.relationships:
             full_data["relationships"] = [r.dict() for r in video.relationships]
-        
         if hasattr(video, 'knowledge_graph') and video.knowledge_graph:
             full_data["knowledge_graph"] = video.knowledge_graph
-        
         if hasattr(video, 'key_moments') and video.key_moments:
             full_data["key_facts"] = video.key_moments
-        
         if hasattr(video, 'processing_stats') and video.processing_stats:
             full_data["extraction_stats"] = video.processing_stats
         
         with open(paths["transcript_json"], 'w', encoding='utf-8') as f:
             json.dump(full_data, f, default=str, indent=2)
-        
-        # 3. Metadata file (lighter than full JSON)
+
+    def _save_metadata_file(self, video: VideoIntelligence, paths: Dict[str, Path], metadata: Dict[str, Any]):
+        """Saves metadata.json."""
         with open(paths["metadata"], 'w', encoding='utf-8') as f:
             json.dump({
                 "video": metadata,
@@ -669,9 +676,12 @@ class VideoIntelligenceRetriever:
                     "topic_count": len(video.topics)
                 }
             }, f, indent=2)
-        
-        # 6. Entities file (for knowledge graph)
+
+    def _save_entities_files(self, video: VideoIntelligence, paths: Dict[str, Path]):
+        """Saves entities.json and entities.csv."""
         all_entities = list(video.entities) + list(getattr(video, 'custom_entities', []))
+        
+        # Entities JSON
         entities_data = {
             "video_url": video.metadata.url,
             "video_title": video.metadata.title,
@@ -686,397 +696,328 @@ class VideoIntelligenceRetriever:
                 } for e in all_entities
             ],
             "topics": [t.dict() if hasattr(t, 'dict') else {"name": t.name, "confidence": t.confidence} for t in video.topics],
-            "key_facts": [kp.text for kp in video.key_points[:5]]  # Top 5 key points
+            "key_facts": [kp.text for kp in video.key_points[:5]]
         }
-        
         with open(paths["entities"], 'w', encoding='utf-8') as f:
             json.dump(entities_data, f, indent=2)
-        
-        # 7. Relationships file (NEW in v2.2)
-        if hasattr(video, 'relationships') and video.relationships:
-            relationships_path = paths["directory"] / "relationships.json"
-            relationships_data = {
-                "video_url": video.metadata.url,
-                "video_title": video.metadata.title,
-                "relationships": [
-                    {
-                        "subject": r.subject,
-                        "predicate": r.predicate,
-                        "object": r.object,
-                        "confidence": r.confidence,
-                        "context": r.context
-                    } for r in video.relationships
-                ],
-                "total_count": len(video.relationships)
-            }
-            with open(relationships_path, 'w', encoding='utf-8') as f:
-                json.dump(relationships_data, f, indent=2)
-            paths["relationships"] = relationships_path
-            logger.info(f"Saved {len(video.relationships)} relationships :-)")
-        
-        # 8. Knowledge Graph file (NEW in v2.2)
-        if hasattr(video, 'knowledge_graph') and video.knowledge_graph:
-            graph_path = paths["directory"] / "knowledge_graph.json"
-            with open(graph_path, 'w', encoding='utf-8') as f:
-                json.dump(video.knowledge_graph, f, indent=2)
-            paths["knowledge_graph"] = graph_path
-            logger.info(
-                f"Saved knowledge graph with {video.knowledge_graph.get('node_count', 0)} nodes "
-                f"and {video.knowledge_graph.get('edge_count', 0)} edges :-)"
-            )
-            
-            # Generate GEXF file for Gephi
-            gexf_path = paths["directory"] / "knowledge_graph.gexf"
-            try:
-                # Create GEXF manually to ensure correct format
-                gexf_content = self._generate_gexf_content(video.knowledge_graph)
-                with open(gexf_path, 'w', encoding='utf-8') as f:
-                    f.write(gexf_content)
-                paths["gexf"] = gexf_path
-                logger.info(f"Saved GEXF file for Gephi visualization :-)")
-            except Exception as e:
-                logger.warning(f"Failed to generate GEXF: {e}")
-        
-        # 9. Facts file (NEW in v2.2)
-        if hasattr(video, 'key_moments') and video.key_moments:
-            facts_path = paths["directory"] / "facts.txt"
-            with open(facts_path, 'w', encoding='utf-8') as f:
-                f.write("# Key Facts Extracted from Video\n\n")
-                f.write(f"Video: {video.metadata.title}\n")
-                f.write(f"URL: {video.metadata.url}\n")
-                f.write(f"Extracted: {datetime.now().isoformat()}\n\n")
-                
-                for i, fact in enumerate(video.key_moments, 1):
-                    source = fact.get('source', 'Fact')
-                    f.write(f"{i}. [{source}] {fact['fact']} (confidence: {fact['confidence']:.2f})\n")
-            paths["facts"] = facts_path
-            logger.info(f"Saved {len(video.key_moments)} key facts :-)")
-        
-        # 10. CSV exports for entities and relationships (NEW)
+
         # Entities CSV
         entities_csv_path = paths["directory"] / "entities.csv"
-        with open(entities_csv_path, 'w', encoding='utf-8') as f:
+        with open(entities_csv_path, 'w', encoding='utf-8', newline='') as f:
             writer = csv.writer(f)
             writer.writerow(["name", "type", "confidence", "source", "timestamp"])
-            
-            # Add basic entities
-            for entity in video.entities:
+            for entity in all_entities:
                 writer.writerow([
                     entity.name,
                     entity.type,
                     getattr(entity, 'confidence', 0.0),
-                    getattr(entity, 'source', 'SpaCy'),
+                    getattr(entity, 'source', 'unknown'),
                     getattr(entity, 'timestamp', '')
                 ])
-            
-            # Add custom entities if available
-            if hasattr(video, 'custom_entities'):
-                for entity in video.custom_entities:
-                    writer.writerow([
-                        entity.name,
-                        entity.type,
-                        getattr(entity, 'confidence', 0.0),
-                        getattr(entity, 'source', 'GLiNER'),
-                        getattr(entity, 'timestamp', '')
-                    ])
-        
         paths["entities_csv"] = entities_csv_path
-        logger.info(f"Saved entities to CSV :-)")
-        
+        logger.info(f"Saved {len(all_entities)} entities to JSON and CSV :-)")
+
+    def _save_relationships_files(self, video: VideoIntelligence, paths: Dict[str, Path]):
+        """Saves relationships.json and relationships.csv if they exist."""
+        if not hasattr(video, 'relationships') or not video.relationships:
+            return
+
+        # Relationships JSON
+        relationships_path = paths["directory"] / "relationships.json"
+        relationships_data = {
+            "video_url": video.metadata.url,
+            "video_title": video.metadata.title,
+            "relationships": [r.dict() for r in video.relationships],
+            "total_count": len(video.relationships)
+        }
+        with open(relationships_path, 'w', encoding='utf-8') as f:
+            json.dump(relationships_data, f, default=str, indent=2)
+        paths["relationships"] = relationships_path
+
         # Relationships CSV
-        if hasattr(video, 'relationships') and video.relationships:
-            relationships_csv_path = paths["directory"] / "relationships.csv"
-            with open(relationships_csv_path, 'w', encoding='utf-8') as f:
-                writer = csv.writer(f)
-                writer.writerow(["subject", "predicate", "object", "confidence", "context"])
-                
-                for rel in video.relationships:
-                    writer.writerow([
-                        rel.subject,
-                        rel.predicate,
-                        rel.object,
-                        getattr(rel, 'confidence', 0.0),
-                        getattr(rel, 'context', '')[:100]  # Truncate context to 100 chars
-                    ])
-            
-            paths["relationships_csv"] = relationships_csv_path
-            logger.info(f"Saved relationships to CSV :-)")
-        
-        # 11. Markdown report (NEW)
+        relationships_csv_path = paths["directory"] / "relationships.csv"
+        with open(relationships_csv_path, 'w', encoding='utf-8', newline='') as f:
+            writer = csv.writer(f)
+            writer.writerow(["subject", "predicate", "object", "confidence", "context"])
+            for rel in video.relationships:
+                writer.writerow([
+                    rel.subject,
+                    rel.predicate,
+                    rel.object,
+                    getattr(rel, 'confidence', 0.0),
+                    getattr(rel, 'context', '')[:100]
+                ])
+        paths["relationships_csv"] = relationships_csv_path
+        logger.info(f"Saved {len(video.relationships)} relationships to JSON and CSV :-)")
+
+    def _save_knowledge_graph_files(self, video: VideoIntelligence, paths: Dict[str, Path]):
+        """Saves knowledge_graph.json and knowledge_graph.gexf if they exist."""
+        if not hasattr(video, 'knowledge_graph') or not video.knowledge_graph:
+            return
+
+        # Knowledge Graph JSON
+        graph_path = paths["directory"] / "knowledge_graph.json"
+        with open(graph_path, 'w', encoding='utf-8') as f:
+            json.dump(video.knowledge_graph, f, indent=2)
+        paths["knowledge_graph"] = graph_path
+        logger.info(
+            f"Saved knowledge graph with {video.knowledge_graph.get('node_count', 0)} nodes "
+            f"and {video.knowledge_graph.get('edge_count', 0)} edges :-)"
+        )
+
+        # GEXF for Gephi
+        gexf_path = paths["directory"] / "knowledge_graph.gexf"
+        try:
+            gexf_content = self._generate_gexf_content(video.knowledge_graph)
+            with open(gexf_path, 'w', encoding='utf-8') as f:
+                f.write(gexf_content)
+            paths["gexf"] = gexf_path
+            logger.info("Saved GEXF file for Gephi visualization :-)")
+        except Exception as e:
+            logger.warning(f"Failed to generate GEXF: {e}")
+
+    def _save_facts_file(self, video: VideoIntelligence, paths: Dict[str, Path]):
+        """Saves facts.txt if key moments exist."""
+        if not hasattr(video, 'key_moments') or not video.key_moments:
+            return
+
+        facts_path = paths["directory"] / "facts.txt"
+        with open(facts_path, 'w', encoding='utf-8') as f:
+            f.write("# Key Facts Extracted from Video\n\n")
+            f.write(f"Video: {video.metadata.title}\n")
+            f.write(f"URL: {video.metadata.url}\n")
+            f.write(f"Extracted: {datetime.now().isoformat()}\n\n")
+            for i, fact in enumerate(video.key_moments, 1):
+                source = fact.get('source', 'Fact')
+                f.write(f"{i}. [{source}] {fact['fact']} (confidence: {fact['confidence']:.2f})\n")
+        paths["facts"] = facts_path
+        logger.info(f"Saved {len(video.key_moments)} key facts :-)")
+
+    def _save_report_file(self, video: VideoIntelligence, paths: Dict[str, Path]):
+        """Generates and saves the markdown report."""
         markdown_path = paths["directory"] / "report.md"
         with open(markdown_path, 'w', encoding='utf-8') as f:
-            # Header
-            f.write(f"# Video Intelligence Report: {video.metadata.title}\n\n")
-            f.write(f"**URL**: {video.metadata.url}\n")
-            f.write(f"**Channel**: {video.metadata.channel}\n")
-            minutes = int(video.metadata.duration // 60)
-            seconds = int(video.metadata.duration % 60)
-            f.write(f"**Duration**: {minutes}:{seconds:02d}\n")
-            f.write(f"**Published**: {video.metadata.published_at.strftime('%Y-%m-%d') if video.metadata.published_at else 'Unknown'}\n")
-            f.write(f"**Processed**: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n")
-            
-            # Cost indicator
-            cost = video.processing_cost
-            cost_emoji = "🟢" if cost < 0.10 else ("🟡" if cost < 0.50 else "🔴")
-            f.write(f"**Processing Cost**: {cost_emoji} ${cost:.4f}\n\n")
-            
-            # Executive Summary
-            f.write("## Executive Summary\n\n")
-            f.write(f"{video.summary}\n\n")
-            
-            # Quick Stats Dashboard
-            f.write("## 📊 Quick Stats Dashboard\n\n")
-            f.write('<details open>\n<summary><b>Click to toggle stats</b></summary>\n\n')
-            
-            # Key Statistics Table
-            f.write("| Metric | Count | Visualization |\n")
-            f.write("|--------|-------|---------------|\n")
-            
-            # Create simple bar charts with emoji
-            transcript_len = len(video.transcript.full_text)
-            word_count = len(video.transcript.full_text.split())
-            entity_count = len(video.entities) + len(getattr(video, 'custom_entities', []))
-            rel_count = len(getattr(video, 'relationships', []))
-            
-            f.write(f"| Transcript Length | {transcript_len:,} chars | {'█' * min(20, transcript_len // 2000)} |\n")
-            f.write(f"| Word Count | {word_count:,} words | {'█' * min(20, word_count // 500)} |\n")
-            f.write(f"| Entities Extracted | {entity_count} | {'🔵' * min(20, entity_count // 10)} |\n")
-            f.write(f"| Relationships Found | {rel_count} | {'🔗' * min(20, rel_count // 10)} |\n")
-            f.write(f"| Key Points | {len(video.key_points)} | {'📌' * min(10, len(video.key_points) // 3)} |\n")
-            f.write(f"| Topics | {len(video.topics)} | {'🏷️' * min(len(video.topics), 10)} |\n")
-            
-            if hasattr(video, 'knowledge_graph') and video.knowledge_graph:
-                nodes = video.knowledge_graph.get('node_count', 0)
-                edges = video.knowledge_graph.get('edge_count', 0)
-                f.write(f"| Graph Nodes | {nodes} | {'⭕' * min(20, nodes // 10)} |\n")
-                f.write(f"| Graph Edges | {edges} | {'➡️' * min(20, edges // 10)} |\n")
-            
-            f.write("\n</details>\n\n")
-            
-            # Topics with emoji icons
-            f.write("## 🏷️ Main Topics\n\n")
-            f.write('<details>\n<summary><b>View all topics</b></summary>\n\n')
-            for i, topic in enumerate(video.topics[:15], 1):
-                topic_name = topic.name if hasattr(topic, 'name') else topic
-                f.write(f"{i}. {topic_name}\n")
-            if len(video.topics) > 15:
-                f.write(f"\n*... and {len(video.topics) - 15} more topics*\n")
-            f.write("\n</details>\n\n")
-            
-            # Knowledge Graph Visualization with Mermaid
-            if hasattr(video, 'relationships') and video.relationships:
-                f.write("## 🕸️ Knowledge Graph Visualization\n\n")
-                f.write('<details>\n<summary><b>Interactive relationship diagram (Mermaid)</b></summary>\n\n')
-                f.write("```mermaid\ngraph TD\n")
-                f.write("    %% Top Entity Relationships\n")
-                
-                # Get unique entities and their types for styling
-                all_entities_for_graph = list(getattr(video, 'entities', [])) + list(getattr(video, 'custom_entities', []))
-                entity_map = {e.name: e for e in all_entities_for_graph}
-                
-                top_relationships = sorted(video.relationships, key=lambda r: getattr(r, 'confidence', 0), reverse=True)
-
-                # Add top relationships to diagram
-                shown_relationships = set()
-                relationships_to_render = []
-                for rel in top_relationships:
-                    # Clean entity names for Mermaid
-                    subject_clean = rel.subject.replace('"', '').replace("'", "").replace(" ", "_")
-                    predicate_clean = rel.predicate.replace('"', '').replace("'", "")
-                    object_clean = rel.object.replace('"', '').replace("'", "").replace(" ", "_")
-                    
-                    rel_key = f"{subject_clean}-{predicate_clean}-{object_clean}"
-                    if rel_key not in shown_relationships:
-                        shown_relationships.add(rel_key)
-                        relationships_to_render.append(rel)
-                        f.write(f'    {subject_clean} -->|"{predicate_clean}"| {object_clean}\n')
-                    
-                    if len(relationships_to_render) >= 20:
-                        break
-
-                # Add styling based on entity types
-                f.write("\n    %% Styling\n")
-                styled_nodes = set()
-                for rel in relationships_to_render:
-                    subject_clean = rel.subject.replace('"', '').replace("'", "").replace(" ", "_")
-                    object_clean = rel.object.replace('"', '').replace("'", "").replace(" ", "_")
-
-                    # Style subject
-                    if subject_clean not in styled_nodes and rel.subject in entity_map:
-                        node_type = entity_map[rel.subject].type.lower()
-                        if node_type in ['person', 'organization', 'location', 'product']:
-                             f.write(f"    class {subject_clean} {node_type}Class\n")
-                        styled_nodes.add(subject_clean)
-                    
-                    # Style object
-                    if object_clean not in styled_nodes and rel.object in entity_map:
-                        node_type = entity_map[rel.object].type.lower()
-                        if node_type in ['person', 'organization', 'location', 'product']:
-                             f.write(f"    class {object_clean} {node_type}Class\n")
-                        styled_nodes.add(object_clean)
-
-                f.write("    classDef personClass fill:#ff9999,stroke:#333,stroke-width:2px\n")
-                f.write("    classDef organizationClass fill:#99ccff,stroke:#333,stroke-width:2px\n")
-                f.write("    classDef locationClass fill:#99ff99,stroke:#333,stroke-width:2px\n")
-                f.write("    classDef productClass fill:#ffcc99,stroke:#333,stroke-width:2px\n")
-                
-                f.write("```\n\n")
-                f.write("*Note: This diagram shows the top 20 relationships. ")
-                f.write("For the complete graph, use the GEXF file with Gephi.*\n")
-                f.write("\n</details>\n\n")
-            
-            # Entity Analysis with collapsible sections
-            f.write("## 🔍 Entity Analysis\n\n")
-            all_entities = list(getattr(video, 'entities', [])) + list(getattr(video, 'custom_entities', []))
-            
-            # Group by type
-            entities_by_type = {}
-            for entity in all_entities:
-                entity_type = entity.type
-                if entity_type not in entities_by_type:
-                    entities_by_type[entity_type] = []
-                entities_by_type[entity_type].append(entity)
-            
-            # Create entity type summary
-            if all_entities:
-                f.write("### Entity Type Distribution\n\n")
-                f.write("```mermaid\npie title Entity Distribution\n")
-                for entity_type, entities in sorted(entities_by_type.items(), key=lambda x: len(x[1]), reverse=True)[:8]:
-                    percentage = (len(entities) / len(all_entities)) * 100
-                    f.write(f'    "{entity_type}" : {len(entities)}\n')
-                if len(entities_by_type) > 8:
-                    others = sum(len(e) for t, e in list(entities_by_type.items())[8:])
-                    f.write(f'    "Others" : {others}\n')
-                f.write("```\n\n")
-            
-            # Detailed entity listings
-            for entity_type in sorted(entities_by_type.keys()):
-                entities = sorted(entities_by_type[entity_type], 
-                                key=lambda e: getattr(e, 'confidence', 0), 
-                                reverse=True)
-                
-                # Use emoji for entity types
-                type_emoji = {
-                    'PERSON': '👤',
-                    'ORGANIZATION': '🏢',
-                    'LOCATION': '📍',
-                    'PRODUCT': '📦',
-                    'EVENT': '📅',
-                    'DATE': '📆',
-                    'MONEY': '💰',
-                    'software': '💻',
-                    'api': '🔌',
-                    'platform': '🌐',
-                    'framework': '🛠️',
-                    'model': '🤖',
-                    'channel': '📺'
-                }.get(entity_type, '🏷️')
-                
-                f.write(f"\n<details>\n")
-                f.write(f"<summary><b>{type_emoji} {entity_type} ({len(entities)} found)</b></summary>\n\n")
-                
-                if len(entities) > 0:
-                    f.write("| Name | Confidence | Source |\n")
-                    f.write("|------|------------|--------|\n")
-                    for entity in entities[:15]:
-                        conf = getattr(entity, 'confidence', 0.0)
-                        source = getattr(entity, 'source', 'SpaCy')
-                        conf_bar = '🟩' if conf > 0.8 else ('🟨' if conf > 0.6 else '🟥')
-                        f.write(f"| {entity.name} | {conf_bar} {conf:.2f} | {source} |\n")
-                    
-                    if len(entities) > 15:
-                        f.write(f"\n*... and {len(entities) - 15} more {entity_type.lower()} entities*\n")
-                
-                f.write("\n</details>\n")
-            
-            # Relationship Network Analysis
-            if hasattr(video, 'relationships') and video.relationships:
-                f.write("\n## 🔗 Relationship Network\n\n")
-                
-                # Relationship type distribution
-                rel_types = {}
-                for rel in video.relationships:
-                    pred = rel.predicate
-                    rel_types[pred] = rel_types.get(pred, 0) + 1
-                
-                f.write("<details>\n<summary><b>Relationship type distribution</b></summary>\n\n")
-                f.write("| Predicate | Count | Percentage |\n")
-                f.write("|-----------|--------|------------|\n")
-                
-                total_rels = len(video.relationships)
-                for pred, count in sorted(rel_types.items(), key=lambda x: x[1], reverse=True)[:15]:
-                    percentage = (count / total_rels) * 100
-                    bar = '█' * int(percentage / 5)
-                    f.write(f"| {pred} | {count} | {bar} {percentage:.1f}% |\n")
-                
-                f.write("\n</details>\n\n")
-                
-                # Top relationships
-                f.write("<details>\n<summary><b>Key relationships (top 30)</b></summary>\n\n")
-                
-                for i, rel in enumerate(sorted(video.relationships, 
-                                              key=lambda r: getattr(r, 'confidence', 0), 
-                                              reverse=True)[:30], 1):
-                    conf = getattr(rel, 'confidence', 0.0)
-                    conf_emoji = '🟩' if conf > 0.8 else ('🟨' if conf > 0.6 else '🟥')
-                    f.write(f"{i}. **{rel.subject}** *{rel.predicate}* **{rel.object}** {conf_emoji} ({conf:.2f})\n")
-                
-                f.write("\n</details>\n\n")
-            
-            # Key Insights
-            f.write("## 💡 Key Insights\n\n")
-            f.write("<details open>\n<summary><b>Top 10 key points</b></summary>\n\n")
-            
-            top_points = sorted(video.key_points, 
-                              key=lambda p: getattr(p, 'importance', 0.5), 
-                              reverse=True)[:10]
-            
-            for i, point in enumerate(top_points, 1):
-                importance = getattr(point, 'importance', 0.5)
-                imp_emoji = '🔴' if importance > 0.8 else ('🟡' if importance > 0.6 else '⚪')
-                f.write(f"{i}. {imp_emoji} {point.text}\n")
-            
-            f.write("\n</details>\n\n")
-            
-            # File Index
-            f.write("## 📁 Generated Files\n\n")
-            f.write("<details>\n<summary><b>Click to see all files</b></summary>\n\n")
-            f.write("| File | Format | Size | Description |\n")
-            f.write("|------|--------|------|-------------|\n")
-            
-            file_info = [
-                ("transcript.txt", "TXT", "Plain text transcript"),
-                ("transcript.json", "JSON", "Full structured data"),
-                ("entities.csv", "CSV", "All entities in spreadsheet format"),
-                ("relationships.csv", "CSV", "All relationships in spreadsheet format"),
-                ("knowledge_graph.json", "JSON", "Complete graph structure"),
-                ("knowledge_graph.gexf", "GEXF", "Import into Gephi for visualization"),
-                ("metadata.json", "JSON", "Video metadata and statistics"),
-                ("manifest.json", "JSON", "File index with checksums"),
-                ("report.md", "Markdown", "This report"),
-                ("chimera_format.json", "JSON", "Chimera-compatible format")
-            ]
-            
-            for filename, fmt, desc in file_info:
-                file_path = paths["directory"] / filename
-                if file_path.exists():
-                    size = os.path.getsize(file_path)
-                    size_str = f"{size / 1024:.1f} KB" if size > 1024 else f"{size} B"
-                    f.write(f"| `{filename}` | {fmt} | {size_str} | {desc} |\n")
-            
-            f.write("\n</details>\n\n")
-            
-            # Footer
-            f.write("---\n")
-            f.write(f"*Generated by ClipScribe v{video.processing_stats.get('version', '2.5.2') if hasattr(video, 'processing_stats') else '2.5.2'} ")
-            f.write(f"on {datetime.now().strftime('%Y-%m-%d at %H:%M:%S')}*\n")
-            f.write("\n💡 **Tip**: This markdown file supports Mermaid diagrams. ")
-            f.write("View it in GitHub, GitLab, or any Markdown viewer with Mermaid support for interactive diagrams.\n")
-        
+            self._write_report_header(f, video)
+            self._write_report_dashboard(f, video)
+            self._write_report_topics(f, video)
+            self._write_report_knowledge_graph(f, video)
+            self._write_report_entity_analysis(f, video)
+            self._write_report_relationship_network(f, video)
+            self._write_report_key_insights(f, video)
+            self._write_report_file_index(f, paths)
+            self._write_report_footer(f, video)
         paths["report"] = markdown_path
         logger.info("Generated enhanced markdown report :-)")
+
+    def _write_report_header(self, f, video: VideoIntelligence):
+        """Writes the header section of the markdown report."""
+        f.write(f"# Video Intelligence Report: {video.metadata.title}\n\n")
+        f.write(f"**URL**: {video.metadata.url}\n")
+        f.write(f"**Channel**: {video.metadata.channel}\n")
+        minutes, seconds = divmod(int(video.metadata.duration), 60)
+        f.write(f"**Duration**: {minutes}:{seconds:02d}\n")
+        published_date = video.metadata.published_at.strftime('%Y-%m-%d') if video.metadata.published_at else 'Unknown'
+        f.write(f"**Published**: {published_date}\n")
+        f.write(f"**Processed**: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n")
+        cost = video.processing_cost
+        cost_emoji = "🟢" if cost < 0.10 else ("🟡" if cost < 0.50 else "🔴")
+        f.write(f"**Processing Cost**: {cost_emoji} ${cost:.4f}\n\n")
+        f.write("## Executive Summary\n\n")
+        f.write(f"{video.summary}\n\n")
+
+    def _write_report_dashboard(self, f, video: VideoIntelligence):
+        """Writes the quick stats dashboard section."""
+        f.write("## 📊 Quick Stats Dashboard\n\n")
+        f.write('<details open>\n<summary><b>Click to toggle stats</b></summary>\n\n')
+        f.write("| Metric | Count | Visualization |\n")
+        f.write("|--------|-------|---------------|\n")
         
-        # 12. Manifest file (index of all files)
+        stats = {
+            "Transcript Length": (len(video.transcript.full_text), "chars", "█", 2000),
+            "Word Count": (len(video.transcript.full_text.split()), "words", "█", 500),
+            "Entities Extracted": (len(video.entities) + len(getattr(video, 'custom_entities', [])), "", "🔵", 10),
+            "Relationships Found": (len(getattr(video, 'relationships', [])), "", "🔗", 10),
+            "Key Points": (len(video.key_points), "", "📌", 3),
+            "Topics": (len(video.topics), "", "🏷️", 1)
+        }
+        if hasattr(video, 'knowledge_graph') and video.knowledge_graph:
+            stats["Graph Nodes"] = (video.knowledge_graph.get('node_count', 0), "", "⭕", 10)
+            stats["Graph Edges"] = (video.knowledge_graph.get('edge_count', 0), "", "➡️", 10)
+
+        for name, (count, unit, icon, scale) in stats.items():
+            bar = icon * min(20, int(count / scale)) if scale > 0 else icon * min(count, 10)
+            f.write(f"| {name} | {count:,} {unit} | {bar} |\n")
+            
+        f.write("\n</details>\n\n")
+
+    def _write_report_topics(self, f, video: VideoIntelligence):
+        """Writes the topics section of the report."""
+        f.write("## 🏷️ Main Topics\n\n")
+        f.write('<details>\n<summary><b>View all topics</b></summary>\n\n')
+        for i, topic in enumerate(video.topics[:15], 1):
+            topic_name = topic.name if hasattr(topic, 'name') else topic
+            f.write(f"{i}. {topic_name}\n")
+        if len(video.topics) > 15:
+            f.write(f"\n*... and {len(video.topics) - 15} more topics*\n")
+        f.write("\n</details>\n\n")
+
+    def _write_report_knowledge_graph(self, f, video: VideoIntelligence):
+        """Writes the Mermaid knowledge graph visualization."""
+        if not hasattr(video, 'relationships') or not video.relationships:
+            return
+
+        f.write("## 🕸️ Knowledge Graph Visualization\n\n")
+        f.write('<details>\n<summary><b>Interactive relationship diagram (Mermaid)</b></summary>\n\n')
+        f.write("```mermaid\ngraph TD\n    %% Top Entity Relationships\n")
+
+        all_entities_for_graph = list(getattr(video, 'entities', [])) + list(getattr(video, 'custom_entities', []))
+        entity_map = {e.name: e for e in all_entities_for_graph}
+        top_relationships = sorted(video.relationships, key=lambda r: getattr(r, 'confidence', 0), reverse=True)
+
+        shown_relationships, relationships_to_render = set(), []
+        for rel in top_relationships:
+            subject_clean = rel.subject.replace('"', '').replace("'", "").replace(" ", "_")
+            predicate_clean = rel.predicate.replace('"', '').replace("'", "")
+            object_clean = rel.object.replace('"', '').replace("'", "").replace(" ", "_")
+            rel_key = f"{subject_clean}-{predicate_clean}-{object_clean}"
+            if rel_key not in shown_relationships:
+                shown_relationships.add(rel_key)
+                relationships_to_render.append(rel)
+                f.write(f'    {subject_clean} -->|"{predicate_clean}"| {object_clean}\n')
+            if len(relationships_to_render) >= 20:
+                break
+
+        f.write("\n    %% Styling\n")
+        styled_nodes = set()
+        for rel in relationships_to_render:
+            subject_clean = rel.subject.replace('"', '').replace("'", "").replace(" ", "_")
+            object_clean = rel.object.replace('"', '').replace("'", "").replace(" ", "_")
+            for node_name, clean_name in [(rel.subject, subject_clean), (rel.object, object_clean)]:
+                if clean_name not in styled_nodes and node_name in entity_map:
+                    node_type = entity_map[node_name].type.lower()
+                    if node_type in ['person', 'organization', 'location', 'product']:
+                        f.write(f"    class {clean_name} {node_type}Class\n")
+                    styled_nodes.add(clean_name)
+
+        f.write("    classDef personClass fill:#ff9999,stroke:#333,stroke-width:2px\n")
+        f.write("    classDef organizationClass fill:#99ccff,stroke:#333,stroke-width:2px\n")
+        f.write("    classDef locationClass fill:#99ff99,stroke:#333,stroke-width:2px\n")
+        f.write("    classDef productClass fill:#ffcc99,stroke:#333,stroke-width:2px\n")
+        f.write("```\n\n")
+        f.write("*Note: This diagram shows the top 20 relationships. For the complete graph, use the GEXF file with Gephi.*\n")
+        f.write("\n</details>\n\n")
+
+    def _write_report_entity_analysis(self, f, video: VideoIntelligence):
+        """Writes the entity analysis section with Mermaid pie chart."""
+        f.write("## 🔍 Entity Analysis\n\n")
+        all_entities = list(getattr(video, 'entities', [])) + list(getattr(video, 'custom_entities', []))
+        if not all_entities:
+            return
+
+        entities_by_type = {}
+        for entity in all_entities:
+            entities_by_type.setdefault(entity.type, []).append(entity)
+
+        f.write("### Entity Type Distribution\n\n")
+        f.write("```mermaid\npie title Entity Distribution\n")
+        sorted_types = sorted(entities_by_type.items(), key=lambda x: len(x[1]), reverse=True)
+        for entity_type, entities in sorted_types[:8]:
+            f.write(f'    "{entity_type}" : {len(entities)}\n')
+        if len(sorted_types) > 8:
+            others = sum(len(e) for _, e in sorted_types[8:])
+            f.write(f'    "Others" : {others}\n')
+        f.write("```\n\n")
+
+        type_emoji_map = {'PERSON': '👤', 'ORGANIZATION': '🏢', 'LOCATION': '📍', 'PRODUCT': '📦', 'EVENT': '📅', 'DATE': '📆', 'MONEY': '💰', 'software': '💻', 'api': '🔌', 'platform': '🌐', 'framework': '🛠️', 'model': '🤖', 'channel': '📺'}
+        for entity_type in sorted(entities_by_type.keys()):
+            entities = sorted(entities_by_type[entity_type], key=lambda e: getattr(e, 'confidence', 0), reverse=True)
+            type_emoji = type_emoji_map.get(entity_type, '🏷️')
+            f.write(f"\n<details>\n<summary><b>{type_emoji} {entity_type} ({len(entities)} found)</b></summary>\n\n")
+            if entities:
+                f.write("| Name | Confidence | Source |\n|------|------------|--------|\n")
+                for entity in entities[:15]:
+                    conf = getattr(entity, 'confidence', 0.0)
+                    source = getattr(entity, 'source', 'SpaCy')
+                    conf_bar = '🟩' if conf > 0.8 else ('🟨' if conf > 0.6 else '🟥')
+                    f.write(f"| {entity.name} | {conf_bar} {conf:.2f} | {source} |\n")
+                if len(entities) > 15:
+                    f.write(f"\n*... and {len(entities) - 15} more {entity_type.lower()} entities*\n")
+            f.write("\n</details>\n")
+
+    def _write_report_relationship_network(self, f, video: VideoIntelligence):
+        """Writes the relationship network analysis section."""
+        if not hasattr(video, 'relationships') or not video.relationships:
+            return
+
+        f.write("\n## 🔗 Relationship Network\n\n")
+        rel_types = {}
+        for rel in video.relationships:
+            rel_types[rel.predicate] = rel_types.get(rel.predicate, 0) + 1
+        
+        f.write("<details>\n<summary><b>Relationship type distribution</b></summary>\n\n")
+        f.write("| Predicate | Count | Percentage |\n|-----------|--------|------------|\n")
+        total_rels = len(video.relationships)
+        for pred, count in sorted(rel_types.items(), key=lambda x: x[1], reverse=True)[:15]:
+            percentage = (count / total_rels) * 100
+            bar = '█' * int(percentage / 5)
+            f.write(f"| {pred} | {count} | {bar} {percentage:.1f}% |\n")
+        f.write("\n</details>\n\n")
+
+        f.write("<details>\n<summary><b>Key relationships (top 30)</b></summary>\n\n")
+        for i, rel in enumerate(sorted(video.relationships, key=lambda r: getattr(r, 'confidence', 0), reverse=True)[:30], 1):
+            conf = getattr(rel, 'confidence', 0.0)
+            conf_emoji = '🟩' if conf > 0.8 else ('🟨' if conf > 0.6 else '🟥')
+            f.write(f"{i}. **{rel.subject}** *{rel.predicate}* **{rel.object}** {conf_emoji} ({conf:.2f})\n")
+        f.write("\n</details>\n\n")
+
+    def _write_report_key_insights(self, f, video: VideoIntelligence):
+        """Writes the key insights section."""
+        f.write("## 💡 Key Insights\n\n")
+        f.write("<details open>\n<summary><b>Top 10 key points</b></summary>\n\n")
+        top_points = sorted(video.key_points, key=lambda p: getattr(p, 'importance', 0.5), reverse=True)[:10]
+        for i, point in enumerate(top_points, 1):
+            importance = getattr(point, 'importance', 0.5)
+            imp_emoji = '🔴' if importance > 0.8 else ('🟡' if importance > 0.6 else '⚪')
+            f.write(f"{i}. {imp_emoji} {point.text}\n")
+        f.write("\n</details>\n\n")
+
+    def _write_report_file_index(self, f, paths: Dict[str, Path]):
+        """Writes the generated files index."""
+        f.write("## 📁 Generated Files\n\n")
+        f.write("<details>\n<summary><b>Click to see all files</b></summary>\n\n")
+        f.write("| File | Format | Size | Description |\n")
+        f.write("|------|--------|------|-------------|\n")
+        
+        file_info = [
+            ("transcript.txt", "TXT", "Plain text transcript"),
+            ("transcript.json", "JSON", "Full structured data"),
+            ("entities.csv", "CSV", "All entities in spreadsheet format"),
+            ("relationships.csv", "CSV", "All relationships in spreadsheet format"),
+            ("knowledge_graph.json", "JSON", "Complete graph structure"),
+            ("knowledge_graph.gexf", "GEXF", "Import into Gephi for visualization"),
+            ("metadata.json", "JSON", "Video metadata and statistics"),
+            ("manifest.json", "JSON", "File index with checksums"),
+            ("report.md", "Markdown", "This report"),
+            ("chimera_format.json", "JSON", "Chimera-compatible format")
+        ]
+        
+        for filename, fmt, desc in file_info:
+            file_path = paths["directory"] / filename
+            if file_path.exists():
+                size = os.path.getsize(file_path)
+                size_str = f"{size / 1024:.1f} KB" if size > 1024 else f"{size} B"
+                f.write(f"| `{filename}` | {fmt} | {size_str} | {desc} |\n")
+        f.write("\n</details>\n\n")
+
+    def _write_report_footer(self, f, video: VideoIntelligence):
+        """Writes the report footer."""
+        f.write("---\n")
+        version = video.processing_stats.get('version', '2.6.0') if hasattr(video, 'processing_stats') else '2.6.0'
+        f.write(f"*Generated by ClipScribe v{version} on {datetime.now().strftime('%Y-%m-%d at %H:%M:%S')}*\n")
+        f.write("\n💡 **Tip**: This markdown file supports Mermaid diagrams. View it in a compatible editor for interactive diagrams.\n")
+
+    def _create_manifest_file(self, video: VideoIntelligence, paths: Dict[str, Path]):
+        """Creates the manifest.json file."""
         manifest = {
             "version": "2.3",
             "created_at": datetime.now().isoformat(),
@@ -1086,127 +1027,50 @@ class VideoIntelligenceRetriever:
                 "platform": extract_platform_from_url(video.metadata.url)
             },
             "extraction_stats": video.processing_stats if hasattr(video, 'processing_stats') else {},
-            "files": {
-                "transcript_txt": {
-                    "path": "transcript.txt",
-                    "format": "plain_text",
-                    "size": os.path.getsize(paths["transcript_txt"]),
-                    "sha256": calculate_sha256(paths["transcript_txt"])
-                },
-                "transcript_json": {
-                    "path": "transcript.json",
-                    "format": "json",
-                    "size": os.path.getsize(paths["transcript_json"]),
-                    "sha256": calculate_sha256(paths["transcript_json"])
-                },
-                "metadata": {
-                    "path": "metadata.json",
-                    "format": "json",
-                    "size": os.path.getsize(paths["metadata"]),
-                    "sha256": calculate_sha256(paths["metadata"])
-                },
-                "entities": {
-                    "path": "entities.json",
-                    "format": "json",
-                    "size": os.path.getsize(paths["entities"]),
-                    "sha256": calculate_sha256(paths["entities"])
-                }
-            }
+            "files": {}
         }
         
-        # Add new v2.2 files to manifest if they exist
-        if "relationships" in paths:
-            manifest["files"]["relationships"] = {
-                "path": "relationships.json",
-                "format": "json",
-                "size": os.path.getsize(paths["relationships"]),
-                "count": len(video.relationships) if hasattr(video, 'relationships') else 0,
-                "sha256": calculate_sha256(paths["relationships"])
-            }
-        
-        if "knowledge_graph" in paths:
-            manifest["files"]["knowledge_graph"] = {
-                "path": "knowledge_graph.json",
-                "format": "json",
-                "size": os.path.getsize(paths["knowledge_graph"]),
-                "nodes": video.knowledge_graph.get('node_count', 0) if hasattr(video, 'knowledge_graph') else 0,
-                "edges": video.knowledge_graph.get('edge_count', 0) if hasattr(video, 'knowledge_graph') else 0,
-                "sha256": calculate_sha256(paths["knowledge_graph"])
-            }
-        
-        if "gexf" in paths:
-            manifest["files"]["knowledge_graph_gexf"] = {
-                "path": "knowledge_graph.gexf",
-                "format": "gexf",
-                "size": os.path.getsize(paths["gexf"]),
-                "description": "Gephi-compatible graph file",
-                "sha256": calculate_sha256(paths["gexf"])
-            }
-        
-        if "facts" in paths:
-            manifest["files"]["facts"] = {
-                "path": "facts.txt",
-                "format": "plain_text",
-                "size": os.path.getsize(paths["facts"]),
-                "count": len(video.key_moments) if hasattr(video, 'key_moments') else 0,
-                "sha256": calculate_sha256(paths["facts"])
-            }
-        
-        # Add CSV files to manifest
-        if "entities_csv" in paths:
-            manifest["files"]["entities_csv"] = {
-                "path": "entities.csv",
-                "format": "csv",
-                "size": os.path.getsize(paths["entities_csv"]),
-                "description": "All entities in CSV format",
-                "count": len(video.entities) + len(getattr(video, 'custom_entities', [])),
-                "sha256": calculate_sha256(paths["entities_csv"])
-            }
-        
-        if "relationships_csv" in paths:
-            manifest["files"]["relationships_csv"] = {
-                "path": "relationships.csv",
-                "format": "csv",
-                "size": os.path.getsize(paths["relationships_csv"]),
-                "description": "All relationships in CSV format",
-                "count": len(getattr(video, 'relationships', [])),
-                "sha256": calculate_sha256(paths["relationships_csv"])
-            }
-        
-        # Add markdown report to manifest
-        if "report" in paths:
-            manifest["files"]["report"] = {
-                "path": "report.md",
-                "format": "markdown",
-                "size": os.path.getsize(paths["report"]),
-                "description": "Human-readable intelligence report",
-                "sha256": calculate_sha256(paths["report"])
-            }
-        
-        # Add Chimera format to manifest
-        if "chimera" in paths:
-            manifest["files"]["chimera"] = {
-                "path": "chimera_format.json",
-                "format": "json",
-                "size": os.path.getsize(paths["chimera"]),
-                "description": "Chimera-compatible format",
-                "sha256": calculate_sha256(paths["chimera"])
-            }
-            
+        file_definitions = {
+            "transcript_txt": {"path": "transcript.txt", "format": "plain_text"},
+            "transcript_json": {"path": "transcript.json", "format": "json"},
+            "metadata": {"path": "metadata.json", "format": "json"},
+            "entities": {"path": "entities.json", "format": "json"},
+            "relationships": {"path": "relationships.json", "format": "json", "count_attr": "relationships"},
+            "knowledge_graph": {"path": "knowledge_graph.json", "format": "json"},
+            "gexf": {"path": "knowledge_graph.gexf", "format": "gexf", "description": "Gephi-compatible graph file"},
+            "facts": {"path": "facts.txt", "format": "plain_text", "count_attr": "key_moments"},
+            "entities_csv": {"path": "entities.csv", "format": "csv", "description": "All entities in CSV format"},
+            "relationships_csv": {"path": "relationships.csv", "format": "csv", "description": "All relationships in CSV format"},
+            "report": {"path": "report.md", "format": "markdown", "description": "Human-readable intelligence report"},
+            "chimera": {"path": "chimera_format.json", "format": "json", "description": "Chimera-compatible format"}
+        }
+
+        for key, definition in file_definitions.items():
+            if key in paths and paths[key].exists():
+                file_path = paths[key]
+                file_entry = {
+                    "path": definition["path"],
+                    "format": definition["format"],
+                    "size": os.path.getsize(file_path),
+                    "sha256": calculate_sha256(file_path)
+                }
+                if "description" in definition:
+                    file_entry["description"] = definition["description"]
+                if "count_attr" in definition and hasattr(video, definition["count_attr"]):
+                    file_entry["count"] = len(getattr(video, definition["count_attr"]))
+                
+                manifest["files"][key] = file_entry
+
         with open(paths["manifest"], 'w', encoding='utf-8') as f:
             json.dump(manifest, f, indent=2)
-        
-        # 8. Chimera-compatible format (if requested)
-        if include_chimera_format:
-            chimera_path = paths["directory"] / "chimera_format.json"
-            chimera_data = self._to_chimera_format(video)
-            with open(chimera_path, 'w', encoding='utf-8') as f:
-                json.dump(chimera_data, f, indent=2)
-            paths["chimera"] = chimera_path
-        
-        logger.info(f"Saved all formats to: {paths['directory']}")
-        
-        return paths
+
+    def _save_chimera_file(self, video: VideoIntelligence, paths: Dict[str, Path]):
+        """Saves the Chimera-compatible format file."""
+        chimera_path = paths["directory"] / "chimera_format.json"
+        chimera_data = self._to_chimera_format(video)
+        with open(chimera_path, 'w', encoding='utf-8') as f:
+            json.dump(chimera_data, f, indent=2)
+        paths["chimera"] = chimera_path
     
     # Chimera-compatible interface methods
     
@@ -1329,3 +1193,133 @@ class VideoIntelligenceRetriever:
         gexf_content += '</gexf>\n'
         
         return gexf_content 
+
+    def _save_entity_sources_file(self, video: VideoIntelligence, paths: Dict[str, Path]):
+        """Save a detailed file showing which extraction method found each entity."""
+        entities_with_sources = []
+        
+        # Track entities by source (including combined sources from normalization)
+        sources = {
+            "SpaCy": [],
+            "GLiNER": [], 
+            "REBEL": [],
+            "SpaCy+GLiNER": [],
+            "SpaCy+REBEL": [],
+            "GLiNER+REBEL": [],
+            "SpaCy+GLiNER+REBEL": [],
+            "Unknown": []
+        }
+        
+        normalization_stats = {
+            "total_normalized": 0,
+            "entities_with_multiple_sources": 0,
+            "entities_with_aliases": 0
+        }
+        
+        for entity in video.entities:
+            # Determine source from properties
+            source = "Unknown"
+            aliases = []
+            original_names = []
+            
+            if hasattr(entity, 'properties') and entity.properties:
+                # Check for multiple sources (from entity normalization)
+                if 'sources' in entity.properties:
+                    source_list = entity.properties['sources']
+                    source = '+'.join(sorted(source_list))
+                    normalization_stats["entities_with_multiple_sources"] += 1
+                elif 'source' in entity.properties:
+                    source = entity.properties['source']
+                else:
+                    source = 'SpaCy'  # Default assumption
+                    
+                # Get aliases if available (from normalization)
+                if 'aliases' in entity.properties:
+                    aliases = entity.properties['aliases']
+                    if aliases:
+                        normalization_stats["entities_with_aliases"] += 1
+                        
+                # Get original names if available
+                if 'original_names' in entity.properties:
+                    original_names = entity.properties['original_names']
+            
+            entity_info = {
+                "name": entity.name,
+                "type": entity.type,
+                "confidence": round(entity.confidence, 3),
+                "source": source,
+                "extraction_methods": source.split('+') if '+' in source else [source],
+                "aliases": aliases,
+                "original_names": original_names,
+                "is_normalized": '+' in source or bool(aliases)
+            }
+            
+            if entity_info["is_normalized"]:
+                normalization_stats["total_normalized"] += 1
+            
+            entities_with_sources.append(entity_info)
+            
+            # Add to appropriate source bucket
+            if source in sources:
+                sources[source].append(entity_info)
+            else:
+                sources["Unknown"].append(entity_info)
+        
+        # Create comprehensive summary
+        summary = {
+            "total_entities": len(entities_with_sources),
+            "normalization_applied": True,
+            "normalization_stats": normalization_stats,
+            "by_source": {
+                source: {
+                    "count": len(items),
+                    "percentage": round((len(items) / len(entities_with_sources)) * 100, 1) if entities_with_sources else 0
+                }
+                for source, items in sources.items() if items
+            },
+            "by_type": {},
+            "extraction_methods": {
+                "SpaCy": "Basic Named Entity Recognition (free, local)",
+                "GLiNER": "Custom entity detection (local model)", 
+                "REBEL": "Relationship extraction (local model)",
+                "Combined": "Entities found by multiple methods and normalized"
+            },
+            "quality_metrics": {
+                "average_confidence": round(sum(e['confidence'] for e in entities_with_sources) / len(entities_with_sources), 3) if entities_with_sources else 0,
+                "high_confidence_entities": len([e for e in entities_with_sources if e['confidence'] > 0.8]),
+                "normalized_entities": normalization_stats["total_normalized"]
+            }
+        }
+        
+        # Count by type
+        for entity in video.entities:
+            entity_type = entity.type
+            summary["by_type"][entity_type] = summary["by_type"].get(entity_type, 0) + 1
+        
+        # Save detailed JSON
+        output_file = paths['entity_sources_json']
+        with open(output_file, 'w', encoding='utf-8') as f:
+            json.dump({
+                "summary": summary,
+                "all_entities": entities_with_sources,
+                "by_source": {k: v for k, v in sources.items() if v}
+            }, f, indent=2, ensure_ascii=False)
+        
+        logger.info(f"Saved enhanced entity sources to {output_file}")
+        
+        # Save CSV for analysis
+        csv_file = paths['entity_sources_csv']
+        with open(csv_file, 'w', encoding='utf-8', newline='') as f:
+            fieldnames = ['name', 'type', 'confidence', 'source', 'extraction_methods', 'aliases', 'is_normalized']
+            writer = csv.DictWriter(f, fieldnames=fieldnames)
+            writer.writeheader()
+            
+            for entity in entities_with_sources:
+                # Convert lists to strings for CSV
+                csv_entity = entity.copy()
+                csv_entity['extraction_methods'] = '|'.join(entity['extraction_methods'])
+                csv_entity['aliases'] = '|'.join(entity['aliases']) if entity['aliases'] else ''
+                del csv_entity['original_names']  # Too complex for CSV
+                writer.writerow(csv_entity)
+        
+        logger.info(f"Saved entity sources CSV to {csv_file} with normalization info") 

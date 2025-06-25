@@ -12,6 +12,8 @@ output/
     ├── metadata.json           # Lightweight video and processing metadata
     ├── entities.json           # All extracted entities (from all sources)
     ├── entities.csv            # Entities in CSV format for spreadsheets
+    ├── entity_sources.json     # NEW: Entity source tracking (SpaCy/GLiNER/REBEL)
+    ├── entity_sources.csv      # NEW: Entity sources in CSV format
     ├── relationships.json      # All extracted entity relationships
     ├── relationships.csv       # Relationships in CSV format for spreadsheets
     ├── knowledge_graph.json    # Graph data (nodes and edges)
@@ -44,7 +46,14 @@ A lightweight JSON file providing high-level information at a glance:
 A complete list of all entities extracted from the video.
 - **`entities.json`**: Detailed JSON output with `name`, `type`, `confidence`, `source`, and raw `properties`.
 - **`entities.csv`**: A spreadsheet-friendly format containing the most important fields.
-- **Source Tracking**: Both formats include the source of the entity (e.g., `SpaCy`, `GLiNER`, `LLM`) for pipeline transparency.
+- **Source Tracking**: Both formats include the source of the entity (e.g., `SpaCy`, `GLiNER`, `REBEL`) for pipeline transparency.
+
+### entity_sources.json / entity_sources.csv (**NEW in v2.10.1**)
+Detailed breakdown of which extraction method found each entity.
+- **`entity_sources.json`**: Complete analysis with counts by source and full entity details.
+- **`entity_sources.csv`**: Simple spreadsheet format for quick analysis.
+- **Pipeline Transparency**: Shows exactly how many entities came from SpaCy (basic NER), GLiNER (custom), or REBEL (relationships).
+- **Quality Analysis**: Helps identify which extraction methods are most effective for different content types.
 
 ### relationships.json / relationships.csv
 A list of all semantic relationships (subject-predicate-object triples) extracted.
@@ -101,6 +110,11 @@ output/20250624_youtube_UjDpW_SOrlw/
 ```
 
 ## Format Changes
+
+### v2.10.1 Enhancements
+- **entity_sources.json/csv**: NEW files providing detailed breakdown of which extraction method found each entity.
+- **Model Caching**: Significant performance improvements for batch processing through model reuse.
+- **Error Handling**: Improved retry logic for download failures and better error recovery.
 
 ### v2.5.4 Enhancements
 - **report.md**: Became fully interactive with Mermaid diagrams and collapsible sections.

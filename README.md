@@ -1,11 +1,11 @@
-# ClipScribe v2.8.0
+# ClipScribe v2.10.1
 
 <p align="center">
   <strong>AI-powered video intelligence for 1800+ platforms</strong>
 </p>
 
 <p align="center">
-  <em>Now with an Interactive Web UI, Rich Progress Indicators & Interactive Markdown Reports 🚀</em>
+  <em>Now with Entity Source Tracking, Model Caching & Enhanced Performance 🚀</em>
 </p>
 
 <p align="center">
@@ -35,10 +35,24 @@ ClipScribe is a modern video intelligence tool that leverages Google's Gemini to
 - 📈 **Multiple Data Formats** - Export to TXT, JSON, CSV, GEXF, and interactive Markdown.
 - 🔗 **Full Knowledge Extraction** - Extracts entities, relationships, topics, and key points to build a complete knowledge graph.
 - 🔒 **Data Integrity** - Manifest files include SHA256 checksums for all outputs.
+- 🎯 **Entity Source Tracking** - Track which extraction method (SpaCy, GLiNER, REBEL) found each entity.
+- ⚡ **Performance Optimized** - Model caching provides 3-5x faster batch processing.
 
-## 🎉 What's New in v2.8.0
+## 🎉 What's New in v2.10.1
 
-The latest versions of ClipScribe introduce major enhancements for usability and power:
+The latest version introduces major performance improvements and transparency features:
+
+### 🎯 Entity Source Tracking (v2.10.1)
+- **Pipeline Transparency**: New `entity_sources.json` and `entity_sources.csv` files show which extraction method found each entity.
+- **Quality Analysis**: Understand the contribution of SpaCy (basic NER), GLiNER (custom entities), and REBEL (relationships).
+- **Performance Insights**: Identify which extractors work best for different content types.
+
+### ⚡ Performance Optimizations (v2.10.1)
+- **Model Caching**: Singleton pattern prevents repeated model loading in batch processing (3-5x performance improvement).
+- **Retry Logic**: Automatic retry for ffmpeg errors with exponential backoff.
+- **Warning Suppression**: Cleaned up console output by suppressing harmless tokenizer warnings.
+
+The latest versions of ClipScribe also include these major enhancements:
 
 ### 🖥️ Interactive Web UI (v2.8.0)
 - **Run in Browser**: A new Streamlit-based web app (`app.py`) provides a graphical interface for ClipScribe.
@@ -57,7 +71,7 @@ The latest versions of ClipScribe introduce major enhancements for usability and
 
 ## 📋 Requirements
 
-- Python 3.11+
+- Python 3.12+ (3.13 supported)
 - A Google API key with Gemini access enabled.
 - [FFmpeg](https://ffmpeg.org/download.html) installed on your system.
 
@@ -125,10 +139,11 @@ We provide comprehensive examples to help you get started:
 - **[Advanced Features Demo](examples/advanced_features_demo.py)** - A menu-driven demo of all advanced features.
 - **[Batch Processing](examples/batch_processing.py)** - Process multiple videos efficiently
 - **[Cost Optimization](examples/cost_optimization.py)** - Strategies to minimize costs
-- **[Output Formats](examples/output_formats.py)** - Export in various formats (TXT, SRT, JSON, etc.)
+- **[Output Formats](examples/output_formats.py)** - Export in various formats (TXT, JSON, CSV, GEXF, etc.)
 - **[CLI Usage](examples/cli_usage.py)** - Complete command-line reference
 - **[Multi-Platform Demo](examples/multi_platform_demo.py)** - Working with 1800+ platforms
 - **[Video Intelligence Demo](examples/video_intelligence_demo.py)** - Advanced analysis features
+- **[Video Mode Demo](examples/video_mode_demo.py)** - Demonstrates audio vs. video processing modes.
 
 Run any example:
 ```bash
@@ -222,25 +237,13 @@ retriever = VideoIntelligenceRetriever(
 poetry run python examples/advanced_features_demo.py
 ```
 
-## 🤝 Contributing
-
-We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details on setting up your development environment.
-
-```bash
-# Run tests
-poetry run pytest
-
-# Format code
-poetry run black src tests
-poetry run isort src tests
-
-# Type check
-poetry run mypy src
-```
-
 ## 🛠️ Development
 
 **ClipScribe was developed 100% in [Cursor](https://cursor.sh/)** - an AI-powered code editor. Every line of code, documentation, and example was written with AI assistance, demonstrating the power of AI-augmented development.
+
+## Versioning
+
+This project follows [Semantic Versioning](https://semver.org). The current version is maintained in `pyproject.toml` and `src/clipscribe/version.py`. All changes are documented in `CHANGELOG.md`.
 
 ## 📄 License
 
