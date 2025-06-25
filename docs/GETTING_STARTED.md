@@ -201,11 +201,39 @@ Example for 1-hour timeout:
 GEMINI_REQUEST_TIMEOUT=3600
 ```
 
+## 5. Running ClipScribe
+
+You can now run ClipScribe using two methods:
+
+### Via Command-Line
+
+To transcribe a single video, use the `transcribe` command:
+
+```bash
+poetry run clipscribe transcribe "https://www.youtube.com/watch?v=your_video_id"
+```
+
+To research a topic across multiple videos, use the `research` command:
+
+```bash
+poetry run clipscribe research "your search query"
+```
+
+### Via Web UI (New in v2.8.0)
+
+To launch the interactive web application, run the following command from the project root:
+
+```bash
+poetry run streamlit run app.py
+```
+
+This will open a new tab in your web browser where you can paste a video URL and see the results interactively.
+
 ## What's Next?
 
-- Read the [CLI Reference](CLI_REFERENCE.md) for all commands
-- Check [Supported Platforms](PLATFORMS.md) for a full list
-- See [Development Guide](DEVELOPMENT.md) to contribute
+- Explore the different output formats in the [Output Formats Guide](OUTPUT_FORMATS.md).
+- See all available commands in the [CLI Reference](CLI_REFERENCE.md).
+- Check out the `examples/` directory for more advanced use cases.
 
 ## Getting Help
 

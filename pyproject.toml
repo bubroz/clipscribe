@@ -102,6 +102,8 @@ aiofiles = "^23.0.0"
 pyyaml = "^6.0.0"
 pyvis = "^0.3.2"
 plotly = "^6.1.2"
+httpx = "0.23.3"
+streamlit = "^1.46.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.10.0"

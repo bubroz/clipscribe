@@ -1,0 +1,1449 @@
+{
+  "video_url": "https://www.youtube.com/watch?v=UjDpW_SOrlw",
+  "video_title": "Code a Discord Chat Bot That Talks Like Your Favorite Character - Tutorial",
+  "relationships": [
+    {
+      "subject": "Discord bot",
+      "predicate": "artificial intelligence",
+      "object": "use",
+      "confidence": 0.9,
+      "context": "Want to make a Discord bot that talks like characters from Rick and Morty or Harry Potter? Maybe you"
+    },
+    {
+      "subject": "Discord bot",
+      "predicate": "instance of",
+      "object": "artificial intelligence",
+      "confidence": 0.9,
+      "context": "Want to make a Discord bot that talks like characters from Rick and Morty or Harry Potter? Maybe you"
+    },
+    {
+      "subject": "Discord bot",
+      "predicate": "artificial intelligence",
+      "object": "uses",
+      "confidence": 0.9,
+      "context": "Want to make a Discord bot that talks like characters from Rick and Morty or Harry Potter? Maybe you"
+    },
+    {
+      "subject": "chatbot",
+      "predicate": "AI",
+      "object": "subclass of",
+      "confidence": 0.9,
+      "context": "I'm a software engineer, hobbyist game developer, and recent graduate from the University of Chicago"
+    },
+    {
+      "subject": "Discord",
+      "predicate": "instance of",
+      "object": "chatbot",
+      "confidence": 0.9,
+      "context": "I'm a software engineer, hobbyist game developer, and recent graduate from the University of Chicago"
+    },
+    {
+      "subject": "Discord",
+      "predicate": "instance of",
+      "object": "AI chatbot",
+      "confidence": 0.9,
+      "context": "I'm a software engineer, hobbyist game developer, and recent graduate from the University of Chicago"
+    },
+    {
+      "subject": "Python",
+      "predicate": "influenced by",
+      "object": "JavaScript",
+      "confidence": 0.9,
+      "context": "So keep watching till the end.\n\nThe original tutorial and my first Discord bot started as a joke bet"
+    },
+    {
+      "subject": "JavaScript",
+      "predicate": "influenced by",
+      "object": "Python",
+      "confidence": 0.9,
+      "context": "So keep watching till the end.\n\nThe original tutorial and my first Discord bot started as a joke bet"
+    },
+    {
+      "subject": "Discord",
+      "predicate": "Python",
+      "object": "programming language",
+      "confidence": 0.9,
+      "context": "So keep watching till the end.\n\nThe original tutorial and my first Discord bot started as a joke bet"
+    },
+    {
+      "subject": "research process",
+      "predicate": "research",
+      "object": "subclass of",
+      "confidence": 0.9,
+      "context": "And my research process goes like this."
+    },
+    {
+      "subject": "research process",
+      "predicate": "research",
+      "object": "facet of",
+      "confidence": 0.9,
+      "context": "And my research process goes like this."
+    },
+    {
+      "subject": "research",
+      "predicate": "process",
+      "object": "subclass of",
+      "confidence": 0.9,
+      "context": "And my research process goes like this."
+    },
+    {
+      "subject": "data set",
+      "predicate": "chatbot",
+      "object": "facet of",
+      "confidence": 0.9,
+      "context": "I first search on Kaggle to see if there are pre-made dialogue data set.\n\nFor example, if we search "
+    },
+    {
+      "subject": "data set",
+      "predicate": "chatbot",
+      "object": "use",
+      "confidence": 0.9,
+      "context": "I first search on Kaggle to see if there are pre-made dialogue data set.\n\nFor example, if we search "
+    },
+    {
+      "subject": "data set",
+      "predicate": "has part",
+      "object": "dialogue",
+      "confidence": 0.9,
+      "context": "I first search on Kaggle to see if there are pre-made dialogue data set.\n\nFor example, if we search "
+    },
+    {
+      "subject": "Peppa Pig",
+      "predicate": "instance of",
+      "object": "video game",
+      "confidence": 0.9,
+      "context": "So these dialogue data sets on Kaggle are perfect for our requirement.\n\nAll right, if we succeeded i"
+    },
+    {
+      "subject": "Peppa Pig",
+      "predicate": "video game",
+      "object": "genre",
+      "confidence": 0.9,
+      "context": "So these dialogue data sets on Kaggle are perfect for our requirement.\n\nAll right, if we succeeded i"
+    },
+    {
+      "subject": "Batman",
+      "predicate": "instance of",
+      "object": "movies",
+      "confidence": 0.9,
+      "context": "And I've found that Transcript Wiki has some great resources.\n\nSo here we have a list of movies, sho"
+    },
+    {
+      "subject": "Batman",
+      "predicate": "instance of",
+      "object": "movie",
+      "confidence": 0.9,
+      "context": "And I've found that Transcript Wiki has some great resources.\n\nSo here we have a list of movies, sho"
+    },
+    {
+      "subject": "Peppa Pig",
+      "predicate": "Batman",
+      "object": "present in work",
+      "confidence": 0.9,
+      "context": "And I've found that Transcript Wiki has some great resources.\n\nSo here we have a list of movies, sho"
+    },
+    {
+      "subject": "The Word Ends With You",
+      "predicate": "instance of",
+      "object": "game",
+      "confidence": 0.9,
+      "context": "We will see shortly how to turn a raw transcript like this into a data set like those we saw on Kagg"
+    },
+    {
+      "subject": "The Word Ends With You",
+      "predicate": "instance of",
+      "object": "fandom website",
+      "confidence": 0.9,
+      "context": "We will see shortly how to turn a raw transcript like this into a data set like those we saw on Kagg"
+    },
+    {
+      "subject": "The Word Ends With You",
+      "predicate": "Google",
+      "object": "distributed by",
+      "confidence": 0.9,
+      "context": "We will see shortly how to turn a raw transcript like this into a data set like those we saw on Kagg"
+    },
+    {
+      "subject": "chatbot",
+      "predicate": "text messages",
+      "object": "uses",
+      "confidence": 0.9,
+      "context": "So be sure to utilize your Google search skills to find data for your character.\n\nIf, rather than fi"
+    },
+    {
+      "subject": "text messages",
+      "predicate": "chatbot",
+      "object": "used by",
+      "confidence": 0.9,
+      "context": "So be sure to utilize your Google search skills to find data for your character.\n\nIf, rather than fi"
+    },
+    {
+      "subject": "chatbot",
+      "predicate": "dialogues",
+      "object": "uses",
+      "confidence": 0.9,
+      "context": "So be sure to utilize your Google search skills to find data for your character.\n\nIf, rather than fi"
+    },
+    {
+      "subject": "dialogues",
+      "predicate": "chatbot",
+      "object": "used by",
+      "confidence": 0.9,
+      "context": "So be sure to utilize your Google search skills to find data for your character.\n\nIf, rather than fi"
+    },
+    {
+      "subject": "chatbot",
+      "predicate": "text message",
+      "object": "uses",
+      "confidence": 0.9,
+      "context": "So be sure to utilize your Google search skills to find data for your character.\n\nIf, rather than fi"
+    },
+    {
+      "subject": "text message",
+      "predicate": "chatbot",
+      "object": "used by",
+      "confidence": 0.9,
+      "context": "So be sure to utilize your Google search skills to find data for your character.\n\nIf, rather than fi"
+    },
+    {
+      "subject": "parse_script",
+      "predicate": "part of",
+      "object": "Google Colab",
+      "confidence": 0.9,
+      "context": "And now we will look at how to turn raw transcript into data set.\n\nNow, suppose we have found our ra"
+    },
+    {
+      "subject": "two-column",
+      "predicate": "character-line",
+      "object": "subclass of",
+      "confidence": 0.9,
+      "context": "And now we will look at how to turn raw transcript into data set.\n\nNow, suppose we have found our ra"
+    },
+    {
+      "subject": "two-column",
+      "predicate": "data set",
+      "object": "subclass of",
+      "confidence": 0.9,
+      "context": "And now we will look at how to turn raw transcript into data set.\n\nNow, suppose we have found our ra"
+    },
+    {
+      "subject": "Google Colab",
+      "predicate": "has part",
+      "object": "Google Drive",
+      "confidence": 0.9,
+      "context": "And we are going to from Google Colab import drive, and then call drive.mount content drive.\n\nThis w"
+    },
+    {
+      "subject": "Google Drive",
+      "predicate": "part of",
+      "object": "Google Colab",
+      "confidence": 0.9,
+      "context": "And we are going to from Google Colab import drive, and then call drive.mount content drive.\n\nThis w"
+    },
+    {
+      "subject": "Google Colab",
+      "predicate": "part of",
+      "object": "Google Drive",
+      "confidence": 0.9,
+      "context": "And we are going to from Google Colab import drive, and then call drive.mount content drive.\n\nThis w"
+    },
+    {
+      "subject": "Google Drive",
+      "predicate": "has part",
+      "object": "Google Colab",
+      "confidence": 0.9,
+      "context": "And we are going to from Google Colab import drive, and then call drive.mount content drive.\n\nThis w"
+    },
+    {
+      "subject": "Google Colab",
+      "predicate": "Google Drive",
+      "object": "use",
+      "confidence": 0.9,
+      "context": "And we are going to from Google Colab import drive, and then call drive.mount content drive.\n\nThis w"
+    },
+    {
+      "subject": "pandas",
+      "predicate": "CSV",
+      "object": "uses",
+      "confidence": 0.9,
+      "context": "Yeah, we have our peppapig.txt.\n\nSo here we are going to import regular expression to parse our tran"
+    },
+    {
+      "subject": "CSV",
+      "predicate": "pandas",
+      "object": "used by",
+      "confidence": 0.9,
+      "context": "Yeah, we have our peppapig.txt.\n\nSo here we are going to import regular expression to parse our tran"
+    },
+    {
+      "subject": "pandas",
+      "predicate": "CSV file",
+      "object": "uses",
+      "confidence": 0.9,
+      "context": "Yeah, we have our peppapig.txt.\n\nSo here we are going to import regular expression to parse our tran"
+    },
+    {
+      "subject": "CSV file",
+      "predicate": "pandas",
+      "object": "used by",
+      "confidence": 0.9,
+      "context": "Yeah, we have our peppapig.txt.\n\nSo here we are going to import regular expression to parse our tran"
+    },
+    {
+      "subject": "Peppa Pig",
+      "predicate": "has part",
+      "object": "Mama Pig",
+      "confidence": 0.9,
+      "context": "If we take the pattern to this site, and our test string is Peppa Pig,\n\nyou will see that we have tw"
+    },
+    {
+      "subject": "Mama Pig",
+      "predicate": "part of",
+      "object": "Peppa Pig",
+      "confidence": 0.9,
+      "context": "If we take the pattern to this site, and our test string is Peppa Pig,\n\nyou will see that we have tw"
+    },
+    {
+      "subject": "Peppa Pig",
+      "predicate": "Mama Pig",
+      "object": "characters",
+      "confidence": 0.9,
+      "context": "If we take the pattern to this site, and our test string is Peppa Pig,\n\nyou will see that we have tw"
+    },
+    {
+      "subject": "Mama Pig",
+      "predicate": "Peppa Pig",
+      "object": "present in work",
+      "confidence": 0.9,
+      "context": "If we take the pattern to this site, and our test string is Peppa Pig,\n\nyou will see that we have tw"
+    },
+    {
+      "subject": "Peppa Pig",
+      "predicate": "Mama Pig",
+      "object": "mother",
+      "confidence": 0.9,
+      "context": "If we take the pattern to this site, and our test string is Peppa Pig,\n\nyou will see that we have tw"
+    },
+    {
+      "subject": "Mama Pig",
+      "predicate": "Peppa Pig",
+      "object": "child",
+      "confidence": 0.9,
+      "context": "If we take the pattern to this site, and our test string is Peppa Pig,\n\nyou will see that we have tw"
+    },
+    {
+      "subject": "result data frame",
+      "predicate": "data frame",
+      "object": "subclass of",
+      "confidence": 0.9,
+      "context": "So we know that we need the column name and the column line in our result data frame.\n\nAnd now we op"
+    },
+    {
+      "subject": "result data frame",
+      "predicate": "instance of",
+      "object": "data frame",
+      "confidence": 0.9,
+      "context": "So we know that we need the column name and the column line in our result data frame.\n\nAnd now we op"
+    },
+    {
+      "subject": "parametric",
+      "predicate": "regular expression",
+      "object": "subclass of",
+      "confidence": 0.9,
+      "context": "So we know that we need the column name and the column line in our result data frame.\n\nAnd now we op"
+    },
+    {
+      "subject": "Peppa Pig",
+      "predicate": "George",
+      "object": "sibling",
+      "confidence": 0.9,
+      "context": "So we have the name is Peppa Pig saying that \"I'm Peppa Pig,\" and then George makes a sound and Mama"
+    },
+    {
+      "subject": "Mama Pig",
+      "predicate": "sibling",
+      "object": "George",
+      "confidence": 0.9,
+      "context": "So we have the name is Peppa Pig saying that \"I'm Peppa Pig,\" and then George makes a sound and Mama"
+    },
+    {
+      "subject": "Peppa Pig",
+      "predicate": "sibling",
+      "object": "Peppa Pig",
+      "confidence": 0.9,
+      "context": "So we have the name is Peppa Pig saying that \"I'm Peppa Pig,\" and then George makes a sound and Mama"
+    },
+    {
+      "subject": "sibling",
+      "predicate": "Peppa Pig",
+      "object": "sibling",
+      "confidence": 0.9,
+      "context": "So we have the name is Peppa Pig saying that \"I'm Peppa Pig,\" and then George makes a sound and Mama"
+    },
+    {
+      "subject": "Mama Pig",
+      "predicate": "sibling",
+      "object": "Mama Pig",
+      "confidence": 0.9,
+      "context": "So we have the name is Peppa Pig saying that \"I'm Peppa Pig,\" and then George makes a sound and Mama"
+    },
+    {
+      "subject": "George",
+      "predicate": "sibling",
+      "object": "Mama Pig",
+      "confidence": 0.9,
+      "context": "So we have the name is Peppa Pig saying that \"I'm Peppa Pig,\" and then George makes a sound and Mama"
+    },
+    {
+      "subject": "Peppa Pig",
+      "predicate": "sibling",
+      "object": "Mama Pig",
+      "confidence": 0.9,
+      "context": "So we have the name is Peppa Pig saying that \"I'm Peppa Pig,\" and then George makes a sound and Mama"
+    },
+    {
+      "subject": "sibling",
+      "predicate": "Mama Pig",
+      "object": "Peppa Pig",
+      "confidence": 0.9,
+      "context": "So we have the name is Peppa Pig saying that \"I'm Peppa Pig,\" and then George makes a sound and Mama"
+    },
+    {
+      "subject": "sibling",
+      "predicate": "George",
+      "object": "sibling",
+      "confidence": 0.9,
+      "context": "So we have the name is Peppa Pig saying that \"I'm Peppa Pig,\" and then George makes a sound and Mama"
+    },
+    {
+      "subject": "train the model",
+      "predicate": "has part",
+      "object": "model training",
+      "confidence": 0.9,
+      "context": "So DF.to_csv, the name will be peppapig.csv, and and we will drop the index. Cool. Now we should hav"
+    },
+    {
+      "subject": "model training",
+      "predicate": "part of",
+      "object": "train the model",
+      "confidence": 0.9,
+      "context": "So DF.to_csv, the name will be peppapig.csv, and and we will drop the index. Cool. Now we should hav"
+    },
+    {
+      "subject": "train the model",
+      "predicate": "model training",
+      "object": "subclass of",
+      "confidence": 0.9,
+      "context": "So DF.to_csv, the name will be peppapig.csv, and and we will drop the index. Cool. Now we should hav"
+    },
+    {
+      "subject": "train the model",
+      "predicate": "model training",
+      "object": "use",
+      "confidence": 0.9,
+      "context": "So DF.to_csv, the name will be peppapig.csv, and and we will drop the index. Cool. Now we should hav"
+    },
+    {
+      "subject": "GPUs",
+      "predicate": "driver",
+      "object": "used by",
+      "confidence": 0.9,
+      "context": "Make sure to select GPU because this will accelerate our model training.\n\nSo now here we mount the d"
+    },
+    {
+      "subject": "driver",
+      "predicate": "GPUs",
+      "object": "uses",
+      "confidence": 0.9,
+      "context": "Make sure to select GPU because this will accelerate our model training.\n\nSo now here we mount the d"
+    },
+    {
+      "subject": "transformers",
+      "predicate": "part of",
+      "object": "GPUs",
+      "confidence": 0.9,
+      "context": "Make sure to select GPU because this will accelerate our model training.\n\nSo now here we mount the d"
+    },
+    {
+      "subject": "harry_potter_1",
+      "predicate": "Kaggle",
+      "object": "use",
+      "confidence": 0.9,
+      "context": "So go to our Kaggle profile, go to account, scroll down to the API key section, create a new API tok"
+    },
+    {
+      "subject": "harry_potter_1",
+      "predicate": "part of",
+      "object": "Harry Potter",
+      "confidence": 0.9,
+      "context": "So go to our Kaggle profile, go to account, scroll down to the API key section, create a new API tok"
+    },
+    {
+      "subject": "harry_potter_1",
+      "predicate": "Harry Potter",
+      "object": "main subject",
+      "confidence": 0.9,
+      "context": "So go to our Kaggle profile, go to account, scroll down to the API key section, create a new API tok"
+    },
+    {
+      "subject": "CSV",
+      "predicate": "instance of",
+      "object": "data frame",
+      "confidence": 0.9,
+      "context": "So let's inspect the content of our data file.\n\nWell, CSV files are usually separated by commas, has"
+    },
+    {
+      "subject": "data frame",
+      "predicate": "has part",
+      "object": "lines",
+      "confidence": 0.9,
+      "context": "We want the two columns of our data frame to be named as name and line as used down here in this cel"
+    },
+    {
+      "subject": "lines",
+      "predicate": "part of",
+      "object": "data frame",
+      "confidence": 0.9,
+      "context": "We want the two columns of our data frame to be named as name and line as used down here in this cel"
+    },
+    {
+      "subject": "data frame",
+      "predicate": "has part",
+      "object": "line",
+      "confidence": 0.9,
+      "context": "We want the two columns of our data frame to be named as name and line as used down here in this cel"
+    },
+    {
+      "subject": "line",
+      "predicate": "part of",
+      "object": "data frame",
+      "confidence": 0.9,
+      "context": "We want the two columns of our data frame to be named as name and line as used down here in this cel"
+    },
+    {
+      "subject": "data frame",
+      "predicate": "lines",
+      "object": "has parts of the class",
+      "confidence": 0.9,
+      "context": "We want the two columns of our data frame to be named as name and line as used down here in this cel"
+    },
+    {
+      "subject": "Harry",
+      "predicate": "instance of",
+      "object": "conversational chatbot",
+      "confidence": 0.9,
+      "context": "So here we change our character name to Harry, and we now run this cell to create a context data fra"
+    },
+    {
+      "subject": "conversational",
+      "predicate": "chatbot",
+      "object": "subclass of",
+      "confidence": 0.9,
+      "context": "So here we change our character name to Harry, and we now run this cell to create a context data fra"
+    },
+    {
+      "subject": "context data frame",
+      "predicate": "conversational chatbot",
+      "object": "use",
+      "confidence": 0.9,
+      "context": "So here we change our character name to Harry, and we now run this cell to create a context data fra"
+    },
+    {
+      "subject": "training set",
+      "predicate": "data set",
+      "object": "subclass of",
+      "confidence": 0.9,
+      "context": "So in the context of clearly something something, our character responds with \"Seems a pity not to a"
+    },
+    {
+      "subject": "test set",
+      "predicate": "data set",
+      "object": "subclass of",
+      "confidence": 0.9,
+      "context": "So in the context of clearly something something, our character responds with \"Seems a pity not to a"
+    },
+    {
+      "subject": "GPT small",
+      "predicate": "Microsoft",
+      "object": "developer",
+      "confidence": 0.9,
+      "context": "We want the conversation to be more organic.\n\nSo we're only training the model on the training set a"
+    },
+    {
+      "subject": "pre-trained",
+      "predicate": "training",
+      "object": "subclass of",
+      "confidence": 0.9,
+      "context": "We want the conversation to be more organic.\n\nSo we're only training the model on the training set a"
+    },
+    {
+      "subject": "small",
+      "predicate": "parameters",
+      "object": "subclass of",
+      "confidence": 0.9,
+      "context": "We want the conversation to be more organic.\n\nSo we're only training the model on the training set a"
+    },
+    {
+      "subject": "My production chatbot",
+      "predicate": "instance of",
+      "object": "medium model",
+      "confidence": 0.9,
+      "context": "Generally, the larger the model, the longer it takes to train, but the smarter the model can get.\n\nI"
+    },
+    {
+      "subject": "My production chatbot",
+      "predicate": "medium model",
+      "object": "use",
+      "confidence": 0.9,
+      "context": "Generally, the larger the model, the longer it takes to train, but the smarter the model can get.\n\nI"
+    },
+    {
+      "subject": "My production chatbot medium model",
+      "predicate": "instance of",
+      "object": "instance of medium model",
+      "confidence": 0.9,
+      "context": "Generally, the larger the model, the longer it takes to train, but the smarter the model can get.\n\nI"
+    },
+    {
+      "subject": "num_train_epochs",
+      "predicate": "instance of",
+      "object": "hyperparameters",
+      "confidence": 0.9,
+      "context": "For this tutorial, for the sake of time, I'm training just a small model.\n\nYou can see here it's dow"
+    },
+    {
+      "subject": "training epochs",
+      "predicate": "hyperparameters",
+      "object": "subclass of",
+      "confidence": 0.9,
+      "context": "For this tutorial, for the sake of time, I'm training just a small model.\n\nYou can see here it's dow"
+    },
+    {
+      "subject": "num_train_epochs",
+      "predicate": "instance of",
+      "object": "hyperparameter",
+      "confidence": 0.9,
+      "context": "For this tutorial, for the sake of time, I'm training just a small model.\n\nYou can see here it's dow"
+    },
+    {
+      "subject": "batch size",
+      "predicate": "hyperparameter",
+      "object": "subclass of",
+      "confidence": 0.9,
+      "context": "As long as the model is not overfitting, increasing the number of training epochs usually results in"
+    },
+    {
+      "subject": "batch size",
+      "predicate": "instance of",
+      "object": "hyperparameter",
+      "confidence": 0.9,
+      "context": "As long as the model is not overfitting, increasing the number of training epochs usually results in"
+    },
+    {
+      "subject": "overfitting",
+      "predicate": "gradient",
+      "object": "has effect",
+      "confidence": 0.9,
+      "context": "As long as the model is not overfitting, increasing the number of training epochs usually results in"
+    },
+    {
+      "subject": "learning rate",
+      "predicate": "hyperparameters",
+      "object": "subclass of",
+      "confidence": 0.9,
+      "context": "I wouldn't recommend changing this unless you know what you're doing, since other hyperparameters li"
+    },
+    {
+      "subject": "learning rate",
+      "predicate": "instance of",
+      "object": "hyperparameters",
+      "confidence": 0.9,
+      "context": "I wouldn't recommend changing this unless you know what you're doing, since other hyperparameters li"
+    },
+    {
+      "subject": "learning rate",
+      "predicate": "hyperparameter",
+      "object": "subclass of",
+      "confidence": 0.9,
+      "context": "I wouldn't recommend changing this unless you know what you're doing, since other hyperparameters li"
+    },
+    {
+      "subject": "neurotransmitter",
+      "predicate": "neurotransmitter",
+      "object": "different from",
+      "confidence": 0.9,
+      "context": "Now let's run this main function.\n\nTraining will take some time. I trained my medium model for 12 ep"
+    },
+    {
+      "subject": "neurotransmitter",
+      "predicate": "neurotransmitter",
+      "object": "subclass of",
+      "confidence": 0.9,
+      "context": "Now let's run this main function.\n\nTraining will take some time. I trained my medium model for 12 ep"
+    },
+    {
+      "subject": "epoch",
+      "predicate": "part of",
+      "object": "data set",
+      "confidence": 0.9,
+      "context": "If a model has a large perplexity, it means that the model is pretty confused as to which words to c"
+    },
+    {
+      "subject": "train",
+      "predicate": "data set",
+      "object": "uses",
+      "confidence": 0.9,
+      "context": "If a model has a large perplexity, it means that the model is pretty confused as to which words to c"
+    },
+    {
+      "subject": "perplexity",
+      "predicate": "data set",
+      "object": "facet of",
+      "confidence": 0.9,
+      "context": "If a model has a large perplexity, it means that the model is pretty confused as to which words to c"
+    },
+    {
+      "subject": "How's Credence?",
+      "predicate": "instance of",
+      "object": "chatbot",
+      "confidence": 0.9,
+      "context": "But now that the training is complete, we can load and chat with the model here.\n\nAll right, let's c"
+    },
+    {
+      "subject": "Credence",
+      "predicate": "instance of",
+      "object": "chatbot",
+      "confidence": 0.9,
+      "context": "But now that the training is complete, we can load and chat with the model here.\n\nAll right, let's c"
+    },
+    {
+      "subject": "How's Credence?",
+      "predicate": "chatbot",
+      "object": "use",
+      "confidence": 0.9,
+      "context": "But now that the training is complete, we can load and chat with the model here.\n\nAll right, let's c"
+    },
+    {
+      "subject": "Hugging Face",
+      "predicate": "instance of",
+      "object": "chatbot",
+      "confidence": 0.9,
+      "context": "Now we can push the model to Hugging Face and start building our Discord chatbot.\n\nAll right, now le"
+    },
+    {
+      "subject": "Hugging Face",
+      "predicate": "instance of",
+      "object": "command-line client",
+      "confidence": 0.9,
+      "context": "Now we can push the model to Hugging Face and start building our Discord chatbot.\n\nAll right, now le"
+    },
+    {
+      "subject": "Hugging Face",
+      "predicate": "chatbot",
+      "object": "use",
+      "confidence": 0.9,
+      "context": "Now we can push the model to Hugging Face and start building our Discord chatbot.\n\nAll right, now le"
+    },
+    {
+      "subject": "Git LFS",
+      "predicate": "instance of",
+      "object": "repository",
+      "confidence": 0.9,
+      "context": "Mine is going to be called dialogue_gpt_small_harry_potter.\n\nAnd our empty model repository is right"
+    },
+    {
+      "subject": "Git LFS",
+      "predicate": "part of",
+      "object": "Git",
+      "confidence": 0.9,
+      "context": "Mine is going to be called dialogue_gpt_small_harry_potter.\n\nAnd our empty model repository is right"
+    },
+    {
+      "subject": "Git LFS",
+      "predicate": "repository",
+      "object": "use",
+      "confidence": 0.9,
+      "context": "Mine is going to be called dialogue_gpt_small_harry_potter.\n\nAnd our empty model repository is right"
+    },
+    {
+      "subject": "Git",
+      "predicate": "commit",
+      "object": "uses",
+      "confidence": 0.9,
+      "context": "And we replace this token with the token we just copied from above.\n\nSo here's my username and my to"
+    },
+    {
+      "subject": "commit",
+      "predicate": "Git",
+      "object": "used by",
+      "confidence": 0.9,
+      "context": "And we replace this token with the token we just copied from above.\n\nSo here's my username and my to"
+    },
+    {
+      "subject": "dialogue_gpt_small",
+      "predicate": "Git add and commit",
+      "object": "use",
+      "confidence": 0.9,
+      "context": "And we replace this token with the token we just copied from above.\n\nSo here's my username and my to"
+    },
+    {
+      "subject": "Git",
+      "predicate": "commit",
+      "object": "use",
+      "confidence": 0.9,
+      "context": "And we replace this token with the token we just copied from above.\n\nSo here's my username and my to"
+    },
+    {
+      "subject": "Git",
+      "predicate": "has part",
+      "object": "Git LFS",
+      "confidence": 0.9,
+      "context": "We install the Git LFS and inspect the content of our current directory, which should be dialogue_gp"
+    },
+    {
+      "subject": "Git LFS",
+      "predicate": "Git",
+      "object": "used by",
+      "confidence": 0.9,
+      "context": "We install the Git LFS and inspect the content of our current directory, which should be dialogue_gp"
+    },
+    {
+      "subject": "Git",
+      "predicate": "Git LFS",
+      "object": "uses",
+      "confidence": 0.9,
+      "context": "We install the Git LFS and inspect the content of our current directory, which should be dialogue_gp"
+    },
+    {
+      "subject": "Git LFS",
+      "predicate": "Git",
+      "object": "use",
+      "confidence": 0.9,
+      "context": "We install the Git LFS and inspect the content of our current directory, which should be dialogue_gp"
+    },
+    {
+      "subject": "PyTorch",
+      "predicate": "instance of",
+      "object": "chatbot",
+      "confidence": 0.9,
+      "context": "And we commit with message \"Initial commit,\" and finally we push the model.\n\nIt's about 400 megabyte"
+    },
+    {
+      "subject": "PyTorch",
+      "predicate": "chatbot",
+      "object": "use",
+      "confidence": 0.9,
+      "context": "And we commit with message \"Initial commit,\" and finally we push the model.\n\nIt's about 400 megabyte"
+    },
+    {
+      "subject": "Chatbot",
+      "predicate": "chatbot",
+      "object": "subclass of",
+      "confidence": 0.9,
+      "context": "For that purpose, we need to edit the model card.\n\nSo we create a model card here, and we're putting"
+    },
+    {
+      "subject": "Chatbot",
+      "predicate": "chatbot",
+      "object": "use",
+      "confidence": 0.9,
+      "context": "For that purpose, we need to edit the model card.\n\nSo we create a model card here, and we're putting"
+    },
+    {
+      "subject": "Lynn's Dev Lab",
+      "predicate": "part of",
+      "object": "Discord",
+      "confidence": 0.9,
+      "context": "Here, on Discord, I have my server, Lynn's Dev Lab. I have two channels: one for the Python bot and "
+    },
+    {
+      "subject": "ChattyBot Python",
+      "predicate": "Python",
+      "object": "programming language",
+      "confidence": 0.9,
+      "context": "So our name will be ChattyBot Python.\n\nSo here we create a bot, and I'm going to name this Harry Pot"
+    },
+    {
+      "subject": "ChattyBot",
+      "predicate": "Python",
+      "object": "programming language",
+      "confidence": 0.9,
+      "context": "So our name will be ChattyBot Python.\n\nSo here we create a bot, and I'm going to name this Harry Pot"
+    },
+    {
+      "subject": "Harry Potter Bot Python",
+      "predicate": "Python",
+      "object": "programming language",
+      "confidence": 0.9,
+      "context": "So our name will be ChattyBot Python.\n\nSo here we create a bot, and I'm going to name this Harry Pot"
+    },
+    {
+      "subject": "Hugging Face",
+      "predicate": "part of",
+      "object": "Discord",
+      "confidence": 0.9,
+      "context": "So here is a tab for the secrets for the environment variables. So the first one will be huggingface"
+    },
+    {
+      "subject": "Hugging Face",
+      "predicate": "instance of",
+      "object": "API tokens",
+      "confidence": 0.9,
+      "context": "So here is a tab for the secrets for the environment variables. So the first one will be huggingface"
+    },
+    {
+      "subject": "Hugging Face profile",
+      "predicate": "instance of",
+      "object": "API tokens",
+      "confidence": 0.9,
+      "context": "So here is a tab for the secrets for the environment variables. So the first one will be huggingface"
+    },
+    {
+      "subject": "discord_bot",
+      "predicate": "Python",
+      "object": "programming language",
+      "confidence": 0.9,
+      "context": "We add the token here, and our environment variables are all set.\n\nNext, I have the Python file in m"
+    },
+    {
+      "subject": "github",
+      "predicate": "Python",
+      "object": "programming language",
+      "confidence": 0.9,
+      "context": "We add the token here, and our environment variables are all set.\n\nNext, I have the Python file in m"
+    },
+    {
+      "subject": "API endpoint",
+      "predicate": "part of",
+      "object": "API",
+      "confidence": 0.9,
+      "context": "And here I have my API URL pointing to my username.\n\nAnd we define a bot as follows. In the on_ready"
+    },
+    {
+      "subject": "Hugging Face",
+      "predicate": "API",
+      "object": "use",
+      "confidence": 0.9,
+      "context": "And here I have my API URL pointing to my username.\n\nAnd we define a bot as follows. In the on_ready"
+    },
+    {
+      "subject": "Hugging Face",
+      "predicate": "instance of",
+      "object": "API",
+      "confidence": 0.9,
+      "context": "And here I have my API URL pointing to my username.\n\nAnd we define a bot as follows. In the on_ready"
+    },
+    {
+      "subject": "Hugging Face",
+      "predicate": "authorization",
+      "object": "use",
+      "confidence": 0.9,
+      "context": "For the authorization part, we put in Bearer and the Hugging Face token.\n\nNext, we define a query me"
+    },
+    {
+      "subject": "Hugging Face",
+      "predicate": "has part",
+      "object": "Bearer",
+      "confidence": 0.9,
+      "context": "For the authorization part, we put in Bearer and the Hugging Face token.\n\nNext, we define a query me"
+    },
+    {
+      "subject": "query method",
+      "predicate": "authorization",
+      "object": "use",
+      "confidence": 0.9,
+      "context": "For the authorization part, we put in Bearer and the Hugging Face token.\n\nNext, we define a query me"
+    },
+    {
+      "subject": "HTTP POST",
+      "predicate": "API endpoint",
+      "object": "subclass of",
+      "confidence": 0.9,
+      "context": "We dump the payload as a JSON string and use the request module to make an HTTP POST request to the "
+    },
+    {
+      "subject": "HTTP POST",
+      "predicate": "API endpoint",
+      "object": "uses",
+      "confidence": 0.9,
+      "context": "We dump the payload as a JSON string and use the request module to make an HTTP POST request to the "
+    },
+    {
+      "subject": "HTTP POST",
+      "predicate": "API endpoint",
+      "object": "use",
+      "confidence": 0.9,
+      "context": "We dump the payload as a JSON string and use the request module to make an HTTP POST request to the "
+    },
+    {
+      "subject": "on_ready",
+      "predicate": "instance of",
+      "object": "asynchronous function",
+      "confidence": 0.9,
+      "context": "Both are asynchronous function. The first one is on_ready. This function will be called when the bot"
+    },
+    {
+      "subject": "on_ready",
+      "predicate": "asynchronous function",
+      "object": "subclass of",
+      "confidence": 0.9,
+      "context": "Both are asynchronous function. The first one is on_ready. This function will be called when the bot"
+    },
+    {
+      "subject": "on_ready",
+      "predicate": "asynchronous function",
+      "object": "use",
+      "confidence": 0.9,
+      "context": "Both are asynchronous function. The first one is on_ready. This function will be called when the bot"
+    },
+    {
+      "subject": "Ignore the message",
+      "predicate": "reply to it",
+      "object": "different from",
+      "confidence": 0.9,
+      "context": "So given the message, if the message is coming from the bot itself, the bot ignores the message and "
+    },
+    {
+      "subject": "reply to it",
+      "predicate": "Ignore the message",
+      "object": "different from",
+      "confidence": 0.9,
+      "context": "So given the message, if the message is coming from the bot itself, the bot ignores the message and "
+    },
+    {
+      "subject": "Ignore the message",
+      "predicate": "reply to it",
+      "object": "opposite of",
+      "confidence": 0.9,
+      "context": "So given the message, if the message is coming from the bot itself, the bot ignores the message and "
+    },
+    {
+      "subject": "reply to it",
+      "predicate": "Ignore the message",
+      "object": "opposite of",
+      "confidence": 0.9,
+      "context": "So given the message, if the message is coming from the bot itself, the bot ignores the message and "
+    },
+    {
+      "subject": "ignoring",
+      "predicate": "reply",
+      "object": "different from",
+      "confidence": 0.9,
+      "context": "So given the message, if the message is coming from the bot itself, the bot ignores the message and "
+    },
+    {
+      "subject": "reply",
+      "predicate": "ignoring",
+      "object": "different from",
+      "confidence": 0.9,
+      "context": "So given the message, if the message is coming from the bot itself, the bot ignores the message and "
+    },
+    {
+      "subject": "generated_text",
+      "predicate": "error message",
+      "object": "subclass of",
+      "confidence": 0.9,
+      "context": "We call self.query using the payload and get back the response.\n\nIf there is a valid generated respo"
+    },
+    {
+      "subject": "generated_text field",
+      "predicate": "error message",
+      "object": "subclass of",
+      "confidence": 0.9,
+      "context": "We call self.query using the payload and get back the response.\n\nIf there is a valid generated respo"
+    },
+    {
+      "subject": "generated_text",
+      "predicate": "payload",
+      "object": "subclass of",
+      "confidence": 0.9,
+      "context": "We call self.query using the payload and get back the response.\n\nIf there is a valid generated respo"
+    },
+    {
+      "subject": "chatbot",
+      "predicate": "bot",
+      "object": "subclass of",
+      "confidence": 0.9,
+      "context": "In the main function, we just create a bot and pass in the model name. So for me, this is dialogue_g"
+    },
+    {
+      "subject": "chat",
+      "predicate": "protocol",
+      "object": "uses",
+      "confidence": 0.9,
+      "context": "In the main function, we just create a bot and pass in the model name. So for me, this is dialogue_g"
+    },
+    {
+      "subject": "chatbot",
+      "predicate": "instance of",
+      "object": "bot",
+      "confidence": 0.9,
+      "context": "In the main function, we just create a bot and pass in the model name. So for me, this is dialogue_g"
+    },
+    {
+      "subject": "Repl",
+      "predicate": "Python",
+      "object": "programming language",
+      "confidence": 0.9,
+      "context": "Now that we see that our bot has appeared. However, it shows as offline. So we need to run the Repl."
+    },
+    {
+      "subject": "Repl.it",
+      "predicate": "Python",
+      "object": "programming language",
+      "confidence": 0.9,
+      "context": "Now that we see that our bot has appeared. However, it shows as offline. So we need to run the Repl."
+    },
+    {
+      "subject": "Harry Potter Bot Python",
+      "predicate": "Repl.it",
+      "object": "use",
+      "confidence": 0.9,
+      "context": "Now that we see that our bot has appeared. However, it shows as offline. So we need to run the Repl."
+    },
+    {
+      "subject": "Python",
+      "predicate": "has part",
+      "object": "bot channel",
+      "confidence": 0.9,
+      "context": "So we go to the channel setting, permissions, advanced permissions, add the bot, and we remove its p"
+    },
+    {
+      "subject": "bot channel",
+      "predicate": "part of",
+      "object": "Python",
+      "confidence": 0.9,
+      "context": "So we go to the channel setting, permissions, advanced permissions, add the bot, and we remove its p"
+    },
+    {
+      "subject": "bot channel",
+      "predicate": "Python",
+      "object": "programming language",
+      "confidence": 0.9,
+      "context": "So we go to the channel setting, permissions, advanced permissions, add the bot, and we remove its p"
+    },
+    {
+      "subject": "parametric",
+      "predicate": "Python",
+      "object": "programming language",
+      "confidence": 0.9,
+      "context": "So we go to the channel setting, permissions, advanced permissions, add the bot, and we remove its p"
+    },
+    {
+      "subject": "JavaScript bot",
+      "predicate": "Python",
+      "object": "programming language",
+      "confidence": 0.9,
+      "context": "So yeah, this is how we built a bot in Python. One thing to know in our Repl.it is that because we t"
+    },
+    {
+      "subject": "try-except block",
+      "predicate": "exception",
+      "object": "use",
+      "confidence": 0.9,
+      "context": "So yeah, this is how we built a bot in Python. One thing to know in our Repl.it is that because we t"
+    },
+    {
+      "subject": "try-except",
+      "predicate": "exception",
+      "object": "subclass of",
+      "confidence": 0.9,
+      "context": "So yeah, this is how we built a bot in Python. One thing to know in our Repl.it is that because we t"
+    },
+    {
+      "subject": "ChattyBot",
+      "predicate": "instance of",
+      "object": "bot",
+      "confidence": 0.9,
+      "context": "This time, I'm going to call it ChattyBot JavaScript.\n\nAnd we create a bot. Back to Repl.it, we crea"
+    },
+    {
+      "subject": "ChattyBot",
+      "predicate": "JavaScript",
+      "object": "programming language",
+      "confidence": 0.9,
+      "context": "This time, I'm going to call it ChattyBot JavaScript.\n\nAnd we create a bot. Back to Repl.it, we crea"
+    },
+    {
+      "subject": "ChattyBot",
+      "predicate": "bot",
+      "object": "use",
+      "confidence": 0.9,
+      "context": "This time, I'm going to call it ChattyBot JavaScript.\n\nAnd we create a bot. Back to Repl.it, we crea"
+    },
+    {
+      "subject": "Discord",
+      "predicate": "JavaScript",
+      "object": "programming language",
+      "confidence": 0.9,
+      "context": "There is a discord_bot.js file that contains the code that we will use for this JavaScript chatbot. "
+    },
+    {
+      "subject": "fetch",
+      "predicate": "part of",
+      "object": "HTTP",
+      "confidence": 0.9,
+      "context": "There is a discord_bot.js file that contains the code that we will use for this JavaScript chatbot. "
+    },
+    {
+      "subject": "on_ready",
+      "predicate": "Python",
+      "object": "programming language",
+      "confidence": 0.9,
+      "context": "So this guy is dialogue_gpt_small_harry_potter.\n\nAnd this is the same callback that is called when t"
+    },
+    {
+      "subject": "on_ready",
+      "predicate": "instance of",
+      "object": "callback",
+      "confidence": 0.9,
+      "context": "So this guy is dialogue_gpt_small_harry_potter.\n\nAnd this is the same callback that is called when t"
+    },
+    {
+      "subject": "on_ready function",
+      "predicate": "Python",
+      "object": "programming language",
+      "confidence": 0.9,
+      "context": "So this guy is dialogue_gpt_small_harry_potter.\n\nAnd this is the same callback that is called when t"
+    },
+    {
+      "subject": "Hugging Face",
+      "predicate": "instance of",
+      "object": "API key",
+      "confidence": 0.9,
+      "context": "Like in the Python script, we ignore the message if the message is from the bot itself by checking i"
+    },
+    {
+      "subject": "request headers",
+      "predicate": "payload",
+      "object": "subclass of",
+      "confidence": 0.9,
+      "context": "Like in the Python script, we ignore the message if the message is from the bot itself by checking i"
+    },
+    {
+      "subject": "HTTP POST",
+      "predicate": "part of",
+      "object": "HTTP",
+      "confidence": 0.9,
+      "context": "So we read the Hugging Face token from the environment, process.env.huggingface_token, and form the "
+    },
+    {
+      "subject": "HTTP",
+      "predicate": "has part",
+      "object": "HTTP POST",
+      "confidence": 0.9,
+      "context": "So we read the Hugging Face token from the environment, process.env.huggingface_token, and form the "
+    },
+    {
+      "subject": "body",
+      "predicate": "part of",
+      "object": "response",
+      "confidence": 0.9,
+      "context": "So we read the Hugging Face token from the environment, process.env.huggingface_token, and form the "
+    },
+    {
+      "subject": "headers",
+      "predicate": "part of",
+      "object": "response",
+      "confidence": 0.9,
+      "context": "So we read the Hugging Face token from the environment, process.env.huggingface_token, and form the "
+    },
+    {
+      "subject": "JSON",
+      "predicate": "instance of",
+      "object": "format",
+      "confidence": 0.9,
+      "context": "And we convert the response into JSON format and extract out the generated_text field.\n\nIf there isn"
+    },
+    {
+      "subject": "error field",
+      "predicate": "debugging",
+      "object": "use",
+      "confidence": 0.9,
+      "context": "And we convert the response into JSON format and extract out the generated_text field.\n\nIf there isn"
+    },
+    {
+      "subject": "JSON",
+      "predicate": "instance of",
+      "object": "formatted",
+      "confidence": 0.9,
+      "context": "And we convert the response into JSON format and extract out the generated_text field.\n\nIf there isn"
+    },
+    {
+      "subject": "server",
+      "predicate": "client",
+      "object": "opposite of",
+      "confidence": 0.9,
+      "context": "This ends the definition of our client.on_message call.\n\nDown here, we log in using the Discord toke"
+    },
+    {
+      "subject": "authenticate",
+      "predicate": "OAuth",
+      "object": "uses",
+      "confidence": 0.9,
+      "context": "This ends the definition of our client.on_message call.\n\nDown here, we log in using the Discord toke"
+    },
+    {
+      "subject": "authenticate",
+      "predicate": "OAuth",
+      "object": "used by",
+      "confidence": 0.9,
+      "context": "This ends the definition of our client.on_message call.\n\nDown here, we log in using the Discord toke"
+    },
+    {
+      "subject": "Python bot",
+      "predicate": "JavaScript",
+      "object": "programming language",
+      "confidence": 0.9,
+      "context": "So we need to go back to Repl to run our script. But before we run our Repl, let's make sure that th"
+    },
+    {
+      "subject": "Node",
+      "predicate": "JavaScript",
+      "object": "programming language",
+      "confidence": 0.9,
+      "context": "So this Python bot shouldn't be able to send messages to this JavaScript channel.\n\nNow we go back to"
+    },
+    {
+      "subject": "npm",
+      "predicate": "JavaScript",
+      "object": "programming language",
+      "confidence": 0.9,
+      "context": "So this Python bot shouldn't be able to send messages to this JavaScript channel.\n\nNow we go back to"
+    },
+    {
+      "subject": "Node",
+      "predicate": "influenced by",
+      "object": "JavaScript",
+      "confidence": 0.9,
+      "context": "So this Python bot shouldn't be able to send messages to this JavaScript channel.\n\nNow we go back to"
+    },
+    {
+      "subject": "ChattyBot JavaScript 1048",
+      "predicate": "ChattyBot",
+      "object": "use",
+      "confidence": 0.9,
+      "context": "So here, we just use the older version and rerun it.\n\nNow that we are logged in as ChattyBot JavaScr"
+    },
+    {
+      "subject": "ChattyBot",
+      "predicate": "ChattyBot JavaScript 1048",
+      "object": "uses",
+      "confidence": 0.9,
+      "context": "So here, we just use the older version and rerun it.\n\nNow that we are logged in as ChattyBot JavaScr"
+    },
+    {
+      "subject": "Python bot",
+      "predicate": "JavaScript bot",
+      "object": "different from",
+      "confidence": 0.9,
+      "context": "Looks like our bot is responding to us.\n\nAnd because we have set the bot's permissions correctly, th"
+    },
+    {
+      "subject": "JavaScript bot",
+      "predicate": "Python bot",
+      "object": "different from",
+      "confidence": 0.9,
+      "context": "Looks like our bot is responding to us.\n\nAnd because we have set the bot's permissions correctly, th"
+    },
+    {
+      "subject": "keep_alive",
+      "predicate": "Python",
+      "object": "programming language",
+      "confidence": 0.9,
+      "context": "So this is for the Python bot, and we create a new file called keep_alive.py.\n\nAnd we add the code f"
+    },
+    {
+      "subject": "main.py",
+      "predicate": "Python",
+      "object": "programming language",
+      "confidence": 0.9,
+      "context": "So this is for the Python bot, and we create a new file called keep_alive.py.\n\nAnd we add the code f"
+    },
+    {
+      "subject": "Uptime Robot",
+      "predicate": "Python",
+      "object": "programming language",
+      "confidence": 0.9,
+      "context": "So this is for the Python bot, and we create a new file called keep_alive.py.\n\nAnd we add the code f"
+    },
+    {
+      "subject": "Discord Python Bot",
+      "predicate": "Python",
+      "object": "programming language",
+      "confidence": 0.9,
+      "context": "So here is the Uptime Robot website, and I already have an account, so I'll just go to my dashboard "
+    },
+    {
+      "subject": "Uptime Robot",
+      "predicate": "instance of",
+      "object": "Python bot",
+      "confidence": 0.9,
+      "context": "So here is the Uptime Robot website, and I already have an account, so I'll just go to my dashboard "
+    },
+    {
+      "subject": "Python script",
+      "predicate": "Python",
+      "object": "programming language",
+      "confidence": 0.9,
+      "context": "All right, I'm going to close this tab containing my Python script.\n\nAnd it looks like our model is "
+    },
+    {
+      "subject": "Python",
+      "predicate": "model",
+      "object": "use",
+      "confidence": 0.9,
+      "context": "All right, I'm going to close this tab containing my Python script.\n\nAnd it looks like our model is "
+    },
+    {
+      "subject": "model",
+      "predicate": "Python",
+      "object": "used by",
+      "confidence": 0.9,
+      "context": "All right, I'm going to close this tab containing my Python script.\n\nAnd it looks like our model is "
+    },
+    {
+      "subject": "model",
+      "predicate": "Python",
+      "object": "programming language",
+      "confidence": 0.9,
+      "context": "All right, I'm going to close this tab containing my Python script.\n\nAnd it looks like our model is "
+    },
+    {
+      "subject": "Hugging Face",
+      "predicate": "JavaScript",
+      "object": "programming language",
+      "confidence": 0.9,
+      "context": "It's just that after some time, the model on Hugging Face backend will reload, but because the bot i"
+    },
+    {
+      "subject": "keep_alive",
+      "predicate": "JavaScript",
+      "object": "programming language",
+      "confidence": 0.9,
+      "context": "It's just that after some time, the model on Hugging Face backend will reload, but because the bot i"
+    },
+    {
+      "subject": "Hugging Face",
+      "predicate": "instance of",
+      "object": "JavaScript bot",
+      "confidence": 0.9,
+      "context": "It's just that after some time, the model on Hugging Face backend will reload, but because the bot i"
+    },
+    {
+      "subject": "Discord JS Bot",
+      "predicate": "Python",
+      "object": "programming language",
+      "confidence": 0.9,
+      "context": "We copy this URL, go to Uptime Robot, and add a new monitor. It's again an HTTP monitor. Discord JS "
+    },
+    {
+      "subject": "JavaScript",
+      "predicate": "programming language",
+      "object": "chatbot",
+      "confidence": 0.9,
+      "context": "We copy this URL, go to Uptime Robot, and add a new monitor. It's again an HTTP monitor. Discord JS "
+    }
+  ],
+  "total_count": 206
+}

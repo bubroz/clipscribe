@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gexf xmlns="http://www.gexf.net/1.2draft" xmlns:viz="http://www.gexf.net/1.2draft/viz" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.gexf.net/1.2draft http://www.gexf.net/1.2draft/gexf.xsd" version="1.2">
+  <meta lastmodifieddate="2025-06-24">
+    <creator>ClipScribe</creator>
+    <description>Knowledge graph extracted from video content</description>
+  </meta>
+  <graph mode="static" defaultedgetype="directed">
+    <attributes class="node">
+      <attribute id="0" title="Type" type="string"/>
+      <attribute id="1" title="Confidence" type="float"/>
+    </attributes>
+    <attributes class="edge">
+      <attribute id="0" title="Predicate" type="string"/>
+      <attribute id="1" title="Confidence" type="float"/>
+    </attributes>
+    <nodes>
+      <node id="Cynthia Gonzalez" label="Cynthia Gonzalez">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color r="255" g="107" b="107" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Los Angeles" label="Los Angeles">
+        <attvalues>
+          <attvalue for="0" value="LOCATION"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color r="69" g="183" b="209" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Cudahy" label="Cudahy">
+        <attvalues>
+          <attvalue for="0" value="location"/>
+          <attvalue for="1" value="0.9464430809020996"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="48.39329242706299"/>
+      </node>
+      <node id="Instagram" label="Instagram">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.75"/>
+        </attvalues>
+        <viz:color r="78" g="205" b="196" a="1.0"/>
+        <viz:size value="42.5"/>
+      </node>
+      <node id="Florencia" label="Florencia">
+        <attvalues>
+          <attvalue for="0" value="organization"/>
+          <attvalue for="1" value="0.7612690329551697"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="42.83807098865509"/>
+      </node>
+      <node id="82nd Street" label="82nd Street">
+        <attvalues>
+          <attvalue for="0" value="LOCATION"/>
+          <attvalue for="1" value="0.7499999999999999"/>
+        </attvalues>
+        <viz:color r="69" g="183" b="209" a="1.0"/>
+        <viz:size value="42.5"/>
+      </node>
+      <node id="18th Street" label="18th Street">
+        <attvalues>
+          <attvalue for="0" value="LOCATION"/>
+          <attvalue for="1" value="0.7499999999999999"/>
+        </attvalues>
+        <viz:color r="69" g="183" b="209" a="1.0"/>
+        <viz:size value="42.5"/>
+      </node>
+      <node id="Latino gangs" label="Latino gangs">
+        <attvalues>
+          <attvalue for="0" value="organization"/>
+          <attvalue for="1" value="0.95"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="48.5"/>
+      </node>
+      <node id="located in the administrative territorial entity" label="located in the administrative territorial entity">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="place of birth" label="place of birth">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+    </nodes>
+    <edges>
+      <edge id="0" source="Cynthia Gonzalez" target="place of birth" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="Cudahy"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="1" source="Cudahy" target="located in the administrative territorial entity" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="Los Angeles"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="2" source="82nd Street" target="located in the administrative territorial entity" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="Los Angeles"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+    </edges>
+  </graph>
+</gexf>

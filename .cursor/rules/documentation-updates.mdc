@@ -1,9 +1,4 @@
 ---
-description: 
-globs: 
-alwaysApply: true
----
----
 description: "Rules for WHEN to update critical documentation files in ClipScribe"
 globs: ["**/*.md", "docs/**/*", "README.md", "CHANGELOG.md", "CONTINUATION_PROMPT.md"]
 alwaysApply: true
@@ -117,20 +112,50 @@ Ask yourself after making changes:
 | MEDIUM | CLI_REFERENCE.md | Command changes | Incorrect usage |
 | MEDIUM | docs/*.md | Feature changes | Outdated guides |
 
-## 🔄 Update Checklist Template
+## 🔄 Complete Task Checklist
 
-When completing a task, run through this checklist:
+When completing ANY task, run through this comprehensive checklist:
 
 ```
-## Documentation Update Checklist
+## Task Completion Checklist
 
+### 1. Documentation
 - [ ] CONTINUATION_PROMPT.md updated with current state?
 - [ ] README.md reflects any user-visible changes?
 - [ ] CHANGELOG.md entry added for this change?
 - [ ] CLI_REFERENCE.md updated if commands changed?
 - [ ] Relevant docs/ files updated?
-- [ ] Examples still work with changes?
 - [ ] All links still valid?
+
+### 2. Code Quality
+- [ ] Docstrings updated for modified functions/classes?
+- [ ] Type hints present and accurate?
+- [ ] Inline comments added for complex logic?
+
+### 3. Rules Updates
+- [ ] Architecture changes → Updated `clipscribe-architecture.mdc`?
+- [ ] New extractors → Updated `extractor-patterns.mdc`?
+- [ ] New patterns → Created/updated relevant rule file?
+
+### 4. Version Control
+- [ ] Version updated in `pyproject.toml` (if releasing)?
+- [ ] Version updated in `src/clipscribe/version.py`?
+- [ ] Used conventional commit format: `type(scope): description`?
+
+### 5. Testing
+- [ ] Tests added/updated for new functionality?
+- [ ] All tests passing?
+- [ ] Examples in `examples/` still work?
+
+### 6. Dependencies
+- [ ] If dependencies changed, updated `pyproject.toml`?
+- [ ] Ran `poetry lock` to update `poetry.lock`?
+- [ ] Updated `.env.example` if new env vars added?
+
+### 7. Final Checks
+- [ ] No linter errors?
+- [ ] No uncommitted files?
+- [ ] All TODOs addressed or documented?
 ```
 
 ## 🚫 Anti-Patterns to Avoid

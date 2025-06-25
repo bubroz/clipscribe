@@ -1,0 +1,24 @@
+{
+  "video": {
+    "title": "James Webb Space Telescope Mission Overview (2023)",
+    "url": "https://www.youtube.com/watch?v=QNY6DPZNZII",
+    "channel": "James Webb Space Telescope (JWST)",
+    "duration": 215.0,
+    "published_at": "2023-07-12T14:02:14",
+    "view_count": 94652,
+    "description": "A brief overview of the James Webb Space Telescope mission from its construction, launch, and complex unfolding, to the incredible science it achieves.\n\nCredit: NASA's Goddard Space Flight Center\n\nProducer: \nMichael McClare (KBRwyle)\n\nWriter: \nMichael McClare (KBRwyle)\n\nVideo editor: \nMichael P. Menzel (AIMM)\n\nAnimators: \nAdriana Manrique Gutierrez (KBRwyle)\nMichael Lentz (KBRwyle)\nMichael P. Menzel (AIMM)\nWalt Feimer (KBRwyle)\n\nVideographers: \nArianespace/ESA/CNES\nMichael McClare (KBRwyle)\nMichael P. Menzel (AIMM)\nSophia Roberts (AIMM)\nTimes Square Alliance \n\nTechnical support: \nAaron E. Lepsch (ADNET)"
+  },
+  "processing": {
+    "cost": 0.0274125,
+    "time": 0.0,
+    "processed_at": "2025-06-24T14:39:51.164066",
+    "clipscribe_version": "2.0.0"
+  },
+  "statistics": {
+    "transcript_length": 2697,
+    "word_count": 435,
+    "entity_count": 25,
+    "key_point_count": 16,
+    "topic_count": 3
+  }
+}

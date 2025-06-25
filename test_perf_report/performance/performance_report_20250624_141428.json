@@ -1,0 +1,30 @@
+[
+  {
+    "event": "gemini_transcription",
+    "start_time": 675653.846705166,
+    "end_time": 675746.242320666,
+    "duration": 92.39561549993232,
+    "timestamp": "2025-06-24T14:15:45.514552",
+    "model": "models/gemini-1.5-flash"
+  },
+  {
+    "event": "gemini_combined_analysis",
+    "start_time": 675746.243762791,
+    "end_time": 675759.170297541,
+    "duration": 12.926534749916755,
+    "timestamp": "2025-06-24T14:17:17.911954",
+    "model": "models/gemini-1.5-flash"
+  },
+  {
+    "event": "extraction_quality",
+    "value": {
+      "entities": 112,
+      "relationships": 211,
+      "key_points": 21,
+      "duration": 3472.0
+    },
+    "timestamp": "2025-06-24T14:18:16.006567",
+    "platform": "youtube",
+    "video_title": "Code a Discord Chat Bot That Talks Like Your Favorite Character - Tutorial"
+  }
+]

@@ -1,9 +1,4 @@
 ---
-description: 
-globs: 
-alwaysApply: true
----
----
 description: "Master rule governing all project rules, documentation, and task completion processes"
 globs: []
 alwaysApply: true
@@ -31,6 +26,7 @@ alwaysApply: false  # Whether the rule always applies
 ### Available Rules
 - `README.mdc` (this file) - Master rule for all project governance
 - `clipscribe-architecture.mdc` - Core architecture and design patterns
+- `core-identity.mdc` - Project mission and fundamental principles
 - `video-processing.mdc` - Guidelines for video/audio processing code
 - `extractor-patterns.mdc` - Best practices for knowledge extractors
 - `testing-standards.mdc` - Testing requirements and patterns
@@ -42,6 +38,11 @@ alwaysApply: false  # Whether the rule always applies
 - `async-patterns.mdc` - Best practices for async/await code
 - `output-format-management.mdc` - Managing and adding output formats
 - `model-data-structures.mdc` - Pydantic models and data validation
+- `file-organization.mdc` - File placement and project structure
+- `documentation-management.mdc` - Documentation organization standards
+- `documentation-updates.mdc` - When to update documentation
+- `visualization-diagrams.mdc` - Knowledge graph visualization
+- `troubleshooting-guide.mdc` - Common issues and solutions
 
 ### How Rules Work
 1. **Auto-attachment**: Rules with matching `globs` patterns automatically apply when working on those files
@@ -76,74 +77,20 @@ When modifying rules:
 4. Check for conflicts with other rules
 5. Update any documentation that references the old behavior
 
-## Task Completion Checklist
+## Task Completion Process
 
-**CRITICAL: At the completion of EVERY task, ensure the following are updated:**
+**CRITICAL: At the completion of EVERY task, follow the documentation update rules.**
 
-### 1. Documentation Updates
-- [ ] Update relevant files in `docs/` directory:
-  - `README.md` - Main project documentation
-  - `GETTING_STARTED.md` - For setup/installation changes
-  - `CLI_REFERENCE.md` - For command changes
-  - `DEVELOPMENT.md` - For development workflow changes
-  - `OUTPUT_FORMATS.md` - For output format changes
-  - `PLATFORMS.md` - For platform support changes
-  - `VISUALIZING_GRAPHS.md` - For visualization changes
+See `documentation-updates.mdc` for the comprehensive task completion checklist.
 
-### 2. Code Documentation
-- [ ] Update docstrings for modified functions/classes
-- [ ] Ensure type hints are present and accurate
-- [ ] Add inline comments for complex logic
+Key areas to check:
+1. **Documentation** - See `documentation-updates.mdc` for WHEN to update
+2. **Code Quality** - Docstrings, type hints, tests
+3. **Rules** - Update relevant `.cursor/rules/*.mdc` files
+4. **Version Control** - CHANGELOG.md, version numbers
+5. **Dependencies** - pyproject.toml, poetry.lock
 
-### 3. Rule Updates
-- [ ] Check if any `.cursor/rules/*.mdc` files need updating:
-  - Architecture changes → Update `clipscribe-architecture.mdc`
-  - New extractors → Update `extractor-patterns.mdc`
-  - Process changes → Update relevant rule files
-  - New patterns → Create new rule file if needed
-
-### 4. Version & Changelog
-- [ ] Update `CHANGELOG.md` with:
-  - Version number
-  - Date
-  - Clear description of changes
-  - Breaking changes clearly marked
-- [ ] Update version in `pyproject.toml` if releasing
-- [ ] Update version in `src/clipscribe/version.py`
-
-### 5. Continuation Prompt
-- [ ] Update `CONTINUATION_PROMPT.md` with:
-  - Current project state
-  - Recent major changes
-  - Known issues or TODOs
-  - Next planned features
-  - Any context future AI assistants need
-
-### 6. Tests
-- [ ] Add/update tests for new functionality
-- [ ] Ensure all tests pass
-- [ ] Update test documentation if test structure changes
-
-### 7. Dependencies
-- [ ] If dependencies added/removed, update:
-  - `pyproject.toml`
-  - Run `poetry lock` to update `poetry.lock`
-  - Update installation docs if needed
-
-### 8. Examples
-- [ ] Update example scripts in `examples/` if APIs change
-- [ ] Ensure examples still run correctly
-- [ ] Add new examples for new features
-
-### 9. Configuration
-- [ ] Update `env.example` if new environment variables added
-- [ ] Update configuration documentation
-- [ ] Ensure backward compatibility or document breaking changes
-
-### 10. Git Commit
-- [ ] Use conventional commit format: `type(scope): description`
-- [ ] Include comprehensive commit message
-- [ ] Reference any related issues
+The documentation-updates rule provides the detailed checklist and decision tree for all updates.
 
 ## Rule Precedence
 

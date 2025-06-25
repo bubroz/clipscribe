@@ -1,0 +1,95 @@
+{
+  "version": "2.3",
+  "created_at": "2025-06-24T14:11:30.412664",
+  "video": {
+    "title": "Cynthia Gonzalez, the vice mayor of a small city in the Los Angeles County area, is under federal investigation for allegedly suggesting gangsters aren't defending their territory from ICE.",
+    "url": "https://www.tiktok.com/@foxnews/video/7519618205237742879",
+    "platform": "tiktok"
+  },
+  "extraction_stats": {
+    "spacy_entities": 7,
+    "gliner_entities": 3,
+    "llm_validated": 10,
+    "relationships": 3,
+    "graph_nodes": 10,
+    "graph_edges": 3
+  },
+  "files": {
+    "transcript_txt": {
+      "path": "transcript.txt",
+      "format": "plain_text",
+      "size": 409,
+      "sha256": "73f80b0f56fc4d84fa26dc63b26adb3581225a8b61c0a78ba61a574c2960df9f"
+    },
+    "transcript_json": {
+      "path": "transcript.json",
+      "format": "json",
+      "size": 11482,
+      "sha256": "5699ba3ed3cc92b3cc434b6c37d6c2d192c2afa1366120486a7898cbcb641ab8"
+    },
+    "metadata": {
+      "path": "metadata.json",
+      "format": "json",
+      "size": 930,
+      "sha256": "7dfbba7e9016738c9eabb07cac05d7c2a170229b77fc3dc224462d8f29c8c6a3"
+    },
+    "entities": {
+      "path": "entities.json",
+      "format": "json",
+      "size": 3392,
+      "sha256": "0c301fd1983678b46bb30fc47318c928a0489f66827101813a62440912c905c9"
+    },
+    "relationships": {
+      "path": "relationships.json",
+      "format": "json",
+      "size": 1170,
+      "count": 3,
+      "sha256": "c342bae2bf413e04f09ca4f96e5c2d830740079b96995878d4f79a83f9d1c89c"
+    },
+    "knowledge_graph": {
+      "path": "knowledge_graph.json",
+      "format": "json",
+      "size": 1618,
+      "nodes": 10,
+      "edges": 3,
+      "sha256": "1d1e2a34a3530ffa6cb14b69c37adcbf508c4e8c5c30b4eab6f8eba0537bd150"
+    },
+    "knowledge_graph_gexf": {
+      "path": "knowledge_graph.gexf",
+      "format": "gexf",
+      "size": 4592,
+      "description": "Gephi-compatible graph file",
+      "sha256": "afeccfaf59250930e074d572148ba4320d5fe6155e84eb5cccebf9bddeb2fed8"
+    },
+    "facts": {
+      "path": "facts.txt",
+      "format": "plain_text",
+      "size": 1349,
+      "count": 10,
+      "sha256": "4d7a1be86839a698420ac0ae23c158736fc2cb94367e646d79a0dd4c9585e49c"
+    },
+    "entities_csv": {
+      "path": "entities.csv",
+      "format": "csv",
+      "size": 437,
+      "description": "All entities in CSV format",
+      "count": 10,
+      "sha256": "a8502410c745875ed9931ee726c6a2ddbe4e75495da2aeb24432c2ccad3c4bba"
+    },
+    "relationships_csv": {
+      "path": "relationships.csv",
+      "format": "csv",
+      "size": 543,
+      "description": "All relationships in CSV format",
+      "count": 3,
+      "sha256": "271590dadbdc5b847e5a2e9626838b655a6510c567bdd234efb6e5e86647e6f7"
+    },
+    "report": {
+      "path": "report.md",
+      "format": "markdown",
+      "size": 6133,
+      "description": "Human-readable intelligence report",
+      "sha256": "0e1d9180df098977b554d0af9aa64ce6ba61be339c70b4c0bc51ba8769f7c24f"
+    }
+  }
+}

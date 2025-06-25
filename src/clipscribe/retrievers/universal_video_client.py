@@ -142,8 +142,8 @@ class UniversalVideoClient:
                         metadata = VideoMetadata(
                             video_id=video_id,
                             title=result.get('title', 'Unknown'),
-                            channel=result.get('channel', 'Unknown'),
-                            channel_id=result.get('channel_id', ''),
+                            channel=result.get('channel', {}).get('name', 'Unknown'),
+                            channel_id=result.get('channel', {}).get('id', ''),
                             duration=duration,
                             url=f"https://www.youtube.com/watch?v={video_id}",
                             published_at=published_at,

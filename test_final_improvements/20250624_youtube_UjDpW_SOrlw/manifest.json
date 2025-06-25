@@ -1,0 +1,95 @@
+{
+  "version": "2.3",
+  "created_at": "2025-06-24T13:17:45.197263",
+  "video": {
+    "title": "Code a Discord Chat Bot That Talks Like Your Favorite Character - Tutorial",
+    "url": "https://www.youtube.com/watch?v=UjDpW_SOrlw",
+    "platform": "youtube"
+  },
+  "extraction_stats": {
+    "spacy_entities": 55,
+    "gliner_entities": 117,
+    "llm_validated": 116,
+    "relationships": 198,
+    "graph_nodes": 197,
+    "graph_edges": 178
+  },
+  "files": {
+    "transcript_txt": {
+      "path": "transcript.txt",
+      "format": "plain_text",
+      "size": 28202,
+      "sha256": "1a5edf47ab847a3cc80c1ccafc869423641201e244d544df0a6de503d4d3182d"
+    },
+    "transcript_json": {
+      "path": "transcript.json",
+      "format": "json",
+      "size": 210763,
+      "sha256": "17df84886970580a2667e27f179b8d7f8793b11a80a5a9febf4b8f9483878c31"
+    },
+    "metadata": {
+      "path": "metadata.json",
+      "format": "json",
+      "size": 2259,
+      "sha256": "750da00d429b0dff771747a2c07bec485af41cf5c04f4264decb9f8174a6d9d8"
+    },
+    "entities": {
+      "path": "entities.json",
+      "format": "json",
+      "size": 26285,
+      "sha256": "4822f4d508ad28ca0d7e9026a83dbd79af6389dd3802e952af173b3d134216d6"
+    },
+    "relationships": {
+      "path": "relationships.json",
+      "format": "json",
+      "size": 50049,
+      "count": 198,
+      "sha256": "03820aeee2c9fb6a10078dcfad413d63b4e333700eb3d038bb737356bc5ca0e9"
+    },
+    "knowledge_graph": {
+      "path": "knowledge_graph.json",
+      "format": "json",
+      "size": 41384,
+      "nodes": 197,
+      "edges": 178,
+      "sha256": "33ecc165cad5babd25e6da1aac87ef52a60cecbc07aed58cbe0db18db77926d3"
+    },
+    "knowledge_graph_gexf": {
+      "path": "knowledge_graph.gexf",
+      "format": "gexf",
+      "size": 96091,
+      "description": "Gephi-compatible graph file",
+      "sha256": "aa130bb8d1860f89abc534a5898654a32bc1d5f569384c3753b1fd51fa4ed298"
+    },
+    "facts": {
+      "path": "facts.txt",
+      "format": "plain_text",
+      "size": 7844,
+      "count": 100,
+      "sha256": "97e3eef0c1d848de422f4afd68777cc49ce59f98f2ff2356274955e50771f82f"
+    },
+    "entities_csv": {
+      "path": "entities.csv",
+      "format": "csv",
+      "size": 4690,
+      "description": "All entities in CSV format",
+      "count": 116,
+      "sha256": "13d5dfbdfc0827da64cdfc4814c65cd0b020118927010b617dba4321308f1b79"
+    },
+    "relationships_csv": {
+      "path": "relationships.csv",
+      "format": "csv",
+      "size": 27672,
+      "description": "All relationships in CSV format",
+      "count": 198,
+      "sha256": "487c542aa136d166d1937eb57f4dc76307ce57268c0ef793e92e4f7059b7d0c6"
+    },
+    "report": {
+      "path": "report.md",
+      "format": "markdown",
+      "size": 14759,
+      "description": "Human-readable intelligence report",
+      "sha256": "41f57770c332d0eb5ee2d876adaa0c61ab2f5a9f17324f752560db96b2c64138"
+    }
+  }
+}

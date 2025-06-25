@@ -296,7 +296,7 @@ class AdvancedHybridExtractor:
                 "subject": rel.subject,
                 "predicate": rel.predicate,
                 "object": rel.object,
-                "type": "relationship"
+                "source": "Relationship"
             })
         
         # Extract facts from key points
@@ -306,7 +306,7 @@ class AdvancedHybridExtractor:
                     "fact": kp.text,
                     "confidence": 0.9,  # Key points are typically high quality
                     "timestamp": kp.timestamp,
-                    "type": "key_point"
+                    "source": "Key Point"
                 })
         
         # Extract facts from entities with high confidence
@@ -319,14 +319,14 @@ class AdvancedHybridExtractor:
                         "fact": fact,
                         "confidence": entity.confidence,
                         "subject": entity.name,
-                        "type": "entity_property"
+                        "source": "Entity Property"
                     })
         
         # Sort by confidence and diversity
         # First, group by type to ensure diversity
         facts_by_type = {}
         for fact in facts:
-            fact_type = fact.get('type', 'unknown')
+            fact_type = fact.get('source', 'unknown')
             if fact_type not in facts_by_type:
                 facts_by_type[fact_type] = []
             facts_by_type[fact_type].append(fact)
@@ -340,7 +340,7 @@ class AdvancedHybridExtractor:
         max_per_type = max(len(facts) for facts in facts_by_type.values()) if facts_by_type else 0
         
         for i in range(max_per_type):
-            for fact_type in ['relationship', 'key_point', 'entity_property']:
+            for fact_type in ['Relationship', 'Key Point', 'Entity Property']:
                 if fact_type in facts_by_type and i < len(facts_by_type[fact_type]):
                     final_facts.append(facts_by_type[fact_type][i])
         

@@ -1,6 +1,6 @@
 # Output Formats Guide
 
-ClipScribe generates comprehensive structured output for each processed video. All outputs are saved in a timestamped directory with a machine-readable format.
+ClipScribe generates a comprehensive set of structured output files for each processed video, all organized within a timestamped directory.
 
 ## Directory Structure
 
@@ -8,171 +8,114 @@ ClipScribe generates comprehensive structured output for each processed video. A
 output/
 └── YYYYMMDD_platform_videoId/
     ├── transcript.txt          # Plain text transcript
-    ├── transcript.json         # Full structured data
-    ├── metadata.json           # Video metadata
-    ├── entities.json           # Extracted entities
-    ├── entities.csv            # Entities in CSV format (NEW in v2.5.1)
-    ├── relationships.json      # Entity relationships
-    ├── relationships.csv       # Relationships in CSV format (NEW in v2.5.1)
-    ├── knowledge_graph.json    # Graph representation
-    ├── knowledge_graph.gexf    # Gephi-compatible graph
-    ├── facts.txt              # Key facts (up to 100)
-    ├── report.md              # Markdown intelligence report (NEW in v2.5.1)
-    ├── chimera_format.json    # Chimera Researcher compatible
-    └── manifest.json          # File index with checksums
+    ├── transcript.json         # Full structured data with all analysis
+    ├── metadata.json           # Lightweight video and processing metadata
+    ├── entities.json           # All extracted entities (from all sources)
+    ├── entities.csv            # Entities in CSV format for spreadsheets
+    ├── relationships.json      # All extracted entity relationships
+    ├── relationships.csv       # Relationships in CSV format for spreadsheets
+    ├── knowledge_graph.json    # Graph data (nodes and edges)
+    ├── knowledge_graph.gexf    # Gephi-compatible graph file for visualization
+    ├── facts.txt               # Top 100 key facts with source annotations
+    ├── report.md               # Interactive Markdown intelligence report
+    ├── chimera_format.json     # Chimera Researcher compatible format
+    └── manifest.json           # File index with SHA256 checksums
 ```
 
 ## File Formats
 
 ### transcript.txt
-Plain text transcript for easy reading and sharing.
+A simple plain text file containing the full transcript. Ideal for quick reading or ingestion into other systems.
 
 ### transcript.json
-Complete structured data including:
-- Full transcript with segments
-- Metadata (title, URL, duration, etc.)
-- Analysis results (summary, key points, entities)
-- Processing information (cost, time, model used)
-- Extraction statistics
-
-**Enhanced in v2.3:**
-- 30-50 key points for hour-long videos (was ~11)
-- Direct LLM relationship extraction
-- More comprehensive entity extraction
+The most comprehensive single-file output. It's a structured JSON file containing:
+- The full transcript with word-level or sentence-level segments.
+- Complete video metadata (title, URL, duration, etc.).
+- All analysis results: summary, key points, topics, entities, and relationships.
+- Detailed processing information, including cost, time, and models used.
 
 ### metadata.json
-Lightweight metadata file containing:
-- Video information
-- Processing details
-- Statistics (word count, entity count, etc.)
+A lightweight JSON file providing high-level information at a glance:
+- Basic video info (title, channel, duration).
+- Core processing details (cost, time).
+- Key statistics (word count, entity count, relationship count).
 
-### entities.json
-Extracted entities with:
-- Name, type, and confidence scores
-- Properties and context
-- Topics and key facts
+### entities.json / entities.csv
+A complete list of all entities extracted from the video.
+- **`entities.json`**: Detailed JSON output with `name`, `type`, `confidence`, `source`, and raw `properties`.
+- **`entities.csv`**: A spreadsheet-friendly format containing the most important fields.
+- **Source Tracking**: Both formats include the source of the entity (e.g., `SpaCy`, `GLiNER`, `LLM`) for pipeline transparency.
 
-**Types include:**
-- PERSON, ORGANIZATION, LOCATION
-- EVENT, WORK_OF_ART, PRODUCT
-- Custom entities via GLiNER
+### relationships.json / relationships.csv
+A list of all semantic relationships (subject-predicate-object triples) extracted.
+- **`relationships.json`**: Structured JSON with full context for each relationship.
+- **`relationships.csv`**: A spreadsheet-friendly format.
+- **Context is Key**: Includes the snippet of text from which the relationship was extracted, allowing for easy verification.
 
-### relationships.json
-Semantic relationships between entities:
-- Subject-predicate-object triples
-- Confidence scores
-- Context information
-
-**Enhanced in v2.3:**
-- Specific predicates (signed, announced, partnered with)
-- Avoids generic terms (mentioned, discussed)
-- LLM validation for accuracy
-
-### knowledge_graph.json
-Graph representation with:
-- Nodes (entities)
-- Edges (relationships)
-- Graph statistics (density, components)
-- Ready for visualization tools
-
-### knowledge_graph.gexf
-**NEW in v2.3** - Gephi-compatible graph file:
-- GEXF format for direct import into Gephi
-- Includes node colors by entity type
-- Node sizes based on confidence
-- Edge weights from relationship confidence
-- Ready for advanced graph visualization
-
-**To visualize in Gephi:**
-1. Open Gephi (download from https://gephi.org)
-2. File → Open → Select the .gexf file
-3. Run Force Atlas 2 layout
-4. Apply Modularity for community detection
-5. Size nodes by Degree in Ranking panel
+### knowledge_graph.json / knowledge_graph.gexf
+These files represent the knowledge graph built from the extracted entities and relationships.
+- **`knowledge_graph.json`**: A JSON representation of the graph's nodes and edges, suitable for programmatic use. Includes graph metrics like density and component count.
+- **`knowledge_graph.gexf`**: A file ready for direct import into graph visualization software like [Gephi](https://gephi.org). It includes pre-set colors and sizes for nodes to facilitate immediate analysis.
 
 ### facts.txt
-Human-readable key facts extracted from:
-- Entity relationships
-- Key points from transcript
-- High-confidence entity properties
-
-**Enhanced in v2.3:**
-- Up to 100 facts (was 20)
-- Diverse fact types interleaved
-- Higher quality extraction
+A human-readable list of the top 100 most important facts extracted from the video.
+- **Source Annotated**: Each fact is prefixed with its source (e.g., `[Relationship]`, `[Key Point]`, `[Entity Property]`) for clarity.
+- **Diverse Insights**: Facts are interleaved from different sources to provide a well-rounded summary of the video's content.
 
 ### report.md
-**NEW in v2.5.1** - Professional markdown intelligence report:
-- Executive summary with key findings
-- Cost indicator emojis (🟢 < $0.10, 🟡 < $0.50, 🔴 > $0.50)
-- Key statistics table (word count, entities, relationships)
-- Top entities organized by type with confidence scores
-- Key relationships and facts
-- Generated file index with descriptions
-- Perfect for sharing insights with stakeholders
+**Enhanced in v2.5.4** - A professional, interactive intelligence report written in Markdown.
+- **Interactive Diagrams**: Features auto-generated **Mermaid diagrams** for:
+  - Knowledge graph visualization (top relationships).
+  - Entity type distribution (pie chart).
+- **Collapsible Sections**: Uses `<details>` tags for all major sections, making large reports easy to navigate.
+- **Visual Dashboards**: Includes a "Quick Stats" dashboard with emoji-based bar charts and a relationship type distribution table.
+- **Rich Formatting**: Uses emoji, confidence indicators (🟩🟨🟥), and tables for a highly scannable and visually appealing summary.
+- **How to View**: For the best experience, view this file in a Markdown viewer that supports Mermaid, such as GitHub, GitLab, or the Cursor editor.
 
 ### chimera_format.json
-Compatible with Chimera Researcher ecosystem:
-- Standardized format for knowledge integration
-- Includes all extracted intelligence
-- Ready for cross-platform analysis
-
-**New in v2.3:**
-- Generated by default
-- Can be created from existing outputs using `convert_to_chimera.py`
+A standardized JSON format designed for seamless integration with the [Chimera Researcher](https://github.com/bubroz/chimera-researcher) ecosystem.
 
 ### manifest.json
-File inventory with:
-- List of all generated files
-- File sizes and formats
-- MD5 checksums for verification
-- Extraction statistics
+An inventory of all files generated for the video.
+- **File Index**: Lists all created files with their format, size, and description.
+- **Data Integrity**: **NEW in v2.5.4** - Includes a **SHA256 checksum** for each file, allowing you to verify file integrity.
+- **Processing Stats**: Contains a summary of the extraction process, including entity counts and graph metrics.
 
 ## Example Output
 
 ```bash
 # After processing a video:
-output/20240624_youtube_dQw4w9WgXcQ/
-├── transcript.txt (2.5 KB)
-├── transcript.json (15.2 KB)
-├── metadata.json (1.2 KB)
-├── entities.json (8.4 KB)
-├── entities.csv (3.2 KB)          # NEW in v2.5.1
-├── relationships.json (12.1 KB)
-├── relationships.csv (4.1 KB)     # NEW in v2.5.1
-├── knowledge_graph.json (18.5 KB)
-├── knowledge_graph.gexf (22.1 KB)
-├── facts.txt (4.8 KB)
-├── report.md (2.8 KB)             # NEW in v2.5.1
-├── chimera_format.json (25.3 KB)
-└── manifest.json (1.8 KB)
+output/20250624_youtube_UjDpW_SOrlw/
+├── entities.csv (4.2 KB)
+├── entities.json (21.1 KB)
+├── facts.txt (6.4 KB)
+├── knowledge_graph.gexf (99.4 KB)
+├── knowledge_graph.json (43.3 KB)
+├── manifest.json (3.1 KB)
+├── metadata.json (2.3 KB)
+├── relationships.csv (29.4 KB)
+├── relationships.json (53.2 KB)
+├── report.md (14.4 KB)
+├── transcript.json (214.6 KB)
+└── transcript.txt (28.5 KB)
 ```
 
 ## Format Changes
 
-### v2.5.1 Additions
-- **entities.csv** - Spreadsheet-compatible entity export
-- **relationships.csv** - Spreadsheet-compatible relationship export  
-- **report.md** - Professional markdown intelligence report
+### v2.5.4 Enhancements
+- **report.md**: Became fully interactive with Mermaid diagrams and collapsible sections.
+- **manifest.json**: Upgraded checksums from MD5 to **SHA256** for enhanced security and added checksums for all files.
+- **facts.txt**: Now includes source annotations for each fact.
+- **entities.json**: Now includes entities from all sources for consistency.
 
-### v2.3 Changes
-- **Removed**: transcript.srt, transcript.vtt (subtitle formats)
-- **Added**: knowledge_graph.gexf (Gephi graph format)
-
-The addition of CSV formats enables easy data analysis in spreadsheet tools, while the markdown report provides a professional summary perfect for sharing insights.
+### Previous Versions
+- **v2.5.1**: Added `entities.csv`, `relationships.csv`, and the initial `report.md`.
+- **v2.3**: Removed SRT/VTT subtitle formats and added the `knowledge_graph.gexf` format.
 
 ## Converting Existing Outputs
 
-If you have existing ClipScribe outputs without chimera_format.json:
+If you need to generate the latest output formats from older processing runs, you can use the scripts in the `scripts/` directory. For example, to create a `chimera_format.json` file:
 
 ```bash
-python scripts/convert_to_chimera.py output/YYYYMMDD_platform_videoId
+poetry run python scripts/convert_to_chimera.py output/YYYYMMDD_platform_videoId
 ```
-
-If you need to convert knowledge graphs to Gephi format:
-
-```bash
-python scripts/convert_to_gephi.py output/YYYYMMDD_platform_videoId/knowledge_graph.json
-```
-
-This will generate the .gexf file for Gephi visualization.

@@ -1,0 +1,202 @@
+subject,predicate,object,confidence,context
+James Webb Space Telescope,NASA,operator,0.9,"NASA's James Webb Space Telescope has hardly opened its eyes, and the universe is new, more mysterio"
+universe,Big Bang,significant event,0.9,"NASA's James Webb Space Telescope has hardly opened its eyes, and the universe is new, more mysterio"
+Big Bang,universe,has effect,0.9,"NASA's James Webb Space Telescope has hardly opened its eyes, and the universe is new, more mysterio"
+galaxies,part of,universe,0.9,"NASA's James Webb Space Telescope has hardly opened its eyes, and the universe is new, more mysterio"
+galaxies,Astrophysicist,studied by,0.9,"Recently, we got a look at some captivating images as Webb peers back toward the origin of everythin"
+Astrophysicist,galaxies,studies,0.9,"Recently, we got a look at some captivating images as Webb peers back toward the origin of everythin"
+Milky Way,instance of,galaxies,0.9,"Enormous swirls of billions of stars each, some like our own Milky Way, and others, well, out of thi"
+Milky Way,instance of,irregular galaxy,0.9,"Enormous swirls of billions of stars each, some like our own Milky Way, and others, well, out of thi"
+interacting,galaxies,facet of,0.9,"Enormous swirls of billions of stars each, some like our own Milky Way, and others, well, out of thi"
+Advanced Deep Extragalactic Survey,"University of California, Santa Cruz",operator,0.9,You can see that they're disturbed because the gravity of one galaxy yanks the stars out of the othe
+most distant galaxy,part of,universe,0.9,You can see that they're disturbed because the gravity of one galaxy yanks the stars out of the othe
+universe,has part,most distant galaxy,0.9,You can see that they're disturbed because the gravity of one galaxy yanks the stars out of the othe
+the most distant galaxy,part of,universe,0.9,You can see that they're disturbed because the gravity of one galaxy yanks the stars out of the othe
+universe,has part,the most distant galaxy,0.9,You can see that they're disturbed because the gravity of one galaxy yanks the stars out of the othe
+the Big Bang,universe,has effect,0.9,"Can I show you some pictures?
+
+Please. I would love to see it.
+
+So, as we zoom in, we keep going, we"
+universe,the Big Bang,significant event,0.9,"Can I show you some pictures?
+
+Please. I would love to see it.
+
+So, as we zoom in, we keep going, we"
+Big Bang,the universe,has effect,0.9,"Can I show you some pictures?
+
+Please. I would love to see it.
+
+So, as we zoom in, we keep going, we"
+the universe,Big Bang,significant event,0.9,"Can I show you some pictures?
+
+Please. I would love to see it.
+
+So, as we zoom in, we keep going, we"
+most distant galaxy so far,spectrum of its light,studied by,0.9,"It's only 320 million years after the Big Bang.
+
+The most distant galaxy so far, there on the right,"
+spectrum of its light,most distant galaxy so far,studies,0.9,"It's only 320 million years after the Big Bang.
+
+The most distant galaxy so far, there on the right,"
+most distant galaxy so far,Big Bang,follows,0.9,"It's only 320 million years after the Big Bang.
+
+The most distant galaxy so far, there on the right,"
+Big Bang,most distant galaxy so far,followed by,0.9,"It's only 320 million years after the Big Bang.
+
+The most distant galaxy so far, there on the right,"
+most distant galaxy so far,instance of,spectrum of its light,0.9,"It's only 320 million years after the Big Bang.
+
+The most distant galaxy so far, there on the right,"
+spectrum of its light,astronomers,studied by,0.9,"It's only 320 million years after the Big Bang.
+
+The most distant galaxy so far, there on the right,"
+earliest galaxy so far formed,part of,universe,0.9,"So, we know a lot.
+
+The earliest galaxy so far formed when the universe was 2% of its current age, a"
+universe,has part,earliest galaxy so far formed,0.9,"So, we know a lot.
+
+The earliest galaxy so far formed when the universe was 2% of its current age, a"
+earliest galaxy,part of,universe,0.9,"So, we know a lot.
+
+The earliest galaxy so far formed when the universe was 2% of its current age, a"
+universe,has part,earliest galaxy,0.9,"So, we know a lot.
+
+The earliest galaxy so far formed when the universe was 2% of its current age, a"
+Milky Way,part of,universe,0.9,"So, we know a lot.
+
+The earliest galaxy so far formed when the universe was 2% of its current age, a"
+early,NASA administrator,position held,0.9,"So, it really is like a hummingbird, the heartbeat of this galaxy is racing.
+
+T minus 30 seconds and"
+an early NASA administrator,2021,end time,0.9,"So, it really is like a hummingbird, the heartbeat of this galaxy is racing.
+
+T minus 30 seconds and"
+an early NASA administrator,2021,inception,0.9,"So, it really is like a hummingbird, the heartbeat of this galaxy is racing.
+
+T minus 30 seconds and"
+Amy Lowe,Northrop Grumman,employer,0.9,"Northrop Grumman engineer Amy Lowe showed us down below, the silver-colored sun shield, big as a ten"
+sun shield,Northrop Grumman,manufacturer,0.9,"Northrop Grumman engineer Amy Lowe showed us down below, the silver-colored sun shield, big as a ten"
+galaxies,part of,the universe,0.9,"James Webb begins a voyage back to the birth of the universe.
+
+Webb lofted on a European rocket into"
+universe,has part,Sun,0.9,"James Webb begins a voyage back to the birth of the universe.
+
+Webb lofted on a European rocket into"
+Matt Mountain,member of,Association of Universities for Research in Astronomy,0.9,"And that's when I went, this telescope's going to be phenomenal.
+
+Matt Mountain leads Webb's operati"
+Matt Mountain,Association of Universities for Research in Astronomy,employer,0.9,"And that's when I went, this telescope's going to be phenomenal.
+
+Matt Mountain leads Webb's operati"
+Association of Universities for Research in Astronomy,Matt Mountain,chairperson,0.9,"And that's when I went, this telescope's going to be phenomenal.
+
+Matt Mountain leads Webb's operati"
+galaxies everywhere,part of,universe,0.9,"It tells us that our universe is filled with galaxies. We knew this theoretically, but when you go o"
+galaxies everywhere,galaxies,is a list of,0.9,"It tells us that our universe is filled with galaxies. We knew this theoretically, but when you go o"
+universe,has part,galaxies,0.9,"For example, galaxies are rushing away from each other at greater and greater speed, defying gravity"
+dark energy,part of,universe,0.9,"For example, galaxies are rushing away from each other at greater and greater speed, defying gravity"
+universe,has part,dark energy,0.9,"For example, galaxies are rushing away from each other at greater and greater speed, defying gravity"
+universe,galaxies,has parts of the class,0.9,"For example, galaxies are rushing away from each other at greater and greater speed, defying gravity"
+dark energy,has part,dark matter,0.9,"95% of our universe is made up of dark energy and dark matter, and we don't know what it is?
+
+Correc"
+dark matter,part of,dark energy,0.9,"95% of our universe is made up of dark energy and dark matter, and we don't know what it is?
+
+Correc"
+dark energy,dark matter,has effect,0.9,"95% of our universe is made up of dark energy and dark matter, and we don't know what it is?
+
+Correc"
+dark matter,dark energy,has cause,0.9,"95% of our universe is made up of dark energy and dark matter, and we don't know what it is?
+
+Correc"
+Dan Milisavljevic,Purdue University,employer,0.9,"Astronomy is a very humbling discipline.
+
+Humbling, but with Webb,
+
+Look at this!
+
+also thrilling.
+
+"
+Dan Milisavljevic,Purdue University,educated at,0.9,"Astronomy is a very humbling discipline.
+
+Humbling, but with Webb,
+
+Look at this!
+
+also thrilling.
+
+"
+Dan Milisavljevic,Astronomy,field of work,0.9,"Astronomy is a very humbling discipline.
+
+Humbling, but with Webb,
+
+Look at this!
+
+also thrilling.
+
+"
+blood,has part,oxygen,0.9,"The iron in our blood, the calcium in our bones, the oxygen that we breathe. Love that oxygen."
+oxygen,part of,blood,0.9,"The iron in our blood, the calcium in our bones, the oxygen that we breathe. Love that oxygen."
+bone,has part,calcium,0.9,"The iron in our blood, the calcium in our bones, the oxygen that we breathe. Love that oxygen."
+astronomer,light,studies,0.9,"All that is being manufactured in supernova explosions.
+
+The late astronomer Carl Sagan used to say "
+light,astronomer,studied by,0.9,"All that is being manufactured in supernova explosions.
+
+The late astronomer Carl Sagan used to say "
+astronomer,star,studies,0.9,"All that is being manufactured in supernova explosions.
+
+The late astronomer Carl Sagan used to say "
+star,astronomer,studied by,0.9,"All that is being manufactured in supernova explosions.
+
+The late astronomer Carl Sagan used to say "
+Carl Sagan,occupation,astronomer,0.9,"All that is being manufactured in supernova explosions.
+
+The late astronomer Carl Sagan used to say "
+Alyssa Pagan,Space Telescope Science Institute,employer,0.9,"The telescope is sensitive to heat radiation, which is all that remains of the light reaching us fro"
+Joe DePasquale,Space Telescope Science Institute,employer,0.9,"The telescope is sensitive to heat radiation, which is all that remains of the light reaching us fro"
+infrared,heat radiation,subclass of,0.9,"The telescope is sensitive to heat radiation, which is all that remains of the light reaching us fro"
+infrared,light,subclass of,0.9,This is what a Webb infrared picture looks like until they match the data filled darkness to colors 
+infrared,instance of,wavelengths,0.9,This is what a Webb infrared picture looks like until they match the data filled darkness to colors 
+Webb infrared picture,infrared,facet of,0.9,This is what a Webb infrared picture looks like until they match the data filled darkness to colors 
+NGC 346,instance of,cluster of stars,0.9,"And so just like how our eyes work, we take those three color channels, combine them together to cre"
+NGC 346,instance of,cluster,0.9,"And so just like how our eyes work, we take those three color channels, combine them together to cre"
+Tarantula Nebula,instance of,galaxies,0.9,"And so just like how our eyes work, we take those three color channels, combine them together to cre"
+CO2,carbon dioxide,has parts of the class,0.9,"It's quite an honor.
+
+It is a great honor and it does blow your mind every time.
+
+There will be many"
+CO2,carbon,has parts of the class,0.9,"It's quite an honor.
+
+It is a great honor and it does blow your mind every time.
+
+There will be many"
+Webb,carbon dioxide,notable work,0.9,"It's quite an honor.
+
+It is a great honor and it does blow your mind every time.
+
+There will be many"
+Erika Nelson,University of Colorado Boulder,employer,0.9,"It will continue to look for planets with atmospheres that might support life.
+
+On the other end of "
+Big Bang,early universe,has effect,0.9,"It will continue to look for planets with atmospheres that might support life.
+
+On the other end of "
+Erika Nelson,astrophysicist,field of work,0.9,"It will continue to look for planets with atmospheres that might support life.
+
+On the other end of "
+earliest galaxy found so far,Brent Robertson,discoverer or inventor,0.9,"If they're confirmed, astronomy may have to revise the timeline of galaxy formation.
+
+And that's the"
+earliest galaxy found so far by the James Webb Telescope,Brent Robertson,discoverer or inventor,0.9,"If they're confirmed, astronomy may have to revise the timeline of galaxy formation.
+
+And that's the"
+before Webb,after Webb,followed by,0.9,"It's really that powerful.
+
+Will the history of astronomy be divided between before Webb and after W"
+after Webb,before Webb,follows,0.9,"It's really that powerful.
+
+Will the history of astronomy be divided between before Webb and after W"

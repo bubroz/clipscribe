@@ -1,0 +1,2175 @@
+{
+  "nodes": [
+    {
+      "id": "Harry Potter",
+      "type": "software",
+      "confidence": 0.8148332238197327
+    },
+    {
+      "id": "Transcript Wiki",
+      "type": "software",
+      "confidence": 0.736219048500061
+    },
+    {
+      "id": "Google Colab",
+      "type": "software",
+      "confidence": 0.8743619918823242
+    },
+    {
+      "id": "Hugging Face",
+      "type": "api",
+      "confidence": 0.7677370309829712
+    },
+    {
+      "id": "Uptime Robot",
+      "type": "software",
+      "confidence": 0.9231733083724976
+    },
+    {
+      "id": "Discord",
+      "type": "framework",
+      "confidence": 0.95
+    },
+    {
+      "id": "Python",
+      "type": "programming_language",
+      "confidence": 0.9496226906776428
+    },
+    {
+      "id": "Kaggle",
+      "type": "platform",
+      "confidence": 0.7360542416572571
+    },
+    {
+      "id": "Google",
+      "type": "company",
+      "confidence": 0.7167133688926697
+    },
+    {
+      "id": "Peppa Pig",
+      "type": "character",
+      "confidence": 0.9335457682609558
+    },
+    {
+      "id": "Peppa",
+      "type": "PERSON",
+      "confidence": 0.9
+    },
+    {
+      "id": "Transformer",
+      "type": "ORGANIZATION",
+      "confidence": 0.9
+    },
+    {
+      "id": "Harry",
+      "type": "character",
+      "confidence": 0.973712682723999
+    },
+    {
+      "id": "Git",
+      "type": "PERSON",
+      "confidence": 0.9
+    },
+    {
+      "id": "JavaScript",
+      "type": "programming_language",
+      "confidence": 0.9414034485816956
+    },
+    {
+      "id": "ChattyBot Python",
+      "type": "ORGANIZATION",
+      "confidence": 0.9
+    },
+    {
+      "id": "Harry Potter Bot Python",
+      "type": "PERSON",
+      "confidence": 0.9
+    },
+    {
+      "id": "Repl",
+      "type": "ORGANIZATION",
+      "confidence": 0.9
+    },
+    {
+      "id": "ChattyBot",
+      "type": "ORGANIZATION",
+      "confidence": 0.9
+    },
+    {
+      "id": "the Discord",
+      "type": "LOCATION",
+      "confidence": 0.8999999999999999
+    },
+    {
+      "id": "Besides Transcript Wiki",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "Google Drive",
+      "type": "LOCATION",
+      "confidence": 0.85
+    },
+    {
+      "id": "Generative Pre-trained",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "Git Large File Storage",
+      "type": "ORGANIZATION",
+      "confidence": 0.85
+    },
+    {
+      "id": "Python Repl",
+      "type": "ORGANIZATION",
+      "confidence": 0.85
+    },
+    {
+      "id": "Discord Python",
+      "type": "ORGANIZATION",
+      "confidence": 0.85
+    },
+    {
+      "id": "Wanna",
+      "type": "PERSON",
+      "confidence": 0.8
+    },
+    {
+      "id": "Rick",
+      "type": "PERSON",
+      "confidence": 0.8
+    },
+    {
+      "id": "Morty",
+      "type": "PERSON",
+      "confidence": 0.8
+    },
+    {
+      "id": "Lynn",
+      "type": "character",
+      "confidence": 0.8721664547920227
+    },
+    {
+      "id": "Red Rider",
+      "type": "PERSON",
+      "confidence": 0.8
+    },
+    {
+      "id": "PyTorch",
+      "type": "PERSON",
+      "confidence": 0.8
+    },
+    {
+      "id": "OAuth",
+      "type": "LOCATION",
+      "confidence": 0.8
+    },
+    {
+      "id": "Node",
+      "type": "LOCATION",
+      "confidence": 0.8
+    },
+    {
+      "id": "the University of Chicago",
+      "type": "ORGANIZATION",
+      "confidence": 0.7999999999999999
+    },
+    {
+      "id": "Batman on Transcript Wiki",
+      "type": "PRODUCT",
+      "confidence": 0.7999999999999999
+    },
+    {
+      "id": "The Word Ends With You",
+      "type": "PRODUCT",
+      "confidence": 0.7999999999999999
+    },
+    {
+      "id": "parse_script.ipynb",
+      "type": "ORGANIZATION",
+      "confidence": 0.7999999999999999
+    },
+    {
+      "id": "model_train_upload_workflow.ipynb",
+      "type": "LOCATION",
+      "confidence": 0.7999999999999999
+    },
+    {
+      "id": "harry potter 1.csv",
+      "type": "PERSON",
+      "confidence": 0.7999999999999999
+    },
+    {
+      "id": "keep_alive.py",
+      "type": "ORGANIZATION",
+      "confidence": 0.7999999999999999
+    },
+    {
+      "id": "George",
+      "type": "character",
+      "confidence": 0.9351032376289368
+    },
+    {
+      "id": "Microsoft",
+      "type": "company",
+      "confidence": 0.9072078466415405
+    },
+    {
+      "id": "Dev Lab",
+      "type": "PERSON",
+      "confidence": 0.75
+    },
+    {
+      "id": "Bearer",
+      "type": "ORGANIZATION",
+      "confidence": 0.75
+    },
+    {
+      "id": "UTF-8",
+      "type": "LOCATION",
+      "confidence": 0.75
+    },
+    {
+      "id": "message.content",
+      "type": "PRODUCT",
+      "confidence": 0.7499999999999999
+    },
+    {
+      "id": "Rick and Morty",
+      "type": "movie",
+      "confidence": 0.8239376544952393
+    },
+    {
+      "id": "University of Chicago",
+      "type": "organization",
+      "confidence": 0.7213380336761475
+    },
+    {
+      "id": "Discord bot",
+      "type": "software",
+      "confidence": 0.95
+    },
+    {
+      "id": "bot",
+      "type": "software",
+      "confidence": 0.95
+    },
+    {
+      "id": "favorite character",
+      "type": "character",
+      "confidence": 0.95
+    },
+    {
+      "id": "model",
+      "type": "model",
+      "confidence": 0.9516646862030029
+    },
+    {
+      "id": "character",
+      "type": "character",
+      "confidence": 0.8727195262908936
+    },
+    {
+      "id": "chatbot",
+      "type": "software",
+      "confidence": 0.95
+    },
+    {
+      "id": "video games",
+      "type": "game",
+      "confidence": 0.95
+    },
+    {
+      "id": "game",
+      "type": "game",
+      "confidence": 0.95
+    },
+    {
+      "id": "drive",
+      "type": "hardware",
+      "confidence": 0.9569951295852661
+    },
+    {
+      "id": "regular expression",
+      "type": "algorithm",
+      "confidence": 0.787018895149231
+    },
+    {
+      "id": "Mama Pig",
+      "type": "character",
+      "confidence": 0.8910706043243408
+    },
+    {
+      "id": "peppapig",
+      "type": "character",
+      "confidence": 0.8857994675636292
+    },
+    {
+      "id": "GPT model",
+      "type": "model",
+      "confidence": 0.7839719653129578
+    },
+    {
+      "id": "Generative Pre-trained Transformer",
+      "type": "model",
+      "confidence": 0.7126365900039673
+    },
+    {
+      "id": "our character",
+      "type": "character",
+      "confidence": 0.9506371021270752
+    },
+    {
+      "id": "12 epochs",
+      "type": "time",
+      "confidence": 0.7112653851509094
+    },
+    {
+      "id": "username",
+      "type": "person",
+      "confidence": 0.7064747214317322
+    },
+    {
+      "id": "git",
+      "type": "software",
+      "confidence": 0.9453239440917969
+    },
+    {
+      "id": "API",
+      "type": "api",
+      "confidence": 0.8154096007347107
+    },
+    {
+      "id": "Hugging Face model",
+      "type": "model",
+      "confidence": 0.8199337124824524
+    },
+    {
+      "id": "HTTP",
+      "type": "channel",
+      "confidence": 0.760124921798706
+    },
+    {
+      "id": "Hugging Face API",
+      "type": "api",
+      "confidence": 0.9279989004135132
+    },
+    {
+      "id": "Discord API",
+      "type": "api",
+      "confidence": 0.9273768067359924
+    },
+    {
+      "id": "channel",
+      "type": "channel",
+      "confidence": 0.9336186051368713
+    },
+    {
+      "id": "general channel",
+      "type": "channel",
+      "confidence": 0.9637145400047302
+    },
+    {
+      "id": "HTTP POST",
+      "type": "protocol",
+      "confidence": 0.8183202147483826
+    },
+    {
+      "id": "client",
+      "type": "software",
+      "confidence": 0.9119122624397278
+    },
+    {
+      "id": "Python channel",
+      "type": "channel",
+      "confidence": 0.9559160470962524
+    },
+    {
+      "id": "JS channel",
+      "type": "channel",
+      "confidence": 0.8929158449172974
+    },
+    {
+      "id": "JavaScript channel",
+      "type": "channel",
+      "confidence": 0.8400434255599976
+    },
+    {
+      "id": "Discord channel",
+      "type": "channel",
+      "confidence": 0.8411781787872314
+    },
+    {
+      "id": "Python bot",
+      "type": "software",
+      "confidence": 0.8411599397659302
+    },
+    {
+      "id": "HTTPS",
+      "type": "protocol",
+      "confidence": 0.8935762643814087
+    },
+    {
+      "id": "Discord JS bot",
+      "type": "software",
+      "confidence": 0.8581099510192871
+    },
+    {
+      "id": "use",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "artificial intelligence",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "uses",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "subclass of",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "AI chatbot",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "programming language",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "characters",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "the character",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "present in work",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "genre",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "dataset",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "datasets",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Batman",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "movies",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "movie",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "text messages",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "used by",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Google search",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "owner of",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "text file",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "two-column",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "character line",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "pandas",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "CSV",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "CSV file",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "parametric",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "substructures",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "parametric dictionary",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "facet of",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "sibling",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "data frame",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "model_train_upload_workflow",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "model training",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "train the model",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "transformers",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "platform",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "GPUs",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "harry potter 1",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "harry potter",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "separator",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "different from",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "comma",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "semicolon",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "separating",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "lines",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "has parts of the class",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "conversational",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "conversational chatbot",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "context data frame",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "training set",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "test set",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "GPT-small",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "developer",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "GPT",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "medium model",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "smart",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "num_train_epochs",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "hyperparameters",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "hyperparameter",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "epochs",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "batch size",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "overfitting",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "has effect",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "learning rate",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "temperature",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "training",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "context",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "perplexity",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "confused",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "neurotransmitter",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "neurotransmitters",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "has cause",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "command-line client",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "pip",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Git LFS",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "repository",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "LFS",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "git add",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "commit",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Lynn's Dev Lab",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "API tokens",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "discord_bot",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Discord module",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "API endpoint",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "query method",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "on_ready",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "asynchronous function",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Ignore the message",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "reply to it",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "opposite of",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "ignoring",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "reply",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "authentically",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "pid",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "pid tag",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "environment variable",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "environment variables",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "run",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Repl.it",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Harry Potter Bot",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Python bot channel",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Hello",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "ChattyBot JavaScript",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Chatbot",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "fetch",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "on_ready function",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "callback",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "request headers",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "request",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "body",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "response",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "error field",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "debugging",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "debug",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "server",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "npm",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "ChattyBot JavaScript 1048",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "JavaScript bot",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "keep_alive",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Python script",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "monitor",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "HTTP monitor",
+      "type": "unknown",
+      "confidence": 0.9
+    }
+  ],
+  "edges": [
+    {
+      "source": "Harry Potter",
+      "target": "genre",
+      "predicate": "dialogue",
+      "confidence": 0.9
+    },
+    {
+      "source": "Harry Potter",
+      "target": "present in work",
+      "predicate": "Rick and Morty",
+      "confidence": 0.9
+    },
+    {
+      "source": "Google Colab",
+      "target": "Google Drive",
+      "predicate": "part of",
+      "confidence": 0.9
+    },
+    {
+      "source": "Hugging Face",
+      "target": "command-line client",
+      "predicate": "instance of",
+      "confidence": 0.9
+    },
+    {
+      "source": "Hugging Face",
+      "target": "use",
+      "predicate": "authorization",
+      "confidence": 0.9
+    },
+    {
+      "source": "Hugging Face",
+      "target": "chatbot",
+      "predicate": "instance of",
+      "confidence": 0.9
+    },
+    {
+      "source": "Hugging Face",
+      "target": "Discord",
+      "predicate": "part of",
+      "confidence": 0.9
+    },
+    {
+      "source": "Hugging Face",
+      "target": "API tokens",
+      "predicate": "instance of",
+      "confidence": 0.9
+    },
+    {
+      "source": "Hugging Face",
+      "target": "API",
+      "predicate": "instance of",
+      "confidence": 0.9
+    },
+    {
+      "source": "Hugging Face",
+      "target": "Bearer",
+      "predicate": "has part",
+      "confidence": 0.9
+    },
+    {
+      "source": "Hugging Face",
+      "target": "programming language",
+      "predicate": "JavaScript",
+      "confidence": 0.9
+    },
+    {
+      "source": "Hugging Face",
+      "target": "Discord bot",
+      "predicate": "instance of",
+      "confidence": 0.9
+    },
+    {
+      "source": "Hugging Face",
+      "target": "JavaScript bot",
+      "predicate": "instance of",
+      "confidence": 0.9
+    },
+    {
+      "source": "Uptime Robot",
+      "target": "programming language",
+      "predicate": "Python",
+      "confidence": 0.9
+    },
+    {
+      "source": "Discord",
+      "target": "chatbot",
+      "predicate": "instance of",
+      "confidence": 0.9
+    },
+    {
+      "source": "Discord",
+      "target": "AI chatbot",
+      "predicate": "instance of",
+      "confidence": 0.9
+    },
+    {
+      "source": "Discord",
+      "target": "programming language",
+      "predicate": "Python",
+      "confidence": 0.9
+    },
+    {
+      "source": "Discord",
+      "target": "API",
+      "predicate": "instance of",
+      "confidence": 0.9
+    },
+    {
+      "source": "Python",
+      "target": "JavaScript",
+      "predicate": "influenced by",
+      "confidence": 0.9
+    },
+    {
+      "source": "Python",
+      "target": "Python script",
+      "predicate": "has part",
+      "confidence": 0.9
+    },
+    {
+      "source": "Kaggle",
+      "target": "dataset",
+      "predicate": "instance of",
+      "confidence": 0.9
+    },
+    {
+      "source": "Google",
+      "target": "owner of",
+      "predicate": "Google search",
+      "confidence": 0.9
+    },
+    {
+      "source": "Peppa Pig",
+      "target": "dataset",
+      "predicate": "instance of",
+      "confidence": 0.9
+    },
+    {
+      "source": "Peppa Pig",
+      "target": "datasets",
+      "predicate": "instance of",
+      "confidence": 0.9
+    },
+    {
+      "source": "Peppa Pig",
+      "target": "present in work",
+      "predicate": "Peppa Pig",
+      "confidence": 0.9
+    },
+    {
+      "source": "Peppa Pig",
+      "target": "sibling",
+      "predicate": "Mama Pig",
+      "confidence": 0.9
+    },
+    {
+      "source": "Peppa Pig",
+      "target": "Mama Pig",
+      "predicate": "sibling",
+      "confidence": 0.9
+    },
+    {
+      "source": "Peppa Pig",
+      "target": "Peppa Pig",
+      "predicate": "part of",
+      "confidence": 0.9
+    },
+    {
+      "source": "Peppa Pig",
+      "target": "characters",
+      "predicate": "Peppa Pig",
+      "confidence": 0.9
+    },
+    {
+      "source": "Peppa Pig",
+      "target": "data frame",
+      "predicate": "instance of",
+      "confidence": 0.9
+    },
+    {
+      "source": "Harry",
+      "target": "conversational chatbot",
+      "predicate": "instance of",
+      "confidence": 0.9
+    },
+    {
+      "source": "Git",
+      "target": "repository",
+      "predicate": "instance of",
+      "confidence": 0.9
+    },
+    {
+      "source": "Git",
+      "target": "LFS",
+      "predicate": "has part",
+      "confidence": 0.9
+    },
+    {
+      "source": "Git",
+      "target": "uses",
+      "predicate": "LFS",
+      "confidence": 0.9
+    },
+    {
+      "source": "Git",
+      "target": "programming language",
+      "predicate": "Python",
+      "confidence": 0.9
+    },
+    {
+      "source": "JavaScript",
+      "target": "Python",
+      "predicate": "influenced by",
+      "confidence": 0.9
+    },
+    {
+      "source": "ChattyBot Python",
+      "target": "programming language",
+      "predicate": "Python",
+      "confidence": 0.9
+    },
+    {
+      "source": "Harry Potter Bot Python",
+      "target": "programming language",
+      "predicate": "Python",
+      "confidence": 0.9
+    },
+    {
+      "source": "Harry Potter Bot Python",
+      "target": "bot",
+      "predicate": "instance of",
+      "confidence": 0.9
+    },
+    {
+      "source": "Repl",
+      "target": "uses",
+      "predicate": "OAuth",
+      "confidence": 0.9
+    },
+    {
+      "source": "Repl",
+      "target": "use",
+      "predicate": "OAuth",
+      "confidence": 0.9
+    },
+    {
+      "source": "Repl",
+      "target": "server",
+      "predicate": "instance of",
+      "confidence": 0.9
+    },
+    {
+      "source": "Repl",
+      "target": "programming language",
+      "predicate": "JavaScript",
+      "confidence": 0.9
+    },
+    {
+      "source": "ChattyBot",
+      "target": "programming language",
+      "predicate": "Node.js",
+      "confidence": 0.9
+    },
+    {
+      "source": "ChattyBot",
+      "target": "ChattyBot JavaScript 1048",
+      "predicate": "has part",
+      "confidence": 0.9
+    },
+    {
+      "source": "Google Drive",
+      "target": "Google Colab",
+      "predicate": "has part",
+      "confidence": 0.9
+    },
+    {
+      "source": "PyTorch",
+      "target": "chatbot",
+      "predicate": "instance of",
+      "confidence": 0.9
+    },
+    {
+      "source": "PyTorch",
+      "target": "use",
+      "predicate": "chatbot",
+      "confidence": 0.9
+    },
+    {
+      "source": "Node",
+      "target": "programming language",
+      "predicate": "JavaScript",
+      "confidence": 0.9
+    },
+    {
+      "source": "The Word Ends With You",
+      "target": "bot",
+      "predicate": "instance of",
+      "confidence": 0.9
+    },
+    {
+      "source": "The Word Ends With You",
+      "target": "game",
+      "predicate": "instance of",
+      "confidence": 0.9
+    },
+    {
+      "source": "Rick and Morty",
+      "target": "characters",
+      "predicate": "the character",
+      "confidence": 0.9
+    },
+    {
+      "source": "Rick and Morty",
+      "target": "genre",
+      "predicate": "dialogue",
+      "confidence": 0.9
+    },
+    {
+      "source": "Discord bot",
+      "target": "use",
+      "predicate": "artificial intelligence",
+      "confidence": 0.9
+    },
+    {
+      "source": "Discord bot",
+      "target": "artificial intelligence",
+      "predicate": "instance of",
+      "confidence": 0.9
+    },
+    {
+      "source": "Discord bot",
+      "target": "uses",
+      "predicate": "artificial intelligence",
+      "confidence": 0.9
+    },
+    {
+      "source": "bot",
+      "target": "environment variable",
+      "predicate": "has part",
+      "confidence": 0.9
+    },
+    {
+      "source": "bot",
+      "target": "environment variables",
+      "predicate": "has part",
+      "confidence": 0.9
+    },
+    {
+      "source": "chatbot",
+      "target": "subclass of",
+      "predicate": "AI",
+      "confidence": 0.9
+    },
+    {
+      "source": "chatbot",
+      "target": "uses",
+      "predicate": "text messages",
+      "confidence": 0.9
+    },
+    {
+      "source": "chatbot",
+      "target": "use",
+      "predicate": "text messages",
+      "confidence": 0.9
+    },
+    {
+      "source": "Mama Pig",
+      "target": "George",
+      "predicate": "sibling",
+      "confidence": 0.9
+    },
+    {
+      "source": "Mama Pig",
+      "target": "sibling",
+      "predicate": "Peppa Pig",
+      "confidence": 0.9
+    },
+    {
+      "source": "HTTP",
+      "target": "request",
+      "predicate": "has part",
+      "confidence": 0.9
+    },
+    {
+      "source": "HTTP POST",
+      "target": "uses",
+      "predicate": "HTTP",
+      "confidence": 0.9
+    },
+    {
+      "source": "HTTP POST",
+      "target": "subclass of",
+      "predicate": "API endpoint",
+      "confidence": 0.9
+    },
+    {
+      "source": "HTTP POST",
+      "target": "HTTP",
+      "predicate": "part of",
+      "confidence": 0.9
+    },
+    {
+      "source": "client",
+      "target": "run",
+      "predicate": "part of",
+      "confidence": 0.9
+    },
+    {
+      "source": "Python bot",
+      "target": "programming language",
+      "predicate": "Python",
+      "confidence": 0.9
+    },
+    {
+      "source": "Python bot",
+      "target": "different from",
+      "predicate": "JavaScript bot",
+      "confidence": 0.9
+    },
+    {
+      "source": "the character",
+      "target": "present in work",
+      "predicate": "Rick and Morty",
+      "confidence": 0.9
+    },
+    {
+      "source": "dataset",
+      "target": "text file",
+      "predicate": "has part",
+      "confidence": 0.9
+    },
+    {
+      "source": "dataset",
+      "target": "context",
+      "predicate": "part of",
+      "confidence": 0.9
+    },
+    {
+      "source": "Batman",
+      "target": "movies",
+      "predicate": "instance of",
+      "confidence": 0.9
+    },
+    {
+      "source": "Batman",
+      "target": "movie",
+      "predicate": "instance of",
+      "confidence": 0.9
+    },
+    {
+      "source": "text messages",
+      "target": "used by",
+      "predicate": "chatbot",
+      "confidence": 0.9
+    },
+    {
+      "source": "Google search",
+      "target": "Google",
+      "predicate": "owned by",
+      "confidence": 0.9
+    },
+    {
+      "source": "text file",
+      "target": "dataset",
+      "predicate": "part of",
+      "confidence": 0.9
+    },
+    {
+      "source": "two-column",
+      "target": "uses",
+      "predicate": "character line",
+      "confidence": 0.9
+    },
+    {
+      "source": "character line",
+      "target": "used by",
+      "predicate": "two-column",
+      "confidence": 0.9
+    },
+    {
+      "source": "character line",
+      "target": "use",
+      "predicate": "two-column",
+      "confidence": 0.9
+    },
+    {
+      "source": "pandas",
+      "target": "uses",
+      "predicate": "CSV file",
+      "confidence": 0.9
+    },
+    {
+      "source": "CSV",
+      "target": "used by",
+      "predicate": "pandas",
+      "confidence": 0.9
+    },
+    {
+      "source": "CSV file",
+      "target": "used by",
+      "predicate": "pandas",
+      "confidence": 0.9
+    },
+    {
+      "source": "parametric",
+      "target": "subclass of",
+      "predicate": "regular expression",
+      "confidence": 0.9
+    },
+    {
+      "source": "parametric",
+      "target": "lines",
+      "predicate": "has part",
+      "confidence": 0.9
+    },
+    {
+      "source": "parametric",
+      "target": "has parts of the class",
+      "predicate": "lines",
+      "confidence": 0.9
+    },
+    {
+      "source": "substructures",
+      "target": "regular expression",
+      "predicate": "part of",
+      "confidence": 0.9
+    },
+    {
+      "source": "parametric dictionary",
+      "target": "facet of",
+      "predicate": "regular expression",
+      "confidence": 0.9
+    },
+    {
+      "source": "sibling",
+      "target": "Peppa Pig",
+      "predicate": "Mama Pig",
+      "confidence": 0.9
+    },
+    {
+      "source": "sibling",
+      "target": "sibling",
+      "predicate": "George",
+      "confidence": 0.9
+    },
+    {
+      "source": "data frame",
+      "target": "dataset",
+      "predicate": "part of",
+      "confidence": 0.9
+    },
+    {
+      "source": "model_train_upload_workflow",
+      "target": "use",
+      "predicate": "model training",
+      "confidence": 0.9
+    },
+    {
+      "source": "model training",
+      "target": "subclass of",
+      "predicate": "train the model",
+      "confidence": 0.9
+    },
+    {
+      "source": "train the model",
+      "target": "subclass of",
+      "predicate": "model training",
+      "confidence": 0.9
+    },
+    {
+      "source": "transformers",
+      "target": "platform",
+      "predicate": "GPUs",
+      "confidence": 0.9
+    },
+    {
+      "source": "GPUs",
+      "target": "subclass of",
+      "predicate": "driver",
+      "confidence": 0.9
+    },
+    {
+      "source": "harry potter 1",
+      "target": "dataset",
+      "predicate": "instance of",
+      "confidence": 0.9
+    },
+    {
+      "source": "harry potter 1",
+      "target": "Harry Potter",
+      "predicate": "part of",
+      "confidence": 0.9
+    },
+    {
+      "source": "harry potter",
+      "target": "dataset",
+      "predicate": "instance of",
+      "confidence": 0.9
+    },
+    {
+      "source": "separator",
+      "target": "different from",
+      "predicate": "comma",
+      "confidence": 0.9
+    },
+    {
+      "source": "comma",
+      "target": "different from",
+      "predicate": "separating",
+      "confidence": 0.9
+    },
+    {
+      "source": "semicolon",
+      "target": "different from",
+      "predicate": "separator",
+      "confidence": 0.9
+    },
+    {
+      "source": "separating",
+      "target": "different from",
+      "predicate": "comma",
+      "confidence": 0.9
+    },
+    {
+      "source": "lines",
+      "target": "parametric",
+      "predicate": "part of",
+      "confidence": 0.9
+    },
+    {
+      "source": "conversational",
+      "target": "subclass of",
+      "predicate": "chatbot",
+      "confidence": 0.9
+    },
+    {
+      "source": "context data frame",
+      "target": "use",
+      "predicate": "conversational chatbot",
+      "confidence": 0.9
+    },
+    {
+      "source": "training set",
+      "target": "subclass of",
+      "predicate": "dataset",
+      "confidence": 0.9
+    },
+    {
+      "source": "test set",
+      "target": "subclass of",
+      "predicate": "dataset",
+      "confidence": 0.9
+    },
+    {
+      "source": "GPT-small",
+      "target": "developer",
+      "predicate": "Microsoft's",
+      "confidence": 0.9
+    },
+    {
+      "source": "GPT",
+      "target": "developer",
+      "predicate": "Microsoft",
+      "confidence": 0.9
+    },
+    {
+      "source": "medium model",
+      "target": "subclass of",
+      "predicate": "smarter",
+      "confidence": 0.9
+    },
+    {
+      "source": "medium model",
+      "target": "smart",
+      "predicate": "instance of",
+      "confidence": 0.9
+    },
+    {
+      "source": "num_train_epochs",
+      "target": "hyperparameters",
+      "predicate": "instance of",
+      "confidence": 0.9
+    },
+    {
+      "source": "num_train_epochs",
+      "target": "hyperparameter",
+      "predicate": "instance of",
+      "confidence": 0.9
+    },
+    {
+      "source": "epochs",
+      "target": "subclass of",
+      "predicate": "hyperparameters",
+      "confidence": 0.9
+    },
+    {
+      "source": "epochs",
+      "target": "training",
+      "predicate": "part of",
+      "confidence": 0.9
+    },
+    {
+      "source": "batch size",
+      "target": "subclass of",
+      "predicate": "hyperparameter",
+      "confidence": 0.9
+    },
+    {
+      "source": "batch size",
+      "target": "hyperparameter",
+      "predicate": "instance of",
+      "confidence": 0.9
+    },
+    {
+      "source": "overfitting",
+      "target": "has effect",
+      "predicate": "gradient",
+      "confidence": 0.9
+    },
+    {
+      "source": "learning rate",
+      "target": "subclass of",
+      "predicate": "hyperparameters",
+      "confidence": 0.9
+    },
+    {
+      "source": "learning rate",
+      "target": "hyperparameters",
+      "predicate": "instance of",
+      "confidence": 0.9
+    },
+    {
+      "source": "temperature",
+      "target": "subclass of",
+      "predicate": "hyperparameters",
+      "confidence": 0.9
+    },
+    {
+      "source": "temperature",
+      "target": "hyperparameters",
+      "predicate": "instance of",
+      "confidence": 0.9
+    },
+    {
+      "source": "perplexity",
+      "target": "facet of",
+      "predicate": "confused",
+      "confidence": 0.9
+    },
+    {
+      "source": "perplexity",
+      "target": "subclass of",
+      "predicate": "confused",
+      "confidence": 0.9
+    },
+    {
+      "source": "confused",
+      "target": "facet of",
+      "predicate": "confused",
+      "confidence": 0.9
+    },
+    {
+      "source": "neurotransmitter",
+      "target": "different from",
+      "predicate": "neurotransmitter",
+      "confidence": 0.9
+    },
+    {
+      "source": "neurotransmitters",
+      "target": "neurotransmitters",
+      "predicate": "part of",
+      "confidence": 0.9
+    },
+    {
+      "source": "neurotransmitters",
+      "target": "has effect",
+      "predicate": "neurotransmitters",
+      "confidence": 0.9
+    },
+    {
+      "source": "neurotransmitters",
+      "target": "has cause",
+      "predicate": "neurotransmitters",
+      "confidence": 0.9
+    },
+    {
+      "source": "pip",
+      "target": "use",
+      "predicate": "command-line client",
+      "confidence": 0.9
+    },
+    {
+      "source": "Git LFS",
+      "target": "repository",
+      "predicate": "instance of",
+      "confidence": 0.9
+    },
+    {
+      "source": "Git LFS",
+      "target": "use",
+      "predicate": "repository",
+      "confidence": 0.9
+    },
+    {
+      "source": "LFS",
+      "target": "Git",
+      "predicate": "part of",
+      "confidence": 0.9
+    },
+    {
+      "source": "LFS",
+      "target": "used by",
+      "predicate": "Git",
+      "confidence": 0.9
+    },
+    {
+      "source": "git add",
+      "target": "Git LFS",
+      "predicate": "part of",
+      "confidence": 0.9
+    },
+    {
+      "source": "git add",
+      "target": "Git",
+      "predicate": "part of",
+      "confidence": 0.9
+    },
+    {
+      "source": "commit",
+      "target": "Git LFS",
+      "predicate": "part of",
+      "confidence": 0.9
+    },
+    {
+      "source": "Lynn's Dev Lab",
+      "target": "use",
+      "predicate": "Discord",
+      "confidence": 0.9
+    },
+    {
+      "source": "Lynn's Dev Lab",
+      "target": "Discord",
+      "predicate": "part of",
+      "confidence": 0.9
+    },
+    {
+      "source": "discord_bot",
+      "target": "programming language",
+      "predicate": "Python",
+      "confidence": 0.9
+    },
+    {
+      "source": "Discord module",
+      "target": "programming language",
+      "predicate": "Python",
+      "confidence": 0.9
+    },
+    {
+      "source": "API endpoint",
+      "target": "API",
+      "predicate": "part of",
+      "confidence": 0.9
+    },
+    {
+      "source": "API endpoint",
+      "target": "used by",
+      "predicate": "HTTP POST",
+      "confidence": 0.9
+    },
+    {
+      "source": "API endpoint",
+      "target": "use",
+      "predicate": "HTTP POST",
+      "confidence": 0.9
+    },
+    {
+      "source": "query method",
+      "target": "use",
+      "predicate": "authorization",
+      "confidence": 0.9
+    },
+    {
+      "source": "on_ready",
+      "target": "asynchronous function",
+      "predicate": "instance of",
+      "confidence": 0.9
+    },
+    {
+      "source": "on_ready",
+      "target": "use",
+      "predicate": "asynchronous function",
+      "confidence": 0.9
+    },
+    {
+      "source": "on_ready",
+      "target": "subclass of",
+      "predicate": "asynchronous function",
+      "confidence": 0.9
+    },
+    {
+      "source": "on_ready",
+      "target": "programming language",
+      "predicate": "Python",
+      "confidence": 0.9
+    },
+    {
+      "source": "on_ready",
+      "target": "callback",
+      "predicate": "instance of",
+      "confidence": 0.9
+    },
+    {
+      "source": "Ignore the message",
+      "target": "different from",
+      "predicate": "reply to it",
+      "confidence": 0.9
+    },
+    {
+      "source": "Ignore the message",
+      "target": "opposite of",
+      "predicate": "reply to it",
+      "confidence": 0.9
+    },
+    {
+      "source": "reply to it",
+      "target": "different from",
+      "predicate": "Ignore the message",
+      "confidence": 0.9
+    },
+    {
+      "source": "reply to it",
+      "target": "opposite of",
+      "predicate": "Ignore the message",
+      "confidence": 0.9
+    },
+    {
+      "source": "ignoring",
+      "target": "different from",
+      "predicate": "reply",
+      "confidence": 0.9
+    },
+    {
+      "source": "reply",
+      "target": "different from",
+      "predicate": "ignoring",
+      "confidence": 0.9
+    },
+    {
+      "source": "authentically",
+      "target": "different from",
+      "predicate": "authentically",
+      "confidence": 0.9
+    },
+    {
+      "source": "authentically",
+      "target": "facet of",
+      "predicate": "authentically",
+      "confidence": 0.9
+    },
+    {
+      "source": "pid",
+      "target": "different from",
+      "predicate": "pid tag",
+      "confidence": 0.9
+    },
+    {
+      "source": "pid tag",
+      "target": "different from",
+      "predicate": "pid",
+      "confidence": 0.9
+    },
+    {
+      "source": "environment variable",
+      "target": "bot",
+      "predicate": "part of",
+      "confidence": 0.9
+    },
+    {
+      "source": "environment variables",
+      "target": "bot",
+      "predicate": "part of",
+      "confidence": 0.9
+    },
+    {
+      "source": "run",
+      "target": "client",
+      "predicate": "has part",
+      "confidence": 0.9
+    },
+    {
+      "source": "Repl.it",
+      "target": "uses",
+      "predicate": "OAuth2",
+      "confidence": 0.9
+    },
+    {
+      "source": "Repl.it",
+      "target": "use",
+      "predicate": "Repl",
+      "confidence": 0.9
+    },
+    {
+      "source": "Repl.it",
+      "target": "programming language",
+      "predicate": "Python",
+      "confidence": 0.9
+    },
+    {
+      "source": "Harry Potter Bot",
+      "target": "programming language",
+      "predicate": "Python",
+      "confidence": 0.9
+    },
+    {
+      "source": "Python bot channel",
+      "target": "programming language",
+      "predicate": "Python",
+      "confidence": 0.9
+    },
+    {
+      "source": "Hello",
+      "target": "programming language",
+      "predicate": "Python",
+      "confidence": 0.9
+    },
+    {
+      "source": "ChattyBot JavaScript",
+      "target": "programming language",
+      "predicate": "Node.js",
+      "confidence": 0.9
+    },
+    {
+      "source": "Chatbot",
+      "target": "programming language",
+      "predicate": "JavaScript",
+      "confidence": 0.9
+    },
+    {
+      "source": "fetch",
+      "target": "HTTP",
+      "predicate": "part of",
+      "confidence": 0.9
+    },
+    {
+      "source": "on_ready function",
+      "target": "programming language",
+      "predicate": "Python",
+      "confidence": 0.9
+    },
+    {
+      "source": "request headers",
+      "target": "HTTP",
+      "predicate": "part of",
+      "confidence": 0.9
+    },
+    {
+      "source": "request headers",
+      "target": "facet of",
+      "predicate": "HTTP",
+      "confidence": 0.9
+    },
+    {
+      "source": "request",
+      "target": "HTTP",
+      "predicate": "part of",
+      "confidence": 0.9
+    },
+    {
+      "source": "body",
+      "target": "response",
+      "predicate": "part of",
+      "confidence": 0.9
+    },
+    {
+      "source": "error field",
+      "target": "use",
+      "predicate": "debugging",
+      "confidence": 0.9
+    },
+    {
+      "source": "debugging",
+      "target": "uses",
+      "predicate": "error field",
+      "confidence": 0.9
+    },
+    {
+      "source": "debug",
+      "target": "uses",
+      "predicate": "error field",
+      "confidence": 0.9
+    },
+    {
+      "source": "npm",
+      "target": "programming language",
+      "predicate": "JavaScript",
+      "confidence": 0.9
+    },
+    {
+      "source": "ChattyBot JavaScript 1048",
+      "target": "ChattyBot",
+      "predicate": "instance of",
+      "confidence": 0.9
+    },
+    {
+      "source": "JavaScript bot",
+      "target": "different from",
+      "predicate": "Python bot",
+      "confidence": 0.9
+    },
+    {
+      "source": "keep_alive",
+      "target": "programming language",
+      "predicate": "JavaScript",
+      "confidence": 0.9
+    },
+    {
+      "source": "Python script",
+      "target": "Python",
+      "predicate": "part of",
+      "confidence": 0.9
+    },
+    {
+      "source": "Python script",
+      "target": "programming language",
+      "predicate": "Python",
+      "confidence": 0.9
+    },
+    {
+      "source": "monitor",
+      "target": "programming language",
+      "predicate": "Python",
+      "confidence": 0.9
+    },
+    {
+      "source": "HTTP monitor",
+      "target": "subclass of",
+      "predicate": "monitor",
+      "confidence": 0.9
+    }
+  ],
+  "node_count": 205,
+  "edge_count": 190,
+  "connected_components": 61,
+  "density": 0.004543280726924916
+}

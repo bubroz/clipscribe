@@ -1,0 +1,377 @@
+{
+  "nodes": [
+    {
+      "id": "Trump",
+      "type": "PERSON",
+      "confidence": 0.9
+    },
+    {
+      "id": "Iran",
+      "type": "organization",
+      "confidence": 0.9230801463127136
+    },
+    {
+      "id": "Israel",
+      "type": "organization",
+      "confidence": 0.9060087203979492
+    },
+    {
+      "id": "Security Council",
+      "type": "ORGANIZATION",
+      "confidence": 0.9
+    },
+    {
+      "id": "Trump Nobel",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "Gaza",
+      "type": "LOCATION",
+      "confidence": 0.8
+    },
+    {
+      "id": "the China Central Television",
+      "type": "ORGANIZATION",
+      "confidence": 0.7999999999999999
+    },
+    {
+      "id": "the United States",
+      "type": "LOCATION",
+      "confidence": 0.7999999999999999
+    },
+    {
+      "id": "the Security Council",
+      "type": "ORGANIZATION",
+      "confidence": 0.7999999999999999
+    },
+    {
+      "id": "Witkoff",
+      "type": "PERSON",
+      "confidence": 0.75
+    },
+    {
+      "id": "Netanyahu",
+      "type": "PERSON",
+      "confidence": 0.75
+    },
+    {
+      "id": "a Nobel Peace Prize",
+      "type": "PRODUCT",
+      "confidence": 0.7499999999999999
+    },
+    {
+      "id": "the Middle East",
+      "type": "LOCATION",
+      "confidence": 0.7499999999999999
+    },
+    {
+      "id": "Ambassador",
+      "type": "person",
+      "confidence": 0.7578077912330627
+    },
+    {
+      "id": "China Central Television",
+      "type": "channel",
+      "confidence": 0.7449876070022583
+    },
+    {
+      "id": "US Congressman",
+      "type": "person",
+      "confidence": 0.95
+    },
+    {
+      "id": "President Trump",
+      "type": "person",
+      "confidence": 0.9012423753738403
+    },
+    {
+      "id": "Nobel Peace Prize",
+      "type": "event",
+      "confidence": 0.95
+    },
+    {
+      "id": "ceasefire",
+      "type": "conflict",
+      "confidence": 0.95
+    },
+    {
+      "id": "United States",
+      "type": "organization",
+      "confidence": 0.95
+    },
+    {
+      "id": "Ambassador Witkoff",
+      "type": "person",
+      "confidence": 0.8776202201843262
+    },
+    {
+      "id": "conflict",
+      "type": "conflict",
+      "confidence": 0.95
+    },
+    {
+      "id": "Middle East",
+      "type": "location",
+      "confidence": 0.9028919339179993
+    },
+    {
+      "id": "Lika",
+      "type": "person",
+      "confidence": 0.8486340045928955
+    },
+    {
+      "id": "RIA Novosti",
+      "type": "organization",
+      "confidence": 0.9010370373725891
+    },
+    {
+      "id": "Iranian representative",
+      "type": "person",
+      "confidence": 0.7147314548492432
+    },
+    {
+      "id": "UN",
+      "type": "organization",
+      "confidence": 0.9583381414413452
+    },
+    {
+      "id": "strike",
+      "type": "conflict",
+      "confidence": 0.7050105333328247
+    },
+    {
+      "id": "program",
+      "type": "organization",
+      "confidence": 0.8435369729995728
+    },
+    {
+      "id": "Prime Minister Netanyahu",
+      "type": "person",
+      "confidence": 0.879834771156311
+    },
+    {
+      "id": "award received",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "winner",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "ceasefire also in Gaza",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "participant",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "location",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "USA",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "owner of",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "a major threat in the Middle East",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "point in time",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "ceasefire between Israel and Iran",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "country",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "President",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "officeholder",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "position held",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "highly enriched uranium",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Prime Minister",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Benjamin Netanyahu",
+      "type": "unknown",
+      "confidence": 0.9
+    }
+  ],
+  "edges": [
+    {
+      "source": "Trump",
+      "target": "position held",
+      "predicate": "President",
+      "confidence": 0.9
+    },
+    {
+      "source": "Iran",
+      "target": "Israel",
+      "predicate": "diplomatic relation",
+      "confidence": 0.9
+    },
+    {
+      "source": "Iran",
+      "target": "USA",
+      "predicate": "diplomatic relation",
+      "confidence": 0.9
+    },
+    {
+      "source": "Israel",
+      "target": "United States",
+      "predicate": "diplomatic relation",
+      "confidence": 0.9
+    },
+    {
+      "source": "Israel",
+      "target": "Iran",
+      "predicate": "diplomatic relation",
+      "confidence": 0.9
+    },
+    {
+      "source": "Netanyahu",
+      "target": "position held",
+      "predicate": "Prime Minister",
+      "confidence": 0.9
+    },
+    {
+      "source": "President Trump",
+      "target": "award received",
+      "predicate": "Nobel Peace Prize",
+      "confidence": 0.9
+    },
+    {
+      "source": "Nobel Peace Prize",
+      "target": "winner",
+      "predicate": "President Trump",
+      "confidence": 0.9
+    },
+    {
+      "source": "ceasefire",
+      "target": "location",
+      "predicate": "Gaza",
+      "confidence": 0.9
+    },
+    {
+      "source": "United States",
+      "target": "Israel",
+      "predicate": "diplomatic relation",
+      "confidence": 0.9
+    },
+    {
+      "source": "Lika",
+      "target": "RIA Novosti",
+      "predicate": "owned by",
+      "confidence": 0.9
+    },
+    {
+      "source": "RIA Novosti",
+      "target": "owner of",
+      "predicate": "Lika",
+      "confidence": 0.9
+    },
+    {
+      "source": "UN",
+      "target": "Netanyahu",
+      "predicate": "employer",
+      "confidence": 0.9
+    },
+    {
+      "source": "ceasefire also in Gaza",
+      "target": "participant",
+      "predicate": "United States",
+      "confidence": 0.9
+    },
+    {
+      "source": "USA",
+      "target": "Israel",
+      "predicate": "diplomatic relation",
+      "confidence": 0.9
+    },
+    {
+      "source": "a major threat in the Middle East",
+      "target": "point in time",
+      "predicate": "12 days ago",
+      "confidence": 0.9
+    },
+    {
+      "source": "ceasefire between Israel and Iran",
+      "target": "participant",
+      "predicate": "President Trump",
+      "confidence": 0.9
+    },
+    {
+      "source": "ceasefire between Israel and Iran",
+      "target": "country",
+      "predicate": "Iran",
+      "confidence": 0.9
+    },
+    {
+      "source": "President",
+      "target": "officeholder",
+      "predicate": "Trump",
+      "confidence": 0.9
+    },
+    {
+      "source": "highly enriched uranium",
+      "target": "country",
+      "predicate": "Iran",
+      "confidence": 0.9
+    },
+    {
+      "source": "Prime Minister",
+      "target": "officeholder",
+      "predicate": "Benjamin Netanyahu",
+      "confidence": 0.9
+    },
+    {
+      "source": "Benjamin Netanyahu",
+      "target": "position held",
+      "predicate": "Prime Minister",
+      "confidence": 0.9
+    }
+  ],
+  "node_count": 47,
+  "edge_count": 22,
+  "connected_components": 28,
+  "density": 0.010175763182238668
+}

@@ -1,0 +1,560 @@
+{
+  "video_url": "https://www.youtube.com/watch?v=dC1-qgR7YO0",
+  "video_title": "NASA's James Webb Space Telescope: Stunning new images captured of the universe | 60 Minutes",
+  "relationships": [
+    {
+      "subject": "James Webb Space Telescope",
+      "predicate": "NASA",
+      "object": "operator",
+      "confidence": 0.9,
+      "context": "NASA's James Webb Space Telescope has hardly opened its eyes, and the universe is new, more mysterio"
+    },
+    {
+      "subject": "universe",
+      "predicate": "Big Bang",
+      "object": "significant event",
+      "confidence": 0.9,
+      "context": "NASA's James Webb Space Telescope has hardly opened its eyes, and the universe is new, more mysterio"
+    },
+    {
+      "subject": "Big Bang",
+      "predicate": "universe",
+      "object": "has effect",
+      "confidence": 0.9,
+      "context": "NASA's James Webb Space Telescope has hardly opened its eyes, and the universe is new, more mysterio"
+    },
+    {
+      "subject": "galaxies",
+      "predicate": "part of",
+      "object": "universe",
+      "confidence": 0.9,
+      "context": "NASA's James Webb Space Telescope has hardly opened its eyes, and the universe is new, more mysterio"
+    },
+    {
+      "subject": "galaxies",
+      "predicate": "Astrophysicist",
+      "object": "studied by",
+      "confidence": 0.9,
+      "context": "Recently, we got a look at some captivating images as Webb peers back toward the origin of everythin"
+    },
+    {
+      "subject": "Astrophysicist",
+      "predicate": "galaxies",
+      "object": "studies",
+      "confidence": 0.9,
+      "context": "Recently, we got a look at some captivating images as Webb peers back toward the origin of everythin"
+    },
+    {
+      "subject": "Milky Way",
+      "predicate": "instance of",
+      "object": "galaxies",
+      "confidence": 0.9,
+      "context": "Enormous swirls of billions of stars each, some like our own Milky Way, and others, well, out of thi"
+    },
+    {
+      "subject": "Milky Way",
+      "predicate": "instance of",
+      "object": "irregular galaxy",
+      "confidence": 0.9,
+      "context": "Enormous swirls of billions of stars each, some like our own Milky Way, and others, well, out of thi"
+    },
+    {
+      "subject": "interacting",
+      "predicate": "galaxies",
+      "object": "facet of",
+      "confidence": 0.9,
+      "context": "Enormous swirls of billions of stars each, some like our own Milky Way, and others, well, out of thi"
+    },
+    {
+      "subject": "Advanced Deep Extragalactic Survey",
+      "predicate": "University of California, Santa Cruz",
+      "object": "operator",
+      "confidence": 0.9,
+      "context": "You can see that they're disturbed because the gravity of one galaxy yanks the stars out of the othe"
+    },
+    {
+      "subject": "most distant galaxy",
+      "predicate": "part of",
+      "object": "universe",
+      "confidence": 0.9,
+      "context": "You can see that they're disturbed because the gravity of one galaxy yanks the stars out of the othe"
+    },
+    {
+      "subject": "universe",
+      "predicate": "has part",
+      "object": "most distant galaxy",
+      "confidence": 0.9,
+      "context": "You can see that they're disturbed because the gravity of one galaxy yanks the stars out of the othe"
+    },
+    {
+      "subject": "the most distant galaxy",
+      "predicate": "part of",
+      "object": "universe",
+      "confidence": 0.9,
+      "context": "You can see that they're disturbed because the gravity of one galaxy yanks the stars out of the othe"
+    },
+    {
+      "subject": "universe",
+      "predicate": "has part",
+      "object": "the most distant galaxy",
+      "confidence": 0.9,
+      "context": "You can see that they're disturbed because the gravity of one galaxy yanks the stars out of the othe"
+    },
+    {
+      "subject": "the Big Bang",
+      "predicate": "universe",
+      "object": "has effect",
+      "confidence": 0.9,
+      "context": "Can I show you some pictures?\n\nPlease. I would love to see it.\n\nSo, as we zoom in, we keep going, we"
+    },
+    {
+      "subject": "universe",
+      "predicate": "the Big Bang",
+      "object": "significant event",
+      "confidence": 0.9,
+      "context": "Can I show you some pictures?\n\nPlease. I would love to see it.\n\nSo, as we zoom in, we keep going, we"
+    },
+    {
+      "subject": "Big Bang",
+      "predicate": "the universe",
+      "object": "has effect",
+      "confidence": 0.9,
+      "context": "Can I show you some pictures?\n\nPlease. I would love to see it.\n\nSo, as we zoom in, we keep going, we"
+    },
+    {
+      "subject": "the universe",
+      "predicate": "Big Bang",
+      "object": "significant event",
+      "confidence": 0.9,
+      "context": "Can I show you some pictures?\n\nPlease. I would love to see it.\n\nSo, as we zoom in, we keep going, we"
+    },
+    {
+      "subject": "most distant galaxy so far",
+      "predicate": "spectrum of its light",
+      "object": "studied by",
+      "confidence": 0.9,
+      "context": "It's only 320 million years after the Big Bang.\n\nThe most distant galaxy so far, there on the right,"
+    },
+    {
+      "subject": "spectrum of its light",
+      "predicate": "most distant galaxy so far",
+      "object": "studies",
+      "confidence": 0.9,
+      "context": "It's only 320 million years after the Big Bang.\n\nThe most distant galaxy so far, there on the right,"
+    },
+    {
+      "subject": "most distant galaxy so far",
+      "predicate": "Big Bang",
+      "object": "follows",
+      "confidence": 0.9,
+      "context": "It's only 320 million years after the Big Bang.\n\nThe most distant galaxy so far, there on the right,"
+    },
+    {
+      "subject": "Big Bang",
+      "predicate": "most distant galaxy so far",
+      "object": "followed by",
+      "confidence": 0.9,
+      "context": "It's only 320 million years after the Big Bang.\n\nThe most distant galaxy so far, there on the right,"
+    },
+    {
+      "subject": "most distant galaxy so far",
+      "predicate": "instance of",
+      "object": "spectrum of its light",
+      "confidence": 0.9,
+      "context": "It's only 320 million years after the Big Bang.\n\nThe most distant galaxy so far, there on the right,"
+    },
+    {
+      "subject": "spectrum of its light",
+      "predicate": "astronomers",
+      "object": "studied by",
+      "confidence": 0.9,
+      "context": "It's only 320 million years after the Big Bang.\n\nThe most distant galaxy so far, there on the right,"
+    },
+    {
+      "subject": "earliest galaxy so far formed",
+      "predicate": "part of",
+      "object": "universe",
+      "confidence": 0.9,
+      "context": "So, we know a lot.\n\nThe earliest galaxy so far formed when the universe was 2% of its current age, a"
+    },
+    {
+      "subject": "universe",
+      "predicate": "has part",
+      "object": "earliest galaxy so far formed",
+      "confidence": 0.9,
+      "context": "So, we know a lot.\n\nThe earliest galaxy so far formed when the universe was 2% of its current age, a"
+    },
+    {
+      "subject": "earliest galaxy",
+      "predicate": "part of",
+      "object": "universe",
+      "confidence": 0.9,
+      "context": "So, we know a lot.\n\nThe earliest galaxy so far formed when the universe was 2% of its current age, a"
+    },
+    {
+      "subject": "universe",
+      "predicate": "has part",
+      "object": "earliest galaxy",
+      "confidence": 0.9,
+      "context": "So, we know a lot.\n\nThe earliest galaxy so far formed when the universe was 2% of its current age, a"
+    },
+    {
+      "subject": "Milky Way",
+      "predicate": "part of",
+      "object": "universe",
+      "confidence": 0.9,
+      "context": "So, we know a lot.\n\nThe earliest galaxy so far formed when the universe was 2% of its current age, a"
+    },
+    {
+      "subject": "early",
+      "predicate": "NASA administrator",
+      "object": "position held",
+      "confidence": 0.9,
+      "context": "So, it really is like a hummingbird, the heartbeat of this galaxy is racing.\n\nT minus 30 seconds and"
+    },
+    {
+      "subject": "an early NASA administrator",
+      "predicate": "2021",
+      "object": "end time",
+      "confidence": 0.9,
+      "context": "So, it really is like a hummingbird, the heartbeat of this galaxy is racing.\n\nT minus 30 seconds and"
+    },
+    {
+      "subject": "an early NASA administrator",
+      "predicate": "2021",
+      "object": "inception",
+      "confidence": 0.9,
+      "context": "So, it really is like a hummingbird, the heartbeat of this galaxy is racing.\n\nT minus 30 seconds and"
+    },
+    {
+      "subject": "Amy Lowe",
+      "predicate": "Northrop Grumman",
+      "object": "employer",
+      "confidence": 0.9,
+      "context": "Northrop Grumman engineer Amy Lowe showed us down below, the silver-colored sun shield, big as a ten"
+    },
+    {
+      "subject": "sun shield",
+      "predicate": "Northrop Grumman",
+      "object": "manufacturer",
+      "confidence": 0.9,
+      "context": "Northrop Grumman engineer Amy Lowe showed us down below, the silver-colored sun shield, big as a ten"
+    },
+    {
+      "subject": "galaxies",
+      "predicate": "part of",
+      "object": "the universe",
+      "confidence": 0.9,
+      "context": "James Webb begins a voyage back to the birth of the universe.\n\nWebb lofted on a European rocket into"
+    },
+    {
+      "subject": "universe",
+      "predicate": "has part",
+      "object": "Sun",
+      "confidence": 0.9,
+      "context": "James Webb begins a voyage back to the birth of the universe.\n\nWebb lofted on a European rocket into"
+    },
+    {
+      "subject": "Matt Mountain",
+      "predicate": "member of",
+      "object": "Association of Universities for Research in Astronomy",
+      "confidence": 0.9,
+      "context": "And that's when I went, this telescope's going to be phenomenal.\n\nMatt Mountain leads Webb's operati"
+    },
+    {
+      "subject": "Matt Mountain",
+      "predicate": "Association of Universities for Research in Astronomy",
+      "object": "employer",
+      "confidence": 0.9,
+      "context": "And that's when I went, this telescope's going to be phenomenal.\n\nMatt Mountain leads Webb's operati"
+    },
+    {
+      "subject": "Association of Universities for Research in Astronomy",
+      "predicate": "Matt Mountain",
+      "object": "chairperson",
+      "confidence": 0.9,
+      "context": "And that's when I went, this telescope's going to be phenomenal.\n\nMatt Mountain leads Webb's operati"
+    },
+    {
+      "subject": "galaxies everywhere",
+      "predicate": "part of",
+      "object": "universe",
+      "confidence": 0.9,
+      "context": "It tells us that our universe is filled with galaxies. We knew this theoretically, but when you go o"
+    },
+    {
+      "subject": "galaxies everywhere",
+      "predicate": "galaxies",
+      "object": "is a list of",
+      "confidence": 0.9,
+      "context": "It tells us that our universe is filled with galaxies. We knew this theoretically, but when you go o"
+    },
+    {
+      "subject": "universe",
+      "predicate": "has part",
+      "object": "galaxies",
+      "confidence": 0.9,
+      "context": "For example, galaxies are rushing away from each other at greater and greater speed, defying gravity"
+    },
+    {
+      "subject": "dark energy",
+      "predicate": "part of",
+      "object": "universe",
+      "confidence": 0.9,
+      "context": "For example, galaxies are rushing away from each other at greater and greater speed, defying gravity"
+    },
+    {
+      "subject": "universe",
+      "predicate": "has part",
+      "object": "dark energy",
+      "confidence": 0.9,
+      "context": "For example, galaxies are rushing away from each other at greater and greater speed, defying gravity"
+    },
+    {
+      "subject": "universe",
+      "predicate": "galaxies",
+      "object": "has parts of the class",
+      "confidence": 0.9,
+      "context": "For example, galaxies are rushing away from each other at greater and greater speed, defying gravity"
+    },
+    {
+      "subject": "dark energy",
+      "predicate": "has part",
+      "object": "dark matter",
+      "confidence": 0.9,
+      "context": "95% of our universe is made up of dark energy and dark matter, and we don't know what it is?\n\nCorrec"
+    },
+    {
+      "subject": "dark matter",
+      "predicate": "part of",
+      "object": "dark energy",
+      "confidence": 0.9,
+      "context": "95% of our universe is made up of dark energy and dark matter, and we don't know what it is?\n\nCorrec"
+    },
+    {
+      "subject": "dark energy",
+      "predicate": "dark matter",
+      "object": "has effect",
+      "confidence": 0.9,
+      "context": "95% of our universe is made up of dark energy and dark matter, and we don't know what it is?\n\nCorrec"
+    },
+    {
+      "subject": "dark matter",
+      "predicate": "dark energy",
+      "object": "has cause",
+      "confidence": 0.9,
+      "context": "95% of our universe is made up of dark energy and dark matter, and we don't know what it is?\n\nCorrec"
+    },
+    {
+      "subject": "Dan Milisavljevic",
+      "predicate": "Purdue University",
+      "object": "employer",
+      "confidence": 0.9,
+      "context": "Astronomy is a very humbling discipline.\n\nHumbling, but with Webb,\n\nLook at this!\n\nalso thrilling.\n\n"
+    },
+    {
+      "subject": "Dan Milisavljevic",
+      "predicate": "Purdue University",
+      "object": "educated at",
+      "confidence": 0.9,
+      "context": "Astronomy is a very humbling discipline.\n\nHumbling, but with Webb,\n\nLook at this!\n\nalso thrilling.\n\n"
+    },
+    {
+      "subject": "Dan Milisavljevic",
+      "predicate": "Astronomy",
+      "object": "field of work",
+      "confidence": 0.9,
+      "context": "Astronomy is a very humbling discipline.\n\nHumbling, but with Webb,\n\nLook at this!\n\nalso thrilling.\n\n"
+    },
+    {
+      "subject": "blood",
+      "predicate": "has part",
+      "object": "oxygen",
+      "confidence": 0.9,
+      "context": "The iron in our blood, the calcium in our bones, the oxygen that we breathe. Love that oxygen."
+    },
+    {
+      "subject": "oxygen",
+      "predicate": "part of",
+      "object": "blood",
+      "confidence": 0.9,
+      "context": "The iron in our blood, the calcium in our bones, the oxygen that we breathe. Love that oxygen."
+    },
+    {
+      "subject": "bone",
+      "predicate": "has part",
+      "object": "calcium",
+      "confidence": 0.9,
+      "context": "The iron in our blood, the calcium in our bones, the oxygen that we breathe. Love that oxygen."
+    },
+    {
+      "subject": "astronomer",
+      "predicate": "light",
+      "object": "studies",
+      "confidence": 0.9,
+      "context": "All that is being manufactured in supernova explosions.\n\nThe late astronomer Carl Sagan used to say "
+    },
+    {
+      "subject": "light",
+      "predicate": "astronomer",
+      "object": "studied by",
+      "confidence": 0.9,
+      "context": "All that is being manufactured in supernova explosions.\n\nThe late astronomer Carl Sagan used to say "
+    },
+    {
+      "subject": "astronomer",
+      "predicate": "star",
+      "object": "studies",
+      "confidence": 0.9,
+      "context": "All that is being manufactured in supernova explosions.\n\nThe late astronomer Carl Sagan used to say "
+    },
+    {
+      "subject": "star",
+      "predicate": "astronomer",
+      "object": "studied by",
+      "confidence": 0.9,
+      "context": "All that is being manufactured in supernova explosions.\n\nThe late astronomer Carl Sagan used to say "
+    },
+    {
+      "subject": "Carl Sagan",
+      "predicate": "occupation",
+      "object": "astronomer",
+      "confidence": 0.9,
+      "context": "All that is being manufactured in supernova explosions.\n\nThe late astronomer Carl Sagan used to say "
+    },
+    {
+      "subject": "Alyssa Pagan",
+      "predicate": "Space Telescope Science Institute",
+      "object": "employer",
+      "confidence": 0.9,
+      "context": "The telescope is sensitive to heat radiation, which is all that remains of the light reaching us fro"
+    },
+    {
+      "subject": "Joe DePasquale",
+      "predicate": "Space Telescope Science Institute",
+      "object": "employer",
+      "confidence": 0.9,
+      "context": "The telescope is sensitive to heat radiation, which is all that remains of the light reaching us fro"
+    },
+    {
+      "subject": "infrared",
+      "predicate": "heat radiation",
+      "object": "subclass of",
+      "confidence": 0.9,
+      "context": "The telescope is sensitive to heat radiation, which is all that remains of the light reaching us fro"
+    },
+    {
+      "subject": "infrared",
+      "predicate": "light",
+      "object": "subclass of",
+      "confidence": 0.9,
+      "context": "This is what a Webb infrared picture looks like until they match the data filled darkness to colors "
+    },
+    {
+      "subject": "infrared",
+      "predicate": "instance of",
+      "object": "wavelengths",
+      "confidence": 0.9,
+      "context": "This is what a Webb infrared picture looks like until they match the data filled darkness to colors "
+    },
+    {
+      "subject": "Webb infrared picture",
+      "predicate": "infrared",
+      "object": "facet of",
+      "confidence": 0.9,
+      "context": "This is what a Webb infrared picture looks like until they match the data filled darkness to colors "
+    },
+    {
+      "subject": "NGC 346",
+      "predicate": "instance of",
+      "object": "cluster of stars",
+      "confidence": 0.9,
+      "context": "And so just like how our eyes work, we take those three color channels, combine them together to cre"
+    },
+    {
+      "subject": "NGC 346",
+      "predicate": "instance of",
+      "object": "cluster",
+      "confidence": 0.9,
+      "context": "And so just like how our eyes work, we take those three color channels, combine them together to cre"
+    },
+    {
+      "subject": "Tarantula Nebula",
+      "predicate": "instance of",
+      "object": "galaxies",
+      "confidence": 0.9,
+      "context": "And so just like how our eyes work, we take those three color channels, combine them together to cre"
+    },
+    {
+      "subject": "CO2",
+      "predicate": "carbon dioxide",
+      "object": "has parts of the class",
+      "confidence": 0.9,
+      "context": "It's quite an honor.\n\nIt is a great honor and it does blow your mind every time.\n\nThere will be many"
+    },
+    {
+      "subject": "CO2",
+      "predicate": "carbon",
+      "object": "has parts of the class",
+      "confidence": 0.9,
+      "context": "It's quite an honor.\n\nIt is a great honor and it does blow your mind every time.\n\nThere will be many"
+    },
+    {
+      "subject": "Webb",
+      "predicate": "carbon dioxide",
+      "object": "notable work",
+      "confidence": 0.9,
+      "context": "It's quite an honor.\n\nIt is a great honor and it does blow your mind every time.\n\nThere will be many"
+    },
+    {
+      "subject": "Erika Nelson",
+      "predicate": "University of Colorado Boulder",
+      "object": "employer",
+      "confidence": 0.9,
+      "context": "It will continue to look for planets with atmospheres that might support life.\n\nOn the other end of "
+    },
+    {
+      "subject": "Big Bang",
+      "predicate": "early universe",
+      "object": "has effect",
+      "confidence": 0.9,
+      "context": "It will continue to look for planets with atmospheres that might support life.\n\nOn the other end of "
+    },
+    {
+      "subject": "Erika Nelson",
+      "predicate": "astrophysicist",
+      "object": "field of work",
+      "confidence": 0.9,
+      "context": "It will continue to look for planets with atmospheres that might support life.\n\nOn the other end of "
+    },
+    {
+      "subject": "earliest galaxy found so far",
+      "predicate": "Brent Robertson",
+      "object": "discoverer or inventor",
+      "confidence": 0.9,
+      "context": "If they're confirmed, astronomy may have to revise the timeline of galaxy formation.\n\nAnd that's the"
+    },
+    {
+      "subject": "earliest galaxy found so far by the James Webb Telescope",
+      "predicate": "Brent Robertson",
+      "object": "discoverer or inventor",
+      "confidence": 0.9,
+      "context": "If they're confirmed, astronomy may have to revise the timeline of galaxy formation.\n\nAnd that's the"
+    },
+    {
+      "subject": "before Webb",
+      "predicate": "after Webb",
+      "object": "followed by",
+      "confidence": 0.9,
+      "context": "It's really that powerful.\n\nWill the history of astronomy be divided between before Webb and after W"
+    },
+    {
+      "subject": "after Webb",
+      "predicate": "before Webb",
+      "object": "follows",
+      "confidence": 0.9,
+      "context": "It's really that powerful.\n\nWill the history of astronomy be divided between before Webb and after W"
+    }
+  ],
+  "total_count": 79
+}

@@ -23,12 +23,13 @@ logger = logging.getLogger(__name__)
 class GeminiFlashTranscriber:
     """Transcribe video/audio using Gemini models with enhanced capabilities."""
     
-    def __init__(self, api_key: Optional[str] = None):
+    def __init__(self, api_key: Optional[str] = None, performance_monitor: Optional[Any] = None):
         """
         Initialize transcriber with API key.
         
         Args:
             api_key: Google API key (optional, uses env var if not provided)
+            performance_monitor: Performance monitoring instance
         """
         # Get settings
         settings = Settings()
@@ -40,6 +41,7 @@ class GeminiFlashTranscriber:
         
         # Initialize GeminiPool instead of single client
         self.pool = GeminiPool(api_key=self.api_key)
+        self.performance_monitor = performance_monitor
         
         # Get timeout setting
         self.request_timeout = settings.gemini_request_timeout
@@ -192,10 +194,23 @@ class GeminiFlashTranscriber:
             """
             
             logger.info("Generating transcription...")
+            
+            # Performance monitoring
+            transcription_event = None
+            if self.performance_monitor:
+                transcription_event = self.performance_monitor.start_timer(
+                    "gemini_transcription",
+                    model=transcription_model.model_name
+                )
+
             response = await transcription_model.generate_content_async(
                 [file, transcript_prompt],
                 request_options=RequestOptions(timeout=self.request_timeout)
             )
+
+            if self.performance_monitor:
+                self.performance_monitor.stop_timer(transcription_event)
+
             transcript_text = response.text.strip()
             
             # Use fresh models for each analysis task
@@ -284,6 +299,13 @@ class GeminiFlashTranscriber:
             }
             
             # Make the combined API call with structured output
+            analysis_event = None
+            if self.performance_monitor:
+                analysis_event = self.performance_monitor.start_timer(
+                    "gemini_combined_analysis",
+                    model=analysis_model.model_name
+                )
+
             response = await analysis_model.generate_content_async(
                 combined_prompt,
                 generation_config={
@@ -292,6 +314,9 @@ class GeminiFlashTranscriber:
                 },
                 request_options=RequestOptions(timeout=self.request_timeout)
             )
+
+            if self.performance_monitor:
+                self.performance_monitor.stop_timer(analysis_event)
             
             # Parse the combined response
             combined_data = self._parse_json_response(response.text, "object") or {}
@@ -335,11 +360,22 @@ class GeminiFlashTranscriber:
                 """
                 
                 second_model = self.pool.get_model(TaskType.ENTITIES)
+                
+                second_pass_event = None
+                if self.performance_monitor:
+                    second_pass_event = self.performance_monitor.start_timer(
+                        "gemini_second_pass_analysis",
+                        model=second_model.model_name
+                    )
+
                 response = await second_model.generate_content_async(
                     second_pass_prompt,
                     generation_config={"response_mime_type": "application/json"},
                     request_options=RequestOptions(timeout=self.request_timeout)
                 )
+
+                if self.performance_monitor:
+                    self.performance_monitor.stop_timer(second_pass_event)
                 
                 second_pass_data = self._parse_json_response(response.text, "object") or {}
                 
@@ -438,10 +474,23 @@ class GeminiFlashTranscriber:
             """
             
             logger.info("Generating video transcription with visual analysis...")
+            
+            # Performance monitoring
+            video_transcription_event = None
+            if self.performance_monitor:
+                video_transcription_event = self.performance_monitor.start_timer(
+                    "gemini_video_transcription",
+                    model=video_model.model_name
+                )
+
             response = await video_model.generate_content_async(
                 [file, transcript_prompt],
                 request_options=RequestOptions(timeout=self.request_timeout)
             )
+
+            if self.performance_monitor:
+                self.performance_monitor.stop_timer(video_transcription_event)
+
             transcript_text = response.text.strip()
             
             # Use fresh models for analysis
@@ -463,10 +512,21 @@ class GeminiFlashTranscriber:
             """
             
             logger.info("Extracting visual elements...")
+            visual_event = None
+            if self.performance_monitor:
+                visual_event = self.performance_monitor.start_timer(
+                    "gemini_visual_extraction",
+                    model=analysis_model.model_name
+                )
+            
             response = await analysis_model.generate_content_async(
                 visual_prompt,
                 request_options=RequestOptions(timeout=self.request_timeout)
             )
+
+            if self.performance_monitor:
+                self.performance_monitor.stop_timer(visual_event)
+
             visual_elements = self._parse_json_response(response.text, "array") or []
             
             # Rest of the analysis (similar to audio but with visual context)
@@ -489,10 +549,21 @@ class GeminiFlashTranscriber:
             
             summary_model = self.pool.get_model(TaskType.KEY_POINTS)
             logger.info("Extracting key points with visual context...")
+            key_points_event = None
+            if self.performance_monitor:
+                key_points_event = self.performance_monitor.start_timer(
+                    "gemini_video_key_points",
+                    model=summary_model.model_name
+                )
+
             response = await summary_model.generate_content_async(
                 key_points_prompt,
                 request_options=RequestOptions(timeout=self.request_timeout)
             )
+
+            if self.performance_monitor:
+                self.performance_monitor.stop_timer(key_points_event)
+            
             key_points = self._parse_json_response(response.text, "array") or []
             
             # Similar enhancements for other extractions...

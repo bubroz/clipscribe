@@ -44,7 +44,7 @@ class VideoMetadata(BaseModel):
     title: str
     channel: str
     channel_id: str
-    duration: int  # seconds
+    duration: float  # seconds
     url: str
     published_at: datetime
     view_count: Optional[int] = None

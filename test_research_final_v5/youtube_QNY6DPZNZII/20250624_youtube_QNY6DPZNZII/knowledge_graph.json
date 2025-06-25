@@ -1,0 +1,356 @@
+{
+  "nodes": [
+    {
+      "id": "Webb",
+      "type": "person",
+      "confidence": 0.95
+    },
+    {
+      "id": "the Big Bang",
+      "type": "ORGANIZATION",
+      "confidence": 0.85
+    },
+    {
+      "id": "the European Space Agency's",
+      "type": "ORGANIZATION",
+      "confidence": 0.7999999999999999
+    },
+    {
+      "id": "the Space Telescope Science Institute",
+      "type": "ORGANIZATION",
+      "confidence": 0.7999999999999999
+    },
+    {
+      "id": "the United States",
+      "type": "LOCATION",
+      "confidence": 0.7999999999999999
+    },
+    {
+      "id": "James Webb",
+      "type": "PERSON",
+      "confidence": 0.75
+    },
+    {
+      "id": "Baltimore",
+      "type": "LOCATION",
+      "confidence": 0.75
+    },
+    {
+      "id": "Earth",
+      "type": "LOCATION",
+      "confidence": 0.75
+    },
+    {
+      "id": "Canada",
+      "type": "LOCATION",
+      "confidence": 0.75
+    },
+    {
+      "id": "Europe",
+      "type": "LOCATION",
+      "confidence": 0.75
+    },
+    {
+      "id": "the Lagrange Point 2",
+      "type": "LOCATION",
+      "confidence": 0.7499999999999999
+    },
+    {
+      "id": "the Hubble Space Telescope",
+      "type": "LOCATION",
+      "confidence": 0.7499999999999999
+    },
+    {
+      "id": "December 25th, 2021",
+      "type": "date",
+      "confidence": 0.8827993869781494
+    },
+    {
+      "id": "Christmas Day",
+      "type": "time",
+      "confidence": 0.95
+    },
+    {
+      "id": "space",
+      "type": "location",
+      "confidence": 0.95
+    },
+    {
+      "id": "Six months later",
+      "type": "time",
+      "confidence": 0.95
+    },
+    {
+      "id": "European Space Agency",
+      "type": "organization",
+      "confidence": 0.9843873977661133
+    },
+    {
+      "id": "Space Telescope Science Institute",
+      "type": "organization",
+      "confidence": 0.9613585472106934
+    },
+    {
+      "id": "Lagrange Point 2",
+      "type": "location",
+      "confidence": 0.8704440593719482
+    },
+    {
+      "id": "Big Bang",
+      "type": "event",
+      "confidence": 0.8575314879417419
+    },
+    {
+      "id": "Pluto",
+      "type": "location",
+      "confidence": 0.8770824670791626
+    },
+    {
+      "id": "moon",
+      "type": "location",
+      "confidence": 0.8359805941581726
+    },
+    {
+      "id": "Webb telescope",
+      "type": "hardware",
+      "confidence": 0.95
+    },
+    {
+      "id": "United States",
+      "type": "location",
+      "confidence": 0.8863840103149414
+    },
+    {
+      "id": "space telescope",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "start time",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "date of official opening",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "operator",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "rocket fairing",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "owner of",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "headquarters location",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "located in the administrative territorial entity",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "JWST",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "galaxies",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "significant event",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "has effect",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "Hubble Space Telescope",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "primary mirror",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "sun shield",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "field of work",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "universe",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "star",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "solar system",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "planets",
+      "type": "unknown",
+      "confidence": 0.9
+    }
+  ],
+  "edges": [
+    {
+      "source": "Webb",
+      "target": "operator",
+      "predicate": "European Space Agency",
+      "confidence": 0.9
+    },
+    {
+      "source": "James Webb",
+      "target": "space telescope",
+      "predicate": "instance of",
+      "confidence": 0.9
+    },
+    {
+      "source": "James Webb",
+      "target": "start time",
+      "predicate": "December 25th, 2021",
+      "confidence": 0.9
+    },
+    {
+      "source": "James Webb",
+      "target": "date of official opening",
+      "predicate": "December 25th, 2021",
+      "confidence": 0.9
+    },
+    {
+      "source": "European Space Agency",
+      "target": "owner of",
+      "predicate": "rocket fairing",
+      "confidence": 0.9
+    },
+    {
+      "source": "Space Telescope Science Institute",
+      "target": "headquarters location",
+      "predicate": "Baltimore",
+      "confidence": 0.9
+    },
+    {
+      "source": "Space Telescope Science Institute",
+      "target": "located in the administrative territorial entity",
+      "predicate": "Baltimore",
+      "confidence": 0.9
+    },
+    {
+      "source": "Big Bang",
+      "target": "has effect",
+      "predicate": "universe",
+      "confidence": 0.9
+    },
+    {
+      "source": "rocket fairing",
+      "target": "European Space Agency",
+      "predicate": "owned by",
+      "confidence": 0.9
+    },
+    {
+      "source": "rocket fairing",
+      "target": "operator",
+      "predicate": "European Space Agency",
+      "confidence": 0.9
+    },
+    {
+      "source": "JWST",
+      "target": "operator",
+      "predicate": "Space Telescope Science Institute",
+      "confidence": 0.9
+    },
+    {
+      "source": "galaxies",
+      "target": "significant event",
+      "predicate": "Big Bang",
+      "confidence": 0.9
+    },
+    {
+      "source": "Hubble Space Telescope",
+      "target": "primary mirror",
+      "predicate": "has part",
+      "confidence": 0.9
+    },
+    {
+      "source": "Hubble Space Telescope",
+      "target": "sun shield",
+      "predicate": "has part",
+      "confidence": 0.9
+    },
+    {
+      "source": "Hubble Space Telescope",
+      "target": "field of work",
+      "predicate": "infrared",
+      "confidence": 0.9
+    },
+    {
+      "source": "primary mirror",
+      "target": "Hubble Space Telescope",
+      "predicate": "part of",
+      "confidence": 0.9
+    },
+    {
+      "source": "sun shield",
+      "target": "Hubble Space Telescope",
+      "predicate": "part of",
+      "confidence": 0.9
+    },
+    {
+      "source": "universe",
+      "target": "significant event",
+      "predicate": "Big Bang",
+      "confidence": 0.9
+    },
+    {
+      "source": "star",
+      "target": "solar system",
+      "predicate": "part of",
+      "confidence": 0.9
+    },
+    {
+      "source": "solar system",
+      "target": "star",
+      "predicate": "has part",
+      "confidence": 0.9
+    },
+    {
+      "source": "solar system",
+      "target": "planets",
+      "predicate": "has part",
+      "confidence": 0.9
+    }
+  ],
+  "node_count": 44,
+  "edge_count": 21,
+  "connected_components": 26,
+  "density": 0.011099365750528542
+}

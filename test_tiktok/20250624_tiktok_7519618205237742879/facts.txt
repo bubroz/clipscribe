@@ -1,0 +1,16 @@
+# Key Facts Extracted from Video
+
+Video: Cynthia Gonzalez, the vice mayor of a small city in the Los Angeles County area, is under federal investigation for allegedly suggesting gangsters aren't defending their territory from ICE.
+URL: https://www.tiktok.com/@foxnews/video/7519618205237742879
+Extracted: 2025-06-24T14:11:30.409642
+
+1. [Relationship] Cudahy Los Angeles located in the administrative territorial entity (confidence: 0.90)
+2. [Key Point] Vice Mayor Cynthia Gonzalez criticizes Latino gangs Florencia and 18th Street for not protecting their turf. (confidence: 0.90)
+3. [Relationship] 82nd Street Los Angeles located in the administrative territorial entity (confidence: 0.90)
+4. [Key Point] The statement was made on Instagram. (confidence: 0.90)
+5. [Relationship] Cynthia Gonzalez Cudahy place of birth (confidence: 0.90)
+6. [Key Point] The gangs are described as "the biggest gang there is." (confidence: 0.90)
+7. [Key Point] Gonzalez mentions 82nd Street and Co danza as locations relevant to the gangs' activity. (confidence: 0.90)
+8. [Key Point] The gangs are accused of "tagging everything up, claiming hood." (confidence: 0.90)
+9. [Key Point] The criticism implies inaction by the gangs in the face of an invasion of their territory. (confidence: 0.90)
+10. [Key Point] Cudahy is a small city in Los Angeles. (confidence: 0.90)

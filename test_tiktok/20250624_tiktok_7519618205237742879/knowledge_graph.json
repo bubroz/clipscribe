@@ -1,0 +1,78 @@
+{
+  "nodes": [
+    {
+      "id": "Cynthia Gonzalez",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "Los Angeles",
+      "type": "LOCATION",
+      "confidence": 0.85
+    },
+    {
+      "id": "Cudahy",
+      "type": "location",
+      "confidence": 0.9464430809020996
+    },
+    {
+      "id": "Instagram",
+      "type": "ORGANIZATION",
+      "confidence": 0.75
+    },
+    {
+      "id": "Florencia",
+      "type": "organization",
+      "confidence": 0.7612690329551697
+    },
+    {
+      "id": "82nd Street",
+      "type": "LOCATION",
+      "confidence": 0.7499999999999999
+    },
+    {
+      "id": "18th Street",
+      "type": "LOCATION",
+      "confidence": 0.7499999999999999
+    },
+    {
+      "id": "Latino gangs",
+      "type": "organization",
+      "confidence": 0.95
+    },
+    {
+      "id": "located in the administrative territorial entity",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "place of birth",
+      "type": "unknown",
+      "confidence": 0.9
+    }
+  ],
+  "edges": [
+    {
+      "source": "Cynthia Gonzalez",
+      "target": "place of birth",
+      "predicate": "Cudahy",
+      "confidence": 0.9
+    },
+    {
+      "source": "Cudahy",
+      "target": "located in the administrative territorial entity",
+      "predicate": "Los Angeles",
+      "confidence": 0.9
+    },
+    {
+      "source": "82nd Street",
+      "target": "located in the administrative territorial entity",
+      "predicate": "Los Angeles",
+      "confidence": 0.9
+    }
+  ],
+  "node_count": 10,
+  "edge_count": 3,
+  "connected_components": 7,
+  "density": 0.03333333333333333
+}

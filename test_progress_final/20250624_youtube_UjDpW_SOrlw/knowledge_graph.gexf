@@ -1,0 +1,2781 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gexf xmlns="http://www.gexf.net/1.2draft" xmlns:viz="http://www.gexf.net/1.2draft/viz" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.gexf.net/1.2draft http://www.gexf.net/1.2draft/gexf.xsd" version="1.2">
+  <meta lastmodifieddate="2025-06-24">
+    <creator>ClipScribe</creator>
+    <description>Knowledge graph extracted from video content</description>
+  </meta>
+  <graph mode="static" defaultedgetype="directed">
+    <attributes class="node">
+      <attribute id="0" title="Type" type="string"/>
+      <attribute id="1" title="Confidence" type="float"/>
+    </attributes>
+    <attributes class="edge">
+      <attribute id="0" title="Predicate" type="string"/>
+      <attribute id="1" title="Confidence" type="float"/>
+    </attributes>
+    <nodes>
+      <node id="Harry Potter" label="Harry Potter">
+        <attvalues>
+          <attvalue for="0" value="software"/>
+          <attvalue for="1" value="0.8189541697502136"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="44.56862509250641"/>
+      </node>
+      <node id="Transcript Wiki" label="Transcript Wiki">
+        <attvalues>
+          <attvalue for="0" value="software"/>
+          <attvalue for="1" value="0.7220844626426697"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="41.66253387928009"/>
+      </node>
+      <node id="Google Colab" label="Google Colab">
+        <attvalues>
+          <attvalue for="0" value="software"/>
+          <attvalue for="1" value="0.8940061330795288"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="46.820183992385864"/>
+      </node>
+      <node id="Hugging Face" label="Hugging Face">
+        <attvalues>
+          <attvalue for="0" value="api"/>
+          <attvalue for="1" value="0.8265690803527832"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="44.797072410583496"/>
+      </node>
+      <node id="Uptime Robot" label="Uptime Robot">
+        <attvalues>
+          <attvalue for="0" value="software"/>
+          <attvalue for="1" value="0.7398766279220581"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="42.19629883766174"/>
+      </node>
+      <node id="Discord" label="Discord">
+        <attvalues>
+          <attvalue for="0" value="framework"/>
+          <attvalue for="1" value="0.95"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="48.5"/>
+      </node>
+      <node id="Python" label="Python">
+        <attvalues>
+          <attvalue for="0" value="programming_language"/>
+          <attvalue for="1" value="0.9506585001945496"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="48.51975500583649"/>
+      </node>
+      <node id="Kaggle" label="Kaggle">
+        <attvalues>
+          <attvalue for="0" value="platform"/>
+          <attvalue for="1" value="0.7353415489196777"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="42.06024646759033"/>
+      </node>
+      <node id="Google" label="Google">
+        <attvalues>
+          <attvalue for="0" value="company"/>
+          <attvalue for="1" value="0.700055718421936"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="41.00167155265808"/>
+      </node>
+      <node id="Peppa Pig" label="Peppa Pig">
+        <attvalues>
+          <attvalue for="0" value="character"/>
+          <attvalue for="1" value="0.9373289942741394"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="48.11986982822418"/>
+      </node>
+      <node id="Peppa" label="Peppa">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="255" g="107" b="107" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="Transformer" label="Transformer">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="78" g="205" b="196" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="Harry" label="Harry">
+        <attvalues>
+          <attvalue for="0" value="character"/>
+          <attvalue for="1" value="0.9380293488502502"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="48.14088046550751"/>
+      </node>
+      <node id="Git" label="Git">
+        <attvalues>
+          <attvalue for="0" value="software"/>
+          <attvalue for="1" value="0.9627259969711304"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="48.88177990913391"/>
+      </node>
+      <node id="JavaScript" label="JavaScript">
+        <attvalues>
+          <attvalue for="0" value="channel"/>
+          <attvalue for="1" value="0.7317060232162476"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="41.95118069648743"/>
+      </node>
+      <node id="ChattyBot Python" label="ChattyBot Python">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="78" g="205" b="196" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="Harry Potter Bot Python" label="Harry Potter Bot Python">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="255" g="107" b="107" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="Repl" label="Repl">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="78" g="205" b="196" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="ChattyBot" label="ChattyBot">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="78" g="205" b="196" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="the Discord" label="the Discord">
+        <attvalues>
+          <attvalue for="0" value="LOCATION"/>
+          <attvalue for="1" value="0.8999999999999999"/>
+        </attvalues>
+        <viz:color r="69" g="183" b="209" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="Besides Transcript Wiki" label="Besides Transcript Wiki">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color r="255" g="107" b="107" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Google Drive" label="Google Drive">
+        <attvalues>
+          <attvalue for="0" value="LOCATION"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color r="69" g="183" b="209" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Generative Pre-trained" label="Generative Pre-trained">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color r="255" g="107" b="107" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Git Large File Storage" label="Git Large File Storage">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color r="78" g="205" b="196" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Python Repl" label="Python Repl">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color r="78" g="205" b="196" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Discord Python Bot" label="Discord Python Bot">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color r="78" g="205" b="196" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Rick" label="Rick">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.8"/>
+        </attvalues>
+        <viz:color r="255" g="107" b="107" a="1.0"/>
+        <viz:size value="44.0"/>
+      </node>
+      <node id="Morty" label="Morty">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.8"/>
+        </attvalues>
+        <viz:color r="255" g="107" b="107" a="1.0"/>
+        <viz:size value="44.0"/>
+      </node>
+      <node id="Lynn" label="Lynn">
+        <attvalues>
+          <attvalue for="0" value="character"/>
+          <attvalue for="1" value="0.8973746299743652"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="46.92123889923096"/>
+      </node>
+      <node id="Red Rider" label="Red Rider">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.8"/>
+        </attvalues>
+        <viz:color r="255" g="107" b="107" a="1.0"/>
+        <viz:size value="44.0"/>
+      </node>
+      <node id="PyTorch" label="PyTorch">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.8"/>
+        </attvalues>
+        <viz:color r="255" g="107" b="107" a="1.0"/>
+        <viz:size value="44.0"/>
+      </node>
+      <node id="Node" label="Node">
+        <attvalues>
+          <attvalue for="0" value="LOCATION"/>
+          <attvalue for="1" value="0.8"/>
+        </attvalues>
+        <viz:color r="69" g="183" b="209" a="1.0"/>
+        <viz:size value="44.0"/>
+      </node>
+      <node id="the University of Chicago" label="the University of Chicago">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.7999999999999999"/>
+        </attvalues>
+        <viz:color r="78" g="205" b="196" a="1.0"/>
+        <viz:size value="44.0"/>
+      </node>
+      <node id="Batman on Transcript Wiki" label="Batman on Transcript Wiki">
+        <attvalues>
+          <attvalue for="0" value="PRODUCT"/>
+          <attvalue for="1" value="0.7999999999999999"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="44.0"/>
+      </node>
+      <node id="The Word Ends With You" label="The Word Ends With You">
+        <attvalues>
+          <attvalue for="0" value="PRODUCT"/>
+          <attvalue for="1" value="0.7999999999999999"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="44.0"/>
+      </node>
+      <node id="parse_script.ipynb" label="parse_script.ipynb">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.7999999999999999"/>
+        </attvalues>
+        <viz:color r="78" g="205" b="196" a="1.0"/>
+        <viz:size value="44.0"/>
+      </node>
+      <node id="model_train_upload_workflow.ipynb" label="model_train_upload_workflow.ipynb">
+        <attvalues>
+          <attvalue for="0" value="LOCATION"/>
+          <attvalue for="1" value="0.7999999999999999"/>
+        </attvalues>
+        <viz:color r="69" g="183" b="209" a="1.0"/>
+        <viz:size value="44.0"/>
+      </node>
+      <node id="discord_bot.js" label="discord_bot.js">
+        <attvalues>
+          <attvalue for="0" value="LOCATION"/>
+          <attvalue for="1" value="0.7999999999999999"/>
+        </attvalues>
+        <viz:color r="69" g="183" b="209" a="1.0"/>
+        <viz:size value="44.0"/>
+      </node>
+      <node id="keep_alive.py" label="keep_alive.py">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.7999999999999999"/>
+        </attvalues>
+        <viz:color r="78" g="205" b="196" a="1.0"/>
+        <viz:size value="44.0"/>
+      </node>
+      <node id="George" label="George">
+        <attvalues>
+          <attvalue for="0" value="character"/>
+          <attvalue for="1" value="0.9202389121055603"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.60716736316681"/>
+      </node>
+      <node id="Microsoft" label="Microsoft">
+        <attvalues>
+          <attvalue for="0" value="company"/>
+          <attvalue for="1" value="0.904762327671051"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.14286983013153"/>
+      </node>
+      <node id="Dev Lab" label="Dev Lab">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.75"/>
+        </attvalues>
+        <viz:color r="255" g="107" b="107" a="1.0"/>
+        <viz:size value="42.5"/>
+      </node>
+      <node id="OS.environ" label="OS.environ">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.75"/>
+        </attvalues>
+        <viz:color r="78" g="205" b="196" a="1.0"/>
+        <viz:size value="42.5"/>
+      </node>
+      <node id="Bearer" label="Bearer">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.75"/>
+        </attvalues>
+        <viz:color r="78" g="205" b="196" a="1.0"/>
+        <viz:size value="42.5"/>
+      </node>
+      <node id="UTF-8" label="UTF-8">
+        <attvalues>
+          <attvalue for="0" value="LOCATION"/>
+          <attvalue for="1" value="0.75"/>
+        </attvalues>
+        <viz:color r="69" g="183" b="209" a="1.0"/>
+        <viz:size value="42.5"/>
+      </node>
+      <node id="Rick and Morty" label="Rick and Morty">
+        <attvalues>
+          <attvalue for="0" value="movie"/>
+          <attvalue for="1" value="0.8205140233039856"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="44.61542069911957"/>
+      </node>
+      <node id="University of Chicago" label="University of Chicago">
+        <attvalues>
+          <attvalue for="0" value="organization"/>
+          <attvalue for="1" value="0.7276162505149841"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="41.828487515449524"/>
+      </node>
+      <node id="Discord bot" label="Discord bot">
+        <attvalues>
+          <attvalue for="0" value="software"/>
+          <attvalue for="1" value="0.95"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="48.5"/>
+      </node>
+      <node id="bot" label="bot">
+        <attvalues>
+          <attvalue for="0" value="software"/>
+          <attvalue for="1" value="0.95"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="48.5"/>
+      </node>
+      <node id="favorite character" label="favorite character">
+        <attvalues>
+          <attvalue for="0" value="character"/>
+          <attvalue for="1" value="0.95"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="48.5"/>
+      </node>
+      <node id="model" label="model">
+        <attvalues>
+          <attvalue for="0" value="model"/>
+          <attvalue for="1" value="0.953525185585022"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="48.60575556755066"/>
+      </node>
+      <node id="character" label="character">
+        <attvalues>
+          <attvalue for="0" value="character"/>
+          <attvalue for="1" value="0.8544309139251709"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="45.63292741775513"/>
+      </node>
+      <node id="video game" label="video game">
+        <attvalues>
+          <attvalue for="0" value="game"/>
+          <attvalue for="1" value="0.95"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="48.5"/>
+      </node>
+      <node id="video games" label="video games">
+        <attvalues>
+          <attvalue for="0" value="game"/>
+          <attvalue for="1" value="0.95"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="48.5"/>
+      </node>
+      <node id="game" label="game">
+        <attvalues>
+          <attvalue for="0" value="game"/>
+          <attvalue for="1" value="0.95"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="48.5"/>
+      </node>
+      <node id="drive" label="drive">
+        <attvalues>
+          <attvalue for="0" value="hardware"/>
+          <attvalue for="1" value="0.9382283687591553"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="48.14685106277466"/>
+      </node>
+      <node id="regular expression" label="regular expression">
+        <attvalues>
+          <attvalue for="0" value="algorithm"/>
+          <attvalue for="1" value="0.7660942673683167"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="42.9828280210495"/>
+      </node>
+      <node id="Mama Pig" label="Mama Pig">
+        <attvalues>
+          <attvalue for="0" value="character"/>
+          <attvalue for="1" value="0.898367702960968"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="46.95103108882904"/>
+      </node>
+      <node id="peppapig" label="peppapig">
+        <attvalues>
+          <attvalue for="0" value="character"/>
+          <attvalue for="1" value="0.7973862886428833"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="43.9215886592865"/>
+      </node>
+      <node id="GPT model" label="GPT model">
+        <attvalues>
+          <attvalue for="0" value="model"/>
+          <attvalue for="1" value="0.7782405614852905"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="43.347216844558716"/>
+      </node>
+      <node id="Generative Pre-trained Transformer" label="Generative Pre-trained Transformer">
+        <attvalues>
+          <attvalue for="0" value="model"/>
+          <attvalue for="1" value="0.7069967985153198"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="41.209903955459595"/>
+      </node>
+      <node id="we" label="we">
+        <attvalues>
+          <attvalue for="0" value="character"/>
+          <attvalue for="1" value="0.8459216952323914"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="45.37765085697174"/>
+      </node>
+      <node id="our character" label="our character">
+        <attvalues>
+          <attvalue for="0" value="character"/>
+          <attvalue for="1" value="0.7762779593467712"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="43.28833878040314"/>
+      </node>
+      <node id="12 epochs" label="12 epochs">
+        <attvalues>
+          <attvalue for="0" value="time"/>
+          <attvalue for="1" value="0.7080647945404053"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="41.24194383621216"/>
+      </node>
+      <node id="chatbot" label="chatbot">
+        <attvalues>
+          <attvalue for="0" value="software"/>
+          <attvalue for="1" value="0.95"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="48.5"/>
+      </node>
+      <node id="username" label="username">
+        <attvalues>
+          <attvalue for="0" value="person"/>
+          <attvalue for="1" value="0.7455414533615112"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="42.36624360084534"/>
+      </node>
+      <node id="user" label="user">
+        <attvalues>
+          <attvalue for="0" value="person"/>
+          <attvalue for="1" value="0.95"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="48.5"/>
+      </node>
+      <node id="channels" label="channels">
+        <attvalues>
+          <attvalue for="0" value="channel"/>
+          <attvalue for="1" value="0.95"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="48.5"/>
+      </node>
+      <node id="API" label="API">
+        <attvalues>
+          <attvalue for="0" value="api"/>
+          <attvalue for="1" value="0.7806624174118042"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="43.419872522354126"/>
+      </node>
+      <node id="Hugging Face model" label="Hugging Face model">
+        <attvalues>
+          <attvalue for="0" value="model"/>
+          <attvalue for="1" value="0.8229730725288391"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="44.68919217586517"/>
+      </node>
+      <node id="HTTP" label="HTTP">
+        <attvalues>
+          <attvalue for="0" value="channel"/>
+          <attvalue for="1" value="0.757379412651062"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="42.72138237953186"/>
+      </node>
+      <node id="Hugging Face API" label="Hugging Face API">
+        <attvalues>
+          <attvalue for="0" value="api"/>
+          <attvalue for="1" value="0.9114903807640076"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.34471142292023"/>
+      </node>
+      <node id="Discord API" label="Discord API">
+        <attvalues>
+          <attvalue for="0" value="api"/>
+          <attvalue for="1" value="0.9232428669929504"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.69728600978851"/>
+      </node>
+      <node id="channel" label="channel">
+        <attvalues>
+          <attvalue for="0" value="channel"/>
+          <attvalue for="1" value="0.9300592541694641"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.90177762508392"/>
+      </node>
+      <node id="general channel" label="general channel">
+        <attvalues>
+          <attvalue for="0" value="channel"/>
+          <attvalue for="1" value="0.9619754552841187"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="48.85926365852356"/>
+      </node>
+      <node id="Python channel" label="Python channel">
+        <attvalues>
+          <attvalue for="0" value="channel"/>
+          <attvalue for="1" value="0.941650390625"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="48.24951171875"/>
+      </node>
+      <node id="JS channel" label="JS channel">
+        <attvalues>
+          <attvalue for="0" value="channel"/>
+          <attvalue for="1" value="0.8661214709281921"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="45.983644127845764"/>
+      </node>
+      <node id="JavaScript channel" label="JavaScript channel">
+        <attvalues>
+          <attvalue for="0" value="channel"/>
+          <attvalue for="1" value="0.8713367581367493"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="46.14010274410248"/>
+      </node>
+      <node id="Discord channel" label="Discord channel">
+        <attvalues>
+          <attvalue for="0" value="channel"/>
+          <attvalue for="1" value="0.717864453792572"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="41.53593361377716"/>
+      </node>
+      <node id="browser" label="browser">
+        <attvalues>
+          <attvalue for="0" value="programming_language"/>
+          <attvalue for="1" value="0.7220833897590637"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="41.66250169277191"/>
+      </node>
+      <node id="Python bot" label="Python bot">
+        <attvalues>
+          <attvalue for="0" value="software"/>
+          <attvalue for="1" value="0.86378014087677"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="45.9134042263031"/>
+      </node>
+      <node id="monitor" label="monitor">
+        <attvalues>
+          <attvalue for="0" value="software"/>
+          <attvalue for="1" value="0.7901886105537415"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="43.705658316612244"/>
+      </node>
+      <node id="HTTPS" label="HTTPS">
+        <attvalues>
+          <attvalue for="0" value="protocol"/>
+          <attvalue for="1" value="0.8826915621757507"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="46.48074686527252"/>
+      </node>
+      <node id="use" label="use">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="artificial intelligence" label="artificial intelligence">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="uses" label="uses">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="subclass of" label="subclass of">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="AI chatbot" label="AI chatbot">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="programming language" label="programming language">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="research process" label="research process">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="facet of" label="facet of">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="research" label="research">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="data set" label="data set">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="dialogue" label="dialogue">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="genre" label="genre">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="Batman" label="Batman">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="movies" label="movies">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="movie" label="movie">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="present in work" label="present in work">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="fandom website" label="fandom website">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="distributed by" label="distributed by">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="text messages" label="text messages">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="used by" label="used by">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="dialogues" label="dialogues">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="text message" label="text message">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="parse_script" label="parse_script">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="two-column" label="two-column">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="pandas" label="pandas">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="CSV" label="CSV">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="CSV file" label="CSV file">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="characters" label="characters">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="mother" label="mother">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="child" label="child">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="result data frame" label="result data frame">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="data frame" label="data frame">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="parametric" label="parametric">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="sibling" label="sibling">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="train the model" label="train the model">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="model training" label="model training">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="GPUs" label="GPUs">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="driver" label="driver">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="transformers" label="transformers">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="harry_potter_1" label="harry_potter_1">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="main subject" label="main subject">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="lines" label="lines">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="line" label="line">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="has parts of the class" label="has parts of the class">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="conversational chatbot" label="conversational chatbot">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="conversational" label="conversational">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="context data frame" label="context data frame">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="training set" label="training set">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="test set" label="test set">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="GPT small" label="GPT small">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="developer" label="developer">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="pre-trained" label="pre-trained">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="small" label="small">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="My production chatbot" label="My production chatbot">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="medium model" label="medium model">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="My production chatbot medium model" label="My production chatbot medium model">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="instance of medium model" label="instance of medium model">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="num_train_epochs" label="num_train_epochs">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="hyperparameters" label="hyperparameters">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="training epochs" label="training epochs">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="hyperparameter" label="hyperparameter">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="batch size" label="batch size">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="overfitting" label="overfitting">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="has effect" label="has effect">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="learning rate" label="learning rate">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="neurotransmitter" label="neurotransmitter">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="different from" label="different from">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="epoch" label="epoch">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="train" label="train">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="perplexity" label="perplexity">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="How's Credence?" label="How's Credence?">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="Credence" label="Credence">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="command-line client" label="command-line client">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="Git LFS" label="Git LFS">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="repository" label="repository">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="commit" label="commit">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="dialogue_gpt_small" label="dialogue_gpt_small">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="Chatbot" label="Chatbot">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="Lynn's Dev Lab" label="Lynn's Dev Lab">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="API tokens" label="API tokens">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="Hugging Face profile" label="Hugging Face profile">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="discord_bot" label="discord_bot">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="github" label="github">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="API endpoint" label="API endpoint">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="query method" label="query method">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="HTTP POST" label="HTTP POST">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="on_ready" label="on_ready">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="asynchronous function" label="asynchronous function">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="Ignore the message" label="Ignore the message">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="reply to it" label="reply to it">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="opposite of" label="opposite of">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="ignoring" label="ignoring">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="reply" label="reply">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="generated_text" label="generated_text">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="generated_text field" label="generated_text field">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="chat" label="chat">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="Repl.it" label="Repl.it">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="bot channel" label="bot channel">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="JavaScript bot" label="JavaScript bot">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="try-except block" label="try-except block">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="try-except" label="try-except">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="fetch" label="fetch">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="callback" label="callback">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="on_ready function" label="on_ready function">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="API key" label="API key">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="request headers" label="request headers">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="body" label="body">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="response" label="response">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="headers" label="headers">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="JSON" label="JSON">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="format" label="format">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="error field" label="error field">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="formatted" label="formatted">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="server" label="server">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="authenticate" label="authenticate">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="npm" label="npm">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="ChattyBot JavaScript 1048" label="ChattyBot JavaScript 1048">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="keep_alive" label="keep_alive">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="main.py" label="main.py">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="Python script" label="Python script">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="Discord JS Bot" label="Discord JS Bot">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+    </nodes>
+    <edges>
+      <edge id="0" source="Google Colab" target="Google Drive" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="part of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="1" source="Google Colab" target="use" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="Google Drive"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="2" source="Hugging Face" target="chatbot" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="instance of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="3" source="Hugging Face" target="command-line client" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="instance of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="4" source="Hugging Face" target="use" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="authorization"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="5" source="Hugging Face" target="Discord" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="part of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="6" source="Hugging Face" target="API tokens" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="instance of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="7" source="Hugging Face" target="API" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="instance of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="8" source="Hugging Face" target="Bearer" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="has part"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="9" source="Hugging Face" target="API key" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="instance of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="10" source="Hugging Face" target="programming language" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="JavaScript"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="11" source="Hugging Face" target="JavaScript bot" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="instance of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="12" source="Uptime Robot" target="programming language" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="Python"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="13" source="Uptime Robot" target="Python bot" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="instance of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="14" source="Discord" target="chatbot" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="instance of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="15" source="Discord" target="AI chatbot" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="instance of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="16" source="Discord" target="programming language" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="JavaScript"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="17" source="Python" target="JavaScript" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="influenced by"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="18" source="Python" target="bot channel" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="has part"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="19" source="Python" target="use" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="model"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="20" source="Peppa Pig" target="video game" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="instance of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="21" source="Peppa Pig" target="genre" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="video game"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="22" source="Peppa Pig" target="present in work" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="Batman"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="23" source="Peppa Pig" target="Mama Pig" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="sibling"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="24" source="Peppa Pig" target="characters" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="Mama Pig"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="25" source="Peppa Pig" target="mother" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="Mama Pig"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="26" source="Peppa Pig" target="sibling" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="George"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="27" source="Peppa Pig" target="Peppa Pig" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="sibling"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="28" source="Harry" target="conversational chatbot" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="instance of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="29" source="Git" target="uses" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="Git LFS"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="30" source="Git" target="use" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="commit"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="31" source="Git" target="Git LFS" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="has part"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="32" source="JavaScript" target="Python" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="influenced by"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="33" source="JavaScript" target="chatbot" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="programming language"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="34" source="ChattyBot Python" target="programming language" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="Python"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="35" source="Harry Potter Bot Python" target="programming language" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="Python"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="36" source="Harry Potter Bot Python" target="use" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="Repl.it"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="37" source="Repl" target="programming language" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="Python"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="38" source="ChattyBot" target="programming language" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="JavaScript"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="39" source="ChattyBot" target="bot" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="instance of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="40" source="ChattyBot" target="use" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="bot"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="41" source="ChattyBot" target="uses" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="ChattyBot JavaScript 1048"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="42" source="Google Drive" target="Google Colab" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="has part"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="43" source="Discord Python Bot" target="programming language" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="Python"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="44" source="PyTorch" target="chatbot" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="instance of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="45" source="PyTorch" target="use" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="chatbot"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="46" source="Node" target="programming language" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="JavaScript"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="47" source="Node" target="JavaScript" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="influenced by"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="48" source="The Word Ends With You" target="game" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="instance of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="49" source="The Word Ends With You" target="fandom website" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="instance of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="50" source="The Word Ends With You" target="distributed by" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="Google"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="51" source="George" target="Mama Pig" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="sibling"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="52" source="Discord bot" target="use" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="artificial intelligence"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="53" source="Discord bot" target="artificial intelligence" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="instance of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="54" source="Discord bot" target="uses" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="artificial intelligence"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="55" source="model" target="used by" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="Python"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="56" source="model" target="programming language" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="Python"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="57" source="Mama Pig" target="Peppa Pig" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="part of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="58" source="Mama Pig" target="present in work" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="Peppa Pig"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="59" source="Mama Pig" target="child" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="Peppa Pig"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="60" source="Mama Pig" target="George" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="sibling"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="61" source="Mama Pig" target="Mama Pig" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="sibling"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="62" source="chatbot" target="subclass of" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="bot"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="63" source="chatbot" target="uses" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="text message"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="64" source="chatbot" target="bot" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="instance of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="65" source="HTTP" target="HTTP POST" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="has part"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="66" source="Python bot" target="programming language" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="JavaScript"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="67" source="Python bot" target="different from" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="JavaScript bot"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="68" source="research process" target="subclass of" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="research"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="69" source="research process" target="facet of" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="research"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="70" source="research" target="subclass of" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="process"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="71" source="data set" target="facet of" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="chatbot"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="72" source="data set" target="use" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="chatbot"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="73" source="data set" target="dialogue" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="has part"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="74" source="Batman" target="movies" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="instance of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="75" source="Batman" target="movie" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="instance of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="76" source="text messages" target="used by" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="chatbot"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="77" source="dialogues" target="used by" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="chatbot"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="78" source="text message" target="used by" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="chatbot"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="79" source="parse_script" target="Google Colab" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="part of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="80" source="two-column" target="subclass of" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="data set"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="81" source="pandas" target="uses" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="CSV file"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="82" source="CSV" target="used by" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="pandas"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="83" source="CSV" target="data frame" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="instance of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="84" source="CSV file" target="used by" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="pandas"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="85" source="result data frame" target="subclass of" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="data frame"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="86" source="result data frame" target="data frame" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="instance of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="87" source="data frame" target="lines" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="has part"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="88" source="data frame" target="line" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="has part"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="89" source="data frame" target="has parts of the class" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="lines"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="90" source="parametric" target="subclass of" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="regular expression"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="91" source="parametric" target="programming language" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="Python"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="92" source="sibling" target="sibling" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="George"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="93" source="sibling" target="Peppa Pig" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="Mama Pig"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="94" source="train the model" target="model training" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="has part"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="95" source="train the model" target="subclass of" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="model training"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="96" source="train the model" target="use" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="model training"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="97" source="model training" target="train the model" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="part of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="98" source="GPUs" target="used by" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="driver"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="99" source="driver" target="uses" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="GPUs"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="100" source="transformers" target="GPUs" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="part of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="101" source="harry_potter_1" target="use" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="Kaggle"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="102" source="harry_potter_1" target="Harry Potter" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="part of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="103" source="harry_potter_1" target="main subject" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="Harry Potter"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="104" source="lines" target="data frame" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="part of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="105" source="line" target="data frame" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="part of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="106" source="conversational" target="subclass of" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="chatbot"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="107" source="context data frame" target="use" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="conversational chatbot"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="108" source="training set" target="subclass of" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="data set"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="109" source="test set" target="subclass of" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="data set"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="110" source="GPT small" target="developer" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="Microsoft"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="111" source="pre-trained" target="subclass of" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="training"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="112" source="small" target="subclass of" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="parameters"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="113" source="My production chatbot" target="medium model" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="instance of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="114" source="My production chatbot" target="use" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="medium model"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="115" source="My production chatbot medium model" target="instance of medium model" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="instance of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="116" source="num_train_epochs" target="hyperparameters" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="instance of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="117" source="num_train_epochs" target="hyperparameter" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="instance of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="118" source="training epochs" target="subclass of" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="hyperparameters"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="119" source="batch size" target="subclass of" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="hyperparameter"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="120" source="batch size" target="hyperparameter" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="instance of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="121" source="overfitting" target="has effect" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="gradient"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="122" source="learning rate" target="subclass of" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="hyperparameter"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="123" source="learning rate" target="hyperparameters" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="instance of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="124" source="neurotransmitter" target="different from" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="neurotransmitter"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="125" source="neurotransmitter" target="subclass of" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="neurotransmitter"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="126" source="epoch" target="data set" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="part of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="127" source="train" target="uses" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="data set"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="128" source="perplexity" target="facet of" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="data set"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="129" source="How's Credence?" target="chatbot" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="instance of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="130" source="How's Credence?" target="use" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="chatbot"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="131" source="Credence" target="chatbot" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="instance of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="132" source="Git LFS" target="repository" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="instance of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="133" source="Git LFS" target="Git" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="part of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="134" source="Git LFS" target="use" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="Git"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="135" source="Git LFS" target="used by" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="Git"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="136" source="commit" target="used by" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="Git"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="137" source="dialogue_gpt_small" target="use" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="Git add and commit"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="138" source="Chatbot" target="subclass of" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="chatbot"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="139" source="Chatbot" target="use" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="chatbot"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="140" source="Lynn's Dev Lab" target="Discord" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="part of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="141" source="Hugging Face profile" target="API tokens" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="instance of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="142" source="discord_bot" target="programming language" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="Python"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="143" source="github" target="programming language" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="Python"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="144" source="API endpoint" target="API" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="part of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="145" source="query method" target="use" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="authorization"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="146" source="HTTP POST" target="subclass of" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="API endpoint"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="147" source="HTTP POST" target="uses" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="API endpoint"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="148" source="HTTP POST" target="use" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="API endpoint"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="149" source="HTTP POST" target="HTTP" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="part of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="150" source="on_ready" target="asynchronous function" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="instance of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="151" source="on_ready" target="subclass of" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="asynchronous function"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="152" source="on_ready" target="use" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="asynchronous function"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="153" source="on_ready" target="programming language" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="Python"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="154" source="on_ready" target="callback" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="instance of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="155" source="Ignore the message" target="different from" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="reply to it"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="156" source="Ignore the message" target="opposite of" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="reply to it"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="157" source="reply to it" target="different from" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="Ignore the message"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="158" source="reply to it" target="opposite of" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="Ignore the message"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="159" source="ignoring" target="different from" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="reply"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="160" source="reply" target="different from" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="ignoring"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="161" source="generated_text" target="subclass of" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="payload"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="162" source="generated_text field" target="subclass of" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="error message"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="163" source="chat" target="uses" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="protocol"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="164" source="Repl.it" target="programming language" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="Python"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="165" source="bot channel" target="Python" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="part of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="166" source="bot channel" target="programming language" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="Python"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="167" source="JavaScript bot" target="programming language" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="Python"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="168" source="JavaScript bot" target="different from" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="Python bot"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="169" source="try-except block" target="use" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="exception"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="170" source="try-except" target="subclass of" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="exception"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="171" source="fetch" target="HTTP" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="part of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="172" source="on_ready function" target="programming language" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="Python"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="173" source="request headers" target="subclass of" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="payload"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="174" source="body" target="response" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="part of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="175" source="headers" target="response" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="part of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="176" source="JSON" target="format" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="instance of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="177" source="JSON" target="formatted" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="instance of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="178" source="error field" target="use" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="debugging"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="179" source="server" target="opposite of" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="client"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="180" source="authenticate" target="uses" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="OAuth"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="181" source="authenticate" target="used by" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="OAuth"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="182" source="npm" target="programming language" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="JavaScript"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="183" source="ChattyBot JavaScript 1048" target="use" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="ChattyBot"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="184" source="keep_alive" target="programming language" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="JavaScript"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="185" source="main.py" target="programming language" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="Python"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="186" source="Python script" target="programming language" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="Python"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="187" source="Discord JS Bot" target="programming language" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="Python"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+    </edges>
+  </graph>
+</gexf>

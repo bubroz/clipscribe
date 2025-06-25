@@ -1,0 +1,501 @@
+subject,predicate,object,confidence,context
+Discord bot,artificial intelligence,use,0.9,Want to make a Discord bot that talks like characters from Rick and Morty or Harry Potter? Maybe you
+Discord bot,instance of,artificial intelligence,0.9,Want to make a Discord bot that talks like characters from Rick and Morty or Harry Potter? Maybe you
+Discord bot,artificial intelligence,uses,0.9,Want to make a Discord bot that talks like characters from Rick and Morty or Harry Potter? Maybe you
+chatbot,AI,subclass of,0.9,"I'm a software engineer, hobbyist game developer, and recent graduate from the University of Chicago"
+Discord,instance of,chatbot,0.9,"I'm a software engineer, hobbyist game developer, and recent graduate from the University of Chicago"
+Discord,instance of,AI chatbot,0.9,"I'm a software engineer, hobbyist game developer, and recent graduate from the University of Chicago"
+Python,influenced by,JavaScript,0.9,"So keep watching till the end.
+
+The original tutorial and my first Discord bot started as a joke bet"
+Discord bot,Python,programming language,0.9,"So keep watching till the end.
+
+The original tutorial and my first Discord bot started as a joke bet"
+Discord,Python,programming language,0.9,"So keep watching till the end.
+
+The original tutorial and my first Discord bot started as a joke bet"
+Kaggle,owned by,Google,0.9,"I hope you're excited and let's jump into the tutorial.
+
+First, we are going to find data for our ch"
+Google,Kaggle,owner of,0.9,"I hope you're excited and let's jump into the tutorial.
+
+First, we are going to find data for our ch"
+Kaggle,instance of,Google search,0.9,"I hope you're excited and let's jump into the tutorial.
+
+First, we are going to find data for our ch"
+data set,chatbot,use,0.9,"I first search on Kaggle to see if there are pre-made dialogue data sets.
+
+For example, if we search"
+Rick and Morty,dialogue,genre,0.9,"I first search on Kaggle to see if there are pre-made dialogue data sets.
+
+For example, if we search"
+data set,has part,dialogue,0.9,"I first search on Kaggle to see if there are pre-made dialogue data sets.
+
+For example, if we search"
+model training,data set,uses,0.9,"So these dialogue data sets on Kaggle are perfect for our requirement.
+
+All right, if we succeeded i"
+model training,data set,subclass of,0.9,"So these dialogue data sets on Kaggle are perfect for our requirement.
+
+All right, if we succeeded i"
+model training,data sets,uses,0.9,"So these dialogue data sets on Kaggle are perfect for our requirement.
+
+All right, if we succeeded i"
+Peppa Pig,Peppa Pig,characters,0.9,"But what if we cannot find a data set for our character on Kaggle? For example, if I want to find a "
+Peppa Pig,Peppa Pig,present in work,0.9,"But what if we cannot find a data set for our character on Kaggle? For example, if I want to find a "
+The Word Ends With You,instance of,game,0.9,We will see shortly how to turn a raw transcript like this into a data set like those we saw on Kagg
+The Word Ends With You,instance of,fandom website,0.9,We will see shortly how to turn a raw transcript like this into a data set like those we saw on Kagg
+chatbot,dialogues,uses,0.9,"So be sure to utilize your Google search skills to find data for your character.
+
+If, rather than fi"
+dialogues,chatbot,used by,0.9,"So be sure to utilize your Google search skills to find data for your character.
+
+If, rather than fi"
+chatbot,text messages,uses,0.9,"So be sure to utilize your Google search skills to find data for your character.
+
+If, rather than fi"
+text messages,chatbot,used by,0.9,"So be sure to utilize your Google search skills to find data for your character.
+
+If, rather than fi"
+chatbot,text message,uses,0.9,"So be sure to utilize your Google search skills to find data for your character.
+
+If, rather than fi"
+text message,chatbot,used by,0.9,"So be sure to utilize your Google search skills to find data for your character.
+
+If, rather than fi"
+two-column,character line,uses,0.9,"And now we will look at how to turn raw transcript into data set.
+
+Now, suppose we have found our ra"
+character line,two-column,used by,0.9,"And now we will look at how to turn raw transcript into data set.
+
+Now, suppose we have found our ra"
+character line,two-column,use,0.9,"And now we will look at how to turn raw transcript into data set.
+
+Now, suppose we have found our ra"
+two-column,character line,subclass of,0.9,"And now we will look at how to turn raw transcript into data set.
+
+Now, suppose we have found our ra"
+Google Colab,has part,Google Drive,0.9,"And we are going to from Google Colab import drive and then call drive.mount content drive.
+
+This wi"
+Google Drive,part of,Google Colab,0.9,"And we are going to from Google Colab import drive and then call drive.mount content drive.
+
+This wi"
+Google Drive,has part,Google Colab,0.9,"And we are going to from Google Colab import drive and then call drive.mount content drive.
+
+This wi"
+CSV,Pandas,used by,0.9,"So here we are going to import regular expression to parse our transcript, put the parsed result int"
+Pandas,CSV,use,0.9,"So here we are going to import regular expression to parse our transcript, put the parsed result int"
+Pandas,CSV,uses,0.9,"So here we are going to import regular expression to parse our transcript, put the parsed result int"
+Peppa Pig,Mama Pig,mother,0.9,"If we take the pattern to this site,
+
+and our test string is Peppa Pig,
+
+you will see that we have t"
+Mama Pig,Peppa Pig,child,0.9,"If we take the pattern to this site,
+
+and our test string is Peppa Pig,
+
+you will see that we have t"
+Peppa Pig,has part,Mama Pig,0.9,"If we take the pattern to this site,
+
+and our test string is Peppa Pig,
+
+you will see that we have t"
+Mama Pig,part of,Peppa Pig,0.9,"If we take the pattern to this site,
+
+and our test string is Peppa Pig,
+
+you will see that we have t"
+Peppa Pig,Mama Pig,sibling,0.9,"If we take the pattern to this site,
+
+and our test string is Peppa Pig,
+
+you will see that we have t"
+Mama Pig,Peppa Pig,sibling,0.9,"If we take the pattern to this site,
+
+and our test string is Peppa Pig,
+
+you will see that we have t"
+result data frame,data frame,subclass of,0.9,"So we know that we need the column name and the column line in our result data frame.
+
+And now we op"
+result data frame,instance of,data frame,0.9,"So we know that we need the column name and the column line in our result data frame.
+
+And now we op"
+parametric,regular expression,subclass of,0.9,"So we know that we need the column name and the column line in our result data frame.
+
+And now we op"
+Peppa Pig,George,sibling,0.9,"Cool, so we have the name is Peppa Pig, saying that I'm Peppa Pig, and then George makes a sound and"
+Mama Pig,sibling,George,0.9,"Cool, so we have the name is Peppa Pig, saying that I'm Peppa Pig, and then George makes a sound and"
+Peppa Pig,sibling,Peppa Pig,0.9,"Cool, so we have the name is Peppa Pig, saying that I'm Peppa Pig, and then George makes a sound and"
+sibling,Peppa Pig,sibling,0.9,"Cool, so we have the name is Peppa Pig, saying that I'm Peppa Pig, and then George makes a sound and"
+Mama Pig,sibling,Mama Pig,0.9,"Cool, so we have the name is Peppa Pig, saying that I'm Peppa Pig, and then George makes a sound and"
+George,sibling,Mama Pig,0.9,"Cool, so we have the name is Peppa Pig, saying that I'm Peppa Pig, and then George makes a sound and"
+sibling,Mama Pig,Peppa Pig,0.9,"Cool, so we have the name is Peppa Pig, saying that I'm Peppa Pig, and then George makes a sound and"
+sibling,Peppa Pig,George,0.9,"Cool, so we have the name is Peppa Pig, saying that I'm Peppa Pig, and then George makes a sound and"
+sibling,Mama Pig,sibling,0.9,"Cool, so we have the name is Peppa Pig, saying that I'm Peppa Pig, and then George makes a sound and"
+George,sibling,Peppa Pig,0.9,"Cool, so we have the name is Peppa Pig, saying that I'm Peppa Pig, and then George makes a sound and"
+train the model,model training,subclass of,0.9,"So DF.to_csv, the name will be PeppaPig.csv, and and we will drop the index. Cool. Now we should hav"
+train the model,model training,use,0.9,"So DF.to_csv, the name will be PeppaPig.csv, and and we will drop the index. Cool. Now we should hav"
+DF.csv,part of,PeppaPig,0.9,"So DF.to_csv, the name will be PeppaPig.csv, and and we will drop the index. Cool. Now we should hav"
+Google Colab,part of,Google Drive,0.9,"Go to my GitHub repository linked to in the description below and download the content.
+
+We are goin"
+Transformers,instance of,modules,0.9,"Make sure to select GPU because this will accelerate our model training.
+
+So now here, we mount the "
+Transformers,GPUs,platform,0.9,"Make sure to select GPU because this will accelerate our model training.
+
+So now here, we mount the "
+Transformers module,GPUs,platform,0.9,"Make sure to select GPU because this will accelerate our model training.
+
+So now here, we mount the "
+Harry Potter,has part,Harry Potter 1,0.9,"We're going to use the Harry Potter data set as an example.
+
+So grab this username and the data set "
+Harry Potter 1,part of,Harry Potter,0.9,"We're going to use the Harry Potter data set as an example.
+
+So grab this username and the data set "
+Harry Potter data set,has part,Harry Potter 1,0.9,"We're going to use the Harry Potter data set as an example.
+
+So grab this username and the data set "
+Harry Potter 1,part of,Harry Potter data set,0.9,"We're going to use the Harry Potter data set as an example.
+
+So grab this username and the data set "
+separating,comma,different from,0.9,So we need to take care of the semicolons when we are reading in the data into a Pandas data frame. 
+comma,separating,different from,0.9,So we need to take care of the semicolons when we are reading in the data into a Pandas data frame. 
+separating,has part,semicolon,0.9,So we need to take care of the semicolons when we are reading in the data into a Pandas data frame. 
+semicolon,part of,separating,0.9,So we need to take care of the semicolons when we are reading in the data into a Pandas data frame. 
+semicolon,separating,use,0.9,So we need to take care of the semicolons when we are reading in the data into a Pandas data frame. 
+parametric,has part,lines,0.9,"Looks like we have successfully changed the name of our columns.
+
+Now let's see how big our data is."
+lines,part of,parametric,0.9,"Looks like we have successfully changed the name of our columns.
+
+Now let's see how big our data is."
+parametric,lines,has parts of the class,0.9,"Looks like we have successfully changed the name of our columns.
+
+Now let's see how big our data is."
+conversational,has part,chatbot,0.9,"So here, we change our character name to Harry,
+
+and we now run this cell to create a context data f"
+chatbot,conversational,use,0.9,"So here, we change our character name to Harry,
+
+and we now run this cell to create a context data f"
+conversational,chatbot,subclass of,0.9,"So here, we change our character name to Harry,
+
+and we now run this cell to create a context data f"
+Harry,instance of,conversational chatbot,0.9,"So here, we change our character name to Harry,
+
+and we now run this cell to create a context data f"
+training set,data set,subclass of,0.9,"So in the context of clearly something something, our character responds with seems a pity not to as"
+test set,data set,subclass of,0.9,"So in the context of clearly something something, our character responds with seems a pity not to as"
+GPT small,Microsoft,developer,0.9,"We want the conversation to be more organic.
+
+So we're only training the model on the training set a"
+pre-trained,training,subclass of,0.9,"We want the conversation to be more organic.
+
+So we're only training the model on the training set a"
+small,Microsoft,developer,0.9,"We want the conversation to be more organic.
+
+So we're only training the model on the training set a"
+My production chatbot,instance of,medium model,0.9,"Generally, the larger the model, the longer it takes to train, but the smarter the model can get.
+
+I"
+My production chatbot,medium model,use,0.9,"Generally, the larger the model, the longer it takes to train, but the smarter the model can get.
+
+I"
+My production chatbot,instance of,chatbot,0.9,"Generally, the larger the model, the longer it takes to train, but the smarter the model can get.
+
+I"
+num train epochs,instance of,hyperparameters,0.9,"For this tutorial, for the sake of time, I'm training just a small model.
+
+You can see here it's dow"
+num train epochs,hyperparameters,subclass of,0.9,"For this tutorial, for the sake of time, I'm training just a small model.
+
+You can see here it's dow"
+num train epochs,instance of,hyperparameter,0.9,"For this tutorial, for the sake of time, I'm training just a small model.
+
+You can see here it's dow"
+batch size,hyperparameter,subclass of,0.9,"As long as the model is not overfitting, increasing the number of training epochs usually results in"
+batch size,instance of,hyperparameter,0.9,"As long as the model is not overfitting, increasing the number of training epochs usually results in"
+overfitting,gradient,has effect,0.9,"As long as the model is not overfitting, increasing the number of training epochs usually results in"
+learning rate,hyperparameters,subclass of,0.9,I wouldn't recommend changing this unless you know what you're doing since other hyperparameters lik
+temperature,hyperparameters,subclass of,0.9,I wouldn't recommend changing this unless you know what you're doing since other hyperparameters lik
+learning rate,instance of,hyperparameters,0.9,I wouldn't recommend changing this unless you know what you're doing since other hyperparameters lik
+temperature,instance of,hyperparameters,0.9,I wouldn't recommend changing this unless you know what you're doing since other hyperparameters lik
+neurotransmitter,neurotransmitter,different from,0.9,"However, if you're training a larger model on a larger data set and are running into memory errors, "
+data frame,part of,data set,0.9,"However, if you're training a larger model on a larger data set and are running into memory errors, "
+data set,has part,data frame,0.9,"However, if you're training a larger model on a larger data set and are running into memory errors, "
+epochs,part of,data set,0.9,"However, if you're training a larger model on a larger data set and are running into memory errors, "
+train,data set,uses,0.9,"So do sit back and grab a snack while the model is training.
+
+You can see the progress in the progre"
+data set,train,used by,0.9,"So do sit back and grab a snack while the model is training.
+
+You can see the progress in the progre"
+confused,perplexity answer,subclass of,0.9,"So do sit back and grab a snack while the model is training.
+
+You can see the progress in the progre"
+perplexity answer,has part,confused,0.9,"So do sit back and grab a snack while the model is training.
+
+You can see the progress in the progre"
+confused answer,has part,confused,0.9,"So do sit back and grab a snack while the model is training.
+
+You can see the progress in the progre"
+neurotransmitter,neurotransmitter,subclass of,0.9,"To decrease the perplexity, we might need to train for more epochs. Cool. But now that the training "
+Hugging Face,instance of,command line client,0.9,"It looks like our chatbot is capable of making and maintaining a conversation.
+
+Now we can push the "
+Hugging Face,instance of,command line,0.9,"It looks like our chatbot is capable of making and maintaining a conversation.
+
+Now we can push the "
+Hugging Face,command line,use,0.9,"It looks like our chatbot is capable of making and maintaining a conversation.
+
+Now we can push the "
+Git LFS,instance of,repository,0.9,So we can create a repository to store our model from the command line. Mine is going to be called d
+Git LFS,repository,use,0.9,So we can create a repository to store our model from the command line. Mine is going to be called d
+Git,instance of,repository,0.9,So we can create a repository to store our model from the command line. Mine is going to be called d
+commit,part of,Git,0.9,"This will allows us to push and pull our models, and we replace this token with the token we just co"
+commit,Git,used by,0.9,"This will allows us to push and pull our models, and we replace this token with the token we just co"
+Git,commit,uses,0.9,"This will allows us to push and pull our models, and we replace this token with the token we just co"
+Git LFS,Python,programming language,0.9,"We install the Git LFS,
+
+and inspect the content of our current directory, which should be dialogue "
+Git LFS,Git,use,0.9,"We install the Git LFS,
+
+and inspect the content of our current directory, which should be dialogue "
+Git,LFS,uses,0.9,"We install the Git LFS,
+
+and inspect the content of our current directory, which should be dialogue "
+PyTorch,text generation,use,0.9,"These are just my Hugging Face credentials,
+
+and we commit with message initial commit, and finally "
+Hugging Face,has part,PyTorch,0.9,"These are just my Hugging Face credentials,
+
+and we commit with message initial commit, and finally "
+Hugging Face,PyTorch,uses,0.9,"These are just my Hugging Face credentials,
+
+and we commit with message initial commit, and finally "
+chatbot,conversational,subclass of,0.9,"However, we know that we are training a chatbot model, and we want our model to be conversational. F"
+Discord bot,instance of,chatbot,0.9,"Now that we have pushed our model to Hugging Face, we're ready to use it in our Discord chatbot.
+
+No"
+Discord bot,chatbot,subclass of,0.9,"Now that we have pushed our model to Hugging Face, we're ready to use it in our Discord chatbot.
+
+No"
+Python bot,JavaScript bot,different from,0.9,"I have two channels, one for the Python bot and one for the JavaScript bot.
+
+The reason why we have "
+JavaScript bot,Python bot,different from,0.9,"I have two channels, one for the Python bot and one for the JavaScript bot.
+
+The reason why we have "
+Python bot,instance of,bots,0.9,"I have two channels, one for the Python bot and one for the JavaScript bot.
+
+The reason why we have "
+JavaScript bot,instance of,bots,0.9,"I have two channels, one for the Python bot and one for the JavaScript bot.
+
+The reason why we have "
+ChattyBot Python,Python,programming language,0.9,"We need one application per bot.
+
+So our name will be ChattyBot Python.
+
+So here we create a bot,
+
+a"
+ChattyBot,Python,programming language,0.9,"We need one application per bot.
+
+So our name will be ChattyBot Python.
+
+So here we create a bot,
+
+a"
+Python Repl,Python,programming language,0.9,"We need one application per bot.
+
+So our name will be ChattyBot Python.
+
+So here we create a bot,
+
+a"
+Hugging Face,instance of,API tokens,0.9,So here is a tab for the secrets for the environment variables. So the first one will be Hugging Fac
+Python,has part,OS module,0.9,"We add the token here,
+
+and our environment variables are all set.
+
+Next, I have the Python file in "
+OS module,part of,Python,0.9,"We add the token here,
+
+and our environment variables are all set.
+
+Next, I have the Python file in "
+Hugging Face,Python,programming language,0.9,"We add the token here,
+
+and our environment variables are all set.
+
+Next, I have the Python file in "
+Hugging Face,instance of,API,0.9,"In the on ready function,
+
+it takes in a model name, which for me will be dialogue GPT small Harry P"
+API endpoint,part of,API,0.9,"In the on ready function,
+
+it takes in a model name, which for me will be dialogue GPT small Harry P"
+API endpoint,API,use,0.9,"In the on ready function,
+
+it takes in a model name, which for me will be dialogue GPT small Harry P"
+Hugging Face,instance of,bearer,0.9,"For the authorization part, we put in bearer and the Hugging Face token.
+
+Next, we define a query me"
+Hugging Face,authorization,use,0.9,"For the authorization part, we put in bearer and the Hugging Face token.
+
+Next, we define a query me"
+Hugging Face,has part,bearer,0.9,"For the authorization part, we put in bearer and the Hugging Face token.
+
+Next, we define a query me"
+HTTP,API,uses,0.9,"We dump the payload as a JSON string,
+
+and use the request module to make an HTTP post request to th"
+API,HTTP,used by,0.9,"We dump the payload as a JSON string,
+
+and use the request module to make an HTTP post request to th"
+API endpoint,part of,HTTP,0.9,"We dump the payload as a JSON string,
+
+and use the request module to make an HTTP post request to th"
+on ready,asynchronous function,subclass of,0.9,Both are asynchronous function. The first one is on ready. This function will be called when the bot
+on ready,instance of,asynchronous function,0.9,Both are asynchronous function. The first one is on ready. This function will be called when the bot
+onready,asynchronous function,subclass of,0.9,Both are asynchronous function. The first one is on ready. This function will be called when the bot
+ignoring,reply,opposite of,0.9,"So given the message, if the message is coming from the bot itself, the bot ignores the message and "
+Ignore,reply,opposite of,0.9,"So given the message, if the message is coming from the bot itself, the bot ignores the message and "
+HTTP,message,uses,0.9,"So given the message, if the message is coming from the bot itself, the bot ignores the message and "
+authentically,authentically,different from,0.9,"We call self.query using the payload and get back the response.
+
+If there is a valid generated respo"
+pid,pid tag,different from,0.9,"We call self.query using the payload and get back the response.
+
+If there is a valid generated respo"
+pid tag,pid,different from,0.9,"We call self.query using the payload and get back the response.
+
+If there is a valid generated respo"
+authentically,authentically,facet of,0.9,"We call self.query using the payload and get back the response.
+
+If there is a valid generated respo"
+GPT,Harry Potter,present in work,0.9,"In the main function, we just create a bot and pass in the model name. So for me, this is dialogue G"
+Harry Potter,GPT,characters,0.9,"In the main function, we just create a bot and pass in the model name. So for me, this is dialogue G"
+GPT,Harry Potter,used by,0.9,"In the main function, we just create a bot and pass in the model name. So for me, this is dialogue G"
+Harry Potter,GPT,uses,0.9,"In the main function, we just create a bot and pass in the model name. So for me, this is dialogue G"
+bot,protocol,uses,0.9,"In the main function, we just create a bot and pass in the model name. So for me, this is dialogue G"
+protocol,bot,used by,0.9,"In the main function, we just create a bot and pass in the model name. So for me, this is dialogue G"
+Repl.it,Python,programming language,0.9,"Now that we see that our bot has appeared. However, it shows as offline. So we need to run the Repl."
+Repl,Python,programming language,0.9,"Now that we see that our bot has appeared. However, it shows as offline. So we need to run the Repl."
+Python,has part,dependencies,0.9,"Now that we see that our bot has appeared. However, it shows as offline. So we need to run the Repl."
+dependencies,part of,Python,0.9,"Now that we see that our bot has appeared. However, it shows as offline. So we need to run the Repl."
+"permissions, advanced permissions",channel setting,facet of,0.9,"Let's go to the server, and now that the bot is online.
+
+I don't want the bot to appear in the gener"
+"permissions, advanced permissions",channel setting,subclass of,0.9,"Let's go to the server, and now that the bot is online.
+
+I don't want the bot to appear in the gener"
+"permissions, advanced permissions",part of,server,0.9,"Let's go to the server, and now that the bot is online.
+
+I don't want the bot to appear in the gener"
+try except block,Python,programming language,0.9,"And now this bot should work in this Python bot channel, so let's do hello.
+
+And we briefly saw that"
+try except block,exception,use,0.9,"And now this bot should work in this Python bot channel, so let's do hello.
+
+And we briefly saw that"
+ChattyBot,JavaScript,programming language,0.9,So now we're going to repeat the process for the JavaScript bot. So we go back to the Discord develo
+ChattyBot,Node.js,programming language,0.9,So now we're going to repeat the process for the JavaScript bot. So we go back to the Discord develo
+ChattyBot JavaScript,Node.js,programming language,0.9,So now we're going to repeat the process for the JavaScript bot. So we go back to the Discord develo
+Discord bot,JavaScript,programming language,0.9,"Call this one Discord token, and adding the value.
+
+Great. Now we have our environment variables set"
+Discord,JavaScript,programming language,0.9,"Call this one Discord token, and adding the value.
+
+Great. Now we have our environment variables set"
+GitHub,JavaScript,programming language,0.9,"Call this one Discord token, and adding the value.
+
+Great. Now we have our environment variables set"
+fetch,part of,HTTP,0.9,"Let's copy paste, and I will go through the code line by line.
+
+So first, we import the Discord API "
+Discord,instance of,API,0.9,"Let's copy paste, and I will go through the code line by line.
+
+So first, we import the Discord API "
+HTTP,instance of,API,0.9,"Let's copy paste, and I will go through the code line by line.
+
+So first, we import the Discord API "
+asynchronous callback,callback,subclass of,0.9,"So when the bot is ready and logged in, we print out logged in as client.user.tag.
+
+And here is anot"
+asynchronous,callback,subclass of,0.9,"So when the bot is ready and logged in, we print out logged in as client.user.tag.
+
+And here is anot"
+Python script,asynchronous,use,0.9,"So when the bot is ready and logged in, we print out logged in as client.user.tag.
+
+And here is anot"
+Hugging FaceToken,instance of,API key,0.9,"So the payload is a dictionary containing inputs with text message.content, which is the message tha"
+HuggingFaceToken,instance of,API key,0.9,"So the payload is a dictionary containing inputs with text message.content, which is the message tha"
+body,part of,HTTP,0.9,"So the response is the result from this call to fetch using HTTP post, given the payload as the body"
+headers,part of,HTTP,0.9,"So the response is the result from this call to fetch using HTTP post, given the payload as the body"
+body,payload,subclass of,0.9,"So the response is the result from this call to fetch using HTTP post, given the payload as the body"
+headers,payload,subclass of,0.9,"So the response is the result from this call to fetch using HTTP post, given the payload as the body"
+HTTP post,part of,HTTP,0.9,"So the response is the result from this call to fetch using HTTP post, given the payload as the body"
+error field,debugging,use,0.9,"If there isn't a generated text field in the response, but instead the response contains an error fi"
+debugging,error field,uses,0.9,"If there isn't a generated text field in the response, but instead the response contains an error fi"
+IPv6,IPv7,followed by,0.9,"If there isn't a generated text field in the response, but instead the response contains an error fi"
+IPv7,IPv6,follows,0.9,"If there isn't a generated text field in the response, but instead the response contains an error fi"
+Repl,OAuth,uses,0.9,"So we go to OAuth,
+
+check the bot. It's only permission is to send messages. We copy this,
+
+paste in"
+authenticallycheck,part of,OAuth,0.9,"So we go to OAuth,
+
+check the bot. It's only permission is to send messages. We copy this,
+
+paste in"
+Node,JavaScript,programming language,0.9,"This time, the one we need to remove is the Python bot.
+
+So this Python bot shouldn't be able to sen"
+npm,JavaScript,programming language,0.9,"This time, the one we need to remove is the Python bot.
+
+So this Python bot shouldn't be able to sen"
+npm,Node,based on,0.9,"This time, the one we need to remove is the Python bot.
+
+So this Python bot shouldn't be able to sen"
+ChattyBot JavaScript 1048,instance of,ChattyBot,0.9,"So we need to manually change something in package.json.
+
+So here, we just use the older version and"
+ChattyBot,has part,ChattyBot JavaScript 1048,0.9,"So we need to manually change something in package.json.
+
+So here, we just use the older version and"
+JavaScript,influenced by,Python,0.9,"Looks like our bot is responding to us.
+
+And because we have set the bot's permissions correctly, th"
+Python bot,Python,programming language,0.9,"So now we have successfully built the bot both in Python and in JavaScript.
+
+One thing to note is th"
+keep alive,Python,programming language,0.9,"So now we have successfully built the bot both in Python and in JavaScript.
+
+One thing to note is th"
+Discord Python bot,Python,programming language,0.9,"Monitor type is going to be HTTPS, friendly name Discord Python bot, the URL is the one we copied fr"
+keep alive,JavaScript,programming language,0.9,"But because the bot itself is responding, we know that our web server approach has worked.
+
+Now let'"
+Uptime Robot,JavaScript,programming language,0.9,"But because the bot itself is responding, we know that our web server approach has worked.
+
+Now let'"
+keep alive,instance of,JavaScript bot,0.9,"But because the bot itself is responding, we know that our web server approach has worked.
+
+Now let'"
+chatbot,JavaScript,programming language,0.9,"It's again an HTTP monitor, Discord JS bot, and the URL is like this,
+
+and we create a monitor.
+
+Now"
+chatbot,Python,programming language,0.9,"It's again an HTTP monitor, Discord JS bot, and the URL is like this,
+
+and we create a monitor.
+
+Now"

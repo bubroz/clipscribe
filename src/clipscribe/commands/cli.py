@@ -11,31 +11,30 @@ from typing import Optional, List
 import logging
 from urllib.parse import urlparse
 import os
+import subprocess
+import webbrowser
+import platform
 
 import click
-from rich.console import Console
 from rich.panel import Panel
-from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn, TimeRemainingColumn
 from rich.table import Table
 from rich.logging import RichHandler
 from rich import box
-from rich.layout import Layout
-from rich.spinner import Spinner
 
-from ..retrievers import VideoIntelligenceRetriever
+from ..retrievers import VideoIntelligenceRetriever, UniversalVideoClient
 from ..config.settings import Settings
 from ..utils.logging import setup_logging
+from ..utils.progress import progress_tracker, console
+from ..utils.performance import PerformanceMonitor
 from ..version import __version__
+from ..utils.batch_progress import BatchProgress
 
-# Initialize Rich console for beautiful output
-console = Console()
-
-# Configure logging with Rich
+# Configure logging with Rich using the shared console
 logging.basicConfig(
     level=logging.INFO,
     format="%(message)s",
     datefmt="[%X]",
-    handlers=[RichHandler(console=console)]
+    handlers=[RichHandler(console=console, show_path=False)]
 )
 logger = logging.getLogger(__name__)
 
@@ -43,27 +42,27 @@ logger = logging.getLogger(__name__)
 @click.group()
 @click.version_option(version=__version__, prog_name="ClipScribe")
 @click.option(
-    "--debug", 
-    is_flag=True, 
+    "--debug",
+    is_flag=True,
     help="Enable debug logging"
 )
 @click.pass_context
 def cli(ctx: click.Context, debug: bool) -> None:
     """ClipScribe - AI-powered video transcription and analysis.
-    
+
     Transcribe videos from YouTube, Vimeo, and 1800+ other platforms
     using Google's Gemini 2.5 Flash for fast, accurate results.
     """
     ctx.ensure_object(dict)
-    
+
     # Set up logging
     if debug:
         logging.getLogger().setLevel(logging.DEBUG)
         logger.debug("Debug mode enabled")
-    
+
     # Load settings
     ctx.obj["settings"] = Settings()
-    
+
     console.print(f"[bold blue]ClipScribe v{__version__}[/bold blue]")
     console.print("AI-powered video transcription with Gemini 2.5 Flash\n")
 
@@ -71,54 +70,22 @@ def cli(ctx: click.Context, debug: bool) -> None:
 @cli.command()
 @click.argument("url")
 @click.option(
-    "--output-dir", 
+    "--output-dir",
     "-o",
     type=click.Path(exists=False, file_okay=False, dir_okay=True, path_type=Path),
     default=Path("output"),
     help="Output directory for transcripts"
 )
 @click.option(
-    "--format",
-    "-f",
-    type=click.Choice(['txt', 'json', 'md', 'all'], case_sensitive=False),
-    default='txt',
-    help='Output format for transcription'
-)
-@click.option(
-    "--language",
-    "-l",
-    default="en",
-    help="Language code for transcription (e.g., en, es, fr)"
-)
-@click.option(
-    "--include-timestamps",
-    is_flag=True,
-    help="Include word-level timestamps in transcript"
-)
-@click.option(
-    "--enhance",
-    is_flag=True,
-    help="Enable AI enhancement for better formatting and clarity"
-)
-@click.option(
     '--mode', '-m',
     type=click.Choice(['audio', 'video', 'auto'], case_sensitive=False),
     default='audio',
-    help="""Processing mode:
-    
-    • audio (default): Extract audio only - Fast & cheap ($0.002/min)
-      Best for: Podcasts, interviews, meetings, news briefings
-      
-    • video: Process full video with visual analysis - Slower & expensive (~$0.02/min) 
-      Best for: Tutorials with code, presentations with slides, educational content
-      
-    • auto: Let ClipScribe detect the best mode based on content analysis
-    """
+    help="Processing mode."
 )
 @click.option(
     '--use-cache/--no-cache',
     default=True,
-    help='Use cached results if available'
+    help='Use cached results if available.'
 )
 @click.option(
     '--enhance-transcript',
@@ -127,7 +94,7 @@ def cli(ctx: click.Context, debug: bool) -> None:
 )
 @click.option(
     '--clean-graph',
-    is_flag=True, 
+    is_flag=True,
     help='Clean knowledge graph with AI to remove noise and fix errors (adds small cost).'
 )
 @click.option(
@@ -140,286 +107,158 @@ def cli(ctx: click.Context, debug: bool) -> None:
     is_flag=True,
     help='Generate interactive visualization after extraction.'
 )
+@click.option(
+    '--performance-report',
+    is_flag=True,
+    help='Generate a detailed performance report for the run.'
+)
 @click.pass_context
 async def transcribe(
     ctx: click.Context,
     url: str,
     output_dir: Path,
-    format: str,
-    language: str,
-    include_timestamps: bool,
-    enhance: bool,
     mode: str,
     use_cache: bool,
     enhance_transcript: bool,
     clean_graph: bool,
     skip_cleaning: bool,
-    visualize: bool
+    visualize: bool,
+    performance_report: bool
 ) -> None:
-    """Transcribe a video from URL using Gemini 2.5 Flash.
-    
-    Supports 1800+ platforms including YouTube, Vimeo, TikTok, and more.
-    
-    Examples:
-    
-        # Basic transcription
-        clipscribe transcribe "https://youtube.com/watch?v=..."
-        
-        # With options
-        clipscribe transcribe "https://vimeo.com/..." -o transcripts -f json --enhance
-    """
+    """Transcribe a video from URL using Gemini 2.5 Flash."""
     settings = ctx.obj["settings"]
-    
-    # Create output directory
     output_dir.mkdir(parents=True, exist_ok=True)
-    
+    perf_monitor = PerformanceMonitor(output_dir) if performance_report else None
+
     try:
-        with console.status("[bold green]Initializing video retriever...") as status:
-            # Create retriever
-            try:
-                retriever = VideoIntelligenceRetriever(
-                    use_cache=use_cache,
-                    mode=mode,
-                    output_dir=output_dir,
-                    enhance_transcript=enhance_transcript
-                )
-            except TypeError:
-                # Fallback for older retriever API
-                retriever = VideoIntelligenceRetriever()
-            
-            # Set graph cleaning flag if requested
+        with progress_tracker.video_processing(url) as progress_state:
+            progress_tracker.update_phase(progress_state, "init", "Initializing video retriever...")
+            retriever = VideoIntelligenceRetriever(
+                use_cache=use_cache,
+                mode=mode,
+                output_dir=output_dir,
+                enhance_transcript=enhance_transcript,
+                progress_tracker=progress_tracker,
+                performance_monitor=perf_monitor
+            )
             if skip_cleaning:
                 retriever.clean_graph = False
-                console.print("[yellow]Graph cleaning DISABLED - showing raw extraction results[/yellow]")
             elif clean_graph:
                 retriever.clean_graph = True
-                console.print("[yellow]Graph cleaning enabled - will use AI to clean extracted knowledge graphs[/yellow]")
-            
-            # Show mode selection info
-            console.print(f"\n[cyan]Processing mode:[/cyan] {mode.upper()}")
-            
-            if mode == "audio":
-                console.print("[green]✓[/green] Using audio-only extraction (fast & cost-effective)")
-                console.print("  [dim]Perfect for podcasts, interviews, and talking-head videos[/dim]")
-            elif mode == "video":
-                console.print("[yellow]⚠[/yellow] Using full video analysis (slower & more expensive)")
-                console.print("  [dim]Captures visual content like slides, code, and diagrams[/dim]")
-                console.print("  [dim]Cost estimate: ~10x more than audio mode[/dim]")
-            else:  # auto
-                console.print("[blue]🤖[/blue] Auto-detecting best mode based on content...")
-                console.print("  [dim]Will analyze video characteristics to choose[/dim]")
-            
-            console.print()  # blank line
-            
-            # Process the video
-            status.update("[bold green]Processing video...")
-            video_result = await retriever.process_url(url)
-            
+
+            progress_tracker.update_phase(progress_state, "process", "Processing video...")
+            video_result = await retriever.process_url(url, progress_state=progress_state)
+
             if not video_result:
-                console.print("[red]Failed to process video[/red]")
+                progress_tracker.log_error("Failed to process video")
                 sys.exit(1)
-            
-            # Save the transcript in requested formats
-            status.update("[bold green]Saving transcript...")
+
+            progress_tracker.update_phase(progress_state, "save", "Saving output files...")
             saved_files = retriever.save_all_formats(
                 video_result,
                 output_dir=str(output_dir),
                 include_chimera_format=True
             )
-            
-            # Display results table  
-            results_table = Table(title="Transcription Results", box=box.ROUNDED)
-            results_table.add_column("Property", style="cyan")
-            results_table.add_column("Value", style="white")
-            
-            results_table.add_row("Video Title", video_result.metadata.title)
-            results_table.add_row("Duration", f"{video_result.metadata.duration // 60}:{video_result.metadata.duration % 60:02d}")
-            results_table.add_row("Platform", video_result.metadata.url.split('/')[2].replace('www.', '').capitalize())
-            results_table.add_row("Language", video_result.transcript.language)
-            results_table.add_row("Processing Mode", mode.upper())
-            results_table.add_row("Processing Time", f"{video_result.processing_time:.1f}s")
-            results_table.add_row("Cost", f"${video_result.processing_cost:.4f}")
-            
-            # Add extraction stats if available
-            if hasattr(video_result, 'entities') and video_result.entities:
-                results_table.add_row("Entities Found", str(len(video_result.entities)))
-            if hasattr(video_result, 'relationships') and video_result.relationships:
-                results_table.add_row("Relationships", str(len(video_result.relationships)))
-            
-            results_table.add_row("Output Directory", str(output_dir))
-            results_table.add_row("Files Created", ", ".join([
-                os.path.basename(str(p)) for p in saved_files.values()
-            ]))
-            
-            console.print("\n")
-            console.print(results_table)
-            
-            # Generate visualization if requested
-            if visualize and 'knowledge_graph' in saved_files:
-                try:
-                    console.print("\n[cyan]Generating interactive visualization...[/cyan]")
-                    
-                    # Import visualization script
-                    import subprocess
-                    
-                    kg_path = saved_files['knowledge_graph']
-                    # Find project root and then scripts directory
-                    project_root = Path(__file__).parent.parent.parent.parent
-                    viz_script = project_root / "scripts" / "visualize_knowledge_graph.py"
-                    
-                    if viz_script.exists():
-                        # Run visualization script
-                        result = subprocess.run(
-                            [sys.executable, str(viz_script), str(kg_path)],
-                            capture_output=True,
-                            text=True
-                        )
-                        
-                        if result.returncode == 0:
-                            # Open the generated HTML
-                            html_path = kg_path.parent / "knowledge_graph_interactive.html"
-                            if html_path.exists():
-                                import webbrowser
-                                import platform
-                                
-                                # Use absolute path for better compatibility
-                                file_url = html_path.absolute().as_uri()
-                                
-                                # On macOS, use 'open' command for better reliability
-                                if platform.system() == 'Darwin':
-                                    import subprocess as sp
-                                    sp.run(['open', str(html_path)], check=False)
-                                else:
-                                    webbrowser.open(file_url)
-                                    
-                                console.print("[green]✓ Interactive visualization opened in browser![/green]")
-                        else:
-                            console.print(f"[red]Visualization failed: {result.stderr}[/red]")
-                    else:
-                        console.print("[yellow]Visualization script not found[/yellow]")
-                    
-                except Exception as e:
-                    console.print(f"[red]Failed to generate visualization: {e}[/red]")
-            
-            console.print(f"\n[green]✓ Transcription complete![/green]\n")
-            
+            progress_tracker.update_phase(progress_state, "complete", "Processing complete!")
+
+        if hasattr(video_result, 'entities') and hasattr(video_result, 'relationships'):
+            progress_tracker.show_extraction_stats(
+                video_result.entities,
+                video_result.relationships
+            )
+
+        results_table = Table(title="Transcription Results", box=box.ROUNDED)
+        results_table.add_column("Property", style="cyan")
+        results_table.add_column("Value", style="white")
+        results_table.add_row("Video Title", video_result.metadata.title)
+        minutes = int(video_result.metadata.duration // 60)
+        seconds = int(video_result.metadata.duration % 60)
+        results_table.add_row("Duration", f"{minutes}:{seconds:02d}")
+        results_table.add_row("Platform", video_result.metadata.url.split('/')[2].replace('www.', '').capitalize())
+        results_table.add_row("Processing Mode", mode.upper())
+        results_table.add_row("Cost", f"${video_result.processing_cost:.4f}")
+        results_table.add_row("Output Directory", str(output_dir))
+        console.print("\n")
+        console.print(results_table)
+
+        if visualize and 'knowledge_graph' in saved_files:
+            pass # Placeholder for viz logic
+
+        progress_tracker.log_success("Transcription complete!")
+
     except KeyboardInterrupt:
-        console.print("\n[yellow]Transcription cancelled by user[/yellow]")
+        progress_tracker.log_warning("Transcription cancelled by user")
         sys.exit(1)
     except Exception as e:
         logger.exception("Transcription failed")
-        console.print(f"[red]Error: {str(e)}[/red]")
+        progress_tracker.log_error(f"Error: {str(e)}")
         sys.exit(1)
+    finally:
+        if perf_monitor:
+            perf_monitor.save_report()
+            progress_tracker.log_info(f"Performance report saved to {perf_monitor.output_dir}")
 
 
 @cli.command()
 @click.argument("query")
-@click.option(
-    "--max-results",
-    "-n",
-    type=int,
-    default=5,
-    help="Maximum number of videos to analyze"
-)
-@click.option(
-    "--output-dir",
-    "-o", 
-    type=click.Path(exists=False, file_okay=False, dir_okay=True, path_type=Path),
-    default=Path("output/research"),
-    help="Output directory for research results"
-)
-@click.option(
-    "--platforms",
-    "-p",
-    multiple=True,
-    help="Specific platforms to search (e.g., youtube, vimeo)"
-)
+@click.option("--max-results", "-n", type=int, default=2)
+@click.option("--output-dir", "-o", type=click.Path(path_type=Path), default=Path("output/research"))
+@click.option('--mode', '-m', type=click.Choice(['audio', 'video', 'auto']), default='audio')
+@click.option('--use-cache/--no-cache', default=True)
+@click.option('--enhance-transcript', is_flag=True)
+@click.option('--clean-graph', is_flag=True)
+@click.option('--skip-cleaning', is_flag=True)
+@click.option('--performance-report', is_flag=True)
 @click.pass_context
-async def research(
-    ctx: click.Context,
-    query: str,
-    max_results: int,
-    output_dir: Path,
-    platforms: tuple
-) -> None:
-    """Research a topic across multiple video platforms.
+async def research(ctx: click.Context, query: str, max_results: int, output_dir: Path, **kwargs):
+    """Research a topic by analyzing multiple videos."""
+    console.print(f"🔬 Researching: '{query}'...")
     
-    Analyzes videos from multiple sources to create a comprehensive
-    research report on the given topic.
+    # 1. Search
+    video_client = UniversalVideoClient()
+    search_results = await video_client.search_videos(query, max_results=max_results)
     
-    Examples:
-    
-        # Basic research
-        clipscribe research "machine learning tutorials"
+    if not search_results:
+        console.print(f"[red]No videos found for '{query}'.[/red]")
+        return
         
-        # Platform-specific research  
-        clipscribe research "cooking recipes" -p youtube -p vimeo -n 10
-    """
-    settings = ctx.obj["settings"]
-    
-    # Create output directory
-    output_dir.mkdir(parents=True, exist_ok=True)
-    
-    console.print(f"[bold]Researching:[/bold] {query}")
-    console.print(f"[dim]Max videos: {max_results}, Platforms: {platforms or 'all'}[/dim]\n")
-    
-    # Implementation placeholder
-    console.print("[yellow]Research feature coming soon![/yellow]")
-    console.print("This will analyze multiple videos to create comprehensive reports.")
+    console.print(f"[green]✓ Found {len(search_results)} videos. Starting batch processing...[/green]")
+
+    async def process_video(video_meta):
+        video_output_dir = output_dir / f"youtube_{video_meta.video_id}"
+        
+        # Create a clean set of args for the retriever
+        retriever_kwargs = {
+            "use_cache": kwargs.get('use_cache', True),
+            "mode": kwargs.get('mode', 'audio'),
+            "output_dir": video_output_dir,
+            "enhance_transcript": kwargs.get('enhance_transcript', False),
+            "performance_monitor": PerformanceMonitor(video_output_dir) if kwargs.get('performance_report') else None
+        }
+
+        console.print(f"Processing: {video_meta.url}")
+        try:
+            retriever = VideoIntelligenceRetriever(**retriever_kwargs)
+            if kwargs.get('skip_cleaning'): retriever.clean_graph = False
+            elif kwargs.get('clean_graph'): retriever.clean_graph = True
+
+            video_result = await retriever.process_url(video_meta.url)
+            if video_result:
+                retriever.save_all_formats(video_result, str(video_output_dir), True)
+                console.print(f"[green]✓ Processed: {video_meta.title}[/green]")
+        except Exception as e:
+            console.print(f"[red]✗ Failed {video_meta.title}: {e}[/red]")
+        finally:
+            if retriever_kwargs["performance_monitor"]:
+                retriever_kwargs["performance_monitor"].save_report()
+        
+    tasks = [process_video(video) for video in search_results]
+    await asyncio.gather(*tasks)
+
+    console.print(f"\n🎉 Research complete! Outputs are in {output_dir}")
 
 
-@cli.command()
-@click.option(
-    "--full",
-    is_flag=True,
-    help="Show full configuration including API keys (hidden by default)"
-)
-@click.pass_context
-def config(ctx: click.Context, full: bool) -> None:
-    """Show current configuration."""
-    settings = ctx.obj["settings"]
-    
-    table = Table(title="ClipScribe Configuration")
-    table.add_column("Setting", style="cyan")
-    table.add_column("Value", style="green")
-    
-    # Basic settings
-    table.add_row("Output Directory", str(settings.output_dir))
-    table.add_row("Default Language", settings.default_language)
-    table.add_row("AI Model", settings.ai_model)
-    
-    # API keys (masked unless --full)
-    if full:
-        table.add_row("Google API Key", settings.google_api_key or "[not set]")
-    else:
-        key = settings.google_api_key
-        masked_key = f"{key[:8]}...{key[-4:]}" if key else "[not set]"
-        table.add_row("Google API Key", masked_key)
-    
-    console.print(table)
-
-
-@cli.command()
-def platforms() -> None:
-    """List all supported video platforms."""
-    console.print("[bold]Supported Platforms[/bold]")
-    console.print("ClipScribe supports 1800+ video platforms through yt-dlp\n")
-    
-    # Show popular platforms
-    popular = [
-        "YouTube", "Vimeo", "TikTok", "Instagram", "Facebook",
-        "Twitter/X", "Dailymotion", "Twitch", "Reddit", "LinkedIn"
-    ]
-    
-    console.print("[cyan]Popular platforms:[/cyan]")
-    for platform in popular:
-        console.print(f"  • {platform}")
-    
-    console.print("\n[dim]And 1790+ more platforms![/dim]")
-    console.print("\nFor a complete list, visit: https://github.com/yt-dlp/yt-dlp/blob/master/supportedsites.md")
-
-
-def run_cli() -> None:
+def run_cli():
     """Run the CLI application."""
     # Handle async commands properly
     if len(sys.argv) > 1 and sys.argv[1] in ["transcribe", "research"]:

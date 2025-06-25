@@ -1,0 +1,95 @@
+{
+  "version": "2.3",
+  "created_at": "2025-06-24T14:41:25.650833",
+  "video": {
+    "title": "NASA's James Webb Space Telescope: Stunning new images captured of the universe | 60 Minutes",
+    "url": "https://www.youtube.com/watch?v=dC1-qgR7YO0",
+    "platform": "youtube"
+  },
+  "extraction_stats": {
+    "spacy_entities": 32,
+    "gliner_entities": 47,
+    "llm_validated": 71,
+    "relationships": 79,
+    "graph_nodes": 118,
+    "graph_edges": 73
+  },
+  "files": {
+    "transcript_txt": {
+      "path": "transcript.txt",
+      "format": "plain_text",
+      "size": 10145,
+      "sha256": "93c33fb169725143f2f2212ad4e9ef548c0599f6394d8022e9df94ed6170f8ed"
+    },
+    "transcript_json": {
+      "path": "transcript.json",
+      "format": "json",
+      "size": 111365,
+      "sha256": "f53e2e787be969841920b579ec1244df3a3222b40484d70a42d52f4413892345"
+    },
+    "metadata": {
+      "path": "metadata.json",
+      "format": "json",
+      "size": 1796,
+      "sha256": "4bde346a4b544abc9bc3d634c4425d8afa5d51047f18f93ed95507f76976de36"
+    },
+    "entities": {
+      "path": "entities.json",
+      "format": "json",
+      "size": 16677,
+      "sha256": "4fe4a352b29c4baf4bfb8c05afefa0889f88947503463d28df15f055c63722ca"
+    },
+    "relationships": {
+      "path": "relationships.json",
+      "format": "json",
+      "size": 20802,
+      "count": 79,
+      "sha256": "a04f6b0c5ca0d1aae41daabff47a233ee762beee72f1f623a30de3a7a3480a8b"
+    },
+    "knowledge_graph": {
+      "path": "knowledge_graph.json",
+      "format": "json",
+      "size": 21744,
+      "nodes": 118,
+      "edges": 73,
+      "sha256": "63448c4008be516ed09f79c8ad94cbe413180ecd7258e514782177b40f059423"
+    },
+    "knowledge_graph_gexf": {
+      "path": "knowledge_graph.gexf",
+      "format": "gexf",
+      "size": 52179,
+      "description": "Gephi-compatible graph file",
+      "sha256": "c9fbdddce0553a3ac552a0391e6c4bdbabe6069b540ed0f5ad54d51f1d6b3151"
+    },
+    "facts": {
+      "path": "facts.txt",
+      "format": "plain_text",
+      "size": 8851,
+      "count": 100,
+      "sha256": "2337ff45fc36bfce1635036b171136474705c5d54d04bf3731b069173e53675d"
+    },
+    "entities_csv": {
+      "path": "entities.csv",
+      "format": "csv",
+      "size": 3217,
+      "description": "All entities in CSV format",
+      "count": 71,
+      "sha256": "8695a61bf3b5e06a9a5b85e758e6c35314e45510ca6beabedf3c6e5a9a008de2"
+    },
+    "relationships_csv": {
+      "path": "relationships.csv",
+      "format": "csv",
+      "size": 11719,
+      "description": "All relationships in CSV format",
+      "count": 79,
+      "sha256": "4b3414e62d5e749070ff2135d23c499cc6477380d094ea43173887be7fc2753b"
+    },
+    "report": {
+      "path": "report.md",
+      "format": "markdown",
+      "size": 14073,
+      "description": "Human-readable intelligence report",
+      "sha256": "d7af56be33b1f6ab74476cef3eaad8b6fdad747f46932643fc82b1bc2e46c984"
+    }
+  }
+}
