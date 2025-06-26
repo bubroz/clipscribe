@@ -23,7 +23,7 @@ poetry install
 # Create .env file with your API key (SECURE METHOD)
 echo "GOOGLE_API_KEY=your_actual_key_here" > .env
 
-# Quick test with a real PBS video (recommended by Zac)
+# Quick test with a real PBS video (per Zac's preference)
 poetry run clipscribe transcribe "https://www.youtube.com/watch?v=6ZVj1_SE4Mo"
 
 # Or run the TWO-PART demo script for a complete batch showcase
