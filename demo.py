@@ -27,7 +27,7 @@ async def run_demo():
         print("❌ GOOGLE_API_KEY not found!")
         print("\n🔑 You need a FREE Google API key to run ClipScribe:")
         print("   1. Get FREE key: https://makersuite.google.com/app/apikey")
-        print("   2. export GOOGLE_API_KEY='your_key_here'")
+        print("   2. Create .env file: echo 'GOOGLE_API_KEY=your_key' > .env")
         print("   3. Run this demo again")
         print(f"\n🎬 This demo will process TWO PBS videos:")
         for i, url in enumerate(DEMO_VIDEO_URLS, 1):

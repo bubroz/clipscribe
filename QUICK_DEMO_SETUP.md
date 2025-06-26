@@ -20,8 +20,8 @@ poetry install
 ## 🎬 Try It Out
 
 ```bash
-# Set your API key (replace with your actual key)
-export GOOGLE_API_KEY="your_key_here"
+# Create .env file with your API key (SECURE METHOD)
+echo "GOOGLE_API_KEY=your_actual_key_here" > .env
 
 # Quick test with a real PBS video (recommended by Zac)
 poetry run clipscribe transcribe "https://www.youtube.com/watch?v=6ZVj1_SE4Mo"
@@ -92,10 +92,11 @@ Avoid music videos - they don't showcase the entity extraction and relationship 
 
 ## 💡 Pro Tips
 
-1. **Start with Streamlit** - Most user-friendly interface
-2. **Use news content** - Shows off entity extraction best
-3. **Try batch processing** - Shows the real power
-4. **Check performance dashboard** - See the optimization in action
+1. **Use .env file** - Never put API keys in shell history
+2. **Start with Streamlit** - Most user-friendly interface
+3. **Use news content** - Shows off entity extraction best
+4. **Try batch processing** - Shows the real power
+5. **Check performance dashboard** - See the optimization in action
 
 ---
 

@@ -146,18 +146,19 @@ docker run -p 8501:8501 -e GOOGLE_API_KEY="your_key" clipscribe
 ## 🔧 Environment Configuration
 
 ### Required Environment Variables
+Create a `.env` file in your project root:
 ```bash
 # Essential
-GOOGLE_API_KEY="AIza..."
+GOOGLE_API_KEY=AIza...
 
 # Optional Performance Tuning
-GLINER_MODEL="urchade/gliner_mediumv2.1"
-REBEL_MODEL="Babelscape/rebel-large"
-CLIPSCRIBE_LOG_LEVEL="INFO"
+GLINER_MODEL=urchade/gliner_mediumv2.1
+REBEL_MODEL=Babelscape/rebel-large
+CLIPSCRIBE_LOG_LEVEL=INFO
 
 # Optional Cost Controls
-CONFIDENCE_THRESHOLD="0.8"
-COST_WARNING_THRESHOLD="1.0"
+CONFIDENCE_THRESHOLD=0.8
+COST_WARNING_THRESHOLD=1.0
 ```
 
 ### Platform-Specific Settings
@@ -205,9 +206,11 @@ PERFORMANCE_MONITORING = True
 ## 🔒 Security Best Practices
 
 ### API Key Management
-- ✅ Use environment variables, never hardcode
+- ✅ Use .env files, never export in shell
+- ✅ Add .env to .gitignore (already done in ClipScribe)
 - ✅ Rotate keys regularly
 - ✅ Monitor usage in Google Cloud Console
+- ❌ Never use export GOOGLE_API_KEY in documentation
 - ❌ Never commit keys to version control
 
 ### Access Control
@@ -367,7 +370,11 @@ jobs:
 ```bash
 # Test deployment locally
 poetry install
-export GOOGLE_API_KEY="your_key"
+
+# Create .env file (SECURE)
+echo "GOOGLE_API_KEY=your_key" > .env
+
+# Test the app
 streamlit run app.py
 
 # Test with demo data
