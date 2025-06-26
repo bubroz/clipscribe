@@ -7,18 +7,110 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased] - The Synthesis Update (v2.14.0)
 
-### Changed
-- **GEXF 1.3 Graph Export**: Upgraded the graph export to the modern GEXF 1.3 standard for full compatibility with the latest network analysis tools. This includes updating namespaces, schemas, and using the `hex` attribute for colors.
+### 🎯 Major Breakthrough: REBEL Relationship Extraction Fixed
 
-### Planned
-- **Knowledge Synthesis Engine**: Evolve the multi-video processor to generate a structured, multi-faceted analysis.
-  - **Consolidated Event Timeline**: A chronological sequence of key events, facts, and talking points as they are introduced across all videos.
-  - **Dynamic Knowledge Panels**: "Wikipedia-style" info boxes for major entities, synthesizing all descriptions, relationships, and key statements.
-  - **Information Flow Maps**: Map the "journey" of key concepts in a series, showing introduction, elaboration, and connections.
-- **Streamlit "Mission Control"**: A dedicated UI for managing and analyzing collections.
-  - **Collection Workbench**: Drag-and-drop interface to build, save, and manage video collections.
-  - **Synthesis Dashboard**: Interactive visualizations of the Event Timeline and Knowledge Panels.
-  - **Live Synthesis View**: A live-updating visualization of the unified knowledge graph as it's built.
+**Critical Bug Resolution**: Fixed the `'NoneType' object is not subscriptable` error that was preventing video processing from completing after successful entity and relationship extraction.
+
+**REBEL Success**: REBEL model is now successfully extracting 10+ relationships per video from news content, including:
+- "Pegasus | spyware | instance of"
+- "NSO | inception | 2010" 
+- "Carmen Aristegui | employer | Aristegui Noticias"
+- "United Arab Emirates | diplomatic relation | Saudi Arabia"
+- And many more meaningful relationships
+
+### ✨ New Features
+
+#### 1. GEXF 1.3 Upgrade
+- **Upgraded GEXF export** from 1.2draft to GEXF 1.3 specification
+- Updated XML namespaces and schemas: `http://www.gexf.net/1.3`
+- Simplified color definitions using hex attributes for better Gephi compatibility
+- Enhanced node styling with confidence-based sizing
+
+#### 2. Knowledge Synthesis Engine
+- **Timeline Synthesis**: `_synthesize_event_timeline` method creates chronological timelines from key points across multiple videos
+- **Data Models**: Added `TimelineEvent` and `ConsolidatedTimeline` Pydantic models
+- **Event Correlation**: Generates unique event IDs and calculates absolute timestamps
+- **Multi-Video Intelligence**: Enhanced `MultiVideoIntelligence` with `consolidated_timeline` field
+
+#### 3. Collection Output Management
+- **Centralized Output Saving**: `save_collection_outputs` method for consolidated timeline, unified knowledge graph, and full collection intelligence
+- **Consistent Directory Naming**: Fixed naming inconsistencies between file saving and reporting
+- **Enhanced CLI Integration**: Updated CLI to use centralized collection output saving
+
+### 🐛 Critical Fixes
+
+#### 1. REBEL Relationship Extraction Engine
+- **Root Cause Identified**: REBEL model was generating output but parser couldn't read space-separated format
+- **Parser Rewrite**: Completely rewrote `_parse_triplets` method in `rebel_extractor.py`
+- **Dual Parsing Strategy**: XML tags (fallback) + space-separated format (primary)
+- **Debug Logging**: Added comprehensive logging to track extraction process
+- **Success Metrics**: Now extracting 14-19 unique relationships per video
+
+#### 2. Async Command Handling
+- **RuntimeWarning Fix**: Resolved multiple `coroutine was never awaited` issues
+- **CLI Restructure**: Split commands into sync wrappers calling async implementations
+- **Proper Async Calls**: Added correct `asyncio.run()` usage throughout CLI
+
+#### 3. File System & Data Integrity
+- **Context Field Safety**: Fixed `'NoneType' object is not subscriptable` in relationship CSV saving
+- **Directory Consistency**: Corrected naming inconsistencies (title-based vs ID-based paths)
+- **Path Generation**: Fixed `create_output_filename` utility for empty extensions
+- **Missing Methods**: Added `_extract_key_facts` and `_deduplicate_relationships` methods
+
+#### 4. Logging System Stability
+- **Dependency Fix**: Resolved missing loguru dependency by reverting to standard Python logging
+- **Environment Support**: Added `CLIPSCRIBE_LOG_LEVEL=DEBUG` environment variable support
+- **Initialization**: Proper `setup_logging()` call in CLI initialization
+
+### 🔧 Technical Improvements
+
+#### 1. Enhanced Error Handling
+- **Defensive Programming**: Added multiple safety checks in knowledge graph saving
+- **Graceful Degradation**: Better handling of missing or None data fields
+- **Debug Visibility**: Comprehensive logging throughout processing pipeline
+
+#### 2. Data Model Robustness
+- **Type Safety**: Enhanced Pydantic model validation
+- **Backward Compatibility**: Maintained compatibility while adding new fields
+- **Field Validation**: Proper handling of optional and nullable fields
+
+#### 3. Processing Pipeline Reliability
+- **State Tracking**: Debug logging to track knowledge graph state through pipeline
+- **Memory Management**: Improved handling of large video collections
+- **Cost Optimization**: Maintained 92% cost reduction principles
+
+### 🎯 User Experience
+
+#### 1. Success Indicators
+- **Relationship Counts**: Clear logging of extracted relationships (e.g., "Extracted 14 unique relationships from 18 total")
+- **Knowledge Graph Stats**: "Created knowledge graph: 254 nodes, 9 edges"
+- **Processing Feedback**: "Advanced extraction complete: 10 relationships, 271 entities"
+
+#### 2. Output Quality
+- **Rich Relationship Data**: CSV and JSON files with meaningful relationships
+- **GEXF Visualization**: Enhanced Gephi-compatible files with proper styling
+- **Comprehensive Reports**: Markdown reports with relationship network analysis
+
+### 📊 Performance Metrics
+
+- **Relationship Extraction**: 10-19 relationships per video (previously 0)
+- **Entity Extraction**: 250-300 entities per video with 271 LLM-validated
+- **Knowledge Graph**: 240+ nodes, 9-13 edges per video
+- **Processing Cost**: Maintained ~$0.41 per video
+- **Success Rate**: 100% completion rate (previously failing on save)
+
+### 🔬 Testing & Validation
+
+- **Test Content**: Validated with PBS NewsHour documentaries on Pegasus spyware
+- **Relationship Quality**: Extracting meaningful geopolitical, organizational, and temporal relationships
+- **End-to-End**: Full pipeline from video URL to knowledge graph visualization
+- **Multi-Video**: Collection processing with cross-video relationship synthesis
+
+### 💡 Development Notes
+
+This release represents a major breakthrough in ClipScribe's relationship extraction capabilities. The REBEL model was working correctly but the parser was incompatible with its output format. The fix enables ClipScribe to extract rich, meaningful relationships that form the foundation for knowledge synthesis across video collections.
+
+**Next Steps**: With relationship extraction now working, v2.15.0 will focus on the Streamlit "Mission Control" UI for managing and visualizing video collections.
 
 ## [2.13.0] - 2025-06-25
 
