@@ -113,20 +113,24 @@ This version introduces comprehensive Multi-Video Intelligence capabilities with
 - **Comprehensive Testing**: Full test suite validates all v2.11.0 and v2.12.0 features
 
 ### Roadmap 🗺️
-- **Next Priorities (v2.14.0)**:
-  - **Streamlit Multi-Video UI**: Enhanced web interface for multi-video collection management and visualization
-  - **Cross-Source Bias Detection**: AI-powered analysis comparing coverage across different news sources
-  - **Advanced Series Management**: Edit, merge, and organize video series with sophisticated UI controls
-  - **Real-time Multi-Video Analytics**: Live progress tracking for collection processing with interactive dashboards
-  - **Enhanced Knowledge Graph Visualization**: 3D network graphs for cross-video relationship visualization
-- **Soon**:
-  - **Update GEXF to v1.3**: Modify the GEXF file generator to produce files compliant with the modern 1.3 standard, improving compatibility with tools like Gephi
-  - **Deeper Chimera Integration**: Align ClipScribe's data models and output more closely with the Chimera ecosystem
-  - **Advanced Analytics**: Machine learning-based extraction quality prediction and optimization
-- **Future**: 
-  - **Real-time Processing**: Live video stream analysis capabilities
-  - **Multi-modal Analysis**: Integration of visual and audio analysis beyond transcription
-  - **API Endpoints**: RESTful API for programmatic access to ClipScribe functionality
+- **Next Priorities (v2.14.0 - The Synthesis Update)**:
+  - **Knowledge Synthesis Engine**: Evolve the multi-video processor to generate a structured, multi-faceted analysis instead of just a summary.
+    - **Consolidated Event Timeline**: A chronological sequence of key events, facts, and talking points as they are introduced across all videos.
+    - **Dynamic Knowledge Panels**: "Wikipedia-style" info boxes for major entities, synthesizing all descriptions, relationships, and key statements.
+    - **Information Flow Maps**: Map the "journey" of key concepts in a series, showing introduction, elaboration, and connections.
+  - **Streamlit "Mission Control"**: A dedicated UI for managing and analyzing collections.
+    - **Collection Workbench**: Drag-and-drop interface to build, save, and manage video collections.
+    - **Synthesis Dashboard**: Interactive visualizations of the Event Timeline and Knowledge Panels.
+    - **Live Synthesis View**: A live-updating visualization of the unified knowledge graph as it's built.
+  - **GEXF 1.3 Graph Export**: Upgrade the graph export to the modern GEXF 1.3 standard for full compatibility with the latest network analysis tools.
+- **Post v2.14.0 (Testing & Scoring Phase)**:
+  - **Foundational Metrics**: Implement objective, calculable scores for Entity Coalescence, Knowledge Density, and Information Velocity.
+  - **Demo Readiness**: Prepare polished demos with multiple series and topic groups to showcase the Knowledge Synthesis Engine.
+  - **Stress Testing**: Comprehensive testing on large collections and edge cases.
+- **Future**:
+  - **AI-Powered Semantic Scoring**: Use Gemini 2.5 Pro as an impartial "grader" to assess the coherence, accuracy, and insightfulness of generated outputs.
+  - **Deeper Chimera Integration**: Align ClipScribe's data models and output more closely with the Chimera ecosystem.
+  - **API Endpoints**: RESTful API for programmatic access to ClipScribe functionality.
 
 ### Key Architecture (v2.11.0)
 - **Enhanced Streamlit UI**: Comprehensive batch processing interface with real-time analytics, progress tracking, and entity source analysis dashboard

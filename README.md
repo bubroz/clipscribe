@@ -74,6 +74,8 @@ The latest version introduces comprehensive Multi-Video Intelligence capabilitie
 - **Interactive Charts**: Pie charts, bar charts, and gauge visualizations for entity source analysis.
 - **Professional Quality**: Publication-ready charts with hover effects and customizable styling.
 - **Graceful Fallback**: Simple charts when Plotly unavailable for maximum compatibility.
+- **Model Caching**: 3-5x performance improvement through intelligent model reuse.
+- **Enhanced Streamlit UI**: Comprehensive batch processing with real-time progress tracking.
 
 ### 📄 Excel Export Capabilities (v2.12.0)
 - **Multi-Sheet Workbooks**: Organized data across Summary, Source Distribution, Entity Types, and Per-Video Analysis sheets.
@@ -107,6 +109,12 @@ The latest versions of ClipScribe also include these major enhancements:
 - **Rich Progress Indicators**: Get real-time feedback in your terminal with beautiful progress bars.
 - **Cost & Time Tracking**: Live monitoring of API costs and processing time for each stage.
 - **Enhanced Markdown Reports**: Interactive reports with Mermaid diagrams, collapsible sections, and visual dashboards.
+
+### 💡 Coming in v2.14.0: The Knowledge Synthesis Engine
+- **Consolidated Timelines**: Automatically build event timelines from multiple video sources.
+- **Dynamic Knowledge Panels**: Synthesize all information about a person, place, or topic into a single, comprehensive view.
+- **Information Flow Mapping**: Visualize how stories and concepts develop across a video series.
+- **Streamlit "Mission Control"**: A new interactive UI for managing and visualizing video collections.
 
 ## 📋 Requirements
 
