@@ -5,7 +5,38 @@ All notable changes to ClipScribe will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.12.0] - 2024-12-26
+## [2.12.1] - 2025-06-25
+
+### Added
+- **Two-Part PBS Demo**: Real video processing demo showcasing batch capabilities
+  - Processes two actual PBS NewsHour videos: Part 1 (6ZVj1_SE4Mo) and Part 2 (xYMWTXIkANM)
+  - Demonstrates cross-video entity extraction comparison
+  - Shows real batch processing workflow with performance analytics
+  - Generates interactive visualizations across multiple videos
+  - Creates comprehensive Excel reports with video comparison data
+- **Security Enhancements**: Improved API key management practices
+  - Replaced shell export commands with secure .env file approach
+  - Updated all documentation to use echo > .env method
+  - Added security best practices section to deployment guide
+  - Prevents API keys from appearing in shell history
+- **Demo Infrastructure**: Complete demo-ready setup for colleague sharing
+  - `demo.py` script processes real PBS videos with batch analysis
+  - `QUICK_DEMO_SETUP.md` for 3-minute colleague onboarding
+  - `DEPLOYMENT_GUIDE.md` with comprehensive hosting options
+  - Updated documentation with secure API key practices
+
+### Changed
+- **Demo Approach**: Switched from synthetic data to real video processing
+- **Security Practices**: All documentation now promotes .env files over export commands
+- **Documentation Updates**: Refreshed all guides to reflect June 2025 state
+- **Example URLs**: Updated to use actual PBS NewsHour video series
+
+### Fixed
+- **API Key Security**: Eliminated shell history exposure risk
+- **Demo Authenticity**: Removed all synthetic/fake data generation
+- **Documentation Accuracy**: Updated dates and version references
+
+## [2.12.0] - 2025-06-25
 
 ### Added
 - **Advanced Plotly Visualizations**: Interactive charts for comprehensive entity source analysis

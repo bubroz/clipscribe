@@ -1,4 +1,4 @@
-# ClipScribe v2.12.0
+# ClipScribe v2.12.1
 
 <p align="center">
   <strong>AI-powered video intelligence for 1800+ platforms</strong>
@@ -102,10 +102,10 @@ The latest versions of ClipScribe also include these major enhancements:
    poetry install
    ```
 
-3. **Set up environment variables**
+3. **Set up environment variables (SECURE)**
    ```bash
-   cp env.example .env
-   # Edit .env and add your GOOGLE_API_KEY
+   # Create .env file with your FREE Google API key
+   echo "GOOGLE_API_KEY=your_actual_key_here" > .env
    ```
 
 4. **Verify installation**
@@ -118,11 +118,14 @@ The latest versions of ClipScribe also include these major enhancements:
 ### Command-Line Interface (CLI)
 
 ```bash
+# Quick demo with TWO-PART PBS video series (recommended!)
+poetry run python demo.py
+
 # Transcribe a single video
-poetry run clipscribe transcribe "https://youtube.com/watch?v=..."
+poetry run clipscribe transcribe "https://www.youtube.com/watch?v=6ZVj1_SE4Mo"
 
 # Research a topic across multiple videos with performance monitoring
-poetry run clipscribe research "James Webb Telescope" --max-results 3
+poetry run clipscribe research "PBS NewsHour" --max-results 3
 
 # Analyze entity sources with advanced visualizations and Excel export
 poetry run python scripts/analyze_entity_sources.py --output-dir output/research --create-visualizations --save-excel

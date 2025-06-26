@@ -1,19 +1,19 @@
 # ClipScribe AI Assistant Continuation Prompt
 
-## Current State (2024-12-26)
+## Current State (2025-06-25)
 
-### Latest Version: v2.12.0 (COMPLETED ✅)
+### Latest Version: v2.12.1 (COMPLETED ✅)
 This version introduces advanced Plotly visualizations, Excel export capabilities, and enhanced performance dashboards with interactive charts and comprehensive analytics.
 
 ### Recent Changes
-- **v2.12.0** (2024-12-26) - **COMPLETED ✅**:
+- **v2.12.0** (2025-06-25) - **COMPLETED ✅**:
   - **Advanced Plotly Visualizations**: Interactive pie charts, bar charts, horizontal charts, and gauge visualizations for entity source analysis
   - **Excel Export Capabilities**: Multi-sheet Excel exports with summary, source distribution, entity types, and per-video analysis sheets
   - **Enhanced CSV Formatting**: Improved CSV exports with source breakdowns, top entity types, and comprehensive metrics
   - **Performance Dashboard Integration**: Dedicated Streamlit tab for performance monitoring with real-time system health and resource usage
   - **Interactive Charts**: Plotly-powered visualizations in Streamlit UI with fallback to simple charts when Plotly unavailable
   - **Comprehensive Export Options**: Download analysis results in Excel, CSV, and Markdown formats with one-click buttons
-- **v2.11.0** (2024-12-26) - **COMPLETED ✅**:
+- **v2.11.0** (2025-06-25) - **COMPLETED ✅**:
   - **Enhanced Streamlit Research UI**: Major improvements to batch processing interface with real-time progress tracking, ETA calculations, and comprehensive analytics dashboard
   - **Entity Source Analysis Tools**: Complete `scripts/analyze_entity_sources.py` utility for analyzing extraction method effectiveness across multiple videos with CSV/JSON/Markdown export
   - **Advanced Performance Monitoring**: Enhanced `PerformanceMonitor` with model cache hit tracking, batch processing metrics, and automated recommendations
@@ -21,7 +21,7 @@ This version introduces advanced Plotly visualizations, Excel export capabilitie
   - **Comprehensive Analytics Dashboard**: New entity source analysis UI in Streamlit with method comparison, confidence analysis, and quality insights
   - **Real-time Progress Tracking**: Enhanced batch processing with live progress bars, ETA calculations, and detailed status updates
   - **Python 3.12+ Compatibility**: Fixed Set import issues for modern Python versions
-- **v2.10.1** (2025-06-25):
+- **v2.10.1** (2025-06-25) - **COMPLETED ✅**:
   - **Entity Source Tracking**: New `entity_sources.json` and `entity_sources.csv` files show which extraction method (SpaCy, GLiNER, REBEL) found each entity
   - **Model Manager**: Singleton pattern for ML model instances prevents repeated loading in batch processing (3-5x performance improvement)
   - **Retry Logic**: Automatic retry for ffmpeg errors with exponential backoff
@@ -68,6 +68,8 @@ This version introduces advanced Plotly visualizations, Excel export capabilitie
 - None currently identified - all major features tested and working
 
 ### Recently Completed 🎉
+- **Two-Part PBS Demo**: Real video processing demo with batch capabilities using actual PBS NewsHour content
+- **Security Improvements**: Replaced export commands with secure .env file approach for API key management
 - **Complete v2.12.0 Release**: Advanced visualizations, Excel export, and performance dashboards successfully implemented
 - **Advanced Plotly Visualizations**: Interactive pie charts, bar charts, horizontal charts, and gauge visualizations
 - **Excel Export Capabilities**: Multi-sheet Excel exports with comprehensive data breakdowns
@@ -107,13 +109,16 @@ This version introduces advanced Plotly visualizations, Excel export capabilitie
 
 ### Recent Commands (All Working ✅)
 ```bash
-# Test all v2.12.0 enhancements (NEW)
+# NEW: Two-part PBS demo with real video processing
+poetry run python demo.py  # ✅ Processes two PBS videos with batch analysis
+
+# Test all v2.12.0 enhancements
 poetry run python test_v2_12_enhancements.py  # ✅ All 7 tests pass - visualizations, Excel export, performance dashboards
 
-# Launch enhanced Streamlit UI with performance dashboard tab (ENHANCED)
+# Launch enhanced Streamlit UI with performance dashboard tab
 streamlit run app.py  # Now includes dedicated Performance Dashboard tab with real-time monitoring
 
-# Test entity source analysis with advanced visualizations and Excel export (ENHANCED)
+# Test entity source analysis with advanced visualizations and Excel export
 poetry run python scripts/analyze_entity_sources.py --output-dir output/research --create-visualizations --save-excel --save-csv --save-markdown
 
 # Test performance monitoring integration with dashboard
@@ -128,6 +133,8 @@ clipscribe transcribe https://www.youtube.com/watch?v=UjDpW_SOrlw --no-cache
 ```
 
 ### Development Notes
+- **Demo-Ready Setup Complete**: Two-part PBS video demo showcases real batch processing capabilities
+- **Security Enhanced**: API key management now uses secure .env files instead of shell export commands
 - **v2.12.0 Successfully Completed**: Advanced visualizations, Excel export, and performance dashboards fully implemented and tested
 - **Plotly Integration**: Interactive charts and graphs enhance entity source analysis with professional visualizations
 - **Export Capabilities**: Multi-format exports (Excel, CSV, Markdown) provide flexible analysis result sharing
