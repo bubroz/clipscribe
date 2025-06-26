@@ -5,6 +5,58 @@ All notable changes to ClipScribe will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.13.0] - 2025-06-25
+
+### Added
+- **Multi-Video Intelligence Architecture**: Comprehensive system for processing multiple related videos with unified analysis
+  - Cross-video entity resolution with 85% similarity threshold and AI validation
+  - Unified knowledge graph generation with temporal context and relationship bridging
+  - Collection-level insights and strategic intelligence extraction
+  - Support for series, topic research, channel analysis, and cross-source analysis
+- **Automatic Series Detection**: AI-powered pattern recognition for video series
+  - Title pattern analysis (Part 1, Episode 2, etc.) with regex matching
+  - Temporal consistency analysis for upload timing patterns
+  - Content similarity analysis through entity and topic overlap
+  - Channel consistency verification and metadata validation
+  - User confirmation workflows with confidence scoring
+- **Gemini 2.5 Pro Integration**: Intelligence-grade analysis for all new multi-video features
+  - Collection summary generation with strategic focus and rich context
+  - Entity validation with temporal context and disambiguation analysis
+  - Key insights extraction focusing on information architecture
+  - Narrative flow analysis for series content with story progression tracking
+- **CLI Multi-Video Commands**: New command-line interfaces for multi-video workflows
+  - `process-collection`: Process multiple videos as unified collection with configurable types
+  - `process-series`: Dedicated series processing with automatic detection and narrative analysis
+  - Support for auto-detection, user confirmation, and custom collection types
+- **Enhanced Data Models**: Comprehensive multi-video data structures
+  - `MultiVideoIntelligence`: Master container for unified analysis results
+  - `CrossVideoEntity`: Entities resolved across videos with aliases and temporal context
+  - `CrossVideoRelationship`: Relationships validated across multiple videos
+  - `SeriesMetadata`: Auto-detected series information with confidence scores
+  - `TopicEvolution`: Topic development tracking across video sequences
+  - `NarrativeSegment`: Story flow analysis for series content
+  - `VideoCollectionType`: Enum for different collection processing strategies
+- **Topic Evolution Tracking**: Analysis of how topics develop across video sequences
+  - Milestone identification and progression tracking
+  - Thematic arc analysis with coherence scoring
+  - Information dependency mapping across videos
+- **Strategic Intelligence Extraction**: Pro-level insights focusing on relationships and architecture
+  - Information architecture assessment and relationship dynamics analysis
+  - Temporal intelligence with context-aware entity resolution
+  - Cross-video validation and confidence scoring
+
+### Changed
+- **Version Updated**: Bumped to v2.13.0 across all project files
+- **CLI Async Handling**: Extended async command support for new multi-video commands
+- **Architecture Documentation**: Created comprehensive `MULTI_VIDEO_INTELLIGENCE_ARCHITECTURE.md`
+
+### Technical Details
+- Hybrid output approach preserves individual video outputs while adding unified collection intelligence
+- Configurable quality levels (Fast/Standard/Premium/Research) with different AI usage patterns
+- Cost structure: Flash for transcription (~$0.40/video), Pro for multi-video analysis (~$0.30 additional)
+- Conservative edge case handling with user validation and temporal tagging
+- Template-based fallback analysis if AI services fail
+
 ## [2.12.1] - 2025-06-25
 
 ### Added

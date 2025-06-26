@@ -28,6 +28,9 @@ from ..utils.progress import progress_tracker, console
 from ..utils.performance import PerformanceMonitor
 from ..version import __version__
 from ..utils.batch_progress import BatchProgress
+from ..extractors.series_detector import SeriesDetector
+from ..extractors.multi_video_processor import MultiVideoProcessor
+from ..models import VideoCollectionType
 
 # Configure logging with Rich using the shared console
 logging.basicConfig(
@@ -295,10 +298,235 @@ async def research(ctx: click.Context, query: str, max_results: int, period: Opt
     console.print(f"\n🎉 Research complete! Outputs are in {output_dir}")
 
 
+@cli.command()
+@click.argument("urls", nargs=-1, required=True)
+@click.option(
+    "--collection-title",
+    "-t",
+    help="Title for the video collection"
+)
+@click.option(
+    "--collection-type",
+    type=click.Choice(['series', 'topic_research', 'channel_analysis', 'cross_source_topic', 'custom_collection']),
+    default='custom_collection',
+    help="Type of video collection for processing strategy"
+)
+@click.option(
+    "--auto-detect-series",
+    is_flag=True,
+    help="Automatically detect if videos form a series"
+)
+@click.option(
+    "--user-confirmed-series",
+    is_flag=True,
+    help="User confirms this is a series (skips detection)"
+)
+@click.option(
+    "--output-dir",
+    "-o",
+    type=click.Path(path_type=Path),
+    default=Path("output/collections"),
+    help="Output directory for collection analysis"
+)
+@click.option('--mode', '-m', type=click.Choice(['audio', 'video', 'auto']), default='audio')
+@click.option('--use-cache/--no-cache', default=True)
+@click.option('--enhance-transcript', is_flag=True)
+@click.option('--clean-graph', is_flag=True)
+@click.option('--performance-report', is_flag=True)
+@click.pass_context
+async def process_collection(
+    ctx: click.Context,
+    urls: tuple,
+    collection_title: Optional[str],
+    collection_type: str,
+    auto_detect_series: bool,
+    user_confirmed_series: bool,
+    output_dir: Path,
+    **kwargs
+) -> None:
+    """Process multiple videos as a unified collection with cross-video intelligence."""
+    console.print(f"🎬 Processing video collection: {len(urls)} videos")
+    
+    # Convert collection type string to enum
+    collection_type_enum = VideoCollectionType(collection_type)
+    
+    # Step 1: Process individual videos
+    console.print("\n📹 Step 1: Processing individual videos...")
+    video_intelligences = []
+    
+    for i, url in enumerate(urls, 1):
+        console.print(f"Processing video {i}/{len(urls)}: {url}")
+        
+        # Create individual output directory
+        video_output_dir = output_dir / f"individual_videos" / f"video_{i}"
+        video_output_dir.mkdir(parents=True, exist_ok=True)
+        
+        retriever = VideoIntelligenceRetriever(
+            use_cache=kwargs.get('use_cache', True),
+            mode=kwargs.get('mode', 'audio'),
+            output_dir=video_output_dir,
+            enhance_transcript=kwargs.get('enhance_transcript', False),
+            performance_monitor=PerformanceMonitor(video_output_dir) if kwargs.get('performance_report') else None
+        )
+        
+        if kwargs.get('clean_graph'):
+            retriever.clean_graph = True
+        
+        try:
+            video_result = await retriever.process_url(url)
+            if video_result:
+                # Save individual video outputs
+                retriever.save_all_formats(video_result, str(video_output_dir))
+                video_intelligences.append(video_result)
+                console.print(f"✅ Video {i} processed successfully")
+            else:
+                console.print(f"❌ Failed to process video {i}")
+        except Exception as e:
+            console.print(f"❌ Error processing video {i}: {e}")
+    
+    if not video_intelligences:
+        console.print("[red]No videos were successfully processed. Exiting.[/red]")
+        return
+    
+    # Step 2: Multi-video intelligence processing
+    console.print(f"\n🧠 Step 2: Multi-video intelligence analysis...")
+    
+    try:
+        multi_processor = MultiVideoProcessor(use_ai_validation=True)
+        
+        # Auto-detect series if requested
+        if auto_detect_series and collection_type_enum != VideoCollectionType.SERIES:
+            console.print("🔍 Detecting series patterns...")
+            series_detector = SeriesDetector()
+            detection_result = await series_detector.detect_series(video_intelligences)
+            
+            if detection_result.is_series:
+                console.print(f"✅ Series detected with {detection_result.confidence:.2f} confidence")
+                if detection_result.user_confirmation_needed:
+                    console.print(f"📋 Detection method: {detection_result.detection_method}")
+                    console.print(f"🎯 Suggested groupings: {len(detection_result.suggested_grouping)} groups")
+                collection_type_enum = VideoCollectionType.SERIES
+                user_confirmed_series = True
+            else:
+                console.print("ℹ️ No series pattern detected")
+        
+        # Process collection
+        multi_video_result = await multi_processor.process_video_collection(
+            videos=video_intelligences,
+            collection_type=collection_type_enum,
+            collection_title=collection_title,
+            user_confirmed_series=user_confirmed_series
+        )
+        
+        # Step 3: Save unified outputs
+        console.print("\n💾 Step 3: Saving unified collection outputs...")
+        
+        collection_output_dir = output_dir / multi_video_result.collection_id
+        collection_output_dir.mkdir(parents=True, exist_ok=True)
+        
+        # Save main collection intelligence
+        import json
+        with open(collection_output_dir / "multi_video_intelligence.json", "w", encoding="utf-8") as f:
+            json.dump(multi_video_result.dict(), f, indent=2, ensure_ascii=False, default=str)
+        
+        # Save unified knowledge graph
+        if multi_video_result.unified_knowledge_graph:
+            with open(collection_output_dir / "unified_knowledge_graph.json", "w", encoding="utf-8") as f:
+                json.dump(multi_video_result.unified_knowledge_graph, f, indent=2, ensure_ascii=False)
+        
+        # Save collection summary as markdown
+        with open(collection_output_dir / "collection_summary.md", "w", encoding="utf-8") as f:
+            f.write(f"# {multi_video_result.collection_title}\n\n")
+            f.write(f"**Collection Type:** {multi_video_result.collection_type.value}\n")
+            f.write(f"**Videos:** {len(multi_video_result.video_ids)}\n")
+            f.write(f"**Created:** {multi_video_result.created_at.strftime('%Y-%m-%d %H:%M:%S')}\n\n")
+            f.write(f"## Summary\n\n{multi_video_result.collection_summary}\n\n")
+            
+            if multi_video_result.key_insights:
+                f.write("## Key Insights\n\n")
+                for insight in multi_video_result.key_insights:
+                    f.write(f"- {insight}\n")
+                f.write("\n")
+            
+            f.write(f"## Statistics\n\n")
+            f.write(f"- **Unified Entities:** {len(multi_video_result.unified_entities)}\n")
+            f.write(f"- **Cross-Video Relationships:** {len(multi_video_result.cross_video_relationships)}\n")
+            f.write(f"- **Processing Cost:** ${multi_video_result.total_processing_cost:.4f}\n")
+            f.write(f"- **Processing Time:** {multi_video_result.total_processing_time:.1f} seconds\n")
+        
+        # Display results
+        results_table = Table(title="Multi-Video Collection Results", box=box.ROUNDED)
+        results_table.add_column("Property", style="cyan")
+        results_table.add_column("Value", style="white")
+        results_table.add_row("Collection Title", multi_video_result.collection_title)
+        results_table.add_row("Collection Type", multi_video_result.collection_type.value)
+        results_table.add_row("Videos Processed", str(len(multi_video_result.video_ids)))
+        results_table.add_row("Unified Entities", str(len(multi_video_result.unified_entities)))
+        results_table.add_row("Cross-Video Relationships", str(len(multi_video_result.cross_video_relationships)))
+        results_table.add_row("Key Insights", str(len(multi_video_result.key_insights)))
+        results_table.add_row("Total Cost", f"${multi_video_result.total_processing_cost:.4f}")
+        results_table.add_row("Entity Resolution Quality", f"{multi_video_result.entity_resolution_quality:.2f}")
+        results_table.add_row("Narrative Coherence", f"{multi_video_result.narrative_coherence:.2f}")
+        results_table.add_row("Output Directory", str(collection_output_dir))
+        
+        console.print("\n")
+        console.print(results_table)
+        
+        console.print(f"\n🎉 Multi-video collection processing complete!")
+        console.print(f"📁 Outputs saved to: {collection_output_dir}")
+        
+    except Exception as e:
+        logger.exception("Multi-video processing failed")
+        console.print(f"[red]❌ Multi-video processing failed: {e}[/red]")
+
+
+@cli.command()
+@click.argument("urls", nargs=-1, required=True)
+@click.option(
+    "--output-dir",
+    "-o",
+    type=click.Path(path_type=Path),
+    default=Path("output/series"),
+    help="Output directory for series analysis"
+)
+@click.option(
+    "--series-title",
+    "-t",
+    help="Title for the video series (auto-detected if not provided)"
+)
+@click.option('--mode', '-m', type=click.Choice(['audio', 'video', 'auto']), default='audio')
+@click.option('--use-cache/--no-cache', default=True)
+@click.option('--enhance-transcript', is_flag=True)
+@click.option('--clean-graph', is_flag=True)
+@click.option('--performance-report', is_flag=True)
+@click.pass_context
+async def process_series(
+    ctx: click.Context,
+    urls: tuple,
+    output_dir: Path,
+    series_title: Optional[str],
+    **kwargs
+) -> None:
+    """Process videos as a series with automatic detection and narrative flow analysis."""
+    console.print(f"📺 Processing video series: {len(urls)} videos")
+    
+    # Delegate to process_collection with series-specific settings
+    await process_collection.callback(
+        ctx,
+        urls=urls,
+        collection_title=series_title,
+        collection_type='series',
+        auto_detect_series=True,
+        user_confirmed_series=False,
+        output_dir=output_dir,
+        **kwargs
+    )
+
+
 def run_cli():
     """Run the CLI application."""
     # Handle async commands properly
-    if len(sys.argv) > 1 and sys.argv[1] in ["transcribe", "research"]:
+    if len(sys.argv) > 1 and sys.argv[1] in ["transcribe", "research", "process-collection", "process-series"]:
         # These are async commands
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)

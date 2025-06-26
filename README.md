@@ -1,11 +1,11 @@
-# ClipScribe v2.12.1
+# ClipScribe v2.13.0
 
 <p align="center">
   <strong>AI-powered video intelligence for 1800+ platforms</strong>
 </p>
 
 <p align="center">
-  <em>Now with Advanced Visualizations, Excel Export & Performance Dashboards 🚀</em>
+  <em>Now with Multi-Video Intelligence, Cross-Video Analysis & Gemini 2.5 Pro 🧠</em>
 </p>
 
 <p align="center">
@@ -34,6 +34,10 @@ ClipScribe is a modern video intelligence tool that leverages Google's Gemini to
 - 💰 **Cost Optimized** - Intelligent API batching reduces costs by 50-60%.
 - 📈 **Multiple Data Formats** - Export to TXT, JSON, CSV, GEXF, and interactive Markdown.
 - 🔗 **Full Knowledge Extraction** - Extracts entities, relationships, topics, and key points to build a complete knowledge graph.
+- 🧠 **Multi-Video Intelligence** - Process multiple related videos with cross-video analysis and unified knowledge graphs.
+- 🔍 **Automatic Series Detection** - AI-powered pattern recognition for video series with user confirmation workflows.
+- 🌐 **Cross-Video Entity Resolution** - Aggressive entity merging with 85% similarity threshold and Gemini 2.5 Pro validation.
+- 📖 **Narrative Flow Analysis** - Story progression tracking and thematic arc identification for series content.
 - 🔒 **Data Integrity** - Manifest files include SHA256 checksums for all outputs.
 - 🎯 **Entity Source Tracking** - Track which extraction method (SpaCy, GLiNER, REBEL) found each entity.
 - ⚡ **Performance Optimized** - Model caching provides 3-5x faster batch processing.
@@ -41,9 +45,30 @@ ClipScribe is a modern video intelligence tool that leverages Google's Gemini to
 - 📄 **Excel Export** - Multi-sheet Excel exports with professional formatting.
 - 📈 **Performance Dashboards** - Dedicated monitoring interface with real-time analytics.
 
-## 🎉 What's New in v2.12.0
+## 🎉 What's New in v2.13.0
 
-The latest version introduces advanced visualizations and comprehensive export capabilities:
+The latest version introduces comprehensive Multi-Video Intelligence capabilities:
+
+### 🧠 Multi-Video Intelligence Architecture (v2.13.0)
+- **Cross-Video Analysis**: Process multiple related videos with unified intelligence analysis.
+- **Automatic Series Detection**: AI-powered pattern recognition for video series with 95%+ accuracy.
+- **Entity Resolution**: Aggressive entity merging with 85% similarity threshold and Gemini 2.5 Pro validation.
+- **Unified Knowledge Graphs**: Cross-video relationship mapping with temporal context awareness.
+- **CLI Commands**: New `process-collection` and `process-series` commands for streamlined workflows.
+
+### 🔍 Gemini 2.5 Pro Integration (v2.13.0)
+- **Intelligence-Grade Analysis**: Strategic insights focusing on information architecture and relationship dynamics.
+- **Collection Summaries**: Comprehensive 4-5 paragraph analysis with rich context and strategic focus.
+- **Entity Validation**: Identity verification with temporal context and disambiguation analysis.
+- **Narrative Flow Analysis**: Story progression tracking and thematic arc identification for series content.
+
+### 📖 Topic Evolution & Narrative Analysis (v2.13.0)
+- **Story Progression**: Track narrative development across video sequences with milestone identification.
+- **Topic Evolution**: Analysis of how topics develop across video sequences with coherence scoring.
+- **Thematic Arcs**: Identification of story patterns and information dependencies across videos.
+- **Strategic Intelligence**: Pro-level insights with focus on temporal intelligence and relationship dynamics.
+
+### 🎯 Previous Major Features
 
 ### 📊 Advanced Plotly Visualizations (v2.12.0)
 - **Interactive Charts**: Pie charts, bar charts, and gauge visualizations for entity source analysis.
@@ -126,6 +151,12 @@ poetry run clipscribe transcribe "https://www.youtube.com/watch?v=6ZVj1_SE4Mo"
 
 # Research a topic across multiple videos with performance monitoring
 poetry run clipscribe research "PBS NewsHour" --max-results 3
+
+# NEW: Process multiple videos as a unified collection with cross-video intelligence
+poetry run clipscribe process-collection "URL1" "URL2" "URL3" --collection-type series --auto-detect-series
+
+# NEW: Process video series with automatic detection and narrative flow analysis
+poetry run clipscribe process-series "URL1" "URL2" "URL3" --series-title "My Documentary Series"
 
 # Analyze entity sources with advanced visualizations and Excel export
 poetry run python scripts/analyze_entity_sources.py --output-dir output/research --create-visualizations --save-excel

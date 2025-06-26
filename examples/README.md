@@ -113,6 +113,29 @@ Output includes:
 
 **Note**: First run downloads ~3GB of ML models. Subsequent runs use cached models.
 
+### 11. **multi_video_collection_demo.py** - 🧠 NEW v2.13.0 Multi-Video Intelligence
+Comprehensive multi-video collection processing with cross-video analysis.
+
+```bash
+poetry run python examples/multi_video_collection_demo.py
+```
+
+Features:
+- **Automatic Series Detection**: AI-powered pattern recognition for video series
+- **Cross-Video Entity Resolution**: Aggressive entity merging with 85% similarity threshold
+- **Unified Knowledge Graphs**: Cross-video relationship mapping with temporal context
+- **Narrative Flow Analysis**: Story progression tracking for series content
+- **Topic Evolution Tracking**: Analysis of how topics develop across video sequences
+- **Gemini 2.5 Pro Integration**: Intelligence-grade analysis with strategic insights
+
+Example output:
+- Multi-video intelligence analysis with unified entities and relationships
+- Collection summary with strategic insights and quality metrics
+- Topic evolution reports and narrative flow analysis
+- Cross-video knowledge graphs and entity resolution reports
+
+**Use cases**: Documentary series, educational content, news coverage analysis, multi-part investigations
+
 ## 🛠️ Prerequisites
 
 Before running the examples:

@@ -1,6 +1,6 @@
-# ClipScribe CLI Reference (v2.12.0)
+# ClipScribe CLI Reference (v2.13.0)
 
-Complete reference for all ClipScribe commands and options, including new entity source analysis tools.
+Complete reference for all ClipScribe commands and options, including new multi-video intelligence features and entity source analysis tools.
 
 ## Global Options
 
@@ -110,6 +110,118 @@ clipscribe research "https://www.youtube.com/@pbsnewshour" -n 5 --sort-by popula
 # Get the 2 newest videos from a channel and process them in video mode
 clipscribe research "https://www.youtube.com/@mkbhd" -n 2 --sort-by newest --mode video
 ```
+
+### `process-collection` - Process Multiple Videos as Collection (NEW in v2.13.0)
+
+Process multiple videos as a unified collection with cross-video intelligence analysis, entity resolution, and unified knowledge graph generation.
+
+```bash
+clipscribe process-collection [OPTIONS] URL1 URL2 [URL3...]
+```
+
+**Arguments:**
+- `URL1 URL2 [URL3...]` (required) - Multiple video URLs to process as a collection
+
+**Options:**
+
+| Option | Short | Default | Description |
+|--------|-------|---------|-------------|
+| `--collection-title` | `-t` | Auto-generated | Title for the video collection |
+| `--collection-type` | | `custom_collection` | Collection type: `series`, `topic_research`, `channel_analysis`, `cross_source_topic`, `custom_collection` |
+| `--auto-detect-series` | | False | Automatically detect if videos form a series |
+| `--user-confirmed-series` | | False | User confirms this is a series (skips detection) |
+| `--output-dir` | `-o` | `output/collections` | Output directory for collection analysis |
+| `--mode` | `-m` | `audio` | Processing mode: `audio`, `video`, `auto` |
+| `--use-cache/--no-cache` | | True | Use cached results if available |
+| `--enhance-transcript` | | False | Add speaker diarization and timestamps |
+| `--clean-graph` | | False | Clean knowledge graph with AI |
+| `--performance-report` | | False | Generate detailed performance report |
+
+**Examples:**
+
+```bash
+# Process a video series with automatic detection
+clipscribe process-collection \
+  "https://youtube.com/watch?v=part1" \
+  "https://youtube.com/watch?v=part2" \
+  "https://youtube.com/watch?v=part3" \
+  --collection-type series \
+  --auto-detect-series
+
+# Process cross-source topic research
+clipscribe process-collection \
+  "https://youtube.com/watch?v=cnn_climate" \
+  "https://youtube.com/watch?v=bbc_climate" \
+  "https://youtube.com/watch?v=pbs_climate" \
+  --collection-type cross_source_topic \
+  --collection-title "Climate Change Coverage"
+
+# Process channel analysis with custom settings
+clipscribe process-collection \
+  "https://youtube.com/watch?v=video1" \
+  "https://youtube.com/watch?v=video2" \
+  --collection-type channel_analysis \
+  --mode video \
+  --enhance-transcript \
+  --clean-graph
+```
+
+**Output:**
+- Individual video outputs preserved in `individual_videos/` subdirectory
+- Unified collection intelligence in `multi_video_intelligence.json`
+- Cross-video knowledge graph in `unified_knowledge_graph.json`
+- Collection summary in `collection_summary.md`
+- Entity resolution report and narrative flow analysis
+- Performance metrics and cost tracking
+
+### `process-series` - Process Video Series (NEW in v2.13.0)
+
+Specialized command for processing videos as a series with automatic detection, narrative flow analysis, and story progression tracking.
+
+```bash
+clipscribe process-series [OPTIONS] URL1 URL2 [URL3...]
+```
+
+**Arguments:**
+- `URL1 URL2 [URL3...]` (required) - Video URLs to process as a series
+
+**Options:**
+
+| Option | Short | Default | Description |
+|--------|-------|---------|-------------|
+| `--output-dir` | `-o` | `output/series` | Output directory for series analysis |
+| `--series-title` | `-t` | Auto-detected | Title for the video series |
+| `--mode` | `-m` | `audio` | Processing mode: `audio`, `video`, `auto` |
+| `--use-cache/--no-cache` | | True | Use cached results if available |
+| `--enhance-transcript` | | False | Add speaker diarization and timestamps |
+| `--clean-graph` | | False | Clean knowledge graph with AI |
+| `--performance-report` | | False | Generate detailed performance report |
+
+**Examples:**
+
+```bash
+# Process a documentary series
+clipscribe process-series \
+  "https://youtube.com/watch?v=documentary_pt1" \
+  "https://youtube.com/watch?v=documentary_pt2" \
+  "https://youtube.com/watch?v=documentary_pt3" \
+  --series-title "Climate Change Documentary Series"
+
+# Process educational series with enhanced transcripts
+clipscribe process-series \
+  "https://youtube.com/watch?v=lesson1" \
+  "https://youtube.com/watch?v=lesson2" \
+  --enhance-transcript \
+  --clean-graph \
+  --performance-report
+```
+
+**Output:**
+- All features of `process-collection` with series-specific enhancements
+- Automatic series detection and validation
+- Narrative flow analysis with story progression tracking
+- Topic evolution tracking across episodes
+- Thematic arc identification and coherence scoring
 
 ### `config` - Show configuration
 
