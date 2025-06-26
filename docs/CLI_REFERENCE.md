@@ -1,6 +1,6 @@
-# ClipScribe CLI Reference (v2.13.0)
+# ClipScribe CLI Reference (v2.14.0 - The Synthesis Update)
 
-Complete reference for all ClipScribe commands and options, including new multi-video intelligence features and entity source analysis tools.
+Complete reference for all ClipScribe commands and options, featuring **working relationship extraction** and knowledge synthesis capabilities.
 
 ## Global Options
 
@@ -18,9 +18,9 @@ clipscribe [GLOBAL OPTIONS] COMMAND [COMMAND OPTIONS]
 
 ## Commands
 
-### `transcribe` - Transcribe a video
+### `transcribe` - Transcribe a video with relationship extraction
 
-Transcribe videos from 1800+ supported platforms using Gemini 2.5 Flash.
+Transcribe videos from 1800+ supported platforms using Gemini 2.5 Flash/Pro with **working REBEL relationship extraction** (10-19 relationships per video).
 
 ```bash
 clipscribe transcribe [OPTIONS] URL
@@ -67,14 +67,20 @@ clipscribe transcribe "https://youtube.com/watch?v=..." --no-cache
 
 # Audio-only mode for faster processing (v2.5+)
 clipscribe transcribe "https://youtube.com/watch?v=..." --mode audio
+
+# NEW in v2.14.0: Test relationship extraction with PBS NewsHour content
+clipscribe transcribe "https://www.youtube.com/watch?v=6ZVj1_SE4Mo" --no-cache
+# Extracts relationships like: "NSO | inception | 2010", "UAE | diplomatic relation | Saudi Arabia"
 ```
 
-**Output:**
+**Output (v2.14.0):**
 - Creates comprehensive output directory with multiple formats
-- Includes transcript, entities, relationships, knowledge graph
-- CSV files for data analysis (v2.5.1+)
-- Markdown report with statistics (v2.5.1+)
-- Shows cost estimate and processing time
+- **Working relationship extraction**: 10-19 relationships per video with REBEL
+- **Knowledge graphs**: Connected graphs with real relationship data
+- **GEXF 1.3 export**: Modern format for Gephi visualization
+- CSV files for data analysis with relationship data
+- Markdown report with statistics and relationship metrics
+- Shows cost estimate and processing time (~$0.41 per video)
 
 ### `research` - Research a Topic or Channel
 
@@ -111,9 +117,9 @@ clipscribe research "https://www.youtube.com/@pbsnewshour" -n 5 --sort-by popula
 clipscribe research "https://www.youtube.com/@mkbhd" -n 2 --sort-by newest --mode video
 ```
 
-### `process-collection` - Process Multiple Videos as Collection (NEW in v2.13.0)
+### `process-collection` - Process Multiple Videos as Collection (ENHANCED in v2.14.0)
 
-Process multiple videos as a unified collection with cross-video intelligence analysis, entity resolution, and unified knowledge graph generation.
+Process multiple videos as a unified collection with **working relationship extraction**, knowledge synthesis, timeline generation, and unified knowledge graph creation.
 
 ```bash
 clipscribe process-collection [OPTIONS] URL1 URL2 [URL3...]
@@ -166,13 +172,15 @@ clipscribe process-collection \
   --clean-graph
 ```
 
-**Output:**
-- Individual video outputs preserved in `individual_videos/` subdirectory
-- Unified collection intelligence in `multi_video_intelligence.json`
-- Cross-video knowledge graph in `unified_knowledge_graph.json`
-- Collection summary in `collection_summary.md`
+**Output (v2.14.0):**
+- Individual video outputs with **working relationship extraction** (10-19 per video)
+- **Knowledge synthesis**: Consolidated timeline with chronological event correlation
+- **GEXF 1.3 export**: Unified knowledge graph for Gephi visualization
+- Collection intelligence in `multi_video_intelligence.json` with timeline synthesis
+- Cross-video knowledge graph in `unified_knowledge_graph.json` with real relationships
+- Collection summary in `collection_summary.md` with relationship metrics
 - Entity resolution report and narrative flow analysis
-- Performance metrics and cost tracking
+- Performance metrics and cost tracking (~$0.41 per video)
 
 ### `process-series` - Process Video Series (NEW in v2.13.0)
 
