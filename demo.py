@@ -7,6 +7,10 @@ import os
 import sys
 import asyncio
 from pathlib import Path
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Add src to path for imports
 sys.path.insert(0, str(Path(__file__).parent / "src"))
@@ -61,22 +65,28 @@ async def run_demo():
             print("   ⏳ Extracting entities and relationships...")
             print("   ⏳ Generating knowledge graph...")
             
-            # Process each video and save all formats
-            video_intelligence = await retriever.retrieve_and_process(
-                url=url,
-                output_dir=output_dir,
-                save_formats=['json', 'csv', 'gexf', 'srt']
-            )
+            # Process each video
+            video_intelligence = await retriever.process_url(url)
             
-            entities_count = len(video_intelligence.entities)
-            relationships_count = len(video_intelligence.relationships)
-            
-            print(f"   ✅ Part {i} completed!")
-            print(f"   📊 Found {entities_count} entities")
-            print(f"   🔗 Found {relationships_count} relationships")
-            
-            total_entities += entities_count
-            total_relationships += relationships_count
+            if video_intelligence:
+                # Save all formats
+                saved_files = retriever.save_all_formats(
+                    video_intelligence,
+                    output_dir=str(output_dir)
+                )
+                
+                entities_count = len(video_intelligence.entities)
+                relationships_count = len(getattr(video_intelligence, 'relationships', []))
+                
+                print(f"   ✅ Part {i} completed!")
+                print(f"   📊 Found {entities_count} entities")
+                print(f"   🔗 Found {relationships_count} relationships")
+                
+                total_entities += entities_count
+                total_relationships += relationships_count
+            else:
+                print(f"   ❌ Part {i} failed to process")
+                continue
         
         print(f"\n🎉 All videos processed!")
         print(f"📊 Total entities across both parts: {total_entities}")
