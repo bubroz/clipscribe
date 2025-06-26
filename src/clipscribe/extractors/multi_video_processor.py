@@ -262,6 +262,11 @@ class MultiVideoProcessor:
         """Extract relationships that span or are confirmed across multiple videos."""
         logger.info("Extracting cross-video relationships...")
         
+        # Debug logging to track what we receive
+        for idx, video in enumerate(videos):
+            rel_count = len(getattr(video, 'relationships', []))
+            logger.info(f"Multi-video processor - Video {idx+1}: {rel_count} relationships, has attr: {hasattr(video, 'relationships')}")
+        
         # Create entity lookup for normalization
         entity_lookup = {}
         for entity in unified_entities:
@@ -275,6 +280,7 @@ class MultiVideoProcessor:
         
         for video in videos:
             if hasattr(video, 'relationships') and video.relationships:
+                logger.info(f"Processing {len(video.relationships)} relationships from video: {video.metadata.title}")
                 for rel in video.relationships:
                     # Normalize entity names using cross-video entities
                     subject = entity_lookup.get(rel.subject.lower(), rel.subject)
@@ -299,6 +305,8 @@ class MultiVideoProcessor:
                         'published_at': video.metadata.published_at,
                         'context': rel.context
                     })
+            else:
+                logger.warning(f"Video {video.metadata.title} has no relationships attribute or empty relationships")
         
         # Create cross-video relationships
         cross_video_relationships = []
@@ -340,7 +348,7 @@ class MultiVideoProcessor:
             )
             cross_video_relationships.append(cross_video_rel)
         
-        logger.info(f"Extracted {len(cross_video_relationships)} cross-video relationships")
+        logger.info(f"Extracted {len(cross_video_relationships)} cross-video relationships from {len(relationship_video_map)} unique relationships")
         return cross_video_relationships
     
     def _analyze_topic_evolution(self, videos: List[VideoIntelligence]) -> List[TopicEvolution]:

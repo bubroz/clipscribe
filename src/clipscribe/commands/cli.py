@@ -484,18 +484,27 @@ async def process_collection_async(
         try:
             video_result = await retriever.process_url(url)
             if video_result:
+                # Debug logging to track relationships
+                logger.info(f"Video {i} processed: {len(getattr(video_result, 'relationships', []))} relationships found")
+                
                 # Save individual video outputs
                 retriever.save_all_formats(video_result, str(video_output_dir))
                 video_intelligences.append(video_result)
-                console.print(f"✅ Video {i} processed successfully")
+                console.print(f"✅ Video {i} processed successfully with {len(getattr(video_result, 'relationships', []))} relationships")
             else:
                 console.print(f"❌ Failed to process video {i}")
         except Exception as e:
             console.print(f"❌ Error processing video {i}: {e}")
+            logger.exception(f"Error processing video {i}")
     
     if not video_intelligences:
         console.print("[red]No videos were successfully processed. Exiting.[/red]")
         return
+    
+    # Debug: Log relationships before passing to multi-video processor
+    for idx, video in enumerate(video_intelligences):
+        rel_count = len(getattr(video, 'relationships', []))
+        logger.info(f"Before multi-video processing - Video {idx+1}: {rel_count} relationships")
     
     # Step 2: Multi-video intelligence processing
     console.print(f"\n🧠 Step 2: Multi-video intelligence analysis...")
