@@ -23,10 +23,10 @@ poetry install
 # Set your API key (replace with your actual key)
 export GOOGLE_API_KEY="your_key_here"
 
-# Quick test with a real PBS video (recommended by Zac!)
-poetry run clipscribe transcribe "https://www.youtube.com/watch?v=xbQzIzx1dhw"
+# Quick test with a real PBS video (recommended by Zac)
+poetry run clipscribe transcribe "https://www.youtube.com/watch?v=6ZVj1_SE4Mo"
 
-# Or run the demo script for a complete showcase
+# Or run the TWO-PART demo script for a complete batch showcase
 poetry run python demo.py
 
 # Launch the full Streamlit UI
@@ -39,6 +39,7 @@ streamlit run app.py
 - Visit `http://localhost:8501` after running `streamlit run app.py`
 - Try the "Research" tab with search term: `"PBS NewsHour"`
 - Watch real-time progress tracking and analytics
+- Upload the demo's two-part video results for comparison
 - Download results in Excel, CSV, or Markdown
 
 ### 2. **Entity Source Analysis**
@@ -63,17 +64,21 @@ poetry run clipscribe transcribe "https://youtube.com/watch?v=VIDEO_ID" --save-a
 
 ## 🎨 What You'll See
 
-- **Interactive Visualizations**: Plotly charts showing entity source distribution
-- **Excel Reports**: Multi-sheet exports with comprehensive analytics
-- **Real-time Progress**: Live updates during batch processing
-- **Knowledge Graphs**: Visual relationship networks
-- **Performance Insights**: Model cache efficiency and optimization recommendations
+- **Batch Processing**: Two-part PBS video series processed together
+- **Interactive Visualizations**: Plotly charts showing cross-video entity comparison
+- **Excel Reports**: Multi-sheet exports with video comparison analytics
+- **Real-time Progress**: Live updates during multi-video processing
+- **Knowledge Graphs**: Visual relationship networks across videos
+- **Performance Insights**: Model cache efficiency and batch optimization
+- **Video Comparison**: Side-by-side analysis of entity extraction effectiveness
 
 ## 🏆 Best Demo Videos
 
 Use these for impressive results ([per Zac's preference][[memory:3676380518053530236]]):
 
-- **PBS NewsHour**: `https://www.youtube.com/watch?v=UjDpW_SOrlw`
+- **PBS Two-Part Series**: 
+  - Part 1: `https://www.youtube.com/watch?v=6ZVj1_SE4Mo`
+  - Part 2: `https://www.youtube.com/watch?v=xYMWTXIkANM`
 - **NPR News**: Search "NPR" in the research tab
 - **BBC News**: Search "BBC News" for current events
 
