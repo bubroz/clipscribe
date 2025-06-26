@@ -129,6 +129,26 @@ class CrossVideoRelationship(BaseModel):
     properties: Dict[str, Any] = Field(default_factory=dict)
 
 
+class TimelineEvent(BaseModel):
+    """A single, timestamped event that occurred across a collection of videos."""
+    event_id: str = Field(..., description="Unique identifier for the event")
+    timestamp: datetime = Field(..., description="The absolute timestamp when the event occurred")
+    description: str = Field(..., description="A description of the event")
+    source_video_id: str = Field(..., description="The video ID where this event was identified")
+    source_video_title: str = Field(..., description="The title of the source video")
+    video_timestamp_seconds: int = Field(..., description="The timestamp of the event within its source video, in seconds")
+    involved_entities: List[str] = Field(default_factory=list, description="Names of entities involved in this event")
+    confidence: float = Field(default=0.8, description="Confidence score for the event's accuracy and relevance")
+
+
+class ConsolidatedTimeline(BaseModel):
+    """A chronologically sorted sequence of events synthesized from multiple videos."""
+    timeline_id: str = Field(..., description="Unique identifier for this timeline")
+    collection_id: str = Field(..., description="The ID of the video collection this timeline belongs to")
+    events: List[TimelineEvent] = Field(default_factory=list)
+    summary: Optional[str] = Field(None, description="An AI-generated summary of the entire timeline")
+
+
 class NarrativeSegment(BaseModel):
     """A segment of narrative flow across videos in a series."""
     segment_id: str
@@ -180,6 +200,9 @@ class MultiVideoIntelligence(BaseModel):
     collection_summary: str = Field(..., description="Summary of the entire collection")
     key_insights: List[str] = Field(default_factory=list, description="Cross-video insights")
     unified_knowledge_graph: Optional[Dict[str, Any]] = None
+    
+    # NEW: Consolidated timeline from synthesis engine
+    consolidated_timeline: Optional[ConsolidatedTimeline] = None
     
     # Processing metadata
     processing_stats: Dict[str, Any] = Field(default_factory=dict)

@@ -56,8 +56,8 @@ def create_output_filename(title: str, extension: str = "txt",
     # Sanitize the title
     safe_filename = sanitize_filename(title)
     
-    # Add extension
-    filename = f"{safe_filename}.{extension}"
+    # Add extension only if it exists
+    filename = f"{safe_filename}.{extension}" if extension else safe_filename
     
     # Create full path
     if output_dir:

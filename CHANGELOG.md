@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased] - The Synthesis Update (v2.14.0)
 
+### Changed
+- **GEXF 1.3 Graph Export**: Upgraded the graph export to the modern GEXF 1.3 standard for full compatibility with the latest network analysis tools. This includes updating namespaces, schemas, and using the `hex` attribute for colors.
+
 ### Planned
 - **Knowledge Synthesis Engine**: Evolve the multi-video processor to generate a structured, multi-faceted analysis.
   - **Consolidated Event Timeline**: A chronological sequence of key events, facts, and talking points as they are introduced across all videos.
@@ -16,7 +19,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - **Collection Workbench**: Drag-and-drop interface to build, save, and manage video collections.
   - **Synthesis Dashboard**: Interactive visualizations of the Event Timeline and Knowledge Panels.
   - **Live Synthesis View**: A live-updating visualization of the unified knowledge graph as it's built.
-- **GEXF 1.3 Graph Export**: Upgrade the graph export to the modern GEXF 1.3 standard for full compatibility with the latest network analysis tools.
 
 ## [2.13.0] - 2025-06-25
 

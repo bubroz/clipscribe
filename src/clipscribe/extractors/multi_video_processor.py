@@ -8,14 +8,15 @@ and unified knowledge graph generation with aggressive AI-powered entity merging
 import logging
 import asyncio
 from typing import List, Dict, Any, Optional, Tuple, Set
-from datetime import datetime
+from datetime import datetime, timedelta
 from collections import defaultdict, Counter
 import json
 
 from ..models import (
     VideoIntelligence, MultiVideoIntelligence, CrossVideoEntity, 
     CrossVideoRelationship, NarrativeSegment, TopicEvolution,
-    VideoCollectionType, SeriesMetadata, Entity, Relationship, Topic
+    VideoCollectionType, SeriesMetadata, Entity, Relationship, Topic,
+    ConsolidatedTimeline, TimelineEvent
 )
 from .entity_normalizer import EntityNormalizer
 from .series_detector import SeriesDetector
@@ -83,6 +84,14 @@ class MultiVideoProcessor:
         
         logger.info(f"Processing collection of {len(videos)} videos (type: {collection_type})")
         
+        # Create collection ID and title early
+        collection_id = f"collection_{datetime.now().strftime('%Y%m%d_%H%M%S')}_{len(videos)}"
+        if not collection_title:
+            if collection_type == VideoCollectionType.SERIES:
+                collection_title = f"{videos[0].metadata.channel} Series"
+            else:
+                collection_title = f"{videos[0].metadata.channel} - {len(videos)} Videos"
+        
         # Step 1: Series detection (if not user-confirmed)
         series_metadata = None
         if collection_type == VideoCollectionType.SERIES or user_confirmed_series:
@@ -122,19 +131,14 @@ class MultiVideoProcessor:
         # Step 8: Extract key insights
         key_insights = await self._extract_key_insights(videos, unified_entities, cross_video_relationships, topic_evolution)
         
-        # Step 9: Generate unified knowledge graph
+        # Step 9: Synthesize event timeline
+        consolidated_timeline = self._synthesize_event_timeline(videos, unified_entities, collection_id)
+        
+        # Step 10: Generate unified knowledge graph
         unified_knowledge_graph = self._generate_unified_knowledge_graph(unified_entities, cross_video_relationships)
         
-        # Step 10: Calculate quality metrics
+        # Step 11: Calculate quality metrics
         quality_metrics = self._calculate_quality_metrics(videos, unified_entities, cross_video_relationships)
-        
-        # Create collection ID and title
-        collection_id = f"collection_{datetime.now().strftime('%Y%m%d_%H%M%S')}_{len(videos)}"
-        if not collection_title:
-            if series_metadata:
-                collection_title = series_metadata.series_title
-            else:
-                collection_title = f"{videos[0].metadata.channel} - {len(videos)} Videos"
         
         # Calculate processing stats
         total_cost = sum(video.processing_cost for video in videos)
@@ -154,6 +158,7 @@ class MultiVideoProcessor:
             topic_evolution=topic_evolution,
             collection_summary=collection_summary,
             key_insights=key_insights,
+            consolidated_timeline=consolidated_timeline,
             unified_knowledge_graph=unified_knowledge_graph,
             total_processing_cost=total_cost,
             total_processing_time=total_time,
@@ -956,4 +961,73 @@ class MultiVideoProcessor:
             
         except Exception as e:
             logger.warning(f"AI entity validation failed: {e}")
-            return entities 
+            return entities
+    
+    def _synthesize_event_timeline(
+        self, 
+        videos: List[VideoIntelligence], 
+        unified_entities: List[CrossVideoEntity],
+        collection_id: str
+    ) -> ConsolidatedTimeline:
+        """
+        Synthesizes a consolidated, chronological event timeline from a collection of videos.
+        
+        This method uses key points from each video as the basis for events, calculates
+        absolute timestamps, and resolves involved entities.
+        
+        Args:
+            videos: The list of processed VideoIntelligence objects.
+            unified_entities: The list of cross-video resolved entities.
+            collection_id: The ID of the current video collection.
+            
+        Returns:
+            A ConsolidatedTimeline object containing the sorted list of events.
+        """
+        logger.info("Synthesizing consolidated event timeline...")
+        all_events: List[TimelineEvent] = []
+        
+        entity_lookup = {entity.canonical_name.lower(): entity for entity in unified_entities}
+        for alias_entity in unified_entities:
+            for alias in alias_entity.aliases:
+                entity_lookup[alias.lower()] = alias_entity
+
+        for video in videos:
+            if not video.metadata.published_at:
+                logger.warning(f"Skipping video {video.metadata.video_id} for timeline synthesis due to missing publication date.")
+                continue
+
+            for key_point in video.key_points:
+                # Calculate absolute timestamp for the event
+                event_timestamp = video.metadata.published_at + timedelta(seconds=key_point.timestamp)
+                
+                # Identify involved entities mentioned in the key point text
+                involved_entities = {
+                    entity_lookup[name.lower()].canonical_name
+                    for name in entity_lookup
+                    if name in key_point.text.lower()
+                }
+
+                event = TimelineEvent(
+                    event_id=f"evt_{video.metadata.video_id}_{key_point.timestamp}",
+                    timestamp=event_timestamp,
+                    description=key_point.text,
+                    source_video_id=video.metadata.video_id,
+                    source_video_title=video.metadata.title,
+                    video_timestamp_seconds=key_point.timestamp,
+                    involved_entities=sorted(list(involved_entities)),
+                    confidence=key_point.importance
+                )
+                all_events.append(event)
+
+        # Sort all events chronologically
+        all_events.sort(key=lambda e: e.timestamp)
+
+        timeline = ConsolidatedTimeline(
+            timeline_id=f"timeline_{collection_id}",
+            collection_id=collection_id,
+            events=all_events,
+            summary=f"Generated a timeline with {len(all_events)} events from {len(videos)} videos."
+        )
+        
+        logger.info(f"Successfully synthesized timeline with {len(all_events)} events.")
+        return timeline 

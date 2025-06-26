@@ -14,12 +14,14 @@ import os
 import subprocess
 import webbrowser
 import platform
+import json
 
 import click
 from rich.panel import Panel
 from rich.table import Table
 from rich.logging import RichHandler
 from rich import box
+from rich.console import Console
 
 from ..retrievers import VideoIntelligenceRetriever, UniversalVideoClient
 from ..config.settings import Settings
@@ -128,78 +130,164 @@ async def transcribe(
     visualize: bool,
     performance_report: bool
 ) -> None:
-    """Transcribe a video from URL using Gemini 2.5 Flash."""
-    settings = ctx.obj["settings"]
+    """Transcribe a video and extract intelligence."""
+    asyncio.run(transcribe_async(ctx, url, output_dir, mode, use_cache, enhance_transcript, clean_graph, skip_cleaning, visualize, performance_report))
+
+async def transcribe_async(
+    ctx: click.Context,
+    url: str,
+    output_dir: Path,
+    mode: str,
+    use_cache: bool,
+    enhance_transcript: bool,
+    clean_graph: bool,
+    skip_cleaning: bool,
+    visualize: bool,
+    performance_report: bool
+) -> None:
+    """Async implementation of transcribe command."""
+    console = Console()
+    
+    # Extract all the options from kwargs
+    mode = mode
+    use_cache = use_cache
+    enhance_transcript = enhance_transcript
+    extract_entities = True
+    extract_topics = True
+    extract_key_points = True
+    extract_relationships = True
+    save_all_formats = True
+    api_key = None
+    include_timestamps = True
+    max_retries = 3
+    chunk_duration = 600
+    confidence_threshold = 0.8
+    cost_threshold = 10.0
+    model = 'gemini-1.5-flash'
+    use_advanced_extraction = True
+    gliner_model = 'urchade/gliner_multi-v2.1'
+    rebel_model = 'Babelscape/rebel-large'
+    use_llm_validation = True
+    domain = None
+    performance_report = performance_report
+    
+    # Log the operation
+    logger.info(f"Transcribing video: {url}")
+    logger.info(f"Output directory: {output_dir}")
+    logger.info(f"Mode: {mode}, Model: {model}")
+    
+    # Validate URL
+    if not url:
+        console.print("[red]Error: URL is required[/red]")
+        ctx.exit(1)
+        
+    # Create output directory
     output_dir.mkdir(parents=True, exist_ok=True)
-    perf_monitor = PerformanceMonitor(output_dir) if performance_report else None
-
+    
+    # Initialize retriever
     try:
-        with progress_tracker.video_processing(url) as progress_state:
-            progress_tracker.update_phase(progress_state, "init", "Initializing video retriever...")
-            retriever = VideoIntelligenceRetriever(
-                use_cache=use_cache,
-                mode=mode,
-                output_dir=output_dir,
-                enhance_transcript=enhance_transcript,
-                progress_tracker=progress_tracker,
-                performance_monitor=perf_monitor
-            )
-            if skip_cleaning:
-                retriever.clean_graph = False
-            elif clean_graph:
-                retriever.clean_graph = True
-
-            progress_tracker.update_phase(progress_state, "process", "Processing video...")
-            video_result = await retriever.process_url(url, progress_state=progress_state)
-
-            if not video_result:
-                progress_tracker.log_error("Failed to process video")
-                sys.exit(1)
-
-            progress_tracker.update_phase(progress_state, "save", "Saving output files...")
-            saved_files = retriever.save_all_formats(
-                video_result,
-                output_dir=str(output_dir),
-                include_chimera_format=True
-            )
-            progress_tracker.update_phase(progress_state, "complete", "Processing complete!")
-
-        if hasattr(video_result, 'entities') and hasattr(video_result, 'relationships'):
-            progress_tracker.show_extraction_stats(
-                video_result.entities,
-                video_result.relationships
-            )
-
-        results_table = Table(title="Transcription Results", box=box.ROUNDED)
-        results_table.add_column("Property", style="cyan")
-        results_table.add_column("Value", style="white")
-        results_table.add_row("Video Title", video_result.metadata.title)
-        minutes = int(video_result.metadata.duration // 60)
-        seconds = int(video_result.metadata.duration % 60)
-        results_table.add_row("Duration", f"{minutes}:{seconds:02d}")
-        results_table.add_row("Platform", video_result.metadata.url.split('/')[2].replace('www.', '').capitalize())
-        results_table.add_row("Processing Mode", mode.upper())
-        results_table.add_row("Cost", f"${video_result.processing_cost:.4f}")
-        results_table.add_row("Output Directory", str(output_dir))
-        console.print("\n")
-        console.print(results_table)
-
-        if visualize and 'knowledge_graph' in saved_files:
-            pass # Placeholder for viz logic
-
-        progress_tracker.log_success("Transcription complete!")
-
-    except KeyboardInterrupt:
-        progress_tracker.log_warning("Transcription cancelled by user")
-        sys.exit(1)
+        retriever = VideoIntelligenceRetriever(
+            api_key=api_key,
+            model=model,
+            use_cache=use_cache,
+            max_retries=max_retries,
+            chunk_duration=chunk_duration,
+            confidence_threshold=confidence_threshold,
+            cost_threshold=cost_threshold,
+            use_advanced_extraction=use_advanced_extraction,
+            gliner_model=gliner_model,
+            rebel_model=rebel_model,
+            use_llm_validation=use_llm_validation,
+            domain=domain
+        )
+        
+        # Process video
+        result = await retriever.process_video(
+            url,
+            mode=mode,
+            enhance_transcript=enhance_transcript,
+            extract_entities=extract_entities,
+            extract_topics=extract_topics,
+            extract_key_points=extract_key_points,
+            extract_relationships=extract_relationships,
+            include_timestamps=include_timestamps
+        )
+        
+        # Save outputs
+        if save_all_formats:
+            saved_files = retriever.save_all_formats(result, str(output_dir))
+            console.print(f"\n[green]✅ Saved all formats to: {saved_files['directory']}[/green]")
+        else:
+            # Save just the basic files
+            transcript_file = output_dir / "transcript.json"
+            with open(transcript_file, 'w', encoding='utf-8') as f:
+                json.dump(result.model_dump(), f, ensure_ascii=False, indent=2, default=str)
+            console.print(f"\n[green]✅ Saved transcript to: {transcript_file}[/green]")
+            
+        # Display summary
+        _display_results(console, result)
+        
+        # Display cost
+        console.print(f"\n[cyan]Total cost: ${result.processing_cost:.4f}[/cyan]")
+        
+        # Generate performance report if requested
+        if performance_report:
+            report_path = output_dir / "performance_report.json"
+            performance_data = {
+                "url": url,
+                "mode": mode,
+                "model": model,
+                "processing_time": result.metadata.get("processing_time", 0),
+                "processing_cost": result.processing_cost,
+                "transcript_length": len(result.transcript.full_text) if result.transcript else 0,
+                "entity_count": len(result.entities),
+                "relationship_count": len(result.relationships) if hasattr(result, 'relationships') else 0,
+                "key_point_count": len(result.key_points) if result.key_points else 0
+            }
+            with open(report_path, 'w') as f:
+                json.dump(performance_data, f, indent=2)
+            console.print(f"[dim]Performance report saved to: {report_path}[/dim]")
+            
     except Exception as e:
         logger.exception("Transcription failed")
-        progress_tracker.log_error(f"Error: {str(e)}")
-        sys.exit(1)
-    finally:
-        if perf_monitor:
-            perf_monitor.save_report()
-            progress_tracker.log_info(f"Performance report saved to {perf_monitor.output_dir}")
+        console.print(f"[red]❌ Error: {e}[/red]")
+        ctx.exit(1)
+
+
+def _display_results(console: Console, result):
+    """Display transcription results in a formatted table."""
+    from rich.table import Table
+    from rich import box
+    
+    results_table = Table(title="Transcription Results", box=box.ROUNDED)
+    results_table.add_column("Property", style="cyan")
+    results_table.add_column("Value", style="white")
+    
+    results_table.add_row("Video Title", result.metadata.title)
+    
+    minutes = int(result.metadata.duration // 60)
+    seconds = int(result.metadata.duration % 60)
+    results_table.add_row("Duration", f"{minutes}:{seconds:02d}")
+    
+    platform = result.metadata.url.split('/')[2].replace('www.', '').capitalize()
+    results_table.add_row("Platform", platform)
+    
+    if result.transcript:
+        results_table.add_row("Transcript Length", f"{len(result.transcript.full_text)} chars")
+        
+    results_table.add_row("Entities", str(len(result.entities)))
+    
+    if hasattr(result, 'relationships') and result.relationships:
+        results_table.add_row("Relationships", str(len(result.relationships)))
+        
+    if result.key_points:
+        results_table.add_row("Key Points", str(len(result.key_points)))
+        
+    if result.topics:
+        results_table.add_row("Topics", str(len(result.topics)))
+        
+    console.print("\n")
+    console.print(results_table)
 
 
 @cli.command()
@@ -334,7 +422,7 @@ async def research(ctx: click.Context, query: str, max_results: int, period: Opt
 @click.option('--clean-graph', is_flag=True)
 @click.option('--performance-report', is_flag=True)
 @click.pass_context
-async def process_collection(
+def process_collection(
     ctx: click.Context,
     urls: tuple,
     collection_title: Optional[str],
@@ -345,6 +433,27 @@ async def process_collection(
     **kwargs
 ) -> None:
     """Process multiple videos as a unified collection with cross-video intelligence."""
+    asyncio.run(process_collection_async(
+        ctx,
+        urls,
+        collection_title,
+        collection_type,
+        auto_detect_series,
+        user_confirmed_series,
+        output_dir,
+        **kwargs
+    ))
+
+async def process_collection_async(
+    ctx: click.Context,
+    urls: tuple,
+    collection_title: Optional[str],
+    collection_type: str,
+    auto_detect_series: bool,
+    user_confirmed_series: bool,
+    output_dir: Path,
+    **kwargs
+) -> None:
     console.print(f"🎬 Processing video collection: {len(urls)} videos")
     
     # Convert collection type string to enum
@@ -421,39 +530,15 @@ async def process_collection(
         # Step 3: Save unified outputs
         console.print("\n💾 Step 3: Saving unified collection outputs...")
         
+        # The retriever instance used to process the last video will suffice,
+        # as save_collection_outputs doesn't depend on single-video state.
+        retriever.save_collection_outputs(
+            collection=multi_video_result,
+            output_dir=str(output_dir)
+        )
+        
         collection_output_dir = output_dir / multi_video_result.collection_id
-        collection_output_dir.mkdir(parents=True, exist_ok=True)
-        
-        # Save main collection intelligence
-        import json
-        with open(collection_output_dir / "multi_video_intelligence.json", "w", encoding="utf-8") as f:
-            json.dump(multi_video_result.dict(), f, indent=2, ensure_ascii=False, default=str)
-        
-        # Save unified knowledge graph
-        if multi_video_result.unified_knowledge_graph:
-            with open(collection_output_dir / "unified_knowledge_graph.json", "w", encoding="utf-8") as f:
-                json.dump(multi_video_result.unified_knowledge_graph, f, indent=2, ensure_ascii=False)
-        
-        # Save collection summary as markdown
-        with open(collection_output_dir / "collection_summary.md", "w", encoding="utf-8") as f:
-            f.write(f"# {multi_video_result.collection_title}\n\n")
-            f.write(f"**Collection Type:** {multi_video_result.collection_type.value}\n")
-            f.write(f"**Videos:** {len(multi_video_result.video_ids)}\n")
-            f.write(f"**Created:** {multi_video_result.created_at.strftime('%Y-%m-%d %H:%M:%S')}\n\n")
-            f.write(f"## Summary\n\n{multi_video_result.collection_summary}\n\n")
-            
-            if multi_video_result.key_insights:
-                f.write("## Key Insights\n\n")
-                for insight in multi_video_result.key_insights:
-                    f.write(f"- {insight}\n")
-                f.write("\n")
-            
-            f.write(f"## Statistics\n\n")
-            f.write(f"- **Unified Entities:** {len(multi_video_result.unified_entities)}\n")
-            f.write(f"- **Cross-Video Relationships:** {len(multi_video_result.cross_video_relationships)}\n")
-            f.write(f"- **Processing Cost:** ${multi_video_result.total_processing_cost:.4f}\n")
-            f.write(f"- **Processing Time:** {multi_video_result.total_processing_time:.1f} seconds\n")
-        
+
         # Display results
         results_table = Table(title="Multi-Video Collection Results", box=box.ROUNDED)
         results_table.add_column("Property", style="cyan")
@@ -500,7 +585,7 @@ async def process_collection(
 @click.option('--clean-graph', is_flag=True)
 @click.option('--performance-report', is_flag=True)
 @click.pass_context
-async def process_series(
+def process_series(
     ctx: click.Context,
     urls: tuple,
     output_dir: Path,
@@ -510,8 +595,8 @@ async def process_series(
     """Process videos as a series with automatic detection and narrative flow analysis."""
     console.print(f"📺 Processing video series: {len(urls)} videos")
     
-    # Delegate to process_collection with series-specific settings
-    await process_collection.callback(
+    # Delegate to process_collection_async with series-specific settings
+    asyncio.run(process_collection_async(
         ctx,
         urls=urls,
         collection_title=series_title,
@@ -520,29 +605,15 @@ async def process_series(
         user_confirmed_series=False,
         output_dir=output_dir,
         **kwargs
-    )
+    ))
 
 
 def run_cli():
     """Run the CLI application."""
-    # Handle async commands properly
-    if len(sys.argv) > 1 and sys.argv[1] in ["transcribe", "research", "process-collection", "process-series"]:
-        # These are async commands
-        loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(loop)
-        
-        try:
-            # Create a sync wrapper for Click
-            def sync_wrapper():
-                # Call CLI directly, not as a coroutine
-                cli.main(standalone_mode=False)
-            
-            sync_wrapper()
-        finally:
-            loop.close()
-    else:
-        # Regular sync commands
-        cli()
+    # Click's native async support handles this automatically.
+    # The previous manual loop management was causing RuntimeWarnings.
+    setup_logging()  # Initialize logging
+    cli()
 
 
 if __name__ == "__main__":

@@ -121,97 +121,143 @@ class AdvancedHybridExtractor:
         domain: Optional[str] = None
     ) -> VideoIntelligence:
         """
-        Extract all intelligence from video.
+        Run the full advanced intelligence extraction pipeline.
         
         Args:
-            video_intel: VideoIntelligence with transcript
-            domain: Optional domain for specialized extraction
+            video_intel: VideoIntelligence object with transcript.
+            domain: Optional domain for specialized extraction.
             
         Returns:
-            Updated VideoIntelligence with all extractions
+            Updated VideoIntelligence object with all extractions.
         """
-        if not video_intel.transcript:
-            logger.warning("No transcript found")
+        if not video_intel.transcript or not video_intel.transcript.full_text:
+            logger.warning("Cannot extract intelligence, transcript is missing or empty.")
             return video_intel
-            
-        # Track processing stats
-        stats = {
-            "spacy_entities": 0,
-            "gliner_entities": 0,
-            "llm_validated": 0,
-            "relationships": 0,
-            "graph_nodes": 0,
-            "graph_edges": 0
-        }
-        
-        # 1. Extract basic entities with SpaCy
-        logger.info("Extracting entities with SpaCy...")
-        spacy_entities_with_conf = self.spacy_extractor.extract_entities(
-            video_intel.transcript.full_text
-        )
-        spacy_entities = [entity for entity, conf in spacy_entities_with_conf]
-        stats["spacy_entities"] = len(spacy_entities)
-        
-        # 2. Extract custom entities with GLiNER
-        gliner_entities = []
-        if self.use_gliner and self.gliner_extractor:
-            logger.info(f"Extracting custom entities with GLiNER (domain={domain})...")
-            if domain:
-                custom_entities = self.gliner_extractor.extract_domain_specific(
-                    video_intel.transcript.full_text, domain
-                )
-            else:
-                custom_entities = self.gliner_extractor.extract_entities(
-                    video_intel.transcript.full_text
-                )
-            
-            # Convert GLiNER entities to Entity objects
-            for entity in custom_entities:
-                gliner_entities.append(Entity(
-                    name=entity.text,
-                    type=entity.label,
-                    confidence=entity.confidence,
-                    properties={"source": "GLiNER"}
-                ))
-            stats["gliner_entities"] = len(gliner_entities)
-            
-        # 3. Normalize and deduplicate ALL entities from SpaCy + GLiNER
-        logger.info("Normalizing and deduplicating entities...")
+
+        stats = defaultdict(int)
+
+        # Step 1: Extract entities from all sources
+        spacy_entities = self._extract_spacy_entities(video_intel.transcript.full_text, stats)
+        gliner_entities = self._extract_gliner_entities(video_intel.transcript.full_text, domain, stats)
+
+        # Step 2: Normalize entities and extract relationships
         all_raw_entities = spacy_entities + gliner_entities
-        normalized_entities = self.entity_normalizer.normalize_entities(all_raw_entities)
-        video_intel.entities = normalized_entities
+        video_intel.entities = self.entity_normalizer.normalize_entities(all_raw_entities)
         
-        # Create entity lookup for REBEL (maps all name variants to canonical names)
-        entity_lookup = self.entity_normalizer.create_entity_lookup(normalized_entities)
-        
-        # 4. Extract relationships with REBEL (now aware of ALL normalized entities)
-        if self.use_rebel and self.rebel_extractor:
-            logger.info("Extracting relationships with REBEL...")
-            video_intel = self._extract_relationships_with_entity_awareness(
-                video_intel, entity_lookup
-            )
-            stats["relationships"] = len(video_intel.relationships)
-            
-        # 4. Validate low-confidence items with LLM
+        entity_lookup = self.entity_normalizer.create_entity_lookup(video_intel.entities)
+        video_intel = self._extract_relationships_with_entity_awareness(video_intel, entity_lookup, stats)
+
+        # Step 3: Optional LLM validation and knowledge graph construction
         if self.use_llm:
-            logger.info("Validating low-confidence items with LLM...")
             video_intel = await self._validate_with_llm(video_intel)
             stats["llm_validated"] = sum(1 for e in video_intel.entities if e.confidence > self.confidence_threshold)
-            
-        # 5. Build knowledge graph
-        logger.info("Building knowledge graph...")
-        video_intel = self._build_knowledge_graph(video_intel)
-        if video_intel.knowledge_graph:
-            stats["graph_nodes"] = video_intel.knowledge_graph.get("node_count", 0)
-            stats["graph_edges"] = video_intel.knowledge_graph.get("edge_count", 0)
-            
-        # 6. Extract key facts
-        video_intel = self._extract_key_facts(video_intel)
+
+        video_intel = self._build_knowledge_graph(video_intel, stats)
         
-        # Update processing stats
+        # Step 4: Extract final facts and update stats
+        video_intel = self._extract_key_facts(video_intel)
         video_intel.processing_stats.update(stats)
         
-        logger.info(f"Advanced extraction complete: {stats} :-)")
+        logger.info(f"Advanced extraction complete: {dict(stats)} :-)")
+        return video_intel
+
+    def _extract_spacy_entities(self, text: str, stats: Dict[str, int]) -> List[Entity]:
+        """Extract entities using SpaCy."""
+        logger.info("Extracting entities with SpaCy...")
+        spacy_entities_with_conf = self.spacy_extractor.extract_entities(text)
+        stats["spacy_entities"] = len(spacy_entities_with_conf)
+        return [entity for entity, conf in spacy_entities_with_conf]
+
+    def _extract_gliner_entities(self, text: str, domain: Optional[str], stats: Dict[str, int]) -> List[Entity]:
+        """Extract entities using GLiNER."""
+        if not self.use_gliner or not self.gliner_extractor:
+            return []
+            
+        logger.info(f"Extracting custom entities with GLiNER (domain={domain})...")
+        if domain:
+            custom_entities = self.gliner_extractor.extract_domain_specific(text, domain)
+        else:
+            custom_entities = self.gliner_extractor.extract_entities(text)
+        
+        gliner_entities = [
+            Entity(name=e.text, type=e.label, confidence=e.confidence, properties={"source": "GLiNER"})
+            for e in custom_entities
+        ]
+        stats["gliner_entities"] = len(gliner_entities)
+        return gliner_entities
+
+    def _extract_relationships_with_entity_awareness(
+        self, 
+        video_intel: VideoIntelligence, 
+        entity_lookup: Dict[str, str],
+        stats: Dict[str, int]
+    ) -> VideoIntelligence:
+        """Extract relationships using REBEL with awareness of normalized entities."""
+        if not self.use_rebel or not self.rebel_extractor or not video_intel.transcript:
+            return video_intel
+            
+        logger.info("Extracting relationships with REBEL...")
+        triplets = self.rebel_extractor.extract_triplets(video_intel.transcript.full_text)
+        
+        relationships = []
+        entity_names = {e.name.lower() for e in video_intel.entities}
+
+        for triplet in triplets:
+            subject = triplet['subject']
+            object_name = triplet['object']
+            
+            canonical_subject = entity_lookup.get(subject.lower(), subject)
+            canonical_object = entity_lookup.get(object_name.lower(), object_name)
+            
+            if canonical_subject.lower() in entity_names or canonical_object.lower() in entity_names:
+                relationships.append(Relationship(
+                    subject=canonical_subject,
+                    predicate=triplet['predicate'],
+                    object=canonical_object,
+                    confidence=0.85,
+                    properties={"source": "REBEL", "original_subject": subject, "original_object": object_name}
+                ))
+                
+        unique_relationships = self._deduplicate_relationships(relationships)
+        video_intel.relationships.extend(unique_relationships)
+        
+        stats["relationships"] = len(unique_relationships)
+        logger.info(f"Added {len(unique_relationships)} normalized relationships")
+        return video_intel
+
+    def _build_knowledge_graph(self, video_intel: VideoIntelligence, stats: Dict[str, int]) -> VideoIntelligence:
+        """Build a knowledge graph from entities and relationships."""
+        logger.info("Building knowledge graph...")
+        G = nx.DiGraph()
+        
+        # Debug logging
+        logger.debug(f"Building graph with {len(video_intel.entities)} entities and {len(video_intel.relationships)} relationships")
+        
+        for entity in video_intel.entities:
+            G.add_node(entity.name, type=entity.type, confidence=entity.confidence)
+            
+        for rel in video_intel.relationships:
+            G.add_edge(rel.subject, rel.object, predicate=rel.predicate, confidence=rel.confidence)
+            
+        knowledge_graph = {
+            "nodes": [{"id": node, **data} for node, data in G.nodes(data=True)],
+            "edges": [{"source": u, "target": v, **data} for u, v, data in G.edges(data=True)],
+            "node_count": G.number_of_nodes(),
+            "edge_count": G.number_of_edges(),
+            "connected_components": nx.number_weakly_connected_components(G) if G.nodes else 0,
+            "density": nx.density(G)
+        }
+        
+        # Debug logging
+        logger.debug(f"Created knowledge graph: {knowledge_graph['node_count']} nodes, {knowledge_graph['edge_count']} edges")
+        
+        video_intel.knowledge_graph = knowledge_graph
+        stats["graph_nodes"] = knowledge_graph["node_count"]
+        stats["graph_edges"] = knowledge_graph["edge_count"]
+        
+        # Verify assignment
+        logger.debug(f"Knowledge graph assigned: {video_intel.knowledge_graph is not None}")
+        
         return video_intel
         
     async def _validate_with_llm(self, video_intel: VideoIntelligence) -> VideoIntelligence:
@@ -268,190 +314,6 @@ class AdvancedHybridExtractor:
             logger.error(f"LLM validation failed: {e}")
             
         return video_intel
-        
-    def _build_knowledge_graph(self, video_intel: VideoIntelligence) -> VideoIntelligence:
-        """Build a knowledge graph from entities and relationships."""
-        G = nx.DiGraph()
-        
-        # Add entities as nodes
-        for entity in video_intel.entities:
-            G.add_node(
-                entity.name,
-                type=entity.type,
-                confidence=entity.confidence
-            )
-            
-        # Add relationships as edges
-        for rel in video_intel.relationships:
-            G.add_edge(
-                rel.subject,
-                rel.object,
-                predicate=rel.predicate,
-                confidence=rel.confidence
-            )
-            
-        # Convert to serializable format
-        video_intel.knowledge_graph = {
-            "nodes": [
-                {
-                    "id": node,
-                    "type": data.get("type", "unknown"),
-                    "confidence": data.get("confidence", 0.9)
-                }
-                for node, data in G.nodes(data=True)
-            ],
-            "edges": [
-                {
-                    "source": u,
-                    "target": v,
-                    "predicate": data.get("predicate", "related_to"),
-                    "confidence": data.get("confidence", 0.9)
-                }
-                for u, v, data in G.edges(data=True)
-            ],
-            "node_count": G.number_of_nodes(),
-            "edge_count": G.number_of_edges(),
-            "connected_components": nx.number_weakly_connected_components(G),
-            "density": nx.density(G)
-        }
-        
-        return video_intel
-        
-    def _extract_key_facts(self, video_intel: VideoIntelligence) -> VideoIntelligence:
-        """Extract key facts from relationships and key points."""
-        facts = []
-        
-        # Extract facts from relationships
-        for rel in video_intel.relationships:
-            # Format as human-readable fact
-            fact = f"{rel.subject} {rel.predicate} {rel.object}"
-            facts.append({
-                "fact": fact,
-                "confidence": rel.confidence,
-                "subject": rel.subject,
-                "predicate": rel.predicate,
-                "object": rel.object,
-                "source": "Relationship"
-            })
-        
-        # Extract facts from key points
-        if hasattr(video_intel, 'key_points') and video_intel.key_points:
-            for kp in video_intel.key_points:
-                facts.append({
-                    "fact": kp.text,
-                    "confidence": 0.9,  # Key points are typically high quality
-                    "timestamp": kp.timestamp,
-                    "source": "Key Point"
-                })
-        
-        # Extract facts from entities with high confidence
-        high_conf_entities = [e for e in video_intel.entities if e.confidence > 0.85]
-        for entity in high_conf_entities[:20]:  # Top 20 high confidence entities
-            if entity.properties:
-                for prop, value in entity.properties.items():
-                    fact = f"{entity.name} has {prop}: {value}"
-                    facts.append({
-                        "fact": fact,
-                        "confidence": entity.confidence,
-                        "subject": entity.name,
-                        "source": "Entity Property"
-                    })
-        
-        # Sort by confidence and diversity
-        # First, group by type to ensure diversity
-        facts_by_type = {}
-        for fact in facts:
-            fact_type = fact.get('source', 'unknown')
-            if fact_type not in facts_by_type:
-                facts_by_type[fact_type] = []
-            facts_by_type[fact_type].append(fact)
-        
-        # Sort each type by confidence
-        for fact_type in facts_by_type:
-            facts_by_type[fact_type].sort(key=lambda x: x['confidence'], reverse=True)
-        
-        # Interleave facts from different types for diversity
-        final_facts = []
-        max_per_type = max(len(facts) for facts in facts_by_type.values()) if facts_by_type else 0
-        
-        for i in range(max_per_type):
-            for fact_type in ['Relationship', 'Key Point', 'Entity Property']:
-                if fact_type in facts_by_type and i < len(facts_by_type[fact_type]):
-                    final_facts.append(facts_by_type[fact_type][i])
-        
-        # Store more facts (was 20, now up to 100)
-        video_intel.key_moments = final_facts[:100]
-        
-        return video_intel
-        
-    def _extract_relationships_with_entity_awareness(
-        self, 
-        video_intel: VideoIntelligence, 
-        entity_lookup: Dict[str, str]
-    ) -> VideoIntelligence:
-        """Extract relationships using REBEL with awareness of normalized entities."""
-        if not video_intel.transcript:
-            return video_intel
-            
-        # Extract raw triplets from REBEL
-        triplets = self.rebel_extractor.extract_triplets(video_intel.transcript.full_text)
-        
-        # Convert to Relationship objects with entity normalization
-        relationships = []
-        for triplet in triplets:
-            # Normalize subject and object using entity lookup
-            subject = triplet['subject']
-            object_name = triplet['object']
-            
-            # Try to find canonical names
-            canonical_subject = entity_lookup.get(subject.lower(), subject)
-            canonical_object = entity_lookup.get(object_name.lower(), object_name)
-            
-            # Only include if at least one entity is in our normalized list
-            entity_names = {e.name for e in video_intel.entities}
-            if canonical_subject in entity_names or canonical_object in entity_names:
-                rel = Relationship(
-                    subject=canonical_subject,
-                    predicate=triplet['predicate'],
-                    object=canonical_object,
-                    confidence=0.85,  # REBEL doesn't provide confidence
-                    properties={
-                        "source": "REBEL",
-                        "original_subject": subject,
-                        "original_object": object_name
-                    }
-                )
-                relationships.append(rel)
-                
-        # Deduplicate relationships
-        unique_relationships = self._deduplicate_relationships(relationships)
-        
-        # Add to video intelligence
-        if not hasattr(video_intel, 'relationships'):
-            video_intel.relationships = []
-        video_intel.relationships.extend(unique_relationships)
-        
-        logger.info(f"Added {len(unique_relationships)} normalized relationships")
-        return video_intel
-        
-    def _deduplicate_relationships(self, relationships: List[Relationship]) -> List[Relationship]:
-        """Remove duplicate relationships."""
-        seen = set()
-        unique = []
-        
-        for rel in relationships:
-            # Create a key based on normalized subject, predicate, object
-            key = (
-                rel.subject.lower().strip(),
-                rel.predicate.lower().strip(),
-                rel.object.lower().strip()
-            )
-            
-            if key not in seen:
-                seen.add(key)
-                unique.append(rel)
-                
-        return unique
         
     def _build_entity_validation_prompt(self, entities: List[Entity], transcript: str) -> str:
         """Build prompt for entity validation."""
@@ -947,3 +809,52 @@ Include ONLY meaningful, specific relationships that convey real information.
                 return 'business_transaction'
                 
         return None 
+
+    def _deduplicate_relationships(self, relationships: List[Relationship]) -> List[Relationship]:
+        """
+        Remove duplicate relationships based on subject, predicate, and object.
+        
+        Args:
+            relationships: List of relationships to deduplicate
+            
+        Returns:
+            List of unique relationships
+        """
+        seen = set()
+        unique = []
+        
+        for rel in relationships:
+            # Create a unique key based on subject, predicate, object (all lowercase)
+            key = (rel.subject.lower(), rel.predicate.lower(), rel.object.lower())
+            
+            if key not in seen:
+                seen.add(key)
+                unique.append(rel)
+            else:
+                # If we've seen this relationship before, update confidence if higher
+                for existing in unique:
+                    if (existing.subject.lower() == rel.subject.lower() and
+                        existing.predicate.lower() == rel.predicate.lower() and
+                        existing.object.lower() == rel.object.lower()):
+                        if rel.confidence > existing.confidence:
+                            existing.confidence = rel.confidence
+                        break
+                        
+        return unique 
+
+    def _extract_key_facts(self, video_intel: VideoIntelligence) -> VideoIntelligence:
+        """
+        Extract key facts from the video intelligence.
+        
+        This is a placeholder method that returns the video intelligence unchanged
+        since key facts are already extracted during the initial Gemini processing.
+        
+        Args:
+            video_intel: VideoIntelligence object
+            
+        Returns:
+            Unchanged VideoIntelligence object
+        """
+        # Key facts are already extracted by Gemini during initial processing
+        # This method exists for compatibility but doesn't need to do anything
+        return video_intel 

@@ -10,6 +10,7 @@ from logging.handlers import RotatingFileHandler
 from datetime import datetime
 from typing import Optional
 import json
+import os
 
 from rich.logging import RichHandler
 from rich.console import Console
@@ -47,72 +48,38 @@ class StructuredFormatter(logging.Formatter):
         return json.dumps(log_data)
 
 
-def setup_logging(
-    log_level: str = "INFO",
-    log_dir: Optional[Path] = None,
-    console: Optional[Console] = None
-) -> None:
-    """Configure application logging.
+def setup_logging(level: str = None) -> None:
+    """
+    Configure logging for the application.
     
     Args:
-        log_level: Logging level (DEBUG, INFO, WARNING, ERROR)
-        log_dir: Directory for log files (default: logs/)
-        console: Rich console for pretty console output
+        level: Logging level (DEBUG, INFO, WARNING, ERROR)
     """
-    # Create log directory
-    if log_dir is None:
-        log_dir = Path("logs")
-    log_dir.mkdir(exist_ok=True)
+    # Get log level from environment or parameter
+    if level is None:
+        level = os.getenv('CLIPSCRIBE_LOG_LEVEL', 'INFO')
+    
+    # Convert string to logging level
+    numeric_level = getattr(logging, level.upper(), logging.INFO)
     
     # Configure root logger
-    logger = logging.getLogger()
-    logger.setLevel(getattr(logging, log_level.upper(), logging.INFO))
-    logger.handlers.clear()
+    root_logger = logging.getLogger()
+    root_logger.setLevel(numeric_level)
     
-    # Console handler with Rich
-    if console is None:
-        console = Console()
-        
-    console_handler = RichHandler(
-        console=console,
-        show_time=True,
-        show_path=False,
-        markup=True
-    )
-    console_handler.setLevel(logging.INFO)
-    logger.addHandler(console_handler)
+    # Remove existing handlers
+    root_logger.handlers = []
     
-    # File handler for structured logs
-    log_file = log_dir / f"clipscribe_{datetime.now().strftime('%Y%m%d')}.log"
-    file_handler = RotatingFileHandler(
-        log_file,
-        maxBytes=10 * 1024 * 1024,  # 10MB
-        backupCount=5
+    # Console handler
+    console_handler = logging.StreamHandler(sys.stderr)
+    console_handler.setLevel(numeric_level)
+    console_formatter = logging.Formatter(
+        '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
     )
-    file_handler.setFormatter(StructuredFormatter())
-    file_handler.setLevel(logging.DEBUG)
-    logger.addHandler(file_handler)
+    console_handler.setFormatter(console_formatter)
+    root_logger.addHandler(console_handler)
     
-    # Error file handler
-    error_file = log_dir / "errors.log"
-    error_handler = RotatingFileHandler(
-        error_file,
-        maxBytes=5 * 1024 * 1024,  # 5MB
-        backupCount=3
-    )
-    error_handler.setFormatter(StructuredFormatter())
-    error_handler.setLevel(logging.ERROR)
-    logger.addHandler(error_handler)
-    
-    # Log startup
-    logger.info(
-        "ClipScribe logging initialized",
-        extra={
-            "log_level": log_level,
-            "log_dir": str(log_dir),
-            "handlers": ["console", "file", "error"]
-        }
-    )
+    # Also set level for specific loggers
+    logging.getLogger('clipscribe').setLevel(numeric_level)
 
 
 class TranscriptionLogger:

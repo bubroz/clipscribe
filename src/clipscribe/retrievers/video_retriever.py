@@ -10,7 +10,7 @@ from pathlib import Path
 import networkx as nx
 import csv
 
-from ..models import VideoIntelligence, VideoTranscript, KeyPoint, Entity, Topic, Relationship
+from ..models import VideoIntelligence, VideoTranscript, KeyPoint, Entity, Topic, Relationship, MultiVideoIntelligence
 from .universal_video_client import UniversalVideoClient
 from .transcriber import GeminiFlashTranscriber
 from ..utils.filename import create_output_filename, create_output_structure, extract_platform_from_url
@@ -339,56 +339,30 @@ class VideoIntelligenceRetriever:
                 )
                 
                 # Run intelligence extraction if requested
-                if self.use_advanced_extraction:
+                if self.use_advanced_extraction and hasattr(self.entity_extractor, 'extract_all'):
                     _update_progress("Extracting intelligence")
                     logger.info(f"Extracting intelligence with advanced extractor (domain={self.domain})...")
                     try:
-                        if hasattr(self.entity_extractor, 'extract_all'):
-                            # Advanced extraction with relationships and knowledge graph
-                            video_intelligence = await self.entity_extractor.extract_all(video_intelligence, domain=self.domain)
-                            
-                            # Update cost if extractor tracks it
-                            if hasattr(self.entity_extractor, 'get_total_cost'):
-                                extraction_cost = self.entity_extractor.get_total_cost()
-                                if self.progress_tracker:
-                                    self.progress_tracker.update_cost(extraction_cost)
-                            
-                            # Optional: Clean the graph with Gemini
-                            if hasattr(video_intelligence, 'knowledge_graph') and video_intelligence.knowledge_graph:
-                                # Clean if explicitly requested OR if graph is large and messy
-                                should_clean = self.clean_graph or (
-                                    video_intelligence.knowledge_graph.get('node_count', 0) > 300 and
-                                    len(getattr(video_intelligence, 'relationships', [])) > 500
-                                )
-                                
-                                if should_clean:
-                                    # Update progress: Cleaning
-                                    if self.progress_tracker and progress_state:
-                                        self.progress_tracker.update_phase(progress_state, "clean", "Cleaning knowledge graph...")
-                                    
-                                    try:
-                                        from ..extractors.graph_cleaner import GraphCleaner
-                                        cleaner = GraphCleaner()
-                                        video_intelligence = await cleaner.clean_knowledge_graph(video_intelligence)
-                                        logger.info("Knowledge graph cleaned with AI :-)")
-                                        if self.progress_tracker:
-                                            self.progress_tracker.log_success("Knowledge graph cleaned")
-                                    except Exception as e:
-                                        logger.warning(f"Graph cleaning failed: {e}, using uncleaned graph")
-                                        if self.progress_tracker:
-                                            self.progress_tracker.log_warning("Graph cleaning failed, using raw data")
-                        
-                        logger.info(
-                            f"Extraction complete: {len(video_intelligence.entities)} basic entities, "
-                            f"{len(getattr(video_intelligence, 'custom_entities', []))} custom entities, "
-                            f"{len(getattr(video_intelligence, 'relationships', []))} relationships, "
-                            f"{getattr(video_intelligence.knowledge_graph, 'node_count', 0) if hasattr(video_intelligence, 'knowledge_graph') else 0} graph nodes :-)"
+                        # Advanced extraction now runs here, for each video
+                        video_intelligence = await self.entity_extractor.extract_all(
+                            video_intelligence, domain=self.domain
                         )
+                        
+                        # Optional: Clean the graph with Gemini
+                        if video_intelligence.knowledge_graph and self.clean_graph:
+                            logger.info("Cleaning knowledge graph with AI...")
+                            if self.progress_tracker and progress_state:
+                                self.progress_tracker.update_phase(progress_state, "clean", "Cleaning knowledge graph...")
+                            
+                            from ..extractors.graph_cleaner import GraphCleaner
+                            cleaner = GraphCleaner()
+                            video_intelligence = await cleaner.clean_knowledge_graph(video_intelligence)
+                            logger.info("Knowledge graph cleaned successfully :-)")
+
                     except Exception as e:
-                        logger.error(f"Entity extraction failed: {e}")
+                        logger.error(f"Advanced intelligence extraction failed: {e}", exc_info=True)
                         if self.progress_tracker:
-                            self.progress_tracker.log_error(f"Entity extraction failed: {e}")
-                        # Continue without entities rather than failing completely
+                            self.progress_tracker.log_error(f"Advanced extraction failed: {e}")
                 
                 # Update cost with extraction costs
                 if hasattr(self.entity_extractor, 'get_total_cost'):
@@ -584,6 +558,9 @@ class VideoIntelligenceRetriever:
         Returns:
             Dictionary of file types to paths.
         """
+        # Debug logging to track knowledge graph state
+        logger.debug(f"save_all_formats called with video.knowledge_graph: {hasattr(video, 'knowledge_graph')} / {getattr(video, 'knowledge_graph', None) is not None}")
+        
         metadata = self._get_video_metadata_dict(video)
         paths = create_output_structure(metadata, output_dir)
 
@@ -592,6 +569,10 @@ class VideoIntelligenceRetriever:
         self._save_entities_files(video, paths)
         self._save_entity_sources_file(video, paths)  # New method to track entity sources
         self._save_relationships_files(video, paths)
+        
+        # Debug before knowledge graph save
+        logger.debug(f"About to save knowledge graph. Exists: {hasattr(video, 'knowledge_graph')}, Not None: {getattr(video, 'knowledge_graph', None) is not None}")
+        
         self._save_knowledge_graph_files(video, paths)
         self._save_facts_file(video, paths)
         self._save_report_file(video, paths)
@@ -740,12 +721,16 @@ class VideoIntelligenceRetriever:
             writer = csv.writer(f)
             writer.writerow(["subject", "predicate", "object", "confidence", "context"])
             for rel in video.relationships:
+                # Safe handling of context field that might be None
+                context = getattr(rel, 'context', '') or ''
+                context_truncated = context[:100] if context else ''
+                
                 writer.writerow([
                     rel.subject,
                     rel.predicate,
                     rel.object,
                     getattr(rel, 'confidence', 0.0),
-                    getattr(rel, 'context', '')[:100]
+                    context_truncated
                 ])
         paths["relationships_csv"] = relationships_csv_path
         logger.info(f"Saved {len(video.relationships)} relationships to JSON and CSV :-)")
@@ -753,6 +738,12 @@ class VideoIntelligenceRetriever:
     def _save_knowledge_graph_files(self, video: VideoIntelligence, paths: Dict[str, Path]):
         """Saves knowledge_graph.json and knowledge_graph.gexf if they exist."""
         if not hasattr(video, 'knowledge_graph') or not video.knowledge_graph:
+            logger.debug("No knowledge graph to save")
+            return
+
+        # Additional safety check - ensure knowledge_graph is not None
+        if video.knowledge_graph is None:
+            logger.warning("Knowledge graph is None, skipping save")
             return
 
         # Knowledge Graph JSON
@@ -760,9 +751,14 @@ class VideoIntelligenceRetriever:
         with open(graph_path, 'w', encoding='utf-8') as f:
             json.dump(video.knowledge_graph, f, indent=2)
         paths["knowledge_graph"] = graph_path
+        
+        # Safe access to knowledge graph properties
+        node_count = video.knowledge_graph.get('node_count', 0) if isinstance(video.knowledge_graph, dict) else 0
+        edge_count = video.knowledge_graph.get('edge_count', 0) if isinstance(video.knowledge_graph, dict) else 0
+        
         logger.info(
-            f"Saved knowledge graph with {video.knowledge_graph.get('node_count', 0)} nodes "
-            f"and {video.knowledge_graph.get('edge_count', 0)} edges :-)"
+            f"Saved knowledge graph with {node_count} nodes "
+            f"and {edge_count} edges :-)"
         )
 
         # GEXF for Gephi
@@ -1124,7 +1120,7 @@ class VideoIntelligenceRetriever:
         from xml.sax.saxutils import escape
         
         gexf_content = '<?xml version="1.0" encoding="UTF-8"?>\n'
-        gexf_content += '<gexf xmlns="http://www.gexf.net/1.2draft" xmlns:viz="http://www.gexf.net/1.2draft/viz" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.gexf.net/1.2draft http://www.gexf.net/1.2draft/gexf.xsd" version="1.2">\n'
+        gexf_content += '<gexf xmlns="http://www.gexf.net/1.3" xmlns:viz="http://www.gexf.net/1.3/viz" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://gexf.net/1.3 http://gexf.net/1.3/gexf.xsd" version="1.3">\n'
         gexf_content += '  <meta lastmodifieddate="' + datetime.now().strftime('%Y-%m-%d') + '">\n'
         gexf_content += '    <creator>ClipScribe</creator>\n'
         gexf_content += '    <description>Knowledge graph extracted from video content</description>\n'
@@ -1132,11 +1128,11 @@ class VideoIntelligenceRetriever:
         gexf_content += '  <graph mode="static" defaultedgetype="directed">\n'
         gexf_content += '    <attributes class="node">\n'
         gexf_content += '      <attribute id="0" title="Type" type="string"/>\n'
-        gexf_content += '      <attribute id="1" title="Confidence" type="float"/>\n'
+        gexf_content += '      <attribute id="1" title="Confidence" type="double"/>\n'
         gexf_content += '    </attributes>\n'
         gexf_content += '    <attributes class="edge">\n'
         gexf_content += '      <attribute id="0" title="Predicate" type="string"/>\n'
-        gexf_content += '      <attribute id="1" title="Confidence" type="float"/>\n'
+        gexf_content += '      <attribute id="1" title="Confidence" type="double"/>\n'
         gexf_content += '    </attributes>\n'
         gexf_content += '    <nodes>\n'
         
@@ -1167,7 +1163,7 @@ class VideoIntelligenceRetriever:
             gexf_content += f'          <attvalue for="0" value="{escape(node_type)}"/>\n'
             gexf_content += f'          <attvalue for="1" value="{confidence}"/>\n'
             gexf_content += f'        </attvalues>\n'
-            gexf_content += f'        <viz:color r="{int(hex_color[1:3], 16)}" g="{int(hex_color[3:5], 16)}" b="{int(hex_color[5:7], 16)}" a="1.0"/>\n'
+            gexf_content += f'        <viz:color hex="{hex_color}" a="1.0"/>\n'
             gexf_content += f'        <viz:size value="{20 + (confidence * 30)}"/>\n'
             gexf_content += f'      </node>\n'
         
@@ -1322,4 +1318,62 @@ class VideoIntelligenceRetriever:
                 del csv_entity['original_names']  # Too complex for CSV
                 writer.writerow(csv_entity)
         
-        logger.info(f"Saved entity sources CSV to {csv_file} with normalization info") 
+        logger.info(f"Saved entity sources CSV to {csv_file} with normalization info")
+
+    def save_collection_outputs(
+        self,
+        collection: MultiVideoIntelligence,
+        output_dir: str = "output"
+    ) -> Dict[str, Path]:
+        """
+        Saves the synthesized outputs from a multi-video collection.
+
+        This creates a dedicated directory for the collection and saves
+        the consolidated timeline, unified knowledge graph, and the full
+        collection intelligence object.
+
+        Args:
+            collection: The MultiVideoIntelligence object containing all unified data.
+            output_dir: The base directory to save the output folder in.
+
+        Returns:
+            A dictionary of the paths to the saved files.
+        """
+        # Create a directory for the collection using its unique ID
+        collection_path = Path(output_dir) / collection.collection_id
+        collection_path.mkdir(parents=True, exist_ok=True)
+        
+        saved_paths = {"directory": collection_path}
+
+        # 1. Save the Consolidated Timeline
+        if collection.consolidated_timeline:
+            timeline_path = collection_path / "timeline.json"
+            with open(timeline_path, 'w', encoding='utf-8') as f:
+                # Pydantic's model_dump_json is great for this
+                f.write(collection.consolidated_timeline.model_dump_json(indent=2))
+            saved_paths["timeline"] = timeline_path
+            logger.info(f"Saved consolidated timeline to {timeline_path}")
+
+        # 2. Save the full collection intelligence object
+        collection_intelligence_path = collection_path / "collection_intelligence.json"
+        with open(collection_intelligence_path, 'w', encoding='utf-8') as f:
+            f.write(collection.model_dump_json(indent=2))
+        saved_paths["collection_intelligence"] = collection_intelligence_path
+        logger.info(f"Saved full collection intelligence to {collection_intelligence_path}")
+        
+        # 3. Save the Unified Knowledge Graph (if it exists)
+        if collection.unified_knowledge_graph:
+            # GEXF for Gephi
+            gexf_path = collection_path / "unified_knowledge_graph.gexf"
+            try:
+                # We can reuse the existing GEXF generator
+                gexf_content = self._generate_gexf_content(collection.unified_knowledge_graph)
+                with open(gexf_path, 'w', encoding='utf-8') as f:
+                    f.write(gexf_content)
+                saved_paths["unified_gexf"] = gexf_path
+                logger.info(f"Saved unified GEXF file to {gexf_path}")
+            except Exception as e:
+                logger.warning(f"Failed to generate unified GEXF: {e}")
+
+        logger.info(f"All collection outputs saved to: {collection_path}")
+        return saved_paths 

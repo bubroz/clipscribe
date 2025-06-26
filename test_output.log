@@ -1,0 +1,26 @@
+ClipScribe v2.13.0
+AI-powered video transcription with Gemini 2.5 Flash
+
+🎬 Processing video collection: 1 videos
+
+📹 Step 1: Processing individual videos...
+Processing video 1/1: https://www.youtube.com/watch?v=6ZVj1_SE4Mo
+2025-06-26 02:27:33,512 - clipscribe.retrievers.transcriber - INFO - Using Gemini request timeout: 14400s
+2025-06-26 02:27:33,512 - clipscribe.retrievers.video_retriever - INFO - Using advanced extraction with REBEL+GLiNER :-)
+2025-06-26 02:27:33,513 - clipscribe.extractors.model_manager - INFO - Loading SpaCy model en_core_web_sm (one-time load)...
+2025-06-26 02:27:33,708 - clipscribe.extractors.model_manager - INFO - Cache miss for spacy_en_core_web_sm - loaded in 0.19s
+2025-06-26 02:27:33,708 - clipscribe.extractors.model_manager - INFO - SpaCy model en_core_web_sm loaded successfully in 0.19s :-)
+2025-06-26 02:27:33,708 - clipscribe.extractors.spacy_extractor - INFO - Using SpaCy model: en_core_web_sm
+2025-06-26 02:27:33,708 - clipscribe.extractors.model_manager - INFO - Loading GLiNER model urchade/gliner_multi-v2.1 on auto (one-time load)...
+Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]Fetching 4 files: 100%|██████████| 4/4 [00:00<00:00, 75234.15it/s]
+2025-06-26 02:27:41,296 - clipscribe.extractors.model_manager - INFO - Cache miss for gliner_urchade/gliner_multi-v2.1_auto - loaded in 7.59s
+2025-06-26 02:27:41,296 - clipscribe.extractors.model_manager - INFO - GLiNER model loaded and cached successfully in 7.59s :-)
+2025-06-26 02:27:41,296 - clipscribe.extractors.model_manager - INFO - Loading REBEL model Babelscape/rebel-large on auto (one-time load)...
+Device set to use mps
+2025-06-26 02:27:42,513 - clipscribe.extractors.model_manager - INFO - Cache miss for rebel_Babelscape/rebel-large_auto - loaded in 1.22s
+2025-06-26 02:27:42,513 - clipscribe.extractors.model_manager - INFO - REBEL model loaded and cached successfully in 1.22s :-)
+2025-06-26 02:27:42,513 - clipscribe.extractors.advanced_hybrid_extractor - INFO - Advanced hybrid extractor initialized with GLiNER=True, REBEL=True, LLM=True :-)
+2025-06-26 02:27:44,574 - clipscribe.retrievers.video_retriever - INFO - Processing video: https://www.youtube.com/watch?v=6ZVj1_SE4Mo
+2025-06-26 02:27:44,575 - clipscribe.retrievers.video_retriever - INFO - Downloading audio only (fast & efficient)...
+2025-06-26 02:27:44,575 - clipscribe.retrievers.universal_video_client - INFO - Downloading audio from: https://www.youtube.com/watch?v=6ZVj1_SE4Mo (attempt 1/3)
+2025-06-26 02:27:46,408 - clipscribe.retrievers.universal_video_client - INFO - Using extractor: youtube
