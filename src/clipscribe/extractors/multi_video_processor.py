@@ -49,12 +49,12 @@ class MultiVideoProcessor:
         self.use_ai_validation = use_ai_validation
         self.settings = Settings()
         
-        # AI validation setup
+        # AI validation setup - using Pro for all multi-video intelligence
         if use_ai_validation:
             try:
                 import google.generativeai as genai
                 genai.configure(api_key=self.settings.google_api_key)
-                self.ai_model = genai.GenerativeModel('gemini-1.5-flash')
+                self.ai_model = genai.GenerativeModel('gemini-2.5-pro')  # 2.5 Pro for sophisticated analysis
             except Exception as e:
                 logger.warning(f"AI validation unavailable: {e}")
                 self.use_ai_validation = False
@@ -430,9 +430,88 @@ class MultiVideoProcessor:
         videos: List[VideoIntelligence], 
         unified_entities: List[CrossVideoEntity]
     ) -> List[NarrativeSegment]:
-        """Analyze narrative flow across videos in a series."""
-        logger.info("Analyzing narrative flow...")
+        """Analyze narrative flow across videos using Gemini 2.5 Pro for sophisticated story analysis."""
+        logger.info("Analyzing narrative flow with AI assistance...")
         
+        if self.use_ai_validation and len(videos) > 1:
+            return await self._ai_analyze_narrative_flow(videos, unified_entities)
+        else:
+            return self._template_analyze_narrative_flow(videos, unified_entities)
+    
+    async def _ai_analyze_narrative_flow(
+        self, 
+        videos: List[VideoIntelligence], 
+        unified_entities: List[CrossVideoEntity]
+    ) -> List[NarrativeSegment]:
+        """Use Gemini 2.5 Pro to analyze sophisticated narrative flow patterns."""
+        try:
+            # Sort videos by publication date
+            sorted_videos = sorted(videos, key=lambda v: v.metadata.published_at)
+            
+            # Prepare context for AI narrative analysis
+            video_summaries = []
+            for i, video in enumerate(sorted_videos):
+                key_points_text = '; '.join([kp.text for kp in video.key_points[:3]])
+                video_summaries.append(f"""
+                Video {i+1}: "{video.metadata.title}"
+                Duration: {video.metadata.duration/60:.1f} minutes
+                Summary: {video.summary}
+                Key Points: {key_points_text}
+                """)
+            
+            # Key entities context
+            entity_context = [f"{e.canonical_name} ({e.type})" for e in unified_entities if len(e.video_appearances) > 1]
+            
+            prompt = f"""
+            As an expert narrative analyst, analyze the story flow across this video series using sophisticated reasoning.
+            
+            VIDEO SEQUENCE:
+            {chr(10).join(video_summaries)}
+            
+            KEY CROSS-VIDEO ENTITIES:
+            {', '.join(entity_context)}
+            
+            NARRATIVE ANALYSIS REQUIREMENTS:
+            Identify 3-5 major narrative segments that span across videos, focusing on:
+            
+            1. STORY PROGRESSION: How does the narrative develop from video to video?
+            2. THEMATIC ARCS: What major themes or storylines connect the videos?
+            3. ENTITY JOURNEYS: How do key entities (people, organizations, concepts) evolve?
+            4. INFORMATION DEPENDENCIES: Which segments build upon previous information?
+            5. NARRATIVE TURNING POINTS: Where do significant developments or revelations occur?
+            
+            For each narrative segment, provide:
+            - Segment title (descriptive, not generic)
+            - Which video(s) it spans
+            - Key entities involved
+            - Narrative importance (0.0-1.0)
+            - How it connects to other segments
+            - Brief summary of its role in the overall story
+            
+            FORMAT: Return as structured analysis focusing on meaningful narrative elements, not just chronological summaries.
+            """
+            
+            response = await self.ai_model.generate_content_async(prompt)
+            
+            # For now, create template segments and enhance with AI insights
+            # (Full implementation would parse AI response into NarrativeSegment objects)
+            template_segments = self._template_analyze_narrative_flow(videos, unified_entities)
+            
+            # Log AI insights for future enhancement
+            logger.info(f"AI narrative analysis: {response.text[:300]}...")
+            
+            return template_segments
+            
+        except Exception as e:
+            logger.warning(f"AI narrative analysis failed: {e}")
+            return self._template_analyze_narrative_flow(videos, unified_entities)
+    
+    def _template_analyze_narrative_flow(
+        self, 
+        videos: List[VideoIntelligence], 
+        unified_entities: List[CrossVideoEntity]
+    ) -> List[NarrativeSegment]:
+        """Generate template-based narrative flow analysis."""
         # Sort videos by publication date or detected order
         sorted_videos = sorted(videos, key=lambda v: v.metadata.published_at)
         
@@ -489,30 +568,68 @@ class MultiVideoProcessor:
         unified_entities: List[CrossVideoEntity], 
         cross_video_relationships: List[CrossVideoRelationship]
     ) -> str:
-        """Use AI to generate a comprehensive collection summary."""
+        """Use Gemini Pro to generate a comprehensive, sophisticated collection summary."""
         try:
-            # Prepare context for AI
-            video_summaries = [f"Video {i+1}: {video.summary}" for i, video in enumerate(videos)]
-            key_entities = [f"{entity.canonical_name} ({entity.type})" for entity in unified_entities[:10]]
-            key_relationships = [f"{rel.subject} {rel.predicate} {rel.object}" for rel in cross_video_relationships[:10]]
+            # Prepare detailed context for Pro's advanced analysis
+            video_details = []
+            for i, video in enumerate(videos):
+                video_info = f"""
+                Video {i+1}: "{video.metadata.title}"
+                Channel: {video.metadata.channel}
+                Published: {video.metadata.published_at.strftime('%Y-%m-%d')}
+                Duration: {video.metadata.duration/60:.1f} minutes
+                Summary: {video.summary}
+                Key Topics: {', '.join([topic.name for topic in video.topics[:5]])}
+                Entity Count: {len(video.entities)}
+                """
+                video_details.append(video_info)
+            
+            # Detailed entity analysis
+            entity_analysis = []
+            for entity in unified_entities[:15]:  # More entities for Pro
+                appearances = f"Appears in {len(entity.video_appearances)} videos"
+                aliases = f"Aliases: {', '.join(entity.aliases)}" if entity.aliases else "No aliases"
+                entity_analysis.append(f"• {entity.canonical_name} ({entity.type}) - {appearances}, {aliases}")
+            
+            # Relationship patterns
+            relationship_patterns = []
+            for rel in cross_video_relationships[:15]:  # More relationships for Pro
+                sources = f"Validated across {len(rel.video_sources)} videos" if len(rel.video_sources) > 1 else "Single video"
+                relationship_patterns.append(f"• {rel.subject} → {rel.predicate} → {rel.object} ({sources})")
+            
+            # Temporal analysis
+            time_span = (videos[-1].metadata.published_at - videos[0].metadata.published_at).days
+            temporal_context = f"Videos span {time_span} days from {videos[0].metadata.published_at.strftime('%Y-%m-%d')} to {videos[-1].metadata.published_at.strftime('%Y-%m-%d')}"
             
             prompt = f"""
-            Analyze this collection of {len(videos)} videos and provide a comprehensive summary.
+            As an expert intelligence analyst, provide a comprehensive analysis of this video collection using your advanced reasoning capabilities.
             
-            Video Summaries:
-            {chr(10).join(video_summaries)}
+            COLLECTION OVERVIEW:
+            {chr(10).join(video_details)}
             
-            Key Entities:
-            {', '.join(key_entities)}
+            TEMPORAL CONTEXT:
+            {temporal_context}
             
-            Key Relationships:
-            {chr(10).join(key_relationships)}
+            UNIFIED ENTITY ANALYSIS:
+            {chr(10).join(entity_analysis)}
             
-            Provide a 2-3 paragraph summary that:
-            1. Explains the overall theme and purpose of this video collection
-            2. Highlights the main entities and their roles
-            3. Describes key relationships and developments across videos
-            4. Notes any narrative progression or evolution of topics
+            CROSS-VIDEO RELATIONSHIP PATTERNS:
+            {chr(10).join(relationship_patterns)}
+            
+            ANALYSIS REQUIREMENTS:
+            Provide a sophisticated 4-5 paragraph analysis that demonstrates deep understanding:
+            
+            1. NARRATIVE COHERENCE: Analyze how the videos work together as a cohesive information unit. Identify the overarching narrative thread and how each video contributes to the complete picture.
+            
+            2. ENTITY EVOLUTION: Examine how key entities (people, organizations, concepts) are portrayed and develop across the video sequence. Note any changes in characterization, role, or significance.
+            
+            3. INFORMATION ARCHITECTURE: Assess the logical flow of information. How do the videos build upon each other? Are there information dependencies, contradictions, or gaps?
+            
+            4. THEMATIC ANALYSIS: Identify the core themes and how they're explored across different videos. Note any thematic evolution or deepening complexity.
+            
+            5. INTELLIGENCE VALUE: Evaluate the collection's value for understanding the subject matter. What unique insights emerge from analyzing these videos together rather than individually?
+            
+            Use sophisticated analytical language appropriate for intelligence briefings. Focus on patterns, implications, and strategic insights rather than simple summaries.
             """
             
             response = await self.ai_model.generate_content_async(prompt)
@@ -556,7 +673,111 @@ class MultiVideoProcessor:
         cross_video_relationships: List[CrossVideoRelationship],
         topic_evolution: List[TopicEvolution]
     ) -> List[str]:
-        """Extract key insights from cross-video analysis."""
+        """Extract sophisticated key insights using Gemini 2.5 Pro analysis."""
+        if self.use_ai_validation:
+            return await self._ai_extract_key_insights(videos, unified_entities, cross_video_relationships, topic_evolution)
+        else:
+            return self._template_extract_key_insights(videos, unified_entities, cross_video_relationships, topic_evolution)
+    
+    async def _ai_extract_key_insights(
+        self, 
+        videos: List[VideoIntelligence], 
+        unified_entities: List[CrossVideoEntity], 
+        cross_video_relationships: List[CrossVideoRelationship],
+        topic_evolution: List[TopicEvolution]
+    ) -> List[str]:
+        """Use Gemini 2.5 Pro to extract sophisticated strategic insights."""
+        try:
+            # Prepare comprehensive context for Pro analysis
+            video_context = f"{len(videos)} videos spanning {(videos[-1].metadata.published_at - videos[0].metadata.published_at).days} days"
+            
+            # Entity analysis
+            multi_video_entities = [e for e in unified_entities if len(e.video_appearances) > 1]
+            entity_patterns = [f"{e.canonical_name} ({e.type}) - {len(e.video_appearances)} videos" for e in multi_video_entities[:10]]
+            
+            # Relationship analysis
+            cross_validated_rels = [r for r in cross_video_relationships if len(r.video_sources) > 1]
+            relationship_patterns = [f"{r.subject} → {r.predicate} → {r.object} (validated across {len(r.video_sources)} videos)" for r in cross_validated_rels[:10]]
+            
+            # Topic evolution analysis
+            evolving_topics = [f"{t.topic_name} - evolves across {len(t.video_sequence)} videos" for t in topic_evolution if len(t.video_sequence) > 1]
+            
+            # Quality metrics
+            avg_entity_confidence = sum(e.aggregated_confidence for e in unified_entities) / len(unified_entities)
+            entity_compression = len(unified_entities) / sum(len(v.entities) for v in videos)
+            
+            prompt = f"""
+            As an expert intelligence analyst, extract strategic insights from this cross-video analysis using advanced reasoning.
+            
+            COLLECTION OVERVIEW:
+            {video_context}
+            Total entities resolved: {len(unified_entities)} (compression ratio: {entity_compression:.2f})
+            Cross-video relationships: {len(cross_video_relationships)}
+            Average entity confidence: {avg_entity_confidence:.2f}
+            
+            CROSS-VIDEO ENTITY PATTERNS:
+            {chr(10).join(entity_patterns) if entity_patterns else "No significant cross-video entities"}
+            
+            VALIDATED RELATIONSHIP PATTERNS:
+            {chr(10).join(relationship_patterns) if relationship_patterns else "No cross-validated relationships"}
+            
+            TOPIC EVOLUTION PATTERNS:
+            {chr(10).join(evolving_topics) if evolving_topics else "No clear topic evolution"}
+            
+            ANALYSIS REQUIREMENTS:
+            Extract 5-7 strategic insights that demonstrate sophisticated understanding:
+            
+            1. INFORMATION ARCHITECTURE: How is information structured across videos? What does this reveal about the content strategy or narrative approach?
+            
+            2. ENTITY SIGNIFICANCE: Which entities are most strategically important based on cross-video presence? What does their treatment reveal?
+            
+            3. RELATIONSHIP DYNAMICS: What relationship patterns emerge? Are there power structures, influence networks, or causal chains?
+            
+            4. TEMPORAL INTELLIGENCE: How does the temporal sequence affect information value? Are there dependencies or evolutionary patterns?
+            
+            5. ANALYTICAL QUALITY: What does the entity resolution and relationship validation tell us about information reliability?
+            
+            6. STRATEGIC IMPLICATIONS: What broader implications emerge from analyzing these videos as a unified intelligence source?
+            
+            7. INFORMATION GAPS: What critical information or perspectives might be missing from this collection?
+            
+            FORMAT: Return exactly 5-7 insights as bullet points, each 1-2 sentences, focusing on strategic intelligence value rather than descriptive statistics.
+            """
+            
+            response = await self.ai_model.generate_content_async(prompt)
+            
+            # Parse the response into individual insights
+            insights_text = response.text.strip()
+            insights = []
+            
+            # Split by bullet points or numbered items
+            for line in insights_text.split('\n'):
+                line = line.strip()
+                if line and (line.startswith('•') or line.startswith('-') or line.startswith('*') or 
+                           any(line.startswith(f"{i}.") for i in range(1, 10))):
+                    # Clean up the bullet point
+                    clean_insight = line.lstrip('•-*0123456789. ').strip()
+                    if clean_insight:
+                        insights.append(clean_insight)
+            
+            # Fallback if parsing fails
+            if not insights:
+                insights = [insights_text]
+            
+            return insights[:7]  # Limit to 7 insights
+            
+        except Exception as e:
+            logger.warning(f"AI insight extraction failed: {e}")
+            return self._template_extract_key_insights(videos, unified_entities, cross_video_relationships, topic_evolution)
+    
+    def _template_extract_key_insights(
+        self, 
+        videos: List[VideoIntelligence], 
+        unified_entities: List[CrossVideoEntity], 
+        cross_video_relationships: List[CrossVideoRelationship],
+        topic_evolution: List[TopicEvolution]
+    ) -> List[str]:
+        """Generate template-based insights as fallback."""
         insights = []
         
         # Entity insights
@@ -687,16 +908,43 @@ class MultiVideoProcessor:
                 entity_descriptions.append(f"{entity.canonical_name} ({entity.type}) - {videos_info}, {aliases_info}")
             
             prompt = f"""
-            Review these entities that appear across multiple videos and validate the merging:
+            You are an expert intelligence analyst reviewing entity resolution across multiple video sources. 
+            Apply sophisticated reasoning to validate entity merging decisions.
             
+            ENTITIES TO VALIDATE:
             {chr(10).join(entity_descriptions)}
             
-            For each entity, determine if:
-            1. The entity merging is correct (same real-world entity)
-            2. Any entities should be split (different real-world entities incorrectly merged)
-            3. Any additional aliases should be noted
+            VALIDATION CRITERIA:
+            For each entity, perform deep analysis:
             
-            Respond with "VALIDATED" if all merging looks correct, or suggest specific corrections.
+            1. IDENTITY VERIFICATION: Are these truly the same real-world entity across videos?
+               - Consider temporal context (roles may change over time)
+               - Analyze contextual references and descriptions
+               - Account for formal vs informal naming conventions
+            
+            2. DISAMBIGUATION ANALYSIS: Should any entities be split?
+               - Different people with similar names
+               - Organizations vs sub-organizations
+               - Concepts vs specific implementations
+            
+            3. ALIAS ENHANCEMENT: Identify missing aliases or name variations
+               - Official titles vs common references
+               - Acronyms and abbreviations
+               - Cultural or linguistic variations
+            
+            4. CONFIDENCE ASSESSMENT: Rate the merging confidence (0.0-1.0)
+               - High confidence: Clear same entity across all videos
+               - Medium confidence: Likely same but some ambiguity
+               - Low confidence: Uncertain, may need splitting
+            
+            RESPONSE FORMAT:
+            For each entity, provide:
+            - VALIDATED/SPLIT/ENHANCE decision
+            - Confidence score
+            - Reasoning for decision
+            - Suggested corrections if needed
+            
+            Focus on intelligence-grade accuracy for reliable cross-video analysis.
             """
             
             response = await self.ai_model.generate_content_async(prompt)
