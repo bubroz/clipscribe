@@ -11,10 +11,10 @@ cd clipscribe
 poetry install
 ```
 
-## 🔑 Get Your API Key (30 seconds)
+## 🔑 Get Your FREE API Key (30 seconds)
 
 1. Go to [Google AI Studio](https://makersuite.google.com/app/apikey)
-2. Click "Create API Key"
+2. Click "Create API Key" (FREE!)
 3. Copy the key (starts with `AIza...`)
 
 ## 🎬 Try It Out
@@ -23,8 +23,11 @@ poetry install
 # Set your API key (replace with your actual key)
 export GOOGLE_API_KEY="your_key_here"
 
-# Quick test with a news video (recommended by Zac!)
-poetry run clipscribe transcribe "https://www.youtube.com/watch?v=UjDpW_SOrlw"
+# Quick test with a real PBS video (recommended by Zac!)
+poetry run clipscribe transcribe "https://www.youtube.com/watch?v=xbQzIzx1dhw"
+
+# Or run the demo script for a complete showcase
+poetry run python demo.py
 
 # Launch the full Streamlit UI
 streamlit run app.py

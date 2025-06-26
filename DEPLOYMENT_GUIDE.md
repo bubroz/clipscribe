@@ -12,8 +12,8 @@
 ## 🎯 Recommended: Streamlit Cloud (Fastest Demo)
 
 ### Prerequisites
-- GitHub account
-- Google API key
+- GitHub account  
+- FREE Google API key (get at https://makersuite.google.com/app/apikey)
 - ClipScribe repository pushed to GitHub
 
 ### Step 1: Prepare Repository
