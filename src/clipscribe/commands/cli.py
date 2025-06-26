@@ -534,8 +534,8 @@ def run_cli():
         try:
             # Create a sync wrapper for Click
             def sync_wrapper():
-                future = asyncio.ensure_future(cli.main(standalone_mode=False))
-                loop.run_until_complete(future)
+                # Call CLI directly, not as a coroutine
+                cli.main(standalone_mode=False)
             
             sync_wrapper()
         finally:

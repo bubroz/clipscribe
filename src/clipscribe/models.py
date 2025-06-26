@@ -1,9 +1,12 @@
 """Video Intelligence Models for Chimera Integration."""
 
-from typing import List, Dict, Any, Optional, Union
+from typing import List, Dict, Any, Optional, Union, TYPE_CHECKING
 from datetime import datetime
 from pydantic import BaseModel, Field, HttpUrl
 from enum import Enum
+
+if TYPE_CHECKING:
+    from typing import ForwardRef
 
 
 class VideoChapter(BaseModel):
@@ -161,7 +164,7 @@ class MultiVideoIntelligence(BaseModel):
     
     # Video references
     video_ids: List[str] = Field(default_factory=list, description="Individual video IDs in collection")
-    videos: List[VideoIntelligence] = Field(default_factory=list, description="Full video intelligence objects")
+    videos: List['VideoIntelligence'] = Field(default_factory=list, description="Full video intelligence objects")
     
     # Series-specific metadata (if applicable)
     series_metadata: Optional[SeriesMetadata] = None
@@ -274,4 +277,8 @@ class VideoIntelligence(BaseModel):
         json_encoders = {
             datetime: lambda v: v.isoformat() if v else None,
             HttpUrl: lambda v: str(v)
-        } 
+        }
+
+
+# Update forward references
+MultiVideoIntelligence.model_rebuild() 
