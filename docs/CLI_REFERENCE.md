@@ -1,6 +1,6 @@
-# ClipScribe CLI Reference
+# ClipScribe CLI Reference (v2.12.0)
 
-Complete reference for all ClipScribe commands and options.
+Complete reference for all ClipScribe commands and options, including new entity source analysis tools.
 
 ## Global Options
 
@@ -159,6 +159,60 @@ clipscribe platforms
 - Lists popular platforms
 - Notes that 1800+ total platforms are supported
 - Link to complete list
+
+## Entity Source Analysis Tools (NEW in v2.12.0)
+
+### `analyze_entity_sources.py` - Analyze extraction method effectiveness
+
+Comprehensive analysis tool for understanding which extraction methods (SpaCy, GLiNER, REBEL) are most effective for your content.
+
+```bash
+python scripts/analyze_entity_sources.py [OPTIONS]
+```
+
+**Options:**
+
+| Option | Description |
+|--------|-------------|
+| `--output-dir OUTPUT_DIR` | Directory containing ClipScribe outputs |
+| `--single-video SINGLE_VIDEO` | Analyze a single video directory |
+| `--compare-methods` | Compare extraction method effectiveness |
+| `--save-csv` | Save results as CSV file |
+| `--save-excel` | Save results as Excel file (NEW in v2.12.0) |
+| `--save-markdown` | Save results as Markdown report |
+| `--create-visualizations` | Create interactive Plotly visualizations (default: True) |
+
+**Examples:**
+
+```bash
+# Analyze all videos in research output with Excel export and visualizations
+python scripts/analyze_entity_sources.py \
+  --output-dir output/research \
+  --create-visualizations \
+  --save-excel \
+  --save-csv \
+  --save-markdown
+
+# Analyze a single video with method comparison
+python scripts/analyze_entity_sources.py \
+  --single-video output/20250126_youtube_UjDpW_SOrlw \
+  --compare-methods \
+  --save-excel
+
+# Batch analysis with comprehensive reporting
+python scripts/analyze_entity_sources.py \
+  --output-dir output/research \
+  --compare-methods \
+  --save-excel \
+  --create-visualizations
+```
+
+**Output:**
+- **Interactive Visualizations**: Pie charts, bar charts, and gauge visualizations (when Plotly available)
+- **Excel Reports**: Multi-sheet analysis with Summary, Source Distribution, Entity Types, and Per-Video Analysis
+- **CSV Reports**: Spreadsheet-friendly data for further analysis
+- **Markdown Reports**: Human-readable analysis with insights and recommendations
+- **Quality Insights**: Automated recommendations based on extraction performance
 
 ## Environment Variables
 

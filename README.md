@@ -1,11 +1,11 @@
-# ClipScribe v2.10.1
+# ClipScribe v2.12.0
 
 <p align="center">
   <strong>AI-powered video intelligence for 1800+ platforms</strong>
 </p>
 
 <p align="center">
-  <em>Now with Entity Source Tracking, Model Caching & Enhanced Performance 🚀</em>
+  <em>Now with Advanced Visualizations, Excel Export & Performance Dashboards 🚀</em>
 </p>
 
 <p align="center">
@@ -37,28 +37,42 @@ ClipScribe is a modern video intelligence tool that leverages Google's Gemini to
 - 🔒 **Data Integrity** - Manifest files include SHA256 checksums for all outputs.
 - 🎯 **Entity Source Tracking** - Track which extraction method (SpaCy, GLiNER, REBEL) found each entity.
 - ⚡ **Performance Optimized** - Model caching provides 3-5x faster batch processing.
+- 📊 **Advanced Visualizations** - Interactive Plotly charts for comprehensive analysis.
+- 📄 **Excel Export** - Multi-sheet Excel exports with professional formatting.
+- 📈 **Performance Dashboards** - Dedicated monitoring interface with real-time analytics.
 
-## 🎉 What's New in v2.10.1
+## 🎉 What's New in v2.12.0
 
-The latest version introduces major performance improvements and transparency features:
+The latest version introduces advanced visualizations and comprehensive export capabilities:
 
-### 🎯 Entity Source Tracking (v2.10.1)
-- **Pipeline Transparency**: New `entity_sources.json` and `entity_sources.csv` files show which extraction method found each entity.
-- **Quality Analysis**: Understand the contribution of SpaCy (basic NER), GLiNER (custom entities), and REBEL (relationships).
-- **Performance Insights**: Identify which extractors work best for different content types.
+### 📊 Advanced Plotly Visualizations (v2.12.0)
+- **Interactive Charts**: Pie charts, bar charts, and gauge visualizations for entity source analysis.
+- **Professional Quality**: Publication-ready charts with hover effects and customizable styling.
+- **Graceful Fallback**: Simple charts when Plotly unavailable for maximum compatibility.
 
-### ⚡ Performance Optimizations (v2.10.1)
-- **Model Caching**: Singleton pattern prevents repeated model loading in batch processing (3-5x performance improvement).
-- **Retry Logic**: Automatic retry for ffmpeg errors with exponential backoff.
-- **Warning Suppression**: Cleaned up console output by suppressing harmless tokenizer warnings.
+### 📄 Excel Export Capabilities (v2.12.0)
+- **Multi-Sheet Workbooks**: Organized data across Summary, Source Distribution, Entity Types, and Per-Video Analysis sheets.
+- **One-Click Downloads**: Streamlit integration for instant Excel file generation.
+- **Comprehensive Data**: All analysis metrics, breakdowns, and insights included.
+
+### 📈 Performance Dashboard Integration (v2.12.0)
+- **Dedicated Streamlit Tab**: Comprehensive performance monitoring interface.
+- **Real-time System Health**: CPU, memory, and disk usage monitoring with gauge visualizations.
+- **Model Cache Analytics**: Hit rates, load times, and efficiency metrics with historical reports.
+
+### 🎯 Previous Enhancements (v2.10.1-v2.11.0)
+- **Entity Source Tracking**: Pipeline transparency with detailed extraction method attribution.
+- **Model Caching**: 3-5x performance improvement through intelligent model reuse.
+- **Enhanced Streamlit UI**: Comprehensive batch processing with real-time progress tracking.
 
 The latest versions of ClipScribe also include these major enhancements:
 
-### 🖥️ Interactive Web UI (v2.8.0)
-- **Run in Browser**: A new Streamlit-based web app (`app.py`) provides a graphical interface for ClipScribe.
-- **Live Progress**: See real-time updates as your video is processed.
-- **Download Results**: Get all output files directly from the UI.
-- **Full Configuration**: Control processing mode, caching, and graph cleaning directly from the sidebar.
+### 🖥️ Enhanced Interactive Web UI (v2.12.0)
+- **Performance Dashboard**: Dedicated tab for comprehensive system monitoring and analytics.
+- **Advanced Visualizations**: Interactive Plotly charts for entity source analysis.
+- **Export Capabilities**: One-click downloads for Excel, CSV, and Markdown formats.
+- **Real-time Analytics**: Live progress tracking with detailed batch processing insights.
+- **Professional Interface**: Enhanced UI with comprehensive batch processing features.
 
 ### 🔬 Research Command (v2.7.0)
 - **Topic-Based Analysis**: Use the new `research` command to analyze multiple videos on a single topic.
@@ -107,8 +121,11 @@ The latest versions of ClipScribe also include these major enhancements:
 # Transcribe a single video
 poetry run clipscribe transcribe "https://youtube.com/watch?v=..."
 
-# Research a topic across multiple videos
+# Research a topic across multiple videos with performance monitoring
 poetry run clipscribe research "James Webb Telescope" --max-results 3
+
+# Analyze entity sources with advanced visualizations and Excel export
+poetry run python scripts/analyze_entity_sources.py --output-dir output/research --create-visualizations --save-excel
 ```
 
 ### Web UI

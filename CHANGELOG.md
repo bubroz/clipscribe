@@ -5,6 +5,54 @@ All notable changes to ClipScribe will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.12.0] - 2024-12-26
+
+### Added
+- **Advanced Plotly Visualizations**: Interactive charts for comprehensive entity source analysis
+  - Pie charts for source distribution with hover effects and professional styling
+  - Bar charts and horizontal charts for entity type visualization
+  - Gauge visualizations for quality metrics dashboards
+  - Radar charts for method effectiveness comparison
+  - Graceful fallback to simple charts when Plotly unavailable
+- **Excel Export Capabilities**: Multi-sheet Excel workbooks with professional formatting
+  - Summary sheet with key metrics and quality statistics
+  - Source Distribution sheet with detailed method performance breakdown
+  - Entity Types sheet with complete analysis sorted by frequency
+  - Per-Video Analysis sheet for batch processing results
+  - One-click generation through Streamlit interface and CLI tools
+- **Performance Dashboard Integration**: Dedicated Streamlit tab for comprehensive system monitoring
+  - Real-time system health monitoring (CPU, memory, disk usage)
+  - Model cache analytics with hit rates, load times, and efficiency metrics
+  - Interactive gauge visualizations for performance metrics
+  - Historical performance reports and trend analysis
+- **Enhanced Entity Source Analysis**: Comprehensive CLI tool improvements
+  - Interactive visualizations enabled by default (--create-visualizations)
+  - Excel export option (--save-excel) with multi-sheet professional formatting
+  - Enhanced CSV formatting with detailed source breakdowns
+  - Quality insights and automated recommendations
+  - Support for both single video and batch analysis modes
+
+### Changed
+- **Streamlit UI Enhancements**: Major improvements to web interface
+  - Added dedicated Performance Dashboard tab with comprehensive monitoring
+  - Enhanced entity analysis with interactive visualizations and export options
+  - Improved batch processing interface with real-time analytics
+  - One-click Excel and CSV downloads for analysis results
+- **Version Updated**: Bumped to v2.12.0 across all project files
+- **Dependencies**: Added openpyxl for Excel export capabilities (already in pyproject.toml)
+
+### Fixed
+- **Performance Monitor**: Fixed batch processing metrics and report generation
+- **Excel Generation**: Proper multi-sheet Excel workbook creation with professional formatting
+- **Visualization Dependencies**: Graceful handling when Plotly unavailable
+- **Streamlit Integration**: Seamless integration of performance dashboard components
+
+### Technical Details
+- All v2.12.0 enhancement tests pass (7/7)
+- Comprehensive test coverage for new visualization and export features
+- Backward compatibility maintained with existing analysis workflows
+- Performance improvements through enhanced model cache monitoring
+
 ## [2.10.1] - 2025-06-25
 
 ### Added

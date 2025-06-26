@@ -6,7 +6,11 @@ This enables detecting domain-specific entities like military hardware, operatio
 """
 
 import logging
-from typing import List, Dict, Any, Optional, Set
+from typing import List, Dict, Any, Optional
+try:
+    from typing import Set
+except ImportError:
+    from collections.abc import Set
 from dataclasses import dataclass
 import warnings
 

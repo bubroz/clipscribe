@@ -28,15 +28,18 @@ export GOOGLE_API_KEY="your-key-here"
 clipscribe transcribe "https://youtube.com/watch?v=..."
 ```
 
-## 💡 Key Features
+## 💡 Key Features (v2.12.0)
 
 - **1800+ Platforms**: YouTube, Twitter, TikTok, Vimeo, and many more
 - **AI-Powered**: Uses Google's Gemini 2.5 Flash for accurate transcription
-- **Cost-Effective**: 92% base savings, now 50-60% additional with v2.5.1 optimizations
-- **Fast**: Process 1 hour of video in just 2-5 minutes
-- **Multiple Formats**: TXT, JSON, CSV, Markdown reports, and GEXF graphs
-- **Data Analysis Ready**: Export entities and relationships as CSV
-- **Professional Reports**: Auto-generated markdown intelligence reports
+- **Cost-Effective**: 92% base savings with intelligent API batching
+- **Fast**: Process 1 hour of video in just 2-5 minutes with model caching
+- **Advanced Visualizations**: Interactive Plotly charts for comprehensive analysis
+- **Excel Export**: Multi-sheet Excel exports with professional formatting
+- **Performance Dashboards**: Real-time system monitoring and analytics
+- **Multiple Formats**: TXT, JSON, CSV, Excel, Markdown reports, and GEXF graphs
+- **Entity Source Tracking**: Track which extraction method found each entity
+- **Professional Reports**: Auto-generated markdown intelligence reports with interactive charts
 
 ## 🔗 Links
 

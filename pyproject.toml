@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "clipscribe"
-version = "2.10.1"
+version = "2.12.0"
 description = "AI-powered video transcription and analysis tool using Gemini Flash"
 authors = ["Zac Forristall <zforristall@gmail.com>"]
 readme = "README.md"
@@ -73,7 +73,7 @@ exclude_dirs = ["tests"]
 skips = ["B101"]
 
 [tool.poetry.dependencies]
-python = "^3.12"
+python = ">=3.12,<3.14"
 click = "^8.1.7"
 rich = "^13.7.0"
 python-dotenv = "^1.0.0"
@@ -96,12 +96,13 @@ networkx = "^3.0.0"
 # ffmpeg-python = "^0.2.0"
 pytz = "^2024.1"
 numpy = "^2.1.0"  # Required for Python 3.13 support
-# pandas = "^2.2.2"
+pandas = "^2.2.2"
 pydantic-settings = "^2.0.0"
 aiofiles = "^23.0.0"
 pyyaml = "^6.0.0"
 pyvis = "^0.3.2"
 plotly = "^6.1.2"
+openpyxl = "^3.1.2"
 httpx = "0.23.3"
 streamlit = "^1.46.0"
 

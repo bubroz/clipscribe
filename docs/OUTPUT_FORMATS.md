@@ -12,8 +12,9 @@ output/
     ├── metadata.json           # Lightweight video and processing metadata
     ├── entities.json           # All extracted entities (from all sources)
     ├── entities.csv            # Entities in CSV format for spreadsheets
-    ├── entity_sources.json     # NEW: Entity source tracking (SpaCy/GLiNER/REBEL)
-    ├── entity_sources.csv      # NEW: Entity sources in CSV format
+    ├── entity_sources.json     # Entity source tracking (SpaCy/GLiNER/REBEL)
+    ├── entity_sources.csv      # Entity sources in CSV format
+    ├── entity_analysis.xlsx    # NEW v2.12.0: Multi-sheet Excel analysis report
     ├── relationships.json      # All extracted entity relationships
     ├── relationships.csv       # Relationships in CSV format for spreadsheets
     ├── knowledge_graph.json    # Graph data (nodes and edges)
@@ -48,12 +49,21 @@ A complete list of all entities extracted from the video.
 - **`entities.csv`**: A spreadsheet-friendly format containing the most important fields.
 - **Source Tracking**: Both formats include the source of the entity (e.g., `SpaCy`, `GLiNER`, `REBEL`) for pipeline transparency.
 
-### entity_sources.json / entity_sources.csv (**NEW in v2.10.1**)
+### entity_sources.json / entity_sources.csv
 Detailed breakdown of which extraction method found each entity.
 - **`entity_sources.json`**: Complete analysis with counts by source and full entity details.
 - **`entity_sources.csv`**: Simple spreadsheet format for quick analysis.
 - **Pipeline Transparency**: Shows exactly how many entities came from SpaCy (basic NER), GLiNER (custom), or REBEL (relationships).
 - **Quality Analysis**: Helps identify which extraction methods are most effective for different content types.
+
+### entity_analysis.xlsx (**NEW in v2.12.0**)
+Professional multi-sheet Excel analysis report with comprehensive data breakdown.
+- **Summary Sheet**: Key metrics, entity counts, and quality statistics.
+- **Source Distribution Sheet**: Detailed breakdown of extraction method performance with percentages.
+- **Entity Types Sheet**: Complete entity type analysis sorted by frequency.
+- **Per-Video Analysis Sheet**: Individual video metrics for batch processing results.
+- **Professional Formatting**: Clean, readable layouts with proper headers and data types.
+- **One-Click Generation**: Available through Streamlit interface and CLI tools.
 
 ### relationships.json / relationships.csv
 A list of all semantic relationships (subject-predicate-object triples) extracted.
@@ -111,8 +121,14 @@ output/20250624_youtube_UjDpW_SOrlw/
 
 ## Format Changes
 
+### v2.12.0 Enhancements
+- **entity_analysis.xlsx**: NEW multi-sheet Excel analysis reports with professional formatting.
+- **Advanced Visualizations**: Interactive Plotly charts for entity source analysis (CLI and Streamlit).
+- **Enhanced CSV Formatting**: Improved CSV exports with source breakdowns and detailed metrics.
+- **Performance Dashboard**: Dedicated Streamlit tab for comprehensive system monitoring.
+
 ### v2.10.1 Enhancements
-- **entity_sources.json/csv**: NEW files providing detailed breakdown of which extraction method found each entity.
+- **entity_sources.json/csv**: Files providing detailed breakdown of which extraction method found each entity.
 - **Model Caching**: Significant performance improvements for batch processing through model reuse.
 - **Error Handling**: Improved retry logic for download failures and better error recovery.
 

@@ -11,7 +11,7 @@ This provides comprehensive intelligence extraction while maintaining cost effic
 """
 
 import logging
-from typing import List, Dict, Any, Optional, Tuple
+from typing import List, Dict, Any, Optional, Tuple, Set
 import asyncio
 from collections import defaultdict
 import os

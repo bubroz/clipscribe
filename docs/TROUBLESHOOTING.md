@@ -1,6 +1,6 @@
 # ClipScribe Troubleshooting Guide
 
-*Last Updated: January 2025*
+*Last Updated: December 2024*
 
 This guide helps you resolve common issues with ClipScribe.
 

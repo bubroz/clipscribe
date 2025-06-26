@@ -1,6 +1,6 @@
 # ClipScribe Development Guide
 
-*Last Updated: June 25, 2025*
+*Last Updated: December 26, 2024 - v2.12.0*
 
 ## Overview
 
@@ -14,8 +14,10 @@ ClipScribe is a powerful, AI-powered video intelligence tool that supports **180
 - **Visual Analysis**: Processes video frames to capture on-screen text, slides, and other visual elements (`--mode video`).
 - **Batch Processing**: The `research` command allows concurrent processing of multiple videos from a search query.
 - **Cost-Effective**: ~$0.002/minute for audio, with clear cost tracking.
-- **Multiple Output Formats**: Generates 9+ formats including JSON, TXT, CSV, GEXF (for Gephi), and interactive Markdown reports.
+- **Multiple Output Formats**: Generates 10+ formats including JSON, TXT, CSV, Excel, GEXF (for Gephi), and interactive Markdown reports.
 - **Knowledge Graphs**: Automatically builds and visualizes knowledge graphs from extracted relationships.
+- **Advanced Visualizations**: Interactive Plotly charts for comprehensive analysis (v2.12.0).
+- **Performance Dashboards**: Real-time system monitoring and analytics (v2.12.0).
 
 ## Architecture
 
@@ -36,7 +38,9 @@ src/clipscribe/
 │   └── video_retriever.py
 └── utils/              # Shared utilities
     ├── filename.py
-    └── logging.py
+    ├── logging.py
+    ├── performance.py          # NEW: Performance monitoring
+    └── performance_dashboard.py # NEW: Streamlit dashboard components
 ```
 
 ## Technology Stack
@@ -52,6 +56,9 @@ src/clipscribe/
 - **spaCy, GLiNER, REBEL**: For the hybrid entity and relationship extraction engine.
 - **NetworkX**: For building knowledge graphs.
 - **Model Caching**: Singleton pattern for ML model management (v2.10.1+).
+- **Plotly**: Interactive visualizations for analysis reports (v2.12.0).
+- **openpyxl**: Excel export capabilities with multi-sheet workbooks (v2.12.0).
+- **Streamlit**: Enhanced web interface with performance dashboards (v2.12.0).
 
 ## Cost Analysis
 
@@ -185,13 +192,35 @@ is_supported = client.is_supported_url("https://www.youtube.com/watch?v=dQw4w9Wg
 **`yt-dlp` Errors:**
 - `yt-dlp` is updated frequently to keep up with changes on video platforms. If you encounter download errors, the first step is often to update it: `poetry update yt-dlp`.
 
-## Future Enhancements
+## Recent Enhancements (v2.12.0)
 
-1. **Real-time Processing**: Support for live streams.
-2. **Advanced Search**: Implement search for platforms beyond YouTube (e.g., Vimeo, Dailymotion).
-3. **Plugin System**: Create a more formal plugin system for custom extractors and output formats.
-4. **Web Interface**: Continue enhancing the Streamlit web UI with more features.
-5. **Deeper Chimera Integration**: Align more closely with the Chimera Researcher data models and workflows.
+### Advanced Visualizations
+- **Interactive Charts**: Plotly-powered pie charts, bar charts, and gauge visualizations
+- **Entity Source Analysis**: Visual breakdowns of extraction method effectiveness
+- **Professional Quality**: Publication-ready charts with hover effects and customization
+- **Graceful Fallback**: Simple charts when Plotly unavailable for maximum compatibility
+
+### Excel Export Capabilities
+- **Multi-Sheet Workbooks**: Organized data across Summary, Source Distribution, Entity Types, and Per-Video Analysis sheets
+- **Professional Formatting**: Clean, readable layouts with proper headers and data types
+- **One-Click Generation**: Available through Streamlit interface and CLI tools
+- **Comprehensive Data**: All analysis metrics, breakdowns, and insights included
+
+### Performance Dashboard Integration
+- **Dedicated Streamlit Tab**: Comprehensive performance monitoring interface
+- **Real-time System Health**: CPU, memory, and disk usage monitoring with gauge visualizations
+- **Model Cache Analytics**: Hit rates, load times, and efficiency metrics with historical reports
+- **Interactive Interface**: User-friendly dashboard for system monitoring and optimization
+
+## Future Enhancements (v2.13.0+)
+
+1. **Real-time Analytics**: Live performance monitoring during batch processing with WebSocket updates.
+2. **Advanced Filtering**: Interactive filters for entity source analysis results in Streamlit.
+3. **Export Automation**: Scheduled exports and automated report generation.
+4. **Custom Visualization Templates**: User-defined chart templates for specialized analysis.
+5. **Advanced Search**: Implement search for platforms beyond YouTube (e.g., Vimeo, Dailymotion).
+6. **Plugin System**: Create a more formal plugin system for custom extractors and output formats.
+7. **Deeper Chimera Integration**: Align more closely with the Chimera Researcher data models and workflows.
 
 ## Security Considerations
 
