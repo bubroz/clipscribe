@@ -717,4 +717,21 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
 - Ensured Mermaid syntax is clean and renders correctly in viewers.
 - Cleaned up entity names for better display in diagrams.
 
-## [2.5.0] - 2024-06-24 
+## [2.5.0] - 2024-06-24
+
+### Added
+- Event Timeline extraction from video key points
+- ConsolidatedTimeline and TimelineEvent data models
+- Collection output directory structure (`output/collections/`)
+- Timeline JSON export with chronological event ordering
+
+### Changed
+- Upgraded GEXF export format from version 1.2draft to 1.3
+- Simplified GEXF color definitions using new `hex` attribute
+- Changed confidence attribute type from `float` to `double` in GEXF
+- Consolidated and cleaned up `.cursor/rules/` documentation (2025-06-26)
+
+### Fixed
+- CLI async command handling with proper sync/async separation
+- Collection directory naming to use IDs instead of titles
+- Output filename generation for empty extensions 
