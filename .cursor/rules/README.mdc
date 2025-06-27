@@ -40,6 +40,7 @@ alwaysApply: false  # Whether the rule always applies
 - `file-organization.mdc` - File placement and project structure
 - `documentation-management.mdc` - Documentation organization standards
 - `documentation-updates.mdc` - When to update documentation
+- `continuation-prompt-format.mdc` - Format rules for CONTINUATION_PROMPT.md
 - `visualization-diagrams.mdc` - Knowledge graph visualization
 - `troubleshooting-guide.mdc` - Common issues and solutions
 

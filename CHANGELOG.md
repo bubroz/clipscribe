@@ -20,19 +20,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### ✨ New Features
 
-#### 1. GEXF 1.3 Upgrade
+#### 1. ✅ Enhanced Temporal Intelligence for Event Timelines (COMPLETE - 2025-06-26 23:23 PDT)
+- **LLM-Based Date Extraction**: The timeline synthesis engine now uses an LLM to parse specific dates from video titles and key point descriptions (e.g., "last Tuesday", "in 1945").
+- **Sophisticated Fallback Logic**: Implements a robust fallback mechanism. It prioritizes dates from key point content, then from the video title, and finally defaults to the video's publication date.
+- **Structured Date Models**: Added a new `ExtractedDate` Pydantic model to store parsed dates, original text, confidence scores, and the source of the extraction.
+- **Traceable Timestamps**: The `TimelineEvent` model now includes `extracted_date` and `date_source` fields, providing full traceability for how each event's timestamp was determined.
+- **Asynchronous by Design**: The entire timeline synthesis process is now asynchronous to accommodate the new LLM calls without blocking.
+
+#### 2. GEXF 1.3 Upgrade
 - **Upgraded GEXF export** from 1.2draft to GEXF 1.3 specification
 - Updated XML namespaces and schemas: `http://www.gexf.net/1.3`
 - Simplified color definitions using hex attributes for better Gephi compatibility
 - Enhanced node styling with confidence-based sizing
 
-#### 2. Knowledge Synthesis Engine
+#### 3. Knowledge Synthesis Engine
 - **Timeline Synthesis**: `_synthesize_event_timeline` method creates chronological timelines from key points across multiple videos
 - **Data Models**: Added `TimelineEvent` and `ConsolidatedTimeline` Pydantic models
 - **Event Correlation**: Generates unique event IDs and calculates absolute timestamps
 - **Multi-Video Intelligence**: Enhanced `MultiVideoIntelligence` with `consolidated_timeline` field
 
-#### 3. Collection Output Management
+#### 4. Collection Output Management
 - **Centralized Output Saving**: `save_collection_outputs` method for consolidated timeline, unified knowledge graph, and full collection intelligence
 - **Consistent Directory Naming**: Fixed naming inconsistencies between file saving and reporting
 - **Enhanced CLI Integration**: Updated CLI to use centralized collection output saving

@@ -129,6 +129,14 @@ class CrossVideoRelationship(BaseModel):
     properties: Dict[str, Any] = Field(default_factory=dict)
 
 
+class ExtractedDate(BaseModel):
+    """Represents a date extracted from text by an LLM."""
+    parsed_date: datetime = Field(..., description="The fully resolved datetime object")
+    original_text: str = Field(..., description="The original text the date was extracted from")
+    confidence: float = Field(default=0.8, description="The model's confidence in the extraction")
+    source: str = Field(..., description="Where the date was found (e.g., 'title', 'description', 'content')")
+
+
 class TimelineEvent(BaseModel):
     """A single, timestamped event that occurred across a collection of videos."""
     event_id: str = Field(..., description="Unique identifier for the event")
@@ -139,6 +147,8 @@ class TimelineEvent(BaseModel):
     video_timestamp_seconds: int = Field(..., description="The timestamp of the event within its source video, in seconds")
     involved_entities: List[str] = Field(default_factory=list, description="Names of entities involved in this event")
     confidence: float = Field(default=0.8, description="Confidence score for the event's accuracy and relevance")
+    extracted_date: Optional[ExtractedDate] = Field(None, description="Detailed info if date was extracted from text")
+    date_source: str = Field("video_published_date", description="Source of the event's timestamp")
 
 
 class ConsolidatedTimeline(BaseModel):

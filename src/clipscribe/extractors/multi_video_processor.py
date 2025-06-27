@@ -7,16 +7,16 @@ and unified knowledge graph generation with aggressive AI-powered entity merging
 
 import logging
 import asyncio
+import json
 from typing import List, Dict, Any, Optional, Tuple, Set
 from datetime import datetime, timedelta
 from collections import defaultdict, Counter
-import json
 
 from ..models import (
     VideoIntelligence, MultiVideoIntelligence, CrossVideoEntity, 
     CrossVideoRelationship, NarrativeSegment, TopicEvolution,
     VideoCollectionType, SeriesMetadata, Entity, Relationship, Topic,
-    ConsolidatedTimeline, TimelineEvent
+    ConsolidatedTimeline, TimelineEvent, ExtractedDate
 )
 from .entity_normalizer import EntityNormalizer
 from .series_detector import SeriesDetector
@@ -111,6 +111,10 @@ class MultiVideoProcessor:
         # Step 2: Cross-video entity resolution
         unified_entities = await self._resolve_cross_video_entities(videos)
         
+        # Step 2b: (Optional) AI-powered validation of entity merging
+        if self.use_ai_validation:
+            unified_entities = await self._ai_validate_entity_merging(unified_entities, videos)
+        
         # Step 3: Cross-video relationship extraction
         cross_video_relationships = await self._extract_cross_video_relationships(videos, unified_entities)
         
@@ -132,7 +136,7 @@ class MultiVideoProcessor:
         key_insights = await self._extract_key_insights(videos, unified_entities, cross_video_relationships, topic_evolution)
         
         # Step 9: Synthesize event timeline
-        consolidated_timeline = self._synthesize_event_timeline(videos, unified_entities, collection_id)
+        consolidated_timeline = await self._synthesize_event_timeline(videos, unified_entities, collection_id)
         
         # Step 10: Generate unified knowledge graph
         unified_knowledge_graph = self._generate_unified_knowledge_graph(unified_entities, cross_video_relationships)
@@ -246,10 +250,6 @@ class MultiVideoProcessor:
                 source_videos=source_videos
             )
             cross_video_entities.append(cross_video_entity)
-        
-        # AI validation of entity merging (if enabled)
-        if self.use_ai_validation and len(cross_video_entities) > 10:
-            cross_video_entities = await self._ai_validate_entity_merging(cross_video_entities, videos)
         
         logger.info(f"Resolved {len(all_entities)} entities to {len(cross_video_entities)} cross-video entities")
         return cross_video_entities
@@ -970,8 +970,67 @@ class MultiVideoProcessor:
         except Exception as e:
             logger.warning(f"AI entity validation failed: {e}")
             return entities
-    
-    def _synthesize_event_timeline(
+
+    async def _extract_date_from_text(self, text: str, source_type: str) -> Optional[ExtractedDate]:
+        """
+        Uses an LLM to extract a specific date from a string of text.
+
+        Args:
+            text: The text to analyze (e.g., video title, key point).
+            source_type: A string indicating the source ('title', 'description', 'content').
+
+        Returns:
+            An ExtractedDate object if a date is found, otherwise None.
+        """
+        if not self.use_ai_validation:
+            return None
+
+        prompt = f"""
+        Analyze the following text and extract the single most specific date mentioned.
+        The current year is {datetime.now().year}.
+
+        Text: "{text}"
+
+        If you find a date, respond with a JSON object in the following format:
+        {{
+            "parsed_date": "YYYY-MM-DDTHH:MM:SS",
+            "original_text": "the exact text of the date you found",
+            "confidence": "your confidence from 0.0 to 1.0"
+        }}
+
+        - "parsed_date" must be a full ISO 8601 timestamp.
+        - If only a year is mentioned (e.g., "in 1995"), use January 1st of that year.
+        - If a relative date is mentioned (e.g., "last Tuesday"), calculate the actual date.
+        - If no specific date is found, respond with the single word: "None".
+        """
+        try:
+            response = await self.ai_model.generate_content_async(prompt)
+            response_text = response.text.strip()
+
+            if response_text.lower() == "none":
+                return None
+
+            # Clean the response text to ensure it's valid JSON
+            clean_json_text = response_text.strip().replace('`', '')
+            if clean_json_text.startswith('json'):
+                clean_json_text = clean_json_text[4:]
+            
+            data = json.loads(clean_json_text)
+
+            return ExtractedDate(
+                parsed_date=datetime.fromisoformat(data["parsed_date"]),
+                original_text=data["original_text"],
+                confidence=float(data["confidence"]),
+                source=source_type
+            )
+        except (json.JSONDecodeError, KeyError, ValueError) as e:
+            logger.warning(f"Could not parse date from LLM response: {e}. Response was: '{response.text[:100]}'")
+            return None
+        except Exception as e:
+            logger.error(f"An unexpected error occurred during date extraction: {e}")
+            return None
+
+    async def _synthesize_event_timeline(
         self, 
         videos: List[VideoIntelligence], 
         unified_entities: List[CrossVideoEntity],
@@ -980,8 +1039,8 @@ class MultiVideoProcessor:
         """
         Synthesizes a consolidated, chronological event timeline from a collection of videos.
         
-        This method uses key points from each video as the basis for events, calculates
-        absolute timestamps, and resolves involved entities.
+        This method uses LLM-based date extraction for higher accuracy and falls back to
+        publication dates if no specific date is found.
         
         Args:
             videos: The list of processed VideoIntelligence objects.
@@ -991,7 +1050,7 @@ class MultiVideoProcessor:
         Returns:
             A ConsolidatedTimeline object containing the sorted list of events.
         """
-        logger.info("Synthesizing consolidated event timeline...")
+        logger.info("Synthesizing consolidated event timeline with temporal extraction...")
         all_events: List[TimelineEvent] = []
         
         entity_lookup = {entity.canonical_name.lower(): entity for entity in unified_entities}
@@ -1004,10 +1063,30 @@ class MultiVideoProcessor:
                 logger.warning(f"Skipping video {video.metadata.video_id} for timeline synthesis due to missing publication date.")
                 continue
 
+            # Attempt to get a more accurate base date from the video title first
+            base_date_from_title = await self._extract_date_from_text(video.metadata.title, 'video_title')
+            
             for key_point in video.key_points:
-                # Calculate absolute timestamp for the event
-                event_timestamp = video.metadata.published_at + timedelta(seconds=key_point.timestamp)
+                event_timestamp = None
+                extracted_date_obj = None
+                date_source = "video_published_date"
+
+                # 1. Try to extract date from the key point itself
+                date_from_content = await self._extract_date_from_text(key_point.text, 'key_point_content')
                 
+                if date_from_content:
+                    event_timestamp = date_from_content.parsed_date
+                    extracted_date_obj = date_from_content
+                    date_source = "key_point_content"
+                # 2. Fallback to date from video title
+                elif base_date_from_title:
+                    event_timestamp = base_date_from_title.parsed_date
+                    extracted_date_obj = base_date_from_title
+                    date_source = "video_title"
+                # 3. Fallback to video publication date
+                else:
+                    event_timestamp = video.metadata.published_at + timedelta(seconds=key_point.timestamp)
+
                 # Identify involved entities mentioned in the key point text
                 involved_entities = {
                     entity_lookup[name.lower()].canonical_name
@@ -1023,7 +1102,9 @@ class MultiVideoProcessor:
                     source_video_title=video.metadata.title,
                     video_timestamp_seconds=key_point.timestamp,
                     involved_entities=sorted(list(involved_entities)),
-                    confidence=key_point.importance
+                    confidence=key_point.importance,
+                    extracted_date=extracted_date_obj,
+                    date_source=date_source
                 )
                 all_events.append(event)
 

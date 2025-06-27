@@ -40,16 +40,32 @@ clipscribe/
 │   │   ├── spacy_extractor.py
 │   │   ├── gliner_extractor.py
 │   │   ├── rebel_extractor.py
-│   │   └── hybrid_extractor.py
+│   │   ├── hybrid_extractor.py
+│   │   ├── advanced_hybrid_extractor.py
+│   │   ├── batch_extractor.py
+│   │   ├── entity_normalizer.py
+│   │   ├── graph_cleaner.py
+│   │   ├── model_manager.py
+│   │   ├── multi_video_processor.py
+│   │   ├── series_detector.py
+│   │   └── streaming_extractor.py
 │   ├── retrievers/         # Video/audio processing
 │   │   ├── __init__.py
 │   │   ├── youtube_client.py
+│   │   ├── universal_video_client.py
 │   │   ├── transcriber.py
-│   │   └── video_retriever.py
+│   │   ├── video_retriever.py
+│   │   ├── video_mode_detector.py
+│   │   └── gemini_pool.py
 │   ├── utils/              # Utilities
 │   │   ├── __init__.py
 │   │   ├── filename.py
-│   │   └── logging.py
+│   │   ├── file_utils.py
+│   │   ├── logging.py
+│   │   ├── progress.py
+│   │   ├── batch_progress.py
+│   │   ├── performance.py
+│   │   └── performance_dashboard.py
 │   ├── models.py           # Data models
 │   └── version.py          # Version info
 │
@@ -67,20 +83,34 @@ clipscribe/
 │   ├── DEVELOPMENT.md
 │   ├── OUTPUT_FORMATS.md
 │   ├── PLATFORMS.md
-│   └── VISUALIZING_GRAPHS.md
+│   ├── VISUALIZING_GRAPHS.md
+│   ├── TROUBLESHOOTING.md
+│   └── EXTRACTION_TECHNOLOGY.md
 │
 ├── examples/               # Example scripts
 │   ├── README.md
 │   ├── quick_start.py
-│   ├── advanced_extraction_demo.py
-│   └── batch_processing.py
+│   ├── advanced_features_demo.py
+│   ├── batch_processing.py
+│   ├── cli_usage.py
+│   ├── cost_optimization.py
+│   ├── extraction_comparison.py
+│   ├── multi_platform_demo.py
+│   ├── multi_video_collection_demo.py
+│   ├── output_formats.py
+│   ├── structured_output_demo.py
+│   └── video_mode_demo.py
 │
 ├── scripts/                # Utility scripts
 │   ├── convert_to_gephi.py
-│   └── view_knowledge_graph.py
+│   ├── convert_to_chimera.py
+│   ├── analyze_entity_sources.py
+│   ├── filter_knowledge_graph.py
+│   └── visualize.py
 │
 ├── output/                 # Generated output (git-ignored)
-│   └── YYYYMMDD_platform_id/
+│   ├── YYYYMMDD_platform_id/
+│   └── collections/        # Multi-video collections
 │
 ├── logs/                   # Log files (git-ignored)
 │
