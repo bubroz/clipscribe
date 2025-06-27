@@ -10,6 +10,11 @@ from pathlib import Path
 from datetime import datetime, timedelta
 from typing import Dict, List, Any
 import os
+import plotly.graph_objects as go
+import plotly.express as px
+from plotly.subplots import make_subplots
+import pandas as pd
+import numpy as np
 
 # Add the src directory to the path for imports
 src_path = Path(__file__).parent.parent.parent / "src"
@@ -68,7 +73,7 @@ def load_collection_costs():
     return costs
 
 def show_cost_overview(costs: List[Dict]):
-    """Show cost overview metrics"""
+    """Show cost overview metrics with interactive charts"""
     
     if not costs:
         st.info("No cost data available. Process some videos to see analytics.")
@@ -97,94 +102,296 @@ def show_cost_overview(costs: List[Dict]):
         minutes = int((total_time % 3600) // 60)
         st.metric("Total Processing Time", f"{hours}h {minutes}m")
     
-    # Cost trends
-    st.subheader("📈 Cost Trends")
+    # Enhanced cost trends with interactive charts
+    st.subheader("📈 Interactive Cost Analysis")
+    
+    if len(costs) > 1:
+        # Prepare cost trend data
+        cost_df = pd.DataFrame(costs)
+        cost_df['date'] = pd.to_datetime(cost_df['date'], errors='coerce')
+        cost_df = cost_df.sort_values('date').dropna(subset=['date'])
+        
+        if not cost_df.empty:
+            # Cost trend over time
+            fig_trend = go.Figure()
+            
+            fig_trend.add_trace(go.Scatter(
+                x=cost_df['date'],
+                y=cost_df['total_cost'],
+                mode='lines+markers',
+                name='Total Cost',
+                line=dict(color='blue', width=3),
+                marker=dict(size=8),
+                hovertemplate="<b>%{y:.2f}</b><br>Date: %{x}<br>Collection: %{customdata}<extra></extra>",
+                customdata=cost_df['collection_id']
+            ))
+            
+            fig_trend.update_layout(
+                title="Cost Trend Over Time",
+                xaxis_title="Date",
+                yaxis_title="Cost ($)",
+                height=400,
+                hovermode='closest'
+            )
+            
+            st.plotly_chart(fig_trend, use_container_width=True)
+            
+            # Cost efficiency analysis
+            col1, col2 = st.columns(2)
+            
+            with col1:
+                # Cost per video scatter plot
+                fig_efficiency = go.Figure()
+                
+                fig_efficiency.add_trace(go.Scatter(
+                    x=cost_df['video_count'],
+                    y=cost_df['total_cost'] / cost_df['video_count'],
+                    mode='markers',
+                    marker=dict(
+                        size=cost_df['processing_time'] / 60,  # Size by processing time
+                        color=cost_df['total_cost'],
+                        colorscale='Viridis',
+                        colorbar=dict(title="Total Cost ($)"),
+                        sizemin=5,
+                        sizemax=25
+                    ),
+                    text=cost_df['collection_id'],
+                    hovertemplate="<b>%{text}</b><br>" +
+                                 "Videos: %{x}<br>" +
+                                 "Cost/Video: $%{y:.2f}<br>" +
+                                 "Processing Time: %{marker.size:.0f} min<extra></extra>"
+                ))
+                
+                fig_efficiency.update_layout(
+                    title="Cost Efficiency Analysis",
+                    xaxis_title="Number of Videos",
+                    yaxis_title="Cost per Video ($)",
+                    height=400
+                )
+                
+                st.plotly_chart(fig_efficiency, use_container_width=True)
+            
+            with col2:
+                # Processing time vs cost
+                fig_time_cost = go.Figure()
+                
+                fig_time_cost.add_trace(go.Scatter(
+                    x=cost_df['processing_time'] / 60,  # Convert to minutes
+                    y=cost_df['total_cost'],
+                    mode='markers',
+                    marker=dict(
+                        size=cost_df['video_count'] * 3,
+                        color='orange',
+                        line=dict(width=1, color='white')
+                    ),
+                    text=cost_df['collection_id'],
+                    hovertemplate="<b>%{text}</b><br>" +
+                                 "Processing Time: %{x:.0f} min<br>" +
+                                 "Total Cost: $%{y:.2f}<br>" +
+                                 "Videos: %{marker.size:.0f}<extra></extra>"
+                ))
+                
+                fig_time_cost.update_layout(
+                    title="Processing Time vs Cost",
+                    xaxis_title="Processing Time (minutes)",
+                    yaxis_title="Total Cost ($)",
+                    height=400
+                )
+                
+                st.plotly_chart(fig_time_cost, use_container_width=True)
+    
+    # Recent costs table (enhanced)
+    st.subheader("Recent Processing History")
     
     # Sort costs by date
     sorted_costs = sorted(costs, key=lambda x: x.get('date', ''), reverse=True)
     
-    # Recent costs table
     if sorted_costs:
-        st.subheader("Recent Processing Costs")
+        # Create enhanced table
+        recent_df = pd.DataFrame([
+            {
+                'Collection': cost['collection_id'],
+                'Date': cost['date'],
+                'Videos': cost['video_count'],
+                'Total Cost': f"${cost['total_cost']:.2f}",
+                'Cost/Video': f"${cost['total_cost']/cost['video_count']:.2f}" if cost['video_count'] > 0 else "$0.00",
+                'Processing Time': f"{int(cost['processing_time']//60)}m {int(cost['processing_time']%60)}s"
+            }
+            for cost in sorted_costs[:10]
+        ])
         
-        for cost in sorted_costs[:10]:  # Show last 10
-            with st.expander(f"{cost['collection_id']} - ${cost['total_cost']:.2f}", expanded=False):
-                col1, col2 = st.columns(2)
-                
-                with col1:
-                    st.write(f"**Date:** {cost['date']}")
-                    st.write(f"**Videos:** {cost['video_count']}")
-                    st.write(f"**Total Cost:** ${cost['total_cost']:.2f}")
-                
-                with col2:
-                    if cost['video_count'] > 0:
-                        cost_per_video = cost['total_cost'] / cost['video_count']
-                        st.write(f"**Cost per Video:** ${cost_per_video:.2f}")
-                    
-                    minutes = int(cost['processing_time'] // 60)
-                    st.write(f"**Processing Time:** {minutes} minutes")
+        st.dataframe(recent_df, use_container_width=True)
 
 def show_performance_metrics():
-    """Show performance and system metrics"""
+    """Show enhanced performance and system metrics with gauges and charts"""
     
-    st.subheader("⚡ Performance Metrics")
+    st.subheader("⚡ Enhanced Performance Dashboard")
     
-    # System info
+    # System info with gauges
     col1, col2 = st.columns(2)
     
     with col1:
-        st.markdown("### 💻 System Information")
+        st.markdown("### 💻 System Performance")
         
-        # Get Python version
-        import sys
-        st.write(f"**Python Version:** {sys.version.split()[0]}")
-        
-        # Check for key dependencies
+        # Get system metrics
         try:
-            import torch
-            st.write(f"**PyTorch:** {torch.__version__}")
+            import psutil
+            cpu_percent = psutil.cpu_percent(interval=1)
+            memory = psutil.virtual_memory()
+            disk = psutil.disk_usage('.')
             
-            # Check for GPU
-            if torch.cuda.is_available():
-                st.success("🟢 CUDA GPU Available")
-            elif hasattr(torch.backends, 'mps') and torch.backends.mps.is_available():
-                st.success("🟢 Apple Metal GPU Available")
-            else:
-                st.warning("🟡 CPU Only")
+            # CPU gauge
+            fig_cpu = go.Figure(go.Indicator(
+                mode = "gauge+number+delta",
+                value = cpu_percent,
+                domain = {'x': [0, 1], 'y': [0, 1]},
+                title = {'text': "CPU Usage (%)"},
+                delta = {'reference': 50},
+                gauge = {
+                    'axis': {'range': [None, 100]},
+                    'bar': {'color': "darkblue"},
+                    'steps': [
+                        {'range': [0, 50], 'color': "lightgray"},
+                        {'range': [50, 80], 'color': "yellow"},
+                        {'range': [80, 100], 'color': "red"}
+                    ],
+                    'threshold': {
+                        'line': {'color': "red", 'width': 4},
+                        'thickness': 0.75,
+                        'value': 90
+                    }
+                }
+            ))
+            fig_cpu.update_layout(height=250)
+            st.plotly_chart(fig_cpu, use_container_width=True)
+            
+            # Memory usage
+            memory_percent = memory.percent
+            fig_memory = go.Figure(go.Indicator(
+                mode = "gauge+number",
+                value = memory_percent,
+                title = {'text': "Memory Usage (%)"},
+                gauge = {
+                    'axis': {'range': [None, 100]},
+                    'bar': {'color': "green"},
+                    'steps': [
+                        {'range': [0, 60], 'color': "lightgray"},
+                        {'range': [60, 85], 'color': "yellow"},
+                        {'range': [85, 100], 'color': "red"}
+                    ]
+                }
+            ))
+            fig_memory.update_layout(height=250)
+            st.plotly_chart(fig_memory, use_container_width=True)
+            
         except ImportError:
-            st.warning("⚠️ PyTorch not available")
-        
-        # Check disk space
-        try:
-            import shutil
-            total, used, free = shutil.disk_usage(".")
-            free_gb = free // (1024**3)
-            total_gb = total // (1024**3)
-            st.write(f"**Disk Space:** {free_gb}GB free / {total_gb}GB total")
-        except:
-            st.write("**Disk Space:** Unable to determine")
+            st.warning("📊 Install psutil for enhanced system monitoring: `pip install psutil`")
+            
+            # Fallback system info
+            import sys
+            st.write(f"**Python Version:** {sys.version.split()[0]}")
+            
+            # Check disk space
+            try:
+                import shutil
+                total, used, free = shutil.disk_usage(".")
+                free_gb = free // (1024**3)
+                total_gb = total // (1024**3)
+                
+                disk_percent = (used / total) * 100
+                fig_disk = go.Figure(go.Indicator(
+                    mode = "gauge+number",
+                    value = disk_percent,
+                    title = {'text': f"Disk Usage (%) - {free_gb}GB free"},
+                    gauge = {
+                        'axis': {'range': [None, 100]},
+                        'bar': {'color': "purple"},
+                        'steps': [
+                            {'range': [0, 70], 'color': "lightgray"},
+                            {'range': [70, 90], 'color': "yellow"},
+                            {'range': [90, 100], 'color': "red"}
+                        ]
+                    }
+                ))
+                fig_disk.update_layout(height=300)
+                st.plotly_chart(fig_disk, use_container_width=True)
+            except:
+                st.write("**Disk Space:** Unable to determine")
     
     with col2:
-        st.markdown("### 🔧 Model Status")
+        st.markdown("### 🔧 Model & Cache Status")
         
-        # Check model cache
+        # Check for key dependencies with status indicators
+        dependency_status = []
+        
+        try:
+            import torch
+            torch_version = torch.__version__
+            dependency_status.append({"name": "PyTorch", "version": torch_version, "status": "✅"})
+            
+            # GPU status
+            if torch.cuda.is_available():
+                gpu_info = "CUDA GPU Available"
+                gpu_status = "🟢"
+            elif hasattr(torch.backends, 'mps') and torch.backends.mps.is_available():
+                gpu_info = "Apple Metal GPU"
+                gpu_status = "🟢"
+            else:
+                gpu_info = "CPU Only"
+                gpu_status = "🟡"
+            
+            dependency_status.append({"name": "GPU Support", "version": gpu_info, "status": gpu_status})
+            
+        except ImportError:
+            dependency_status.append({"name": "PyTorch", "version": "Not installed", "status": "⚠️"})
+        
+        # Check model cache sizes
         model_paths = [
-            "~/.cache/huggingface/transformers",
-            "~/.cache/spacy",
-            "~/.cache/clipscribe"
+            ("HuggingFace", "~/.cache/huggingface/transformers"),
+            ("SpaCy", "~/.cache/spacy"),
+            ("ClipScribe", "~/.cache/clipscribe")
         ]
         
-        for path_str in model_paths:
+        cache_data = []
+        for name, path_str in model_paths:
             path = Path(path_str).expanduser()
             if path.exists():
                 try:
                     size = sum(f.stat().st_size for f in path.rglob('*') if f.is_file())
                     size_mb = size / (1024**2)
-                    st.write(f"**{path.name}:** {size_mb:.1f} MB")
+                    cache_data.append({"name": name, "size_mb": size_mb, "status": "✅"})
                 except:
-                    st.write(f"**{path.name}:** Present")
+                    cache_data.append({"name": name, "size_mb": 0, "status": "⚠️"})
             else:
-                st.write(f"**{path.name}:** Not found")
+                cache_data.append({"name": name, "size_mb": 0, "status": "❌"})
+        
+        # Cache size visualization
+        if cache_data:
+            cache_df = pd.DataFrame(cache_data)
+            
+            fig_cache = go.Figure(data=[go.Bar(
+                x=cache_df['name'],
+                y=cache_df['size_mb'],
+                marker_color=['green' if status == '✅' else 'orange' if status == '⚠️' else 'red' 
+                             for status in cache_df['status']],
+                text=[f"{size:.0f} MB" for size in cache_df['size_mb']],
+                textposition='auto'
+            )])
+            
+            fig_cache.update_layout(
+                title="Model Cache Sizes",
+                xaxis_title="Cache Type",
+                yaxis_title="Size (MB)",
+                height=300
+            )
+            
+            st.plotly_chart(fig_cache, use_container_width=True)
+        
+        # Dependency status table
+        if dependency_status:
+            dep_df = pd.DataFrame(dependency_status)
+            st.markdown("#### Dependency Status")
+            st.dataframe(dep_df, use_container_width=True)
 
 def show_api_usage():
     """Show API usage and quota information"""

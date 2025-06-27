@@ -8,6 +8,11 @@ import json
 import sys
 from pathlib import Path
 from typing import Dict, List, Any
+import plotly.graph_objects as go
+import plotly.express as px
+from plotly.subplots import make_subplots
+import networkx as nx
+import pandas as pd
 
 # Add the src directory to the path for imports
 src_path = Path(__file__).parent.parent.parent / "src"
@@ -189,34 +194,205 @@ def show_entity_explorer(panels: KnowledgePanelCollection):
                 st.markdown("---")
 
 def show_network_visualization(panels: KnowledgePanelCollection):
-    """Show entity relationship network (placeholder for now)"""
+    """Show interactive entity relationship network using Plotly"""
     
-    st.subheader("🕸️ Entity Relationship Network")
+    st.subheader("🕸️ Interactive Entity Relationship Network")
     
-    # For now, show relationship stats
-    st.info("Interactive network visualization coming soon!")
-    
-    # Show relationship summary
+    # Collect all relationships
     all_relationships = []
+    entity_info = {}
+    
     for panel in panels.panels:
+        # Store entity info
+        entity_info[panel.entity_name] = {
+            'type': panel.entity_type,
+            'video_count': panel.video_count,
+            'mention_count': panel.mention_count
+        }
+        
+        # Collect relationships
         for rel in panel.relationships:
             all_relationships.append({
                 'source': panel.entity_name,
                 'target': rel.target_entity,
-                'type': rel.relationship_type
+                'type': rel.relationship_type,
+                'description': rel.description
             })
     
-    if all_relationships:
-        st.write(f"**Total Relationships:** {len(all_relationships)}")
+    if not all_relationships:
+        st.info("No relationships found in this collection.")
+        return
+    
+    # Network configuration
+    col1, col2 = st.columns([3, 1])
+    
+    with col2:
+        st.markdown("### Network Controls")
         
-        # Relationship type distribution
-        rel_types = {}
-        for rel in all_relationships:
-            rel_types[rel['type']] = rel_types.get(rel['type'], 0) + 1
+        # Filter options
+        max_nodes = st.slider("Max nodes to display", 5, min(50, len(entity_info)), 20)
         
-        st.subheader("Relationship Type Distribution")
-        for rel_type, count in sorted(rel_types.items(), key=lambda x: x[1], reverse=True):
-            st.write(f"**{rel_type}:** {count}")
+        # Layout options
+        layout_type = st.selectbox("Layout algorithm", [
+            "Spring Layout",
+            "Circular Layout", 
+            "Kamada-Kawai Layout"
+        ])
+        
+        # Relationship type filter
+        rel_types = list(set(rel['type'] for rel in all_relationships))
+        selected_rel_types = st.multiselect(
+            "Relationship types:",
+            rel_types,
+            default=rel_types[:5] if len(rel_types) > 5 else rel_types
+        )
+    
+    with col1:
+        # Create NetworkX graph
+        G = nx.Graph()
+        
+        # Filter relationships
+        filtered_rels = [rel for rel in all_relationships 
+                        if rel['type'] in selected_rel_types]
+        
+        # Add nodes and edges
+        for rel in filtered_rels:
+            G.add_edge(rel['source'], rel['target'], 
+                      relationship=rel['type'],
+                      description=rel['description'])
+        
+        # Get top nodes by degree
+        node_degrees = dict(G.degree())
+        top_nodes = sorted(node_degrees.items(), key=lambda x: x[1], reverse=True)[:max_nodes]
+        top_node_names = [name for name, degree in top_nodes]
+        
+        # Create subgraph with top nodes
+        subgraph = G.subgraph(top_node_names).copy()
+        
+        if len(subgraph.nodes()) == 0:
+            st.warning("No nodes to display with current filters.")
+            return
+        
+        # Calculate layout
+        if layout_type == "Spring Layout":
+            pos = nx.spring_layout(subgraph, k=3, iterations=50)
+        elif layout_type == "Circular Layout":
+            pos = nx.circular_layout(subgraph)
+        else:  # Kamada-Kawai
+            pos = nx.kamada_kawai_layout(subgraph)
+        
+        # Prepare node data
+        node_trace = go.Scatter(
+            x=[pos[node][0] for node in subgraph.nodes()],
+            y=[pos[node][1] for node in subgraph.nodes()],
+            mode='markers+text',
+            text=[node for node in subgraph.nodes()],
+            textposition="middle center",
+            textfont=dict(size=10, color="white"),
+            hovertemplate="<b>%{text}</b><br>" +
+                         "Type: %{customdata[0]}<br>" +
+                         "Videos: %{customdata[1]}<br>" +
+                         "Mentions: %{customdata[2]}<br>" +
+                         "Connections: %{customdata[3]}<extra></extra>",
+            customdata=[[
+                entity_info.get(node, {}).get('type', 'Unknown'),
+                entity_info.get(node, {}).get('video_count', 0),
+                entity_info.get(node, {}).get('mention_count', 0),
+                subgraph.degree(node)
+            ] for node in subgraph.nodes()],
+            marker=dict(
+                size=[15 + min(entity_info.get(node, {}).get('mention_count', 0) / 10, 25) 
+                     for node in subgraph.nodes()],
+                color=[entity_info.get(node, {}).get('video_count', 1) 
+                      for node in subgraph.nodes()],
+                colorscale='Viridis',
+                colorbar=dict(title="Video Count"),
+                line=dict(width=2, color="white")
+            ),
+            name="Entities"
+        )
+        
+        # Prepare edge data
+        edge_x = []
+        edge_y = []
+        edge_info = []
+        
+        for edge in subgraph.edges(data=True):
+            x0, y0 = pos[edge[0]]
+            x1, y1 = pos[edge[1]]
+            edge_x.extend([x0, x1, None])
+            edge_y.extend([y0, y1, None])
+            
+            # Store edge info for hover
+            rel_type = edge[2].get('relationship', '')
+            description = edge[2].get('description', '')
+            edge_info.append(f"{edge[0]} → {edge[1]}<br>Type: {rel_type}<br>{description}")
+        
+        edge_trace = go.Scatter(
+            x=edge_x, y=edge_y,
+            line=dict(width=1, color='rgba(125,125,125,0.5)'),
+            hoverinfo='none',
+            mode='lines',
+            name="Relationships"
+        )
+        
+        # Create the plot
+        fig = go.Figure(data=[edge_trace, node_trace],
+                       layout=go.Layout(
+                           title=f"Entity Relationship Network ({len(subgraph.nodes())} entities, {len(subgraph.edges())} relationships)",
+                           titlefont_size=16,
+                           showlegend=False,
+                           hovermode='closest',
+                           margin=dict(b=20,l=5,r=5,t=40),
+                           annotations=[ dict(
+                               text="Node size = mention count | Color = video count | Click and drag to explore",
+                               showarrow=False,
+                               xref="paper", yref="paper",
+                               x=0.005, y=-0.002,
+                               xanchor="left", yanchor="bottom",
+                               font=dict(color="gray", size=12)
+                           )],
+                           xaxis=dict(showgrid=False, zeroline=False, showticklabels=False),
+                           yaxis=dict(showgrid=False, zeroline=False, showticklabels=False),
+                           plot_bgcolor='rgba(0,0,0,0)',
+                           height=600
+                       ))
+        
+        st.plotly_chart(fig, use_container_width=True)
+        
+        # Network statistics
+        st.markdown("### 📊 Network Statistics")
+        
+        col_a, col_b, col_c, col_d = st.columns(4)
+        
+        with col_a:
+            st.metric("Nodes", len(subgraph.nodes()))
+        
+        with col_b:
+            st.metric("Edges", len(subgraph.edges()))
+        
+        with col_c:
+            density = nx.density(subgraph)
+            st.metric("Density", f"{density:.3f}")
+        
+        with col_d:
+            components = nx.number_connected_components(subgraph)
+            st.metric("Components", components)
+        
+        # Top connected entities
+        st.markdown("### 🔗 Most Connected Entities")
+        degree_df = pd.DataFrame([
+            {
+                'Entity': node,
+                'Connections': degree,
+                'Type': entity_info.get(node, {}).get('type', 'Unknown'),
+                'Videos': entity_info.get(node, {}).get('video_count', 0),
+                'Mentions': entity_info.get(node, {}).get('mention_count', 0)
+            }
+            for node, degree in sorted(subgraph.degree(), key=lambda x: x[1], reverse=True)[:10]
+        ])
+        
+        st.dataframe(degree_df, use_container_width=True)
 
 def main():
     """Main Knowledge Panels page"""

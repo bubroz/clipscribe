@@ -52,6 +52,14 @@ def main():
         border: 1px solid #c3e6cb;
         margin-bottom: 1rem;
     }
+    .phase2-banner {
+        background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 0.75rem;
+        border-radius: 5px;
+        margin-bottom: 1rem;
+        text-align: center;
+    }
     </style>
     """, unsafe_allow_html=True)
 
@@ -63,11 +71,10 @@ def main():
     </div>
     """, unsafe_allow_html=True)
 
-    # Success banner for v2.15.0 release
+    # Phase 2 announcement banner
     st.markdown("""
-    <div class="success-banner">
-        🎉 <strong>v2.15.0 Released!</strong> All synthesis features complete. 
-        Knowledge Panels and Information Flow Maps are now production-ready.
+    <div class="phase2-banner">
+        🚀 <strong>v2.16.0 Phase 2 Released!</strong> Enhanced visualizations, real-time processing monitoring, and interactive network graphs now available!
     </div>
     """, unsafe_allow_html=True)
 
@@ -83,6 +90,7 @@ def main():
                 "👥 Knowledge Panels",
                 "🔄 Information Flows",
                 "📊 Analytics",
+                "🔄 Real-time Processing",
                 "⚙️ Settings"
             ]
         )
@@ -124,6 +132,8 @@ def main():
         show_information_flows()
     elif page == "📊 Analytics":
         show_analytics()
+    elif page == "🔄 Real-time Processing":
+        show_processing_monitor()
     elif page == "⚙️ Settings":
         show_settings()
 
@@ -198,6 +208,11 @@ def show_collections():
     """Display collections management page"""
     # Import and run the Collections page
     try:
+        # Add streamlit_app to path for proper imports
+        streamlit_app_path = Path(__file__).parent
+        if str(streamlit_app_path) not in sys.path:
+            sys.path.insert(0, str(streamlit_app_path))
+        
         from pages.Collections import main as collections_main
         collections_main()
     except ImportError as e:
@@ -208,6 +223,11 @@ def show_knowledge_panels():
     """Display Knowledge Panels viewer"""
     # Import and run the Knowledge Panels page
     try:
+        # Add streamlit_app to path for proper imports
+        streamlit_app_path = Path(__file__).parent
+        if str(streamlit_app_path) not in sys.path:
+            sys.path.insert(0, str(streamlit_app_path))
+        
         from pages.Knowledge_Panels import main as kp_main
         kp_main()
     except ImportError as e:
@@ -218,6 +238,11 @@ def show_information_flows():
     """Display Information Flow Maps"""
     # Import and run the Information Flows page
     try:
+        # Add streamlit_app to path for proper imports
+        streamlit_app_path = Path(__file__).parent
+        if str(streamlit_app_path) not in sys.path:
+            sys.path.insert(0, str(streamlit_app_path))
+        
         from pages.Information_Flows import main as if_main
         if_main()
     except ImportError as e:
@@ -228,11 +253,43 @@ def show_analytics():
     """Display analytics and metrics"""
     # Import and run the Analytics page
     try:
+        # Add streamlit_app to path for proper imports
+        streamlit_app_path = Path(__file__).parent
+        if str(streamlit_app_path) not in sys.path:
+            sys.path.insert(0, str(streamlit_app_path))
+        
         from pages.Analytics import main as analytics_main
         analytics_main()
     except ImportError as e:
         st.error(f"Error loading Analytics page: {e}")
         st.info("🚧 Analytics page coming soon! This will show cost tracking and performance metrics.")
+
+def show_processing_monitor():
+    """Display the Real-time Processing Monitor"""
+    # Import and run the Processing Monitor
+    try:
+        # Add streamlit_app to path for proper imports
+        streamlit_app_path = Path(__file__).parent
+        if str(streamlit_app_path) not in sys.path:
+            sys.path.insert(0, str(streamlit_app_path))
+        
+        from components.processing_monitor import main as processing_main
+        processing_main()
+    except ImportError as e:
+        st.error(f"Error loading Processing Monitor: {e}")
+        st.info("🚧 Real-time Processing Monitor is a Phase 2 feature!")
+        
+        # Fallback content
+        st.header("🔄 Real-time Processing Monitor")
+        st.info("""
+        This feature provides:
+        - **Live CLI Progress**: Monitor ClipScribe commands in real-time
+        - **Cost Tracking**: Real-time API cost monitoring
+        - **Processing Queue**: Job history and queue management
+        - **Auto-refresh**: Live updates every 5 seconds
+        
+        📋 **Phase 2 Enhancement**: Interactive processing dashboard with live logs!
+        """)
 
 def show_settings():
     """Display settings and configuration"""
