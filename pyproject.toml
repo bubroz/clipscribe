@@ -105,6 +105,7 @@ plotly = "^6.1.2"
 openpyxl = "^3.1.2"
 httpx = "0.23.3"
 streamlit = "^1.46.0"
+watchdog = "^6.0.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.10.0"

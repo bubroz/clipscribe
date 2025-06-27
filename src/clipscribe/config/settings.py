@@ -173,4 +173,56 @@ class Settings(BaseSettings):
         input_cost = (input_tokens / 1000) * 0.0001875
         output_cost = (output_tokens / 1000) * 0.00075
         
-        return input_cost + output_cost 
+        return input_cost + output_cost
+
+
+# Create global settings instance
+try:
+    settings = Settings()
+except Exception as e:
+    # Fallback for when no API key is set (like in Streamlit without env vars)
+    import warnings
+    warnings.warn(f"Settings validation failed: {e}. Using fallback settings.")
+    
+    # Create a minimal settings object for UI purposes
+    class FallbackSettings:
+        google_api_key = ""
+        ai_model = "google_genai:gemini-1.5-flash"
+        temperature = 0.3
+        output_dir = Path("output")
+        default_language = "en"
+        max_video_duration = 14400
+        include_timestamps_default = False
+        enhance_transcript_default = False
+        default_output_formats = ["txt"]
+        concurrent_downloads = 3
+        chunk_size = 600
+        gemini_request_timeout = 14400
+        enable_cost_tracking = True
+        cost_warning_threshold = 1.0
+        log_level = "INFO"
+        log_dir = Path("logs")
+        ytdlp_cookies_file = None
+        ytdlp_proxy = None
+        
+        def get_gemini_config(self):
+            return {
+                "api_key": self.google_api_key,
+                "model": self.ai_model,
+                "temperature": self.temperature,
+                "safety_settings": {
+                    "HARM_CATEGORY_HARASSMENT": "BLOCK_MEDIUM_AND_ABOVE",
+                    "HARM_CATEGORY_HATE_SPEECH": "BLOCK_MEDIUM_AND_ABOVE",
+                    "HARM_CATEGORY_SEXUALLY_EXPLICIT": "BLOCK_MEDIUM_AND_ABOVE",
+                    "HARM_CATEGORY_DANGEROUS_CONTENT": "BLOCK_MEDIUM_AND_ABOVE",
+                }
+            }
+        
+        def estimate_cost(self, audio_duration_seconds: int):
+            input_tokens = (audio_duration_seconds * 25)
+            output_tokens = input_tokens * 0.15
+            input_cost = (input_tokens / 1000) * 0.0001875
+            output_cost = (output_tokens / 1000) * 0.00075
+            return input_cost + output_cost
+    
+    settings = FallbackSettings()
