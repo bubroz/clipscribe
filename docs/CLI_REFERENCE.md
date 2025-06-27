@@ -1,4 +1,4 @@
-# ClipScribe CLI Reference (v2.14.0 - The Synthesis Update)
+# ClipScribe CLI Reference (v2.15.0 - The Synthesis Complete Update)
 
 Complete reference for all ClipScribe commands and options, featuring **working relationship extraction** and knowledge synthesis capabilities.
 
@@ -68,12 +68,12 @@ clipscribe transcribe "https://youtube.com/watch?v=..." --no-cache
 # Audio-only mode for faster processing (v2.5+)
 clipscribe transcribe "https://youtube.com/watch?v=..." --mode audio
 
-# NEW in v2.14.0: Test relationship extraction with PBS NewsHour content
+# Test relationship extraction with PBS NewsHour content
 clipscribe transcribe "https://www.youtube.com/watch?v=6ZVj1_SE4Mo" --no-cache
 # Extracts relationships like: "NSO | inception | 2010", "UAE | diplomatic relation | Saudi Arabia"
 ```
 
-**Output (v2.14.0):**
+**Output:**
 - Creates comprehensive output directory with multiple formats
 - **Working relationship extraction**: 10-19 relationships per video with REBEL
 - **Knowledge graphs**: Connected graphs with real relationship data
@@ -117,7 +117,7 @@ clipscribe research "https://www.youtube.com/@pbsnewshour" -n 5 --sort-by popula
 clipscribe research "https://www.youtube.com/@mkbhd" -n 2 --sort-by newest --mode video
 ```
 
-### `process-collection` - Process Multiple Videos as Collection (ENHANCED in v2.14.0)
+### `process-collection` - Process Multiple Videos as Collection (ENHANCED in v2.15.0)
 
 Process multiple videos as a unified collection with **working relationship extraction**, knowledge synthesis, timeline generation, and unified knowledge graph creation.
 
@@ -172,14 +172,15 @@ clipscribe process-collection \
   --clean-graph
 ```
 
-**Output (v2.14.0):**
+**Output (v2.15.0):**
 - Individual video outputs with **working relationship extraction** (10-19 per video)
-- **Knowledge synthesis**: Consolidated timeline with chronological event correlation
+- **Knowledge synthesis**: Complete with Knowledge Panels and Information Flow Maps
+- **Knowledge Panels**: Entity-centric profiles in `knowledge_panels.json` and `entity_panels/`
+- **Information Flow Maps**: Concept evolution in `information_flow_map.json` and `concept_flows/`
+- **Human-Readable Summaries**: `knowledge_panels_summary.md` and `information_flow_summary.md`
 - **GEXF 1.3 export**: Unified knowledge graph for Gephi visualization
-- Collection intelligence in `multi_video_intelligence.json` with timeline synthesis
-- Cross-video knowledge graph in `unified_knowledge_graph.json` with real relationships
-- Collection summary in `collection_summary.md` with relationship metrics
-- Entity resolution report and narrative flow analysis
+- **Enhanced Timeline**: LLM-based temporal intelligence with date extraction
+- Collection intelligence in `collection_intelligence.json` with all synthesis features
 - Performance metrics and cost tracking (~$0.41 per video)
 
 ### `process-series` - Process Video Series (NEW in v2.13.0)

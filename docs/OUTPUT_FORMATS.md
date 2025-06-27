@@ -119,7 +119,59 @@ output/20250624_youtube_UjDpW_SOrlw/
 └── transcript.txt (28.5 KB)
 ```
 
+## Multi-Video Collection Outputs (v2.15.0)
+
+When processing multiple videos as a collection, ClipScribe generates additional synthesis outputs:
+
+```
+output/
+└── collection_id/
+    ├── timeline.json                    # Consolidated timeline with temporal intelligence
+    ├── collection_intelligence.json     # Complete multi-video analysis data
+    ├── unified_knowledge_graph.gexf     # Combined knowledge graph for Gephi
+    ├── knowledge_panels.json            # Entity-centric intelligence synthesis
+    ├── knowledge_panels_summary.md      # Human-readable entity profiles
+    ├── entity_panels/                   # Individual entity panel JSON files
+    │   ├── john_doe.json
+    │   ├── acme_corp.json
+    │   └── ...
+    ├── information_flow_map.json        # Concept evolution tracking
+    ├── information_flow_summary.md      # Human-readable concept analysis
+    └── concept_flows/                   # Individual video flow files
+        ├── video1_0.json
+        ├── video2_1.json
+        └── ...
+```
+
+### New Synthesis Files (v2.15.0)
+
+#### knowledge_panels.json / knowledge_panels_summary.md
+**Knowledge Panels** provide entity-centric intelligence synthesis across the entire collection:
+- **Comprehensive Profiles**: Detailed analysis for the top 15 most significant entities
+- **Rich Metadata**: Activities, quotes, relationships, and strategic insights for each entity
+- **Cross-Video Synthesis**: Tracks how entities appear and evolve across videos
+- **Human-Readable Summary**: Beautiful markdown report with entity profiles
+
+#### information_flow_map.json / information_flow_summary.md
+**Information Flow Maps** track concept evolution across video sequences:
+- **6-Level Maturity Model**: Tracks concepts from "mentioned" to "evolved"
+- **Dependency Analysis**: Maps how concepts build upon each other
+- **Evolution Paths**: Traces concept journeys across the collection
+- **Learning Progression**: Identifies curriculum patterns and knowledge gaps
+
+#### entity_panels/ and concept_flows/ directories
+- **Individual Files**: Separate JSON files for each entity panel and concept flow
+- **Easy Access**: Enables targeted analysis of specific entities or videos
+- **Modular Structure**: Facilitates integration with other tools and workflows
+
 ## Format Changes
+
+### v2.15.0 Synthesis Features (2025-06-27)
+- **knowledge_panels.json/md**: NEW entity-centric intelligence synthesis with comprehensive profiles
+- **information_flow_map.json/md**: NEW concept evolution tracking across video sequences
+- **entity_panels/ directory**: Individual JSON files for each significant entity
+- **concept_flows/ directory**: Per-video concept flow analysis files
+- **Complete Integration**: All synthesis features fully integrated with human-readable summaries
 
 ### v2.12.0 Enhancements
 - **entity_analysis.xlsx**: NEW multi-sheet Excel analysis reports with professional formatting.

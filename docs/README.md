@@ -32,18 +32,19 @@ clipscribe transcribe "https://youtube.com/watch?v=..."
 clipscribe process-collection "URL1" "URL2" --collection-title "My-Analysis"
 ```
 
-## 💡 Key Features (v2.14.0 - The Synthesis Update)
+## 💡 Key Features (v2.15.0 - The Synthesis Complete Update)
 
-### 🎯 **MAJOR BREAKTHROUGH: Working Relationship Extraction**
-- **REBEL Model Fixed**: Extract 10-19 meaningful relationships per video
-- **Knowledge Graphs**: Build connected graphs with real relationship data
-- **Space-Separated Parsing**: Dual parsing strategy for maximum compatibility
-
-### ✨ **New in v2.14.0**
-- **Knowledge Synthesis Engine**: Timeline synthesis across multiple videos
+### ✅ **Knowledge Synthesis Engine Now Complete!**
+- **Knowledge Panels**: Entity-centric intelligence synthesis with comprehensive profiles
+- **Information Flow Maps**: Track concept evolution across video sequences
+- **Enhanced Timeline**: LLM-based temporal intelligence for accurate event chronology
 - **GEXF 1.3 Export**: Modern knowledge graph format for Gephi visualization
-- **Collection Intelligence**: Enhanced multi-video processing with consolidated outputs
-- **Critical Bug Fixes**: Resolved async handling and relationship saving issues
+
+### ✨ **New in v2.15.0**
+- **Complete Synthesis Features**: Both Knowledge Panels and Information Flow Maps fully integrated
+- **Rich Output Integration**: JSON data files + human-readable markdown summaries
+- **Production Ready**: All tests passing, comprehensive error handling
+- **Backward Compatible**: Existing features preserved while adding new capabilities
 
 ### 🔥 **Core Capabilities**
 - **1800+ Platforms**: YouTube, Twitter, TikTok, Vimeo, and many more

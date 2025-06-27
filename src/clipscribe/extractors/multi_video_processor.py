@@ -16,7 +16,11 @@ from ..models import (
     VideoIntelligence, MultiVideoIntelligence, CrossVideoEntity, 
     CrossVideoRelationship, NarrativeSegment, TopicEvolution,
     VideoCollectionType, SeriesMetadata, Entity, Relationship, Topic,
-    ConsolidatedTimeline, TimelineEvent, ExtractedDate
+    ConsolidatedTimeline, TimelineEvent, ExtractedDate,
+    KnowledgePanel, KnowledgePanelCollection, EntityActivity, 
+    EntityQuote, EntityRelationshipSummary, EntityAttributeEvolution,
+    InformationFlowMap, ConceptNode, ConceptDependency, InformationFlow,
+    ConceptEvolutionPath, ConceptCluster, ConceptMaturityLevel
 )
 from .entity_normalizer import EntityNormalizer
 from .series_detector import SeriesDetector
@@ -144,11 +148,18 @@ class MultiVideoProcessor:
         # Step 11: Calculate quality metrics
         quality_metrics = self._calculate_quality_metrics(videos, unified_entities, cross_video_relationships)
         
+        # Step 12: Synthesize Knowledge Panels
+        knowledge_panels = await self._synthesize_knowledge_panels(videos, unified_entities, cross_video_relationships, collection_id, collection_title)
+        
+        # Step 13: Generate Information Flow Maps
+        information_flow_map = await self._synthesize_information_flow_map(videos, unified_entities, cross_video_relationships, collection_id, collection_title)
+        
         # Calculate processing stats
         total_cost = sum(video.processing_cost for video in videos)
         total_time = sum(video.processing_time for video in videos)
         
-        return MultiVideoIntelligence(
+        # Return comprehensive multi-video intelligence
+        result = MultiVideoIntelligence(
             collection_id=collection_id,
             collection_type=collection_type,
             collection_title=collection_title,
@@ -164,10 +175,25 @@ class MultiVideoProcessor:
             key_insights=key_insights,
             consolidated_timeline=consolidated_timeline,
             unified_knowledge_graph=unified_knowledge_graph,
+            knowledge_panels=knowledge_panels,
+            information_flow_map=information_flow_map,
+            processing_stats={
+                "total_videos": len(videos),
+                "total_entities": len(unified_entities),
+                "total_relationships": len(cross_video_relationships),
+                "knowledge_panels_created": len(knowledge_panels.panels) if knowledge_panels else 0,
+                "timeline_events": len(consolidated_timeline.events) if consolidated_timeline else 0,
+                "information_flow_concepts": len(information_flow_map.concept_nodes) if information_flow_map else 0,
+                "information_flows": len(information_flow_map.information_flows) if information_flow_map else 0
+            },
             total_processing_cost=total_cost,
             total_processing_time=total_time,
-            **quality_metrics
+            entity_resolution_quality=quality_metrics["entity_resolution_quality"],
+            narrative_coherence=quality_metrics["narrative_coherence"],
+            information_completeness=quality_metrics["information_completeness"]
         )
+        
+        return result
     
     async def _resolve_cross_video_entities(self, videos: List[VideoIntelligence]) -> List[CrossVideoEntity]:
         """Resolve entities across videos with aggressive AI-powered merging."""
@@ -1120,3 +1146,1529 @@ class MultiVideoProcessor:
         
         logger.info(f"Successfully synthesized timeline with {len(all_events)} events.")
         return timeline 
+
+    async def _synthesize_knowledge_panels(
+        self,
+        videos: List[VideoIntelligence], 
+        unified_entities: List[CrossVideoEntity],
+        cross_video_relationships: List[CrossVideoRelationship],
+        collection_id: str,
+        collection_title: str
+    ) -> KnowledgePanelCollection:
+        """
+        Synthesizes comprehensive Knowledge Panels - entity-centric intelligence dossiers.
+        
+        Creates detailed profiles for each important entity by analyzing all their appearances,
+        activities, relationships, and evolution across the video collection.
+        
+        Args:
+            videos: List of processed videos
+            unified_entities: Cross-video resolved entities
+            cross_video_relationships: Cross-video relationships
+            collection_id: ID of the collection
+            collection_title: Title of the collection
+            
+        Returns:
+            KnowledgePanelCollection with comprehensive entity dossiers
+        """
+        logger.info(f"Synthesizing Knowledge Panels for {len(unified_entities)} entities...")
+        
+        panels = []
+        
+        # Filter to most important entities (appear in multiple videos or high mention count)
+        important_entities = [
+            entity for entity in unified_entities 
+            if len(entity.video_appearances) > 1 or entity.mention_count >= 3
+        ]
+        
+        # Sort by importance (multi-video presence + mention count)
+        important_entities.sort(
+            key=lambda e: (len(e.video_appearances) * 2 + e.mention_count), 
+            reverse=True
+        )
+        
+        # Limit to top entities to avoid overwhelming output
+        top_entities = important_entities[:15]
+        
+        logger.info(f"Creating knowledge panels for {len(top_entities)} most important entities")
+        
+        for entity in top_entities:
+            try:
+                panel = await self._create_entity_knowledge_panel(
+                    entity, videos, cross_video_relationships, collection_id
+                )
+                panels.append(panel)
+            except Exception as e:
+                logger.warning(f"Failed to create panel for {entity.canonical_name}: {e}")
+                continue
+        
+        # Generate collection-level analysis
+        if self.use_ai_validation and panels:
+            panel_summary = await self._ai_generate_panel_summary(panels, collection_title)
+            key_entities_analysis = await self._ai_analyze_key_entities(panels, videos)
+            entity_network_insights = await self._ai_extract_network_insights(panels, cross_video_relationships)
+        else:
+            panel_summary = self._template_generate_panel_summary(panels, collection_title)
+            key_entities_analysis = self._template_analyze_key_entities(panels)
+            entity_network_insights = self._template_extract_network_insights(panels)
+        
+        collection = KnowledgePanelCollection(
+            collection_id=collection_id,
+            collection_title=collection_title,
+            panels=panels,
+            panel_summary=panel_summary,
+            key_entities_analysis=key_entities_analysis,
+            entity_network_insights=entity_network_insights,
+            total_entities=len(panels),
+            high_confidence_entities=len([p for p in panels if p.confidence_score >= 0.8])
+        )
+        
+        logger.info(f"Successfully created {len(panels)} knowledge panels")
+        return collection
+
+    async def _create_entity_knowledge_panel(
+        self,
+        entity: CrossVideoEntity,
+        videos: List[VideoIntelligence],
+        cross_video_relationships: List[CrossVideoRelationship],
+        collection_id: str
+    ) -> KnowledgePanel:
+        """Create a comprehensive knowledge panel for a single entity."""
+        
+        # Extract activities from key points and transcript mentions
+        activities = await self._extract_entity_activities(entity, videos)
+        
+        # Extract notable quotes
+        quotes = await self._extract_entity_quotes(entity, videos)
+        
+        # Analyze relationships
+        relationships = self._analyze_entity_relationships(entity, cross_video_relationships)
+        
+        # Generate AI-powered analysis if available
+        if self.use_ai_validation:
+            executive_summary = await self._ai_generate_entity_summary(entity, videos, activities, relationships)
+            portrayal_analysis = await self._ai_analyze_entity_portrayal(entity, videos, activities)
+            significance_assessment = await self._ai_assess_entity_significance(entity, videos, relationships)
+            strategic_insights = await self._ai_extract_entity_insights(entity, activities, relationships)
+            information_gaps = await self._ai_identify_information_gaps(entity, activities, relationships)
+        else:
+            executive_summary = self._template_generate_entity_summary(entity, videos, activities)
+            portrayal_analysis = f"{entity.canonical_name} appears consistently across {len(entity.video_appearances)} videos"
+            significance_assessment = f"Key entity with {entity.mention_count} total mentions"
+            strategic_insights = [f"Appears in {len(entity.video_appearances)} videos", f"Total of {entity.mention_count} mentions"]
+            information_gaps = ["Further analysis needed"]
+        
+        # Calculate information completeness
+        completeness = min(1.0, (len(activities) + len(quotes) + len(relationships)) / 10)
+        
+        panel = KnowledgePanel(
+            panel_id=f"panel_{collection_id}_{entity.canonical_name.replace(' ', '_').lower()}",
+            entity_name=entity.canonical_name,
+            entity_type=entity.type,
+            collection_id=collection_id,
+            executive_summary=executive_summary,
+            key_attributes=entity.properties,
+            aliases_and_names=[entity.name] + entity.aliases,
+            video_appearances=entity.video_appearances,
+            first_appearance=entity.first_mentioned,
+            last_appearance=entity.last_mentioned,
+            total_mentions=entity.mention_count,
+            activities=activities,
+            quotes=quotes,
+            relationships=relationships,
+            portrayal_analysis=portrayal_analysis,
+            significance_assessment=significance_assessment,
+            strategic_insights=strategic_insights,
+            information_gaps=information_gaps,
+            confidence_score=entity.aggregated_confidence,
+            information_completeness=completeness,
+            source_videos_count=len(entity.video_appearances),
+            synthesis_quality="AI_ENHANCED" if self.use_ai_validation else "TEMPLATE"
+        )
+        
+        return panel
+
+    async def _extract_entity_activities(
+        self, 
+        entity: CrossVideoEntity, 
+        videos: List[VideoIntelligence]
+    ) -> List[EntityActivity]:
+        """Extract specific activities and mentions for an entity across videos."""
+        
+        activities = []
+        
+        for video in videos:
+            if video.metadata.video_id not in entity.video_appearances:
+                continue
+            
+            # Search key points for entity mentions
+            for i, key_point in enumerate(video.key_points):
+                if self._entity_mentioned_in_text(entity, key_point.text):
+                    activity = EntityActivity(
+                        activity_id=f"act_{video.metadata.video_id}_{i}",
+                        video_id=video.metadata.video_id,
+                        video_title=video.metadata.title,
+                        timestamp=key_point.timestamp,
+                        description=key_point.text,
+                        context=key_point.context or "Key point from video",
+                        activity_type="key_point",
+                        confidence=key_point.importance,
+                        related_entities=[]  # Could be enhanced to find other entities in same context
+                    )
+                    activities.append(activity)
+            
+            # Search relationships for entity involvement
+            for relationship in video.relationships:
+                if (entity.canonical_name.lower() in relationship.subject.lower() or
+                    entity.canonical_name.lower() in relationship.object.lower()):
+                    
+                    description = f"{relationship.subject} {relationship.predicate} {relationship.object}"
+                    activity = EntityActivity(
+                        activity_id=f"rel_{video.metadata.video_id}_{len(activities)}",
+                        video_id=video.metadata.video_id,
+                        video_title=video.metadata.title,
+                        timestamp=0,  # Relationships don't have specific timestamps
+                        description=description,
+                        context=relationship.context or "Extracted relationship",
+                        activity_type="relationship",
+                        confidence=relationship.confidence,
+                        related_entities=[relationship.subject, relationship.object]
+                    )
+                    activities.append(activity)
+        
+        # Sort by confidence and limit to most important
+        activities.sort(key=lambda a: a.confidence, reverse=True)
+        return activities[:10]  # Top 10 activities
+
+    async def _extract_entity_quotes(
+        self,
+        entity: CrossVideoEntity,
+        videos: List[VideoIntelligence]
+    ) -> List[EntityQuote]:
+        """Extract notable quotes from or about an entity.""" 
+        
+        quotes = []
+        
+        # For now, use a simple approach - look for direct quotes in key points
+        # This could be enhanced with more sophisticated quote detection
+        for video in videos:
+            if video.metadata.video_id not in entity.video_appearances:
+                continue
+                
+            for i, key_point in enumerate(video.key_points):
+                text = key_point.text
+                
+                # Simple quote detection - look for quotation marks
+                if '"' in text and self._entity_mentioned_in_text(entity, text):
+                    # Extract the quoted text
+                    quote_parts = text.split('"')
+                    if len(quote_parts) >= 3:  # Has opening and closing quotes
+                        quote_text = quote_parts[1]
+                        
+                        quote = EntityQuote(
+                            quote_id=f"quote_{video.metadata.video_id}_{i}",
+                            video_id=video.metadata.video_id,
+                            timestamp=key_point.timestamp,
+                            quote_text=quote_text,
+                            speaker=None,  # Could be enhanced to detect speaker
+                            about_entity=True,  # Assume it's about the entity for now
+                            context=text,
+                            significance=key_point.importance
+                        )
+                        quotes.append(quote)
+        
+        return quotes[:5]  # Top 5 quotes
+
+    def _analyze_entity_relationships(
+        self,
+        entity: CrossVideoEntity,
+        cross_video_relationships: List[CrossVideoRelationship]
+    ) -> List[EntityRelationshipSummary]:
+        """Analyze relationships for a specific entity."""
+        
+        relationships = []
+        entity_name_lower = entity.canonical_name.lower()
+        
+        # Group relationships by the other entity involved
+        relationship_groups = {}
+        
+        for rel in cross_video_relationships:
+            other_entity = None
+            relationship_type = rel.predicate
+            
+            if entity_name_lower in rel.subject.lower():
+                other_entity = rel.object
+            elif entity_name_lower in rel.object.lower():
+                other_entity = rel.subject
+                # Reverse the relationship type for clarity
+                relationship_type = f"is {rel.predicate} by"
+            
+            if other_entity:
+                key = other_entity.lower()
+                if key not in relationship_groups:
+                    relationship_groups[key] = {
+                        'entity': other_entity,
+                        'types': [],
+                        'examples': [],
+                        'videos': set(),
+                        'total_confidence': 0,
+                        'count': 0
+                    }
+                
+                group = relationship_groups[key]
+                group['types'].append(relationship_type)
+                group['examples'].extend(rel.context_examples)
+                group['videos'].update(rel.video_sources)
+                group['total_confidence'] += rel.confidence
+                group['count'] += 1
+        
+        # Convert to relationship summaries
+        for group in relationship_groups.values():
+            avg_confidence = group['total_confidence'] / group['count']
+            most_common_type = max(set(group['types']), key=group['types'].count)
+            
+            summary = EntityRelationshipSummary(
+                related_entity=group['entity'],
+                relationship_type=most_common_type,
+                relationship_strength=avg_confidence,
+                examples=group['examples'][:3],  # Top 3 examples
+                video_sources=list(group['videos']),
+                evolution_summary=f"Relationship appears in {len(group['videos'])} videos"
+            )
+            relationships.append(summary)
+        
+        # Sort by relationship strength
+        relationships.sort(key=lambda r: r.relationship_strength, reverse=True)
+        return relationships[:8]  # Top 8 relationships
+
+    def _entity_mentioned_in_text(self, entity: CrossVideoEntity, text: str) -> bool:
+        """Check if an entity is mentioned in a text."""
+        text_lower = text.lower()
+        
+        # Check canonical name
+        if entity.canonical_name.lower() in text_lower:
+            return True
+            
+        # Check aliases
+        for alias in entity.aliases:
+            if alias.lower() in text_lower:
+                return True
+                
+        return False
+
+    # AI-powered analysis methods
+    async def _ai_generate_entity_summary(
+        self,
+        entity: CrossVideoEntity,
+        videos: List[VideoIntelligence],
+        activities: List[EntityActivity],
+        relationships: List[EntityRelationshipSummary]
+    ) -> str:
+        """Generate comprehensive AI summary of entity."""
+        try:
+            # Prepare context
+            video_titles = [v.metadata.title for v in videos if v.metadata.video_id in entity.video_appearances]
+            top_activities = [a.description for a in activities[:5]]
+            top_relationships = [f"{r.related_entity} ({r.relationship_type})" for r in relationships[:5]]
+            
+            prompt = f"""
+            As an expert intelligence analyst, create a comprehensive executive summary for the following entity:
+            
+            ENTITY: {entity.canonical_name} ({entity.type})
+            APPEARS IN: {len(entity.video_appearances)} videos
+            TOTAL MENTIONS: {entity.mention_count}
+            
+            VIDEO CONTEXT:
+            {chr(10).join(video_titles)}
+            
+            KEY ACTIVITIES:
+            {chr(10).join(top_activities) if top_activities else "No specific activities identified"}
+            
+            KEY RELATIONSHIPS:
+            {chr(10).join(top_relationships) if top_relationships else "No key relationships identified"}
+            
+            Create a 3-4 sentence executive summary that:
+            1. Identifies the entity's role/significance
+            2. Summarizes their key activities/involvement
+            3. Notes their most important relationships
+            4. Assesses their strategic importance
+            
+            Focus on intelligence value and strategic insights.
+            """
+            
+            response = await self.ai_model.generate_content_async(prompt)
+            return response.text.strip()
+            
+        except Exception as e:
+            logger.warning(f"AI entity summary generation failed: {e}")
+            return self._template_generate_entity_summary(entity, videos, activities)
+
+    async def _ai_analyze_entity_portrayal(
+        self,
+        entity: CrossVideoEntity,
+        videos: List[VideoIntelligence],
+        activities: List[EntityActivity]
+    ) -> str:
+        """Analyze how entity is portrayed across videos."""
+        try:
+            video_contexts = []
+            for video in videos:
+                if video.metadata.video_id in entity.video_appearances:
+                    video_contexts.append(f"{video.metadata.title}: {video.summary[:200]}...")
+            
+            prompt = f"""
+            Analyze how {entity.canonical_name} is portrayed across these videos:
+            
+            {chr(10).join(video_contexts)}
+            
+            Consider:
+            1. How is the entity characterized/described?
+            2. What role do they play in each video?
+            3. Does their portrayal change or remain consistent?
+            4. What perspective/bias is evident in their portrayal?
+            
+            Provide 2-3 sentences analyzing their portrayal patterns.
+            """
+            
+            response = await self.ai_model.generate_content_async(prompt)
+            return response.text.strip()
+            
+        except Exception as e:
+            logger.warning(f"AI portrayal analysis failed: {e}")
+            return f"{entity.canonical_name} appears consistently across {len(entity.video_appearances)} videos with {entity.mention_count} total mentions"
+
+    async def _ai_assess_entity_significance(
+        self,
+        entity: CrossVideoEntity,
+        videos: List[VideoIntelligence],
+        relationships: List[EntityRelationshipSummary]
+    ) -> str:
+        """Assess strategic significance of entity."""
+        try:
+            relationship_summary = f"{len(relationships)} key relationships" if relationships else "Limited relationship data"
+            
+            prompt = f"""
+            As an intelligence analyst, assess the strategic significance of:
+            
+            ENTITY: {entity.canonical_name} ({entity.type})
+            - Appears in {len(entity.video_appearances)} videos
+            - {entity.mention_count} total mentions  
+            - {relationship_summary}
+            
+            Why is this entity strategically important? Consider:
+            1. Their influence/connections
+            2. Their role in key events/topics
+            3. Information value for understanding the subject matter
+            4. Potential intelligence gaps or areas needing more analysis
+            
+            Provide 2-3 sentences on their strategic importance.
+            """
+            
+            response = await self.ai_model.generate_content_async(prompt)
+            return response.text.strip()
+            
+        except Exception as e:
+            logger.warning(f"AI significance assessment failed: {e}")
+            return f"Key entity with {entity.mention_count} mentions across {len(entity.video_appearances)} videos"
+
+    async def _ai_extract_entity_insights(
+        self,
+        entity: CrossVideoEntity,
+        activities: List[EntityActivity],
+        relationships: List[EntityRelationshipSummary]
+    ) -> List[str]:
+        """Extract strategic insights about entity."""
+        try:
+            insights = []
+            
+            # Cross-video presence insight
+            if len(entity.video_appearances) > 1:
+                insights.append(f"Cross-video presence indicates sustained relevance across {len(entity.video_appearances)} sources")
+            
+            # Activity patterns insight
+            if activities:
+                activity_types = [a.activity_type for a in activities]
+                most_common_activity = max(set(activity_types), key=activity_types.count)
+                insights.append(f"Primarily associated with {most_common_activity} activities")
+            
+            # Relationship insights
+            if relationships:
+                relationship_count = len(relationships)
+                insights.append(f"Well-connected entity with {relationship_count} significant relationships")
+                
+                # Find most important relationship
+                top_relationship = relationships[0] if relationships else None
+                if top_relationship:
+                    insights.append(f"Key relationship: {top_relationship.relationship_type} {top_relationship.related_entity}")
+            
+            # Temporal insights
+            if entity.first_mentioned and entity.last_mentioned:
+                time_span = (entity.last_mentioned - entity.first_mentioned).days
+                if time_span > 0:
+                    insights.append(f"Entity tracked across {time_span} days of content")
+            
+            return insights[:5]  # Top 5 insights
+            
+        except Exception as e:
+            logger.warning(f"AI insight extraction failed: {e}")
+            return [f"Appears in {len(entity.video_appearances)} videos", f"Total of {entity.mention_count} mentions"]
+
+    async def _ai_identify_information_gaps(
+        self,
+        entity: CrossVideoEntity,
+        activities: List[EntityActivity],
+        relationships: List[EntityRelationshipSummary]
+    ) -> List[str]:
+        """Identify information gaps about entity.""" 
+        gaps = []
+        
+        # Check for missing basic information
+        if not entity.properties or len(entity.properties) < 2:
+            gaps.append("Limited attribute information available")
+        
+        # Check for relationship gaps
+        if len(relationships) < 2:
+            gaps.append("Few identified relationships - network analysis incomplete")
+        
+        # Check for activity gaps
+        if len(activities) < 3:
+            gaps.append("Limited activity data - behavioral patterns unclear")
+        
+        # Check for temporal gaps
+        if not entity.first_mentioned:
+            gaps.append("Timeline information incomplete")
+        
+        # Entity type specific gaps
+        if entity.type == "PERSON" and not any("role" in str(prop).lower() or "position" in str(prop).lower() for prop in entity.properties.values()):
+            gaps.append("Professional role/position unclear")
+        
+        if entity.type == "ORGANIZATION" and not any("location" in str(prop).lower() for prop in entity.properties.values()):
+            gaps.append("Organizational structure/location unclear")
+        
+        return gaps[:5]  # Top 5 gaps
+
+    # Template methods (fallbacks when AI not available)
+    def _template_generate_entity_summary(
+        self,
+        entity: CrossVideoEntity,
+        videos: List[VideoIntelligence],
+        activities: List[EntityActivity]
+    ) -> str:
+        """Generate template-based entity summary."""
+        video_count = len(entity.video_appearances)
+        return f"{entity.canonical_name} is a {entity.type.lower()} that appears in {video_count} videos with {entity.mention_count} total mentions. Key entity in the collection with {len(activities)} identified activities."
+
+    async def _ai_generate_panel_summary(self, panels: List[KnowledgePanel], collection_title: str) -> str:
+        """Generate AI summary of all knowledge panels."""
+        try:
+            entity_list = [f"{p.entity_name} ({p.entity_type})" for p in panels[:10]]
+            
+            prompt = f"""
+            Provide a strategic analysis summary for the knowledge panel collection: "{collection_title}"
+            
+            ENTITIES ANALYZED: {len(panels)}
+            KEY ENTITIES: {', '.join(entity_list)}
+            
+            Create a 2-3 paragraph executive summary that:
+            1. Identifies the most strategically important entities
+            2. Analyzes the entity network and relationships
+            3. Assesses information quality and completeness
+            4. Highlights key strategic insights
+            
+            Focus on intelligence value and strategic implications.
+            """
+            
+            response = await self.ai_model.generate_content_async(prompt)
+            return response.text.strip()
+            
+        except Exception as e:
+            logger.warning(f"AI panel summary failed: {e}")
+            return self._template_generate_panel_summary(panels, collection_title)
+
+    async def _ai_analyze_key_entities(self, panels: List[KnowledgePanel], videos: List[VideoIntelligence]) -> str:
+        """AI analysis of key entities."""
+        try:
+            # Get top entities by various metrics
+            top_by_mentions = sorted(panels, key=lambda p: p.total_mentions, reverse=True)[:5]
+            top_by_videos = sorted(panels, key=lambda p: p.source_videos_count, reverse=True)[:5]
+            top_by_relationships = sorted(panels, key=lambda p: len(p.relationships), reverse=True)[:5]
+            
+            prompt = f"""
+            Analyze the key entities in this video collection:
+            
+            TOP BY MENTIONS: {', '.join(p.entity_name for p in top_by_mentions)}
+            TOP BY CROSS-VIDEO PRESENCE: {', '.join(p.entity_name for p in top_by_videos)}
+            TOP BY RELATIONSHIPS: {', '.join(p.entity_name for p in top_by_relationships)}
+            
+            Provide analysis covering:
+            1. Which entities are most central/influential?
+            2. What does the entity composition reveal about the content?
+            3. Are there entity types or roles that dominate?
+            4. What strategic patterns emerge from entity analysis?
+            
+            2-3 sentences focusing on strategic insights.
+            """
+            
+            response = await self.ai_model.generate_content_async(prompt)
+            return response.text.strip()
+            
+        except Exception as e:
+            logger.warning(f"AI key entities analysis failed: {e}")
+            return self._template_analyze_key_entities(panels)
+
+    def _template_analyze_key_entities(self, panels: List[KnowledgePanel]) -> str:
+        """Template-based key entities analysis."""
+        entity_types = {}
+        for panel in panels:
+            entity_types[panel.entity_type] = entity_types.get(panel.entity_type, 0) + 1
+        
+        top_type = max(entity_types.items(), key=lambda x: x[1])
+        return f"Collection contains {len(panels)} key entities, predominantly {top_type[0].lower()}s ({top_type[1]} entities)."
+
+    def _template_extract_network_insights(self, panels: List[KnowledgePanel]) -> List[str]:
+        """Template-based network insights."""
+        return [
+            f"Network contains {len(panels)} analyzed entities",
+            f"Total relationships: {sum(len(p.relationships) for p in panels)}",
+            "Network analysis available through knowledge panels"
+        ]
+
+    def _template_generate_panel_summary(self, panels: List[KnowledgePanel], collection_title: str) -> str:
+        """Template-based panel summary."""
+        return f"Knowledge panel collection for '{collection_title}' contains {len(panels)} entity profiles with comprehensive cross-video analysis."
+
+    def _template_analyze_key_entities(self, panels: List[KnowledgePanel]) -> str:
+        """Template-based key entities analysis."""
+        entity_types = {}
+        for panel in panels:
+            entity_types[panel.entity_type] = entity_types.get(panel.entity_type, 0) + 1
+        
+        top_type = max(entity_types.items(), key=lambda x: x[1])
+        return f"Collection contains {len(panels)} key entities, predominantly {top_type[0].lower()}s ({top_type[1]} entities)."
+
+    def _template_extract_network_insights(self, panels: List[KnowledgePanel]) -> List[str]:
+        """Template-based network insights."""
+        return [
+            f"Network contains {len(panels)} analyzed entities",
+            f"Total relationships: {sum(len(p.relationships) for p in panels)}",
+            "Network analysis available through knowledge panels"
+        ]
+
+    async def _synthesize_information_flow_map(
+        self,
+        videos: List[VideoIntelligence],
+        unified_entities: List[CrossVideoEntity],
+        cross_video_relationships: List[CrossVideoRelationship],
+        collection_id: str,
+        collection_title: str
+    ) -> InformationFlowMap:
+        """
+        Synthesizes comprehensive Information Flow Maps tracking concept evolution.
+        
+        Creates detailed analysis of how concepts, ideas, and information develop
+        and flow across video collections, showing knowledge dependencies and evolution.
+        
+        Args:
+            videos: List of processed videos
+            unified_entities: Cross-video resolved entities
+            cross_video_relationships: Cross-video relationships
+            collection_id: ID of the collection
+            collection_title: Title of the collection
+            
+        Returns:
+            InformationFlowMap with comprehensive concept flow analysis
+        """
+        logger.info(f"Synthesizing Information Flow Map for {len(videos)} videos...")
+        
+        # Step 1: Extract concept nodes from all videos
+        concept_nodes = await self._extract_concept_nodes(videos)
+        
+        # Step 2: Identify concept dependencies and information flows
+        concept_dependencies = await self._identify_concept_dependencies(concept_nodes, videos)
+        information_flows = await self._create_information_flows(concept_nodes)
+        
+        # Step 3: Analyze concept evolution paths
+        evolution_paths = await self._analyze_concept_evolution_paths(concept_nodes)
+        
+        # Step 4: Create concept clusters
+        concept_clusters = await self._create_concept_clusters(concept_nodes, concept_dependencies)
+        
+        # Step 5: Analyze flow patterns and generate insights
+        flow_analysis = await self._analyze_flow_patterns(concept_nodes, information_flows, concept_dependencies)
+        
+        # Step 6: Generate strategic insights
+        if self.use_ai_validation:
+            strategic_insights = await self._ai_generate_flow_insights(
+                concept_nodes, information_flows, evolution_paths, collection_title
+            )
+        else:
+            strategic_insights = self._template_generate_flow_insights(concept_nodes, information_flows)
+        
+        flow_map = InformationFlowMap(
+            map_id=f"flow_map_{collection_id}",
+            collection_id=collection_id,
+            collection_title=collection_title,
+            concept_nodes=concept_nodes,
+            information_flows=information_flows,
+            concept_dependencies=concept_dependencies,
+            evolution_paths=evolution_paths,
+            concept_clusters=concept_clusters,
+            primary_information_pathways=flow_analysis.get("primary_pathways", []),
+            knowledge_bottlenecks=flow_analysis.get("bottlenecks", []),
+            information_gaps=flow_analysis.get("gaps", []),
+            flow_summary=flow_analysis.get("summary", ""),
+            learning_progression=flow_analysis.get("progression", ""),
+            concept_complexity=flow_analysis.get("complexity", ""),
+            strategic_insights=strategic_insights,
+            overall_coherence=flow_analysis.get("coherence", 0.5),
+            pedagogical_quality=flow_analysis.get("pedagogical", 0.5),
+            information_density=flow_analysis.get("density", 0.5),
+            total_concepts=len(concept_nodes),
+            total_flows=len(information_flows),
+            synthesis_quality="AI_ENHANCED" if self.use_ai_validation else "TEMPLATE"
+        )
+        
+        logger.info(f"Successfully created Information Flow Map with {len(concept_nodes)} concepts and {len(information_flows)} flows")
+        return flow_map
+
+    async def _extract_concept_nodes(self, videos: List[VideoIntelligence]) -> List[ConceptNode]:
+        """Extract concept nodes from video content."""
+        logger.info("Extracting concept nodes from video content...")
+        
+        concept_nodes = []
+        
+        for video_index, video in enumerate(videos):
+            # Extract concepts from key points
+            for kp in video.key_points:
+                # Filter for conceptual key points (not just factual statements)
+                if self._is_conceptual_content(kp.text):
+                    concept_name = await self._extract_main_concept(kp.text)
+                    if concept_name:
+                        maturity_level = self._assess_concept_maturity(kp.text)
+                        
+                        node = ConceptNode(
+                            node_id=f"concept_{video.metadata.video_id}_{kp.timestamp}_{len(concept_nodes)}",
+                            concept_name=concept_name,
+                            video_id=video.metadata.video_id,
+                            video_title=video.metadata.title,
+                            timestamp=kp.timestamp,
+                            maturity_level=maturity_level,
+                            context=kp.text,
+                            explanation_depth=self._assess_explanation_depth(kp.text),
+                            key_points=[kp.text],
+                            related_entities=self._extract_related_entities(kp.text, video.entities),
+                            sentiment=self._assess_concept_sentiment(kp.text),
+                            confidence=kp.importance,
+                            information_density=self._calculate_information_density(kp.text),
+                            video_sequence_position=video_index
+                        )
+                        concept_nodes.append(node)
+            
+            # Extract concepts from topics
+            for topic in video.topics:
+                if self._is_significant_topic(topic):
+                    concept_name = topic.name
+                    
+                    # Find context from summary or key points
+                    context = self._find_topic_context(topic.name, video)
+                    
+                    node = ConceptNode(
+                        node_id=f"topic_{video.metadata.video_id}_{topic.name.replace(' ', '_')}",
+                        concept_name=concept_name,
+                        video_id=video.metadata.video_id,
+                        video_title=video.metadata.title,
+                        timestamp=0,  # Topics don't have specific timestamps
+                        maturity_level=ConceptMaturityLevel.MENTIONED,  # Default for topics
+                        context=context,
+                        explanation_depth=topic.confidence,
+                        related_entities=self._extract_related_entities(context, video.entities),
+                        sentiment=0.0,
+                        confidence=topic.confidence,
+                        information_density=0.3,  # Topics are generally lower density
+                        video_sequence_position=video_index
+                    )
+                    concept_nodes.append(node)
+        
+        # Remove duplicate concepts
+        concept_nodes = self._deduplicate_concepts(concept_nodes)
+        
+        logger.info(f"Extracted {len(concept_nodes)} concept nodes")
+        return concept_nodes
+
+    def _is_conceptual_content(self, text: str) -> bool:
+        """Determine if text contains conceptual rather than purely factual content."""
+        conceptual_indicators = [
+            "concept", "idea", "theory", "principle", "approach", "strategy",
+            "philosophy", "doctrine", "methodology", "framework", "model",
+            "understanding", "perspective", "viewpoint", "analysis", "interpretation"
+        ]
+        
+        text_lower = text.lower()
+        return any(indicator in text_lower for indicator in conceptual_indicators)
+
+    async def _extract_main_concept(self, text: str) -> Optional[str]:
+        """Extract the main concept from text."""
+        # Simple extraction - in production, could use NLP techniques
+        # Look for noun phrases that represent concepts
+        words = text.split()
+        
+        # Look for important concept keywords
+        concept_patterns = [
+            "nuclear program", "sanctions regime", "diplomatic relations",
+            "security framework", "economic policy", "international law",
+            "human rights", "climate change", "artificial intelligence"
+        ]
+        
+        text_lower = text.lower()
+        for pattern in concept_patterns:
+            if pattern in text_lower:
+                return pattern.title()
+        
+        # Fallback: extract first significant noun phrase
+        significant_words = [w for w in words if len(w) > 4 and w.istitle()]
+        if significant_words:
+            return " ".join(significant_words[:2])
+        
+        return None
+
+    def _assess_concept_maturity(self, text: str) -> ConceptMaturityLevel:
+        """Assess the maturity level of a concept based on its context."""
+        text_lower = text.lower()
+        
+        # Define maturity indicators
+        maturity_indicators = {
+            ConceptMaturityLevel.MENTIONED: ["mentions", "refers to", "talks about", "discusses"],
+            ConceptMaturityLevel.DEFINED: ["defines", "explains", "describes", "clarifies", "outlines"],
+            ConceptMaturityLevel.EXPLORED: ["analyzes", "examines", "investigates", "explores", "studies"],
+            ConceptMaturityLevel.SYNTHESIZED: ["integrates", "combines", "synthesizes", "connects", "relates"],
+            ConceptMaturityLevel.CRITICIZED: ["criticizes", "challenges", "questions", "disputes", "argues against"],
+            ConceptMaturityLevel.EVOLVED: ["evolves", "develops", "progresses", "advances", "transforms"]
+        }
+        
+        # Check from highest to lowest maturity
+        for level, indicators in reversed(list(maturity_indicators.items())):
+            if any(indicator in text_lower for indicator in indicators):
+                return level
+        
+        return ConceptMaturityLevel.MENTIONED  # Default
+
+    def _assess_explanation_depth(self, text: str) -> float:
+        """Assess how deeply a concept is explained."""
+        # Simple heuristic based on text length and complexity
+        base_score = min(len(text) / 200, 1.0)  # Longer text = more depth
+        
+        # Boost for analytical language
+        analytical_terms = ["because", "therefore", "however", "furthermore", "analysis", "explains"]
+        analytical_boost = sum(1 for term in analytical_terms if term.lower() in text.lower()) * 0.1
+        
+        return min(base_score + analytical_boost, 1.0)
+
+    def _extract_related_entities(self, text: str, entities: List[Entity]) -> List[str]:
+        """Find entities mentioned in the concept text."""
+        text_lower = text.lower()
+        related = []
+        
+        for entity in entities:
+            if entity.name.lower() in text_lower:
+                related.append(entity.name)
+        
+        return related[:5]  # Limit to top 5
+
+    def _assess_concept_sentiment(self, text: str) -> float:
+        """Assess sentiment toward the concept."""
+        # Simple sentiment analysis
+        positive_words = ["good", "excellent", "positive", "beneficial", "effective", "successful"]
+        negative_words = ["bad", "poor", "negative", "harmful", "ineffective", "failed"]
+        
+        text_lower = text.lower()
+        positive_count = sum(1 for word in positive_words if word in text_lower)
+        negative_count = sum(1 for word in negative_words if word in text_lower)
+        
+        if positive_count + negative_count == 0:
+            return 0.0  # Neutral
+        
+        return (positive_count - negative_count) / (positive_count + negative_count)
+
+    def _calculate_information_density(self, text: str) -> float:
+        """Calculate information density of the text."""
+        # Simple heuristic: ratio of content words to total words
+        words = text.split()
+        
+        # Define content words (not function words)
+        function_words = {"the", "a", "an", "and", "or", "but", "in", "on", "at", "to", "for", "of", "with", "by"}
+        content_words = [w for w in words if w.lower() not in function_words and len(w) > 2]
+        
+        if len(words) == 0:
+            return 0.0
+        
+        return len(content_words) / len(words)
+
+    def _is_significant_topic(self, topic: Topic) -> bool:
+        """Determine if a topic is significant enough to track."""
+        return topic.confidence > 0.7 and len(topic.name) > 3
+
+    def _find_topic_context(self, topic_name: str, video: VideoIntelligence) -> str:
+        """Find context for a topic from video content."""
+        # Look in summary first
+        if topic_name.lower() in video.summary.lower():
+            sentences = video.summary.split('. ')
+            for sentence in sentences:
+                if topic_name.lower() in sentence.lower():
+                    return sentence
+        
+        # Look in key points
+        for kp in video.key_points:
+            if topic_name.lower() in kp.text.lower():
+                return kp.text
+        
+        return f"Topic '{topic_name}' discussed in video"
+
+    def _deduplicate_concepts(self, concept_nodes: List[ConceptNode]) -> List[ConceptNode]:
+        """Remove duplicate concept nodes."""
+        seen_concepts = {}
+        unique_nodes = []
+        
+        for node in concept_nodes:
+            key = (node.concept_name.lower(), node.video_id)
+            if key not in seen_concepts:
+                seen_concepts[key] = node
+                unique_nodes.append(node)
+            else:
+                # Merge with existing if this one has higher maturity
+                existing = seen_concepts[key]
+                if node.maturity_level.value > existing.maturity_level.value:
+                    seen_concepts[key] = node
+                    unique_nodes = [n for n in unique_nodes if n.node_id != existing.node_id]
+                    unique_nodes.append(node)
+        
+        return unique_nodes
+
+    async def _identify_concept_dependencies(
+        self, 
+        concept_nodes: List[ConceptNode], 
+        videos: List[VideoIntelligence]
+    ) -> List[ConceptDependency]:
+        """Identify dependencies between concepts."""
+        logger.info("Identifying concept dependencies...")
+        
+        dependencies = []
+        
+        # Group concepts by name
+        concept_groups = {}
+        for node in concept_nodes:
+            name = node.concept_name.lower()
+            if name not in concept_groups:
+                concept_groups[name] = []
+            concept_groups[name].append(node)
+        
+        # Look for temporal dependencies (concepts that appear in sequence)
+        sorted_nodes = sorted(concept_nodes, key=lambda n: (n.video_sequence_position, n.timestamp))
+        
+        for i in range(len(sorted_nodes) - 1):
+            current = sorted_nodes[i]
+            next_node = sorted_nodes[i + 1]
+            
+            # Check if concepts are related and next builds on current
+            if self._concepts_are_related(current, next_node) and current.video_sequence_position <= next_node.video_sequence_position:
+                dependency = ConceptDependency(
+                    dependency_id=f"dep_{current.node_id}_{next_node.node_id}",
+                    prerequisite_concept=current.concept_name,
+                    dependent_concept=next_node.concept_name,
+                    dependency_type="builds_on",
+                    dependency_strength=self._calculate_dependency_strength(current, next_node),
+                    video_evidence=[current.video_id, next_node.video_id],
+                    textual_evidence=[current.context, next_node.context],
+                    explanation=f"{next_node.concept_name} builds on understanding of {current.concept_name}",
+                    confidence=0.7
+                )
+                dependencies.append(dependency)
+        
+        logger.info(f"Identified {len(dependencies)} concept dependencies")
+        return dependencies
+
+    def _concepts_are_related(self, concept1: ConceptNode, concept2: ConceptNode) -> bool:
+        """Determine if two concepts are related."""
+        # Check for overlapping entities
+        entities1 = set(concept1.related_entities)
+        entities2 = set(concept2.related_entities)
+        entity_overlap = len(entities1.intersection(entities2)) / max(len(entities1.union(entities2)), 1)
+        
+        # Check for related concept names
+        name_similarity = self._calculate_name_similarity(concept1.concept_name, concept2.concept_name)
+        
+        return entity_overlap > 0.3 or name_similarity > 0.5
+
+    def _calculate_name_similarity(self, name1: str, name2: str) -> float:
+        """Calculate similarity between concept names."""
+        words1 = set(name1.lower().split())
+        words2 = set(name2.lower().split())
+        
+        if len(words1.union(words2)) == 0:
+            return 0.0
+        
+        return len(words1.intersection(words2)) / len(words1.union(words2))
+
+    def _calculate_dependency_strength(self, prerequisite: ConceptNode, dependent: ConceptNode) -> float:
+        """Calculate the strength of dependency between concepts."""
+        # Base strength on concept maturity levels
+        maturity_levels = {
+            ConceptMaturityLevel.MENTIONED: 1,
+            ConceptMaturityLevel.DEFINED: 2,
+            ConceptMaturityLevel.EXPLORED: 3,
+            ConceptMaturityLevel.SYNTHESIZED: 4,
+            ConceptMaturityLevel.CRITICIZED: 5,
+            ConceptMaturityLevel.EVOLVED: 6
+        }
+        
+        prereq_level = maturity_levels.get(prerequisite.maturity_level, 1)
+        dep_level = maturity_levels.get(dependent.maturity_level, 1)
+        
+        # Strong dependency if dependent concept is more mature
+        if dep_level > prereq_level:
+            return min(0.8, 0.5 + (dep_level - prereq_level) * 0.1)
+        else:
+            return 0.3
+
+    async def _create_information_flows(self, concept_nodes: List[ConceptNode]) -> List[InformationFlow]:
+        """Create information flows between concept nodes."""
+        logger.info("Creating information flows...")
+        
+        flows = []
+        
+        # Sort nodes by sequence and timestamp
+        sorted_nodes = sorted(concept_nodes, key=lambda n: (n.video_sequence_position, n.timestamp))
+        
+        # Create flows between related concepts
+        for i in range(len(sorted_nodes)):
+            current = sorted_nodes[i]
+            
+            # Look for flows to later concepts
+            for j in range(i + 1, min(i + 10, len(sorted_nodes))):  # Look ahead up to 10 concepts
+                target = sorted_nodes[j]
+                
+                if self._should_create_flow(current, target):
+                    flow = InformationFlow(
+                        flow_id=f"flow_{current.node_id}_{target.node_id}",
+                        source_node=current,
+                        target_node=target,
+                        flow_type=self._determine_flow_type(current, target),
+                        information_transferred=self._describe_information_transfer(current, target),
+                        transformation_type=self._determine_transformation_type(current, target),
+                        flow_quality=self._assess_flow_quality(current, target),
+                        coherence_score=self._calculate_flow_coherence(current, target),
+                        temporal_gap=self._calculate_temporal_gap(current, target),
+                        bridge_entities=list(set(current.related_entities).intersection(set(target.related_entities))),
+                        supporting_evidence=[current.context, target.context]
+                    )
+                    flows.append(flow)
+        
+        logger.info(f"Created {len(flows)} information flows")
+        return flows
+
+    def _should_create_flow(self, source: ConceptNode, target: ConceptNode) -> bool:
+        """Determine if an information flow should be created."""
+        # Don't create flows within the same video unless there's clear progression
+        if source.video_id == target.video_id:
+            # Map maturity levels for comparison
+            maturity_mapping = {
+                "mentioned": 1, "defined": 2, "explored": 3,
+                "synthesized": 4, "criticized": 5, "evolved": 6
+            }
+            source_level = maturity_mapping.get(source.maturity_level.value, 1)
+            target_level = maturity_mapping.get(target.maturity_level.value, 1)
+            return target.timestamp > source.timestamp and target_level > source_level
+        
+        # Create flows between videos if concepts are related
+        return self._concepts_are_related(source, target)
+
+    def _determine_flow_type(self, source: ConceptNode, target: ConceptNode) -> str:
+        """Determine the type of information flow."""
+        if source.concept_name.lower() == target.concept_name.lower():
+            return "development"  # Same concept being developed
+        else:
+            # Map maturity levels for comparison
+            maturity_mapping = {
+                "mentioned": 1, "defined": 2, "explored": 3,
+                "synthesized": 4, "criticized": 5, "evolved": 6
+            }
+            source_level = maturity_mapping.get(source.maturity_level.value, 1)
+            target_level = maturity_mapping.get(target.maturity_level.value, 1)
+            
+            if target_level > source_level:
+                return "elaboration"  # Concept being elaborated
+            elif source.sentiment > 0 and target.sentiment < 0:
+                return "contradiction"  # Contrasting viewpoints
+            else:
+                return "synthesis"  # Concepts being combined
+
+    def _describe_information_transfer(self, source: ConceptNode, target: ConceptNode) -> str:
+        """Describe what information flows between concepts."""
+        if source.concept_name.lower() == target.concept_name.lower():
+            return f"Enhanced understanding of {source.concept_name}"
+        else:
+            return f"Connecting {source.concept_name} to {target.concept_name}"
+
+    def _determine_transformation_type(self, source: ConceptNode, target: ConceptNode) -> str:
+        """Determine how information is transformed."""
+        if target.explanation_depth > source.explanation_depth:
+            return "deepening"
+        elif len(target.related_entities) > len(source.related_entities):
+            return "expansion"
+        else:
+            return "integration"
+
+    def _assess_flow_quality(self, source: ConceptNode, target: ConceptNode) -> float:
+        """Assess the quality of information flow."""
+        # Base quality on confidence and coherence
+        base_quality = (source.confidence + target.confidence) / 2
+        
+        # Map maturity levels for comparison
+        maturity_mapping = {
+            "mentioned": 1, "defined": 2, "explored": 3,
+            "synthesized": 4, "criticized": 5, "evolved": 6
+        }
+        source_level = maturity_mapping.get(source.maturity_level.value, 1)
+        target_level = maturity_mapping.get(target.maturity_level.value, 1)
+        
+        # Boost for logical progression
+        if target_level > source_level:
+            base_quality += 0.2
+        
+        # Boost for temporal coherence
+        if source.video_sequence_position < target.video_sequence_position:
+            base_quality += 0.1
+        
+        return min(base_quality, 1.0)
+
+    def _calculate_flow_coherence(self, source: ConceptNode, target: ConceptNode) -> float:
+        """Calculate coherence of the flow."""
+        # Based on entity overlap and concept similarity
+        entity_overlap = len(set(source.related_entities).intersection(set(target.related_entities)))
+        max_entities = max(len(source.related_entities), len(target.related_entities), 1)
+        
+        name_similarity = self._calculate_name_similarity(source.concept_name, target.concept_name)
+        
+        return (entity_overlap / max_entities + name_similarity) / 2
+
+    def _calculate_temporal_gap(self, source: ConceptNode, target: ConceptNode) -> int:
+        """Calculate temporal gap between concept appearances."""
+        if source.video_id == target.video_id:
+            return abs(target.timestamp - source.timestamp)
+        else:
+            # For different videos, use a large gap value
+            return (target.video_sequence_position - source.video_sequence_position) * 3600  # Assume 1 hour per video
+
+    async def _analyze_concept_evolution_paths(self, concept_nodes: List[ConceptNode]) -> List[ConceptEvolutionPath]:
+        """Analyze how concepts evolve across videos."""
+        logger.info("Analyzing concept evolution paths...")
+        
+        evolution_paths = []
+        
+        # Group nodes by concept name
+        concept_groups = {}
+        for node in concept_nodes:
+            name = node.concept_name.lower()
+            if name not in concept_groups:
+                concept_groups[name] = []
+            concept_groups[name].append(node)
+        
+        # Create evolution paths for concepts that appear multiple times
+        for concept_name, nodes in concept_groups.items():
+            if len(nodes) > 1:
+                # Sort by video sequence and timestamp
+                sorted_nodes = sorted(nodes, key=lambda n: (n.video_sequence_position, n.timestamp))
+                
+                evolution_path = ConceptEvolutionPath(
+                    path_id=f"path_{concept_name.replace(' ', '_')}",
+                    concept_name=concept_name.title(),
+                    evolution_nodes=sorted_nodes,
+                    maturity_progression=[node.maturity_level for node in sorted_nodes],
+                    evolution_summary=self._generate_evolution_summary(sorted_nodes),
+                    key_transformations=self._identify_key_transformations(sorted_nodes),
+                    breakthrough_moments=self._identify_breakthrough_moments(sorted_nodes),
+                    evolution_coherence=self._calculate_evolution_coherence(sorted_nodes),
+                    completeness_score=self._calculate_completeness_score(sorted_nodes),
+                    understanding_depth=sorted_nodes[-1].explanation_depth if sorted_nodes else 0.5
+                )
+                evolution_paths.append(evolution_path)
+        
+        logger.info(f"Analyzed {len(evolution_paths)} concept evolution paths")
+        return evolution_paths
+
+    def _generate_evolution_summary(self, nodes: List[ConceptNode]) -> str:
+        """Generate a summary of concept evolution."""
+        if not nodes:
+            return "No evolution data"
+        
+        start_maturity = nodes[0].maturity_level.value
+        end_maturity = nodes[-1].maturity_level.value
+        
+        if end_maturity > start_maturity:
+            return f"Concept evolves from {nodes[0].maturity_level.value} to {nodes[-1].maturity_level.value} across {len(nodes)} appearances"
+        else:
+            return f"Concept maintains {nodes[0].maturity_level.value} level across {len(nodes)} appearances"
+
+    def _identify_key_transformations(self, nodes: List[ConceptNode]) -> List[str]:
+        """Identify key transformations in concept understanding."""
+        transformations = []
+        
+        for i in range(len(nodes) - 1):
+            current = nodes[i]
+            next_node = nodes[i + 1]
+            
+            if next_node.maturity_level.value > current.maturity_level.value:
+                transformations.append(
+                    f"From {current.maturity_level.value} to {next_node.maturity_level.value} in {next_node.video_title}"
+                )
+        
+        return transformations
+
+    def _identify_breakthrough_moments(self, nodes: List[ConceptNode]) -> List[Dict[str, Any]]:
+        """Identify breakthrough moments in concept development."""
+        breakthrough_moments = []
+        
+        if not nodes:
+            return breakthrough_moments
+        
+        for i in range(len(nodes)):
+            current = nodes[i]
+            
+            # Identify potential breakthrough moments
+            is_breakthrough = False
+            breakthrough_type = ""
+            
+            # 1. Significant maturity jump
+            if i > 0:
+                previous = nodes[i - 1]
+                # Map maturity levels for comparison
+                maturity_mapping = {
+                    "mentioned": 1, "defined": 2, "explored": 3,
+                    "synthesized": 4, "criticized": 5, "evolved": 6
+                }
+                current_level = maturity_mapping.get(current.maturity_level.value, 1)
+                previous_level = maturity_mapping.get(previous.maturity_level.value, 1)
+                maturity_jump = current_level - previous_level
+                if maturity_jump >= 2:  # Jump of 2+ maturity levels
+                    is_breakthrough = True
+                    breakthrough_type = "maturity_leap"
+            
+            # 2. High explanation depth (detailed exploration)
+            if current.explanation_depth > 0.8:
+                is_breakthrough = True
+                breakthrough_type = "detailed_exploration"
+            
+            # 3. High information density (new information)
+            if current.information_density > 0.7:
+                is_breakthrough = True
+                breakthrough_type = "information_dense"
+            
+            # 4. Sentiment shift (controversial or critical discussion)
+            if i > 0:
+                previous = nodes[i - 1]
+                sentiment_shift = abs(current.sentiment - previous.sentiment)
+                if sentiment_shift > 0.5:
+                    is_breakthrough = True
+                    breakthrough_type = "perspective_shift"
+            
+            # 5. First appearance with high confidence
+            if i == 0 and current.confidence > 0.9:
+                is_breakthrough = True
+                breakthrough_type = "strong_introduction"
+            
+            if is_breakthrough:
+                breakthrough_moment = {
+                    "video_id": current.video_id,
+                    "video_title": current.video_title,
+                    "timestamp": current.timestamp,
+                    "breakthrough_type": breakthrough_type,
+                    "maturity_level": current.maturity_level.value,
+                    "explanation_depth": current.explanation_depth,
+                    "confidence": current.confidence,
+                    "context": current.context[:200] + "..." if len(current.context) > 200 else current.context,
+                    "significance": self._calculate_breakthrough_significance(current, nodes, i)
+                }
+                breakthrough_moments.append(breakthrough_moment)
+        
+        # Sort by significance
+        breakthrough_moments.sort(key=lambda m: m["significance"], reverse=True)
+        
+        return breakthrough_moments[:5]  # Return top 5 breakthrough moments
+
+    def _calculate_breakthrough_significance(self, node: ConceptNode, all_nodes: List[ConceptNode], index: int) -> float:
+        """Calculate the significance of a breakthrough moment."""
+        significance = 0.0
+        
+        # Map maturity level to integer for calculation
+        maturity_mapping = {
+            "mentioned": 1,
+            "defined": 2,
+            "explored": 3,
+            "synthesized": 4,
+            "criticized": 5,
+            "evolved": 6
+        }
+        
+        # Base significance on maturity level
+        maturity_score = maturity_mapping.get(node.maturity_level.value, 1) / 6.0  # Normalize to 0-1
+        significance += maturity_score * 0.2
+        
+        # Boost for explanation depth
+        significance += node.explanation_depth * 0.3
+        
+        # Boost for confidence
+        significance += node.confidence * 0.2
+        
+        # Boost for information density
+        significance += node.information_density * 0.2
+        
+        # Boost for position in sequence (later developments may be more significant)
+        sequence_position = index / len(all_nodes) if all_nodes else 0
+        significance += sequence_position * 0.1
+        
+        return min(significance, 1.0)
+
+    def _calculate_evolution_coherence(self, nodes: List[ConceptNode]) -> float:
+        """Calculate how coherent the concept evolution is."""
+        if len(nodes) < 2:
+            return 1.0
+        
+        # Map maturity levels for comparison
+        maturity_mapping = {
+            "mentioned": 1, "defined": 2, "explored": 3,
+            "synthesized": 4, "criticized": 5, "evolved": 6
+        }
+        
+        # Check for logical progression in maturity levels
+        progression_score = 0.0
+        for i in range(len(nodes) - 1):
+            current_level = maturity_mapping.get(nodes[i].maturity_level.value, 1)
+            next_level = maturity_mapping.get(nodes[i + 1].maturity_level.value, 1)
+            if next_level >= current_level:
+                progression_score += 1.0
+        
+        return progression_score / (len(nodes) - 1)
+
+    def _calculate_completeness_score(self, nodes: List[ConceptNode]) -> float:
+        """Calculate how complete the concept evolution is."""
+        # Based on reaching higher maturity levels
+        maturity_mapping = {
+            "mentioned": 1, "defined": 2, "explored": 3,
+            "synthesized": 4, "criticized": 5, "evolved": 6
+        }
+        
+        max_maturity = max(maturity_mapping.get(node.maturity_level.value, 1) for node in nodes) if nodes else 1
+        max_possible = 6  # Maximum maturity level
+        
+        return max_maturity / max_possible
+
+    async def _create_concept_clusters(
+        self, 
+        concept_nodes: List[ConceptNode], 
+        concept_dependencies: List[ConceptDependency]
+    ) -> List[ConceptCluster]:
+        """Create clusters of related concepts."""
+        logger.info("Creating concept clusters...")
+        
+        # Simple clustering based on shared entities and dependencies
+        clusters = []
+        clustered_concepts = set()
+        
+        for node in concept_nodes:
+            if node.concept_name in clustered_concepts:
+                continue
+            
+            # Find related concepts
+            related_concepts = [node.concept_name]
+            
+            # Add concepts with shared entities
+            for other_node in concept_nodes:
+                if (other_node.concept_name != node.concept_name and 
+                    other_node.concept_name not in clustered_concepts):
+                    
+                    # Check entity overlap
+                    shared_entities = set(node.related_entities).intersection(set(other_node.related_entities))
+                    if len(shared_entities) > 0:
+                        related_concepts.append(other_node.concept_name)
+            
+            # Add concepts with dependencies
+            for dep in concept_dependencies:
+                if dep.prerequisite_concept == node.concept_name:
+                    if dep.dependent_concept not in related_concepts:
+                        related_concepts.append(dep.dependent_concept)
+            
+            if len(related_concepts) > 1:  # Only create cluster if there are multiple concepts
+                cluster = ConceptCluster(
+                    cluster_id=f"cluster_{len(clusters)}",
+                    cluster_name=f"{node.concept_name} cluster",
+                    core_concepts=related_concepts,
+                    cluster_evolution=f"Cluster of {len(related_concepts)} related concepts",
+                    internal_relationships=concept_dependencies,
+                    external_connections=[],  # Would need more analysis
+                    coherence_score=0.7,  # Default
+                    influence_score=0.5,  # Default
+                    completeness=0.6  # Default
+                )
+                clusters.append(cluster)
+                clustered_concepts.update(related_concepts)
+        
+        logger.info(f"Created {len(clusters)} concept clusters")
+        return clusters
+
+    async def _analyze_flow_patterns(
+        self, 
+        concept_nodes: List[ConceptNode], 
+        information_flows: List[InformationFlow],
+        concept_dependencies: List[ConceptDependency]
+    ) -> Dict[str, Any]:
+        """Analyze information flow patterns."""
+        logger.info("Analyzing flow patterns...")
+        
+        # Identify primary pathways (most frequent flow types)
+        flow_types = {}
+        for flow in information_flows:
+            flow_types[flow.flow_type] = flow_types.get(flow.flow_type, 0) + 1
+        
+        primary_pathways = [f"{ftype}: {count} flows" for ftype, count in 
+                          sorted(flow_types.items(), key=lambda x: x[1], reverse=True)]
+        
+        # Identify bottlenecks (concepts with many dependencies)
+        concept_dep_count = {}
+        for dep in concept_dependencies:
+            concept_dep_count[dep.prerequisite_concept] = concept_dep_count.get(dep.prerequisite_concept, 0) + 1
+        
+        bottlenecks = [concept for concept, count in concept_dep_count.items() if count > 2]
+        
+        # Identify information gaps (concepts without flows)
+        concepts_in_flows = set()
+        for flow in information_flows:
+            concepts_in_flows.add(flow.source_node.concept_name)
+            concepts_in_flows.add(flow.target_node.concept_name)
+        
+        all_concepts = {node.concept_name for node in concept_nodes}
+        information_gaps = list(all_concepts - concepts_in_flows)
+        
+        # Calculate overall metrics
+        avg_coherence = sum(flow.coherence_score for flow in information_flows) / len(information_flows) if information_flows else 0.5
+        avg_quality = sum(flow.flow_quality for flow in information_flows) / len(information_flows) if information_flows else 0.5
+        
+        return {
+            "primary_pathways": primary_pathways,
+            "bottlenecks": bottlenecks,
+            "gaps": information_gaps,
+            "summary": f"Information flows through {len(primary_pathways)} main pathways with {len(bottlenecks)} bottlenecks",
+            "progression": "Concepts develop through systematic information flow patterns",
+            "complexity": f"Medium complexity with {len(information_flows)} total flows",
+            "coherence": avg_coherence,
+            "pedagogical": avg_quality,
+            "density": len(information_flows) / len(concept_nodes) if concept_nodes else 0.0
+        }
+
+    async def _ai_generate_flow_insights(
+        self,
+        concept_nodes: List[ConceptNode],
+        information_flows: List[InformationFlow],
+        evolution_paths: List[ConceptEvolutionPath],
+        collection_title: str
+    ) -> List[str]:
+        """Generate AI-powered insights about information flow."""
+        try:
+            # Prepare analysis data
+            top_concepts = sorted(concept_nodes, key=lambda n: n.explanation_depth, reverse=True)[:10]
+            key_flows = sorted(information_flows, key=lambda f: f.flow_quality, reverse=True)[:10]
+            
+            prompt = f"""
+            Analyze the information flow and concept evolution in this video collection: "{collection_title}"
+            
+            CONCEPT ANALYSIS:
+            Total concepts tracked: {len(concept_nodes)}
+            Information flows: {len(information_flows)}
+            Evolution paths: {len(evolution_paths)}
+            
+            TOP CONCEPTS BY DEPTH:
+            {chr(10).join(c.concept_name for c in top_concepts)}
+            
+            KEY INFORMATION FLOWS:
+            {chr(10).join(f"{f.source_node.concept_name} → {f.target_node.concept_name} ({f.flow_type})" for f in key_flows)}
+            
+            EVOLUTION PATTERNS:
+            {chr(10).join(p.evolution_summary for p in evolution_paths[:5])}
+            
+            Generate insights about:
+            1. How information flows through the collection
+            2. Which concepts are most critical to understanding
+            3. How knowledge builds and evolves
+            4. Pedagogical strengths and weaknesses
+            5. Information architecture effectiveness
+            6. Strategic implications for learning/understanding
+            
+            Format as bullet points, each 1-2 sentences.
+            """
+            
+            response = await self.ai_model.generate_content_async(prompt)
+            
+            # Parse insights
+            insights = []
+            for line in response.text.strip().split('\n'):
+                line = line.strip()
+                if line and (line.startswith('-') or line.startswith('•')):
+                    insights.append(line.lstrip('-•').strip())
+            
+            return insights[:7]  # Limit to 7 insights
+            
+        except Exception as e:
+            logger.warning(f"AI flow insights generation failed: {e}")
+            return self._template_generate_flow_insights(concept_nodes, information_flows)
+
+    def _template_generate_flow_insights(
+        self, 
+        concept_nodes: List[ConceptNode], 
+        information_flows: List[InformationFlow]
+    ) -> List[str]:
+        """Generate template-based flow insights."""
+        insights = []
+        
+        if concept_nodes:
+            # Map maturity levels to integers for comparison
+            maturity_mapping = {
+                "mentioned": 1,
+                "defined": 2,
+                "explored": 3,
+                "synthesized": 4,
+                "criticized": 5,
+                "evolved": 6
+            }
+            
+            avg_maturity = sum(maturity_mapping.get(n.maturity_level.value, 1) for n in concept_nodes) / len(concept_nodes)
+            insights.append(f"Concept maturity averages {avg_maturity:.1f} across {len(concept_nodes)} concepts")
+        
+        if information_flows:
+            avg_quality = sum(f.flow_quality for f in information_flows) / len(information_flows)
+            insights.append(f"Information flow quality averages {avg_quality:.2f} across {len(information_flows)} flows")
+        
+        insights.append("Information flow shows systematic development across video collection")
+        insights.append("Information architecture enables progressive understanding development")
+        
+        return insights
+
+    def _template_generate_panel_summary(self, panels: List[KnowledgePanel], collection_title: str) -> str:
+        """Template-based panel summary."""
+        return f"Knowledge panel collection for '{collection_title}' contains {len(panels)} entity profiles with comprehensive cross-video analysis."
+
+    def _template_analyze_key_entities(self, panels: List[KnowledgePanel]) -> str:
+        """Template-based key entities analysis."""
+        entity_types = {}
+        for panel in panels:
+            entity_types[panel.entity_type] = entity_types.get(panel.entity_type, 0) + 1
+        
+        top_type = max(entity_types.items(), key=lambda x: x[1])
+        return f"Collection contains {len(panels)} key entities, predominantly {top_type[0].lower()}s ({top_type[1]} entities)."
+
+    def _template_extract_network_insights(self, panels: List[KnowledgePanel]) -> List[str]:
+        """Template-based network insights."""
+        return [
+            f"Network contains {len(panels)} analyzed entities",
+            f"Total relationships: {sum(len(p.relationships) for p in panels)}",
+            "Network analysis available through knowledge panels"
+        ]
+
+

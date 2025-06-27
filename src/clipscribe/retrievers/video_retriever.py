@@ -1375,5 +1375,290 @@ class VideoIntelligenceRetriever:
             except Exception as e:
                 logger.warning(f"Failed to generate unified GEXF: {e}")
 
+        # 4. Save Knowledge Panels (NEW v2.14.0)
+        if collection.knowledge_panels:
+            # Save complete knowledge panels collection
+            panels_path = collection_path / "knowledge_panels.json"
+            with open(panels_path, 'w', encoding='utf-8') as f:
+                f.write(collection.knowledge_panels.model_dump_json(indent=2))
+            saved_paths["knowledge_panels"] = panels_path
+            logger.info(f"Saved knowledge panels to {panels_path}")
+            
+            # Save individual entity panels as separate files for easy access
+            panels_dir = collection_path / "entity_panels"
+            panels_dir.mkdir(exist_ok=True)
+            
+            for panel in collection.knowledge_panels.panels:
+                panel_filename = f"{panel.entity_name.replace(' ', '_').replace('/', '_').lower()}.json"
+                panel_path = panels_dir / panel_filename
+                with open(panel_path, 'w', encoding='utf-8') as f:
+                    f.write(panel.model_dump_json(indent=2))
+            
+            saved_paths["entity_panels_dir"] = panels_dir
+            logger.info(f"Saved {len(collection.knowledge_panels.panels)} individual entity panels to {panels_dir}")
+            
+            # Save a human-readable summary of all panels
+            panels_summary_path = collection_path / "knowledge_panels_summary.md"
+            self._save_knowledge_panels_summary(collection.knowledge_panels, panels_summary_path)
+            saved_paths["panels_summary"] = panels_summary_path
+
+        # 5. Save Information Flow Maps (NEW v2.14.0)
+        if collection.information_flow_map:
+            # Save complete information flow map
+            flow_map_path = collection_path / "information_flow_map.json"
+            with open(flow_map_path, 'w', encoding='utf-8') as f:
+                f.write(collection.information_flow_map.model_dump_json(indent=2))
+            saved_paths["information_flow_map"] = flow_map_path
+            logger.info(f"Saved information flow map to {flow_map_path}")
+            
+            # Save individual concept flows as separate files for easy access
+            flows_dir = collection_path / "concept_flows"
+            flows_dir.mkdir(exist_ok=True)
+            
+            for flow in collection.information_flow_map.information_flows:
+                flow_filename = f"{flow.video_id}_{flow.video_index}.json"
+                flow_path = flows_dir / flow_filename
+                with open(flow_path, 'w', encoding='utf-8') as f:
+                    f.write(flow.model_dump_json(indent=2))
+            
+            saved_paths["concept_flows_dir"] = flows_dir
+            logger.info(f"Saved {len(collection.information_flow_map.information_flows)} individual concept flows to {flows_dir}")
+            
+            # Save a human-readable summary of information flows
+            flow_summary_path = collection_path / "information_flow_summary.md"
+            self._save_information_flow_summary(collection.information_flow_map, flow_summary_path)
+            saved_paths["flow_summary"] = flow_summary_path
+
         logger.info(f"All collection outputs saved to: {collection_path}")
-        return saved_paths 
+        return saved_paths
+
+    def _save_knowledge_panels_summary(self, panels_collection, output_path: Path):
+        """Generate a human-readable markdown summary of all knowledge panels."""
+        from clipscribe.models import KnowledgePanelCollection
+        
+        with open(output_path, 'w', encoding='utf-8') as f:
+            f.write(f"# Knowledge Panels Summary: {panels_collection.collection_title}\n\n")
+            f.write(f"**Collection ID:** {panels_collection.collection_id}\n")
+            f.write(f"**Created:** {panels_collection.created_at.strftime('%Y-%m-%d %H:%M:%S')}\n")
+            f.write(f"**Total Entities:** {panels_collection.total_entities}\n")
+            f.write(f"**High Confidence Entities:** {panels_collection.high_confidence_entities}\n\n")
+            
+            # Collection-level analysis
+            f.write("## 📊 Collection Analysis\n\n")
+            f.write("### Panel Summary\n")
+            f.write(f"{panels_collection.panel_summary}\n\n")
+            
+            f.write("### Key Entities Analysis\n")
+            f.write(f"{panels_collection.key_entities_analysis}\n\n")
+            
+            if panels_collection.entity_network_insights:
+                f.write("### Entity Network Insights\n")
+                for insight in panels_collection.entity_network_insights:
+                    f.write(f"- {insight}\n")
+                f.write("\n")
+            
+            # Individual entity panels
+            f.write("## 🎯 Individual Entity Profiles\n\n")
+            
+            # Sort panels by significance
+            sorted_panels = sorted(panels_collection.panels, 
+                                 key=lambda p: (p.source_videos_count, p.total_mentions, p.confidence_score), 
+                                 reverse=True)
+            
+            for i, panel in enumerate(sorted_panels, 1):
+                # Panel header
+                f.write(f"### {i}. {panel.entity_name} ({panel.entity_type})\n\n")
+                
+                # Quick stats
+                f.write("**Quick Stats:**\n")
+                f.write(f"- **Videos:** {panel.source_videos_count}\n")
+                f.write(f"- **Total Mentions:** {panel.total_mentions}\n")
+                f.write(f"- **Confidence:** {panel.confidence_score:.2f}\n")
+                f.write(f"- **Synthesis Quality:** {panel.synthesis_quality}\n\n")
+                
+                # Executive summary
+                f.write("**Executive Summary:**\n")
+                f.write(f"{panel.executive_summary}\n\n")
+                
+                # Key attributes
+                if panel.key_attributes:
+                    f.write("**Key Attributes:**\n")
+                    for attr, value in panel.key_attributes.items():
+                        f.write(f"- **{attr}:** {value}\n")
+                    f.write("\n")
+                
+                # Aliases
+                if panel.aliases_and_names and len(panel.aliases_and_names) > 1:
+                    f.write("**Alternative Names:**\n")
+                    aliases = [name for name in panel.aliases_and_names if name != panel.entity_name]
+                    if aliases:
+                        f.write(f"{', '.join(aliases)}\n\n")
+                
+                # Top activities
+                if panel.activities:
+                    f.write("**Top Activities:**\n")
+                    for activity in panel.activities[:3]:  # Top 3
+                        f.write(f"- {activity.description} *(from {activity.video_title})*\n")
+                    if len(panel.activities) > 3:
+                        f.write(f"- ... and {len(panel.activities) - 3} more activities\n")
+                    f.write("\n")
+                
+                # Key relationships
+                if panel.relationships:
+                    f.write("**Key Relationships:**\n")
+                    for rel in panel.relationships[:5]:  # Top 5
+                        f.write(f"- **{rel.related_entity}** ({rel.relationship_type}) - strength: {rel.relationship_strength:.2f}\n")
+                    if len(panel.relationships) > 5:
+                        f.write(f"- ... and {len(panel.relationships) - 5} more relationships\n")
+                    f.write("\n")
+                
+                # Strategic insights
+                if panel.strategic_insights:
+                    f.write("**Strategic Insights:**\n")
+                    for insight in panel.strategic_insights:
+                        f.write(f"- {insight}\n")
+                    f.write("\n")
+                
+                # Information gaps
+                if panel.information_gaps:
+                    f.write("**Information Gaps:**\n")
+                    for gap in panel.information_gaps:
+                        f.write(f"- {gap}\n")
+                    f.write("\n")
+                
+                f.write("---\n\n")
+            
+            # Footer
+            f.write("## 📁 Files Generated\n\n")
+            f.write("- `knowledge_panels.json` - Complete structured data for all panels\n")
+            f.write("- `entity_panels/` - Individual JSON files for each entity\n")
+            f.write("- `knowledge_panels_summary.md` - This human-readable summary\n\n")
+            
+            f.write("---\n")
+            f.write(f"*Generated by ClipScribe v2.14.0 Knowledge Panels on {panels_collection.created_at.strftime('%Y-%m-%d at %H:%M:%S')}*\n")
+        
+        logger.info(f"Saved knowledge panels summary to {output_path}") 
+
+    def _save_information_flow_summary(self, flow_map, output_path: Path):
+        """Generate a human-readable markdown summary of information flow maps."""
+        from clipscribe.models import InformationFlowMap
+        
+        with open(output_path, 'w', encoding='utf-8') as f:
+            f.write(f"# Information Flow Map: {flow_map.collection_title}\n\n")
+            f.write(f"**Collection ID:** {flow_map.collection_id}\n")
+            f.write(f"**Created:** {flow_map.created_at.strftime('%Y-%m-%d %H:%M:%S')}\n")
+            f.write(f"**Total Videos:** {flow_map.total_videos}\n")
+            f.write(f"**Concepts Tracked:** {flow_map.total_concepts}\n")
+            f.write(f"**Flow Patterns Identified:** {flow_map.total_flow_patterns}\n\n")
+            
+            # Collection-level analysis
+            f.write("## 📊 Flow Analysis Summary\n\n")
+            f.write("### Overall Flow Pattern\n")
+            f.write(f"{flow_map.flow_pattern_summary}\n\n")
+            
+            f.write("### Learning Progression Analysis\n")
+            f.write(f"{flow_map.learning_progression_analysis}\n\n")
+            
+            if flow_map.strategic_insights:
+                f.write("### Strategic Insights\n")
+                for insight in flow_map.strategic_insights:
+                    f.write(f"- {insight}\n")
+                f.write("\n")
+            
+            # Concept clusters
+            if flow_map.concept_clusters:
+                f.write("## 🔄 Concept Clusters\n\n")
+                for i, cluster in enumerate(flow_map.concept_clusters, 1):
+                    f.write(f"### Cluster {i}: {cluster.cluster_name}\n")
+                    f.write(f"**Theme:** {cluster.cluster_theme}\n")
+                    f.write(f"**Concepts:** {', '.join(cluster.concepts)}\n")
+                    f.write(f"**Average Maturity:** {cluster.average_maturity:.2f}\n\n")
+            
+            # Evolution paths
+            if flow_map.evolution_paths:
+                f.write("## 📈 Concept Evolution Paths\n\n")
+                # Sort by significance (video span × maturity evolution)
+                sorted_paths = sorted(flow_map.evolution_paths, 
+                                    key=lambda p: (p.video_span * (p.final_maturity - p.initial_maturity)), 
+                                    reverse=True)
+                
+                for i, path in enumerate(sorted_paths[:10], 1):  # Top 10 paths
+                    f.write(f"### {i}. {path.concept_name}\n")
+                    f.write(f"**Evolution:** {path.initial_maturity_level} → {path.final_maturity_level}\n")
+                    f.write(f"**Video Span:** {path.video_span} videos\n")
+                    f.write(f"**Maturity Change:** +{path.final_maturity - path.initial_maturity:.1f}\n")
+                    
+                    # Show evolution stages
+                    if path.evolution_stages:
+                        f.write("**Journey:**\n")
+                        for stage in path.evolution_stages:
+                            f.write(f"- Video {stage['video_index']}: {stage['maturity_level']} "
+                                   f"(maturity: {stage['maturity_score']:.1f})\n")
+                    f.write("\n")
+                
+                if len(flow_map.evolution_paths) > 10:
+                    f.write(f"*... and {len(flow_map.evolution_paths) - 10} more evolution paths*\n\n")
+            
+            # Individual video flows
+            f.write("## 📹 Video-by-Video Information Flows\n\n")
+            for i, flow in enumerate(flow_map.information_flows):
+                f.write(f"### Video {flow.video_index + 1}: {flow.video_title}\n")
+                
+                # Quick stats
+                f.write("**Quick Stats:**\n")
+                f.write(f"- **Concepts Introduced:** {len(flow.concepts_introduced)}\n")
+                f.write(f"- **Concepts Developed:** {len(flow.concepts_developed)}\n")
+                f.write(f"- **Concepts Concluded:** {len(flow.concepts_concluded)}\n")
+                f.write(f"- **Total Dependencies:** {len(flow.concept_dependencies)}\n\n")
+                
+                # Concept details
+                if flow.concepts_introduced:
+                    f.write("**New Concepts Introduced:**\n")
+                    for concept in flow.concepts_introduced[:5]:
+                        f.write(f"- **{concept.name}** ({concept.maturity_level}) - {concept.context[:100]}...\n")
+                    if len(flow.concepts_introduced) > 5:
+                        f.write(f"- ... and {len(flow.concepts_introduced) - 5} more\n")
+                    f.write("\n")
+                
+                if flow.concepts_developed:
+                    f.write("**Concepts Further Developed:**\n")
+                    for concept in flow.concepts_developed[:5]:
+                        f.write(f"- **{concept.name}** → {concept.maturity_level}\n")
+                    if len(flow.concepts_developed) > 5:
+                        f.write(f"- ... and {len(flow.concepts_developed) - 5} more\n")
+                    f.write("\n")
+                
+                # Key dependencies
+                if flow.concept_dependencies:
+                    f.write("**Key Concept Dependencies:**\n")
+                    for dep in flow.concept_dependencies[:3]:
+                        f.write(f"- {dep.from_concept} → {dep.to_concept} ({dep.dependency_type})\n")
+                    if len(flow.concept_dependencies) > 3:
+                        f.write(f"- ... and {len(flow.concept_dependencies) - 3} more dependencies\n")
+                    f.write("\n")
+                
+                f.write("---\n\n")
+            
+            # Information gaps
+            if flow_map.information_gaps:
+                f.write("## ⚠️ Information Gaps Identified\n\n")
+                for gap in flow_map.information_gaps:
+                    f.write(f"- {gap}\n")
+                f.write("\n")
+            
+            # Footer
+            f.write("## 📁 Files Generated\n\n")
+            f.write("- `information_flow_map.json` - Complete structured flow data\n")
+            f.write("- `concept_flows/` - Individual flow files for each video\n")
+            f.write("- `information_flow_summary.md` - This human-readable summary\n\n")
+            
+            f.write("## 🎯 How to Use This Analysis\n\n")
+            f.write("1. **Curriculum Design:** Use evolution paths to structure learning sequences\n")
+            f.write("2. **Content Planning:** Identify gaps where concepts need more development\n")
+            f.write("3. **Research Synthesis:** Track how ideas evolve across multiple sources\n")
+            f.write("4. **Knowledge Management:** Understand concept dependencies and relationships\n\n")
+            
+            f.write("---\n")
+            f.write(f"*Generated by ClipScribe v2.14.0 Information Flow Maps on {flow_map.created_at.strftime('%Y-%m-%d at %H:%M:%S')}*\n")
+        
+        logger.info(f"Saved information flow summary to {output_path}") 

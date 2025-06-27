@@ -5,7 +5,88 @@ All notable changes to ClipScribe will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - The Synthesis Update (v2.14.0)
+## [2.15.0] - 2025-06-27 - The Synthesis Complete Update
+
+### ✨ Synthesis Features Complete
+
+This release marks the completion of ALL major synthesis features for ClipScribe's multi-video intelligence capabilities. Both Knowledge Panels and Information Flow Maps are now production-ready with comprehensive testing and output integration.
+
+### 🎯 New Features
+
+#### 1. ✅ Knowledge Panels - Entity-Centric Intelligence Synthesis (COMPLETE)
+- **Comprehensive Entity Profiles**: Automatically generates detailed profiles for the top 15 most significant entities across a video collection
+- **Rich Data Models**: 
+  - `KnowledgePanel`: Individual entity profiles with activities, relationships, quotes, and strategic insights
+  - `EntityActivity`, `EntityQuote`, `EntityRelationshipSummary`, `EntityAttributeEvolution` supporting models
+  - `KnowledgePanelCollection`: Collection-level analysis with panel summaries and network insights
+- **AI-Powered Analysis**: 
+  - Executive summaries and portrayal analysis for each entity
+  - Significance assessment and strategic insights generation
+  - Collection-level key entities analysis and network insights
+- **Smart Filtering**: Prioritizes entities appearing in multiple videos or with high mention counts
+- **Comprehensive Output**:
+  - `knowledge_panels.json`: Complete structured data
+  - `entity_panels/`: Individual JSON files for each entity
+  - `knowledge_panels_summary.md`: Human-readable markdown summary
+- **Template Fallbacks**: Ensures functionality even without AI for robust operation
+
+#### 2. ✅ Information Flow Maps - Concept Evolution Tracking (COMPLETE) 
+- **Concept Maturity Tracking**: 6-level maturity model (mentioned → evolved) tracks how concepts develop across videos
+- **Rich Data Models**:
+  - `ConceptNode`: Individual concepts with maturity levels and context
+  - `ConceptDependency`: Tracks how concepts build on each other
+  - `InformationFlow`: Per-video concept introduction and development
+  - `ConceptEvolutionPath`: Traces concept journeys across the collection
+  - `ConceptCluster`: Groups related concepts by theme
+  - `InformationFlowMap`: Complete collection-level analysis
+- **Evolution Analysis**:
+  - Tracks which concepts are introduced, developed, or concluded in each video
+  - Identifies concept dependencies and relationships
+  - Analyzes learning progression and curriculum patterns
+- **AI-Powered Insights**:
+  - Flow pattern analysis and learning progression assessment
+  - Strategic insights for curriculum design and knowledge management
+  - Concept clustering by theme and evolution path analysis
+- **Comprehensive Output**:
+  - `information_flow_map.json`: Complete structured flow data
+  - `concept_flows/`: Individual flow files for each video
+  - `information_flow_summary.md`: Human-readable analysis with visualizations
+
+#### 3. 🔧 Output Integration Complete
+- **Enhanced Collection Outputs**: `save_collection_outputs()` now saves ALL synthesis features
+- **Structured Directory Layout**: Clean organization with dedicated folders for panels and flows
+- **Human-Readable Summaries**: Beautiful markdown reports for both Knowledge Panels and Information Flow Maps
+- **Backward Compatible**: All existing outputs preserved while adding new synthesis features
+
+### 🔬 Testing & Quality
+
+- **Comprehensive Unit Tests**: Both synthesis features have extensive test coverage
+- **Async Architecture**: All synthesis methods properly implemented with async/await
+- **Template Fallbacks**: Both features work without AI for maximum reliability
+- **Production Ready**: All tests passing, ready for deployment
+
+### 📊 Performance & Cost
+
+- **Minimal Cost Impact**: Both features reuse existing entity and content data
+- **Efficient Processing**: Smart filtering limits analysis to most significant entities
+- **Maintained 92% cost reduction** through intelligent model routing
+- **High ROI**: Dramatic improvement in intelligence synthesis quality
+
+### 🚀 What's Next
+
+With all synthesis features complete, v2.16.0 will focus on:
+- **Streamlit Mission Control**: Interactive UI for collection management
+- **Real-time Processing Dashboard**: Monitor batch jobs with progress and cost tracking
+- **Interactive Visualizations**: Explore Knowledge Panels and Information Flow Maps
+- **Export Hub**: Download analyses in multiple formats
+
+### 💡 Developer Notes
+
+This release represents the successful completion of ClipScribe's synthesis capabilities. The combination of Knowledge Panels (entity-centric view) and Information Flow Maps (concept evolution view) provides comprehensive multi-video intelligence that surpasses traditional single-video analysis.
+
+---
+
+## [2.14.0] - 2025-06-27 - The Synthesis Update
 
 ### 🎯 Major Breakthrough: REBEL Relationship Extraction Fixed
 

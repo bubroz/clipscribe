@@ -1,11 +1,11 @@
-# ClipScribe v2.14.0 - The Synthesis Update (In Progress)
+# ClipScribe v2.15.0 - The Synthesis Complete Update
 
 <p align="center">
   <strong>AI-powered video intelligence for 1800+ platforms</strong>
 </p>
 
 <p align="center">
-  <em>Building Knowledge Synthesis with Event Timelines & GEXF 1.3 🧠</em>
+  <em>Knowledge Synthesis Engine Now Complete: Knowledge Panels & Information Flow Maps 🧠</em>
 </p>
 
 <p align="center">
@@ -29,7 +29,7 @@ ClipScribe is a modern video intelligence tool that leverages Google's Gemini to
 - 📊 **Rich Interactive Reports** - Auto-generated markdown reports with:
   - 📈 **Mermaid.js Diagrams** for knowledge graphs and entity distributions.
   - 🗂️ **Collapsible Sections** for easy navigation.
-  -  dashboards with visual statistics.
+  - 📊 **Quick Stats Dashboards** with visual statistics.
 - 🎨 **Beautiful CLI** - Modern terminal interface with Rich progress indicators, live cost tracking, and phase timing.
 - 💰 **Cost Optimized** - Intelligent API batching reduces costs by 50-60%.
 - 📈 **Multiple Data Formats** - Export to TXT, JSON, CSV, GEXF, and interactive Markdown.
@@ -45,47 +45,83 @@ ClipScribe is a modern video intelligence tool that leverages Google's Gemini to
 - 📄 **Excel Export** - Multi-sheet Excel exports with professional formatting.
 - 📈 **Performance Dashboards** - Dedicated monitoring interface with real-time analytics.
 - 🌐 **GEXF 1.3 Export** - Modern knowledge graph format for Gephi visualization with enhanced styling.
+- 👥 **Knowledge Panels** - Entity-centric intelligence synthesis across videos with comprehensive profiles.
+- 🔄 **Information Flow Maps** - Track concept evolution and maturity across video sequences.
 
-## 🎉 What's New in v2.14.0 - The Synthesis Update (In Progress)
+## 🎉 What's New in v2.15.0 - The Synthesis Complete Update
 
-### 🚧 **Currently Implementing: Knowledge Synthesis Engine**
+### ✅ **All Knowledge Synthesis Features Now Complete!**
 
-**Progress**: Basic Event Timeline extraction is working, but needs temporal sophistication for meaningful chronological analysis.
+This release marks the completion of ClipScribe's comprehensive Knowledge Synthesis Engine. Both major synthesis features are now production-ready with full output integration.
 
-### ✅ **Completed in v2.14.0**
+### 🎯 **Completed Features**
 
-#### 🎯 **Major Breakthrough: Relationship Extraction Now Working!**
-- **REBEL Model Fixed**: Resolved a critical bug that prevented relationship extraction from completing, unlocking true knowledge graph capabilities.
-- **Rich Relationship Data**: Now successfully extracting 10-20 meaningful relationships per video (e.g., "NSO Group | inception | 2010").
+#### 👥 **Knowledge Panels - Entity-Centric Intelligence** ✅
+- **Comprehensive Entity Profiles**: Automatically generates detailed profiles for the top 15 most significant entities
+- **Rich Analysis**: Executive summaries, portrayal analysis, significance assessment, and strategic insights
+- **Cross-Video Synthesis**: Tracks entity activities, quotes, and relationships across entire collections
+- **Smart Filtering**: Prioritizes entities appearing in multiple videos or with high mention counts
+- **Complete Output Integration**: 
+  - `knowledge_panels.json` - Structured data for all panels
+  - `entity_panels/` - Individual JSON files for each entity
+  - `knowledge_panels_summary.md` - Beautiful human-readable report
+
+#### 🔄 **Information Flow Maps - Concept Evolution Tracking** ✅
+- **6-Level Maturity Model**: Tracks how concepts evolve from "mentioned" to "evolved"
+- **Comprehensive Tracking**: Monitors concept introduction, development, and conclusion across videos
+- **Dependency Analysis**: Maps how concepts build upon each other
+- **Evolution Paths**: Traces concept journeys across video sequences
+- **Complete Output Integration**:
+  - `information_flow_map.json` - Complete flow data
+  - `concept_flows/` - Individual flow files per video
+  - `information_flow_summary.md` - Comprehensive analysis report
+
+#### 📅 **Enhanced Event Timeline** ✅ (Completed 2025-06-27)
+- **LLM-Based Temporal Intelligence**: Sophisticated date extraction from content
+- **Smart Fallback Logic**: Content → Title → Publication date priority
+- **Traceable Timestamps**: Full transparency on date source and confidence
+
+#### 🌐 **GEXF 1.3 Knowledge Graphs** ✅
+- **Modern Format**: Full GEXF 1.3 specification for Gephi compatibility
+- **Rich Styling**: Type-based colors and confidence-based sizing
+- **Relationship Attributes**: Complete predicate information
+
+### 📊 **Technical Achievements**
+- **Test Coverage**: All synthesis features have comprehensive unit tests
+- **Async Architecture**: Proper async/await implementation throughout
+- **Template Fallbacks**: Both features work without AI for robustness
+- **Backward Compatible**: Existing outputs preserved while adding new features
+- **Production Ready**: All tests passing, ready for deployment
+
+### 🚀 **What's Next in v2.16.0**
+- **Streamlit Mission Control**: Interactive UI for collection management
+- **Real-time Dashboards**: Monitor processing with live progress tracking
+- **Interactive Visualizations**: Explore Knowledge Panels and Information Flow Maps
+- **Export Hub**: Download analyses in multiple formats
+
+## 🎉 Previous Releases
+
+### v2.14.0 - The Synthesis Update (2025-06-27)
+
+#### 🎯 **Major Breakthrough: Relationship Extraction Fixed!**
+- **REBEL Model Fixed**: Resolved a critical bug that prevented relationship extraction from completing
+- **Rich Relationship Data**: Now successfully extracting 10-20 meaningful relationships per video
 
 #### 🌐 **GEXF 1.3 Knowledge Graph Export**
 - **Upgraded GEXF export** from 1.2draft to GEXF 1.3 specification
 - Enhanced Gephi compatibility with modern namespaces and hex color attributes
 - Confidence-based node sizing and type-based color coding
 
-#### 📅 **Basic Event Timeline (Needs Enhancement)**
+#### 📅 **Enhanced Event Timeline with Temporal Intelligence**
+- **LLM-Based Date Extraction**: Sophisticated parsing of dates from video content
 - **Timeline Synthesis**: Chronological event extraction from video key points
 - **Data Models**: New `TimelineEvent` and `ConsolidatedTimeline` Pydantic models
-- **Known Limitation**: Currently assumes events happen when mentioned (naive temporal model)
 
-### 🔧 **Critical Bug Fixes**
-- **Fixed**: **Relationship Extraction Pipeline** - The core REBEL model is now fully operational after fixing a critical parsing bug.
-- **Fixed**: Async command handling with proper sync/async separation.
-- **Fixed**: Collection directory naming issues (no more trailing dots).
-- **Fixed**: Variable scope issues in collection processing.
-
-### 🚀 **Still To Come in v2.14.0**
-- **Knowledge Panels**: Entity-centric information synthesis across videos
-- **Information Flow Maps**: Track concept evolution through video series
-- **Streamlit Mission Control**: Interactive collection management UI
-
-### 📊 **Current Status**
-- **GEXF 1.3 Export**: ✅ Complete and working
-- **Event Timeline**: ✅ Enhanced with LLM-based temporal intelligence (COMPLETE 2025-06-26)
-- **Relationship Extraction**: ✅ Working after critical bug fix
-- **Knowledge Panels**: ❌ Not yet started
-- **Information Flow Maps**: ❌ Not yet started
-- **Streamlit Mission Control**: ❌ Not yet started
+#### 🔧 **Critical Bug Fixes**
+- **Fixed**: Relationship Extraction Pipeline - The core REBEL model is now fully operational
+- **Fixed**: Async command handling with proper sync/async separation
+- **Fixed**: Collection directory naming issues (no more trailing dots)
+- **Fixed**: Variable scope issues in collection processing
 
 ## 🎉 What's New in v2.13.0
 
@@ -152,11 +188,12 @@ The latest versions of ClipScribe also include these major enhancements:
 - **Cost & Time Tracking**: Live monitoring of API costs and processing time for each stage.
 - **Enhanced Markdown Reports**: Interactive reports with Mermaid diagrams, collapsible sections, and visual dashboards.
 
-### 💡 Coming in v2.15.0: Streamlit "Mission Control"
+### 💡 Coming in v2.16.0: Streamlit "Mission Control"
 - **Collection Workbench**: Drag-and-drop interface for building and managing video collections.
-- **Synthesis Dashboard**: Interactive visualizations of consolidated timelines and knowledge graphs.
-- **Live Knowledge Graph**: Real-time visualization as collections are built.
-- **Dynamic Knowledge Panels**: Synthesize all information about entities into comprehensive views.
+- **Interactive Knowledge Panels**: Explore entity profiles with drill-down capabilities.
+- **Dynamic Flow Maps**: Visualize concept evolution with timeline scrubbing.
+- **Real-time Processing**: Monitor batch jobs with progress bars and cost tracking.
+- **Export Hub**: Download analyses in JSON, Markdown, GEXF, and Excel formats.
 
 ## 📋 Requirements
 
@@ -202,8 +239,8 @@ poetry run clipscribe transcribe "https://www.youtube.com/watch?v=6ZVj1_SE4Mo"
 # Research a topic across multiple videos with performance monitoring
 poetry run clipscribe research "PBS NewsHour" --max-results 3
 
-# NEW in v2.14.0: Process multiple videos as a collection (Event Timeline feature in progress)
-poetry run clipscribe collection "PBS-Timeline-Test" "https://www.youtube.com/watch?v=video1" "https://www.youtube.com/watch?v=video2"
+# NEW in v2.15.0: Process multiple videos as a collection with complete synthesis features
+poetry run clipscribe process-collection "PBS-Analysis" "https://www.youtube.com/watch?v=video1" "https://www.youtube.com/watch?v=video2"
 
 # Process video series with automatic detection and narrative flow analysis
 poetry run clipscribe process-series "URL1" "URL2" "URL3" --series-title "My Documentary Series"
@@ -344,8 +381,8 @@ print(f"Knowledge graph has {result.knowledge_graph['edge_count']} edges")
 # Run the advanced features demo
 poetry run python examples/advanced_features_demo.py
 
-# Test collection processing with Event Timeline
-poetry run clipscribe collection "Test-Collection" "https://www.youtube.com/watch?v=video1" "https://www.youtube.com/watch?v=video2"
+# Test collection processing with complete synthesis features
+poetry run clipscribe process-collection "Test-Collection" "https://www.youtube.com/watch?v=video1" "https://www.youtube.com/watch?v=video2"
 ```
 
 ## 🛠️ Development

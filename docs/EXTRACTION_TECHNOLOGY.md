@@ -1,18 +1,18 @@
-# Extraction Technology in ClipScribe v2.14.0
+# Extraction Technology in ClipScribe v2.15.0
 
 This document explains the advanced extraction technologies, `GLiNER` and `REBEL`, that power ClipScribe's video intelligence features.
 
-## 🎯 **MAJOR BREAKTHROUGH: REBEL Relationship Extraction Fixed (v2.14.0)**
+## 🎯 **MAJOR BREAKTHROUGH: REBEL Relationship Extraction Fixed**
 
-**Critical Achievement**: ClipScribe v2.14.0 achieved a major breakthrough by fixing the REBEL relationship extraction pipeline, enabling **meaningful knowledge graph construction** for the first time.
+**Critical Achievement**: ClipScribe achieved a major breakthrough by fixing the REBEL relationship extraction pipeline, enabling **meaningful knowledge graph construction** for the first time.
 
-### **Before v2.14.0**: The Problem
+### **The Problem (Before Fix)**
 - REBEL model was generating output but parser couldn't read it
 - Zero relationships extracted from video content
 - Knowledge graphs had nodes but no meaningful connections
 - Space-separated output format was incompatible with XML parser
 
-### **After v2.14.0**: The Solution
+### **The Solution (Now Working)**
 - **Complete parser rewrite** with dual parsing strategy
 - **10-19 relationships per video** successfully extracted
 - **Real knowledge graphs** with meaningful connections
@@ -42,7 +42,7 @@ GLiNER finds the **NODES** (entities) of our knowledge graph. Unlike traditional
 
 If we are analyzing a cooking video, we can ask GLiNER to find culinary-specific entities like `chef`, `dish`, `ingredient`, and `cooking_technique`. For a tech tutorial, we can ask for `programming_framework`, `database`, and `cloud_service`. GLiNER handles this dynamically without any code changes.
 
-### REBEL: The Relationship Extractor (FIXED in v2.14.0)
+### REBEL: The Relationship Extractor
 
 REBEL finds the **EDGES** (relationships) that connect the entities GLiNER discovers. It reads sentences and extracts semantic fact triples in the format `(Subject) -> [Predicate] -> (Object)`.
 
@@ -60,7 +60,7 @@ REBEL extracts triples like:
 -   `(SpaceX) -> [inception] -> (2002)`
 -   `(SpaceX) -> [headquarters location] -> (Hawthorne)`
 
-### **Technical Implementation (v2.14.0)**
+### **Technical Implementation**
 
 The breakthrough was achieved through a complete rewrite of the REBEL parser:
 
@@ -68,7 +68,7 @@ The breakthrough was achieved through a complete rewrite of the REBEL parser:
 def _parse_triplets(self, text: str) -> List[Dict[str, str]]:
     """Parse REBEL output with dual strategy: space-separated + XML fallback"""
     
-    # Primary: Space-separated parsing (NEW in v2.14.0)
+    # Primary: Space-separated parsing
     space_separated_triplets = self._parse_space_separated(text)
     if space_separated_triplets:
         return space_separated_triplets
@@ -87,7 +87,7 @@ Together, GLiNER and REBEL allow ClipScribe to transform unstructured video tran
 4.  **GEXF 1.3 Export** creates modern knowledge graphs for Gephi visualization
 5.  The result is a rich, queryable network of facts and information that allows for deep analysis and insights far beyond a simple transcript.
 
-## Performance Metrics (v2.14.0)
+## Performance Metrics
 
 | Metric | Performance | Status |
 |--------|-------------|--------|
