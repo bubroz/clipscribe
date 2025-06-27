@@ -1,0 +1,296 @@
+"""
+ClipScribe Mission Control
+Interactive Dashboard for Video Intelligence Collections
+
+This is the main entry point for the ClipScribe Streamlit interface.
+Provides comprehensive management and visualization of video collections,
+Knowledge Panels, Information Flow Maps, and analytics.
+"""
+
+import streamlit as st
+import sys
+from pathlib import Path
+
+# Add the src directory to the path for imports
+src_path = Path(__file__).parent.parent / "src"
+sys.path.insert(0, str(src_path))
+
+from clipscribe.config.settings import settings
+
+st.set_page_config(
+    page_title="ClipScribe Mission Control",
+    page_icon="🎬",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
+
+def main():
+    """Main application entry point"""
+    
+    # Custom CSS for better styling
+    st.markdown("""
+    <style>
+    .main-header {
+        text-align: center;
+        padding: 1rem 0;
+        background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border-radius: 10px;
+        margin-bottom: 2rem;
+    }
+    .metric-card {
+        background: #f0f2f6;
+        padding: 1rem;
+        border-radius: 10px;
+        border-left: 4px solid #667eea;
+    }
+    .success-banner {
+        background: #d4edda;
+        color: #155724;
+        padding: 0.75rem;
+        border-radius: 5px;
+        border: 1px solid #c3e6cb;
+        margin-bottom: 1rem;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+    # Header
+    st.markdown("""
+    <div class="main-header">
+        <h1>🎬 ClipScribe Mission Control</h1>
+        <p>Interactive Video Intelligence Dashboard</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    # Success banner for v2.15.0 release
+    st.markdown("""
+    <div class="success-banner">
+        🎉 <strong>v2.15.0 Released!</strong> All synthesis features complete. 
+        Knowledge Panels and Information Flow Maps are now production-ready.
+    </div>
+    """, unsafe_allow_html=True)
+
+    # Sidebar navigation
+    with st.sidebar:
+        st.markdown("### 🧭 Navigation")
+        
+        page = st.selectbox(
+            "Choose a page:",
+            [
+                "🏠 Dashboard",
+                "📹 Collections", 
+                "👥 Knowledge Panels",
+                "🔄 Information Flows",
+                "📊 Analytics",
+                "⚙️ Settings"
+            ]
+        )
+
+        st.markdown("---")
+        
+        # Quick stats in sidebar
+        st.markdown("### 📈 Quick Stats")
+        
+        # Check for output directory
+        output_path = Path("output")
+        if output_path.exists():
+            collections = list(output_path.glob("collections/*"))
+            individual_videos = [p for p in output_path.iterdir() 
+                               if p.is_dir() and p.name != "collections"]
+            
+            st.metric("Collections", len(collections))
+            st.metric("Individual Videos", len(individual_videos))
+        else:
+            st.info("No processed videos found")
+
+        st.markdown("---")
+        st.markdown("### 🔧 Quick Actions")
+        
+        if st.button("🔄 Refresh Data"):
+            st.rerun()
+        
+        if st.button("📁 Open Output Folder"):
+            st.info("Output folder: `./output/`")
+
+    # Main content area based on navigation
+    if page == "🏠 Dashboard":
+        show_dashboard()
+    elif page == "📹 Collections":
+        show_collections()
+    elif page == "👥 Knowledge Panels":
+        show_knowledge_panels()
+    elif page == "🔄 Information Flows":
+        show_information_flows()
+    elif page == "📊 Analytics":
+        show_analytics()
+    elif page == "⚙️ Settings":
+        show_settings()
+
+def show_dashboard():
+    """Display the main dashboard"""
+    st.header("🏠 Dashboard")
+    
+    col1, col2, col3 = st.columns(3)
+    
+    with col1:
+        st.markdown("""
+        <div class="metric-card">
+            <h3>📹 Collections</h3>
+            <p>Manage multi-video collections with unified analysis</p>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    with col2:
+        st.markdown("""
+        <div class="metric-card">
+            <h3>👥 Knowledge Panels</h3>
+            <p>Entity-centric intelligence synthesis</p>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    with col3:
+        st.markdown("""
+        <div class="metric-card">
+            <h3>🔄 Information Flows</h3>
+            <p>Concept evolution tracking</p>
+        </div>
+        """, unsafe_allow_html=True)
+
+    # Recent activity
+    st.subheader("🕒 Recent Activity")
+    
+    output_path = Path("output")
+    if output_path.exists():
+        # Get recent directories
+        recent_dirs = sorted(
+            [p for p in output_path.iterdir() if p.is_dir()],
+            key=lambda x: x.stat().st_mtime,
+            reverse=True
+        )[:5]
+        
+        if recent_dirs:
+            for i, dir_path in enumerate(recent_dirs):
+                with st.expander(f"📁 {dir_path.name}", expanded=i == 0):
+                    # Check what files exist
+                    files = list(dir_path.glob("*"))
+                    st.write(f"**Files:** {len(files)}")
+                    
+                    # Show key files
+                    key_files = [
+                        "manifest.json",
+                        "video_intelligence.json", 
+                        "knowledge_panels.json",
+                        "information_flow_map.json"
+                    ]
+                    
+                    for key_file in key_files:
+                        if (dir_path / key_file).exists():
+                            st.success(f"✅ {key_file}")
+                        else:
+                            st.warning(f"⚠️ {key_file} (missing)")
+        else:
+            st.info("No processed videos found. Use the CLI to process some videos first!")
+    else:
+        st.info("Output directory not found. Process some videos to get started!")
+
+def show_collections():
+    """Display collections management page"""
+    # Import and run the Collections page
+    try:
+        from pages.Collections import main as collections_main
+        collections_main()
+    except ImportError as e:
+        st.error(f"Error loading Collections page: {e}")
+        st.info("🚧 Collections page coming soon! This will show all multi-video collections.")
+
+def show_knowledge_panels():
+    """Display Knowledge Panels viewer"""
+    # Import and run the Knowledge Panels page
+    try:
+        from pages.Knowledge_Panels import main as kp_main
+        kp_main()
+    except ImportError as e:
+        st.error(f"Error loading Knowledge Panels page: {e}")
+        st.info("🚧 Knowledge Panels viewer coming soon! This will show entity-centric intelligence.")
+
+def show_information_flows():
+    """Display Information Flow Maps"""
+    # Import and run the Information Flows page
+    try:
+        from pages.Information_Flows import main as if_main
+        if_main()
+    except ImportError as e:
+        st.error(f"Error loading Information Flows page: {e}")
+        st.info("🚧 Information Flow Maps viewer coming soon! This will show concept evolution.")
+
+def show_analytics():
+    """Display analytics and metrics"""
+    # Import and run the Analytics page
+    try:
+        from pages.Analytics import main as analytics_main
+        analytics_main()
+    except ImportError as e:
+        st.error(f"Error loading Analytics page: {e}")
+        st.info("🚧 Analytics page coming soon! This will show cost tracking and performance metrics.")
+
+def show_settings():
+    """Display settings and configuration"""
+    st.header("⚙️ Settings")
+    
+    st.subheader("🔑 API Configuration")
+    
+    # API Key management
+    api_key = st.text_input(
+        "Google API Key",
+        value="***" if settings.google_api_key else "",
+        type="password",
+        help="Your Google API key for Gemini access"
+    )
+    
+    if api_key and api_key != "***":
+        st.success("✅ API key provided")
+    elif settings.google_api_key:
+        st.success("✅ API key loaded from environment")
+    else:
+        st.error("❌ No API key found. Set GOOGLE_API_KEY environment variable.")
+    
+    st.subheader("🎛️ Processing Settings")
+    
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.selectbox(
+            "Transcription Model",
+            ["gemini-1.5-flash", "gemini-1.5-pro"],
+            index=0,
+            help="Model for video transcription"
+        )
+        
+        st.selectbox(
+            "Analysis Model", 
+            ["gemini-1.5-flash", "gemini-1.5-pro"],
+            index=0,
+            help="Model for intelligence analysis"
+        )
+    
+    with col2:
+        st.slider(
+            "Confidence Threshold",
+            min_value=0.0,
+            max_value=1.0,
+            value=0.8,
+            step=0.1,
+            help="Confidence threshold for entity extraction"
+        )
+        
+        st.number_input(
+            "Cost Warning Threshold ($)",
+            min_value=0.0,
+            value=1.0,
+            step=0.1,
+            help="Show warning when cost exceeds this amount"
+        )
+
+if __name__ == "__main__":
+    main() 
