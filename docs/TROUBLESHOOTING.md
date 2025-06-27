@@ -284,4 +284,62 @@ poetry run pytest
 | `ModelNotFound` | Models not downloaded | Run `clipscribe download-models` |
 | `PermissionError` | Can't write output | Check directory permissions |
 
+## Development and Testing Best Practices
+
+### 🚨 CRITICAL: Validation Before Deployment
+
+To prevent issues like import errors, broken functionality, or incomplete features:
+
+#### 1. **Always Test Imports First**
+```bash
+# Before declaring any feature complete
+poetry run python -c "from module import function; print('✅ Import successful')"
+```
+
+#### 2. **Follow Incremental Testing**
+- **Step 1**: Test imports in isolation
+- **Step 2**: Test core functionality
+- **Step 3**: Test component integration  
+- **Step 4**: Test full application
+- **Step 5**: Verify external connectivity
+
+#### 3. **Validate Before Success Declaration**
+```bash
+# Example for Streamlit apps
+poetry run python -c "import streamlit as st; from src.module import component"
+poetry run streamlit run app.py --server.port 8501 &
+curl -s -o /dev/null -w "%{http_code}" http://localhost:8501  # Should return 200
+pkill -f streamlit
+```
+
+#### 4. **Common Validation Patterns**
+
+**For CLI Commands:**
+```bash
+poetry run clipscribe --help  # Should show help without errors
+poetry run clipscribe process "test_url"  # Should process successfully
+```
+
+**For Python Modules:**
+```bash
+poetry run python -c "from clipscribe.config import settings; print(settings.google_api_key[:8])"
+```
+
+**For Web Interfaces:**
+```bash
+poetry run streamlit run app.py &
+curl -s -o /dev/null -w "%{http_code}" http://localhost:8501
+pkill -f streamlit
+```
+
+#### 5. **Error Diagnosis Protocol**
+When errors occur:
+1. **Read the full error message** - don't skip details
+2. **Identify the root cause** - not just symptoms  
+3. **Fix the underlying issue** - avoid workarounds
+4. **Test the fix** - verify it actually works
+5. **Test related functionality** - ensure no regressions
+
+This prevents deploying broken code and saves debugging time later.
+
 Remember: When in doubt, run with `--log-level DEBUG` :-) 
