@@ -1,11 +1,11 @@
-# ClipScribe v2.14.0 - The Synthesis Update
+# ClipScribe v2.14.0 - The Synthesis Update (In Progress)
 
 <p align="center">
   <strong>AI-powered video intelligence for 1800+ platforms</strong>
 </p>
 
 <p align="center">
-  <em>Now with Working Relationship Extraction, Knowledge Synthesis & GEXF 1.3 🧠</em>
+  <em>Building Knowledge Synthesis with Event Timelines & GEXF 1.3 🧠</em>
 </p>
 
 <p align="center">
@@ -44,45 +44,43 @@ ClipScribe is a modern video intelligence tool that leverages Google's Gemini to
 - 📊 **Advanced Visualizations** - Interactive Plotly charts for comprehensive analysis.
 - 📄 **Excel Export** - Multi-sheet Excel exports with professional formatting.
 - 📈 **Performance Dashboards** - Dedicated monitoring interface with real-time analytics.
-- 🎯 **REBEL Relationship Extraction** - Extract 10-19 meaningful relationships per video with space-separated parsing.
 - 🌐 **GEXF 1.3 Export** - Modern knowledge graph format for Gephi visualization with enhanced styling.
 
-## 🎉 What's New in v2.14.0 - The Synthesis Update
+## 🎉 What's New in v2.14.0 - The Synthesis Update (In Progress)
 
-### 🎯 **MAJOR BREAKTHROUGH: REBEL Relationship Extraction Fixed**
+### 🚧 **Currently Implementing: Knowledge Synthesis Engine**
 
-**Critical Achievement**: Fixed the relationship extraction pipeline that was preventing ClipScribe from building meaningful knowledge graphs.
+**Progress**: Basic Event Timeline extraction is working, but needs temporal sophistication for meaningful chronological analysis.
 
-**Results**: Now extracting **10-19 relationships per video** from news content, including:
-- "Pegasus | spyware | instance of"
-- "NSO | inception | 2010" 
-- "Carmen Aristegui | employer | Aristegui Noticias"
-- "United Arab Emirates | diplomatic relation | Saudi Arabia"
-- "Enrique Peña Nieto | President of Mexico | position held"
-
-### ✨ **New Features in v2.14.0**
+### ✅ **Completed in v2.14.0**
 
 #### 🌐 **GEXF 1.3 Knowledge Graph Export**
 - **Upgraded GEXF export** from 1.2draft to GEXF 1.3 specification
 - Enhanced Gephi compatibility with modern namespaces and hex color attributes
 - Confidence-based node sizing and type-based color coding
 
-#### 🧠 **Knowledge Synthesis Engine**
-- **Timeline Synthesis**: Chronological event correlation across multiple videos
+#### 📅 **Basic Event Timeline (Needs Enhancement)**
+- **Timeline Synthesis**: Chronological event extraction from video key points
 - **Data Models**: New `TimelineEvent` and `ConsolidatedTimeline` Pydantic models
-- **Collection Intelligence**: Enhanced multi-video processing with consolidated outputs
+- **Known Limitation**: Currently assumes events happen when mentioned (naive temporal model)
 
-#### 🔧 **Critical Bug Fixes**
-- **Fixed**: `'NoneType' object is not subscriptable` error in relationship saving
-- **Resolved**: REBEL parser incompatibility with space-separated output format
-- **Enhanced**: Async command handling and logging system stability
+### 🔧 **Critical Bug Fixes**
+- **Fixed**: Async command handling with proper sync/async separation
+- **Fixed**: Collection directory naming issues (no more trailing dots)
+- **Fixed**: Variable scope issues in collection processing
 
-### 📊 **Performance Metrics (v2.14.0)**
-- **Relationship Extraction**: 10-19 relationships per video ✅
-- **Entity Extraction**: 250-300 entities per video with LLM validation ✅
-- **Knowledge Graph**: 240+ nodes, 9-13 edges per video ✅
-- **Processing Cost**: Maintained ~$0.41 per video ✅
-- **Success Rate**: 100% completion rate ✅
+### 🚀 **Still To Come in v2.14.0**
+- **Enhanced Temporal Intelligence**: LLM-based date extraction from titles/descriptions
+- **Knowledge Panels**: Entity-centric information synthesis across videos
+- **Information Flow Maps**: Track concept evolution through video series
+- **Streamlit Mission Control**: Interactive collection management UI
+
+### 📊 **Current Status**
+- **GEXF 1.3 Export**: ✅ Complete and working
+- **Event Timeline**: ⚠️ Basic version working, needs temporal enhancements
+- **Knowledge Panels**: ❌ Not yet started
+- **Information Flow Maps**: ❌ Not yet started
+- **Streamlit UI**: ❌ In planning phase
 
 ## 🎉 What's New in v2.13.0
 
@@ -190,17 +188,17 @@ The latest versions of ClipScribe also include these major enhancements:
 ### Command-Line Interface (CLI)
 
 ```bash
-# Quick demo with TWO-PART PBS video series (recommended for relationship extraction!)
+# Quick demo with TWO-PART PBS video series
 poetry run python demo.py
 
-# Transcribe a single video with working relationship extraction
+# Transcribe a single video
 poetry run clipscribe transcribe "https://www.youtube.com/watch?v=6ZVj1_SE4Mo"
 
 # Research a topic across multiple videos with performance monitoring
 poetry run clipscribe research "PBS NewsHour" --max-results 3
 
-# NEW in v2.14.0: Process multiple videos with working relationship extraction and knowledge synthesis
-poetry run clipscribe process-collection "https://www.youtube.com/watch?v=6ZVj1_SE4Mo" "https://www.youtube.com/watch?v=xYMWTXIkANM" --collection-title "Pegasus-Investigation"
+# NEW in v2.14.0: Process multiple videos as a collection (Event Timeline feature in progress)
+poetry run clipscribe collection "PBS-Timeline-Test" "https://www.youtube.com/watch?v=video1" "https://www.youtube.com/watch?v=video2"
 
 # Process video series with automatic detection and narrative flow analysis
 poetry run clipscribe process-series "URL1" "URL2" "URL3" --series-title "My Documentary Series"
@@ -306,13 +304,12 @@ GOOGLE_API_KEY="your_gemini_api_key_here"
 
 ## 🔥 Advanced Intelligence Extraction
 
-ClipScribe includes a complete video intelligence extraction pipeline with **working relationship extraction**:
+ClipScribe includes a complete video intelligence extraction pipeline:
 
-### 🎯 REBEL Relationship Extraction (FIXED in v2.14.0)
-- **Extract 10-19 relationships per video** (`Subject -> Predicate -> Object`) automatically
-- **Space-separated parsing** with dual fallback strategy for maximum compatibility
-- **Build meaningful knowledge graphs** from video content with real relationships
-- **Examples**: "NSO | inception | 2010", "UAE | diplomatic relation | Saudi Arabia"
+### 🎯 REBEL Relationship Extraction
+- **Extract relationships** (`Subject -> Predicate -> Object`) from video content
+- **Build knowledge graphs** with entity relationships
+- **Note**: Relationship extraction quality varies by content type
 
 ### 🔍 Custom Entity Detection (GLiNER) 
 - Detect domain-specific entities beyond standard NER (e.g., weapons, technologies, financial metrics)
@@ -339,11 +336,11 @@ print(f"Knowledge graph has {result.knowledge_graph['edge_count']} edges")
 
 **Try the demo:**
 ```bash
-# Run the advanced features demo with working relationship extraction
+# Run the advanced features demo
 poetry run python examples/advanced_features_demo.py
 
-# Test with PBS NewsHour content (recommended for relationship extraction)
-poetry run clipscribe process-collection "https://www.youtube.com/watch?v=6ZVj1_SE4Mo" --collection-title "Test-Relationships"
+# Test collection processing with Event Timeline
+poetry run clipscribe collection "Test-Collection" "https://www.youtube.com/watch?v=video1" "https://www.youtube.com/watch?v=video2"
 ```
 
 ## 🛠️ Development
