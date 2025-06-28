@@ -1177,8 +1177,8 @@ class MultiVideoProcessor:
         if not self.settings.enable_timeline_synthesis:
             logger.info("Timeline synthesis disabled - returning basic timeline")
             return ConsolidatedTimeline(
-                timeline_id=f"timeline_{collection_id}",
-                collection_id=collection_id,
+            timeline_id=f"timeline_{collection_id}",
+            collection_id=collection_id,
                 events=base_events,
                 summary=f"Generated a basic timeline with {len(base_events)} events from {len(videos)} videos."
             )
