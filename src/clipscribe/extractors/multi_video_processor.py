@@ -23,6 +23,7 @@ from ..models import (
 from .entity_normalizer import EntityNormalizer
 from .series_detector import SeriesDetector
 from ..config.settings import Settings
+from ..utils.web_research import WebResearchIntegrator, TimelineContextValidator
 
 logger = logging.getLogger(__name__)
 
@@ -51,6 +52,13 @@ class MultiVideoProcessor:
         self.series_detector = SeriesDetector(similarity_threshold=0.7)
         self.use_ai_validation = use_ai_validation
         self.settings = Settings()
+        
+        # v2.17.0: Timeline Building Pipeline components
+        self.web_research_integrator = WebResearchIntegrator(
+            api_key=self.settings.google_api_key,
+            enable_research=self.settings.enable_timeline_synthesis and use_ai_validation
+        )
+        self.timeline_validator = TimelineContextValidator()
         
         # AI validation setup - using Pro for all multi-video intelligence
         if use_ai_validation:
@@ -1063,8 +1071,11 @@ class MultiVideoProcessor:
         """
         Synthesizes a consolidated, chronological event timeline from a collection of videos.
         
-        This method uses LLM-based date extraction for higher accuracy and falls back to
-        publication dates if no specific date is found.
+        v2.17.0 Enhanced Timeline Building Pipeline:
+        - LLM-based date extraction with sophisticated fallback logic
+        - Web research integration for event context validation
+        - Timeline event enrichment with external sources
+        - Cross-video temporal correlation and synthesis
         
         Args:
             videos: The list of processed VideoIntelligence objects.
@@ -1074,7 +1085,7 @@ class MultiVideoProcessor:
         Returns:
             A ConsolidatedTimeline object containing the sorted list of events.
         """
-        logger.info("Synthesizing consolidated event timeline with temporal extraction...")
+        logger.info("🔗 Enhanced Timeline Building Pipeline: Synthesizing consolidated event timeline...")
         all_events: List[TimelineEvent] = []
         
         entity_lookup = {entity.canonical_name.lower(): entity for entity in unified_entities}
@@ -1082,6 +1093,8 @@ class MultiVideoProcessor:
             for alias in alias_entity.aliases:
                 entity_lookup[alias.lower()] = alias_entity
 
+        # Step 1: Extract temporal events from all videos
+        logger.info("📅 Step 1: Extracting temporal events from videos...")
         for video in videos:
             if not video.metadata.published_at:
                 logger.warning(f"Skipping video {video.metadata.video_id} for timeline synthesis due to missing publication date.")
@@ -1132,18 +1145,231 @@ class MultiVideoProcessor:
                 )
                 all_events.append(event)
 
-        # Sort all events chronologically
+        # Step 2: Sort events chronologically
+        logger.info("⏰ Step 2: Sorting events chronologically...")
         all_events.sort(key=lambda e: e.timestamp)
 
-        timeline = ConsolidatedTimeline(
-            timeline_id=f"timeline_{collection_id}",
-            collection_id=collection_id,
-            events=all_events,
-            summary=f"Generated a timeline with {len(all_events)} events from {len(videos)} videos."
+        # Step 3: v2.17.0 Timeline Building Pipeline - Web Research Integration
+        enhanced_timeline = await self._enhance_timeline_with_research(
+            all_events, videos, collection_id
+        )
+
+        logger.info(f"✅ Enhanced Timeline Building Pipeline complete: {len(enhanced_timeline.events)} events")
+        return enhanced_timeline
+    
+    async def _enhance_timeline_with_research(
+        self,
+        base_events: List[TimelineEvent],
+        videos: List[VideoIntelligence],
+        collection_id: str
+    ) -> ConsolidatedTimeline:
+        """
+        v2.17.0 Timeline Building Pipeline enhancement with web research integration.
+        
+        Args:
+            base_events: Base timeline events from video processing
+            videos: Source videos for context
+            collection_id: Collection identifier
+            
+        Returns:
+            Enhanced ConsolidatedTimeline with web research validation
+        """
+        if not self.settings.enable_timeline_synthesis:
+            logger.info("Timeline synthesis disabled - returning basic timeline")
+            return ConsolidatedTimeline(
+                timeline_id=f"timeline_{collection_id}",
+                collection_id=collection_id,
+                events=base_events,
+                summary=f"Generated a basic timeline with {len(base_events)} events from {len(videos)} videos."
+            )
+        
+        logger.info("🔍 Step 3: Web research integration for timeline validation...")
+        
+        # Prepare collection context for research
+        collection_context = self._create_collection_context(videos)
+        
+        # Convert TimelineEvent objects to dicts for web research
+        event_dicts = [
+            {
+                'event_id': event.event_id,
+                'timestamp': event.timestamp,
+                'description': event.description,
+                'involved_entities': event.involved_entities,
+                'confidence': event.confidence,
+                'source_video_id': event.source_video_id
+            }
+            for event in base_events
+        ]
+        
+        # Step 3a: Validate temporal consistency locally
+        logger.info("🔍 Step 3a: Validating temporal consistency...")
+        consistency_results = self.timeline_validator.validate_temporal_consistency(event_dicts)
+        
+        # Step 3b: Web research validation (if enabled)
+        logger.info("🔍 Step 3b: Web research validation...")
+        research_results = await self.web_research_integrator.validate_timeline_events(
+            event_dicts, collection_context
         )
         
-        logger.info(f"Successfully synthesized timeline with {len(all_events)} events.")
-        return timeline 
+        # Step 3c: Enrich timeline with research context
+        logger.info("🔍 Step 3c: Enriching timeline with research context...")
+        collection_theme = self._extract_collection_theme(videos)
+        enrichments = await self.web_research_integrator.enrich_timeline_with_context(
+            event_dicts, research_results, collection_theme
+        )
+        
+        # Step 4: Apply enhancements to timeline events
+        logger.info("📈 Step 4: Applying timeline enhancements...")
+        enhanced_events = self._apply_timeline_enhancements(
+            base_events, consistency_results, research_results, enrichments
+        )
+        
+        # Step 5: Generate enhanced summary
+        logger.info("📝 Step 5: Generating enhanced timeline summary...")
+        enhanced_summary = await self._generate_enhanced_timeline_summary(
+            enhanced_events, research_results, collection_context
+        )
+        
+        enhanced_timeline = ConsolidatedTimeline(
+            timeline_id=f"timeline_{collection_id}",
+            collection_id=collection_id,
+            events=enhanced_events,
+            summary=enhanced_summary
+        )
+        
+        logger.info(f"🎉 Timeline Building Pipeline complete: {len(enhanced_events)} enhanced events")
+        return enhanced_timeline
+    
+    def _create_collection_context(self, videos: List[VideoIntelligence]) -> str:
+        """Create context description for the video collection."""
+        if not videos:
+            return "Unknown collection"
+        
+        # Extract key themes and topics
+        all_topics = []
+        for video in videos:
+            all_topics.extend([topic.name for topic in video.topics])
+        
+        # Get most common topics
+        topic_counts = Counter(all_topics)
+        main_topics = [topic for topic, _ in topic_counts.most_common(5)]
+        
+        # Create context string
+        date_range = ""
+        if len(videos) > 1:
+            start_date = min(video.metadata.published_at for video in videos)
+            end_date = max(video.metadata.published_at for video in videos)
+            date_range = f" from {start_date.strftime('%Y-%m-%d')} to {end_date.strftime('%Y-%m-%d')}"
+        
+        context = f"Video collection of {len(videos)} videos{date_range}"
+        if main_topics:
+            context += f" covering topics: {', '.join(main_topics)}"
+        
+        return context
+    
+    def _extract_collection_theme(self, videos: List[VideoIntelligence]) -> str:
+        """Extract the main theme of the video collection."""
+        if not videos:
+            return "general"
+        
+        # Simple theme extraction based on most common topics
+        all_topics = []
+        for video in videos:
+            all_topics.extend([topic.name.lower() for topic in video.topics])
+        
+        if not all_topics:
+            return "general"
+        
+        topic_counts = Counter(all_topics)
+        main_theme = topic_counts.most_common(1)[0][0]
+        
+        return main_theme
+    
+    def _apply_timeline_enhancements(
+        self,
+        base_events: List[TimelineEvent],
+        consistency_results: List[Dict[str, Any]],
+        research_results: List[Any],
+        enrichments: List[Any]
+    ) -> List[TimelineEvent]:
+        """Apply research and validation enhancements to timeline events."""
+        enhanced_events = []
+        
+        # Create lookup maps
+        enrichment_map = {enrich.original_event_id: enrich for enrich in enrichments}
+        consistency_map = {result['event_id']: result for result in consistency_results}
+        research_map = {i: result for i, result in enumerate(research_results)}
+        
+        for i, event in enumerate(base_events):
+            enhanced_event = TimelineEvent(
+                event_id=event.event_id,
+                timestamp=event.timestamp,
+                description=event.description,
+                source_video_id=event.source_video_id,
+                source_video_title=event.source_video_title,
+                video_timestamp_seconds=event.video_timestamp_seconds,
+                involved_entities=event.involved_entities,
+                confidence=event.confidence,
+                extracted_date=event.extracted_date,
+                date_source=event.date_source
+            )
+            
+            # Apply enrichments
+            if event.event_id in enrichment_map:
+                enrichment = enrichment_map[event.event_id]
+                enhanced_event.description = enrichment.enhanced_description
+                enhanced_event.confidence = min(1.0, enhanced_event.confidence + enrichment.confidence_boost)
+            
+            # Apply consistency adjustments
+            if event.event_id in consistency_map:
+                consistency = consistency_map[event.event_id]
+                if not consistency['temporal_consistency']:
+                    enhanced_event.confidence *= 0.7  # Reduce confidence for inconsistent events
+            
+            # Apply research validation
+            if i in research_map:
+                research = research_map[i]
+                if research.validation_status == "conflicting":
+                    enhanced_event.confidence *= 0.5  # Significantly reduce confidence
+                elif research.validation_status == "validated":
+                    enhanced_event.confidence = min(1.0, enhanced_event.confidence + 0.1)
+            
+            enhanced_events.append(enhanced_event)
+        
+        return enhanced_events
+    
+    async def _generate_enhanced_timeline_summary(
+        self,
+        events: List[TimelineEvent],
+        research_results: List[Any],
+        collection_context: str
+    ) -> str:
+        """Generate an enhanced summary of the timeline with research insights."""
+        base_summary = f"Generated enhanced timeline with {len(events)} events from {collection_context}."
+        
+        if not research_results:
+            return base_summary
+        
+        # Analyze research validation results
+        validated_count = sum(1 for r in research_results if r.validation_status == "validated")
+        enhanced_count = sum(1 for r in research_results if r.validation_status == "enhanced")
+        conflicting_count = sum(1 for r in research_results if r.validation_status == "conflicting")
+        
+        research_summary = ""
+        if validated_count > 0:
+            research_summary += f" {validated_count} events validated by external research."
+        if enhanced_count > 0:
+            research_summary += f" {enhanced_count} events enhanced with additional context."
+        if conflicting_count > 0:
+            research_summary += f" {conflicting_count} events flagged for potential conflicts."
+        
+        # Calculate timeline quality metrics
+        avg_confidence = sum(event.confidence for event in events) / len(events) if events else 0
+        quality_indicator = "high" if avg_confidence > 0.8 else "medium" if avg_confidence > 0.6 else "low"
+        
+        enhanced_summary = f"{base_summary}{research_summary} Timeline quality: {quality_indicator} (avg confidence: {avg_confidence:.2f})."
+        
+        return enhanced_summary 
 
 
 

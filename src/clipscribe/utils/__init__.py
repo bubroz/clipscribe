@@ -1,24 +1,43 @@
-"""Utility functions for ClipScribe."""
+"""
+ClipScribe utilities package.
 
-from .filename import (
-    sanitize_filename,
-    create_output_filename,
-    extract_platform_from_url
-)
+Provides utility functions and classes for video processing, progress tracking,
+performance monitoring, batch processing, and v2.17.0 timeline building pipeline.
+"""
+
 from .logging import setup_logging
-from .progress import progress_tracker, console
-from .file_utils import calculate_sha256
-from .performance import PerformanceMonitor
+from .progress import ClipScribeProgress, progress_tracker, console  
 from .batch_progress import BatchProgress
+from .performance import PerformanceMonitor
+from .performance_dashboard import PerformanceDashboard
+from .filename import (
+    create_output_filename, 
+    sanitize_filename, 
+    extract_platform_from_url,
+    extract_video_id_from_url,
+    create_structured_filename,
+    create_output_structure
+)
+from .file_utils import calculate_sha256
+from .web_research import WebResearchIntegrator, TimelineContextValidator, ResearchResult, TimelineEnrichment
 
 __all__ = [
-    'sanitize_filename',
-    'create_output_filename', 
-    'extract_platform_from_url',
     'setup_logging',
+    'ClipScribeProgress',
     'progress_tracker',
     'console',
-    'calculate_sha256',
+    'BatchProgress', 
     'PerformanceMonitor',
-    'BatchProgress',
+    'PerformanceDashboard',
+    'create_output_filename',
+    'sanitize_filename', 
+    'extract_platform_from_url',
+    'extract_video_id_from_url',
+    'create_structured_filename',
+    'create_output_structure',
+    'calculate_sha256',
+    'WebResearchIntegrator',
+    'TimelineContextValidator',
+    'ResearchResult',
+    'TimelineEnrichment'
 ] 
