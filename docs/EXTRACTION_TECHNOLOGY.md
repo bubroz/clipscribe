@@ -25,34 +25,47 @@ This document explains the advanced extraction technologies, `GLiNER` and `REBEL
 - "United Arab Emirates | diplomatic relation | Saudi Arabia"
 - "Enrique Peña Nieto | President of Mexico | position held"
 
-## 🚀 **Enhanced Temporal Intelligence (v2.17.0 Planned)**
+## 🚀 **Optimized Architecture & Enhanced Temporal Intelligence (v2.17.0 Planned)**
 
-ClipScribe is evolving to provide comprehensive temporal intelligence extraction with minimal cost impact:
+ClipScribe is evolving with a streamlined architecture that eliminates inefficiencies while providing comprehensive temporal intelligence:
 
-### **Enhanced Video Processing Pipeline**
+### **Optimized Video Processing Pipeline**
 ```
-Video → Gemini 2.5 Flash Enhanced Processing → {
+Video URL → Download Video → Direct Gemini 2.5 Flash Processing → {
     accurate_transcript_with_timestamps,
     temporal_events_from_speech,
     visual_timestamp_recognition,
     entities_with_temporal_context
-} → Timeline Synthesis → Interactive Visualizations
+} → Timeline Synthesis → Video Retention → Interactive Visualizations
 ```
 
-### **Temporal Intelligence Capabilities**:
+### **Architecture Optimizations**:
+- **Eliminates Audio Extraction**: No more video→audio→processing inefficiency
+- **Single Processing Call**: Direct video-to-Gemini for audio + visual intelligence
+- **Video Retention Options**: Keep source material for future analysis and archival
+- **Streamlined Pipeline**: Faster processing, better temporal intelligence
+
+### **Enhanced Temporal Intelligence Capabilities**:
 - **Temporal Event Extraction**: Parse historical events, dates, and chronological references from spoken content
-- **Visual Timestamp Recognition**: Extract dates and times visible on screen (documents, calendars, news chyrons)
+- **Visual Timestamp Recognition**: Extract dates and times visible on screen (documents, calendars, news chyrons, presentations)
 - **Accurate Transcript Segmentation**: Word-level timestamps for precise temporal mapping
-- **Cross-Video Timeline Building**: Correlate events across video collections
+- **Cross-Video Timeline Building**: Correlate events across video collections with temporal synthesis
+- **Visual Intelligence Integration**: Correlate spoken content with visual cues for better context
+
+### **Video Retention System**:
+- **Delete Policy**: Remove videos after processing (current behavior)
+- **Keep Processed**: Archive successfully processed videos for future use
+- **Keep All**: Full archival system for source material preservation
+- **Smart Storage**: Configurable archive directories and retention policies
 
 ### **Cost-Effective Implementation**:
-- **Base Processing**: Same Gemini 2.5 Flash video processing (~$0.40/video)
-- **Enhanced Prompting**: Additional ~200 tokens for temporal instructions
-- **Richer Output**: ~500-800 tokens for timestamp and temporal data
-- **Total Impact**: **12-20% cost increase for 300% more temporal intelligence**
+- **Optimized Processing**: Eliminate duplicate work (video + audio extraction)
+- **Enhanced Intelligence**: Single call gets audio + visual + temporal data
+- **Minimal Cost Impact**: **12-20% cost increase for 300% more temporal intelligence**
+- **Future-Ready**: Archived videos enable advanced features without reprocessing
 
 ### **Timeline Building Strategy**:
-Instead of separate API calls, leverage existing video processing with enhanced temporal extraction, then synthesize timelines from the enriched data. This approach maximizes intelligence extraction per dollar spent.
+Leverage optimized video processing with enhanced temporal extraction, then synthesize rich timelines from visual + audio cues. This approach maximizes intelligence extraction per dollar while preserving source material for future capabilities.
 
 ## Entity Extraction Pipeline Architecture
 

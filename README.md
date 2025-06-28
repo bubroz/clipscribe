@@ -230,12 +230,13 @@ The latest versions of ClipScribe also include these major enhancements:
 - **Cost & Time Tracking**: Live monitoring of API costs and processing time for each stage.
 - **Enhanced Markdown Reports**: Interactive reports with Mermaid diagrams, collapsible sections, and visual dashboards.
 
-### 🚀 Coming in v2.17.0: Enhanced Temporal Intelligence
-- **Enhanced Video Processing**: Upgraded Flash processing with temporal event extraction, visual timestamp recognition, and accurate transcript segmentation (12-20% cost increase for 300% temporal intelligence gain).
-- **Content Event Timeline**: Chronological timeline building from video content with web research validation.
-- **Intelligent Playlist Processing**: Auto-detect playlist types and organize large collections using temporal patterns.
-- **Temporal Entity Validation**: Enhanced entity extraction with temporal context for improved accuracy.
-- **Mission Control Timeline Views**: Interactive timeline exploration in the web interface.
+### 🚀 Coming in v2.17.0: Optimized Architecture & Enhanced Temporal Intelligence
+- **Streamlined Video Processing**: Direct video-to-Gemini processing eliminates audio extraction inefficiency. Single download, single processing call for better performance and temporal intelligence.
+- **Video Retention Options**: User-configurable policies to keep processed videos as source material for future analysis, clip extraction, and archival purposes.
+- **Enhanced Temporal Intelligence**: Comprehensive temporal event extraction from both audio and visual cues (dates shown on screen, documents, calendars) with 12-20% cost increase for 300% intelligence gain.
+- **Timeline Building Pipeline**: Chronological timeline synthesis from enhanced temporal extraction with cross-video correlation capabilities.
+- **Intelligent Playlist Processing**: Auto-detect meeting series, educational courses, and video collections using temporal patterns and smart organization.
+- **Mission Control Timeline Views**: Interactive timeline exploration, video archival management, and retention policy configuration.
 
 ## 📋 Requirements
 

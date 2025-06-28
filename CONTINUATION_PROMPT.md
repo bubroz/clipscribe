@@ -1,10 +1,10 @@
 # ClipScribe AI Assistant Continuation Prompt
 
-## Current State (2025-06-27 22:40 PDT)
+## Current State (2025-06-27 23:39 PDT)
 
 ### Latest Version: v2.16.0 Phase 2 CLEAN ARCHITECTURE ✅ 
 
-**🎉 DOCUMENTATION CLEANUP COMPLETE**: All redundant files removed, docs fully consistent!
+**🎯 v2.17.0 ROADMAP DOCUMENTED**: Optimized architecture & enhanced temporal intelligence roadmap complete!
 
 **Major Architecture Improvements**:
 - Complete knowledge panel removal - functionality preserved for Chimera integration
@@ -15,15 +15,17 @@
 - Entity extraction pipeline clarified: GLiNER as primary (superior to SpaCy)
 
 ### Recent Changes
-- **v2.16.0 Phase 2 Clean Architecture FINAL** (2025-06-27 22:40): ✅ **COMPLETE & READY FOR COMMIT**
-  - **Documentation Cleanup 100% Complete**: Removed 3 redundant version summary files, updated all docs to remove knowledge panel references
-  - **Knowledge Panel Clean Removal**: All functionality preserved for future Chimera integration
-  - **Gemini 2.5 Flash**: Complete upgrade throughout entire codebase (from 1.5)
-  - **Entity Confidence Fixed**: Resolved 0.00 bug, now showing proper 0.95-0.98 scores
-  - **Performance Optimized**: Collection processing 15+ minutes → ~5 minutes (no more stalls)
-  - **Mission Control Enhanced**: Human-readable collection names, proper path resolution
-  - **Architecture Clarified**: GLiNER primary extraction with superior contextual understanding
-  - **All Files Ready**: Comprehensive changes staged for v2.16.0 commit
+- **v2.17.0 Roadmap & Documentation Update** (2025-06-27 23:39): ✅ **ROADMAP DOCUMENTED**
+  - **Optimized Architecture Planned**: Direct video-to-Gemini processing eliminates audio extraction inefficiency
+  - **Video Retention System**: User-configurable policies (delete/keep_processed/keep_all) for source material preservation  
+  - **Enhanced Temporal Intelligence**: 12-20% cost increase for 300% more temporal intelligence from visual + audio cues
+  - **Timeline Building Pipeline**: Cross-video temporal correlation and chronological synthesis
+  - **Rules Alignment Analysis**: Comprehensive review of all 17 rules for v2.17.0 compatibility
+  - **Documentation Updated**: README, CHANGELOG, EXTRACTION_TECHNOLOGY updated with optimized architecture
+  - **Critical Misalignments Identified**: 6 rules need updates for optimized architecture
+- **v2.16.0 Phase 2 Clean Architecture FINAL** (2025-06-27 22:40): ✅ **COMPLETE & COMMITTED**
+  - Complete knowledge panel removal and documentation cleanup
+  - Gemini 2.5 Flash deployment, entity confidence fixes, performance optimization
   - Created DOCUMENTATION_CLEANUP_SUMMARY.md tracking all changes
 - **v2.16.0 Phase 2 Mission Control Fixes** (2025-06-27 15:24): ✅ **ALL ISSUES RESOLVED**
   - Import path session disconnection problems completely fixed
@@ -126,7 +128,48 @@
 - Knowledge panels cleanly removed and preserved for Chimera integration
 
 ### In Progress 🚧
-**Ready to Commit v2.16.0!** All changes staged and documentation cleanup complete ✅
+**Rules Alignment for v2.17.0**: 6 critical rules need updates for optimized architecture ⚠️
+
+### Critical Rules Alignment Issues 🔧
+**PRIORITY FIX NEEDED**: The following rules are misaligned with v2.17.0 optimized architecture and need immediate updates:
+
+1. **`.cursor/rules/video-processing.mdc`** - CRITICAL MISALIGNMENT
+   - Still references audio transcription fallback (we eliminated audio extraction)
+   - Mentions obsolete SRT/VTT formats (removed in earlier versions)
+   - No mention of video retention policies or temporal intelligence
+   - No direct video-to-Gemini processing guidance
+
+2. **`.cursor/rules/api-patterns.mdc`** - COST OPTIMIZATION OUTDATED
+   - Line 19: Still mentions "Gemini 1.5 Flash" (should be 2.5 Flash)
+   - Line 95: Has obsolete audio vs video mode selection logic
+   - Line 159: Shows audio file processing (should be video)
+   - Line 190: Says "Default to audio mode" (should be video processing)
+
+3. **`.cursor/rules/clipscribe-architecture.mdc`** - ARCHITECTURE MISMATCH
+   - Still mentions "video/audio retrieval" (should be video processing)
+   - No mention of video retention system architecture
+   - Missing temporal intelligence and optimized processing pipeline
+
+4. **`.cursor/rules/configuration-management.mdc`** - MISSING SETTINGS
+   - Line 112: Outdated audio/video mode cost estimation
+   - Line 166: Defaults to "audio" processing (should be video)
+   - No video retention policy settings (delete/keep_processed/keep_all)
+   - No video storage directory configuration
+
+5. **`.cursor/rules/core-identity.mdc`** - MESSAGING UPDATE NEEDED
+   - Line 17: "audio/video" should emphasize video-first processing
+   - Line 33: Should highlight video temporal intelligence capabilities
+
+6. **`.cursor/rules/output-format-management.mdc`** - OBSOLETE FORMATS
+   - Line 14: Still references removed SRT/VTT subtitle formats
+   - Line 66: Contains obsolete SRT generation functions
+   - Line 256: CLI options include removed subtitle formats
+
+**ALIGNED RULES** ✅: 11 rules are properly aligned:
+- README.mdc, documentation.mdc, testing-standards.mdc, file-organization.mdc
+- visualization-diagrams.mdc, async-patterns.mdc, model-data-structures.mdc  
+- error-handling-logging.mdc, cli-command-patterns.mdc, extractor-patterns.mdc
+- troubleshooting-guide.mdc
 
 ### Next Phase Possibilities 🗺️
 **Immediate Priorities** (v2.17.0 Enhanced Temporal Intelligence):

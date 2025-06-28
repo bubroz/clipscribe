@@ -5,25 +5,38 @@ All notable changes to ClipScribe will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.17.0] - Planned - Enhanced Temporal Intelligence
+## [2.17.0] - Planned - Optimized Architecture & Enhanced Temporal Intelligence
 ### Planned
-- **Enhanced Video Processing**: Upgrade existing Flash video processing to extract temporal events, visual timestamps, and accurate transcript segmentation
-  - Temporal event extraction from spoken content (e.g., "In 1984...", "Last Tuesday...")
+- **Streamlined Video Processing Architecture**: Complete elimination of audio extraction inefficiency
+  - Direct video-to-Gemini processing (no audio extraction step)
+  - Single download, single processing call for better performance
+  - Enhanced video processing prompt for temporal intelligence extraction
+  - Cost increase: ~12-20% for 300% more temporal intelligence
+- **Video Retention System**: User-configurable video file management
+  - Retention policies: delete, keep_processed, keep_all
+  - Video archival system for source material preservation
+  - Storage management with configurable archive directories
+  - Future-ready for clip extraction and advanced analysis
+- **Enhanced Temporal Intelligence**: Comprehensive temporal event extraction
+  - Temporal events from spoken content (e.g., "In 1984...", "Last Tuesday...")
   - Visual timestamp recognition (dates shown on screen, documents, calendars)
   - Accurate transcript segmentation with word-level timestamps
-  - Cost increase: ~12-20% for 300% more temporal intelligence
-- **Content Event Timeline**: Build chronological timelines from enhanced temporal extraction
+  - Cross-video temporal correlation for timeline building
+- **Timeline Building Pipeline**: Advanced chronological synthesis
   - Web research integration for event context validation
-  - Cross-video temporal correlation and timeline synthesis
+  - Cross-video timeline correlation and synthesis
   - Interactive timeline visualization in Mission Control
-- **Intelligent Playlist Processing**: Auto-detect playlist types using temporal patterns
-  - Pattern recognition for meeting series, educational courses, news segments
-  - Smart categorization and metadata enhancement for large collections
-  - Optimized batch processing for 100+ video playlists
-- **Temporal Entity Validation**: Enhanced entity extraction pipeline with temporal context
-  - Time-aware entity disambiguation and validation
-  - Improved accuracy for entities with temporal relationships
-  - Optimized GLiNER performance with temporal context
+  - Timeline-based playlist organization
+- **Intelligent Playlist Processing**: Pattern-based video collection organization
+  - Auto-detection of meeting series, educational courses, news segments
+  - Temporal pattern recognition for smart categorization
+  - Optimized batch processing for large collections (100+ videos)
+  - Enhanced metadata extraction using temporal context
+- **Mission Control Enhancements**: Timeline and archival management
+  - Interactive timeline exploration and filtering
+  - Video retention policy configuration interface
+  - Archive management and storage monitoring
+  - Enhanced collection organization tools
 
 ## [2.16.0] - 2025-06-27 - Clean Architecture
 ### Removed
