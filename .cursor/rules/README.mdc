@@ -3,6 +3,12 @@ description:
 globs: 
 alwaysApply: true
 ---
+---
+description: "Master rule governing all other rules and task completion"
+globs: []
+alwaysApply: true
+---
+
 # Master Rules & Task Completion Guide
 
 This is the central rule that governs all other rules and ensures proper task completion in the ClipScribe project.
@@ -22,27 +28,32 @@ alwaysApply: false  # Whether the rule always applies
 # Rule Content
 ```
 
-### Available Rules
-- `README.mdc` (this file) - Master rule for all project governance
+### Available Rules (17 total, consolidated from 20)
+
+**Core Rules:**
+- `README.mdc` (this file) - Master rule governing all others, includes CONTINUATION_PROMPT format
+- `core-identity.mdc` - Project mission and fundamental principles 
 - `clipscribe-architecture.mdc` - Core architecture and design patterns
-- `core-identity.mdc` - Project mission and fundamental principles
+- `file-organization.mdc` - File placement and project structure
+
+**Development Patterns:**
+- `api-patterns.mdc` - API integration with cost optimization (merged from 2 rules)
+- `async-patterns.mdc` - Best practices for async/await code
+- `model-data-structures.mdc` - Pydantic models and data validation
+- `configuration-management.mdc` - Settings and configuration guidelines
+- `error-handling-logging.mdc` - Consistent error handling and logging
+
+**Component-Specific:**
 - `video-processing.mdc` - Guidelines for video/audio processing code
 - `extractor-patterns.mdc` - Best practices for knowledge extractors
-- `testing-standards.mdc` - Testing requirements and patterns
 - `cli-command-patterns.mdc` - Patterns and conventions for CLI commands
-- `error-handling-logging.mdc` - Consistent error handling and logging
-- `api-integration-patterns.mdc` - External API integration patterns
-- `configuration-management.mdc` - Settings and configuration guidelines
-- `cost-optimization.mdc` - Keeping API costs low (always applies!)
-- `async-patterns.mdc` - Best practices for async/await code
 - `output-format-management.mdc` - Managing and adding output formats
-- `model-data-structures.mdc` - Pydantic models and data validation
-- `file-organization.mdc` - File placement and project structure
-- `documentation-management.mdc` - Documentation organization standards
-- `documentation-updates.mdc` - When to update documentation
-- `continuation-prompt-format.mdc` - Format rules for CONTINUATION_PROMPT.md
 - `visualization-diagrams.mdc` - Knowledge graph visualization
-- `troubleshooting-guide.mdc` - Common issues and solutions
+
+**Quality & Process:**
+- `documentation.mdc` - Documentation standards and update triggers (merged from 2 rules)
+- `testing-standards.mdc` - Testing requirements with validation protocols
+- `troubleshooting-guide.mdc` - Common debugging patterns (condensed)
 
 ### How Rules Work
 1. **Auto-attachment**: Rules with matching `globs` patterns automatically apply when working on those files
@@ -117,6 +128,43 @@ poetry run pytest                  # Run tests
 poetry run pytest --cov=clipscribe # Check coverage
 poetry check                       # Validate pyproject.toml
 ```
+
+## CONTINUATION_PROMPT.md Format Requirements
+
+### CRITICAL: Always Ask for Current Date/Time
+Before updating CONTINUATION_PROMPT.md, ALWAYS run `date` command to get the current date.
+
+### Required Format Template
+```markdown
+# ClipScribe AI Assistant Continuation Prompt
+
+## Current State (YYYY-MM-DD HH:MM PDT)
+
+### Latest Version: vX.X.X
+[Brief summary of what this version includes]
+
+### Recent Changes
+- **vX.X.X** (YYYY-MM-DD): [What was done]
+- [Keep last 3-5 versions]
+
+### What's Working Well ✅
+[List current working features with metrics]
+
+### Known Issues ⚠️
+[Current bugs or limitations]
+
+### Roadmap 🗺️
+- **Next**: [Immediate next task]
+- **Soon**: [Next 2-3 priorities]
+```
+
+### Format Rules
+1. **NEVER DELETE SECTIONS** - All sections must remain
+2. **PRESERVE HISTORY** - Keep recent changes for context
+3. **BE SPECIFIC** - Include version numbers, dates, metrics
+4. **UPDATE DATE** - Always update the date in "Current State"
+5. **KEEP CONCISE** - Each section should be 3-10 lines max
+6. **USE CONSISTENT EMOJI** - ✅ ⚠️ 🚧 🗺️ only
 
 Remember: This rule is the governance framework for the entire project. When in doubt, refer back to this document and ensure all checklist items are completed.
 

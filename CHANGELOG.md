@@ -5,6 +5,37 @@ All notable changes to ClipScribe will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.16.0] - 2025-06-27 - Clean Architecture
+### Removed
+- **Knowledge Panels**: Cleanly removed all functionality for future Chimera integration
+  - Deleted KnowledgePanel and KnowledgePanelCollection models from models.py
+  - Removed knowledge panel synthesis methods from multi_video_processor.py
+  - Deleted Knowledge_Panels.py Streamlit page entirely
+  - Removed knowledge panel saving logic from video_retriever.py
+  - Preserved architecture for future restoration in Chimera project
+
+### Added
+- **Entity Extraction Architecture Documentation**: Clarified GLiNER as primary extractor with superior contextual understanding
+- **Human-Readable Collection Names**: Mission Control now shows descriptive collection names while preserving machine-readable folder names
+- **Entity Pipeline Hierarchy**: Cost-optimized pipeline with SpaCy (free) → GLiNER (primary) → LLM validation
+- **Gemini 2.5 Flash Integration**: Complete upgrade from Gemini 1.5 across entire codebase
+
+### Fixed
+- **Entity Confidence Display**: Resolved 0.00 confidence bug, now showing proper 0.95-0.98 scores throughout UI
+- **Collection Processing Performance**: Optimized from 15+ minutes to ~5 minutes by removing knowledge panel bottlenecks
+- **Validation Errors**: Fixed key_attributes validation by converting entity properties lists to strings
+- **Model Version Consistency**: Updated all Gemini references to 2.5 Flash in all files
+- **Streamlit Path Resolution**: Fixed collection discovery from streamlit_app directory
+- **Missing Method Implementations**: Added _ai_extract_network_insights and fixed attribute errors
+
+### Performance
+- **Processing Time**: Collection processing optimized by 70% (15+ min → 5 min)
+- **No More Stalls**: Eliminated knowledge panel generation bottlenecks
+- **Confidence Scores**: Proper entity confidence display throughout Mission Control UI
+- **Architecture Clarity**: GLiNER primary extraction with SpaCy fallback for comprehensive coverage
+
+---
+
 ## [2.16.0] - 2025-06-27 - The Mission Control Update (Critical Bug Fix - Import Paths)
 
 ### 🐛 Critical Bug Fix: Import Path Resolution

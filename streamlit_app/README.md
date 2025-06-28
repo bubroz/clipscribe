@@ -22,7 +22,7 @@ The interface will open in your browser at `http://localhost:8501`
 ### 🏠 Dashboard
 The main landing page provides:
 - **Quick Stats**: Collection and video counts in the sidebar
-- **Feature Cards**: Overview of Collections, Knowledge Panels, and Information Flows
+- **Feature Cards**: Overview of Collections and Information Flows
 - **Recent Activity**: Shows your 5 most recently processed videos/collections
 - **Success Banner**: Celebrates the v2.15.0 release with complete synthesis features
 
@@ -44,31 +44,10 @@ Browse and manage multi-video collections:
 
 **Knowledge Synthesis Tab**:
 - Timeline synthesis with chronological events
-- Links to Knowledge Panels and Information Flow Maps
+- Links to Information Flow Maps and Analytics
 - Integration status for synthesis features
 
-### 👥 Knowledge Panels
-Entity-centric intelligence exploration:
 
-**Overview Tab**:
-- Panel statistics and collection-level analysis
-- Key entities identification
-- Network insights
-
-**Entity Explorer Tab**:
-- Search and filter entities by type or name
-- Sort by video count, mention count, or name
-- Interactive entity grid with quick details
-
-**Panel Details Tab**:
-- Comprehensive entity profiles
-- Executive summaries and portrayal analysis
-- Activities, quotes, and relationships
-- Attribute evolution tracking
-
-**Network View Tab**:
-- Relationship type distribution
-- Network statistics (placeholder for future interactive graphs)
 
 ### 🔄 Information Flows
 Concept evolution and learning progression:
@@ -191,7 +170,7 @@ Configuration and API management:
 ## 🚧 Future Enhancements (Phase 2)
 
 ### Interactive Visualizations
-- Network graphs for Knowledge Panels
+- Network graphs for entity relationships
 - Flow diagrams for Information Maps
 - Interactive charts with Plotly
 

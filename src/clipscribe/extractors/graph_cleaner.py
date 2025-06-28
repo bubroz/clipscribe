@@ -25,7 +25,7 @@ logger = logging.getLogger(__name__)
 class GraphCleaner:
     """Clean knowledge graphs intelligently using Gemini."""
     
-    def __init__(self, model_name: str = "gemini-1.5-flash"):
+    def __init__(self, model_name: str = "gemini-2.5-flash"):
         """Initialize the graph cleaner."""
         self.model_name = model_name
         self.settings = Settings()

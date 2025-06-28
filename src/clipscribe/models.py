@@ -203,63 +203,7 @@ class EntityAttributeEvolution(BaseModel):
     significance: str = Field(..., description="Why this change is significant")
 
 
-class KnowledgePanel(BaseModel):
-    """Comprehensive entity-centric intelligence panel synthesized across videos."""
-    
-    # Basic entity information
-    panel_id: str = Field(..., description="Unique identifier for this knowledge panel")
-    entity_name: str = Field(..., description="Canonical name of the entity")
-    entity_type: str = Field(..., description="Type of entity (PERSON, ORGANIZATION, etc.)")
-    collection_id: str = Field(..., description="Collection this panel belongs to")
-    
-    # Comprehensive profile
-    executive_summary: str = Field(..., description="Executive summary of the entity across all videos")
-    key_attributes: Dict[str, str] = Field(default_factory=dict, description="Core attributes and properties")
-    aliases_and_names: List[str] = Field(default_factory=list, description="All names/aliases found")
-    
-    # Cross-video analysis
-    video_appearances: List[str] = Field(default_factory=list, description="Videos where entity appears")
-    first_appearance: Optional[datetime] = Field(None, description="First appearance timestamp")
-    last_appearance: Optional[datetime] = Field(None, description="Last appearance timestamp")
-    total_mentions: int = Field(default=0, description="Total mentions across all videos")
-    
-    # Activities and timeline
-    activities: List[EntityActivity] = Field(default_factory=list, description="All activities across videos")
-    quotes: List[EntityQuote] = Field(default_factory=list, description="Notable quotes from/about entity")
-    
-    # Relationship intelligence
-    relationships: List[EntityRelationshipSummary] = Field(default_factory=list, description="Key relationships")
-    
-    # Evolution analysis
-    attribute_evolution: List[EntityAttributeEvolution] = Field(default_factory=list, description="How entity changed")
-    portrayal_analysis: str = Field(..., description="How entity is portrayed across videos")
-    
-    # Intelligence insights
-    significance_assessment: str = Field(..., description="Why this entity is strategically important")
-    information_gaps: List[str] = Field(default_factory=list, description="What we don't know about this entity")
-    strategic_insights: List[str] = Field(default_factory=list, description="Key strategic insights")
-    
-    # Confidence and quality
-    confidence_score: float = Field(default=0.8, description="Overall confidence in the analysis")
-    information_completeness: float = Field(default=0.5, description="How complete our information is")
-    
-    # Metadata
-    created_at: datetime = Field(default_factory=datetime.now)
-    source_videos_count: int = Field(default=0, description="Number of source videos")
-    synthesis_quality: str = Field(default="STANDARD", description="Quality level of synthesis")
-
-
-class KnowledgePanelCollection(BaseModel):
-    """Collection of knowledge panels for entities in a video collection."""
-    collection_id: str = Field(..., description="ID of the video collection")
-    collection_title: str = Field(..., description="Title of the video collection") 
-    panels: List[KnowledgePanel] = Field(default_factory=list, description="Individual entity panels")
-    panel_summary: str = Field(..., description="Summary of all panels in this collection")
-    key_entities_analysis: str = Field(..., description="Analysis of the most important entities")
-    entity_network_insights: List[str] = Field(default_factory=list, description="Insights about entity networks")
-    created_at: datetime = Field(default_factory=datetime.now)
-    total_entities: int = Field(default=0, description="Total number of entities analyzed")
-    high_confidence_entities: int = Field(default=0, description="Number of high-confidence entities")
+# Knowledge panel models removed - functionality moved to Chimera
 
 
 class NarrativeSegment(BaseModel):
@@ -317,8 +261,7 @@ class MultiVideoIntelligence(BaseModel):
     # NEW: Consolidated timeline from synthesis engine
     consolidated_timeline: Optional[ConsolidatedTimeline] = None
     
-    # NEW: Knowledge Panels - entity-centric intelligence synthesis
-    knowledge_panels: Optional[KnowledgePanelCollection] = None
+    # Knowledge panels feature removed - moved to Chimera
     
     # NEW: Information Flow Maps - concept evolution tracking
     information_flow_map: Optional['InformationFlowMap'] = None

@@ -9,275 +9,85 @@ globs: ["**/*.py", "docs/TROUBLESHOOTING.md", "**/error*.py", "**/exception*.py"
 alwaysApply: true
 ---
 
-# Troubleshooting Guide
+# Troubleshooting Patterns
 
-## 🐛 Common Issues & Solutions
+## Core Debugging Philosophy
 
-### 1. Installation Issues
+1. **Logs First**: Always check logs before asking for help
+2. **Isolate the Problem**: Minimal reproduction cases
+3. **Test Assumptions**: Verify environment, keys, connectivity
+4. **Incremental Validation**: Test each component separately
 
-#### Poetry Installation Fails
-```bash
-# Error: Poetry not found
-curl -sSL https://install.python-poetry.org | python3 -
+## Common Issue Categories
 
-# Error: Python version mismatch
-pyenv install 3.11.0
-pyenv local 3.11.0
-poetry env use 3.11.0
-```
+### 1. Environment Issues
+- **API Keys**: Missing or invalid credentials
+- **Dependencies**: Version conflicts, missing packages
+- **Permissions**: File access, network restrictions
 
-#### Dependency Conflicts
-```bash
-# Clear cache and reinstall
-poetry cache clear . --all
-rm -rf poetry.lock
-poetry install --no-cache
-```
+### 2. Processing Failures
+- **Video Access**: Private, geo-blocked, or deleted content
+- **Memory**: Large files exceeding system capacity
+- **Rate Limits**: API quota exceeded
 
-### 2. API Key Issues
+### 3. Output Problems
+- **Encoding**: Unicode/UTF-8 issues
+- **File Corruption**: Incomplete writes, disk full
+- **Format Errors**: Invalid JSON, malformed structures
 
-#### Missing API Keys
-```python
-# Error: GOOGLE_API_KEY not found
-# Solution 1: Set in .env file
-echo "GOOGLE_API_KEY=your_key_here" >> .env
-
-# Solution 2: Export in shell
-export GOOGLE_API_KEY="your_key_here"
-
-# Solution 3: Pass directly
-clipscribe process "URL" --api-key "your_key_here"
-```
-
-#### Invalid API Keys
-```python
-# Check key format
-if not api_key.startswith("AIza"):
-    logger.error("Invalid Google API key format")
-
-# Test key validity
-from google.generativeai import configure
-try:
-    configure(api_key=api_key)
-except Exception as e:
-    logger.error(f"API key validation failed: {e}")
-```
-
-### 3. Video Processing Errors
-
-#### Transcript Not Available
-```python
-# Common causes and solutions:
-
-# 1. No captions available
-try:
-    transcript = YouTubeTranscriptApi.get_transcript(video_id)
-except TranscriptsDisabled:
-    logger.info("Falling back to audio transcription")
-    transcript = await transcribe_with_gemini(video_url)
-
-# 2. Age-restricted content
-except VideoUnavailable:
-    logger.error("Video is age-restricted or private")
-    # Use yt-dlp with cookies if authorized
-
-# 3. Regional restrictions
-except NoTranscriptFound:
-    # Try different language codes
-    transcript_list = YouTubeTranscriptApi.list_transcripts(video_id)
-    transcript = transcript_list.find_transcript(['en', 'en-US', 'en-GB'])
-```
-
-#### Download Failures
-```python
-# yt-dlp common issues:
-
-# 1. Rate limiting
-ydl_opts = {
-    'sleep_interval': 1,
-    'max_sleep_interval': 5,
-    'ratelimit': 50000,  # 50KB/s
-}
-
-# 2. Format not available
-ydl_opts = {
-    'format': 'bestaudio[ext=m4a]/bestaudio/best',
-    'outtmpl': str(output_path),
-}
-
-# 3. SSL certificate errors
-ydl_opts['nocheckcertificate'] = True  # Use with caution
-```
-
-### 4. Memory Issues
-
-#### Large Video Files
-```python
-# Problem: OOM with large files
-# Solution: Stream processing
-async def process_large_video(url: str):
-    # Process in chunks
-    chunk_size = 5 * 60  # 5-minute chunks
-    
-    for start in range(0, duration, chunk_size):
-        end = min(start + chunk_size, duration)
-        chunk_transcript = await process_chunk(url, start, end)
-        yield chunk_transcript
-```
-
-#### Entity Extraction Memory
-```python
-# Problem: SpaCy/GLiNER using too much memory
-# Solution: Batch processing
-def extract_entities_batched(text: str, batch_size: int = 1000):
-    doc = nlp(text[:1000000])  # Limit text size
-    entities = []
-    
-    for i in range(0, len(doc), batch_size):
-        batch = doc[i:i + batch_size]
-        entities.extend(process_batch(batch))
-    
-    return entities
-```
-
-### 5. Performance Issues
-
-#### Slow Processing
-```python
-# Diagnosis checklist:
-performance_checks = {
-    'network': check_internet_speed(),
-    'disk_space': check_available_space(),
-    'cpu_usage': check_cpu_load(),
-    'api_quota': check_gemini_quota(),
-}
-
-# Common optimizations:
-# 1. Enable caching
-settings.enable_cache = True
-
-# 2. Use faster models
-settings.transcription_model = "gemini-1.5-flash"
-
-# 3. Parallel processing
-async with asyncio.TaskGroup() as tg:
-    tasks = [tg.create_task(process(url)) for url in urls]
-```
-
-### 6. Output Issues
-
-#### Encoding Problems
-```python
-# UTF-8 issues with special characters
-with open(output_file, 'w', encoding='utf-8') as f:
-    json.dump(data, f, ensure_ascii=False, indent=2)
-
-# For SRT/VTT files
-def write_subtitle(text: str, path: Path):
-    # Normalize Unicode
-    text = unicodedata.normalize('NFC', text)
-    path.write_text(text, encoding='utf-8-sig')  # With BOM for Windows
-```
-
-#### Corrupted Output Files
-```python
-# Implement atomic writes
-def safe_write_json(data: dict, path: Path):
-    temp_path = path.with_suffix('.tmp')
-    try:
-        with open(temp_path, 'w', encoding='utf-8') as f:
-            json.dump(data, f, ensure_ascii=False, indent=2)
-        temp_path.replace(path)  # Atomic on most systems
-    except Exception as e:
-        temp_path.unlink(missing_ok=True)
-        raise
-```
-
-### 7. Platform-Specific Issues
-
-#### YouTube Specifics
-```python
-# Channel URL instead of video
-if '/channel/' in url or '/c/' in url:
-    logger.error("Please provide a video URL, not a channel URL")
-
-# Playlist URL
-if 'list=' in url:
-    logger.info("Detected playlist - processing all videos")
-    videos = extract_playlist_videos(url)
-```
-
-#### Twitter/X Issues
-```python
-# Authentication required
-if platform == 'twitter':
-    logger.warning("Twitter may require authentication for some videos")
-    # Consider using gallery-dl or similar
-```
-
-## 🔍 Debugging Techniques
+## Debugging Techniques
 
 ### Enable Debug Logging
 ```bash
-# Via environment variable
+# Environment variable
 export CLIPSCRIBE_LOG_LEVEL=DEBUG
 
-# Via CLI
+# CLI flag
 clipscribe process "URL" --log-level DEBUG
-
-# In code
-logger.setLevel(logging.DEBUG)
 ```
 
-### Trace Network Requests
+### Validation Before Deployment
 ```python
-# Log all HTTP requests
-import httpx
-httpx_logger = logging.getLogger("httpx")
-httpx_logger.setLevel(logging.DEBUG)
+# Test basic functionality first
+def validate_basic_setup():
+    """Validate core components work."""
+    # 1. Import validation
+    # 2. API key validation  
+    # 3. Model loading validation
+    # 4. Basic processing test
 ```
 
-### Profile Performance
+### Error Recovery Patterns
 ```python
-# Find bottlenecks
-import cProfile
-import pstats
-
-profiler = cProfile.Profile()
-profiler.enable()
-# ... code to profile ...
-profiler.disable()
-stats = pstats.Stats(profiler).sort_stats('cumulative')
-stats.print_stats(10)  # Top 10 functions
+# Graceful degradation
+try:
+    result = expensive_operation()
+except SpecificError:
+    logger.warning("Falling back to alternative method")
+    result = fallback_operation()
 ```
 
-## 💊 Quick Fixes
+## Quick Fixes
 
-### Reset Everything
+### Reset Environment
 ```bash
-# Nuclear option - full reset
-rm -rf .venv poetry.lock __pycache__ .pytest_cache
+# Clear caches and reinstall
+rm -rf .venv poetry.lock __pycache__
 poetry install
-poetry run pytest
 ```
 
-### Clear Caches
-```bash
-# Clear all caches
-rm -rf ~/.cache/clipscribe
-rm -rf output/.cache
-poetry cache clear . --all
-```
-
-### Test Minimal Example
+### Test Minimal Case
 ```python
-# Verify basic functionality
-from clipscribe import VideoIntelligence
-
-# Use a known-good video
+# Use known-good test case
 test_url = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-result = VideoIntelligence.from_url(test_url)
-print(f"Success! Found {len(result.entities)} entities")
 ```
+
+## Best Practices
+
+1. **Log Everything**: Errors, warnings, and progress
+2. **Fail Fast**: Validate inputs early
+3. **Provide Context**: Include relevant details in error messages
+4. **Test Edge Cases**: Empty inputs, network failures, invalid data
+5. **Document Solutions**: Add to docs/TROUBLESHOOTING.md
 
 Remember: When in doubt, check the logs! They usually point to the real issue :-)

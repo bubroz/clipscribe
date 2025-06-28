@@ -23,7 +23,7 @@ class BatchExtractor:
     This saves tokens, time, and money :-)
     """
     
-    def __init__(self, model_name: str = "gemini-1.5-flash", timeout: int = 600):
+    def __init__(self, model_name: str = "gemini-2.5-flash", timeout: int = 600):
         """Initialize the batch extractor."""
         self.model_name = model_name
         self.timeout = timeout

@@ -46,7 +46,7 @@ ClipScribe is a modern video intelligence tool that leverages Google's Gemini to
 - 📄 **Excel Export** - Multi-sheet Excel exports with professional formatting.
 - 📈 **Performance Dashboards** - Dedicated monitoring interface with real-time analytics.
 - 🌐 **GEXF 1.3 Export** - Modern knowledge graph format for Gephi visualization with enhanced styling.
-- 👥 **Knowledge Panels** - Entity-centric intelligence synthesis across videos with comprehensive profiles.
+
 - 🔄 **Information Flow Maps** - Track concept evolution and maturity across video sequences.
 
 ## 🎉 What's New in v2.16.0 - The Mission Control Update (Phase 1)
@@ -61,7 +61,7 @@ ClipScribe now includes a comprehensive web interface for managing and exploring
   - Individual video details and metadata
   - Cross-video entity analysis and relationships
   - Knowledge synthesis integration
-- **👥 Knowledge Panels Explorer**: Interactive entity-centric intelligence
+
   - Entity search, filtering, and sorting capabilities
   - Detailed panel views with activities, quotes, and relationships
   - Network view with relationship distribution analysis
@@ -106,15 +106,7 @@ This release marks the completion of ClipScribe's comprehensive Knowledge Synthe
 
 ### 🎯 **Completed Features**
 
-#### 👥 **Knowledge Panels - Entity-Centric Intelligence** ✅
-- **Comprehensive Entity Profiles**: Automatically generates detailed profiles for the top 15 most significant entities
-- **Rich Analysis**: Executive summaries, portrayal analysis, significance assessment, and strategic insights
-- **Cross-Video Synthesis**: Tracks entity activities, quotes, and relationships across entire collections
-- **Smart Filtering**: Prioritizes entities appearing in multiple videos or with high mention counts
-- **Complete Output Integration**: 
-  - `knowledge_panels.json` - Structured data for all panels
-  - `entity_panels/` - Individual JSON files for each entity
-  - `knowledge_panels_summary.md` - Beautiful human-readable report
+
 
 #### 🔄 **Information Flow Maps - Concept Evolution Tracking** ✅
 - **6-Level Maturity Model**: Tracks how concepts evolve from "mentioned" to "evolved"
@@ -146,7 +138,7 @@ This release marks the completion of ClipScribe's comprehensive Knowledge Synthe
 ### 🚀 **What's Next in v2.16.0**
 - **Streamlit Mission Control**: Interactive UI for collection management
 - **Real-time Dashboards**: Monitor processing with live progress tracking
-- **Interactive Visualizations**: Explore Knowledge Panels and Information Flow Maps
+- **Interactive Visualizations**: Explore Information Flow Maps and concept evolution
 - **Export Hub**: Download analyses in multiple formats
 
 ## 🎉 Previous Releases
@@ -309,9 +301,9 @@ poetry run streamlit run streamlit_app/ClipScribe_Mission_Control.py
 
 This will open the full Mission Control interface in your web browser with access to:
 - Collections browser for multi-video analysis
-- Knowledge Panels explorer for entity-centric intelligence
 - Information Flow Maps for concept evolution tracking
 - Analytics dashboard for cost and performance monitoring
+- Settings for API configuration and processing parameters
 
 ### Configuration
 

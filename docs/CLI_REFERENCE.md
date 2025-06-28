@@ -175,9 +175,9 @@ clipscribe process-collection \
 **Output (v2.15.0):**
 - Individual video outputs with **working relationship extraction** (10-19 per video)
 - **Knowledge synthesis**: Complete with Knowledge Panels and Information Flow Maps
-- **Knowledge Panels**: Entity-centric profiles in `knowledge_panels.json` and `entity_panels/`
+- **Information Flow Maps**: Concept evolution tracking in `information_flow_map.json` and `concept_flows/`
 - **Information Flow Maps**: Concept evolution in `information_flow_map.json` and `concept_flows/`
-- **Human-Readable Summaries**: `knowledge_panels_summary.md` and `information_flow_summary.md`
+- **Human-Readable Summaries**: `information_flow_summary.md` with concept evolution analysis
 - **GEXF 1.3 export**: Unified knowledge graph for Gephi visualization
 - **Enhanced Timeline**: LLM-based temporal intelligence with date extraction
 - Collection intelligence in `collection_intelligence.json` with all synthesis features

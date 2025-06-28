@@ -129,11 +129,11 @@ output/
     ├── timeline.json                    # Consolidated timeline with temporal intelligence
     ├── collection_intelligence.json     # Complete multi-video analysis data
     ├── unified_knowledge_graph.gexf     # Combined knowledge graph for Gephi
-    ├── knowledge_panels.json            # Entity-centric intelligence synthesis
-    ├── knowledge_panels_summary.md      # Human-readable entity profiles
-    ├── entity_panels/                   # Individual entity panel JSON files
-    │   ├── john_doe.json
-    │   ├── acme_corp.json
+    ├── information_flow_map.json        # Concept evolution tracking  
+    ├── information_flow_summary.md      # Human-readable flow analysis
+    ├── concept_flows/                   # Individual concept flow files
+    │   ├── video_1_concepts.json
+    │   ├── video_2_concepts.json
     │   └── ...
     ├── information_flow_map.json        # Concept evolution tracking
     ├── information_flow_summary.md      # Human-readable concept analysis

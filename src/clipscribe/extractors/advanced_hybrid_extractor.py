@@ -58,7 +58,7 @@ class AdvancedHybridExtractor:
         use_rebel: bool = True,
         use_llm: bool = True,
         confidence_threshold: float = 0.7,
-        llm_model: str = "gemini-1.5-flash",
+        llm_model: str = "gemini-2.5-flash",
         device: str = "auto",
         api_key: Optional[str] = None
     ):

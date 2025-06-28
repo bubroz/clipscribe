@@ -38,7 +38,7 @@ class StreamingExtractor:
     
     def __init__(
         self, 
-        model_name: str = "gemini-1.5-flash",
+        model_name: str = "gemini-2.5-flash",
         chunk_duration: int = 300,  # 5 minutes per chunk
         max_concurrent: int = 3     # Process 3 chunks at once
     ):

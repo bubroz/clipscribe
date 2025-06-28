@@ -25,7 +25,7 @@ class Settings(BaseSettings):
     
     # AI Model Configuration
     ai_model: str = Field(
-        default="google_genai:gemini-1.5-flash",
+        default="google_genai:gemini-2.5-flash",
         description="Default AI model for transcription"
     )
     temperature: float = Field(
@@ -187,7 +187,7 @@ except Exception as e:
     # Create a minimal settings object for UI purposes
     class FallbackSettings:
         google_api_key = ""
-        ai_model = "google_genai:gemini-1.5-flash"
+        ai_model = "google_genai:gemini-2.5-flash"
         temperature = 0.3
         output_dir = Path("output")
         default_language = "en"

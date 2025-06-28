@@ -25,9 +25,28 @@ This document explains the advanced extraction technologies, `GLiNER` and `REBEL
 - "United Arab Emirates | diplomatic relation | Saudi Arabia"
 - "Enrique Peña Nieto | President of Mexico | position held"
 
+## Entity Extraction Pipeline Architecture
+
+ClipScribe uses a **sophisticated hybrid approach** with GLiNER as the primary extractor:
+
+### **Pipeline Hierarchy (Cost-Optimized)**:
+1. **SpaCy** (free, fast): Basic entity coverage for standard types (PERSON, ORG, LOC)
+2. **GLiNER** (primary): Sophisticated transformer-based, contextually aware 
+3. **REBEL**: Relationship extraction to connect entities
+4. **Entity Normalization**: Smart merging, deduplication, confidence aggregation
+5. **LLM Validation** (optional): High-confidence validation for critical applications
+
+### **Why GLiNER Dominates (By Design)**:
+- **Superior Contextual Understanding**: vs SpaCy's rule-based approach
+- **Domain-Specific Entities**: Handles "Pegasus spyware", "NSO Group" vs SpaCy's generic PERSON/ORG
+- **Better Boundary Detection**: More accurate entity spans and custom types
+- **News/Video Optimized**: Designed for the content ClipScribe processes
+
+### **Cost-Effective Intelligence**: Free (SpaCy coverage) → Better (GLiNER primary) → Best (LLM validation)
+
 ## Why GLiNER + REBEL is Powerful
 
-ClipScribe uses a sophisticated hybrid model to build rich, queryable knowledge graphs from video content. This is achieved by combining two cutting-edge models:
+This sophisticated hybrid model builds rich, queryable knowledge graphs from video content:
 
 ### GLiNER: The Universal Entity Finder
 

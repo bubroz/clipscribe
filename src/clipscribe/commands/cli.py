@@ -118,7 +118,7 @@ def cli(ctx: click.Context, debug: bool) -> None:
     help='Generate a detailed performance report for the run.'
 )
 @click.pass_context
-async def transcribe(
+def transcribe(
     ctx: click.Context,
     url: str,
     output_dir: Path,
@@ -163,7 +163,7 @@ async def transcribe_async(
     chunk_duration = 600
     confidence_threshold = 0.8
     cost_threshold = 10.0
-    model = 'gemini-1.5-flash'
+    model = 'gemini-2.5-flash'
     use_advanced_extraction = True
     gliner_model = 'urchade/gliner_multi-v2.1'
     rebel_model = 'Babelscape/rebel-large'
@@ -187,31 +187,22 @@ async def transcribe_async(
     # Initialize retriever
     try:
         retriever = VideoIntelligenceRetriever(
-            api_key=api_key,
-            model=model,
             use_cache=use_cache,
-            max_retries=max_retries,
-            chunk_duration=chunk_duration,
-            confidence_threshold=confidence_threshold,
-            cost_threshold=cost_threshold,
             use_advanced_extraction=use_advanced_extraction,
-            gliner_model=gliner_model,
-            rebel_model=rebel_model,
-            use_llm_validation=use_llm_validation,
-            domain=domain
+            domain=domain,
+            mode=mode,
+            output_dir=str(output_dir),
+            enhance_transcript=enhance_transcript
         )
         
+        # Set cleaning option
+        if clean_graph:
+            retriever.clean_graph = True
+        elif skip_cleaning:
+            retriever.clean_graph = False
+        
         # Process video
-        result = await retriever.process_video(
-            url,
-            mode=mode,
-            enhance_transcript=enhance_transcript,
-            extract_entities=extract_entities,
-            extract_topics=extract_topics,
-            extract_key_points=extract_key_points,
-            extract_relationships=extract_relationships,
-            include_timestamps=include_timestamps
-        )
+        result = await retriever.process_url(url)
         
         # Save outputs
         if save_all_formats:
@@ -237,7 +228,7 @@ async def transcribe_async(
                 "url": url,
                 "mode": mode,
                 "model": model,
-                "processing_time": result.metadata.get("processing_time", 0),
+                "processing_time": result.processing_time,
                 "processing_cost": result.processing_cost,
                 "transcript_length": len(result.transcript.full_text) if result.transcript else 0,
                 "entity_count": len(result.entities),
@@ -313,8 +304,12 @@ def _display_results(console: Console, result):
 @click.option('--skip-cleaning', is_flag=True)
 @click.option('--performance-report', is_flag=True)
 @click.pass_context
-async def research(ctx: click.Context, query: str, max_results: int, period: Optional[str], sort_by: str, output_dir: Path, **kwargs):
+def research(ctx: click.Context, query: str, max_results: int, period: Optional[str], sort_by: str, output_dir: Path, **kwargs):
     """Research a topic by analyzing multiple videos."""
+    asyncio.run(research_async(ctx, query, max_results, period, sort_by, output_dir, **kwargs))
+
+async def research_async(ctx: click.Context, query: str, max_results: int, period: Optional[str], sort_by: str, output_dir: Path, **kwargs):
+    """Async implementation of research command."""
     # Create a semaphore to limit concurrency
     concurrency = 3
     semaphore = asyncio.Semaphore(concurrency)

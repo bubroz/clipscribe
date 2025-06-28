@@ -34,7 +34,7 @@ class GeminiPool:
     This is like having multiple AI assistants, each specialized for one job :-)
     """
     
-    def __init__(self, model_name: str = "gemini-1.5-flash", api_key: Optional[str] = None):
+    def __init__(self, model_name: str = "gemini-2.5-flash", api_key: Optional[str] = None):
         """Initialize the Gemini pool."""
         self.model_name = model_name
         self.api_key = api_key

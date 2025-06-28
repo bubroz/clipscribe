@@ -35,13 +35,13 @@ clipscribe process-collection "URL1" "URL2" --collection-title "My-Analysis"
 ## 💡 Key Features (v2.15.0 - The Synthesis Complete Update)
 
 ### ✅ **Knowledge Synthesis Engine Now Complete!**
-- **Knowledge Panels**: Entity-centric intelligence synthesis with comprehensive profiles
+
 - **Information Flow Maps**: Track concept evolution across video sequences
 - **Enhanced Timeline**: LLM-based temporal intelligence for accurate event chronology
 - **GEXF 1.3 Export**: Modern knowledge graph format for Gephi visualization
 
 ### ✨ **New in v2.15.0**
-- **Complete Synthesis Features**: Both Knowledge Panels and Information Flow Maps fully integrated
+- **Complete Synthesis Features**: Information Flow Maps and Timeline analysis fully integrated
 - **Rich Output Integration**: JSON data files + human-readable markdown summaries
 - **Production Ready**: All tests passing, comprehensive error handling
 - **Backward Compatible**: Existing features preserved while adding new capabilities

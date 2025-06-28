@@ -100,8 +100,8 @@ def main():
         # Quick stats in sidebar
         st.markdown("### 📈 Quick Stats")
         
-        # Check for output directory
-        output_path = Path("output")
+        # Check for output directory (relative to project root)
+        output_path = Path("../output")
         if output_path.exists():
             collections = list(output_path.glob("collections/*"))
             individual_videos = [p for p in output_path.iterdir() 
@@ -127,7 +127,7 @@ def main():
     elif page == "📹 Collections":
         show_collections()
     elif page == "👥 Knowledge Panels":
-        show_knowledge_panels()
+        st.info("Knowledge panels functionality has been moved to Chimera and removed from ClipScribe.")
     elif page == "🔄 Information Flows":
         show_information_flows()
     elif page == "📊 Analytics":
@@ -170,7 +170,7 @@ def show_dashboard():
     # Recent activity
     st.subheader("🕒 Recent Activity")
     
-    output_path = Path("output")
+    output_path = Path("../output")
     if output_path.exists():
         # Get recent directories
         recent_dirs = sorted(
@@ -186,13 +186,22 @@ def show_dashboard():
                     files = list(dir_path.glob("*"))
                     st.write(f"**Files:** {len(files)}")
                     
-                    # Show key files
-                    key_files = [
-                        "manifest.json",
-                        "video_intelligence.json", 
-                        "knowledge_panels.json",
-                        "information_flow_map.json"
-                    ]
+                    # Show key files with correct names based on actual file structure
+                    if "collections" in str(dir_path):
+                        # Collection directories have different files
+                        key_files = [
+                            "collection_intelligence.json",
+                            "timeline.json", 
+                            "unified_knowledge_graph.gexf"
+                        ]
+                    else:
+                        # Individual video directories
+                        key_files = [
+                            "video_intelligence.json",
+                            "knowledge_graph.gexf",
+                            "transcript.json",
+                            "summary.md"
+                        ]
                     
                     for key_file in key_files:
                         if (dir_path / key_file).exists():
@@ -219,20 +228,7 @@ def show_collections():
         st.error(f"Error loading Collections page: {e}")
         st.info("🚧 Collections page coming soon! This will show all multi-video collections.")
 
-def show_knowledge_panels():
-    """Display Knowledge Panels viewer"""
-    # Import and run the Knowledge Panels page
-    try:
-        # Add streamlit_app to path for proper imports
-        streamlit_app_path = Path(__file__).parent
-        if str(streamlit_app_path) not in sys.path:
-            sys.path.insert(0, str(streamlit_app_path))
-        
-        from pages.Knowledge_Panels import main as kp_main
-        kp_main()
-    except ImportError as e:
-        st.error(f"Error loading Knowledge Panels page: {e}")
-        st.info("🚧 Knowledge Panels viewer coming soon! This will show entity-centric intelligence.")
+# Knowledge panels function removed - functionality moved to Chimera
 
 def show_information_flows():
     """Display Information Flow Maps"""
