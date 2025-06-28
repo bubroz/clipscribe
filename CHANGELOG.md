@@ -5,6 +5,70 @@ All notable changes to ClipScribe will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.18.3] - 2025-06-28 - Timeline Bug Fix & Documentation Update
+
+### 🔧 Critical Bug Fixes
+- **Timeline Intelligence**: Preparing to fix fundamental date extraction logic
+  - Current broken implementation: `video.metadata.published_at + timedelta(seconds=key_point.timestamp)`
+  - New approach: Extract key events with video timestamps + attempt actual date extraction
+  - No web research required - extract dates mentioned in content with confidence levels
+  - Position timeline as intelligence collector/triage for eventual Chimera integration
+
+### 📚 Documentation Updates
+- **Comprehensive Documentation Review**: Updated all timeline references across project
+- **Strategic Positioning**: Clarified ClipScribe as "collector and triage analyst" vs full analysis engine
+- **Chimera Integration Context**: Added context for future integration without immediate implementation
+- **Communication Rules**: Added brutal honesty guidelines to project rules
+
+### 🎯 Strategic Clarification
+- **ClipScribe Role**: Video intelligence collector/triage → feeds structured data
+- **Chimera Role**: Deep analysis engine → processes data with 54 SAT techniques  
+- **Integration Timeline**: After ClipScribe is 100% stable as standalone tool
+- **Timeline Feature**: Simplified to reliable intelligence extraction without complex temporal correlation
+
+## [2.18.2] - 2025-06-28 - Critical Bug Discovery
+
+### 🚨 Critical Bugs Discovered
+- **Timeline Intelligence**: Fundamental logic error in date extraction
+  - Timeline events are using video timestamp seconds as days offset from publication date
+  - Results in meaningless sequential dates (2025-06-03, 2025-06-04, etc.) instead of actual historical dates
+  - Timeline feature essentially broken for its intended purpose of tracking real events
+- **Information Flow Maps**: Multiple AttributeError crashes
+  - `'InformationFlowMap' object has no attribute 'flow_pattern_analysis'`
+  - UI attempting to access non-existent model attributes throughout the page
+  - Page completely unusable due to immediate crash on load
+- **Model-UI Mismatches**: Widespread inconsistencies between data models and UI code
+  - ConceptNode, ConceptDependency, ConceptEvolutionPath, ConceptCluster all have mismatched attributes
+  - Indicates UI was developed without proper validation against actual models
+
+### 🔍 Root Cause Analysis
+- **Timeline Date Logic**: Fallback uses `video.metadata.published_at + timedelta(seconds=key_point.timestamp)`
+  - This adds the video timestamp (in seconds) as DAYS to the publication date
+  - Should either extract real dates from content or use a different approach entirely
+- **UI Development Process**: UI pages were developed assuming model structures that don't exist
+  - No integration testing performed before declaring features "complete"
+  - Copy-paste development led to propagated errors across multiple pages
+
+### 📋 Testing Gaps Identified
+- No manual testing of UI pages with real data
+- No integration tests between models and UI
+- Features marked "complete" without basic functionality verification
+- Timeline feature may not even be applicable to many video types
+
+### 🎯 Immediate Action Required
+1. Fix timeline date extraction logic completely
+2. Update all Information Flow Maps UI code to match actual models
+3. Comprehensive manual testing of every feature
+4. Establish proper testing protocols before marking features complete
+
+### 💡 Lessons Learned
+- "Complete" should mean tested and working, not just coded
+- UI development must be done against actual model definitions
+- Integration testing is critical for multi-component features
+- Feature applicability should be considered (not all videos have historical events)
+
+---
+
 ## [2.17.0] - In Development - Optimized Architecture & Enhanced Temporal Intelligence
 
 ### Enhanced Video Processing Implementation Complete (2025-06-28)

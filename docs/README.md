@@ -1,6 +1,32 @@
-# ARGOS Documentation
+# ClipScribe Documentation
 
-Welcome to the ARGOS documentation! This guide will help you get started with AI-powered video intelligence and enhanced temporal analysis.
+*Last Updated: June 28, 2025*
+*Related: [Main README](../README.md)*
+
+Welcome to the comprehensive documentation for **ClipScribe** - a video intelligence collector and triage analyst designed for reliable, cost-effective intelligence extraction from video content.
+
+## 🎯 Strategic Positioning (v2.18.3)
+
+**ClipScribe Role**: Video intelligence collector and triage analyst
+- Extracts structured intelligence from video content with 95% cost reduction
+- Provides reliable video processing and initial intelligence extraction  
+- Designed to feed structured data to advanced analysis engines (future Chimera integration)
+
+**NOT a complete analysis engine** - focuses on reliable collection and triage rather than deep analytical correlation.
+
+## 🚀 What's New
+
+### 🔧 **Timeline Intelligence - Simplified Approach (v2.18.3)**
+- **Key Event Extraction**: Extract important facts and events mentioned in video content
+- **Video Timestamp Context**: Precise reference points ("At 5:23, speaker mentions X")
+- **Mentioned Date Detection**: Attempt to find actual dates referenced in content
+- **No Complex Temporal Correlation**: Simplified approach focused on reliable intelligence collection
+- **Future-Ready**: Designed for eventual integration with advanced temporal analysis systems
+
+### 🚧 **Current Status: Critical Bug Fixes in Progress**
+- Timeline date extraction logic being repaired
+- Information Flow Maps crashes being resolved
+- Mission Control stability improvements underway
 
 ## 📚 Documentation Index
 

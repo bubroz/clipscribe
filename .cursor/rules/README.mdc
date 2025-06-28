@@ -196,6 +196,7 @@ Would you like me to proceed with [next logical component] to complete the [over
 4. **Structure with Emojis**: Use consistent emoji patterns for visual organization
 5. **Document Everything**: Every change must be reflected in relevant documentation
 6. **Preserve Context**: Ensure future sessions can continue seamlessly
+7. **Brutal Honesty with Constructive Intent**: Always provide honest, direct feedback about problems, limitations, and realistic assessments. Don't sugarcoat issues or provide false optimism. When something is broken, expensive, or impractical, say so clearly while offering constructive alternatives. The user values candid analysis over diplomatic evasion - this builds trust and enables better decision-making.
 
 ### Anti-Patterns to Avoid
 

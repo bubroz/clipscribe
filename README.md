@@ -445,3 +445,40 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 <p align="center">
   Made with ❤️ for the Chimera Researcher project
 </p>
+
+## 🚀 What's New in ClipScribe v2.18.3
+
+### 🎯 Strategic Positioning & Bug Fix Preparation
+1. **Strategic Clarity**: ClipScribe positioned as video intelligence collector/triage analyst
+2. **Chimera Integration Context**: Future integration with Chimera's 54 SAT analysis techniques  
+3. **Timeline Simplification**: Simplified timeline approach focusing on reliable intelligence extraction
+4. **Critical Bug Fix Prep**: Timeline date extraction logic ready for immediate repair
+
+### ✅ Core Features (Stable)
+1. **Enhanced Video Processing**: Direct Gemini 2.5 Flash processing with 95% cost reduction
+2. **Hybrid Entity Extraction**: SpaCy + GLiNER + REBEL + LLM validation pipeline
+3. **Multi-Video Collections**: Process video series with relationship mapping and knowledge synthesis
+4. **Timeline Intelligence**: Key event extraction with video timestamps (simplified approach - no complex temporal correlation)
+
+### 🚧 Mission Control Status: Critical Bugs Identified
+- **Timeline Intelligence**: Date extraction logic requires immediate fix
+- **Information Flow Maps**: AttributeError crashes need resolution
+- **Overall Status**: NOT production-ready, fixes in progress
+
+#### 💡 **Timeline Intelligence Features (Simplified Approach)**
+- **Key Event Extraction**: Extract important facts and events mentioned in video content
+- **Video Timestamp Context**: "At 5:23, speaker mentions X" for precise reference
+- **Mentioned Date Detection**: Attempt to find actual dates referenced in content ("In 1984...", "Last Tuesday...")
+- **Confidence Scoring**: Mark extraction confidence levels without external validation
+- **Intelligence Collection**: Position as collector/triage for eventual advanced analysis (Chimera integration)
+
+### 🎯 Strategic Vision
+**ClipScribe Role**: Video intelligence collector and triage analyst
+- Extract structured intelligence from video content
+- Provide reliable, cost-effective video processing
+- Feed structured data to advanced analysis engines
+
+**Future Chimera Integration**: 
+- ClipScribe handles video processing and initial intelligence extraction
+- Chimera applies 54 Structured Analytic Techniques for deep analysis
+- Integration timeline: After ClipScribe achieves 100% standalone stability
