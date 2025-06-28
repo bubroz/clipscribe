@@ -1,238 +1,70 @@
-# ARGOS v2.17.0 - Enhanced Temporal Intelligence ✅ COMPLETE
+# ClipScribe v2.18.4 - Video Intelligence Platform 🧪 VALIDATION PHASE
 
 <p align="center">
   <strong>AI-powered video intelligence for 1800+ platforms</strong>
 </p>
 
 <p align="center">
-  <em>✅ Enhanced Temporal Intelligence: All 4/4 Major Components COMPLETE! 🚀</em>
+  <em>🧪 VALIDATION PHASE: Systematic testing of all claimed functionality</em>
 </p>
 
 <p align="center">
   <a href="#features">Features</a> •
   <a href="#installation">Installation</a> •
   <a href="#usage">Usage</a> •
-  <a href="#api">API</a> •
+  <a href="#validation">Validation</a> •
   <a href="#contributing">Contributing</a>
 </p>
 
 ---
 
-ARGOS (formerly ClipScribe) is a revolutionary video intelligence tool that leverages Google's Gemini to provide fast, accurate, and cost-effective analysis. It supports **1800+ video platforms** through yt-dlp integration and serves as the video intelligence engine for the PROMETHEUS Universal AI Platform.
+ClipScribe is a video intelligence tool that leverages Google's Gemini to provide video analysis. It supports **1800+ video platforms** through yt-dlp integration and serves as a video intelligence collector for research workflows.
 
-## ✨ Features
+## 🚨 CURRENT STATUS: VALIDATION PHASE
 
-- 🎛️ **Streamlit Mission Control** - Complete web interface for managing video intelligence collections and exploring analysis results.
-- 🖥️ **Interactive Web UI** - An easy-to-use Streamlit app for running analysis in your browser.
-- 🌍 **Universal Platform Support** - YouTube, TikTok, Twitter/X, Vimeo, and 1800+ more.
-- 🚀 **Gemini Powered** - Native audio/video understanding for high accuracy.
-- 🔬 **Research Command** - Analyze multiple videos on a single topic to gather broad insights.
-- 📊 **Rich Interactive Reports** - Auto-generated markdown reports with:
-  - 📈 **Mermaid.js Diagrams** for knowledge graphs and entity distributions.
-  - 🗂️ **Collapsible Sections** for easy navigation.
-  - 📊 **Quick Stats Dashboards** with visual statistics.
-- 🎨 **Beautiful CLI** - Modern terminal interface with Rich progress indicators, live cost tracking, and phase timing.
-- 💰 **Cost Optimized** - Intelligent API batching reduces costs by 50-60%.
-- 📈 **Multiple Data Formats** - Export to TXT, JSON, CSV, GEXF, and interactive Markdown.
-- 🔗 **Full Knowledge Extraction** - Extracts entities, relationships, topics, and key points to build a complete knowledge graph.
-- 🧠 **Multi-Video Intelligence** - Process multiple related videos with cross-video analysis and unified knowledge graphs.
-- 🔍 **Automatic Series Detection** - AI-powered pattern recognition for video series with user confirmation workflows.
-- 🌐 **Cross-Video Entity Resolution** - Aggressive entity merging with 85% similarity threshold and Gemini 2.5 Pro validation.
-- 📖 **Narrative Flow Analysis** - Story progression tracking and thematic arc identification for series content.
-- 🔒 **Data Integrity** - Manifest files include SHA256 checksums for all outputs.
-- 🎯 **Entity Source Tracking** - Track which extraction method (SpaCy, GLiNER, REBEL) found each entity.
-- ⚡ **Performance Optimized** - Model caching provides 3-5x faster batch processing.
-- 📊 **Advanced Visualizations** - Interactive Plotly charts for comprehensive analysis.
-- 📄 **Excel Export** - Multi-sheet Excel exports with professional formatting.
-- 📈 **Performance Dashboards** - Dedicated monitoring interface with real-time analytics.
-- 🌐 **GEXF 1.3 Export** - Modern knowledge graph format for Gephi visualization with enhanced styling.
-- 🔄 **Information Flow Maps** - Track concept evolution and maturity across video sequences.
-- ⏰ **Timeline Building Pipeline** - Web research integration for enhanced temporal intelligence validation.
+**v2.18.4 - Critical Bug Fixes + Validation Framework**
 
-## 🎉 **MAJOR MILESTONE: v2.17.0 Enhanced Temporal Intelligence COMPLETE!**
+We've implemented critical bug fixes and established a comprehensive validation framework. **All features are currently undergoing systematic validation** before being marked as production-ready.
 
-### ✅ **All 4/4 Core Components Complete (2025-06-28)**
+### 🧪 Validation-First Approach
+- **150+ validation points** across all workflows
+- **Real data testing** with actual video collections  
+- **End-to-end user workflows** validation
+- **95% pass rate required** before claiming features work
+- **Document all failures** and fix before marking complete
 
-ARGOS v2.17.0 introduces revolutionary Enhanced Temporal Intelligence with 300% more temporal intelligence for only 12-20% cost increase. **All major components are now production-ready.**
+### ✅ Recent Fixes (v2.18.4)
+- **Timeline Intelligence**: Fixed fundamental date extraction logic
+- **Information Flow Maps**: Resolved AttributeError crashes  
+- **Validation Framework**: Created comprehensive testing checklist
 
-#### ✅ **Completed Components (4/4)**
-1. **Enhanced Configuration System**: Complete temporal intelligence and retention configuration
-2. **Enhanced Video Processing**: Direct video-to-Gemini 2.5 Flash with temporal intelligence extraction  
-3. **Video Retention System**: Smart cost-optimized retention with archive management
-4. **Timeline Building Pipeline**: Web research integration for temporal event validation *(NEW - Just Completed!)*
+### ⚠️ Validation Status
+**Currently validating basic functionality:**
+- [ ] Single video processing workflows
+- [ ] Mission Control UI functionality  
+- [ ] Multi-video collection processing
+- [ ] Output format generation
+- [ ] Cost tracking and optimization
 
-#### 🚀 **Key Achievements**
-- **Direct Video Processing**: Eliminated audio extraction inefficiency for 10x performance improvement
-- **Enhanced Temporal Intelligence**: Extract 300% more temporal intelligence for only 12-20% cost increase
-- **Smart Video Retention**: Cost vs storage analysis with automated retention policies
-- **Timeline Building Pipeline**: Web research validation with graceful local fallbacks
-- **Complete Integration**: All components working together in unified pipeline
-- **Comprehensive Testing**: 16/16 unit tests passing for Timeline Building Pipeline
+See [VALIDATION_CHECKLIST.md](docs/VALIDATION_CHECKLIST.md) for complete validation status.
 
-#### 🔧 **Technical Implementation**
-- **Enhanced Transcriber**: Visual temporal cues extraction (charts, graphs, timelines)
-- **Video Retention Manager**: $0.023/GB/month storage cost analysis with breakeven calculations
-- **Enhanced Video Retriever**: Complete v2.17.0 component integration
-- **GeminiPool Enhancement**: Added `TEMPORAL_INTELLIGENCE` task type
-- **Web Research Integration**: Optional external validation with local fallbacks
-- **Timeline Context Validator**: Intelligent temporal consistency detection
+## ✨ Claimed Features (Under Validation)
 
-#### 💡 **Timeline Building Pipeline Features**
-- **Web Research Integration**: Validates timeline events against external sources using Gemini 2.5 Flash
-- **Temporal Consistency Validation**: Detects chronological anomalies and large time gaps
-- **Smart Cost Control**: Research disabled by default, optional enrichment when API available
-- **Graceful Degradation**: Full functionality maintained without external research
-- **Type Safety**: Complete Pydantic models with comprehensive validation
+- 🎛️ **Mission Control** - Web interface for video intelligence management
+- 🌍 **Platform Support** - YouTube, TikTok, Twitter/X, and 1800+ more
+- 🚀 **Gemini Integration** - Direct video processing with temporal intelligence
+- 📊 **Knowledge Extraction** - Entities, relationships, topics, and timelines
+- 🧠 **Multi-Video Analysis** - Collection processing with cross-video intelligence
+- 💰 **Cost Optimization** - Intelligent API usage and caching
+- 📈 **Multiple Exports** - JSON, Markdown, GEXF, and visualization formats
 
-### 🎛️ **Mission Control - Full Web Interface (v2.16.0)**
-
-## 🎉 Previous Releases
-
-### v2.15.0 - The Synthesis Complete Update (2025-06-27)
-
-### ✅ **All Knowledge Synthesis Features Now Complete!**
-
-This release marks the completion of ClipScribe's comprehensive Knowledge Synthesis Engine. Both major synthesis features are now production-ready with full output integration.
-
-### 🎯 **Completed Features**
-
-#### 🔄 **Information Flow Maps - Concept Evolution Tracking** ✅
-- **6-Level Maturity Model**: Tracks how concepts evolve from "mentioned" to "evolved"
-- **Comprehensive Tracking**: Monitors concept introduction, development, and conclusion across videos
-- **Dependency Analysis**: Maps how concepts build upon each other
-- **Evolution Paths**: Traces concept journeys across video sequences
-- **Complete Output Integration**:
-  - `information_flow_map.json` - Complete flow data
-  - `concept_flows/` - Individual flow files per video
-  - `information_flow_summary.md` - Comprehensive analysis report
-
-#### 📅 **Enhanced Event Timeline** ✅ (Completed 2025-06-27)
-- **LLM-Based Temporal Intelligence**: Sophisticated date extraction from content
-- **Smart Fallback Logic**: Content → Title → Publication date priority
-- **Traceable Timestamps**: Full transparency on date source and confidence
-
-#### 🌐 **GEXF 1.3 Knowledge Graphs** ✅
-- **Modern Format**: Full GEXF 1.3 specification for Gephi compatibility
-- **Rich Styling**: Type-based colors and confidence-based sizing
-- **Relationship Attributes**: Complete predicate information
-
-### 📊 **Technical Achievements**
-- **Test Coverage**: All synthesis features have comprehensive unit tests
-- **Async Architecture**: Proper async/await implementation throughout
-- **Template Fallbacks**: Both features work without AI for robustness
-- **Backward Compatible**: Existing outputs preserved while adding new features
-- **Production Ready**: All tests passing, ready for deployment
-
-### 🚀 **What's Next in v2.16.0**
-- **Streamlit Mission Control**: Interactive UI for collection management
-- **Real-time Dashboards**: Monitor processing with live progress tracking
-- **Interactive Visualizations**: Explore Information Flow Maps and concept evolution
-- **Export Hub**: Download analyses in multiple formats
-
-## 🎉 Previous Releases
-
-### v2.14.0 - The Synthesis Update (2025-06-27)
-
-#### 🎯 **Major Breakthrough: Relationship Extraction Fixed!**
-- **REBEL Model Fixed**: Resolved a critical bug that prevented relationship extraction from completing
-- **Rich Relationship Data**: Now successfully extracting 10-20 meaningful relationships per video
-
-#### 🌐 **GEXF 1.3 Knowledge Graph Export**
-- **Upgraded GEXF export** from 1.2draft to GEXF 1.3 specification
-- Enhanced Gephi compatibility with modern namespaces and hex color attributes
-- Confidence-based node sizing and type-based color coding
-
-#### 📅 **Enhanced Event Timeline with Temporal Intelligence**
-- **LLM-Based Date Extraction**: Sophisticated parsing of dates from video content
-- **Timeline Synthesis**: Chronological event extraction from video key points
-- **Data Models**: New `TimelineEvent` and `ConsolidatedTimeline` Pydantic models
-
-#### 🔧 **Critical Bug Fixes**
-- **Fixed**: Relationship Extraction Pipeline - The core REBEL model is now fully operational
-- **Fixed**: Async command handling with proper sync/async separation
-- **Fixed**: Collection directory naming issues (no more trailing dots)
-- **Fixed**: Variable scope issues in collection processing
-
-## 🎉 What's New in v2.13.0
-
-The latest version introduces comprehensive Multi-Video Intelligence capabilities:
-
-### 🧠 Multi-Video Intelligence Architecture (v2.13.0)
-- **Cross-Video Analysis**: Process multiple related videos with unified intelligence analysis.
-- **Automatic Series Detection**: AI-powered pattern recognition for video series with 95%+ accuracy.
-- **Entity Resolution**: Aggressive entity merging with 85% similarity threshold and Gemini 2.5 Pro validation.
-- **Unified Knowledge Graphs**: Cross-video relationship mapping with temporal context awareness.
-- **CLI Commands**: New `process-collection` and `process-series` commands for streamlined workflows.
-
-### 🔍 Gemini 2.5 Pro Integration (v2.13.0)
-- **Intelligence-Grade Analysis**: Strategic insights focusing on information architecture and relationship dynamics.
-- **Collection Summaries**: Comprehensive 4-5 paragraph analysis with rich context and strategic focus.
-- **Entity Validation**: Identity verification with temporal context and disambiguation analysis.
-- **Narrative Flow Analysis**: Story progression tracking and thematic arc identification for series content.
-
-### 📖 Topic Evolution & Narrative Analysis (v2.13.0)
-- **Story Progression**: Track narrative development across video sequences with milestone identification.
-- **Topic Evolution**: Analysis of how topics develop across video sequences with coherence scoring.
-- **Thematic Arcs**: Identification of story patterns and information dependencies across videos.
-- **Strategic Intelligence**: Pro-level insights with focus on temporal intelligence and relationship dynamics.
-
-### 🎯 Previous Major Features
-
-### 📊 Advanced Plotly Visualizations (v2.12.0)
-- **Interactive Charts**: Pie charts, bar charts, and gauge visualizations for entity source analysis.
-- **Professional Quality**: Publication-ready charts with hover effects and customizable styling.
-- **Graceful Fallback**: Simple charts when Plotly unavailable for maximum compatibility.
-- **Model Caching**: 3-5x performance improvement through intelligent model reuse.
-- **Enhanced Streamlit UI**: Comprehensive batch processing with real-time progress tracking.
-
-### 📄 Excel Export Capabilities (v2.12.0)
-- **Multi-Sheet Workbooks**: Organized data across Summary, Source Distribution, Entity Types, and Per-Video Analysis sheets.
-- **One-Click Downloads**: Streamlit integration for instant Excel file generation.
-- **Comprehensive Data**: All analysis metrics, breakdowns, and insights included.
-
-### 📈 Performance Dashboard Integration (v2.12.0)
-- **Dedicated Streamlit Tab**: Comprehensive performance monitoring interface.
-- **Real-time System Health**: CPU, memory, and disk usage monitoring with gauge visualizations.
-- **Model Cache Analytics**: Hit rates, load times, and efficiency metrics with historical reports.
-
-### 🎯 Previous Enhancements (v2.10.1-v2.11.0)
-- **Entity Source Tracking**: Pipeline transparency with detailed extraction method attribution.
-- **Model Caching**: 3-5x performance improvement through intelligent model reuse.
-- **Enhanced Streamlit UI**: Comprehensive batch processing with real-time progress tracking.
-
-The latest versions of ClipScribe also include these major enhancements:
-
-### 🖥️ Enhanced Interactive Web UI (v2.12.0)
-- **Performance Dashboard**: Dedicated tab for comprehensive system monitoring and analytics.
-- **Advanced Visualizations**: Interactive Plotly charts for entity source analysis.
-- **Export Capabilities**: One-click downloads for Excel, CSV, and Markdown formats.
-- **Real-time Analytics**: Live progress tracking with detailed batch processing insights.
-- **Professional Interface**: Enhanced UI with comprehensive batch processing features.
-
-### 🔬 Research Command (v2.7.0)
-- **Topic-Based Analysis**: Use the new `research` command to analyze multiple videos on a single topic.
-- **Batch Processing**: Automatically finds and processes a list of relevant videos.
-
-### 📊 Performance Dashboards & Rich CLI (v2.6.0)
-- **Rich Progress Indicators**: Get real-time feedback in your terminal with beautiful progress bars.
-- **Cost & Time Tracking**: Live monitoring of API costs and processing time for each stage.
-- **Enhanced Markdown Reports**: Interactive reports with Mermaid diagrams, collapsible sections, and visual dashboards.
-
-### 🚀 v2.17.0 Development Ready: Enhanced Temporal Intelligence
-**Status**: ✅ All 6 critical rules updated and aligned - development can begin!
-
-- **Streamlined Video Processing**: Direct video-to-Gemini processing eliminates audio extraction inefficiency. Single download, single processing call for better performance and temporal intelligence.
-- **Video Retention System**: User-configurable policies (delete/keep_processed/keep_all) for source material preservation with cost optimization.
-- **Enhanced Temporal Intelligence**: Comprehensive temporal event extraction from both audio and visual cues (dates shown on screen, documents, calendars) with 12-20% cost increase for 300% intelligence gain.
-- **Timeline Building Pipeline**: Chronological timeline synthesis from enhanced temporal extraction with cross-video correlation capabilities.
-- **Intelligent Playlist Processing**: Auto-detect meeting series, educational courses, and video collections using temporal patterns and smart organization.
-- **Mission Control Timeline Views**: Interactive timeline exploration, video archival management, and retention policy configuration.
+**Note**: All features are currently being validated. Completion claims will be updated based on validation results.
 
 ## 📋 Requirements
 
 - Python 3.12+ (3.13 supported)
-- A Google API key with Gemini access enabled.
-- [FFmpeg](https://ffmpeg.org/download.html) installed on your system.
+- A Google API key with Gemini access enabled
+- [FFmpeg](https://ffmpeg.org/download.html) installed on your system
 
 ## 🚀 Installation
 
@@ -247,9 +79,9 @@ The latest versions of ClipScribe also include these major enhancements:
    poetry install
    ```
 
-3. **Set up environment variables (SECURE)**
+3. **Set up environment variables**
    ```bash
-   # Create .env file with your FREE Google API key
+   # Create .env file with your Google API key
    echo "GOOGLE_API_KEY=your_actual_key_here" > .env
    ```
 
@@ -263,67 +95,42 @@ The latest versions of ClipScribe also include these major enhancements:
 ### Command-Line Interface (CLI)
 
 ```bash
-# Quick demo with TWO-PART PBS video series
-poetry run python demo.py
+# Basic video processing (validation in progress)
+poetry run clipscribe process "https://www.youtube.com/watch?v=6ZVj1_SE4Mo"
 
-# Transcribe a single video
-poetry run clipscribe transcribe "https://www.youtube.com/watch?v=6ZVj1_SE4Mo"
+# Collection processing (validation in progress)  
+poetry run clipscribe process-collection "Test-Collection" "URL1" "URL2"
 
-# Research a topic across multiple videos with performance monitoring
-poetry run clipscribe research "PBS NewsHour" --max-results 3
-
-# NEW in v2.15.0: Process multiple videos as a collection with complete synthesis features
-poetry run clipscribe process-collection "PBS-Analysis" "https://www.youtube.com/watch?v=video1" "https://www.youtube.com/watch?v=video2"
-
-# Process video series with automatic detection and narrative flow analysis
-poetry run clipscribe process-series "URL1" "URL2" "URL3" --series-title "My Documentary Series"
-
-# Analyze entity sources with advanced visualizations and Excel export
-poetry run python scripts/analyze_entity_sources.py --output-dir output/research --create-visualizations --save-excel
+# Configuration
+poetry run clipscribe config
 ```
 
-### Web UI - Mission Control
-
-To launch the comprehensive Mission Control web interface, run:
+### Mission Control Web Interface
 
 ```bash
+# Launch Mission Control (validation in progress)
 poetry run streamlit run streamlit_app/ClipScribe_Mission_Control.py
 ```
 
-This will open the full Mission Control interface in your web browser with access to:
-- Collections browser for multi-video analysis
-- Information Flow Maps for concept evolution tracking
-- Analytics dashboard for cost and performance monitoring
-- Settings for API configuration and processing parameters
+**Note**: Mission Control functionality is currently being validated. Some features may not work as expected.
 
-### Configuration
+## 🧪 Validation Process
 
-```bash
-# View current configuration
-poetry run clipscribe config
+We're systematically validating all claimed functionality:
 
-# List supported platforms
-poetry run clipscribe platforms
-```
+### Phase 1: Core Functionality (Current)
+- **Week 1**: Single video processing workflows
+- **Week 2**: Mission Control UI validation
+- **Week 3**: Multi-video collection processing  
+- **Week 4**: Output format validation
 
-## 📚 Examples
+### Phase 2: Advanced Features
+- **Weeks 5-8**: Enhanced temporal intelligence, retention system
 
-We provide comprehensive examples to help you get started:
+### Phase 3: Production Readiness  
+- **Weeks 9-12**: Scale testing, documentation validation
 
-- **[Quick Start](examples/quick_start.py)** - Simplest way to transcribe a video
-- **[Advanced Features Demo](examples/advanced_features_demo.py)** - A menu-driven demo of all advanced features.
-- **[Batch Processing](examples/batch_processing.py)** - Process multiple videos efficiently
-- **[Cost Optimization](examples/cost_optimization.py)** - Strategies to minimize costs
-- **[Output Formats](examples/output_formats.py)** - Export in various formats (TXT, JSON, CSV, GEXF, etc.)
-- **[CLI Usage](examples/cli_usage.py)** - Complete command-line reference
-- **[Multi-Platform Demo](examples/multi_platform_demo.py)** - Working with 1800+ platforms
-- **[Video Intelligence Demo](examples/video_intelligence_demo.py)** - Advanced analysis features
-- **[Video Mode Demo](examples/video_mode_demo.py)** - Demonstrates enhanced temporal intelligence processing capabilities.
-
-Run any example:
-```bash
-poetry run python examples/quick_start.py
-```
+See [VALIDATION_CHECKLIST.md](docs/VALIDATION_CHECKLIST.md) for detailed validation criteria.
 
 ## 🐍 Python API
 
@@ -332,17 +139,12 @@ import asyncio
 from clipscribe.retrievers import VideoIntelligenceRetriever
 
 async def main():
-    # Initialize retriever
+    # Note: API functionality currently under validation
     retriever = VideoIntelligenceRetriever()
-
-    # Process any video URL
     result = await retriever.process_url("https://youtube.com/watch?v=...")
-
+    
     if result:
-        # Access results
         print(f"Title: {result.metadata.title}")
-        print(f"Summary: {result.summary}")
-        print(f"Cost: ${result.processing_cost:.4f}")
         print(f"Entities found: {len(result.entities)}")
 
 if __name__ == "__main__":
@@ -353,82 +155,64 @@ if __name__ == "__main__":
 
 ```
 clipscribe/
-├── src/
-│   └── clipscribe/           # Main package
-│       ├── commands/         # CLI implementation
-│       ├── config/           # Configuration management
-│       ├── extractors/       # Entity & relationship extraction
-│       ├── retrievers/       # Video processing core
-│       └── utils/            # Utilities and helpers
+├── src/clipscribe/           # Main package
+│   ├── commands/             # CLI implementation  
+│   ├── extractors/           # Entity & relationship extraction
+│   ├── retrievers/           # Video processing core
+│   └── utils/                # Utilities and helpers
+├── streamlit_app/            # Mission Control web interface
 ├── tests/                    # Test suite
 ├── docs/                     # Documentation
+│   └── VALIDATION_CHECKLIST.md  # Comprehensive validation framework
 ├── examples/                 # Usage examples
-├── .cursor/rules/            # AI assistant rules & patterns
-└── output/                   # Generated transcripts & graphs
+└── output/                   # Generated outputs
 ```
 
 ## 🔧 Configuration
 
-Create a `.env` file in the project root:
+Create a `.env` file:
 
 ```env
 # Required
 GOOGLE_API_KEY="your_gemini_api_key_here"
 
 # Optional (defaults shown)
-# OUTPUT_DIR=output
-# LOG_LEVEL=INFO
-# DEFAULT_LANGUAGE=en
-```
-
-## 🔥 Advanced Intelligence Extraction
-
-ClipScribe includes a complete video intelligence extraction pipeline:
-
-### 🎯 REBEL Relationship Extraction
-- **Extract relationships** (`Subject -> Predicate -> Object`) from video content
-- **Build knowledge graphs** with entity relationships
-- **Note**: Relationship extraction quality varies by content type
-
-### 🔍 Custom Entity Detection (GLiNER) 
-- Detect domain-specific entities beyond standard NER (e.g., weapons, technologies, financial metrics)
-- **250-300 entities per video** with LLM validation for accuracy
-
-### 🧠 Complete Intelligence Stack
-```
-Video → Transcription → Entities → Relationships → Knowledge Graph → GEXF Export
-```
-
-### Usage Example:
-```python
-# See examples/advanced_features_demo.py for a full example
-retriever = VideoIntelligenceRetriever(
-    use_advanced_extraction=True,
-    domain="technology"  # Optional domain specialization
-)
-
-# Process a video and get relationships
-result = await retriever.process_url("https://youtube.com/watch?v=...")
-print(f"Extracted {len(result.relationships)} relationships")
-print(f"Knowledge graph has {result.knowledge_graph['edge_count']} edges")
-```
-
-**Try the demo:**
-```bash
-# Run the advanced features demo
-poetry run python examples/advanced_features_demo.py
-
-# Test collection processing with complete synthesis features
-poetry run clipscribe process-collection "Test-Collection" "https://www.youtube.com/watch?v=video1" "https://www.youtube.com/watch?v=video2"
+OUTPUT_DIR=output
+LOG_LEVEL=INFO
 ```
 
 ## 🛠️ Development
 
-**ClipScribe was developed 100% in [Cursor](https://cursor.sh/)** - an AI-powered code editor. Every line of code, documentation, and example was written with AI assistance, demonstrating the power of AI-augmented development.
+**ClipScribe is developed with AI assistance using [Cursor](https://cursor.sh/)** - demonstrating AI-augmented development workflows.
 
-## Versioning
+### Contributing to Validation
 
-This project follows [Semantic Versioning](https://semver.org). The current version is maintained in `pyproject.toml` and `src/clipscribe/version.py`. All changes are documented in `CHANGELOG.md`.
+Help us validate ClipScribe functionality:
+
+1. **Test workflows** from VALIDATION_CHECKLIST.md
+2. **Report failures** with detailed reproduction steps
+3. **Document edge cases** and unexpected behaviors
+4. **Verify fixes** after implementation
+
+## 📊 Validation Metrics
+
+### Success Criteria
+- **Functionality**: 95% of validation checklist passes
+- **Performance**: Processing within expected ranges  
+- **Reliability**: <5% failure rate on standard inputs
+- **Usability**: Users complete workflows without assistance
+
+### Current Status
+See [VALIDATION_CHECKLIST.md](docs/VALIDATION_CHECKLIST.md) for real-time validation progress.
+
+## 🚨 Known Issues
+
+- Mission Control UI may have functionality gaps
+- Some advanced features need end-to-end validation
+- Performance optimization pending validation
+- Documentation may not reflect current functionality
+
+All issues are being systematically addressed through our validation process.
 
 ## 📄 License
 
@@ -443,42 +227,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 <p align="center">
-  Made with ❤️ for the Chimera Researcher project
+  🧪 Currently in validation phase - systematic testing in progress
 </p>
-
-## 🚀 What's New in ClipScribe v2.18.3
-
-### 🎯 Strategic Positioning & Bug Fix Preparation
-1. **Strategic Clarity**: ClipScribe positioned as video intelligence collector/triage analyst
-2. **Chimera Integration Context**: Future integration with Chimera's 54 SAT analysis techniques  
-3. **Timeline Simplification**: Simplified timeline approach focusing on reliable intelligence extraction
-4. **Critical Bug Fix Prep**: Timeline date extraction logic ready for immediate repair
-
-### ✅ Core Features (Stable)
-1. **Enhanced Video Processing**: Direct Gemini 2.5 Flash processing with 95% cost reduction
-2. **Hybrid Entity Extraction**: SpaCy + GLiNER + REBEL + LLM validation pipeline
-3. **Multi-Video Collections**: Process video series with relationship mapping and knowledge synthesis
-4. **Timeline Intelligence**: Key event extraction with video timestamps (simplified approach - no complex temporal correlation)
-
-### 🚧 Mission Control Status: Critical Bugs Identified
-- **Timeline Intelligence**: Date extraction logic requires immediate fix
-- **Information Flow Maps**: AttributeError crashes need resolution
-- **Overall Status**: NOT production-ready, fixes in progress
-
-#### 💡 **Timeline Intelligence Features (Simplified Approach)**
-- **Key Event Extraction**: Extract important facts and events mentioned in video content
-- **Video Timestamp Context**: "At 5:23, speaker mentions X" for precise reference
-- **Mentioned Date Detection**: Attempt to find actual dates referenced in content ("In 1984...", "Last Tuesday...")
-- **Confidence Scoring**: Mark extraction confidence levels without external validation
-- **Intelligence Collection**: Position as collector/triage for eventual advanced analysis (Chimera integration)
-
-### 🎯 Strategic Vision
-**ClipScribe Role**: Video intelligence collector and triage analyst
-- Extract structured intelligence from video content
-- Provide reliable, cost-effective video processing
-- Feed structured data to advanced analysis engines
-
-**Future Chimera Integration**: 
-- ClipScribe handles video processing and initial intelligence extraction
-- Chimera applies 54 Structured Analytic Techniques for deep analysis
-- Integration timeline: After ClipScribe achieves 100% standalone stability
