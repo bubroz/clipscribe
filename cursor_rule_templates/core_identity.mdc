@@ -1,9 +1,9 @@
 ---
-description: "Core project identity including mission, architecture, async patterns, data structures, configuration management, and error handling standards"
-globs: ["**/*.py", "**/*.js", "**/*.ts", "**/*.go", "**/*.rs", "**/*.java", "**/*.cs", "src/**/*", "lib/**/*"]
-alwaysApply: true
+description: 
+globs: 
+alwaysApply: false
 ---
-# [PROJECT_NAME] - Core Identity
+# [PROJECT_NAME] - Core Identity & Architecture
 
 You are an expert AI assistant specialized in **[PROJECT_NAME]** development - a [PROJECT_DESCRIPTION].
 
@@ -38,6 +38,88 @@ You are an expert AI assistant specialized in **[PROJECT_NAME]** development - a
 6. **[PRINCIPLE_6]**: Efficient [EFFICIENCY_FOCUS]
 7. **[PRINCIPLE_7]**: Seamless integration with [ECOSYSTEM]
 
+## Architecture Patterns
+
+### Async/Await Standards
+```[PRIMARY_LANGUAGE]
+# Good - Proper async patterns
+async def process_data(data):
+    """Process data with proper async handling."""
+    try:
+        result = await external_service.process(data)
+        await cache.store(result)
+        return result
+    except Exception as e:
+        logger.error(f"Processing failed: {e}")
+        raise
+
+# Bad - Blocking operations in async context
+async def bad_process(data):
+    time.sleep(1)  # ❌ Blocking call
+    return sync_operation(data)  # ❌ Sync in async
+```
+
+### Data Structure Patterns
+```[PRIMARY_LANGUAGE]
+# Preferred data validation approach
+from pydantic import BaseModel, Field
+from typing import Optional, List
+
+class [DataModel](mdc:BaseModel):
+    """[Description of data model]."""
+    
+    [field1]: str = Field(..., description="[Field description]")
+    [field2]: Optional[int] = Field(None, ge=0, description="[Field description]")
+    [field3]: List[str] = Field(default_factory=list)
+    
+    class Config:
+        extra = "forbid"  # Reject unexpected fields
+        validate_assignment = True
+```
+
+### Configuration Management
+```[PRIMARY_LANGUAGE]
+# Centralized configuration pattern
+class [ProjectName]Config:
+    """Centralized configuration for [PROJECT_NAME]."""
+    
+    def __init__(self):
+        self.[primary_setting] = os.getenv("[SETTING_VAR]", "[DEFAULT_VALUE]")
+        self.[feature_flag] = os.getenv("[FLAG_VAR]", "false").lower() == "true"
+        self.[numeric_setting] = int(os.getenv("[NUMERIC_VAR]", "[DEFAULT_NUM]"))
+    
+    @property
+    def is_[condition](mdc:self) -> bool:
+        """Check if [condition] is enabled."""
+        return self.[feature_flag] and self.[primary_setting] is not None
+```
+
+### Error Handling Standards
+```[PRIMARY_LANGUAGE]
+# Consistent error handling pattern
+class [ProjectName]Error(Exception):
+    """Base exception for [PROJECT_NAME]."""
+    pass
+
+class [Specific]Error([ProjectName]Error):
+    """Specific error for [operation]."""
+    pass
+
+def handle_operation():
+    """Example of proper error handling."""
+    try:
+        result = risky_operation()
+        logger.info(f"Operation successful: {result}")
+        return result
+    except [Specific]Error as e:
+        logger.error(f"[Specific] error: {e}")
+        # Handle specific case
+        raise
+    except Exception as e:
+        logger.error(f"Unexpected error: {e}")
+        raise [ProjectName]Error(f"Operation failed: {e}") from e
+```
+
 ## Core Features
 - **[FEATURE_1]**: [FEATURE_DESCRIPTION]
 - **[FEATURE_2]**: [FEATURE_DESCRIPTION]
@@ -58,6 +140,21 @@ You are an expert AI assistant specialized in **[PROJECT_NAME]** development - a
 ```bash
 # Required
 [PRIMARY_API_KEY]=[DESCRIPTION]
+
+# Architecture & Performance
+[ASYNC_POOL_SIZE]=10
+[MAX_CONCURRENT_OPERATIONS]=5
+[CACHE_TTL_SECONDS]=3600
+
+# Data & Validation
+[ENABLE_STRICT_VALIDATION]=true
+[DATA_BACKUP_ENABLED]=true
+[MAX_DATA_SIZE_MB]=100
+
+# Error Handling & Monitoring
+[LOG_LEVEL]=INFO
+[ERROR_REPORTING_ENABLED]=true
+[PERFORMANCE_MONITORING]=true
 
 # Optional enhancements
 [OPTIONAL_CONFIG_1]=[DEFAULT_VALUE]

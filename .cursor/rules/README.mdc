@@ -90,18 +90,132 @@ When modifying rules:
 
 ## Task Completion Process
 
-**CRITICAL: At the completion of EVERY task, follow the documentation update rules.**
+**CRITICAL: At the completion of EVERY task, follow the comprehensive communication and documentation update protocol.**
 
-See `documentation-updates.mdc` for the comprehensive task completion checklist.
+### Communication Template for Task Completion
 
-Key areas to check:
-1. **Documentation** - See `documentation-updates.mdc` for WHEN to update
-2. **Code Quality** - Docstrings, type hints, tests
-3. **Rules** - Update relevant `.cursor/rules/*.mdc` files
-4. **Version Control** - CHANGELOG.md, version numbers
-5. **Dependencies** - pyproject.toml, poetry.lock
+**REQUIRED FORMAT: Combine real-time development narrative with comprehensive milestone documentation.**
 
-The documentation-updates rule provides the detailed checklist and decision tree for all updates.
+#### Phase 1: Real-Time Development Narrative
+During task execution, provide:
+```markdown
+**🎯 Development Order:**
+1. **Component 1** (foundation/dependency reason)
+2. **Component 2** (core functionality) 
+3. **Component 3** (integration layer)
+
+Let's start with **#1: Component Name** - explain why this is first.
+
+[Show actual work being done with technical details]
+- Read relevant files for context
+- Implement specific changes with code snippets
+- Explain technical decisions and architecture
+- Document each step as it's completed
+
+Perfect! Now I have Component 1 complete. Let's move to **#2: Component Name** - explain the dependency.
+
+[Continue this pattern for each component]
+```
+
+#### Phase 2: Comprehensive Milestone Documentation
+After completion, provide structured documentation:
+```markdown
+## ✅ MAJOR MILESTONE ACHIEVED: [Task Name] Complete! 🚀
+
+### 🎯 What Was Accomplished:
+
+**1. Component Name** ✅
+- Specific technical achievement 1
+- Specific technical achievement 2  
+- Performance/cost metrics if applicable
+
+**2. Component Name** ✅
+- Detailed implementation details
+- Integration points and dependencies
+- Quality improvements and optimizations
+
+### 🚀 Key Achievements:
+- **Architecture Impact**: How this changes the system
+- **Performance Impact**: Metrics and improvements
+- **Cost Impact**: Financial implications if relevant
+- **User Impact**: How users benefit
+
+### 📋 Progress Status:
+**✅ COMPLETE** (X/Y components):
+- List completed components
+
+**🚧 REMAINING** (Y-X components):
+- List remaining work
+
+### 📚 Documentation Updates Completed:
+- ✅ **File 1**: What was updated and why
+- ✅ **File 2**: Specific changes made
+- ✅ **Version Control**: Commit and push status
+
+### 🚀 Repository Status:
+- ✅ Local changes committed with conventional format
+- ✅ Remote repository synchronized  
+- ✅ Clean working tree
+
+### 🔄 Next Steps/User Engagement:
+Would you like me to proceed with [next logical component] to complete the [overall goal]?
+```
+
+#### Phase 3: Complete Task Checklist
+**MANDATORY COMPLETION STEPS:**
+
+1. **Documentation Updates** (see `documentation.mdc` for details)
+   - [ ] CHANGELOG.md updated with current date
+   - [ ] README.md updated if user-facing changes
+   - [ ] CLI_REFERENCE.md updated if commands changed
+   - [ ] Version files updated if releasing
+   - [ ] CONTINUATION_PROMPT.md updated with current state
+
+2. **Code Quality**
+   - [ ] Docstrings updated for modified functions/classes
+   - [ ] Type hints present and accurate
+   - [ ] Tests added/updated for new functionality
+   - [ ] All imports tested and working
+
+3. **Version Control**
+   - [ ] Conventional commit format used
+   - [ ] All changes committed locally
+   - [ ] Changes pushed to remote repository
+   - [ ] Working tree clean
+
+4. **User Engagement**
+   - [ ] Clear next steps provided
+   - [ ] User asked for input on priorities/direction
+   - [ ] Context preserved for future sessions
+
+### Communication Style Guidelines
+
+1. **Be Comprehensive**: Show both the journey (real-time) and the destination (milestone)
+2. **Use Technical Detail**: Include actual implementation specifics, not just summaries
+3. **Maintain Engagement**: Ask questions and provide clear next steps
+4. **Structure with Emojis**: Use consistent emoji patterns for visual organization
+5. **Document Everything**: Every change must be reflected in relevant documentation
+6. **Preserve Context**: Ensure future sessions can continue seamlessly
+
+### Anti-Patterns to Avoid
+
+❌ **Don't**: Provide only summary without technical detail  
+✅ **Do**: Show actual implementation work and architectural decisions
+
+❌ **Don't**: Complete tasks without updating documentation  
+✅ **Do**: Update all relevant docs as part of task completion
+
+❌ **Don't**: End responses without user engagement  
+✅ **Do**: Provide clear next steps and ask for direction
+
+❌ **Don't**: Skip the comprehensive milestone documentation  
+✅ **Do**: Always provide both real-time narrative AND structured summary
+
+Remember: Every task completion should feel like a mini-release with full documentation, testing, and user engagement. This creates a professional development experience and ensures nothing is ever lost or forgotten.
+
+### Legacy Task Completion Reference
+
+See `documentation.mdc` for the comprehensive documentation update checklist and decision tree.
 
 ## Rule Precedence
 

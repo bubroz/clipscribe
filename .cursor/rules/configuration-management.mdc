@@ -21,26 +21,82 @@ from pydantic import Field, field_validator
 from pathlib import Path
 
 class Settings(BaseSettings):
-    """Application settings with environment variable support."""
+    """Application settings with environment variable support (v2.17.0 Enhanced)."""
     
     # API Keys
     google_api_key: str = Field(
         default=os.getenv("GOOGLE_API_KEY", ""),
-        description="Google API key for Gemini"
+        description="Google API key for Gemini 2.5 Flash/Pro"
+    )
+    
+    # Video Retention Settings (v2.17.0)
+    video_retention_policy: str = Field(
+        default="delete",
+        regex="^(delete|keep_processed|keep_all)$",
+        description="Video retention policy: delete, keep_processed, or keep_all"
+    )
+    
+    video_archive_dir: Optional[Path] = Field(
+        default=None,
+        description="Directory for archived videos (defaults to output/video_archive)"
+    )
+    
+    retention_cost_threshold: float = Field(
+        default=0.10,
+        ge=0.01,
+        le=1.0,
+        description="Cost threshold for smart retention decisions"
+    )
+    
+    # Enhanced Temporal Intelligence Settings (v2.17.0)
+    temporal_enhancement_level: str = Field(
+        default="optimized",
+        regex="^(basic|optimized|enhanced)$",
+        description="Temporal intelligence enhancement level"
+    )
+    
+    enable_visual_timestamp_recognition: bool = Field(
+        default=True,
+        description="Extract timestamps from visual elements (documents, calendars)"
+    )
+    
+    enable_cross_video_correlation: bool = Field(
+        default=True,
+        description="Enable cross-video temporal correlation for collections"
     )
     
     # Feature Flags
     enable_advanced_extraction: bool = Field(
         default=True,
-        description="Use REBEL+GLiNER extraction"
+        description="Use REBEL+GLiNER extraction with temporal context"
+    )
+    
+    enable_smart_retention: bool = Field(
+        default=True,
+        description="Use cost analysis for retention decisions"
     )
     
     # Performance Settings
     max_concurrent_downloads: int = Field(
-        default=3,
+        default=2,
         ge=1,
-        le=10,
-        description="Maximum concurrent downloads"
+        le=5,
+        description="Maximum concurrent video downloads (reduced for video processing)"
+    )
+    
+    # Cost Management
+    cost_warning_threshold: float = Field(
+        default=1.0,
+        ge=0.10,
+        le=10.0,
+        description="Cost threshold for warning users"
+    )
+    
+    max_processing_cost_per_video: float = Field(
+        default=5.0,
+        ge=0.50,
+        le=50.0,
+        description="Maximum allowed cost per video processing"
     )
     
     class Config:
@@ -57,15 +113,32 @@ class Settings(BaseSettings):
 - Prefix with app name if needed: `CLIPSCRIBE_API_KEY`
 - Group related settings: `GEMINI_MODEL`, `GEMINI_TEMPERATURE`
 
-### Environment Files
+### Environment Files (v2.17.0 Enhanced)
 ```bash
-# .env (local development)
+# .env (local development) - Enhanced Temporal Intelligence
 GOOGLE_API_KEY=your-key-here
 LOG_LEVEL=DEBUG
+
+# Video Retention Settings
+VIDEO_RETENTION_POLICY=keep_processed
+VIDEO_ARCHIVE_DIR=output/video_archive
+RETENTION_COST_THRESHOLD=0.10
+
+# Enhanced Temporal Intelligence
+TEMPORAL_ENHANCEMENT_LEVEL=optimized
+ENABLE_VISUAL_TIMESTAMP_RECOGNITION=true
+ENABLE_CROSS_VIDEO_CORRELATION=true
+
+# Cost Management
+COST_WARNING_THRESHOLD=1.0
+MAX_PROCESSING_COST_PER_VIDEO=5.0
 
 # .env.example (committed to git)
 GOOGLE_API_KEY=
 LOG_LEVEL=INFO
+VIDEO_RETENTION_POLICY=delete
+TEMPORAL_ENHANCEMENT_LEVEL=optimized
+COST_WARNING_THRESHOLD=1.0
 ```
 
 ## Validation Patterns
@@ -83,7 +156,7 @@ def validate_api_key(cls, v: str) -> str:
     return v
 ```
 
-### Directory Creation
+### Directory Creation & Video Archive Setup (v2.17.0)
 ```python
 @field_validator("output_dir", "log_dir", mode="before")
 def create_directories(cls, v: Path) -> Path:
@@ -91,6 +164,28 @@ def create_directories(cls, v: Path) -> Path:
     if isinstance(v, str):
         v = Path(v)
     v.mkdir(parents=True, exist_ok=True)
+    return v
+
+@field_validator("video_archive_dir", mode="before")
+def setup_video_archive(cls, v: Optional[Path], values: dict) -> Optional[Path]:
+    """Setup video archive directory based on retention policy."""
+    retention_policy = values.get("video_retention_policy", "delete")
+    
+    if retention_policy == "delete":
+        return None  # No archive needed
+    
+    if v is None:
+        # Default archive directory
+        v = Path("output/video_archive")
+    
+    if isinstance(v, str):
+        v = Path(v)
+    
+    # Create archive structure
+    v.mkdir(parents=True, exist_ok=True)
+    (v / "processed").mkdir(exist_ok=True)
+    (v / "failed").mkdir(exist_ok=True)
+    
     return v
 ```
 
@@ -106,18 +201,32 @@ chunk_size: int = Field(
 
 ## Configuration Methods
 
-### Cost Estimation
+### Enhanced Temporal Intelligence Cost Estimation (v2.17.0)
 ```python
-def estimate_cost(self, duration_seconds: int, mode: str = "audio") -> float:
-    """Estimate processing cost."""
-    if mode == "audio":
-        # ~25 tokens per second of audio
-        tokens = duration_seconds * 25
-        return (tokens / 1000) * 0.0001875
-    else:  # video mode
-        # ~250 tokens per second for video
-        tokens = duration_seconds * 250
-        return (tokens / 1000) * 0.001875
+def estimate_enhanced_processing_cost(self, duration_seconds: int, enhancement_level: str = "optimized") -> dict:
+    """Estimate cost for enhanced temporal intelligence processing."""
+    duration_minutes = duration_seconds / 60
+    
+    # Base Gemini 2.5 Flash video processing cost
+    base_cost = duration_minutes * 0.002
+    
+    # Enhanced temporal intelligence premium
+    enhancement_multipliers = {
+        "basic": 1.0,      # No enhancement
+        "optimized": 1.12,  # 12% increase for optimized temporal intelligence
+        "enhanced": 1.20    # 20% increase for full temporal intelligence
+    }
+    
+    multiplier = enhancement_multipliers.get(enhancement_level, 1.12)
+    total_processing_cost = base_cost * multiplier
+    
+    return {
+        "base_cost": base_cost,
+        "enhancement_cost": total_processing_cost - base_cost,
+        "total_cost": total_processing_cost,
+        "enhancement_level": enhancement_level,
+        "intelligence_gain": f"{((multiplier - 1) * 100):.0f}% cost increase for 300% more temporal intelligence"
+    }
 ```
 
 ### Configuration Export
@@ -159,22 +268,30 @@ class FeatureFlags:
             return False
 ```
 
-### Mode Selection
+### Enhanced Temporal Intelligence Level Selection (v2.17.0)
 ```python
-def get_processing_mode(self, url: str, user_mode: str = "auto") -> str:
-    """Determine processing mode."""
-    if user_mode != "auto":
-        return user_mode
+def get_temporal_enhancement_level(self, url: str, video_metadata: dict, user_level: str = "auto") -> str:
+    """Determine optimal temporal intelligence enhancement level."""
+    if user_level != "auto":
+        return user_level
     
-    # Auto-detect based on content type
-    if "tutorial" in url.lower() or "howto" in url.lower():
-        return "video"
+    duration_minutes = video_metadata.get("duration", 0) / 60
     
-    # Check filename hints
-    if any(hint in url.lower() for hint in ["slides", "presentation", "demo"]):
-        return "video"
+    # Auto-select based on content characteristics and duration
+    if duration_minutes <= 10:
+        # Short videos: Full enhanced temporal intelligence
+        return "enhanced"
+    elif "news" in url.lower() or "documentary" in url.lower():
+        # News/documentary content: Enhanced temporal intelligence for timeline building
+        return "enhanced"
+    elif "tutorial" in url.lower() or "course" in url.lower():
+        # Educational content: Optimized temporal intelligence for concept tracking
+        return "optimized"
+    elif duration_minutes > 60:
+        # Long videos: Basic temporal intelligence to manage costs
+        return "basic"
     
-    return "audio"  # default
+    return "optimized"  # default balanced approach
 ```
 
 ## Configuration Loading
