@@ -39,7 +39,7 @@ def show_flow_overview(flow_map: InformationFlowMap):
         st.metric("Total Concepts", len(flow_map.concept_nodes))
     
     with col2:
-        st.metric("Video Flows", len(flow_map.video_flows))
+        st.metric("Information Flows", len(flow_map.information_flows))
     
     with col3:
         st.metric("Evolution Paths", len(flow_map.evolution_paths))
@@ -100,7 +100,7 @@ def show_concept_explorer(flow_map: InformationFlowMap):
                                  key=lambda x: maturity_order.index(x.maturity_level) if x.maturity_level in maturity_order else 0, 
                                  reverse=True)
     elif sort_by == "Video Count":
-        filtered_concepts = sorted(filtered_concepts, key=lambda x: len(x.context_videos), reverse=True)
+        filtered_concepts = sorted(filtered_concepts, key=lambda x: 1, reverse=True)  # All concepts appear in one video
     else:  # Name
         filtered_concepts = sorted(filtered_concepts, key=lambda x: x.concept_name)
     
@@ -132,17 +132,18 @@ def show_concept_explorer(flow_map: InformationFlowMap):
                 if concept.context:
                     st.write(f"**Context:** {concept.context}")
                 
-                if concept.dependencies:
+                # Dependencies are tracked separately in flow_map.concept_dependencies
+                related_deps = [dep for dep in flow_map.concept_dependencies 
+                              if dep.dependent_concept == concept.concept_name]
+                if related_deps:
                     st.write("**Builds on:**")
-                    for dep in concept.dependencies:
+                    for dep in related_deps:
                         st.write(f"• {dep.prerequisite_concept} ({dep.dependency_type})")
             
             with col2:
-                st.write(f"**Videos:** {len(concept.context_videos)}")
-                if concept.context_videos:
-                    st.write("**Appears in:**")
-                    for video_id in concept.context_videos[:3]:  # Show first 3
-                        st.write(f"• Video {video_id}")
+                st.write(f"**Video:** {concept.video_id}")
+                st.write(f"**Position:** {concept.video_sequence_position}")
+                st.write(f"**Confidence:** {concept.confidence:.2f}")
 
 def show_evolution_paths(flow_map: InformationFlowMap):
     """Show concept evolution paths"""
@@ -183,27 +184,27 @@ def show_concept_clusters(flow_map: InformationFlowMap):
         return
     
     for cluster in flow_map.concept_clusters:
-        with st.expander(f"Cluster: {cluster.theme}", expanded=False):
+        with st.expander(f"Cluster: {cluster.cluster_name}", expanded=False):
             
             col1, col2 = st.columns([2, 1])
             
             with col1:
-                st.write(f"**Theme:** {cluster.theme}")
+                st.write(f"**Cluster:** {cluster.cluster_name}")
                 
-                if cluster.description:
-                    st.write(f"**Description:** {cluster.description}")
+                if cluster.cluster_evolution:
+                    st.write(f"**Evolution:** {cluster.cluster_evolution}")
                 
                 st.write("**Concepts in this cluster:**")
-                for concept_name in cluster.concept_names:
+                for concept_name in cluster.core_concepts:
                     # Find the concept to get its maturity
                     concept = next((c for c in flow_map.concept_nodes if c.concept_name == concept_name), None)
                     if concept:
                         maturity_indicator = {
                             "mentioned": "🔘",
-                            "introduced": "🟡", 
-                            "explained": "🟠",
-                            "analyzed": "🔵",
+                            "defined": "🟡", 
+                            "explored": "🟠",
                             "synthesized": "🟣",
+                            "criticized": "🔵",
                             "evolved": "🟢"
                         }.get(concept.maturity_level, "⚪")
                         st.write(f"• {maturity_indicator} {concept_name}")
@@ -211,12 +212,12 @@ def show_concept_clusters(flow_map: InformationFlowMap):
                         st.write(f"• {concept_name}")
             
             with col2:
-                st.metric("Concepts", len(cluster.concept_names))
+                st.metric("Concepts", len(cluster.core_concepts))
                 
                 # Calculate cluster maturity distribution
-                if cluster.concept_names:
+                if cluster.core_concepts:
                     maturities = []
-                    for concept_name in cluster.concept_names:
+                    for concept_name in cluster.core_concepts:
                         concept = next((c for c in flow_map.concept_nodes if c.concept_name == concept_name), None)
                         if concept:
                             maturities.append(concept.maturity_level)
@@ -233,45 +234,59 @@ def show_concept_clusters(flow_map: InformationFlowMap):
 def show_video_flows(flow_map: InformationFlowMap):
     """Show per-video information flows"""
     
-    st.subheader("📹 Video Information Flows")
+    st.subheader("📹 Video Concept Breakdown")
     
-    if not flow_map.video_flows:
-        st.info("No video flows found.")
+    # Group concept nodes by video
+    video_concepts = {}
+    for concept in flow_map.concept_nodes:
+        video_id = concept.video_id
+        if video_id not in video_concepts:
+            video_concepts[video_id] = {
+                'video_title': concept.video_title,
+                'concepts': []
+            }
+        video_concepts[video_id]['concepts'].append(concept)
+    
+    if not video_concepts:
+        st.info("No video concept data found.")
         return
     
-    for flow in flow_map.video_flows:
-        with st.expander(f"Video: {flow.video_title}", expanded=False):
+    for video_id, video_data in video_concepts.items():
+        with st.expander(f"Video: {video_data['video_title']}", expanded=False):
             
             col1, col2 = st.columns([2, 1])
             
             with col1:
-                st.write(f"**Video:** {flow.video_title}")
+                st.write(f"**Video:** {video_data['video_title']}")
                 
-                if flow.concepts_introduced:
-                    st.subheader("🆕 Concepts Introduced")
-                    for concept in flow.concepts_introduced:
-                        st.write(f"• {concept}")
-                
-                if flow.concepts_developed:
-                    st.subheader("📈 Concepts Developed")
-                    for concept in flow.concepts_developed:
-                        st.write(f"• {concept}")
-                
-                if flow.concepts_concluded:
-                    st.subheader("✅ Concepts Concluded")
-                    for concept in flow.concepts_concluded:
-                        st.write(f"• {concept}")
+                st.subheader("🧠 Concepts in this Video")
+                for concept in video_data['concepts']:
+                    maturity_indicator = {
+                        "mentioned": "🔘",
+                        "defined": "🟡",
+                        "explored": "🟠",
+                        "synthesized": "🟣",
+                        "criticized": "🔵",
+                        "evolved": "🟢"
+                    }.get(concept.maturity_level, "⚪")
+                    
+                    st.write(f"• {maturity_indicator} {concept.concept_name} ({concept.maturity_level})")
+                    if concept.context:
+                        st.write(f"  *{concept.context[:100]}...*")
             
             with col2:
-                total_concepts = (len(flow.concepts_introduced or []) + 
-                                len(flow.concepts_developed or []) + 
-                                len(flow.concepts_concluded or []))
+                total_concepts = len(video_data['concepts'])
                 st.metric("Total Concepts", total_concepts)
                 
-                st.write("**Breakdown:**")
-                st.write(f"Introduced: {len(flow.concepts_introduced or [])}")
-                st.write(f"Developed: {len(flow.concepts_developed or [])}")
-                st.write(f"Concluded: {len(flow.concepts_concluded or [])}")
+                # Maturity breakdown
+                maturity_counts = {}
+                for concept in video_data['concepts']:
+                    maturity = concept.maturity_level
+                    maturity_counts[maturity] = maturity_counts.get(maturity, 0) + 1
+                
+                st.write("**Maturity Breakdown:**")
+                for maturity, count in maturity_counts.items():
+                    st.write(f"{maturity}: {count}")
 
 def show_flow_visualization(flow_map: InformationFlowMap):
     """Show interactive flow visualizations using Plotly"""
@@ -313,7 +328,7 @@ def show_concept_timeline(flow_map: InformationFlowMap):
     
     # Prepare timeline data
     timeline_data = []
-    maturity_order = ["mentioned", "introduced", "explained", "analyzed", "synthesized", "evolved"]
+    maturity_order = ["mentioned", "defined", "explored", "synthesized", "criticized", "evolved"]
     colors = px.colors.qualitative.Set3
     
     for i, path in enumerate(flow_map.evolution_paths):
@@ -383,16 +398,16 @@ def show_dependency_network(flow_map: InformationFlowMap):
     for concept in flow_map.concept_nodes:
         concept_info[concept.concept_name] = {
             'maturity': concept.maturity_level,
-            'videos': len(concept.context_videos),
+            'videos': 1,  # Each concept appears in one video
             'context': concept.context or ''
         }
         
         G.add_node(concept.concept_name)
-        
-        if concept.dependencies:
-            for dep in concept.dependencies:
-                G.add_edge(dep.prerequisite_concept, concept.concept_name, 
-                          relationship=dep.dependency_type)
+    
+    # Add edges from concept dependencies
+    for dep in flow_map.concept_dependencies:
+        G.add_edge(dep.prerequisite_concept, dep.dependent_concept, 
+                  relationship=dep.dependency_type)
     
     if len(G.nodes()) == 0:
         st.info("No concept dependencies found.")
@@ -507,8 +522,8 @@ def show_maturity_distribution(flow_map: InformationFlowMap):
         # Find cluster for this concept
         cluster_name = "Unclustered"
         for cluster in flow_map.concept_clusters:
-            if concept.concept_name in cluster.concept_names:
-                cluster_name = cluster.theme
+            if concept.concept_name in cluster.core_concepts:
+                cluster_name = cluster.cluster_name
                 break
         
         if cluster_name not in maturity_by_cluster:
@@ -535,7 +550,7 @@ def show_maturity_distribution(flow_map: InformationFlowMap):
     
     with col2:
         # Maturity progression bar chart
-        maturity_order = ["mentioned", "introduced", "explained", "analyzed", "synthesized", "evolved"]
+        maturity_order = ["mentioned", "defined", "explored", "synthesized", "criticized", "evolved"]
         ordered_counts = [maturity_counts.get(m, 0) for m in maturity_order]
         
         fig_bar = go.Figure(data=[go.Bar(
@@ -586,86 +601,83 @@ def show_maturity_distribution(flow_map: InformationFlowMap):
         st.plotly_chart(fig_heatmap, use_container_width=True)
 
 def show_video_flow_diagram(flow_map: InformationFlowMap):
-    """Sankey diagram showing concept flow between videos"""
+    """Diagram showing concept distribution across videos"""
     
-    st.markdown("### 🌊 Video Concept Flow Diagram")
+    st.markdown("### 🌊 Video Concept Distribution")
     
-    if not flow_map.video_flows:
-        st.info("No video flows available for diagram.")
+    if not flow_map.concept_nodes:
+        st.info("No concept data available for diagram.")
         return
     
-    # Collect flow data
-    all_concepts = set()
-    video_concept_data = []
+    # Group concepts by video
+    video_concepts = {}
+    for concept in flow_map.concept_nodes:
+        video_title = concept.video_title[:30] + "..." if len(concept.video_title) > 30 else concept.video_title
+        if video_title not in video_concepts:
+            video_concepts[video_title] = []
+        video_concepts[video_title].append(concept)
     
-    for flow in flow_map.video_flows:
-        video_title = flow.video_title[:30] + "..." if len(flow.video_title) > 30 else flow.video_title
-        
-        for concept in (flow.concepts_introduced or []):
-            all_concepts.add(concept)
+    # Collect concept distribution data
+    video_concept_data = []
+    all_concepts = set()
+    
+    for video_title, concepts in video_concepts.items():
+        for concept in concepts:
+            all_concepts.add(concept.concept_name)
             video_concept_data.append({
                 'video': video_title,
-                'concept': concept,
-                'flow_type': 'introduced',
-                'value': 1
-            })
-        
-        for concept in (flow.concepts_developed or []):
-            all_concepts.add(concept)
-            video_concept_data.append({
-                'video': video_title,
-                'concept': concept,
-                'flow_type': 'developed',
+                'concept': concept.concept_name,
+                'maturity': concept.maturity_level,
                 'value': 1
             })
     
     if not video_concept_data:
-        st.info("No concept flows found between videos.")
+        st.info("No concept data found.")
         return
     
-    # Create flow summary
-    flow_summary = {}
+    # Create distribution summary
+    distribution_summary = {}
     for item in video_concept_data:
-        key = (item['video'], item['concept'], item['flow_type'])
-        flow_summary[key] = flow_summary.get(key, 0) + item['value']
+        key = (item['video'], item['concept'], item['maturity'])
+        distribution_summary[key] = distribution_summary.get(key, 0) + item['value']
     
-    # Display flow summary table
-    st.markdown("#### Concept Flow Summary")
+    # Display distribution summary table
+    st.markdown("#### Concept Distribution Summary")
     
-    flow_df = pd.DataFrame([
+    dist_df = pd.DataFrame([
         {
             'Video': video,
             'Concept': concept,
-            'Flow Type': flow_type,
+            'Maturity Level': maturity,
             'Count': count
         }
-        for (video, concept, flow_type), count in flow_summary.items()
+        for (video, concept, maturity), count in distribution_summary.items()
     ])
     
-    # Interactive flow table
-    if not flow_df.empty:
+    # Interactive distribution table
+    if not dist_df.empty:
         st.dataframe(
-            flow_df.sort_values(['Video', 'Flow Type', 'Count'], ascending=[True, True, False]),
+            dist_df.sort_values(['Video', 'Maturity Level', 'Count'], ascending=[True, True, False]),
             use_container_width=True
         )
         
-        # Flow type distribution
-        flow_type_counts = flow_df.groupby('Flow Type')['Count'].sum()
+        # Maturity distribution across videos
+        maturity_counts = dist_df.groupby('Maturity Level')['Count'].sum()
         
-        fig_flow = go.Figure(data=[go.Bar(
-            x=flow_type_counts.index,
-            y=flow_type_counts.values,
-            marker_color=['lightblue', 'orange']
+        fig_maturity = go.Figure(data=[go.Bar(
+            x=maturity_counts.index,
+            y=maturity_counts.values,
+            marker_color=px.colors.qualitative.Set2
         )])
         
-        fig_flow.update_layout(
-            title="Concept Flow Types Across Videos",
-            xaxis_title="Flow Type",
+        fig_maturity.update_layout(
+            title="Concept Maturity Distribution Across Videos",
+            xaxis_title="Maturity Level",
             yaxis_title="Total Concepts",
             height=300
         )
         
-        st.plotly_chart(fig_flow, use_container_width=True)
+        st.plotly_chart(fig_maturity, use_container_width=True)
 
 def show_clusters_visualization(flow_map: InformationFlowMap):
     """Interactive concept clusters visualization"""
@@ -681,18 +693,18 @@ def show_clusters_visualization(flow_map: InformationFlowMap):
     concept_cluster_map = {}
     
     for cluster in flow_map.concept_clusters:
-        for concept_name in cluster.concept_names:
+        for concept_name in cluster.core_concepts:
             # Find concept details
             concept = next((c for c in flow_map.concept_nodes if c.concept_name == concept_name), None)
             if concept:
                 cluster_data.append({
                     'concept': concept_name,
-                    'cluster': cluster.theme,
+                    'cluster': cluster.cluster_name,
                     'maturity': concept.maturity_level,
-                    'videos': len(concept.context_videos),
-                    'description': cluster.description or ''
+                    'videos': 1,  # Each concept appears in one video
+                    'description': cluster.cluster_evolution or ''
                 })
-                concept_cluster_map[concept_name] = cluster.theme
+                concept_cluster_map[concept_name] = cluster.cluster_name
     
     if not cluster_data:
         st.info("No concept cluster data available.")

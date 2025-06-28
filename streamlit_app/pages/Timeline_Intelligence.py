@@ -460,7 +460,7 @@ def show_timeline_analytics():
     st.markdown("#### 📈 Temporal Event Distribution")
     
     # Create mock temporal distribution
-    dates = pd.date_range(start='2021-01-01', end='2024-12-31', freq='M')
+    dates = pd.date_range(start='2021-01-01', end='2024-12-31', freq='ME')
     events_per_month = [5, 8, 12, 15, 9, 6, 11, 14, 7, 10, 13, 8] * 4  # Mock data
     
     df = pd.DataFrame({
