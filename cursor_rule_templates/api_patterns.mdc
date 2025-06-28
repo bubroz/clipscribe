@@ -1,0 +1,471 @@
+---
+description: "API integration patterns with cost optimization, rate limiting, caching, and external service management for all API types (REST, GraphQL, WebSocket)"
+globs: ["**/client.py", "**/api/**/*.py", "**/services/**/*.py", "**/*client*.py", "**/*api*.py", "**/*service*.py", "**/retrievers/**/*.py"]
+alwaysApply: false
+---
+# API Integration & Cost Optimization
+
+## Template Instructions
+
+**To Use This Template:**
+1. Replace `[PROJECT_NAME]` with your actual project name
+2. Replace `[PRIMARY_API]` with your main external API service
+3. Replace `[COST_REDUCTION_PERCENTAGE]` with your target cost reduction
+4. Update cost hierarchy with your actual service costs
+5. Customize client patterns for your API types
+6. Update rate limiting and error handling for your services
+
+## Core Principle
+
+[PROJECT_NAME] achieves [COST_REDUCTION_PERCENTAGE]% cost reduction through smart routing and caching. Always consider cost implications of API calls.
+
+## Cost Hierarchy Template (Cheapest → Most Expensive)
+
+1. **Free Tier** ($0/operation)
+   - [LOCAL_SERVICE_1] (e.g., local model inference)
+   - [FREE_API_1] (e.g., public APIs with generous limits)
+   - [LOCAL_SERVICE_2] (e.g., file system operations)
+   - Cached results
+
+2. **Low Cost** (~$[LOW_COST]/[UNIT])
+   - [BASIC_API_SERVICE] (e.g., basic text processing)
+   - [SIMPLE_OPERATIONS] (e.g., simple transformations)
+
+3. **Medium Cost** (~$[MEDIUM_COST]/[UNIT])
+   - [ENHANCED_API_SERVICE] (e.g., enhanced processing)
+   - [COMPLEX_OPERATIONS] (e.g., complex transformations)
+
+4. **High Cost** (~$[HIGH_COST]+/operation)
+   - [PREMIUM_API_SERVICE] (e.g., advanced AI operations)
+   - [LARGE_CONTEXT_OPERATIONS] (e.g., large data processing)
+
+## Client Structure Pattern
+
+All API clients should follow this pattern:
+
+```python
+class [SERVICE_NAME]Client:
+    """Client for [SERVICE_NAME] API integration."""
+    
+    def __init__(self, api_key: Optional[str] = None):
+        self.api_key = api_key or os.getenv("[SERVICE_NAME]_API_KEY")
+        self.session = None
+        self._setup_client()
+    
+    async def __aenter__(self):
+        """Async context manager entry."""
+        self.session = aiohttp.ClientSession()
+        return self
+    
+    async def __aexit__(self, exc_type, exc_val, exc_tb):
+        """Cleanup resources."""
+        if self.session:
+            await self.session.close()
+    
+    def _setup_client(self):
+        """Initialize client configuration."""
+        if not self.api_key:
+            raise ValueError(f"[SERVICE_NAME] API key required")
+        
+        self.base_url = "[SERVICE_BASE_URL]"
+        self.headers = {
+            "Authorization": f"Bearer {self.api_key}",
+            "Content-Type": "application/json"
+        }
+```
+
+## Cost Optimization Strategies
+
+### 1. Use Hybrid Processing
+```python
+# Bad - Expensive processing only
+result = await expensive_api.process(data)  # $[HIGH_COST]+
+
+# Good - Hybrid approach with fallback
+try:
+    result = local_processor.process(data)     # Free
+    if confidence_score(result) < [THRESHOLD]:
+        result = await expensive_api.validate(result)  # $[LOW_COST]
+except ProcessingError:
+    result = await expensive_api.process(data)  # Fallback
+```
+
+### 2. Cache Everything
+```python
+class APICache:
+    """Cache API responses to reduce costs."""
+    
+    def __init__(self, cache_dir: Path = Path(".cache")):
+        self.cache_dir = cache_dir
+        self.cache_dir.mkdir(exist_ok=True)
+    
+    def _get_cache_key(self, endpoint: str, params: dict) -> str:
+        """Generate unique cache key for request."""
+        key_data = f"{endpoint}:{json.dumps(params, sort_keys=True)}"
+        return hashlib.md5(key_data.encode()).hexdigest()
+    
+    async def get_or_fetch(self, endpoint: str, params: dict, fetcher):
+        """Get from cache or fetch fresh data."""
+        cache_key = self._get_cache_key(endpoint, params)
+        cache_file = self.cache_dir / f"{cache_key}.json"
+        
+        if cache_file.exists() and not self._is_expired(cache_file):
+            logger.debug(f"Cache hit: {cache_key} - $0 cost!")
+            return json.loads(cache_file.read_text())
+        
+        result = await fetcher()
+        cache_file.write_text(json.dumps(result))
+        logger.info(f"Cache miss: {cache_key} - fetched fresh data")
+        return result
+    
+    def _is_expired(self, cache_file: Path, ttl_hours: int = 24) -> bool:
+        """Check if cache file is expired."""
+        age = time.time() - cache_file.stat().st_mtime
+        return age > (ttl_hours * 3600)
+```
+
+### 3. Smart Service Selection
+```python
+class ServiceSelector:
+    """Intelligently select service based on requirements."""
+    
+    def select_service(self, requirements: dict) -> str:
+        """Select optimal service based on cost and capability."""
+        
+        if requirements.get("accuracy") == "basic":
+            return "free_service"  # $0
+        elif requirements.get("speed") == "critical":
+            return "fast_service"  # Higher cost but faster
+        elif requirements.get("quality") == "premium":
+            return "premium_service"  # Highest cost, best quality
+        else:
+            return "standard_service"  # Balanced cost/quality
+```
+
+## Rate Limiting & Error Handling
+
+```python
+from asyncio import Semaphore
+import backoff
+
+class RateLimitedAPIClient:
+    """API client with rate limiting and retry logic."""
+    
+    def __init__(self, max_concurrent: int = 3, requests_per_minute: int = 60):
+        self._semaphore = Semaphore(max_concurrent)
+        self._rate_limit_delay = 60.0 / requests_per_minute  # Seconds between requests
+        self._last_request_time = 0
+    
+    @backoff.on_exception(
+        backoff.expo,
+        (aiohttp.ClientError, asyncio.TimeoutError),
+        max_tries=3,
+        max_time=300
+    )
+    async def _api_call(self, endpoint: str, **kwargs):
+        """Make rate-limited API call with retry logic."""
+        async with self._semaphore:
+            # Enforce rate limiting
+            current_time = time.time()
+            time_since_last = current_time - self._last_request_time
+            if time_since_last < self._rate_limit_delay:
+                await asyncio.sleep(self._rate_limit_delay - time_since_last)
+            
+            try:
+                response = await self._make_request(endpoint, **kwargs)
+                self._last_request_time = time.time()
+                return response
+            except RateLimitError as e:
+                wait_time = int(e.headers.get("Retry-After", 60))
+                logger.warning(f"Rate limit hit, waiting {wait_time}s")
+                await asyncio.sleep(wait_time)
+                raise  # Will trigger backoff retry
+```
+
+## Cost Tracking
+
+Track API usage and costs:
+```python
+class CostTracker:
+    """Track API usage costs across services."""
+    
+    def __init__(self):
+        self.costs = {
+            "[service_1]": [COST_PER_UNIT],
+            "[service_2]": [COST_PER_UNIT],
+            "[service_3]": [COST_PER_UNIT],
+            "[local_service]": 0.0,  # Free local processing
+        }
+        self.usage_log = []
+        self.total_cost = 0.0
+    
+    def track(self, service: str, units: float, metadata: dict = None):
+        """Track usage and calculate cost."""
+        cost = units * self.costs.get(service, 0.0)
+        self.total_cost += cost
+        
+        usage_entry = {
+            "timestamp": datetime.now().isoformat(),
+            "service": service,
+            "units": units,
+            "cost": cost,
+            "metadata": metadata or {}
+        }
+        self.usage_log.append(usage_entry)
+        
+        logger.info(f"{service}: {units} units = ${cost:.4f}")
+        return cost
+    
+    def get_daily_cost(self) -> float:
+        """Get cost for current day."""
+        today = datetime.now().date()
+        daily_entries = [
+            entry for entry in self.usage_log
+            if datetime.fromisoformat(entry["timestamp"]).date() == today
+        ]
+        return sum(entry["cost"] for entry in daily_entries)
+    
+    def optimize_recommendations(self) -> List[str]:
+        """Provide cost optimization recommendations."""
+        recommendations = []
+        
+        # Analyze usage patterns
+        service_costs = defaultdict(float)
+        for entry in self.usage_log:
+            service_costs[entry["service"]] += entry["cost"]
+        
+        # Find expensive services
+        for service, cost in service_costs.items():
+            if cost > [HIGH_COST_THRESHOLD]:
+                recommendations.append(
+                    f"Consider caching or batching {service} requests (${cost:.2f} spent)"
+                )
+        
+        return recommendations
+```
+
+## API Key Management
+
+```python
+class APIConfig:
+    """Centralized API configuration and key management."""
+    
+    @staticmethod
+    def get_api_key(service: str) -> str:
+        """Get API key for service with validation."""
+        key = os.getenv(f"{service.upper()}_API_KEY")
+        if not key:
+            raise ValueError(
+                f"{service} API key not found. "
+                f"Set {service.upper()}_API_KEY environment variable."
+            )
+        return key
+    
+    @staticmethod
+    def mask_api_key(key: str) -> str:
+        """Mask API key for safe logging."""
+        if not key:
+            return "[not set]"
+        if len(key) < 8:
+            return "[invalid]"
+        return f"{key[:8]}...{key[-4:]}"
+    
+    @staticmethod
+    def validate_api_keys() -> Dict[str, bool]:
+        """Validate all configured API keys."""
+        services = ["[SERVICE_1]", "[SERVICE_2]", "[SERVICE_3]"]
+        status = {}
+        
+        for service in services:
+            try:
+                key = APIConfig.get_api_key(service)
+                status[service] = len(key) > 10  # Basic validation
+            except ValueError:
+                status[service] = False
+        
+        return status
+```
+
+## Service-Specific Patterns
+
+### REST API Client
+```python
+class RESTAPIClient:
+    """Generic REST API client pattern."""
+    
+    async def get(self, endpoint: str, params: dict = None) -> dict:
+        """GET request with error handling."""
+        try:
+            response = await self.session.get(
+                f"{self.base_url}/{endpoint}",
+                params=params,
+                headers=self.headers
+            )
+            response.raise_for_status()
+            return await response.json()
+        except aiohttp.ClientError as e:
+            logger.error(f"GET {endpoint} failed: {e}")
+            raise APIError(f"Request failed: {e}")
+    
+    async def post(self, endpoint: str, data: dict) -> dict:
+        """POST request with error handling."""
+        try:
+            response = await self.session.post(
+                f"{self.base_url}/{endpoint}",
+                json=data,
+                headers=self.headers
+            )
+            response.raise_for_status()
+            return await response.json()
+        except aiohttp.ClientError as e:
+            logger.error(f"POST {endpoint} failed: {e}")
+            raise APIError(f"Request failed: {e}")
+```
+
+### GraphQL Client
+```python
+class GraphQLClient:
+    """GraphQL API client pattern."""
+    
+    async def query(self, query: str, variables: dict = None) -> dict:
+        """Execute GraphQL query."""
+        payload = {"query": query}
+        if variables:
+            payload["variables"] = variables
+        
+        response = await self.session.post(
+            self.base_url,
+            json=payload,
+            headers=self.headers
+        )
+        
+        result = await response.json()
+        if "errors" in result:
+            raise GraphQLError(result["errors"])
+        
+        return result["data"]
+```
+
+### WebSocket Client
+```python
+class WebSocketClient:
+    """WebSocket client for real-time APIs."""
+    
+    async def connect(self, on_message: Callable = None):
+        """Connect to WebSocket with message handler."""
+        async with websockets.connect(
+            self.ws_url,
+            extra_headers=self.headers
+        ) as websocket:
+            self.websocket = websocket
+            
+            if on_message:
+                async for message in websocket:
+                    await on_message(json.loads(message))
+    
+    async def send(self, data: dict):
+        """Send data through WebSocket."""
+        if self.websocket:
+            await self.websocket.send(json.dumps(data))
+```
+
+## Cost Estimation & Display
+
+```python
+def estimate_cost(operation_type: str, data_size: int, complexity: str = "standard") -> float:
+    """Estimate operation cost before execution."""
+    
+    base_costs = {
+        "basic_processing": [BASIC_COST_PER_UNIT],
+        "enhanced_processing": [ENHANCED_COST_PER_UNIT],
+        "premium_processing": [PREMIUM_COST_PER_UNIT]
+    }
+    
+    complexity_multipliers = {
+        "simple": 0.5,
+        "standard": 1.0,
+        "complex": 1.5,
+        "premium": 2.0
+    }
+    
+    base_cost = base_costs.get(operation_type, [DEFAULT_COST])
+    multiplier = complexity_multipliers.get(complexity, 1.0)
+    
+    return (data_size * base_cost * multiplier)
+
+# Display costs to users
+def warn_if_expensive(estimated_cost: float, threshold: float = [COST_WARNING_THRESHOLD]):
+    """Warn user about potentially expensive operations."""
+    if estimated_cost > threshold:
+        console.print(f"[yellow]⚠ Estimated cost: ${estimated_cost:.2f}[/yellow]")
+        console.print(f"[yellow]This operation may be expensive. Continue? (y/N)[/yellow]")
+        
+        if not click.confirm("Proceed with operation?"):
+            console.print("[red]Operation cancelled by user[/red]")
+            return False
+    return True
+```
+
+## Best Practices by Project Type
+
+### Web Applications
+- **Authentication**: Use OAuth 2.0 / JWT tokens with refresh cycles
+- **Rate Limiting**: Implement both client-side and server-side limits
+- **Caching**: Use Redis/Memcached for API response caching
+- **Monitoring**: Track API health with uptime monitoring
+
+### CLI Tools
+- **Progress Indicators**: Show API call progress with Rich progress bars
+- **Offline Mode**: Cache results for offline functionality
+- **Configuration**: Support multiple API profiles/environments
+- **Error Recovery**: Graceful handling of network failures
+
+### Data Processing
+- **Batch Operations**: Group API calls to reduce overhead
+- **Parallel Processing**: Use asyncio for concurrent API calls
+- **Retry Logic**: Exponential backoff for transient failures
+- **Cost Monitoring**: Track costs per processing job
+
+### Mobile Applications
+- **Network Awareness**: Handle cellular vs WiFi differently
+- **Background Sync**: Queue API calls for background processing
+- **Offline First**: Cache data for offline functionality
+- **Battery Optimization**: Minimize unnecessary API calls
+
+## Common Pitfalls to Avoid
+
+1. **Don't use expensive APIs for simple operations**
+2. **Don't skip caching to "save time" - it costs money**
+3. **Don't ignore rate limits - plan for them**
+4. **Don't forget to clean up resources (files, connections)**
+5. **Don't hardcode API keys - use environment variables**
+6. **Don't process more data than necessary**
+7. **Don't forget to monitor and log API usage**
+
+## Template Customization Checklist
+
+When adapting this template:
+
+1. **Service Integration**
+   - [ ] Updated cost hierarchy with actual service costs
+   - [ ] Customized client patterns for your API types
+   - [ ] Configured rate limiting for your services
+
+2. **Cost Management**
+   - [ ] Set appropriate cost thresholds and warnings
+   - [ ] Implemented caching strategy for your data types
+   - [ ] Added cost tracking for your operations
+
+3. **Error Handling**
+   - [ ] Configured retry logic for your service reliability
+   - [ ] Added appropriate timeout settings
+   - [ ] Implemented graceful degradation patterns
+
+4. **Security**
+   - [ ] Secured API key management
+   - [ ] Added request validation and sanitization
+   - [ ] Implemented proper authentication flows
+
+Remember: Cost-effective integration is sustainable integration - always optimize for both performance and cost :-)
+
+This template provides a comprehensive foundation for API integration across any project type while maintaining cost efficiency and reliability.

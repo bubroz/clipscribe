@@ -69,28 +69,20 @@ Edit `.cursor/rules/documentation-standards.mdc`:
 
 ## 📦 What's Included
 
-### Core Governance Templates
-- **`README_master_governance.mdc`** - Complete project governance framework
-- **`core_identity.mdc`** - Project mission and identity template
-- **`documentation_standards.mdc`** - Professional documentation system
-- **`testing_standards.mdc`** - Comprehensive testing framework
+### Optimized Core Templates (5 Essential Rules)
+- **`README_master_governance.mdc`** - Complete project governance framework with task completion protocols
+- **`core_identity.mdc`** - Project mission, architecture patterns, async/await standards, data structures, configuration management, error handling
+- **`api_patterns.mdc`** - API integration with cost optimization, rate limiting, caching, all API types (REST/GraphQL/WebSocket)
+- **`documentation_standards.mdc`** - Professional documentation system, file organization, troubleshooting guides
+- **`testing_standards.mdc`** - Comprehensive testing framework, quality standards, validation protocols
 
-### Development Patterns
-- **`api_patterns.mdc`** - API integration with cost optimization
-- **`async_patterns.mdc`** - Asynchronous programming best practices
-- **`data_structures.mdc`** - Data modeling and validation patterns
-- **`configuration_management.mdc`** - Settings and configuration guidelines
-- **`error_handling_logging.mdc`** - Error handling and logging standards
-
-### Component-Specific Templates
-- **`domain_processing.mdc`** - Core business logic patterns
-- **`interface_patterns.mdc`** - UI/CLI/API interface conventions
-- **`output_management.mdc`** - Format handling and export systems
-- **`visualization.mdc`** - Charts, graphs, and visual elements
-
-### Quality & Process Templates
-- **`file_organization.mdc`** - Project structure and organization
-- **`troubleshooting_guide.mdc`** - Debugging and problem-solving patterns
+### Why Only 5 Templates?
+This optimized approach provides complete coverage while avoiding choice paralysis:
+- **Complete Coverage**: Every aspect of professional development is covered
+- **Manageable**: Easy to customize and maintain  
+- **Comprehensive**: Each template is feature-rich and includes related patterns
+- **Universal**: Works for any project type (web, CLI, library, mobile, data processing)
+- **No Redundancy**: Eliminated overlapping templates that created confusion
 
 ## 🎯 Use Cases & Market Potential
 
@@ -128,7 +120,7 @@ Edit `.cursor/rules/documentation-standards.mdc`:
 
 | Placeholder | Example | Your Value |
 |-------------|---------|------------|
-| `PROJECT_NAME` | "ClipScribe" | "YourAppName" |
+| `PROJECT_NAME` | "Prometheus" | "YourAppName" |
 | `PROJECT_TYPE` | "CLI Tool" | "Web App", "Mobile App", "Library" |
 | `PRIMARY_LANGUAGE` | "Python 3.11+" | "JavaScript", "TypeScript", "Go" |
 | `MAIN_FRAMEWORK` | "Click" | "React", "FastAPI", "Express" |
