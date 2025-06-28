@@ -1,10 +1,10 @@
 """
-ClipScribe Mission Control
+ARGOS Mission Control
 Interactive Dashboard for Video Intelligence Collections
 
-This is the main entry point for the ClipScribe Streamlit interface.
+This is the main entry point for the ARGOS Streamlit interface.
 Provides comprehensive management and visualization of video collections,
-Knowledge Panels, Information Flow Maps, and analytics.
+Timeline Intelligence, Information Flow Maps, and analytics.
 """
 
 import streamlit as st
@@ -18,7 +18,7 @@ sys.path.insert(0, str(src_path))
 from clipscribe.config.settings import settings
 
 st.set_page_config(
-    page_title="ClipScribe Mission Control",
+    page_title="ARGOS Mission Control",
     page_icon="🎬",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -52,8 +52,8 @@ def main():
         border: 1px solid #c3e6cb;
         margin-bottom: 1rem;
     }
-    .phase2-banner {
-        background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    .completion-banner {
+        background: linear-gradient(90deg, #28a745 0%, #20c997 100%);
         color: white;
         padding: 0.75rem;
         border-radius: 5px;
@@ -66,15 +66,15 @@ def main():
     # Header
     st.markdown("""
     <div class="main-header">
-        <h1>🎬 ClipScribe Mission Control</h1>
-        <p>Interactive Video Intelligence Dashboard</p>
+        <h1>🎬 ARGOS Mission Control</h1>
+        <p>Enhanced Temporal Intelligence Dashboard</p>
     </div>
     """, unsafe_allow_html=True)
 
-    # Phase 2 announcement banner
+    # v2.17.0 completion banner
     st.markdown("""
-    <div class="phase2-banner">
-        🚀 <strong>v2.16.0 Phase 2 Released!</strong> Enhanced visualizations, real-time processing monitoring, and interactive network graphs now available!
+    <div class="completion-banner">
+        🚀 <strong>v2.17.0 COMPLETE!</strong> Timeline Building Pipeline with enhanced temporal intelligence now available! All 4/4 components operational.
     </div>
     """, unsafe_allow_html=True)
 
@@ -86,8 +86,8 @@ def main():
             "Choose a page:",
             [
                 "🏠 Dashboard",
+                "⏰ Timeline Intelligence", 
                 "📹 Collections", 
-                "👥 Knowledge Panels",
                 "🔄 Information Flows",
                 "📊 Analytics",
                 "🔄 Real-time Processing",
@@ -109,6 +109,18 @@ def main():
             
             st.metric("Collections", len(collections))
             st.metric("Individual Videos", len(individual_videos))
+            
+            # Timeline intelligence stats
+            timeline_collections = 0
+            for collection in collections:
+                timeline_files = [
+                    collection / "consolidated_timeline.json",
+                    collection / "timeline.json"
+                ]
+                if any(f.exists() for f in timeline_files):
+                    timeline_collections += 1
+            
+            st.metric("Timeline Collections", timeline_collections)
         else:
             st.info("No processed videos found")
 
@@ -124,10 +136,10 @@ def main():
     # Main content area based on navigation
     if page == "🏠 Dashboard":
         show_dashboard()
+    elif page == "⏰ Timeline Intelligence":
+        show_timeline_intelligence()
     elif page == "📹 Collections":
         show_collections()
-    elif page == "👥 Knowledge Panels":
-        st.info("Knowledge panels functionality has been moved to Chimera and removed from ClipScribe.")
     elif page == "🔄 Information Flows":
         show_information_flows()
     elif page == "📊 Analytics":
@@ -141,21 +153,37 @@ def show_dashboard():
     """Display the main dashboard"""
     st.header("🏠 Dashboard")
     
+    # v2.17.0 completion status
+    st.markdown("### ✅ ARGOS v2.17.0 Status")
+    
+    col1, col2, col3, col4 = st.columns(4)
+    
+    with col1:
+        st.metric("Enhanced Processing", "✅ COMPLETE", help="Direct video-to-Gemini processing")
+    with col2:
+        st.metric("Video Retention", "✅ COMPLETE", help="Smart cost-optimized retention")  
+    with col3:
+        st.metric("Timeline Synthesis", "✅ COMPLETE", help="LLM-based temporal intelligence")
+    with col4:
+        st.metric("Timeline Pipeline", "✅ COMPLETE", help="Web research integration")
+    
+    st.markdown("---")
+    
     col1, col2, col3 = st.columns(3)
     
     with col1:
         st.markdown("""
         <div class="metric-card">
-            <h3>📹 Collections</h3>
-            <p>Manage multi-video collections with unified analysis</p>
+            <h3>⏰ Timeline Intelligence</h3>
+            <p>Enhanced temporal intelligence with web research integration (v2.17.0)</p>
         </div>
         """, unsafe_allow_html=True)
     
     with col2:
         st.markdown("""
         <div class="metric-card">
-            <h3>👥 Knowledge Panels</h3>
-            <p>Entity-centric intelligence synthesis</p>
+            <h3>📹 Collections</h3>
+            <p>Manage multi-video collections with unified timeline analysis</p>
         </div>
         """, unsafe_allow_html=True)
     
@@ -163,7 +191,7 @@ def show_dashboard():
         st.markdown("""
         <div class="metric-card">
             <h3>🔄 Information Flows</h3>
-            <p>Concept evolution tracking</p>
+            <p>Concept evolution tracking across video sequences</p>
         </div>
         """, unsafe_allow_html=True)
 
@@ -191,6 +219,7 @@ def show_dashboard():
                         # Collection directories have different files
                         key_files = [
                             "collection_intelligence.json",
+                            "consolidated_timeline.json",
                             "timeline.json", 
                             "unified_knowledge_graph.gexf"
                         ]
@@ -213,6 +242,21 @@ def show_dashboard():
     else:
         st.info("Output directory not found. Process some videos to get started!")
 
+def show_timeline_intelligence():
+    """Display Timeline Intelligence page"""
+    # Import and run the Timeline Intelligence page
+    try:
+        # Add streamlit_app to path for proper imports
+        streamlit_app_path = Path(__file__).parent
+        if str(streamlit_app_path) not in sys.path:
+            sys.path.insert(0, str(streamlit_app_path))
+        
+        from pages.Timeline_Intelligence import main as timeline_main
+        timeline_main()
+    except ImportError as e:
+        st.error(f"Error loading Timeline Intelligence page: {e}")
+        st.info("🚧 Timeline Intelligence page requires v2.17.0 Timeline Building Pipeline components.")
+
 def show_collections():
     """Display collections management page"""
     # Import and run the Collections page
@@ -227,8 +271,6 @@ def show_collections():
     except ImportError as e:
         st.error(f"Error loading Collections page: {e}")
         st.info("🚧 Collections page coming soon! This will show all multi-video collections.")
-
-# Knowledge panels function removed - functionality moved to Chimera
 
 def show_information_flows():
     """Display Information Flow Maps"""
@@ -279,7 +321,7 @@ def show_processing_monitor():
         st.header("🔄 Real-time Processing Monitor")
         st.info("""
         This feature provides:
-        - **Live CLI Progress**: Monitor ClipScribe commands in real-time
+        - **Live CLI Progress**: Monitor ARGOS commands in real-time
         - **Cost Tracking**: Real-time API cost monitoring
         - **Processing Queue**: Job history and queue management
         - **Auto-refresh**: Live updates every 5 seconds
@@ -315,14 +357,14 @@ def show_settings():
     with col1:
         st.selectbox(
             "Transcription Model",
-            ["gemini-1.5-flash", "gemini-1.5-pro"],
+            ["gemini-2.5-flash", "gemini-2.5-pro"],
             index=0,
             help="Model for video transcription"
         )
         
         st.selectbox(
             "Analysis Model", 
-            ["gemini-1.5-flash", "gemini-1.5-pro"],
+            ["gemini-2.5-flash", "gemini-2.5-pro"],
             index=0,
             help="Model for intelligence analysis"
         )
@@ -343,6 +385,41 @@ def show_settings():
             value=1.0,
             step=0.1,
             help="Show warning when cost exceeds this amount"
+        )
+    
+    # v2.17.0 Timeline Settings
+    st.subheader("⏰ Timeline Intelligence Settings")
+    
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.toggle(
+            "Enhanced Temporal Intelligence",
+            value=True,
+            help="Enable enhanced temporal intelligence processing (v2.17.0)"
+        )
+        
+        st.selectbox(
+            "Temporal Intelligence Level",
+            ["standard", "enhanced", "maximum"],
+            index=1,
+            help="Level of temporal intelligence processing"
+        )
+    
+    with col2:
+        st.toggle(
+            "Web Research Integration",
+            value=False,
+            help="Enable external research validation (incurs additional costs)"
+        )
+        
+        st.slider(
+            "Timeline Confidence Threshold",
+            min_value=0.0,
+            max_value=1.0,
+            value=0.7,
+            step=0.1,
+            help="Minimum confidence for timeline events"
         )
 
 if __name__ == "__main__":
