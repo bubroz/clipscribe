@@ -47,16 +47,16 @@ def show_flow_overview(flow_map: InformationFlowMap):
     with col4:
         st.metric("Concept Clusters", len(flow_map.concept_clusters))
     
-    # Flow pattern analysis
-    if flow_map.flow_pattern_analysis:
+    # Flow pattern analysis - FIXED: Access attributes directly on flow_map
+    if hasattr(flow_map, 'learning_progression') and flow_map.learning_progression:
         st.subheader("📊 Flow Pattern Analysis")
         
         with st.expander("Learning Progression", expanded=True):
-            st.write(flow_map.flow_pattern_analysis.learning_progression)
+            st.write(flow_map.learning_progression)
         
-        if flow_map.flow_pattern_analysis.strategic_insights:
+        if hasattr(flow_map, 'strategic_insights') and flow_map.strategic_insights:
             with st.expander("Strategic Insights", expanded=False):
-                for insight in flow_map.flow_pattern_analysis.strategic_insights:
+                for insight in flow_map.strategic_insights:
                     st.write(f"• {insight}")
 
 def show_concept_explorer(flow_map: InformationFlowMap):

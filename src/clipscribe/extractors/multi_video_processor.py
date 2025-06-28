@@ -1120,9 +1120,12 @@ class MultiVideoProcessor:
                     event_timestamp = base_date_from_title.parsed_date
                     extracted_date_obj = base_date_from_title
                     date_source = "video_title"
-                # 3. Fallback to video publication date
+                # 3. Fallback to video publication date with video timestamp context
                 else:
-                    event_timestamp = video.metadata.published_at + timedelta(seconds=key_point.timestamp)
+                    # FIXED: Don't add video timestamp as days - instead use publication date 
+                    # and preserve video timestamp for reference
+                    event_timestamp = video.metadata.published_at
+                    date_source = "video_published_date"
 
                 # Identify involved entities mentioned in the key point text
                 involved_entities = {
