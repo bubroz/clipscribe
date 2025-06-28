@@ -1,0 +1,222 @@
+---
+description: "Core project identity including mission, architecture, async patterns, data structures, configuration management, and error handling standards"
+globs: ["**/*.py", "**/*.js", "**/*.ts", "**/*.go", "**/*.rs", "**/*.java", "**/*.cs", "src/**/*", "lib/**/*"]
+alwaysApply: true
+---
+# [PROJECT_NAME] - Core Identity
+
+You are an expert AI assistant specialized in **[PROJECT_NAME]** development - a [PROJECT_DESCRIPTION].
+
+## Template Instructions
+
+**To Use This Template:**
+1. Replace `[PROJECT_NAME]` with your actual project name
+2. Replace `[PROJECT_DESCRIPTION]` with a concise description of what your project does
+3. Replace `[PRIMARY_LANGUAGE]` with your main programming language
+4. Replace `[TECH_STACK]` entries with your actual technology stack
+5. Replace `[EXTENSION]` with your primary file extensions
+6. Update the mission statement and principles for your domain
+7. Customize the features list for your project type
+
+## Mission
+[MISSION_STATEMENT] - Replace with your project's core purpose and value proposition.
+
+## Primary Stack
+- **Language**: [PRIMARY_LANGUAGE] with [DEPENDENCY_MANAGER]
+- **Primary Framework**: [FRAMEWORK] for [PURPOSE]
+- **Core Libraries**: [LIBRARY_1], [LIBRARY_2], [LIBRARY_3]
+- **Architecture Pattern**: [PATTERN] with [ADDITIONAL_PATTERNS]
+- **Data Layer**: [DATABASE/STORAGE] with [ORM/ODM]
+- **Testing**: [TEST_FRAMEWORK] with [TEST_UTILITIES]
+
+## Core Principles
+1. **[PRINCIPLE_1]**: Always [CORE_BEHAVIOR_1]
+2. **[PRINCIPLE_2]**: Combine [APPROACH_1] with [APPROACH_2]
+3. **[PRINCIPLE_3]**: [ARCHITECTURE_PRINCIPLE]
+4. **[PRINCIPLE_4]**: Support [COMPATIBILITY_REQUIREMENT]
+5. **[PRINCIPLE_5]**: [PERFORMANCE_PRINCIPLE]
+6. **[PRINCIPLE_6]**: Efficient [EFFICIENCY_FOCUS]
+7. **[PRINCIPLE_7]**: Seamless integration with [ECOSYSTEM]
+
+## Core Features
+- **[FEATURE_1]**: [FEATURE_DESCRIPTION]
+- **[FEATURE_2]**: [FEATURE_DESCRIPTION]
+- **[FEATURE_3]**: [FEATURE_DESCRIPTION]
+- **[FEATURE_4]**: [FEATURE_DESCRIPTION]
+- **[FEATURE_5]**: [FEATURE_DESCRIPTION]
+- **[FEATURE_6]**: [FEATURE_DESCRIPTION]
+
+## Development Philosophy
+- **[PHILOSOPHY_1]**: [EXPLANATION]
+- **[PHILOSOPHY_2]**: [EXPLANATION]
+- **[PHILOSOPHY_3]**: [EXPLANATION]
+- **[PHILOSOPHY_4]**: [EXPLANATION]
+- **[PHILOSOPHY_5]**: [EXPLANATION]
+- **[PROJECT_STYLE_NOTE]**: [STYLE_REQUIREMENT]
+
+## Environment Configuration
+```bash
+# Required
+[PRIMARY_API_KEY]=[DESCRIPTION]
+
+# Optional enhancements
+[OPTIONAL_CONFIG_1]=[DEFAULT_VALUE]
+[OPTIONAL_CONFIG_2]=[DEFAULT_VALUE]
+
+# Performance/Quality thresholds
+[THRESHOLD_1]=[DEFAULT_VALUE]
+[THRESHOLD_2]=[DEFAULT_VALUE]
+```
+
+## Example Customizations by Project Type
+
+### Web Application
+```yaml
+PROJECT_NAME: "MyWebApp"
+PROJECT_DESCRIPTION: "Modern web application for [domain]"
+PRIMARY_LANGUAGE: "TypeScript 5.0+ with Node.js"
+FRAMEWORK: "Next.js 14"
+MISSION_STATEMENT: "Transform [user_need] into [solution] through [approach]"
+PRINCIPLE_1: "User-First Design"
+CORE_BEHAVIOR_1: "prioritize user experience over technical convenience"
+```
+
+### Python Library
+```yaml
+PROJECT_NAME: "MyPyLib"
+PROJECT_DESCRIPTION: "Python library for [domain] processing"
+PRIMARY_LANGUAGE: "Python 3.11+ with Poetry"
+FRAMEWORK: "FastAPI"
+MISSION_STATEMENT: "Provide developers with [capability] through [method]"
+PRINCIPLE_1: "API-First Design"
+CORE_BEHAVIOR_1: "design clean, intuitive APIs before implementation"
+```
+
+### Mobile App
+```yaml
+PROJECT_NAME: "MyMobileApp"
+PROJECT_DESCRIPTION: "Cross-platform mobile app for [domain]"
+PRIMARY_LANGUAGE: "Dart with Flutter"
+FRAMEWORK: "Flutter 3.0+"
+MISSION_STATEMENT: "Enable users to [action] efficiently on any device"
+PRINCIPLE_1: "Mobile-First Experience"
+CORE_BEHAVIOR_1: "optimize for touch interfaces and mobile constraints"
+```
+
+### Data Processing System
+```yaml
+PROJECT_NAME: "MyDataProcessor"
+PROJECT_DESCRIPTION: "Scalable data processing pipeline for [data_type]"
+PRIMARY_LANGUAGE: "Python 3.11+ with Apache Airflow"
+FRAMEWORK: "Apache Spark"
+MISSION_STATEMENT: "Transform raw [data_type] into actionable insights"
+PRINCIPLE_1: "Scalability-First Design"
+CORE_BEHAVIOR_1: "design for horizontal scaling from day one"
+```
+
+### Machine Learning Project
+```yaml
+PROJECT_NAME: "MyMLProject"
+PROJECT_DESCRIPTION: "Machine learning system for [prediction/classification/etc]"
+PRIMARY_LANGUAGE: "Python 3.11+ with MLflow"
+FRAMEWORK: "PyTorch/TensorFlow"
+MISSION_STATEMENT: "Provide accurate [prediction_type] through [ml_approach]"
+PRINCIPLE_1: "Data Quality First"
+CORE_BEHAVIOR_1: "ensure data quality before model complexity"
+```
+
+## Common Feature Categories
+
+### For Web Applications
+- **Authentication & Authorization**: User management and security
+- **Real-time Updates**: WebSocket or SSE for live data
+- **Responsive Design**: Mobile-first, accessible interfaces
+- **Performance Optimization**: Caching, lazy loading, CDN
+- **SEO & Analytics**: Search optimization and user tracking
+
+### For CLI Tools
+- **Interactive Interface**: Rich terminal UI with progress indicators
+- **Configuration Management**: Environment variables and config files
+- **Error Recovery**: Graceful handling of failures
+- **Output Formats**: Multiple export options
+- **Plugin Architecture**: Extensible functionality
+
+### For APIs/Services
+- **Rate Limiting**: Request throttling and quota management
+- **Authentication**: Token-based auth with refresh cycles
+- **Monitoring**: Health checks and performance metrics
+- **Documentation**: Auto-generated API docs
+- **Versioning**: Backward-compatible API evolution
+
+### For Data Processing
+- **Batch Processing**: Efficient handling of large datasets
+- **Stream Processing**: Real-time data pipeline
+- **Data Validation**: Schema enforcement and quality checks
+- **Scalability**: Horizontal scaling capabilities
+- **Monitoring**: Pipeline health and data quality metrics
+
+## Development Guidelines
+
+### Code Quality Standards
+- **[LANGUAGE]-Only**: Never use [ALTERNATIVE], always use [PREFERRED_TOOL]
+- **Type Safety**: Comprehensive type hints/annotations everywhere
+- **Test Coverage**: [PERCENTAGE]%+ for critical paths
+- **Error Recovery**: Graceful degradation with fallbacks
+- **User Feedback**: [UI_PATTERN] with progress indicators
+- **Documentation**: [DOCUMENTATION_STANDARD] for all public APIs
+
+### Architecture Patterns
+- **[PATTERN_1]**: [WHEN_TO_USE]
+- **[PATTERN_2]**: [WHEN_TO_USE]
+- **[PATTERN_3]**: [WHEN_TO_USE]
+
+### Performance Standards
+- **[METRIC_1]**: Target [VALUE] or better
+- **[METRIC_2]**: Maximum [VALUE] acceptable
+- **[METRIC_3]**: Optimize for [CRITERIA]
+
+## Integration Guidelines
+
+### With Development Ecosystem
+- **CI/CD**: [PIPELINE_TOOL] with [DEPLOYMENT_STRATEGY]
+- **Code Quality**: [LINTING_TOOLS] with [FORMATTING_TOOLS]
+- **Testing**: [TESTING_STRATEGY] with [COVERAGE_TOOLS]
+- **Documentation**: [DOCS_GENERATOR] with [HOSTING_PLATFORM]
+
+### With External Services
+- **[SERVICE_CATEGORY_1]**: [INTEGRATION_APPROACH]
+- **[SERVICE_CATEGORY_2]**: [INTEGRATION_APPROACH]
+- **[SERVICE_CATEGORY_3]**: [INTEGRATION_APPROACH]
+
+Always prioritize [PRIMARY_VALUE] while maintaining [SECONDARY_VALUE] :-)
+
+## Customization Checklist
+
+When adapting this template:
+
+1. **Identity & Mission**
+   - [ ] Updated project name and description
+   - [ ] Defined clear mission statement
+   - [ ] Identified target users/use cases
+
+2. **Technical Stack**
+   - [ ] Listed primary language and version
+   - [ ] Identified key frameworks and libraries
+   - [ ] Defined architecture patterns
+
+3. **Core Principles**
+   - [ ] Established 5-7 fundamental principles
+   - [ ] Aligned principles with project goals
+   - [ ] Made principles actionable and specific
+
+4. **Development Philosophy**
+   - [ ] Defined coding standards and practices
+   - [ ] Established quality gates and metrics
+   - [ ] Integrated with ecosystem tools
+
+5. **Environment & Configuration**
+   - [ ] Listed required environment variables
+   - [ ] Defined optional configurations
+   - [ ] Set reasonable defaults
+
+This template provides the foundation for any project's identity while maintaining consistency and professionalism across different domains and technologies.

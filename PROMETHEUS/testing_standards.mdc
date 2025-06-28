@@ -1,0 +1,521 @@
+---
+description: "Testing requirements, quality standards, validation protocols, and coverage requirements for comprehensive test suites"
+globs: ["tests/**/*.py", "**/*test*.py", "test_*.py", "**/conftest.py", "pytest.ini"]
+alwaysApply: false
+---
+# Testing Standards & Validation Protocols
+
+## Template Instructions
+
+**To Use This Template:**
+1. Replace `[PROJECT_NAME]` with your actual project name
+2. Replace `[LANGUAGE]` with your programming language
+3. Replace `[TEST_FRAMEWORK]` with your testing framework
+4. Update test organization structure for your project type
+5. Customize validation protocols for your development workflow
+6. Adapt coverage requirements for your quality standards
+
+## Core Testing Philosophy
+
+1. **Test First**: Write tests before or alongside implementation
+2. **Comprehensive Coverage**: Aim for [COVERAGE_TARGET]%+ coverage on critical paths
+3. **Fast Feedback**: Tests should run quickly and provide clear feedback
+4. **Reliable**: Tests should be deterministic and not flaky
+5. **Maintainable**: Tests should be easy to read and update
+
+## Test Organization Structure
+
+### Standard Test Directory Structure
+```
+tests/
+├── __init__.py                # Test package initialization
+├── conftest.py               # Shared test configuration
+├── unit/                     # Unit tests
+│   ├── __init__.py
+│   ├── test_[component1].py
+│   ├── test_[component2].py
+│   └── [domain]/
+│       ├── __init__.py
+│       └── test_[specific].py
+├── integration/              # Integration tests
+│   ├── __init__.py
+│   ├── test_[workflow1].py
+│   └── test_[workflow2].py
+├── e2e/                      # End-to-end tests
+│   ├── __init__.py
+│   ├── test_[user_journey1].py
+│   └── test_[user_journey2].py
+├── fixtures/                 # Test data and fixtures
+│   ├── __init__.py
+│   ├── sample_data/
+│   └── mock_responses/
+└── utils/                    # Test utilities
+    ├── __init__.py
+    ├── helpers.py
+    └── factories.py
+```
+
+## Test Categories & Requirements
+
+### 1. Unit Tests
+**Coverage Target**: [UNIT_COVERAGE_TARGET]%+
+**Speed Target**: < [UNIT_SPEED_TARGET]ms per test
+
+```python
+import pytest
+from unittest.mock import Mock, patch
+from [project].[module] import [ComponentUnderTest]
+
+class Test[ComponentUnderTest]:
+    """Test suite for [ComponentUnderTest]."""
+    
+    def setup_method(self):
+        """Set up test fixtures before each test method."""
+        self.[component] = [ComponentUnderTest]()
+    
+    def test_[functionality]_with_valid_input(self):
+        """Test [functionality] with valid input."""
+        # Arrange
+        input_data = [valid_input]
+        expected_result = [expected_output]
+        
+        # Act
+        result = self.[component].[method](mdc:input_data)
+        
+        # Assert
+        assert result == expected_result
+    
+    def test_[functionality]_with_invalid_input(self):
+        """Test [functionality] handles invalid input properly."""
+        # Arrange
+        invalid_input = [invalid_input]
+        
+        # Act & Assert
+        with pytest.raises([ExpectedException]):
+            self.[component].[method](mdc:invalid_input)
+    
+    @patch('[project].[module].[external_dependency]')
+    def test_[functionality]_with_mocked_dependency(self, mock_dependency):
+        """Test [functionality] with mocked external dependency."""
+        # Arrange
+        mock_dependency.return_value = [mock_response]
+        
+        # Act
+        result = self.[component].[method]()
+        
+        # Assert
+        assert result == [expected_result]
+        mock_dependency.assert_called_once_with([expected_args])
+```
+
+### 2. Integration Tests
+**Coverage Target**: [INTEGRATION_COVERAGE_TARGET]%+
+**Speed Target**: < [INTEGRATION_SPEED_TARGET]s per test
+
+```python
+import pytest
+import asyncio
+from [project] import [IntegrationComponent]
+
+class TestIntegration[Workflow]:
+    """Integration tests for [workflow] functionality."""
+    
+    @pytest.mark.asyncio
+    async def test_[workflow]_end_to_end(self):
+        """Test complete [workflow] integration."""
+        # Arrange
+        component = [IntegrationComponent]()
+        test_data = [integration_test_data]
+        
+        # Act
+        result = await component.process(test_data)
+        
+        # Assert
+        assert result.status == "success"
+        assert len(result.items) > 0
+        assert all(item.is_valid() for item in result.items)
+    
+    def test_[component1]_to_[component2]_integration(self):
+        """Test integration between [component1] and [component2]."""
+        # Test component interaction
+        pass
+```
+
+### 3. End-to-End Tests
+**Coverage Target**: [E2E_COVERAGE_TARGET]%+ of user journeys
+**Speed Target**: < [E2E_SPEED_TARGET]s per test
+
+```python
+import pytest
+from [project].testing import TestClient
+
+class TestUserJourney[Scenario]:
+    """End-to-end tests for [scenario] user journey."""
+    
+    def setup_method(self):
+        """Set up test environment."""
+        self.client = TestClient()
+    
+    def test_[user_journey]_complete_flow(self):
+        """Test complete [user_journey] from start to finish."""
+        # Step 1: User initiates action
+        response1 = self.client.[action1](mdc:[parameters])
+        assert response1.status_code == 200
+        
+        # Step 2: User continues workflow
+        response2 = self.client.[action2](mdc:response1.data['id'])
+        assert response2.status_code == 200
+        
+        # Step 3: User completes workflow
+        response3 = self.client.[action3](mdc:[final_parameters])
+        assert response3.status_code == 200
+        assert response3.data['result'] == [expected_final_state]
+```
+
+## Testing Patterns by Project Type
+
+### Web Application Testing
+```python
+# API Testing
+@pytest.mark.parametrize("endpoint,method,expected_status", [
+    ("/api/users", "GET", 200),
+    ("/api/users/1", "GET", 200),
+    ("/api/users", "POST", 201),
+])
+def test_api_endpoints(client, endpoint, method, expected_status):
+    """Test API endpoint responses."""
+    response = client.request(method, endpoint)
+    assert response.status_code == expected_status
+
+# Database Testing
+def test_user_creation_in_database(db_session):
+    """Test user creation persists to database."""
+    user = User(name="Test User", email="test@example.com")
+    db_session.add(user)
+    db_session.commit()
+    
+    retrieved_user = db_session.query(User).filter_by(email="test@example.com").first()
+    assert retrieved_user is not None
+    assert retrieved_user.name == "Test User"
+```
+
+### CLI Tool Testing
+```python
+from click.testing import CliRunner
+from [project].commands import cli
+
+def test_cli_command_with_valid_args():
+    """Test CLI command with valid arguments."""
+    runner = CliRunner()
+    result = runner.invoke(cli, ['[command]', '--option', 'value'])
+    
+    assert result.exit_code == 0
+    assert '[expected_output]' in result.output
+
+def test_cli_command_with_invalid_args():
+    """Test CLI command handles invalid arguments."""
+    runner = CliRunner()
+    result = runner.invoke(cli, ['[command]', '--invalid-option'])
+    
+    assert result.exit_code != 0
+    assert 'error' in result.output.lower()
+```
+
+### Library/SDK Testing
+```python
+def test_public_api_backwards_compatibility():
+    """Test that public API maintains backwards compatibility."""
+    from [project] import [PublicAPI]
+    
+    # Test that all expected methods exist
+    api = [PublicAPI]()
+    assert hasattr(api, '[method1]')
+    assert hasattr(api, '[method2]')
+    
+    # Test method signatures haven't changed
+    import inspect
+    sig = inspect.signature(api.[method1])
+    assert '[parameter1]' in sig.parameters
+
+def test_library_integration_example():
+    """Test that library examples in documentation work."""
+    # This should match examples in docs
+    from [project] import [Component]
+    
+    component = [Component](mdc:[config])
+    result = component.[method](mdc:[example_input])
+    
+    assert result == [expected_output]
+```
+
+### Data Processing Testing
+```python
+def test_data_pipeline_with_sample_data():
+    """Test data processing pipeline with known sample data."""
+    from [project].pipeline import DataPipeline
+    
+    pipeline = DataPipeline()
+    sample_data = [load_sample_data]
+    
+    result = pipeline.process(sample_data)
+    
+    assert len(result) == [expected_count]
+    assert all(record.is_valid() for record in result)
+    assert result[0].[field] == [expected_value]
+
+def test_data_validation_rules():
+    """Test data validation catches invalid data."""
+    from [project].validation import DataValidator
+    
+    validator = DataValidator()
+    invalid_data = [create_invalid_data]
+    
+    with pytest.raises([ValidationError]):
+        validator.validate(invalid_data)
+```
+
+## Test Fixtures and Utilities
+
+### Fixture Management
+```python
+# conftest.py
+import pytest
+from [project].testing import create_test_[resource]
+
+@pytest.fixture
+def [resource]():
+    """Provide test [resource] for tests."""
+    resource = create_test_[resource]()
+    yield resource
+    # Cleanup
+    resource.cleanup()
+
+@pytest.fixture(scope="session")
+def [shared_resource]():
+    """Provide shared test [resource] for test session."""
+    resource = [expensive_setup]()
+    yield resource
+    [expensive_cleanup](mdc:resource)
+
+@pytest.fixture
+def mock_[external_service]():
+    """Mock external service for testing."""
+    with patch('[project].[module].[ExternalService]') as mock:
+        mock.return_value.[method].return_value = [mock_response]
+        yield mock
+```
+
+### Test Data Factories
+```python
+# factories.py
+import factory
+from [project].models import [Model]
+
+class [Model]Factory(factory.Factory):
+    """Factory for creating test [Model] instances."""
+    
+    class Meta:
+        model = [Model]
+    
+    [field1] = factory.Sequence(lambda n: f"[field1]_{n}")
+    [field2] = factory.Faker('[faker_provider]')
+    [field3] = factory.LazyAttribute(lambda obj: f"generated_from_{obj.[field1]}")
+
+# Usage in tests
+def test_with_factory_data():
+    """Test using factory-generated data."""
+    test_model = [Model]Factory()
+    assert test_model.[field1] is not None
+    assert test_model.[field2] is not None
+```
+
+## Performance Testing
+
+### Load Testing
+```python
+import time
+import pytest
+from concurrent.futures import ThreadPoolExecutor
+
+def test_[operation]_performance():
+    """Test [operation] performance under load."""
+    start_time = time.time()
+    
+    # Perform operation
+    result = [component].[operation](mdc:[test_data])
+    
+    end_time = time.time()
+    execution_time = end_time - start_time
+    
+    assert execution_time < [MAX_EXECUTION_TIME_SECONDS]
+    assert result is not None
+
+def test_concurrent_[operation]():
+    """Test [operation] handles concurrent requests."""
+    def perform_operation():
+        return [component].[operation](mdc:[test_data])
+    
+    with ThreadPoolExecutor(max_workers=[CONCURRENT_USERS]) as executor:
+        futures = [executor.submit(perform_operation) for _ in range([REQUEST_COUNT])]
+        results = [future.result() for future in futures]
+    
+    assert len(results) == [REQUEST_COUNT]
+    assert all(result is not None for result in results)
+```
+
+### Memory Testing
+```python
+import tracemalloc
+import pytest
+
+def test_[operation]_memory_usage():
+    """Test [operation] doesn't leak memory."""
+    tracemalloc.start()
+    
+    # Perform operation multiple times
+    for _ in range([ITERATION_COUNT]):
+        result = [component].[operation](mdc:[test_data])
+        del result  # Explicit cleanup
+    
+    current, peak = tracemalloc.get_traced_memory()
+    tracemalloc.stop()
+    
+    # Memory usage should be reasonable
+    assert peak < [MAX_MEMORY_BYTES]
+```
+
+## Test Quality & Validation
+
+### Test Coverage Requirements
+```bash
+# Coverage configuration
+[coverage run --source=[project] -m pytest]
+[coverage report --fail-under=[COVERAGE_THRESHOLD]]
+[coverage html]  # Generate HTML report
+```
+
+### Code Quality in Tests
+```python
+# Good test practices
+def test_descriptive_name_that_explains_what_is_tested():
+    """Test docstring explaining the test purpose and expected behavior."""
+    # Arrange - Set up test conditions
+    [setup_code]
+    
+    # Act - Perform the operation being tested
+    result = [operation_under_test]
+    
+    # Assert - Verify the results
+    assert result == [expected_result]
+    assert [additional_assertions]
+
+# Avoid these anti-patterns:
+def test_bad():  # ❌ Non-descriptive name
+    pass  # ❌ No implementation
+
+def test_everything():  # ❌ Testing too much in one test
+    # ❌ Multiple unrelated assertions
+    pass
+```
+
+### Validation Protocols
+
+#### Pre-Commit Validation
+```bash
+# Run before every commit
+[TEST_COMMAND]                 # Run all tests
+[LINT_COMMAND]                 # Check code style
+[TYPE_CHECK_COMMAND]           # Validate types
+[COVERAGE_COMMAND]             # Check coverage
+```
+
+#### CI/CD Pipeline Validation
+```yaml
+# Example pipeline steps
+- name: Run Unit Tests
+  run: [UNIT_TEST_COMMAND]
+  
+- name: Run Integration Tests  
+  run: [INTEGRATION_TEST_COMMAND]
+  
+- name: Run E2E Tests
+  run: [E2E_TEST_COMMAND]
+  
+- name: Check Coverage
+  run: [COVERAGE_COMMAND]
+  
+- name: Quality Gates
+  run: [QUALITY_CHECK_COMMAND]
+```
+
+## Debugging and Troubleshooting Tests
+
+### Test Debugging
+```python
+import pytest
+import logging
+
+# Enable detailed logging in tests
+logging.basicConfig(level=logging.DEBUG)
+
+def test_with_debugging():
+    """Test with enhanced debugging capabilities."""
+    # Use pytest markers for conditional execution
+    [setup_code]
+    
+    # Add debug prints
+    print(f"Debug: Testing with data: {[test_data]}")
+    
+    result = [operation]
+    
+    # Use detailed assertions
+    assert result is not None, "Result should not be None"
+    assert len(result) > 0, f"Result should have items, got: {result}"
+
+# Run specific tests with debug output
+# pytest -v -s tests/test_[specific].py::test_[function]
+```
+
+### Common Test Issues
+1. **Flaky Tests**: Use proper setup/teardown and avoid timing dependencies
+2. **Slow Tests**: Mock external dependencies and optimize test data
+3. **Test Isolation**: Ensure tests don't depend on each other
+4. **Resource Cleanup**: Always clean up resources in teardown
+
+## Template Customization Checklist
+
+When adapting this template:
+
+1. **Test Framework Setup**
+   - [ ] Selected appropriate testing framework for your language
+   - [ ] Configured test discovery and execution
+   - [ ] Set up test data and fixtures
+
+2. **Coverage Requirements**
+   - [ ] Defined coverage targets for different test types
+   - [ ] Set up coverage reporting and enforcement
+   - [ ] Integrated coverage with CI/CD pipeline
+
+3. **Test Organization**
+   - [ ] Adapted directory structure for your project
+   - [ ] Created appropriate test categories
+   - [ ] Established naming conventions
+
+4. **Quality Standards**
+   - [ ] Defined test quality guidelines
+   - [ ] Set up validation protocols
+   - [ ] Integrated with development workflow
+
+5. **Performance Testing**
+   - [ ] Added performance test requirements
+   - [ ] Set up load and memory testing
+   - [ ] Defined performance thresholds
+
+6. **Automation**
+   - [ ] Integrated tests with CI/CD
+   - [ ] Set up automated test execution
+   - [ ] Configured quality gates
+
+Remember: Good tests are an investment in code quality, reliability, and maintainability. They save time in the long run by catching issues early and enabling confident refactoring :-)
+
+This template provides a comprehensive testing framework that scales from simple projects to complex enterprise systems while maintaining high quality standards.
