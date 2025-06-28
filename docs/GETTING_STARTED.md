@@ -1,18 +1,18 @@
-# Getting Started with ClipScribe
+# Getting Started with ARGOS
 
-ClipScribe is an AI-powered tool that transcribes videos from 1800+ platforms including YouTube, Twitter, TikTok, and more. This guide will get you up and running in 5 minutes.
+ARGOS (formerly ClipScribe) is an AI-powered video intelligence tool that analyzes videos from 1800+ platforms including YouTube, Twitter, TikTok, and more. This guide will get you up and running in 5 minutes.
 
 ## Prerequisites
 
 You'll need:
-- Python 3.11, 3.12, or 3.13 installed
+- Python 3.12+ installed (3.13 supported)
 - Poetry package manager ([Install instructions](https://python-poetry.org/docs/#installation))
 - A Google API key for Gemini ([Get one free](https://makersuite.google.com/app/apikey))
 - ffmpeg installed (`brew install ffmpeg` on macOS)
 
 ## Quick Installation
 
-### 1. Install ClipScribe
+### 1. Install ARGOS
 
 ```bash
 # Clone the repository
@@ -23,14 +23,14 @@ cd clipscribe
 poetry install
 ```
 
-### 2. Set Your API Key
+### 2. Set Your API Key Securely
 
 ```bash
-# Option 1: Export as environment variable
-export GOOGLE_API_KEY="your-api-key-here"
-
-# Option 2: Create a .env file
+# RECOMMENDED: Create a .env file (secure)
 echo "GOOGLE_API_KEY=your-api-key-here" > .env
+
+# Alternative: Export as environment variable
+export GOOGLE_API_KEY="your-api-key-here"
 ```
 
 ### 3. Test Installation
@@ -42,43 +42,66 @@ poetry run clipscribe --help
 
 ## Basic Usage
 
-### Transcribe a Video
+### Process a Single Video
 
 ```bash
-# Transcribe any video URL
+# Basic video intelligence extraction
 poetry run clipscribe transcribe "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
 
 # Save to specific directory
-poetry run clipscribe transcribe "https://vimeo.com/123456789" -o transcripts/
+poetry run clipscribe transcribe "https://vimeo.com/123456789" -o analysis/
 
-# Get full analysis in JSON format
-poetry run clipscribe transcribe "https://twitter.com/user/status/123456" -f json
+# Enhanced temporal intelligence (v2.17.0)
+poetry run clipscribe transcribe "https://twitter.com/user/status/123456" --enhanced-temporal
 
-# Enable AI enhancement for better formatting
-poetry run clipscribe transcribe "https://tiktok.com/@user/video/123" --enhance
+# Full intelligence extraction with relationship analysis
+poetry run clipscribe transcribe "https://tiktok.com/@user/video/123" --use-advanced-extraction
+```
+
+### Process Multiple Videos (Collection Analysis)
+
+```bash
+# NEW in v2.17.0: Process multiple videos with Timeline Building Pipeline
+poetry run clipscribe process-collection "my-collection" \
+  "https://youtube.com/watch?v=video1" \
+  "https://youtube.com/watch?v=video2" \
+  --enhanced-temporal
+```
+
+### Research Command
+
+```bash
+# Research a topic across multiple videos
+poetry run clipscribe research "machine learning tutorials" --max-results 5
 ```
 
 ### Output Formats
 
-ClipScribe supports multiple output formats:
+ARGOS supports comprehensive intelligence extraction with multiple formats:
 
-- **txt** - Plain text transcript (default)
-- **json** - Structured data with metadata
-
-- **all** - Generate all formats
+- **txt** - Plain text transcript
+- **json** - Structured intelligence data with entities, relationships, and timelines
+- **csv** - Entity and relationship data for analysis
+- **gexf** - Knowledge graph for Gephi visualization
+- **markdown** - Professional reports with visualizations
 
 ```bash
-# Get all formats
-poetry run clipscribe transcribe "https://youtube.com/watch?v=..." -f all
+# Get all formats with full intelligence extraction
+poetry run clipscribe transcribe "https://youtube.com/watch?v=..." -f all --use-advanced-extraction
+```
+
+### Launch Mission Control Web Interface
+
+```bash
+# Launch the comprehensive web interface
+poetry run streamlit run streamlit_app/ClipScribe_Mission_Control.py
 ```
 
 ### Check Platform Support
 
 ```bash
-# List all supported platforms
+# List all supported platforms (1800+)
 poetry run clipscribe platforms
-
-# This shows popular platforms, but ClipScribe actually supports 1800+ sites!
 ```
 
 ## Common Use Cases

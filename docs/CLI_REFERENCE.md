@@ -1,6 +1,6 @@
-# ClipScribe CLI Reference (v2.17.0 - Enhanced Temporal Intelligence Implementation)
+# ARGOS CLI Reference (v2.17.0 - Enhanced Temporal Intelligence ✅ COMPLETE)
 
-Complete reference for all ClipScribe commands and options, featuring **Enhanced Temporal Intelligence** (3/4 components complete) with working relationship extraction and knowledge synthesis capabilities.
+Complete reference for all ARGOS commands and options, featuring **Enhanced Temporal Intelligence** with Timeline Building Pipeline (4/4 components complete) including web research integration, working relationship extraction, and comprehensive knowledge synthesis capabilities.
 
 ## Global Options
 

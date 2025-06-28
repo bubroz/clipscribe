@@ -5,19 +5,19 @@ build-backend = "poetry.core.masonry.api"
 [tool.poetry]
 name = "clipscribe"
 version = "2.17.0"
-description = "AI-powered video transcription and analysis tool using Gemini Flash"
+description = "ARGOS - AI-powered video intelligence with enhanced temporal intelligence and timeline building pipeline"
 authors = ["Zac Forristall <zforristall@gmail.com>"]
 readme = "README.md"
 license = "MIT"
 repository = "https://github.com/bubroz/clipscribe"
-keywords = ["video", "transcription", "AI", "Gemini", "knowledge extraction"]
+keywords = ["video", "intelligence", "temporal", "AI", "Gemini", "knowledge extraction", "timeline", "ARGOS"]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
 ]
 packages = [{include = "clipscribe", from = "src"}]
 
