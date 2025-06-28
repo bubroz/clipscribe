@@ -1,6 +1,6 @@
-# Extraction Technology in ClipScribe v2.15.0
+# Extraction Technology in ClipScribe v2.16.0
 
-This document explains the advanced extraction technologies, `GLiNER` and `REBEL`, that power ClipScribe's video intelligence features.
+This document explains the advanced extraction technologies, `GLiNER` and `REBEL`, that power ClipScribe's video intelligence features, plus planned enhancements for v2.17.0 Enhanced Temporal Intelligence.
 
 ## 🎯 **MAJOR BREAKTHROUGH: REBEL Relationship Extraction Fixed**
 
@@ -24,6 +24,35 @@ This document explains the advanced extraction technologies, `GLiNER` and `REBEL
 - "Carmen Aristegui | employer | Aristegui Noticias"
 - "United Arab Emirates | diplomatic relation | Saudi Arabia"
 - "Enrique Peña Nieto | President of Mexico | position held"
+
+## 🚀 **Enhanced Temporal Intelligence (v2.17.0 Planned)**
+
+ClipScribe is evolving to provide comprehensive temporal intelligence extraction with minimal cost impact:
+
+### **Enhanced Video Processing Pipeline**
+```
+Video → Gemini 2.5 Flash Enhanced Processing → {
+    accurate_transcript_with_timestamps,
+    temporal_events_from_speech,
+    visual_timestamp_recognition,
+    entities_with_temporal_context
+} → Timeline Synthesis → Interactive Visualizations
+```
+
+### **Temporal Intelligence Capabilities**:
+- **Temporal Event Extraction**: Parse historical events, dates, and chronological references from spoken content
+- **Visual Timestamp Recognition**: Extract dates and times visible on screen (documents, calendars, news chyrons)
+- **Accurate Transcript Segmentation**: Word-level timestamps for precise temporal mapping
+- **Cross-Video Timeline Building**: Correlate events across video collections
+
+### **Cost-Effective Implementation**:
+- **Base Processing**: Same Gemini 2.5 Flash video processing (~$0.40/video)
+- **Enhanced Prompting**: Additional ~200 tokens for temporal instructions
+- **Richer Output**: ~500-800 tokens for timestamp and temporal data
+- **Total Impact**: **12-20% cost increase for 300% more temporal intelligence**
+
+### **Timeline Building Strategy**:
+Instead of separate API calls, leverage existing video processing with enhanced temporal extraction, then synthesize timelines from the enriched data. This approach maximizes intelligence extraction per dollar spent.
 
 ## Entity Extraction Pipeline Architecture
 

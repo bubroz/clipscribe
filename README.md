@@ -230,12 +230,12 @@ The latest versions of ClipScribe also include these major enhancements:
 - **Cost & Time Tracking**: Live monitoring of API costs and processing time for each stage.
 - **Enhanced Markdown Reports**: Interactive reports with Mermaid diagrams, collapsible sections, and visual dashboards.
 
-### 💡 Coming in v2.16.0 Phase 2: Enhanced Mission Control
-- **Enhanced Visualizations**: Interactive network graphs and flow diagrams.
-- **Real-time Processing**: Live progress monitoring for CLI commands.
-- **Advanced Analytics**: Chart visualizations with Plotly integration.
-- **Components Library**: Reusable UI components for better modularity.
-- **Export Hub**: Multi-format exports and sharing capabilities.
+### 🚀 Coming in v2.17.0: Enhanced Temporal Intelligence
+- **Enhanced Video Processing**: Upgraded Flash processing with temporal event extraction, visual timestamp recognition, and accurate transcript segmentation (12-20% cost increase for 300% temporal intelligence gain).
+- **Content Event Timeline**: Chronological timeline building from video content with web research validation.
+- **Intelligent Playlist Processing**: Auto-detect playlist types and organize large collections using temporal patterns.
+- **Temporal Entity Validation**: Enhanced entity extraction with temporal context for improved accuracy.
+- **Mission Control Timeline Views**: Interactive timeline exploration in the web interface.
 
 ## 📋 Requirements
 

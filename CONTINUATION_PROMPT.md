@@ -129,11 +129,11 @@
 **Ready to Commit v2.16.0!** All changes staged and documentation cleanup complete ✅
 
 ### Next Phase Possibilities 🗺️
-**Immediate Priorities**:
-- **Content Event Timeline**: Extract temporal events from video content (e.g., "1984: Orwell publishes book") using Gemini 2.5 Pro + web research
-- **Intelligent Playlist Processing**: Auto-detect playlist types, organize content (example: 600+ Davis CA committee meetings)
-- **Entity Extraction Pipeline Optimization**: Fine-tune GLiNER for video domains, optimize SpaCy fallback coverage
-- **Knowledge Panel Integration with Chimera**: When projects merge, restore knowledge panel functionality
+**Immediate Priorities** (v2.17.0 Enhanced Temporal Intelligence):
+- **Enhanced Video Processing**: Upgrade existing Flash processing to extract temporal events, visual timestamps, and accurate transcript segmentation (~12-20% cost increase for 300% temporal intelligence gain)
+- **Content Event Timeline**: Build chronological timelines from enhanced temporal extraction with web research validation
+- **Intelligent Playlist Processing**: Auto-detect playlist types and organize content (example: 600+ Davis CA committee meetings) using temporal patterns
+- **Entity Extraction Pipeline Optimization**: Fine-tune GLiNER with temporal context, optimize SpaCy fallback coverage with time-aware validation
 
 **Future Enhancements**:
 - **Export Hub**: Multi-format exports (PDF reports, PowerPoint presentations)
