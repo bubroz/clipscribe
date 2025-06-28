@@ -96,7 +96,7 @@ See [VALIDATION_CHECKLIST.md](docs/VALIDATION_CHECKLIST.md) for complete validat
 
 ```bash
 # Basic video processing (validation in progress)
-poetry run clipscribe process "https://www.youtube.com/watch?v=6ZVj1_SE4Mo"
+poetry run clipscribe transcribe "https://www.youtube.com/watch?v=6ZVj1_SE4Mo"
 
 # Collection processing (validation in progress)  
 poetry run clipscribe process-collection "Test-Collection" "URL1" "URL2"
