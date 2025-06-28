@@ -24,6 +24,8 @@ class TaskType(Enum):
     ENTITY_CLEANING = "entity_cleaning"
     RELATIONSHIP_CLEANING = "relationship_cleaning"
     VALIDATION = "validation"
+    # v2.17.0 Enhanced Temporal Intelligence
+    TEMPORAL_INTELLIGENCE = "temporal_intelligence"
 
 
 class GeminiPool:

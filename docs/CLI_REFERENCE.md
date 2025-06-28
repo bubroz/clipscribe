@@ -1,6 +1,6 @@
-# ClipScribe CLI Reference (v2.15.0 - The Synthesis Complete Update)
+# ClipScribe CLI Reference (v2.17.0 - Enhanced Temporal Intelligence Implementation)
 
-Complete reference for all ClipScribe commands and options, featuring **working relationship extraction** and knowledge synthesis capabilities.
+Complete reference for all ClipScribe commands and options, featuring **Enhanced Temporal Intelligence** (3/4 components complete) with working relationship extraction and knowledge synthesis capabilities.
 
 ## Global Options
 
@@ -38,7 +38,7 @@ clipscribe transcribe [OPTIONS] URL
 | `--language` | `-l` | `en` | Language code (e.g., en, es, fr) |
 | `--include-timestamps` | | False | Include word-level timestamps |
 | `--enhance` | | False | Enable AI enhancement for better formatting |
-| `--enhanced-temporal` | | False | Enhanced temporal intelligence processing |
+| `--enhanced-temporal` | | False | Enhanced temporal intelligence processing (v2.17.0 IMPLEMENTED) |
 | `--skip-cleaning` | | False | Skip AI graph cleaning (v2.5+) |
 | `--clean-graph` | | False | Force AI graph cleaning (v2.5+) |
 | `--no-cache` | | False | Skip cache and force fresh processing |
@@ -65,7 +65,7 @@ clipscribe transcribe "https://youtube.com/watch?v=..." --skip-cleaning
 # Force fresh processing without cache (v2.5+)
 clipscribe transcribe "https://youtube.com/watch?v=..." --no-cache
 
-# Enhanced temporal intelligence processing (v2.17.0+)
+# Enhanced temporal intelligence processing with visual cues extraction (v2.17.0 IMPLEMENTED)
 clipscribe transcribe "https://youtube.com/watch?v=..." --enhanced-temporal
 
 # Test relationship extraction with PBS NewsHour content
