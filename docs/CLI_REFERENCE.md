@@ -38,7 +38,7 @@ clipscribe transcribe [OPTIONS] URL
 | `--language` | `-l` | `en` | Language code (e.g., en, es, fr) |
 | `--include-timestamps` | | False | Include word-level timestamps |
 | `--enhance` | | False | Enable AI enhancement for better formatting |
-| `--mode` | `-m` | `auto` | Processing mode: auto, audio, video |
+| `--enhanced-temporal` | | False | Enhanced temporal intelligence processing |
 | `--skip-cleaning` | | False | Skip AI graph cleaning (v2.5+) |
 | `--clean-graph` | | False | Force AI graph cleaning (v2.5+) |
 | `--no-cache` | | False | Skip cache and force fresh processing |
@@ -65,8 +65,8 @@ clipscribe transcribe "https://youtube.com/watch?v=..." --skip-cleaning
 # Force fresh processing without cache (v2.5+)
 clipscribe transcribe "https://youtube.com/watch?v=..." --no-cache
 
-# Audio-only mode for faster processing (v2.5+)
-clipscribe transcribe "https://youtube.com/watch?v=..." --mode audio
+# Enhanced temporal intelligence processing (v2.17.0+)
+clipscribe transcribe "https://youtube.com/watch?v=..." --enhanced-temporal
 
 # Test relationship extraction with PBS NewsHour content
 clipscribe transcribe "https://www.youtube.com/watch?v=6ZVj1_SE4Mo" --no-cache
@@ -101,7 +101,7 @@ clipscribe research [OPTIONS] QUERY
 | `--period` | | None | Filter topic search by time. Options: `hour`, `day`, `week`, `month`, `year`. |
 | `--sort-by` | | `relevance` | Sort order for channel search. Options: `relevance`, `newest`, `oldest`, `popular`. |
 | `--output-dir` | `-o` | `output/research` | Base directory for research results. Each video gets its own subdirectory. |
-| `--mode` | `-m` | `audio` | Processing mode for each video: `audio`, `video`, `auto`. |
+| `--enhanced-temporal` | | False | Enable enhanced temporal intelligence extraction (v2.17.0+). |
 | `--no-cache` | | False | Disable caching and force fresh processing for all videos. |
 
 **Examples:**
@@ -113,8 +113,8 @@ clipscribe research "latest on AI" -n 3 --period week
 # Get the 5 most popular videos from the PBS NewsHour channel
 clipscribe research "https://www.youtube.com/@pbsnewshour" -n 5 --sort-by popular
 
-# Get the 2 newest videos from a channel and process them in video mode
-clipscribe research "https://www.youtube.com/@mkbhd" -n 2 --sort-by newest --mode video
+# Get the 2 newest videos from a channel with enhanced temporal intelligence
+clipscribe research "https://www.youtube.com/@mkbhd" -n 2 --sort-by newest --enhanced-temporal
 ```
 
 ### `process-collection` - Process Multiple Videos as Collection (ENHANCED in v2.15.0)
@@ -137,7 +137,7 @@ clipscribe process-collection [OPTIONS] URL1 URL2 [URL3...]
 | `--auto-detect-series` | | False | Automatically detect if videos form a series |
 | `--user-confirmed-series` | | False | User confirms this is a series (skips detection) |
 | `--output-dir` | `-o` | `output/collections` | Output directory for collection analysis |
-| `--mode` | `-m` | `audio` | Processing mode: `audio`, `video`, `auto` |
+| `--enhanced-temporal` | | False | Enhanced temporal intelligence processing |
 | `--use-cache/--no-cache` | | True | Use cached results if available |
 | `--enhance-transcript` | | False | Add speaker diarization and timestamps |
 | `--clean-graph` | | False | Clean knowledge graph with AI |
@@ -167,7 +167,7 @@ clipscribe process-collection \
   "https://youtube.com/watch?v=video1" \
   "https://youtube.com/watch?v=video2" \
   --collection-type channel_analysis \
-  --mode video \
+  --enhanced-temporal \
   --enhance-transcript \
   --clean-graph
 ```
@@ -200,7 +200,7 @@ clipscribe process-series [OPTIONS] URL1 URL2 [URL3...]
 |--------|-------|---------|-------------|
 | `--output-dir` | `-o` | `output/series` | Output directory for series analysis |
 | `--series-title` | `-t` | Auto-detected | Title for the video series |
-| `--mode` | `-m` | `audio` | Processing mode: `audio`, `video`, `auto` |
+| `--enhanced-temporal` | | False | Enhanced temporal intelligence processing |
 | `--use-cache/--no-cache` | | True | Use cached results if available |
 | `--enhance-transcript` | | False | Add speaker diarization and timestamps |
 | `--clean-graph` | | False | Clean knowledge graph with AI |

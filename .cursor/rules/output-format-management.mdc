@@ -11,24 +11,42 @@ alwaysApply: false
 
 # Output Format Management
 
-## Directory Structure
+## Directory Structure (v2.17.0 Enhanced Temporal Intelligence)
 
-ClipScribe uses a structured, machine-readable output format:
+ClipScribe uses a structured, machine-readable output format optimized for enhanced temporal intelligence:
 
 ```
 output/
 └── 20250624_youtube_DizuEaYDWBg/  # {date}_{platform}_{id}
-    ├── manifest.json              # File index and metadata
-    ├── metadata.json              # Video metadata
-    ├── transcript.txt             # Plain text transcript
-    ├── transcript.json            # Full structured data
-    ├── transcript.srt             # SRT subtitles
-    ├── transcript.vtt             # WebVTT subtitles
-    ├── entities.json              # Extracted entities
-    ├── relationships.json         # Entity relationships (v2.2+)
-    ├── knowledge_graph.json       # Graph structure (v2.2+)
-    ├── facts.txt                  # Key facts (v2.2+)
-    └── chimera_format.json        # Chimera-compatible format
+    ├── manifest.json                    # File index and metadata
+    ├── metadata.json                    # Video metadata
+    ├── transcript.txt                   # Plain text transcript
+    ├── transcript.json                  # Structured transcript with word-level timestamps
+    ├── temporal_intelligence.json       # Enhanced temporal intelligence data
+    ├── timeline.json                    # Temporal event timeline
+    ├── entities.json                    # Entities with temporal context
+    ├── relationships.json               # Entity relationships
+    ├── knowledge_graph.json             # Graph structure with temporal intelligence
+    ├── facts.txt                        # Key facts with temporal anchoring
+    ├── report.md                        # Interactive markdown report with visualizations
+    └── chimera_format.json              # Chimera-compatible format
+
+# Video Retention (if enabled)
+video_archive/
+├── processed/
+│   └── 20250624_youtube_DizuEaYDWBg.mp4  # Archived processed videos
+└── failed/
+    └── failed_videos_with_metadata.json
+
+# Collections (multi-video)
+collections/
+└── {collection-id}/
+    ├── collection_metadata.json
+    ├── consolidated_timeline.json       # Cross-video timeline synthesis
+    ├── unified_knowledge_graph.json     # Merged knowledge graph
+    └── videos/                          # Individual video outputs
+        ├── video1/
+        └── video2/
 ```
 
 ## Adding New Formats
@@ -82,43 +100,85 @@ if "markdown" in paths:
 
 ## Format Generators
 
-### SRT Format
+### Enhanced Temporal Intelligence Format (v2.17.0)
 ```python
-def _generate_srt(self, video: VideoIntelligence) -> str:
-    """Generate SRT subtitle format."""
-    if video.transcript.segments:
-        srt_lines = []
-        for i, segment in enumerate(video.transcript.segments, 1):
-            start = self._seconds_to_srt_time(segment['start'])
-            end = self._seconds_to_srt_time(segment['end'])
-            
-            srt_lines.extend([
-                str(i),
-                f"{start} --> {end}",
-                segment['text'],
-                ""  # Empty line between entries
-            ])
-        return "\n".join(srt_lines)
-    else:
-        # Fallback for no segments
-        duration = video.metadata.duration
-        return f"1\n00:00:00,000 --> {self._seconds_to_srt_time(duration)}\n{video.transcript.full_text}\n"
+def _generate_temporal_intelligence(self, video: VideoIntelligence) -> dict:
+    """Generate enhanced temporal intelligence format."""
+    return {
+        "temporal_events": [
+            {
+                "event_id": event.event_id,
+                "event_type": event.event_type,
+                "timestamp": event.timestamp,
+                "extracted_date": event.extracted_date,
+                "date_source": event.date_source,
+                "description": event.description,
+                "confidence": event.confidence,
+                "visual_indicators": event.visual_indicators,
+                "context": event.context
+            }
+            for event in video.temporal_intelligence.temporal_events
+        ],
+        "visual_timestamps": [
+            {
+                "timestamp": vt.timestamp,
+                "visual_text": vt.visual_text,
+                "extracted_date": vt.extracted_date,
+                "confidence": vt.confidence,
+                "source_type": vt.source_type  # document, calendar, chyron, etc.
+            }
+            for vt in video.temporal_intelligence.visual_timestamps
+        ],
+        "transcript_segments": [
+            {
+                "start_time": segment.start_time,
+                "end_time": segment.end_time,
+                "text": segment.text,
+                "speaker": segment.speaker,
+                "temporal_references": segment.temporal_references,
+                "entity_mentions": segment.entity_mentions
+            }
+            for segment in video.temporal_intelligence.transcript_segments
+        ],
+        "processing_metadata": {
+            "enhancement_level": video.temporal_intelligence.enhancement_level,
+            "processing_cost": video.temporal_intelligence.processing_cost,
+            "extraction_timestamp": video.temporal_intelligence.extraction_timestamp.isoformat(),
+            "visual_analysis_enabled": video.temporal_intelligence.visual_analysis_enabled
+        }
+    }
 ```
 
-### Time Formatting
+### Timeline Synthesis Format
 ```python
-def _seconds_to_srt_time(self, seconds: float) -> str:
-    """Convert seconds to SRT format (00:00:00,000)."""
-    hours = int(seconds // 3600)
-    minutes = int((seconds % 3600) // 60)
-    secs = int(seconds % 60)
-    millis = int((seconds % 1) * 1000)
-    return f"{hours:02d}:{minutes:02d}:{secs:02d},{millis:03d}"
-
-def _seconds_to_vtt_time(self, seconds: float) -> str:
-    """Convert seconds to WebVTT format (00:00:00.000)."""
-    # Same as SRT but with . instead of ,
-    return self._seconds_to_srt_time(seconds).replace(',', '.')
+def _generate_timeline(self, timeline: ConsolidatedTimeline) -> dict:
+    """Generate timeline synthesis format."""
+    return {
+        "timeline_id": timeline.timeline_id,
+        "events": [
+            {
+                "event_id": event.event_id,
+                "timestamp": event.timestamp.isoformat(),
+                "title": event.title,
+                "description": event.description,
+                "event_type": event.event_type,
+                "confidence": event.confidence,
+                "source_videos": event.source_videos,
+                "related_entities": event.related_entities,
+                "temporal_context": event.temporal_context
+            }
+            for event in timeline.events
+        ],
+        "synthesis_metadata": {
+            "total_events": len(timeline.events),
+            "time_span": {
+                "earliest_event": timeline.earliest_event.isoformat(),
+                "latest_event": timeline.latest_event.isoformat()
+            },
+            "cross_video_correlations": timeline.cross_video_correlations,
+            "synthesis_timestamp": timeline.synthesis_timestamp.isoformat()
+        }
+    }
 ```
 
 ## Specialized Formats
@@ -243,23 +303,90 @@ def validate_output(paths: Dict[str, Path]) -> bool:
     return True
 ```
 
-## Best Practices
+## Video Retention Management (v2.17.0)
+
+### Retention Metadata Format
+```python
+def _generate_retention_metadata(self, video_path: Path, retention_info: RetentionInfo) -> dict:
+    """Generate video retention metadata."""
+    return {
+        "retention_policy": retention_info.policy,
+        "original_video_path": str(video_path),
+        "archived_video_path": str(retention_info.archived_path) if retention_info.archived_path else None,
+        "processing_timestamp": retention_info.processing_timestamp.isoformat(),
+        "retention_decision": {
+            "storage_cost": retention_info.storage_cost,
+            "reprocessing_cost": retention_info.reprocessing_cost,
+            "recommendation": retention_info.recommendation,
+            "break_even_days": retention_info.break_even_days
+        },
+        "video_metadata": {
+            "file_size_mb": retention_info.file_size_mb,
+            "duration_minutes": retention_info.duration_minutes,
+            "format": retention_info.video_format
+        }
+    }
+```
+
+### Archive Organization
+```python
+def organize_video_archive(self, retention_policy: VideoRetentionPolicy, video_metadata: dict):
+    """Organize video archive based on policy and metadata."""
+    
+    if retention_policy == VideoRetentionPolicy.KEEP_PROCESSED:
+        # Organize by date and platform
+        archive_path = self.archive_dir / "processed" / metadata["date"] / metadata["platform"]
+        archive_path.mkdir(parents=True, exist_ok=True)
+        
+    elif retention_policy == VideoRetentionPolicy.KEEP_ALL:
+        # Organize by processing status
+        status = "success" if metadata["processing_successful"] else "failed"
+        archive_path = self.archive_dir / status / metadata["date"]
+        archive_path.mkdir(parents=True, exist_ok=True)
+    
+    return archive_path
+```
+
+## Best Practices (v2.17.0)
 
 1. **Always use UTF-8 encoding** for text files
-2. **Include file size** in manifest for validation
-3. **Use consistent naming** across all formats
-4. **Validate output** after generation
-5. **Handle missing data gracefully** (empty lists, None values)
-6. **Version your formats** in manifest
-7. **Make formats self-documenting** with clear structure
+2. **Include file size and checksums** in manifest for validation
+3. **Use consistent naming** across all formats with temporal context
+4. **Validate output** after generation including temporal intelligence
+5. **Handle missing data gracefully** (empty lists, None values, missing temporal events)
+6. **Version your formats** in manifest with temporal intelligence schema version
+7. **Make formats self-documenting** with clear structure and temporal metadata
+8. **Implement smart retention** based on cost analysis and processing success
+9. **Archive with metadata** to enable future analysis and clip extraction
+10. **Cross-video correlation** for timeline synthesis and collection intelligence
 
-## CLI Integration
+## CLI Integration (v2.17.0 Enhanced)
 
 ```python
 @click.option(
     "--format", "-f",
-    type=click.Choice(['txt', 'srt', 'vtt', 'json', 'md', 'all']),
-    default='txt',
-    help='Output format for transcription'
+    type=click.Choice(['txt', 'json', 'temporal', 'timeline', 'gexf', 'md', 'all']),
+    default='json',
+    help='Output format for enhanced video intelligence'
+)
+
+@click.option(
+    "--temporal-level",
+    type=click.Choice(['basic', 'optimized', 'enhanced']),
+    default='optimized',
+    help='Temporal intelligence enhancement level'
+)
+
+@click.option(
+    "--retention-policy",
+    type=click.Choice(['delete', 'keep_processed', 'keep_all']),
+    default='delete',
+    help='Video retention policy after processing'
+)
+
+@click.option(
+    "--enable-visual-timestamps/--disable-visual-timestamps",
+    default=True,
+    help='Extract timestamps from visual elements'
 )
 ```

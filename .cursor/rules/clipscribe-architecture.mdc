@@ -1,76 +1,109 @@
 ---
-description: 
-globs: 
-alwaysApply: true
----
----
-description: "Core architecture and design patterns for ClipScribe"
+description: "Core architecture and design patterns for ClipScribe v2.17.0 Enhanced Temporal Intelligence"
 globs: ["src/**/*.py", "pyproject.toml"]
 alwaysApply: true
 ---
 
-# ClipScribe Architecture Guidelines
+# ClipScribe Architecture Guidelines (v2.17.0 Enhanced Temporal Intelligence)
 
-## Project Structure
+## Core Principles (v2.17.0)
 
-ClipScribe follows a modular architecture with clear separation of concerns:
+1. **Direct Video Intelligence**: Single-call processing eliminates audio extraction inefficiency
+2. **Enhanced Temporal Intelligence**: Extract 300% more temporal intelligence for 12-20% cost increase
+3. **Smart Video Retention**: Balance storage costs vs reprocessing costs
+4. **Type Safety**: Comprehensive type hints with temporal intelligence models
+5. **Cost Optimization**: Transparent cost tracking with intelligent routing
+6. **Timeline Synthesis**: Cross-video temporal correlation and synthesis
+7. **Modular Enhancement**: Each component supports temporal intelligence extension
 
-```
-src/clipscribe/
-├── commands/       # CLI interface
-├── config/         # Configuration management
-├── extractors/     # Knowledge extraction modules
-├── models.py       # Data models and schemas
-├── retrievers/     # Video/audio retrieval and processing
-└── utils/          # Shared utilities
-```
+## Key Components (v2.17.0 Optimized)
 
-## Core Principles
-
-1. **Modularity**: Each component should be independently testable and replaceable
-2. **Type Safety**: Use type hints throughout the codebase
-3. **Configuration**: All settings should be centralized in `config/settings.py`
-4. **Error Handling**: Use custom exceptions and proper error propagation
-
-## Key Components
-
-### Retrievers
-- Handle video/audio retrieval, transcription, and intelligence extraction.
-- `UniversalVideoClient`: Handles downloading from 1800+ platforms.
-- `GeminiFlashTranscriber`: Performs transcription and basic analysis.
-- `VideoIntelligenceRetriever`: The main orchestrator. It composes the other clients and extractors to create a full analysis. Its `save_all_formats` method was refactored into smaller, single-purpose methods for maintainability.
-
-### Extractors
-- Process transcripts to extract structured knowledge
-- Support multiple extraction strategies (SpaCy, GLiNER, REBEL, etc.)
-- Return standardized output formats
-
-### Models
-- Define Pydantic models for all data structures
-- Ensure backward compatibility when updating schemas
-- Use proper validation for all inputs
-
-## Coding Standards
-
-- Use Poetry for dependency management
-- Follow PEP 8 with Black formatting
-- Maintain comprehensive docstrings (Google style)
-- Keep functions focused and under 50 lines
-- Prefer composition over inheritance
-
-## Import Organization
-
+### Enhanced Video Processing Pipeline
 ```python
-# Standard library imports
-import os
-import sys
-from typing import Dict, List, Optional
-
-# Third-party imports
-import pydantic
-from loguru import logger
-
-# Local imports
-from clipscribe.config import settings
-from clipscribe.models import VideoIntelligence
+# Optimized Architecture Flow
+Video URL → UniversalVideoClient.download_video() → 
+VideoProcessor.process_direct() → TemporalIntelligenceExtractor.extract() →
+TimelineBuilder.synthesize() → RetentionManager.handle_retention() →
+Enhanced Intelligence Output
 ```
+
+### Retrievers (Video Processing Core)
+- **VideoProcessor**: Direct video-to-Gemini 2.5 Flash processing with temporal intelligence
+- **UniversalVideoClient**: Enhanced downloading from 1800+ platforms with retention support
+- **TemporalIntelligenceExtractor**: Comprehensive temporal intelligence extraction
+- **RetentionManager**: Smart video retention with cost optimization
+- **GeminiPool**: Model pool management for different processing tasks
+- **VideoIntelligenceRetriever**: Main orchestrator with enhanced temporal capabilities
+
+### Video Retention System
+```python
+class VideoRetentionManager:
+    """Manage video retention with cost optimization."""
+    
+    def __init__(self, retention_policy: VideoRetentionPolicy = VideoRetentionPolicy.DELETE):
+        self.retention_policy = retention_policy
+        self.archive_directory = Path("output/video_archive")
+        self.cost_optimizer = RetentionCostOptimizer()
+```
+
+### Timeline Building Architecture
+```python
+class TimelineBuilder:
+    """Build comprehensive timelines from temporal intelligence."""
+    
+    async def build_timeline(self, videos: List[VideoIntelligence]) -> ConsolidatedTimeline:
+        """Build comprehensive timeline from multiple videos."""
+        
+        # Extract temporal events from each video
+        temporal_events = []
+        for video in videos:
+            events = await self.temporal_extractor.extract_temporal_events(video)
+            temporal_events.extend(events)
+        
+        # Correlate events across videos and synthesize timeline
+        correlated_events = await self.correlator.correlate_temporal_events(temporal_events)
+        timeline = await self.synthesizer.synthesize_timeline(correlated_events)
+        
+        return timeline
+```
+
+## Architectural Patterns (v2.17.0)
+
+### 1. Direct Processing Pattern
+```python
+# v2.17.0 OPTIMIZED - Single comprehensive call
+async def process_video_enhanced(self, video_path: Path) -> TemporalIntelligence:
+    """Direct video processing with enhanced temporal intelligence."""
+    
+    # Single Gemini 2.5 Flash call for comprehensive analysis
+    async with self.cost_tracker.track_operation("enhanced_temporal_processing"):
+        temporal_intelligence = await self.gemini_pool["video_processing"].generate_content_async(
+            [self.comprehensive_temporal_prompt, video_path],
+            generation_config=self.temporal_config
+        )
+    
+    return self._parse_temporal_intelligence(temporal_intelligence.text)
+
+# OLD v2.16.0 - Inefficient multiple steps
+# video → extract_audio → transcribe → analyze → extract_entities
+```
+
+### 2. Retention Cost Optimization Pattern
+```python
+class RetentionCostOptimizer:
+    """Optimize video retention decisions."""
+    
+    async def analyze_retention_cost(self, video_path: Path, processing_result: ProcessingResult):
+        """Analyze cost trade-offs for video retention."""
+        
+        storage_cost = self._calculate_storage_cost(video_path)
+        reprocessing_cost = self._estimate_reprocessing_cost(processing_result.metadata)
+        
+        return RetentionAnalysis(
+            storage_cost=storage_cost,
+            reprocessing_cost=reprocessing_cost,
+            recommendation="retain" if storage_cost < reprocessing_cost else "delete"
+        )
+```
+
+Remember: v2.17.0 architecture optimizes for enhanced temporal intelligence while maintaining cost efficiency through direct processing and smart retention :-)

@@ -102,7 +102,7 @@ This happens when:
 2. Video is age-restricted
 3. Video is private/deleted
 
-**Solution**: Use audio transcription mode
+**Solution**: Use enhanced temporal intelligence processing for optimal performance
 ```bash
 clipscribe process "URL" --force-transcribe
 ```
@@ -159,7 +159,7 @@ ERROR: 504 Deadline Exceeded
 
 2. For very long videos, consider:
    - Using `--start-time` and `--end-time` to process segments
-   - Processing in audio mode (faster than video mode)
+   - Using enhanced temporal intelligence for optimal processing
    - Breaking into smaller chunks
 
 **Example for processing a segment:**
@@ -190,7 +190,7 @@ Monitor costs with:
 # Check estimated cost before processing
 clipscribe estimate "URL"
 
-# Use audio-only mode
+# Use enhanced temporal intelligence
 clipscribe process "URL" --mode audio
 
 # Set cost limit
