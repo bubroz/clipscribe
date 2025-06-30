@@ -1,0 +1,963 @@
+{
+  "map_id": "flow_map_20250630_collection_6ZVj1_SE4Mo_2",
+  "collection_id": "20250630_collection_6ZVj1_SE4Mo_2",
+  "collection_title": "Pegasus Spyware Investigation: Timeline v2.0 Demo",
+  "concept_nodes": [
+    {
+      "node_id": "concept_6ZVj1_SE4Mo_65_0",
+      "concept_name": "Pegasus",
+      "video_id": "6ZVj1_SE4Mo",
+      "video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+      "timestamp": 65,
+      "maturity_level": "mentioned",
+      "context": "Pegasus technology is far ahead of government regulation and public understanding.",
+      "explanation_depth": 0.41,
+      "key_points": [
+        "Pegasus technology is far ahead of government regulation and public understanding."
+      ],
+      "related_entities": [
+        "Technology",
+        "Pegasus",
+        "Government",
+        "Technology",
+        "Pegasus"
+      ],
+      "sentiment": 0.0,
+      "confidence": 0.9,
+      "information_density": 0.7272727272727273,
+      "video_sequence_position": 0
+    },
+    {
+      "node_id": "concept_6ZVj1_SE4Mo_255_1",
+      "concept_name": "Forbidden Stories'",
+      "video_id": "6ZVj1_SE4Mo",
+      "video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+      "timestamp": 255,
+      "maturity_level": "mentioned",
+      "context": "Forbidden Stories' data identifying NSO customers and targets is considered a 'game changer' for understanding cyber surveillance.",
+      "explanation_depth": 0.65,
+      "key_points": [
+        "Forbidden Stories' data identifying NSO customers and targets is considered a 'game changer' for understanding cyber surveillance."
+      ],
+      "related_entities": [
+        "Forbidden Stories",
+        "Surveillance"
+      ],
+      "sentiment": 0.0,
+      "confidence": 0.9,
+      "information_density": 0.7647058823529411,
+      "video_sequence_position": 0
+    },
+    {
+      "node_id": "concept_6ZVj1_SE4Mo_410_2",
+      "concept_name": "Journalists",
+      "video_id": "6ZVj1_SE4Mo",
+      "video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+      "timestamp": 410,
+      "maturity_level": "mentioned",
+      "context": "Journalists from rival organizations adopted a partnership model for this investigation, working as one group with one goal.",
+      "explanation_depth": 0.62,
+      "key_points": [
+        "Journalists from rival organizations adopted a partnership model for this investigation, working as one group with one goal."
+      ],
+      "related_entities": [
+        "One",
+        "Journalists",
+        "Investigation"
+      ],
+      "sentiment": 0.0,
+      "confidence": 0.9,
+      "information_density": 0.7777777777777778,
+      "video_sequence_position": 0
+    },
+    {
+      "node_id": "concept_6ZVj1_SE4Mo_460_3",
+      "concept_name": "Proving Pegasus",
+      "video_id": "6ZVj1_SE4Mo",
+      "video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+      "timestamp": 460,
+      "maturity_level": "mentioned",
+      "context": "Proving Pegasus was on phones required forensic analysis.",
+      "explanation_depth": 0.385,
+      "key_points": [
+        "Proving Pegasus was on phones required forensic analysis."
+      ],
+      "related_entities": [
+        "Pegasus",
+        "One",
+        "Phones",
+        "Pegasus",
+        "Pegasus"
+      ],
+      "sentiment": 0.0,
+      "confidence": 0.9,
+      "information_density": 0.875,
+      "video_sequence_position": 0
+    },
+    {
+      "node_id": "concept_6ZVj1_SE4Mo_470_4",
+      "concept_name": "Claudio Guarnieri,",
+      "video_id": "6ZVj1_SE4Mo",
+      "video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+      "timestamp": 470,
+      "maturity_level": "mentioned",
+      "context": "Claudio Guarnieri, head of Amnesty International's Security Lab, created a methodology for phone analysis.",
+      "explanation_depth": 0.63,
+      "key_points": [
+        "Claudio Guarnieri, head of Amnesty International's Security Lab, created a methodology for phone analysis."
+      ],
+      "related_entities": [
+        "Claudio Guarnieri",
+        "Amnesty International's",
+        "One"
+      ],
+      "sentiment": 0.0,
+      "confidence": 0.9,
+      "information_density": 0.7857142857142857,
+      "video_sequence_position": 0
+    },
+    {
+      "node_id": "topic_6ZVj1_SE4Mo_Pegasus_Spyware",
+      "concept_name": "Pegasus Spyware",
+      "video_id": "6ZVj1_SE4Mo",
+      "video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+      "timestamp": 0,
+      "maturity_level": "mentioned",
+      "context": "The transcript details the pervasive use of Pegasus spyware, developed by the Israeli NSO Group, to clandestinely monitor journalists, human rights activists, and dissidents globally",
+      "explanation_depth": 0.85,
+      "key_points": [],
+      "related_entities": [
+        "Israel",
+        "Pegasus",
+        "Pegasus",
+        "Pegasus",
+        "Pegasus"
+      ],
+      "sentiment": 0.0,
+      "confidence": 0.85,
+      "information_density": 0.3,
+      "video_sequence_position": 0
+    },
+    {
+      "node_id": "topic_6ZVj1_SE4Mo_NSO_Group",
+      "concept_name": "NSO Group",
+      "video_id": "6ZVj1_SE4Mo",
+      "video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+      "timestamp": 0,
+      "maturity_level": "mentioned",
+      "context": "The transcript details the pervasive use of Pegasus spyware, developed by the Israeli NSO Group, to clandestinely monitor journalists, human rights activists, and dissidents globally",
+      "explanation_depth": 0.85,
+      "key_points": [],
+      "related_entities": [
+        "Israel",
+        "Pegasus",
+        "Pegasus",
+        "Pegasus",
+        "Pegasus"
+      ],
+      "sentiment": 0.0,
+      "confidence": 0.85,
+      "information_density": 0.3,
+      "video_sequence_position": 0
+    },
+    {
+      "node_id": "topic_6ZVj1_SE4Mo_Cyber_Surveillance",
+      "concept_name": "Cyber Surveillance",
+      "video_id": "6ZVj1_SE4Mo",
+      "video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+      "timestamp": 0,
+      "maturity_level": "mentioned",
+      "context": "A joint investigation, spearheaded by Forbidden Films and featuring collaborations with 17 news outlets including The Washington Post, The Guardian, and Le Monde, unveiled a list of 50,000 targeted phone numbers from 2016 to 2020, revealing the scale of this cyber surveillance.\n\nThe investigation highlighted Pegasus's advanced capabilities, which allow it to infect iPhones and Androids, turning them into comprehensive surveillance devices",
+      "explanation_depth": 0.85,
+      "key_points": [],
+      "related_entities": [
+        "The Guardian",
+        "The Washington Post",
+        "Le Monde",
+        "Washington",
+        "Pegasus"
+      ],
+      "sentiment": 0.0,
+      "confidence": 0.85,
+      "information_density": 0.3,
+      "video_sequence_position": 0
+    },
+    {
+      "node_id": "topic_6ZVj1_SE4Mo_Human_Rights",
+      "concept_name": "Human Rights",
+      "video_id": "6ZVj1_SE4Mo",
+      "video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+      "timestamp": 0,
+      "maturity_level": "mentioned",
+      "context": "The transcript details the pervasive use of Pegasus spyware, developed by the Israeli NSO Group, to clandestinely monitor journalists, human rights activists, and dissidents globally",
+      "explanation_depth": 0.85,
+      "key_points": [],
+      "related_entities": [
+        "Israel",
+        "Pegasus",
+        "Pegasus",
+        "Pegasus",
+        "Pegasus"
+      ],
+      "sentiment": 0.0,
+      "confidence": 0.85,
+      "information_density": 0.3,
+      "video_sequence_position": 0
+    },
+    {
+      "node_id": "topic_6ZVj1_SE4Mo_Journalism",
+      "concept_name": "Journalism",
+      "video_id": "6ZVj1_SE4Mo",
+      "video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+      "timestamp": 0,
+      "maturity_level": "mentioned",
+      "context": "Topic 'Journalism' discussed in video",
+      "explanation_depth": 0.85,
+      "key_points": [],
+      "related_entities": [],
+      "sentiment": 0.0,
+      "confidence": 0.85,
+      "information_density": 0.3,
+      "video_sequence_position": 0
+    },
+    {
+      "node_id": "topic_6ZVj1_SE4Mo_International_Relations",
+      "concept_name": "International Relations",
+      "video_id": "6ZVj1_SE4Mo",
+      "video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+      "timestamp": 0,
+      "maturity_level": "mentioned",
+      "context": "Topic 'International Relations' discussed in video",
+      "explanation_depth": 0.85,
+      "key_points": [],
+      "related_entities": [],
+      "sentiment": 0.0,
+      "confidence": 0.85,
+      "information_density": 0.3,
+      "video_sequence_position": 0
+    },
+    {
+      "node_id": "topic_6ZVj1_SE4Mo_Digital_Security",
+      "concept_name": "Digital Security",
+      "video_id": "6ZVj1_SE4Mo",
+      "video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+      "timestamp": 0,
+      "maturity_level": "mentioned",
+      "context": "Digital security against Pegasus is challenging, with limited ability to stop it meaningfully.",
+      "explanation_depth": 0.85,
+      "key_points": [],
+      "related_entities": [
+        "Pegasus",
+        "Pegasus",
+        "Pegasus",
+        "Pegasus"
+      ],
+      "sentiment": 0.0,
+      "confidence": 0.85,
+      "information_density": 0.3,
+      "video_sequence_position": 0
+    },
+    {
+      "node_id": "topic_6ZVj1_SE4Mo_Investigative_Journalism",
+      "concept_name": "Investigative Journalism",
+      "video_id": "6ZVj1_SE4Mo",
+      "video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+      "timestamp": 0,
+      "maturity_level": "mentioned",
+      "context": "Topic 'Investigative Journalism' discussed in video",
+      "explanation_depth": 0.85,
+      "key_points": [],
+      "related_entities": [],
+      "sentiment": 0.0,
+      "confidence": 0.85,
+      "information_density": 0.3,
+      "video_sequence_position": 0
+    },
+    {
+      "node_id": "concept_xYMWTXIkANM_105_13",
+      "concept_name": "Former French",
+      "video_id": "xYMWTXIkANM",
+      "video_title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+      "timestamp": 105,
+      "maturity_level": "mentioned",
+      "context": "Former French minister François de Rugy was identified as a target, with his phone analysis confirming he was targeted by the Kingdom of Morocco.",
+      "explanation_depth": 0.825,
+      "key_points": [
+        "Former French minister François de Rugy was identified as a target, with his phone analysis confirming he was targeted by the Kingdom of Morocco."
+      ],
+      "related_entities": [
+        "François de Rugy",
+        "Morocco",
+        "François de Rugy",
+        "One",
+        "Phone"
+      ],
+      "sentiment": 0.0,
+      "confidence": 0.9,
+      "information_density": 0.6666666666666666,
+      "video_sequence_position": 1
+    },
+    {
+      "node_id": "concept_xYMWTXIkANM_174_14",
+      "concept_name": "French",
+      "video_id": "xYMWTXIkANM",
+      "video_title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+      "timestamp": 174,
+      "maturity_level": "mentioned",
+      "context": "The analysis results of the French President's phone were classified as 'secret defense' and made inaccessible.",
+      "explanation_depth": 0.655,
+      "key_points": [
+        "The analysis results of the French President's phone were classified as 'secret defense' and made inaccessible."
+      ],
+      "related_entities": [
+        "One",
+        "Phone",
+        "We"
+      ],
+      "sentiment": 0.0,
+      "confidence": 0.95,
+      "information_density": 0.6875,
+      "video_sequence_position": 1
+    },
+    {
+      "node_id": "topic_xYMWTXIkANM_Cyber_Espionage",
+      "concept_name": "Cyber Espionage",
+      "video_id": "xYMWTXIkANM",
+      "video_title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+      "timestamp": 0,
+      "maturity_level": "mentioned",
+      "context": "Topic 'Cyber Espionage' discussed in video",
+      "explanation_depth": 0.85,
+      "key_points": [],
+      "related_entities": [],
+      "sentiment": 0.0,
+      "confidence": 0.85,
+      "information_density": 0.3,
+      "video_sequence_position": 1
+    },
+    {
+      "node_id": "topic_xYMWTXIkANM_Human_Rights_Violations",
+      "concept_name": "Human Rights Violations",
+      "video_id": "xYMWTXIkANM",
+      "video_title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+      "timestamp": 0,
+      "maturity_level": "mentioned",
+      "context": "Topic 'Human Rights Violations' discussed in video",
+      "explanation_depth": 0.85,
+      "key_points": [],
+      "related_entities": [],
+      "sentiment": 0.0,
+      "confidence": 0.85,
+      "information_density": 0.3,
+      "video_sequence_position": 1
+    },
+    {
+      "node_id": "topic_xYMWTXIkANM_Government_Surveillance",
+      "concept_name": "Government Surveillance",
+      "video_id": "xYMWTXIkANM",
+      "video_title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+      "timestamp": 0,
+      "maturity_level": "mentioned",
+      "context": "Topic 'Government Surveillance' discussed in video",
+      "explanation_depth": 0.85,
+      "key_points": [],
+      "related_entities": [],
+      "sentiment": 0.0,
+      "confidence": 0.85,
+      "information_density": 0.3,
+      "video_sequence_position": 1
+    },
+    {
+      "node_id": "topic_xYMWTXIkANM_Pegasus_Spyware",
+      "concept_name": "Pegasus Spyware",
+      "video_id": "xYMWTXIkANM",
+      "video_title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+      "timestamp": 0,
+      "maturity_level": "mentioned",
+      "context": "Topic 'Pegasus Spyware' discussed in video",
+      "explanation_depth": 0.85,
+      "key_points": [],
+      "related_entities": [
+        "Pegasus",
+        "Pegasus",
+        "Pegasus"
+      ],
+      "sentiment": 0.0,
+      "confidence": 0.85,
+      "information_density": 0.3,
+      "video_sequence_position": 1
+    },
+    {
+      "node_id": "topic_xYMWTXIkANM_NSO_Group",
+      "concept_name": "NSO Group",
+      "video_id": "xYMWTXIkANM",
+      "video_title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+      "timestamp": 0,
+      "maturity_level": "mentioned",
+      "context": "The use of NSO Group's technology reveals insights into the nature of the client government.",
+      "explanation_depth": 0.85,
+      "key_points": [],
+      "related_entities": [
+        "NSO Group",
+        "Technology"
+      ],
+      "sentiment": 0.0,
+      "confidence": 0.85,
+      "information_density": 0.3,
+      "video_sequence_position": 1
+    },
+    {
+      "node_id": "topic_xYMWTXIkANM_Journalism_Investigations",
+      "concept_name": "Journalism Investigations",
+      "video_id": "xYMWTXIkANM",
+      "video_title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+      "timestamp": 0,
+      "maturity_level": "mentioned",
+      "context": "Topic 'Journalism Investigations' discussed in video",
+      "explanation_depth": 0.85,
+      "key_points": [],
+      "related_entities": [],
+      "sentiment": 0.0,
+      "confidence": 0.85,
+      "information_density": 0.3,
+      "video_sequence_position": 1
+    },
+    {
+      "node_id": "topic_xYMWTXIkANM_National_Security",
+      "concept_name": "National Security",
+      "video_id": "xYMWTXIkANM",
+      "video_title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+      "timestamp": 0,
+      "maturity_level": "mentioned",
+      "context": "Topic 'National Security' discussed in video",
+      "explanation_depth": 0.85,
+      "key_points": [],
+      "related_entities": [],
+      "sentiment": 0.0,
+      "confidence": 0.85,
+      "information_density": 0.3,
+      "video_sequence_position": 1
+    },
+    {
+      "node_id": "topic_xYMWTXIkANM_Political_Targeting",
+      "concept_name": "Political Targeting",
+      "video_id": "xYMWTXIkANM",
+      "video_title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+      "timestamp": 0,
+      "maturity_level": "mentioned",
+      "context": "Topic 'Political Targeting' discussed in video",
+      "explanation_depth": 0.85,
+      "key_points": [],
+      "related_entities": [],
+      "sentiment": 0.0,
+      "confidence": 0.85,
+      "information_density": 0.3,
+      "video_sequence_position": 1
+    },
+    {
+      "node_id": "topic_xYMWTXIkANM_Digital_Privacy",
+      "concept_name": "Digital Privacy",
+      "video_id": "xYMWTXIkANM",
+      "video_title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+      "timestamp": 0,
+      "maturity_level": "mentioned",
+      "context": "Topic 'Digital Privacy' discussed in video",
+      "explanation_depth": 0.85,
+      "key_points": [],
+      "related_entities": [
+        "Va"
+      ],
+      "sentiment": 0.0,
+      "confidence": 0.85,
+      "information_density": 0.3,
+      "video_sequence_position": 1
+    },
+    {
+      "node_id": "topic_xYMWTXIkANM_Israeli_Technology",
+      "concept_name": "Israeli Technology",
+      "video_id": "xYMWTXIkANM",
+      "video_title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+      "timestamp": 0,
+      "maturity_level": "mentioned",
+      "context": "Topic 'Israeli Technology' discussed in video",
+      "explanation_depth": 0.85,
+      "key_points": [],
+      "related_entities": [
+        "Israeli",
+        "Technology"
+      ],
+      "sentiment": 0.0,
+      "confidence": 0.85,
+      "information_density": 0.3,
+      "video_sequence_position": 1
+    }
+  ],
+  "information_flows": [
+    {
+      "flow_id": "flow_concept_6ZVj1_SE4Mo_65_0_topic_xYMWTXIkANM_Pegasus_Spyware",
+      "source_node": {
+        "node_id": "concept_6ZVj1_SE4Mo_65_0",
+        "concept_name": "Pegasus",
+        "video_id": "6ZVj1_SE4Mo",
+        "video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+        "timestamp": 65,
+        "maturity_level": "mentioned",
+        "context": "Pegasus technology is far ahead of government regulation and public understanding.",
+        "explanation_depth": 0.41,
+        "key_points": [
+          "Pegasus technology is far ahead of government regulation and public understanding."
+        ],
+        "related_entities": [
+          "Technology",
+          "Pegasus",
+          "Government",
+          "Technology",
+          "Pegasus"
+        ],
+        "sentiment": 0.0,
+        "confidence": 0.9,
+        "information_density": 0.7272727272727273,
+        "video_sequence_position": 0
+      },
+      "target_node": {
+        "node_id": "topic_xYMWTXIkANM_Pegasus_Spyware",
+        "concept_name": "Pegasus Spyware",
+        "video_id": "xYMWTXIkANM",
+        "video_title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Pegasus Spyware' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [
+          "Pegasus",
+          "Pegasus",
+          "Pegasus"
+        ],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 1
+      },
+      "flow_type": "synthesis",
+      "information_transferred": "Connecting Pegasus to Pegasus Spyware",
+      "transformation_type": "deepening",
+      "flow_quality": 0.975,
+      "coherence_score": 0.35,
+      "temporal_gap": 3600,
+      "bridge_entities": [
+        "Pegasus"
+      ],
+      "supporting_evidence": [
+        "Pegasus technology is far ahead of government regulation and public understanding.",
+        "Topic 'Pegasus Spyware' discussed in video"
+      ]
+    },
+    {
+      "flow_id": "flow_concept_6ZVj1_SE4Mo_460_3_topic_xYMWTXIkANM_Pegasus_Spyware",
+      "source_node": {
+        "node_id": "concept_6ZVj1_SE4Mo_460_3",
+        "concept_name": "Proving Pegasus",
+        "video_id": "6ZVj1_SE4Mo",
+        "video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+        "timestamp": 460,
+        "maturity_level": "mentioned",
+        "context": "Proving Pegasus was on phones required forensic analysis.",
+        "explanation_depth": 0.385,
+        "key_points": [
+          "Proving Pegasus was on phones required forensic analysis."
+        ],
+        "related_entities": [
+          "Pegasus",
+          "One",
+          "Phones",
+          "Pegasus",
+          "Pegasus"
+        ],
+        "sentiment": 0.0,
+        "confidence": 0.9,
+        "information_density": 0.875,
+        "video_sequence_position": 0
+      },
+      "target_node": {
+        "node_id": "topic_xYMWTXIkANM_Pegasus_Spyware",
+        "concept_name": "Pegasus Spyware",
+        "video_id": "xYMWTXIkANM",
+        "video_title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Pegasus Spyware' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [
+          "Pegasus",
+          "Pegasus",
+          "Pegasus"
+        ],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 1
+      },
+      "flow_type": "synthesis",
+      "information_transferred": "Connecting Proving Pegasus to Pegasus Spyware",
+      "transformation_type": "deepening",
+      "flow_quality": 0.975,
+      "coherence_score": 0.26666666666666666,
+      "temporal_gap": 3600,
+      "bridge_entities": [
+        "Pegasus"
+      ],
+      "supporting_evidence": [
+        "Proving Pegasus was on phones required forensic analysis.",
+        "Topic 'Pegasus Spyware' discussed in video"
+      ]
+    }
+  ],
+  "concept_dependencies": [
+    {
+      "dependency_id": "dep_topic_6ZVj1_SE4Mo_Pegasus_Spyware_topic_6ZVj1_SE4Mo_NSO_Group",
+      "prerequisite_concept": "Pegasus Spyware",
+      "dependent_concept": "NSO Group",
+      "dependency_type": "builds_on",
+      "dependency_strength": 0.3,
+      "video_evidence": [
+        "6ZVj1_SE4Mo",
+        "6ZVj1_SE4Mo"
+      ],
+      "textual_evidence": [
+        "The transcript details the pervasive use of Pegasus spyware, developed by the Israeli NSO Group, to clandestinely monitor journalists, human rights activists, and dissidents globally",
+        "The transcript details the pervasive use of Pegasus spyware, developed by the Israeli NSO Group, to clandestinely monitor journalists, human rights activists, and dissidents globally"
+      ],
+      "explanation": "NSO Group builds on understanding of Pegasus Spyware",
+      "confidence": 0.7
+    },
+    {
+      "dependency_id": "dep_concept_xYMWTXIkANM_105_13_concept_xYMWTXIkANM_174_14",
+      "prerequisite_concept": "Former French",
+      "dependent_concept": "French",
+      "dependency_type": "builds_on",
+      "dependency_strength": 0.3,
+      "video_evidence": [
+        "xYMWTXIkANM",
+        "xYMWTXIkANM"
+      ],
+      "textual_evidence": [
+        "Former French minister François de Rugy was identified as a target, with his phone analysis confirming he was targeted by the Kingdom of Morocco.",
+        "The analysis results of the French President's phone were classified as 'secret defense' and made inaccessible."
+      ],
+      "explanation": "French builds on understanding of Former French",
+      "confidence": 0.7
+    }
+  ],
+  "evolution_paths": [
+    {
+      "path_id": "path_pegasus_spyware",
+      "concept_name": "Pegasus Spyware",
+      "evolution_nodes": [
+        {
+          "node_id": "topic_6ZVj1_SE4Mo_Pegasus_Spyware",
+          "concept_name": "Pegasus Spyware",
+          "video_id": "6ZVj1_SE4Mo",
+          "video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+          "timestamp": 0,
+          "maturity_level": "mentioned",
+          "context": "The transcript details the pervasive use of Pegasus spyware, developed by the Israeli NSO Group, to clandestinely monitor journalists, human rights activists, and dissidents globally",
+          "explanation_depth": 0.85,
+          "key_points": [],
+          "related_entities": [
+            "Israel",
+            "Pegasus",
+            "Pegasus",
+            "Pegasus",
+            "Pegasus"
+          ],
+          "sentiment": 0.0,
+          "confidence": 0.85,
+          "information_density": 0.3,
+          "video_sequence_position": 0
+        },
+        {
+          "node_id": "topic_xYMWTXIkANM_Pegasus_Spyware",
+          "concept_name": "Pegasus Spyware",
+          "video_id": "xYMWTXIkANM",
+          "video_title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+          "timestamp": 0,
+          "maturity_level": "mentioned",
+          "context": "Topic 'Pegasus Spyware' discussed in video",
+          "explanation_depth": 0.85,
+          "key_points": [],
+          "related_entities": [
+            "Pegasus",
+            "Pegasus",
+            "Pegasus"
+          ],
+          "sentiment": 0.0,
+          "confidence": 0.85,
+          "information_density": 0.3,
+          "video_sequence_position": 1
+        }
+      ],
+      "maturity_progression": [
+        "mentioned",
+        "mentioned"
+      ],
+      "evolution_summary": "Concept maintains mentioned level across 2 appearances",
+      "key_transformations": [],
+      "breakthrough_moments": [
+        {
+          "video_id": "xYMWTXIkANM",
+          "video_title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+          "timestamp": 0,
+          "breakthrough_type": "detailed_exploration",
+          "maturity_level": "mentioned",
+          "explanation_depth": 0.85,
+          "confidence": 0.85,
+          "context": "Topic 'Pegasus Spyware' discussed in video",
+          "significance": 0.5683333333333334
+        },
+        {
+          "video_id": "6ZVj1_SE4Mo",
+          "video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+          "timestamp": 0,
+          "breakthrough_type": "detailed_exploration",
+          "maturity_level": "mentioned",
+          "explanation_depth": 0.85,
+          "confidence": 0.85,
+          "context": "The transcript details the pervasive use of Pegasus spyware, developed by the Israeli NSO Group, to clandestinely monitor journalists, human rights activists, and dissidents globally",
+          "significance": 0.5183333333333333
+        }
+      ],
+      "evolution_coherence": 1.0,
+      "completeness_score": 0.16666666666666666,
+      "understanding_depth": 0.85
+    },
+    {
+      "path_id": "path_nso_group",
+      "concept_name": "Nso Group",
+      "evolution_nodes": [
+        {
+          "node_id": "topic_6ZVj1_SE4Mo_NSO_Group",
+          "concept_name": "NSO Group",
+          "video_id": "6ZVj1_SE4Mo",
+          "video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+          "timestamp": 0,
+          "maturity_level": "mentioned",
+          "context": "The transcript details the pervasive use of Pegasus spyware, developed by the Israeli NSO Group, to clandestinely monitor journalists, human rights activists, and dissidents globally",
+          "explanation_depth": 0.85,
+          "key_points": [],
+          "related_entities": [
+            "Israel",
+            "Pegasus",
+            "Pegasus",
+            "Pegasus",
+            "Pegasus"
+          ],
+          "sentiment": 0.0,
+          "confidence": 0.85,
+          "information_density": 0.3,
+          "video_sequence_position": 0
+        },
+        {
+          "node_id": "topic_xYMWTXIkANM_NSO_Group",
+          "concept_name": "NSO Group",
+          "video_id": "xYMWTXIkANM",
+          "video_title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+          "timestamp": 0,
+          "maturity_level": "mentioned",
+          "context": "The use of NSO Group's technology reveals insights into the nature of the client government.",
+          "explanation_depth": 0.85,
+          "key_points": [],
+          "related_entities": [
+            "NSO Group",
+            "Technology"
+          ],
+          "sentiment": 0.0,
+          "confidence": 0.85,
+          "information_density": 0.3,
+          "video_sequence_position": 1
+        }
+      ],
+      "maturity_progression": [
+        "mentioned",
+        "mentioned"
+      ],
+      "evolution_summary": "Concept maintains mentioned level across 2 appearances",
+      "key_transformations": [],
+      "breakthrough_moments": [
+        {
+          "video_id": "xYMWTXIkANM",
+          "video_title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+          "timestamp": 0,
+          "breakthrough_type": "detailed_exploration",
+          "maturity_level": "mentioned",
+          "explanation_depth": 0.85,
+          "confidence": 0.85,
+          "context": "The use of NSO Group's technology reveals insights into the nature of the client government.",
+          "significance": 0.5683333333333334
+        },
+        {
+          "video_id": "6ZVj1_SE4Mo",
+          "video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+          "timestamp": 0,
+          "breakthrough_type": "detailed_exploration",
+          "maturity_level": "mentioned",
+          "explanation_depth": 0.85,
+          "confidence": 0.85,
+          "context": "The transcript details the pervasive use of Pegasus spyware, developed by the Israeli NSO Group, to clandestinely monitor journalists, human rights activists, and dissidents globally",
+          "significance": 0.5183333333333333
+        }
+      ],
+      "evolution_coherence": 1.0,
+      "completeness_score": 0.16666666666666666,
+      "understanding_depth": 0.85
+    }
+  ],
+  "concept_clusters": [
+    {
+      "cluster_id": "cluster_0",
+      "cluster_name": "Pegasus cluster",
+      "core_concepts": [
+        "Pegasus",
+        "Proving Pegasus",
+        "Pegasus Spyware",
+        "NSO Group",
+        "Cyber Surveillance",
+        "Human Rights",
+        "Digital Security",
+        "Pegasus Spyware",
+        "NSO Group",
+        "Israeli Technology"
+      ],
+      "cluster_evolution": "Cluster of 10 related concepts",
+      "internal_relationships": [
+        {
+          "dependency_id": "dep_topic_6ZVj1_SE4Mo_Pegasus_Spyware_topic_6ZVj1_SE4Mo_NSO_Group",
+          "prerequisite_concept": "Pegasus Spyware",
+          "dependent_concept": "NSO Group",
+          "dependency_type": "builds_on",
+          "dependency_strength": 0.3,
+          "video_evidence": [
+            "6ZVj1_SE4Mo",
+            "6ZVj1_SE4Mo"
+          ],
+          "textual_evidence": [
+            "The transcript details the pervasive use of Pegasus spyware, developed by the Israeli NSO Group, to clandestinely monitor journalists, human rights activists, and dissidents globally",
+            "The transcript details the pervasive use of Pegasus spyware, developed by the Israeli NSO Group, to clandestinely monitor journalists, human rights activists, and dissidents globally"
+          ],
+          "explanation": "NSO Group builds on understanding of Pegasus Spyware",
+          "confidence": 0.7
+        },
+        {
+          "dependency_id": "dep_concept_xYMWTXIkANM_105_13_concept_xYMWTXIkANM_174_14",
+          "prerequisite_concept": "Former French",
+          "dependent_concept": "French",
+          "dependency_type": "builds_on",
+          "dependency_strength": 0.3,
+          "video_evidence": [
+            "xYMWTXIkANM",
+            "xYMWTXIkANM"
+          ],
+          "textual_evidence": [
+            "Former French minister François de Rugy was identified as a target, with his phone analysis confirming he was targeted by the Kingdom of Morocco.",
+            "The analysis results of the French President's phone were classified as 'secret defense' and made inaccessible."
+          ],
+          "explanation": "French builds on understanding of Former French",
+          "confidence": 0.7
+        }
+      ],
+      "external_connections": [],
+      "coherence_score": 0.7,
+      "influence_score": 0.5,
+      "completeness": 0.6
+    },
+    {
+      "cluster_id": "cluster_1",
+      "cluster_name": "Journalists cluster",
+      "core_concepts": [
+        "Journalists",
+        "Claudio Guarnieri,",
+        "Former French",
+        "French"
+      ],
+      "cluster_evolution": "Cluster of 4 related concepts",
+      "internal_relationships": [
+        {
+          "dependency_id": "dep_topic_6ZVj1_SE4Mo_Pegasus_Spyware_topic_6ZVj1_SE4Mo_NSO_Group",
+          "prerequisite_concept": "Pegasus Spyware",
+          "dependent_concept": "NSO Group",
+          "dependency_type": "builds_on",
+          "dependency_strength": 0.3,
+          "video_evidence": [
+            "6ZVj1_SE4Mo",
+            "6ZVj1_SE4Mo"
+          ],
+          "textual_evidence": [
+            "The transcript details the pervasive use of Pegasus spyware, developed by the Israeli NSO Group, to clandestinely monitor journalists, human rights activists, and dissidents globally",
+            "The transcript details the pervasive use of Pegasus spyware, developed by the Israeli NSO Group, to clandestinely monitor journalists, human rights activists, and dissidents globally"
+          ],
+          "explanation": "NSO Group builds on understanding of Pegasus Spyware",
+          "confidence": 0.7
+        },
+        {
+          "dependency_id": "dep_concept_xYMWTXIkANM_105_13_concept_xYMWTXIkANM_174_14",
+          "prerequisite_concept": "Former French",
+          "dependent_concept": "French",
+          "dependency_type": "builds_on",
+          "dependency_strength": 0.3,
+          "video_evidence": [
+            "xYMWTXIkANM",
+            "xYMWTXIkANM"
+          ],
+          "textual_evidence": [
+            "Former French minister François de Rugy was identified as a target, with his phone analysis confirming he was targeted by the Kingdom of Morocco.",
+            "The analysis results of the French President's phone were classified as 'secret defense' and made inaccessible."
+          ],
+          "explanation": "French builds on understanding of Former French",
+          "confidence": 0.7
+        }
+      ],
+      "external_connections": [],
+      "coherence_score": 0.7,
+      "influence_score": 0.5,
+      "completeness": 0.6
+    }
+  ],
+  "primary_information_pathways": [
+    "synthesis: 2 flows"
+  ],
+  "knowledge_bottlenecks": [],
+  "information_gaps": [
+    "Human Rights Violations",
+    "Journalism",
+    "Journalism Investigations",
+    "Digital Privacy",
+    "Human Rights",
+    "Cyber Espionage",
+    "Journalists",
+    "National Security",
+    "Government Surveillance",
+    "Investigative Journalism",
+    "NSO Group",
+    "Claudio Guarnieri,",
+    "Israeli Technology",
+    "French",
+    "Forbidden Stories'",
+    "Cyber Surveillance",
+    "Digital Security",
+    "Political Targeting",
+    "Former French",
+    "International Relations"
+  ],
+  "flow_summary": "Information flows through 1 main pathways with 0 bottlenecks",
+  "learning_progression": "Concepts develop through systematic information flow patterns",
+  "concept_complexity": "Medium complexity with 2 total flows",
+  "strategic_insights": [],
+  "overall_coherence": 0.30833333333333335,
+  "pedagogical_quality": 0.975,
+  "information_density": 0.08,
+  "created_at": "2025-06-30T00:44:46.865388",
+  "total_concepts": 25,
+  "total_flows": 2,
+  "synthesis_quality": "AI_ENHANCED"
+}

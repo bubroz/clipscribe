@@ -1,0 +1,60 @@
+{
+  "flow_id": "flow_concept_6ZVj1_SE4Mo_65_0_topic_xYMWTXIkANM_Pegasus_Spyware",
+  "source_node": {
+    "node_id": "concept_6ZVj1_SE4Mo_65_0",
+    "concept_name": "Pegasus",
+    "video_id": "6ZVj1_SE4Mo",
+    "video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+    "timestamp": 65,
+    "maturity_level": "mentioned",
+    "context": "Pegasus technology is far ahead of government regulation and public understanding.",
+    "explanation_depth": 0.41,
+    "key_points": [
+      "Pegasus technology is far ahead of government regulation and public understanding."
+    ],
+    "related_entities": [
+      "Technology",
+      "Pegasus",
+      "Government",
+      "Technology",
+      "Pegasus"
+    ],
+    "sentiment": 0.0,
+    "confidence": 0.9,
+    "information_density": 0.7272727272727273,
+    "video_sequence_position": 0
+  },
+  "target_node": {
+    "node_id": "topic_xYMWTXIkANM_Pegasus_Spyware",
+    "concept_name": "Pegasus Spyware",
+    "video_id": "xYMWTXIkANM",
+    "video_title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+    "timestamp": 0,
+    "maturity_level": "mentioned",
+    "context": "Topic 'Pegasus Spyware' discussed in video",
+    "explanation_depth": 0.85,
+    "key_points": [],
+    "related_entities": [
+      "Pegasus",
+      "Pegasus",
+      "Pegasus"
+    ],
+    "sentiment": 0.0,
+    "confidence": 0.85,
+    "information_density": 0.3,
+    "video_sequence_position": 1
+  },
+  "flow_type": "synthesis",
+  "information_transferred": "Connecting Pegasus to Pegasus Spyware",
+  "transformation_type": "deepening",
+  "flow_quality": 0.975,
+  "coherence_score": 0.35,
+  "temporal_gap": 3600,
+  "bridge_entities": [
+    "Pegasus"
+  ],
+  "supporting_evidence": [
+    "Pegasus technology is far ahead of government regulation and public understanding.",
+    "Topic 'Pegasus Spyware' discussed in video"
+  ]
+}

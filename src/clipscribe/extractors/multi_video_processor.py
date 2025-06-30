@@ -79,11 +79,7 @@ class MultiVideoProcessor:
         
         # Core v2.0 Components
         self.temporal_extractor_v2 = TemporalExtractorV2(
-            api_key=self.settings.google_api_key,
-            enable_yt_dlp_integration=True,
-            enable_chapter_segmentation=True,
-            enable_word_level_timing=True,
-            enable_sponsorblock_filtering=True
+            use_enhanced_extraction=True
         )
         
         self.event_deduplicator = EventDeduplicator(
@@ -91,28 +87,14 @@ class MultiVideoProcessor:
             time_proximity_threshold=300  # 5 minutes
         )
         
-        self.content_date_extractor = ContentDateExtractor(
-            api_key=self.settings.google_api_key,
-            confidence_threshold=0.7,
-            enable_context_validation=True
-        )
+        self.content_date_extractor = ContentDateExtractor()
         
-        self.quality_filter = TimelineQualityFilter(
-            min_confidence=0.6,
-            min_relevance=0.7
-        )
+        self.quality_filter = TimelineQualityFilter()
         
-        self.chapter_segmenter = ChapterSegmenter(
-            enable_adaptive_segmentation=True,
-            enable_content_classification=True,
-            enable_narrative_importance=True
-        )
+        self.chapter_segmenter = ChapterSegmenter()
         
         self.cross_video_synthesizer = CrossVideoSynthesizer(
-            synthesis_strategy=SynthesisStrategy.HYBRID_CORRELATION,
-            enable_gap_analysis=True,
-            enable_cross_validation=True,
-            confidence_threshold=0.7
+            enable_advanced_correlation=True
         )
         
         logger.info("Timeline Intelligence v2.0 initialization complete! ✅")
@@ -156,8 +138,9 @@ class MultiVideoProcessor:
         
         logger.info(f"Processing collection of {len(videos)} videos (type: {collection_type})")
         
-        # Create collection ID and title early
-        collection_id = f"collection_{datetime.now().strftime('%Y%m%d_%H%M%S')}_{len(videos)}"
+        # Create collection ID and title early - standardized format: YYYYMMDD_collection_identifier
+        primary_video_id = videos[0].metadata.video_id if videos else "unknown"
+        collection_id = f"{datetime.now().strftime('%Y%m%d')}_collection_{primary_video_id}_{len(videos)}"
         if not collection_title:
             if collection_type == VideoCollectionType.SERIES:
                 collection_title = f"{videos[0].metadata.channel} Series"
@@ -174,7 +157,7 @@ class MultiVideoProcessor:
             else:
                 # Create series metadata for user-confirmed series
                 series_metadata = SeriesMetadata(
-                    series_id=f"user_series_{datetime.now().strftime('%Y%m%d_%H%M%S')}",
+                    series_id=f"{datetime.now().strftime('%Y%m%d')}_series_{primary_video_id}",
                     series_title=collection_title or f"{videos[0].metadata.channel} Series",
                     total_parts=len(videos),
                     confidence=1.0
@@ -1217,11 +1200,14 @@ class MultiVideoProcessor:
                 logger.info(f"Processing video {video_idx + 1}/{len(videos)}: {video.metadata.title}")
                 
                 # Use TemporalExtractorV2 for breakthrough extraction
+                video_url = f"https://www.youtube.com/watch?v={video.metadata.video_id}"  # Reconstruct URL
+                transcript_text = video.analysis_results.get('transcript', '') if hasattr(video, 'analysis_results') else ""
+                entities_dict = [{'text': e.name, 'type': e.type, 'timestamp': e.timestamp or 0} for e in video.entities]
+                
                 video_events = await self.temporal_extractor_v2.extract_temporal_events(
-                    video=video,
-                    unified_entities=unified_entities,
-                    enable_chapter_segmentation=True,
-                    enable_visual_timestamp_recognition=True
+                    video_url=video_url,
+                    transcript_text=transcript_text,
+                    entities=entities_dict
                 )
                 
                 temporal_events.extend(video_events)

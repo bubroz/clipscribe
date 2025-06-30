@@ -1,0 +1,60 @@
+{
+  "flow_id": "flow_concept_6ZVj1_SE4Mo_460_3_topic_xYMWTXIkANM_Pegasus_Spyware",
+  "source_node": {
+    "node_id": "concept_6ZVj1_SE4Mo_460_3",
+    "concept_name": "Proving Pegasus",
+    "video_id": "6ZVj1_SE4Mo",
+    "video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+    "timestamp": 460,
+    "maturity_level": "mentioned",
+    "context": "Proving Pegasus was on phones required forensic analysis.",
+    "explanation_depth": 0.385,
+    "key_points": [
+      "Proving Pegasus was on phones required forensic analysis."
+    ],
+    "related_entities": [
+      "Pegasus",
+      "One",
+      "Phones",
+      "Pegasus",
+      "Pegasus"
+    ],
+    "sentiment": 0.0,
+    "confidence": 0.9,
+    "information_density": 0.875,
+    "video_sequence_position": 0
+  },
+  "target_node": {
+    "node_id": "topic_xYMWTXIkANM_Pegasus_Spyware",
+    "concept_name": "Pegasus Spyware",
+    "video_id": "xYMWTXIkANM",
+    "video_title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+    "timestamp": 0,
+    "maturity_level": "mentioned",
+    "context": "Topic 'Pegasus Spyware' discussed in video",
+    "explanation_depth": 0.85,
+    "key_points": [],
+    "related_entities": [
+      "Pegasus",
+      "Pegasus",
+      "Pegasus"
+    ],
+    "sentiment": 0.0,
+    "confidence": 0.85,
+    "information_density": 0.3,
+    "video_sequence_position": 1
+  },
+  "flow_type": "synthesis",
+  "information_transferred": "Connecting Proving Pegasus to Pegasus Spyware",
+  "transformation_type": "deepening",
+  "flow_quality": 0.975,
+  "coherence_score": 0.26666666666666666,
+  "temporal_gap": 3600,
+  "bridge_entities": [
+    "Pegasus"
+  ],
+  "supporting_evidence": [
+    "Proving Pegasus was on phones required forensic analysis.",
+    "Topic 'Pegasus Spyware' discussed in video"
+  ]
+}

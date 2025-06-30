@@ -1,0 +1,70 @@
+{
+  "video_url": "https://www.youtube.com/watch?v=6ZVj1_SE4Mo",
+  "video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+  "relationships": [
+    {
+      "subject": "Pegasus",
+      "predicate": "spyware",
+      "object": "instance of",
+      "confidence": 0.85,
+      "context": null
+    },
+    {
+      "subject": "NSO Group",
+      "predicate": "inception",
+      "object": "2010",
+      "confidence": 0.85,
+      "context": null
+    },
+    {
+      "subject": "Paul Lewis",
+      "predicate": "employer",
+      "object": "The Guardian",
+      "confidence": 0.85,
+      "context": null
+    },
+    {
+      "subject": "Jamal Khashoggi",
+      "predicate": "The Washington Post",
+      "object": "employer",
+      "confidence": 0.85,
+      "context": null
+    },
+    {
+      "subject": "United Arab Emirates",
+      "predicate": "diplomatic relation",
+      "object": "Saudi Arabia",
+      "confidence": 0.85,
+      "context": null
+    },
+    {
+      "subject": "Saudi Arabia",
+      "predicate": "United Arab Emirates",
+      "object": "diplomatic relation",
+      "confidence": 0.85,
+      "context": null
+    },
+    {
+      "subject": "Carmen Aristegui",
+      "predicate": "employer",
+      "object": "CNN en M\u00e9xico",
+      "confidence": 0.85,
+      "context": null
+    },
+    {
+      "subject": "Enrique Pe\u00f1a Nieto",
+      "predicate": "presidente",
+      "object": "position held",
+      "confidence": 0.85,
+      "context": null
+    },
+    {
+      "subject": "Azerbaijan",
+      "predicate": "head of state",
+      "object": "Ilham Aliyev",
+      "confidence": 0.85,
+      "context": null
+    }
+  ],
+  "total_count": 9
+}

@@ -1,0 +1,2035 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gexf xmlns="http://www.gexf.net/1.3" xmlns:viz="http://www.gexf.net/1.3/viz" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://gexf.net/1.3 http://gexf.net/1.3/gexf.xsd" version="1.3">
+  <meta lastmodifieddate="2025-06-30">
+    <creator>ClipScribe</creator>
+    <description>Knowledge graph extracted from video content</description>
+  </meta>
+  <graph mode="static" defaultedgetype="directed">
+    <attributes class="node">
+      <attribute id="0" title="Type" type="string"/>
+      <attribute id="1" title="Confidence" type="double"/>
+    </attributes>
+    <attributes class="edge">
+      <attribute id="0" title="Predicate" type="string"/>
+      <attribute id="1" title="Confidence" type="double"/>
+    </attributes>
+    <nodes>
+      <node id="Alejandro Caballero" label="Alejandro Caballero">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.987449049949646"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="49.62347149848938"/>
+      </node>
+      <node id="Alejandro Encinas" label="Alejandro Encinas">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.9823945164680481"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="49.47183549404144"/>
+      </node>
+      <node id="De Shouji" label="De Shouji">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#4ECDC4" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Aristegui Noticias" label="Aristegui Noticias">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Hanan Atar" label="Hanan Atar">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.8852138737837474"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="46.55641621351242"/>
+      </node>
+      <node id="Khadija Ismayilova" label="Khadija Ismayilova">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.9470158392732793"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="48.41047517819838"/>
+      </node>
+      <node id="Hatice Khashoggi's" label="Hatice Khashoggi's">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.9464481961727141"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="48.39344588518142"/>
+      </node>
+      <node id="Karina Maciel" label="Karina Maciel">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.945453159014384"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="48.36359477043152"/>
+      </node>
+      <node id="Enrique Peña Nieto" label="Enrique Peña Nieto">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.9439256111780803"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="48.31776833534241"/>
+      </node>
+      <node id="Jamal" label="Jamal">
+        <attvalues>
+          <attvalue for="0" value="GROUP"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Presidente" label="Presidente">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.9285374641418457"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="47.85612392425537"/>
+      </node>
+      <node id="Azerbaijan" label="Azerbaijan">
+        <attvalues>
+          <attvalue for="0" value="LOCATION"/>
+          <attvalue for="1" value="0.9250975046839033"/>
+        </attvalues>
+        <viz:color hex="#45B7D1" a="1.0"/>
+        <viz:size value="47.7529251405171"/>
+      </node>
+      <node id="Turkey" label="Turkey">
+        <attvalues>
+          <attvalue for="0" value="LOCATION"/>
+          <attvalue for="1" value="0.9215996583302816"/>
+        </attvalues>
+        <viz:color hex="#45B7D1" a="1.0"/>
+        <viz:size value="47.64798974990845"/>
+      </node>
+      <node id="Israel" label="Israel">
+        <attvalues>
+          <attvalue for="0" value="LOCATION"/>
+          <attvalue for="1" value="0.920740298430125"/>
+        </attvalues>
+        <viz:color hex="#45B7D1" a="1.0"/>
+        <viz:size value="47.62220895290375"/>
+      </node>
+      <node id="Istanbul" label="Istanbul">
+        <attvalues>
+          <attvalue for="0" value="LOCATION"/>
+          <attvalue for="1" value="0.919546139240265"/>
+        </attvalues>
+        <viz:color hex="#45B7D1" a="1.0"/>
+        <viz:size value="47.58638417720795"/>
+      </node>
+      <node id="The Guardian" label="The Guardian">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.918998458981514"/>
+        </attvalues>
+        <viz:color hex="#4ECDC4" a="1.0"/>
+        <viz:size value="47.56995376944542"/>
+      </node>
+      <node id="Ilham Aliyev" label="Ilham Aliyev">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.9174282729625702"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="47.522848188877106"/>
+      </node>
+      <node id="The Washington Post" label="The Washington Post">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.9163095672925313"/>
+        </attvalues>
+        <viz:color hex="#4ECDC4" a="1.0"/>
+        <viz:size value="47.48928701877594"/>
+      </node>
+      <node id="Huang Shi" label="Huang Shi">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.9155073642730713"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="47.46522092819214"/>
+      </node>
+      <node id="Company" label="Company">
+        <attvalues>
+          <attvalue for="0" value="COMPANY"/>
+          <attvalue for="1" value="0.9153073132038116"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.45921939611435"/>
+      </node>
+      <node id="Sandra Nogales" label="Sandra Nogales">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.9141554415225983"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="47.42466324567795"/>
+      </node>
+      <node id="Technology" label="Technology">
+        <attvalues>
+          <attvalue for="0" value="PRODUCT"/>
+          <attvalue for="1" value="0.7369970679283142"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="42.109912037849426"/>
+      </node>
+      <node id="Zheng Dang Yao Ren" label="Zheng Dang Yao Ren">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.9121754050254822"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="47.365262150764465"/>
+      </node>
+      <node id="Hungary" label="Hungary">
+        <attvalues>
+          <attvalue for="0" value="LOCATION"/>
+          <attvalue for="1" value="0.9107158958911896"/>
+        </attvalues>
+        <viz:color hex="#45B7D1" a="1.0"/>
+        <viz:size value="47.32147687673569"/>
+      </node>
+      <node id="Bu Fen Ji Zhi" label="Bu Fen Ji Zhi">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.910150158405304"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="47.30450475215912"/>
+      </node>
+      <node id="Kazakhstan" label="Kazakhstan">
+        <attvalues>
+          <attvalue for="0" value="LOCATION"/>
+          <attvalue for="1" value="0.9101396083831788"/>
+        </attvalues>
+        <viz:color hex="#45B7D1" a="1.0"/>
+        <viz:size value="47.30418825149536"/>
+      </node>
+      <node id="System" label="System">
+        <attvalues>
+          <attvalue for="0" value="TECHNOLOGY"/>
+          <attvalue for="1" value="0.9094101190567017"/>
+        </attvalues>
+        <viz:color hex="#52BE80" a="1.0"/>
+        <viz:size value="47.28230357170105"/>
+      </node>
+      <node id="Telegram" label="Telegram">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#4ECDC4" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Latifa Al Maktoum" label="Latifa Al Maktoum">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.9066358983516694"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="47.19907695055008"/>
+      </node>
+      <node id="Proceso" label="Proceso">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.9057371020317078"/>
+        </attvalues>
+        <viz:color hex="#4ECDC4" a="1.0"/>
+        <viz:size value="47.17211306095123"/>
+      </node>
+      <node id="India" label="India">
+        <attvalues>
+          <attvalue for="0" value="LOCATION"/>
+          <attvalue for="1" value="0.9026356518268586"/>
+        </attvalues>
+        <viz:color hex="#45B7D1" a="1.0"/>
+        <viz:size value="47.079069554805756"/>
+      </node>
+      <node id="Claudio Guarnieri" label="Claudio Guarnieri">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.9025903463363648"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="47.07771039009094"/>
+      </node>
+      <node id="Visa" label="Visa">
+        <attvalues>
+          <attvalue for="0" value="PRODUCT"/>
+          <attvalue for="1" value="0.9014859795570374"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.04457938671112"/>
+      </node>
+      <node id="Amnesty International's" label="Amnesty International's">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.9005918383598328"/>
+        </attvalues>
+        <viz:color hex="#4ECDC4" a="1.0"/>
+        <viz:size value="47.01775515079498"/>
+      </node>
+      <node id="Teresa Aristegui Flores" label="Teresa Aristegui Flores">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.9000210046768189"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="47.000630140304565"/>
+      </node>
+      <node id="Cnn" label="Cnn">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.8986555814743042"/>
+        </attvalues>
+        <viz:color hex="#4ECDC4" a="1.0"/>
+        <viz:size value="46.959667444229126"/>
+      </node>
+      <node id="Forbidden team" label="Forbidden team">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.8972940444946289"/>
+        </attvalues>
+        <viz:color hex="#4ECDC4" a="1.0"/>
+        <viz:size value="46.91882133483887"/>
+      </node>
+      <node id="Le Monde" label="Le Monde">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.8972347974777222"/>
+        </attvalues>
+        <viz:color hex="#4ECDC4" a="1.0"/>
+        <viz:size value="46.917043924331665"/>
+      </node>
+      <node id="Mexico" label="Mexico">
+        <attvalues>
+          <attvalue for="0" value="LOCATION"/>
+          <attvalue for="1" value="0.8920016595295497"/>
+        </attvalues>
+        <viz:color hex="#45B7D1" a="1.0"/>
+        <viz:size value="46.760049785886494"/>
+      </node>
+      <node id="Emilio" label="Emilio">
+        <attvalues>
+          <attvalue for="0" value="PRODUCT"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Craig Timberg" label="Craig Timberg">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.8865972042083741"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="46.59791612625122"/>
+      </node>
+      <node id="Jamal Khashoggi" label="Jamal Khashoggi">
+        <attvalues>
+          <attvalue for="0" value="CHARACTER"/>
+          <attvalue for="1" value="0.8864399194717407"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="46.59319758415222"/>
+      </node>
+      <node id="July 2021" label="July 2021">
+        <attvalues>
+          <attvalue for="0" value="DATE"/>
+          <attvalue for="1" value="0.8846383571624756"/>
+        </attvalues>
+        <viz:color hex="#F39C12" a="1.0"/>
+        <viz:size value="46.53915071487427"/>
+      </node>
+      <node id="Paris" label="Paris">
+        <attvalues>
+          <attvalue for="0" value="LOCATION"/>
+          <attvalue for="1" value="0.8831138491630555"/>
+        </attvalues>
+        <viz:color hex="#45B7D1" a="1.0"/>
+        <viz:size value="46.49341547489166"/>
+      </node>
+      <node id="Casa Blanca" label="Casa Blanca">
+        <attvalues>
+          <attvalue for="0" value="LOCATION"/>
+          <attvalue for="1" value="0.8822054266929626"/>
+        </attvalues>
+        <viz:color hex="#45B7D1" a="1.0"/>
+        <viz:size value="46.46616280078888"/>
+      </node>
+      <node id="Sebastian Barragan" label="Sebastian Barragan">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.8818812251091004"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="46.45643675327301"/>
+      </node>
+      <node id="Dana Priest" label="Dana Priest">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.8814784169197083"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="46.44435250759125"/>
+      </node>
+      <node id="Washington" label="Washington">
+        <attvalues>
+          <attvalue for="0" value="LOCATION"/>
+          <attvalue for="1" value="0.8810342729091645"/>
+        </attvalues>
+        <viz:color hex="#45B7D1" a="1.0"/>
+        <viz:size value="46.43102818727493"/>
+      </node>
+      <node id="Emirates Airlines" label="Emirates Airlines">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.8808613896369935"/>
+        </attvalues>
+        <viz:color hex="#4ECDC4" a="1.0"/>
+        <viz:size value="46.4258416891098"/>
+      </node>
+      <node id="Brighton" label="Brighton">
+        <attvalues>
+          <attvalue for="0" value="LOCATION"/>
+          <attvalue for="1" value="0.8789720416069031"/>
+        </attvalues>
+        <viz:color hex="#45B7D1" a="1.0"/>
+        <viz:size value="46.36916124820709"/>
+      </node>
+      <node id="Baku" label="Baku">
+        <attvalues>
+          <attvalue for="0" value="LOCATION"/>
+          <attvalue for="1" value="0.8764331221580506"/>
+        </attvalues>
+        <viz:color hex="#45B7D1" a="1.0"/>
+        <viz:size value="46.292993664741516"/>
+      </node>
+      <node id="UAE airport" label="UAE airport">
+        <attvalues>
+          <attvalue for="0" value="LOCATION"/>
+          <attvalue for="1" value="0.8716244280338288"/>
+        </attvalues>
+        <viz:color hex="#45B7D1" a="1.0"/>
+        <viz:size value="46.14873284101486"/>
+      </node>
+      <node id="Lemon" label="Lemon">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.8707726180553437"/>
+        </attvalues>
+        <viz:color hex="#4ECDC4" a="1.0"/>
+        <viz:size value="46.12317854166031"/>
+      </node>
+      <node id="The NSO Group" label="The NSO Group">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.8695977555380927"/>
+        </attvalues>
+        <viz:color hex="#4ECDC4" a="1.0"/>
+        <viz:size value="46.08793266614278"/>
+      </node>
+      <node id="Paul Lewis" label="Paul Lewis">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.8678176879882813"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="46.03453063964844"/>
+      </node>
+      <node id="$1 Billion" label="$1 Billion">
+        <attvalues>
+          <attvalue for="0" value="MONEY"/>
+          <attvalue for="1" value="0.8658687055110932"/>
+        </attvalues>
+        <viz:color hex="#85C1E2" a="1.0"/>
+        <viz:size value="45.976061165332794"/>
+      </node>
+      <node id="Maggie" label="Maggie">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Pegasus" label="Pegasus">
+        <attvalues>
+          <attvalue for="0" value="TECHNOLOGY"/>
+          <attvalue for="1" value="0.7010031342506409"/>
+        </attvalues>
+        <viz:color hex="#52BE80" a="1.0"/>
+        <viz:size value="41.030094027519226"/>
+      </node>
+      <node id="Putin" label="Putin">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.8586022138595581"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="45.75806641578674"/>
+      </node>
+      <node id="1984" label="1984">
+        <attvalues>
+          <attvalue for="0" value="DATE"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#F39C12" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Money" label="Money">
+        <attvalues>
+          <attvalue for="0" value="MONEY"/>
+          <attvalue for="1" value="0.858257532119751"/>
+        </attvalues>
+        <viz:color hex="#85C1E2" a="1.0"/>
+        <viz:size value="45.74772596359253"/>
+      </node>
+      <node id="Apple Music" label="Apple Music">
+        <attvalues>
+          <attvalue for="0" value="COMPANY"/>
+          <attvalue for="1" value="0.8558492088317872"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="45.675476264953616"/>
+      </node>
+      <node id="Kristoff" label="Kristoff">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.8529308915138245"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="45.587926745414734"/>
+      </node>
+      <node id="2010" label="2010">
+        <attvalues>
+          <attvalue for="0" value="DATE"/>
+          <attvalue for="1" value="0.8525166690349579"/>
+        </attvalues>
+        <viz:color hex="#F39C12" a="1.0"/>
+        <viz:size value="45.57550007104874"/>
+      </node>
+      <node id="Damien" label="Damien">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.850550401210785"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="45.51651203632355"/>
+      </node>
+      <node id="10" label="10">
+        <attvalues>
+          <attvalue for="0" value="CARDINAL"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="17" label="17">
+        <attvalues>
+          <attvalue for="0" value="CARDINAL"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="40" label="40">
+        <attvalues>
+          <attvalue for="0" value="CARDINAL"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="6Th" label="6Th">
+        <attvalues>
+          <attvalue for="0" value="ORDINAL"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="9Th" label="9Th">
+        <attvalues>
+          <attvalue for="0" value="ORDINAL"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="A Big Year" label="A Big Year">
+        <attvalues>
+          <attvalue for="0" value="DATE"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#F39C12" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="A Couple Of Weeks Ago" label="A Couple Of Weeks Ago">
+        <attvalues>
+          <attvalue for="0" value="DATE"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#F39C12" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Abajo Estaban" label="Abajo Estaban">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Abajo teníamos el micrófono" label="Abajo teníamos el micrófono">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="About 50,000" label="About 50,000">
+        <attvalues>
+          <attvalue for="0" value="CARDINAL"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="About A Year" label="About A Year">
+        <attvalues>
+          <attvalue for="0" value="DATE"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#F39C12" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Ahora Es" label="Ahora Es">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Al Canario" label="Al Canario">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Al cruzar" label="Al cruzar">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Al Dispositivo" label="Al Dispositivo">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Al Sistema De Inteligencia" label="Al Sistema De Inteligencia">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Al Teléfono" label="Al Teléfono">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Aliyev" label="Aliyev">
+        <attvalues>
+          <attvalue for="0" value="GROUP"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Aliyevs" label="Aliyevs">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Amazon Prime Video" label="Amazon Prime Video">
+        <attvalues>
+          <attvalue for="0" value="CHANNEL"/>
+          <attvalue for="1" value="0.7138170599937439"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="41.41451179981232"/>
+      </node>
+      <node id="Android" label="Android">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#4ECDC4" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Androids" label="Androids">
+        <attvalues>
+          <attvalue for="0" value="PRODUCT"/>
+          <attvalue for="1" value="0.8043349385261536"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="44.13004815578461"/>
+      </node>
+      <node id="Azerbaijani" label="Azerbaijani">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Bueno" label="Bueno">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Casa" label="Casa">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#4ECDC4" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Como Presidente" label="Como Presidente">
+        <attvalues>
+          <attvalue for="0" value="LOCATION"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#45B7D1" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Covid" label="Covid">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Crown" label="Crown">
+        <attvalues>
+          <attvalue for="0" value="PRODUCT"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Cuando" label="Cuando">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#4ECDC4" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="De acuerdo" label="De acuerdo">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#4ECDC4" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="De Carácter" label="De Carácter">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="De Edad" label="De Edad">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="de la ciudad de México" label="de la ciudad de México">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="De Tu Visa" label="De Tu Visa">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Del Lado Derecho" label="Del Lado Derecho">
+        <attvalues>
+          <attvalue for="0" value="FACILITY"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Digamos" label="Digamos">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Diplomáticos" label="Diplomáticos">
+        <attvalues>
+          <attvalue for="0" value="LOCATION"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#45B7D1" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Durante los años que fui espiada" label="Durante los años que fui espiada">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#4ECDC4" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="El Conocimiento De Que" label="El Conocimiento De Que">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#4ECDC4" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="El El" label="El El">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#4ECDC4" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="El Equipo" label="El Equipo">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#4ECDC4" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="El Mensaje" label="El Mensaje">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#4ECDC4" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="El Número" label="El Número">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="El Presidente" label="El Presidente">
+        <attvalues>
+          <attvalue for="0" value="LOCATION"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#45B7D1" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="El procedimiento" label="El procedimiento">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#4ECDC4" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="El Software" label="El Software">
+        <attvalues>
+          <attvalue for="0" value="LOCATION"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#45B7D1" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="El Teléfono De Mi" label="El Teléfono De Mi">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#4ECDC4" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Encinas" label="Encinas">
+        <attvalues>
+          <attvalue for="0" value="LOCATION"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#45B7D1" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Es mi hermana" label="Es mi hermana">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="First" label="First">
+        <attvalues>
+          <attvalue for="0" value="ORDINAL"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Four Days" label="Four Days">
+        <attvalues>
+          <attvalue for="0" value="DATE"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#F39C12" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Fuera de la vigencia" label="Fuera de la vigencia">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Global Spyware Scandal" label="Global Spyware Scandal">
+        <attvalues>
+          <attvalue for="0" value="EVENT"/>
+          <attvalue for="1" value="0.95"/>
+        </attvalues>
+        <viz:color hex="#F7DC6F" a="1.0"/>
+        <viz:size value="48.5"/>
+      </node>
+      <node id="Global Spyware Scandal exposing Pegasus" label="Global Spyware Scandal exposing Pegasus">
+        <attvalues>
+          <attvalue for="0" value="WORK_OF_ART"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Había Que Saber" label="Había Que Saber">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Hacer lo que" label="Hacer lo que">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Hanan" label="Hanan">
+        <attvalues>
+          <attvalue for="0" value="LOCATION"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#45B7D1" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Hatice" label="Hatice">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.7826899886131287"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="43.48069965839386"/>
+      </node>
+      <node id="Il va se faire" label="Il va se faire">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="iPhones" label="iPhones">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#4ECDC4" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Iran" label="Iran">
+        <attvalues>
+          <attvalue for="0" value="LOCATION"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#45B7D1" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Islamic" label="Islamic">
+        <attvalues>
+          <attvalue for="0" value="GROUP"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Khashoggi" label="Khashoggi">
+        <attvalues>
+          <attvalue for="0" value="LOCATION"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#45B7D1" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="La Cadena De Televisión" label="La Cadena De Televisión">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#4ECDC4" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="La Cocina" label="La Cocina">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#4ECDC4" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="La Geolocalización" label="La Geolocalización">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="La Productora De Mi" label="La Productora De Mi">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#4ECDC4" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Las Cámaras" label="Las Cámaras">
+        <attvalues>
+          <attvalue for="0" value="LOCATION"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#45B7D1" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Lo Cruzamos" label="Lo Cruzamos">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Lo que lo que podemos" label="Lo que lo que podemos">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Los Ingresos" label="Los Ingresos">
+        <attvalues>
+          <attvalue for="0" value="LOCATION"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#45B7D1" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Los Números De Mi Directorio" label="Los Números De Mi Directorio">
+        <attvalues>
+          <attvalue for="0" value="LOCATION"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#45B7D1" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Martin" label="Martin">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.8205830454826355"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="44.617491364479065"/>
+      </node>
+      <node id="Mensajes De Texto" label="Mensajes De Texto">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Mensajes Tan Extraños" label="Mensajes Tan Extraños">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Mexican" label="Mexican">
+        <attvalues>
+          <attvalue for="0" value="GROUP"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Months" label="Months">
+        <attvalues>
+          <attvalue for="0" value="DATE"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#F39C12" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="More Than 15,000" label="More Than 15,000">
+        <attvalues>
+          <attvalue for="0" value="CARDINAL"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="More Than 80" label="More Than 80">
+        <attvalues>
+          <attvalue for="0" value="CARDINAL"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Moroccan" label="Moroccan">
+        <attvalues>
+          <attvalue for="0" value="GROUP"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Nosotros" label="Nosotros">
+        <attvalues>
+          <attvalue for="0" value="LOCATION"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#45B7D1" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Nosotros Decíamos" label="Nosotros Decíamos">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Novedad" label="Novedad">
+        <attvalues>
+          <attvalue for="0" value="LOCATION"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#45B7D1" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Números" label="Números">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="One" label="One">
+        <attvalues>
+          <attvalue for="0" value="CARDINAL"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Para Mí La" label="Para Mí La">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Pegasus al Cisén" label="Pegasus al Cisén">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Pegasus al ejército" label="Pegasus al ejército">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Pero" label="Pero">
+        <attvalues>
+          <attvalue for="0" value="PRODUCT"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Pero Podemos Seguir" label="Pero Podemos Seguir">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#4ECDC4" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Pleno Al" label="Pleno Al">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Podemos Verla Nosotros" label="Podemos Verla Nosotros">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#4ECDC4" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Pueden estar" label="Pueden estar">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Puedo" label="Puedo">
+        <attvalues>
+          <attvalue for="0" value="LOCATION"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#45B7D1" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Pues ¿" label="Pues ¿">
+        <attvalues>
+          <attvalue for="0" value="WORK_OF_ART"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Quedas" label="Quedas">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Quisieras" label="Quisieras">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Qué" label="Qué">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Saudis" label="Saudis">
+        <attvalues>
+          <attvalue for="0" value="GROUP"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Se tenía que" label="Se tenía que">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Signal" label="Signal">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#4ECDC4" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Sms" label="Sms">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#4ECDC4" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Tengo un directorio nutrido" label="Tengo un directorio nutrido">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Tens Of Thousands" label="Tens Of Thousands">
+        <attvalues>
+          <attvalue for="0" value="CARDINAL"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Tenía Cada Una De Las Aplicaciones De Las Que" label="Tenía Cada Una De Las Aplicaciones De Las Que">
+        <attvalues>
+          <attvalue for="0" value="FACILITY"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="teníamos el cuadro de la aplicación de WhatsApp" label="teníamos el cuadro de la aplicación de WhatsApp">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#4ECDC4" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Teníamos La" label="Teníamos La">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="The 12Th" label="The 12Th">
+        <attvalues>
+          <attvalue for="0" value="DATE"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#F39C12" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="The Last 10 Years" label="The Last 10 Years">
+        <attvalues>
+          <attvalue for="0" value="DATE"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#F39C12" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="The minute" label="The minute">
+        <attvalues>
+          <attvalue for="0" value="TIME"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="the United States" label="the United States">
+        <attvalues>
+          <attvalue for="0" value="LOCATION"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#45B7D1" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Three" label="Three">
+        <attvalues>
+          <attvalue for="0" value="CARDINAL"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Today" label="Today">
+        <attvalues>
+          <attvalue for="0" value="DATE"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#F39C12" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Tu Teléfono" label="Tu Teléfono">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#4ECDC4" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Turkish" label="Turkish">
+        <attvalues>
+          <attvalue for="0" value="GROUP"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Two" label="Two">
+        <attvalues>
+          <attvalue for="0" value="CARDINAL"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Universo De Más De 50.000 Números" label="Universo De Más De 50.000 Números">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#4ECDC4" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Vas De Espaldas" label="Vas De Espaldas">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Vigencia Tiene" label="Vigencia Tiene">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Ya Perdieron El Pudor" label="Ya Perdieron El Pudor">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Ya Podíamos" label="Ya Podíamos">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Ya sean" label="Ya sean">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Zarzuela de Forbidden Stories" label="Zarzuela de Forbidden Stories">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="¿Hasta" label="¿Hasta">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#4ECDC4" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="WhatsApp" label="WhatsApp">
+        <attvalues>
+          <attvalue for="0" value="PRODUCT"/>
+          <attvalue for="1" value="0.7161439061164856"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="41.48431718349457"/>
+      </node>
+      <node id="Steph" label="Steph">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.842980581521988"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="45.28941744565964"/>
+      </node>
+      <node id="Airport" label="Airport">
+        <attvalues>
+          <attvalue for="0" value="LOCATION"/>
+          <attvalue for="1" value="0.8422883550326029"/>
+        </attvalues>
+        <viz:color hex="#45B7D1" a="1.0"/>
+        <viz:size value="45.26865065097809"/>
+      </node>
+      <node id="Bill Marczak" label="Bill Marczak">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.8393645316362381"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="45.18093594908714"/>
+      </node>
+      <node id="del presidente de México" label="del presidente de México">
+        <attvalues>
+          <attvalue for="0" value="LOCATION"/>
+          <attvalue for="1" value="0.8200307210286458"/>
+        </attvalues>
+        <viz:color hex="#45B7D1" a="1.0"/>
+        <viz:size value="44.600921630859375"/>
+      </node>
+      <node id="Citizen Lab" label="Citizen Lab">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.8160647869110108"/>
+        </attvalues>
+        <viz:color hex="#4ECDC4" a="1.0"/>
+        <viz:size value="44.48194360733032"/>
+      </node>
+      <node id="We" label="We">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.815867069694731"/>
+        </attvalues>
+        <viz:color hex="#4ECDC4" a="1.0"/>
+        <viz:size value="44.476012090841934"/>
+      </node>
+      <node id="2015" label="2015">
+        <attvalues>
+          <attvalue for="0" value="DATE"/>
+          <attvalue for="1" value="0.8121076107025147"/>
+        </attvalues>
+        <viz:color hex="#F39C12" a="1.0"/>
+        <viz:size value="44.36322832107544"/>
+      </node>
+      <node id="United Arab Emirates" label="United Arab Emirates">
+        <attvalues>
+          <attvalue for="0" value="LOCATION"/>
+          <attvalue for="1" value="0.8115448236465455"/>
+        </attvalues>
+        <viz:color hex="#45B7D1" a="1.0"/>
+        <viz:size value="44.34634470939636"/>
+      </node>
+      <node id="The Post" label="The Post">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.8082262277603149"/>
+        </attvalues>
+        <viz:color hex="#4ECDC4" a="1.0"/>
+        <viz:size value="44.24678683280945"/>
+      </node>
+      <node id="COVID crisis" label="COVID crisis">
+        <attvalues>
+          <attvalue for="0" value="EVENT"/>
+          <attvalue for="1" value="0.7959781885147095"/>
+        </attvalues>
+        <viz:color hex="#F7DC6F" a="1.0"/>
+        <viz:size value="43.879345655441284"/>
+      </node>
+      <node id="United States" label="United States">
+        <attvalues>
+          <attvalue for="0" value="LOCATION"/>
+          <attvalue for="1" value="0.795687289237976"/>
+        </attvalues>
+        <viz:color hex="#45B7D1" a="1.0"/>
+        <viz:size value="43.87061867713928"/>
+      </node>
+      <node id="Platform" label="Platform">
+        <attvalues>
+          <attvalue for="0" value="PLATFORM"/>
+          <attvalue for="1" value="0.7898324728012085"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="43.694974184036255"/>
+      </node>
+      <node id="October of 2018" label="October of 2018">
+        <attvalues>
+          <attvalue for="0" value="DATE"/>
+          <attvalue for="1" value="0.788811931014061"/>
+        </attvalues>
+        <viz:color hex="#F39C12" a="1.0"/>
+        <viz:size value="43.66435793042183"/>
+      </node>
+      <node id="Forbidden Films" label="Forbidden Films">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.7311338186264038"/>
+        </attvalues>
+        <viz:color hex="#4ECDC4" a="1.0"/>
+        <viz:size value="41.934014558792114"/>
+      </node>
+      <node id="Carmen Aristegui" label="Carmen Aristegui">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.7825074332101004"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="43.47522299630302"/>
+      </node>
+      <node id="Person" label="Person">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.781499370932579"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="43.44498112797737"/>
+      </node>
+      <node id="Military Weapon" label="Military Weapon">
+        <attvalues>
+          <attvalue for="0" value="WEAPON"/>
+          <attvalue for="1" value="0.7728340744972229"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="43.18502223491669"/>
+      </node>
+      <node id="Phones" label="Phones">
+        <attvalues>
+          <attvalue for="0" value="PRODUCT"/>
+          <attvalue for="1" value="0.7698477300313803"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="43.095431900941406"/>
+      </node>
+      <node id="Forbidden Stories" label="Forbidden Stories">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.7693405667940776"/>
+        </attvalues>
+        <viz:color hex="#4ECDC4" a="1.0"/>
+        <viz:size value="43.08021700382233"/>
+      </node>
+      <node id="Your" label="Your">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.767494961348447"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="43.02484884045341"/>
+      </node>
+      <node id="About 2006, 2007" label="About 2006, 2007">
+        <attvalues>
+          <attvalue for="0" value="DATE"/>
+          <attvalue for="1" value="0.7666399995485942"/>
+        </attvalues>
+        <viz:color hex="#F39C12" a="1.0"/>
+        <viz:size value="42.999199986457825"/>
+      </node>
+      <node id="June of 2019" label="June of 2019">
+        <attvalues>
+          <attvalue for="0" value="DATE"/>
+          <attvalue for="1" value="0.7654640340805055"/>
+        </attvalues>
+        <viz:color hex="#F39C12" a="1.0"/>
+        <viz:size value="42.963921022415164"/>
+      </node>
+      <node id="Government" label="Government">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.7603318691253662"/>
+        </attvalues>
+        <viz:color hex="#4ECDC4" a="1.0"/>
+        <viz:size value="42.809956073760986"/>
+      </node>
+      <node id="March" label="March">
+        <attvalues>
+          <attvalue for="0" value="EVENT"/>
+          <attvalue for="1" value="0.7560184597969055"/>
+        </attvalues>
+        <viz:color hex="#F7DC6F" a="1.0"/>
+        <viz:size value="42.680553793907166"/>
+      </node>
+      <node id="17 Hours" label="17 Hours">
+        <attvalues>
+          <attvalue for="0" value="TIME"/>
+          <attvalue for="1" value="0.7547238349914551"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="42.64171504974365"/>
+      </node>
+      <node id="Program" label="Program">
+        <attvalues>
+          <attvalue for="0" value="SOFTWARE"/>
+          <attvalue for="1" value="0.748890608549118"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="42.46671825647354"/>
+      </node>
+      <node id="Gobernador" label="Gobernador">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.7444726824760437"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="42.33418047428131"/>
+      </node>
+      <node id="Saudi Arabia" label="Saudi Arabia">
+        <attvalues>
+          <attvalue for="0" value="LOCATION"/>
+          <attvalue for="1" value="0.743339616060257"/>
+        </attvalues>
+        <viz:color hex="#45B7D1" a="1.0"/>
+        <viz:size value="42.30018848180771"/>
+      </node>
+      <node id="1300" label="1300">
+        <attvalues>
+          <attvalue for="0" value="DATE"/>
+          <attvalue for="1" value="0.7411710798740387"/>
+        </attvalues>
+        <viz:color hex="#F39C12" a="1.0"/>
+        <viz:size value="42.23513239622116"/>
+      </node>
+      <node id="Geolocation" label="Geolocation">
+        <attvalues>
+          <attvalue for="0" value="LOCATION"/>
+          <attvalue for="1" value="0.7408236265182495"/>
+        </attvalues>
+        <viz:color hex="#45B7D1" a="1.0"/>
+        <viz:size value="42.224708795547485"/>
+      </node>
+      <node id="early May of this year" label="early May of this year">
+        <attvalues>
+          <attvalue for="0" value="DATE"/>
+          <attvalue for="1" value="0.7361592531204224"/>
+        </attvalues>
+        <viz:color hex="#F39C12" a="1.0"/>
+        <viz:size value="42.08477759361267"/>
+      </node>
+      <node id="2016" label="2016">
+        <attvalues>
+          <attvalue for="0" value="DATE"/>
+          <attvalue for="1" value="0.7360990166664124"/>
+        </attvalues>
+        <viz:color hex="#F39C12" a="1.0"/>
+        <viz:size value="42.08297049999237"/>
+      </node>
+      <node id="Cocina" label="Cocina">
+        <attvalues>
+          <attvalue for="0" value="LOCATION"/>
+          <attvalue for="1" value="0.7338034510612488"/>
+        </attvalues>
+        <viz:color hex="#45B7D1" a="1.0"/>
+        <viz:size value="42.01410353183746"/>
+      </node>
+      <node id="Dictatorship" label="Dictatorship">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.7321296334266663"/>
+        </attvalues>
+        <viz:color hex="#4ECDC4" a="1.0"/>
+        <viz:size value="41.96388900279999"/>
+      </node>
+      <node id="Saudi regime" label="Saudi regime">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.7234254479408264"/>
+        </attvalues>
+        <viz:color hex="#4ECDC4" a="1.0"/>
+        <viz:size value="41.70276343822479"/>
+      </node>
+      <node id="Aliyev regime" label="Aliyev regime">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.719835638999939"/>
+        </attvalues>
+        <viz:color hex="#4ECDC4" a="1.0"/>
+        <viz:size value="41.59506916999817"/>
+      </node>
+      <node id="Software" label="Software">
+        <attvalues>
+          <attvalue for="0" value="SOFTWARE"/>
+          <attvalue for="1" value="0.7191357016563416"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="41.57407104969025"/>
+      </node>
+      <node id="State" label="State">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.7180033326148987"/>
+        </attvalues>
+        <viz:color hex="#4ECDC4" a="1.0"/>
+        <viz:size value="41.54009997844696"/>
+      </node>
+      <node id="Equipo Móvil" label="Equipo Móvil">
+        <attvalues>
+          <attvalue for="0" value="SOFTWARE"/>
+          <attvalue for="1" value="0.7048216164112091"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="41.14464849233627"/>
+      </node>
+      <node id="Islamic ceremony" label="Islamic ceremony">
+        <attvalues>
+          <attvalue for="0" value="EVENT"/>
+          <attvalue for="1" value="0.7041447758674622"/>
+        </attvalues>
+        <viz:color hex="#F7DC6F" a="1.0"/>
+        <viz:size value="41.124343276023865"/>
+      </node>
+      <node id="Crown Prince" label="Crown Prince">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.7022082805633545"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="41.066248416900635"/>
+      </node>
+      <node id="World" label="World">
+        <attvalues>
+          <attvalue for="0" value="LOCATION"/>
+          <attvalue for="1" value="0.95"/>
+        </attvalues>
+        <viz:color hex="#45B7D1" a="1.0"/>
+        <viz:size value="48.5"/>
+      </node>
+      <node id="George Orwell" label="George Orwell">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.95"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="48.5"/>
+      </node>
+      <node id="Device" label="Device">
+        <attvalues>
+          <attvalue for="0" value="PRODUCT"/>
+          <attvalue for="1" value="0.95"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="48.5"/>
+      </node>
+      <node id="Frontline" label="Frontline">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.95"/>
+        </attvalues>
+        <viz:color hex="#4ECDC4" a="1.0"/>
+        <viz:size value="48.5"/>
+      </node>
+      <node id="Journalists" label="Journalists">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.95"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="48.5"/>
+      </node>
+      <node id="Spyware" label="Spyware">
+        <attvalues>
+          <attvalue for="0" value="SOFTWARE"/>
+          <attvalue for="1" value="0.95"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="48.5"/>
+      </node>
+      <node id="Surveillance" label="Surveillance">
+        <attvalues>
+          <attvalue for="0" value="OPERATION"/>
+          <attvalue for="1" value="0.95"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="48.5"/>
+      </node>
+      <node id="Investigation" label="Investigation">
+        <attvalues>
+          <attvalue for="0" value="EVENT"/>
+          <attvalue for="1" value="0.95"/>
+        </attvalues>
+        <viz:color hex="#F7DC6F" a="1.0"/>
+        <viz:size value="48.5"/>
+      </node>
+      <node id="instance of" label="instance of">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="NSO Group" label="NSO Group">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="employer" label="employer">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="diplomatic relation" label="diplomatic relation">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="CNN en México" label="CNN en México">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="position held" label="position held">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+    </nodes>
+    <edges>
+      <edge id="0" source="Enrique Peña Nieto" target="position held" weight="0.85">
+        <attvalues>
+          <attvalue for="0" value="presidente"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+      </edge>
+      <edge id="1" source="Azerbaijan" target="Ilham Aliyev" weight="0.85">
+        <attvalues>
+          <attvalue for="0" value="head of state"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+      </edge>
+      <edge id="2" source="Jamal Khashoggi" target="employer" weight="0.85">
+        <attvalues>
+          <attvalue for="0" value="The Washington Post"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+      </edge>
+      <edge id="3" source="Paul Lewis" target="The Guardian" weight="0.85">
+        <attvalues>
+          <attvalue for="0" value="employer"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+      </edge>
+      <edge id="4" source="Pegasus" target="instance of" weight="0.85">
+        <attvalues>
+          <attvalue for="0" value="spyware"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+      </edge>
+      <edge id="5" source="United Arab Emirates" target="Saudi Arabia" weight="0.85">
+        <attvalues>
+          <attvalue for="0" value="diplomatic relation"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+      </edge>
+      <edge id="6" source="Carmen Aristegui" target="CNN en México" weight="0.85">
+        <attvalues>
+          <attvalue for="0" value="employer"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+      </edge>
+      <edge id="7" source="Saudi Arabia" target="diplomatic relation" weight="0.85">
+        <attvalues>
+          <attvalue for="0" value="United Arab Emirates"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+      </edge>
+      <edge id="8" source="NSO Group" target="2010" weight="0.85">
+        <attvalues>
+          <attvalue for="0" value="inception"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+      </edge>
+    </edges>
+  </graph>
+</gexf>

@@ -132,10 +132,7 @@ class VideoIntelligenceRetriever:
         
         # Initialize Timeline v2.0 components with optimized configuration
         self.temporal_extractor = TemporalExtractorV2(
-            enable_yt_dlp_integration=True,
-            enable_chapter_segmentation=True,
-            enable_word_level_timing=True,
-            enable_sponsorblock_filtering=True
+            use_enhanced_extraction=True
         )
         
         self.event_deduplicator = EventDeduplicator(
@@ -143,21 +140,11 @@ class VideoIntelligenceRetriever:
             time_proximity_threshold=300  # 5 minutes for single video
         )
         
-        self.content_date_extractor = ContentDateExtractor(
-            enable_context_validation=True,
-            confidence_threshold=0.8
-        )
+        self.content_date_extractor = ContentDateExtractor()
         
-        self.timeline_quality_filter = TimelineQualityFilter(
-            min_confidence=0.7,
-            min_relevance=0.7
-        )
+        self.timeline_quality_filter = TimelineQualityFilter()
         
-        self.chapter_segmenter = ChapterSegmenter(
-            adaptive_segmentation=True,
-            min_segment_duration=30,
-            max_segment_duration=300
-        )
+        self.chapter_segmenter = ChapterSegmenter()
         
         logger.info("✅ Timeline Intelligence v2.0 components initialized for single video processing")
         
@@ -439,9 +426,8 @@ class VideoIntelligenceRetriever:
                     logger.info("📊 Step 1: Enhanced temporal extraction...")
                     temporal_events = await self.temporal_extractor.extract_temporal_events(
                         video_url=video_url,
-                        video_path=media_path,
                         transcript_text=analysis['transcript'],
-                        video_metadata=metadata.__dict__
+                        entities=video_intelligence.entities
                     )
                     logger.info(f"✅ Extracted {len(temporal_events)} temporal events")
                     
@@ -452,24 +438,54 @@ class VideoIntelligenceRetriever:
                     
                     # Step 3: Content date extraction
                     logger.info("📅 Step 3: Content date extraction...")
-                    dated_events = await self.content_date_extractor.extract_content_dates(
-                        deduplicated_events, 
-                        analysis['transcript']
-                    )
-                    accurate_dates = sum(1 for event in dated_events if event.has_accurate_date)
+                    dated_events = []
+                    accurate_dates = 0
+                    for event in deduplicated_events:
+                        extracted_date = self.content_date_extractor.extract_date_from_content(
+                            event.description
+                        )
+                        if extracted_date:
+                            event.extracted_date = extracted_date
+                            if extracted_date.confidence > 0.7:
+                                accurate_dates += 1
+                        dated_events.append(event)
                     logger.info(f"✅ Extracted content dates for {accurate_dates}/{len(dated_events)} events")
                     
                     # Step 4: Quality filtering
                     logger.info("🎯 Step 4: Quality filtering...")
-                    filtered_events = await self.timeline_quality_filter.filter_events(dated_events)
+                    # Create a simple timeline object for the quality filter
+                    from ..timeline.models import ConsolidatedTimeline
+                    simple_timeline = ConsolidatedTimeline(
+                        timeline_id=f"video_{video_url.split('/')[-1]}",
+                        events=dated_events,
+                        video_sources=[video_url],
+                        creation_date=datetime.now(),
+                        quality_metrics=None,
+                        cross_video_correlations=[],
+                        metadata={}
+                    )
+                    filtered_timeline, quality_report = await self.timeline_quality_filter.filter_timeline_quality(simple_timeline)
+                    filtered_events = filtered_timeline.events
                     logger.info(f"✅ Filtered to {len(filtered_events)} high-quality events")
                     
                     # Step 5: Chapter segmentation
                     logger.info("📑 Step 5: Chapter segmentation...")
-                    chapters = await self.chapter_segmenter.segment_timeline(
-                        filtered_events, 
-                        metadata.duration
+                    # Use TemporalMetadata for chapter segmentation
+                    from ..retrievers.universal_video_client import TemporalMetadata
+                    temp_metadata = TemporalMetadata(
+                        chapters=[],
+                        subtitles=None,
+                        sponsorblock_segments=[],
+                        video_metadata=metadata.__dict__,
+                        word_level_timing={},
+                        content_sections=[]
                     )
+                    segmentation = await self.chapter_segmenter.segment_video(
+                        video_url,
+                        temp_metadata,
+                        analysis['transcript']
+                    )
+                    chapters = segmentation.chapters
                     logger.info(f"✅ Created {len(chapters)} timeline chapters")
                     
                     # Add Timeline v2.0 data to VideoIntelligence
