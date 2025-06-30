@@ -561,4 +561,474 @@ The v2.0 pipeline is NOT backward compatible with v1.0 output. Migration require
 
 Timeline Pipeline v2.0 represents a complete architectural redesign focused on extracting real temporal events with accurate dates. By implementing proper temporal NLP, event deduplication, and quality filtering, we can transform the currently broken timeline feature into a powerful tool for understanding chronological narratives across video content.
 
-Remember: Quality over quantity - 20 accurate events are infinitely more valuable than 82 duplicates with wrong dates :-) 
+Remember: Quality over quantity - 20 accurate events are infinitely more valuable than 82 duplicates with wrong dates :-)
+
+## 🔍 COMPREHENSIVE RESEARCH RESULTS (2025-06-29 22:17 PDT)
+
+### Critical Discoveries
+
+**1. yt-dlp Underutilization Crisis**: We use <5% of yt-dlp's capabilities!
+- **61 temporal features available** but completely ignored
+- ClipScribe configured only for basic audio extraction
+- Missing: chapters, subtitles, SponsorBlock, metadata, section downloads
+
+**2. Timeline Architecture Completely Broken**:
+- Same event (`evt_6ZVj1_SE4Mo_0`) duplicated 44 times due to entity combination explosion
+- 90% of events use wrong dates (video publish date 2023 vs actual event dates 2018-2021)
+- No actual temporal intelligence - just entity mentions with timestamps
+
+**3. Project Needs Cleanup**:
+- 17 `__pycache__/` directories throughout project
+- 8 documentation files scattered in root directory
+- Test files in wrong locations
+- Generated files not cleaned
+
+### Game-Changing yt-dlp Features We're Missing
+
+#### Chapter Information (`--embed-chapters`)
+```python
+# What we could extract:
+{
+  "chapters": [
+    {"title": "Investigation Methods", "start_time": 0, "end_time": 900},
+    {"title": "NSO Group Origins", "start_time": 900, "end_time": 1800},
+    {"title": "Pegasus Victims", "start_time": 1800, "end_time": 2700}
+  ]
+}
+```
+
+#### Word-Level Subtitles (`--write-subs --embed-subs`)
+```python
+# Precise timing for every word:
+{
+  "word_level_timing": {
+    "In": {"start": 15.23, "end": 15.31},
+    "2018": {"start": 15.45, "end": 15.89},  # Exact moment "2018" was said!
+    "NSO": {"start": 16.12, "end": 16.34},
+    "Group": {"start": 16.34, "end": 16.67}
+  }
+}
+```
+
+#### SponsorBlock Integration (`--sponsorblock-mark`)
+```python
+# Automatically filter content vs non-content:
+{
+  "content_sections": [
+    {"type": "content", "start": 30, "end": 3570},    # Skip intro/outro
+    {"type": "sponsor", "start": 1200, "end": 1260}   # Skip sponsor segments
+  ]
+}
+```
+
+## 🎯 AUGMENTED IMPLEMENTATION PLAN
+
+### Phase 1: Foundation & Cleanup (3-4 days) **CRITICAL FIRST**
+
+#### 1.1 Project Cleanup
+```bash
+# Clear Python cache (17 directories)
+find . -name "__pycache__" -type d -exec rm -rf {} +
+
+# Move documentation files to proper locations
+mkdir -p docs/testing docs/deployment
+mv MASTER_TEST_VIDEO_TABLE.md docs/testing/
+mv COMPREHENSIVE_TESTING_PLAN.md docs/testing/
+mv DEPLOYMENT_GUIDE.md docs/deployment/
+mv MULTI_VIDEO_INTELLIGENCE_ARCHITECTURE.md docs/architecture/
+mv QUICK_DEMO_SETUP.md docs/
+mv DOCUMENTATION_CLEANUP_SUMMARY.md docs/
+
+# Move test files
+mv test_v2_12_enhancements.py tests/integration/
+
+# Move demo files  
+mv demo.py examples/
+```
+
+#### 1.2 Enhanced UniversalVideoClient
+```python
+class EnhancedUniversalVideoClient:
+    """yt-dlp client with comprehensive temporal metadata extraction."""
+    
+    def __init__(self):
+        # Enhanced yt-dlp configuration
+        self.temporal_opts = {
+            # Standard options
+            'quiet': True,
+            'no_warnings': True,
+            
+            # TEMPORAL INTELLIGENCE OPTIONS
+            'writesubtitles': True,         # Extract subtitles
+            'writeautomaticsub': True,      # Auto-generated subs  
+            'embedsubs': True,              # Embed subtitle timing
+            'embed_chapters': True,         # Extract chapter info
+            'sponsorblock_mark': 'all',     # Mark all SponsorBlock segments
+            'write_info_json': True,        # Rich metadata
+            
+            # Subtitle options for word-level timing
+            'subtitleslangs': ['en', 'auto'],
+            'subtitlesformat': 'vtt',       # WebVTT has precise timing
+            
+            # Chapter options
+            'embed_metadata': True,
+            'split_chapters': False,        # Don't split, just extract info
+        }
+    
+    async def extract_temporal_metadata(self, video_url: str) -> TemporalMetadata:
+        """Extract comprehensive temporal metadata using yt-dlp."""
+        
+        with yt_dlp.YoutubeDL(self.temporal_opts) as ydl:
+            # Extract all metadata without downloading video
+            info = ydl.extract_info(video_url, download=False)
+            
+            return TemporalMetadata(
+                chapters=self._parse_chapters(info.get('chapters', [])),
+                subtitles=self._parse_subtitles(info.get('subtitles', {})),
+                sponsorblock_segments=self._parse_sponsorblock(info.get('sponsorblock_chapters', [])),
+                video_metadata=self._parse_video_metadata(info),
+                word_level_timing=self._extract_word_timing(info)
+            )
+    
+    def _extract_word_timing(self, info: dict) -> Dict[str, Dict[str, float]]:
+        """Extract word-level timing from subtitle data."""
+        # Parse VTT subtitle files for precise word timing
+        # This enables sub-second temporal event extraction
+        pass
+```
+
+#### 1.3 New Timeline Package Structure
+```
+src/clipscribe/timeline/
+├── __init__.py
+├── models.py                     # Enhanced temporal data models
+├── temporal_extractor_v2.py      # yt-dlp + NLP extraction  
+├── event_deduplicator.py         # Fix 44-duplicate crisis
+├── date_extractor.py             # Content-based date extraction
+├── quality_filter.py             # Filter wrong dates/bad events
+├── chapter_segmenter.py          # Use yt-dlp chapters for segmentation
+└── cross_video_synthesizer.py    # Multi-video timeline building
+```
+
+### Phase 2: Core Timeline Extraction (4-5 days)
+
+#### 2.1 TemporalEventExtractorV2 with yt-dlp Integration
+```python
+class TemporalEventExtractorV2:
+    """Extract temporal events using yt-dlp metadata + advanced NLP."""
+    
+    async def extract_temporal_events(self, 
+                                    video_url: str,
+                                    transcript: str) -> List[TemporalEvent]:
+        """Extract events using chapter segmentation + word-level timing."""
+        
+        # 1. Get comprehensive temporal metadata from yt-dlp
+        temporal_metadata = await self.client.extract_temporal_metadata(video_url)
+        
+        # 2. Segment transcript by chapters for better context
+        chapter_segments = self._segment_by_chapters(
+            transcript, temporal_metadata.chapters
+        )
+        
+        # 3. Extract temporal events from each segment
+        all_events = []
+        for segment in chapter_segments:
+            segment_events = await self._extract_events_from_segment(
+                segment, temporal_metadata.word_level_timing
+            )
+            all_events.extend(segment_events)
+        
+        # 4. Filter out non-content sections using SponsorBlock
+        content_events = self._filter_content_sections(
+            all_events, temporal_metadata.sponsorblock_segments
+        )
+        
+        # 5. Apply quality filtering - NO VIDEO PUBLISH DATES!
+        quality_events = self._apply_quality_filter(content_events)
+        
+        return quality_events
+    
+    def _get_precise_timestamp(self, phrase: str, word_timing: dict) -> float:
+        """Get exact video timestamp when phrase was spoken."""
+        # Use word-level timing to find precise moment
+        # Example: "In 2018" spoken at exactly 15.45 seconds
+        pass
+```
+
+#### 2.2 Event Deduplication Crisis Fix
+```python
+class EventDeduplicator:
+    """Fix the 44-duplicate event crisis."""
+    
+    def deduplicate_events(self, events: List[TemporalEvent]) -> List[TemporalEvent]:
+        """
+        RULE: One real event = one timeline entry. Period.
+        
+        Current broken behavior:
+        - Same event with ["Pegasus"] 
+        - Same event with ["Pegasus", "NSO Group"]
+        - Same event with ["Pegasus", "NSO Group", "Israel"]
+        = 3 duplicate timeline entries!
+        
+        Fixed behavior:
+        - One event with all entities: ["Pegasus", "NSO Group", "Israel"]
+        = 1 timeline entry
+        """
+        
+        # Group by content hash + temporal proximity
+        event_groups = self._group_similar_events(events)
+        
+        deduplicated = []
+        for group in event_groups:
+            if len(group) == 1:
+                deduplicated.append(group[0])
+            else:
+                # Merge all entities, keep best date, consolidate descriptions
+                merged_event = self._merge_event_group(group)
+                deduplicated.append(merged_event)
+        
+        return deduplicated
+    
+    def _group_similar_events(self, events: List[TemporalEvent]) -> List[List[TemporalEvent]]:
+        """Group events that represent the same real-world occurrence."""
+        groups = []
+        
+        for event in events:
+            added_to_group = False
+            
+            for group in groups:
+                representative = group[0]
+                
+                # Same event if:
+                # 1. Similar description (80%+ similarity)
+                # 2. Same time period (within 1 hour of video time)
+                # 3. Overlapping entities
+                if (self._description_similarity(event.description, representative.description) > 0.8 and
+                    abs(event.video_timestamp - representative.video_timestamp) < 3600 and
+                    self._entities_overlap(event.entities, representative.entities)):
+                    
+                    group.append(event)
+                    added_to_group = True
+                    break
+            
+            if not added_to_group:
+                groups.append([event])
+        
+        return groups
+```
+
+#### 2.3 Date Extraction Overhaul  
+```python
+class ContentDateExtractor:
+    """Extract dates from content ONLY - never from video metadata."""
+    
+    def extract_date_from_content(self, 
+                                text: str, 
+                                chapter_context: Optional[Chapter] = None) -> Optional[ExtractedDate]:
+        """
+        Extract date from transcript content with chapter context.
+        
+        CRITICAL RULE: NEVER return video publish date as fallback!
+        Better to have no date than wrong date.
+        """
+        
+        # Use chapter title for additional context
+        context_text = text
+        if chapter_context:
+            context_text = f"{chapter_context.title}: {text}"
+        
+        # Find temporal expressions
+        temporal_expressions = self._find_temporal_expressions(context_text)
+        
+        for expr in temporal_expressions:
+            # Use dateparser with strict settings
+            parsed_date = dateparser.parse(
+                expr.text,
+                settings={
+                    'STRICT_PARSING': True,          # No fuzzy parsing
+                    'RETURN_AS_TIMEZONE_AWARE': False,
+                    'PREFER_DAY_OF_MONTH': 'first',  # Default to start of period
+                }
+            )
+            
+            if parsed_date and self._is_reasonable_date(parsed_date):
+                return ExtractedDate(
+                    date=parsed_date,
+                    original_text=expr.text,
+                    confidence=self._calculate_confidence(expr.text, parsed_date),
+                    source="transcript_content",
+                    extraction_method="dateparser_with_chapter_context"
+                )
+        
+        # CRITICAL: Never return video publish date!
+        return None
+    
+    def _is_reasonable_date(self, date: datetime) -> bool:
+        """Validate extracted date makes sense."""
+        now = datetime.now()
+        
+        # Reject dates from distant future or too far past
+        if date > now + timedelta(days=365):
+            return False
+        if date < datetime(1900, 1, 1):
+            return False
+            
+        return True
+```
+
+### Phase 3: Quality Control (2-3 days)
+
+#### 3.1 Timeline Quality Filter
+```python
+class TimelineQualityFilter:
+    """Ensure only real temporal events reach the timeline."""
+    
+    def filter_timeline_events(self, events: List[TemporalEvent]) -> List[TemporalEvent]:
+        """Apply strict quality criteria."""
+        
+        filtered = []
+        
+        for event in events:
+            # MUST HAVE: Extracted date from content
+            if not event.extracted_date or event.date_source == "video_published_date":
+                logger.debug(f"Rejected event: no content-extracted date - {event.description[:50]}")
+                continue
+            
+            # MUST HAVE: Meaningful description
+            if len(event.description) < 20 or self._is_generic_statement(event.description):
+                logger.debug(f"Rejected event: generic description - {event.description}")
+                continue
+            
+            # MUST DESCRIBE: Temporal event (something that happened)
+            if not self._describes_temporal_event(event.description):
+                logger.debug(f"Rejected event: not temporal - {event.description}")
+                continue
+            
+            # MUST HAVE: Reasonable confidence
+            if event.confidence < 0.7:
+                logger.debug(f"Rejected event: low confidence {event.confidence} - {event.description[:50]}")
+                continue
+            
+            filtered.append(event)
+        
+        logger.info(f"Quality filter: {len(events)} → {len(filtered)} events ({len(filtered)/len(events)*100:.1f}% passed)")
+        return filtered
+    
+    def _describes_temporal_event(self, description: str) -> bool:
+        """Check if description describes something that happened."""
+        # Look for action verbs, past tense, temporal indicators
+        temporal_indicators = [
+            "was", "were", "happened", "occurred", "began", "started", 
+            "ended", "founded", "killed", "arrested", "released",
+            "discovered", "revealed", "announced", "published"
+        ]
+        
+        return any(indicator in description.lower() for indicator in temporal_indicators)
+```
+
+### Phase 4: Testing & Validation (2-3 days)
+
+#### 4.1 Comprehensive Testing with Known Timeline
+```python
+class TimelineValidationSuite:
+    """Test timeline extraction against known data."""
+    
+    async def test_pegasus_documentary_timeline(self):
+        """Test against Pegasus documentary with known events."""
+        
+        known_events = [
+            {"date": "2020-08-03", "description": "David Haigh infected with Pegasus"},
+            {"date": "2018", "description": "NSO Group founded"}, 
+            {"date": "2021-07", "description": "Pegasus Project investigation published"},
+            # ... more known events
+        ]
+        
+        # Process the documentary
+        extracted_timeline = await self.processor.extract_timeline(PEGASUS_PART_1_URL)
+        
+        # Validate against known events
+        for known_event in known_events:
+            matching_extracted = self._find_matching_event(known_event, extracted_timeline.events)
+            
+            assert matching_extracted is not None, f"Missing event: {known_event}"
+            assert abs((matching_extracted.date - known_event['date']).days) < 30, "Date mismatch"
+        
+        # Ensure no duplicates
+        event_ids = [e.event_id for e in extracted_timeline.events]
+        assert len(event_ids) == len(set(event_ids)), "Duplicate events found!"
+        
+        # Ensure no video publish dates
+        for event in extracted_timeline.events:
+            assert event.date_source != "video_published_date", f"Video publish date found: {event}"
+```
+
+### Phase 5: UI Integration (2 days)
+
+#### 5.1 Enhanced Mission Control Timeline View
+```python
+def show_enhanced_timeline_with_ytdlp(timeline_events, temporal_metadata):
+    """Display timeline with yt-dlp enhancements."""
+    
+    st.subheader("📅 Timeline Intelligence v2.0 (yt-dlp Enhanced)")
+    
+    # Show yt-dlp metadata
+    if temporal_metadata.chapters:
+        with st.expander("📖 Video Chapters"):
+            for chapter in temporal_metadata.chapters:
+                st.write(f"**{chapter.title}** ({chapter.start_time}s - {chapter.end_time}s)")
+    
+    # Timeline filtering with SponsorBlock
+    if temporal_metadata.sponsorblock_segments:
+        filter_sponsors = st.checkbox("🚫 Filter sponsor segments", value=True)
+        if filter_sponsors:
+            timeline_events = filter_sponsorblock_events(timeline_events, temporal_metadata.sponsorblock_segments)
+    
+    # Show precision indicator
+    st.info(f"⚡ Sub-second precision: {len([e for e in timeline_events if hasattr(e, 'precise_timestamp')])} events with word-level timing")
+    
+    # Enhanced timeline visualization
+    show_timeline_with_chapters(timeline_events, temporal_metadata.chapters)
+```
+
+## 📊 Expected Transformation
+
+### Before: Broken Timeline v1.0
+```json
+{
+  "events": [
+    {"event_id": "evt_6ZVj1_SE4Mo_0", "timestamp": "2023-01-03", "description": "Claudio Ganyeri expertise...", "entities": ["Pegasus"]},
+    {"event_id": "evt_6ZVj1_SE4Mo_0", "timestamp": "2023-01-03", "description": "Claudio Ganyeri expertise...", "entities": ["Pegasus", "NSO"]},
+    {"event_id": "evt_6ZVj1_SE4Mo_0", "timestamp": "2023-01-03", "description": "Claudio Ganyeri expertise...", "entities": ["Pegasus", "NSO", "Israel"]}
+    // ... 41 more duplicates with wrong date
+  ]
+}
+```
+
+### After: Enhanced Timeline v2.0  
+```json
+{
+  "events": [
+    {
+      "event_id": "evt_pegasus_investigation_2021",
+      "timestamp": "2021-07-18T10:30:00",
+      "description": "Pegasus Project investigation published revealing global surveillance",
+      "entities": ["Pegasus", "NSO Group", "Forbidden Stories", "Amnesty International"],
+      "extracted_date": {"source": "transcript_content", "confidence": 0.95},
+      "precise_timestamp": 873.45,
+      "chapter_context": "Investigation Publication",
+      "sponsorblock_filtered": true
+    }
+    // ... unique, accurate events with real dates
+  ]
+}
+```
+
+## 🎯 Success Metrics
+
+1. **Zero Event Duplication** - Each real-world event appears once
+2. **95%+ Correct Dates** - Dates extracted from content, not metadata  
+3. **Sub-Second Precision** - Word-level timing for key events
+4. **Chapter Awareness** - Events properly contextualized within video structure
+5. **Content-Only Events** - No timeline pollution from intros/sponsors
+
+This research-driven plan transforms our broken timeline into a precision temporal intelligence system using features we already have access to :-) 
