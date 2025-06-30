@@ -1,9 +1,9 @@
 # ClipScribe Documentation
 
-*Last Updated: June 28, 2025*
+*Last Updated: June 29, 2025*
 *Related: [Main README](../README.md)*
 
-Welcome to the comprehensive documentation for **ClipScribe** - a video intelligence collector and triage analyst designed for reliable, cost-effective intelligence extraction from video content.
+Welcome to the ClipScribe documentation! This directory contains comprehensive guides for using and developing ClipScribe.
 
 ## 🎯 Strategic Positioning (v2.18.3)
 
@@ -28,19 +28,93 @@ Welcome to the comprehensive documentation for **ClipScribe** - a video intellig
 - Information Flow Maps crashes being resolved
 - Mission Control stability improvements underway
 
-## 📚 Documentation Index
+### 🚧 **Current Status: Timeline Feature Fundamentally Broken** (Updated 2025-06-29)
+- **CRITICAL**: Timeline feature creates 44 duplicates of same event with entity combinations
+- **Wrong Dates**: 90% of events use video publish date instead of actual historical dates
+- **No Temporal Intelligence**: Extracts entity mentions, not actual temporal events
+- **Complete Redesign Required**: See [Timeline Intelligence v2.0](TIMELINE_INTELLIGENCE_V2.md) for architecture
+- **Mission Control UI**: Fixed all duplicate element issues - fully operational (v2.18.7)
 
-### Getting Started
-- [**Quick Start Guide**](GETTING_STARTED.md) - Get up and running in 5 minutes
-- [**CLI Reference**](CLI_REFERENCE.md) - Complete command-line documentation
-- [**Supported Platforms**](PLATFORMS.md) - List of 1800+ supported video platforms
+## 📚 Documentation Overview
 
-### Features & Guides
-- [**Output Formats**](OUTPUT_FORMATS.md) - Understanding all output formats: TXT, JSON, CSV, Markdown reports, and GEXF graphs
-- [**Visualizing Knowledge Graphs**](VISUALIZING_GRAPHS.md) - View extracted relationships with Gephi
-- [**Extraction Technology**](EXTRACTION_TECHNOLOGY.md) - Deep dive into entity and relationship extraction methods
-- [**Development Guide**](DEVELOPMENT.md) - Architecture, API reference, and contribution guidelines
-- [**Troubleshooting**](TROUBLESHOOTING.md) - Common issues and solutions
+### For Users
+
+1. **[Getting Started](GETTING_STARTED.md)** - Quick start guide for new users
+   - Installation instructions
+   - Basic usage examples
+   - First video processing
+
+2. **[CLI Reference](CLI_REFERENCE.md)** - Complete command-line interface documentation
+   - All available commands
+   - Options and parameters
+   - Advanced usage patterns
+
+3. **[Supported Platforms](PLATFORMS.md)** - Video platform compatibility
+   - YouTube, Twitter/X, TikTok, and more
+   - Platform-specific features
+   - Authentication requirements
+
+4. **[Output Formats](OUTPUT_FORMATS.md)** - All supported output formats
+   - JSON, CSV, Markdown formats
+   - Knowledge graph exports (GEXF, GraphML)
+   - Chimera integration format
+
+5. **[Visualizing Knowledge Graphs](VISUALIZING_GRAPHS.md)** - Graph visualization guide
+   - Using Gephi for network analysis
+   - Python visualization scripts
+   - Interactive graph exploration
+
+6. **[Troubleshooting](TROUBLESHOOTING.md)** - Common issues and solutions
+   - API key configuration
+   - Platform-specific issues
+   - Performance optimization
+
+### For Developers
+
+7. **[Development Guide](DEVELOPMENT.md)** - Developer setup and guidelines
+   - Development environment setup
+   - Code organization
+   - Testing procedures
+   - Contributing guidelines
+
+8. **[Extraction Technology](EXTRACTION_TECHNOLOGY.md)** - Entity extraction details
+   - Hybrid extraction approach
+   - Model configurations
+   - Cost optimization strategies
+
+9. **[Timeline Intelligence v2.0](TIMELINE_INTELLIGENCE_V2.md)** ⚠️ **CRITICAL REDESIGN**
+   - Current timeline feature is fundamentally broken
+   - Complete v2.0 architecture specification
+   - Implementation roadmap for fixing timeline extraction
+   - Quality metrics and testing strategy
+
+## 🗺️ Quick Navigation
+
+- **Just want to process a video?** → Start with [Getting Started](GETTING_STARTED.md)
+- **Need command details?** → Check [CLI Reference](CLI_REFERENCE.md)
+- **Having issues?** → See [Troubleshooting](TROUBLESHOOTING.md)
+- **Want to contribute?** → Read [Development Guide](DEVELOPMENT.md)
+- **Interested in timeline features?** → Review [Timeline Intelligence v2.0](TIMELINE_INTELLIGENCE_V2.md)
+
+## 📋 Documentation Standards
+
+All documentation in this directory follows these standards:
+
+1. **Markdown Format** - All docs use GitHub-flavored Markdown
+2. **Clear Examples** - Every feature includes working examples
+3. **Updated Regularly** - Docs are updated with each feature change
+4. **Cross-Referenced** - Related documents are linked appropriately
+
+## 🔄 Keeping Docs Current
+
+When making changes to ClipScribe:
+
+1. Update relevant documentation immediately
+2. Test all code examples to ensure they work
+3. Update the "Last Updated" date at the top of modified files
+4. Add new documents to this README when created
+
+Remember: Good documentation is as important as good code :-)
 
 ## 🚀 Quick Start
 
