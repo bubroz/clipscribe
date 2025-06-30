@@ -165,8 +165,14 @@ def show_collection_overview(collection_path: Path, intelligence):
         for insight in key_insights:
             st.markdown(f"• {insight}")
 
-def show_timeline_synthesis(collection_path: Path, intelligence):
-    """Show Timeline Building Pipeline results (v2.17.0)"""
+def show_timeline_synthesis(collection_path: Path, intelligence, context: str = "main"):
+    """Show Timeline Building Pipeline results (v2.17.0)
+    
+    Args:
+        collection_path: Path to the collection directory
+        intelligence: Collection intelligence data
+        context: Context identifier to ensure unique keys (e.g., "main", "synthesis")
+    """
     
     st.subheader("⏰ Timeline Building Pipeline Results")
     
@@ -204,7 +210,7 @@ def show_timeline_synthesis(collection_path: Path, intelligence):
             "Timeline View:",
             ["Interactive Chart", "Event List", "Temporal Analytics"],
             help="Choose how to visualize timeline events",
-            key=f"timeline_view_mode_{abs(hash(str(collection_path)))}_synthesis_{id(timeline_data)}"
+            key=f"timeline_view_mode_{abs(hash(str(collection_path)))}_synthesis_{id(timeline_data)}_{context}"
         )
     
     with col2:
@@ -215,12 +221,12 @@ def show_timeline_synthesis(collection_path: Path, intelligence):
             value=0.7,
             step=0.1,
             help="Filter events by confidence threshold",
-            key=f"confidence_filter_{abs(hash(str(collection_path)))}_synthesis_{id(timeline_data)}"
+            key=f"confidence_filter_{abs(hash(str(collection_path)))}_synthesis_{id(timeline_data)}_{context}"
         )
     
     with col3:
-        if st.button("🔍 Enable Web Research", help="Run external validation on timeline events (incurs costs)", key=f"enable_web_research_{abs(hash(str(collection_path)))}_timeline"):
-            run_timeline_research_validation(collection_path, timeline_data)
+        if st.button("🔍 Enable Web Research", help="Run external validation on timeline events (incurs costs)", key=f"enable_web_research_{abs(hash(str(collection_path)))}_timeline_{context}"):
+            run_timeline_research_validation(collection_path, timeline_data, context)
     
     # Filter timeline events by confidence
     filtered_events = [
@@ -232,13 +238,13 @@ def show_timeline_synthesis(collection_path: Path, intelligence):
     
     # Show timeline visualization based on view mode
     if view_mode == "Interactive Chart":
-        show_timeline_chart(filtered_events)
+        show_timeline_chart(filtered_events, context)
     elif view_mode == "Event List":
         show_timeline_list(filtered_events)
     elif view_mode == "Temporal Analytics":
-        show_timeline_analytics(filtered_events)
+        show_timeline_analytics(filtered_events, context)
 
-def show_timeline_chart(timeline_events):
+def show_timeline_chart(timeline_events, context: str = "main"):
     """Display interactive timeline chart"""
     
     if not timeline_events:
@@ -300,7 +306,7 @@ def show_timeline_chart(timeline_events):
         title_x=0.5
     )
     
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, use_container_width=True, key=f"timeline_chart_{context}")
     
     # Event details with enhanced information
     st.markdown("### 📋 Timeline Event Details")
@@ -369,7 +375,7 @@ def show_timeline_list(timeline_events):
             
             st.divider()
 
-def show_timeline_analytics(timeline_events):
+def show_timeline_analytics(timeline_events, context: str = "main"):
     """Show timeline analytics and insights"""
     
     st.markdown("### 📊 Temporal Intelligence Analytics")
@@ -410,16 +416,16 @@ def show_timeline_analytics(timeline_events):
             labels={'x': 'Confidence Score', 'y': 'Number of Events'}
         )
         fig.update_layout(height=400)
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, use_container_width=True, key=f"confidence_histogram_{context}")
 
-def run_timeline_research_validation(collection_path: Path, timeline_events):
+def run_timeline_research_validation(collection_path: Path, timeline_events, context: str = "main"):
     """Run web research validation on timeline events"""
     
     st.markdown("#### 🔍 Timeline Research Validation")
     
     st.warning("⚠️ This feature will incur additional API costs for external research validation")
     
-    if st.button("Confirm Research Validation", type="primary", key=f"confirm_research_validation_{abs(hash(str(collection_path)))}"):
+    if st.button("Confirm Research Validation", type="primary", key=f"confirm_research_validation_{abs(hash(str(collection_path)))}_{context}"):
         progress_bar = st.progress(0)
         status_text = st.empty()
         
@@ -566,7 +572,7 @@ def show_knowledge_synthesis(collection_path: Path, intelligence):
     """Show knowledge synthesis features with Timeline Building Pipeline integration"""
     
     # Enhanced Timeline synthesis (v2.17.0)
-    show_timeline_synthesis(collection_path, intelligence)
+    show_timeline_synthesis(collection_path, intelligence, context="synthesis")
     
     # Legacy timeline support
     consolidated_timeline = intelligence.get('consolidated_timeline')
@@ -741,7 +747,7 @@ def main():
                 show_collection_overview(collection_path, intelligence)
             
             with tab2:
-                show_timeline_synthesis(collection_path, intelligence)
+                show_timeline_synthesis(collection_path, intelligence, context="timeline_tab")
             
             with tab3:
                 show_videos_list(intelligence)
