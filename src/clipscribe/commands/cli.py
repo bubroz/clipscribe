@@ -621,7 +621,8 @@ async def process_collection_async(
     console.print(f"\n🧠 Step 2: Multi-video intelligence analysis...")
     
     try:
-        multi_processor = MultiVideoProcessor(use_ai_validation=True)
+        # PERFORMANCE FIX: Disable AI validation for fast processing (was causing 18-minute delays)
+        multi_processor = MultiVideoProcessor(use_ai_validation=False)
         
         # Auto-detect series if requested
         if auto_detect_series and collection_type_enum != VideoCollectionType.SERIES:
