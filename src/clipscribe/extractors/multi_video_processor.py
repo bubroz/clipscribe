@@ -36,8 +36,6 @@ from ..timeline import (
     ChapterSegmenter,
     CrossVideoSynthesizer,
     TemporalEvent,
-    DeduplicationStrategy,
-    QualityThresholds,
     SynthesisStrategy
 )
 
@@ -89,9 +87,8 @@ class MultiVideoProcessor:
         )
         
         self.event_deduplicator = EventDeduplicator(
-            strategy=DeduplicationStrategy.INTELLIGENT_CONSOLIDATION,
             similarity_threshold=0.85,
-            temporal_proximity_threshold=300  # 5 minutes
+            time_proximity_threshold=300  # 5 minutes
         )
         
         self.content_date_extractor = ContentDateExtractor(
@@ -101,14 +98,8 @@ class MultiVideoProcessor:
         )
         
         self.quality_filter = TimelineQualityFilter(
-            quality_thresholds=QualityThresholds(
-                min_confidence=0.6,
-                min_content_density=0.3,
-                max_temporal_proximity=600,  # 10 minutes
-                min_correlation_strength=0.4
-            ),
-            enable_technical_noise_detection=True,
-            enable_date_validation=True
+            min_confidence=0.6,
+            min_relevance=0.7
         )
         
         self.chapter_segmenter = ChapterSegmenter(
@@ -1241,19 +1232,18 @@ class MultiVideoProcessor:
             # Step 2: Event Deduplication (Fixes 44-duplicate Crisis)
             logger.info("🔧 Step 2: EventDeduplicator - Eliminating duplicate crisis")
             
-            deduplicated_result = await self.event_deduplicator.deduplicate_events(
-                temporal_events,
-                strategy=DeduplicationStrategy.INTELLIGENT_CONSOLIDATION
+            deduplicated_events = self.event_deduplicator.deduplicate_events(
+                temporal_events
             )
             
-            logger.info(f"Deduplication: {len(temporal_events)} → {len(deduplicated_result.unique_events)} events")
-            logger.info(f"Eliminated {deduplicated_result.duplicates_removed} duplicates")
+            logger.info(f"Deduplication: {len(temporal_events)} → {len(deduplicated_events)} events")
+            logger.info(f"Eliminated {len(temporal_events) - len(deduplicated_events)} duplicates")
             
             # Step 3: Content Date Extraction (Fixes Wrong Date Crisis)
             logger.info("📅 Step 3: ContentDateExtractor - Extracting real dates from content")
             
             date_enhanced_events = []
-            for event in deduplicated_result.unique_events:
+            for event in deduplicated_events:
                 enhanced_event = await self.content_date_extractor.extract_and_validate_date(
                     event,
                     enable_context_validation=True,
@@ -1295,7 +1285,7 @@ class MultiVideoProcessor:
             timeline_summary = (
                 f"Timeline Intelligence v2.0 BREAKTHROUGH: Transformed {len(temporal_events)} raw events "
                 f"into {len(final_events)} high-quality temporal events. "
-                f"Eliminated {deduplicated_result.duplicates_removed} duplicates. "
+                f"Eliminated {len(temporal_events) - len(deduplicated_events)} duplicates. "
                 f"Quality score: {quality_report.overall_quality_score:.2f}. "
                 f"Expected 95%+ accurate dates from content analysis."
             )
@@ -1308,7 +1298,7 @@ class MultiVideoProcessor:
                 timeline_version="2.0.0",
                 processing_stats={
                     "raw_events_extracted": len(temporal_events),
-                    "duplicates_eliminated": deduplicated_result.duplicates_removed,
+                    "duplicates_eliminated": len(temporal_events) - len(deduplicated_events),
                     "quality_filtered": len(date_enhanced_events) - len(high_quality_events),
                     "final_events": len(final_events),
                     "quality_score": quality_report.overall_quality_score,
@@ -1320,7 +1310,7 @@ class MultiVideoProcessor:
             logger.info("🎉 Timeline Intelligence v2.0 TRANSFORMATION COMPLETE!")
             logger.info(f"✅ Result: {len(temporal_events)} broken events → {len(final_events)} accurate events")
             logger.info(f"✅ Quality: {quality_report.overall_quality_score:.2f} (targeting >0.8)")
-            logger.info(f"✅ Duplicates eliminated: {deduplicated_result.duplicates_removed}")
+            logger.info(f"✅ Duplicates eliminated: {len(temporal_events) - len(deduplicated_events)}")
             
             return consolidated_timeline
             

@@ -48,47 +48,43 @@ from .temporal_extractor_v2 import (
 
 # Event Deduplication (Fixes 44-duplicate Crisis)
 from .event_deduplicator import (
-    EventDeduplicator,
-    DeduplicationStrategy,
-    DeduplicationResult
+    EventDeduplicator
 )
 
 # Content Date Extraction (Fixes Wrong Date Crisis)
 from .date_extractor import (
-    ContentDateExtractor,
-    DateExtractionContext
+    ContentDateExtractor
 )
 
 # Quality Filtering (Ensures High-Quality Output)
 from .quality_filter import (
-    TimelineQualityFilter,
-    QualityThresholds,
-    QualityReport
+    TimelineQualityFilter
 )
 
 # Chapter Segmentation (Leverages yt-dlp Chapter Intelligence)
 from .chapter_segmenter import (
     ChapterSegmenter,
-    ChapterType,
-    SegmentationStrategy,
-    ChapterAnalysis,
-    VideoSegmentation
+    SegmentationStrategy
 )
 
 # Cross-Video Synthesis (Multi-Video Timeline Building)
 from .cross_video_synthesizer import (
     CrossVideoSynthesizer,
-    SynthesisStrategy,
-    CorrelationType,
-    CrossVideoCorrelation,
-    SynthesisResult
+    SynthesisStrategy
+)
+
+# Performance Optimization (Component 5)
+from .performance_optimizer import (
+    TimelineV2PerformanceOptimizer,
+    PerformanceMetrics,
+    BatchProcessingConfig
 )
 
 # Package metadata
 __version__ = "2.0.0"
 __description__ = "Timeline Intelligence v2.0 - Revolutionary temporal intelligence with yt-dlp integration"
 
-# Public API
+# Public API - Only what actually exists
 __all__ = [
     # Core Models
     "TemporalEvent",
@@ -100,7 +96,7 @@ __all__ = [
     "EventType",
     "ValidationStatus",
     
-    # Core Components (The Big 4 of v2.0)
+    # Core Components (Timeline v2.0)
     "TemporalExtractorV2",           # 🚀 Heart of v2.0 - yt-dlp temporal intelligence
     "EventDeduplicator",             # 🔧 Fixes 44-duplicate crisis
     "ContentDateExtractor",          # 📅 Fixes wrong date crisis  
@@ -108,19 +104,13 @@ __all__ = [
     "ChapterSegmenter",              # 🎬 yt-dlp chapter intelligence
     "CrossVideoSynthesizer",         # 🔗 Multi-video timeline building
     
+    # Performance Optimization (Component 5)
+    "TimelineV2PerformanceOptimizer", # ⚡ Large collection optimization
+    "PerformanceMetrics",            # 📊 Performance tracking
+    "BatchProcessingConfig",         # ⚙️ Optimization configuration
+    
     # Supporting Classes
     "TemporalExtractionContext",
-    "DeduplicationStrategy",
-    "DeduplicationResult", 
-    "DateExtractionContext",
-    "QualityThresholds",
-    "QualityReport",
-    "ChapterType",
     "SegmentationStrategy", 
-    "ChapterAnalysis",
-    "VideoSegmentation",
     "SynthesisStrategy",
-    "CorrelationType",
-    "CrossVideoCorrelation",
-    "SynthesisResult",
 ] 

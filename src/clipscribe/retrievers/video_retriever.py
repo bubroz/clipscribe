@@ -26,9 +26,7 @@ from ..timeline import (
     ContentDateExtractor,
     TimelineQualityFilter,
     ChapterSegmenter,
-    TemporalEvent,
-    DeduplicationStrategy,
-    QualityThresholds
+    TemporalEvent
 )
 
 logger = logging.getLogger(__name__)
@@ -141,9 +139,8 @@ class VideoIntelligenceRetriever:
         )
         
         self.event_deduplicator = EventDeduplicator(
-            strategy=DeduplicationStrategy.INTELLIGENT_CONSOLIDATION,
-            time_window_seconds=300,  # 5 minutes for single video
-            confidence_threshold=0.75
+            similarity_threshold=0.8,
+            time_proximity_threshold=300  # 5 minutes for single video
         )
         
         self.content_date_extractor = ContentDateExtractor(
@@ -152,12 +149,8 @@ class VideoIntelligenceRetriever:
         )
         
         self.timeline_quality_filter = TimelineQualityFilter(
-            thresholds=QualityThresholds(
-                min_confidence=0.7,
-                min_specificity=0.6,
-                min_relevance=0.7,
-                max_vagueness=0.4
-            )
+            min_confidence=0.7,
+            min_relevance=0.7
         )
         
         self.chapter_segmenter = ChapterSegmenter(
