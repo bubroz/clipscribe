@@ -5,6 +5,17 @@ All notable changes to ClipScribe will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+- **Timeline Intelligence v2.0 - VideoRetriever Integration** (2025-06-29): Complete integration of Timeline v2.0 components into single video processing pipeline
+  - Added Timeline v2.0 imports: TemporalExtractorV2, EventDeduplicator, ContentDateExtractor, TimelineQualityFilter, ChapterSegmenter
+  - Added Timeline v2.0 component initialization with optimized configuration for single videos
+  - Added comprehensive 5-step Timeline v2.0 processing: Enhanced extraction → Deduplication → Content dates → Quality filtering → Chapter segmentation
+  - Added Timeline v2.0 data integration into VideoIntelligence objects with quality metrics and error handling
+  - Fixed linter errors that broke VideoRetriever functionality
+  - Added fallback processing for robust error recovery
+
 ## [2.18.10] - 2025-06-29 23:05 - Timeline Intelligence v2.0 Implementation Complete! 🚀
 
 ### 🎯 MAJOR MILESTONE: Timeline Intelligence v2.0 Core Implementation COMPLETE (2025-06-29 23:05 PDT)

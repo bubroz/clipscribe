@@ -19,6 +19,18 @@ from ..extractors import HybridEntityExtractor, AdvancedHybridExtractor
 from ..config.settings import Settings, TemporalIntelligenceLevel, VideoRetentionPolicy
 from ..utils.file_utils import calculate_sha256
 
+# 🚀 Timeline Intelligence v2.0 Integration for Single Videos
+from ..timeline import (
+    TemporalExtractorV2,
+    EventDeduplicator, 
+    ContentDateExtractor,
+    TimelineQualityFilter,
+    ChapterSegmenter,
+    TemporalEvent,
+    DeduplicationStrategy,
+    QualityThresholds
+)
+
 logger = logging.getLogger(__name__)
 
 
@@ -116,6 +128,45 @@ class VideoIntelligenceRetriever:
             self.entity_extractor = HybridEntityExtractor()
         
         self.domain = domain
+        
+        # 🚀 Timeline Intelligence v2.0 Components for Single Videos
+        logger.info("Initializing Timeline Intelligence v2.0 for single video processing...")
+        
+        # Initialize Timeline v2.0 components with optimized configuration
+        self.temporal_extractor = TemporalExtractorV2(
+            enable_yt_dlp_integration=True,
+            enable_chapter_segmentation=True,
+            enable_word_level_timing=True,
+            enable_sponsorblock_filtering=True
+        )
+        
+        self.event_deduplicator = EventDeduplicator(
+            strategy=DeduplicationStrategy.INTELLIGENT_CONSOLIDATION,
+            time_window_seconds=300,  # 5 minutes for single video
+            confidence_threshold=0.75
+        )
+        
+        self.content_date_extractor = ContentDateExtractor(
+            enable_context_validation=True,
+            confidence_threshold=0.8
+        )
+        
+        self.timeline_quality_filter = TimelineQualityFilter(
+            thresholds=QualityThresholds(
+                min_confidence=0.7,
+                min_specificity=0.6,
+                min_relevance=0.7,
+                max_vagueness=0.4
+            )
+        )
+        
+        self.chapter_segmenter = ChapterSegmenter(
+            adaptive_segmentation=True,
+            min_segment_duration=30,
+            max_segment_duration=300
+        )
+        
+        logger.info("✅ Timeline Intelligence v2.0 components initialized for single video processing")
         
         # Processing statistics
         self.videos_processed = 0
@@ -385,11 +436,74 @@ class VideoIntelligenceRetriever:
                 if hasattr(self.entity_extractor, 'get_total_cost'):
                     video_intelligence.processing_cost += self.entity_extractor.get_total_cost()
                 
-                _update_progress("Building enhanced timeline")
+                _update_progress("Building enhanced timeline with Timeline Intelligence v2.0")
                 
-                # v2.17.0: Timeline building (placeholder for future implementation)
-                if self.settings.enable_timeline_synthesis:
-                    logger.info("Timeline synthesis enabled - ready for multi-video collections")
+                # 🚀 Timeline Intelligence v2.0 Processing for Single Videos
+                try:
+                    logger.info("Starting Timeline Intelligence v2.0 processing for single video...")
+                    
+                    # Step 1: Enhanced temporal extraction using Timeline v2.0
+                    logger.info("📊 Step 1: Enhanced temporal extraction...")
+                    temporal_events = await self.temporal_extractor.extract_temporal_events(
+                        video_url=video_url,
+                        video_path=media_path,
+                        transcript_text=analysis['transcript'],
+                        video_metadata=metadata.__dict__
+                    )
+                    logger.info(f"✅ Extracted {len(temporal_events)} temporal events")
+                    
+                    # Step 2: Event deduplication 
+                    logger.info("🔄 Step 2: Event deduplication...")
+                    deduplicated_events = await self.event_deduplicator.deduplicate_events(temporal_events)
+                    logger.info(f"✅ Deduplicated to {len(deduplicated_events)} unique events")
+                    
+                    # Step 3: Content date extraction
+                    logger.info("📅 Step 3: Content date extraction...")
+                    dated_events = await self.content_date_extractor.extract_content_dates(
+                        deduplicated_events, 
+                        analysis['transcript']
+                    )
+                    accurate_dates = sum(1 for event in dated_events if event.has_accurate_date)
+                    logger.info(f"✅ Extracted content dates for {accurate_dates}/{len(dated_events)} events")
+                    
+                    # Step 4: Quality filtering
+                    logger.info("🎯 Step 4: Quality filtering...")
+                    filtered_events = await self.timeline_quality_filter.filter_events(dated_events)
+                    logger.info(f"✅ Filtered to {len(filtered_events)} high-quality events")
+                    
+                    # Step 5: Chapter segmentation
+                    logger.info("📑 Step 5: Chapter segmentation...")
+                    chapters = await self.chapter_segmenter.segment_timeline(
+                        filtered_events, 
+                        metadata.duration
+                    )
+                    logger.info(f"✅ Created {len(chapters)} timeline chapters")
+                    
+                    # Add Timeline v2.0 data to VideoIntelligence
+                    video_intelligence.timeline_v2 = {
+                        "temporal_events": [event.dict() for event in filtered_events],
+                        "chapters": [chapter.dict() for chapter in chapters],
+                        "quality_metrics": {
+                            "total_events_extracted": len(temporal_events),
+                            "events_after_deduplication": len(deduplicated_events),
+                            "events_with_content_dates": accurate_dates,
+                            "final_high_quality_events": len(filtered_events),
+                            "chapters_created": len(chapters),
+                            "quality_improvement_ratio": len(filtered_events) / max(len(temporal_events), 1)
+                        }
+                    }
+                    
+                    logger.info(f"✅ Timeline Intelligence v2.0 processing complete! Quality improvement: {video_intelligence.timeline_v2['quality_metrics']['quality_improvement_ratio']:.2%}")
+                    
+                except Exception as e:
+                    logger.error(f"Timeline Intelligence v2.0 processing failed: {e}")
+                    logger.error("Falling back to basic timeline processing...")
+                    video_intelligence.timeline_v2 = {
+                        "error": str(e),
+                        "fallback_used": True,
+                        "temporal_events": [],
+                        "chapters": []
+                    }
                 
                 # v2.17.0: Video retention management
                 _update_progress("Managing video retention")
