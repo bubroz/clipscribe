@@ -1,0 +1,293 @@
+{
+  "version": "2.3",
+  "created_at": "2025-06-28T14:50:56.571513",
+  "video": {
+    "title": "Press Secretary Karoline Leavitt Briefs Members of the Media, June 19, 2025",
+    "url": "https://www.youtube.com/watch?v=3MYm2XzvrM4",
+    "platform": "youtube"
+  },
+  "extraction_stats": {
+    "timeline_events": [
+      {
+        "confidence": 0.9,
+        "event_description": "Border Patrol observed a 93% decrease in illegal border crossings (last month, implied June 2024) compared to May 2024 under Joe Biden's administration.",
+        "event_type": "Policy Outcome",
+        "timestamp": 10.0,
+        "involved_entities": [
+          "Border Patrol",
+          "Joe Biden's administration",
+          "Illegal aliens"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "Zero illegal aliens were released into the country by Border Patrol in the month of May under the Trump administration (presented as a hypothetical or projected achievement).",
+        "event_type": "Policy Outcome",
+        "timestamp": 70.0,
+        "involved_entities": [
+          "Trump administration",
+          "Border Patrol",
+          "Illegal aliens"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "President Trump immediately terminated the Biden-era practice of processing illegal aliens for release.",
+        "event_type": "Policy Change",
+        "timestamp": 150.0,
+        "involved_entities": [
+          "President Trump",
+          "Biden-era practice"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "The Trump administration is dramatically ramping up efforts to arrest and deport millions of criminal illegal aliens that Joe Biden let into the country over the past four years.",
+        "event_type": "Policy Action",
+        "timestamp": 300.0,
+        "involved_entities": [
+          "Trump administration",
+          "ICE officers",
+          "Joe Biden",
+          "Criminal illegal aliens"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "President Trump has directed ICE officers to carry out the single largest mass deportation operation in history.",
+        "event_type": "Executive Directive",
+        "timestamp": 400.0,
+        "involved_entities": [
+          "President Trump",
+          "ICE officers"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "Illegal criminals hiding in so-called sanctuary cities will be increasingly targeted for removal.",
+        "event_type": "Future Enforcement Action",
+        "timestamp": 500.0,
+        "involved_entities": [
+          "Illegal criminals",
+          "Sanctuary cities"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "Real blue-collar wages increased by nearly 2% during the first five months of the Trump administration, representing the strongest growth in nearly 60 years, contrasting with negative wage growth during the first five months of the Biden administration.",
+        "event_type": "Economic Trend",
+        "timestamp": 700.0,
+        "involved_entities": [
+          "Trump administration",
+          "Biden administration",
+          "American workers"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "Senate Republicans are continuing to push the critical 'one big beautiful bill' legislation forward.",
+        "event_type": "Legislative Progress",
+        "timestamp": 900.0,
+        "involved_entities": [
+          "Senate Republicans",
+          "one big beautiful bill"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "President Trump demands the 'one big beautiful bill' be sent to his desk for signature by Independence Day, July 4th.",
+        "event_type": "Legislative Deadline",
+        "timestamp": 1100.0,
+        "involved_entities": [
+          "President Trump",
+          "Republicans in Congress",
+          "one big beautiful bill"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "New polling from Insider Advantage shows a 54% majority of Americans approve of President Trump's job performance.",
+        "event_type": "Public Opinion Release",
+        "timestamp": 1200.0,
+        "involved_entities": [
+          "Americans",
+          "President Trump",
+          "Insider Advantage"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "President stated he will make a decision regarding potential direct involvement in Iran within the next two weeks.",
+        "event_type": "Presidential Decision Timeline",
+        "timestamp": 1350.0,
+        "involved_entities": [
+          "President",
+          "Iran",
+          "United States"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "President signed an executive order to extend the TikTok ban for 90 days to facilitate a deal.",
+        "event_type": "Executive Action",
+        "timestamp": 1500.0,
+        "involved_entities": [
+          "President",
+          "TikTok"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "Reference to the Supreme Court's decision in January that stated the President had to enforce the TikTok ban.",
+        "event_type": "Legal Ruling Reference",
+        "timestamp": 1550.0,
+        "involved_entities": [
+          "Supreme Court",
+          "President",
+          "TikTok"
+        ]
+      },
+      {
+        "confidence": 0.7,
+        "event_description": "Tucker Carlson reported a few weeks ago on a meeting between the President, Mark Levin, and others at the White House.",
+        "event_type": "Media Report/Meeting",
+        "timestamp": 1650.0,
+        "involved_entities": [
+          "Tucker Carlson",
+          "President",
+          "Mark Levin"
+        ]
+      }
+    ],
+    "visual_temporal_cues": [],
+    "temporal_patterns": [
+      {
+        "description": "The border is described as reaching unprecedented levels of operational success, indicating a positive trajectory for border security metrics.",
+        "pattern_type": "Progression",
+        "significance": "Highlights a claimed improvement in national security and border control.",
+        "timespan": "Ongoing, following the implementation of new policies."
+      },
+      {
+        "description": "Real blue-collar wages are reported to be experiencing strong growth, continuing a positive economic trend under the projected Trump administration.",
+        "pattern_type": "Progression",
+        "significance": "Indicates economic improvement and benefit for American workers.",
+        "timespan": "Through the first five months of the (hypothetical/future) Trump administration, continuing."
+      },
+      {
+        "description": "A clear causal link is established: President Trump's immediate termination of a specific Biden-era practice (releasing illegal aliens) directly led to zero releases in May and contributed to overall border security success.",
+        "pattern_type": "Causality Chain",
+        "significance": "Illustrates the direct impact and effectiveness of presidential policy changes.",
+        "timespan": "Beginning immediately after the practice's termination and continuing."
+      },
+      {
+        "description": "The content frequently contrasts policies and outcomes between the current Biden administration (e.g., May 2024 border crossings, first five months of wage growth, past four years of immigration) and the achievements or projections of a Trump administration (e.g., zero releases in May, strong wage growth in first five months, mass deportation efforts).",
+        "pattern_type": "Comparison/Contrast",
+        "significance": "Used to emphasize perceived differences in administrative effectiveness and highlight policy successes.",
+        "timespan": "Spanning various periods including specific months (May), four-year periods, and first five months of respective administrations."
+      },
+      {
+        "description": "Several key policy initiatives are presented with specific future deadlines or within defined future timeframes, indicating planned actions and temporal goals.",
+        "pattern_type": "Future Planning/Deadlines",
+        "significance": "Communicates a sense of urgency, accountability, and a roadmap for future governmental actions.",
+        "timespan": "By Independence Day (July 4th), within the next two weeks, for 90 days, ongoing future targeting."
+      },
+      {
+        "description": "The specific reference to 'May' for border statistics under both the Biden administration and the hypothetical Trump administration implies a recurring annual period used for comparative analysis of immigration enforcement.",
+        "pattern_type": "Implicit Recurrence",
+        "significance": "Provides a consistent temporal anchor for year-over-year performance comparison in border security.",
+        "timespan": "Annual 'May' period."
+      }
+    ],
+    "spacy_entities": 174,
+    "gliner_entities": 538,
+    "relationships": 21,
+    "llm_validated": 196,
+    "graph_nodes": 187,
+    "graph_edges": 21,
+    "retention_decision": {
+      "action": "deleted",
+      "video_path": ".video_cache/Press Secretary Karoline Leavitt Briefs Members of the Media, June 19, 2025-3MYm2XzvrM4.mp3",
+      "video_hash": "691271febc580bb9b5b1c85d646b7413",
+      "reason": "Policy: Always delete source videos",
+      "cost_savings": {
+        "storage_cost_avoided": 0.010895479783415794,
+        "reprocessing_cost": 0.111001378125
+      },
+      "timestamp": "2025-06-28T14:50:56.547287"
+    }
+  },
+  "files": {
+    "transcript_txt": {
+      "path": "transcript.txt",
+      "format": "plain_text",
+      "size": 32552,
+      "sha256": "a2facf706d93721fbf7e3aca2aad71e2705ccf17577fa90bc4e3e96998496a9d"
+    },
+    "transcript_json": {
+      "path": "transcript.json",
+      "format": "json",
+      "size": 160965,
+      "sha256": "7564df29debd9b6fc4ccde62919354b847aae598e6cfae120ac0944af3574997"
+    },
+    "metadata": {
+      "path": "metadata.json",
+      "format": "json",
+      "size": 644,
+      "sha256": "e139a457aaa5da777363b2d26c02879986806ae7899911103c8b76ec37ff4c09"
+    },
+    "entities": {
+      "path": "entities.json",
+      "format": "json",
+      "size": 45787,
+      "sha256": "6a6b246aa0eed1f10e787f26c8fef7a1dc342ea3abeed2dd47e722c42f23a903"
+    },
+    "relationships": {
+      "path": "relationships.json",
+      "format": "json",
+      "size": 3646,
+      "sha256": "512e6ebe02a26946ca6f9d00f703df359292e6efd53874519f8eda55a50679e9",
+      "count": 21
+    },
+    "knowledge_graph": {
+      "path": "knowledge_graph.json",
+      "format": "json",
+      "size": 21414,
+      "sha256": "56ac6a53bdaf9b77bd1d47d6c08d39f5bb91dbdcbafa1370d466e10e7dc683b3"
+    },
+    "gexf": {
+      "path": "knowledge_graph.gexf",
+      "format": "gexf",
+      "size": 59715,
+      "sha256": "a1135743010b331e881e7135b4cc80cd0439faf5cd8c164cdaba761135305560",
+      "description": "Gephi-compatible graph file"
+    },
+    "entities_csv": {
+      "path": "entities.csv",
+      "format": "csv",
+      "size": 8884,
+      "sha256": "c061508d50a9738bd310872228780ede4bc646a6c3ca011427b23f4793c235f4",
+      "description": "All entities in CSV format"
+    },
+    "relationships_csv": {
+      "path": "relationships.csv",
+      "format": "csv",
+      "size": 1070,
+      "sha256": "4b0dee95f421563ec8b02d559f5dc0d6cd4b91fed8cb99f54825cfd162651be9",
+      "description": "All relationships in CSV format"
+    },
+    "report": {
+      "path": "report.md",
+      "format": "markdown",
+      "size": 15440,
+      "sha256": "03f09e376213ee48c81340771d039a497e177b470eef7e68d001b9ffa9de8513",
+      "description": "Human-readable intelligence report"
+    },
+    "chimera": {
+      "path": "chimera_format.json",
+      "format": "json",
+      "size": 86810,
+      "sha256": "198f56afd0cbea97f0e78e1e7f8b3b0d8ff7c1ee9b89d7219f60dd9b72926730",
+      "description": "Chimera-compatible format"
+    }
+  }
+}

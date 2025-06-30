@@ -1,0 +1,11 @@
+subject,predicate,object,confidence,context
+Pegasus,spyware,instance of,0.85,
+United Arab Emirates,Mohammed bin Rashid,head of state,0.85,
+Mohammed bin Rashid,country of citizenship,United Arab Emirates,0.85,
+David Haigh,residence,Dubai,0.85,
+Dubai,Indian Ocean,located in or next to body of water,0.85,
+Israel Defense Forces,has part,Israel Defense Forces,0.85,
+Israel Defense Forces,Israel Defense Forces,part of,0.85,
+Hungary,member of,European Union,0.85,
+European Union,contains administrative territorial entity,Hungary,0.85,
+Cecilio Pineda,country of citizenship,Mexico,0.85,

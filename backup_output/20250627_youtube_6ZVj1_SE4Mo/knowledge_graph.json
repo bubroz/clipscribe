@@ -1,0 +1,1233 @@
+{
+  "nodes": [
+    {
+      "id": "Alejandro Encinas",
+      "type": "PERSON",
+      "confidence": 0.987247109413147
+    },
+    {
+      "id": "Alejandro Caballero",
+      "type": "PERSON",
+      "confidence": 0.9803464412689209
+    },
+    {
+      "id": "Frontline",
+      "type": "ORGANIZATION",
+      "confidence": 0.9771097898483276
+    },
+    {
+      "id": "Khadija",
+      "type": "PERSON",
+      "confidence": 0.9553823924064636
+    },
+    {
+      "id": "Visa",
+      "type": "ORGANIZATION",
+      "confidence": 0.953456978003184
+    },
+    {
+      "id": "Aristegui Noticias",
+      "type": "ORGANIZATION",
+      "confidence": 0.9518499374389648
+    },
+    {
+      "id": "Karina Maciel",
+      "type": "PERSON",
+      "confidence": 0.9456518014272054
+    },
+    {
+      "id": "Enrique Pe\u00f1a Nieto",
+      "type": "PERSON",
+      "confidence": 0.9455079555511475
+    },
+    {
+      "id": "Company",
+      "type": "ORGANIZATION",
+      "confidence": 0.9446810185909271
+    },
+    {
+      "id": "Jamal Khashoggi",
+      "type": "PERSON",
+      "confidence": 0.9437938034534454
+    },
+    {
+      "id": "Presidente",
+      "type": "PERSON",
+      "confidence": 0.9356589436531066
+    },
+    {
+      "id": "Emilio",
+      "type": "PERSON",
+      "confidence": 0.932788364092509
+    },
+    {
+      "id": "Hatice Cengiz",
+      "type": "PERSON",
+      "confidence": 0.9198448848724364
+    },
+    {
+      "id": "Hanan",
+      "type": "PERSON",
+      "confidence": 0.9174148236002241
+    },
+    {
+      "id": "Israel",
+      "type": "LOCATION",
+      "confidence": 0.9172285318374634
+    },
+    {
+      "id": "Istanbul",
+      "type": "LOCATION",
+      "confidence": 0.9150107026100159
+    },
+    {
+      "id": "Sandra Nogales",
+      "type": "PERSON",
+      "confidence": 0.9141225993633271
+    },
+    {
+      "id": "Turkey",
+      "type": "LOCATION",
+      "confidence": 0.9127418716748555
+    },
+    {
+      "id": "Dana Priest",
+      "type": "PERSON",
+      "confidence": 0.9127015376091003
+    },
+    {
+      "id": "The Guardian",
+      "type": "ORGANIZATION",
+      "confidence": 0.9087437331676483
+    },
+    {
+      "id": "Mexico",
+      "type": "LOCATION",
+      "confidence": 0.9079423938478742
+    },
+    {
+      "id": "The Washington Post",
+      "type": "ORGANIZATION",
+      "confidence": 0.9075856725374858
+    },
+    {
+      "id": "Latifa Al Maktoum",
+      "type": "PERSON",
+      "confidence": 0.904475349187851
+    },
+    {
+      "id": "Le Monde",
+      "type": "ORGANIZATION",
+      "confidence": 0.9032914340496063
+    },
+    {
+      "id": "Teresa Aristegui Flores",
+      "type": "PERSON",
+      "confidence": 0.9019891715049744
+    },
+    {
+      "id": "Claudio Guarnieri",
+      "type": "PERSON",
+      "confidence": 0.9018046879768372
+    },
+    {
+      "id": "Craig Timberg",
+      "type": "PERSON",
+      "confidence": 0.8997098982334137
+    },
+    {
+      "id": "India",
+      "type": "LOCATION",
+      "confidence": 0.8974010229110718
+    },
+    {
+      "id": "Hungary",
+      "type": "LOCATION",
+      "confidence": 0.8961960554122925
+    },
+    {
+      "id": "Casa Blanca",
+      "type": "LOCATION",
+      "confidence": 0.8941987156867981
+    },
+    {
+      "id": "Paul Lewis",
+      "type": "PERSON",
+      "confidence": 0.8923778116703034
+    },
+    {
+      "id": "Ilham Aliyev",
+      "type": "PERSON",
+      "confidence": 0.8918395678202312
+    },
+    {
+      "id": "UAE airport",
+      "type": "LOCATION",
+      "confidence": 0.890692162513733
+    },
+    {
+      "id": "Baku",
+      "type": "LOCATION",
+      "confidence": 0.8902547240257264
+    },
+    {
+      "id": "Sebastian Barragan",
+      "type": "PERSON",
+      "confidence": 0.8900773108005524
+    },
+    {
+      "id": "Kazakhstan",
+      "type": "LOCATION",
+      "confidence": 0.8897642970085144
+    },
+    {
+      "id": "July 2021",
+      "type": "DATE",
+      "confidence": 0.8874531567096711
+    },
+    {
+      "id": "Paris",
+      "type": "LOCATION",
+      "confidence": 0.8866239368915558
+    },
+    {
+      "id": "Pegasus",
+      "type": "SOFTWARE",
+      "confidence": 0.8860303163528442
+    },
+    {
+      "id": "Cnn",
+      "type": "ORGANIZATION",
+      "confidence": 0.8859025120735169
+    },
+    {
+      "id": "NSO group",
+      "type": "ORGANIZATION",
+      "confidence": 0.884268008073171
+    },
+    {
+      "id": "Proceso",
+      "type": "ORGANIZATION",
+      "confidence": 0.8823161125183105
+    },
+    {
+      "id": "Telegram",
+      "type": "SOFTWARE",
+      "confidence": 0.8805766105651855
+    },
+    {
+      "id": "Money",
+      "type": "MONEY",
+      "confidence": 0.8792465627193451
+    },
+    {
+      "id": "Apple Music",
+      "type": "ORGANIZATION",
+      "confidence": 0.8738183760643006
+    },
+    {
+      "id": "Amnesty International Security Lab",
+      "type": "ORGANIZATION",
+      "confidence": 0.8736176073551178
+    },
+    {
+      "id": "Airport",
+      "type": "LOCATION",
+      "confidence": 0.8726445635159811
+    },
+    {
+      "id": "Azerbaijan",
+      "type": "LOCATION",
+      "confidence": 0.8691778574671064
+    },
+    {
+      "id": "Martin",
+      "type": "PERSON",
+      "confidence": 0.8690563440322876
+    },
+    {
+      "id": "United Arab Emirates",
+      "type": "LOCATION",
+      "confidence": 0.8674298246701558
+    },
+    {
+      "id": "Cisen",
+      "type": "ORGANIZATION",
+      "confidence": 0.866234302520752
+    },
+    {
+      "id": "Stef",
+      "type": "PERSON",
+      "confidence": 0.8625992715358735
+    },
+    {
+      "id": "Christoph",
+      "type": "PERSON",
+      "confidence": 0.8611046850681305
+    },
+    {
+      "id": "1 Billion Dollars",
+      "type": "MONEY",
+      "confidence": 0.8591434240341187
+    },
+    {
+      "id": "Damien",
+      "type": "PERSON",
+      "confidence": 0.8585698187351227
+    },
+    {
+      "id": "Putin",
+      "type": "PERSON",
+      "confidence": 0.8571964383125306
+    },
+    {
+      "id": "1984",
+      "type": "BOOK",
+      "confidence": 0.8569480776786804
+    },
+    {
+      "id": "2010",
+      "type": "DATE",
+      "confidence": 0.8556158125400544
+    },
+    {
+      "id": "Pegasus spyware",
+      "type": "SOFTWARE",
+      "confidence": 0.8540404396397727
+    },
+    {
+      "id": "A Big Year",
+      "type": "DATE",
+      "confidence": 0.85
+    },
+    {
+      "id": "A Couple Of Weeks Ago",
+      "type": "DATE",
+      "confidence": 0.85
+    },
+    {
+      "id": "Abajo Estaban",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "Abajo ten\u00edamos el micr\u00f3fono",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "About 1,000",
+      "type": "CARDINAL",
+      "confidence": 0.85
+    },
+    {
+      "id": "About 50,000",
+      "type": "CARDINAL",
+      "confidence": 0.85
+    },
+    {
+      "id": "About A Year",
+      "type": "DATE",
+      "confidence": 0.85
+    },
+    {
+      "id": "Ahora Es",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "Al Al",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "Al cruzar",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "Al Dispositivo",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "Al Sistema De Inteligencia",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "Al Tel\u00e9fono",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "Aliyev",
+      "type": "GROUP",
+      "confidence": 0.85
+    },
+    {
+      "id": "Aliyevs",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "Amazon Prime Video",
+      "type": "ORGANIZATION",
+      "confidence": 0.85
+    },
+    {
+      "id": "Android",
+      "type": "PRODUCT",
+      "confidence": 0.85
+    },
+    {
+      "id": "Androids",
+      "type": "PRODUCT",
+      "confidence": 0.85
+    },
+    {
+      "id": "Azerbaijani",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "Bueno",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "Casa",
+      "type": "LOCATION",
+      "confidence": 0.85
+    },
+    {
+      "id": "Claro",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "Como Presidente",
+      "type": "LOCATION",
+      "confidence": 0.85
+    },
+    {
+      "id": "Covid",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "Cuando",
+      "type": "ORGANIZATION",
+      "confidence": 0.85
+    },
+    {
+      "id": "Das De Espaldas",
+      "type": "ORGANIZATION",
+      "confidence": 0.85
+    },
+    {
+      "id": "De acuerdo",
+      "type": "ORGANIZATION",
+      "confidence": 0.85
+    },
+    {
+      "id": "De Ah\u00ed Ya Pod\u00edamos",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "De Car\u00e1cter",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "De Edad",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "de la ciudad de M\u00e9xico",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "De La Revista",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "De Tu Visa",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "Del Lado Derecho",
+      "type": "FACILITY",
+      "confidence": 0.85
+    },
+    {
+      "id": "Digamos",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "Diplom\u00e1ticos",
+      "type": "LOCATION",
+      "confidence": 0.85
+    },
+    {
+      "id": "Durante los a\u00f1os que fui espiada",
+      "type": "ORGANIZATION",
+      "confidence": 0.85
+    },
+    {
+      "id": "D\u00e1bamos Clic",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "El Conocimiento De Que",
+      "type": "ORGANIZATION",
+      "confidence": 0.85
+    },
+    {
+      "id": "El El",
+      "type": "ORGANIZATION",
+      "confidence": 0.85
+    },
+    {
+      "id": "El Equipo",
+      "type": "ORGANIZATION",
+      "confidence": 0.85
+    },
+    {
+      "id": "El Mensaje",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "El N\u00famero",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "El Presidente",
+      "type": "LOCATION",
+      "confidence": 0.85
+    },
+    {
+      "id": "El procedimiento",
+      "type": "ORGANIZATION",
+      "confidence": 0.85
+    },
+    {
+      "id": "El Software",
+      "type": "SOFTWARE",
+      "confidence": 0.85
+    },
+    {
+      "id": "El Tel\u00e9fono De Mi",
+      "type": "ORGANIZATION",
+      "confidence": 0.85
+    },
+    {
+      "id": "Elephant",
+      "type": "ORGANIZATION",
+      "confidence": 0.85
+    },
+    {
+      "id": "Encinas",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "First",
+      "type": "ORDINAL",
+      "confidence": 0.85
+    },
+    {
+      "id": "Frontline's Global Spyware Scandal exposing Pegasus",
+      "type": "EVENT",
+      "confidence": 0.85
+    },
+    {
+      "id": "Fuera de la vigencia",
+      "type": "PRODUCT",
+      "confidence": 0.85
+    },
+    {
+      "id": "Global Spyware Scandal",
+      "type": "EVENT",
+      "confidence": 0.85
+    },
+    {
+      "id": "Hatice",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "Hay Muchos",
+      "type": "LOCATION",
+      "confidence": 0.85
+    },
+    {
+      "id": "Hola Carmen",
+      "type": "ORGANIZATION",
+      "confidence": 0.85
+    },
+    {
+      "id": "iPhones",
+      "type": "ORGANIZATION",
+      "confidence": 0.85
+    },
+    {
+      "id": "Iran",
+      "type": "LOCATION",
+      "confidence": 0.85
+    },
+    {
+      "id": "Jamal",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "Khashoggi",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "La Cadena De Televisi\u00f3n",
+      "type": "ORGANIZATION",
+      "confidence": 0.85
+    },
+    {
+      "id": "La Cocina",
+      "type": "LOCATION",
+      "confidence": 0.85
+    },
+    {
+      "id": "La Finalidad De Elaborar",
+      "type": "ORGANIZATION",
+      "confidence": 0.85
+    },
+    {
+      "id": "La Productora De Mi",
+      "type": "ORGANIZATION",
+      "confidence": 0.85
+    },
+    {
+      "id": "Las C\u00e1maras",
+      "type": "LOCATION",
+      "confidence": 0.85
+    },
+    {
+      "id": "Los Ingresos",
+      "type": "LOCATION",
+      "confidence": 0.85
+    },
+    {
+      "id": "Los N\u00fameros De Mi Directorio",
+      "type": "LOCATION",
+      "confidence": 0.85
+    },
+    {
+      "id": "Mensajes De Texto",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "Mensajes Tan Extra\u00f1os",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "Mexican",
+      "type": "GROUP",
+      "confidence": 0.85
+    },
+    {
+      "id": "Months",
+      "type": "DATE",
+      "confidence": 0.85
+    },
+    {
+      "id": "More Than 15,000",
+      "type": "CARDINAL",
+      "confidence": 0.85
+    },
+    {
+      "id": "More Than 80",
+      "type": "CARDINAL",
+      "confidence": 0.85
+    },
+    {
+      "id": "Moroccan",
+      "type": "GROUP",
+      "confidence": 0.85
+    },
+    {
+      "id": "Nosotros",
+      "type": "GROUP",
+      "confidence": 0.85
+    },
+    {
+      "id": "Nosotros Dec\u00edamos",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "Novedad",
+      "type": "LOCATION",
+      "confidence": 0.85
+    },
+    {
+      "id": "N\u00fameros",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "One",
+      "type": "CARDINAL",
+      "confidence": 0.85
+    },
+    {
+      "id": "Para M\u00ed La",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "Pegasus al CISEN",
+      "type": "EVENT",
+      "confidence": 0.85
+    },
+    {
+      "id": "Pegasus al ej\u00e9rcito",
+      "type": "EVENT",
+      "confidence": 0.85
+    },
+    {
+      "id": "Pero Hab\u00eda Que",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "Pero Podemos Seguir",
+      "type": "ORGANIZATION",
+      "confidence": 0.85
+    },
+    {
+      "id": "Pleno Al",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "Podemos Verla Nosotros",
+      "type": "ORGANIZATION",
+      "confidence": 0.85
+    },
+    {
+      "id": "Pueden estar",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "Puedo",
+      "type": "LOCATION",
+      "confidence": 0.85
+    },
+    {
+      "id": "Quedas",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "Qu\u00e9",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "Saudis",
+      "type": "GROUP",
+      "confidence": 0.85
+    },
+    {
+      "id": "Se ten\u00eda que",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "Signal",
+      "type": "ORGANIZATION",
+      "confidence": 0.85
+    },
+    {
+      "id": "Sms",
+      "type": "ORGANIZATION",
+      "confidence": 0.85
+    },
+    {
+      "id": "Tengo un directorio nutrido",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "Tens Of Thousands",
+      "type": "CARDINAL",
+      "confidence": 0.85
+    },
+    {
+      "id": "Ten\u00eda Cada Una De Las Aplicaciones De Las Que",
+      "type": "FACILITY",
+      "confidence": 0.85
+    },
+    {
+      "id": "ten\u00edamos el cuadro de la aplicaci\u00f3n de WhatsApp",
+      "type": "ORGANIZATION",
+      "confidence": 0.85
+    },
+    {
+      "id": "Teresa Aristegui",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "The Last 10 Years",
+      "type": "DATE",
+      "confidence": 0.85
+    },
+    {
+      "id": "The minute",
+      "type": "TIME",
+      "confidence": 0.85
+    },
+    {
+      "id": "Three",
+      "type": "CARDINAL",
+      "confidence": 0.85
+    },
+    {
+      "id": "Today",
+      "type": "DATE",
+      "confidence": 0.85
+    },
+    {
+      "id": "Tu Tel\u00e9fono",
+      "type": "ORGANIZATION",
+      "confidence": 0.85
+    },
+    {
+      "id": "Turkish",
+      "type": "GROUP",
+      "confidence": 0.85
+    },
+    {
+      "id": "Two",
+      "type": "CARDINAL",
+      "confidence": 0.85
+    },
+    {
+      "id": "Universo De M\u00e1s De 50,000 N\u00fameros",
+      "type": "ORGANIZATION",
+      "confidence": 0.85
+    },
+    {
+      "id": "Va",
+      "type": "LOCATION",
+      "confidence": 0.85
+    },
+    {
+      "id": "Vigencia Tiene",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "Visualizaci\u00f3n Principal",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "Ya Perdieron El Pudor",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "Ya Sean",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "Yo intuyo",
+      "type": "PERSON",
+      "confidence": 0.85
+    },
+    {
+      "id": "\u00bfPues",
+      "type": "WORK_OF_ART",
+      "confidence": 0.85
+    },
+    {
+      "id": "Carmen Aristegui",
+      "type": "PERSON",
+      "confidence": 0.8479984155723026
+    },
+    {
+      "id": "Journalist",
+      "type": "PERSON",
+      "confidence": 0.8452680706977844
+    },
+    {
+      "id": "Saudi Arabia",
+      "type": "LOCATION",
+      "confidence": 0.8452566981315613
+    },
+    {
+      "id": "Citizen Lab",
+      "type": "ORGANIZATION",
+      "confidence": 0.8437984903653463
+    },
+    {
+      "id": "Bill Marczak",
+      "type": "PERSON",
+      "confidence": 0.8435134023427964
+    },
+    {
+      "id": "Technology",
+      "type": "TECHNOLOGY",
+      "confidence": 0.8424597024917603
+    },
+    {
+      "id": "Program",
+      "type": "SOFTWARE",
+      "confidence": 0.8397842943668365
+    },
+    {
+      "id": "Forbidden Films",
+      "type": "ORGANIZATION",
+      "confidence": 0.8376144806543987
+    },
+    {
+      "id": "She",
+      "type": "PERSON",
+      "confidence": 0.8356239520586454
+    },
+    {
+      "id": "We",
+      "type": "GROUP",
+      "confidence": 0.8309353379642263
+    },
+    {
+      "id": "del presidente de M\u00e9xico",
+      "type": "LOCATION",
+      "confidence": 0.8309244831403096
+    },
+    {
+      "id": "George Orwell",
+      "type": "PERSON",
+      "confidence": 0.8294553935527802
+    },
+    {
+      "id": "Ej\u00e9rcito",
+      "type": "ORGANIZATION",
+      "confidence": 0.8247581720352173
+    },
+    {
+      "id": "2018",
+      "type": "DATE",
+      "confidence": 0.8226340134938558
+    },
+    {
+      "id": "Between 2019 And 2020, 2020",
+      "type": "DATE",
+      "confidence": 0.8176620185375214
+    },
+    {
+      "id": "Beckenham",
+      "type": "LOCATION",
+      "confidence": 0.8164571404457093
+    },
+    {
+      "id": "COVID crisis",
+      "type": "EVENT",
+      "confidence": 0.8056907057762146
+    },
+    {
+      "id": "2019",
+      "type": "DATE",
+      "confidence": 0.8053195794423421
+    },
+    {
+      "id": "2015",
+      "type": "DATE",
+      "confidence": 0.8035348534584046
+    },
+    {
+      "id": "Procuradur\u00eda General de la Rep\u00fablica",
+      "type": "ORGANIZATION",
+      "confidence": 0.7977142333984375
+    },
+    {
+      "id": "Orpington",
+      "type": "LOCATION",
+      "confidence": 0.7871374964714051
+    },
+    {
+      "id": "Platform",
+      "type": "PLATFORM",
+      "confidence": 0.7860606908798218
+    },
+    {
+      "id": "17 Hours",
+      "type": "TIME",
+      "confidence": 0.781930434703827
+    },
+    {
+      "id": "1300",
+      "type": "DATE",
+      "confidence": 0.7624927341938019
+    },
+    {
+      "id": "Arturo de Forbidden Stories",
+      "type": "PERSON",
+      "confidence": 0.7616025352478027
+    },
+    {
+      "id": "The Post",
+      "type": "ORGANIZATION",
+      "confidence": 0.7607491612434387
+    },
+    {
+      "id": "Android phones",
+      "type": "PRODUCT",
+      "confidence": 0.7596985013396652
+    },
+    {
+      "id": "Dictatorship",
+      "type": "EVENT",
+      "confidence": 0.7555319666862488
+    },
+    {
+      "id": "You",
+      "type": "PERSON",
+      "confidence": 0.7544533823217664
+    },
+    {
+      "id": "\u56fd\u5bb6\u5143\u9996",
+      "type": "PERSON",
+      "confidence": 0.7505244016647339
+    },
+    {
+      "id": "Tel\u00e9fono",
+      "type": "PRODUCT",
+      "confidence": 0.7490758001804352
+    },
+    {
+      "id": "Cocina",
+      "type": "LOCATION",
+      "confidence": 0.7485565543174744
+    },
+    {
+      "id": "Elephant and Castle",
+      "type": "LOCATION",
+      "confidence": 0.7479343414306641
+    },
+    {
+      "id": "Gobernador",
+      "type": "PERSON",
+      "confidence": 0.7461366057395935
+    },
+    {
+      "id": "About 2006, 2007",
+      "type": "DATE",
+      "confidence": 0.745769472916921
+    },
+    {
+      "id": "Hunger Strike",
+      "type": "EVENT",
+      "confidence": 0.7331294417381287
+    },
+    {
+      "id": "early May of this year",
+      "type": "DATE",
+      "confidence": 0.7285688996315003
+    },
+    {
+      "id": "Amigo",
+      "type": "PERSON",
+      "confidence": 0.7262521982192993
+    },
+    {
+      "id": "Es mi hermana",
+      "type": "PERSON",
+      "confidence": 0.7236077626546223
+    },
+    {
+      "id": "2016",
+      "type": "DATE",
+      "confidence": 0.7203447937965394
+    },
+    {
+      "id": "WhatsApp",
+      "type": "SOFTWARE",
+      "confidence": 0.7192932367324829
+    },
+    {
+      "id": "Pbs",
+      "type": "ORGANIZATION",
+      "confidence": 0.7144864201545715
+    },
+    {
+      "id": "Companies",
+      "type": "ORGANIZATION",
+      "confidence": 0.7127525806427002
+    },
+    {
+      "id": "Military Weapon",
+      "type": "WEAPON",
+      "confidence": 0.712249755859375
+    },
+    {
+      "id": "Saudi regime",
+      "type": "ORGANIZATION",
+      "confidence": 0.7117550373077393
+    },
+    {
+      "id": "Person",
+      "type": "PERSON",
+      "confidence": 0.7082456201314926
+    },
+    {
+      "id": "State",
+      "type": "ORGANIZATION",
+      "confidence": 0.7076336145401001
+    },
+    {
+      "id": "Oficina",
+      "type": "LOCATION",
+      "confidence": 0.7044593691825867
+    },
+    {
+      "id": "Device",
+      "type": "PRODUCT",
+      "confidence": 0.7004739046096802
+    },
+    {
+      "id": "Governments",
+      "type": "ORGANIZATION",
+      "confidence": 0.7001085162162781
+    },
+    {
+      "id": "Software",
+      "type": "SOFTWARE",
+      "confidence": 0.95
+    },
+    {
+      "id": "Civilians",
+      "type": "PERSON",
+      "confidence": 0.95
+    },
+    {
+      "id": "Investigation",
+      "type": "EVENT",
+      "confidence": 0.95
+    },
+    {
+      "id": "Technologies",
+      "type": "TECHNOLOGY",
+      "confidence": 0.95
+    },
+    {
+      "id": "Activists",
+      "type": "PERSON",
+      "confidence": 0.95
+    },
+    {
+      "id": "Phone",
+      "type": "PRODUCT",
+      "confidence": 0.95
+    },
+    {
+      "id": "Tools",
+      "type": "TECHNOLOGY",
+      "confidence": 0.95
+    },
+    {
+      "id": "instance of",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "NSO",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "position held",
+      "type": "unknown",
+      "confidence": 0.9
+    },
+    {
+      "id": "occupation",
+      "type": "unknown",
+      "confidence": 0.9
+    }
+  ],
+  "edges": [
+    {
+      "source": "Khadija",
+      "target": "2018",
+      "predicate": "hunger strike",
+      "confidence": 0.85
+    },
+    {
+      "source": "Khadija",
+      "target": "occupation",
+      "predicate": "journalist",
+      "confidence": 0.85
+    },
+    {
+      "source": "Enrique Pe\u00f1a Nieto",
+      "target": "position held",
+      "predicate": "president of Mexico",
+      "confidence": 0.85
+    },
+    {
+      "source": "Paul Lewis",
+      "target": "Aristegui Noticias",
+      "predicate": "employer",
+      "confidence": 0.85
+    },
+    {
+      "source": "Pegasus",
+      "target": "instance of",
+      "predicate": "software",
+      "confidence": 0.85
+    },
+    {
+      "source": "Azerbaijan",
+      "target": "Ilham Aliyev",
+      "predicate": "head of state",
+      "confidence": 0.85
+    },
+    {
+      "source": "United Arab Emirates",
+      "target": "Saudi Arabia",
+      "predicate": "diplomatic relation",
+      "confidence": 0.85
+    },
+    {
+      "source": "Saudi Arabia",
+      "target": "United Arab Emirates",
+      "predicate": "diplomatic relation",
+      "confidence": 0.85
+    },
+    {
+      "source": "NSO",
+      "target": "2010",
+      "predicate": "inception",
+      "confidence": 0.85
+    }
+  ],
+  "node_count": 234,
+  "edge_count": 9,
+  "cleaned": true
+}

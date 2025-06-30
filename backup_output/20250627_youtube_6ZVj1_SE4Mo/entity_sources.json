@@ -1,0 +1,5580 @@
+{
+  "summary": {
+    "total_entities": 230,
+    "normalization_applied": true,
+    "normalization_stats": {
+      "total_normalized": 0,
+      "entities_with_multiple_sources": 83,
+      "entities_with_aliases": 0
+    },
+    "by_source": {
+      "GLiNER": {
+        "count": 116,
+        "percentage": 50.4
+      },
+      "Unknown": {
+        "count": 114,
+        "percentage": 49.6
+      }
+    },
+    "by_type": {
+      "PERSON": 83,
+      "ORGANIZATION": 46,
+      "LOCATION": 34,
+      "DATE": 16,
+      "SOFTWARE": 7,
+      "MONEY": 2,
+      "BOOK": 1,
+      "CARDINAL": 8,
+      "GROUP": 7,
+      "PRODUCT": 7,
+      "FACILITY": 2,
+      "ORDINAL": 1,
+      "EVENT": 8,
+      "TIME": 2,
+      "WORK_OF_ART": 1,
+      "TECHNOLOGY": 3,
+      "PLATFORM": 1,
+      "WEAPON": 1
+    },
+    "extraction_methods": {
+      "SpaCy": "Basic Named Entity Recognition (free, local)",
+      "GLiNER": "Custom entity detection (local model)",
+      "REBEL": "Relationship extraction (local model)",
+      "Combined": "Entities found by multiple methods and normalized"
+    },
+    "quality_metrics": {
+      "average_confidence": 0.85,
+      "high_confidence_entities": 199,
+      "normalized_entities": 0
+    }
+  },
+  "all_entities": [
+    {
+      "name": "Alejandro Encinas",
+      "type": "PERSON",
+      "confidence": 0.987,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Alejandro Caballero",
+      "type": "PERSON",
+      "confidence": 0.98,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Frontline",
+      "type": "ORGANIZATION",
+      "confidence": 0.977,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Khadija",
+      "type": "PERSON",
+      "confidence": 0.955,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Visa",
+      "type": "ORGANIZATION",
+      "confidence": 0.953,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Aristegui Noticias",
+      "type": "ORGANIZATION",
+      "confidence": 0.952,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Karina Maciel",
+      "type": "PERSON",
+      "confidence": 0.946,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Enrique Peña Nieto",
+      "type": "PERSON",
+      "confidence": 0.946,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Company",
+      "type": "ORGANIZATION",
+      "confidence": 0.945,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Jamal Khashoggi",
+      "type": "PERSON",
+      "confidence": 0.944,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Presidente",
+      "type": "PERSON",
+      "confidence": 0.936,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Emilio",
+      "type": "PERSON",
+      "confidence": 0.933,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Hatice Cengiz",
+      "type": "PERSON",
+      "confidence": 0.92,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Hanan",
+      "type": "PERSON",
+      "confidence": 0.917,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Israel",
+      "type": "LOCATION",
+      "confidence": 0.917,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Istanbul",
+      "type": "LOCATION",
+      "confidence": 0.915,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Sandra Nogales",
+      "type": "PERSON",
+      "confidence": 0.914,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Turkey",
+      "type": "LOCATION",
+      "confidence": 0.913,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Dana Priest",
+      "type": "PERSON",
+      "confidence": 0.913,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "The Guardian",
+      "type": "ORGANIZATION",
+      "confidence": 0.909,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Mexico",
+      "type": "LOCATION",
+      "confidence": 0.908,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "The Washington Post",
+      "type": "ORGANIZATION",
+      "confidence": 0.908,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Latifa Al Maktoum",
+      "type": "PERSON",
+      "confidence": 0.904,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Le Monde",
+      "type": "ORGANIZATION",
+      "confidence": 0.903,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Teresa Aristegui Flores",
+      "type": "PERSON",
+      "confidence": 0.902,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Claudio Guarnieri",
+      "type": "PERSON",
+      "confidence": 0.902,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Craig Timberg",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "India",
+      "type": "LOCATION",
+      "confidence": 0.897,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Hungary",
+      "type": "LOCATION",
+      "confidence": 0.896,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Casa Blanca",
+      "type": "LOCATION",
+      "confidence": 0.894,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Paul Lewis",
+      "type": "PERSON",
+      "confidence": 0.892,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Ilham Aliyev",
+      "type": "PERSON",
+      "confidence": 0.892,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "UAE airport",
+      "type": "LOCATION",
+      "confidence": 0.891,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Baku",
+      "type": "LOCATION",
+      "confidence": 0.89,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Sebastian Barragan",
+      "type": "PERSON",
+      "confidence": 0.89,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Kazakhstan",
+      "type": "LOCATION",
+      "confidence": 0.89,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "July 2021",
+      "type": "DATE",
+      "confidence": 0.887,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Paris",
+      "type": "LOCATION",
+      "confidence": 0.887,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Pegasus",
+      "type": "SOFTWARE",
+      "confidence": 0.886,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Cnn",
+      "type": "ORGANIZATION",
+      "confidence": 0.886,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "NSO group",
+      "type": "ORGANIZATION",
+      "confidence": 0.884,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Proceso",
+      "type": "ORGANIZATION",
+      "confidence": 0.882,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Telegram",
+      "type": "SOFTWARE",
+      "confidence": 0.881,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Money",
+      "type": "MONEY",
+      "confidence": 0.879,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Apple Music",
+      "type": "ORGANIZATION",
+      "confidence": 0.874,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Amnesty International Security Lab",
+      "type": "ORGANIZATION",
+      "confidence": 0.874,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Airport",
+      "type": "LOCATION",
+      "confidence": 0.873,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Azerbaijan",
+      "type": "LOCATION",
+      "confidence": 0.869,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Martin",
+      "type": "PERSON",
+      "confidence": 0.869,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "United Arab Emirates",
+      "type": "LOCATION",
+      "confidence": 0.867,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Cisen",
+      "type": "ORGANIZATION",
+      "confidence": 0.866,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Stef",
+      "type": "PERSON",
+      "confidence": 0.863,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Christoph",
+      "type": "PERSON",
+      "confidence": 0.861,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "1 Billion Dollars",
+      "type": "MONEY",
+      "confidence": 0.859,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Damien",
+      "type": "PERSON",
+      "confidence": 0.859,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Putin",
+      "type": "PERSON",
+      "confidence": 0.857,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "1984",
+      "type": "BOOK",
+      "confidence": 0.857,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "2010",
+      "type": "DATE",
+      "confidence": 0.856,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Pegasus spyware",
+      "type": "SOFTWARE",
+      "confidence": 0.854,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "A Big Year",
+      "type": "DATE",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "A Couple Of Weeks Ago",
+      "type": "DATE",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Abajo Estaban",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Abajo teníamos el micrófono",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "About 1,000",
+      "type": "CARDINAL",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "About 50,000",
+      "type": "CARDINAL",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "About A Year",
+      "type": "DATE",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Ahora Es",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Al Al",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Al cruzar",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Al Dispositivo",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Al Sistema De Inteligencia",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Al Teléfono",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Aliyev",
+      "type": "GROUP",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Aliyevs",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Amazon Prime Video",
+      "type": "ORGANIZATION",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Android",
+      "type": "PRODUCT",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Androids",
+      "type": "PRODUCT",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Azerbaijani",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Bueno",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Casa",
+      "type": "LOCATION",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Claro",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Como Presidente",
+      "type": "LOCATION",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Covid",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Cuando",
+      "type": "ORGANIZATION",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Das De Espaldas",
+      "type": "ORGANIZATION",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "De acuerdo",
+      "type": "ORGANIZATION",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "De Ahí Ya Podíamos",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "De Carácter",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "De Edad",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "de la ciudad de México",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "De La Revista",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "De Tu Visa",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Del Lado Derecho",
+      "type": "FACILITY",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Digamos",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Diplomáticos",
+      "type": "LOCATION",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Durante los años que fui espiada",
+      "type": "ORGANIZATION",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Dábamos Clic",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "El Conocimiento De Que",
+      "type": "ORGANIZATION",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "El El",
+      "type": "ORGANIZATION",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "El Equipo",
+      "type": "ORGANIZATION",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "El Mensaje",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "El Número",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "El Presidente",
+      "type": "LOCATION",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "El procedimiento",
+      "type": "ORGANIZATION",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "El Software",
+      "type": "SOFTWARE",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "El Teléfono De Mi",
+      "type": "ORGANIZATION",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Elephant",
+      "type": "ORGANIZATION",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Encinas",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "First",
+      "type": "ORDINAL",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Frontline's Global Spyware Scandal exposing Pegasus",
+      "type": "EVENT",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Fuera de la vigencia",
+      "type": "PRODUCT",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Global Spyware Scandal",
+      "type": "EVENT",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Hatice",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Hay Muchos",
+      "type": "LOCATION",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Hola Carmen",
+      "type": "ORGANIZATION",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "iPhones",
+      "type": "ORGANIZATION",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Iran",
+      "type": "LOCATION",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Jamal",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Khashoggi",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "La Cadena De Televisión",
+      "type": "ORGANIZATION",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "La Cocina",
+      "type": "LOCATION",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "La Finalidad De Elaborar",
+      "type": "ORGANIZATION",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "La Productora De Mi",
+      "type": "ORGANIZATION",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Las Cámaras",
+      "type": "LOCATION",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Los Ingresos",
+      "type": "LOCATION",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Los Números De Mi Directorio",
+      "type": "LOCATION",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Mensajes De Texto",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Mensajes Tan Extraños",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Mexican",
+      "type": "GROUP",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Months",
+      "type": "DATE",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "More Than 15,000",
+      "type": "CARDINAL",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "More Than 80",
+      "type": "CARDINAL",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Moroccan",
+      "type": "GROUP",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Nosotros",
+      "type": "GROUP",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Nosotros Decíamos",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Novedad",
+      "type": "LOCATION",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Números",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "One",
+      "type": "CARDINAL",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Para Mí La",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Pegasus al CISEN",
+      "type": "EVENT",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Pegasus al ejército",
+      "type": "EVENT",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Pero Había Que",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Pero Podemos Seguir",
+      "type": "ORGANIZATION",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Pleno Al",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Podemos Verla Nosotros",
+      "type": "ORGANIZATION",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Pueden estar",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Puedo",
+      "type": "LOCATION",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Quedas",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Qué",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Saudis",
+      "type": "GROUP",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Se tenía que",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Signal",
+      "type": "ORGANIZATION",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Sms",
+      "type": "ORGANIZATION",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Tengo un directorio nutrido",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Tens Of Thousands",
+      "type": "CARDINAL",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Tenía Cada Una De Las Aplicaciones De Las Que",
+      "type": "FACILITY",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "teníamos el cuadro de la aplicación de WhatsApp",
+      "type": "ORGANIZATION",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Teresa Aristegui",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "The Last 10 Years",
+      "type": "DATE",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "The minute",
+      "type": "TIME",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Three",
+      "type": "CARDINAL",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Today",
+      "type": "DATE",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Tu Teléfono",
+      "type": "ORGANIZATION",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Turkish",
+      "type": "GROUP",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Two",
+      "type": "CARDINAL",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Universo De Más De 50,000 Números",
+      "type": "ORGANIZATION",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Va",
+      "type": "LOCATION",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Vigencia Tiene",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Visualización Principal",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Ya Perdieron El Pudor",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Ya Sean",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Yo intuyo",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "¿Pues",
+      "type": "WORK_OF_ART",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Carmen Aristegui",
+      "type": "PERSON",
+      "confidence": 0.848,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Journalist",
+      "type": "PERSON",
+      "confidence": 0.845,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Saudi Arabia",
+      "type": "LOCATION",
+      "confidence": 0.845,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Citizen Lab",
+      "type": "ORGANIZATION",
+      "confidence": 0.844,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Bill Marczak",
+      "type": "PERSON",
+      "confidence": 0.844,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Technology",
+      "type": "TECHNOLOGY",
+      "confidence": 0.842,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Program",
+      "type": "SOFTWARE",
+      "confidence": 0.84,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Forbidden Films",
+      "type": "ORGANIZATION",
+      "confidence": 0.838,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "She",
+      "type": "PERSON",
+      "confidence": 0.836,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "We",
+      "type": "GROUP",
+      "confidence": 0.831,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "del presidente de México",
+      "type": "LOCATION",
+      "confidence": 0.831,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "George Orwell",
+      "type": "PERSON",
+      "confidence": 0.829,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Ejército",
+      "type": "ORGANIZATION",
+      "confidence": 0.825,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "2018",
+      "type": "DATE",
+      "confidence": 0.823,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Between 2019 And 2020, 2020",
+      "type": "DATE",
+      "confidence": 0.818,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Beckenham",
+      "type": "LOCATION",
+      "confidence": 0.816,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "COVID crisis",
+      "type": "EVENT",
+      "confidence": 0.806,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "2019",
+      "type": "DATE",
+      "confidence": 0.805,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "2015",
+      "type": "DATE",
+      "confidence": 0.804,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Procuraduría General de la República",
+      "type": "ORGANIZATION",
+      "confidence": 0.798,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Orpington",
+      "type": "LOCATION",
+      "confidence": 0.787,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Platform",
+      "type": "PLATFORM",
+      "confidence": 0.786,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "17 Hours",
+      "type": "TIME",
+      "confidence": 0.782,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "1300",
+      "type": "DATE",
+      "confidence": 0.762,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Arturo de Forbidden Stories",
+      "type": "PERSON",
+      "confidence": 0.762,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "The Post",
+      "type": "ORGANIZATION",
+      "confidence": 0.761,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Android phones",
+      "type": "PRODUCT",
+      "confidence": 0.76,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Dictatorship",
+      "type": "EVENT",
+      "confidence": 0.756,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "You",
+      "type": "PERSON",
+      "confidence": 0.754,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "国家元首",
+      "type": "PERSON",
+      "confidence": 0.751,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Teléfono",
+      "type": "PRODUCT",
+      "confidence": 0.749,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Cocina",
+      "type": "LOCATION",
+      "confidence": 0.749,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Elephant and Castle",
+      "type": "LOCATION",
+      "confidence": 0.748,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Gobernador",
+      "type": "PERSON",
+      "confidence": 0.746,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "About 2006, 2007",
+      "type": "DATE",
+      "confidence": 0.746,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Hunger Strike",
+      "type": "EVENT",
+      "confidence": 0.733,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "early May of this year",
+      "type": "DATE",
+      "confidence": 0.729,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Amigo",
+      "type": "PERSON",
+      "confidence": 0.726,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Es mi hermana",
+      "type": "PERSON",
+      "confidence": 0.724,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "2016",
+      "type": "DATE",
+      "confidence": 0.72,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "WhatsApp",
+      "type": "SOFTWARE",
+      "confidence": 0.719,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Pbs",
+      "type": "ORGANIZATION",
+      "confidence": 0.714,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Companies",
+      "type": "ORGANIZATION",
+      "confidence": 0.713,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Military Weapon",
+      "type": "WEAPON",
+      "confidence": 0.712,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Saudi regime",
+      "type": "ORGANIZATION",
+      "confidence": 0.712,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Person",
+      "type": "PERSON",
+      "confidence": 0.708,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "State",
+      "type": "ORGANIZATION",
+      "confidence": 0.708,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Oficina",
+      "type": "LOCATION",
+      "confidence": 0.704,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Device",
+      "type": "PRODUCT",
+      "confidence": 0.7,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Governments",
+      "type": "ORGANIZATION",
+      "confidence": 0.7,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Software",
+      "type": "SOFTWARE",
+      "confidence": 0.95,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Civilians",
+      "type": "PERSON",
+      "confidence": 0.95,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Investigation",
+      "type": "EVENT",
+      "confidence": 0.95,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Technologies",
+      "type": "TECHNOLOGY",
+      "confidence": 0.95,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Activists",
+      "type": "PERSON",
+      "confidence": 0.95,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Phone",
+      "type": "PRODUCT",
+      "confidence": 0.95,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Tools",
+      "type": "TECHNOLOGY",
+      "confidence": 0.95,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    }
+  ],
+  "by_source": {
+    "GLiNER": [
+      {
+        "name": "Alejandro Encinas",
+        "type": "PERSON",
+        "confidence": 0.987,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Alejandro Caballero",
+        "type": "PERSON",
+        "confidence": 0.98,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Frontline",
+        "type": "ORGANIZATION",
+        "confidence": 0.977,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Khadija",
+        "type": "PERSON",
+        "confidence": 0.955,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Visa",
+        "type": "ORGANIZATION",
+        "confidence": 0.953,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Aristegui Noticias",
+        "type": "ORGANIZATION",
+        "confidence": 0.952,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Karina Maciel",
+        "type": "PERSON",
+        "confidence": 0.946,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Enrique Peña Nieto",
+        "type": "PERSON",
+        "confidence": 0.946,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Company",
+        "type": "ORGANIZATION",
+        "confidence": 0.945,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Jamal Khashoggi",
+        "type": "PERSON",
+        "confidence": 0.944,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Presidente",
+        "type": "PERSON",
+        "confidence": 0.936,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Emilio",
+        "type": "PERSON",
+        "confidence": 0.933,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Hatice Cengiz",
+        "type": "PERSON",
+        "confidence": 0.92,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Hanan",
+        "type": "PERSON",
+        "confidence": 0.917,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Israel",
+        "type": "LOCATION",
+        "confidence": 0.917,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Istanbul",
+        "type": "LOCATION",
+        "confidence": 0.915,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Sandra Nogales",
+        "type": "PERSON",
+        "confidence": 0.914,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Turkey",
+        "type": "LOCATION",
+        "confidence": 0.913,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Dana Priest",
+        "type": "PERSON",
+        "confidence": 0.913,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "The Guardian",
+        "type": "ORGANIZATION",
+        "confidence": 0.909,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Mexico",
+        "type": "LOCATION",
+        "confidence": 0.908,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "The Washington Post",
+        "type": "ORGANIZATION",
+        "confidence": 0.908,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Latifa Al Maktoum",
+        "type": "PERSON",
+        "confidence": 0.904,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Le Monde",
+        "type": "ORGANIZATION",
+        "confidence": 0.903,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Teresa Aristegui Flores",
+        "type": "PERSON",
+        "confidence": 0.902,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Claudio Guarnieri",
+        "type": "PERSON",
+        "confidence": 0.902,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Craig Timberg",
+        "type": "PERSON",
+        "confidence": 0.9,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "India",
+        "type": "LOCATION",
+        "confidence": 0.897,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Hungary",
+        "type": "LOCATION",
+        "confidence": 0.896,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Casa Blanca",
+        "type": "LOCATION",
+        "confidence": 0.894,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Paul Lewis",
+        "type": "PERSON",
+        "confidence": 0.892,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Ilham Aliyev",
+        "type": "PERSON",
+        "confidence": 0.892,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "UAE airport",
+        "type": "LOCATION",
+        "confidence": 0.891,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Baku",
+        "type": "LOCATION",
+        "confidence": 0.89,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Sebastian Barragan",
+        "type": "PERSON",
+        "confidence": 0.89,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Kazakhstan",
+        "type": "LOCATION",
+        "confidence": 0.89,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "July 2021",
+        "type": "DATE",
+        "confidence": 0.887,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Paris",
+        "type": "LOCATION",
+        "confidence": 0.887,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Pegasus",
+        "type": "SOFTWARE",
+        "confidence": 0.886,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Cnn",
+        "type": "ORGANIZATION",
+        "confidence": 0.886,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "NSO group",
+        "type": "ORGANIZATION",
+        "confidence": 0.884,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Proceso",
+        "type": "ORGANIZATION",
+        "confidence": 0.882,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Telegram",
+        "type": "SOFTWARE",
+        "confidence": 0.881,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Money",
+        "type": "MONEY",
+        "confidence": 0.879,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Apple Music",
+        "type": "ORGANIZATION",
+        "confidence": 0.874,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Amnesty International Security Lab",
+        "type": "ORGANIZATION",
+        "confidence": 0.874,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Airport",
+        "type": "LOCATION",
+        "confidence": 0.873,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Azerbaijan",
+        "type": "LOCATION",
+        "confidence": 0.869,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Martin",
+        "type": "PERSON",
+        "confidence": 0.869,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "United Arab Emirates",
+        "type": "LOCATION",
+        "confidence": 0.867,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Cisen",
+        "type": "ORGANIZATION",
+        "confidence": 0.866,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Stef",
+        "type": "PERSON",
+        "confidence": 0.863,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Christoph",
+        "type": "PERSON",
+        "confidence": 0.861,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "1 Billion Dollars",
+        "type": "MONEY",
+        "confidence": 0.859,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Damien",
+        "type": "PERSON",
+        "confidence": 0.859,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Putin",
+        "type": "PERSON",
+        "confidence": 0.857,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "1984",
+        "type": "BOOK",
+        "confidence": 0.857,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "2010",
+        "type": "DATE",
+        "confidence": 0.856,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Pegasus spyware",
+        "type": "SOFTWARE",
+        "confidence": 0.854,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Carmen Aristegui",
+        "type": "PERSON",
+        "confidence": 0.848,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Journalist",
+        "type": "PERSON",
+        "confidence": 0.845,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Saudi Arabia",
+        "type": "LOCATION",
+        "confidence": 0.845,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Citizen Lab",
+        "type": "ORGANIZATION",
+        "confidence": 0.844,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Bill Marczak",
+        "type": "PERSON",
+        "confidence": 0.844,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Technology",
+        "type": "TECHNOLOGY",
+        "confidence": 0.842,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Program",
+        "type": "SOFTWARE",
+        "confidence": 0.84,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Forbidden Films",
+        "type": "ORGANIZATION",
+        "confidence": 0.838,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "She",
+        "type": "PERSON",
+        "confidence": 0.836,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "We",
+        "type": "GROUP",
+        "confidence": 0.831,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "del presidente de México",
+        "type": "LOCATION",
+        "confidence": 0.831,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "George Orwell",
+        "type": "PERSON",
+        "confidence": 0.829,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Ejército",
+        "type": "ORGANIZATION",
+        "confidence": 0.825,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "2018",
+        "type": "DATE",
+        "confidence": 0.823,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Between 2019 And 2020, 2020",
+        "type": "DATE",
+        "confidence": 0.818,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Beckenham",
+        "type": "LOCATION",
+        "confidence": 0.816,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "COVID crisis",
+        "type": "EVENT",
+        "confidence": 0.806,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "2019",
+        "type": "DATE",
+        "confidence": 0.805,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "2015",
+        "type": "DATE",
+        "confidence": 0.804,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Procuraduría General de la República",
+        "type": "ORGANIZATION",
+        "confidence": 0.798,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Orpington",
+        "type": "LOCATION",
+        "confidence": 0.787,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Platform",
+        "type": "PLATFORM",
+        "confidence": 0.786,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "17 Hours",
+        "type": "TIME",
+        "confidence": 0.782,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "1300",
+        "type": "DATE",
+        "confidence": 0.762,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Arturo de Forbidden Stories",
+        "type": "PERSON",
+        "confidence": 0.762,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "The Post",
+        "type": "ORGANIZATION",
+        "confidence": 0.761,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Android phones",
+        "type": "PRODUCT",
+        "confidence": 0.76,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Dictatorship",
+        "type": "EVENT",
+        "confidence": 0.756,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "You",
+        "type": "PERSON",
+        "confidence": 0.754,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "国家元首",
+        "type": "PERSON",
+        "confidence": 0.751,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Teléfono",
+        "type": "PRODUCT",
+        "confidence": 0.749,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Cocina",
+        "type": "LOCATION",
+        "confidence": 0.749,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Elephant and Castle",
+        "type": "LOCATION",
+        "confidence": 0.748,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Gobernador",
+        "type": "PERSON",
+        "confidence": 0.746,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "About 2006, 2007",
+        "type": "DATE",
+        "confidence": 0.746,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Hunger Strike",
+        "type": "EVENT",
+        "confidence": 0.733,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "early May of this year",
+        "type": "DATE",
+        "confidence": 0.729,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Amigo",
+        "type": "PERSON",
+        "confidence": 0.726,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Es mi hermana",
+        "type": "PERSON",
+        "confidence": 0.724,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "2016",
+        "type": "DATE",
+        "confidence": 0.72,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "WhatsApp",
+        "type": "SOFTWARE",
+        "confidence": 0.719,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Pbs",
+        "type": "ORGANIZATION",
+        "confidence": 0.714,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Companies",
+        "type": "ORGANIZATION",
+        "confidence": 0.713,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Military Weapon",
+        "type": "WEAPON",
+        "confidence": 0.712,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Saudi regime",
+        "type": "ORGANIZATION",
+        "confidence": 0.712,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Person",
+        "type": "PERSON",
+        "confidence": 0.708,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "State",
+        "type": "ORGANIZATION",
+        "confidence": 0.708,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Oficina",
+        "type": "LOCATION",
+        "confidence": 0.704,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Device",
+        "type": "PRODUCT",
+        "confidence": 0.7,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Governments",
+        "type": "ORGANIZATION",
+        "confidence": 0.7,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Software",
+        "type": "SOFTWARE",
+        "confidence": 0.95,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Civilians",
+        "type": "PERSON",
+        "confidence": 0.95,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Investigation",
+        "type": "EVENT",
+        "confidence": 0.95,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Technologies",
+        "type": "TECHNOLOGY",
+        "confidence": 0.95,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Activists",
+        "type": "PERSON",
+        "confidence": 0.95,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Phone",
+        "type": "PRODUCT",
+        "confidence": 0.95,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Tools",
+        "type": "TECHNOLOGY",
+        "confidence": 0.95,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      }
+    ],
+    "Unknown": [
+      {
+        "name": "A Big Year",
+        "type": "DATE",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "A Couple Of Weeks Ago",
+        "type": "DATE",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Abajo Estaban",
+        "type": "PERSON",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Abajo teníamos el micrófono",
+        "type": "PERSON",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "About 1,000",
+        "type": "CARDINAL",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "About 50,000",
+        "type": "CARDINAL",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "About A Year",
+        "type": "DATE",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Ahora Es",
+        "type": "PERSON",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Al Al",
+        "type": "PERSON",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Al cruzar",
+        "type": "PERSON",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Al Dispositivo",
+        "type": "PERSON",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Al Sistema De Inteligencia",
+        "type": "PERSON",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Al Teléfono",
+        "type": "PERSON",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Aliyev",
+        "type": "GROUP",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Aliyevs",
+        "type": "PERSON",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Amazon Prime Video",
+        "type": "ORGANIZATION",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Android",
+        "type": "PRODUCT",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Androids",
+        "type": "PRODUCT",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Azerbaijani",
+        "type": "PERSON",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Bueno",
+        "type": "PERSON",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Casa",
+        "type": "LOCATION",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Claro",
+        "type": "PERSON",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Como Presidente",
+        "type": "LOCATION",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Covid",
+        "type": "PERSON",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Cuando",
+        "type": "ORGANIZATION",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Das De Espaldas",
+        "type": "ORGANIZATION",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "De acuerdo",
+        "type": "ORGANIZATION",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "De Ahí Ya Podíamos",
+        "type": "PERSON",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "De Carácter",
+        "type": "PERSON",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "De Edad",
+        "type": "PERSON",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "de la ciudad de México",
+        "type": "PERSON",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "De La Revista",
+        "type": "PERSON",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "De Tu Visa",
+        "type": "PERSON",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Del Lado Derecho",
+        "type": "FACILITY",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Digamos",
+        "type": "PERSON",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Diplomáticos",
+        "type": "LOCATION",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Durante los años que fui espiada",
+        "type": "ORGANIZATION",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Dábamos Clic",
+        "type": "PERSON",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "El Conocimiento De Que",
+        "type": "ORGANIZATION",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "El El",
+        "type": "ORGANIZATION",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "El Equipo",
+        "type": "ORGANIZATION",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "El Mensaje",
+        "type": "PERSON",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "El Número",
+        "type": "PERSON",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "El Presidente",
+        "type": "LOCATION",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "El procedimiento",
+        "type": "ORGANIZATION",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "El Software",
+        "type": "SOFTWARE",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "El Teléfono De Mi",
+        "type": "ORGANIZATION",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Elephant",
+        "type": "ORGANIZATION",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Encinas",
+        "type": "PERSON",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "First",
+        "type": "ORDINAL",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Frontline's Global Spyware Scandal exposing Pegasus",
+        "type": "EVENT",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Fuera de la vigencia",
+        "type": "PRODUCT",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Global Spyware Scandal",
+        "type": "EVENT",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Hatice",
+        "type": "PERSON",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Hay Muchos",
+        "type": "LOCATION",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Hola Carmen",
+        "type": "ORGANIZATION",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "iPhones",
+        "type": "ORGANIZATION",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Iran",
+        "type": "LOCATION",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Jamal",
+        "type": "PERSON",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Khashoggi",
+        "type": "PERSON",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "La Cadena De Televisión",
+        "type": "ORGANIZATION",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "La Cocina",
+        "type": "LOCATION",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "La Finalidad De Elaborar",
+        "type": "ORGANIZATION",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "La Productora De Mi",
+        "type": "ORGANIZATION",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Las Cámaras",
+        "type": "LOCATION",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Los Ingresos",
+        "type": "LOCATION",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Los Números De Mi Directorio",
+        "type": "LOCATION",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Mensajes De Texto",
+        "type": "PERSON",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Mensajes Tan Extraños",
+        "type": "PERSON",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Mexican",
+        "type": "GROUP",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Months",
+        "type": "DATE",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "More Than 15,000",
+        "type": "CARDINAL",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "More Than 80",
+        "type": "CARDINAL",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Moroccan",
+        "type": "GROUP",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Nosotros",
+        "type": "GROUP",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Nosotros Decíamos",
+        "type": "PERSON",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Novedad",
+        "type": "LOCATION",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Números",
+        "type": "PERSON",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "One",
+        "type": "CARDINAL",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Para Mí La",
+        "type": "PERSON",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Pegasus al CISEN",
+        "type": "EVENT",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Pegasus al ejército",
+        "type": "EVENT",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Pero Había Que",
+        "type": "PERSON",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Pero Podemos Seguir",
+        "type": "ORGANIZATION",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Pleno Al",
+        "type": "PERSON",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Podemos Verla Nosotros",
+        "type": "ORGANIZATION",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Pueden estar",
+        "type": "PERSON",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Puedo",
+        "type": "LOCATION",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Quedas",
+        "type": "PERSON",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Qué",
+        "type": "PERSON",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Saudis",
+        "type": "GROUP",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Se tenía que",
+        "type": "PERSON",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Signal",
+        "type": "ORGANIZATION",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Sms",
+        "type": "ORGANIZATION",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Tengo un directorio nutrido",
+        "type": "PERSON",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Tens Of Thousands",
+        "type": "CARDINAL",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Tenía Cada Una De Las Aplicaciones De Las Que",
+        "type": "FACILITY",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "teníamos el cuadro de la aplicación de WhatsApp",
+        "type": "ORGANIZATION",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Teresa Aristegui",
+        "type": "PERSON",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "The Last 10 Years",
+        "type": "DATE",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "The minute",
+        "type": "TIME",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Three",
+        "type": "CARDINAL",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Today",
+        "type": "DATE",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Tu Teléfono",
+        "type": "ORGANIZATION",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Turkish",
+        "type": "GROUP",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Two",
+        "type": "CARDINAL",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Universo De Más De 50,000 Números",
+        "type": "ORGANIZATION",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Va",
+        "type": "LOCATION",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Vigencia Tiene",
+        "type": "PERSON",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Visualización Principal",
+        "type": "PERSON",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Ya Perdieron El Pudor",
+        "type": "PERSON",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Ya Sean",
+        "type": "PERSON",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Yo intuyo",
+        "type": "PERSON",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "¿Pues",
+        "type": "WORK_OF_ART",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      }
+    ]
+  }
+}

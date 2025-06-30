@@ -100,10 +100,11 @@ def main():
         # Quick stats in sidebar
         st.markdown("### 📈 Quick Stats")
         
-        # Check for output directory (relative to project root)
+        # Check for output directory (relative to streamlit_app)
         output_path = Path("../output")
         if output_path.exists():
-            collections = list(output_path.glob("collections/*"))
+            collections_path = output_path / "collections"
+            collections = list(collections_path.glob("*")) if collections_path.exists() else []
             individual_videos = [p for p in output_path.iterdir() 
                                if p.is_dir() and p.name != "collections"]
             
@@ -114,8 +115,8 @@ def main():
             timeline_collections = 0
             for collection in collections:
                 timeline_files = [
-                    collection / "consolidated_timeline.json",
-                    collection / "timeline.json"
+                    collection / "timeline.json",  # v2.17.0 Timeline Building Pipeline
+                    collection / "consolidated_timeline.json"  # Legacy format
                 ]
                 if any(f.exists() for f in timeline_files):
                     timeline_collections += 1
@@ -200,36 +201,58 @@ def show_dashboard():
     
     output_path = Path("../output")
     if output_path.exists():
-        # Get recent directories
-        recent_dirs = sorted(
-            [p for p in output_path.iterdir() if p.is_dir()],
+        # Get collections first (priority)
+        collections_path = output_path / "collections"
+        recent_dirs = []
+        
+        if collections_path.exists():
+            # Filter out special directories from collections
+            skip_collection_dirs = {"individual_videos", "video_archive", ".DS_Store"}
+            collection_dirs = sorted(
+                [p for p in collections_path.iterdir() 
+                 if p.is_dir() and p.name not in skip_collection_dirs],
+                key=lambda x: x.stat().st_mtime,
+                reverse=True
+            )
+            recent_dirs.extend(collection_dirs[:3])  # Top 3 collections
+        
+        # Then add individual videos (skip special directories)
+        skip_dirs = {"collections", "individual_videos", "video_archive", ".DS_Store"}
+        individual_dirs = sorted(
+            [p for p in output_path.iterdir() 
+             if p.is_dir() and p.name not in skip_dirs],
             key=lambda x: x.stat().st_mtime,
             reverse=True
-        )[:5]
+        )
+        recent_dirs.extend(individual_dirs[:2])  # Top 2 individual videos
         
         if recent_dirs:
             for i, dir_path in enumerate(recent_dirs):
+                # Determine if this is a collection or individual video
+                is_collection = "collections" in str(dir_path.parent)
+                
                 with st.expander(f"📁 {dir_path.name}", expanded=i == 0):
                     # Check what files exist
                     files = list(dir_path.glob("*"))
                     st.write(f"**Files:** {len(files)}")
                     
-                    # Show key files with correct names based on actual file structure
-                    if "collections" in str(dir_path):
-                        # Collection directories have different files
+                    # Show key files based on actual file structure
+                    if is_collection:
+                        # Collection directories - check our actual files
                         key_files = [
                             "collection_intelligence.json",
-                            "consolidated_timeline.json",
-                            "timeline.json", 
-                            "unified_knowledge_graph.gexf"
+                            "timeline.json",
+                            "information_flow_map.json",
+                            "unified_knowledge_graph.gexf",
+                            "information_flow_summary.md"
                         ]
                     else:
-                        # Individual video directories
+                        # Individual video directories - actual file structure
                         key_files = [
-                            "video_intelligence.json",
                             "knowledge_graph.gexf",
                             "transcript.json",
-                            "summary.md"
+                            "entities.json",
+                            "chimera_format.json"
                         ]
                     
                     for key_file in key_files:
@@ -237,6 +260,12 @@ def show_dashboard():
                             st.success(f"✅ {key_file}")
                         else:
                             st.warning(f"⚠️ {key_file} (missing)")
+                    
+                    # Show collection-specific info
+                    if is_collection:
+                        st.info("📚 Collection - Multi-video temporal intelligence")
+                    else:
+                        st.info("📹 Individual Video - Single video processing")
         else:
             st.info("No processed videos found. Use the CLI to process some videos first!")
     else:

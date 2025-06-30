@@ -1,0 +1,12 @@
+subject,predicate,object,confidence,context
+Pegasus,spyware,instance of,0.85,
+COVID crisis,point in time,2010,0.85,
+Jamal Khashoggi,The Washington Post,employer,0.85,
+Jamal Khashoggi,Hatice,spouse,0.85,
+Hatice,spouse,Jamal Khashoggi,0.85,
+Jamal Khashoggi,spouse,Jamal Khashoggi,0.85,
+UAE,diplomatic relation,Saudi Arabia,0.85,
+Saudi Arabia,diplomatic relation,UAE,0.85,
+Enrique Peña Nieto,president of Mexico,position held,0.85,
+Pegasus,sistema de inteligencia,instance of,0.85,
+Azerbaijan,head of state,Ilham Aliyev,0.85,

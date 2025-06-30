@@ -536,3 +536,108 @@ class UniversalVideoClient:
             "popular": VideoSortOrder.viewCount, # Alias for view_count
         }
         return sort_map.get(sort_by.lower(), VideoSortOrder.relevance) 
+
+    async def extract_playlist_preview(
+        self, 
+        playlist_url: str, 
+        max_preview: int = 20
+    ) -> Tuple[List[VideoMetadata], int]:
+        """
+        Extract videos from a playlist and show preview without downloading.
+        
+        Args:
+            playlist_url: YouTube playlist URL
+            max_preview: Maximum number of videos to preview
+            
+        Returns:
+            Tuple of (preview_videos, total_count)
+        """
+        try:
+            logger.info(f"Extracting playlist preview from: {playlist_url}")
+            
+            # Use yt-dlp to extract playlist info without downloading
+            with yt_dlp.YoutubeDL({
+                'quiet': True, 
+                'extract_flat': True,  # Don't extract individual video info
+                'playlistend': max_preview  # Limit preview size
+            }) as ydl:
+                playlist_info = ydl.extract_info(playlist_url, download=False)
+                
+                if not playlist_info:
+                    raise ValueError("Could not extract playlist information")
+                
+                entries = playlist_info.get('entries', [])
+                total_count = playlist_info.get('playlist_count', len(entries))
+                
+                logger.info(f"Found {total_count} total videos, showing preview of {len(entries)}")
+                
+                # Convert entries to VideoMetadata objects
+                preview_videos = []
+                for entry in entries:
+                    if entry:  # Skip None entries
+                        try:
+                            # For flat extraction, we have limited info
+                            metadata = VideoMetadata(
+                                video_id=entry.get('id', ''),
+                                title=entry.get('title', 'Unknown'),
+                                channel=entry.get('uploader', 'Unknown'),
+                                channel_id=entry.get('uploader_id', ''),
+                                duration=entry.get('duration', 0),
+                                url=entry.get('url', f"https://www.youtube.com/watch?v={entry.get('id', '')}"),
+                                published_at=datetime.now(),  # Not available in flat extraction
+                                view_count=0,  # Not available in flat extraction
+                                description=entry.get('description', ''),
+                                tags=[]
+                            )
+                            preview_videos.append(metadata)
+                        except Exception as e:
+                            logger.warning(f"Failed to parse playlist entry: {e}")
+                            continue
+                
+                return preview_videos, total_count
+                
+        except Exception as e:
+            logger.error(f"Failed to extract playlist preview: {e}")
+            raise
+    
+    def is_playlist_url(self, url: str) -> bool:
+        """Check if URL is a playlist URL."""
+        return 'playlist?list=' in url or '/playlist/' in url
+
+    async def extract_all_playlist_urls(self, playlist_url: str) -> List[str]:
+        """
+        Extract all video URLs from a playlist.
+        
+        Args:
+            playlist_url: YouTube playlist URL
+            
+        Returns:
+            List of individual video URLs
+        """
+        try:
+            logger.info(f"Extracting all URLs from playlist: {playlist_url}")
+            
+            with yt_dlp.YoutubeDL({
+                'quiet': True,
+                'extract_flat': True,
+                'dump_single_json': True
+            }) as ydl:
+                playlist_info = ydl.extract_info(playlist_url, download=False)
+                
+                if not playlist_info:
+                    raise ValueError("Could not extract playlist information")
+                
+                entries = playlist_info.get('entries', [])
+                urls = []
+                
+                for entry in entries:
+                    if entry and entry.get('id'):
+                        video_url = f"https://www.youtube.com/watch?v={entry['id']}"
+                        urls.append(video_url)
+                
+                logger.info(f"Extracted {len(urls)} video URLs from playlist")
+                return urls
+                
+        except Exception as e:
+            logger.error(f"Failed to extract playlist URLs: {e}")
+            raise 

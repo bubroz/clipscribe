@@ -1,0 +1,91 @@
+{
+  "version": "2.3",
+  "created_at": "2025-06-27T19:18:45.902767",
+  "video": {
+    "title": "The Undebunkable",
+    "url": "https://www.youtube.com/watch?v=sWy1qmMoToM",
+    "platform": "youtube"
+  },
+  "extraction_stats": {
+    "spacy_entities": 20,
+    "gliner_entities": 53,
+    "relationships": 3,
+    "llm_validated": 31,
+    "graph_nodes": 32,
+    "graph_edges": 3
+  },
+  "files": {
+    "transcript_txt": {
+      "path": "transcript.txt",
+      "format": "plain_text",
+      "size": 5690,
+      "sha256": "0d396bef20a6b17960a3f567a6ef6a79f90ecc9425023bf19d05cc4773c2fc16"
+    },
+    "transcript_json": {
+      "path": "transcript.json",
+      "format": "json",
+      "size": 34292,
+      "sha256": "c6cbd504999561c7a2ee070fe8358bfe6c05759048a5b0a856901883b252152f"
+    },
+    "metadata": {
+      "path": "metadata.json",
+      "format": "json",
+      "size": 738,
+      "sha256": "05f68f9697f6a902000bfe57c7e68a78aa5709170a4c2ddd74c125f2589be0a0"
+    },
+    "entities": {
+      "path": "entities.json",
+      "format": "json",
+      "size": 8051,
+      "sha256": "c145bb7db5d70b55e1d2c9054ed5b8b42b479dc86d0304d696617571de89e78d"
+    },
+    "relationships": {
+      "path": "relationships.json",
+      "format": "json",
+      "size": 664,
+      "sha256": "a50012f4a04e1dfa1158d373fa39bf96e9e948d89dddc68d2a4d53c99d94a61f",
+      "count": 3
+    },
+    "knowledge_graph": {
+      "path": "knowledge_graph.json",
+      "format": "json",
+      "size": 3613,
+      "sha256": "fdd9810d16c19e690ce4454ee4a9b4fa4cdfa7ce827614fc0b86c594459ff73c"
+    },
+    "gexf": {
+      "path": "knowledge_graph.gexf",
+      "format": "gexf",
+      "size": 10665,
+      "sha256": "0c7743bcaa6408ff7f8fefec371d58f37f74c60db672d02ddb3b0ae02d20a874",
+      "description": "Gephi-compatible graph file"
+    },
+    "entities_csv": {
+      "path": "entities.csv",
+      "format": "csv",
+      "size": 1363,
+      "sha256": "9bc3e4469d407f25bbad581b0bb5e193b92807cdbd6c94a3c711849326a0ab13",
+      "description": "All entities in CSV format"
+    },
+    "relationships_csv": {
+      "path": "relationships.csv",
+      "format": "csv",
+      "size": 218,
+      "sha256": "f743e6d8ca90472f4dde1273ee2bf1fe68faed1b8297acae272f09e955d4cf67",
+      "description": "All relationships in CSV format"
+    },
+    "report": {
+      "path": "report.md",
+      "format": "markdown",
+      "size": 9591,
+      "sha256": "8b460d39794bf7ae8e6050e0f46d7ad08898b0bb6c2a1376e121aac373c12307",
+      "description": "Human-readable intelligence report"
+    },
+    "chimera": {
+      "path": "chimera_format.json",
+      "format": "json",
+      "size": 22228,
+      "sha256": "75e2421422100b6c203349942b4f86c34911769ff2a0d780ebeaa56d5a2b1dd6",
+      "description": "Chimera-compatible format"
+    }
+  }
+}

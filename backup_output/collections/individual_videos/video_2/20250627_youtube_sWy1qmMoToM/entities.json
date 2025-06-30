@@ -1,0 +1,371 @@
+{
+  "video_url": "https://www.youtube.com/watch?v=sWy1qmMoToM",
+  "video_title": "The Undebunkable",
+  "entities": [
+    {
+      "name": "the Beatles",
+      "type": "ORGANIZATION",
+      "confidence": 0.9496437907218933,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER"
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Nasa",
+      "type": "ORGANIZATION",
+      "confidence": 0.9129949092864991,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Florida",
+      "type": "LOCATION",
+      "confidence": 0.9064694225788117,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Alligator",
+      "type": "BIOLOGICAL_ENTITY",
+      "confidence": 0.8986057937145233,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Zachary",
+      "type": "PERSON",
+      "confidence": 0.8621220469474793,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "3,000",
+      "type": "CARDINAL",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Beatles",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Guinness World Records",
+      "type": "ORGANIZATION",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Hollywood",
+      "type": "LOCATION",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Just A Few Years Ago",
+      "type": "DATE",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Last Month",
+      "type": "DATE",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Occam",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "The Flyboard Air",
+      "type": "ORGANIZATION",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Tonight",
+      "type": "TIME",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Two",
+      "type": "CARDINAL",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Zeitgeist",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Earth",
+      "type": "LOCATION",
+      "confidence": 0.8467288196086884,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "You",
+      "type": "PERSON",
+      "confidence": 0.8423724869887034,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Western Hemisphere",
+      "type": "LOCATION",
+      "confidence": 0.831950205564499,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Global Conspiracy",
+      "type": "CONFLICT",
+      "confidence": 0.8285874128341675,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER"
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Paul McCartney",
+      "type": "PERSON",
+      "confidence": 0.808095383644104,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "1966",
+      "type": "DATE",
+      "confidence": 0.7998308122158051,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Music",
+      "type": "SONG",
+      "confidence": 0.7793467044830322,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER"
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Flyboard Air",
+      "type": "PRODUCT",
+      "confidence": 0.7682512998580933,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER"
+      },
+      "timestamp": null
+    },
+    {
+      "name": "It",
+      "type": "BIOLOGICAL_ENTITY",
+      "confidence": 0.763265780040196,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Wikipedia",
+      "type": "ORGANIZATION",
+      "confidence": 0.7621106982231141,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Bombing",
+      "type": "EVENT",
+      "confidence": 0.75355464220047,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER"
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Ufologist",
+      "type": "PERSON",
+      "confidence": 0.7481793761253357,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER"
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Captain Disillusion",
+      "type": "PERSON",
+      "confidence": 0.7320085167884827,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER"
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Zeitgeist",
+      "type": "CHARACTER",
+      "confidence": 0.709364503622055,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "People",
+      "type": "PERSON",
+      "confidence": 0.95,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER"
+      },
+      "timestamp": null
+    }
+  ],
+  "topics": [
+    {
+      "name": "Skepticism",
+      "confidence": 0.85
+    },
+    {
+      "name": "Conspiracy Theories",
+      "confidence": 0.85
+    },
+    {
+      "name": "Critical Thinking",
+      "confidence": 0.85
+    },
+    {
+      "name": "Media Literacy",
+      "confidence": 0.85
+    },
+    {
+      "name": "Internet Hoaxes",
+      "confidence": 0.85
+    },
+    {
+      "name": "Debunking",
+      "confidence": 0.85
+    },
+    {
+      "name": "Empathy",
+      "confidence": 0.85
+    },
+    {
+      "name": "Satire",
+      "confidence": 0.85
+    }
+  ],
+  "key_facts": [
+    "Captain Disillusion thanks viewers for video suggestions, noting a shared 'wavelength'.",
+    "He contrasts his perspective with 'the rest of society' who enjoy common things like music, jokes, and recipe videos.",
+    "Captain Disillusion introduces the 'alligator golf course video' as an example of common gullibility.",
+    "He 'debunks' the alligator video, stating it's fake because the alligator is 'too big,' pixels look 'weird,' and walking seems 'animated'.",
+    "He questions why the person in the video isn't scared, despite the setting being Florida and the gator being a known 'mascot'."
+  ]
+}

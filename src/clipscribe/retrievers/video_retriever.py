@@ -1466,7 +1466,8 @@ class VideoIntelligenceRetriever:
             flows_dir.mkdir(exist_ok=True)
             
             for flow in collection.information_flow_map.information_flows:
-                flow_filename = f"{flow.video_id}_{flow.video_index}.json"
+                # Use source_node.video_id since InformationFlow doesn't have video_id directly
+                flow_filename = f"{flow.source_node.video_id}_{flow.flow_id}.json"
                 flow_path = flows_dir / flow_filename
                 with open(flow_path, 'w', encoding='utf-8') as f:
                     f.write(flow.model_dump_json(indent=2))
@@ -1522,65 +1523,62 @@ class VideoIntelligenceRetriever:
             # Evolution paths
             if flow_map.evolution_paths:
                 f.write("## 📈 Concept Evolution Paths\n\n")
-                # Sort by significance (video span × maturity evolution)
+                # Sort by significance (number of evolution nodes and coherence)
                 sorted_paths = sorted(flow_map.evolution_paths, 
-                                    key=lambda p: (p.video_span * (p.final_maturity - p.initial_maturity)), 
+                                    key=lambda p: (len(p.evolution_nodes) * p.evolution_coherence), 
                                     reverse=True)
                 
                 for i, path in enumerate(sorted_paths[:10], 1):  # Top 10 paths
                     f.write(f"### {i}. {path.concept_name}\n")
-                    f.write(f"**Evolution:** {path.initial_maturity_level} → {path.final_maturity_level}\n")
-                    f.write(f"**Video Span:** {path.video_span} videos\n")
-                    f.write(f"**Maturity Change:** +{path.final_maturity - path.initial_maturity:.1f}\n")
+                    f.write(f"**Evolution Nodes:** {len(path.evolution_nodes)} stages\n")
+                    f.write(f"**Coherence Score:** {path.evolution_coherence:.2f}\n")
+                    f.write(f"**Completeness:** {path.completeness_score:.2f}\n")
+                    f.write(f"**Understanding Depth:** {path.understanding_depth:.2f}\n")
                     
-                    # Show evolution stages
-                    if path.evolution_stages:
-                        f.write("**Journey:**\n")
-                        for stage in path.evolution_stages:
-                            f.write(f"- Video {stage['video_index']}: {stage['maturity_level']} "
-                                   f"(maturity: {stage['maturity_score']:.1f})\n")
+                    # Show evolution summary
+                    if path.evolution_summary:
+                        f.write(f"**Summary:** {path.evolution_summary}\n")
+                    
+                    # Show key transformations
+                    if path.key_transformations:
+                        f.write("**Key Transformations:**\n")
+                        for transformation in path.key_transformations[:3]:
+                            f.write(f"- {transformation}\n")
                     f.write("\n")
                 
                 if len(flow_map.evolution_paths) > 10:
                     f.write(f"*... and {len(flow_map.evolution_paths) - 10} more evolution paths*\n\n")
             
-            # Individual video flows
-            f.write("## 📹 Video-by-Video Information Flows\n\n")
-            for i, flow in enumerate(flow_map.information_flows):
-                f.write(f"### Video {flow.video_index + 1}: {flow.video_title}\n")
+            # Information flows analysis
+            f.write("## 📹 Information Flow Analysis\n\n")
+            
+            # Group flows by source video for organization
+            flows_by_video = {}
+            for flow in flow_map.information_flows:
+                source_video = flow.source_node.video_id
+                if source_video not in flows_by_video:
+                    flows_by_video[source_video] = {
+                        'title': flow.source_node.video_title,
+                        'flows': []
+                    }
+                flows_by_video[source_video]['flows'].append(flow)
+            
+            # Display flows by video
+            for video_id, video_data in flows_by_video.items():
+                f.write(f"### Video: {video_data['title']}\n")
+                f.write(f"**Video ID:** {video_id}\n")
+                f.write(f"**Information Flows Originating:** {len(video_data['flows'])}\n\n")
                 
-                # Quick stats
-                f.write("**Quick Stats:**\n")
-                f.write(f"- **Concepts Introduced:** {len(flow.concepts_introduced)}\n")
-                f.write(f"- **Concepts Developed:** {len(flow.concepts_developed)}\n")
-                f.write(f"- **Concepts Concluded:** {len(flow.concepts_concluded)}\n")
-                f.write(f"- **Total Dependencies:** {len(flow.concept_dependencies)}\n\n")
+                # Show key flows from this video
+                for flow in video_data['flows'][:5]:  # Show top 5 flows
+                    f.write(f"**Flow:** {flow.source_node.concept_name} → {flow.target_node.concept_name}\n")
+                    f.write(f"- **Type:** {flow.flow_type}\n")
+                    f.write(f"- **Quality:** {flow.flow_quality:.2f}\n")
+                    f.write(f"- **Information Transferred:** {flow.information_transferred}\n")
+                    f.write(f"- **Target Video:** {flow.target_node.video_title}\n\n")
                 
-                # Concept details
-                if flow.concepts_introduced:
-                    f.write("**New Concepts Introduced:**\n")
-                    for concept in flow.concepts_introduced[:5]:
-                        f.write(f"- **{concept.name}** ({concept.maturity_level}) - {concept.context[:100]}...\n")
-                    if len(flow.concepts_introduced) > 5:
-                        f.write(f"- ... and {len(flow.concepts_introduced) - 5} more\n")
-                    f.write("\n")
-                
-                if flow.concepts_developed:
-                    f.write("**Concepts Further Developed:**\n")
-                    for concept in flow.concepts_developed[:5]:
-                        f.write(f"- **{concept.name}** → {concept.maturity_level}\n")
-                    if len(flow.concepts_developed) > 5:
-                        f.write(f"- ... and {len(flow.concepts_developed) - 5} more\n")
-                    f.write("\n")
-                
-                # Key dependencies
-                if flow.concept_dependencies:
-                    f.write("**Key Concept Dependencies:**\n")
-                    for dep in flow.concept_dependencies[:3]:
-                        f.write(f"- {dep.from_concept} → {dep.to_concept} ({dep.dependency_type})\n")
-                    if len(flow.concept_dependencies) > 3:
-                        f.write(f"- ... and {len(flow.concept_dependencies) - 3} more dependencies\n")
-                    f.write("\n")
+                if len(video_data['flows']) > 5:
+                    f.write(f"*... and {len(video_data['flows']) - 5} more flows from this video*\n\n")
                 
                 f.write("---\n\n")
             

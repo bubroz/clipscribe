@@ -382,11 +382,12 @@ async def research_async(ctx: click.Context, query: str, max_results: int, perio
 
 
 @cli.command()
+@click.argument("collection_name")
 @click.argument("urls", nargs=-1, required=True)
 @click.option(
     "--collection-title",
     "-t",
-    help="Title for the video collection"
+    help="Title for the video collection (defaults to collection_name)"
 )
 @click.option(
     "--collection-type",
@@ -416,40 +417,155 @@ async def research_async(ctx: click.Context, query: str, max_results: int, perio
 @click.option('--enhance-transcript', is_flag=True)
 @click.option('--clean-graph', is_flag=True)
 @click.option('--performance-report', is_flag=True)
+@click.option('--skip-confirmation', is_flag=True, help="Skip playlist preview and confirmation")
 @click.pass_context
 def process_collection(
     ctx: click.Context,
+    collection_name: str,
     urls: tuple,
     collection_title: Optional[str],
     collection_type: str,
     auto_detect_series: bool,
     user_confirmed_series: bool,
     output_dir: Path,
+    skip_confirmation: bool,
     **kwargs
 ) -> None:
-    """Process multiple videos as a unified collection with cross-video intelligence."""
+    """Process multiple videos as a unified collection with cross-video intelligence.
+    
+    COLLECTION_NAME: Name for the collection (used in output directory)
+    URLS: Video URLs or playlist URLs to process
+    """
     asyncio.run(process_collection_async(
         ctx,
+        collection_name,
         urls,
-        collection_title,
+        collection_title or collection_name,
         collection_type,
         auto_detect_series,
         user_confirmed_series,
         output_dir,
+        skip_confirmation,
         **kwargs
     ))
 
 async def process_collection_async(
     ctx: click.Context,
+    collection_name: str,
     urls: tuple,
-    collection_title: Optional[str],
+    collection_title: str,
     collection_type: str,
     auto_detect_series: bool,
     user_confirmed_series: bool,
     output_dir: Path,
+    skip_confirmation: bool,
     **kwargs
 ) -> None:
-    console.print(f"🎬 Processing video collection: {len(urls)} videos")
+    from rich.table import Table
+    from rich import box
+    from ..retrievers.universal_video_client import UniversalVideoClient
+    
+    console = Console()
+    video_client = UniversalVideoClient()
+    
+    # Step 0: Handle playlist URLs and show preview
+    final_urls = []
+    total_estimated_cost = 0.0
+    
+    for url in urls:
+        if video_client.is_playlist_url(url):
+            if not skip_confirmation:
+                console.print(f"🎵 [yellow]Playlist detected:[/yellow] {url}")
+                console.print("📋 Extracting playlist preview...")
+                
+                try:
+                    preview_videos, total_count = await video_client.extract_playlist_preview(url, max_preview=20)
+                    
+                    # Show playlist preview
+                    console.print(f"\n📊 [bold]Playlist Preview[/bold] ({len(preview_videos)} of {total_count} videos)")
+                    
+                    preview_table = Table(box=box.SIMPLE)
+                    preview_table.add_column("#", style="dim", width=3)
+                    preview_table.add_column("Title", style="white", min_width=40)
+                    preview_table.add_column("Channel", style="cyan", width=20)
+                    preview_table.add_column("Duration", style="green", width=8)
+                    
+                    total_duration = 0
+                    for i, video in enumerate(preview_videos[:15], 1):  # Show first 15
+                        if video.duration and isinstance(video.duration, (int, float)):
+                            duration_min = int(video.duration // 60)
+                            duration_sec = int(video.duration % 60)
+                            duration_str = f"{duration_min}:{duration_sec:02d}"
+                            total_duration += video.duration
+                        else:
+                            duration_str = "?"
+                        
+                        preview_table.add_row(
+                            str(i),
+                            video.title[:40] + "..." if len(video.title) > 40 else video.title,
+                            video.channel[:18] + "..." if len(video.channel) > 18 else video.channel,
+                            duration_str
+                        )
+                    
+                    if len(preview_videos) > 15:
+                        preview_table.add_row("...", f"+ {len(preview_videos) - 15} more videos", "", "")
+                    
+                    console.print(preview_table)
+                    
+                    # Estimate cost
+                    estimated_cost_per_minute = 0.0025  # Enhanced temporal intelligence cost
+                    total_minutes = total_duration / 60 if total_duration > 0 else 0
+                    playlist_estimated_cost = total_minutes * estimated_cost_per_minute
+                    total_estimated_cost += playlist_estimated_cost
+                    
+                    console.print(f"\n💰 [bold]Cost Estimate for Playlist:[/bold]")
+                    console.print(f"   📊 Total videos: [yellow]{total_count}[/yellow]")
+                    console.print(f"   ⏱️  Total duration: [cyan]{total_minutes:.1f} minutes[/cyan]")
+                    console.print(f"   💵 Estimated cost: [green]${playlist_estimated_cost:.2f}[/green]")
+                    
+                    if total_count > 50:
+                        console.print(f"\n[yellow]⚠️  Large playlist detected ({total_count} videos)[/yellow]")
+                        console.print("Consider processing smaller batches for better cost control.")
+                    
+                    # User confirmation
+                    if not click.confirm(f"\nProcess all {total_count} videos from this playlist?"):
+                        console.print("❌ Playlist processing cancelled.")
+                        ctx.exit(0)
+                    
+                    # Extract all URLs
+                    console.print("🔄 Extracting all video URLs from playlist...")
+                    playlist_urls = await video_client.extract_all_playlist_urls(url)
+                    final_urls.extend(playlist_urls)
+                    console.print(f"✅ Extracted {len(playlist_urls)} video URLs")
+                    
+                except Exception as e:
+                    console.print(f"[red]❌ Failed to extract playlist: {e}[/red]")
+                    console.print("Try using individual video URLs instead.")
+                    ctx.exit(1)
+            else:
+                # Skip confirmation, extract all URLs
+                try:
+                    playlist_urls = await video_client.extract_all_playlist_urls(url)
+                    final_urls.extend(playlist_urls)
+                except Exception as e:
+                    console.print(f"[red]❌ Failed to extract playlist: {e}[/red]")
+                    ctx.exit(1)
+        else:
+            # Regular video URL
+            final_urls.append(url)
+    
+    # Final confirmation for large collections
+    if len(final_urls) > 10 and not skip_confirmation:
+        console.print(f"\n🎬 [bold]Final Collection Summary:[/bold]")
+        console.print(f"   📊 Total videos to process: [yellow]{len(final_urls)}[/yellow]")
+        if total_estimated_cost > 0:
+            console.print(f"   💵 Estimated total cost: [green]${total_estimated_cost:.2f}[/green]")
+        
+        if not click.confirm(f"\nProceed with processing {len(final_urls)} videos?"):
+            console.print("❌ Collection processing cancelled.")
+            ctx.exit(0)
+    
+    console.print(f"🎬 Processing video collection: {len(final_urls)} videos")
     
     # Convert collection type string to enum
     collection_type_enum = VideoCollectionType(collection_type)
@@ -458,8 +574,8 @@ async def process_collection_async(
     console.print("\n📹 Step 1: Processing individual videos...")
     video_intelligences = []
     
-    for i, url in enumerate(urls, 1):
-        console.print(f"Processing video {i}/{len(urls)}: {url}")
+    for i, url in enumerate(final_urls, 1):
+        console.print(f"Processing video {i}/{len(final_urls)}: {url}")
         
         # Create individual output directory
         video_output_dir = output_dir / f"individual_videos" / f"video_{i}"

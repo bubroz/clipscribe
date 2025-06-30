@@ -1,0 +1,95 @@
+{
+  "video_url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+  "video_title": "Rick Astley - Never Gonna Give You Up (Official Video) (4K Remaster)",
+  "entities": [
+    {
+      "name": "Game",
+      "type": "GAME",
+      "confidence": 0.9146652221679688,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "You",
+      "type": "PERSON",
+      "confidence": 0.7394950335676019,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "We",
+      "type": "PERSON",
+      "confidence": 0.95,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Aching",
+      "type": "SYMPTOM",
+      "confidence": 0.95,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    }
+  ],
+  "topics": [
+    {
+      "name": "Love and Romance",
+      "confidence": 0.85
+    },
+    {
+      "name": "Commitment and Loyalty",
+      "confidence": 0.85
+    },
+    {
+      "name": "Trust and Devotion",
+      "confidence": 0.85
+    },
+    {
+      "name": "Relationship Dynamics",
+      "confidence": 0.85
+    },
+    {
+      "name": "Emotional Expression",
+      "confidence": 0.85
+    },
+    {
+      "name": "Unconditional Love",
+      "confidence": 0.85
+    },
+    {
+      "name": "Fidelity",
+      "confidence": 0.85
+    }
+  ],
+  "key_facts": [
+    "The speaker implies the recipient is experienced in love.",
+    "Both speaker and recipient understand the dynamics of their relationship.",
+    "The speaker desires a complete and full commitment.",
+    "The speaker claims their level of commitment is unique.",
+    "The speaker wishes to express their feelings."
+  ]
+}

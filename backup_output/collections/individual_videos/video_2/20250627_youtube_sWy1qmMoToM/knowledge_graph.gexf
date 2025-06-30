@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gexf xmlns="http://www.gexf.net/1.3" xmlns:viz="http://www.gexf.net/1.3/viz" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://gexf.net/1.3 http://gexf.net/1.3/gexf.xsd" version="1.3">
+  <meta lastmodifieddate="2025-06-27">
+    <creator>ClipScribe</creator>
+    <description>Knowledge graph extracted from video content</description>
+  </meta>
+  <graph mode="static" defaultedgetype="directed">
+    <attributes class="node">
+      <attribute id="0" title="Type" type="string"/>
+      <attribute id="1" title="Confidence" type="double"/>
+    </attributes>
+    <attributes class="edge">
+      <attribute id="0" title="Predicate" type="string"/>
+      <attribute id="1" title="Confidence" type="double"/>
+    </attributes>
+    <nodes>
+      <node id="the Beatles" label="the Beatles">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.9496437907218933"/>
+        </attvalues>
+        <viz:color hex="#4ECDC4" a="1.0"/>
+        <viz:size value="48.4893137216568"/>
+      </node>
+      <node id="Nasa" label="Nasa">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.9129949092864991"/>
+        </attvalues>
+        <viz:color hex="#4ECDC4" a="1.0"/>
+        <viz:size value="47.38984727859497"/>
+      </node>
+      <node id="Florida" label="Florida">
+        <attvalues>
+          <attvalue for="0" value="LOCATION"/>
+          <attvalue for="1" value="0.9064694225788117"/>
+        </attvalues>
+        <viz:color hex="#45B7D1" a="1.0"/>
+        <viz:size value="47.19408267736435"/>
+      </node>
+      <node id="Alligator" label="Alligator">
+        <attvalues>
+          <attvalue for="0" value="BIOLOGICAL_ENTITY"/>
+          <attvalue for="1" value="0.8986057937145233"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="46.9581738114357"/>
+      </node>
+      <node id="Zachary" label="Zachary">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.8621220469474793"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="45.86366140842438"/>
+      </node>
+      <node id="3,000" label="3,000">
+        <attvalues>
+          <attvalue for="0" value="CARDINAL"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Beatles" label="Beatles">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Guinness World Records" label="Guinness World Records">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#4ECDC4" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Hollywood" label="Hollywood">
+        <attvalues>
+          <attvalue for="0" value="LOCATION"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#45B7D1" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Just A Few Years Ago" label="Just A Few Years Ago">
+        <attvalues>
+          <attvalue for="0" value="DATE"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#F39C12" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Last Month" label="Last Month">
+        <attvalues>
+          <attvalue for="0" value="DATE"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#F39C12" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Occam" label="Occam">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="The Flyboard Air" label="The Flyboard Air">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#4ECDC4" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Tonight" label="Tonight">
+        <attvalues>
+          <attvalue for="0" value="TIME"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Two" label="Two">
+        <attvalues>
+          <attvalue for="0" value="CARDINAL"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="45.5"/>
+      </node>
+      <node id="Zeitgeist" label="Zeitgeist">
+        <attvalues>
+          <attvalue for="0" value="CHARACTER"/>
+          <attvalue for="1" value="0.709364503622055"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="41.28093510866165"/>
+      </node>
+      <node id="Earth" label="Earth">
+        <attvalues>
+          <attvalue for="0" value="LOCATION"/>
+          <attvalue for="1" value="0.8467288196086884"/>
+        </attvalues>
+        <viz:color hex="#45B7D1" a="1.0"/>
+        <viz:size value="45.40186458826065"/>
+      </node>
+      <node id="You" label="You">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.8423724869887034"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="45.2711746096611"/>
+      </node>
+      <node id="Western Hemisphere" label="Western Hemisphere">
+        <attvalues>
+          <attvalue for="0" value="LOCATION"/>
+          <attvalue for="1" value="0.831950205564499"/>
+        </attvalues>
+        <viz:color hex="#45B7D1" a="1.0"/>
+        <viz:size value="44.95850616693497"/>
+      </node>
+      <node id="Global Conspiracy" label="Global Conspiracy">
+        <attvalues>
+          <attvalue for="0" value="CONFLICT"/>
+          <attvalue for="1" value="0.8285874128341675"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="44.857622385025024"/>
+      </node>
+      <node id="Paul McCartney" label="Paul McCartney">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.808095383644104"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="44.24286150932312"/>
+      </node>
+      <node id="1966" label="1966">
+        <attvalues>
+          <attvalue for="0" value="DATE"/>
+          <attvalue for="1" value="0.7998308122158051"/>
+        </attvalues>
+        <viz:color hex="#F39C12" a="1.0"/>
+        <viz:size value="43.99492436647415"/>
+      </node>
+      <node id="Music" label="Music">
+        <attvalues>
+          <attvalue for="0" value="SONG"/>
+          <attvalue for="1" value="0.7793467044830322"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="43.38040113449097"/>
+      </node>
+      <node id="Flyboard Air" label="Flyboard Air">
+        <attvalues>
+          <attvalue for="0" value="PRODUCT"/>
+          <attvalue for="1" value="0.7682512998580933"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="43.0475389957428"/>
+      </node>
+      <node id="It" label="It">
+        <attvalues>
+          <attvalue for="0" value="BIOLOGICAL_ENTITY"/>
+          <attvalue for="1" value="0.763265780040196"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="42.897973401205874"/>
+      </node>
+      <node id="Wikipedia" label="Wikipedia">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.7621106982231141"/>
+        </attvalues>
+        <viz:color hex="#4ECDC4" a="1.0"/>
+        <viz:size value="42.86332094669342"/>
+      </node>
+      <node id="Bombing" label="Bombing">
+        <attvalues>
+          <attvalue for="0" value="EVENT"/>
+          <attvalue for="1" value="0.75355464220047"/>
+        </attvalues>
+        <viz:color hex="#F7DC6F" a="1.0"/>
+        <viz:size value="42.6066392660141"/>
+      </node>
+      <node id="Ufologist" label="Ufologist">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.7481793761253357"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="42.44538128376007"/>
+      </node>
+      <node id="Captain Disillusion" label="Captain Disillusion">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.7320085167884827"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="41.96025550365448"/>
+      </node>
+      <node id="People" label="People">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.95"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="48.5"/>
+      </node>
+      <node id="alligator golf course" label="alligator golf course">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="member of" label="member of">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+    </nodes>
+    <edges>
+      <edge id="0" source="the Beatles" target="Paul McCartney" weight="0.85">
+        <attvalues>
+          <attvalue for="0" value="has part"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+      </edge>
+      <edge id="1" source="Paul McCartney" target="member of" weight="0.85">
+        <attvalues>
+          <attvalue for="0" value="the Beatles"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+      </edge>
+      <edge id="2" source="alligator golf course" target="Florida" weight="0.85">
+        <attvalues>
+          <attvalue for="0" value="located in the administrative territorial entity"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+      </edge>
+    </edges>
+  </graph>
+</gexf>

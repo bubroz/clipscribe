@@ -1,0 +1,2655 @@
+{
+  "type": "video",
+  "source": "video_intelligence",
+  "url": "https://www.youtube.com/watch?v=6ZVj1_SE4Mo",
+  "title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+  "content": "Pegasus. Pegasus. Pegasus. Pegasus, which has been used to monitor and track journalists, human rights activists and dissidents across the globe. In collaboration with Forbidden Films, a two-part investigation. We immediately realized that this story would be huge. NSO was established with the ambition to make the world a safer place into powerful spyware. It's a military weapon used against civilians. This is extremely serious for democracies, used around the world. There is no control over how countries use it and they have been using it in the worst way you could imagine. Now on Frontline, part one of Global Spyware Scandal, exposing Pegasus. Our phones are not just our phones. We call them phones, but they're not phones, they're computers. And they're like extensions of our body. They're with us all of the time. And if they are turned into a surveillance device, I don't think it's an exaggeration to say this was something that even George Orwell in 1984 couldn't imagine. It's beyond science fiction. Il va se faire un brief. La base de donn\u00e9es est vraiment explosive. Pegasus. Pegasus. Pegasus. Pegasus. This technology is so far ahead of government regulation, and even of public understanding of what's happening out there. All of us suspected that if NSO group was giving authoritarian and repressive regimes such a powerful instrument of surveillance that it was pretty likely that this technology would be abused. But none of us had been able to prove it on a systemic scale. De acuerdo con la pesquisa recavada por The Washington Post, The Guardian, Lemon y otros medios, the joint investigation by 17 news outlets and activists, lawyers and journalists are reportedly among those who have been targeted by the phone phone numbers belonging to some big name politicians. What you have here, Huang Shi, Cheng Yan, Zheng Dang Yao Ren, and Bu Fen Ji Zhi, De Shouji. The device that you have in your pocket could be a spy that is spying on your life. The list doesn't have any names. You have phone numbers, area country code, some time stamps as well. And it's a list that is about 50,000 phone numbers from 2016 to 2020. We can't explain were the list is coming from. We can't of course reveal who is our source. Officially the Pegasus spyware is not working on any plus one US phone numbers. It's not possible. The numbers they are mostly in 10 countries and most of these governments are known to be clients of NSO Group who make Pegasus. Pegasus designed to infect phones like iPhones or Androids and once in the phone, it can extract and access everything from the device: the phone books, geolocation, the messages, the photos, even the encrypted messages sent by Signal or WhatsApp. It can even access the mic or the camera of your phone remotely. It's like a person over your shoulder, a person who will see what you are seeing, a person who will watch what you are watching. Your emails, your encrypted communication, everything. So once you are infected, you're trapped. Hello, can you hear me? I can hear you. I don't see you. Hello. Hello. I don't know. Hi, how are you? Good, and you? We decided to reach out to some partners, The Washington Post, The Guardian and many other ones. We wanted to tell you about some information we have and about a new project we are starting. We had no names attached to the numbers. We needed more journalists. We needed reporters on the ground who could reach out to some victims. We need people with tech expertise. We still have to identify numbers. Many of them actually haven't been identified yet, so we'll need your help on this. The moment they mentioned the numbers of phone numbers that they had, the quantity of phone numbers, tens of thousands. I mean, my jaw just hit the floor. There is a lot that concern India, some people in Mexico, information about Hungary, Azerbaijan and Kazakhstan. If Forbidden Stories have got data that can identify not just who the customers of NSO are, but potentially pointing the direction of who the targets are as well, this is a game changer. This could be transformative in terms of our understanding of the whole cyber surveillance industry. We specialized in national security reporting. So surveillance is part of my beat, so to speak. You could see patterns starting to emerge and you could almost like touch, okay, that might be a story. You know, here's something that's happening in Azerbaijan. That might be a story. Okay, I see what the Moroccan story might be. It's like watching a photo emerge in a dark room. You will change here, at Brighton, and from here, it will be the and We at The Guardian have been reporting about NSO for a long time. We thought it was really important to hold this company to account. Israel has become a world leader in this industry and exports these tools all over the world. And if you like NSO Group was in many ways, you know, the jewel in the crown. The NSO Group was recently valued at $1 billion. It is one of the most successful companies in Israel startup space. NSO says they sell the software to governments around the world for legitimate purposes fighting terrorism or violating local laws. Here was a company founded by three guys in 2010 that claimed to have 40 countries around the world buying its technology that made bold claims about its technology being used to solve serious crimes and help facilitate national security inquiries. This was a big deal. I can tell you, in the last 10 years, we only found three cases of misuse and we took very serious actions that we are always taking. And these serious actions meant that we shut down the system completely. We only sell it to government or to entities that we know or we want to believe that they will not misuse the tools. And this is how we check the customer, this is how we diligence them. We have all the mechanism to make sure that they are not misusing the system. In the middle of Paris, in the middle of this big COVID crisis, we got everyone together to plan the investigation. Thank you. Sorry about that. I'm Dana Priest at The Washington Post and this is uh Craig Timberg who's joining me. Here is Carmen Aristegui, Sebastian Barragan from Aristegui Noticias. This is a Paul Lewis in The Guardian and Steph, many of you will know, writes a lot about NSO. This is uh The Le Monde corner. This is Martin, Kristoff, and I'm Damien. Usually, we see reporters at other news organizations as our rivals. We compete against them. We never want to share information with them because, you know, we want to keep our stories to ourselves. And this is just a different way of operating. This is seeing other journalists as partners. We are really one group, one group with one goal. We worked with more than 80 journalists and we set up a publication date of July 2021. That gave us about a year to investigate the list. We want even in order to protect the source. That's clearly something that is The main task for us and for all the partners was to identify the names behind the phone numbers. That was crucial. With phone numbers only we can do nothing. The data is the beginning of the project. We need to find sources. We need to go on the field. This project is about who is spying on who in many countries and those countries most of them are very dangerous. We had a kaleidoscope of potential victims. We have the data, but how do we prove that Pegasus was on the phones? And that was always going to be the hardest thing about this project, which was we had data, which is a very good indication of who the persons of interest were to these government clients of NSO. But we couldn't know whether a phone had been hacked unless we conducted forensics on it. Claudio Guarnieri is the head of Amnesty International's Security Lab. He worked on creating a methodology, a platform that we could use during our investigation to have phones analyzed. He's a key element of that investigation. Without his expertise, nobody in our team would have been able to detect traces of Pegasus in a phone. It's a piece of code that look very similar to all the others that you are running on your phone. It's just designed to do something that it shouldn't. Pegasus access and files on the device, access and records on the device being from WhatsApp, being from uh the SMS uh on the database that you have on the phone, or access the GPS of the device, record the audio, access the webcam, these kinds of things. Apple and companies like it try to create as many layers of complication as possible for an attacker. But the unfortunate reality is that against capabilities like those that uh Pegasus customers have, there's not much you can do from a digital security perspective. You can't really stop them meaningfully. You can only try to make it more complicated. At some point, we discovered on very crucial information. An information that changed entirely the project. For years, we heard rumors about the Pegasus spyware might have been used against Jamal Khashoggi who was killed in 2018 in a consulate of the Saudis in Istanbul. The minute we found out about this list, the first thing we all did was to check for any numbers related to Jamal Khashoggi or anyone we knew who was associated with him. And right away we found two numbers associated with the two women closest to him in his life. Jamal Khashoggi's murder really in the history of The Post stands out. He was an opinion writer for The Washington Post, very gentle, soft-spoken man. His voice became very important because he was the single most important dissident writing about the Saudi regime. Jamal, let me start with you. You've compared your Crown Prince to Putin, to Iran's supreme leader. You've said he's creating quote an interesting form of dictatorship. How so? I still see him as a reformer, but he is gathering all power within his hand. As we speak today, there are Saudi intellectuals and journalists jailed. His murder was so cold-blooded and we we still don't have the whole story. Jamal went to the consulate in Istanbul. And then he disappeared. Senior Turkish officials have reported that he is, in fact, in the building. And he is still here. His close friends and family are still trying to figure out what this situation is. There's waiting on an official statement. I spoke to his fiance who was also here who told us that they came here to issue a number of documents so they could marry. They dispatched an assassination team that landed in a plane in the in the airport and came in cars with tools to hack him up, to hack his bones and carry him out in a suitcase or suitcases. Pretty soon after his murder, people started asking, was Pegasus used against Jamal? The word is that NSO sold Pegasus to them and then they turned it around to get Khashoggi. Khashoggi's murder is horrible, really horrible. And therefore, when I first heard their accusations that our technology been used on Jamal Khashoggi or on his relatives, I started an immediate check about it. And I can tell you very clear, we had nothing to do with this horrible murder. I'm hoping that Hatice Khashoggi's fiance, who we'd all gotten to know on television because she was outside the consulate when he didn't reappear. I'm hoping that Hatice will let us do forensics on her phone to see for certain whether she was targeted and maybe if we get lucky, whether we can see what they took out of her phone. They killed my future. They killed my life. I felt inside me something changed and broke. Do you feel like your phone is doing anything strange? Do you think it could be hacked? We can test it, so we could do that if if you wanted to do it, we Okay, you can do that. Okay. That'd be great. We just need to plug your phone into our computer. Okay. So maybe we'd do that. Great. Hello. Claudio. Hi. Dana. Hi, how are you? I don't know. You tell me. So, I checked both the uploads. The new one seems clean. The old one however has some traces on the 6th of October of 2018 seems to have been first compromised, which was followed by some additional traces on the 9th and then on the 12th. There's also an additional record in June of 2019, but that seems to be probably a failed attempt. And I don't see anything following that. Okay. The analysis proved that the phone belonging to Jamal Khashoggi's fiance had been infected with Pegasus. Then we find out the date, which is four days after his murder when she's still trying to figure out what's happening. And it just seemed like such a ballsy move to surveil the person who has become the public face of his disappearance. We learned that Jamal had a complicated personal life. Hanan Atar is probably the least known character in Jamal Khashoggi's life. She's actually his wife and most people have not heard of her. He had secretly married in the United States in an Islamic ceremony. What I discovered is Hanan is living in hiding in the United States while she waits for her political asylum case. She was a flight attendant for Emirates Airlines. And so she flew all over the world and she was communicating with him on foreign phones. He was so happy, and I was so happy as well. This is in his birthday in a restaurant in Washington, and his friend Maggie behind us, the one she made the birthday party. This is all of his friends around us. This last birthday in his life. He was careful, but he didn't realize maybe my device is much dangerous. And I didn't know as well. He suspect but he's not sure, and I'm not sure as well. She allowed me to download her phone to send a copy to Claudio and to Bill Marczak at Citizen Lab who also conducts forensic analysis. What I did is I analyzed all the available data on uh two Android phones and and one laptop uh belonging to Hanan. On one of the phones, uh it appears that uh there were two separate uh links to the Pegasus spyware that were actually opened that shows that she was. Before Jamal's murder, Hanan had been detained and interrogated in the United Arab Emirates, which is of course a close ally of Saudi Arabia. They took me to uh office in airport. Then they took me to my house. They searched the whole house. They took my devices, my family devices. They have the password. I was in investigation for 17 hours until I got tired. I slept in the floor. What Bill discovered was when she was detained at the at the UAE airport, somebody who took her phone then opened a browser on her phone and then typed in a URL that then directed the phone to a website known to Citizen Lab as being a Pegasus website that activates the infection. The link to Pegasus was actually typed into the web browser character by character. They made a couple typos actually while they were doing it, which tells me it was done manually. We have the smoking gun from Hanan's phone, which is the traces of the spyware. You know, almost certainly this spyware was installed and uh exfiltrated information from from her phone. So she was uh in my view monitored. He was telling me what he's doing and what his connection, what his movement, what is his state of mind. So you were communicating with him? A lot. They tracked my husband through me long time back before they killed him. Because he was telling me, only me, everything. I didn't know this much they tracked him through me all the time. Mhm. Yeah. Why is this all come in my life? They did track Jamal and they killed him through me. Long time back. Getting evidence on the device of Hanan, on the device of Hatice. All of that was breaking the narrative of the CEO of NSO Group who told to the press that that spyware were never used against the Jamal or the relatives of Jamal. In the list, we saw more than 15,000 Mexican numbers. Mexico was among the very first customers of NSO Group. One of Mexico's best known journalists is Carmen Aristegui. And she was part of our investigation. She has maybe more followers than the President of Mexico. And uh we needed to understand who those phone numbers in Mexico belongs to. Hola. Hola, Carmen, Zarzuela de Forbidden Stories. \u00bfC\u00f3mo est\u00e1s? \u00bfC\u00f3mo est\u00e1s? Qu\u00e9 gusto. Forbidden tuvo un universo de m\u00e1s de 50.000 n\u00fameros. Pero hab\u00eda que saber de qui\u00e9n eran esos n\u00fameros. Se ten\u00eda que investigar uno por uno. Y Carmen, hay muchos contactos en tu tel\u00e9fono en nuestra lista. Uf, okay. Lo que lo que podemos hacer ahora es que puedes eh entrar los n\u00fameros en tu tel\u00e9fono para decirme a qui\u00e9n pertenecen los n\u00fameros. As\u00ed lo vamos a hacer. Tengo un directorio nutrido y entonces ese directorio lo cruzamos con los n\u00fameros de Forbidden y los n\u00fameros de mi directorio. El tercero es Sandra Nogales. Que durante muchos a\u00f1os fue mi asistente. Ah, caray. Tengo aqu\u00ed una cosa, una sorpresa. El s\u00e9ptimo n\u00famero corresponde a Karina Maciel. Karina Maciel es la productora de mi programa en la cadena de televisi\u00f3n CNN en M\u00e9xico. Otro colega periodista de la revista Proceso, Alejandro Caballero. Al cruzar, empezaron a salir nombres, nombres, nombres, nombres, nombres. Y nosotros dec\u00edamos, \u00bfHasta d\u00f3nde va a terminar esto? Ah, caray. El que sigue es Alejandro Encinas. Es un muy importante pol\u00edtico de la izquierda. Y estaban ah\u00ed pol\u00edticos, diplom\u00e1ticos, abogados, periodistas, activistas, defensores de derechos humanos. Ah, caray. Bueno, aqu\u00ed te puedo decir que est\u00e1 mi hermana. Aqu\u00ed aparece mi hermana Teresa Aristegui Flores. Es mi hermana, pero no est\u00e1 relacionada con ninguna actividad eh p\u00fablica. Yo intuyo que aqu\u00ed nadie se salva. Si hicieron esto, imag\u00ednate ya perdieron el pudor, o sea, pod\u00edan haber espiado a su gato, \u00bfno? S\u00ed. A su perro, al canario. O sea, \u00bfEst\u00e1s de acuerdo? A su propia a su propia familia. We knew from a previous investigation that Carmen's phone was heavily targeted with Pegasus in 2015 and 2016. So from that date, she is still investigating NSO Group, the Pegasus spyware, all the agents and operators who are using that in Mexico. Durante los a\u00f1os que fui espiada, estuvimos realizando investigaciones period\u00edsticas importantes para M\u00e9xico, relacionadas eh con la Casa Blanca del presidente Enrique Pe\u00f1a Nieto. Una casa en un barrio muy lujoso de la ciudad de M\u00e9xico en posesi\u00f3n del presidente de M\u00e9xico, de Enrique Pe\u00f1a Nieto y su familia que no pod\u00edan explicar. Que desde luego no pod\u00eda haber obtenido el presidente con los ingresos que el presidente pudo haber tenido como presidente, como gobernador o como hijo de una familia de clase media. que yo sospecho que mi tel\u00e9fono est\u00e1 intervenido y el tel\u00e9fono de mi hijo Emilio est\u00e1 intervenido es cuando Emilio un chico menor de edad, me pregunta, \"Oye, mam\u00e1, eh, \u00bft\u00fa sabes por qu\u00e9 recibo estos mensajes tan extra\u00f1os?\" Y yo le digo, \"Yo tambi\u00e9n estoy recibiendo mensajes extra\u00f1os.\" Quisieras click para ver alg\u00fan problema de tu visa en Estados Unidos. \u00bfQu\u00e9 puede estar mal con tu visa, \u00bfno? S\u00ed, pero era imposible que no hicieras click. A ver, yo ve\u00eda mi visa y dec\u00eda, \"Pues \u00bfqu\u00e9 vigencia tiene?\" Tiene. Fuera de la vigencia, \u00bfqu\u00e9 problema puede tener? Pero, \u00bfsabes? Es algo que es inevitable que que hagas. Que la expliques. Sabemos que Pegasus se vendi\u00f3 a la Procuradur\u00eda General de la Rep\u00fablica. Se vendi\u00f3 Pegasus al ej\u00e9rcito. Eh, se vendi\u00f3 Pegasus al Cis\u00e9n, al sistema de inteligencia. Se vendi\u00f3 Pegasus a algunas instancias de car\u00e1cter p\u00fablico. No puedo decirles mi nombre. No puedo referir con exactitud la instituci\u00f3n en la cual me desempe\u00f1\u00e9. Y puede resultar peligroso para m\u00ed la identificaci\u00f3n y el conocimiento de que yo tengo o tuve acceso a cierta informaci\u00f3n. El sistema Pegasus era toda una novedad para nosotros. El procedimiento era tener el n\u00famero del objetivo. Hacer lo que se denominaba la ingenier\u00eda social, que es b\u00fasqueda de informaci\u00f3n en fuentes abiertas del objetivo. Con la finalidad de elaborar mensajes de texto que pudieran ser enviados al dispositivo m\u00f3vil. Deber\u00eda ser uno o dos intentos muy precisos con informaci\u00f3n que le resultara \u00fatil al objetivo y que este pudiera dar click. Si logr\u00e1bamos el el \u00e9xito que diera click en el mensaje, eso autom\u00e1ticamente instalaba el software en el equipo m\u00f3vil. Y a partir de all\u00ed, ya pod\u00edamos tener acceso al tel\u00e9fono, toda la informaci\u00f3n. Los resultados eran incre\u00edbles, porque una vez que se lograba instalar, infectar el dispositivo, se ten\u00eda acceso pleno al equipo m\u00f3vil. Era una pantalla negra. En la parte superior izquierda, ten\u00edamos la visualizaci\u00f3n principal. Y en la parte del lado derecho, abajo estaban, digamos, m\u00f3dulos o pesta\u00f1as en donde se ten\u00eda cada una de las aplicaciones de las que se extra\u00eda informaci\u00f3n. Por ejemplo, ten\u00edamos el cuadro de la aplicaci\u00f3n de WhatsApp, Telegram. Abajo ten\u00edamos el micr\u00f3fono, las c\u00e1maras, la geolocalizaci\u00f3n, y dependiendo de lo que nos interesara, le d\u00e1bamos click. Y era lo que se proyectaba en la visualizaci\u00f3n principal. A partir de la infecci\u00f3n, cualquier informaci\u00f3n que sea eliminada, podemos verla nosotros. Ya sean fotos o conversaciones, pero podemos seguir vi\u00e9ndolas. Cuando empiezas a saber qu\u00e9 cosa es Pegasus, te vas de espaldas. Quedas desnudo frente a un poder que no sabes qui\u00e9n detenta. Eh, quedas eh vulnerable frente a alguien que est\u00e1 observ\u00e1ndote bajo una lupa. Pueden estar contigo eh en la oficina, en la regadera, en la cocina, con un amigo, con una fuente, todo el tiempo. All the time during this investigation we tried everyday to identify the person behind that phone number. This is what all the partners and the Forbidden team were doing most of the time. Basically, the consortium had access to a list so of of potential targets. Exactly. To be sure that you were indeed infected or surveilled, we would have to run forensic analysis. I want I don't trust to talk and I I don't know if by giving a call to you it will help me. I don't know because I don't trust the government anymore. So I did not want to put myself or my family under risk. I I reached your stage. I realized. Sorry. No. Yeah, in this country. No, I cannot trust you. You will ask me. And I will be angry. Of course. Of course. I saw one number in the list that belonged to a friend, a journalist in Azerbaijan. Her name is Khadija Ismayilova. She's an award-winning investigative reporter and an outspoken critic of the government, renowned for her expos\u00e9s of corruption at the hands of the country's president. Azerbaijan, you have a lot of oil and gas. It's a dictatorship and the dictator's name is Ilham Aliyev. And this person, and this state is extremely violent against dissidents, political opponents, journalists. I first met Khadija Ismayilova in Azerbaijan in about 2006, 2007. Khadija Ismayilova relentlessly kept on exposing the wrongdoing and the corruption of the Aliyev regime. She showed how, you know, they were having their hands into a big chunk of the Azerbaijani economy. She was showing how they were, you know, taking money in a covert way, how they were stealing money basically from the people. After all this investigative reporting, Khadija became a prime target for the government in Baku and for the Aliyevs. I don't know how to to proceed with Khadija because I don't want us to put Khadija in danger. The thing that is quite difficult is how to get in touch with Khadija uh without communicating on electronic device. This is very sensitive. Yeah. This is very, very sensitive, especially for her because she's basically on probation. That's gonna be a risk anyway. We learned that Khadija was about to go to Turkey for some personal reasons. And so we set up immediately a team who went to Turkey to meet Khadija once she landed in the airport. I'm nervous. I'm nervous too. I cannot stand still. Yeah. Hello. Yeah. So we have about 1,000 number from Azerbaijan. And you are among them. Oh. And then we also have some people who are your friends. Okay. Um and what does that program do? So what the program does is it basically without you knowing, um, it it it it installs things on your phone. And then it allows even if I didn't click on anything. Yes. So the the secrecy of this it's called Pegasus. And the secrecy of it is that you don't actually see or you you don't do anything. So before you had to you had to click on something to be infected. In this case, it all happens in the background. And you have no idea that you're infected. And when you're infected, it's transmitting your messages, your images, everything that happened on your phone, including on Signal, because they have the phone itself. And it's legal to sell it. Yes. So, um, we what we know is that most likely sometimes in 2018, the government got it. Okay. And we have a lot of data from 2019. Um and you know, that was a big year of protests. You were on a hunger strike with other people. Yeah. You guys had a woman march. You were leading the march. So one way for us to verify that you know, what exactly you know, was done in your case, would be to do forensic on your phone. Yeah. Why not? Is there any way to avoid this surveillance or not? Yes, we've also set you up with a new device, um that you will be able to use. For me, no. No phone. C, the balcony. Allows me some way, you know, to to do it, but there are other ways to communicate. Yeah. Yeah. It's like It's makes you to one to leave in the bubble. But then like, so no one can enter like, in some sort of And then like, living like living in the in the inside the condom. But then you cannot reproduce. This is her phone. You don't need any cables. No. Okay. Hopefully it works. So right now I am navigating through the phone. So I'm looking for things that might have executed, network activity that is connectable to the company. Any leftovers of malicious executions. Um accounts that we know of. Anything essentially that tells me the history of this phone. That's interesting. That's not something I've seen before. We see processes that we know are connected to to Pegasus. We see some message accounts that um that are connected to the attacks. Because this might indicate what was the entry point. Oh, was Apple Music? What the Oh, really? That's that's weird. So they might have started using Apple Music to exploit it. Um I have to do some more digging on this because I need to look up like what specifically these applications are. She's definitely among the ones most targeted. It's important to rectify this story which is that these technologies are exclusively used for good purposes and for fighting evil and for fighting crime and terrorism and all that. Okay, so no, Khadija is coming. Hi, Claudio. Hi. So now tell me how bad it is. Okay, um there are definitely some records uh that that indicate various points where the phone uh seem to have been compromised. Mhm. So I started feeling like I played doctor in 1300. I'm basically kind of just keeping the death count. I'm contributing to creating a trauma here. And I can see it in many cases. Like I can see it that they are right now they're going to a dramatic moment. And I'm like that person in the room that is breaking it. Um there are also some more recent records from even as recent as early May of this year, so until a couple of weeks ago. Um but all in all it seems like this probably extended between 2019 and 2020 2020 at the very least. I've been told that you will not know what exactly had been uh monitored or uh recorded. Yeah, thank you. Have a good day. Bye bye. Bye. That's not great news. All night I've been thinking about what did I do with my phone? And I feel guilty. I feel guilty to for the messages I've sent. I've feel guilty for the information sources that who send me thinking that some encrypted messaging ways are secure. They did it. And they didn't know that my phone is infected. I mean my family members are uh also victimized. The the sources are victimized. Everyone I mean, people I've been working with, people who told me they have private secrets are victimized. Every I mean, it's not just me. I I put so many people in danger. And and and I'm angry. I again, I'm angry. I'm angry with the government. I'm angry with the companies that produce all these tools and sell it to the bad guys like Aliyev regime. It it's it's really it's despicable. It's heinous. Khadija is not a terrorist. Khadija is not a criminal. She's a journalist that is taking a lot of risk to write some stories to make sure people will get access to independent information. So that was one more evidence of the global misuse of that spyware. Powerful governments managed to retain their power by seeing off threats from people who are campaigning for democracy or holding them to account, or telling the truth. And, you know, here's a company that gave them the tool to do that. It's a military weapon used against civilians. And the civilians they don't have any mechanism to help them in seeking justice, any mechanism to find some traces, any mechanisms to know that at least they are the target. You got a real sense that it was free for all. There is no control over how countries use it. And they have been using it in the worst way you could imagine. Even after months of investigating, we kept discovering new things, new names from the list, politicians, heads of state, even a princess. Hello, my name is Latifa Al Maktoum. And I'm making this video because it could be the last video I make. Yeah. Frontline's Global Spyware Scandal exposing Pegasus is available on Amazon Prime Video.",
+  "summary": "The transcript details the pervasive use of Pegasus spyware, developed by the Israeli NSO Group, to clandestinely monitor journalists, human rights activists, and dissidents globally. Initially founded with the ambition to enhance global safety, NSO's powerful spyware is now characterized as a \"military weapon used against civilians,\" raising significant international concern over its lack of regulation and potential for abuse by authoritarian regimes. A joint investigation, spearheaded by Forbidden Films and featuring collaborations with 17 news outlets including The Washington Post, The Guardian, and Le Monde, unveiled a list of 50,000 targeted phone numbers from 2016 to 2020, revealing the scale of this cyber surveillance.\n\nThe investigation highlighted Pegasus's advanced capabilities, which allow it to infect iPhones and Androids, turning them into comprehensive surveillance devices. Once installed, it can extract all data, including encrypted messages from Signal and WhatsApp, access geolocation, record audio, and remotely control the phone's microphone and camera. Despite NSO's claims that its software is sold only to governments for legitimate purposes like fighting terrorism and serious crime, and that it has strict mechanisms to prevent misuse (citing only three cases of misuse in a decade), the findings suggest widespread abuse.\n\nKey to the investigation was the challenging task of identifying the individuals behind the phone numbers and conducting forensic analysis to prove Pegasus infection. Claudio Guarnieri, head of Amnesty International's Security Lab, developed the crucial methodology for phone analysis. The project, involving over 80 journalists who set aside professional rivalries to collaborate, uncovered alarming patterns, including potential targeting of individuals associated with Jamal Khashoggi, the Washington Post opinion writer murdered in 2018, whose critical voice against the Saudi regime made him a key target.",
+  "metadata": {
+    "channel": "FRONTLINE PBS | Official",
+    "duration": 3195.0,
+    "published_at": "2023-01-03T19:00:08",
+    "view_count": 1541822,
+    "key_points": [
+      {
+        "timestamp": 0,
+        "text": "Pegasus spyware is used to monitor and track journalists, human rights activists, and dissidents globally.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 5,
+        "text": "A two-part investigation was launched in collaboration with Forbidden Films.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 14,
+        "text": "NSO was established with the ambition to make the world a safer place, developing powerful spyware.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 20,
+        "text": "Pegasus is described as a military weapon used against civilians, raising serious concerns for democracies.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 29,
+        "text": "There is no control over how countries use Pegasus, and it has been used in the worst imaginable ways.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 35,
+        "text": "Frontline presents part one of the Global Spyware Scandal, exposing Pegasus.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 40,
+        "text": "Phones are viewed as computers and extensions of our body, capable of being turned into surveillance devices beyond George Orwell's imagination.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 65,
+        "text": "Pegasus technology is far ahead of government regulation and public understanding.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 75,
+        "text": "It was suspected that NSO Group's powerful surveillance instrument would be abused by authoritarian regimes.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 90,
+        "text": "A joint investigation by 17 news outlets including The Washington Post, The Guardian, and Le Monde, revealed targets.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 105,
+        "text": "Lawyers and journalists are reportedly among those targeted by phone numbers belonging to big-name politicians.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 130,
+        "text": "The discovered list contains about 50,000 phone numbers from 2016 to 2020.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 135,
+        "text": "Officially, Pegasus spyware is not supposed to work on US phone numbers.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 140,
+        "text": "Most targeted numbers are in 10 countries, whose governments are known clients of NSO Group.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 150,
+        "text": "Pegasus infects iPhones and Androids, extracting and accessing everything from the device, including encrypted messages, mic, and camera.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 180,
+        "text": "Once a phone is infected by Pegasus, the user is 'trapped'.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 200,
+        "text": "Journalists from The Washington Post, The Guardian, and other outlets decided to collaborate on the investigation.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 220,
+        "text": "The initial list had no names, necessitating more journalists, on-the-ground reporters, and tech expertise.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 240,
+        "text": "The quantity of phone numbers, tens of thousands, was shocking to the journalists.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 250,
+        "text": "The data concerned individuals in India, Mexico, Hungary, Azerbaijan, and Kazakhstan.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 255,
+        "text": "Forbidden Stories' data identifying NSO customers and targets is considered a 'game changer' for understanding cyber surveillance.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 290,
+        "text": "The Guardian has been reporting on NSO for a long time and emphasized holding the company accountable.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 300,
+        "text": "Israel has become a world leader in the surveillance industry, with NSO Group being a 'jewel in the crown'.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 310,
+        "text": "NSO Group was recently valued at $1 billion and is one of Israel's most successful startups.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 315,
+        "text": "NSO claims to sell software to governments for legitimate purposes like fighting terrorism and violating local laws.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 340,
+        "text": "NSO claims only three cases of misuse in 10 years, leading to systems being shut down completely.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 350,
+        "text": "NSO states it only sells to governments or entities believed not to misuse tools, with diligence mechanisms in place.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 370,
+        "text": "Journalists gathered in Paris during the COVID crisis to plan the investigation.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 410,
+        "text": "Journalists from rival organizations adopted a partnership model for this investigation, working as one group with one goal.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 420,
+        "text": "More than 80 journalists worked on the project, with a publication date set for July 2021.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 440,
+        "text": "The main task was to identify names behind the phone numbers, which was crucial for the project.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 460,
+        "text": "Proving Pegasus was on phones required forensic analysis.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 470,
+        "text": "Claudio Guarnieri, head of Amnesty International's Security Lab, created a methodology for phone analysis.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 480,
+        "text": "Guarnieri's expertise was key to detecting Pegasus traces.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 500,
+        "text": "Pegasus accesses files, records (WhatsApp, SMS), GPS, audio, and webcam on devices.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 520,
+        "text": "Digital security against Pegasus is challenging, with limited ability to stop it meaningfully.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 540,
+        "text": "Crucial information was discovered regarding Jamal Khashoggi.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 550,
+        "text": "Jamal Khashoggi was killed in 2018 in a Saudi consulate in Istanbul.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 560,
+        "text": "Two phone numbers associated with women closest to Jamal Khashoggi were found on the list.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 580,
+        "text": "Jamal Khashoggi was an opinion writer for The Washington Post and a key dissident against the Saudi regime.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 600,
+        "text": "Khashoggi compared the Saudi Crown Prince to Putin and Iran's supreme leader, describing his rule as a dictatorship.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 610,
+        "text": "Saudi intellectuals and journalists are currently jailed.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 615,
+        "text": "Jamal Khashoggi's murder was cold-blooded, and the full story is still unknown.",
+        "importance": 0.9,
+        "context": null
+      }
+    ],
+    "entities": [
+      {
+        "name": "Alejandro Caballero",
+        "type": "PERSON",
+        "properties": {
+          "source": "GLiNER"
+        },
+        "confidence": 0.987449049949646,
+        "timestamp": null
+      },
+      {
+        "name": "Alejandro Encinas",
+        "type": "PERSON",
+        "properties": {
+          "source": "GLiNER"
+        },
+        "confidence": 0.9823945164680481,
+        "timestamp": null
+      },
+      {
+        "name": "De Shouji",
+        "type": "PERSON",
+        "properties": {
+          "source": "GLiNER"
+        },
+        "confidence": 0.9794100522994995,
+        "timestamp": null
+      },
+      {
+        "name": "Aristegui Noticias",
+        "type": "ORGANIZATION",
+        "properties": {
+          "source": "GLiNER"
+        },
+        "confidence": 0.9519924521446228,
+        "timestamp": null
+      },
+      {
+        "name": "Hanan Atar",
+        "type": "CHARACTER",
+        "properties": {
+          "source": "GLiNER"
+        },
+        "confidence": 0.9498886466026306,
+        "timestamp": null
+      },
+      {
+        "name": "Khadija Ismayilova",
+        "type": "PERSON",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.9470158392732793,
+        "timestamp": null
+      },
+      {
+        "name": "Hatice Khashoggi's",
+        "type": "PERSON",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.9464481961727141,
+        "timestamp": null
+      },
+      {
+        "name": "Karina Maciel",
+        "type": "PERSON",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.945453159014384,
+        "timestamp": null
+      },
+      {
+        "name": "Enrique Pe\u00f1a Nieto",
+        "type": "PERSON",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.9439256111780803,
+        "timestamp": null
+      },
+      {
+        "name": "Jamal",
+        "type": "PERSON",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.9308064778645834,
+        "timestamp": null
+      },
+      {
+        "name": "Presidente",
+        "type": "PERSON",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.9285374641418457,
+        "timestamp": null
+      },
+      {
+        "name": "Azerbaijan",
+        "type": "LOCATION",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.9250975046839033,
+        "timestamp": null
+      },
+      {
+        "name": "Turkey",
+        "type": "LOCATION",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.9215996583302816,
+        "timestamp": null
+      },
+      {
+        "name": "Israel",
+        "type": "LOCATION",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.920740298430125,
+        "timestamp": null
+      },
+      {
+        "name": "Istanbul",
+        "type": "LOCATION",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.919546139240265,
+        "timestamp": null
+      },
+      {
+        "name": "The Guardian",
+        "type": "ORGANIZATION",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.918998458981514,
+        "timestamp": null
+      },
+      {
+        "name": "Ilham Aliyev",
+        "type": "PERSON",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.9174282729625702,
+        "timestamp": null
+      },
+      {
+        "name": "The Washington Post",
+        "type": "ORGANIZATION",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.9163095672925313,
+        "timestamp": null
+      },
+      {
+        "name": "Huang Shi",
+        "type": "PERSON",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.9155073642730713,
+        "timestamp": null
+      },
+      {
+        "name": "Company",
+        "type": "COMPANY",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.9153073132038116,
+        "timestamp": null
+      },
+      {
+        "name": "Sandra Nogales",
+        "type": "PERSON",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.9141554415225983,
+        "timestamp": null
+      },
+      {
+        "name": "Technology",
+        "type": "TECHNOLOGY",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.9137216061353683,
+        "timestamp": null
+      },
+      {
+        "name": "Zheng Dang Yao Ren",
+        "type": "PERSON",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.9121754050254822,
+        "timestamp": null
+      },
+      {
+        "name": "Hungary",
+        "type": "LOCATION",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.9107158958911896,
+        "timestamp": null
+      },
+      {
+        "name": "Bu Fen Ji Zhi",
+        "type": "PERSON",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.910150158405304,
+        "timestamp": null
+      },
+      {
+        "name": "Kazakhstan",
+        "type": "LOCATION",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.9101396083831788,
+        "timestamp": null
+      },
+      {
+        "name": "System",
+        "type": "TECHNOLOGY",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.9094101190567017,
+        "timestamp": null
+      },
+      {
+        "name": "Telegram",
+        "type": "SOFTWARE",
+        "properties": {
+          "source": "GLiNER"
+        },
+        "confidence": 0.9084442853927612,
+        "timestamp": null
+      },
+      {
+        "name": "Latifa Al Maktoum",
+        "type": "PERSON",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.9066358983516694,
+        "timestamp": null
+      },
+      {
+        "name": "Proceso",
+        "type": "ORGANIZATION",
+        "properties": {
+          "source": "GLiNER"
+        },
+        "confidence": 0.9057371020317078,
+        "timestamp": null
+      },
+      {
+        "name": "India",
+        "type": "LOCATION",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.9026356518268586,
+        "timestamp": null
+      },
+      {
+        "name": "Claudio Guarnieri",
+        "type": "PERSON",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.9025903463363648,
+        "timestamp": null
+      },
+      {
+        "name": "Visa",
+        "type": "PRODUCT",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.9014859795570374,
+        "timestamp": null
+      },
+      {
+        "name": "Amnesty International's",
+        "type": "ORGANIZATION",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.9005918383598328,
+        "timestamp": null
+      },
+      {
+        "name": "Teresa Aristegui Flores",
+        "type": "PERSON",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.9000210046768189,
+        "timestamp": null
+      },
+      {
+        "name": "Cnn",
+        "type": "ORGANIZATION",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.8986555814743042,
+        "timestamp": null
+      },
+      {
+        "name": "Forbidden team",
+        "type": "ORGANIZATION",
+        "properties": {
+          "source": "GLiNER"
+        },
+        "confidence": 0.8972940444946289,
+        "timestamp": null
+      },
+      {
+        "name": "Le Monde",
+        "type": "ORGANIZATION",
+        "properties": {
+          "source": "GLiNER"
+        },
+        "confidence": 0.8972347974777222,
+        "timestamp": null
+      },
+      {
+        "name": "Mexico",
+        "type": "LOCATION",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.8920016595295497,
+        "timestamp": null
+      },
+      {
+        "name": "Emilio",
+        "type": "PERSON",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.8893640557924907,
+        "timestamp": null
+      },
+      {
+        "name": "Craig Timberg",
+        "type": "PERSON",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.8865972042083741,
+        "timestamp": null
+      },
+      {
+        "name": "Jamal Khashoggi",
+        "type": "CHARACTER",
+        "properties": {
+          "source": "GLiNER"
+        },
+        "confidence": 0.8864399194717407,
+        "timestamp": null
+      },
+      {
+        "name": "Hanan Atar",
+        "type": "PERSON",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.8852138737837474,
+        "timestamp": null
+      },
+      {
+        "name": "July 2021",
+        "type": "DATE",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.8846383571624756,
+        "timestamp": null
+      },
+      {
+        "name": "Paris",
+        "type": "LOCATION",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.8831138491630555,
+        "timestamp": null
+      },
+      {
+        "name": "Casa Blanca",
+        "type": "LOCATION",
+        "properties": {
+          "source": "GLiNER"
+        },
+        "confidence": 0.8822054266929626,
+        "timestamp": null
+      },
+      {
+        "name": "Sebastian Barragan",
+        "type": "PERSON",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.8818812251091004,
+        "timestamp": null
+      },
+      {
+        "name": "Dana Priest",
+        "type": "PERSON",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.8814784169197083,
+        "timestamp": null
+      },
+      {
+        "name": "Washington",
+        "type": "LOCATION",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.8810342729091645,
+        "timestamp": null
+      },
+      {
+        "name": "Emirates Airlines",
+        "type": "ORGANIZATION",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.8808613896369935,
+        "timestamp": null
+      },
+      {
+        "name": "Brighton",
+        "type": "LOCATION",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.8789720416069031,
+        "timestamp": null
+      },
+      {
+        "name": "Baku",
+        "type": "LOCATION",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.8764331221580506,
+        "timestamp": null
+      },
+      {
+        "name": "UAE airport",
+        "type": "LOCATION",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.8716244280338288,
+        "timestamp": null
+      },
+      {
+        "name": "Lemon",
+        "type": "ORGANIZATION",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.8707726180553437,
+        "timestamp": null
+      },
+      {
+        "name": "The NSO Group",
+        "type": "ORGANIZATION",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.8695977555380927,
+        "timestamp": null
+      },
+      {
+        "name": "Paul Lewis",
+        "type": "PERSON",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.8678176879882813,
+        "timestamp": null
+      },
+      {
+        "name": "$1 Billion",
+        "type": "MONEY",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.8658687055110932,
+        "timestamp": null
+      },
+      {
+        "name": "Maggie",
+        "type": "CHARACTER",
+        "properties": {
+          "source": "GLiNER"
+        },
+        "confidence": 0.8653349280357361,
+        "timestamp": null
+      },
+      {
+        "name": "Pegasus",
+        "type": "PRODUCT",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.8623668764318738,
+        "timestamp": null
+      },
+      {
+        "name": "Putin",
+        "type": "PERSON",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.8586022138595581,
+        "timestamp": null
+      },
+      {
+        "name": "1984",
+        "type": "BOOK",
+        "properties": {
+          "source": "GLiNER"
+        },
+        "confidence": 0.858527421951294,
+        "timestamp": null
+      },
+      {
+        "name": "Money",
+        "type": "MONEY",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.858257532119751,
+        "timestamp": null
+      },
+      {
+        "name": "Apple Music",
+        "type": "COMPANY",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.8558492088317872,
+        "timestamp": null
+      },
+      {
+        "name": "Kristoff",
+        "type": "PERSON",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.8529308915138245,
+        "timestamp": null
+      },
+      {
+        "name": "2010",
+        "type": "DATE",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.8525166690349579,
+        "timestamp": null
+      },
+      {
+        "name": "Damien",
+        "type": "PERSON",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.850550401210785,
+        "timestamp": null
+      },
+      {
+        "name": "10",
+        "type": "CARDINAL",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "17",
+        "type": "CARDINAL",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "1984",
+        "type": "DATE",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "40",
+        "type": "CARDINAL",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "6Th",
+        "type": "ORDINAL",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "9Th",
+        "type": "ORDINAL",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "A Big Year",
+        "type": "DATE",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "A Couple Of Weeks Ago",
+        "type": "DATE",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Abajo Estaban",
+        "type": "PERSON",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Abajo ten\u00edamos el micr\u00f3fono",
+        "type": "PERSON",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "About 50,000",
+        "type": "CARDINAL",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "About A Year",
+        "type": "DATE",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Ahora Es",
+        "type": "PERSON",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Al Canario",
+        "type": "PERSON",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Al cruzar",
+        "type": "PERSON",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Al Dispositivo",
+        "type": "PERSON",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Al Sistema De Inteligencia",
+        "type": "PERSON",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Al Tel\u00e9fono",
+        "type": "PERSON",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Aliyev",
+        "type": "GROUP",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Aliyevs",
+        "type": "PERSON",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Amazon Prime Video",
+        "type": "ORGANIZATION",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Android",
+        "type": "ORGANIZATION",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Androids",
+        "type": "PERSON",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Aristegui Noticias",
+        "type": "PERSON",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Azerbaijani",
+        "type": "PERSON",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Bueno",
+        "type": "PERSON",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Casa",
+        "type": "ORGANIZATION",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Como Presidente",
+        "type": "LOCATION",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Covid",
+        "type": "PERSON",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Crown",
+        "type": "PRODUCT",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Cuando",
+        "type": "ORGANIZATION",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "De acuerdo",
+        "type": "ORGANIZATION",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "De Car\u00e1cter",
+        "type": "PERSON",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "De Edad",
+        "type": "PERSON",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "de la ciudad de M\u00e9xico",
+        "type": "PERSON",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "De Shouji",
+        "type": "ORGANIZATION",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "De Tu Visa",
+        "type": "PERSON",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Del Lado Derecho",
+        "type": "FACILITY",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Digamos",
+        "type": "PERSON",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Diplom\u00e1ticos",
+        "type": "LOCATION",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Durante los a\u00f1os que fui espiada",
+        "type": "ORGANIZATION",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "El Conocimiento De Que",
+        "type": "ORGANIZATION",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "El El",
+        "type": "ORGANIZATION",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "El Equipo",
+        "type": "ORGANIZATION",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "El Mensaje",
+        "type": "ORGANIZATION",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "El N\u00famero",
+        "type": "PERSON",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "El Presidente",
+        "type": "LOCATION",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "El procedimiento",
+        "type": "ORGANIZATION",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "El Software",
+        "type": "LOCATION",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "El Tel\u00e9fono De Mi",
+        "type": "ORGANIZATION",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Emilio",
+        "type": "PRODUCT",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Encinas",
+        "type": "LOCATION",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Es mi hermana",
+        "type": "PERSON",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "First",
+        "type": "ORDINAL",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Four Days",
+        "type": "DATE",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Fuera de la vigencia",
+        "type": "PERSON",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Global Spyware Scandal",
+        "type": "ORGANIZATION",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Global Spyware Scandal exposing Pegasus",
+        "type": "WORK_OF_ART",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Hab\u00eda Que Saber",
+        "type": "PERSON",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Hacer lo que",
+        "type": "PERSON",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Hanan",
+        "type": "LOCATION",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Hatice",
+        "type": "ORGANIZATION",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Il va se faire",
+        "type": "PERSON",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "iPhones",
+        "type": "ORGANIZATION",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Iran",
+        "type": "LOCATION",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Islamic",
+        "type": "GROUP",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Jamal",
+        "type": "LOCATION",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Jamal",
+        "type": "GROUP",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Khashoggi",
+        "type": "LOCATION",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "La Cadena De Televisi\u00f3n",
+        "type": "ORGANIZATION",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "La Cocina",
+        "type": "ORGANIZATION",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "La Geolocalizaci\u00f3n",
+        "type": "PERSON",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "La Productora De Mi",
+        "type": "ORGANIZATION",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Las C\u00e1maras",
+        "type": "LOCATION",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Lo Cruzamos",
+        "type": "PERSON",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Lo que lo que podemos",
+        "type": "PERSON",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Los Ingresos",
+        "type": "LOCATION",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Los N\u00fameros De Mi Directorio",
+        "type": "LOCATION",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Maggie",
+        "type": "PERSON",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Martin",
+        "type": "ORGANIZATION",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Mensajes De Texto",
+        "type": "PERSON",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Mensajes Tan Extra\u00f1os",
+        "type": "PERSON",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Mexican",
+        "type": "GROUP",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Months",
+        "type": "DATE",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "More Than 15,000",
+        "type": "CARDINAL",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "More Than 80",
+        "type": "CARDINAL",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Moroccan",
+        "type": "GROUP",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Nosotros",
+        "type": "LOCATION",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Nosotros Dec\u00edamos",
+        "type": "PERSON",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Novedad",
+        "type": "LOCATION",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "N\u00fameros",
+        "type": "PERSON",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "One",
+        "type": "CARDINAL",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Para M\u00ed La",
+        "type": "PERSON",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Pegasus al Cis\u00e9n",
+        "type": "PERSON",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Pegasus al ej\u00e9rcito",
+        "type": "PERSON",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Pero",
+        "type": "PRODUCT",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Pero Podemos Seguir",
+        "type": "ORGANIZATION",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Pleno Al",
+        "type": "PERSON",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Podemos Verla Nosotros",
+        "type": "ORGANIZATION",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Pueden estar",
+        "type": "PERSON",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Puedo",
+        "type": "LOCATION",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Pues \u00bf",
+        "type": "WORK_OF_ART",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Quedas",
+        "type": "PERSON",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Quisieras",
+        "type": "PERSON",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Qu\u00e9",
+        "type": "PERSON",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Saudis",
+        "type": "GROUP",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Se ten\u00eda que",
+        "type": "PERSON",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Signal",
+        "type": "ORGANIZATION",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Sms",
+        "type": "ORGANIZATION",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Telegram",
+        "type": "ORGANIZATION",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Tengo un directorio nutrido",
+        "type": "PERSON",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Tens Of Thousands",
+        "type": "CARDINAL",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Ten\u00eda Cada Una De Las Aplicaciones De Las Que",
+        "type": "FACILITY",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "ten\u00edamos el cuadro de la aplicaci\u00f3n de WhatsApp",
+        "type": "ORGANIZATION",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Ten\u00edamos La",
+        "type": "PERSON",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "The 12Th",
+        "type": "DATE",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "The Last 10 Years",
+        "type": "DATE",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "The minute",
+        "type": "TIME",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "the United States",
+        "type": "LOCATION",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Three",
+        "type": "CARDINAL",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Today",
+        "type": "DATE",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Tu Tel\u00e9fono",
+        "type": "ORGANIZATION",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Turkish",
+        "type": "GROUP",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Two",
+        "type": "CARDINAL",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Universo De M\u00e1s De 50.000 N\u00fameros",
+        "type": "ORGANIZATION",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Vas De Espaldas",
+        "type": "PERSON",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Vigencia Tiene",
+        "type": "PERSON",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Ya Perdieron El Pudor",
+        "type": "PERSON",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Ya Pod\u00edamos",
+        "type": "PERSON",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Ya sean",
+        "type": "PERSON",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "Zarzuela de Forbidden Stories",
+        "type": "PERSON",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "\u00bfHasta",
+        "type": "ORGANIZATION",
+        "properties": {},
+        "confidence": 0.85,
+        "timestamp": null
+      },
+      {
+        "name": "WhatsApp",
+        "type": "SOFTWARE",
+        "properties": {
+          "source": "GLiNER"
+        },
+        "confidence": 0.8438760638237,
+        "timestamp": null
+      },
+      {
+        "name": "Steph",
+        "type": "PERSON",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.842980581521988,
+        "timestamp": null
+      },
+      {
+        "name": "Airport",
+        "type": "LOCATION",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.8422883550326029,
+        "timestamp": null
+      },
+      {
+        "name": "Bill Marczak",
+        "type": "PERSON",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.8393645316362381,
+        "timestamp": null
+      },
+      {
+        "name": "Martin",
+        "type": "PERSON",
+        "properties": {
+          "source": "GLiNER"
+        },
+        "confidence": 0.8205830454826355,
+        "timestamp": null
+      },
+      {
+        "name": "del presidente de M\u00e9xico",
+        "type": "LOCATION",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.8200307210286458,
+        "timestamp": null
+      },
+      {
+        "name": "Citizen Lab",
+        "type": "ORGANIZATION",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.8160647869110108,
+        "timestamp": null
+      },
+      {
+        "name": "We",
+        "type": "ORGANIZATION",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.815867069694731,
+        "timestamp": null
+      },
+      {
+        "name": "2015",
+        "type": "DATE",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.8121076107025147,
+        "timestamp": null
+      },
+      {
+        "name": "United Arab Emirates",
+        "type": "LOCATION",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.8115448236465455,
+        "timestamp": null
+      },
+      {
+        "name": "The Post",
+        "type": "ORGANIZATION",
+        "properties": {
+          "source": "GLiNER"
+        },
+        "confidence": 0.8082262277603149,
+        "timestamp": null
+      },
+      {
+        "name": "Androids",
+        "type": "PRODUCT",
+        "properties": {
+          "source": "GLiNER"
+        },
+        "confidence": 0.8043349385261536,
+        "timestamp": null
+      },
+      {
+        "name": "COVID crisis",
+        "type": "EVENT",
+        "properties": {
+          "source": "GLiNER"
+        },
+        "confidence": 0.7959781885147095,
+        "timestamp": null
+      },
+      {
+        "name": "United States",
+        "type": "LOCATION",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.795687289237976,
+        "timestamp": null
+      },
+      {
+        "name": "Platform",
+        "type": "PLATFORM",
+        "properties": {
+          "source": "GLiNER"
+        },
+        "confidence": 0.7898324728012085,
+        "timestamp": null
+      },
+      {
+        "name": "October of 2018",
+        "type": "DATE",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.788811931014061,
+        "timestamp": null
+      },
+      {
+        "name": "Forbidden Films",
+        "type": "PERSON",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.7852041155099869,
+        "timestamp": null
+      },
+      {
+        "name": "Hatice",
+        "type": "PERSON",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.7826899886131287,
+        "timestamp": null
+      },
+      {
+        "name": "Carmen Aristegui",
+        "type": "PERSON",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.7825074332101004,
+        "timestamp": null
+      },
+      {
+        "name": "Person",
+        "type": "PERSON",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.781499370932579,
+        "timestamp": null
+      },
+      {
+        "name": "Military Weapon",
+        "type": "WEAPON",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.7728340744972229,
+        "timestamp": null
+      },
+      {
+        "name": "Phones",
+        "type": "PRODUCT",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.7698477300313803,
+        "timestamp": null
+      },
+      {
+        "name": "Forbidden Stories",
+        "type": "ORGANIZATION",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.7693405667940776,
+        "timestamp": null
+      },
+      {
+        "name": "Your",
+        "type": "PERSON",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.767494961348447,
+        "timestamp": null
+      },
+      {
+        "name": "About 2006, 2007",
+        "type": "DATE",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.7666399995485942,
+        "timestamp": null
+      },
+      {
+        "name": "June of 2019",
+        "type": "DATE",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.7654640340805055,
+        "timestamp": null
+      },
+      {
+        "name": "Government",
+        "type": "ORGANIZATION",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.7603318691253662,
+        "timestamp": null
+      },
+      {
+        "name": "March",
+        "type": "EVENT",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.7560184597969055,
+        "timestamp": null
+      },
+      {
+        "name": "17 Hours",
+        "type": "TIME",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.7547238349914551,
+        "timestamp": null
+      },
+      {
+        "name": "Program",
+        "type": "SOFTWARE",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.748890608549118,
+        "timestamp": null
+      },
+      {
+        "name": "Gobernador",
+        "type": "PERSON",
+        "properties": {
+          "source": "GLiNER"
+        },
+        "confidence": 0.7444726824760437,
+        "timestamp": null
+      },
+      {
+        "name": "Saudi Arabia",
+        "type": "LOCATION",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.743339616060257,
+        "timestamp": null
+      },
+      {
+        "name": "1300",
+        "type": "DATE",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.7411710798740387,
+        "timestamp": null
+      },
+      {
+        "name": "Geolocation",
+        "type": "LOCATION",
+        "properties": {
+          "source": "GLiNER"
+        },
+        "confidence": 0.7408236265182495,
+        "timestamp": null
+      },
+      {
+        "name": "Technology",
+        "type": "PRODUCT",
+        "properties": {
+          "source": "GLiNER"
+        },
+        "confidence": 0.7369970679283142,
+        "timestamp": null
+      },
+      {
+        "name": "early May of this year",
+        "type": "DATE",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.7361592531204224,
+        "timestamp": null
+      },
+      {
+        "name": "2016",
+        "type": "DATE",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.7360990166664124,
+        "timestamp": null
+      },
+      {
+        "name": "Cocina",
+        "type": "LOCATION",
+        "properties": {
+          "source": "GLiNER"
+        },
+        "confidence": 0.7338034510612488,
+        "timestamp": null
+      },
+      {
+        "name": "Dictatorship",
+        "type": "ORGANIZATION",
+        "properties": {
+          "source": "GLiNER"
+        },
+        "confidence": 0.7321296334266663,
+        "timestamp": null
+      },
+      {
+        "name": "Forbidden Films",
+        "type": "ORGANIZATION",
+        "properties": {
+          "source": "GLiNER"
+        },
+        "confidence": 0.7311338186264038,
+        "timestamp": null
+      },
+      {
+        "name": "Pegasus",
+        "type": "WEAPON",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.7264098048210144,
+        "timestamp": null
+      },
+      {
+        "name": "Saudi regime",
+        "type": "ORGANIZATION",
+        "properties": {
+          "source": "GLiNER"
+        },
+        "confidence": 0.7234254479408264,
+        "timestamp": null
+      },
+      {
+        "name": "Aliyev regime",
+        "type": "ORGANIZATION",
+        "properties": {
+          "source": "GLiNER"
+        },
+        "confidence": 0.719835638999939,
+        "timestamp": null
+      },
+      {
+        "name": "Software",
+        "type": "SOFTWARE",
+        "properties": {
+          "source": "GLiNER"
+        },
+        "confidence": 0.7191357016563416,
+        "timestamp": null
+      },
+      {
+        "name": "State",
+        "type": "ORGANIZATION",
+        "properties": {
+          "source": "GLiNER"
+        },
+        "confidence": 0.7180033326148987,
+        "timestamp": null
+      },
+      {
+        "name": "WhatsApp",
+        "type": "PRODUCT",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.7161439061164856,
+        "timestamp": null
+      },
+      {
+        "name": "Pegasus",
+        "type": "COMPANY",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.7148458427853055,
+        "timestamp": null
+      },
+      {
+        "name": "Amazon Prime Video",
+        "type": "CHANNEL",
+        "properties": {
+          "source": "GLiNER"
+        },
+        "confidence": 0.7138170599937439,
+        "timestamp": null
+      },
+      {
+        "name": "Equipo M\u00f3vil",
+        "type": "SOFTWARE",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.7048216164112091,
+        "timestamp": null
+      },
+      {
+        "name": "Islamic ceremony",
+        "type": "EVENT",
+        "properties": {
+          "source": "GLiNER"
+        },
+        "confidence": 0.7041447758674622,
+        "timestamp": null
+      },
+      {
+        "name": "Crown Prince",
+        "type": "PERSON",
+        "properties": {
+          "source": "GLiNER"
+        },
+        "confidence": 0.7022082805633545,
+        "timestamp": null
+      },
+      {
+        "name": "Pegasus",
+        "type": "TECHNOLOGY",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.7010031342506409,
+        "timestamp": null
+      },
+      {
+        "name": "World",
+        "type": "LOCATION",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.95,
+        "timestamp": null
+      },
+      {
+        "name": "George Orwell",
+        "type": "PERSON",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.95,
+        "timestamp": null
+      },
+      {
+        "name": "Device",
+        "type": "PRODUCT",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.95,
+        "timestamp": null
+      },
+      {
+        "name": "Global Spyware Scandal",
+        "type": "EVENT",
+        "properties": {
+          "source": "GLiNER"
+        },
+        "confidence": 0.95,
+        "timestamp": null
+      },
+      {
+        "name": "Frontline",
+        "type": "ORGANIZATION",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.95,
+        "timestamp": null
+      },
+      {
+        "name": "Journalists",
+        "type": "PERSON",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.95,
+        "timestamp": null
+      },
+      {
+        "name": "Spyware",
+        "type": "SOFTWARE",
+        "properties": {
+          "source": "GLiNER",
+          "sources": [
+            "GLiNER"
+          ]
+        },
+        "confidence": 0.95,
+        "timestamp": null
+      },
+      {
+        "name": "Surveillance",
+        "type": "OPERATION",
+        "properties": {
+          "source": "GLiNER"
+        },
+        "confidence": 0.95,
+        "timestamp": null
+      },
+      {
+        "name": "Investigation",
+        "type": "EVENT",
+        "properties": {
+          "source": "GLiNER"
+        },
+        "confidence": 0.95,
+        "timestamp": null
+      }
+    ],
+    "topics": [
+      {
+        "name": "Pegasus Spyware",
+        "confidence": 0.85
+      },
+      {
+        "name": "NSO Group",
+        "confidence": 0.85
+      },
+      {
+        "name": "Cyber Surveillance",
+        "confidence": 0.85
+      },
+      {
+        "name": "Human Rights",
+        "confidence": 0.85
+      },
+      {
+        "name": "Journalism",
+        "confidence": 0.85
+      },
+      {
+        "name": "International Relations",
+        "confidence": 0.85
+      },
+      {
+        "name": "Digital Security",
+        "confidence": 0.85
+      },
+      {
+        "name": "Investigative Journalism",
+        "confidence": 0.85
+      }
+    ],
+    "sentiment": null,
+    "processing_cost": 0.18256429687499998
+  }
+}

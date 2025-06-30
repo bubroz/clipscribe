@@ -1,0 +1,338 @@
+name,type,confidence,source,extraction_methods,aliases,is_normalized
+François de Rugy,PERSON,0.992,GLiNER,GLiNER,,False
+רם בן ברק,PERSON,0.981,GLiNER,GLiNER,,False
+ויקטור אורבן,PERSON,0.972,GLiNER,GLiNER,,False
+Laurent Richard,PERSON,0.969,GLiNER,GLiNER,,False
+הונגריה,LOCATION,0.957,GLiNER,GLiNER,,False
+David Haigh,PERSON,0.94,GLiNER,GLiNER,,False
+Jamal Khashoggi,PERSON,0.94,GLiNER,GLiNER,,False
+Dubai,LOCATION,0.939,GLiNER,GLiNER,,False
+ועדת החוץ והביטחון,ORGANIZATION,0.935,GLiNER,GLiNER,,False
+Politicians,ORGANIZATION,0.934,GLiNER,GLiNER,,False
+הכנסת,ORGANIZATION,0.934,GLiNER,GLiNER,,False
+Mohammed VI,PERSON,0.933,GLiNER,GLiNER,,False
+Magyar Kormánnyal,ORGANIZATION,0.927,GLiNER,GLiNER,,False
+Le Monde,ORGANIZATION,0.926,GLiNER,GLiNER,,False
+נתניהו,PERSON,0.922,GLiNER,GLiNER,,False
+Tedros Ghebreyesus,PERSON,0.918,GLiNER,GLiNER,,False
+Hannah Neumann,PERSON,0.918,GLiNER,GLiNER,,False
+Princess Latifa,PERSON,0.914,GLiNER,GLiNER,,False
+Región,LOCATION,0.914,GLiNER,GLiNER,,False
+Pegasus,SOFTWARE,0.913,GLiNER,GLiNER,,False
+Emmanuel Macron qui,PERSON,0.912,GLiNER,GLiNER,,False
+Guerrero,LOCATION,0.91,GLiNER,GLiNER,,False
+Burj Al Arab,LOCATION,0.906,GLiNER,GLiNER,,False
+Jumeirah,LOCATION,0.905,GLiNER,GLiNER,,False
+Sheikh Mohammed,PERSON,0.904,GLiNER,GLiNER,,False
+Detained International,ORGANIZATION,0.9,GLiNER,GLiNER,,False
+Sheikh Mohammed bin Rashid Al Maktoum,PERSON,0.899,GLiNER,GLiNER,,False
+London,LOCATION,0.895,GLiNER,GLiNER,,False
+Hamas,ORGANIZATION,0.893,GLiNER,GLiNER,,False
+8200,ORGANIZATION,0.89,GLiNER,GLiNER,,False
+Benjamin Netanyahu's,PERSON,0.89,GLiNER,GLiNER,,False
+Saudi Arabia,LOCATION,0.888,GLiNER,GLiNER,,False
+The Guardian,ORGANIZATION,0.888,GLiNER,GLiNER,,False
+Hungary,LOCATION,0.885,GLiNER,GLiNER,,False
+remito al caso de Cecilio Pineda,PERSON,0.884,GLiNER,GLiNER,,False
+European Parliament,ORGANIZATION,0.883,GLiNER,GLiNER,,False
+Israel,LOCATION,0.882,GLiNER,GLiNER,,False
+The Washington Post,ORGANIZATION,0.88,GLiNER,GLiNER,,False
+Consortium Of Media Partners,COMPANY,0.879,GLiNER,GLiNER,,False
+Magyarország,LOCATION,0.879,GLiNER,GLiNER,,False
+Julien de Normandie,PERSON,0.878,GLiNER,GLiNER,,False
+Parlaments,ORGANIZATION,0.877,GLiNER,GLiNER,,False
+Mars 2019,DATE,0.875,GLiNER,GLiNER,,False
+El Crimen Organizado,ORGANIZATION,0.871,GLiNER,GLiNER,,False
+Catalonia,LOCATION,0.871,GLiNER,GLiNER,,False
+Polski,LOCATION,0.87,GLiNER,GLiNER,,False
+Jestem z Polski,PERSON,0.87,GLiNER,GLiNER,,False
+Frontline,COMPANY,0.869,GLiNER,GLiNER,,False
+Pegasus Project,ORGANIZATION,0.868,GLiNER,GLiNER,,False
+Israël,LOCATION,0.866,GLiNER,GLiNER,,False
+Trois Noms De Votre,ORGANIZATION,0.865,GLiNER,GLiNER,,False
+Élysée,LOCATION,0.865,GLiNER,GLiNER,,False
+Fbi,ORGANIZATION,0.863,GLiNER,GLiNER,,False
+July 2017,DATE,0.863,GLiNER,GLiNER,,False
+Silicon Valley,LOCATION,0.862,GLiNER,GLiNER,,False
+You,PERSON,0.862,GLiNER,GLiNER,,False
+United Arab Emirates,LOCATION,0.859,GLiNER,GLiNER,,False
+Indian Ocean,LOCATION,0.854,GLiNER,GLiNER,,False
+100%,PERCENTAGE,0.85,Unknown,Unknown,,False
+14,CARDINAL,0.85,Unknown,Unknown,,False
+17,CARDINAL,0.85,Unknown,Unknown,,False
+18,CARDINAL,0.85,Unknown,Unknown,,False
+60,CARDINAL,0.85,Unknown,Unknown,,False
+70,CARDINAL,0.85,Unknown,Unknown,,False
+80,CARDINAL,0.85,Unknown,Unknown,,False
+About 15,CARDINAL,0.85,Unknown,Unknown,,False
+"About 15, 20 Minutes",DATE,0.85,Unknown,Unknown,,False
+about 3 AM in the morning,TIME,0.85,Unknown,Unknown,,False
+Actif Aujourd'Hui Et,PERSON,0.85,Unknown,Unknown,,False
+Afirmar Categóricamente Que,PERSON,0.85,Unknown,Unknown,,False
+Ah ben,PERSON,0.85,Unknown,Unknown,,False
+Allez,ORGANIZATION,0.85,Unknown,Unknown,,False
+Alors,ORGANIZATION,0.85,Unknown,Unknown,,False
+Amazon Prime Video,ORGANIZATION,0.85,Unknown,Unknown,,False
+At Least 37,CARDINAL,0.85,Unknown,Unknown,,False
+Avec Beaucoup De Sérieux,ORGANIZATION,0.85,Unknown,Unknown,,False
+Ben Là,PERSON,0.85,Unknown,Unknown,,False
+Biden,PERSON,0.85,Unknown,Unknown,,False
+Bien Entendu,PERSON,0.85,Unknown,Unknown,,False
+Bien Eu,PERSON,0.85,Unknown,Unknown,,False
+Bien Été Ciblé Par Le Client,ORGANIZATION,0.85,Unknown,Unknown,,False
+British,GROUP,0.85,Unknown,Unknown,,False
+Buenas,PERSON,0.85,Unknown,Unknown,,False
+C'Est De Lui Écrire,ORGANIZATION,0.85,Unknown,Unknown,,False
+Cette,ORGANIZATION,0.85,Unknown,Unknown,,False
+Cinq,GROUP,0.85,Unknown,Unknown,,False
+Cometido El Asesinato,PERSON,0.85,Unknown,Unknown,,False
+Dans,GROUP,0.85,Unknown,Unknown,,False
+De acuerdo,ORGANIZATION,0.85,Unknown,Unknown,,False
+de Guerrero,PERSON,0.85,Unknown,Unknown,,False
+De Se,PERSON,0.85,Unknown,Unknown,,False
+De Violencia,PERSON,0.85,Unknown,Unknown,,False
+De Vérifier S'Il L'Utilise Toujours,PERSON,0.85,Unknown,Unknown,,False
+Del Del Narcotráfico,FACILITY,0.85,Unknown,Unknown,,False
+Después de eso,PERSON,0.85,Unknown,Unknown,,False
+Después De Estar,ORGANIZATION,0.85,Unknown,Unknown,,False
+Deux,ORGANIZATION,0.85,Unknown,Unknown,,False
+Discuter De Ce,PERSON,0.85,Unknown,Unknown,,False
+Donc,PERSON,0.85,Unknown,Unknown,,False
+Dozens,CARDINAL,0.85,Unknown,Unknown,,False
+Drian,GROUP,0.85,Unknown,Unknown,,False
+Dubai Princess Princess Latifa,ORGANIZATION,0.85,Unknown,Unknown,,False
+Días,LOCATION,0.85,Unknown,Unknown,,False
+Eight,CARDINAL,0.85,Unknown,Unknown,,False
+El Gobierno Del,ORGANIZATION,0.85,Unknown,Unknown,,False
+El Grupo Del,ORGANIZATION,0.85,Unknown,Unknown,,False
+El Periodista,PERSON,0.85,Unknown,Unknown,,False
+El Reporte De La,ORGANIZATION,0.85,Unknown,Unknown,,False
+Entregaran Su Camioneta,PERSON,0.85,Unknown,Unknown,,False
+Esa Lista,LOCATION,0.85,Unknown,Unknown,,False
+Estamos Solos,PERSON,0.85,Unknown,Unknown,,False
+Eu L'Air,PERSON,0.85,Unknown,Unknown,,False
+Every Day,DATE,0.85,Unknown,Unknown,,False
+F-35,PRODUCT,0.85,Unknown,Unknown,,False
+First,ORDINAL,0.85,Unknown,Unknown,,False
+Five,CARDINAL,0.85,Unknown,Unknown,,False
+François de Rugy,ORGANIZATION,0.85,Unknown,Unknown,,False
+Frontline's Global Spyware Scandal: Exposing Pegasus,WORK_OF_ART,0.85,Unknown,Unknown,,False
+Herausforderung,LOCATION,0.85,Unknown,Unknown,,False
+Hungarian,LANGUAGE,0.85,Unknown,Unknown,,False
+Igen,PERSON,0.85,Unknown,Unknown,,False
+Il A Il A Fini Par Accepter,PERSON,0.85,Unknown,Unknown,,False
+Il m'a,PERSON,0.85,Unknown,Unknown,,False
+Il n'a,PERSON,0.85,Unknown,Unknown,,False
+Il se trouve,PERSON,0.85,Unknown,Unknown,,False
+Il Va Y Avoir,PERSON,0.85,Unknown,Unknown,,False
+Illetve van-e,PERSON,0.85,Unknown,Unknown,,False
+Indian,GROUP,0.85,Unknown,Unknown,,False
+Investigacion de diversos,ORGANIZATION,0.85,Unknown,Unknown,,False
+Israeli,GROUP,0.85,Unknown,Unknown,,False
+Jamal,LOCATION,0.85,Unknown,Unknown,,False
+Je je suis,PERSON,0.85,Unknown,Unknown,,False
+Just Weeks,DATE,0.85,Unknown,Unknown,,False
+Kampanii Wyborczej,PERSON,0.85,Unknown,Unknown,,False
+Khashoggi,LOCATION,0.85,Unknown,Unknown,,False
+Kérdéseim,ORGANIZATION,0.85,Unknown,Unknown,,False
+Köszönöm,PERSON,0.85,Unknown,Unknown,,False
+Köszönöm,ORGANIZATION,0.85,Unknown,Unknown,,False
+L'A Bien Reçu,PERSON,0.85,Unknown,Unknown,,False
+l'Algérie,PRODUCT,0.85,Unknown,Unknown,,False
+l'Élysée,ORGANIZATION,0.85,Unknown,Unknown,,False
+La Base De Données,PERSON,0.85,Unknown,Unknown,,False
+La Liste,PERSON,0.85,Unknown,Unknown,,False
+Las Autoridades,LOCATION,0.85,Unknown,Unknown,,False
+le Maroc,ORGANIZATION,0.85,Unknown,Unknown,,False
+Le numéro de téléphone qui est,ORGANIZATION,0.85,Unknown,Unknown,,False
+Le Numéro Était,ORGANIZATION,0.85,Unknown,Unknown,,False
+Literalmente El Estado Ya,PERSON,0.85,Unknown,Unknown,,False
+Lui Ai Annoncé Le Pays,ORGANIZATION,0.85,Unknown,Unknown,,False
+Mais De Le,PERSON,0.85,Unknown,Unknown,,False
+Mensaje Anticipado De Lo,PERSON,0.85,Unknown,Unknown,,False
+Milyen Okból,ORGANIZATION,0.85,Unknown,Unknown,,False
+Miért,ORGANIZATION,0.85,Unknown,Unknown,,False
+Mon Avis,PERSON,0.85,Unknown,Unknown,,False
+mon Dieu,PERSON,0.85,Unknown,Unknown,,False
+"More than 50,000",CARDINAL,0.85,Unknown,Unknown,,False
+Moroccan,GROUP,0.85,Unknown,Unknown,,False
+Mostrar El,ORGANIZATION,0.85,Unknown,Unknown,,False
+Más Impactadas,PERSON,0.85,Unknown,Unknown,,False
+même des chefs d'État,ORGANIZATION,0.85,Unknown,Unknown,,False
+N'Ont Jamais Été Des,ORGANIZATION,0.85,Unknown,Unknown,,False
+N'Y,GROUP,0.85,Unknown,Unknown,,False
+Nada Más Fue,ORGANIZATION,0.85,Unknown,Unknown,,False
+Notre,LOCATION,0.85,Unknown,Unknown,,False
+Obtuvo De El,PERSON,0.85,Unknown,Unknown,,False
+One,CARDINAL,0.85,Unknown,Unknown,,False
+Ouais,ORGANIZATION,0.85,Unknown,Unknown,,False
+Ouais,PRODUCT,0.85,Unknown,Unknown,,False
+Palestinians,GROUP,0.85,Unknown,Unknown,,False
+Pero,PRODUCT,0.85,Unknown,Unknown,,False
+Pyramide,ORGANIZATION,0.85,Unknown,Unknown,,False
+Q&A,ORGANIZATION,0.85,Unknown,Unknown,,False
+Qu'Effectivement,MONEY,0.85,Unknown,Unknown,,False
+Qu'Il,ORGANIZATION,0.85,Unknown,Unknown,,False
+Qu'Il Va,PRODUCT,0.85,Unknown,Unknown,,False
+qu'Israël,CARDINAL,0.85,Unknown,Unknown,,False
+Quand,PERSON,0.85,Unknown,Unknown,,False
+Quatre,LOCATION,0.85,Unknown,Unknown,,False
+Que que ya había llegado prácticamente casi muerto,PERSON,0.85,Unknown,Unknown,,False
+Qué,PERSON,0.85,Unknown,Unknown,,False
+S'Attendre À Ce Que Même,ORGANIZATION,0.85,Unknown,Unknown,,False
+Sabes que Cecilio Pineda,WORK_OF_ART,0.85,Unknown,Unknown,,False
+Said,PERSON,0.85,Unknown,Unknown,,False
+Several Years Ago,DATE,0.85,Unknown,Unknown,,False
+Sms,ORGANIZATION,0.85,Unknown,Unknown,,False
+Szerződjön Az,PERSON,0.85,Unknown,Unknown,,False
+Tagállamokat Különböző Jogállamisági Kritériumok Alapján,ORGANIZATION,0.85,Unknown,Unknown,,False
+The End Of The Day,DATE,0.85,Unknown,Unknown,,False
+the King of Morocco,PERSON,0.85,Unknown,Unknown,,False
+The Next 12 Hours,TIME,0.85,Unknown,Unknown,,False
+The Next Day,DATE,0.85,Unknown,Unknown,,False
+The Next Morning,TIME,0.85,Unknown,Unknown,,False
+The Past Several Years,DATE,0.85,Unknown,Unknown,,False
+The Same Day After Months,DATE,0.85,Unknown,Unknown,,False
+The Same Minute,TIME,0.85,Unknown,Unknown,,False
+The several hours,TIME,0.85,Unknown,Unknown,,False
+Those Two Weeks,DATE,0.85,Unknown,Unknown,,False
+Tiene Segura Su Vida,PERSON,0.85,Unknown,Unknown,,False
+Toda Aturdida,PERSON,0.85,Unknown,Unknown,,False
+Todas Las Autoridades,PERSON,0.85,Unknown,Unknown,,False
+Today,DATE,0.85,Unknown,Unknown,,False
+Trois,LOCATION,0.85,Unknown,Unknown,,False
+Tu vois,PERSON,0.85,Unknown,Unknown,,False
+Two,CARDINAL,0.85,Unknown,Unknown,,False
+Two Days,DATE,0.85,Unknown,Unknown,,False
+Uf,PERSON,0.85,Unknown,Unknown,,False
+Un Peu D'Inconnu,ORGANIZATION,0.85,Unknown,Unknown,,False
+Verrouille Il Verrouille La La,PERSON,0.85,Unknown,Unknown,,False
+Vez En Mi Vida,PERSON,0.85,Unknown,Unknown,,False
+Villa 96,ORGANIZATION,0.85,Unknown,Unknown,,False
+Votre Droit Le,PERSON,0.85,Unknown,Unknown,,False
+Witam,LOCATION,0.85,Unknown,Unknown,,False
+Y ya al llegar,PERSON,0.85,Unknown,Unknown,,False
+Ya como,PERSON,0.85,Unknown,Unknown,,False
+Ya De Regreso,PERSON,0.85,Unknown,Unknown,,False
+Ya Estamos,PERSON,0.85,Unknown,Unknown,,False
+Zéro,ORGANIZATION,0.85,Unknown,Unknown,,False
+או ביקור,PERSON,0.85,Unknown,Unknown,,False
+אחת מבעלות,PERSON,0.85,Unknown,Unknown,,False
+אני בדקתי האם האם המערכת הישראלית,PERSON,0.85,Unknown,Unknown,,False
+אני יודע,PERSON,0.85,Unknown,Unknown,,False
+בגדול איך שהיא,ORGANIZATION,0.85,Unknown,Unknown,,False
+במוסד והגעתי,PERSON,0.85,Unknown,Unknown,,False
+בתור מטבע דיפלומטי,PERSON,0.85,Unknown,Unknown,,False
+בתור משהו,PERSON,0.85,Unknown,Unknown,,False
+גדול לשירות,PERSON,0.85,Unknown,Unknown,,False
+הונגריה שתחת,PERSON,0.85,Unknown,Unknown,,False
+המדינה הפכה,PERSON,0.85,Unknown,Unknown,,False
+הממשלה,ORGANIZATION,0.85,Unknown,Unknown,,False
+הפעלת,DATE,0.85,Unknown,Unknown,,False
+הפרמטר המרכזי הוא שמידת האמון,ORGANIZATION,0.85,Unknown,Unknown,,False
+הקורלציה,ORGANIZATION,0.85,Unknown,Unknown,,False
+ואפילו מאוד מאוד,PERSON,0.85,Unknown,Unknown,,False
+והם,ORGANIZATION,0.85,Unknown,Unknown,,False
+וואי,LOCATION,0.85,Unknown,Unknown,,False
+וואי וואי,PERSON,0.85,Unknown,Unknown,,False
+וכשאני אומר,PERSON,0.85,Unknown,Unknown,,False
+ומצאנו,ORGANIZATION,0.85,Unknown,Unknown,,False
+זה עשיתי,PERSON,0.85,Unknown,Unknown,,False
+חדש,PERSON,0.85,Unknown,Unknown,,False
+חושב שעשו,PERSON,0.85,Unknown,Unknown,,False
+יש לזה אפילו מינוח,PERSON,0.85,Unknown,Unknown,,False
+כמה כמה שיפורים,PRODUCT,0.85,Unknown,Unknown,,False
+כרגע אני,PERSON,0.85,Unknown,Unknown,,False
+לביקור,EVENT,0.85,Unknown,Unknown,,False
+לזה דיפלומטית,LOCATION,0.85,Unknown,Unknown,,False
+לחברי הפרלמנט הצרפתיים,PERSON,0.85,Unknown,Unknown,,False
+לכליים,ORGANIZATION,0.85,Unknown,Unknown,,False
+לפגסוס עבור,PERSON,0.85,Unknown,Unknown,,False
+משהו וככה,PERSON,0.85,Unknown,Unknown,,False
+פורמלי גם הפגישות האלה נעשות,PERSON,0.85,Unknown,Unknown,,False
+צריך,LOCATION,0.85,Unknown,Unknown,,False
+שאי אפשר,PRODUCT,0.85,Unknown,Unknown,,False
+שתעשה,CARDINAL,0.85,Unknown,Unknown,,False
+תגיד,ORGANIZATION,0.85,Unknown,Unknown,,False
+תמונות,LOCATION,0.85,Unknown,Unknown,,False
+תפרוץ את זה,PERSON,0.85,Unknown,Unknown,,False
+תת ועדה בתוך,PERSON,0.85,Unknown,Unknown,,False
+Pegasus,WEAPON,0.849,GLiNER,GLiNER,,False
+Morocco,LOCATION,0.847,GLiNER,GLiNER,,False
+Gobierno Del Estado,ORGANIZATION,0.836,GLiNER,GLiNER,,False
+Poland,LOCATION,0.836,GLiNER,GLiNER,,False
+México,LOCATION,0.835,GLiNER,GLiNER,,False
+Spain,LOCATION,0.835,GLiNER,GLiNER,,False
+Algérie,LOCATION,0.835,GLiNER,GLiNER,,False
+Paul,PERSON,0.835,GLiNER,GLiNER,,False
+ישראל,LOCATION,0.835,GLiNER,GLiNER,,False
+the 3rd of August 2020,DATE,0.833,GLiNER,GLiNER,,False
+Ministre Qui N'Est,PERSON,0.833,GLiNER,GLiNER,,False
+February 2018,DATE,0.832,GLiNER,GLiNER,,False
+Polsce,LOCATION,0.83,GLiNER,GLiNER,,False
+Polish Watergate,EVENT,0.83,GLiNER,GLiNER,,False
+Over A Billion Dollars,MONEY,0.83,GLiNER,GLiNER,,False
+Indian special forces,MILITARY_UNIT,0.828,GLiNER,GLiNER,,False
+Philippe,PERSON,0.823,GLiNER,GLiNER,,False
+Amazon Prime Video,CHANNEL,0.817,GLiNER,GLiNER,,False
+des services de l'État,ORGANIZATION,0.813,GLiNER,GLiNER,,False
+Forbidden Stories,ORGANIZATION,0.812,GLiNER,GLiNER,,False
+Europe,LOCATION,0.808,GLiNER,GLiNER,,False
+Israeli Defense Ministry,ORGANIZATION,0.804,GLiNER,GLiNER,,False
+July 18th,DATE,0.803,GLiNER,GLiNER,,False
+Tierra Caliente,LOCATION,0.803,GLiNER,GLiNER,,False
+Villa 96,LOCATION,0.8,GLiNER,GLiNER,,False
+Mr. Chairman,PERSON,0.798,GLiNER,GLiNER,,False
+Mexico,LOCATION,0.797,GLiNER,GLiNER,,False
+Forbidden Films,PERSON,0.795,GLiNER,GLiNER,,False
+Policía,ORGANIZATION,0.786,GLiNER,GLiNER,,False
+Ancien Ministre,PERSON,0.785,GLiNER,GLiNER,,False
+שמדינת ישראל רצתה להתקרב אליהם,ORGANIZATION,0.783,GLiNER,GLiNER,,False
+Military Weapons,WEAPON,0.778,GLiNER,GLiNER,,False
+Monsieur le Président de la République,ORGANIZATION,0.775,GLiNER,GLiNER,,False
+Même De Ce Matin,PERSON,0.773,GLiNER,GLiNER,,False
+国家元首,PERSON,0.766,GLiNER,GLiNER,,False
+WhatsApp,ORGANIZATION,0.764,GLiNER,GLiNER,,False
+Phones,PRODUCT,0.761,GLiNER,GLiNER,,False
+Palestinians,ORGANIZATION,0.761,GLiNER,GLiNER,,False
+Crise Politique,EVENT,0.76,GLiNER,GLiNER,,False
+Reporters,PERSON,0.757,GLiNER,GLiNER,,False
+Committee of Inquiry,ORGANIZATION,0.754,GLiNER,GLiNER,,False
+Product,PRODUCT,0.753,GLiNER,GLiNER,,False
+They,PERSON,0.753,GLiNER,GLiNER,,False
+בכירים ב-,PERSON,0.75,GLiNER,GLiNER,,False
+Jet Skis,PRODUCT,0.748,GLiNER,GLiNER,,False
+State,ORGANIZATION,0.747,GLiNER,GLiNER,,False
+Person,PERSON,0.747,GLiNER,GLiNER,,False
+lista de celulares de la utilización de Pegasus,ORGANIZATION,0.742,GLiNER,GLiNER,,False
+Money,MONEY,0.741,GLiNER,GLiNER,,False
+42 Minutes,TIME,0.741,GLiNER,GLiNER,,False
+להחרים את מרטין לוקהיד מרטין,ORGANIZATION,0.74,GLiNER,GLiNER,,False
+Journalistes,PERSON,0.737,GLiNER,GLiNER,,False
+Monsieur le Président de la République,PERSON,0.735,GLiNER,GLiNER,,False
+Pues,PERSON,0.735,GLiNER,GLiNER,,False
+Violencia,CONFLICT,0.73,GLiNER,GLiNER,,False
+Pegasus software,SOFTWARE,0.73,GLiNER,GLiNER,,False
+Eight days,DATE,0.724,GLiNER,GLiNER,,False
+F-35,WEAPON,0.723,GLiNER,GLiNER,,False
+Yacht,PRODUCT,0.723,GLiNER,GLiNER,,False
+Princess,PERSON,0.722,GLiNER,GLiNER,,False
+We,PERSON,0.722,GLiNER,GLiNER,,False
+Apple,ORGANIZATION,0.721,GLiNER,GLiNER,,False
+Regulations,WEAPON,0.72,GLiNER,GLiNER,,False
+World,LOCATION,0.718,GLiNER,GLiNER,,False
+Autoridades,ORGANIZATION,0.715,GLiNER,GLiNER,,False
+Technology,TECHNOLOGY,0.711,GLiNER,GLiNER,,False
+Gouvernement,ORGANIZATION,0.709,GLiNER,GLiNER,,False
+Sms,PROTOCOL,0.708,GLiNER,GLiNER,,False
+Computers,PRODUCT,0.705,GLiNER,GLiNER,,False
+Operation,OPERATION,0.702,GLiNER,GLiNER,,False
+Pegasus,PRODUCT,0.95,GLiNER,GLiNER,,False
+Activists,PERSON,0.95,GLiNER,GLiNER,,False
+Nso,SOFTWARE,0.95,GLiNER,GLiNER,,False
+Forbidden Films,ORGANIZATION,0.95,GLiNER,GLiNER,,False
+Spyware,PRODUCT,0.95,GLiNER,GLiNER,,False
+Pegasus,DISEASE,0.95,GLiNER,GLiNER,,False
+Investigation,EVENT,0.95,GLiNER,GLiNER,,False
+Pegasus,TECHNOLOGY,0.95,GLiNER,GLiNER,,False
+People,PERSON,0.95,GLiNER,GLiNER,,False

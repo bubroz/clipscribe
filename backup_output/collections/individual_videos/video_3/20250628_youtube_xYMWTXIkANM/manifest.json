@@ -1,0 +1,263 @@
+{
+  "version": "2.3",
+  "created_at": "2025-06-28T14:01:03.993019",
+  "video": {
+    "title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+    "url": "https://www.youtube.com/watch?v=xYMWTXIkANM",
+    "platform": "youtube"
+  },
+  "extraction_stats": {
+    "timeline_events": [
+      {
+        "confidence": 0.7,
+        "event_description": "Establishment of NSO Group with the ambition to make the world a safer place, evolving into a powerful spyware provider.",
+        "event_type": "Organizational Founding",
+        "timestamp": 60.0,
+        "involved_entities": [
+          "NSO Group"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "A joint investigation by 17 news outlets and Forbidden Stories reveals widespread targeting of activists, lawyers, journalists, and politicians by Pegasus spyware.",
+        "event_type": "Investigation Findings Release",
+        "timestamp": 150.0,
+        "involved_entities": [
+          "17 news outlets",
+          "Forbidden Stories",
+          "Activists",
+          "Lawyers",
+          "Journalists",
+          "Politicians",
+          "Pegasus",
+          "NSO Group"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "Journalists contact former French minister Fran\u00e7ois de Rugy, who agrees to have his phone technically analyzed, confirming he was targeted by Pegasus, identified as a client of the Kingdom of Morocco.",
+        "event_type": "Investigative Action & Confirmation",
+        "timestamp": 250.0,
+        "involved_entities": [
+          "Fran\u00e7ois de Rugy",
+          "Journalists",
+          "Kingdom of Morocco",
+          "Pegasus"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "An SMS message is sent to French President Emmanuel Macron to verify his phone number's activity and inform him of the international investigation into cyber targeting, suggesting he was a target.",
+        "event_type": "Investigative Action",
+        "timestamp": 350.0,
+        "involved_entities": [
+          "Emmanuel Macron",
+          "Journalists"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "Approximately one to two hours after the SMS was sent to Emmanuel Macron, Elys\u00e9e services call back, confirming receipt, and shortly thereafter, an invitation is received for a meeting at the Elys\u00e9e Palace.",
+        "event_type": "Government Response",
+        "timestamp": 400.0,
+        "involved_entities": [
+          "Elys\u00e9e Services",
+          "Journalists"
+        ]
+      },
+      {
+        "confidence": 0.8,
+        "event_description": "Following a meeting at the Elys\u00e9e, French state experts quickly confirm attempts or successful infections of Pegasus on the phones of several ministers and high-ranking French officials.",
+        "event_type": "Investigation Confirmation",
+        "timestamp": 500.0,
+        "involved_entities": [
+          "French State Experts",
+          "French Ministers",
+          "French High Officials",
+          "Pegasus"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "Princess Latifa attempts an extraordinary escape from Dubai involving jet skis and a yacht journey towards the Indian Ocean, seeking freedom from her father's regime.",
+        "event_type": "Escape Attempt",
+        "timestamp": 950.0,
+        "involved_entities": [
+          "Princess Latifa",
+          "Sheikh Mohammed bin Rashid Al Maktoum"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "The day after Princess Latifa's disappearance from Dubai, her phone number is observed being entered into the Pegasus surveillance list.",
+        "event_type": "Surveillance Initiation",
+        "timestamp": 1050.0,
+        "involved_entities": [
+          "Princess Latifa",
+          "Pegasus"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "In the days following Princess Latifa's escape attempt, as she travels by yacht, the phone numbers of her friends and associates begin appearing on the Pegasus surveillance list.",
+        "event_type": "Surveillance Expansion",
+        "timestamp": 1100.0,
+        "involved_entities": [
+          "Princess Latifa's friends",
+          "Princess Latifa's associates",
+          "Pegasus"
+        ]
+      },
+      {
+        "confidence": 1.0,
+        "event_description": "Eight days after her escape, Princess Latifa's yacht is boarded by Indian special forces, and she is forcibly returned to Dubai, with Pegasus technology implicated as a tool used to track her.",
+        "event_type": "Recapture & Repatriation",
+        "timestamp": 1200.0,
+        "involved_entities": [
+          "Princess Latifa",
+          "Indian Special Forces",
+          "Dubai",
+          "Pegasus"
+        ]
+      },
+      {
+        "confidence": 1.0,
+        "event_description": "Human rights campaigner David Haigh is infected with Pegasus spyware on his phone, occurring on August 3, 2020, at approximately 3:00 a.m. and continuing into the next day.",
+        "event_type": "Cyberattack",
+        "timestamp": 1350.0,
+        "involved_entities": [
+          "David Haigh",
+          "Pegasus"
+        ]
+      },
+      {
+        "confidence": 1.0,
+        "event_description": "David Haigh and colleagues found the campaign to free Princess Latifa.",
+        "event_type": "Campaign Founding",
+        "timestamp": 1550.0,
+        "involved_entities": [
+          "David Haigh",
+          "Princess Latifa Campaign"
+        ]
+      }
+    ],
+    "visual_temporal_cues": [],
+    "temporal_patterns": [
+      {
+        "description": "The pattern details NSO's original ambition versus the reality of Pegasus being used as a military weapon against civilians globally, leading to joint investigations, governmental panic, and attempts to control information, highlighting a cycle of surveillance, exposure, and political reaction.",
+        "pattern_type": "Causality Chain",
+        "significance": "Demonstrates the progression from technological development to abuse, and the subsequent efforts to expose and manage the fallout.",
+        "timespan": "Continuous throughout the narrative, from NSO's founding to current investigations."
+      },
+      {
+        "description": "The process involves identifying potential targets (e.g., Fran\u00e7ois de Rugy, Emmanuel Macron), making contact, performing technical analysis of devices, and confirming Pegasus infections, followed by governmental responses and classified findings.",
+        "pattern_type": "Chronological Sequence",
+        "significance": "Illustrates the investigative methodology used to uncover the extent of Pegasus targeting, revealing the systematic approach and the reaction of targeted states.",
+        "timespan": "Spans from the initial joint investigation to specific confirmations and government responses."
+      },
+      {
+        "description": "Princess Latifa's escape attempt directly triggers immediate and expanded surveillance efforts, evidenced by her and her associates' phone numbers appearing on the Pegasus list, culminating in her recapture, suggesting a direct cause-and-effect relationship between her actions and the state's use of surveillance technology.",
+        "pattern_type": "Causality Chain",
+        "significance": "Highlights the direct and rapid deployment of state-sponsored surveillance (Pegasus) in response to a high-profile individual's actions, demonstrating its role in maintaining state control.",
+        "timespan": "Concentrated around Princess Latifa's escape in 2020 and the days immediately following."
+      },
+      {
+        "description": "David Haigh's personal experience of imprisonment and release leads to his commitment to human rights activism, culminating in founding the campaign for Princess Latifa, which then appears to directly precede his own targeting by Pegasus. This shows a progression from personal ordeal to activism, met with state-sponsored cyber-retaliation.",
+        "pattern_type": "Progression",
+        "significance": "Illustrates how human rights advocacy, particularly against powerful regimes, can lead to individuals becoming targets of sophisticated state surveillance tools like Pegasus.",
+        "timespan": "From David Haigh's imprisonment (unspecified date) to his infection in August 2020."
+      }
+    ],
+    "spacy_entities": 166,
+    "gliner_entities": 241,
+    "relationships": 10,
+    "llm_validated": 184,
+    "graph_nodes": 179,
+    "graph_edges": 10,
+    "retention_decision": {
+      "action": "deleted",
+      "video_path": ".video_cache/Global Spyware Scandal\uff1a Exposing Pegasus Part Two (full documentary) \uff5c FRONTLINE-xYMWTXIkANM.mp3",
+      "video_hash": "fb3c0884f957dbd5f1009cf3187f0fca",
+      "reason": "Policy: Always delete source videos",
+      "cost_savings": {
+        "storage_cost_avoided": 0.019728515580296518,
+        "reprocessing_cost": 0.20100929062499998
+      },
+      "timestamp": "2025-06-28T12:38:43.825031"
+    }
+  },
+  "files": {
+    "transcript_txt": {
+      "path": "transcript.txt",
+      "format": "plain_text",
+      "size": 17413,
+      "sha256": "538b5e31a8bacd19cbb4bbdd7308b3c668c7a2e57600b5dee5e6d56b58b844f0"
+    },
+    "transcript_json": {
+      "path": "transcript.json",
+      "format": "json",
+      "size": 129770,
+      "sha256": "a7a7a4847e24a60deb82974b71cafb972e394c20ce9ddf480e22c510c70f885c"
+    },
+    "metadata": {
+      "path": "metadata.json",
+      "format": "json",
+      "size": 4241,
+      "sha256": "a265ce4d147d6d2df7dfa528fca08576ee90d048608fe09d3ce0a4639e053df8"
+    },
+    "entities": {
+      "path": "entities.json",
+      "format": "json",
+      "size": 39734,
+      "sha256": "9df0cdf5abcecaca043ca7b19af5f73bf59f9b63b34632e7799900c91e3ad1a2"
+    },
+    "relationships": {
+      "path": "relationships.json",
+      "format": "json",
+      "size": 1910,
+      "sha256": "2b26bf5d14aef32215ea8f73b6d1c681a450b35249cd8c07bb14286a6aa43901",
+      "count": 10
+    },
+    "knowledge_graph": {
+      "path": "knowledge_graph.json",
+      "format": "json",
+      "size": 18894,
+      "sha256": "45571c0dce714aa936ee25aa1e19a60e76f58ef8c34023e54d1f3dd8f25f7856"
+    },
+    "gexf": {
+      "path": "knowledge_graph.gexf",
+      "format": "gexf",
+      "size": 54022,
+      "sha256": "c8cbd17061ea5c08123aca56ce9c246c7c8718a49eda85d245fbc77dd626fb6b",
+      "description": "Gephi-compatible graph file"
+    },
+    "entities_csv": {
+      "path": "entities.csv",
+      "format": "csv",
+      "size": 7856,
+      "sha256": "2e3f9202eb76b4e78d283e98dc59802aa80ed5dfd5cea6ee2e61a52495a7458e",
+      "description": "All entities in CSV format"
+    },
+    "relationships_csv": {
+      "path": "relationships.csv",
+      "format": "csv",
+      "size": 594,
+      "sha256": "dee8d7f39173d15fe4886639de6752c57755d47561b276b2fbda1e924a365b4e",
+      "description": "All relationships in CSV format"
+    },
+    "report": {
+      "path": "report.md",
+      "format": "markdown",
+      "size": 15428,
+      "sha256": "595156a359237d65fd17d65737ccbb1c79cf6f6f7f477ca72996df00967883de",
+      "description": "Human-readable intelligence report"
+    },
+    "chimera": {
+      "path": "chimera_format.json",
+      "format": "json",
+      "size": 67440,
+      "sha256": "4978a76014c1ad6a15941fd2bae87e20568c280ddd7f682f50543e50d8cd1f1e",
+      "description": "Chimera-compatible format"
+    }
+  }
+}

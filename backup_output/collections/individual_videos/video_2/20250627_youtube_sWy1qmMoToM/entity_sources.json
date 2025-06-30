@@ -1,0 +1,798 @@
+{
+  "summary": {
+    "total_entities": 31,
+    "normalization_applied": true,
+    "normalization_stats": {
+      "total_normalized": 0,
+      "entities_with_multiple_sources": 12,
+      "entities_with_aliases": 0
+    },
+    "by_source": {
+      "GLiNER": {
+        "count": 20,
+        "percentage": 64.5
+      },
+      "Unknown": {
+        "count": 11,
+        "percentage": 35.5
+      }
+    },
+    "by_type": {
+      "ORGANIZATION": 5,
+      "LOCATION": 4,
+      "BIOLOGICAL_ENTITY": 2,
+      "PERSON": 9,
+      "CARDINAL": 2,
+      "DATE": 3,
+      "TIME": 1,
+      "CONFLICT": 1,
+      "SONG": 1,
+      "PRODUCT": 1,
+      "EVENT": 1,
+      "CHARACTER": 1
+    },
+    "extraction_methods": {
+      "SpaCy": "Basic Named Entity Recognition (free, local)",
+      "GLiNER": "Custom entity detection (local model)",
+      "REBEL": "Relationship extraction (local model)",
+      "Combined": "Entities found by multiple methods and normalized"
+    },
+    "quality_metrics": {
+      "average_confidence": 0.832,
+      "high_confidence_entities": 22,
+      "normalized_entities": 0
+    }
+  },
+  "all_entities": [
+    {
+      "name": "the Beatles",
+      "type": "ORGANIZATION",
+      "confidence": 0.95,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Nasa",
+      "type": "ORGANIZATION",
+      "confidence": 0.913,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Florida",
+      "type": "LOCATION",
+      "confidence": 0.906,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Alligator",
+      "type": "BIOLOGICAL_ENTITY",
+      "confidence": 0.899,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Zachary",
+      "type": "PERSON",
+      "confidence": 0.862,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "3,000",
+      "type": "CARDINAL",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Beatles",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Guinness World Records",
+      "type": "ORGANIZATION",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Hollywood",
+      "type": "LOCATION",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Just A Few Years Ago",
+      "type": "DATE",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Last Month",
+      "type": "DATE",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Occam",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "The Flyboard Air",
+      "type": "ORGANIZATION",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Tonight",
+      "type": "TIME",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Two",
+      "type": "CARDINAL",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Zeitgeist",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Earth",
+      "type": "LOCATION",
+      "confidence": 0.847,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "You",
+      "type": "PERSON",
+      "confidence": 0.842,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Western Hemisphere",
+      "type": "LOCATION",
+      "confidence": 0.832,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Global Conspiracy",
+      "type": "CONFLICT",
+      "confidence": 0.829,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Paul McCartney",
+      "type": "PERSON",
+      "confidence": 0.808,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "1966",
+      "type": "DATE",
+      "confidence": 0.8,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Music",
+      "type": "SONG",
+      "confidence": 0.779,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Flyboard Air",
+      "type": "PRODUCT",
+      "confidence": 0.768,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "It",
+      "type": "BIOLOGICAL_ENTITY",
+      "confidence": 0.763,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Wikipedia",
+      "type": "ORGANIZATION",
+      "confidence": 0.762,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Bombing",
+      "type": "EVENT",
+      "confidence": 0.754,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Ufologist",
+      "type": "PERSON",
+      "confidence": 0.748,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Captain Disillusion",
+      "type": "PERSON",
+      "confidence": 0.732,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Zeitgeist",
+      "type": "CHARACTER",
+      "confidence": 0.709,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "People",
+      "type": "PERSON",
+      "confidence": 0.95,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    }
+  ],
+  "by_source": {
+    "GLiNER": [
+      {
+        "name": "the Beatles",
+        "type": "ORGANIZATION",
+        "confidence": 0.95,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Nasa",
+        "type": "ORGANIZATION",
+        "confidence": 0.913,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Florida",
+        "type": "LOCATION",
+        "confidence": 0.906,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Alligator",
+        "type": "BIOLOGICAL_ENTITY",
+        "confidence": 0.899,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Zachary",
+        "type": "PERSON",
+        "confidence": 0.862,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Earth",
+        "type": "LOCATION",
+        "confidence": 0.847,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "You",
+        "type": "PERSON",
+        "confidence": 0.842,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Western Hemisphere",
+        "type": "LOCATION",
+        "confidence": 0.832,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Global Conspiracy",
+        "type": "CONFLICT",
+        "confidence": 0.829,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Paul McCartney",
+        "type": "PERSON",
+        "confidence": 0.808,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "1966",
+        "type": "DATE",
+        "confidence": 0.8,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Music",
+        "type": "SONG",
+        "confidence": 0.779,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Flyboard Air",
+        "type": "PRODUCT",
+        "confidence": 0.768,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "It",
+        "type": "BIOLOGICAL_ENTITY",
+        "confidence": 0.763,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Wikipedia",
+        "type": "ORGANIZATION",
+        "confidence": 0.762,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Bombing",
+        "type": "EVENT",
+        "confidence": 0.754,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Ufologist",
+        "type": "PERSON",
+        "confidence": 0.748,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Captain Disillusion",
+        "type": "PERSON",
+        "confidence": 0.732,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Zeitgeist",
+        "type": "CHARACTER",
+        "confidence": 0.709,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "People",
+        "type": "PERSON",
+        "confidence": 0.95,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      }
+    ],
+    "Unknown": [
+      {
+        "name": "3,000",
+        "type": "CARDINAL",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Beatles",
+        "type": "PERSON",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Guinness World Records",
+        "type": "ORGANIZATION",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Hollywood",
+        "type": "LOCATION",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Just A Few Years Ago",
+        "type": "DATE",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Last Month",
+        "type": "DATE",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Occam",
+        "type": "PERSON",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "The Flyboard Air",
+        "type": "ORGANIZATION",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Tonight",
+        "type": "TIME",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Two",
+        "type": "CARDINAL",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Zeitgeist",
+        "type": "PERSON",
+        "confidence": 0.85,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      }
+    ]
+  }
+}

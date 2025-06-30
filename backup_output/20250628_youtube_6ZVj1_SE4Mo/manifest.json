@@ -1,0 +1,204 @@
+{
+  "version": "2.3",
+  "created_at": "2025-06-28T10:56:37.774039",
+  "video": {
+    "title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+    "url": "https://www.youtube.com/watch?v=6ZVj1_SE4Mo",
+    "platform": "youtube"
+  },
+  "extraction_stats": {
+    "timeline_events": [
+      {
+        "confidence": 1.0,
+        "event_description": "NSO Group was founded by three individuals.",
+        "event_type": "Company Formation",
+        "timestamp": 10.0,
+        "involved_entities": [
+          "NSO Group",
+          "three guys"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "A list of approximately 50,000 phone numbers, spanning 2016 to 2020, was compiled, potentially linked to Pegasus targets.",
+        "event_type": "Data Compilation",
+        "timestamp": 50.0,
+        "involved_entities": []
+      },
+      {
+        "confidence": 0.8,
+        "event_description": "International journalists convened in Paris during the COVID crisis to plan the 'Global Spyware Scandal, exposing Pegasus' investigation.",
+        "event_type": "Investigation Planning",
+        "timestamp": 200.0,
+        "involved_entities": [
+          "Forbidden Stories",
+          "The Washington Post",
+          "The Guardian",
+          "Le Monde",
+          "Aristegui Noticias",
+          "journalists"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "A large-scale investigation involving over 80 journalists commenced to identify names behind phone numbers and conduct forensics.",
+        "event_type": "Investigative Journalism Commencement",
+        "timestamp": 230.0,
+        "involved_entities": [
+          "Forbidden Stories",
+          "Amnesty International's Security Lab",
+          "journalists"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "Claudio Guarnieri, head of Amnesty International's Security Lab, developed a methodology and platform for analyzing phones for Pegasus infection.",
+        "event_type": "Technical Development",
+        "timestamp": 300.0,
+        "involved_entities": [
+          "Claudio Guarnieri",
+          "Amnesty International's Security Lab"
+        ]
+      },
+      {
+        "confidence": 1.0,
+        "event_description": "The first part of the 'Global Spyware Scandal, exposing Pegasus' investigation was set for publication.",
+        "event_type": "Publication",
+        "timestamp": 235.0,
+        "involved_entities": [
+          "Frontline",
+          "Forbidden Stories",
+          "The Washington Post",
+          "The Guardian",
+          "Le Monde",
+          "Aristegui Noticias",
+          "17 news outlets"
+        ]
+      }
+    ],
+    "visual_temporal_cues": [],
+    "temporal_patterns": [
+      {
+        "description": "Pegasus spyware has been continuously used globally to monitor and track journalists, human rights activists, and dissidents.",
+        "pattern_type": "Continuous Activity",
+        "significance": "Highlights the persistent and widespread threat of the technology's abuse.",
+        "timespan": "Ongoing"
+      },
+      {
+        "description": "NSO Group claims to have found only three cases of misuse of their technology in the last 10 years, which reportedly led to system shutdowns.",
+        "pattern_type": "Infrequent Occurrence / Claimed Control",
+        "significance": "Presents NSO's narrative on managing misuse, contrasting with widespread reports of abuse.",
+        "timespan": "Approx. 2010-2020/2021"
+      },
+      {
+        "description": "A significant shift occurred in journalistic practices, moving from traditional rivalry among news organizations to unprecedented global collaboration for this investigation.",
+        "pattern_type": "Behavioral Change / Collaboration Evolution",
+        "significance": "Marks a new approach to international investigative journalism for high-impact global stories.",
+        "timespan": "Specific to the Pegasus investigation (approx. July 2020 - July 2021)"
+      },
+      {
+        "description": "Israel has progressed to become a global leader in the cyber surveillance industry, with NSO Group being a prominent example.",
+        "pattern_type": "Progression / Development",
+        "significance": "Contextualizes NSO's success within a broader national trend in technology.",
+        "timespan": "Historical, leading up to present"
+      },
+      {
+        "description": "The Guardian had been reporting on NSO Group for a long time prior to this joint international investigation.",
+        "pattern_type": "Persistent Activity",
+        "significance": "Indicates prior awareness and long-standing concern regarding NSO's activities among certain news outlets.",
+        "timespan": "Long-term prior to July 2021"
+      }
+    ],
+    "spacy_entities": 228,
+    "gliner_entities": 490,
+    "relationships": 9,
+    "llm_validated": 259,
+    "graph_nodes": 245,
+    "graph_edges": 9,
+    "retention_decision": {
+      "action": "deleted",
+      "video_path": ".video_cache/Global Spyware Scandal\uff1a Exposing Pegasus Part One (full documentary) \uff5c FRONTLINE-6ZVj1_SE4Mo.mp3",
+      "video_hash": "fae0bc72a8ab6983393edaaa293f6e60",
+      "reason": "Policy: Always delete source videos",
+      "cost_savings": {
+        "storage_cost_avoided": 0.019711594820022584,
+        "reprocessing_cost": 0.20082072656249997
+      },
+      "timestamp": "2025-06-28T10:56:37.744872"
+    }
+  },
+  "files": {
+    "transcript_txt": {
+      "path": "transcript.txt",
+      "format": "plain_text",
+      "size": 29412,
+      "sha256": "749ab012d5108ba9fbc969f94dbf11c3b4963aba5e9a9cf396b7007f35b3e6c4"
+    },
+    "transcript_json": {
+      "path": "transcript.json",
+      "format": "json",
+      "size": 171539,
+      "sha256": "4a28374ee449597d50b930434d421bce14f325f8f585a261b8042600a82c9bb3"
+    },
+    "metadata": {
+      "path": "metadata.json",
+      "format": "json",
+      "size": 4322,
+      "sha256": "15368fe52b5e482636dcdf9cc5e7d077cc8bd53d581d7cfaf0ed3e36e5c748ad"
+    },
+    "entities": {
+      "path": "entities.json",
+      "format": "json",
+      "size": 55893,
+      "sha256": "6ecd47a2503474e781d936973c9bcff6df3f0d9dc3ce5fad304a2555ef7bb5d1"
+    },
+    "relationships": {
+      "path": "relationships.json",
+      "format": "json",
+      "size": 1679,
+      "sha256": "86c42ec6c3a6bc3baea13bccf09f85344f38a75b4c989e67394b2a156d29f2d0",
+      "count": 9
+    },
+    "knowledge_graph": {
+      "path": "knowledge_graph.json",
+      "format": "json",
+      "size": 25012,
+      "sha256": "baf91a845b86c5d76096aa001944cf86295ecfce09979197b204b90031e304cf"
+    },
+    "gexf": {
+      "path": "knowledge_graph.gexf",
+      "format": "gexf",
+      "size": 72321,
+      "sha256": "eb7f82e65fa353b38006d061620c256fe1136e06c9808b7416fe814103de20aa",
+      "description": "Gephi-compatible graph file"
+    },
+    "entities_csv": {
+      "path": "entities.csv",
+      "format": "csv",
+      "size": 11012,
+      "sha256": "0b1a5d1048a8323a2c25a564c0436445cb2a58119a6cbe7949f790b1616ba415",
+      "description": "All entities in CSV format"
+    },
+    "relationships_csv": {
+      "path": "relationships.csv",
+      "format": "csv",
+      "size": 471,
+      "sha256": "5b5751f88fbfa77875dd97a3253fcdc2730aff6c479c2f625264e884bb0017ca",
+      "description": "All relationships in CSV format"
+    },
+    "report": {
+      "path": "report.md",
+      "format": "markdown",
+      "size": 15700,
+      "sha256": "b19d70684cbeffce82e199bb25037d62930b86cc889fbf3eee70fde257488fa6",
+      "description": "Human-readable intelligence report"
+    },
+    "chimera": {
+      "path": "chimera_format.json",
+      "format": "json",
+      "size": 94347,
+      "sha256": "028d4b0460270e5a76f83b3d53f5b5863d1ca393aa2030c3dca21ddec254cff3",
+      "description": "Chimera-compatible format"
+    }
+  }
+}

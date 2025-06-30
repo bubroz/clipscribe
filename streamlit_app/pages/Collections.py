@@ -203,7 +203,8 @@ def show_timeline_synthesis(collection_path: Path, intelligence):
         view_mode = st.selectbox(
             "Timeline View:",
             ["Interactive Chart", "Event List", "Temporal Analytics"],
-            help="Choose how to visualize timeline events"
+            help="Choose how to visualize timeline events",
+            key=f"timeline_view_mode_{hash(str(collection_path))}"
         )
     
     with col2:
@@ -213,7 +214,8 @@ def show_timeline_synthesis(collection_path: Path, intelligence):
             max_value=1.0,
             value=0.7,
             step=0.1,
-            help="Filter events by confidence threshold"
+            help="Filter events by confidence threshold",
+            key=f"confidence_filter_{hash(str(collection_path))}"
         )
     
     with col3:
@@ -595,10 +597,20 @@ def main():
     st.title("📹 Collections Management")
     st.markdown("**Enhanced with Timeline Building Pipeline (v2.17.0)**")
     
-    # Look for collections (relative to project root)
-    collections_path = Path("../output/collections")
+    # Look for collections (check both backup and standard locations)
+    collections_paths = [
+        Path("../backup_output/collections"),  # Real data location
+        Path("../output/collections"),         # Standard location
+        Path("output/collections")             # Relative location
+    ]
     
-    if not collections_path.exists():
+    collections_path = None
+    for path in collections_paths:
+        if path.exists():
+            collections_path = path
+            break
+    
+    if not collections_path:
         st.warning("No collections directory found. Process some multi-video collections first!")
         
         st.subheader("🚀 Getting Started with Timeline Intelligence")
@@ -628,8 +640,10 @@ def main():
         """)
         return
     
-    # Get all collections
-    collection_dirs = [d for d in collections_path.iterdir() if d.is_dir()]
+    # Get all collections (filter out special directories)
+    skip_dirs = {"individual_videos", "video_archive", ".DS_Store"}
+    collection_dirs = [d for d in collections_path.iterdir() 
+                      if d.is_dir() and d.name not in skip_dirs]
     
     if not collection_dirs:
         st.info("No collections found. Process some multi-video collections first!")
@@ -646,13 +660,52 @@ def main():
             if collection_file.exists():
                 with open(collection_file, 'r', encoding='utf-8') as f:
                     data = json.load(f)
-                    title = data.get('collection_title', d.name)
-                    # Show: "Title (folder_name)" for clarity
-                    display_name = f"{title} ({d.name})"
+                    title = data.get('collection_title', 'Untitled Collection')
+                    
+                    # Extract date for better readability
+                    folder_name = d.name
+                    if 'collection_' in folder_name:
+                        # Extract date from folder name: collection_20250629_163934_2
+                        parts = folder_name.split('_')
+                        if len(parts) >= 3:
+                            date_str = parts[1]  # 20250629
+                            time_str = parts[2]  # 163934
+                            try:
+                                from datetime import datetime
+                                date_obj = datetime.strptime(date_str, '%Y%m%d')
+                                time_obj = datetime.strptime(time_str, '%H%M%S')
+                                readable_date = date_obj.strftime('%b %d, %Y')
+                                readable_time = time_obj.strftime('%I:%M %p')
+                                display_name = f"{title} - {readable_date} at {readable_time}"
+                            except:
+                                display_name = f"{title} ({folder_name})"
+                        else:
+                            display_name = f"{title} ({folder_name})"
+                    else:
+                        display_name = f"{title} ({folder_name})"
+                    
                     collection_options[display_name] = d.name
             else:
-                collection_options[d.name] = d.name
-        except:
+                # Fallback: make folder name more readable
+                folder_name = d.name
+                if 'collection_' in folder_name:
+                    parts = folder_name.split('_')
+                    if len(parts) >= 3:
+                        date_str = parts[1]
+                        try:
+                            from datetime import datetime
+                            date_obj = datetime.strptime(date_str, '%Y%m%d')
+                            readable_date = date_obj.strftime('%b %d, %Y')
+                            display_name = f"Collection - {readable_date}"
+                        except:
+                            display_name = folder_name
+                    else:
+                        display_name = folder_name
+                else:
+                    display_name = folder_name
+                collection_options[display_name] = d.name
+        except Exception as e:
+            # Final fallback
             collection_options[d.name] = d.name
     
     selected_display_name = st.selectbox(

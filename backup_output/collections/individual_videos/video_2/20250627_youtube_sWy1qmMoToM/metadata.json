@@ -1,0 +1,24 @@
+{
+  "video": {
+    "title": "The Undebunkable",
+    "url": "https://www.youtube.com/watch?v=sWy1qmMoToM",
+    "channel": "Captain Disillusion",
+    "duration": 427.0,
+    "published_at": "2016-07-11T07:04:06",
+    "view_count": 4549273,
+    "description": "Please consider supporting my work on Patreon: http://www.patreon.com/CaptainDisillusion\n\nCaptain Disillusion discovers that skepticism to an extreme is not skepticism at all."
+  },
+  "processing": {
+    "cost": 0.0544425,
+    "time": 0.0,
+    "processed_at": "2025-06-27T19:18:45.892433",
+    "clipscribe_version": "2.0.0"
+  },
+  "statistics": {
+    "transcript_length": 5690,
+    "word_count": 1023,
+    "entity_count": 31,
+    "key_point_count": 32,
+    "topic_count": 8
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "flow_id": "flow_topic_6ZVj1_SE4Mo_Human_Rights_topic_xYMWTXIkANM_Human_Rights_Violations",
+  "source_node": {
+    "node_id": "topic_6ZVj1_SE4Mo_Human_Rights",
+    "concept_name": "Human Rights",
+    "video_id": "6ZVj1_SE4Mo",
+    "video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+    "timestamp": 0,
+    "maturity_level": "mentioned",
+    "context": "Originally marketed for combating terrorism and serious crime, Pegasus has been widely misused to monitor journalists, human rights activists, and dissidents across the globe",
+    "explanation_depth": 0.85,
+    "key_points": [],
+    "related_entities": [
+      "Pegasus",
+      "Pegasus",
+      "Activists",
+      "Pegasus",
+      "Journalists"
+    ],
+    "sentiment": 0.0,
+    "confidence": 0.85,
+    "information_density": 0.3,
+    "video_sequence_position": 0
+  },
+  "target_node": {
+    "node_id": "topic_xYMWTXIkANM_Human_Rights_Violations",
+    "concept_name": "Human Rights Violations",
+    "video_id": "xYMWTXIkANM",
+    "video_title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+    "timestamp": 0,
+    "maturity_level": "mentioned",
+    "context": "Topic 'Human Rights Violations' discussed in video",
+    "explanation_depth": 0.85,
+    "key_points": [],
+    "related_entities": [],
+    "sentiment": 0.0,
+    "confidence": 0.85,
+    "information_density": 0.3,
+    "video_sequence_position": 1
+  },
+  "flow_type": "synthesis",
+  "information_transferred": "Connecting Human Rights to Human Rights Violations",
+  "transformation_type": "integration",
+  "flow_quality": 0.95,
+  "coherence_score": 0.3333333333333333,
+  "temporal_gap": 3600,
+  "bridge_entities": [],
+  "supporting_evidence": [
+    "Originally marketed for combating terrorism and serious crime, Pegasus has been widely misused to monitor journalists, human rights activists, and dissidents across the globe",
+    "Topic 'Human Rights Violations' discussed in video"
+  ]
+}

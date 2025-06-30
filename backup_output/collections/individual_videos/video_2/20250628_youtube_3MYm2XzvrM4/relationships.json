@@ -1,0 +1,154 @@
+{
+  "video_url": "https://www.youtube.com/watch?v=3MYm2XzvrM4",
+  "video_title": "Press Secretary Karoline Leavitt Briefs Members of the Media, June 19, 2025",
+  "relationships": [
+    {
+      "subject": "President Trump",
+      "predicate": "member of political party",
+      "object": "Republicans",
+      "confidence": 0.85,
+      "context": null
+    },
+    {
+      "subject": "Republicans",
+      "predicate": "chairperson",
+      "object": "President Trump",
+      "confidence": 0.85,
+      "context": null
+    },
+    {
+      "subject": "President Trump",
+      "predicate": "chairperson",
+      "object": "President Trump",
+      "confidence": 0.85,
+      "context": null
+    },
+    {
+      "subject": "Iran",
+      "predicate": "diplomatic relation",
+      "object": "Russia",
+      "confidence": 0.85,
+      "context": null
+    },
+    {
+      "subject": "Russia",
+      "predicate": "diplomatic relation",
+      "object": "Iran",
+      "confidence": 0.85,
+      "context": null
+    },
+    {
+      "subject": "Ukraine",
+      "predicate": "diplomatic relation",
+      "object": "Ukraine",
+      "confidence": 0.85,
+      "context": null
+    },
+    {
+      "subject": "United States Senate",
+      "predicate": "diplomatic relation",
+      "object": "Russia",
+      "confidence": 0.85,
+      "context": null
+    },
+    {
+      "subject": "Ukraine",
+      "predicate": "diplomatic relation",
+      "object": "Russia",
+      "confidence": 0.85,
+      "context": null
+    },
+    {
+      "subject": "United States Senate",
+      "predicate": "diplomatic relation",
+      "object": "Ukraine",
+      "confidence": 0.85,
+      "context": null
+    },
+    {
+      "subject": "diplomatic relation",
+      "predicate": "Ukraine",
+      "object": "United States Senate",
+      "confidence": 0.85,
+      "context": null
+    },
+    {
+      "subject": "diplomatic relation",
+      "predicate": "diplomatic relation",
+      "object": "Russia",
+      "confidence": 0.85,
+      "context": null
+    },
+    {
+      "subject": "Iran",
+      "predicate": "part of",
+      "object": "Middle East",
+      "confidence": 0.85,
+      "context": null
+    },
+    {
+      "subject": "Jasmine Crockett",
+      "predicate": "Democratic Party",
+      "object": "member of political party",
+      "confidence": 0.85,
+      "context": null
+    },
+    {
+      "subject": "North Korea",
+      "predicate": "diplomatic relation",
+      "object": "South Korea",
+      "confidence": 0.85,
+      "context": null
+    },
+    {
+      "subject": "South Korea",
+      "predicate": "diplomatic relation",
+      "object": "North Korea",
+      "confidence": 0.85,
+      "context": null
+    },
+    {
+      "subject": "Israel",
+      "predicate": "Benjamin Netanyahu",
+      "object": "head of government",
+      "confidence": 0.85,
+      "context": null
+    },
+    {
+      "subject": "Secretary of State",
+      "predicate": "United States",
+      "object": "Country",
+      "confidence": 0.85,
+      "context": null
+    },
+    {
+      "subject": "Marco Rubio",
+      "predicate": "Secretary of State",
+      "object": "position held",
+      "confidence": 0.85,
+      "context": null
+    },
+    {
+      "subject": "United States Senate",
+      "predicate": "diplomatic relation",
+      "object": "Iran",
+      "confidence": 0.85,
+      "context": null
+    },
+    {
+      "subject": "Iran",
+      "predicate": "United States",
+      "object": "diplomatic relation",
+      "confidence": 0.85,
+      "context": null
+    },
+    {
+      "subject": "Spain",
+      "predicate": "continent",
+      "object": "Europe",
+      "confidence": 0.85,
+      "context": null
+    }
+  ],
+  "total_count": 21
+}

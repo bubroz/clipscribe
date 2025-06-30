@@ -1,0 +1,1866 @@
+{
+  "video_url": "https://www.youtube.com/watch?v=xYMWTXIkANM",
+  "video_title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+  "entities": [
+    {
+      "name": "Fran\u00e7ois de Rugy",
+      "type": "PERSON",
+      "confidence": 0.9879822134971619,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Dubai",
+      "type": "LOCATION",
+      "confidence": 0.9547387467490301,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Hungary",
+      "type": "LOCATION",
+      "confidence": 0.9535688102245331,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Uae",
+      "type": "LOCATION",
+      "confidence": 0.9527004957199097,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER"
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Emmanuel Macron qui",
+      "type": "PERSON",
+      "confidence": 0.9516774943896703,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Le Monde",
+      "type": "ORGANIZATION",
+      "confidence": 0.9345697164535522,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER"
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Israeli intelligence",
+      "type": "ORGANIZATION",
+      "confidence": 0.9310014843940735,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER"
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Princess Latifa",
+      "type": "PERSON",
+      "confidence": 0.9248482863108317,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "David Haigh",
+      "type": "PERSON",
+      "confidence": 0.9239406847953797,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "remito al caso de Cecilio Pineda",
+      "type": "PERSON",
+      "confidence": 0.9213461944035121,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Viktor Orb\u00e1n",
+      "type": "PERSON",
+      "confidence": 0.9185054779052735,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Bahrain",
+      "type": "LOCATION",
+      "confidence": 0.9144599318504334,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Regi\u00f3n",
+      "type": "LOCATION",
+      "confidence": 0.9115298092365265,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Bibi Netanyahu's",
+      "type": "PERSON",
+      "confidence": 0.9105827832221985,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Jumeirah",
+      "type": "LOCATION",
+      "confidence": 0.9042789220809937,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Burj Al Arab",
+      "type": "LOCATION",
+      "confidence": 0.9019677817821503,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "The Washington Post",
+      "type": "ORGANIZATION",
+      "confidence": 0.9007073819637299,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Guerrero",
+      "type": "LOCATION",
+      "confidence": 0.8987481594085693,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER"
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Detained International",
+      "type": "ORGANIZATION",
+      "confidence": 0.8984052121639252,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Money",
+      "type": "MONEY",
+      "confidence": 0.8958326975504557,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "London",
+      "type": "LOCATION",
+      "confidence": 0.894814956188202,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "The Guardian",
+      "type": "ORGANIZATION",
+      "confidence": 0.8920918881893158,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Pegasus",
+      "type": "WEAPON",
+      "confidence": 0.8871225714683533,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "the State of Israel",
+      "type": "LOCATION",
+      "confidence": 0.882698346376419,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Sheikh Mohammed bin Rashid Al Maktoum",
+      "type": "PERSON",
+      "confidence": 0.8761578977108002,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "United Arab Emirates",
+      "type": "LOCATION",
+      "confidence": 0.8742139518260956,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "July 2017",
+      "type": "DATE",
+      "confidence": 0.8693207085132599,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Villa 96",
+      "type": "LOCATION",
+      "confidence": 0.8673891425132751,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER"
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Pegasus",
+      "type": "PRODUCT",
+      "confidence": 0.8655270763805935,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Saudi Arabia",
+      "type": "LOCATION",
+      "confidence": 0.8651086608568828,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "El Crimen Organizado",
+      "type": "ORGANIZATION",
+      "confidence": 0.8650904417037965,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "8200",
+      "type": "MILITARY_UNIT",
+      "confidence": 0.8608774542808533,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER"
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Forbidden Stories",
+      "type": "ORGANIZATION",
+      "confidence": 0.8565719902515412,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Cecilio",
+      "type": "PERSON",
+      "confidence": 0.8561633229255676,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER"
+      },
+      "timestamp": null
+    },
+    {
+      "name": "State Visit",
+      "type": "EVENT",
+      "confidence": 0.854596883058548,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "3rd of August 2020",
+      "type": "DATE",
+      "confidence": 0.8531478226184845,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Ancien Ministre",
+      "type": "PERSON",
+      "confidence": 0.852120578289032,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER"
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Morocco",
+      "type": "LOCATION",
+      "confidence": 0.8516488462686539,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "14",
+      "type": "CARDINAL",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "17",
+      "type": "CARDINAL",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "18-Year-Old",
+      "type": "DATE",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "8200",
+      "type": "CARDINAL",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Actif Aujourd'Hui Et",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Afirmar Categ\u00f3ricamente Que",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Aussi Bien",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Bah",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Bien",
+      "type": "LOCATION",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Bien Eu",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Bien \u00c9t\u00e9 Cibl\u00e9 Par Le Client",
+      "type": "ORGANIZATION",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "British",
+      "type": "GROUP",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Buenas",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "C'Est De Lui \u00c9crire",
+      "type": "ORGANIZATION",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Cometido El Asesinato",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Cuando",
+      "type": "LOCATION",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Dans",
+      "type": "GROUP",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "De acuerdo",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "De acuerdo",
+      "type": "ORGANIZATION",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "de Guerrero",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "De Violencia",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Del Del Narcotr\u00e1fico",
+      "type": "FACILITY",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Despu\u00e9s de eso",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Discuter De Ce",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Donc",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "D\u00edas",
+      "type": "LOCATION",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Eight days",
+      "type": "DATE",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "El Gobierno",
+      "type": "ORGANIZATION",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "el grupo del Tequilero",
+      "type": "ORGANIZATION",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "El Periodista",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "El Que",
+      "type": "LOCATION",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "El Que Fue Asesinado",
+      "type": "ORGANIZATION",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "El Reporte De La",
+      "type": "ORGANIZATION",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "El Tema Que",
+      "type": "ORGANIZATION",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Entregaran Su Camioneta",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Esa Lista",
+      "type": "LOCATION",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Estamos Solos",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Eu L'Air",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Every Day",
+      "type": "DATE",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "First",
+      "type": "ORDINAL",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Five",
+      "type": "CARDINAL",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Fran\u00e7ois de Rugy",
+      "type": "ORGANIZATION",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Global Spyware Scandal",
+      "type": "FACILITY",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Idf",
+      "type": "ORGANIZATION",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Il A Il A Fini Par Accepter Et",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Il m'a",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Il n'a",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Il se trouve",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Indian",
+      "type": "GROUP",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "iPhone",
+      "type": "ORGANIZATION",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Israeli",
+      "type": "GROUP",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Jamais Acc\u00e8s",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Just Three Weeks",
+      "type": "DATE",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "L'A Bien Re\u00e7u",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "l'\u00c9lys\u00e9e",
+      "type": "ORGANIZATION",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "La Lista",
+      "type": "FACILITY",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "La Liste",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Las autoridades",
+      "type": "LOCATION",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Latifa",
+      "type": "ORGANIZATION",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Le num\u00e9ro de t\u00e9l\u00e9phone qui est",
+      "type": "ORGANIZATION",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Le Num\u00e9ro \u00c9tait",
+      "type": "ORGANIZATION",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Los Tres",
+      "type": "LOCATION",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Lui Ai Annonc\u00e9 Le Pays",
+      "type": "ORGANIZATION",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Mais C'Est",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Mani\u00e8re De Le",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Mensaje Anticipado De Lo",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "mon Dieu",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Monsieur le Pr\u00e9sident de la R\u00e9publique",
+      "type": "ORGANIZATION",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "More than 15,000",
+      "type": "CARDINAL",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Moroccan",
+      "type": "GROUP",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Mostrar El",
+      "type": "ORGANIZATION",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Muy",
+      "type": "ORGANIZATION",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "M\u00e1s Impactadas",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "N'Y",
+      "type": "GROUP",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Nada M\u00e1s Fue Pues",
+      "type": "ORGANIZATION",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Obtuvo De El",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "One",
+      "type": "CARDINAL",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Ouais",
+      "type": "ORGANIZATION",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Palestinians",
+      "type": "GROUP",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Pero",
+      "type": "PRODUCT",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Qu'Il",
+      "type": "ORGANIZATION",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Qu'Il Va",
+      "type": "PRODUCT",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Que Ya Hab\u00eda Llegado Pr\u00e1cticamente Casi Muerto Pues",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Qu\u00e9",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Several Years Ago",
+      "type": "DATE",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Sms",
+      "type": "ORGANIZATION",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "That week",
+      "type": "DATE",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "The Days",
+      "type": "DATE",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "the Dubai Princess",
+      "type": "LAW",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "The Next Day",
+      "type": "DATE",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "The several hours",
+      "type": "TIME",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Tiene Segura Su Vida",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Toda Aturdida",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Todas",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Two",
+      "type": "CARDINAL",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Uzi",
+      "type": "LOCATION",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Va",
+      "type": "LOCATION",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Vez En Mi Vida",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Villa 96",
+      "type": "ORGANIZATION",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Votre Droit Le",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Ya Al",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Ya como",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Ya De Regreso Despu\u00e9s De Estar",
+      "type": "PERSON",
+      "confidence": 0.85,
+      "source": "unknown",
+      "properties": {},
+      "timestamp": null
+    },
+    {
+      "name": "Indian Ocean",
+      "type": "LOCATION",
+      "confidence": 0.8492078214883805,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Beach",
+      "type": "LOCATION",
+      "confidence": 0.8434006452560425,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "NSO Group",
+      "type": "ORGANIZATION",
+      "confidence": 0.8424527114087884,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Sheikh Muhammad",
+      "type": "PERSON",
+      "confidence": 0.8422770082950592,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "M\u00e9xico",
+      "type": "LOCATION",
+      "confidence": 0.8335582613945007,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER"
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Indian special forces",
+      "type": "ORGANIZATION",
+      "confidence": 0.8321250677108765,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER"
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Mexico",
+      "type": "LOCATION",
+      "confidence": 0.8250568389892579,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "February 2018",
+      "type": "DATE",
+      "confidence": 0.8248274505138398,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "European Union",
+      "type": "ORGANIZATION",
+      "confidence": 0.819566187262535,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "iPhone",
+      "type": "PRODUCT",
+      "confidence": 0.8156996369361877,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER"
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Yacht",
+      "type": "PRODUCT",
+      "confidence": 0.8155770897865295,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Polic\u00eda",
+      "type": "ORGANIZATION",
+      "confidence": 0.8148112893104553,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER"
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Ministre Qui N'Est",
+      "type": "PERSON",
+      "confidence": 0.8146263837814331,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Journalists",
+      "type": "PERSON",
+      "confidence": 0.8142533103624979,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Someone From Your Family",
+      "type": "PERSON",
+      "confidence": 0.8139900118112564,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Tierra Caliente",
+      "type": "LOCATION",
+      "confidence": 0.8048610687255859,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER"
+      },
+      "timestamp": null
+    },
+    {
+      "name": "8200",
+      "type": "ORGANIZATION",
+      "confidence": 0.8024584054946899,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER"
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Num\u00e9ro De T\u00e9l\u00e9phone",
+      "type": "PRODUCT",
+      "confidence": 0.7888246774673462,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Phone",
+      "type": "TECHNOLOGY",
+      "confidence": 0.7816095650196075,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Pegasus",
+      "type": "TECHNOLOGY",
+      "confidence": 0.7743802269299825,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "De La Relaci\u00f3n Que Hab\u00eda",
+      "type": "PERSON",
+      "confidence": 0.7697970708211264,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Hamas",
+      "type": "ORGANIZATION",
+      "confidence": 0.7637196063995362,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Forbidden Films",
+      "type": "PERSON",
+      "confidence": 0.7592082182566324,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Israel Defense Forces",
+      "type": "ORGANIZATION",
+      "confidence": 0.7578959047794342,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "\u00c9lys\u00e9e",
+      "type": "LOCATION",
+      "confidence": 0.7544720967610677,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Israeli Defense Ministry",
+      "type": "ORGANIZATION",
+      "confidence": 0.7533994495868683,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "3:00 A.M.",
+      "type": "TIME",
+      "confidence": 0.7500864148139954,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Secret D\u00e9fense",
+      "type": "ORGANIZATION",
+      "confidence": 0.7405810356140137,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER"
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Estado",
+      "type": "LOCATION",
+      "confidence": 0.7399191737174988,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Activists",
+      "type": "PERSON",
+      "confidence": 0.7346024513244629,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER"
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Jet Skis",
+      "type": "PRODUCT",
+      "confidence": 0.7278751134872437,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER"
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Person",
+      "type": "PERSON",
+      "confidence": 0.7272083014249802,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Sms",
+      "type": "PROTOCOL",
+      "confidence": 0.7176817655563354,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Lawyers",
+      "type": "PERSON",
+      "confidence": 0.7172386646270752,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER"
+      },
+      "timestamp": null
+    },
+    {
+      "name": "World",
+      "type": "LOCATION",
+      "confidence": 0.7117834448814392,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "We",
+      "type": "PERSON",
+      "confidence": 0.701314377784729,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Pegasus Project",
+      "type": "ORGANIZATION",
+      "confidence": 0.700539368391037,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Technology",
+      "type": "TECHNOLOGY",
+      "confidence": 0.95,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Forbidden Films",
+      "type": "ORGANIZATION",
+      "confidence": 0.95,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER"
+      },
+      "timestamp": null
+    },
+    {
+      "name": "People",
+      "type": "PERSON",
+      "confidence": 0.95,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER",
+        "sources": [
+          "GLiNER"
+        ]
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Country",
+      "type": "LOCATION",
+      "confidence": 0.95,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER"
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Frontline",
+      "type": "ORGANIZATION",
+      "confidence": 0.95,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER"
+      },
+      "timestamp": null
+    },
+    {
+      "name": "Global Spyware Scandal",
+      "type": "EVENT",
+      "confidence": 0.95,
+      "source": "unknown",
+      "properties": {
+        "source": "GLiNER"
+      },
+      "timestamp": null
+    }
+  ],
+  "topics": [
+    {
+      "name": "Cyber Espionage",
+      "confidence": 0.85
+    },
+    {
+      "name": "Human Rights Violations",
+      "confidence": 0.85
+    },
+    {
+      "name": "Government Surveillance",
+      "confidence": 0.85
+    },
+    {
+      "name": "Pegasus Spyware",
+      "confidence": 0.85
+    },
+    {
+      "name": "NSO Group",
+      "confidence": 0.85
+    },
+    {
+      "name": "Journalism Investigations",
+      "confidence": 0.85
+    },
+    {
+      "name": "National Security",
+      "confidence": 0.85
+    },
+    {
+      "name": "Political Targeting",
+      "confidence": 0.85
+    },
+    {
+      "name": "Digital Privacy",
+      "confidence": 0.85
+    },
+    {
+      "name": "Israeli Technology",
+      "confidence": 0.85
+    }
+  ],
+  "key_facts": [
+    "The investigation into Pegasus is described as a two-part collaboration with Forbidden Films.",
+    "NSO was established to make the world safer but developed powerful spyware, Pegasus.",
+    "Pegasus is characterized as a military weapon used against civilians globally, with no control over its use by countries.",
+    "The power of Pegasus is described as 'intoxicating' due to its ability to infiltrate most people's phones undetected.",
+    "Pegasus allows surveillance of emails, encrypted communication, and everything a user sees or watches."
+  ]
+}

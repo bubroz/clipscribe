@@ -60,6 +60,11 @@ class MultiVideoProcessor:
         )
         self.timeline_validator = TimelineContextValidator()
         
+        # Circuit breaker for date extraction to prevent infinite loops
+        self.date_extraction_failures = 0
+        self.max_date_extraction_failures = 5
+        self.date_extraction_disabled = False
+        
         # AI validation setup - using Pro for all multi-video intelligence
         if use_ai_validation:
             try:
@@ -1017,6 +1022,16 @@ class MultiVideoProcessor:
         if not self.use_ai_validation:
             return None
 
+        # Circuit breaker: disable date extraction if too many failures
+        if self.date_extraction_disabled:
+            logger.debug("Date extraction disabled due to circuit breaker")
+            return None
+
+        # Skip date extraction for very long text to avoid timeouts
+        if len(text) > 1000:
+            logger.warning(f"Skipping date extraction for long text ({len(text)} chars)")
+            return None
+
         prompt = f"""
         Analyze the following text and extract the single most specific date mentioned.
         The current year is {datetime.now().year}.
@@ -1035,32 +1050,76 @@ class MultiVideoProcessor:
         - If a relative date is mentioned (e.g., "last Tuesday"), calculate the actual date.
         - If no specific date is found, respond with the single word: "None".
         """
-        try:
-            response = await self.ai_model.generate_content_async(prompt)
-            response_text = response.text.strip()
+        
+        max_retries = 2  # Reduced from infinite retries
+        retry_delay = 5   # seconds
+        
+        for attempt in range(max_retries):
+            try:
+                # Use shorter timeout for date extraction
+                response = await asyncio.wait_for(
+                    self.ai_model.generate_content_async(prompt), 
+                    timeout=30.0  # 30 second timeout
+                )
+                response_text = response.text.strip()
 
-            if response_text.lower() == "none":
+                if response_text.lower() == "none":
+                    return None
+
+                # Clean the response text to ensure it's valid JSON
+                clean_json_text = response_text.strip().replace('`', '')
+                if clean_json_text.startswith('json'):
+                    clean_json_text = clean_json_text[4:]
+                
+                data = json.loads(clean_json_text)
+
+                return ExtractedDate(
+                    parsed_date=datetime.fromisoformat(data["parsed_date"]),
+                    original_text=data["original_text"],
+                    confidence=float(data["confidence"]),
+                    source=source_type
+                )
+                
+            except asyncio.TimeoutError:
+                logger.warning(f"Date extraction timeout (attempt {attempt + 1}/{max_retries}) for: {text[:100]}...")
+                self.date_extraction_failures += 1
+                
+                if self.date_extraction_failures >= self.max_date_extraction_failures:
+                    self.date_extraction_disabled = True
+                    logger.error(f"Date extraction disabled after {self.date_extraction_failures} failures")
+                    return None
+                
+                if attempt < max_retries - 1:
+                    await asyncio.sleep(retry_delay)
+                    continue
+                else:
+                    logger.error(f"Date extraction failed after {max_retries} attempts - skipping")
+                    return None
+                    
+            except (json.JSONDecodeError, KeyError, ValueError) as e:
+                logger.warning(f"Could not parse date from LLM response: {e}")
                 return None
-
-            # Clean the response text to ensure it's valid JSON
-            clean_json_text = response_text.strip().replace('`', '')
-            if clean_json_text.startswith('json'):
-                clean_json_text = clean_json_text[4:]
-            
-            data = json.loads(clean_json_text)
-
-            return ExtractedDate(
-                parsed_date=datetime.fromisoformat(data["parsed_date"]),
-                original_text=data["original_text"],
-                confidence=float(data["confidence"]),
-                source=source_type
-            )
-        except (json.JSONDecodeError, KeyError, ValueError) as e:
-            logger.warning(f"Could not parse date from LLM response: {e}. Response was: '{response.text[:100]}'")
-            return None
-        except Exception as e:
-            logger.error(f"An unexpected error occurred during date extraction: {e}")
-            return None
+                
+            except Exception as e:
+                logger.error(f"An unexpected error occurred during date extraction: {e}")
+                if "504" in str(e) or "Deadline Exceeded" in str(e):
+                    self.date_extraction_failures += 1
+                    
+                    if self.date_extraction_failures >= self.max_date_extraction_failures:
+                        self.date_extraction_disabled = True
+                        logger.error(f"Date extraction disabled after {self.date_extraction_failures} failures")
+                        return None
+                    
+                    logger.warning(f"API timeout (attempt {attempt + 1}/{max_retries}) - retrying...")
+                    if attempt < max_retries - 1:
+                        await asyncio.sleep(retry_delay)
+                        continue
+                    else:
+                        logger.error(f"Date extraction failed after {max_retries} timeout attempts - skipping")
+                        return None
+                else:
+                    # Non-timeout error, don't retry
+                    return None
 
     async def _synthesize_event_timeline(
         self, 

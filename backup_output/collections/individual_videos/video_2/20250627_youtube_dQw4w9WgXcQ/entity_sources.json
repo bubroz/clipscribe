@@ -1,0 +1,135 @@
+{
+  "summary": {
+    "total_entities": 4,
+    "normalization_applied": true,
+    "normalization_stats": {
+      "total_normalized": 0,
+      "entities_with_multiple_sources": 4,
+      "entities_with_aliases": 0
+    },
+    "by_source": {
+      "GLiNER": {
+        "count": 4,
+        "percentage": 100.0
+      }
+    },
+    "by_type": {
+      "GAME": 1,
+      "PERSON": 2,
+      "SYMPTOM": 1
+    },
+    "extraction_methods": {
+      "SpaCy": "Basic Named Entity Recognition (free, local)",
+      "GLiNER": "Custom entity detection (local model)",
+      "REBEL": "Relationship extraction (local model)",
+      "Combined": "Entities found by multiple methods and normalized"
+    },
+    "quality_metrics": {
+      "average_confidence": 0.888,
+      "high_confidence_entities": 3,
+      "normalized_entities": 0
+    }
+  },
+  "all_entities": [
+    {
+      "name": "Game",
+      "type": "GAME",
+      "confidence": 0.915,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "You",
+      "type": "PERSON",
+      "confidence": 0.739,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "We",
+      "type": "PERSON",
+      "confidence": 0.95,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Aching",
+      "type": "SYMPTOM",
+      "confidence": 0.95,
+      "source": "GLiNER",
+      "extraction_methods": [
+        "GLiNER"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    }
+  ],
+  "by_source": {
+    "GLiNER": [
+      {
+        "name": "Game",
+        "type": "GAME",
+        "confidence": 0.915,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "You",
+        "type": "PERSON",
+        "confidence": 0.739,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "We",
+        "type": "PERSON",
+        "confidence": 0.95,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Aching",
+        "type": "SYMPTOM",
+        "confidence": 0.95,
+        "source": "GLiNER",
+        "extraction_methods": [
+          "GLiNER"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      }
+    ]
+  }
+}

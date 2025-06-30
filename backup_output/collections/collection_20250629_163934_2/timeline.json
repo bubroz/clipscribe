@@ -1,0 +1,1366 @@
+{
+  "timeline_id": "timeline_collection_20250629_163934_2",
+  "collection_id": "collection_20250629_163934_2",
+  "events": [
+    {
+      "event_id": "evt_6ZVj1_SE4Mo_0",
+      "timestamp": "2018-01-01T00:00:00",
+      "description": "Claudio Ganyeri's expertise was indispensable for detecting Pegasus traces in infected phones. Context: The methodologies and tools developed under his guidance allowed for the systematic and verifiable detection of Pegasus, transforming anecdotal evidence into scientifically backed findings.",
+      "source_video_id": "6ZVj1_SE4Mo",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 0,
+      "involved_entities": [
+        "Jamal",
+        "Jamal Khashoggi",
+        "Khashoggi",
+        "Pegasus",
+        "Pegasus Spyware",
+        "Spy",
+        "Spyware"
+      ],
+      "confidence": 1.0,
+      "extracted_date": {
+        "parsed_date": "2018-01-01T00:00:00",
+        "original_text": "2018",
+        "confidence": 1.0,
+        "source": "key_point_content"
+      },
+      "date_source": "key_point_content"
+    },
+    {
+      "event_id": "evt_xYMWTXIkANM_264",
+      "timestamp": "2020-08-03T00:00:00",
+      "description": "David Haigh was infected with Pegasus on August 3, 2020, even while on British soil.",
+      "source_video_id": "xYMWTXIkANM",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 264,
+      "involved_entities": [
+        "British",
+        "David Haigh",
+        "Pegasus"
+      ],
+      "confidence": 0.95,
+      "extracted_date": {
+        "parsed_date": "2020-08-03T00:00:00",
+        "original_text": "August 3, 2020",
+        "confidence": 1.0,
+        "source": "key_point_content"
+      },
+      "date_source": "key_point_content"
+    },
+    {
+      "event_id": "evt_6ZVj1_SE4Mo_0",
+      "timestamp": "2021-07-01T00:00:00",
+      "description": "Claudio Ganyeri's expertise was indispensable for detecting Pegasus traces in infected phones. Context: The methodologies and tools developed under his guidance allowed for the systematic and verifiable detection of Pegasus, transforming anecdotal evidence into scientifically backed findings.",
+      "source_video_id": "6ZVj1_SE4Mo",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 0,
+      "involved_entities": [
+        "Investigation",
+        "July 2021",
+        "One"
+      ],
+      "confidence": 1.0,
+      "extracted_date": {
+        "parsed_date": "2021-07-01T00:00:00",
+        "original_text": "July 2021",
+        "confidence": 1.0,
+        "source": "key_point_content"
+      },
+      "date_source": "key_point_content"
+    },
+    {
+      "event_id": "evt_6ZVj1_SE4Mo_0",
+      "timestamp": "2023-01-03T19:00:08",
+      "description": "Claudio Ganyeri's expertise was indispensable for detecting Pegasus traces in infected phones. Context: The methodologies and tools developed under his guidance allowed for the systematic and verifiable detection of Pegasus, transforming anecdotal evidence into scientifically backed findings.",
+      "source_video_id": "6ZVj1_SE4Mo",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 0,
+      "involved_entities": [
+        "Activists",
+        "Journalists",
+        "Pegasus"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_6ZVj1_SE4Mo_0",
+      "timestamp": "2023-01-03T19:00:08",
+      "description": "Claudio Ganyeri's expertise was indispensable for detecting Pegasus traces in infected phones. Context: The methodologies and tools developed under his guidance allowed for the systematic and verifiable detection of Pegasus, transforming anecdotal evidence into scientifically backed findings.",
+      "source_video_id": "6ZVj1_SE4Mo",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 0,
+      "involved_entities": [
+        "Forbidden Films",
+        "Frontline",
+        "Global Spyware Scandal",
+        "Investigation",
+        "Pegasus",
+        "Spy",
+        "Spyware",
+        "Two"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_6ZVj1_SE4Mo_0",
+      "timestamp": "2023-01-03T19:00:08",
+      "description": "Claudio Ganyeri's expertise was indispensable for detecting Pegasus traces in infected phones. Context: The methodologies and tools developed under his guidance allowed for the systematic and verifiable detection of Pegasus, transforming anecdotal evidence into scientifically backed findings.",
+      "source_video_id": "6ZVj1_SE4Mo",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 0,
+      "involved_entities": [
+        "World"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_6ZVj1_SE4Mo_0",
+      "timestamp": "2023-01-03T19:00:08",
+      "description": "Claudio Ganyeri's expertise was indispensable for detecting Pegasus traces in infected phones. Context: The methodologies and tools developed under his guidance allowed for the systematic and verifiable detection of Pegasus, transforming anecdotal evidence into scientifically backed findings.",
+      "source_video_id": "6ZVj1_SE4Mo",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 0,
+      "involved_entities": [
+        "Military Weapon",
+        "Pegasus",
+        "Pegasus Spyware",
+        "Spy",
+        "Spyware",
+        "We"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_6ZVj1_SE4Mo_0",
+      "timestamp": "2023-01-03T19:00:08",
+      "description": "Claudio Ganyeri's expertise was indispensable for detecting Pegasus traces in infected phones. Context: The methodologies and tools developed under his guidance allowed for the systematic and verifiable detection of Pegasus, transforming anecdotal evidence into scientifically backed findings.",
+      "source_video_id": "6ZVj1_SE4Mo",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 0,
+      "involved_entities": [
+        "Pegasus"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_6ZVj1_SE4Mo_0",
+      "timestamp": "2023-01-03T19:00:08",
+      "description": "Claudio Ganyeri's expertise was indispensable for detecting Pegasus traces in infected phones. Context: The methodologies and tools developed under his guidance allowed for the systematic and verifiable detection of Pegasus, transforming anecdotal evidence into scientifically backed findings.",
+      "source_video_id": "6ZVj1_SE4Mo",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 0,
+      "involved_entities": [
+        "George Orwell",
+        "One",
+        "Phone",
+        "Surveillance",
+        "Va",
+        "We"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_6ZVj1_SE4Mo_0",
+      "timestamp": "2023-01-03T19:00:08",
+      "description": "Claudio Ganyeri's expertise was indispensable for detecting Pegasus traces in infected phones. Context: The methodologies and tools developed under his guidance allowed for the systematic and verifiable detection of Pegasus, transforming anecdotal evidence into scientifically backed findings.",
+      "source_video_id": "6ZVj1_SE4Mo",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 0,
+      "involved_entities": [
+        "Pegasus",
+        "Technology"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_6ZVj1_SE4Mo_0",
+      "timestamp": "2023-01-03T19:00:08",
+      "description": "Claudio Ganyeri's expertise was indispensable for detecting Pegasus traces in infected phones. Context: The methodologies and tools developed under his guidance allowed for the systematic and verifiable detection of Pegasus, transforming anecdotal evidence into scientifically backed findings.",
+      "source_video_id": "6ZVj1_SE4Mo",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 0,
+      "involved_entities": [
+        "Investigation",
+        "Surveillance",
+        "We"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_6ZVj1_SE4Mo_0",
+      "timestamp": "2023-01-03T19:00:08",
+      "description": "Claudio Ganyeri's expertise was indispensable for detecting Pegasus traces in infected phones. Context: The methodologies and tools developed under his guidance allowed for the systematic and verifiable detection of Pegasus, transforming anecdotal evidence into scientifically backed findings.",
+      "source_video_id": "6ZVj1_SE4Mo",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 0,
+      "involved_entities": [
+        "17",
+        "Investigation",
+        "Le Monde",
+        "The Guardian",
+        "The Washington Post",
+        "Washington"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_6ZVj1_SE4Mo_0",
+      "timestamp": "2023-01-03T19:00:08",
+      "description": "Claudio Ganyeri's expertise was indispensable for detecting Pegasus traces in infected phones. Context: The methodologies and tools developed under his guidance allowed for the systematic and verifiable detection of Pegasus, transforming anecdotal evidence into scientifically backed findings.",
+      "source_video_id": "6ZVj1_SE4Mo",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 0,
+      "involved_entities": [
+        "Activists",
+        "Journalists",
+        "Lawyers",
+        "Pegasus",
+        "Pegasus Spyware",
+        "Spy",
+        "Spyware"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_6ZVj1_SE4Mo_0",
+      "timestamp": "2023-01-03T19:00:08",
+      "description": "Claudio Ganyeri's expertise was indispensable for detecting Pegasus traces in infected phones. Context: The methodologies and tools developed under his guidance allowed for the systematic and verifiable detection of Pegasus, transforming anecdotal evidence into scientifically backed findings.",
+      "source_video_id": "6ZVj1_SE4Mo",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 0,
+      "involved_entities": [
+        "2016",
+        "Investigation",
+        "One",
+        "Phone"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_6ZVj1_SE4Mo_0",
+      "timestamp": "2023-01-03T19:00:08",
+      "description": "Claudio Ganyeri's expertise was indispensable for detecting Pegasus traces in infected phones. Context: The methodologies and tools developed under his guidance allowed for the systematic and verifiable detection of Pegasus, transforming anecdotal evidence into scientifically backed findings.",
+      "source_video_id": "6ZVj1_SE4Mo",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 0,
+      "involved_entities": [
+        "Country",
+        "One",
+        "Phone"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_6ZVj1_SE4Mo_0",
+      "timestamp": "2023-01-03T19:00:08",
+      "description": "Claudio Ganyeri's expertise was indispensable for detecting Pegasus traces in infected phones. Context: The methodologies and tools developed under his guidance allowed for the systematic and verifiable detection of Pegasus, transforming anecdotal evidence into scientifically backed findings.",
+      "source_video_id": "6ZVj1_SE4Mo",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 0,
+      "involved_entities": [
+        "One",
+        "Phone"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_6ZVj1_SE4Mo_0",
+      "timestamp": "2023-01-03T19:00:08",
+      "description": "Claudio Ganyeri's expertise was indispensable for detecting Pegasus traces in infected phones. Context: The methodologies and tools developed under his guidance allowed for the systematic and verifiable detection of Pegasus, transforming anecdotal evidence into scientifically backed findings.",
+      "source_video_id": "6ZVj1_SE4Mo",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 0,
+      "involved_entities": [
+        "One",
+        "Pegasus",
+        "Pegasus Spyware",
+        "Phone",
+        "Spy",
+        "Spyware",
+        "State"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_6ZVj1_SE4Mo_0",
+      "timestamp": "2023-01-03T19:00:08",
+      "description": "Claudio Ganyeri's expertise was indispensable for detecting Pegasus traces in infected phones. Context: The methodologies and tools developed under his guidance allowed for the systematic and verifiable detection of Pegasus, transforming anecdotal evidence into scientifically backed findings.",
+      "source_video_id": "6ZVj1_SE4Mo",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 0,
+      "involved_entities": [
+        "10",
+        "One",
+        "Phone"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_6ZVj1_SE4Mo_0",
+      "timestamp": "2023-01-03T19:00:08",
+      "description": "Claudio Ganyeri's expertise was indispensable for detecting Pegasus traces in infected phones. Context: The methodologies and tools developed under his guidance allowed for the systematic and verifiable detection of Pegasus, transforming anecdotal evidence into scientifically backed findings.",
+      "source_video_id": "6ZVj1_SE4Mo",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 0,
+      "involved_entities": [
+        "Android",
+        "One",
+        "Pegasus",
+        "Phone",
+        "iPhone",
+        "iPhones"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_6ZVj1_SE4Mo_0",
+      "timestamp": "2023-01-03T19:00:08",
+      "description": "Claudio Ganyeri's expertise was indispensable for detecting Pegasus traces in infected phones. Context: The methodologies and tools developed under his guidance allowed for the systematic and verifiable detection of Pegasus, transforming anecdotal evidence into scientifically backed findings.",
+      "source_video_id": "6ZVj1_SE4Mo",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 0,
+      "involved_entities": [
+        "Geolocation",
+        "One",
+        "Pegasus",
+        "Phone",
+        "Signal",
+        "WhatsApp"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_6ZVj1_SE4Mo_0",
+      "timestamp": "2023-01-03T19:00:08",
+      "description": "Claudio Ganyeri's expertise was indispensable for detecting Pegasus traces in infected phones. Context: The methodologies and tools developed under his guidance allowed for the systematic and verifiable detection of Pegasus, transforming anecdotal evidence into scientifically backed findings.",
+      "source_video_id": "6ZVj1_SE4Mo",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 0,
+      "involved_entities": [
+        "One",
+        "Pegasus",
+        "Phone"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_6ZVj1_SE4Mo_0",
+      "timestamp": "2023-01-03T19:00:08",
+      "description": "Claudio Ganyeri's expertise was indispensable for detecting Pegasus traces in infected phones. Context: The methodologies and tools developed under his guidance allowed for the systematic and verifiable detection of Pegasus, transforming anecdotal evidence into scientifically backed findings.",
+      "source_video_id": "6ZVj1_SE4Mo",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 0,
+      "involved_entities": [
+        "One",
+        "Phone",
+        "Surveillance"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_6ZVj1_SE4Mo_0",
+      "timestamp": "2023-01-03T19:00:08",
+      "description": "Claudio Ganyeri's expertise was indispensable for detecting Pegasus traces in infected phones. Context: The methodologies and tools developed under his guidance allowed for the systematic and verifiable detection of Pegasus, transforming anecdotal evidence into scientifically backed findings.",
+      "source_video_id": "6ZVj1_SE4Mo",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 0,
+      "involved_entities": [
+        "Investigation",
+        "The Guardian",
+        "The Washington Post",
+        "Washington"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_6ZVj1_SE4Mo_0",
+      "timestamp": "2023-01-03T19:00:08",
+      "description": "Claudio Ganyeri's expertise was indispensable for detecting Pegasus traces in infected phones. Context: The methodologies and tools developed under his guidance allowed for the systematic and verifiable detection of Pegasus, transforming anecdotal evidence into scientifically backed findings.",
+      "source_video_id": "6ZVj1_SE4Mo",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 0,
+      "involved_entities": [
+        "Investigation",
+        "One",
+        "Phone"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_6ZVj1_SE4Mo_0",
+      "timestamp": "2023-01-03T19:00:08",
+      "description": "Claudio Ganyeri's expertise was indispensable for detecting Pegasus traces in infected phones. Context: The methodologies and tools developed under his guidance allowed for the systematic and verifiable detection of Pegasus, transforming anecdotal evidence into scientifically backed findings.",
+      "source_video_id": "6ZVj1_SE4Mo",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 0,
+      "involved_entities": [],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_6ZVj1_SE4Mo_0",
+      "timestamp": "2023-01-03T19:00:08",
+      "description": "Claudio Ganyeri's expertise was indispensable for detecting Pegasus traces in infected phones. Context: The methodologies and tools developed under his guidance allowed for the systematic and verifiable detection of Pegasus, transforming anecdotal evidence into scientifically backed findings.",
+      "source_video_id": "6ZVj1_SE4Mo",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 0,
+      "involved_entities": [
+        "One",
+        "Phone",
+        "Tens Of Thousands"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_6ZVj1_SE4Mo_0",
+      "timestamp": "2023-01-03T19:00:08",
+      "description": "Claudio Ganyeri's expertise was indispensable for detecting Pegasus traces in infected phones. Context: The methodologies and tools developed under his guidance allowed for the systematic and verifiable detection of Pegasus, transforming anecdotal evidence into scientifically backed findings.",
+      "source_video_id": "6ZVj1_SE4Mo",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 0,
+      "involved_entities": [
+        "Azerbaijan",
+        "Hungary",
+        "Investigation",
+        "Kazakhstan",
+        "Mexico",
+        "Pegasus"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_6ZVj1_SE4Mo_0",
+      "timestamp": "2023-01-03T19:00:08",
+      "description": "Claudio Ganyeri's expertise was indispensable for detecting Pegasus traces in infected phones. Context: The methodologies and tools developed under his guidance allowed for the systematic and verifiable detection of Pegasus, transforming anecdotal evidence into scientifically backed findings.",
+      "source_video_id": "6ZVj1_SE4Mo",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 0,
+      "involved_entities": [
+        "Forbidden Stories",
+        "Surveillance"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_6ZVj1_SE4Mo_0",
+      "timestamp": "2023-01-03T19:00:08",
+      "description": "Claudio Ganyeri's expertise was indispensable for detecting Pegasus traces in infected phones. Context: The methodologies and tools developed under his guidance allowed for the systematic and verifiable detection of Pegasus, transforming anecdotal evidence into scientifically backed findings.",
+      "source_video_id": "6ZVj1_SE4Mo",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 0,
+      "involved_entities": [
+        "Investigation",
+        "The Guardian"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_6ZVj1_SE4Mo_0",
+      "timestamp": "2023-01-03T19:00:08",
+      "description": "Claudio Ganyeri's expertise was indispensable for detecting Pegasus traces in infected phones. Context: The methodologies and tools developed under his guidance allowed for the systematic and verifiable detection of Pegasus, transforming anecdotal evidence into scientifically backed findings.",
+      "source_video_id": "6ZVj1_SE4Mo",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 0,
+      "involved_entities": [
+        "Surveillance",
+        "World"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_6ZVj1_SE4Mo_0",
+      "timestamp": "2023-01-03T19:00:08",
+      "description": "Claudio Ganyeri's expertise was indispensable for detecting Pegasus traces in infected phones. Context: The methodologies and tools developed under his guidance allowed for the systematic and verifiable detection of Pegasus, transforming anecdotal evidence into scientifically backed findings.",
+      "source_video_id": "6ZVj1_SE4Mo",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 0,
+      "involved_entities": [
+        "We"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_6ZVj1_SE4Mo_0",
+      "timestamp": "2023-01-03T19:00:08",
+      "description": "Claudio Ganyeri's expertise was indispensable for detecting Pegasus traces in infected phones. Context: The methodologies and tools developed under his guidance allowed for the systematic and verifiable detection of Pegasus, transforming anecdotal evidence into scientifically backed findings.",
+      "source_video_id": "6ZVj1_SE4Mo",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 0,
+      "involved_entities": [
+        "$1 Billion",
+        "Va"
+      ],
+      "confidence": 0.5,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_6ZVj1_SE4Mo_0",
+      "timestamp": "2023-01-03T19:00:08",
+      "description": "Claudio Ganyeri's expertise was indispensable for detecting Pegasus traces in infected phones. Context: The methodologies and tools developed under his guidance allowed for the systematic and verifiable detection of Pegasus, transforming anecdotal evidence into scientifically backed findings.",
+      "source_video_id": "6ZVj1_SE4Mo",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 0,
+      "involved_entities": [
+        "Software",
+        "World"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_6ZVj1_SE4Mo_0",
+      "timestamp": "2023-01-03T19:00:08",
+      "description": "Claudio Ganyeri's expertise was indispensable for detecting Pegasus traces in infected phones. Context: The methodologies and tools developed under his guidance allowed for the systematic and verifiable detection of Pegasus, transforming anecdotal evidence into scientifically backed findings.",
+      "source_video_id": "6ZVj1_SE4Mo",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 0,
+      "involved_entities": [
+        "40",
+        "Technology"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_6ZVj1_SE4Mo_0",
+      "timestamp": "2023-01-03T19:00:08",
+      "description": "Claudio Ganyeri's expertise was indispensable for detecting Pegasus traces in infected phones. Context: The methodologies and tools developed under his guidance allowed for the systematic and verifiable detection of Pegasus, transforming anecdotal evidence into scientifically backed findings.",
+      "source_video_id": "6ZVj1_SE4Mo",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 0,
+      "involved_entities": [
+        "10",
+        "The Last 10 Years",
+        "Three"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_6ZVj1_SE4Mo_0",
+      "timestamp": "2023-01-03T19:00:08",
+      "description": "Claudio Ganyeri's expertise was indispensable for detecting Pegasus traces in infected phones. Context: The methodologies and tools developed under his guidance allowed for the systematic and verifiable detection of Pegasus, transforming anecdotal evidence into scientifically backed findings.",
+      "source_video_id": "6ZVj1_SE4Mo",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 0,
+      "involved_entities": [
+        "Sms"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_6ZVj1_SE4Mo_0",
+      "timestamp": "2023-01-03T19:00:08",
+      "description": "Claudio Ganyeri's expertise was indispensable for detecting Pegasus traces in infected phones. Context: The methodologies and tools developed under his guidance allowed for the systematic and verifiable detection of Pegasus, transforming anecdotal evidence into scientifically backed findings.",
+      "source_video_id": "6ZVj1_SE4Mo",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 0,
+      "involved_entities": [
+        "COVID crisis",
+        "Covid",
+        "Investigation",
+        "Paris"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_6ZVj1_SE4Mo_0",
+      "timestamp": "2023-01-03T19:00:08",
+      "description": "Claudio Ganyeri's expertise was indispensable for detecting Pegasus traces in infected phones. Context: The methodologies and tools developed under his guidance allowed for the systematic and verifiable detection of Pegasus, transforming anecdotal evidence into scientifically backed findings.",
+      "source_video_id": "6ZVj1_SE4Mo",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 0,
+      "involved_entities": [
+        "Journalists",
+        "Va"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_6ZVj1_SE4Mo_0",
+      "timestamp": "2023-01-03T19:00:08",
+      "description": "Claudio Ganyeri's expertise was indispensable for detecting Pegasus traces in infected phones. Context: The methodologies and tools developed under his guidance allowed for the systematic and verifiable detection of Pegasus, transforming anecdotal evidence into scientifically backed findings.",
+      "source_video_id": "6ZVj1_SE4Mo",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 0,
+      "involved_entities": [
+        "Journalists",
+        "More Than 80"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_6ZVj1_SE4Mo_0",
+      "timestamp": "2023-01-03T19:00:08",
+      "description": "Claudio Ganyeri's expertise was indispensable for detecting Pegasus traces in infected phones. Context: The methodologies and tools developed under his guidance allowed for the systematic and verifiable detection of Pegasus, transforming anecdotal evidence into scientifically backed findings.",
+      "source_video_id": "6ZVj1_SE4Mo",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 0,
+      "involved_entities": [],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_6ZVj1_SE4Mo_0",
+      "timestamp": "2023-01-03T19:00:08",
+      "description": "Claudio Ganyeri's expertise was indispensable for detecting Pegasus traces in infected phones. Context: The methodologies and tools developed under his guidance allowed for the systematic and verifiable detection of Pegasus, transforming anecdotal evidence into scientifically backed findings.",
+      "source_video_id": "6ZVj1_SE4Mo",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 0,
+      "involved_entities": [
+        "One",
+        "Phone"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_6ZVj1_SE4Mo_0",
+      "timestamp": "2023-01-03T19:00:08",
+      "description": "Claudio Ganyeri's expertise was indispensable for detecting Pegasus traces in infected phones. Context: The methodologies and tools developed under his guidance allowed for the systematic and verifiable detection of Pegasus, transforming anecdotal evidence into scientifically backed findings.",
+      "source_video_id": "6ZVj1_SE4Mo",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 0,
+      "involved_entities": [
+        "One",
+        "Pegasus",
+        "Phone"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_6ZVj1_SE4Mo_0",
+      "timestamp": "2023-01-03T19:00:08",
+      "description": "Claudio Ganyeri's expertise was indispensable for detecting Pegasus traces in infected phones. Context: The methodologies and tools developed under his guidance allowed for the systematic and verifiable detection of Pegasus, transforming anecdotal evidence into scientifically backed findings.",
+      "source_video_id": "6ZVj1_SE4Mo",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 0,
+      "involved_entities": [
+        "Amnesty International Security Lab",
+        "Claudio Ganyeri",
+        "One",
+        "Pegasus",
+        "Phone",
+        "Platform"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_6ZVj1_SE4Mo_0",
+      "timestamp": "2023-01-03T19:00:08",
+      "description": "Claudio Ganyeri's expertise was indispensable for detecting Pegasus traces in infected phones. Context: The methodologies and tools developed under his guidance allowed for the systematic and verifiable detection of Pegasus, transforming anecdotal evidence into scientifically backed findings.",
+      "source_video_id": "6ZVj1_SE4Mo",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 0,
+      "involved_entities": [
+        "Claudio Ganyeri",
+        "One",
+        "Pegasus",
+        "Phone"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_xYMWTXIkANM_0",
+      "timestamp": "2023-01-10T19:00:31",
+      "description": "The investigation into Pegasus is described as a two-part collaboration with Forbidden Films. Context: While Forbidden Stories was the primary journalistic coordinator, 'Forbidden Films' likely refers to a production arm or a specific film company that produced a documentary series, such as 'Forbidden Stories: The Pegasus Project', which could have been released in multiple parts.",
+      "source_video_id": "xYMWTXIkANM",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 0,
+      "involved_entities": [
+        "Forbidden Films",
+        "Investigation",
+        "Pegasus",
+        "Two"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_xYMWTXIkANM_8",
+      "timestamp": "2023-01-10T19:00:31",
+      "description": "NSO was established to make the world safer but developed powerful spyware, Pegasus.",
+      "source_video_id": "xYMWTXIkANM",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 8,
+      "involved_entities": [
+        "Pegasus",
+        "Spy",
+        "Spyware",
+        "We",
+        "World"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_xYMWTXIkANM_12",
+      "timestamp": "2023-01-10T19:00:31",
+      "description": "Pegasus is characterized as a military weapon used against civilians globally, with no control over its use by countries.",
+      "source_video_id": "xYMWTXIkANM",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 12,
+      "involved_entities": [
+        "Military Weapon",
+        "Pegasus",
+        "We"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_xYMWTXIkANM_31",
+      "timestamp": "2023-01-10T19:00:31",
+      "description": "The power of Pegasus is described as 'intoxicating' due to its ability to infiltrate most people's phones undetected.",
+      "source_video_id": "xYMWTXIkANM",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 31,
+      "involved_entities": [
+        "One",
+        "Pegasus",
+        "People",
+        "Phone",
+        "We"
+      ],
+      "confidence": 0.95,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_xYMWTXIkANM_47",
+      "timestamp": "2023-01-10T19:00:31",
+      "description": "Pegasus allows surveillance of emails, encrypted communication, and everything a user sees or watches.",
+      "source_video_id": "xYMWTXIkANM",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 47,
+      "involved_entities": [
+        "Pegasus",
+        "Surveillance"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_xYMWTXIkANM_57",
+      "timestamp": "2023-01-10T19:00:31",
+      "description": "The spyware was used against civil society members, not just terrorists or criminals, suggesting a 'free-for-all'.",
+      "source_video_id": "xYMWTXIkANM",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 57,
+      "involved_entities": [
+        "Spy",
+        "Spyware"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_xYMWTXIkANM_64",
+      "timestamp": "2023-01-10T19:00:31",
+      "description": "A joint investigation by 17 news outlets, including The Washington Post, The Guardian, and Le Monde, along with Forbidden Stories, revealed widespread targeting.",
+      "source_video_id": "xYMWTXIkANM",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 64,
+      "involved_entities": [
+        "17",
+        "Forbidden Stories",
+        "Investigation",
+        "Le Monde",
+        "The Guardian",
+        "The Washington Post",
+        "Washington"
+      ],
+      "confidence": 0.95,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_xYMWTXIkANM_80",
+      "timestamp": "2023-01-10T19:00:31",
+      "description": "NSO claims its software is sold to governments for legitimate purposes like fighting terrorism, but it's seen as a 'go-to spy service for tyrants'.",
+      "source_video_id": "xYMWTXIkANM",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 80,
+      "involved_entities": [
+        "Software",
+        "Spy"
+      ],
+      "confidence": 0.8,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_xYMWTXIkANM_105",
+      "timestamp": "2023-01-10T19:00:31",
+      "description": "Former French minister François de Rugy was identified as a target, with his phone analysis confirming he was targeted by the Kingdom of Morocco.",
+      "source_video_id": "xYMWTXIkANM",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 105,
+      "involved_entities": [
+        "François de Rugy",
+        "Morocco",
+        "One",
+        "Phone"
+      ],
+      "confidence": 0.9,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_xYMWTXIkANM_113",
+      "timestamp": "2023-01-10T19:00:31",
+      "description": "It was revealed that a total of 14 current or former ministers were among those targeted.",
+      "source_video_id": "xYMWTXIkANM",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 113,
+      "involved_entities": [
+        "14",
+        "We"
+      ],
+      "confidence": 0.85,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_xYMWTXIkANM_120",
+      "timestamp": "2023-01-10T19:00:31",
+      "description": "François de Rugy's meeting with the King of Morocco is suggested as a reason for his targeting.",
+      "source_video_id": "xYMWTXIkANM",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 120,
+      "involved_entities": [
+        "François de Rugy",
+        "Morocco"
+      ],
+      "confidence": 0.8,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_xYMWTXIkANM_125",
+      "timestamp": "2023-01-10T19:00:31",
+      "description": "Emmanuel Macron's phone number was found on the list, and an SMS was sent to confirm its activity. Context: Macron subsequently changed his phone and security protocols following the revelations.",
+      "source_video_id": "xYMWTXIkANM",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 125,
+      "involved_entities": [
+        "One",
+        "Phone",
+        "Sms"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_xYMWTXIkANM_147",
+      "timestamp": "2023-01-10T19:00:31",
+      "description": "Élysée services responded to the SMS, confirming the President received it and the phone was active. Context: The Élysée confirmed that President Macron's phone was among those targeted and that he had changed his phone and security measures.",
+      "source_video_id": "xYMWTXIkANM",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 147,
+      "involved_entities": [
+        "One",
+        "Phone",
+        "Sms",
+        "Élysée"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_xYMWTXIkANM_154",
+      "timestamp": "2023-01-10T19:00:31",
+      "description": "An invitation to the Élysée was received from state services to discuss the findings. Context: The French National Agency for the Security of Information Systems (ANSSI) was tasked with investigating the potential infections.",
+      "source_video_id": "xYMWTXIkANM",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 154,
+      "involved_entities": [
+        "State",
+        "Élysée"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_xYMWTXIkANM_158",
+      "timestamp": "2023-01-10T19:00:31",
+      "description": "The meeting at the Élysée conveyed a sense of 'panic' regarding the potential judicial, diplomatic, and security implications of the affair. Context: The French government initiated a national security council meeting to address the issue, underscoring its gravity.",
+      "source_video_id": "xYMWTXIkANM",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 158,
+      "involved_entities": [
+        "Élysée"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_xYMWTXIkANM_169",
+      "timestamp": "2023-01-10T19:00:31",
+      "description": "State experts confirmed attempts or actual infections on phones of several French ministers and high-ranking officials. Context: The French government ordered a review of all government phones and security procedures in response to the revelations.",
+      "source_video_id": "xYMWTXIkANM",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 169,
+      "involved_entities": [
+        "One",
+        "Phone",
+        "State"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_xYMWTXIkANM_174",
+      "timestamp": "2023-01-10T19:00:31",
+      "description": "The analysis results of the French President's phone were classified as 'secret defense' and made inaccessible.",
+      "source_video_id": "xYMWTXIkANM",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 174,
+      "involved_entities": [
+        "One",
+        "Phone",
+        "We"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_xYMWTXIkANM_178",
+      "timestamp": "2023-01-10T19:00:31",
+      "description": "Moroccan dissidents and even the King of Morocco were on the Pegasus list.",
+      "source_video_id": "xYMWTXIkANM",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 178,
+      "involved_entities": [
+        "Moroccan",
+        "Morocco",
+        "Pegasus",
+        "We"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_xYMWTXIkANM_181",
+      "timestamp": "2023-01-10T19:00:31",
+      "description": "NSO sells its technology exclusively to governments and government agencies.",
+      "source_video_id": "xYMWTXIkANM",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 181,
+      "involved_entities": [
+        "Technology"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_xYMWTXIkANM_185",
+      "timestamp": "2023-01-10T19:00:31",
+      "description": "The investigation moved into a 'dangerous space' by discussing one country attacking another using this technology.",
+      "source_video_id": "xYMWTXIkANM",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 185,
+      "involved_entities": [
+        "Country",
+        "Investigation",
+        "One",
+        "Technology"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_xYMWTXIkANM_191",
+      "timestamp": "2023-01-10T19:00:31",
+      "description": "The use of NSO Group's technology reveals insights into the nature of the client government. Context: The specific targets chosen by a government (e.g., journalists, activists vs. terrorists, criminals) and the legal frameworks (or lack thereof) governing its use are key indicators of the client government's nature.",
+      "source_video_id": "xYMWTXIkANM",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 191,
+      "involved_entities": [
+        "Technology"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_xYMWTXIkANM_204",
+      "timestamp": "2023-01-10T19:00:31",
+      "description": "Princess Latifa, daughter of Sheikh Mohammed bin Rashid Al Maktoum of Dubai, was unhappy and incarcerated by her father's regime. Context: Her situation has been a subject of significant international human rights concern, with the UN Human Rights Office calling for proof of life and her release.",
+      "source_video_id": "xYMWTXIkANM",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 204,
+      "involved_entities": [
+        "Dubai",
+        "Latifa",
+        "Princess Latifa",
+        "Sheikh Mohammed bin Rashid Al Maktoum"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_xYMWTXIkANM_213",
+      "timestamp": "2023-01-10T19:00:31",
+      "description": "Princess Latifa recorded a video stating her father would 'kill people to protect his own reputation'. Context: These videos were a major part of the international campaign for her freedom and prompted renewed calls for her well-being to be verified.",
+      "source_video_id": "xYMWTXIkANM",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 213,
+      "involved_entities": [
+        "Latifa",
+        "People",
+        "Princess Latifa"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_xYMWTXIkANM_219",
+      "timestamp": "2023-01-10T19:00:31",
+      "description": "Princess Latifa attempted an escape involving jet skis, a yacht, and a trip to the Indian Ocean. Context: This escape attempt was meticulously planned with the help of her friend Tiina Jauhiainen and former French spy Hervé Jaubert, but it ultimately failed.",
+      "source_video_id": "xYMWTXIkANM",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 219,
+      "involved_entities": [
+        "Indian",
+        "Indian Ocean",
+        "Jet Skis",
+        "Latifa",
+        "Princess Latifa",
+        "Yacht"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_xYMWTXIkANM_230",
+      "timestamp": "2023-01-10T19:00:31",
+      "description": "Princess Latifa's phone number was entered into the Pegasus list the day after she went missing from Dubai. Context: The inclusion of her number on the list suggests that the UAE government may have sought to monitor her communications and those of her support network following her high-profile escape attempt.",
+      "source_video_id": "xYMWTXIkANM",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 230,
+      "involved_entities": [
+        "Dubai",
+        "Latifa",
+        "One",
+        "Pegasus",
+        "Phone",
+        "Princess Latifa",
+        "We"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_xYMWTXIkANM_234",
+      "timestamp": "2023-01-10T19:00:31",
+      "description": "Phone numbers of her friends and associates also appeared on the list as she traveled. Context: This indicates a broader surveillance effort aimed at her support network, likely to track her movements and communications during and after her escape attempt.",
+      "source_video_id": "xYMWTXIkANM",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 234,
+      "involved_entities": [
+        "One",
+        "Phone"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_xYMWTXIkANM_242",
+      "timestamp": "2023-01-10T19:00:31",
+      "description": "Eight days after her escape, Indian special forces boarded the yacht, and Princess Latifa was forcibly returned to Dubai.",
+      "source_video_id": "xYMWTXIkANM",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 242,
+      "involved_entities": [
+        "Dubai",
+        "Eight days",
+        "Indian",
+        "Indian special forces",
+        "Latifa",
+        "Princess Latifa",
+        "Yacht"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_xYMWTXIkANM_248",
+      "timestamp": "2023-01-10T19:00:31",
+      "description": "NSO's technology appears to have been one of the tools used by the state in a 'desperate attempt' to find and kidnap Princess Latifa.",
+      "source_video_id": "xYMWTXIkANM",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 248,
+      "involved_entities": [
+        "Latifa",
+        "One",
+        "Princess Latifa",
+        "State",
+        "Technology"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_xYMWTXIkANM_260",
+      "timestamp": "2023-01-10T19:00:31",
+      "description": "David Haigh's phone, a key figure in the Latifa case, showed Pegasus activity.",
+      "source_video_id": "xYMWTXIkANM",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 260,
+      "involved_entities": [
+        "David Haigh",
+        "Latifa",
+        "One",
+        "Pegasus",
+        "Phone",
+        "We"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_xYMWTXIkANM_272",
+      "timestamp": "2023-01-10T19:00:31",
+      "description": "David Haigh founded 'Detained International' and the 'campaign to free the Dubai Princess, Princess Latifa'.",
+      "source_video_id": "xYMWTXIkANM",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 272,
+      "involved_entities": [
+        "David Haigh",
+        "Detained International",
+        "Dubai",
+        "Latifa",
+        "Princess Latifa",
+        "the Dubai Princess"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_xYMWTXIkANM_279",
+      "timestamp": "2023-01-10T19:00:31",
+      "description": "Princess Latifa messaged David Haigh after her failed escape attempt.",
+      "source_video_id": "xYMWTXIkANM",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 279,
+      "involved_entities": [
+        "David Haigh",
+        "Latifa",
+        "Princess Latifa"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_xYMWTXIkANM_281",
+      "timestamp": "2023-01-10T19:00:31",
+      "description": "Princess Latifa drew pictures of her 'jail villa,' Villa 96 in Jumeirah, Dubai, describing her captivity conditions.",
+      "source_video_id": "xYMWTXIkANM",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 281,
+      "involved_entities": [
+        "Dubai",
+        "Jumeirah",
+        "Latifa",
+        "Princess Latifa",
+        "Villa 96"
+      ],
+      "confidence": 0.9,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_xYMWTXIkANM_296",
+      "timestamp": "2023-01-10T19:00:31",
+      "description": "Her contact with Latifa abruptly stopped the week before David Haigh was hacked.",
+      "source_video_id": "xYMWTXIkANM",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 296,
+      "involved_entities": [
+        "David Haigh",
+        "Latifa",
+        "We"
+      ],
+      "confidence": 0.85,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_xYMWTXIkANM_305",
+      "timestamp": "2023-01-10T19:00:31",
+      "description": "David Haigh had 'dynamite evidence' on his phone, including videos from Latifa, which was intended for media.",
+      "source_video_id": "xYMWTXIkANM",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 305,
+      "involved_entities": [
+        "David Haigh",
+        "Latifa",
+        "One",
+        "Phone"
+      ],
+      "confidence": 0.9,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_xYMWTXIkANM_309",
+      "timestamp": "2023-01-10T19:00:31",
+      "description": "The constant threat of being listened to and watched is a daily fear for those targeted.",
+      "source_video_id": "xYMWTXIkANM",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 309,
+      "involved_entities": [],
+      "confidence": 0.8,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_xYMWTXIkANM_313",
+      "timestamp": "2023-01-10T19:00:31",
+      "description": "There's a call for accountability to prevent NSO and abusive governments from continuing their actions, warning that inaction will lead to worsening future abuses by other companies.",
+      "source_video_id": "xYMWTXIkANM",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 313,
+      "involved_entities": [
+        "Companies"
+      ],
+      "confidence": 0.9,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_xYMWTXIkANM_326",
+      "timestamp": "2023-01-10T19:00:31",
+      "description": "NSO's core strength lies in 'vulnerability researchers' who find ways to overcome sophisticated systems like the iPhone. Context: The term 'zero-day exploits' refers to vulnerabilities unknown to the software vendor, making them highly valuable for surveillance tools like Pegasus.",
+      "source_video_id": "xYMWTXIkANM",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 326,
+      "involved_entities": [
+        "One",
+        "Phone",
+        "iPhone"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    },
+    {
+      "event_id": "evt_xYMWTXIkANM_331",
+      "timestamp": "2023-01-10T19:00:31",
+      "description": "There is a mechanism for recruiting graduates from Israeli army computer unit 8200, which deals with 'offensive cyber' for the Israel Defense Forces, into civilian high-tech. Context: This pipeline from Unit 8200 to the civilian tech sector is a well-documented phenomenon, fostering a robust cybersecurity industry in Israel, which includes both defensive and offensive capabilities.",
+      "source_video_id": "xYMWTXIkANM",
+      "source_video_title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+      "video_timestamp_seconds": 331,
+      "involved_entities": [
+        "8200",
+        "Israel Defense Forces",
+        "Israeli"
+      ],
+      "confidence": 1.0,
+      "extracted_date": null,
+      "date_source": "video_published_date"
+    }
+  ],
+  "summary": "Generated enhanced timeline with 82 events from Video collection of 2 videos from 2023-01-03 to 2023-01-10 covering topics: Pegasus Spyware, NSO Group, Cyber Surveillance, Spyware, Journalism. 23 events validated by external research. 43 events enhanced with additional context. 1 events flagged for potential conflicts. Timeline quality: high (avg confidence: 0.98)."
+}
