@@ -204,7 +204,7 @@ def show_timeline_synthesis(collection_path: Path, intelligence):
             "Timeline View:",
             ["Interactive Chart", "Event List", "Temporal Analytics"],
             help="Choose how to visualize timeline events",
-            key=f"timeline_view_mode_{hash(str(collection_path))}"
+            key=f"timeline_view_mode_{abs(hash(str(collection_path)))}_synthesis_{id(timeline_data)}"
         )
     
     with col2:
@@ -215,7 +215,7 @@ def show_timeline_synthesis(collection_path: Path, intelligence):
             value=0.7,
             step=0.1,
             help="Filter events by confidence threshold",
-            key=f"confidence_filter_{hash(str(collection_path))}"
+            key=f"confidence_filter_{abs(hash(str(collection_path)))}_synthesis_{id(timeline_data)}"
         )
     
     with col3:
@@ -589,7 +589,7 @@ def show_knowledge_synthesis(collection_path: Path, intelligence):
         st.subheader("🔄 Information Flow Maps Available")
         st.success("✅ Information Flow Maps generated for this collection")
         
-        if st.button("View Information Flows", key=f"if_{collection_id}"):
+        if st.button("View Information Flows", key=f"if_{collection_id}_{abs(hash(str(collection_path)))}"):
             st.switch_page("pages/Information_Flows.py")
 
 def main():
