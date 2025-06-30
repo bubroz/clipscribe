@@ -214,8 +214,34 @@ class MultiVideoProcessor:
             collection_summary = await self._generate_collection_summary(videos, unified_entities, cross_video_relationships)
             key_insights = await self._extract_key_insights(videos, unified_entities, cross_video_relationships, topic_evolution)
         
-        # Step 9: Synthesize event timeline
-        consolidated_timeline = await self._synthesize_event_timeline(videos, unified_entities, collection_id)
+        # Step 9: Synthesize event timeline  
+        # TEMPORARY: Skip Timeline v2.0 (components missing/broken - causes 42min fallback)
+        # Generate fast basic timeline instead
+        logger.info("⚡ Generating fast basic timeline (Timeline v2.0 temporarily disabled)")
+        basic_events = []
+        for video in videos:
+            for i, key_point in enumerate(video.key_points[:5]):  # Top 5 key points only
+                event = TimelineEvent(
+                    event_id=f"optimized_{video.metadata.video_id}_{i}",
+                    timestamp=video.metadata.published_at,
+                    description=key_point.text,
+                    source_video_id=video.metadata.video_id,
+                    source_video_title=video.metadata.title,
+                    video_timestamp_seconds=key_point.timestamp,
+                    involved_entities=[],
+                    confidence=key_point.importance,
+                    date_source="video_published_date"
+                )
+                basic_events.append(event)
+        
+        consolidated_timeline = ConsolidatedTimeline(
+            timeline_id=f"timeline_optimized_{collection_id}",
+            collection_id=collection_id,
+            events=basic_events,
+            summary=f"Fast optimized timeline with {len(basic_events)} events (Timeline v2.0 bypassed for speed)",
+            timeline_version="optimized",
+            processing_stats={"optimization_note": "Timeline v2.0 bypassed to prevent 42-minute fallback processing"}
+        )
         
         # Step 10: Generate unified knowledge graph
         unified_knowledge_graph = self._generate_unified_knowledge_graph(unified_entities, cross_video_relationships)
