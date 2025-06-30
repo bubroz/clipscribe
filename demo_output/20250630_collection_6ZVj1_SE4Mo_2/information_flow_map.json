@@ -1,7 +1,7 @@
 {
   "map_id": "flow_map_20250630_collection_6ZVj1_SE4Mo_2",
   "collection_id": "20250630_collection_6ZVj1_SE4Mo_2",
-  "collection_title": "Pegasus Spyware Investigation: Timeline v2.0 Demo",
+  "collection_title": "PERFORMANCE TEST: Optimized Processing",
   "concept_nodes": [
     {
       "node_id": "concept_6ZVj1_SE4Mo_65_0",
@@ -928,36 +928,41 @@
   ],
   "knowledge_bottlenecks": [],
   "information_gaps": [
-    "Human Rights Violations",
+    "Cyber Surveillance",
+    "Political Targeting",
     "Journalism",
-    "Journalism Investigations",
-    "Digital Privacy",
     "Human Rights",
+    "Digital Privacy",
     "Cyber Espionage",
-    "Journalists",
-    "National Security",
-    "Government Surveillance",
-    "Investigative Journalism",
-    "NSO Group",
-    "Claudio Guarnieri,",
-    "Israeli Technology",
     "French",
     "Forbidden Stories'",
-    "Cyber Surveillance",
-    "Digital Security",
-    "Political Targeting",
+    "Human Rights Violations",
     "Former French",
-    "International Relations"
+    "NSO Group",
+    "International Relations",
+    "Digital Security",
+    "Investigative Journalism",
+    "National Security",
+    "Journalism Investigations",
+    "Claudio Guarnieri,",
+    "Israeli Technology",
+    "Journalists",
+    "Government Surveillance"
   ],
   "flow_summary": "Information flows through 1 main pathways with 0 bottlenecks",
   "learning_progression": "Concepts develop through systematic information flow patterns",
   "concept_complexity": "Medium complexity with 2 total flows",
-  "strategic_insights": [],
+  "strategic_insights": [
+    "Concept maturity averages 1.0 across 25 concepts",
+    "Information flow quality averages 0.97 across 2 flows",
+    "Information flow shows systematic development across video collection",
+    "Information architecture enables progressive understanding development"
+  ],
   "overall_coherence": 0.30833333333333335,
   "pedagogical_quality": 0.975,
   "information_density": 0.08,
-  "created_at": "2025-06-30T00:44:46.865388",
+  "created_at": "2025-06-30T01:30:16.382116",
   "total_concepts": 25,
   "total_flows": 2,
-  "synthesis_quality": "AI_ENHANCED"
+  "synthesis_quality": "TEMPLATE"
 }

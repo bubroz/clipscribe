@@ -1,6 +1,6 @@
 {
   "version": "2.3",
-  "created_at": "2025-06-30T00:42:05.352159",
+  "created_at": "2025-06-30T01:30:11.898504",
   "video": {
     "title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
     "url": "https://www.youtube.com/watch?v=6ZVj1_SE4Mo",
@@ -138,13 +138,13 @@
       "path": "transcript.json",
       "format": "json",
       "size": 171539,
-      "sha256": "0d548814157e52df4edd67b50c668747273a4526f5c702b5af625536c15823e5"
+      "sha256": "3bdefaa398eba920544d7f65de1bef5b4613b122038a22aacdabd58a033b75be"
     },
     "metadata": {
       "path": "metadata.json",
       "format": "json",
       "size": 4322,
-      "sha256": "cca85303cae3496a9505055c0880d90f2b802a4063270084b002331f7b7e031b"
+      "sha256": "1e2d77fad6deefdaed0724757362881f11acc75bbb65286d9d4384e71eb50b4b"
     },
     "entities": {
       "path": "entities.json",
@@ -189,8 +189,8 @@
     "report": {
       "path": "report.md",
       "format": "markdown",
-      "size": 15835,
-      "sha256": "a7a7fd818a90e829293c9e5ccb31982316f31ef07c2f090522798b7e248daade",
+      "size": 15700,
+      "sha256": "fff5d44e65c0727b2b45ab55620acd3930866bc94a95e2b3485e425205dc5bec",
       "description": "Human-readable intelligence report"
     },
     "chimera": {

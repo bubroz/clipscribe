@@ -291,7 +291,7 @@ This comprehensive research confirms yt-dlp integration as the game-changing sol
 **From Pegasus Investigation Collection (backup_output/collections/collection_20250629_163934_2/)**
 - **Timeline Events**: 82 real events with temporal intelligence spanning 2018-2021
 - **Cross-Video Entities**: 396 unified entities resolved from 441 individual entities
-- **Information Flows**: 4 cross-video flows with concept evolution tracking
+- **Information Flows**: 4 cross-video flows with 3 clusters and concept evolution
 - **File Sizes**: collection_intelligence.json (929KB), timeline.json (61KB)
 
 ### 🚧 REMAINING WORK
@@ -5744,7 +5744,7 @@ Phase 2 successfully bridges the gap between ClipScribe's powerful CLI capabilit
 
 #### 1. ✅ Streamlit Web Interface (Phase 1 Complete)
 - **Main Dashboard**: Beautiful gradient interface with navigation sidebar, quick stats, and recent activity
-- **Collections Browser**: Complete multi-video collection management with tabbed interface
+- **Collections Browser**: Complete multi-video collection browser with tabbed interface
   - Overview: Collection metrics, summaries, and AI-generated insights
   - Videos: Individual video details and metadata
   - Entities: Cross-video entity analysis and relationships
