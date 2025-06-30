@@ -219,7 +219,7 @@ def show_timeline_synthesis(collection_path: Path, intelligence):
         )
     
     with col3:
-        if st.button("🔍 Enable Web Research", help="Run external validation on timeline events (incurs costs)"):
+        if st.button("🔍 Enable Web Research", help="Run external validation on timeline events (incurs costs)", key=f"enable_web_research_{abs(hash(str(collection_path)))}_timeline"):
             run_timeline_research_validation(collection_path, timeline_data)
     
     # Filter timeline events by confidence
@@ -419,7 +419,7 @@ def run_timeline_research_validation(collection_path: Path, timeline_events):
     
     st.warning("⚠️ This feature will incur additional API costs for external research validation")
     
-    if st.button("Confirm Research Validation", type="primary"):
+    if st.button("Confirm Research Validation", type="primary", key=f"confirm_research_validation_{abs(hash(str(collection_path)))}"):
         progress_bar = st.progress(0)
         status_text = st.empty()
         
@@ -758,19 +758,20 @@ def main():
             col1, col2, col3, col4 = st.columns(4)
             
             with col1:
-                if st.button("📄 Download JSON"):
+                if st.button("📄 Download JSON", key=f"download_json_{selected_collection}"):
                     st.download_button(
                         label="Download collection_intelligence.json",
                         data=json.dumps(intelligence, indent=2, ensure_ascii=False),
                         file_name=f"{selected_collection}_intelligence.json",
-                        mime="application/json"
+                        mime="application/json",
+                        key=f"download_json_actual_{selected_collection}"
                     )
             
             with col2:
                 # Timeline export
                 timeline_data = load_timeline_data(collection_path)
                 if timeline_data:
-                    if st.button("⏰ Download Timeline"):
+                    if st.button("⏰ Download Timeline", key=f"download_timeline_{selected_collection}"):
                         timeline_export = {
                             "collection_id": collection_id,
                             "timeline_events": timeline_data,
@@ -781,24 +782,26 @@ def main():
                             label="Download timeline.json",
                             data=json.dumps(timeline_export, indent=2, ensure_ascii=False),
                             file_name=f"{selected_collection}_timeline.json",
-                            mime="application/json"
+                            mime="application/json",
+                            key=f"download_timeline_actual_{selected_collection}"
                         )
             
             with col3:
                 # Check for markdown summary
                 summary_file = collection_path / "collection_summary.md"
                 if summary_file.exists():
-                    if st.button("📝 Download Summary"):
+                    if st.button("📝 Download Summary", key=f"download_summary_{selected_collection}"):
                         with open(summary_file, 'r', encoding='utf-8') as f:
                             st.download_button(
                                 label="Download collection_summary.md",
                                 data=f.read(),
                                 file_name=f"{selected_collection}_summary.md",
-                                mime="text/markdown"
+                                mime="text/markdown",
+                                key=f"download_summary_actual_{selected_collection}"
                             )
             
             with col4:
-                if st.button("🗂️ Open Folder"):
+                if st.button("🗂️ Open Folder", key=f"open_folder_{selected_collection}"):
                     st.info(f"Collection folder: `{collection_path}`")
         
         else:
