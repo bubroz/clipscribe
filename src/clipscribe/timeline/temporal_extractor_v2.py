@@ -148,7 +148,7 @@ class TemporalExtractorV2:
             filtered_events = self._filter_sponsorblock_content(events_with_dates, temporal_metadata)
             
             # Step 6: Apply event deduplication to fix 44-duplicate crisis
-            deduplicated_events = await self.event_deduplicator.deduplicate_events(filtered_events)
+            deduplicated_events = self.event_deduplicator.deduplicate_events(filtered_events)
             
             logger.info(f"✅ Timeline v2.0 extraction complete: {len(raw_events)} → {len(deduplicated_events)} events (after deduplication)")
             
@@ -537,10 +537,10 @@ class TemporalExtractorV2:
         for event in events:
             try:
                 # Extract date from event description and surrounding context
-                extracted_date = await self.date_extractor.extract_content_date(
-                    event.description,
-                    context.transcript_text,
-                    event.context
+                extracted_date = self.date_extractor.extract_date_from_content(
+                    text=event.description,
+                    chapter_context=None,  # Could enhance with chapter context from event.context
+                    video_title=None  # Could extract from context if available
                 )
                 
                 # Update event with extracted date

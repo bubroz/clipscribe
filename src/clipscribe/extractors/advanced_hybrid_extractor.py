@@ -26,6 +26,7 @@ from .spacy_extractor import SpacyEntityExtractor
 from .rebel_extractor import REBELExtractor
 from .gliner_extractor import GLiNERExtractor
 from .entity_normalizer import EntityNormalizer
+from .entity_quality_filter import EntityQualityFilter
 from ..config.settings import Settings
 from ..retrievers.gemini_pool import GeminiPool, TaskType
 
@@ -100,6 +101,12 @@ class AdvancedHybridExtractor:
             
         # Initialize entity normalizer for cross-method deduplication
         self.entity_normalizer = EntityNormalizer()
+        
+        # Initialize entity quality filter for enhanced quality
+        self.quality_filter = EntityQualityFilter(
+            min_confidence_threshold=confidence_threshold,
+            enable_llm_validation=use_llm
+        )
             
         # Initialize GeminiPool for LLM validation
         if api_key:
@@ -142,7 +149,27 @@ class AdvancedHybridExtractor:
 
         # Step 2: Normalize entities and extract relationships
         all_raw_entities = spacy_entities + gliner_entities
-        video_intel.entities = self.entity_normalizer.normalize_entities(all_raw_entities)
+        normalized_entities = self.entity_normalizer.normalize_entities(all_raw_entities)
+        
+        # Step 2.5: Apply quality filtering and enhancement
+        quality_filtered_entities, quality_metrics = await self.quality_filter.filter_and_enhance_entities(
+            normalized_entities, video_intel
+        )
+        video_intel.entities = quality_filtered_entities
+        
+        # Log quality improvements
+        logger.info(f"Quality enhancement: {quality_metrics.total_input_entities} → {quality_metrics.filtered_entities} entities")
+        logger.info(f"Removed {quality_metrics.false_positives_removed} false positives, {quality_metrics.language_filtered} non-English")
+        logger.info(f"Quality score: {quality_metrics.final_quality_score:.3f}, Language purity: {quality_metrics.language_purity_score:.3f}")
+        
+        # Add quality metrics to processing stats
+        stats.update({
+            'quality_false_positives_removed': quality_metrics.false_positives_removed,
+            'quality_language_filtered': quality_metrics.language_filtered,
+            'quality_confidence_improved': quality_metrics.confidence_improved,
+            'quality_score': quality_metrics.final_quality_score,
+            'language_purity': quality_metrics.language_purity_score
+        })
         
         entity_lookup = self.entity_normalizer.create_entity_lookup(video_intel.entities)
         video_intel = self._extract_relationships_with_entity_awareness(video_intel, entity_lookup, stats)
@@ -158,7 +185,7 @@ class AdvancedHybridExtractor:
         video_intel = self._extract_key_facts(video_intel)
         video_intel.processing_stats.update(stats)
         
-        logger.info(f"Advanced extraction complete: {dict(stats)} :-)")
+        logger.info(f"Advanced extraction complete with quality enhancement: {dict(stats)} :-)")
         return video_intel
 
     def _extract_spacy_entities(self, text: str, stats: Dict[str, int]) -> List[Entity]:

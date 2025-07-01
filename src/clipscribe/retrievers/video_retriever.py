@@ -433,7 +433,7 @@ class VideoIntelligenceRetriever:
                     
                     # Step 2: Event deduplication 
                     logger.info("🔄 Step 2: Event deduplication...")
-                    deduplicated_events = await self.event_deduplicator.deduplicate_events(temporal_events)
+                    deduplicated_events = self.event_deduplicator.deduplicate_events(temporal_events)
                     logger.info(f"✅ Deduplicated to {len(deduplicated_events)} unique events")
                     
                     # Step 3: Content date extraction

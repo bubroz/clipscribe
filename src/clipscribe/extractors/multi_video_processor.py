@@ -22,6 +22,7 @@ from ..models import (
     InformationFlowMap, ConceptNode, ConceptDependency, InformationFlow,
     ConceptEvolutionPath, ConceptCluster, ConceptMaturityLevel
 )
+from ..timeline.models import DatePrecision
 from .entity_normalizer import EntityNormalizer
 from .series_detector import SeriesDetector
 from ..config.settings import Settings
@@ -1280,41 +1281,59 @@ class MultiVideoProcessor:
             
             date_enhanced_events = []
             for event in deduplicated_events:
-                enhanced_event = await self.content_date_extractor.extract_and_validate_date(
-                    event,
-                    enable_context_validation=True,
-                    never_use_video_publish_date=True  # CRITICAL: Never use publish dates
+                # Extract date from event description using content-only approach
+                extracted_date = self.content_date_extractor.extract_date_from_content(
+                    text=event.description,
+                    chapter_context=None,  # Will enhance this when chapter context is available
+                    video_title=None
                 )
-                date_enhanced_events.append(enhanced_event)
+                
+                # Update event with extracted date
+                if extracted_date:
+                    event.extracted_date = extracted_date
+                    event.date = extracted_date.date
+                    event.date_precision = extracted_date.precision if hasattr(extracted_date, 'precision') else DatePrecision.APPROXIMATE
+                    event.date_confidence = extracted_date.confidence
+                    event.date_source = extracted_date.source
+                
+                date_enhanced_events.append(event)
             
             # Step 4: Quality Filtering (Ensures High-Quality Output)
             logger.info("✨ Step 4: TimelineQualityFilter - Comprehensive quality validation")
             
-            quality_report = await self.quality_filter.filter_and_validate(
-                date_enhanced_events,
-                enable_technical_noise_detection=True,
-                enable_date_validation=True,
-                enable_content_density_analysis=True
+            # Create a temporary ConsolidatedTimeline for quality filtering
+            from ..timeline.models import ConsolidatedTimeline
+            temp_timeline = ConsolidatedTimeline(
+                timeline_id=f"temp_{collection_id}",
+                events=date_enhanced_events,
+                video_sources=[f"video_{i}" for i in range(len(videos))],
+                creation_date=datetime.now(),
+                quality_metrics=None,
+                cross_video_correlations=[],
+                metadata={}
             )
             
-            high_quality_events = quality_report.approved_events
+            filtered_timeline, quality_report = await self.quality_filter.filter_timeline_quality(temp_timeline)
+            high_quality_events = filtered_timeline.events
             logger.info(f"Quality filtering: {len(date_enhanced_events)} → {len(high_quality_events)} high-quality events")
-            logger.info(f"Quality score: {quality_report.overall_quality_score:.2f}")
+            logger.info(f"Quality score: {quality_report.quality_score:.2f}")
             
             # Step 5: Cross-Video Synthesis (Multi-Video Timeline Building)
             logger.info("🔗 Step 5: CrossVideoSynthesizer - Multi-video temporal correlation")
             
-            synthesis_result = await self.cross_video_synthesizer.synthesize_cross_video_timeline(
-                high_quality_events,
-                videos=videos,
-                collection_context={
-                    'collection_id': collection_id,
-                    'video_count': len(videos),
-                    'unified_entities': len(unified_entities)
-                }
+            # Create video_timelines dict for synthesis
+            video_timelines = {}
+            for i, video in enumerate(videos):
+                video_url = f"https://www.youtube.com/watch?v={video.metadata.video_id}"
+                # Filter events for this video
+                video_events = [event for event in high_quality_events if event.source_video_id == video.metadata.video_id]
+                video_timelines[video_url] = video_events
+            
+            synthesis_result = await self.cross_video_synthesizer.synthesize_multi_video_timeline(
+                video_timelines
             )
             
-            final_events = synthesis_result.synthesized_events
+            final_events = synthesis_result.consolidated_timeline.events
             logger.info(f"Cross-video synthesis: {len(high_quality_events)} → {len(final_events)} final events")
             
             # Step 6: Create Enhanced ConsolidatedTimeline
@@ -1322,7 +1341,7 @@ class MultiVideoProcessor:
                 f"Timeline Intelligence v2.0 BREAKTHROUGH: Transformed {len(temporal_events)} raw events "
                 f"into {len(final_events)} high-quality temporal events. "
                 f"Eliminated {len(temporal_events) - len(deduplicated_events)} duplicates. "
-                f"Quality score: {quality_report.overall_quality_score:.2f}. "
+                f"Quality score: {quality_report.quality_score:.2f}. "
                 f"Expected 95%+ accurate dates from content analysis."
             )
             
@@ -1337,7 +1356,7 @@ class MultiVideoProcessor:
                     "duplicates_eliminated": len(temporal_events) - len(deduplicated_events),
                     "quality_filtered": len(date_enhanced_events) - len(high_quality_events),
                     "final_events": len(final_events),
-                    "quality_score": quality_report.overall_quality_score,
+                    "quality_score": quality_report.quality_score,
                     "transformation_ratio": f"{len(temporal_events)}→{len(final_events)}",
                     "timeline_version": "2.0.0"
                 }
@@ -1345,7 +1364,7 @@ class MultiVideoProcessor:
             
             logger.info("🎉 Timeline Intelligence v2.0 TRANSFORMATION COMPLETE!")
             logger.info(f"✅ Result: {len(temporal_events)} broken events → {len(final_events)} accurate events")
-            logger.info(f"✅ Quality: {quality_report.overall_quality_score:.2f} (targeting >0.8)")
+            logger.info(f"✅ Quality: {quality_report.quality_score:.2f} (targeting >0.8)")
             logger.info(f"✅ Duplicates eliminated: {len(temporal_events) - len(deduplicated_events)}")
             
             return consolidated_timeline

@@ -83,17 +83,45 @@ class SpacyEntityExtractor:
                 # Map SpaCy labels to our schema
                 entity_type = self._map_entity_type(ent.label_)
                 
+                # Calculate dynamic confidence based on entity characteristics
+                dynamic_confidence = self._calculate_spacy_confidence(ent, doc)
+                
                 # Create Entity object
                 entity = Entity(
                     name=ent.text,
                     type=entity_type,
-                    confidence=0.85  # SpaCy doesn't provide confidence scores
+                    confidence=dynamic_confidence,
+                    properties={"source": "SpaCy"}
                 )
                 
-                entities.append((entity, 0.85))
+                entities.append((entity, dynamic_confidence))
                 
-        logger.info(f"Extracted {len(entities)} entities with SpaCy")
+        logger.info(f"Extracted {len(entities)} entities with SpaCy (dynamic confidence)")
         return entities
+    
+    def _calculate_spacy_confidence(self, ent, doc) -> float:
+        """Calculate dynamic confidence for SpaCy entities."""
+        base_confidence = 0.75  # Start lower than hardcoded 0.85
+        
+        # Entity length scoring
+        if len(ent.text) >= 3:
+            base_confidence += 0.1
+        
+        # Label confidence (some SpaCy labels are more reliable)
+        reliable_labels = {'PERSON', 'ORG', 'GPE', 'DATE', 'MONEY', 'PERCENT'}
+        if ent.label_ in reliable_labels:
+            base_confidence += 0.1
+        
+        # Capitalization bonus for proper nouns
+        if ent.text.istitle():
+            base_confidence += 0.05
+        
+        # Context scoring - entities appearing multiple times are more likely correct
+        entity_count = doc.text.lower().count(ent.text.lower())
+        if entity_count > 1:
+            base_confidence += min(0.1, entity_count * 0.02)
+        
+        return min(1.0, base_confidence)
         
     def _map_entity_type(self, spacy_label: str) -> str:
         """Map SpaCy entity labels to our schema."""

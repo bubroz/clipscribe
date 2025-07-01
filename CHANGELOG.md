@@ -9,6 +9,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+## [2.18.13] - 2025-06-30
+
+### 🎯 Entity Resolution Quality Enhancement Complete
+- **MAJOR**: Comprehensive entity quality filtering system to address false positives and improve confidence scores
+- **Dynamic Confidence**: Replaced hardcoded 0.85 scores with calculated confidence based on entity characteristics
+- **Language Filtering**: Advanced language detection to remove non-English noise (Spanish/French false positives)
+- **False Positive Removal**: Intelligent detection and removal of transcription artifacts and meaningless phrases
+- **Source Attribution**: Automatic correction of "Unknown" source attribution with inference
+- **Quality Metrics**: Transparent quality scoring and improvement tracking
+- **SpaCy Enhancement**: Dynamic confidence calculation based on entity length, label reliability, and context
+- **REBEL Enhancement**: Context-aware relationship confidence scoring with predicate quality assessment
+- **EntityQualityFilter**: New comprehensive filtering pipeline with language detection, false positive removal, and dynamic confidence calculation
+- **Integration**: Full integration into AdvancedHybridExtractor with quality metrics tracking and reporting
+
+### 🔧 Entity Extraction Improvements
+- **SpacyEntityExtractor**: Enhanced with dynamic confidence calculation replacing hardcoded 0.85 scores
+- **REBELExtractor**: Enhanced with predicate quality scoring and context verification for relationships
+- **Advanced Pipeline**: Quality filtering integrated into entity extraction workflow with comprehensive metrics
+
 ## [2.18.12] - 2025-06-30
 
 ### Added

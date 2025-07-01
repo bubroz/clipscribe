@@ -246,11 +246,14 @@ class REBELExtractor:
             if (triplet['subject'].lower() in entity_names or 
                 triplet['object'].lower() in entity_names):
                 
+                # Calculate dynamic confidence for REBEL relationships
+                dynamic_confidence = self._calculate_rebel_confidence(triplet, video_intel.transcript.full_text)
+                
                 rel = Relationship(
                     subject=triplet['subject'],
                     predicate=triplet['predicate'],
                     object=triplet['object'],
-                    confidence=0.85,  # REBEL doesn't provide confidence
+                    confidence=dynamic_confidence,
                     properties={"source": "REBEL"}  # Track source
                 )
                 relationships.append(rel)
@@ -324,11 +327,14 @@ class REBELExtractor:
             
             # Only create relationship if at least one entity is recognized
             if subject_lower in entity_lookup or object_lower in entity_lookup:
+                # Calculate dynamic confidence for REBEL relationships
+                dynamic_confidence = self._calculate_rebel_confidence(triplet, text)
+                
                 rel = Relationship(
                     subject=canonical_subject,
                     predicate=triplet['predicate'],
                     object=canonical_object,
-                    confidence=0.85,  # REBEL doesn't provide confidence
+                    confidence=dynamic_confidence,
                     properties={
                         "source": "REBEL",
                         "original_subject": triplet['subject'],
@@ -337,5 +343,90 @@ class REBELExtractor:
                 )
                 relationships.append(rel)
                 
-        logger.info(f"Extracted {len(relationships)} entity-aware relationships from {len(triplets)} triplets")
-        return relationships 
+        logger.info(f"Extracted {len(relationships)} entity-aware relationships from {len(triplets)} triplets (dynamic confidence)")
+        return relationships
+    
+    def _calculate_rebel_confidence(self, triplet: Dict[str, str], text: str) -> float:
+        """Calculate dynamic confidence for REBEL relationships."""
+        base_confidence = 0.75  # Start lower than hardcoded 0.85
+        
+        # Predicate quality scoring
+        high_quality_predicates = {
+            'born in', 'died in', 'educated at', 'member of', 'president of', 'CEO of',
+            'founded', 'acquired', 'signed', 'announced', 'defeated', 'married to',
+            'works at', 'employed by', 'headquartered in', 'located in', 'owns'
+        }
+        
+        if triplet['predicate'] in high_quality_predicates:
+            base_confidence += 0.15
+        
+        # Generic predicates are less reliable
+        generic_predicates = {'mentioned', 'referenced', 'discussed', 'talked about', 'related to'}
+        if triplet['predicate'] in generic_predicates:
+            base_confidence -= 0.2
+        
+        # Subject and object quality
+        subject_quality = self._assess_entity_quality(triplet['subject'])
+        object_quality = self._assess_entity_quality(triplet['object'])
+        
+        # Average entity quality factor
+        entity_quality_bonus = (subject_quality + object_quality) / 2 * 0.1
+        base_confidence += entity_quality_bonus
+        
+        # Context verification - check if relationship appears to be supported by context
+        if self._verify_relationship_context(triplet, text):
+            base_confidence += 0.05
+        
+        return min(1.0, max(0.3, base_confidence))
+    
+    def _assess_entity_quality(self, entity_name: str) -> float:
+        """Assess the quality of an entity name."""
+        # Proper capitalization (most names/organizations are properly capitalized)
+        if entity_name.istitle():
+            return 1.0
+        
+        # All caps (possible acronym)
+        if entity_name.isupper() and len(entity_name) <= 10:
+            return 0.8
+        
+        # Reasonable length
+        if 2 <= len(entity_name) <= 50:
+            return 0.7
+        
+        # Very short or very long names are suspicious
+        return 0.3
+    
+    def _verify_relationship_context(self, triplet: Dict[str, str], text: str) -> bool:
+        """Verify if the relationship seems supported by the context."""
+        # Simple verification: check if subject and object appear near each other in text
+        text_lower = text.lower()
+        subject_lower = triplet['subject'].lower()
+        object_lower = triplet['object'].lower()
+        
+        # Find positions of subject and object
+        subject_positions = []
+        object_positions = []
+        
+        start = 0
+        while True:
+            pos = text_lower.find(subject_lower, start)
+            if pos == -1:
+                break
+            subject_positions.append(pos)
+            start = pos + 1
+        
+        start = 0
+        while True:
+            pos = text_lower.find(object_lower, start)
+            if pos == -1:
+                break
+            object_positions.append(pos)
+            start = pos + 1
+        
+        # Check if they appear within reasonable distance (200 characters)
+        for s_pos in subject_positions:
+            for o_pos in object_positions:
+                if abs(s_pos - o_pos) <= 200:
+                    return True
+        
+        return False 
