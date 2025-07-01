@@ -847,6 +847,8 @@ class VideoIntelligenceRetriever:
             full_data["key_facts"] = video.key_moments
         if hasattr(video, 'processing_stats') and video.processing_stats:
             full_data["extraction_stats"] = video.processing_stats
+        if hasattr(video, 'timeline_v2') and video.timeline_v2:
+            full_data["timeline_v2"] = video.timeline_v2
         
         with open(paths["transcript_json"], 'w', encoding='utf-8') as f:
             json.dump(full_data, f, default=str, indent=2)
@@ -1236,6 +1238,7 @@ class VideoIntelligenceRetriever:
                 "platform": extract_platform_from_url(video.metadata.url)
             },
             "extraction_stats": video.processing_stats if hasattr(video, 'processing_stats') else {},
+            "timeline_v2": video.timeline_v2 if hasattr(video, 'timeline_v2') else None,
             "files": {}
         }
         
@@ -1324,7 +1327,8 @@ class VideoIntelligenceRetriever:
                 "entities": [e.dict() for e in video.entities],
                 "topics": [t.dict() if hasattr(t, 'dict') else {"name": t.name, "confidence": t.confidence} for t in video.topics],
                 "sentiment": video.sentiment,
-                "processing_cost": video.processing_cost
+                "processing_cost": video.processing_cost,
+                "timeline_v2": video.timeline_v2 if hasattr(video, 'timeline_v2') else None
             }
         }
     

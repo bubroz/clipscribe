@@ -41,3 +41,130 @@ Device set to use mps
 2025-07-01 02:39:20,767 - clipscribe.retrievers.gemini_pool - INFO - Creating new Gemini instance for temporal_intelligence
 2025-07-01 02:39:57,409 - clipscribe.retrievers.gemini_pool - INFO - Creating new Gemini instance for key_points
 2025-07-01 02:39:57,409 - clipscribe.retrievers.transcriber - INFO - Performing combined extraction (summary, key points, topics, entities, relationships)...
+2025-07-01 02:40:39,752 - clipscribe.retrievers.transcriber - INFO - Transcription completed in 0s, cost: $0.1015
+2025-07-01 02:40:39,753 - clipscribe.retrievers.transcriber - INFO - Extracted: 17 entities, 35 relationships, 27 key points
+2025-07-01 02:40:39,753 - clipscribe.retrievers.transcriber - INFO - Temporal intelligence: 5 timeline events
+2025-07-01 02:40:40,059 - clipscribe.retrievers.video_retriever - INFO - Enhanced temporal intelligence processing complete:
+2025-07-01 02:40:40,060 - clipscribe.retrievers.video_retriever - INFO -   Mode: video
+2025-07-01 02:40:40,060 - clipscribe.retrievers.video_retriever - INFO -   Cost: $0.1015
+2025-07-01 02:40:40,060 - clipscribe.retrievers.video_retriever - INFO -   Timeline events: 5
+2025-07-01 02:40:40,060 - clipscribe.retrievers.video_retriever - INFO -   Visual temporal cues: 0
+2025-07-01 02:40:40,062 - clipscribe.retrievers.video_retriever - INFO - Generated 60 segments from 1776.0s video
+2025-07-01 02:40:40,063 - clipscribe.retrievers.video_retriever - INFO - Extracting intelligence with advanced extractor (domain=None)...
+2025-07-01 02:40:40,063 - clipscribe.extractors.advanced_hybrid_extractor - INFO - Extracting entities with SpaCy...
+2025-07-01 02:40:40,794 - clipscribe.extractors.spacy_extractor - INFO - Extracted 79 entities with SpaCy (dynamic confidence)
+2025-07-01 02:40:40,794 - clipscribe.extractors.advanced_hybrid_extractor - INFO - Extracting custom entities with GLiNER (domain=None)...
+Asking to truncate to max_length but no maximum length is provided and the model has no predefined maximum length. Default to no truncation.
+2025-07-01 02:40:48,582 - clipscribe.extractors.gliner_extractor - INFO - Extracted 275 custom entities from 33 chunks :-)
+2025-07-01 02:40:48,583 - clipscribe.extractors.entity_normalizer - INFO - Normalizing 354 entities...
+2025-07-01 02:40:48,921 - clipscribe.extractors.entity_normalizer - INFO - Normalized to 143 unique entities :-)
+2025-07-01 02:40:48,921 - clipscribe.extractors.entity_quality_filter - INFO - 🎯 Starting entity quality enhancement for 143 entities
+2025-07-01 02:40:48,921 - clipscribe.extractors.entity_quality_filter - INFO - Step 1: Removed 1 false positives
+2025-07-01 02:40:48,922 - clipscribe.extractors.entity_quality_filter - INFO - Step 2: Filtered 102 non-English entities
+2025-07-01 02:40:48,930 - clipscribe.extractors.entity_quality_filter - INFO - Step 3: Improved confidence for 32 entities
+2025-07-01 02:40:48,930 - clipscribe.extractors.entity_quality_filter - INFO - Step 4: Corrected 0 entity types
+2025-07-01 02:40:48,930 - clipscribe.extractors.entity_quality_filter - INFO - Step 5: Corrected 0 source attributions
+2025-07-01 02:40:48,930 - clipscribe.extractors.entity_quality_filter - INFO - ✅ Entity quality enhancement complete:
+2025-07-01 02:40:48,930 - clipscribe.extractors.entity_quality_filter - INFO -    📊 143 → 22 entities
+2025-07-01 02:40:48,930 - clipscribe.extractors.entity_quality_filter - INFO -    🎯 Quality score: 0.549
+2025-07-01 02:40:48,930 - clipscribe.extractors.entity_quality_filter - INFO -    🌍 Language purity: 1.000
+2025-07-01 02:40:48,930 - clipscribe.extractors.advanced_hybrid_extractor - INFO - Quality enhancement: 143 → 22 entities
+2025-07-01 02:40:48,930 - clipscribe.extractors.advanced_hybrid_extractor - INFO - Removed 1 false positives, 102 non-English
+2025-07-01 02:40:48,930 - clipscribe.extractors.advanced_hybrid_extractor - INFO - Quality score: 0.549, Language purity: 1.000
+2025-07-01 02:40:48,934 - clipscribe.extractors.advanced_hybrid_extractor - INFO - Extracting relationships with REBEL...
+2025-07-01 02:40:53,154 - clipscribe.extractors.rebel_extractor - INFO - Extracted 10 unique relationships from 10 total
+2025-07-01 02:40:53,154 - clipscribe.extractors.advanced_hybrid_extractor - INFO - Added 1 normalized relationships
+2025-07-01 02:40:53,154 - clipscribe.extractors.advanced_hybrid_extractor - INFO - Building knowledge graph...
+2025-07-01 02:40:53,154 - clipscribe.extractors.advanced_hybrid_extractor - INFO - Advanced extraction complete with quality enhancement: {'spacy_entities': 79, 'gliner_entities': 275, 'quality_false_positives_removed': 1, 'quality_language_filtered': 102, 'quality_confidence_improved': 32, 'quality_score': 0.5486152503062378, 'language_purity': 1.0, 'relationships': 1, 'llm_validated': 22, 'graph_nodes': 22, 'graph_edges': 1} :-)
+2025-07-01 02:40:53,154 - clipscribe.retrievers.video_retriever - INFO - Starting Timeline Intelligence v2.0 processing for single video...
+2025-07-01 02:40:53,154 - clipscribe.retrievers.video_retriever - INFO - 📊 Step 1: Enhanced temporal extraction...
+2025-07-01 02:40:53,154 - clipscribe.timeline.temporal_extractor_v2 - INFO - 🚀 Starting Timeline v2.0 extraction for: https://www.youtube.com/watch?v=PcuxnqQLuAQ
+2025-07-01 02:40:53,155 - clipscribe.timeline.temporal_extractor_v2 - INFO - 🎯 Extracting yt-dlp temporal metadata (the game changer!)
+2025-07-01 02:40:53,155 - clipscribe.retrievers.universal_video_client - INFO - 🚀 Extracting comprehensive temporal metadata from: https://www.youtube.com/watch?v=PcuxnqQLuAQ
+2025-07-01 02:42:14,681 - clipscribe.retrievers.universal_video_client - INFO - 📊 Temporal extraction successful: youtube - Skywatcher Part I: The Journey Begins
+2025-07-01 02:42:14,681 - clipscribe.retrievers.universal_video_client - INFO - 📝 Found subtitles in language: en-auto
+2025-07-01 02:42:14,681 - clipscribe.retrievers.universal_video_client - INFO - 📺 Identified 1 content sections
+2025-07-01 02:42:14,682 - clipscribe.timeline.temporal_extractor_v2 - INFO - 📊 Temporal intelligence extracted:
+2025-07-01 02:42:14,682 - clipscribe.timeline.temporal_extractor_v2 - INFO -    • Chapters: 0
+2025-07-01 02:42:14,682 - clipscribe.timeline.temporal_extractor_v2 - INFO -    • SponsorBlock segments: 0
+2025-07-01 02:42:14,682 - clipscribe.timeline.temporal_extractor_v2 - INFO -    • Content sections: 1
+2025-07-01 02:42:14,682 - clipscribe.timeline.temporal_extractor_v2 - INFO -    • Word-level timing: 0 entries
+2025-07-01 02:42:14,682 - clipscribe.timeline.temporal_extractor_v2 - INFO - 🔍 Extracting chapter-aware temporal events
+2025-07-01 02:42:14,682 - clipscribe.timeline.temporal_extractor_v2 - INFO - 📅 Using time-based extraction (no chapters available)
+2025-07-01 02:42:14,943 - clipscribe.timeline.temporal_extractor_v2 - INFO - 📋 Extracted 40 chapter-aware events
+2025-07-01 02:42:14,943 - clipscribe.timeline.temporal_extractor_v2 - INFO - 📅 Applying content-based date extraction (fixing wrong date crisis)
+2025-07-01 02:42:14,961 - clipscribe.timeline.date_extractor - INFO - ✅ Successfully extracted date: 2025-07-01 02:42:14.944045 from 'today'
+2025-07-01 02:42:15,726 - clipscribe.timeline.temporal_extractor_v2 - INFO - 📊 Date extraction success rate: 2.5%
+2025-07-01 02:42:15,726 - clipscribe.timeline.temporal_extractor_v2 - INFO - 📺 No SponsorBlock data available, keeping all events
+2025-07-01 02:42:15,726 - clipscribe.timeline.event_deduplicator - INFO - 🔧 Starting event deduplication: 40 input events
+2025-07-01 02:42:15,801 - clipscribe.timeline.event_deduplicator - INFO - 📊 Grouped 40 events into 40 unique occurrences
+2025-07-01 02:42:15,802 - clipscribe.timeline.event_deduplicator - INFO - ✅ Deduplication complete: 40 → 40 events (0 duplicates removed)
+2025-07-01 02:42:15,802 - clipscribe.timeline.temporal_extractor_v2 - INFO - ✅ Timeline v2.0 extraction complete: 40 → 40 events (after deduplication)
+2025-07-01 02:42:15,802 - clipscribe.retrievers.video_retriever - INFO - ✅ Extracted 40 temporal events
+2025-07-01 02:42:15,802 - clipscribe.retrievers.video_retriever - INFO - 🔄 Step 2: Event deduplication...
+2025-07-01 02:42:15,802 - clipscribe.timeline.event_deduplicator - INFO - 🔧 Starting event deduplication: 40 input events
+2025-07-01 02:42:15,876 - clipscribe.timeline.event_deduplicator - INFO - 📊 Grouped 40 events into 40 unique occurrences
+2025-07-01 02:42:15,876 - clipscribe.timeline.event_deduplicator - INFO - ✅ Deduplication complete: 40 → 40 events (0 duplicates removed)
+2025-07-01 02:42:15,876 - clipscribe.retrievers.video_retriever - INFO - ✅ Deduplicated to 40 unique events
+2025-07-01 02:42:15,876 - clipscribe.retrievers.video_retriever - INFO - 📅 Step 3: Content date extraction...
+2025-07-01 02:42:15,883 - clipscribe.timeline.date_extractor - INFO - ✅ Successfully extracted date: 2025-07-01 02:42:15.876744 from 'today'
+2025-07-01 02:42:16,413 - clipscribe.retrievers.video_retriever - INFO - ✅ Extracted content dates for 0/40 events
+2025-07-01 02:42:16,413 - clipscribe.retrievers.video_retriever - INFO - 🎯 Step 4: Quality filtering...
+2025-07-01 02:42:16,413 - clipscribe.timeline.quality_filter - INFO - 🔍 Starting quality filtering for 40 events
+2025-07-01 02:42:16,413 - clipscribe.timeline.quality_filter - INFO - 🔍 Applying basic validation filters
+2025-07-01 02:42:16,413 - clipscribe.timeline.quality_filter - INFO - ✅ Basic validation: 40 → 0 events
+2025-07-01 02:42:16,413 - clipscribe.timeline.quality_filter - INFO - 📅 Applying date validation filters (fixing wrong date crisis)
+2025-07-01 02:42:16,413 - clipscribe.timeline.quality_filter - INFO - ✅ Date validation: 0 → 0 events
+2025-07-01 02:42:16,413 - clipscribe.timeline.quality_filter - INFO - 📝 Applying content quality filters
+2025-07-01 02:42:16,413 - clipscribe.timeline.quality_filter - INFO - ✅ Content quality: 0 → 0 events
+2025-07-01 02:42:16,413 - clipscribe.timeline.quality_filter - INFO - 🔍 Applying advanced duplicate detection
+2025-07-01 02:42:16,413 - clipscribe.timeline.quality_filter - INFO - ✅ Duplicate detection: 0 → 0 events
+2025-07-01 02:42:16,413 - clipscribe.timeline.quality_filter - INFO - 👥 Applying entity relevance filters
+2025-07-01 02:42:16,413 - clipscribe.timeline.quality_filter - INFO - ✅ Entity relevance: 0 → 0 events
+2025-07-01 02:42:16,413 - clipscribe.timeline.quality_filter - INFO - 🔗 Applying timeline coherence filters
+2025-07-01 02:42:16,413 - clipscribe.timeline.quality_filter - INFO - ✅ Coherence filtering: 0 → 0 events
+2025-07-01 02:42:16,413 - clipscribe.timeline.quality_filter - INFO - ✅ Quality filtering complete: 40 → 0 events
+2025-07-01 02:42:16,414 - clipscribe.timeline.quality_filter - INFO - 📊 Quality score: 0.00
+2025-07-01 02:42:16,414 - clipscribe.retrievers.video_retriever - INFO - ✅ Filtered to 0 high-quality events
+2025-07-01 02:42:16,414 - clipscribe.retrievers.video_retriever - INFO - 📑 Step 5: Chapter segmentation...
+2025-07-01 02:42:16,414 - clipscribe.timeline.chapter_segmenter - INFO - 🎬 Starting video segmentation for: https://www.youtube.com/watch?v=PcuxnqQLuAQ
+2025-07-01 02:42:16,414 - clipscribe.timeline.chapter_segmenter - INFO - 📚 Available chapters: 0
+2025-07-01 02:42:16,414 - clipscribe.timeline.chapter_segmenter - INFO - 📊 Chapter quality: 0.00, Transcript quality: 0.80
+2025-07-01 02:42:16,414 - clipscribe.timeline.chapter_segmenter - INFO - 🎯 Using segmentation strategy: content_based
+2025-07-01 02:42:16,414 - clipscribe.timeline.chapter_segmenter - INFO - 📝 Segmenting video using content analysis (fallback)
+2025-07-01 02:42:16,435 - clipscribe.timeline.chapter_segmenter - INFO - ✅ Segmentation complete: 30 chapters
+2025-07-01 02:42:16,435 - clipscribe.timeline.chapter_segmenter - INFO - 📊 Content chapters: 0
+2025-07-01 02:42:16,435 - clipscribe.timeline.chapter_segmenter - INFO - 🎯 Segmentation quality: 0.27
+2025-07-01 02:42:16,435 - clipscribe.retrievers.video_retriever - INFO - ✅ Created 30 timeline chapters
+2025-07-01 02:42:16,435 - clipscribe.retrievers.video_retriever - INFO - ✅ Timeline Intelligence v2.0 processing complete! Quality improvement: 0.00%
+2025-07-01 02:42:16,435 - clipscribe.retrievers.video_retention_manager - INFO - Handling video retention for: Skywatcher Part I： The Journey Begins-PcuxnqQLuAQ.mp3
+2025-07-01 02:42:16,435 - clipscribe.retrievers.video_retention_manager - INFO - Using policy: VideoRetentionPolicy.DELETE
+2025-07-01 02:42:16,435 - clipscribe.retrievers.video_retention_manager - INFO - Deleted source video: Skywatcher Part I： The Journey Begins-PcuxnqQLuAQ.mp3
+2025-07-01 02:42:16,436 - clipscribe.retrievers.video_retriever - INFO - Video retention: deleted - Policy: Always delete source videos
+2025-07-01 02:42:16,439 - clipscribe.retrievers.video_retriever - INFO - Saved 22 entities to JSON and CSV :-)
+2025-07-01 02:42:16,440 - clipscribe.retrievers.video_retriever - INFO - Saved enhanced entity sources to output/timeline_v2_SKYWATCHER_TEST/20250701_youtube_PcuxnqQLuAQ/entity_sources.json
+2025-07-01 02:42:16,440 - clipscribe.retrievers.video_retriever - INFO - Saved entity sources CSV to output/timeline_v2_SKYWATCHER_TEST/20250701_youtube_PcuxnqQLuAQ/entity_sources.csv with normalization info
+2025-07-01 02:42:16,440 - clipscribe.retrievers.video_retriever - INFO - Saved 1 relationships to JSON and CSV :-)
+2025-07-01 02:42:16,440 - clipscribe.retrievers.video_retriever - INFO - Saved knowledge graph with 22 nodes and 1 edges :-)
+2025-07-01 02:42:16,442 - clipscribe.retrievers.video_retriever - INFO - Saved GEXF file for Gephi visualization :-)
+2025-07-01 02:42:16,443 - clipscribe.retrievers.video_retriever - INFO - Generated enhanced markdown report :-)
+2025-07-01 02:42:16,444 - clipscribe.retrievers.video_retriever - INFO - Saved all formats to: output/timeline_v2_SKYWATCHER_TEST/20250701_youtube_PcuxnqQLuAQ
+
+✅ Saved all formats to: output/timeline_v2_SKYWATCHER_TEST/20250701_youtube_PcuxnqQLuAQ
+
+
+                    Transcription Results                    
+╭───────────────────┬───────────────────────────────────────╮
+│ Property          │ Value                                 │
+├───────────────────┼───────────────────────────────────────┤
+│ Video Title       │ Skywatcher Part I: The Journey Begins │
+│ Duration          │ 29:36                                 │
+│ Platform          │ Youtube.com                           │
+│ Transcript Length │ 24541 chars                           │
+│ Entities          │ 22                                    │
+│ Relationships     │ 1                                     │
+│ Key Points        │ 27                                    │
+│ Topics            │ 9                                     │
+╰───────────────────┴───────────────────────────────────────╯
+
+Total cost: $0.1015
