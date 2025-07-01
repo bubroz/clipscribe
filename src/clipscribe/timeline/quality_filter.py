@@ -272,7 +272,7 @@ class TimelineQualityFilter:
         date_precision = event.date_precision
         
         # Vague descriptions shouldn't have precise dates
-        if date_precision in [DatePrecision.DAY, DatePrecision.HOUR] and len(description.split()) < 5:
+        if date_precision in [DatePrecision.DAY, DatePrecision.EXACT] and len(description.split()) < 5:
             return False
         
         # Historical references should have reasonable dates

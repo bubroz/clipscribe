@@ -6,6 +6,7 @@ from datetime import datetime
 from enum import Enum
 from typing import List, Dict, Optional, Any
 from pydantic import BaseModel, Field
+import re
 
 
 class DatePrecision(str, Enum):
@@ -88,6 +89,32 @@ class ExtractedDate(BaseModel):
     source: str  # "transcript_content", "video_title", etc.
     extraction_method: str  # "dateparser_with_chapter_context", etc.
     chapter_context: Optional[str] = None
+    
+    # Add fields expected by video_retriever.py
+    @property
+    def date_source(self) -> str:
+        """Alias for source to maintain compatibility."""
+        return self.source
+    
+    @property
+    def precision(self) -> DatePrecision:
+        """Determine precision from the extracted date and original text."""
+        # Infer precision from the original text
+        text_lower = self.original_text.lower()
+        
+        # Check for time patterns (use regex properly)
+        if re.search(r'\d{1,2}:\d{2}', text_lower) or any(word in text_lower for word in ['hour', 'minute']):
+            return DatePrecision.EXACT
+        elif any(pattern in text_lower for pattern in ['yesterday', 'today', 'tomorrow']) or \
+             re.search(r'\d{1,2}[-/]\d{1,2}[-/]\d{2,4}', text_lower):
+            return DatePrecision.DAY
+        elif any(month in text_lower for month in ['january', 'february', 'march', 'april', 'may', 'june',
+                                                    'july', 'august', 'september', 'october', 'november', 'december']):
+            return DatePrecision.MONTH
+        elif re.search(r'\b\d{4}\b', text_lower):
+            return DatePrecision.YEAR
+        else:
+            return DatePrecision.APPROXIMATE
 
 
 class ChapterSegment(BaseModel):

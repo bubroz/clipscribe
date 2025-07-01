@@ -446,8 +446,13 @@ class VideoIntelligenceRetriever:
                         extracted_date = self.content_date_extractor.extract_date_from_content(
                             event.description
                         )
-                        if extracted_date:
-                            event.extracted_date = extracted_date
+                        if extracted_date and extracted_date.date:
+                            event.date = extracted_date.date
+                            event.date_confidence = extracted_date.confidence
+                            event.date_source = extracted_date.source
+                            # ExtractedDate doesn't have precision field, default to DAY
+                            from ..timeline.models import DatePrecision
+                            event.date_precision = DatePrecision.DAY
                             if extracted_date.confidence > 0.7:
                                 accurate_dates += 1
                         dated_events.append(event)
@@ -500,7 +505,7 @@ class VideoIntelligenceRetriever:
                         chapters_as_dict.append(chapter_dict)
                     
                     video_intelligence.timeline_v2 = {
-                        "temporal_events": [event.dict() for event in filtered_events],  # TemporalEvent has dict()
+                        "temporal_events": [event.model_dump() for event in filtered_events],  # TemporalEvent uses model_dump()
                         "chapters": chapters_as_dict,
                         "quality_metrics": {
                             "total_events_extracted": len(temporal_events),

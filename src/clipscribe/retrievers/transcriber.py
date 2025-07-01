@@ -13,7 +13,7 @@ from pathlib import Path
 import asyncio
 import mimetypes
 
-from ..models import VideoTranscript, KeyPoint, Entity, Topic, TimelineEvent, ExtractedDate
+from ..models import VideoTranscript, KeyPoint, Entity, Topic, TimelineEvent
 from ..config.settings import Settings, TemporalIntelligenceLevel
 from .gemini_pool import GeminiPool, TaskType
 

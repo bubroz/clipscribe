@@ -1,0 +1,41 @@
+ClipScribe v2.18.15
+AI-powered video transcription with Gemini 2.5 Flash
+
+2025-07-01 02:23:56,365 - clipscribe.commands.cli - INFO - Transcribing video: https://www.youtube.com/watch?v=1S37dBqkW1Y
+2025-07-01 02:23:56,365 - clipscribe.commands.cli - INFO - Output directory: output/timeline_v2_SHORT_TEST
+2025-07-01 02:23:56,365 - clipscribe.commands.cli - INFO - Mode: video, Model: gemini-2.5-flash
+2025-07-01 02:23:56,366 - clipscribe.retrievers.video_retention_manager - INFO - Video retention policy: VideoRetentionPolicy.DELETE
+2025-07-01 02:23:56,366 - clipscribe.retrievers.video_retention_manager - INFO - Archive directory: output/video_archive
+2025-07-01 02:23:56,367 - clipscribe.retrievers.transcriber - INFO - Temporal intelligence level: TemporalIntelligenceLevel.ENHANCED
+2025-07-01 02:23:56,367 - clipscribe.retrievers.transcriber - INFO - Using Gemini request timeout: 14400s
+2025-07-01 02:23:56,367 - clipscribe.retrievers.video_retriever - INFO - Using advanced extraction with REBEL+GLiNER :-)
+2025-07-01 02:23:56,367 - clipscribe.extractors.model_manager - INFO - Loading SpaCy model en_core_web_sm (one-time load)...
+2025-07-01 02:23:56,546 - clipscribe.extractors.model_manager - INFO - Cache miss for spacy_en_core_web_sm - loaded in 0.18s
+2025-07-01 02:23:56,546 - clipscribe.extractors.model_manager - INFO - SpaCy model en_core_web_sm loaded successfully in 0.18s :-)
+2025-07-01 02:23:56,546 - clipscribe.extractors.spacy_extractor - INFO - Using SpaCy model: en_core_web_sm
+2025-07-01 02:23:56,546 - clipscribe.extractors.model_manager - INFO - Loading GLiNER model urchade/gliner_multi-v2.1 on auto (one-time load)...
+Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]Fetching 4 files: 100%|██████████| 4/4 [00:00<00:00, 38130.04it/s]
+2025-07-01 02:24:03,554 - clipscribe.extractors.model_manager - INFO - Cache miss for gliner_urchade/gliner_multi-v2.1_auto - loaded in 7.01s
+2025-07-01 02:24:03,554 - clipscribe.extractors.model_manager - INFO - GLiNER model loaded and cached successfully in 7.01s :-)
+2025-07-01 02:24:03,554 - clipscribe.extractors.model_manager - INFO - Loading REBEL model Babelscape/rebel-large on auto (one-time load)...
+Device set to use mps
+2025-07-01 02:24:04,712 - clipscribe.extractors.model_manager - INFO - Cache miss for rebel_Babelscape/rebel-large_auto - loaded in 1.16s
+2025-07-01 02:24:04,712 - clipscribe.extractors.model_manager - INFO - REBEL model loaded and cached successfully in 1.16s :-)
+2025-07-01 02:24:04,713 - clipscribe.extractors.advanced_hybrid_extractor - INFO - Advanced hybrid extractor initialized with GLiNER=True, REBEL=True, LLM=True :-)
+2025-07-01 02:24:04,714 - clipscribe.retrievers.video_retriever - INFO - Initializing Timeline Intelligence v2.0 for single video processing...
+2025-07-01 02:24:04,714 - clipscribe.retrievers.video_retriever - INFO - ✅ Timeline Intelligence v2.0 components initialized for single video processing
+2025-07-01 02:24:04,714 - clipscribe.retrievers.video_retriever - INFO - v2.17.0 Enhanced Temporal Intelligence: TemporalIntelligenceLevel.ENHANCED
+2025-07-01 02:24:04,714 - clipscribe.retrievers.video_retriever - INFO - Video Retention Policy: VideoRetentionPolicy.DELETE
+ERROR: [youtube] 1S37dBqkW1Y: Video unavailable
+2025-07-01 02:24:05,234 - clipscribe.retrievers.video_retriever - ERROR - URL not supported by yt-dlp: https://www.youtube.com/watch?v=1S37dBqkW1Y
+2025-07-01 02:24:05,234 - clipscribe.commands.cli - ERROR - Transcription failed
+Traceback (most recent call last):
+  File "/Users/base/Projects/clipscribe/src/clipscribe/commands/cli.py", line 209, in transcribe_async
+    saved_files = retriever.save_all_formats(result, str(output_dir))
+  File "/Users/base/Projects/clipscribe/src/clipscribe/retrievers/video_retriever.py", line 777, in save_all_formats
+    metadata = self._get_video_metadata_dict(video)
+  File "/Users/base/Projects/clipscribe/src/clipscribe/retrievers/video_retriever.py", line 803, in _get_video_metadata_dict
+    "title": video.metadata.title,
+             ^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'metadata'
+❌ Error: 'NoneType' object has no attribute 'metadata'
