@@ -739,12 +739,16 @@ class CrossVideoSynthesizer:
             ordered_events = self._order_chronologically(all_events)  # Default
         
         # Create consolidated timeline
+        # Convert TimelineQualityMetrics to dict for storage
+        quality_metrics_obj = self._calculate_preliminary_quality_metrics(ordered_events)
+        quality_metrics_dict = quality_metrics_obj.dict()  # TimelineQualityMetrics is a Pydantic model
+        
         timeline = ConsolidatedTimeline(
             timeline_id=f"consolidated_{datetime.now().strftime('%Y%m%d_%H%M%S')}",
             events=ordered_events,
             video_sources=list(video_timelines.keys()),
             creation_date=datetime.now(),
-            quality_metrics=self._calculate_preliminary_quality_metrics(ordered_events),
+            quality_metrics=quality_metrics_dict,
             cross_video_correlations=correlations,
             metadata={
                 'synthesis_strategy': strategy.value,

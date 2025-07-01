@@ -19,7 +19,7 @@ class VideoChapter(BaseModel):
 
 class KeyPoint(BaseModel):
     """Important point from video with temporal context."""
-    timestamp: int = Field(..., description="Seconds from start")
+    timestamp: float = Field(..., description="Seconds from start")  # Changed from int to float
     text: str = Field(..., description="Key point text")
     importance: float = Field(..., ge=0, le=1, description="Importance score 0-1")
     context: Optional[str] = Field(None, description="Surrounding context")
@@ -340,6 +340,9 @@ class VideoIntelligence(BaseModel):
     collection_context: Optional[Dict[str, Any]] = Field(None, description="Context if part of a collection")
     series_metadata: Optional[SeriesMetadata] = None
     related_videos: List[str] = Field(default_factory=list, description="IDs of related videos")
+    
+    # NEW: Timeline v2.0 data
+    timeline_v2: Optional[Dict[str, Any]] = Field(None, description="Timeline Intelligence v2.0 data")
     
     def to_chimera_format(self) -> Dict[str, Any]:
         """Convert to format expected by Chimera's research agent."""

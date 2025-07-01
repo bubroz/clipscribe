@@ -541,7 +541,7 @@ class EnhancedUniversalVideoClient:
             raise ValueError(f"Unsupported URL: {video_url}")
         
         # Get video info first
-        metadata = await self.get_video_metadata(video_url)
+        metadata = await self.get_video_info(video_url)
         
         # Create safe filename
         safe_title = "".join(c for c in metadata.title if c.isalnum() or c in (' ', '-', '_')).rstrip()
@@ -555,10 +555,10 @@ class EnhancedUniversalVideoClient:
         
         # yt-dlp options for video download
         ydl_opts = {
-            'format': 'best[ext=mp4]/best',  # Prefer mp4
-            'outtmpl': video_path,
-            'quiet': True,
-            'no_warnings': True,
+            'format': 'best',  # Just use best available format
+            'outtmpl': video_path[:-4] + '.%(ext)s',  # Let yt-dlp determine extension
+            'quiet': False,  # Show warnings for debugging
+            'no_warnings': False,
             'extract_flat': False,
             'nocheckcertificate': True,
             'no_color': True,
@@ -576,16 +576,65 @@ class EnhancedUniversalVideoClient:
         
         # Download video
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-            ydl.download([video_url])
+            info = ydl.extract_info(video_url, download=True)
+            
+        # Find the actual downloaded file
+        base_path = video_path[:-4]  # Remove .mp4 extension
+        actual_path = None
         
-        logger.info(f"Video downloaded: {video_path}")
+        # Check common video extensions
+        for ext in ['.mp4', '.webm', '.mkv', '.mov', '.avi', '.flv']:
+            test_path = base_path + ext
+            if os.path.exists(test_path):
+                actual_path = test_path
+                break
         
-        return video_path, metadata
+        if not actual_path:
+            # If still not found, look for any file with the video ID
+            for file in os.listdir(output_dir):
+                if metadata.video_id in file:
+                    actual_path = os.path.join(output_dir, file)
+                    break
+        
+        if not actual_path or not os.path.exists(actual_path):
+            raise FileNotFoundError(f"Video file not found after download")
+        
+        logger.info(f"Video downloaded: {actual_path}")
+        
+        return actual_path, metadata
     
     def _progress_hook(self, d):
         # This method is empty in the original code block
         # It's assumed to exist as it's called in the download_video method
         pass 
+
+    def _detect_platform(self, video_url: str) -> str:
+        """Detect the platform from a video URL."""
+        # Common platform patterns
+        patterns = {
+            "youtube": ["youtube.com", "youtu.be"],
+            "twitter": ["twitter.com", "x.com"],
+            "tiktok": ["tiktok.com"],
+            "vimeo": ["vimeo.com"],
+            "facebook": ["facebook.com", "fb.com"],
+            "instagram": ["instagram.com"],
+            "twitch": ["twitch.tv"],
+            "reddit": ["reddit.com"],
+            "dailymotion": ["dailymotion.com"],
+        }
+        
+        # Check URL against patterns
+        for platform, domains in patterns.items():
+            if any(domain in video_url.lower() for domain in domains):
+                return platform
+        
+        # Use yt-dlp to detect if pattern matching fails
+        try:
+            with yt_dlp.YoutubeDL({'quiet': True}) as ydl:
+                info = ydl.extract_info(video_url, download=False, process=False)
+                return info.get('extractor', 'generic').lower()
+        except:
+            return 'generic'
 
     def _get_video_sort_order(self, sort_by: str) -> str:
         """Map user-friendly sort option to library-specific value."""

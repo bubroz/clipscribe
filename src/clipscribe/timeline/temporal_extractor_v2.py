@@ -32,7 +32,7 @@ from dataclasses import dataclass
 from ..retrievers.universal_video_client import EnhancedUniversalVideoClient, TemporalMetadata
 from .models import (
     TemporalEvent, ExtractedDate, DatePrecision, EventType,
-    ConsolidatedTimeline, TimelineQualityMetrics
+    ConsolidatedTimeline, TimelineQualityMetrics, ValidationStatus
 )
 from .date_extractor import ContentDateExtractor
 from .event_deduplicator import EventDeduplicator
@@ -305,21 +305,30 @@ class TemporalExtractorV2:
                     mention, context.word_level_timing, chapter_info['start_time']
                 )
                 
+                # Generate content hash for deduplication
+                content_hash = hashlib.md5(f"{mention['text']}_{context.video_url}_{chapter_info['title']}".encode()).hexdigest()
+                
                 event = TemporalEvent(
                     event_id=self._generate_event_id(mention, chapter_info, context.video_url),
+                    content_hash=content_hash,
+                    # Temporal Information - use current date as placeholder
+                    date=datetime.now(),  # Will be replaced by date extraction
+                    date_precision=DatePrecision.APPROXIMATE,
+                    date_confidence=0.0,  # Will be updated by date extraction
+                    extracted_date_text="",  # Will be filled by date extraction
+                    date_source="pending_extraction",
+                    # Event Information
                     description=mention['text'],
-                    timestamp=precise_timestamp,
-                    confidence=mention['confidence'],
                     event_type=self._classify_event_type(mention),
-                    entities=chapter_entities,
-                    extracted_date=None,  # Will be filled by date extraction
-                    video_url=context.video_url,
-                    context={
-                        'chapter_title': chapter_info['title'],
-                        'chapter_index': chapter_info['index'],
-                        'temporal_pattern': mention['pattern_type'],
-                        'word_level_timing': True
-                    }
+                    involved_entities=chapter_entities,
+                    # Source Information
+                    source_videos=[context.video_url],
+                    video_timestamps={context.video_url: precise_timestamp},
+                    chapter_context=chapter_info['title'],
+                    extraction_method=f"chapter_aware_{mention['pattern_type']}",
+                    # Quality Metrics
+                    confidence=mention['confidence'],
+                    validation_status=ValidationStatus.UNVERIFIED
                 )
                 
                 events.append(event)
@@ -477,20 +486,22 @@ class TemporalExtractorV2:
         return chapter_start
     
     def _classify_event_type(self, mention: Dict[str, Any]) -> EventType:
-        """Classify the type of temporal event."""
+        """Classify the type of temporal event using valid EventType values."""
         pattern_type = mention['pattern_type']
         text = mention['text'].lower()
         
+        # Map to valid EventType values: FACTUAL, CLAIMED, REPORTED, INFERRED
         if pattern_type == 'absolute_dates':
-            return EventType.DATE_REFERENCE
+            return EventType.FACTUAL  # Dates are factual
         elif pattern_type == 'visual_timestamps':
-            return EventType.VISUAL_TIMESTAMP
-        elif any(word in text for word in ['meeting', 'conference', 'call']):
-            return EventType.MEETING
-        elif any(word in text for word in ['announcement', 'statement', 'press']):
-            return EventType.ANNOUNCEMENT
+            return EventType.FACTUAL  # Visual timestamps are factual
+        elif any(word in text for word in ['claimed', 'alleged', 'accused']):
+            return EventType.CLAIMED
+        elif any(word in text for word in ['reported', 'announced', 'revealed', 'published']):
+            return EventType.REPORTED
         else:
-            return EventType.NARRATIVE_EVENT
+            # Default to INFERRED for narrative events
+            return EventType.INFERRED
     
     def _generate_event_id(
         self, 
@@ -533,20 +544,31 @@ class TemporalExtractorV2:
                     entities, start_time, end_time
                 )
                 
+                # Generate content hash for deduplication
+                content_hash = hashlib.md5(f"{mention['text']}_{context.video_url}_{start_time}".encode()).hexdigest()
+                timestamp = start_time + (mention['start_pos'] / len(segment_text)) * segment_duration
+                
                 event = TemporalEvent(
                     event_id=self._generate_time_based_event_id(mention, start_time, context.video_url),
+                    content_hash=content_hash,
+                    # Temporal Information - use current date as placeholder
+                    date=datetime.now(),  # Will be replaced by date extraction
+                    date_precision=DatePrecision.APPROXIMATE,
+                    date_confidence=0.0,  # Will be updated by date extraction
+                    extracted_date_text="",  # Will be filled by date extraction
+                    date_source="pending_extraction",
+                    # Event Information
                     description=mention['text'],
-                    timestamp=start_time + (mention['start_pos'] / len(segment_text)) * segment_duration,
-                    confidence=mention['confidence'] * 0.8,  # Lower confidence for time-based
                     event_type=self._classify_event_type(mention),
-                    entities=segment_entities,
-                    extracted_date=None,
-                    video_url=context.video_url,
-                    context={
-                        'extraction_method': 'time_based_fallback',
-                        'segment_start': start_time,
-                        'segment_end': end_time
-                    }
+                    involved_entities=segment_entities,
+                    # Source Information
+                    source_videos=[context.video_url],
+                    video_timestamps={context.video_url: timestamp},
+                    chapter_context=None,  # No chapters in time-based extraction
+                    extraction_method=f"time_based_{mention['pattern_type']}",
+                    # Quality Metrics
+                    confidence=mention['confidence'] * 0.8,  # Lower confidence for time-based
+                    validation_status=ValidationStatus.UNVERIFIED
                 )
                 
                 events.append(event)
@@ -594,9 +616,12 @@ class TemporalExtractorV2:
                 )
                 
                 # Update event with extracted date
-                event.extracted_date = extracted_date
-                
                 if extracted_date and extracted_date.date:
+                    event.date = extracted_date.date
+                    event.date_precision = DatePrecision.DAY  # Assuming day precision
+                    event.date_confidence = extracted_date.confidence
+                    event.extracted_date_text = extracted_date.original_text
+                    event.date_source = extracted_date.source
                     logger.debug(f"✅ Date extracted for event: {extracted_date.date} ({extracted_date.confidence:.2f})")
                 else:
                     logger.debug(f"⚠️ No date extracted for: {event.description[:50]}...")
@@ -608,7 +633,7 @@ class TemporalExtractorV2:
                 updated_events.append(event)  # Include event without date
         
         if updated_events:
-            success_rate = len([e for e in updated_events if e.extracted_date and e.extracted_date.date]) / len(updated_events)
+            success_rate = len([e for e in updated_events if e.date and e.date_source != "pending_extraction"]) / len(updated_events)
             logger.info(f"📊 Date extraction success rate: {success_rate:.1%}")
         else:
             logger.info("📊 No events to extract dates from")
@@ -637,8 +662,12 @@ class TemporalExtractorV2:
         for event in events:
             is_in_sponsor_segment = False
             
+            # Get the timestamp from the video_timestamps dict
+            # (use first video if multiple sources)
+            timestamp = list(event.video_timestamps.values())[0] if event.video_timestamps else 0
+            
             for segment in temporal_metadata.sponsorblock_segments:
-                if segment.start_time <= event.timestamp <= segment.end_time:
+                if segment.start_time <= timestamp <= segment.end_time:
                     # Check if this is a non-content segment
                     if segment.category in ['sponsor', 'intro', 'outro', 'selfpromo', 'interaction']:
                         is_in_sponsor_segment = True
@@ -710,16 +739,30 @@ class TemporalExtractorV2:
                 # Calculate timestamp based on position in transcript
                 timestamp = (i / len(sentences)) * 3600  # Assume ~1 hour video
                 
+                # Generate content hash for deduplication
+                content_hash = hashlib.md5(f"{sentence}_{video_url}".encode()).hexdigest()
+                
                 event = TemporalEvent(
-                    event_id=f"evt_fallback_{hashlib.md5(f'{sentence}_{video_url}'.encode()).hexdigest()[:8]}",
+                    event_id=f"evt_fallback_{content_hash[:8]}",
+                    content_hash=content_hash,
+                    # Temporal Information - use current date as placeholder
+                    date=datetime.now(),  # Will be replaced by date extraction
+                    date_precision=DatePrecision.APPROXIMATE,
+                    date_confidence=0.0,  # Will be updated by date extraction
+                    extracted_date_text="",  # Will be filled by date extraction
+                    date_source="pending_extraction",
+                    # Event Information
                     description=sentence,
-                    timestamp=timestamp,
+                    event_type=EventType.INFERRED,  # Fixed: Use valid EventType
+                    involved_entities=list(set(sentence_entities))[:10],  # Limit to 10 entities
+                    # Source Information
+                    source_videos=[video_url],
+                    video_timestamps={video_url: timestamp},
+                    chapter_context=None,  # No chapters in fallback
+                    extraction_method="fallback_sentence_analysis",
+                    # Quality Metrics
                     confidence=0.7 if is_event else 0.6,
-                    event_type=EventType.NARRATIVE_EVENT,
-                    entities=list(set(sentence_entities))[:10],  # Limit to 10 entities
-                    extracted_date=None,
-                    video_url=video_url,
-                    context={'extraction_method': 'fallback_sentence_analysis'}
+                    validation_status=ValidationStatus.UNVERIFIED
                 )
                 events.append(event)
                 event_count += 1
@@ -746,26 +789,25 @@ class TemporalExtractorV2:
         for video_url, events in video_events.items():
             all_events.extend(events)
         
-        # Sort by extracted date, then by timestamp
+        # Sort by date, then by timestamp
         all_events.sort(key=lambda e: (
-            e.extracted_date.date if e.extracted_date and e.extracted_date.date else datetime.min,
-            e.timestamp
+            e.date if e.date else datetime.min,
+            list(e.video_timestamps.values())[0] if e.video_timestamps else 0
         ))
         
         # Calculate quality metrics
         total_events = len(all_events)
-        events_with_dates = len([e for e in all_events if e.extracted_date and e.extracted_date.date])
+        events_with_dates = len([e for e in all_events if e.date and e.date_source != "pending_extraction"])
         high_confidence_events = len([e for e in all_events if e.confidence >= 0.8])
         
         quality_metrics = TimelineQualityMetrics(
             total_events=total_events,
+            deduplicated_events=total_events,  # Will be updated by deduplicator
             events_with_extracted_dates=events_with_dates,
-            high_confidence_events=high_confidence_events,
-            date_extraction_success_rate=events_with_dates / total_events if total_events > 0 else 0,
+            events_with_content_dates=events_with_dates,  # Same as extracted for now
             average_confidence=sum(e.confidence for e in all_events) / total_events if total_events > 0 else 0,
-            chapter_segmented_events=len([e for e in all_events if e.context.get('chapter_title')]),
-            sponsorblock_filtered_events=0,  # Will be calculated by quality filter
-            duplicate_events_removed=0  # Will be calculated by deduplicator
+            date_accuracy_score=events_with_dates / total_events if total_events > 0 else 0,
+            chapter_utilization_rate=len([e for e in all_events if e.chapter_context]) / total_events if total_events > 0 else 0
         )
         
         timeline = ConsolidatedTimeline(
@@ -773,7 +815,7 @@ class TemporalExtractorV2:
             events=all_events,
             video_sources=list(video_events.keys()),
             creation_date=datetime.now(),
-            quality_metrics=quality_metrics,
+            quality_metrics=quality_metrics.dict(),  # Convert to dict
             cross_video_correlations=[],  # Will be populated by synthesizer
             metadata={
                 'extraction_version': '2.0',

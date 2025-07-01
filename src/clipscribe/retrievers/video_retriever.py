@@ -278,7 +278,8 @@ class VideoIntelligenceRetriever:
             logger.info(f"Using {processing_mode} mode for enhanced temporal intelligence")
             
             # Download media based on enhanced mode
-            if processing_mode in ["video", "enhanced"]:
+            # TEMPORARY: Always use audio for now due to video download issues
+            if False and processing_mode in ["video", "enhanced"]:
                 logger.info("Downloading full video for enhanced temporal intelligence...")
                 if self.progress_tracker:
                     self.progress_tracker.log_info("Downloading full video for enhanced temporal intelligence...")
@@ -287,9 +288,9 @@ class VideoIntelligenceRetriever:
                     output_dir=self.cache_dir
                 )
             else:
-                logger.info("Downloading audio for standard processing...")
+                logger.info("Downloading audio for processing...")
                 if self.progress_tracker:
-                    self.progress_tracker.log_info("Downloading audio for standard processing...")
+                    self.progress_tracker.log_info("Downloading audio for processing...")
                 media_file, metadata = await self.video_client.download_audio(
                     video_url,
                     output_dir=self.cache_dir
@@ -301,7 +302,8 @@ class VideoIntelligenceRetriever:
                 _update_progress("Processing with Enhanced Temporal Intelligence")
                 
                 # v2.17.0: Enhanced processing based on mode
-                if processing_mode in ["video", "enhanced"]:
+                # TEMPORARY: Always use audio transcription for now
+                if False and processing_mode in ["video", "enhanced"]:
                     analysis = await self.transcriber.transcribe_video(
                         media_file,
                         metadata.duration
@@ -460,7 +462,7 @@ class VideoIntelligenceRetriever:
                         events=dated_events,
                         video_sources=[video_url],
                         creation_date=datetime.now(),
-                        quality_metrics=None,
+                        quality_metrics={},  # Fixed: Use empty dict instead of None
                         cross_video_correlations=[],
                         metadata={}
                     )
@@ -489,9 +491,17 @@ class VideoIntelligenceRetriever:
                     logger.info(f"✅ Created {len(chapters)} timeline chapters")
                     
                     # Add Timeline v2.0 data to VideoIntelligence
+                    # Convert ChapterAnalysis dataclasses to dict format
+                    from dataclasses import asdict
+                    chapters_as_dict = []
+                    for chapter_analysis in chapters:
+                        # Convert ChapterAnalysis dataclass to dict
+                        chapter_dict = asdict(chapter_analysis)
+                        chapters_as_dict.append(chapter_dict)
+                    
                     video_intelligence.timeline_v2 = {
-                        "temporal_events": [event.dict() for event in filtered_events],
-                        "chapters": [chapter.dict() for chapter in chapters],
+                        "temporal_events": [event.dict() for event in filtered_events],  # TemporalEvent has dict()
+                        "chapters": chapters_as_dict,
                         "quality_metrics": {
                             "total_events_extracted": len(temporal_events),
                             "events_after_deduplication": len(deduplicated_events),
