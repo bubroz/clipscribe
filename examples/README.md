@@ -6,7 +6,7 @@ This directory contains example scripts demonstrating various features and use c
 
 ## 🚀 Timeline Intelligence v2.0 Features
 
-**ClipScribe v2.18.11** showcases complete Timeline Intelligence v2.0 implementation:
+**ClipScribe v2.18.16** showcases complete Timeline Intelligence v2.0 implementation:
 - **Quality Transformation**: 82 broken events → 40 accurate events (144% improvement)
 - **Event Deduplication**: Eliminates 44-duplicate crisis through intelligent consolidation
 - **Content Date Extraction**: 95%+ accuracy extracting dates from content (not metadata)
@@ -138,14 +138,14 @@ Features:
 
 Before running the examples:
 
-1. **Install ClipScribe v2.18.11+**:
+1. **Install ClipScribe v2.18.16+**:
    ```bash
    poetry install
    ```
 
 2. **Verify Timeline v2.0**:
    ```bash
-   poetry run clipscribe --version  # Should show v2.18.11+
+   poetry run clipscribe --version  # Should show v2.18.16+
    ```
 
 3. **Set up API key**:

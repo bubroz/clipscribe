@@ -1,8 +1,8 @@
-# ClipScribe CLI Reference (v2.18.14 - Timeline Intelligence v2.0 🔍 DEBUGGING)
+# ClipScribe CLI Reference (v2.18.16 - Timeline Intelligence v2.0 ✅ OPERATIONAL)
 
-*Last Updated: June 30, 2025*
+*Last Updated: July 1, 2025 - Timeline v2.0 Fully Operational*
 
-Complete reference for all ClipScribe commands and options, featuring **Timeline Intelligence v2.0** - currently re-enabled with model fixes but extracting 0 temporal events (debugging in progress).
+Complete reference for all ClipScribe commands and options, featuring **Timeline Intelligence v2.0** - fully operational with temporal event extraction, quality filtering, and comprehensive timeline building.
 
 ## 🚀 Timeline Intelligence v2.0 Features
 
@@ -23,7 +23,7 @@ clipscribe [GLOBAL OPTIONS] COMMAND [COMMAND OPTIONS]
 
 | Option | Description |
 |--------|-------------|
-| `--version` | Show ClipScribe version (v2.18.11+) and exit |
+| `--version` | Show ClipScribe version (v2.18.16+) and exit |
 | `--debug` | Enable debug logging for troubleshooting |
 | `--help` | Show help message and exit |
 
@@ -95,7 +95,7 @@ clipscribe process "https://twitter.com/i/status/123456" \
 - **Performance Data**: Processing optimization metrics and efficiency scores
 - **Chapter Intelligence**: yt-dlp chapter boundaries with content analysis
 
-### `process-collection` - Multi-Video Timeline Intelligence (v2.18.11 Complete)
+### `process-collection` - Multi-Video Timeline Intelligence (v2.18.16 Complete)
 
 Process multiple videos as a unified collection with **Timeline v2.0 synthesis**, cross-video correlation, and comprehensive temporal intelligence.
 
@@ -110,7 +110,7 @@ clipscribe process-collection [OPTIONS] URL1 URL2 [URL3...]
 
 | Option | Short | Default | Description |
 |--------|-------|---------|-------------|
-| `--timeline-v2` | | True | Enable Timeline Intelligence v2.0 (default in v2.18.11) |
+| `--timeline-v2` | | True | Enable Timeline Intelligence v2.0 (default in v2.18.16) |
 | `--cross-video-synthesis` | | True | Cross-video temporal correlation and synthesis |
 | `--streaming-mode` | | Auto | Auto-enable for 100+ video collections |
 | `--performance-optimized` | | False | Enable all performance optimizations |
@@ -329,7 +329,7 @@ Complete Timeline v2.0 data with temporal events, chapters, and quality metrics.
 {
   "metadata": {
     "timeline_v2_enabled": true,
-    "processing_version": "2.18.11"
+    "processing_version": "2.18.16"
   },
   "timeline_v2": {
     "temporal_events": [

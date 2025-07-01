@@ -6,7 +6,7 @@ ClipScribe is an AI-powered video intelligence tool that analyzes videos from 18
 
 ## 🚀 What's New: Timeline Intelligence v2.0 Complete!
 
-**ClipScribe v2.18.11** features the complete Timeline Intelligence v2.0 system with:
+**ClipScribe v2.18.16** features the complete Timeline Intelligence v2.0 system with:
 - **Comprehensive Timeline Intelligence**: Real temporal events with accurate historical dates
 - **Event Deduplication**: Eliminates the 44-duplicate crisis through intelligent consolidation
 - **Content Date Extraction**: 95%+ accuracy extracting dates from content (not video metadata)
@@ -250,7 +250,7 @@ Timeline v2.0 delivers **300% more temporal intelligence for only 12-20% cost in
 
 ## Configuration
 
-ClipScribe v2.18.11 uses environment variables for Timeline v2.0 configuration:
+ClipScribe v2.18.16 uses environment variables for Timeline v2.0 configuration:
 
 ```bash
 # Required
@@ -275,10 +275,10 @@ ENABLE_TECHNICAL_NOISE_DETECTION=true
 ## Troubleshooting
 
 ### "Timeline v2.0 not found"
-Timeline v2.0 is automatically included in v2.18.11. If you see this error:
+Timeline v2.0 is automatically included in v2.18.16. If you see this error:
 ```bash
 poetry update
-poetry run clipscribe --version  # Should show 2.18.11+
+poetry run clipscribe --version  # Should show 2.18.16+
 ```
 
 ### "High memory usage"

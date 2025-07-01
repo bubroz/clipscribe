@@ -6,7 +6,7 @@ Interactive web interface for managing and visualizing ClipScribe video intellig
 
 ## 🚀 Timeline Intelligence v2.0 Complete!
 
-**ClipScribe Mission Control v2.18.11** features complete Timeline Intelligence v2.0 integration:
+**ClipScribe Mission Control v2.18.16** features complete Timeline Intelligence v2.0 integration:
 - **Timeline Intelligence Page**: 5-tab interface showcasing Timeline v2.0 capabilities
 - **Quality Transformation Showcase**: Live demonstration of 82→40 event improvement
 - **Performance Monitoring**: Real-time Timeline v2.0 optimization tracking
@@ -24,7 +24,7 @@ poetry run streamlit run streamlit_app/ClipScribe_Mission_Control.py
 The interface will open in your browser at `http://localhost:8501`
 
 ### Prerequisites
-- ClipScribe v2.18.11+ installed with `poetry install`
+- ClipScribe v2.18.16+ installed with `poetry install`
 - Google API key configured (`GOOGLE_API_KEY` environment variable)
 - Some processed videos or collections (optional for Timeline v2.0 demo)
 
@@ -171,7 +171,7 @@ Enhanced monitoring with Timeline Intelligence v2.0:
 
 ### "Timeline v2.0 loading errors"
 - Check that Timeline Intelligence v2.0 JSON data is valid
-- Ensure ClipScribe v2.18.11+ is installed
+- Ensure ClipScribe v2.18.16+ is installed
 - Verify Timeline v2.0 processing completed successfully
 
 ### "Performance optimization not working"
@@ -181,9 +181,9 @@ Enhanced monitoring with Timeline Intelligence v2.0:
   ```
 
 ### Timeline v2.0 version issues
-- Ensure you're running ClipScribe v2.18.11+:
+- Ensure you're running ClipScribe v2.18.16+:
   ```bash
-  poetry run clipscribe --version  # Should show v2.18.11+
+  poetry run clipscribe --version  # Should show v2.18.16+
   ```
 
 ## 🚧 Future Enhancements (Phase 2)
@@ -230,4 +230,4 @@ For Timeline Intelligence v2.0 issues or questions:
 
 ---
 
-**ClipScribe Mission Control v2.18.11** - Timeline Intelligence v2.0 complete with revolutionary temporal intelligence! 🎬🚀✨ 
+**ClipScribe Mission Control v2.18.16** - Timeline Intelligence v2.0 complete with revolutionary temporal intelligence! 🎬🚀✨ 
