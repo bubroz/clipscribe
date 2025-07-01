@@ -20,6 +20,7 @@ from .filename import (
 )
 from .file_utils import calculate_sha256
 from .web_research import WebResearchIntegrator, TimelineContextValidator, ResearchResult, TimelineEnrichment
+from .timeline_js_formatter import TimelineJSFormatter
 
 __all__ = [
     'setup_logging',
@@ -39,5 +40,6 @@ __all__ = [
     'WebResearchIntegrator',
     'TimelineContextValidator',
     'ResearchResult',
-    'TimelineEnrichment'
+    'TimelineEnrichment',
+    'TimelineJSFormatter'
 ] 

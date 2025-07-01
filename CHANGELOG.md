@@ -9,6 +9,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+## [2.18.17] - 2025-07-01
+
+### Added
+- TimelineJS3 export format for beautiful, interactive timeline visualizations
+- New `timeline_js.json` output file when Timeline v2.0 data is available
+- TimelineJSFormatter utility class for converting Timeline v2.0 to TimelineJS3 format
+- Automatic media thumbnail extraction and linking for timeline events
+- Support for date precision levels (exact, day, month, year) in timeline export
+
 ## [2.18.16] - 2025-07-01
 
 ### Added

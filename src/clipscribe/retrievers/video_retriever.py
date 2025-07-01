@@ -18,6 +18,7 @@ from ..utils.filename import create_output_filename, create_output_structure, ex
 from ..extractors import HybridEntityExtractor, AdvancedHybridExtractor
 from ..config.settings import Settings, TemporalIntelligenceLevel, VideoRetentionPolicy
 from ..utils.file_utils import calculate_sha256
+from ..utils.timeline_js_formatter import TimelineJSFormatter
 
 # 🚀 Timeline Intelligence v2.0 Integration for Single Videos
 from ..timeline import (
@@ -791,6 +792,8 @@ class VideoIntelligenceRetriever:
         self._save_report_file(video, paths)
         if include_chimera_format:
             self._save_chimera_file(video, paths)
+        # Save TimelineJS if Timeline v2.0 data exists
+        self._save_timelinejs_file(video, paths)
 
         self._create_manifest_file(video, paths)
 
@@ -1209,7 +1212,8 @@ class VideoIntelligenceRetriever:
             ("metadata.json", "JSON", "Video metadata and statistics"),
             ("manifest.json", "JSON", "File index with checksums"),
             ("report.md", "Markdown", "This report"),
-            ("chimera_format.json", "JSON", "Chimera-compatible format")
+            ("chimera_format.json", "JSON", "Chimera-compatible format"),
+            ("timeline_js.json", "JSON", "TimelineJS3 visualization data")
         ]
         
         for filename, fmt, desc in file_info:
@@ -1254,7 +1258,8 @@ class VideoIntelligenceRetriever:
             "entities_csv": {"path": "entities.csv", "format": "csv", "description": "All entities in CSV format"},
             "relationships_csv": {"path": "relationships.csv", "format": "csv", "description": "All relationships in CSV format"},
             "report": {"path": "report.md", "format": "markdown", "description": "Human-readable intelligence report"},
-            "chimera": {"path": "chimera_format.json", "format": "json", "description": "Chimera-compatible format"}
+            "chimera": {"path": "chimera_format.json", "format": "json", "description": "Chimera-compatible format"},
+            "timeline_js": {"path": "timeline_js.json", "format": "json", "description": "TimelineJS3-compatible timeline visualization"}
         }
 
         for key, definition in file_definitions.items():
@@ -1283,6 +1288,79 @@ class VideoIntelligenceRetriever:
         with open(chimera_path, 'w', encoding='utf-8') as f:
             json.dump(chimera_data, f, indent=2, default=str)
         paths["chimera"] = chimera_path
+    
+    def _save_timelinejs_file(self, video: VideoIntelligence, paths: Dict[str, Path]):
+        """Saves timeline.json in TimelineJS3 format if Timeline v2.0 data exists."""
+        # Check if Timeline v2.0 data exists
+        if not hasattr(video, 'timeline_v2') or not video.timeline_v2:
+            logger.debug("No Timeline v2.0 data to convert to TimelineJS format")
+            return
+            
+        try:
+            # Get timeline events from the timeline_v2 data
+            timeline_events = video.timeline_v2.get('timeline_events', [])
+            if not timeline_events:
+                logger.debug("No timeline events found in Timeline v2.0 data")
+                return
+                
+            # Create ConsolidatedTimeline object from the events
+            from ..timeline.models import ConsolidatedTimeline, TemporalEvent
+            
+            # Convert raw events to TemporalEvent objects
+            temporal_events = []
+            for event_data in timeline_events:
+                # Skip if not a proper event structure
+                if not isinstance(event_data, dict):
+                    continue
+                    
+                temporal_event = TemporalEvent(
+                    event_id=event_data.get('event_id', f"event_{len(temporal_events)}"),
+                    content_hash=event_data.get('content_hash', ''),
+                    date=datetime.fromisoformat(event_data.get('date', datetime.now().isoformat())),
+                    date_precision=event_data.get('date_precision', 'approximate'),
+                    date_confidence=event_data.get('date_confidence', 0.5),
+                    extracted_date_text=event_data.get('extracted_date_text', ''),
+                    date_source=event_data.get('date_source', 'unknown'),
+                    description=event_data.get('description', ''),
+                    event_type=event_data.get('event_type', 'inferred'),
+                    involved_entities=event_data.get('involved_entities', []),
+                    source_videos=[video.metadata.url],
+                    video_timestamps={video.metadata.url: event_data.get('timestamp', 0)},
+                    chapter_context=event_data.get('chapter_context'),
+                    extraction_method=event_data.get('extraction_method', 'timeline_v2'),
+                    confidence=event_data.get('confidence', 0.7),
+                    validation_status=event_data.get('validation_status', 'unverified')
+                )
+                temporal_events.append(temporal_event)
+            
+            if not temporal_events:
+                logger.debug("No valid temporal events to convert")
+                return
+                
+            # Create consolidated timeline
+            consolidated_timeline = ConsolidatedTimeline(
+                events=temporal_events,
+                video_sources=[video.metadata.url]
+            )
+            
+            # Initialize formatter and convert
+            formatter = TimelineJSFormatter()
+            timeline_js_data = formatter.format_timeline(
+                consolidated_timeline,
+                title=video.metadata.title,
+                description=f"Timeline extracted from: {video.metadata.title}"
+            )
+            
+            # Save the TimelineJS file
+            timeline_js_path = paths["directory"] / "timeline_js.json"
+            formatter.save_timeline(timeline_js_data, timeline_js_path)
+            paths["timeline_js"] = timeline_js_path
+            
+            logger.info(f"Saved TimelineJS format with {len(temporal_events)} events :-)")
+            
+        except Exception as e:
+            logger.warning(f"Failed to generate TimelineJS format: {e}")
+            # Don't fail the entire process if TimelineJS export fails
     
     # Chimera-compatible interface methods
     
