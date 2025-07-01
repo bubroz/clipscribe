@@ -218,6 +218,130 @@ Remember: Every task completion should feel like a mini-release with full docume
 
 See `documentation.mdc` for the comprehensive documentation update checklist and decision tree.
 
+## GitHub Issue Tracking
+
+**CRITICAL: Track all significant features, bugs, and enhancements in GitHub Issues.**
+
+### When to Create Issues
+
+Create a GitHub issue when:
+- **New Feature Ideas**: User suggests or you identify a new feature
+- **Bug Discovery**: Any bug that can't be fixed immediately
+- **Enhancement Requests**: Improvements to existing functionality
+- **Architecture Changes**: Major refactoring or design decisions
+- **Future Work**: Tasks deferred for later implementation
+- **Research Topics**: Ideas that need investigation
+
+### Issue Creation Standards
+
+```markdown
+## Issue Title Format
+[Type] Brief, clear description (max 60 chars)
+
+Types: Feature, Bug, Enhancement, Architecture, Research, Documentation
+
+## Issue Body Template
+### Summary
+Brief description of the issue/feature
+
+### Background/Context
+Why this is needed or how it was discovered
+
+### Proposed Solution/Implementation
+Technical approach or fix strategy
+
+### Acceptance Criteria
+- [ ] Clear checklist of what "done" means
+- [ ] Testable requirements
+- [ ] Documentation needs
+
+### Priority
+High/Medium/Low with justification
+
+### Related Issues/PRs
+- Links to related work
+- Dependencies on other issues
+
+### Labels
+Appropriate labels for categorization
+```
+
+### Issue Management Workflow
+
+1. **Create Immediately**: When identified during development
+   ```bash
+   # Use GitHub CLI if available
+   gh issue create --title "[Feature] TimelineJS export" --body "..."
+   
+   # Or use the MCP GitHub tool
+   mcp_GitHub_create_issue
+   ```
+
+2. **Reference in Code**: Link issues in comments
+   ```python
+   # TODO: Implement TimelineJS export (Issue #123)
+   # See: https://github.com/user/clipscribe/issues/123
+   ```
+
+3. **Update Progress**: Comment on issues with updates
+   - Implementation started/completed
+   - Blockers discovered
+   - Design decisions made
+
+4. **Link in PRs**: Reference issues in pull requests
+   ```
+   Fixes #123: Add TimelineJS export format
+   
+   This PR implements the TimelineJS3 export feature requested in #123.
+   ```
+
+5. **Close Appropriately**: 
+   - Via PR merge with "Fixes #123"
+   - Manually with explanation if not implementing
+   - Convert to Discussion if needs community input
+
+### Issue Tracking Checklist
+
+When working on any task:
+- [ ] Check for existing related issues
+- [ ] Create issue for new features/bugs discovered
+- [ ] Update related issues with progress
+- [ ] Reference issues in commit messages
+- [ ] Link issues in documentation updates
+- [ ] Close issues when work is complete
+
+### Anti-Patterns to Avoid
+
+❌ **Don't**: Implement features without tracking them  
+✅ **Do**: Create issues for visibility and project management
+
+❌ **Don't**: Create vague issues like "Fix timeline stuff"  
+✅ **Do**: Write clear, actionable issues with acceptance criteria
+
+❌ **Don't**: Leave issues open indefinitely  
+✅ **Do**: Close with explanation or convert to Discussion
+
+❌ **Don't**: Duplicate existing issues  
+✅ **Do**: Search first, then enhance existing issues
+
+### Quick Issue Commands
+
+```bash
+# List open issues
+gh issue list --repo base/clipscribe
+
+# Create new issue
+gh issue create --repo base/clipscribe
+
+# View specific issue
+gh issue view 123 --repo base/clipscribe
+
+# Close issue with comment
+gh issue close 123 --repo base/clipscribe --comment "Fixed in v2.18.15"
+```
+
+Remember: Good issue tracking creates a searchable knowledge base of decisions, features, and fixes. It's documentation that writes itself!
+
 ## Rule Precedence
 
 When rules conflict:

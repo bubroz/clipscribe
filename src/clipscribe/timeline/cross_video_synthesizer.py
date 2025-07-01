@@ -879,18 +879,38 @@ class CrossVideoSynthesizer:
     ) -> TimelineQualityMetrics:
         """Calculate preliminary quality metrics before filtering."""
         total_events = len(events)
-        events_with_dates = len([e for e in events if e.extracted_date and e.extracted_date.date])
-        high_confidence_events = len([e for e in events if e.confidence >= 0.8])
+        events_with_extracted_dates = len([e for e in events if e.extracted_date and e.extracted_date.date])
+        events_with_content_dates = len([e for e in events if e.date_source != "fallback_video_published_date"])
+        
+        # Calculate date accuracy score
+        date_accuracy_score = 0.0
+        if total_events > 0:
+            # Score based on: extracted dates, content dates, and confidence
+            date_scores = []
+            for event in events:
+                if event.extracted_date and event.extracted_date.date:
+                    if event.date_source != "fallback_video_published_date":
+                        date_scores.append(event.date_confidence)
+                    else:
+                        date_scores.append(0.1)  # Low score for fallback dates
+                else:
+                    date_scores.append(0.0)
+            date_accuracy_score = sum(date_scores) / len(date_scores) if date_scores else 0.0
+        
+        # Calculate chapter utilization rate
+        chapter_utilization_rate = 0.0
+        if total_events > 0:
+            chapter_events = len([e for e in events if e.chapter_context])
+            chapter_utilization_rate = chapter_events / total_events
         
         return TimelineQualityMetrics(
             total_events=total_events,
-            events_with_extracted_dates=events_with_dates,
-            high_confidence_events=high_confidence_events,
-            date_extraction_success_rate=events_with_dates / total_events if total_events > 0 else 0,
+            deduplicated_events=total_events,  # Will be updated after deduplication
+            events_with_extracted_dates=events_with_extracted_dates,
+            events_with_content_dates=events_with_content_dates,
             average_confidence=sum(e.confidence for e in events) / total_events if total_events > 0 else 0,
-            chapter_segmented_events=len([e for e in events if e.context.get('chapter_title')]),
-            sponsorblock_filtered_events=0,  # Will be calculated later
-            duplicate_events_removed=0      # Will be calculated later
+            date_accuracy_score=date_accuracy_score,
+            chapter_utilization_rate=chapter_utilization_rate
         )
     
     async def _analyze_timeline_gaps(

@@ -198,6 +198,9 @@ class MultiVideoProcessor:
             validated_entities = core_results.get("entity_validation", [])
             collection_summary = core_results.get("collection_summary", f"Collection of {len(videos)} videos")
             key_insights = core_results.get("key_insights", [])
+            # Handle case where AI returns insights as objects with 'insight' key
+            if key_insights and isinstance(key_insights[0], dict) and 'insight' in key_insights[0]:
+                key_insights = [insight['insight'] for insight in key_insights]
             
             # Apply entity validation results
             for validation in validated_entities:
@@ -1275,7 +1278,8 @@ class MultiVideoProcessor:
                 
                 # Use TemporalExtractorV2 for breakthrough extraction
                 video_url = f"https://www.youtube.com/watch?v={video.metadata.video_id}"  # Reconstruct URL
-                transcript_text = video.analysis_results.get('transcript', '') if hasattr(video, 'analysis_results') else ""
+                # Fix: Access transcript correctly from video.transcript object
+                transcript_text = video.transcript.full_text if video.transcript else ""
                 entities_dict = [{'text': e.name, 'type': e.type, 'timestamp': e.timestamp or 0} for e in video.entities]
                 
                 video_events = await self.temporal_extractor_v2.extract_temporal_events(

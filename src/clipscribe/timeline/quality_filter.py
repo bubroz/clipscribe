@@ -153,10 +153,12 @@ class TimelineQualityFilter:
         
         # Update timeline with filtered events and quality metrics
         # Using Timeline v2.0 ConsolidatedTimeline model structure
+        quality_metrics = self._calculate_quality_metrics(filtered_events, filter_stats)
+        
         filtered_timeline = ConsolidatedTimeline(
             events=filtered_events,
             video_sources=timeline.video_sources,
-            quality_metrics=self._calculate_quality_metrics(filtered_events, filter_stats),
+            quality_metrics=quality_metrics.model_dump(),  # Convert to dict
             correlation_analysis=getattr(timeline, 'correlation_analysis', {}),
             chapter_correlations=getattr(timeline, 'chapter_correlations', [])
         )
@@ -524,6 +526,19 @@ class TimelineQualityFilter:
         total_events = len(filtered_events)
         events_with_dates = len([e for e in filtered_events if e.extracted_date and e.extracted_date.date])
         high_confidence_events = len([e for e in filtered_events if e.confidence >= 0.8])
+        chapter_segmented_events = len([e for e in filtered_events if e.context.get('chapter_title')])
+        
+        # Calculate additional required fields
+        deduplicated_events = total_events  # After deduplication
+        
+        # Prevent division by zero
+        date_accuracy_score = 0.0
+        if total_events > 0:
+            date_accuracy_score = events_with_dates / total_events
+        
+        chapter_utilization_rate = 0.0
+        if total_events > 0:
+            chapter_utilization_rate = chapter_segmented_events / total_events
         
         return TimelineQualityMetrics(
             total_events=total_events,
@@ -531,9 +546,14 @@ class TimelineQualityFilter:
             high_confidence_events=high_confidence_events,
             date_extraction_success_rate=events_with_dates / total_events if total_events > 0 else 0,
             average_confidence=sum(e.confidence for e in filtered_events) / total_events if total_events > 0 else 0,
-            chapter_segmented_events=len([e for e in filtered_events if e.context.get('chapter_title')]),
+            chapter_segmented_events=chapter_segmented_events,
             sponsorblock_filtered_events=filter_stats.get('sponsorblock_filtered', 0),
-            duplicate_events_removed=sum(v for k, v in filter_stats.items() if 'duplicate' in k)
+            duplicate_events_removed=sum(v for k, v in filter_stats.items() if 'duplicate' in k),
+            # Add the missing required fields
+            deduplicated_events=deduplicated_events,
+            events_with_content_dates=events_with_dates,
+            date_accuracy_score=date_accuracy_score,
+            chapter_utilization_rate=chapter_utilization_rate
         )
     
     async def _generate_quality_report(

@@ -94,6 +94,18 @@ class TemporalExtractorV2:
             'visual_timestamps': [
                 r'\b(?:screen shows?|display shows?|document dated?|calendar shows?)\b.*?\b\d{1,2}[/\-]\d{1,2}[/\-]\d{2,4}\b',
                 r'\b(?:timestamp|date stamp|time code)\b.*?\b\d{1,2}:\d{2}(?::\d{2})?\b',
+            ],
+            # NEW: Content-based event patterns for documentaries
+            'narrative_events': [
+                r'[A-Z][^.!?]*?(?:discovered|revealed|exposed|uncovered|reported|announced|published|released)[^.!?]*[.!?]',
+                r'[A-Z][^.!?]*?(?:investigation|report|story|scandal|revelation)[^.!?]*[.!?]',
+                r'[A-Z][^.!?]*?(?:targeted|hacked|infected|monitored|tracked|spied)[^.!?]*[.!?]',
+                r'[A-Z][^.!?]*?(?:murder|killed|death|assassination)[^.!?]*[.!?]',
+                r'[A-Z][^.!?]*?(?:meeting|conference|summit|interview)[^.!?]*[.!?]',
+            ],
+            'key_statements': [
+                r'[A-Z][^.!?]*?(?:says?|said|stated?|explained?|told|claimed?|admitted?)[^.!?]*[.!?]',
+                r'[A-Z][^.!?]*?(?:according to|confirmed|denied|refused)[^.!?]*[.!?]',
             ]
         }
     
@@ -123,6 +135,13 @@ class TemporalExtractorV2:
             List of deduplicated temporal events with accurate dates
         """
         logger.info(f"🚀 Starting Timeline v2.0 extraction for: {video_url}")
+        logger.debug(f"Transcript length: {len(transcript_text)} chars")
+        logger.debug(f"Number of entities: {len(entities)}")
+        
+        # If transcript is empty, use fallback
+        if not transcript_text or len(transcript_text.strip()) == 0:
+            logger.warning("⚠️ Empty transcript, using fallback extraction")
+            return await self._fallback_basic_extraction(video_url, transcript_text, entities)
         
         try:
             # Step 1: Extract comprehensive temporal metadata using yt-dlp
@@ -265,8 +284,14 @@ class TemporalExtractorV2:
                 chapter_info['end_time']
             )
             
+            # Debug logging to understand extraction
+            logger.debug(f"Chapter '{chapter_info['title']}' text length: {len(chapter_text)} chars")
+            if len(chapter_text) > 0:
+                logger.debug(f"Chapter text preview: {chapter_text[:200]}...")
+            
             # Extract temporal patterns from chapter text
             temporal_mentions = self._find_temporal_mentions(chapter_text)
+            logger.debug(f"Found {len(temporal_mentions)} temporal mentions in chapter")
             
             # Create events for each temporal mention with chapter context
             for mention in temporal_mentions:
@@ -319,9 +344,23 @@ class TemporalExtractorV2:
         if not word_timing:
             # Fallback to time-based estimation
             words = transcript_text.split()
-            total_duration = max(word_timing.values(), key=lambda x: x.get('end', 0)).get('end', len(words))
-            start_word = int((start_time / total_duration) * len(words))
-            end_word = int((end_time / total_duration) * len(words))
+            if not words:
+                return ""
+            
+            # Estimate total duration based on average speaking rate
+            # Average speaking rate is ~150 words per minute
+            estimated_duration = (len(words) / 150) * 60  # Convert to seconds
+            
+            if estimated_duration <= 0:
+                return ' '.join(words)
+            
+            start_word = int((start_time / estimated_duration) * len(words))
+            end_word = int((end_time / estimated_duration) * len(words))
+            
+            # Ensure valid bounds
+            start_word = max(0, min(start_word, len(words)))
+            end_word = max(start_word, min(end_word, len(words)))
+            
             return ' '.join(words[start_word:end_word])
         
         # Use precise word-level timing
@@ -395,11 +434,22 @@ class TemporalExtractorV2:
         timeframe_entities = []
         
         for entity in entities:
-            entity_timestamp = entity.get('timestamp', 0)
-            if start_time <= entity_timestamp <= end_time:
-                timeframe_entities.append(entity.get('text', ''))
+            # Handle different entity formats
+            if isinstance(entity, dict):
+                entity_timestamp = entity.get('timestamp')
+                entity_name = entity.get('text') or entity.get('name', '')
+            else:
+                # Handle Pydantic models
+                entity_timestamp = getattr(entity, 'timestamp', None)
+                entity_name = getattr(entity, 'name', '')
+            
+            # If no timestamp, include the entity (assume it's relevant to whole video)
+            if entity_timestamp is None:
+                timeframe_entities.append(entity_name)
+            elif start_time <= entity_timestamp <= end_time:
+                timeframe_entities.append(entity_name)
         
-        return list(set(timeframe_entities))  # Remove duplicates
+        return list(set(filter(None, timeframe_entities)))  # Remove duplicates and empty strings
     
     def _calculate_precise_timestamp(
         self,
@@ -557,8 +607,11 @@ class TemporalExtractorV2:
                 logger.warning(f"Date extraction failed for event {event.event_id}: {e}")
                 updated_events.append(event)  # Include event without date
         
-        success_rate = len([e for e in updated_events if e.extracted_date and e.extracted_date.date]) / len(updated_events)
-        logger.info(f"📊 Date extraction success rate: {success_rate:.1%}")
+        if updated_events:
+            success_rate = len([e for e in updated_events if e.extracted_date and e.extracted_date.date]) / len(updated_events)
+            logger.info(f"📊 Date extraction success rate: {success_rate:.1%}")
+        else:
+            logger.info("📊 No events to extract dates from")
         
         return updated_events
     
@@ -610,23 +663,72 @@ class TemporalExtractorV2:
         
         events = []
         
-        # Simple temporal pattern extraction as fallback
-        temporal_mentions = self._find_temporal_mentions(transcript_text)
+        # For videos with no obvious temporal patterns, extract meaningful sentences
+        # that describe events or contain important information
+        sentences = transcript_text.split('. ')
+        event_count = 0
         
-        for i, mention in enumerate(temporal_mentions):
-            event = TemporalEvent(
-                event_id=f"evt_fallback_{hashlib.md5(f'{mention['text']}_{video_url}'.encode()).hexdigest()[:8]}",
-                description=mention['text'],
-                timestamp=i * 60,  # Rough 1-minute intervals
-                confidence=mention['confidence'] * 0.6,  # Lower confidence for fallback
-                event_type=EventType.NARRATIVE_EVENT,
-                entities=[entity.get('text', '') for entity in entities[:5]],  # Limit entities
-                extracted_date=None,
-                video_url=video_url,
-                context={'extraction_method': 'fallback_basic'}
-            )
-            events.append(event)
+        for i, sentence in enumerate(sentences):
+            sentence = sentence.strip()
+            
+            # Skip very short sentences
+            if len(sentence) < 20:
+                continue
+                
+            # Look for sentences that describe actions, events, or contain key information
+            is_event = False
+            
+            # Check if sentence contains action verbs or event indicators
+            event_indicators = [
+                'was', 'were', 'is', 'are', 'has', 'have', 'had',
+                'discovered', 'revealed', 'exposed', 'reported', 'announced',
+                'targeted', 'hacked', 'infected', 'monitored', 'spied',
+                'investigated', 'published', 'released', 'launched',
+                'created', 'developed', 'designed', 'built', 'established',
+                'killed', 'murdered', 'died', 'attack', 'incident'
+            ]
+            
+            # Check if sentence contains any event indicators
+            sentence_lower = sentence.lower()
+            for indicator in event_indicators:
+                if indicator in sentence_lower:
+                    is_event = True
+                    break
+            
+            # Also check for sentences with entities
+            entity_names = [e.get('name', '').lower() for e in entities]
+            contains_entity = any(name in sentence_lower for name in entity_names if name)
+            
+            if is_event or contains_entity:
+                # Find relevant entities in this sentence
+                sentence_entities = []
+                for entity in entities:
+                    entity_name = entity.get('name', '')
+                    if entity_name and entity_name.lower() in sentence_lower:
+                        sentence_entities.append(entity_name)
+                
+                # Calculate timestamp based on position in transcript
+                timestamp = (i / len(sentences)) * 3600  # Assume ~1 hour video
+                
+                event = TemporalEvent(
+                    event_id=f"evt_fallback_{hashlib.md5(f'{sentence}_{video_url}'.encode()).hexdigest()[:8]}",
+                    description=sentence,
+                    timestamp=timestamp,
+                    confidence=0.7 if is_event else 0.6,
+                    event_type=EventType.NARRATIVE_EVENT,
+                    entities=list(set(sentence_entities))[:10],  # Limit to 10 entities
+                    extracted_date=None,
+                    video_url=video_url,
+                    context={'extraction_method': 'fallback_sentence_analysis'}
+                )
+                events.append(event)
+                event_count += 1
+                
+                # Limit events to prevent overwhelming the timeline
+                if event_count >= 100:
+                    break
         
+        logger.info(f"Fallback extraction found {len(events)} events from {len(sentences)} sentences")
         return events
     
     async def build_consolidated_timeline(
