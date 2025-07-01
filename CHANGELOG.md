@@ -20,18 +20,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed missing timeline_v2 in _save_transcript_files method
 - Fixed missing timeline_v2 in _to_chimera_format method
 - Fixed missing timeline_v2 in manifest data structure
+- Fixed JSON serialization error for Timeline v2.0 datetime objects
+- Added default=str to json.dump() calls to handle datetime serialization
 
 ### Validated
 - ✅ Live test successful: PBS NewsHour space science video (7 minutes)
-  - Extracted 8 temporal events → filtered to 4 high-quality events
+  - Extracted 9 temporal events → filtered to 5 high-quality events
   - Generated 9 timeline chapters
-  - 50% quality improvement ratio
+  - 55.56% quality improvement ratio
   - Total cost: $0.0255 with enhanced temporal intelligence
-- Timeline Intelligence v2.0 is now FULLY OPERATIONAL with live data!
+- Timeline Intelligence v2.0 is now FULLY OPERATIONAL with live data and proper JSON serialization!
 
 ### Known Issues
-- manifest.json file not being generated (separate bug)
-- chimera_format.json has JSON formatting error on line 425
+- ~~manifest.json file not being generated (separate bug)~~ FIXED
+- ~~chimera_format.json has JSON formatting error on line 425~~ FIXED
 
 ## [2.18.15] - 2025-07-01
 
