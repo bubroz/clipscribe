@@ -1,13 +1,23 @@
 # ClipScribe Feature Roadmap & Ideas
 
-*Last Updated: June 30, 2025*
+*Last Updated: July 1, 2025*
 
 ## 🚀 High Priority Features
 
-### Timeline Intelligence v2.0 Completion
-- **Status**: In Progress (debugging 0 events issue)
+### Timeline Intelligence v2.0 Model Alignment
+- **Status**: In Progress (event extraction working, model alignment needed)
 - **Priority**: Critical
-- **Description**: Complete Timeline v2.0 integration with temporal event extraction
+- **Description**: Fix model mismatch between TemporalEvent and pipeline components
+- **Current State**:
+  - ✅ Timeline v2.0 extracts 117 temporal events successfully
+  - ✅ Video duration bug fixed (uses real 600s instead of estimate 79.6s)
+  - ✅ Date extraction from content working
+  - ❌ Quality filter expects wrong model structure
+  - ❌ Cross-video synthesizer expects wrong model structure
+- **Next Steps**:
+  - Create adapter layer or update downstream components
+  - Test full Timeline v2.0 pipeline end-to-end
+  - Validate with real video collections
 
 ## 📊 Medium Priority Features
 

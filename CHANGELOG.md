@@ -9,6 +9,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+## [2.18.14] - 2025-07-01
+
+### Fixed
+- Fixed Timeline v2.0 TemporalEvent model field mismatches (date, involved_entities, source_videos)
+- Fixed ValidationStatus and DatePrecision imports in temporal_extractor_v2.py
+- Fixed KeyPoint timestamp type from int to float to handle fractional seconds
+- Fixed ConsolidatedTimeline quality_metrics validation (convert to dict)
+- Fixed cross_video_synthesizer TimelineQualityMetrics dict conversion
+- Fixed build_consolidated_timeline field references (e.g., event.context → event.chapter_context)
+- Fixed sponsorblock filtering timestamp access (event.timestamp → event.video_timestamps)
+- Fixed date extraction field updates (event.extracted_date → event.date fields)
+- Fixed fallback extraction to use new TemporalEvent model structure
+- Added missing _detect_platform and get_video_metadata methods to EnhancedUniversalVideoClient
+
+### Changed
+- Simplified yt-dlp video format specification for better compatibility
+- Updated Timeline v2.0 fresh test script to process both Pegasus videos
+
+### Known Issues
+- Timeline v2.0 chapter-aware extraction still extracts 0 events from real videos
+- Chapter text extraction returns empty text for many chapters
+- Content-based date extraction not working (uses current date as placeholder)
+
 ## [2.18.14] - 2025-06-30
 
 ### 🚀 Timeline v2.0 Re-enabled and Model Mismatches Fixed

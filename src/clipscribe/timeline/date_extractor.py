@@ -99,14 +99,14 @@ class ContentDateExtractor:
         # Try to parse each expression, prioritizing the most specific
         for expr in temporal_expressions:
             extracted_date = self._parse_temporal_expression(
-                expr.text, 
-                expr.context,
+                expr['text'],
+                expr['context'],
                 chapter_context,
                 video_title
             )
             
             if extracted_date and self._is_reasonable_date(extracted_date.date):
-                logger.info(f"✅ Successfully extracted date: {extracted_date.date} from '{expr.text}'")
+                logger.info(f"✅ Successfully extracted date: {extracted_date.date} from '{expr['text']}'")
                 return extracted_date
         
         logger.debug("No valid dates could be parsed from temporal expressions")

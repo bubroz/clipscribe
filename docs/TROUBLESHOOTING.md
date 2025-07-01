@@ -1,6 +1,6 @@
 # ClipScribe Troubleshooting Guide
 
-*Last Updated: December 2024*
+*Last Updated: July 2025*
 
 This guide helps you resolve common issues with ClipScribe.
 
@@ -11,6 +11,7 @@ This guide helps you resolve common issues with ClipScribe.
 - [Performance Issues](#performance-issues)
 - [Output Problems](#output-problems)
 - [Platform-Specific Issues](#platform-specific-issues)
+- [Timeline v2.0 Issues](#timeline-v20-issues)
 - [Getting Help](#getting-help)
 
 ## Installation Issues
@@ -235,6 +236,64 @@ If JSON files are corrupted:
 - URLs change frequently
 - Use the share URL, not the web URL
 - Some regions block access
+
+## Timeline v2.0 Issues
+
+### Timeline Extracts 0 Events
+
+**Problem**: Timeline v2.0 extracts 0 temporal events but fallback timeline works
+```
+Timeline v2.0: Extracted 0 temporal events
+Using fallback timeline: 82 events
+```
+
+**Solution**: This is due to a model mismatch issue (fixed in v2.18.15+). Update to latest version:
+```bash
+poetry update clipscribe
+```
+
+### Model Field Errors
+
+**Problem**: Errors like:
+```
+AttributeError: 'TemporalEvent' object has no attribute 'extracted_date'
+```
+
+**Cause**: Timeline v2.0 uses a new event model but some components expect the old structure.
+
+**Solution**: The system will automatically fall back to basic timeline. Full fix coming in v2.19.0.
+
+### Empty Chapter Text
+
+**Problem**: Chapters extract with 0 text length
+```
+Chapter 3: Introduction (180s-360s) - Text length: 0
+```
+
+**Cause**: Video duration estimation bug (fixed in v2.18.15).
+
+**Solution**: Update to latest version which uses real video duration instead of estimates.
+
+### Date Extraction Uses Current Date
+
+**Problem**: All events show today's date instead of historical dates
+```
+Event date: 2025-07-01 (should be 2018-03-15)
+```
+
+**Solution**: 
+1. Ensure you have the latest version (v2.18.15+)
+2. Check that the video has clear temporal references in the transcript
+3. Use `--log-level DEBUG` to see date extraction attempts
+
+### Timeline v2.0 Falls Back to Basic
+
+**Problem**: System always falls back to basic timeline
+```
+Timeline v2.0 synthesis failed, using fallback
+```
+
+**Current Status**: This is expected behavior in v2.18.15 due to model alignment issues. The fallback provides reliable results while we fix the advanced pipeline.
 
 ## Getting Help
 

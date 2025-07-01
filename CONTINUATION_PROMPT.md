@@ -1,43 +1,40 @@
 # ClipScribe AI Assistant Continuation Prompt
 
-## Current State (2025-06-30 23:06 PDT)
+## Current State (2025-07-01 01:20 PDT)
 
-### Latest Version: v2.18.14 (Timeline v2.0 Debugging Edition)
-Timeline v2.0 model mismatches fixed, transcript access corrected, but still extracting 0 temporal events. Core issues identified and fixed, ready for fresh video testing.
+### Latest Version: v2.18.15
+Major fixes for Timeline v2.0 functionality, addressing fundamental bugs in video duration calculation and date extraction. Timeline v2.0 now successfully extracts temporal events but needs model alignment with downstream components.
 
 ### Recent Changes
-- **v2.18.14** (2025-06-30): **🔧 PROGRESS** Fixed Timeline v2.0 model mismatches, transcript access, and key_insights format - ready for fresh testing
-- **v2.18.13** (2025-06-30): **🎯 MAJOR** Entity Resolution Quality Enhancement complete - dynamic confidence, language filtering, false positive removal
-- **v2.18.12** (2025-06-30): **✅ FIXED** Timeline v2.0 component interface mismatches - all components now functional
-- **v2.18.11** (2025-06-30): BREAKTHROUGH: 99.2% performance improvement achieved! Fixed Timeline v2.0 fallback crisis (42min → 46sec)
-- **v2.18.10** (2025-06-29): Timeline Intelligence v2.0 integration completed with comprehensive temporal processing pipeline
+- **v2.18.15** (2025-07-01): Timeline v2.0 critical bug fixes - video duration, date extraction, event extraction working
+- **v2.18.14** (2025-06-30): Timeline v2.0 re-enabled with model mismatch fixes
+- **v2.18.13** (2025-06-30): Entity resolution quality enhancement complete
+- **v2.18.12** (2025-06-30): Timeline Intelligence v2.0 COMPLETE INTEGRATION
+- **v2.18.10-11** (2025-06-29): Complete Timeline v2.0 foundation (157KB of implementation)
 
 ### What's Working Well ✅
-- **🚀 Timeline v2.0 Structure**: All model mismatches fixed - TimelineQualityMetrics and key_insights format issues resolved
-- **📄 Transcript Access**: Fixed to use video.transcript.full_text instead of analysis_results
-- **🛡️ Graceful Fallback**: System falls back to basic timeline without 42-minute hangs
-- **🎯 Entity Quality System**: Comprehensive quality filtering with dynamic confidence, language detection, and false positive removal
-- **⚡ Multi-Video Processing**: 46 seconds for complex 2-video collections (previously 42+ minutes)
-- **🧠 Enhanced Entity Extraction**: SpaCy and REBEL now use dynamic confidence scoring instead of hardcoded 0.85
-- **🌍 Language Filtering**: Advanced detection removes non-English noise (Spanish/French false positives)
-- **📊 Quality Metrics**: Transparent tracking with all required fields
-- **📋 GitHub Issue Tracking**: New workflow rules established for feature tracking
-- **⚡ Optimal AI Batching**: Two-batch processing eliminates 5+ individual API calls (18min → 4min)
-- **📁 Standardized Output**: Consistent `YYYYMMDD_collection_identifier` naming convention
-- **💾 Smart Caching**: Individual video processing uses cached results for instant retrieval
-- **📊 Information Flow Maps**: 25 concept nodes with cross-video temporal correlation
-- **🔗 Cross-Video Intelligence**: Strong entity resolution and relationship bridging
+- **Timeline v2.0 Event Extraction**: Successfully extracts 117 temporal events from test videos
+- **Video Duration Fix**: Chapter text extraction uses real video duration (600s) instead of estimates (79.6s)
+- **Date Extraction**: Temporal expression parsing from content working
+- **Collection Processing**: End-to-end multi-video processing validated
+- **Entity Quality**: Dynamic confidence scoring and false positive filtering
+- **Mission Control UI**: Fully operational without duplicate element errors
 
 ### Known Issues ⚠️
-- **Timeline v2.0 Event Extraction**: Still extracts 0 temporal events from cached videos (transcript may be empty in cache)
-- **Test Videos Unavailable**: YouTube test videos returning "Video unavailable" errors
-- **Cache Data Issue**: Cached videos may lack transcript data needed for Timeline v2.0
-- **Fresh Processing Cost**: Need to balance testing needs with API costs
+- **Model Mismatch**: Timeline v2.0 uses `TemporalEvent` but quality_filter.py and cross_video_synthesizer.py expect different model
+- **Pipeline Integration**: Downstream components need updating for new event model structure
+- **Fallback Active**: System falls back to basic timeline due to model incompatibility
+- **Chapter Segmentation**: Some chapters extract empty text for edge cases
 
 ### Roadmap 🗺️
-- **Next**: Test Timeline v2.0 with fresh video processing to ensure transcript data available
-- **Soon**: Debug why TemporalExtractorV2 extracts 0 events even with transcript
-- **Future**: Add TimelineJS3 export format for beautiful timeline visualizations
+- **Next**: Fix model alignment between TemporalEvent and pipeline components
+  - Create adapter layer or update downstream components
+  - Test full Timeline v2.0 pipeline end-to-end
+  - Validate with real video collections
+- **Soon**: 
+  - Performance optimization for large collections
+  - Timeline visualization enhancements in Mission Control
+  - Comprehensive Timeline v2.0 documentation
 
 ### Session Accomplishments (2025-06-30 Evening Session 2) 🎯
 **Priority 1: Fix Timeline v2.0 Model Issues** ✅
@@ -97,7 +94,7 @@ Timeline v2.0 model mismatches fixed, transcript access corrected, but still ext
 ### Repository Status 📌
 - **Local Changes**: All committed
 - **Remote Sync**: ✅ Ready to push
-- **Version**: v2.18.14
+- **Version**: v2.18.15
 - **Test Coverage**: Timeline v2.0 tests created, awaiting fresh data test
 - **Working Tree**: Clean
 

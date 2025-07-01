@@ -281,7 +281,8 @@ class TemporalExtractorV2:
                 context.transcript_text,
                 context.word_level_timing,
                 chapter_info['start_time'],
-                chapter_info['end_time']
+                chapter_info['end_time'],
+                video_duration=context.video_metadata.get('duration', 0)  # Pass real duration!
             )
             
             # Debug logging to understand extraction
@@ -343,32 +344,44 @@ class TemporalExtractorV2:
         transcript_text: str,
         word_timing: Dict[str, Dict[str, float]],
         start_time: float,
-        end_time: float
+        end_time: float,
+        video_duration: Optional[float] = None
     ) -> str:
         """Extract text segment for chapter using word-level timing.
         
-        BREAKTHROUGH: Sub-second precision using yt-dlp word-level timing
-        instead of approximate text splitting.
+        Uses actual video duration for accurate text segmentation,
+        not bogus word count estimation.
         """
         if not word_timing:
-            # Fallback to time-based estimation
+            # Fallback to time-based extraction
             words = transcript_text.split()
             if not words:
                 return ""
             
-            # Estimate total duration based on average speaking rate
-            # Average speaking rate is ~150 words per minute
-            estimated_duration = (len(words) / 150) * 60  # Convert to seconds
+            # Use actual video duration - NO ESTIMATION!
+            if video_duration and video_duration > 0:
+                total_duration = video_duration
+            else:
+                # This should never happen if we're passing duration correctly
+                logger.error("No video duration provided! This is a bug.")
+                return ' '.join(words)  # Return full text as fallback
             
-            if estimated_duration <= 0:
-                return ' '.join(words)
-            
-            start_word = int((start_time / estimated_duration) * len(words))
-            end_word = int((end_time / estimated_duration) * len(words))
+            # Calculate word indices based on time proportion
+            start_word = int((start_time / total_duration) * len(words))
+            end_word = int((end_time / total_duration) * len(words))
             
             # Ensure valid bounds
             start_word = max(0, min(start_word, len(words)))
             end_word = max(start_word, min(end_word, len(words)))
+            
+            # If we still get empty text due to bounds, try to get some context
+            if start_word >= end_word and len(words) > 0:
+                # Get at least 10% of the transcript or 20 words, whichever is smaller
+                min_words = min(max(int(len(words) * 0.1), 20), len(words))
+                # Center around the expected position
+                center = int((start_time / total_duration) * len(words))
+                start_word = max(0, center - min_words // 2)
+                end_word = min(len(words), start_word + min_words)
             
             return ' '.join(words[start_word:end_word])
         
@@ -526,9 +539,14 @@ class TemporalExtractorV2:
         
         events = []
         
-        # Split transcript into segments (fallback approach)
+        # Use ACTUAL video duration from metadata
+        total_duration = context.video_metadata.get('duration', 0)
+        if total_duration <= 0:
+            logger.error("No video duration in metadata! Cannot extract time-based events.")
+            return events
+        
+        # Split transcript into segments
         segment_duration = 60  # 1-minute segments
-        total_duration = len(context.transcript_text.split()) * 2  # Rough estimate
         
         for start_time in range(0, int(total_duration), segment_duration):
             end_time = min(start_time + segment_duration, total_duration)

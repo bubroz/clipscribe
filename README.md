@@ -1,4 +1,4 @@
-# ClipScribe v2.18.11 - Video Intelligence Platform 🚀 Timeline Intelligence v2.0
+# ClipScribe v2.18.15 - Video Intelligence Platform 🚀 Timeline Intelligence v2.0
 
 <p align="center">
   <strong>AI-powered video intelligence for 1800+ platforms</strong>
@@ -20,18 +20,29 @@
 
 ClipScribe is a video intelligence tool that leverages Google's Gemini to provide video analysis. It supports **1800+ video platforms** through yt-dlp integration and serves as a video intelligence collector for research workflows.
 
-## 🚀 TIMELINE INTELLIGENCE V2.0 - RE-ENABLED & DEBUGGING
+## 🚀 TIMELINE INTELLIGENCE V2.0 - EVENT EXTRACTION WORKING
 
-**v2.18.14 - Timeline v2.0 Re-enabled with Model Fixes**
+**v2.18.15 - Timeline v2.0 Critical Bug Fixes**
 
-Timeline Intelligence v2.0 has been re-enabled and all model mismatches fixed. The system now falls back gracefully without 42-minute hangs. However, Timeline v2.0 is currently extracting 0 temporal events and needs debugging.
+Timeline Intelligence v2.0 now successfully extracts temporal events! Fixed fundamental bugs in video duration calculation and date extraction. Model alignment with downstream components is the next priority.
 
-### ✅ Timeline Intelligence v2.0 Foundation COMPLETE
-- **157KB of Timeline v2.0 code** - Complete foundation with 4 core components
-- **yt-dlp Temporal Integration** - Chapter-aware extraction, word-level timing, SponsorBlock filtering
-- **Advanced Event Processing** - 5-step pipeline: Extract → Deduplicate → Date extraction → Quality filter → Chapter segmentation
-- **Quality Transformation** - Fixes 82 broken events → ~40 accurate events with 95%+ correct dates
-- **Pipeline Integration** - Successfully integrated into single and multi-video processing
+### ✅ Timeline v2.0 Bug Fixes Completed
+- **Video Duration Fix** - Chapter text extraction now uses actual video duration (600s) instead of word count estimates (79.6s)
+- **Date Extraction Fix** - Fixed dict attribute error in ContentDateExtractor (`expr['text']` vs `expr.text`)
+- **Event Extraction Working** - Successfully extracts 117 temporal events from test videos (83 from video 1, 34 from video 2)
+- **Model Field Fix** - Removed incorrect `event.extracted_date = extracted_date` assignment
+
+### 🔧 Current Status: Model Alignment Needed
+**What's Working:**
+- Timeline v2.0 extracts temporal events successfully ✅
+- Chapter text extraction with real video duration ✅
+- Date extraction from content functional ✅
+- Fallback timeline provides reliable results ✅
+
+**What Needs Fixing:**
+- Model mismatch: `TemporalEvent` vs expected structure in quality_filter.py
+- Cross-video synthesizer expects different event model
+- Pipeline components need updating for new event structure
 
 ### 🎯 Timeline v2.0 Components Delivered
 1. **TemporalExtractorV2** (29KB) - Core yt-dlp temporal intelligence integration

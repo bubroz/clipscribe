@@ -1317,7 +1317,6 @@ class MultiVideoProcessor:
                 
                 # Update event with extracted date
                 if extracted_date:
-                    event.extracted_date = extracted_date
                     event.date = extracted_date.date
                     event.date_precision = extracted_date.precision if hasattr(extracted_date, 'precision') else DatePrecision.APPROXIMATE
                     event.date_confidence = extracted_date.confidence

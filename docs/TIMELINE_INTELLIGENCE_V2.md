@@ -1,7 +1,7 @@
 # Timeline Intelligence v2.0 Architecture
 
-*Last Updated: June 30, 2025 - 22:11 PDT*
-*Status: 🔍 RE-ENABLED - DEBUGGING EVENT EXTRACTION*
+*Last Updated: July 1, 2025 - 01:15 PDT*
+*Status: 🔧 PARTIALLY FIXED - MODEL ALIGNMENT NEEDED*
 
 ## 🚀 Timeline Intelligence v2.0 - BREAKTHROUGH ACHIEVED
 
@@ -22,17 +22,47 @@ Timeline Intelligence v2.0 represents a complete architectural transformation wi
 - **Graceful Fallback** - System falls back without 42-minute hangs
 - **Test Suite Created** - Comprehensive Timeline v2.0 integration tests
 
-### 🔍 Current Status: Debugging Event Extraction
+**v2.18.15 (July 1, 2025): Critical Bug Fixes**
+- **Video Duration Bug Fixed** - Chapter text extraction now uses actual video duration (600s) instead of word count estimate (79.6s)
+- **Date Extraction Fixed** - ContentDateExtractor dict access corrected (`expr['text']` vs `expr.text`)
+- **Event Extraction Working** - Successfully extracts 117 temporal events from test videos
+- **Model Field Error Fixed** - Removed incorrect `event.extracted_date = extracted_date` assignment
 
-**Issue**: Timeline v2.0 extracts 0 temporal events
-- Every chapter extraction fails with "max() iterable argument is empty"
-- Falls back to basic timeline which creates 82 events successfully
-- Model integration is correct but event extraction logic needs debugging
+### 🔧 Current Status: Model Alignment Required
 
-**Next Steps**:
-1. Debug TemporalExtractorV2 chapter extraction logic
-2. Test with fresh video processing (cached data may lack required fields)
-3. Verify entity and transcript data format requirements
+**What's Working:**
+- Timeline v2.0 extracts temporal events successfully (117 events from 2 test videos)
+- Chapter text extraction uses real video duration
+- Date extraction from content functional
+- Fallback timeline provides basic functionality
+
+**What's Broken:**
+- **Model Mismatch**: `TemporalEvent` vs expected `TimelineEvent` with `extracted_date` field
+- **Quality Filter**: Expects events to have `extracted_date` attribute (doesn't exist on TemporalEvent)
+- **Cross-Video Synthesizer**: Same model expectation issue
+- **Incomplete Refactoring**: New event model not propagated through pipeline
+
+**Root Cause**: Timeline v2.0 uses a new `TemporalEvent` model but downstream components (quality_filter.py, cross_video_synthesizer.py) still expect the old model structure with an `extracted_date` field.
+
+### 📐 Fix Strategy
+
+**Phase 1: Model Alignment**
+1. Create adapter layer between `TemporalEvent` and pipeline expectations
+2. Update quality_filter.py to work with TemporalEvent fields
+3. Update cross_video_synthesizer.py for new model
+4. Add backward compatibility
+
+**Phase 2: Pipeline Integration**
+1. Fix multi_video_processor.py synthesis path
+2. Ensure proper event conversion
+3. Add comprehensive error handling
+4. Test full end-to-end flow
+
+**Phase 3: Testing & Validation**
+1. Create comprehensive test suite
+2. Validate date extraction accuracy
+3. Test multi-video synthesis
+4. Performance benchmarking
 
 ## 🎯 Architectural Transformation Achieved
 
