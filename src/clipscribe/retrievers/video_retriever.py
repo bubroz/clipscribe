@@ -1274,14 +1274,14 @@ class VideoIntelligenceRetriever:
                 manifest["files"][key] = file_entry
 
         with open(paths["manifest"], 'w', encoding='utf-8') as f:
-            json.dump(manifest, f, indent=2)
+            json.dump(manifest, f, indent=2, default=str)
 
     def _save_chimera_file(self, video: VideoIntelligence, paths: Dict[str, Path]):
         """Saves the Chimera-compatible format file."""
         chimera_path = paths["directory"] / "chimera_format.json"
         chimera_data = self._to_chimera_format(video)
         with open(chimera_path, 'w', encoding='utf-8') as f:
-            json.dump(chimera_data, f, indent=2)
+            json.dump(chimera_data, f, indent=2, default=str)
         paths["chimera"] = chimera_path
     
     # Chimera-compatible interface methods
