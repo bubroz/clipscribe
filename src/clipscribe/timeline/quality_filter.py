@@ -212,12 +212,12 @@ class TimelineQualityFilter:
         filter_stats = defaultdict(int)
         
         for event in events:
-            if not event.extracted_date or not event.extracted_date.date:
+            if not event.date:
                 # Events without dates are OK - they can still be valuable
                 valid_events.append(event)
                 continue
             
-            event_date = event.extracted_date.date
+            event_date = event.date
             
             # Filter future dates (likely processing artifacts)
             if event_date > self.processing_date + timedelta(days=self.thresholds.max_future_days):
@@ -264,12 +264,12 @@ class TimelineQualityFilter:
     
     def _validate_date_context(self, event: TemporalEvent) -> bool:
         """Validate that extracted date makes sense in event context."""
-        if not event.extracted_date or not event.extracted_date.date:
+        if not event.date:
             return True  # No date to validate
         
         # Check date precision vs description specificity
         description = event.description.lower()
-        date_precision = event.extracted_date.precision
+        date_precision = event.date_precision
         
         # Vague descriptions shouldn't have precise dates
         if date_precision in [DatePrecision.DAY, DatePrecision.HOUR] and len(description.split()) < 5:
@@ -277,7 +277,7 @@ class TimelineQualityFilter:
         
         # Historical references should have reasonable dates
         if any(word in description for word in ['history', 'historical', 'past', 'ago']):
-            years_ago = (self.processing_date - event.extracted_date.date).days / 365
+            years_ago = (self.processing_date - event.date).days / 365
             if years_ago < 1:  # Historical reference less than 1 year ago
                 return False
         
@@ -397,19 +397,21 @@ class TimelineQualityFilter:
         text_similarity = len(words1 & words2) / len(words1 | words2) if words1 | words2 else 0
         
         # Timestamp proximity (within 30 seconds = high similarity)
-        time_diff = abs(event1.timestamp - event2.timestamp)
+        # Get timestamps from the first video in each event's video_timestamps dict
+        time1 = list(event1.video_timestamps.values())[0] if event1.video_timestamps else 0
+        time2 = list(event2.video_timestamps.values())[0] if event2.video_timestamps else 0
+        time_diff = abs(time1 - time2)
         time_similarity = max(0, 1 - (time_diff / 30))
         
         # Entity overlap
-        entities1 = set(event1.entities)
-        entities2 = set(event2.entities)
+        entities1 = set(event1.involved_entities)
+        entities2 = set(event2.involved_entities)
         entity_similarity = len(entities1 & entities2) / len(entities1 | entities2) if entities1 | entities2 else 0
         
         # Date similarity
         date_similarity = 0
-        if (event1.extracted_date and event1.extracted_date.date and 
-            event2.extracted_date and event2.extracted_date.date):
-            date_diff = abs((event1.extracted_date.date - event2.extracted_date.date).days)
+        if event1.date and event2.date:
+            date_diff = abs((event1.date - event2.date).days)
             date_similarity = max(0, 1 - (date_diff / 7))  # Within a week = high similarity
         
         # Weighted average
@@ -437,7 +439,7 @@ class TimelineQualityFilter:
     
     def _has_relevant_entities(self, event: TemporalEvent) -> bool:
         """Check if event has relevant entities."""
-        if not event.entities:
+        if not event.involved_entities:
             return True  # Events without entities are OK
         
         # Filter out common irrelevant entities
@@ -449,7 +451,7 @@ class TimelineQualityFilter:
         }
         
         relevant_entities = [
-            entity for entity in event.entities 
+            entity for entity in event.involved_entities 
             if entity.lower() not in irrelevant_entities and len(entity) > 2
         ]
         
@@ -465,10 +467,10 @@ class TimelineQualityFilter:
         filter_stats = defaultdict(int)
         
         # Sort events by date for coherence analysis
-        dated_events = [e for e in events if e.extracted_date and e.extracted_date.date]
-        undated_events = [e for e in events if not e.extracted_date or not e.extracted_date.date]
+        dated_events = [e for e in events if e.date]
+        undated_events = [e for e in events if not e.date]
         
-        dated_events.sort(key=lambda e: e.extracted_date.date)
+        dated_events.sort(key=lambda e: e.date)
         
         # Check for temporal coherence in dated events
         for i, event in enumerate(dated_events):
@@ -487,7 +489,7 @@ class TimelineQualityFilter:
         self, event: TemporalEvent, sorted_events: List[TemporalEvent], index: int
     ) -> bool:
         """Check if event is temporally coherent with surrounding events."""
-        if not event.extracted_date or not event.extracted_date.date:
+        if not event.date:
             return True
         
         # Check for extreme temporal jumps that might indicate errors
@@ -499,7 +501,7 @@ class TimelineQualityFilter:
         if len(window_events) < 3:
             return True  # Not enough context
         
-        dates = [e.extracted_date.date for e in window_events if e.extracted_date and e.extracted_date.date]
+        dates = [e.date for e in window_events if e.date]
         if len(dates) < 3:
             return True
         
@@ -524,9 +526,9 @@ class TimelineQualityFilter:
     ) -> TimelineQualityMetrics:
         """Calculate comprehensive quality metrics."""
         total_events = len(filtered_events)
-        events_with_dates = len([e for e in filtered_events if e.extracted_date and e.extracted_date.date])
+        events_with_dates = len([e for e in filtered_events if e.date])
         high_confidence_events = len([e for e in filtered_events if e.confidence >= 0.8])
-        chapter_segmented_events = len([e for e in filtered_events if e.context.get('chapter_title')])
+        chapter_segmented_events = len([e for e in filtered_events if e.chapter_context])
         
         # Calculate additional required fields
         deduplicated_events = total_events  # After deduplication
@@ -566,7 +568,7 @@ class TimelineQualityFilter:
         # Calculate quality score (0-1)
         filtering_efficiency = len(filtered_events) / len(original_events) if original_events else 1
         avg_confidence = sum(e.confidence for e in filtered_events) / len(filtered_events) if filtered_events else 0
-        date_success_rate = len([e for e in filtered_events if e.extracted_date and e.extracted_date.date]) / len(filtered_events) if filtered_events else 0
+        date_success_rate = len([e for e in filtered_events if e.date]) / len(filtered_events) if filtered_events else 0
         
         quality_score = (filtering_efficiency * 0.3 + avg_confidence * 0.4 + date_success_rate * 0.3)
         
@@ -594,8 +596,8 @@ class TimelineQualityFilter:
         distribution = defaultdict(int)
         
         for event in events:
-            if event.extracted_date and event.extracted_date.date:
-                year = event.extracted_date.date.year
+            if event.date:
+                year = event.date.year
                 distribution[str(year)] += 1
             else:
                 distribution['no_date'] += 1

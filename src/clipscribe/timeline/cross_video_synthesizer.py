@@ -254,12 +254,12 @@ class CrossVideoSynthesizer:
             # Analyze date coverage
             video_dates = []
             for event in events:
-                if event.extracted_date and event.extracted_date.date:
-                    video_dates.append(event.extracted_date.date)
-                    all_dates.append(event.extracted_date.date)
+                if event.date:
+                    video_dates.append(event.date)
+                    all_dates.append(event.date)
                 
                 # Collect entities
-                all_entities.update(event.entities)
+                all_entities.update(event.involved_entities)
                 
                 # Event type distribution
                 characteristics['event_type_distribution'][event.event_type.value] += 1
@@ -299,7 +299,7 @@ class CrossVideoSynthesizer:
         for video_url, events in video_timelines.items():
             video_entities[video_url] = set()
             for event in events:
-                video_entities[video_url].update(event.entities)
+                video_entities[video_url].update(event.involved_entities)
         
         # Calculate pairwise entity overlap
         video_urls = list(video_timelines.keys())
@@ -501,7 +501,8 @@ class CrossVideoSynthesizer:
         """Analyze potential correlation between two events."""
         
         # Skip if events are from the same video
-        if event1.video_url == event2.video_url:
+        # Check if they share any source videos
+        if set(event1.source_videos) & set(event2.source_videos):
             return None
         
         correlations_found = []
@@ -544,12 +545,11 @@ class CrossVideoSynthesizer:
         """Check if events are temporally proximate."""
         
         # Both events need dates for temporal correlation
-        if (not event1.extracted_date or not event1.extracted_date.date or
-            not event2.extracted_date or not event2.extracted_date.date):
+        if not event1.date or not event2.date:
             return None
         
-        date1 = event1.extracted_date.date
-        date2 = event2.extracted_date.date
+        date1 = event1.date
+        date2 = event2.date
         
         time_diff = abs((date1 - date2).total_seconds())
         max_diff = self.correlation_thresholds['temporal_proximity_hours'] * 3600
@@ -575,8 +575,8 @@ class CrossVideoSynthesizer:
     ) -> Optional[CrossVideoCorrelation]:
         """Check if events share entities."""
         
-        entities1 = set(event1.entities)
-        entities2 = set(event2.entities)
+        entities1 = set(event1.involved_entities)
+        entities2 = set(event2.involved_entities)
         shared = entities1 & entities2
         
         if len(shared) >= self.correlation_thresholds['entity_overlap_min']:
@@ -741,7 +741,7 @@ class CrossVideoSynthesizer:
         # Create consolidated timeline
         # Convert TimelineQualityMetrics to dict for storage
         quality_metrics_obj = self._calculate_preliminary_quality_metrics(ordered_events)
-        quality_metrics_dict = quality_metrics_obj.dict()  # TimelineQualityMetrics is a Pydantic model
+        quality_metrics_dict = quality_metrics_obj.model_dump()  # Use model_dump() for Pydantic v2
         
         timeline = ConsolidatedTimeline(
             timeline_id=f"consolidated_{datetime.now().strftime('%Y%m%d_%H%M%S')}",
@@ -765,14 +765,17 @@ class CrossVideoSynthesizer:
         """Order events chronologically by extracted dates."""
         
         # Separate events with and without dates
-        dated_events = [e for e in events if e.extracted_date and e.extracted_date.date]
-        undated_events = [e for e in events if not e.extracted_date or not e.extracted_date.date]
+        dated_events = [e for e in events if e.date]
+        undated_events = [e for e in events if not e.date]
         
-        # Sort dated events by date, then by timestamp
-        dated_events.sort(key=lambda e: (e.extracted_date.date, e.timestamp))
+        # Sort dated events by date, then by first video timestamp
+        dated_events.sort(key=lambda e: (
+            e.date, 
+            list(e.video_timestamps.values())[0] if e.video_timestamps else 0
+        ))
         
-        # Sort undated events by timestamp
-        undated_events.sort(key=lambda e: e.timestamp)
+        # Sort undated events by first video timestamp
+        undated_events.sort(key=lambda e: list(e.video_timestamps.values())[0] if e.video_timestamps else 0)
         
         # Combine: dated events first, then undated
         return dated_events + undated_events
@@ -786,9 +789,9 @@ class CrossVideoSynthesizer:
         entity_groups = defaultdict(list)
         
         for event in events:
-            if event.entities:
+            if event.involved_entities:
                 # Use first entity as primary grouping key
-                primary_entity = event.entities[0]
+                primary_entity = event.involved_entities[0]
                 entity_groups[primary_entity].append(event)
             else:
                 entity_groups['_no_entities'].append(event)
@@ -796,7 +799,7 @@ class CrossVideoSynthesizer:
         # Order groups by entity frequency (most common first)
         entity_counts = Counter()
         for event in events:
-            for entity in event.entities:
+            for entity in event.involved_entities:
                 entity_counts[entity] += 1
         
         ordered_events = []
@@ -866,7 +869,7 @@ class CrossVideoSynthesizer:
             for other_event in narrative:
                 if (other_event.event_id != event.event_id and 
                     other_event.event_id not in processed and
-                    set(event.entities) & set(other_event.entities)):
+                    set(event.involved_entities) & set(other_event.involved_entities)):
                     related_events.append(other_event)
             
             # Order related events chronologically
@@ -883,7 +886,7 @@ class CrossVideoSynthesizer:
     ) -> TimelineQualityMetrics:
         """Calculate preliminary quality metrics before filtering."""
         total_events = len(events)
-        events_with_extracted_dates = len([e for e in events if e.extracted_date and e.extracted_date.date])
+        events_with_extracted_dates = len([e for e in events if e.date])
         events_with_content_dates = len([e for e in events if e.date_source != "fallback_video_published_date"])
         
         # Calculate date accuracy score
@@ -892,7 +895,7 @@ class CrossVideoSynthesizer:
             # Score based on: extracted dates, content dates, and confidence
             date_scores = []
             for event in events:
-                if event.extracted_date and event.extracted_date.date:
+                if event.date:
                     if event.date_source != "fallback_video_published_date":
                         date_scores.append(event.date_confidence)
                     else:
@@ -926,14 +929,14 @@ class CrossVideoSynthesizer:
         gaps = []
         
         # Find temporal gaps between dated events
-        dated_events = [e for e in timeline.events if e.extracted_date and e.extracted_date.date]
-        dated_events.sort(key=lambda e: e.extracted_date.date)
+        dated_events = [e for e in timeline.events if e.date]
+        dated_events.sort(key=lambda e: e.date)
         
         for i in range(len(dated_events) - 1):
             current_event = dated_events[i]
             next_event = dated_events[i + 1]
             
-            gap_days = (next_event.extracted_date.date - current_event.extracted_date.date).days
+            gap_days = (next_event.date - current_event.date).days
             
             if gap_days > 7:  # Gaps longer than a week
                 gap_info = {
@@ -941,16 +944,16 @@ class CrossVideoSynthesizer:
                     'start_event': current_event.event_id,
                     'end_event': next_event.event_id,
                     'gap_duration_days': gap_days,
-                    'start_date': current_event.extracted_date.date.isoformat(),
-                    'end_date': next_event.extracted_date.date.isoformat(),
+                    'start_date': current_event.date.isoformat(),
+                    'end_date': next_event.date.isoformat(),
                     'potential_fill_sources': [],
                     'gap_significance': self._assess_gap_significance(gap_days, current_event, next_event)
                 }
                 
                 # Look for events that might fill this gap
                 for event in timeline.events:
-                    if (event.extracted_date and event.extracted_date.date and
-                        current_event.extracted_date.date < event.extracted_date.date < next_event.extracted_date.date):
+                    if (event.date and
+                        current_event.date < event.date < next_event.date):
                         gap_info['potential_fill_sources'].append(event.event_id)
                 
                 gaps.append(gap_info)

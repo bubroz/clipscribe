@@ -21,6 +21,7 @@ import shutil
 import json
 import time
 from typing import Dict, Any
+import pytest
 
 # Add src to path for imports
 sys.path.insert(0, str(Path(__file__).parent / "src"))
@@ -229,6 +230,7 @@ def test_streamlit_app_imports():
         print(f"❌ Streamlit app import test failed: {e}")
         return False
 
+@pytest.mark.asyncio
 async def test_batch_processing_with_performance_monitoring():
     """Test 6: Test batch processing with enhanced performance monitoring."""
     print("\n🧪 Test 6: Batch Processing with Performance Monitoring")
