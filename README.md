@@ -20,11 +20,11 @@
 
 ClipScribe is a video intelligence tool that leverages Google's Gemini to provide video analysis. It supports **1800+ video platforms** through yt-dlp integration and serves as a video intelligence collector for research workflows.
 
-## 🚀 TIMELINE INTELLIGENCE V2.0 - MAJOR BREAKTHROUGH
+## 🚀 TIMELINE INTELLIGENCE V2.0 - RE-ENABLED & DEBUGGING
 
-**v2.18.11 - Timeline Intelligence v2.0 Phase 5: Integration Complete + Performance Breakthrough**
+**v2.18.14 - Timeline v2.0 Re-enabled with Model Fixes**
 
-We've achieved a major breakthrough with Timeline Intelligence v2.0 and a **99.2% performance improvement** - transforming multi-video processing from 42+ minutes to 46 seconds through optimal AI batching and Timeline v2.0 optimization.
+Timeline Intelligence v2.0 has been re-enabled and all model mismatches fixed. The system now falls back gracefully without 42-minute hangs. However, Timeline v2.0 is currently extracting 0 temporal events and needs debugging.
 
 ### ✅ Timeline Intelligence v2.0 Foundation COMPLETE
 - **157KB of Timeline v2.0 code** - Complete foundation with 4 core components
@@ -41,11 +41,12 @@ We've achieved a major breakthrough with Timeline Intelligence v2.0 and a **99.2
 5. **Complete Integration** - Both VideoRetriever and MultiVideoProcessor support Timeline v2.0
 
 ### 🚀 Current Integration Status
-**Phase 5: Integration & Testing Progress:**
-- ✅ **Component 1**: Pipeline Integration (MultiVideoProcessor Timeline v2.0)
-- ✅ **Component 2**: VideoRetriever Integration (Single video Timeline v2.0 processing)
-- 🚧 **Component 3**: Mission Control Integration (Timeline v2.0 UI features) - **NEXT**
-- ⏳ **Component 4**: Real-World Testing (82→40 event transformation validation)
+**Timeline v2.0 Re-enabled but Needs Debugging:**
+- ✅ **Model Fixes**: All ConsolidatedTimeline model mismatches resolved
+- ✅ **Integration**: Timeline v2.0 executing in both VideoRetriever and MultiVideoProcessor
+- ⚠️ **Event Extraction**: Currently extracting 0 temporal events ("max() iterable argument is empty")
+- ✅ **Graceful Fallback**: Falls back to basic timeline (82 events) without performance issues
+- 🔍 **Next Priority**: Debug TemporalExtractorV2 chapter extraction logic
 
 ### 🎯 Proven Capabilities
 - **Collection Processing**: Successfully processes multi-video collections with cross-video intelligence

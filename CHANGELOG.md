@@ -9,6 +9,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+## [2.18.14] - 2025-06-30
+
+### 🚀 Timeline v2.0 Re-enabled and Model Mismatches Fixed
+- **MAJOR**: Re-enabled Timeline Intelligence v2.0 processing after confirming it was already active
+- **Model Fixes**: Fixed all ConsolidatedTimeline model mismatches between Timeline v2.0 and main models
+- **Import Fix**: Added missing ConsolidatedTimeline import in multi_video_processor.py  
+- **Quality Filter**: Fixed quality_filter.py attempting to access non-existent timeline_id and creation_date fields
+- **Fallback Cleanup**: Removed attempts to set processing_stats on ConsolidatedTimeline (not a model field)
+- **Test Suite**: Created comprehensive Timeline v2.0 integration tests (test_timeline_v2.py, test_timeline_v2_simple.py)
+- **Performance**: Timeline v2.0 now falls back gracefully without 42-minute hangs
+- **Status**: Timeline v2.0 is structurally integrated but extracting 0 temporal events (needs investigation)
+
+### 🔧 Technical Details
+- Timeline v2.0 execution path confirmed active in both VideoRetriever and MultiVideoProcessor
+- Fixed Timeline v2.0 ConsolidatedTimeline model expecting different fields than main model
+- Updated quality_filter.py to use Timeline v2.0 model structure (no timeline_id field)
+- Removed invalid timeline_version and processing_stats assignments
+- Fallback timeline now works correctly without model validation errors
+
+### ⚠️ Known Issues
+- Timeline v2.0 extracts 0 temporal events with "max() iterable argument is empty" errors
+- Chapter extraction fails for all chapters in TemporalExtractorV2
+- Falls back to basic timeline which successfully creates 82 events
+- Root cause likely missing entity data or transcript formatting issues
+
 ## [2.18.13] - 2025-06-30
 
 ### 🎯 Entity Resolution Quality Enhancement Complete

@@ -152,19 +152,13 @@ class TimelineQualityFilter:
         )
         
         # Update timeline with filtered events and quality metrics
+        # Using Timeline v2.0 ConsolidatedTimeline model structure
         filtered_timeline = ConsolidatedTimeline(
-            timeline_id=timeline.timeline_id,
             events=filtered_events,
             video_sources=timeline.video_sources,
-            creation_date=timeline.creation_date,
             quality_metrics=self._calculate_quality_metrics(filtered_events, filter_stats),
-            cross_video_correlations=timeline.cross_video_correlations,
-            metadata={
-                **timeline.metadata,
-                'quality_filtered': True,
-                'filter_stats': dict(filter_stats),
-                'quality_score': quality_report.quality_score
-            }
+            correlation_analysis=getattr(timeline, 'correlation_analysis', {}),
+            chapter_correlations=getattr(timeline, 'chapter_correlations', [])
         )
         
         logger.info(f"✅ Quality filtering complete: {len(timeline.events)} → {len(filtered_events)} events")

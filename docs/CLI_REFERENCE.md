@@ -1,8 +1,8 @@
-# ClipScribe CLI Reference (v2.18.11 - Timeline Intelligence v2.0 ✅ COMPLETE)
+# ClipScribe CLI Reference (v2.18.14 - Timeline Intelligence v2.0 🔍 DEBUGGING)
 
 *Last Updated: June 30, 2025*
 
-Complete reference for all ClipScribe commands and options, featuring **Timeline Intelligence v2.0** - revolutionary temporal intelligence system with proven results: 82 broken events → 40 accurate temporal events (144% quality improvement).
+Complete reference for all ClipScribe commands and options, featuring **Timeline Intelligence v2.0** - currently re-enabled with model fixes but extracting 0 temporal events (debugging in progress).
 
 ## 🚀 Timeline Intelligence v2.0 Features
 

@@ -1,24 +1,38 @@
 # Timeline Intelligence v2.0 Architecture
 
-*Last Updated: June 29, 2025 - 23:26 PDT*
-*Status: ✅ FOUNDATION COMPLETE - INTEGRATION IN PROGRESS*
+*Last Updated: June 30, 2025 - 22:11 PDT*
+*Status: 🔍 RE-ENABLED - DEBUGGING EVENT EXTRACTION*
 
 ## 🚀 Timeline Intelligence v2.0 - BREAKTHROUGH ACHIEVED
 
 Timeline Intelligence v2.0 represents a complete architectural transformation with 157KB of implementation code solving critical timeline issues through advanced yt-dlp integration.
 
-### ✅ Major Accomplishments (June 29, 2025)
+### ✅ Major Accomplishments
 
-**v2.18.10: Complete Timeline v2.0 Foundation Implementation**
+**v2.18.10-11 (June 29, 2025): Complete Timeline v2.0 Foundation**
 - **TemporalExtractorV2** (29KB) - Core yt-dlp temporal intelligence integration
 - **TimelineQualityFilter** (28KB) - Comprehensive quality assurance and validation
 - **ChapterSegmenter** (31KB) - yt-dlp chapter-based intelligent segmentation  
 - **CrossVideoSynthesizer** (41KB) - Multi-video timeline correlation and synthesis
+- **Pipeline Integration** - Timeline v2.0 integrated into VideoRetriever and MultiVideoProcessor
 
-**v2.18.11: Complete Pipeline Integration**
-- **MultiVideoProcessor Integration** - Timeline v2.0 for multi-video collections
-- **VideoRetriever Integration** - Timeline v2.0 for single video processing
-- **5-Step Processing Pipeline** - Enhanced extraction → Deduplication → Content dates → Quality filtering → Chapter segmentation
+**v2.18.14 (June 30, 2025): Timeline v2.0 Re-enabled with Model Fixes**
+- **Model Mismatches Fixed** - Resolved all ConsolidatedTimeline field conflicts
+- **Import Issues Resolved** - Added missing imports in multi_video_processor.py
+- **Graceful Fallback** - System falls back without 42-minute hangs
+- **Test Suite Created** - Comprehensive Timeline v2.0 integration tests
+
+### 🔍 Current Status: Debugging Event Extraction
+
+**Issue**: Timeline v2.0 extracts 0 temporal events
+- Every chapter extraction fails with "max() iterable argument is empty"
+- Falls back to basic timeline which creates 82 events successfully
+- Model integration is correct but event extraction logic needs debugging
+
+**Next Steps**:
+1. Debug TemporalExtractorV2 chapter extraction logic
+2. Test with fresh video processing (cached data may lack required fields)
+3. Verify entity and transcript data format requirements
 
 ## 🎯 Architectural Transformation Achieved
 

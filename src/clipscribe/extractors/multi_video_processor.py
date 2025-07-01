@@ -13,14 +13,20 @@ import json
 from typing import List, Dict, Any, Optional, Tuple, Set
 from datetime import datetime, timedelta
 from collections import defaultdict, Counter
+import time
 
 from ..models import (
     VideoIntelligence, MultiVideoIntelligence, CrossVideoEntity, 
     CrossVideoRelationship, NarrativeSegment, TopicEvolution,
     VideoCollectionType, SeriesMetadata, Entity, Relationship, Topic,
-    ConsolidatedTimeline, TimelineEvent, ExtractedDate,
+    TimelineEvent, ExtractedDate, ConsolidatedTimeline,
     InformationFlowMap, ConceptNode, ConceptDependency, InformationFlow,
     ConceptEvolutionPath, ConceptCluster, ConceptMaturityLevel
+)
+# Import Timeline v2.0's ConsolidatedTimeline instead of the main one
+from ..timeline.models import (
+    ConsolidatedTimeline as ConsolidatedTimelineV2,
+    TemporalEvent
 )
 from ..timeline.models import DatePrecision
 from .entity_normalizer import EntityNormalizer
@@ -216,33 +222,50 @@ class MultiVideoProcessor:
             key_insights = await self._extract_key_insights(videos, unified_entities, cross_video_relationships, topic_evolution)
         
         # Step 9: Synthesize event timeline  
-        # TEMPORARY: Skip Timeline v2.0 (components missing/broken - causes 42min fallback)
-        # Generate fast basic timeline instead
-        logger.info("⚡ Generating fast basic timeline (Timeline v2.0 temporarily disabled)")
-        basic_events = []
-        for video in videos:
-            for i, key_point in enumerate(video.key_points[:5]):  # Top 5 key points only
-                event = TimelineEvent(
-                    event_id=f"optimized_{video.metadata.video_id}_{i}",
-                    timestamp=video.metadata.published_at,
-                    description=key_point.text,
-                    source_video_id=video.metadata.video_id,
-                    source_video_title=video.metadata.title,
-                    video_timestamp_seconds=key_point.timestamp,
-                    involved_entities=[],
-                    confidence=key_point.importance,
-                    date_source="video_published_date"
-                )
-                basic_events.append(event)
-        
-        consolidated_timeline = ConsolidatedTimeline(
-            timeline_id=f"timeline_optimized_{collection_id}",
-            collection_id=collection_id,
-            events=basic_events,
-            summary=f"Fast optimized timeline with {len(basic_events)} events (Timeline v2.0 bypassed for speed)",
-            timeline_version="optimized",
-            processing_stats={"optimization_note": "Timeline v2.0 bypassed to prevent 42-minute fallback processing"}
-        )
+        # Re-enable Timeline v2.0 with performance monitoring
+        logger.info("🚀 Re-enabling Timeline Intelligence v2.0 synthesis...")
+        try:
+            # Track performance to ensure no 42-minute fallback
+            start_time = time.time()
+            
+            consolidated_timeline = await self._synthesize_event_timeline(
+                videos, unified_entities, collection_id
+            )
+            
+            synthesis_time = time.time() - start_time
+            logger.info(f"✅ Timeline v2.0 synthesis completed in {synthesis_time:.2f} seconds")
+            
+            # Warn if synthesis takes too long
+            if synthesis_time > 300:  # 5 minutes
+                logger.warning(f"⚠️ Timeline synthesis took {synthesis_time:.2f}s - potential performance issue")
+                
+        except Exception as e:
+            logger.error(f"Timeline v2.0 synthesis failed: {e}", exc_info=True)
+            
+            # Fallback to basic timeline if v2.0 fails
+            logger.info("⚡ Falling back to basic timeline generation")
+            basic_events = []
+            for video in videos:
+                for i, key_point in enumerate(video.key_points[:5]):  # Top 5 key points only
+                    event = TimelineEvent(
+                        event_id=f"fallback_{video.metadata.video_id}_{i}",
+                        timestamp=video.metadata.published_at,
+                        description=key_point.text,
+                        source_video_id=video.metadata.video_id,
+                        source_video_title=video.metadata.title,
+                        video_timestamp_seconds=key_point.timestamp,
+                        involved_entities=[],
+                        confidence=key_point.importance,
+                        date_source="video_published_date"
+                    )
+                    basic_events.append(event)
+            
+            consolidated_timeline = ConsolidatedTimeline(
+                timeline_id=f"timeline_fallback_{collection_id}",
+                collection_id=collection_id,
+                events=basic_events,
+                summary=f"Fallback timeline with {len(basic_events)} events (Timeline v2.0 error: {str(e)})"
+            )
         
         # Step 10: Generate unified knowledge graph
         unified_knowledge_graph = self._generate_unified_knowledge_graph(unified_entities, cross_video_relationships)
@@ -1217,7 +1240,7 @@ class MultiVideoProcessor:
         videos: List[VideoIntelligence], 
         unified_entities: List[CrossVideoEntity],
         collection_id: str
-    ) -> ConsolidatedTimeline:
+    ):
         """
         🚀 Timeline Intelligence v2.0: Revolutionary temporal intelligence synthesis.
         
@@ -1302,15 +1325,12 @@ class MultiVideoProcessor:
             logger.info("✨ Step 4: TimelineQualityFilter - Comprehensive quality validation")
             
             # Create a temporary ConsolidatedTimeline for quality filtering
-            from ..timeline.models import ConsolidatedTimeline
-            temp_timeline = ConsolidatedTimeline(
-                timeline_id=f"temp_{collection_id}",
+            temp_timeline = ConsolidatedTimelineV2(
                 events=date_enhanced_events,
-                video_sources=[f"video_{i}" for i in range(len(videos))],
-                creation_date=datetime.now(),
-                quality_metrics=None,
-                cross_video_correlations=[],
-                metadata={}
+                video_sources=[video.metadata.video_id for video in videos],
+                quality_metrics={},  # Initialize with empty dict instead of None
+                correlation_analysis={},
+                chapter_correlations=[]
             )
             
             filtered_timeline, quality_report = await self.quality_filter.filter_timeline_quality(temp_timeline)
@@ -1336,31 +1356,57 @@ class MultiVideoProcessor:
             final_events = synthesis_result.consolidated_timeline.events
             logger.info(f"Cross-video synthesis: {len(high_quality_events)} → {len(final_events)} final events")
             
-            # Step 6: Create Enhanced ConsolidatedTimeline
+            # Step 6: Convert Timeline v2.0 events to main model events
+            timeline_events = []
+            for v2_event in final_events:
+                # Convert TemporalEvent to TimelineEvent
+                timeline_event = TimelineEvent(
+                    event_id=v2_event.event_id,
+                    timestamp=v2_event.date,
+                    description=v2_event.description,
+                    source_video_id=v2_event.source_videos[0] if v2_event.source_videos else "",
+                    source_video_title=next((v.metadata.title for v in videos if v.metadata.video_id == v2_event.source_videos[0]), "") if v2_event.source_videos else "",
+                    video_timestamp_seconds=int(list(v2_event.video_timestamps.values())[0]) if v2_event.video_timestamps else 0,
+                    involved_entities=v2_event.involved_entities,
+                    confidence=v2_event.confidence,
+                    extracted_date=ExtractedDate(
+                        parsed_date=v2_event.date,
+                        original_text=v2_event.extracted_date_text,
+                        confidence=v2_event.date_confidence,
+                        source=v2_event.date_source
+                    ) if v2_event.date_source != "fallback_video_published_date" else None,
+                    date_source=v2_event.date_source
+                )
+                timeline_events.append(timeline_event)
+            
             timeline_summary = (
                 f"Timeline Intelligence v2.0 BREAKTHROUGH: Transformed {len(temporal_events)} raw events "
-                f"into {len(final_events)} high-quality temporal events. "
+                f"into {len(timeline_events)} high-quality temporal events. "
                 f"Eliminated {len(temporal_events) - len(deduplicated_events)} duplicates. "
                 f"Quality score: {quality_report.quality_score:.2f}. "
                 f"Expected 95%+ accurate dates from content analysis."
             )
             
+            # Import the main ConsolidatedTimeline model for return
+            from ..models import ConsolidatedTimeline
             consolidated_timeline = ConsolidatedTimeline(
                 timeline_id=f"timeline_v2_{collection_id}",
                 collection_id=collection_id,
-                events=final_events,
-                summary=timeline_summary,
-                timeline_version="2.0.0",
-                processing_stats={
-                    "raw_events_extracted": len(temporal_events),
-                    "duplicates_eliminated": len(temporal_events) - len(deduplicated_events),
-                    "quality_filtered": len(date_enhanced_events) - len(high_quality_events),
-                    "final_events": len(final_events),
-                    "quality_score": quality_report.quality_score,
-                    "transformation_ratio": f"{len(temporal_events)}→{len(final_events)}",
-                    "timeline_version": "2.0.0"
-                }
+                events=timeline_events,
+                summary=timeline_summary
             )
+            
+            # Log v2.0 processing stats (ConsolidatedTimeline model doesn't have processing_stats field)
+            processing_stats = {
+                "raw_events_extracted": len(temporal_events),
+                "duplicates_eliminated": len(temporal_events) - len(deduplicated_events),
+                "quality_filtered": len(date_enhanced_events) - len(high_quality_events),
+                "final_events": len(timeline_events),
+                "quality_score": quality_report.quality_score,
+                "transformation_ratio": f"{len(temporal_events)}→{len(timeline_events)}",
+                "timeline_version": "2.0.0"
+            }
+            logger.info(f"Timeline v2.0 processing stats: {processing_stats}")
             
             logger.info("🎉 Timeline Intelligence v2.0 TRANSFORMATION COMPLETE!")
             logger.info(f"✅ Result: {len(temporal_events)} broken events → {len(final_events)} accurate events")
@@ -1390,21 +1436,21 @@ class MultiVideoProcessor:
                     )
                     basic_events.append(event)
             
-            return ConsolidatedTimeline(
+            from ..models import ConsolidatedTimeline
+            fallback_timeline = ConsolidatedTimeline(
                 timeline_id=f"timeline_fallback_{collection_id}",
                 collection_id=collection_id,
                 events=basic_events,
-                summary=f"Fallback timeline with {len(basic_events)} events (Timeline v2.0 unavailable)",
-                timeline_version="fallback",
-                processing_stats={"fallback_reason": str(e)}
+                summary=f"Fallback timeline with {len(basic_events)} events (Timeline v2.0 unavailable). Reason: {str(e)}"
             )
+            return fallback_timeline
     
     async def _enhance_timeline_with_research(
         self,
         base_events: List[TimelineEvent],
         videos: List[VideoIntelligence],
         collection_id: str
-    ) -> ConsolidatedTimeline:
+    ):
         """
         v2.17.0 Timeline Building Pipeline enhancement with web research integration.
         
@@ -1418,9 +1464,10 @@ class MultiVideoProcessor:
         """
         if not self.settings.enable_timeline_synthesis:
             logger.info("Timeline synthesis disabled - returning basic timeline")
+            from ..models import ConsolidatedTimeline
             return ConsolidatedTimeline(
-            timeline_id=f"timeline_{collection_id}",
-            collection_id=collection_id,
+                timeline_id=f"timeline_{collection_id}",
+                collection_id=collection_id,
                 events=base_events,
                 summary=f"Generated a basic timeline with {len(base_events)} events from {len(videos)} videos."
             )
