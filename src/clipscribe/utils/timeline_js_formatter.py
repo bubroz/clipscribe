@@ -26,9 +26,19 @@ logger = logging.getLogger(__name__)
 class TimelineJSFormatter:
     """Convert Timeline v2.0 data to TimelineJS3 format."""
     
+    # Configuration constants
+    MAX_HEADLINE_LENGTH = 100
+    FACTUAL_EVENT_DESC_LENGTH = 60
+    OTHER_EVENT_DESC_LENGTH = 50
+    HEADLINE_TRUNCATION_LENGTH = 97  # MAX_HEADLINE_LENGTH - 3 for "..."
+    MAX_ENTITIES_IN_HEADLINE = 2
+    
+    # Media constants
+    YOUTUBE_THUMBNAIL_URL_TEMPLATE = "https://img.youtube.com/vi/{video_id}/maxresdefault.jpg"
+    
     def __init__(self):
         """Initialize the formatter."""
-        self.media_base_url = "https://img.youtube.com/vi/{video_id}/maxresdefault.jpg"
+        self.media_base_url = self.YOUTUBE_THUMBNAIL_URL_TEMPLATE
         
     def format_timeline(
         self, 
@@ -161,21 +171,21 @@ class TimelineJSFormatter:
             event: The temporal event
             
         Returns:
-            A headline string (max 100 chars)
+            A headline string (max MAX_HEADLINE_LENGTH chars)
         """
         # Extract key entities
-        entities = event.involved_entities[:2]  # Top 2 entities
+        entities = event.involved_entities[:self.MAX_ENTITIES_IN_HEADLINE]  # Top 2 entities
         entity_str = " & ".join(entities) if entities else "Event"
         
         # Create headline based on event type
         if event.event_type.value == "factual":
-            headline = f"{entity_str}: {event.description[:60]}"
+            headline = f"{entity_str}: {event.description[:self.FACTUAL_EVENT_DESC_LENGTH]}"
         else:
-            headline = f"[{event.event_type.value.title()}] {event.description[:50]}"
+            headline = f"[{event.event_type.value.title()}] {event.description[:self.OTHER_EVENT_DESC_LENGTH]}"
             
         # Ensure max length
-        if len(headline) > 100:
-            headline = headline[:97] + "..."
+        if len(headline) > self.MAX_HEADLINE_LENGTH:
+            headline = headline[:self.HEADLINE_TRUNCATION_LENGTH] + "..."
             
         return headline
     
