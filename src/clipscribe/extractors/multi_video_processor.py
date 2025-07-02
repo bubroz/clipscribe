@@ -38,7 +38,7 @@ from ..utils.web_research import WebResearchIntegrator, TimelineContextValidator
 from ..timeline import (
     TemporalExtractorV2,
     EventDeduplicator, 
-    ContentDateExtractor,
+    GeminiDateProcessor,
     TimelineQualityFilter,
     ChapterSegmenter,
     CrossVideoSynthesizer,
@@ -94,7 +94,7 @@ class MultiVideoProcessor:
             time_proximity_threshold=300  # 5 minutes
         )
         
-        self.content_date_extractor = ContentDateExtractor()
+        self.gemini_processor = GeminiDateProcessor()
         
         self.quality_filter = TimelineQualityFilter()
         
@@ -1254,7 +1254,7 @@ class MultiVideoProcessor:
         Phase 5 Integration Features:
         - TemporalExtractorV2: yt-dlp chapter-aware extraction with sub-second precision
         - EventDeduplicator: Eliminates 44-duplicate crisis through intelligent consolidation
-        - ContentDateExtractor: Extracts real dates from content (NEVER video publish dates)
+                    - GeminiDateProcessor: Processes multimodal dates from video and transcript
         - TimelineQualityFilter: Comprehensive validation and technical noise elimination
         - CrossVideoSynthesizer: Multi-video temporal correlation and synthesis
         
@@ -1303,24 +1303,19 @@ class MultiVideoProcessor:
             logger.info(f"Deduplication: {len(temporal_events)} → {len(deduplicated_events)} events")
             logger.info(f"Eliminated {len(temporal_events) - len(deduplicated_events)} duplicates")
             
-            # Step 3: Content Date Extraction (Fixes Wrong Date Crisis)
-            logger.info("📅 Step 3: ContentDateExtractor - Extracting real dates from content")
+            # Step 3: Gemini Date Processing (Multimodal date extraction)
+            logger.info("📅 Step 3: GeminiDateProcessor - Processing multimodal dates")
             
+            # Note: For multi-video processing, each video's temporal extractor
+            # should have already applied Gemini dates. Here we just ensure
+            # events have dates from their source processing.
             date_enhanced_events = []
             for event in deduplicated_events:
-                # Extract date from event description using content-only approach
-                extracted_date = self.content_date_extractor.extract_date_from_content(
-                    text=event.description,
-                    chapter_context=None,  # Will enhance this when chapter context is available
-                    video_title=None
-                )
-                
-                # Update event with extracted date
-                if extracted_date:
-                    event.date = extracted_date.date
-                    event.date_precision = extracted_date.precision if hasattr(extracted_date, 'precision') else DatePrecision.APPROXIMATE
-                    event.date_confidence = extracted_date.confidence
-                    event.date_source = extracted_date.source
+                # Events should already have dates from their source video processing
+                # If not, mark them for later enhancement
+                if not event.date or event.date_source == "pending_extraction":
+                    logger.debug(f"Event missing date: {event.description[:50]}...")
+                    # Could collect these for batch Gemini processing if needed
                 
                 date_enhanced_events.append(event)
             

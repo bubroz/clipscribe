@@ -34,7 +34,7 @@ from .models import (
     TemporalEvent, ExtractedDate, DatePrecision, EventType,
     ConsolidatedTimeline, TimelineQualityMetrics, ValidationStatus
 )
-from .date_extractor import ContentDateExtractor
+from .gemini_date_processor import GeminiDateProcessor
 from .event_deduplicator import EventDeduplicator
 
 logger = logging.getLogger(__name__)
@@ -68,7 +68,7 @@ class TemporalExtractorV2:
     def __init__(self, use_enhanced_extraction: bool = True):
         """Initialize with enhanced yt-dlp temporal intelligence."""
         self.video_client = EnhancedUniversalVideoClient()
-        self.date_extractor = ContentDateExtractor()
+        self.gemini_processor = GeminiDateProcessor()
         self.event_deduplicator = EventDeduplicator()
         self.use_enhanced_extraction = use_enhanced_extraction
         
@@ -181,8 +181,9 @@ class TemporalExtractorV2:
             # Step 3: Extract temporal events using chapter-aware segmentation
             raw_events = await self._extract_chapter_aware_events(context, entities)
             
-            # Step 4: Apply content-based date extraction (NEVER video publish dates)
-            events_with_dates = await self._apply_content_date_extraction(raw_events, context)
+            # Step 4: Apply Gemini-based date extraction (multimodal dates)
+            gemini_dates = kwargs.get('gemini_dates', [])
+            events_with_dates = await self._apply_content_date_extraction(raw_events, context, gemini_dates)
             
             # Step 5: Filter out SponsorBlock content pollution
             filtered_events = self._filter_sponsorblock_content(events_with_dates, temporal_metadata)
@@ -637,50 +638,65 @@ class TemporalExtractorV2:
     async def _apply_content_date_extraction(
         self,
         events: List[TemporalEvent],
-        context: TemporalExtractionContext
+        context: TemporalExtractionContext,
+        gemini_dates: Optional[List[Dict]] = None
     ) -> List[TemporalEvent]:
-        """Apply content-based date extraction to events.
+        """Apply Gemini-based date extraction to events.
         
-        CRITICAL: This fixes the "wrong date crisis" by extracting dates
-        from content rather than using video publish dates.
+        CRITICAL: This uses Gemini's multimodal date extraction for accurate dates
+        from both transcript and visual content, fixing the "wrong date crisis".
         """
-        logger.info("📅 Applying content-based date extraction (fixing wrong date crisis)")
+        logger.info("📅 Applying Gemini-based date extraction")
         
-        updated_events = []
+        # Convert Gemini dates to ExtractedDate objects if provided
+        extracted_dates = []
+        if gemini_dates:
+            logger.info(f"🎯 Processing {len(gemini_dates)} dates from Gemini")
+            from ..models import ExtractedDate
+            for date_info in gemini_dates:
+                try:
+                    extracted_date = ExtractedDate(
+                        original_text=date_info.get('original_text', ''),
+                        normalized_date=date_info.get('normalized_date'),
+                        precision=date_info.get('precision', 'approximate'),
+                        confidence=date_info.get('confidence', 0.5),
+                        context=date_info.get('context', ''),
+                        source=date_info.get('source', 'transcript'),
+                        visual_description=date_info.get('visual_description'),
+                        timestamp=date_info.get('timestamp', 0)
+                    )
+                    extracted_dates.append(extracted_date)
+                except Exception as e:
+                    logger.warning(f"Failed to parse Gemini date: {e}")
         
-        for event in events:
+        # Use GeminiDateProcessor to associate dates with events
+        video_publish_date = context.video_metadata.get('upload_date') or context.video_metadata.get('published_at')
+        if video_publish_date and isinstance(video_publish_date, str):
+            # Convert string date to datetime if needed
+            from dateutil import parser
             try:
-                # Extract date from event description and surrounding context
-                extracted_date = self.date_extractor.extract_date_from_content(
-                    text=event.description,
-                    chapter_context=None,  # Could enhance with chapter context from event.context
-                    video_title=None  # Could extract from context if available
-                )
-                
-                # Update event with extracted date
-                if extracted_date and extracted_date.date:
-                    event.date = extracted_date.date
-                    event.date_precision = DatePrecision.DAY  # Assuming day precision
-                    event.date_confidence = extracted_date.confidence
-                    event.extracted_date_text = extracted_date.original_text
-                    event.date_source = extracted_date.source
-                    logger.debug(f"✅ Date extracted for event: {extracted_date.date} ({extracted_date.confidence:.2f})")
-                else:
-                    logger.debug(f"⚠️ No date extracted for: {event.description[:50]}...")
-                
-                updated_events.append(event)
-                
-            except Exception as e:
-                logger.warning(f"Date extraction failed for event {event.event_id}: {e}")
-                updated_events.append(event)  # Include event without date
+                video_publish_date = parser.parse(video_publish_date)
+            except:
+                video_publish_date = None
         
-        if updated_events:
-            success_rate = len([e for e in updated_events if e.date and e.date_source != "pending_extraction"]) / len(updated_events)
+        dated_events = await self.gemini_processor.associate_dates_with_events(
+            events, 
+            extracted_dates,
+            video_publish_date
+        )
+        
+        # Calculate success metrics
+        if dated_events:
+            success_rate = len([e for e in dated_events if e.date and e.date_source != "pending_extraction"]) / len(dated_events)
+            visual_dates = len([e for e in dated_events if e.date_source == "visual"])
+            multimodal_dates = len([e for e in dated_events if e.date_source == "both"])
+            
             logger.info(f"📊 Date extraction success rate: {success_rate:.1%}")
+            logger.info(f"   Visual dates: {visual_dates}, Multimodal dates: {multimodal_dates}")
         else:
             logger.info("📊 No events to extract dates from")
         
-        return updated_events
+        return dated_events
     
     def _filter_sponsorblock_content(
         self,

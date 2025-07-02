@@ -23,8 +23,7 @@ from ..utils.timeline_js_formatter import TimelineJSFormatter
 # 🚀 Timeline Intelligence v2.0 Integration for Single Videos
 from ..timeline import (
     TemporalExtractorV2,
-    EventDeduplicator, 
-    ContentDateExtractor,
+    EventDeduplicator,
     TimelineQualityFilter,
     ChapterSegmenter,
     TemporalEvent
@@ -140,8 +139,6 @@ class VideoIntelligenceRetriever:
             similarity_threshold=0.8,
             time_proximity_threshold=300  # 5 minutes for single video
         )
-        
-        self.content_date_extractor = ContentDateExtractor()
         
         self.timeline_quality_filter = TimelineQualityFilter()
         
@@ -439,24 +436,41 @@ class VideoIntelligenceRetriever:
                     deduplicated_events = self.event_deduplicator.deduplicate_events(temporal_events)
                     logger.info(f"✅ Deduplicated to {len(deduplicated_events)} unique events")
                     
-                    # Step 3: Content date extraction
-                    logger.info("📅 Step 3: Content date extraction...")
-                    dated_events = []
-                    accurate_dates = 0
-                    for event in deduplicated_events:
-                        extracted_date = self.content_date_extractor.extract_date_from_content(
-                            event.description
-                        )
-                        if extracted_date and extracted_date.date:
-                            event.date = extracted_date.date
-                            event.date_confidence = extracted_date.confidence
-                            event.date_source = extracted_date.source
-                            # ExtractedDate doesn't have precision field, default to DAY
-                            from ..timeline.models import DatePrecision
-                            event.date_precision = DatePrecision.DAY
-                            if extracted_date.confidence > 0.7:
-                                accurate_dates += 1
-                        dated_events.append(event)
+                    # Step 3: Gemini date extraction and processing
+                    logger.info("📅 Step 3: Gemini date extraction and processing...")
+                    
+                    # Extract dates from Gemini transcription if available
+                    gemini_dates = []
+                    if hasattr(analysis, 'dates') and analysis.get('dates'):
+                        logger.info(f"🎯 Found {len(analysis['dates'])} dates from Gemini transcription")
+                        # Convert to ExtractedDate objects for GeminiDateProcessor
+                        from ..models import ExtractedDate
+                        for date_info in analysis['dates']:
+                            extracted_date = ExtractedDate(
+                                original_text=date_info.get('original_text', ''),
+                                normalized_date=date_info.get('normalized_date'),
+                                precision=date_info.get('precision', 'approximate'),
+                                confidence=date_info.get('confidence', 0.5),
+                                context=date_info.get('context', ''),
+                                source=date_info.get('source', 'transcript'),
+                                visual_description=date_info.get('visual_description'),
+                                timestamp=date_info.get('timestamp', 0)
+                            )
+                            gemini_dates.append(extracted_date)
+                    
+                    # Process dates with GeminiDateProcessor
+                    from ..timeline.gemini_date_processor import GeminiDateProcessor
+                    gemini_processor = GeminiDateProcessor()
+                    
+                    # Associate dates with events
+                    dated_events = await gemini_processor.associate_dates_with_events(
+                        deduplicated_events, 
+                        gemini_dates,
+                        video_metadata.published_at if video_metadata.published_at else None
+                    )
+                    
+                    # Count accurate dates
+                    accurate_dates = len([e for e in dated_events if e.date and e.date_confidence > 0.7])
                     logger.info(f"✅ Extracted content dates for {accurate_dates}/{len(dated_events)} events")
                     
                     # Step 4: Quality filtering
