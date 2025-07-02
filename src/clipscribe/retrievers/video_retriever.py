@@ -1298,7 +1298,7 @@ class VideoIntelligenceRetriever:
             
         try:
             # Get timeline events from the timeline_v2 data
-            timeline_events = video.timeline_v2.get('timeline_events', [])
+            timeline_events = video.timeline_v2.get('events', [])  # Changed from 'timeline_events' to 'events'
             if not timeline_events:
                 logger.debug("No timeline events found in Timeline v2.0 data")
                 return
