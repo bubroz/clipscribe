@@ -506,7 +506,7 @@ class VideoIntelligenceRetriever:
                         chapters_as_dict.append(chapter_dict)
                     
                     video_intelligence.timeline_v2 = {
-                        "temporal_events": [event.model_dump() for event in filtered_events],  # TemporalEvent uses model_dump()
+                        "events": [event.model_dump() for event in filtered_events],  # Changed from temporal_events to events
                         "chapters": chapters_as_dict,
                         "quality_metrics": {
                             "total_events_extracted": len(temporal_events),
@@ -526,7 +526,7 @@ class VideoIntelligenceRetriever:
                     video_intelligence.timeline_v2 = {
                         "error": str(e),
                         "fallback_used": True,
-                        "temporal_events": [],
+                        "events": [],  # Changed from temporal_events to events
                         "chapters": []
                     }
                 
