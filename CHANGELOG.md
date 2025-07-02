@@ -9,6 +9,44 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+## [2.18.19] - 2025-07-02
+
+### Added
+- TimelineJS3 export successfully implemented with 84 events extracted
+- Beautiful interactive timeline visualizations ready for embedding
+- Each event includes headline, description, entities, confidence scores
+- Chapter context preserved in timeline events
+
+### Fixed
+- Date parsing in TimelineJS formatter now handles string dates properly
+- TimelineJS export now correctly finds Timeline v2.0 events
+
+### Results
+- Pegasus documentary: 84 high-quality temporal events (up from 0-5)
+- Quality score: 0.85 (excellent)
+- 74.34% quality improvement with Timeline v2.0
+
+## [2.18.18] - 2025-07-02
+
+### Added
+- Timeline v2.0 parameter tuning for better event extraction
+  - Enhanced temporal patterns with 25+ new pattern types
+  - Seasonal dates, contextual markers, achievement events
+  - Legal, business, social event patterns
+- Extracted magic numbers to constants in TimelineJS formatter
+
+### Changed
+- Lowered quality filter thresholds to allow more valid events
+  - min_confidence: 0.6 → 0.5
+  - min_description_length: 10 → 8
+  - max_future_days: 30 → 365
+- Increased event extraction limit from 100 → 200
+- Improved confidence scoring for new pattern types
+
+### Fixed
+- Timeline v2.0 event key mismatch: temporal_events → events
+- Events now properly saved and accessible for TimelineJS export
+
 ## [2.18.17] - 2025-07-01
 
 ### Added

@@ -1,3 +1,3 @@
 """ClipScribe version information."""
 
-__version__ = "2.18.18" 
+__version__ = "2.18.19" 

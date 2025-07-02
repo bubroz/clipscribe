@@ -1313,10 +1313,19 @@ class VideoIntelligenceRetriever:
                 if not isinstance(event_data, dict):
                     continue
                     
+                # Parse date - handle both string and datetime objects
+                date_value = event_data.get('date', datetime.now().isoformat())
+                if isinstance(date_value, str):
+                    parsed_date = datetime.fromisoformat(date_value.replace(' ', 'T'))
+                elif isinstance(date_value, datetime):
+                    parsed_date = date_value
+                else:
+                    parsed_date = datetime.now()
+                
                 temporal_event = TemporalEvent(
                     event_id=event_data.get('event_id', f"event_{len(temporal_events)}"),
                     content_hash=event_data.get('content_hash', ''),
-                    date=datetime.fromisoformat(event_data.get('date', datetime.now().isoformat())),
+                    date=parsed_date,
                     date_precision=event_data.get('date_precision', 'approximate'),
                     date_confidence=event_data.get('date_confidence', 0.5),
                     extracted_date_text=event_data.get('extracted_date_text', ''),
