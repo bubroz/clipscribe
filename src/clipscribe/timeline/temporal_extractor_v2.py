@@ -79,33 +79,54 @@ class TemporalExtractorV2:
                 r'\b\d{1,2}[/\-]\d{1,2}[/\-]\d{2,4}\b',
                 r'\b\d{4}[/\-]\d{1,2}[/\-]\d{1,2}\b',
                 r'\b(?:in\s+)?\d{4}\b',
+                r'\bin\s+(?:early|mid|late)\s+\d{4}\b',  # NEW: "in early 2021"
+                r'\b(?:spring|summer|fall|autumn|winter)\s+(?:of\s+)?\d{4}\b',  # NEW: "summer of 2021"
             ],
             'relative_dates': [
                 r'\b(?:yesterday|today|tomorrow)\b',
                 r'\b(?:last|next)\s+(?:week|month|year|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)\b',
-                r'\b\d+\s+(?:days?|weeks?|months?|years?)\s+(?:ago|later|before|after)\b',
+                r'\b\d+\s+(?:days?|weeks?|months?|years?)\s+(?:ago|later|before|after|earlier)\b',
                 r'\b(?:earlier|later)\s+(?:today|this week|this month|this year)\b',
+                r'\b(?:recently|currently|nowadays|these days|at present)\b',  # NEW: temporal context
+                r'\b(?:back in|around|circa|approximately)\s+\d{4}\b',  # NEW: approximate dates
             ],
             'temporal_events': [
                 r'\b(?:when|while|during|after|before|since|until)\s+[^.!?]{5,50}[.!?]',
                 r'\b(?:at the time|back then|since then|from that point)\b',
                 r'\b(?:the incident|the event|the meeting|the announcement)\b',
+                r'\b(?:first|then|next|finally|afterwards|subsequently|meanwhile|eventually)\b',  # NEW: sequence markers
             ],
             'visual_timestamps': [
                 r'\b(?:screen shows?|display shows?|document dated?|calendar shows?)\b.*?\b\d{1,2}[/\-]\d{1,2}[/\-]\d{2,4}\b',
                 r'\b(?:timestamp|date stamp|time code)\b.*?\b\d{1,2}:\d{2}(?::\d{2})?\b',
+                r'\b(?:slide|graphic|chart|diagram)\s+(?:shows?|displays?|indicates?)\b',  # NEW: presentation elements
             ],
-            # NEW: Content-based event patterns for documentaries
+            # ENHANCED: More comprehensive narrative patterns
             'narrative_events': [
                 r'[A-Z][^.!?]*?(?:discovered|revealed|exposed|uncovered|reported|announced|published|released)[^.!?]*[.!?]',
                 r'[A-Z][^.!?]*?(?:investigation|report|story|scandal|revelation)[^.!?]*[.!?]',
                 r'[A-Z][^.!?]*?(?:targeted|hacked|infected|monitored|tracked|spied)[^.!?]*[.!?]',
                 r'[A-Z][^.!?]*?(?:murder|killed|death|assassination)[^.!?]*[.!?]',
                 r'[A-Z][^.!?]*?(?:meeting|conference|summit|interview)[^.!?]*[.!?]',
+                r'[A-Z][^.!?]*?(?:lawsuit|trial|verdict|settlement|case)[^.!?]*[.!?]',  # NEW: legal events
+                r'[A-Z][^.!?]*?(?:launched|introduced|unveiled|debuted|premiered)[^.!?]*[.!?]',  # NEW: launches
+                r'[A-Z][^.!?]*?(?:partnership|collaboration|merger|acquisition|deal)[^.!?]*[.!?]',  # NEW: business
+                r'[A-Z][^.!?]*?(?:protest|demonstration|rally|movement|campaign)[^.!?]*[.!?]',  # NEW: social
+                r'[A-Z][^.!?]*?(?:breakthrough|innovation|discovery|invention|milestone)[^.!?]*[.!?]',  # NEW: achievements
             ],
             'key_statements': [
                 r'[A-Z][^.!?]*?(?:says?|said|stated?|explained?|told|claimed?|admitted?)[^.!?]*[.!?]',
                 r'[A-Z][^.!?]*?(?:according to|confirmed|denied|refused)[^.!?]*[.!?]',
+                r'[A-Z][^.!?]*?(?:warned|cautioned|advised|recommended|suggested)[^.!?]*[.!?]',  # NEW: advisory
+                r'[A-Z][^.!?]*?(?:accused|blamed|criticized|condemned|praised)[^.!?]*[.!?]',  # NEW: judgments
+            ],
+            # NEW: Contextual events that often contain temporal information
+            'contextual_events': [
+                r'[A-Z][^.!?]*?(?:began|started|initiated|commenced|opened)[^.!?]*[.!?]',
+                r'[A-Z][^.!?]*?(?:ended|concluded|finished|completed|closed)[^.!?]*[.!?]',
+                r'[A-Z][^.!?]*?(?:continues?|ongoing|persists?|remains?)[^.!?]*[.!?]',
+                r'[A-Z][^.!?]*?(?:transformed|changed|evolved|developed|progressed)[^.!?]*[.!?]',
+                r'[A-Z][^.!?]*?(?:resulted in|led to|caused|triggered|sparked)[^.!?]*[.!?]',
             ]
         }
     
@@ -421,9 +442,12 @@ class TemporalExtractorV2:
         base_confidence = {
             'absolute_dates': 0.9,
             'relative_dates': 0.7,
-            'temporal_events': 0.6,
-            'visual_timestamps': 0.8
-        }.get(pattern_type, 0.5)
+            'temporal_events': 0.65,  # Increased from 0.6
+            'visual_timestamps': 0.8,
+            'narrative_events': 0.75,  # Good confidence for narrative
+            'key_statements': 0.7,     # Statements are usually reliable
+            'contextual_events': 0.65  # Context events are meaningful
+        }.get(pattern_type, 0.6)  # Increased default from 0.5
         
         # Adjust based on text specificity
         if len(text.split()) > 3:
@@ -786,7 +810,7 @@ class TemporalExtractorV2:
                 event_count += 1
                 
                 # Limit events to prevent overwhelming the timeline
-                if event_count >= 100:
+                if event_count >= 200:  # Increased from 100 to allow more events
                     break
         
         logger.info(f"Fallback extraction found {len(events)} events from {len(sentences)} sentences")

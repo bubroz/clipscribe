@@ -40,13 +40,13 @@ logger = logging.getLogger(__name__)
 @dataclass
 class QualityThresholds:
     """Configurable quality thresholds for timeline filtering."""
-    min_confidence: float = 0.6
-    min_description_length: int = 10
-    max_future_days: int = 30  # Reject dates more than 30 days in future
-    min_historical_year: int = 1900  # Reject dates before 1900
-    max_duplicate_similarity: float = 0.8  # Similarity threshold for duplicates
-    min_entity_relevance: float = 0.5  # Minimum entity relevance score
-    max_processing_date_days: int = 7  # Reject dates within 7 days of processing
+    min_confidence: float = 0.5
+    min_description_length: int = 8
+    max_future_days: int = 365
+    min_historical_year: int = 1800
+    max_duplicate_similarity: float = 0.85
+    min_entity_relevance: float = 0.5
+    max_processing_date_days: int = 2
 
 
 @dataclass
@@ -339,8 +339,9 @@ class TimelineQualityFilter:
         words = description.split()
         meaningful_words = [word for word in words if word not in stop_words and len(word) > 2]
         
-        # Require at least 2 meaningful words
-        return len(meaningful_words) >= 2
+        # Require at least 2 meaningful words OR 5+ total words
+        # This allows shorter but contextually rich descriptions
+        return len(meaningful_words) >= 2 or len(words) >= 5
     
     def _is_redundant_content(self, description: str) -> bool:
         """Check for redundant or repetitive content."""
