@@ -243,10 +243,19 @@ class GeminiFlashTranscriber:
                     {{"subject": "Entity A", "predicate": "specific action", "object": "Entity B", "confidence": 0.9}},
                     // Use specific predicates: founded, acquired, partnered with, invested in, developed, etc.
                     // Extract 20-50 relationships
+                ],
+                "dates": [
+                    {{"original_text": "October 2018", "normalized_date": "2018-10-01", "precision": "month", "confidence": 0.9, "source": "transcript", "context": "when Pegasus was discovered", "timestamp": 120.5}},
+                    // Extract ALL dates and temporal expressions including:
+                    // - Dates mentioned in speech ("in October 2018", "last June")
+                    // - Relative dates ("three years ago" - calculate from video date)
+                    // - Date ranges ("from 2018 to 2021")
+                    // - Partial dates ("early 2019", "summer of 2020")
+                    // - Extract 10-50 dates from the content
                 ]
             }}
             
-            Be comprehensive and don't miss important information. Quality over speed.
+            CRITICAL: Extract ALL dates and temporal expressions. For relative dates like "last year" or "three months ago", calculate the actual date based on the video's publication date if available. Be comprehensive and don't miss important information. Quality over speed.
             """
             
             logger.info("Performing combined extraction (summary, key points, topics, entities, relationships)...")
@@ -296,9 +305,26 @@ class GeminiFlashTranscriber:
                             },
                             "required": ["subject", "predicate", "object", "confidence"]
                         }
+                    },
+                    "dates": {
+                        "type": "ARRAY",
+                        "items": {
+                            "type": "OBJECT",
+                            "properties": {
+                                "original_text": {"type": "STRING"},
+                                "normalized_date": {"type": "STRING"},
+                                "precision": {"type": "STRING", "enum": ["exact", "day", "month", "year", "approximate"]},
+                                "confidence": {"type": "NUMBER"},
+                                "context": {"type": "STRING"},
+                                "source": {"type": "STRING", "enum": ["transcript", "visual", "both"]},
+                                "visual_description": {"type": "STRING"},
+                                "timestamp": {"type": "NUMBER"}
+                            },
+                            "required": ["original_text", "normalized_date", "precision", "confidence", "source"]
+                        }
                     }
                 },
-                "required": ["summary", "key_points", "topics", "entities", "relationships"]
+                "required": ["summary", "key_points", "topics", "entities", "relationships", "dates"]
             }
             
             # Make the combined API call with structured output
@@ -330,6 +356,7 @@ class GeminiFlashTranscriber:
             topics = combined_data.get("topics", [])
             entities = combined_data.get("entities", [])
             relationships = combined_data.get("relationships", [])
+            dates = combined_data.get("dates", [])
             
             # Optional: Second pass for entity/relationship extraction if first pass seems incomplete
             if len(entities) < 10 or len(relationships) < 5:
@@ -395,6 +422,7 @@ class GeminiFlashTranscriber:
             
             logger.info(f"Transcription completed in {processing_time}s, cost: ${total_cost:.4f}")
             logger.info(f"Extracted: {len(entities)} entities, {len(relationships)} relationships, {len(key_points)} key points")
+            logger.info(f"Extracted dates: {len(dates)} dates from content")
             logger.info(f"Temporal intelligence: {len(temporal_intelligence.get('timeline_events', []))} timeline events")
             
             # Clean up
@@ -408,6 +436,7 @@ class GeminiFlashTranscriber:
                 "entities": entities,
                 "topics": topics,
                 "relationships": relationships,
+                "dates": dates,
                 "language": "en",  # TODO: Detect language
                 "confidence_score": 0.95,  # Gemini is generally very confident
                 "processing_time": processing_time,
@@ -532,13 +561,16 @@ class GeminiFlashTranscriber:
             topics = combined_data.get("topics", [])
             entities = combined_data.get("entities", [])
             relationships = combined_data.get("relationships", [])
+            dates = combined_data.get("dates", [])
             
             processing_time = 0
             
             logger.info(f"Enhanced video transcription completed in {processing_time}s, cost: ${total_cost:.4f}")
             logger.info(f"Extracted: {len(entities)} entities, {len(relationships)} relationships, {len(key_points)} key points")
+            logger.info(f"Extracted dates: {len(dates)} dates (transcript + visual)")
             logger.info(f"Enhanced temporal intelligence: {len(temporal_intelligence.get('timeline_events', []))} timeline events")
             logger.info(f"Visual temporal cues: {len(temporal_intelligence.get('visual_temporal_cues', []))} cues")
+            logger.info(f"Visual dates: {len(temporal_intelligence.get('visual_dates', []))} visual dates")
             
             # Clean up
             genai.delete_file(file)
@@ -551,6 +583,7 @@ class GeminiFlashTranscriber:
                 "entities": entities,
                 "topics": topics,
                 "relationships": relationships,
+                "dates": dates,
                 "language": "en",
                 "confidence_score": 0.95,
                 "processing_time": processing_time,
@@ -625,6 +658,20 @@ class GeminiFlashTranscriber:
                         "required": ["timestamp", "cue_type", "description"]
                     }
                 },
+                "visual_dates": {
+                    "type": "ARRAY",
+                    "items": {
+                        "type": "OBJECT",
+                        "properties": {
+                            "timestamp": {"type": "NUMBER"},
+                            "date_text": {"type": "STRING"},
+                            "normalized_date": {"type": "STRING"},
+                            "screen_location": {"type": "STRING"},
+                            "confidence": {"type": "NUMBER"}
+                        },
+                        "required": ["timestamp", "date_text", "confidence"]
+                    }
+                },
                 "temporal_patterns": {
                     "type": "ARRAY",
                     "items": {
@@ -638,7 +685,7 @@ class GeminiFlashTranscriber:
                     }
                 }
             },
-            "required": ["timeline_events", "visual_temporal_cues", "temporal_patterns"]
+            "required": ["timeline_events", "visual_temporal_cues", "visual_dates", "temporal_patterns"]
         }
         
         temporal_event = None
@@ -678,6 +725,7 @@ class GeminiFlashTranscriber:
         return {
             "timeline_events": temporal_data.get("timeline_events", []),
             "visual_temporal_cues": temporal_data.get("visual_temporal_cues", []),
+            "visual_dates": temporal_data.get("visual_dates", []),
             "temporal_patterns": temporal_data.get("temporal_patterns", [])
         }
 
@@ -692,9 +740,15 @@ class GeminiFlashTranscriber:
            - Dates, years, time periods shown on screen
            - Chronological sequences in slides or presentations
            - Progress indicators, calendars, schedules
-        3. TEMPORAL CONTEXT: Note temporal relationships and sequences
-        4. VISUAL ANNOTATIONS: Format visual elements as [VISUAL: description]
+        3. VISUAL DATE EXTRACTION: Capture ALL dates shown visually:
+           - News chyrons/lower thirds: [VISUAL DATE: October 2018 - lower third]
+           - Document dates: [VISUAL DATE: Letter dated June 15, 2023]
+           - Timeline graphics: [VISUAL DATE: Timeline shows 2019-2021]
+           - On-screen text: [VISUAL DATE: "Since 1995" overlay]
+        4. TEMPORAL CONTEXT: Note temporal relationships and sequences
+        5. VISUAL ANNOTATIONS: Format visual elements as [VISUAL: description]
         
+        CRITICAL: Extract ALL visual dates - they're often more accurate than spoken dates!
         Focus on extracting 300% more temporal intelligence through combined audio-visual analysis.
         """
 
@@ -722,10 +776,18 @@ class GeminiFlashTranscriber:
             "relationships": [
                 {{"subject": "Entity A", "predicate": "temporal_action", "object": "Entity B", "confidence": 0.9}},
                 // Include temporal relationships: before, after, during, caused, led_to
+            ],
+            "dates": [
+                {{"original_text": "October 2018", "normalized_date": "2018-10-01", "precision": "month", "confidence": 0.9, "source": "both", "context": "Pegasus discovery", "visual_description": "date shown on screen", "timestamp": 120.5}},
+                // Extract ALL dates from both transcript AND visual elements:
+                // - Dates shown in chyrons, overlays, documents
+                // - Dates mentioned in speech
+                // - Timeline graphics and temporal visualizations
+                // Visual dates are often more accurate than spoken dates
             ]
         }}
         
-        Focus on temporal intelligence: sequences, causality, chronology, evolution.
+        Focus on temporal intelligence: sequences, causality, chronology, evolution. Pay special attention to visual dates as they're often more accurate than spoken dates.
         """
 
     def _build_enhanced_response_schema(self) -> Dict[str, Any]:
@@ -777,9 +839,26 @@ class GeminiFlashTranscriber:
                         },
                         "required": ["subject", "predicate", "object", "confidence"]
                     }
+                },
+                "dates": {
+                    "type": "ARRAY",
+                    "items": {
+                        "type": "OBJECT",
+                        "properties": {
+                            "original_text": {"type": "STRING"},
+                            "normalized_date": {"type": "STRING"},
+                            "precision": {"type": "STRING", "enum": ["exact", "day", "month", "year", "approximate"]},
+                            "confidence": {"type": "NUMBER"},
+                            "context": {"type": "STRING"},
+                            "source": {"type": "STRING", "enum": ["transcript", "visual", "both"]},
+                            "visual_description": {"type": "STRING"},
+                            "timestamp": {"type": "NUMBER"}
+                        },
+                        "required": ["original_text", "normalized_date", "precision", "confidence", "source"]
+                    }
                 }
             },
-            "required": ["summary", "key_points", "topics", "entities", "relationships"]
+            "required": ["summary", "key_points", "topics", "entities", "relationships", "dates"]
         }
 
     def _build_temporal_intelligence_prompt(
@@ -798,10 +877,21 @@ class GeminiFlashTranscriber:
         Extract:
         1. TIMELINE EVENTS: Specific events with timestamps and temporal context
         2. VISUAL TEMPORAL CUES: {"Charts, timelines, dates shown visually" if is_video else "Not applicable"}
-        3. TEMPORAL PATTERNS: Sequences, cycles, progressions, causality chains
+        3. VISUAL DATES: {"ALL dates shown on screen (chyrons, overlays, documents, graphics)" if is_video else "Not applicable"}
+        4. TEMPORAL PATTERNS: Sequences, cycles, progressions, causality chains
         
         Content:
         {transcript_text[:8000]}
+        
+        CRITICAL for video content: Extract ALL visual dates including:
+        - News chyrons and lower thirds with dates
+        - Document headers showing dates
+        - Timeline graphics and charts
+        - Calendar displays
+        - Date overlays and watermarks
+        - Historical footage timestamps
+        
+        Visual dates are often MORE ACCURATE than spoken dates. Prioritize them!
         
         Focus on extracting temporal relationships, chronological sequences, and time-based patterns.
         Include confidence scores based on clarity and specificity of temporal information.

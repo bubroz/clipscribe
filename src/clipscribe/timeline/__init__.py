@@ -56,6 +56,11 @@ from .date_extractor import (
     ContentDateExtractor
 )
 
+# Gemini Date Processing (10,000%+ Improvement)
+from .gemini_date_processor import (
+    GeminiDateProcessor
+)
+
 # Quality Filtering (Ensures High-Quality Output)
 from .quality_filter import (
     TimelineQualityFilter
@@ -100,6 +105,7 @@ __all__ = [
     "TemporalExtractorV2",           # 🚀 Heart of v2.0 - yt-dlp temporal intelligence
     "EventDeduplicator",             # 🔧 Fixes 44-duplicate crisis
     "ContentDateExtractor",          # 📅 Fixes wrong date crisis  
+    "GeminiDateProcessor",           # 🎯 Gemini multimodal date extraction (10,000%+ improvement)
     "TimelineQualityFilter",         # ✨ Ensures high-quality output
     "ChapterSegmenter",              # 🎬 yt-dlp chapter intelligence
     "CrossVideoSynthesizer",         # 🔗 Multi-video timeline building

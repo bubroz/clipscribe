@@ -130,11 +130,19 @@ class CrossVideoRelationship(BaseModel):
 
 
 class ExtractedDate(BaseModel):
-    """Represents a date extracted from text by an LLM."""
-    parsed_date: datetime = Field(..., description="The fully resolved datetime object")
+    """Represents a date extracted from text or visual content by Gemini."""
     original_text: str = Field(..., description="The original text the date was extracted from")
+    normalized_date: str = Field(..., description="Normalized date in ISO format (YYYY-MM-DD)")
+    precision: str = Field(..., description="Precision level: exact, day, month, year, approximate, unknown")
     confidence: float = Field(default=0.8, description="The model's confidence in the extraction")
-    source: str = Field(..., description="Where the date was found (e.g., 'title', 'description', 'content')")
+    context: str = Field(default="", description="Context in which the date was mentioned")
+    source: str = Field(..., description="Source of date: transcript, visual, or both")
+    visual_description: str = Field(default="", description="Description if date was visual (e.g., 'lower third')")
+    timestamp: float = Field(default=0.0, description="Timestamp in video when date was shown/mentioned")
+    
+    # Additional fields for compatibility
+    parsed_date: Optional[datetime] = Field(None, description="Parsed datetime object (for backward compatibility)")
+    date_source: Optional[str] = Field(None, description="Additional source info")
 
 
 class TimelineEvent(BaseModel):
