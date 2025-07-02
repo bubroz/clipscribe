@@ -352,6 +352,9 @@ class VideoIntelligence(BaseModel):
     # NEW: Timeline v2.0 data
     timeline_v2: Optional[Dict[str, Any]] = Field(None, description="Timeline Intelligence v2.0 data")
     
+    # NEW: Gemini date extraction (Phase 1)
+    dates: Optional[List[Dict[str, Any]]] = Field(None, description="Dates extracted by Gemini from transcript and visual content")
+    
     def to_chimera_format(self) -> Dict[str, Any]:
         """Convert to format expected by Chimera's research agent."""
         return {

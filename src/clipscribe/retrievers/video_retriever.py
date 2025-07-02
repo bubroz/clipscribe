@@ -387,6 +387,14 @@ class VideoIntelligenceRetriever:
                 if 'temporal_patterns' in analysis:
                     video_intelligence.processing_stats['temporal_patterns'] = analysis['temporal_patterns']
                 
+                # ADD DATES FROM GEMINI EXTRACTION (Phase 1 critical fix)
+                if 'dates' in analysis:
+                    video_intelligence.processing_stats['dates'] = analysis['dates']
+                    # Also store at top level for easier access
+                    video_intelligence.dates = analysis['dates']
+                if 'visual_dates' in analysis:
+                    video_intelligence.processing_stats['visual_dates'] = analysis['visual_dates']
+                
                 # Run intelligence extraction if requested
                 if self.use_advanced_extraction and hasattr(self.entity_extractor, 'extract_all'):
                     _update_progress("Extracting enhanced intelligence")
@@ -856,6 +864,16 @@ class VideoIntelligenceRetriever:
                 "extractor": "advanced_hybrid_v2.2" if hasattr(self.entity_extractor, 'extract_all') else "basic_hybrid"
             }
         }
+        
+        # ADD DATES FIELD (Phase 1 fix)
+        if hasattr(video, 'dates') and video.dates:
+            full_data["dates"] = video.dates
+        # Also check processing_stats for dates
+        if hasattr(video, 'processing_stats') and video.processing_stats:
+            if 'dates' in video.processing_stats:
+                full_data["dates"] = video.processing_stats['dates']
+            if 'visual_dates' in video.processing_stats:
+                full_data["visual_dates"] = video.processing_stats['visual_dates']
         if hasattr(video, 'relationships') and video.relationships:
             full_data["relationships"] = [r.dict() for r in video.relationships]
         if hasattr(video, 'knowledge_graph') and video.knowledge_graph:
