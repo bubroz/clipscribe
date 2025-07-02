@@ -9,6 +9,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+## [2.18.20] - 2025-07-02
+
+### Research & Planning
+- Comprehensive research on temporal expression extraction methods
+- Discovered we're already using Gemini multimodal (video mode) but not extracting dates
+- Created detailed implementation plan for 70-85% date extraction (up from 0.7%)
+- Key insight: Visual dates in news content (chyrons, overlays) are more reliable
+
+### Documentation
+- Created GEMINI_DATE_EXTRACTION_PLAN.md with 4-6 hour implementation roadmap
+- Created gemini_date_integration_plan.py with technical implementation details
+- Updated GitHub issues #7 and #8 with research findings
+
+### Cost Analysis
+- Discovered we're already paying 10x for video mode ($0.001875 vs $0.0001875)
+- Date extraction would be $0 additional cost (piggyback on existing calls)
+- Expected ROI: 10,000%+ improvement for zero additional cost
+
 ## [2.18.19] - 2025-07-02
 
 ### Added
