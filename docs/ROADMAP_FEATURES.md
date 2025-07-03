@@ -7,143 +7,143 @@
 
 **ClipScribe now focuses exclusively on becoming the world's best video intelligence extraction tool.** Timeline features have been **permanently discontinued** due to insufficient accuracy (24.66%) and poor cost/benefit ratio.
 
-## 🚀 Q3 2025: Advanced Relationship Analysis (Phase 1)
+## 🚀 Q3 2025: Enhanced Relationship Analysis (Phase 1)
 
-### Influence Network Mapping
+### Enhanced Relationship Scoring
 - **Status**: Design Phase
 - **Priority**: Critical
-- **Goal**: Map power dynamics and influence relationships between entities
-- **Features**:
-  - Power scoring algorithm (who influences whom)
-  - Hierarchical relationship visualization  
-  - Authority detection (formal vs informal power)
-  - Influence propagation tracking
-- **Success Metric**: 90% accuracy in influence relationship detection
+- **Goal**: Improve relationship confidence scoring with semantic context analysis
+- **Enhancements**:
+  - Context-aware confidence scoring algorithm
+  - Semantic similarity analysis for relationship validation
+  - Multi-source relationship verification
+  - Dynamic confidence adjustment based on entity types
+- **Success Metric**: 95% accuracy in relationship confidence assessment
 
-### Speaker Attribution System
+### Power Dynamics Detection
 - **Status**: Architecture Phase
 - **Priority**: High
-- **Goal**: Track quotes and claims to specific speakers with credibility scoring
-- **Features**:
-  - Quote-to-speaker mapping with confidence scores
-  - Speaker expertise domain identification
-  - Credibility scoring based on context and history
-  - Multi-video speaker consistency tracking
-- **Success Metric**: 92% precision in speaker attribution
+- **Goal**: Identify hierarchical relationships and authority structures in existing data
+- **Enhancements**:
+  - Authority relationship detection (formal vs informal power)
+  - Hierarchical structure identification
+  - Power relationship scoring within entity networks
+  - Organizational structure mapping from relationship data
+- **Success Metric**: 88% accuracy in power structure identification
 
-### Contradiction Detection Engine
+### Relationship Quality Improvements
 - **Status**: Research Phase
 - **Priority**: High
-- **Goal**: Identify conflicting claims across video sources
-- **Features**:
-  - Claim extraction and normalization
-  - Cross-source contradiction identification
-  - Confidence scoring for contradictions
-  - Evidence strength assessment
-- **Success Metric**: 85% precision in contradiction detection
+- **Goal**: Better filtering, validation, and assessment of extracted relationships
+- **Enhancements**:
+  - Advanced relationship filtering algorithms
+  - Cross-validation of relationship claims
+  - Contextual relationship strength assessment
+  - Noise reduction in relationship extraction
+- **Success Metric**: 90% precision in relationship quality assessment
 
-### Evidence Chain Building
+### Advanced Relationship Types
 - **Status**: Conceptual
 - **Priority**: Medium
-- **Goal**: Build legal/research-grade evidence trails
-- **Features**:
-  - Evidence hierarchy construction
-  - Source reliability weighting
-  - Chain of custody tracking
-  - Export to legal brief formats
-- **Success Metric**: Usable in legal/academic contexts
+- **Goal**: Enhance subject-predicate-object relationships with richer context
+- **Enhancements**:
+  - Temporal relationship context (when relationships formed/changed)
+  - Causal relationship detection (A caused B)
+  - Conditional relationships (A when B)
+  - Relationship strength quantification
+- **Success Metric**: 25% increase in relationship context richness
 
-## 🎯 Q4 2025: Multi-Video Intelligence (Phase 2)
+## 🎯 Q4 2025: Multi-Video Intelligence Enhancement (Phase 2)
 
-### Character Arc Tracking
+### Enhanced Cross-Video Correlation
+- **Status**: Planned
+- **Priority**: Critical
+- **Goal**: Improve entity resolution and relationship consistency across video collections
+- **Enhancements**:
+  - Advanced entity deduplication across videos
+  - Cross-video relationship validation
+  - Entity mention consistency tracking
+  - Relationship conflict resolution across sources
+- **Success Metric**: 95% entity consistency across video collections
+
+### Collection Intelligence Upgrades
 - **Status**: Planned
 - **Priority**: High
-- **Goal**: Track how people/organizations evolve across multiple videos
-- **Features**:
-  - Entity consistency across video collections
-  - Behavioral pattern identification
-  - Role evolution tracking
-  - Relationship change detection
-- **Success Metric**: 88% accuracy in character development tracking
+- **Goal**: Better synthesis of insights from multiple videos in collections
+- **Enhancements**:
+  - Enhanced collection-level entity resolution
+  - Cross-video insight aggregation
+  - Collection narrative consistency analysis
+  - Multi-video relationship strength assessment
+- **Success Metric**: 40% improvement in collection-level insights
 
-### Narrative Thread Following
+### Relationship Evolution Tracking
+- **Status**: Planned
+- **Priority**: Medium
+- **Goal**: Track how relationships change across videos in a collection
+- **Enhancements**:
+  - Relationship state tracking across videos
+  - Relationship change detection and analysis
+  - Temporal relationship progression mapping
+  - Relationship stability assessment
+- **Success Metric**: 85% accuracy in relationship change detection
+
+### Enhanced Entity Consistency
 - **Status**: Planned
 - **Priority**: High
-- **Goal**: Follow story developments across multiple sources
-- **Features**:
-  - Multi-video story correlation
-  - Plot point identification
-  - Narrative consistency checking
-  - Story completion detection
-- **Success Metric**: 85% accuracy in narrative thread connection
+- **Goal**: Better entity resolution and deduplication across videos
+- **Enhancements**:
+  - Cross-video entity alias detection
+  - Entity mention normalization
+  - Multi-video entity confidence scoring
+  - Entity relationship consistency validation
+- **Success Metric**: 98% entity consistency across collections
 
-### Information Propagation Analysis
-- **Status**: Planned
-- **Priority**: Medium
-- **Goal**: Track how claims spread between sources
-- **Features**:
-  - Claim propagation mapping
-  - Source influence on information spread
-  - Misinformation pathway detection
-  - Truth decay analysis
-- **Success Metric**: 80% accuracy in propagation path identification
+## 🎯 Q1 2026: Core Function Optimization (Phase 3)
 
-### Cross-Reference Validation
-- **Status**: Planned
-- **Priority**: Medium
-- **Goal**: Fact-check claims across multiple video sources
-- **Features**:
-  - Multi-source fact verification
-  - Claim consistency scoring
-  - Evidence aggregation
-  - Reliability assessment
-- **Success Metric**: 90% accuracy in cross-reference validation
-
-## 🎯 Q1 2026: Research Intelligence Tools (Phase 3)
-
-### Citation Generation System
-- **Status**: Future
-- **Priority**: Medium
-- **Goal**: Generate academic-grade citations and references
-- **Features**:
-  - APA/MLA/Chicago citation formats
-  - Video timestamp referencing
-  - Source credibility notation
-  - Research bibliography generation
-- **Success Metric**: Accepted in academic contexts
-
-### Advanced Fact Verification
+### Entity Extraction Optimization
 - **Status**: Future
 - **Priority**: High
-- **Goal**: Claims vs evidence analysis with external validation
-- **Features**:
-  - External database integration
-  - Fact-checking API connections
-  - Evidence strength quantification
-  - Verification confidence scoring
-- **Success Metric**: 95% accuracy in fact verification
+- **Goal**: Push entity extraction from 95% to 98% accuracy
+- **Enhancements**:
+  - Domain-specific entity recognition models
+  - Advanced entity validation algorithms
+  - Multi-source entity verification
+  - Entity confidence scoring improvements
+- **Success Metric**: 98% entity extraction accuracy
 
-### Source Discovery Engine
+### Relationship Mapping Enhancement
+- **Status**: Future
+- **Priority**: High
+- **Goal**: Push relationship mapping from 90% to 95% accuracy
+- **Enhancements**:
+  - Better context understanding for relationships
+  - Advanced relationship validation
+  - Multi-modal relationship verification
+  - Relationship confidence improvements
+- **Success Metric**: 95% relationship mapping accuracy
+
+### Cost Efficiency Improvements
 - **Status**: Future
 - **Priority**: Medium
-- **Goal**: "Who else talks about X?" intelligent suggestions
-- **Features**:
-  - Related source identification
-  - Topic clustering across sources
-  - Expert speaker discovery
-  - Coverage gap identification
-- **Success Metric**: 80% relevant source suggestions
+- **Goal**: Maintain $0.002/minute cost leadership while improving quality
+- **Enhancements**:
+  - Processing pipeline optimization
+  - Intelligent model selection
+  - Caching improvements
+  - Batch processing optimization
+- **Success Metric**: Maintain cost while improving quality 20%
 
-### Research Export Suite
+### Performance Optimization
 - **Status**: Future
-- **Priority**: Low
-- **Goal**: Academic paper formats, legal brief structures
-- **Features**:
-  - Academic paper templates
-  - Legal brief formatting
-  - Research report generation
-  - Bibliography management
-- **Success Metric**: Direct usability in professional contexts
+- **Priority**: Medium
+- **Goal**: Faster processing with better quality output
+- **Enhancements**:
+  - Algorithm efficiency improvements
+  - Parallel processing optimization
+  - Memory usage optimization
+  - Response time improvements
+- **Success Metric**: 50% faster processing with maintained quality
 
 ## 🚫 DISCONTINUED FEATURES
 

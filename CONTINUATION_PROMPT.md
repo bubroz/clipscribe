@@ -29,31 +29,31 @@
 
 ### NEW Strategic Direction: Advanced Intelligence Extraction 🎯
 
-#### Phase 1 (Q3 2025): Advanced Relationship Analysis
+#### Phase 1 (Q3 2025): Enhanced Relationship Analysis
 **HIGHEST PRIORITY** - 85 hours/month redirected here
-- **Influence Network Mapping**: Power dynamics, authority detection, hierarchical relationships
-- **Speaker Attribution**: Quote tracking with credibility scoring and expertise domains
-- **Contradiction Detection**: Conflicting claims across sources with confidence assessment  
-- **Evidence Chain Building**: Legal/research-grade evidence tracking and validation
+- **Enhanced Relationship Scoring**: Context-aware confidence scoring with semantic analysis
+- **Power Dynamics Detection**: Identify hierarchical relationships and authority structures within existing data
+- **Relationship Quality Improvements**: Better filtering, validation, and confidence assessment
+- **Advanced Relationship Types**: Enhance subject-predicate-object relationships with richer context
 
-#### Phase 2 (Q4 2025): Multi-Video Intelligence  
-- **Character Arc Tracking**: Entity evolution across video collections
-- **Narrative Thread Following**: Story development across multiple sources
-- **Information Propagation**: Claim spread tracking and misinformation detection
-- **Cross-Reference Validation**: Multi-source fact checking with reliability scoring
+#### Phase 2 (Q4 2025): Multi-Video Intelligence Enhancement
+- **Enhanced Cross-Video Correlation**: Improve entity resolution and relationship consistency across video collections
+- **Collection Intelligence Upgrades**: Better synthesis of insights from multiple videos
+- **Relationship Evolution Tracking**: How relationships change across videos in a collection
+- **Enhanced Entity Consistency**: Better entity resolution and deduplication across videos
 
-#### Phase 3 (Q1 2026): Research Intelligence Tools
-- **Citation Generation**: Academic-grade source attribution (APA/MLA/Chicago)
-- **Advanced Fact Verification**: Claims vs evidence with external validation
-- **Source Discovery**: "Who else talks about X?" intelligent suggestions
-- **Research Export**: Academic paper formats, legal brief structures
+#### Phase 3 (Q1 2026): Core Function Optimization
+- **Entity Extraction Optimization**: Push from 95% to 98% accuracy with domain-specific improvements
+- **Relationship Mapping Enhancement**: Push from 90% to 95% accuracy with better context understanding
+- **Cost Efficiency Improvements**: Maintain $0.002/minute while improving quality
+- **Performance Optimization**: Faster processing with better quality output
 
 ### Roadmap 🗺️
-- **Immediate**: Design influence network mapping architecture
-- **Week 1-2**: Implement speaker attribution system and contradiction detection
-- **Month 1**: Core advanced relationship features operational
-- **Month 2-3**: Multi-video intelligence capabilities
-- **Q1 2026**: Research-grade tools for academics and journalists
+- **Immediate**: Design enhanced relationship scoring architecture
+- **Week 1-2**: Implement context-aware relationship confidence scoring and power dynamics detection
+- **Month 1**: Core relationship enhancement features operational
+- **Month 2-3**: Multi-video intelligence improvements and entity consistency
+- **Q1 2026**: Core function optimization to industry-leading levels
 
 ### Core Strengths (Focus Areas) 💪
 1. **Entity Extraction**: 95%+ accuracy - enhance to 98% with domain-specific models
@@ -72,9 +72,9 @@
 ### Success Metrics (NEW KPIs) 📊
 - **Relationship Accuracy**: Target 95% (current: 90%)
 - **Entity Resolution**: Target 98% (current: 95%)  
-- **Contradiction Detection**: Target 85% precision (new capability)
-- **Influence Mapping**: Target 90% accuracy (new capability)
-- **Speaker Attribution**: Target 92% precision (new capability)
+- **Relationship Quality**: Target 90% precision in quality assessment
+- **Power Dynamics Detection**: Target 88% accuracy in structure identification
+- **Cross-Video Consistency**: Target 95% entity consistency across collections
 - **Research Efficiency**: 5x faster intelligence gathering for users
 - **User Retention**: 95% through focus on core value
 
@@ -126,10 +126,10 @@ poetry run clipscribe process-collection URL1 URL2 --name "Intelligence Test"
 
 ### Next Steps (IMMEDIATE) ⚡
 1. **Archive timeline code** to `legacy/timeline/` directory
-2. **Design influence network architecture** for power dynamics analysis
-3. **Implement speaker attribution** with quote tracking and credibility
-4. **Create contradiction detection** for conflicting claims across sources
-5. **Build evidence chain** framework for legal/research applications
+2. **Design enhanced relationship scoring** architecture for context-aware confidence
+3. **Implement power dynamics detection** within existing relationship data
+4. **Create relationship quality improvements** for better filtering and validation
+5. **Build advanced relationship types** framework for richer context
 
 ### Performance Benchmarks (NEW TARGETS) 🎯
 - **Intelligence Quality**: 3x improvement in relationship insight value

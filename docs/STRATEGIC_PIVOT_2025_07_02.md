@@ -40,37 +40,34 @@ ClipScribe is **KILLING** timeline feature development and **PIVOTING HARD** to 
 - **Platform coverage**: 1800+ video sources
 - **User satisfaction**: High for intelligence extraction features
 
-## New Strategic Direction: Advanced Intelligence Extraction
+## New Strategic Direction: Core Intelligence Enhancement
 
-### 🎯 Phase 1: Advanced Relationship Analysis (Q3 2025)
-**Goal**: 3x improvement in relationship insight quality
+### 🎯 Phase 1: Enhanced Relationship Analysis (Q3 2025)
+**Goal**: 3x improvement in relationship insight quality through core function enhancement
 
-**Features**:
-- **Influence Network Mapping**: Who influences whom, power dynamics
-- **Speaker Attribution**: Quote tracking with credibility scoring
-- **Contradiction Detection**: Conflicting claims across sources
-- **Evidence Chain Building**: Legal/research-grade evidence tracking
-- **Bias Detection**: Source reliability and perspective analysis
+**Core Function Enhancements**:
+- **Enhanced Relationship Scoring**: Context-aware confidence scoring with semantic analysis
+- **Power Dynamics Detection**: Identify hierarchical relationships and authority structures within existing relationship data
+- **Relationship Quality Improvements**: Better filtering, validation, and confidence assessment
+- **Advanced Relationship Types**: Enhance subject-predicate-object relationships with richer context
 
-### 🎯 Phase 2: Multi-Video Intelligence (Q4 2025)
-**Goal**: Best-in-class collection analysis
+### 🎯 Phase 2: Multi-Video Intelligence Enhancement (Q4 2025)
+**Goal**: Best-in-class collection analysis through core capability enhancement
 
-**Features**:
-- **Character Arc Tracking**: How people/organizations evolve across videos
-- **Narrative Thread Following**: Story development across multiple sources
-- **Information Propagation**: How claims spread between sources
-- **Credibility Weighting**: Source reliability impact on relationships
-- **Cross-Reference Validation**: Fact-checking across multiple videos
+**Core Function Enhancements**:
+- **Enhanced Cross-Video Correlation**: Improve entity resolution and relationship consistency across video collections
+- **Collection Intelligence Upgrades**: Better synthesis of insights from multiple videos
+- **Relationship Evolution Tracking**: How relationships change across videos in a collection
+- **Enhanced Entity Consistency**: Better entity resolution and deduplication across videos
 
-### 🎯 Phase 3: Research Intelligence Tools (Q1 2026)
-**Goal**: Become indispensable for researchers/journalists
+### 🎯 Phase 3: Core Function Optimization (Q1 2026)
+**Goal**: Optimize existing strengths to industry-leading levels
 
-**Features**:
-- **Citation Generation**: Academic-grade source attribution
-- **Fact Verification**: Claims vs evidence analysis
-- **Source Discovery**: "Who else talks about X?" intelligent suggestions
-- **Research Export**: Academic paper formats, legal brief structures
-- **Collaboration Tools**: Team research with shared intelligence graphs
+**Core Function Enhancements**:
+- **Entity Extraction Optimization**: Push from 95% to 98% accuracy with domain-specific improvements
+- **Relationship Mapping Enhancement**: Push from 90% to 95% accuracy with better context understanding
+- **Cost Efficiency Improvements**: Maintain $0.002/minute while improving quality
+- **Performance Optimization**: Faster processing with better quality output
 
 ## Implementation Plan
 
