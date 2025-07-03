@@ -1,47 +1,69 @@
 # ClipScribe Documentation
 
-*Last Updated: July 1, 2025*
+*Last Updated: July 3, 2025*
 *Related: [Main README](../README.md)*
 
-Welcome to ClipScribe's documentation! This guide will help you understand and use all features of the video intelligence platform.
+Welcome to ClipScribe's documentation! This guide will help you understand and use all features of the advanced video intelligence extraction platform.
 
-## 🚀 Timeline Intelligence v2.0 Era (v2.18.17)
+## 🎯 Core Intelligence Extraction Focus (v2.18.23)
 
-**ClipScribe Evolution**: Advanced video intelligence platform with Timeline Intelligence v2.0 + TimelineJS3 Export
-- Breakthrough temporal intelligence through yt-dlp integration with 157KB of Timeline v2.0 code
-- 300% more temporal intelligence for only 12-20% cost increase through direct video processing
-- Beautiful interactive timeline visualizations with TimelineJS3 export
-- Battle-tested against real-world video collections with comprehensive validation
+**ClipScribe Evolution**: Advanced video intelligence platform focused on world-class entity extraction, relationship mapping, and cross-video intelligence analysis.
 
-**Current Status**: **v2.18.17 FULLY OPERATIONAL + ENHANCED** 🎉
+**Strategic Direction**: ClipScribe now focuses exclusively on **core function enhancement** rather than feature expansion. We're making our proven strengths (95%+ entity extraction, 90%+ relationship accuracy) industry-leading.
 
-**Timeline Intelligence v2.0**: Focus on precision temporal intelligence collection and synthesis with proven results + interactive export.
+**Current Status**: **v2.18.23 - STRATEGIC PIVOT COMPLETE** 🎯
 
-## 📊 Major Accomplishments Summary
+## 🚀 What ClipScribe Does Exceptionally Well
 
-### ✅ **Timeline Intelligence v2.0 - FULLY OPERATIONAL (v2.18.17)**
-- **Complete Foundation Implementation**: 157KB of Timeline v2.0 code with 4 core components
-- **Proven Real-World Results**: 9→5 event transformation with 55.56% quality improvement
-- **Full Pipeline Integration**: VideoRetriever and MultiVideoProcessor support Timeline v2.0
-- **Data Persistence**: All timeline data properly saved to JSON outputs
-- **Quality Filtering**: Advanced duplicate removal and date validation
-- **TimelineJS3 Export**: Beautiful interactive timeline visualizations ✅ NEW!
+### ✅ **Entity Extraction (95%+ Accuracy)**
+- **Hybrid Approach**: SpaCy + GLiNER + REBEL multi-source validation
+- **26K+ Line Intelligence**: Rich entity extraction from complex video content
+- **Multi-Platform**: 1800+ video platforms supported
+- **Cost Leadership**: $0.002/minute processing cost (92% reduction vs competitors)
 
-### 🎯 **Timeline v2.0 Components Delivered (v2.18.10-17)**
-- **TemporalExtractorV2** (29KB): Core yt-dlp temporal intelligence integration
-- **TimelineQualityFilter** (28KB): Comprehensive quality assurance and validation
-- **ChapterSegmenter** (31KB): yt-dlp chapter-based intelligent segmentation
-- **CrossVideoSynthesizer** (41KB): Multi-video timeline correlation and synthesis
-- **Complete Integration**: VideoRetriever and MultiVideoProcessor support Timeline v2.0
-- **TimelineJSFormatter**: Interactive timeline export with media support ✅ NEW!
+### ✅ **Relationship Mapping (90%+ Accuracy)**
+- **Complex Connections**: Subject-predicate-object relationships with high accuracy
+- **Factual Verification**: Cross-validated relationship claims
+- **Rich Context**: Relationship extraction with confidence scoring
 
-### 🚀 **Current Integration Status**
-**Phase 5: Integration & Testing Progress:**
-- ✅ **Component 1**: Pipeline Integration (MultiVideoProcessor Timeline v2.0) - **COMPLETE**
-- ✅ **Component 2**: VideoRetriever Integration (Single video Timeline v2.0 processing) - **COMPLETE**
-- ✅ **Component 3**: Mission Control Integration (Timeline v2.0 UI features) - **COMPLETE**
-- ✅ **Component 4**: Real-World Testing (Comprehensive validation) - **COMPLETE**
-- ✅ **Component 5**: TimelineJS3 Export (Interactive visualizations) - **COMPLETE**
+### ✅ **Cross-Video Intelligence**
+- **Collection Analysis**: Advanced multi-video insight synthesis
+- **Entity Consistency**: Cross-video entity resolution and deduplication
+- **Comprehensive Reports**: Professional intelligence summaries
+
+### ✅ **Knowledge Graph Generation**
+- **Multiple Formats**: JSON, GEXF, GraphML for different visualization tools
+- **Interactive Visualization**: Gephi-compatible network graphs
+- **Professional Output**: Research-grade knowledge extraction
+
+## 📈 Strategic Enhancement Roadmap
+
+### Phase 1: Enhanced Relationship Analysis (Q3 2025)
+- **Enhanced Relationship Scoring**: Context-aware confidence scoring
+- **Power Dynamics Detection**: Hierarchical relationship identification  
+- **Relationship Quality Improvements**: Better filtering and validation
+- **Advanced Relationship Types**: Richer contextual relationships
+
+### Phase 2: Multi-Video Intelligence Enhancement (Q4 2025)
+- **Enhanced Cross-Video Correlation**: Better entity consistency
+- **Collection Intelligence Upgrades**: Improved multi-video synthesis
+- **Relationship Evolution Tracking**: Changes across video collections
+- **Enhanced Entity Consistency**: Industry-leading entity resolution
+
+### Phase 3: Core Function Optimization (Q1 2026)
+- **Entity Extraction**: Push from 95% to 98% accuracy
+- **Relationship Mapping**: Push from 90% to 95% accuracy
+- **Performance Optimization**: Faster processing with maintained quality
+- **Cost Efficiency**: Maintain cost leadership while improving quality
+
+## 🚫 Discontinued Features
+
+### ~~Timeline Intelligence~~ (DISCONTINUED July 2, 2025)
+- **Reason**: Only 24.66% accuracy - insufficient for production use
+- **Impact**: 85 development hours/month redirected to core intelligence enhancement
+- **Replacement**: Enhanced temporal relationship analysis within core functions
+
+Timeline-related documentation has been archived. ClipScribe now focuses exclusively on what it does exceptionally well: video intelligence extraction.
 
 ## 📚 Documentation Overview
 
@@ -90,11 +112,10 @@ Welcome to ClipScribe's documentation! This guide will help you understand and u
    - Model configurations
    - Cost optimization strategies
 
-9. **[Timeline Intelligence v2.0](TIMELINE_INTELLIGENCE_V2.md)** ⚠️ **CRITICAL REDESIGN**
-   - Current timeline feature is fundamentally broken
-   - Complete v2.0 architecture specification
-   - Implementation roadmap for fixing timeline extraction
-   - Quality metrics and testing strategy
+9. **[Strategic Pivot Document](STRATEGIC_PIVOT_2025_07_02.md)** - Strategic direction
+   - Why timeline development was discontinued
+   - New focus on core function enhancement
+   - Implementation roadmap and success metrics
 
 ## 🗺️ Quick Navigation
 
@@ -102,13 +123,55 @@ Welcome to ClipScribe's documentation! This guide will help you understand and u
 - **Need command details?** → Check [CLI Reference](CLI_REFERENCE.md)
 - **Having issues?** → See [Troubleshooting](TROUBLESHOOTING.md)
 - **Want to contribute?** → Read [Development Guide](DEVELOPMENT.md)
-- **Interested in timeline features?** → Review [Timeline Intelligence v2.0](TIMELINE_INTELLIGENCE_V2.md)
+- **Understand the strategic direction?** → Review [Strategic Pivot Document](STRATEGIC_PIVOT_2025_07_02.md)
+
+## 🚀 Quick Start
+
+```bash
+# Install
+poetry install
+
+# Set API key securely
+echo "GOOGLE_API_KEY=your-key-here" > .env
+
+# Extract intelligence from a video
+poetry run clipscribe transcribe "https://youtube.com/watch?v=..."
+
+# Process multiple videos with enhanced intelligence
+poetry run clipscribe process-collection "URL1" "URL2" --collection-title "My-Analysis"
+```
+
+## 💡 Key Features (v2.18.23 - Core Intelligence Focus!)
+
+### 🎯 **Core Intelligence Extraction**
+- **Entity Extraction**: 95%+ accuracy with hybrid multi-source approach
+- **Relationship Mapping**: 90%+ accuracy with complex factual connections
+- **Cross-Video Analysis**: Advanced multi-video intelligence synthesis
+- **Knowledge Graphs**: Professional-grade relationship network generation
+
+### 🚀 **Platform & Performance Excellence**
+- **1800+ Platforms**: YouTube, Twitter, TikTok, Vimeo, and many more
+- **AI-Powered**: Uses Google's Gemini 2.5 Flash/Pro for accurate processing
+- **Cost Leadership**: $0.002/minute (92% reduction vs competitors)
+- **Fast Processing**: Process 1 hour of video in 2-5 minutes with model caching
+
+### 🔥 **Professional Output**
+- **Multiple Formats**: JSON, CSV, Excel, Markdown, GEXF graphs
+- **Interactive Visualization**: Gephi-compatible knowledge graphs
+- **Professional Reports**: Auto-generated intelligence summaries
+- **Entity Source Tracking**: Full traceability of extraction methods
+
+### 📊 **Advanced Analysis**
+- **Mission Control**: Complete Streamlit web interface
+- **Performance Dashboards**: Real-time system monitoring
+- **Information Flow Maps**: Track concept evolution across videos
+- **Excel Export**: Multi-sheet professional formatting
 
 ## 📋 Documentation Standards
 
-All documentation in this directory follows these standards:
+All documentation follows these standards:
 
-1. **Markdown Format** - All docs use GitHub-flavored Markdown
+1. **Focus on Core Strengths** - Document what ClipScribe does exceptionally well
 2. **Clear Examples** - Every feature includes working examples
 3. **Updated Regularly** - Docs are updated with each feature change
 4. **Cross-Referenced** - Related documents are linked appropriately
@@ -122,69 +185,13 @@ When making changes to ClipScribe:
 3. Update the "Last Updated" date at the top of modified files
 4. Add new documents to this README when created
 
-Remember: Good documentation is as important as good code :-)
-
-## 🚀 Quick Start
-
-```bash
-# Install
-poetry install
-
-# Set API key securely
-echo "GOOGLE_API_KEY=your-key-here" > .env
-
-# Transcribe a video with relationship extraction
-poetry run clipscribe transcribe "https://youtube.com/watch?v=..."
-
-# Process multiple videos with knowledge synthesis
-poetry run clipscribe process-collection "URL1" "URL2" --collection-title "My-Analysis"
-```
-
-## 💡 Key Features (v2.18.17 - Timeline Intelligence v2.0 FULLY OPERATIONAL!)
-
-### ✅ **MAJOR BREAKTHROUGH: Timeline Intelligence v2.0 Foundation Complete! (2025-07-01)**
-
-- **Timeline Intelligence v2.0**: Complete architectural transformation with 157KB of implementation code
-- **yt-dlp Temporal Integration**: Chapter-aware extraction, word-level timing, SponsorBlock filtering
-- **Advanced Event Processing**: 5-step pipeline: Extract → Deduplicate → Content dates → Quality filter → Chapter segmentation
-- **Pipeline Integration**: Complete integration into single video and multi-video processing workflows
-
-### 🚀 **Timeline Intelligence v2.0 Capabilities**
-- **Chapter-Aware Processing**: Uses yt-dlp chapter boundaries for intelligent content segmentation
-- **Word-Level Timing**: Sub-second precision using yt-dlp subtitle data
-- **Content Date Extraction**: Extracts historical dates from content (not video metadata)
-- **Event Deduplication**: Eliminates duplicate events through intelligent consolidation
-- **Quality Filtering**: Comprehensive quality assurance with configurable thresholds
-- **Cross-Video Synthesis**: Builds coherent timelines across multiple video sources
-
-### ✨ **Enhanced Temporal Intelligence Foundation (v2.17.0)**
-- **Visual Temporal Cues**: Extract dates from charts, graphs, documents, calendars
-- **Enhanced Timeline Synthesis**: LLM-based date extraction with cross-video correlation
-- **Video Retention System**: Smart storage vs reprocessing cost analysis
-- **Direct Video Processing**: Eliminated audio extraction inefficiency for 10x performance improvement
-
-### 🚀 **Previous Major Features**
-- **Information Flow Maps**: Track concept evolution across video sequences
-- **Knowledge Panels**: Entity-centric intelligence synthesis (v2.15.0)
-- **GEXF 1.3 Export**: Modern knowledge graph format for Gephi visualization
-- **Mission Control**: Complete Streamlit web interface (v2.16.0)
-
-### 🔥 **Core Capabilities**
-- **1800+ Platforms**: YouTube, Twitter, TikTok, Vimeo, and many more
-- **AI-Powered**: Uses Google's Gemini 2.5 Flash/Pro for accurate transcription
-- **Cost-Effective**: 95% base savings through direct video processing
-- **Fast**: Process 1 hour of video in just 2-5 minutes with model caching
-- **Advanced Visualizations**: Interactive Plotly charts for comprehensive analysis
-- **Excel Export**: Multi-sheet Excel exports with professional formatting
-- **Performance Dashboards**: Real-time system monitoring and analytics
-- **Multiple Formats**: TXT, JSON, CSV, Excel, Markdown reports, and GEXF graphs
-- **Entity Source Tracking**: Track which extraction method found each entity
-- **Professional Reports**: Auto-generated markdown intelligence reports with interactive charts
+Remember: ClipScribe dominates video intelligence extraction by doing fewer things exceptionally well :-)
 
 ## 🔗 Links
 
 - **GitHub**: https://github.com/bubroz/clipscribe
 - **Issues**: https://github.com/bubroz/clipscribe/issues
+- **Strategic Pivot**: [STRATEGIC_PIVOT_2025_07_02.md](STRATEGIC_PIVOT_2025_07_02.md)
 
 ## 📝 License
 

@@ -1,4 +1,22 @@
-# Timeline Intelligence v2.0 Architecture
+# ⚠️ DISCONTINUED: Timeline Intelligence v2.0
+
+**STATUS: PERMANENTLY DISCONTINUED - July 2, 2025**
+
+Timeline Intelligence development has been **permanently halted** due to insufficient accuracy (24.66%) for production use. ClipScribe has pivoted to focus exclusively on core intelligence extraction enhancement.
+
+**Strategic Decision**: After extensive development and testing, timeline accuracy remained below production standards. The 85 development hours/month have been redirected to enhancing ClipScribe's proven strengths: 95%+ entity extraction and 90%+ relationship mapping accuracy.
+
+**See**: [Strategic Pivot Document](STRATEGIC_PIVOT_2025_07_02.md) for complete rationale and new strategic direction.
+
+**New Focus**: Enhanced relationship analysis, multi-video intelligence improvements, and core function optimization.
+
+---
+
+# ARCHIVED CONTENT BELOW
+
+*The content below has been archived for historical reference only.*
+
+# Timeline Intelligence v2.0 - Comprehensive Technical Specification
 
 *Last Updated: July 1, 2025 - 01:15 PDT*
 *Status: 🔧 PARTIALLY FIXED - MODEL ALIGNMENT NEEDED*

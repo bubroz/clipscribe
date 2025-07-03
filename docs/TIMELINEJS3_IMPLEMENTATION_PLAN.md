@@ -1,100 +1,115 @@
+# ⚠️ DISCONTINUED: TimelineJS3 Export Implementation Plan
+
+**STATUS: PERMANENTLY DISCONTINUED - July 2, 2025**
+
+This feature has been **permanently cancelled** as part of ClipScribe's strategic pivot away from timeline development. Timeline accuracy was only 24.66%, insufficient for production use.
+
+**See**: [Strategic Pivot Document](STRATEGIC_PIVOT_2025_07_02.md) for details on the strategic decision and new direction.
+
+**Replacement**: ClipScribe now focuses exclusively on core intelligence extraction enhancement: entity extraction, relationship mapping, and cross-video intelligence analysis.
+
+---
+
+# ARCHIVED CONTENT BELOW
+
+*The content below has been archived for historical reference only.*
+
 # TimelineJS3 Export Implementation Plan
 
-*Created: July 1, 2025 08:00 PDT*
+*Last Updated: June 30, 2025*  
+*Status: CANCELLED - Strategic pivot to core intelligence extraction*
 
-## Overview
 Add TimelineJS3 export format to ClipScribe for beautiful, interactive timeline visualizations.
 
 ## TimelineJS3 JSON Structure
+
+The TimelineJS3 format expects a specific JSON structure with a title slide and events array:
+
 ```json
 {
   "title": {
+    "media": {
+      "url": "",
+      "caption": "",
+      "credit": ""
+    },
     "text": {
-      "headline": "Video Title",
-      "text": "Description"
+      "headline": "Timeline Title",
+      "text": "Timeline Description"
     }
   },
   "events": [
     {
+      "media": {
+        "url": "https://youtube.com/...",
+        "caption": "Video description",
+        "credit": "Video source"
+      },
       "start_date": {
-        "year": "2025",
-        "month": "7",
-        "day": "1"
+        "year": "2023",
+        "month": "6",
+        "day": "15"
       },
       "text": {
         "headline": "Event Title",
-        "text": "Event description with context"
-      },
-      "media": {
-        "url": "thumbnail_url",
-        "caption": "Media caption"
+        "text": "Event description"
       }
     }
   ]
 }
 ```
 
-## Implementation Steps
+## Implementation Plan (CANCELLED)
 
 ### 1. Create TimelineJS Formatter (Day 1)
 **File**: `src/clipscribe/utils/timeline_js_formatter.py`
+
 ```python
 class TimelineJSFormatter:
     """Convert Timeline v2.0 data to TimelineJS3 format."""
     
     def format_timeline(self, timeline_data: ConsolidatedTimeline) -> dict:
         """Convert consolidated timeline to TimelineJS3 JSON."""
-        pass
+        # Implementation cancelled
 ```
 
-### 2. Add Output Format (Day 1)
-**File**: Update `src/clipscribe/models.py`
+### 2. Update Output Format System (Day 1)
 - Add `timelinejs` to OutputFormat enum
 - Update `OUTPUT_FORMAT_INFO` with TimelineJS details
 
-### 3. Integrate with VideoRetriever (Day 1)
-**File**: Update `src/clipscribe/retrievers/video_retriever.py`
+### 3. Integration into VideoRetriever (Day 1)
+- Modify `_save_transcript_files` method
+- Add `_save_timelinejs_file` method
 - Add TimelineJS export in `_save_transcript_files`
-- Handle video thumbnails and media references
 
-### 4. Add CLI Support (Day 2)
-**File**: Update `src/clipscribe/commands/cli.py`
+### 4. Update CLI Interface (Day 1)
+- Add timeline_js as a supported format
 - Add `--format timelinejs` option
-- Update help text and documentation
 
-### 5. Test with Real Data (Day 2)
+### 5. Testing & Validation (Day 2)
 - Use PBS NewsHour timeline data
-- Test date formatting edge cases
-- Validate JSON structure
+- Test real-world TimelineJS3 export
+- Visual validation in TimelineJS viewer
 
-## Technical Considerations
+## Expected Output
 
-### Date Handling
+### Sample TimelineJS3 Export
 - Map ExtractedDate precision to TimelineJS format
-- Handle partial dates (year only, month+year)
-- Fallback for missing dates
+- Handle events without dates (use video date)
+- Include media URLs and captions for rich timeline
 
-### Media Integration
-- Extract video thumbnails using yt-dlp
-- Link to video timestamps
-- Handle missing media gracefully
+## Acceptance Criteria (CANCELLED)
 
-### Content Formatting
-- Convert markdown to HTML for text fields
-- Truncate long descriptions
-- Preserve entity links
+Timeline development discontinued due to insufficient accuracy.
 
-## Testing Plan
-1. Unit tests for formatter
+1. Production-ready TimelineJS formatter
 2. Integration test with real timeline data
 3. Visual validation in TimelineJS viewer
-4. Edge cases (no dates, long text, many events)
 
-## Success Criteria
+### Success Metrics
 - [ ] Valid TimelineJS3 JSON output
-- [ ] All temporal events included
-- [ ] Proper date formatting
-- [ ] Media thumbnails working
+- [ ] No timeline processing errors
+- [ ] Beautiful visual timeline render
 - [ ] Interactive timeline renders correctly
 
 ## Resources

@@ -9,6 +9,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+## [2.18.24] - 2025-07-03
+
+### Documentation Updates - Strategic Pivot Refinement
+- **docs/README.md**: Completely rewritten to focus on core intelligence extraction, removed all timeline references
+- **docs/TIMELINEJS3_IMPLEMENTATION_PLAN.md**: Marked as DISCONTINUED with prominent notice and strategic pivot reference
+- **docs/TIMELINE_INTELLIGENCE_V2.md**: Marked as DISCONTINUED with comprehensive strategic pivot explanation
+- **CONTINUATION_PROMPT.md**: Updated with refined strategic direction focusing on core function enhancement
+- **Strategic Direction Refined**: Focus on core function enhancement rather than new feature development
+  - Enhanced Relationship Analysis: Context-aware scoring, power dynamics, quality improvements
+  - Multi-Video Intelligence Enhancement: Better entity consistency and cross-video correlation
+  - Core Function Optimization: Push entity extraction from 95% to 98%, relationships from 90% to 95%
+
+### Strategic Focus Clarification
+- **Confirmed Direction**: Core function enhancement over new feature development
+- **Resource Allocation**: 85 hours/month development time focused on proven strengths
+- **Documentation Consistency**: All timeline-related docs marked as discontinued with strategic pivot references
+
 ## [2.18.23] - 2025-07-02
 
 ### STRATEGIC PIVOT - TIMELINE DEVELOPMENT KILLED
