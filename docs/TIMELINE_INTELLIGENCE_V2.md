@@ -8,7 +8,7 @@ Timeline Intelligence development has been **permanently halted** due to insuffi
 
 **See**: [Strategic Pivot Document](STRATEGIC_PIVOT_2025_07_02.md) for complete rationale and new strategic direction.
 
-**New Focus**: Enhanced relationship analysis, multi-video intelligence improvements, and core function optimization.
+**New Focus**: Core stability, user experience improvements, and performance optimization based on actual user needs.
 
 ---
 

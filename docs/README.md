@@ -36,34 +36,41 @@ Welcome to ClipScribe's documentation! This guide will help you understand and u
 - **Interactive Visualization**: Gephi-compatible network graphs
 - **Professional Output**: Research-grade knowledge extraction
 
-## 📈 Strategic Enhancement Roadmap
+## 📈 Strategic Roadmap: Core Excellence & User Value
 
-### Phase 1: Enhanced Relationship Analysis (Q3 2025)
-- **Enhanced Relationship Scoring**: Context-aware confidence scoring
-- **Power Dynamics Detection**: Hierarchical relationship identification  
-- **Relationship Quality Improvements**: Better filtering and validation
-- **Advanced Relationship Types**: Richer contextual relationships
+**🚫 ENHANCED RELATIONSHIP ANALYSIS CANCELLED**: Determined to be additive feature that distracts from core value. Current 90%+ relationship accuracy is sufficient for users.
 
-### Phase 2: Multi-Video Intelligence Enhancement (Q4 2025)
-- **Enhanced Cross-Video Correlation**: Better entity consistency
-- **Collection Intelligence Upgrades**: Improved multi-video synthesis
-- **Relationship Evolution Tracking**: Changes across video collections
-- **Enhanced Entity Consistency**: Industry-leading entity resolution
+### Phase 1: Core Excellence & User Experience (Q3 2025)
+- **Performance Optimization**: 25% faster processing while maintaining cost leadership
+- **User Experience Improvements**: <100ms CLI feedback response times, clear error messages
+- **Documentation Excellence**: 100% use case coverage with working examples
+- **Bug Fixes & Edge Cases**: 99%+ successful video processing rate
 
-### Phase 3: Core Function Optimization (Q1 2026)
-- **Entity Extraction**: Push from 95% to 98% accuracy
-- **Relationship Mapping**: Push from 90% to 95% accuracy
-- **Performance Optimization**: Faster processing with maintained quality
-- **Cost Efficiency**: Maintain cost leadership while improving quality
+### Phase 2: Proven Feature Enhancement (Q4 2025)
+- **Video Format Support**: Better handling of edge cases and platform-specific content
+- **Export Improvements**: Better output formats based on actual user requests
+- **Cost Transparency**: Real-time cost tracking and clearer estimates
+- **Platform Optimization**: Better handling of platform-specific video processing
+
+### Phase 3: Market-Driven Features (Q1 2026)
+- **User-Requested Features**: Build what users actually ask for, not theoretical improvements
+- **Real-World Use Cases**: Focus on solving actual problems users face
+- **Competitive Advantages**: Strengthen areas where we already excel
+- **Performance Leadership**: Maintain cost and speed advantages while improving reliability
 
 ## 🚫 Discontinued Features
 
+### ~~Enhanced Relationship Analysis~~ (CANCELLED July 3, 2025)
+- **Reason**: Additive feature that distracts from core value; current 90%+ accuracy sufficient for users
+- **Impact**: Focus redirected to core stability, user experience, and performance optimization
+- **Replacement**: Core excellence in existing entity extraction and relationship mapping
+
 ### ~~Timeline Intelligence~~ (DISCONTINUED July 2, 2025)
 - **Reason**: Only 24.66% accuracy - insufficient for production use
-- **Impact**: 85 development hours/month redirected to core intelligence enhancement
-- **Replacement**: Enhanced temporal relationship analysis within core functions
+- **Impact**: 85 development hours/month redirected to core excellence
+- **Replacement**: Focus on proven video intelligence extraction strengths
 
-Timeline-related documentation has been archived. ClipScribe now focuses exclusively on what it does exceptionally well: video intelligence extraction.
+ClipScribe now focuses exclusively on what it does exceptionally well: video intelligence extraction with practical improvements based on user needs.
 
 ## 📚 Documentation Overview
 
