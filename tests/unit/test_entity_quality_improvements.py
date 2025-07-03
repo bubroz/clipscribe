@@ -15,7 +15,7 @@ import pytest
 import asyncio
 from typing import List
 
-from src.clipscribe.models import Entity, VideoIntelligence, VideoMetadata, Transcript
+from src.clipscribe.models import Entity, VideoIntelligence, VideoMetadata, VideoTranscript
 from src.clipscribe.extractors.entity_quality_filter import EntityQualityFilter, QualityMetrics
 from src.clipscribe.extractors.spacy_extractor import SpacyEntityExtractor
 from src.clipscribe.extractors.rebel_extractor import REBELExtractor
@@ -40,7 +40,7 @@ class TestEntityQualityImprovements:
                 duration=300,
                 view_count=1000
             ),
-            transcript=Transcript(
+            transcript=VideoTranscript(
                 full_text="John Smith works at Microsoft Corporation. He announced a new product launch.",
                 segments=[]
             ),
@@ -314,7 +314,7 @@ async def test_real_world_entity_quality_improvement():
         video_url="https://youtube.com/watch?v=test",
         title="Pegasus Spyware Investigation",
         metadata=VideoMetadata(video_id="test", duration=1800, view_count=50000),
-        transcript=Transcript(
+        transcript=VideoTranscript(
             full_text="Jamal Khashoggi was murdered by Saudi agents. NSO Group developed Pegasus spyware used to target journalists and activists around the world.",
             segments=[]
         ),

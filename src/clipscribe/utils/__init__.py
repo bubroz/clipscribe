@@ -2,7 +2,7 @@
 ClipScribe utilities package.
 
 Provides utility functions and classes for video processing, progress tracking,
-performance monitoring, batch processing, and v2.17.0 timeline building pipeline.
+performance monitoring, batch processing.
 """
 
 from .logging import setup_logging
@@ -20,7 +20,6 @@ from .filename import (
 )
 from .file_utils import calculate_sha256
 from .web_research import WebResearchIntegrator, TimelineContextValidator, ResearchResult, TimelineEnrichment
-from .timeline_js_formatter import TimelineJSFormatter
 
 __all__ = [
     'setup_logging',
@@ -40,6 +39,5 @@ __all__ = [
     'WebResearchIntegrator',
     'TimelineContextValidator',
     'ResearchResult',
-    'TimelineEnrichment',
-    'TimelineJSFormatter'
+    'TimelineEnrichment'
 ] 

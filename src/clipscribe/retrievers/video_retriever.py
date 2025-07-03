@@ -18,16 +18,7 @@ from ..utils.filename import create_output_filename, create_output_structure, ex
 from ..extractors import HybridEntityExtractor, AdvancedHybridExtractor
 from ..config.settings import Settings, TemporalIntelligenceLevel, VideoRetentionPolicy
 from ..utils.file_utils import calculate_sha256
-from ..utils.timeline_js_formatter import TimelineJSFormatter
-
-# 🚀 Timeline Intelligence v2.0 Integration for Single Videos
-from ..timeline import (
-    TemporalExtractorV2,
-    EventDeduplicator,
-    TimelineQualityFilter,
-    ChapterSegmenter,
-    TemporalEvent
-)
+# Timeline features permanently discontinued per strategic pivot
 
 logger = logging.getLogger(__name__)
 
@@ -127,24 +118,8 @@ class VideoIntelligenceRetriever:
         
         self.domain = domain
         
-        # 🚀 Timeline Intelligence v2.0 Components for Single Videos
-        logger.info("Initializing Timeline Intelligence v2.0 for single video processing...")
-        
-        # Initialize Timeline v2.0 components with optimized configuration
-        self.temporal_extractor = TemporalExtractorV2(
-            use_enhanced_extraction=True
-        )
-        
-        self.event_deduplicator = EventDeduplicator(
-            similarity_threshold=0.8,
-            time_proximity_threshold=300  # 5 minutes for single video
-        )
-        
-        self.timeline_quality_filter = TimelineQualityFilter()
-        
-        self.chapter_segmenter = ChapterSegmenter()
-        
-        logger.info("✅ Timeline Intelligence v2.0 components initialized for single video processing")
+        # Timeline Intelligence v2.0 Components DISCONTINUED per strategic pivot
+        logger.info("Timeline features discontinued - focusing on core intelligence extraction")
         
         # Processing statistics
         self.videos_processed = 0
@@ -1384,20 +1359,8 @@ class VideoIntelligenceRetriever:
                 video_sources=[video.metadata.url]
             )
             
-            # Initialize formatter and convert
-            formatter = TimelineJSFormatter()
-            timeline_js_data = formatter.format_timeline(
-                consolidated_timeline,
-                title=video.metadata.title,
-                description=f"Timeline extracted from: {video.metadata.title}"
-            )
-            
-            # Save the TimelineJS file
-            timeline_js_path = paths["directory"] / "timeline_js.json"
-            formatter.save_timeline(timeline_js_data, timeline_js_path)
-            paths["timeline_js"] = timeline_js_path
-            
-            logger.info(f"Saved TimelineJS format with {len(temporal_events)} events :-)")
+            # TimelineJS export discontinued per strategic pivot
+            logger.info("TimelineJS export skipped - timeline features discontinued")
             
         except Exception as e:
             logger.warning(f"Failed to generate TimelineJS format: {e}")
