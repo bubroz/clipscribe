@@ -143,8 +143,8 @@ class GeminiDateProcessor:
         dates_used = 0
         
         for event in temporal_events:
-            # Skip if event already has a good date
-            if hasattr(event, 'date') and event.date and str(event.date) != "Unknown":
+            # Skip if event already has a good date (not default/pending)
+            if hasattr(event, 'date_source') and event.date_source != "pending_extraction":
                 continue
             
             # Find best matching date

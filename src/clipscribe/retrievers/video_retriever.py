@@ -449,7 +449,7 @@ class VideoIntelligenceRetriever:
                     
                     # Extract dates from Gemini transcription if available
                     gemini_dates = []
-                    if hasattr(analysis, 'dates') and analysis.get('dates'):
+                    if 'dates' in analysis and analysis['dates']:
                         logger.info(f"🎯 Found {len(analysis['dates'])} dates from Gemini transcription")
                         # Convert to ExtractedDate objects for GeminiDateProcessor
                         from ..models import ExtractedDate
@@ -461,7 +461,7 @@ class VideoIntelligenceRetriever:
                                 confidence=date_info.get('confidence', 0.5),
                                 context=date_info.get('context', ''),
                                 source=date_info.get('source', 'transcript'),
-                                visual_description=date_info.get('visual_description'),
+                                visual_description=date_info.get('visual_description', ''),  # Default to empty string
                                 timestamp=date_info.get('timestamp', 0)
                             )
                             gemini_dates.append(extracted_date)
@@ -471,10 +471,10 @@ class VideoIntelligenceRetriever:
                     gemini_processor = GeminiDateProcessor()
                     
                     # Associate dates with events
-                    dated_events = await gemini_processor.associate_dates_with_events(
+                    dated_events = gemini_processor.associate_dates_with_events(
                         deduplicated_events, 
                         gemini_dates,
-                        video_metadata.published_at if video_metadata.published_at else None
+                        window_seconds=60.0  # Use 60-second window for date proximity matching (increased for sparse events)
                     )
                     
                     # Count accurate dates
