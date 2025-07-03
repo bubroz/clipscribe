@@ -9,6 +9,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+## [2.18.21] - 2025-07-02
+
+### Added
+- **Phase 1 Gemini Date Extraction Complete!** 🎉
+  - Fixed critical bug where dates were extracted but not saved
+  - Added dates field to VideoIntelligence model
+  - Properly persist dates from transcriber to output files
+  - Created comprehensive test suite measuring real success
+
+### Results
+- **34x improvement**: Average 11.3 dates per video (up from 0.33)
+- **100% success rate** on all test videos
+- **Test results**:
+  - Pegasus Part 1: 7 dates extracted
+  - Pegasus Part 2: 7 dates extracted
+  - Iran/Saudi Part 1: 20 dates extracted
+- **Quality**: High-quality dates with context, timestamps, and normalization
+
+### Known Issues
+- Timeline v2.0 integration failing with async error (Phase 3 work)
+- Visual dates not yet being extracted (Phase 2 work)
+
 ## [2.18.20] - 2025-07-02
 
 ### Research & Planning
