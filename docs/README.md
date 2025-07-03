@@ -1,7 +1,7 @@
 # ClipScribe Documentation
 
-*Last Updated: July 3, 2025*
-*Related: [Main README](../README.md)*
+*Last Updated: July 3, 2025 00:50 PDT*
+*Related: [Main README](../README.md) | [Core Excellence Plan](CORE_EXCELLENCE_IMPLEMENTATION_PLAN.md)*
 
 Welcome to ClipScribe's documentation! This guide will help you understand and use all features of the advanced video intelligence extraction platform.
 
@@ -121,8 +121,13 @@ ClipScribe now focuses exclusively on what it does exceptionally well: video int
 
 9. **[Strategic Pivot Document](STRATEGIC_PIVOT_2025_07_02.md)** - Strategic direction
    - Why timeline development was discontinued
-   - New focus on core function enhancement
-   - Implementation roadmap and success metrics
+   - Why enhanced relationship analysis was cancelled
+   - New focus on core excellence and user value
+
+10. **[Core Excellence Implementation Plan](CORE_EXCELLENCE_IMPLEMENTATION_PLAN.md)** - Detailed roadmap
+    - 12-week implementation timeline
+    - Specific tasks and success metrics
+    - Focus on stability, performance, and user experience
 
 ## 🗺️ Quick Navigation
 
@@ -131,6 +136,7 @@ ClipScribe now focuses exclusively on what it does exceptionally well: video int
 - **Having issues?** → See [Troubleshooting](TROUBLESHOOTING.md)
 - **Want to contribute?** → Read [Development Guide](DEVELOPMENT.md)
 - **Understand the strategic direction?** → Review [Strategic Pivot Document](STRATEGIC_PIVOT_2025_07_02.md)
+- **Want the detailed roadmap?** → See [Core Excellence Implementation Plan](CORE_EXCELLENCE_IMPLEMENTATION_PLAN.md)
 
 ## 🚀 Quick Start
 
