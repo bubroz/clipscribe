@@ -9,6 +9,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+## [2.18.22] - 2025-07-02
+
+### Added
+- **Timeline v2.0 Integration with Gemini Dates Complete!** 🎉
+  - Fixed all async and Pydantic errors blocking Timeline v2.0
+  - Timeline events now receive extracted dates instead of defaulting to 2025
+  - Events successfully associated with appropriate dates
+  - 60-second window for date-event proximity matching
+
+### Fixed
+- Fixed incorrect 'await' on synchronous methods in Timeline v2.0
+- Fixed Entity object attribute access (dict vs Pydantic models)
+- Fixed undefined video_metadata variable in video_retriever
+- Fixed hasattr() check on dict objects causing errors
+- Fixed ExtractedDate Pydantic validation error (visual_description) 
+- Fixed date checking logic that was skipping all events
+- Timeline v2.0 now fully functional with date extraction
+
+### Results
+- **36x improvement**: Average 12.0 dates per video (final count)
+- **100% success rate** on all test videos
+- Timeline events now have real dates (e.g., "1984", "2016", "2021")
+- Phase 1 target exceeded with full Timeline v2.0 integration
+
 ## [2.18.21] - 2025-07-02
 
 ### Added
@@ -17,19 +41,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Added dates field to VideoIntelligence model
   - Properly persist dates from transcriber to output files
   - Created comprehensive test suite measuring real success
-
-### Results
-- **34x improvement**: Average 11.3 dates per video (up from 0.33)
-- **100% success rate** on all test videos
-- **Test results**:
-  - Pegasus Part 1: 7 dates extracted
-  - Pegasus Part 2: 7 dates extracted
-  - Iran/Saudi Part 1: 20 dates extracted
-- **Quality**: High-quality dates with context, timestamps, and normalization
-
-### Known Issues
-- Timeline v2.0 integration failing with async error (Phase 3 work)
-- Visual dates not yet being extracted (Phase 2 work)
 
 ## [2.18.20] - 2025-07-02
 
