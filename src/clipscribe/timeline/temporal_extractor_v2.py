@@ -679,10 +679,14 @@ class TemporalExtractorV2:
             except:
                 video_publish_date = None
         
-        dated_events = await self.gemini_processor.associate_dates_with_events(
+        # Update the processor's video publish date
+        if video_publish_date:
+            self.gemini_processor.video_publish_date = video_publish_date
+        
+        dated_events = self.gemini_processor.associate_dates_with_events(
             events, 
             extracted_dates,
-            video_publish_date
+            window_seconds=30.0  # Use 30-second window for date proximity matching
         )
         
         # Calculate success metrics
@@ -783,14 +787,28 @@ class TemporalExtractorV2:
                     break
             
             # Also check for sentences with entities
-            entity_names = [e.get('name', '').lower() for e in entities]
+            entity_names = []
+            for entity in entities:
+                # Handle different entity formats
+                if isinstance(entity, dict):
+                    entity_name = entity.get('name', '')
+                else:
+                    # Handle Pydantic models
+                    entity_name = getattr(entity, 'name', '')
+                if entity_name:
+                    entity_names.append(entity_name.lower())
             contains_entity = any(name in sentence_lower for name in entity_names if name)
             
             if is_event or contains_entity:
                 # Find relevant entities in this sentence
                 sentence_entities = []
                 for entity in entities:
-                    entity_name = entity.get('name', '')
+                    # Handle different entity formats
+                    if isinstance(entity, dict):
+                        entity_name = entity.get('name', '')
+                    else:
+                        # Handle Pydantic models
+                        entity_name = getattr(entity, 'name', '')
                     if entity_name and entity_name.lower() in sentence_lower:
                         sentence_entities.append(entity_name)
                 
