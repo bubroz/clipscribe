@@ -9,6 +9,46 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+## [2.18.23] - 2025-07-02
+
+### STRATEGIC PIVOT - TIMELINE DEVELOPMENT KILLED
+- **🚫 TIMELINE FEATURES DISCONTINUED**: Timeline Intelligence development permanently halted due to insufficient accuracy (24.66%)
+- **🎯 STRATEGIC PIVOT TO ADVANCED INTELLIGENCE**: All development resources redirected to video intelligence extraction excellence
+- **📋 NEW ROADMAP**: Focus on influence networks, speaker attribution, contradiction detection, evidence chains
+- **85 hours/month** development time freed from timeline work redirected to advanced relationship analysis
+- **Resource Reallocation**: Timeline algorithm, UI, testing, and documentation efforts moved to intelligence features
+
+### Strategic Direction
+- **Phase 1 (Q3 2025)**: Advanced Relationship Analysis
+  - Influence Network Mapping: Power dynamics and authority detection
+  - Speaker Attribution: Quote tracking with credibility scoring  
+  - Contradiction Detection: Conflicting claims across sources
+  - Evidence Chain Building: Legal/research-grade evidence tracking
+- **Phase 2 (Q4 2025)**: Multi-Video Intelligence
+  - Character Arc Tracking: Entity evolution across videos
+  - Narrative Thread Following: Story development analysis
+  - Information Propagation: Claim spread tracking
+  - Cross-Reference Validation: Multi-source fact checking
+- **Phase 3 (Q1 2026)**: Research Intelligence Tools
+  - Citation Generation: Academic-grade source attribution
+  - Advanced Fact Verification: Claims vs evidence analysis
+  - Source Discovery: Intelligent "who else talks about X" suggestions
+  - Research Export: Academic/legal format generation
+
+### Removed
+- **Timeline Intelligence v2.0**: All timeline processing components archived
+- **TimelineJS3 Export**: Cancelled due to timeline dependency
+- **Date Association Algorithms**: Complex algorithms with poor results removed
+- **Timeline UI Components**: Mission Control timeline features removed
+- **Timeline Documentation**: User-facing timeline docs removed
+
+### Documentation Updates
+- **STRATEGIC_PIVOT_2025_07_02.md**: Comprehensive strategic pivot documentation
+- **ROADMAP_FEATURES.md**: Completely rewritten for intelligence extraction focus
+- **All timeline references**: Removed from user-facing documentation
+
+### Added
+
 ## [2.18.22] - 2025-07-02
 
 ### Added
