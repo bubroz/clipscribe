@@ -54,11 +54,24 @@ async def test_date_extraction():
             output_path = retriever.save_all_formats(intelligence, str(output_dir))
             
             # Check the raw transcript for dates
-            transcript_file = output_dir / list(output_path.keys())[0].parent.name / "transcript.json"
+            # Find the actual output directory
+            actual_output_dir = None
+            for file_path in output_path.values():
+                if isinstance(file_path, Path):
+                    actual_output_dir = file_path.parent
+                    break
+            
+            if not actual_output_dir:
+                # Fallback to finding the directory
+                subdirs = list(output_dir.glob("20*_youtube_*"))
+                if subdirs:
+                    actual_output_dir = subdirs[0]
+            
+            transcript_file = actual_output_dir / "transcript.json" if actual_output_dir else None
             
             console.print(f"\n[cyan]Checking transcript file: {transcript_file}[/cyan]")
             
-            if transcript_file.exists():
+            if transcript_file and transcript_file.exists():
                 with open(transcript_file) as f:
                     transcript_data = json.load(f)
                 
@@ -86,8 +99,8 @@ async def test_date_extraction():
                         console.print(f"Date entities found: {len(date_entities)}")
                 
                 # Check timeline data
-                timeline_file = output_dir / list(output_path.keys())[0].parent.name / "timeline_js.json"
-                if timeline_file.exists():
+                timeline_file = actual_output_dir / "timeline_js.json" if actual_output_dir else None
+                if timeline_file and timeline_file.exists():
                     with open(timeline_file) as f:
                         timeline_data = json.load(f)
                     
