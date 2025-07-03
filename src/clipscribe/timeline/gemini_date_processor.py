@@ -10,6 +10,7 @@ from datetime import datetime, timedelta
 from typing import List, Dict, Optional, Tuple
 from dateutil import parser
 import re
+from thefuzz import fuzz
 
 from ..models import ExtractedDate
 from .models import TemporalEvent
@@ -200,9 +201,9 @@ class GeminiDateProcessor:
             # Calculate context similarity score
             context_score = self._calculate_context_similarity(event, date)
             
-            # Combined score
+            # Combined score - v2 with less emphasis on proximity
             total_score = (
-                proximity_score * 0.4 +
+                proximity_score * 0.4 + 
                 entity_score * 0.3 +
                 context_score * 0.2 +
                 date.confidence * 0.1
@@ -220,19 +221,47 @@ class GeminiDateProcessor:
         if candidates and candidates[0][1] > 0.3:  # Minimum threshold
             return candidates[0][0]
         
+        # Fallback Strategy: If no good match, find the absolute closest date
+        # as long as it's within a wider time window (e.g., 2 minutes)
+        closest_date = None
+        min_diff = 120  # 2-minute window
+
+        for date in dates:
+            time_diff = abs(event_timestamp - date.timestamp)
+            if time_diff < min_diff:
+                min_diff = time_diff
+                closest_date = date
+
+        if closest_date:
+            logger.debug(f"FALLBACK MATCH: Using closest date '{closest_date.original_text}' for event at {event_timestamp}s")
+            return closest_date
+        
         return None
     
     def _calculate_entity_overlap(self, event: TemporalEvent, date: ExtractedDate) -> float:
-        """Calculate overlap between event entities and date context."""
+        """Calculate overlap between event entities and date context using fuzzy matching."""
         if not event.involved_entities or not date.context:
             return 0.0
         
         event_entities = set(e.lower() for e in event.involved_entities)
-        date_context = date.context.lower()
+        date_context_lower = date.context.lower()
         
-        overlap_count = sum(1 for entity in event_entities if entity in date_context)
+        overlap_count = 0
+        for entity in event_entities:
+            # Use fuzzy matching to see if the entity is in the context
+            # partial_ratio is good for finding substrings
+            if fuzz.partial_ratio(entity, date_context_lower) > 85: # 85 is a good starting threshold
+                logger.debug(f"Fuzzy match found! Entity: '{entity}', Context: '{date_context_lower}'")
+                overlap_count += 1
         
-        return min(1.0, overlap_count / len(event_entities))
+        if not event_entities:
+            return 0.0
+        
+        score = min(1.0, overlap_count / len(event_entities))
+        if score > 0:
+            logger.debug(f"ENTITY OVERLAP! Score: {score:.2f} (Event: {event.description[:30]}...)")
+
+        return score
     
     def _calculate_context_similarity(self, event: TemporalEvent, date: ExtractedDate) -> float:
         """Calculate contextual similarity between event and date."""
