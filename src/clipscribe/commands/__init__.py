@@ -1,5 +1,9 @@
 """ClipScribe CLI commands module."""
 
-from .cli import cli
+# Lazy import CLI only when needed - don't import at package level
+def get_cli():
+    """Get CLI instance with lazy loading."""
+    from .cli import cli
+    return cli
 
-__all__ = ["cli"] 
+__all__ = ["get_cli"] 

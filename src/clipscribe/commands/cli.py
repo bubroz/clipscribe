@@ -4,8 +4,39 @@ This module provides the command-line interface for ClipScribe, supporting
 transcription of videos from 1800+ platforms using Gemini 2.5 Flash.
 """
 
-import asyncio
 import sys
+
+# Fast path for version check - bypass Click entirely for performance
+def _check_fast_commands():
+    """Handle simple commands without loading heavy frameworks."""
+    if len(sys.argv) >= 2 and sys.argv[1] in ['--version', '-V']:
+        from ..version import __version__
+        print(f"ClipScribe, version {__version__}")
+        sys.exit(0)
+    elif len(sys.argv) >= 2 and sys.argv[1] in ['--help', '-h']:
+        print("""ClipScribe - AI-powered video transcription and analysis.
+
+Usage: clipscribe [OPTIONS] COMMAND [ARGS]...
+
+Commands:
+  transcribe          Transcribe a video and extract intelligence
+  research           Research a topic by analyzing multiple videos  
+  process-collection Process multiple videos as a unified collection
+  process-series     Process videos as a series
+
+Options:
+  --version          Show version
+  --help             Show this help message
+  --debug            Enable debug logging
+
+For detailed help: clipscribe COMMAND --help""")
+        sys.exit(0)
+
+# Check for fast commands first
+_check_fast_commands()
+
+# Only import heavy frameworks if we need them
+import asyncio
 from pathlib import Path
 from typing import Optional, List
 import logging
@@ -17,32 +48,67 @@ import platform
 import json
 
 import click
-from rich.panel import Panel
-from rich.table import Table
-from rich.logging import RichHandler
-from rich import box
-from rich.console import Console
 
-from ..retrievers import VideoIntelligenceRetriever, UniversalVideoClient
-from ..config.settings import Settings
-from ..utils.logging import setup_logging
-from ..utils.progress import progress_tracker, console
-from ..utils.performance import PerformanceMonitor
 from ..version import __version__
-from ..utils.batch_progress import BatchProgress
-from ..extractors.series_detector import SeriesDetector
-from ..extractors.multi_video_processor import MultiVideoProcessor
-from ..models import VideoCollectionType
 
-# Configure logging with Rich using the shared console
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(message)s",
-    datefmt="[%X]",
-    handlers=[RichHandler(console=console, show_path=False)]
-)
-logger = logging.getLogger(__name__)
+# Lazy imports - only load when needed
+def _get_rich_imports():
+    """Lazy import Rich components."""
+    from rich.panel import Panel
+    from rich.table import Table
+    from rich.logging import RichHandler
+    from rich import box
+    from rich.console import Console
+    return Panel, Table, RichHandler, box, Console
 
+def _get_core_imports():
+    """Lazy import core processing components."""
+    from ..retrievers import VideoIntelligenceRetriever, UniversalVideoClient
+    from ..config.settings import Settings
+    from ..utils.logging import setup_logging
+    from ..utils.progress import progress_tracker
+    from ..utils.performance import PerformanceMonitor
+    from ..utils.batch_progress import BatchProgress
+    from ..extractors.series_detector import SeriesDetector
+    from ..extractors.multi_video_processor import MultiVideoProcessor
+    from ..models import VideoCollectionType
+    return {
+        'VideoIntelligenceRetriever': VideoIntelligenceRetriever,
+        'UniversalVideoClient': UniversalVideoClient,
+        'Settings': Settings,
+        'setup_logging': setup_logging,
+        'progress_tracker': progress_tracker,
+        'PerformanceMonitor': PerformanceMonitor,
+        'BatchProgress': BatchProgress,
+        'SeriesDetector': SeriesDetector,
+        'MultiVideoProcessor': MultiVideoProcessor,
+        'VideoCollectionType': VideoCollectionType
+    }
+
+# Initialize minimal console (no heavy imports)
+_console = None
+
+def _get_console():
+    """Get console instance with lazy initialization."""
+    global _console
+    if _console is None:
+        Panel, Table, RichHandler, box, Console = _get_rich_imports()
+        _console = Console()
+    return _console
+
+def _setup_rich_logging():
+    """Setup Rich logging only when needed."""
+    Panel, Table, RichHandler, box, Console = _get_rich_imports()
+    console = _get_console()
+    
+    # Configure logging with Rich
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(message)s",
+        datefmt="[%X]",
+        handlers=[RichHandler(console=console, show_path=False)]
+    )
+    return logging.getLogger(__name__)
 
 @click.group()
 @click.version_option(version=__version__, prog_name="ClipScribe")
@@ -60,17 +126,20 @@ def cli(ctx: click.Context, debug: bool) -> None:
     """
     ctx.ensure_object(dict)
 
-    # Set up logging
-    if debug:
-        logging.getLogger().setLevel(logging.DEBUG)
-        logger.debug("Debug mode enabled")
-
-    # Load settings
-    ctx.obj["settings"] = Settings()
-
-    console.print(f"[bold blue]ClipScribe v{__version__}[/bold blue]")
-    console.print("AI-powered video transcription with Gemini 2.5 Flash\n")
-
+    # Only setup logging if debug or running actual commands
+    if debug or ctx.invoked_subcommand is not None:
+        logger = _setup_rich_logging()
+        if debug:
+            logging.getLogger().setLevel(logging.DEBUG)
+            logger.debug("Debug mode enabled")
+        
+        # Load settings only when needed
+        imports = _get_core_imports()
+        ctx.obj["settings"] = imports['Settings']()
+        
+        console = _get_console()
+        console.print(f"[bold blue]ClipScribe v{__version__}[/bold blue]")
+        console.print("AI-powered video transcription with Gemini 2.5 Flash\n")
 
 @cli.command()
 @click.argument("url")
@@ -146,7 +215,10 @@ async def transcribe_async(
     performance_report: bool
 ) -> None:
     """Async implementation of transcribe command."""
-    console = Console()
+    # Lazy import all processing components
+    imports = _get_core_imports()
+    logger = _setup_rich_logging()
+    console = _get_console()
     
     # Extract all the options from kwargs
     mode = mode
@@ -186,7 +258,7 @@ async def transcribe_async(
     
     # Initialize retriever
     try:
-        retriever = VideoIntelligenceRetriever(
+        retriever = imports['VideoIntelligenceRetriever'](
             use_cache=use_cache,
             use_advanced_extraction=use_advanced_extraction,
             domain=domain,
@@ -245,10 +317,10 @@ async def transcribe_async(
         ctx.exit(1)
 
 
-def _display_results(console: Console, result):
+def _display_results(console, result):
     """Display transcription results in a formatted table."""
-    from rich.table import Table
-    from rich import box
+    # Lazy import Rich components
+    Panel, Table, RichHandler, box, Console = _get_rich_imports()
     
     results_table = Table(title="Transcription Results", box=box.ROUNDED)
     results_table.add_column("Property", style="cyan")
@@ -310,6 +382,11 @@ def research(ctx: click.Context, query: str, max_results: int, period: Optional[
 
 async def research_async(ctx: click.Context, query: str, max_results: int, period: Optional[str], sort_by: str, output_dir: Path, **kwargs):
     """Async implementation of research command."""
+    # Lazy import all processing components
+    imports = _get_core_imports()
+    logger = _setup_rich_logging()
+    console = _get_console()
+    
     # Create a semaphore to limit concurrency
     concurrency = 3
     semaphore = asyncio.Semaphore(concurrency)
@@ -317,7 +394,7 @@ async def research_async(ctx: click.Context, query: str, max_results: int, perio
     console.print(f"🔬 Researching: '{query}' (max {max_results} videos, {concurrency} at a time)...")
     
     # 1. Search
-    video_client = UniversalVideoClient()
+    video_client = imports['UniversalVideoClient']()
     search_results = []
 
     # Check if the query is a YouTube channel URL
@@ -336,7 +413,7 @@ async def research_async(ctx: click.Context, query: str, max_results: int, perio
         
     console.print(f"[green]✓ Found {len(search_results)} videos. Starting batch processing...[/green]")
 
-    async def process_video(video_meta, batch_progress: BatchProgress):
+    async def process_video(video_meta, batch_progress):
         """Helper to process a single video with progress and semaphore."""
         async with semaphore:
             task_id = batch_progress.add_video_task(video_meta.url)
@@ -353,12 +430,12 @@ async def research_async(ctx: click.Context, query: str, max_results: int, perio
                 "mode": kwargs.get('mode', 'audio'),
                 "output_dir": video_output_dir,
                 "enhance_transcript": kwargs.get('enhance_transcript', False),
-                "performance_monitor": PerformanceMonitor(video_output_dir) if kwargs.get('performance_report') else None,
+                "performance_monitor": imports['PerformanceMonitor'](video_output_dir) if kwargs.get('performance_report') else None,
                 "progress_hook": progress_hook # Pass the hook
             }
 
             try:
-                retriever = VideoIntelligenceRetriever(**retriever_kwargs)
+                retriever = imports['VideoIntelligenceRetriever'](**retriever_kwargs)
                 if kwargs.get('skip_cleaning'): retriever.clean_graph = False
                 elif kwargs.get('clean_graph'): retriever.clean_graph = True
 
@@ -373,7 +450,7 @@ async def research_async(ctx: click.Context, query: str, max_results: int, perio
                 if retriever_kwargs["performance_monitor"]:
                     retriever_kwargs["performance_monitor"].save_report()
 
-    async with BatchProgress() as batch_progress:
+    async with imports['BatchProgress']() as batch_progress:
         batch_progress.add_overall_task(total=len(search_results))
         tasks = [process_video(video, batch_progress) for video in search_results]
         await asyncio.gather(*tasks)
@@ -461,12 +538,13 @@ async def process_collection_async(
     skip_confirmation: bool,
     **kwargs
 ) -> None:
-    from rich.table import Table
-    from rich import box
-    from ..retrievers.universal_video_client import UniversalVideoClient
+    # Lazy import all processing components
+    imports = _get_core_imports()
+    Panel, Table, RichHandler, box, Console = _get_rich_imports()
+    logger = _setup_rich_logging()
+    console = _get_console()
     
-    console = Console()
-    video_client = UniversalVideoClient()
+    video_client = imports['UniversalVideoClient']()
     
     # Step 0: Handle playlist URLs and show preview
     final_urls = []
@@ -568,7 +646,7 @@ async def process_collection_async(
     console.print(f"🎬 Processing video collection: {len(final_urls)} videos")
     
     # Convert collection type string to enum
-    collection_type_enum = VideoCollectionType(collection_type)
+    collection_type_enum = imports['VideoCollectionType'](collection_type)
     
     # Step 1: Process individual videos
     console.print("\n📹 Step 1: Processing individual videos...")
@@ -581,12 +659,12 @@ async def process_collection_async(
         video_output_dir = output_dir / f"individual_videos" / f"video_{i}"
         video_output_dir.mkdir(parents=True, exist_ok=True)
         
-        retriever = VideoIntelligenceRetriever(
+        retriever = imports['VideoIntelligenceRetriever'](
             use_cache=kwargs.get('use_cache', True),
             mode=kwargs.get('mode', 'audio'),
             output_dir=video_output_dir,
             enhance_transcript=kwargs.get('enhance_transcript', False),
-            performance_monitor=PerformanceMonitor(video_output_dir) if kwargs.get('performance_report') else None
+            performance_monitor=imports['PerformanceMonitor'](video_output_dir) if kwargs.get('performance_report') else None
         )
         
         if kwargs.get('clean_graph'):
@@ -622,12 +700,12 @@ async def process_collection_async(
     
     try:
         # PERFORMANCE FIX: Disable AI validation for fast processing (was causing 18-minute delays)
-        multi_processor = MultiVideoProcessor(use_ai_validation=False)
+        multi_processor = imports['MultiVideoProcessor'](use_ai_validation=False)
         
         # Auto-detect series if requested
-        if auto_detect_series and collection_type_enum != VideoCollectionType.SERIES:
+        if auto_detect_series and collection_type_enum != imports['VideoCollectionType'].SERIES:
             console.print("🔍 Detecting series patterns...")
-            series_detector = SeriesDetector()
+            series_detector = imports['SeriesDetector']()
             detection_result = await series_detector.detect_series(video_intelligences)
             
             if detection_result.is_series:
@@ -635,7 +713,7 @@ async def process_collection_async(
                 if detection_result.user_confirmation_needed:
                     console.print(f"📋 Detection method: {detection_result.detection_method}")
                     console.print(f"🎯 Suggested groupings: {len(detection_result.suggested_grouping)} groups")
-                collection_type_enum = VideoCollectionType.SERIES
+                collection_type_enum = imports['VideoCollectionType'].SERIES
                 user_confirmed_series = True
             else:
                 console.print("ℹ️ No series pattern detected")
@@ -714,17 +792,20 @@ def process_series(
     **kwargs
 ) -> None:
     """Process videos as a series with automatic detection and narrative flow analysis."""
+    console = _get_console()
     console.print(f"📺 Processing video series: {len(urls)} videos")
     
     # Delegate to process_collection_async with series-specific settings
     asyncio.run(process_collection_async(
         ctx,
+        collection_name="series_" + str(hash(urls))[:8],
         urls=urls,
-        collection_title=series_title,
+        collection_title=series_title or f"Video Series ({len(urls)} videos)",
         collection_type='series',
         auto_detect_series=True,
         user_confirmed_series=False,
         output_dir=output_dir,
+        skip_confirmation=False,
         **kwargs
     ))
 
@@ -733,7 +814,8 @@ def run_cli():
     """Run the CLI application."""
     # Click's native async support handles this automatically.
     # The previous manual loop management was causing RuntimeWarnings.
-    setup_logging()  # Initialize logging
+    imports = _get_core_imports()
+    imports['setup_logging']()  # Initialize logging
     cli()
 
 
