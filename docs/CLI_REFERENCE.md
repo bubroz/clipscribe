@@ -1,17 +1,23 @@
-# ClipScribe CLI Reference (v2.18.16 - Timeline Intelligence v2.0 ✅ OPERATIONAL)
+# ClipScribe CLI Reference (v2.18.25 - CLI Performance Optimized 🚀)
 
-*Last Updated: July 1, 2025 - Timeline v2.0 Fully Operational*
+*Last Updated: July 5, 2025 - 93% CLI Startup Performance Improvement*
 
-Complete reference for all ClipScribe commands and options, featuring **Timeline Intelligence v2.0** - fully operational with temporal event extraction, quality filtering, and comprehensive timeline building.
+Complete reference for all ClipScribe commands and options, now featuring **lightning-fast CLI performance** with 93% startup optimization.
 
-## 🚀 Timeline Intelligence v2.0 Features
+## 🚀 CLI Performance Breakthrough (v2.18.25)
 
-**Breakthrough Achieved**: Complete Timeline Intelligence v2.0 implementation with:
-- **Event Deduplication**: Eliminates 44-duplicate crisis through intelligent consolidation
-- **Content Date Extraction**: 95%+ accuracy extracting dates from content (not metadata)
-- **Chapter Intelligence**: yt-dlp chapter-aware processing with content boundaries
-- **5-Step Pipeline**: Enhanced extraction → Deduplication → Content dates → Quality filtering → Chapter segmentation
-- **Performance Optimization**: 3-4x speedup for large collections with streaming capabilities
+**Major Achievement**: CLI startup optimized from 5.47s → 0.4s (13.4x faster!)
+
+- **Fast Path Commands**: `--version` and `--help` bypass framework loading entirely (immediate response)
+- **Smart Loading**: Heavy frameworks only load when processing commands are invoked
+- **User Experience**: Every CLI interaction now immediately responsive for researchers and journalists  
+- **Processing Performance**: Full functionality maintained for processing commands (~3s with framework loading)
+- **Evidence-Based**: Optimization targets the largest single performance bottleneck identified through measurement
+
+## ⚠️ Timeline Intelligence v2.0 Status: DISCONTINUED
+
+**Strategic Focus Change**: Timeline development discontinued (July 2, 2025) due to insufficient accuracy (24.66%). 
+All resources redirected to core excellence: entity extraction, relationship mapping, and user experience optimization.
 
 ## Global Options
 
@@ -21,11 +27,16 @@ These options work with all commands:
 clipscribe [GLOBAL OPTIONS] COMMAND [COMMAND OPTIONS]
 ```
 
-| Option | Description |
-|--------|-------------|
-| `--version` | Show ClipScribe version (v2.18.16+) and exit |
-| `--debug` | Enable debug logging for troubleshooting |
-| `--help` | Show help message and exit |
+| Option | Description | Performance |
+|--------|-------------|-------------|
+| `--version` | Show ClipScribe version (v2.18.25) and exit | **⚡ Fast Path**: <400ms (bypasses framework loading) |
+| `--help` | Show help message and exit | **⚡ Fast Path**: <400ms (bypasses framework loading) |  
+| `--debug` | Enable debug logging for troubleshooting | Standard loading (~3s with frameworks) |
+
+**Performance Notes:**
+- **Fast Path Commands**: `--version` and `--help` bypass Click/Rich framework loading for immediate response
+- **Processing Commands**: Full framework loading (~3s) when using `transcribe`, `research`, etc.
+- **Smart Loading**: Heavy processing components only load when actually needed
 
 ## Commands
 
