@@ -8,6 +8,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Enhanced Entity & Relationship Metadata milestone begun (v2.19.0)
+- Architectural boundaries defined with Chimera Researcher integration
+- Strategic direction: ClipScribe as best-in-class video intelligence EXTRACTOR
+
+### Changed
+- Documentation updated to reflect ClipScribe's role as data source for analysis tools
+- Focus shifted to enhanced metadata extraction rather than analysis features
+
+## [2.18.26] - 2025-07-05
+
+### Removed
+- All timeline-related code, documentation, and output files
+- TimelineJS export functionality completely removed
+- Timeline visualization features eliminated
+
+### Changed
+- Codebase confirmed timeline-free with comprehensive testing
+- Documentation updated to remove all timeline references
 
 ## [2.18.25] - 2025-07-05
 
