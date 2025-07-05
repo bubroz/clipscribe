@@ -15,7 +15,6 @@ from .universal_video_client import UniversalVideoClient
 from .transcriber import GeminiFlashTranscriber
 from .video_retention_manager import VideoRetentionManager
 from ..utils.filename import create_output_filename, create_output_structure, extract_platform_from_url
-from ..extractors import HybridEntityExtractor, AdvancedHybridExtractor
 from ..config.settings import Settings, TemporalIntelligenceLevel, VideoRetentionPolicy
 from ..utils.file_utils import calculate_sha256
 # Timeline features permanently discontinued per strategic pivot
@@ -46,7 +45,8 @@ class VideoIntelligenceRetriever:
         enhance_transcript: bool = False,
         progress_tracker: Optional[Any] = None,
         performance_monitor: Optional[Any] = None,
-        progress_hook: Optional[Any] = None
+        progress_hook: Optional[Any] = None,
+        cost_tracker: Optional[Any] = None  # NEW: cost tracker for real-time cost updates
     ):
         """
         Initialize the video intelligence retriever with v2.17.0 enhancements.
@@ -63,6 +63,7 @@ class VideoIntelligenceRetriever:
             progress_tracker: Progress tracking instance
             performance_monitor: Performance monitoring instance
             progress_hook: Progress hook for progress updates
+            cost_tracker: Cost tracker for real-time cost updates
         """
         self.cache_dir = cache_dir or ".video_cache"
         os.makedirs(self.cache_dir, exist_ok=True)
@@ -77,6 +78,7 @@ class VideoIntelligenceRetriever:
         self.progress_tracker = progress_tracker
         self.performance_monitor = performance_monitor
         self.progress_hook = progress_hook
+        self.cost_tracker = cost_tracker  # Store cost tracker
         
         # Get v2.17.0 settings
         self.settings = Settings()
@@ -222,14 +224,31 @@ class VideoIntelligenceRetriever:
             total_steps = 6  # download, process, extract, timeline, retention, facts
             current_step = 0
 
-            def _update_progress(description: str):
+            def _update_progress(description: str, cost_amount: float = None, cost_operation: str = None):
                 nonlocal current_step
                 current_step += 1
                 progress_percentage = int((current_step / total_steps) * 100)
+                phase = f"Phase {current_step}/{total_steps}"
+                # Only use progress_tracker if progress_state is None (legacy mode)
                 if self.progress_hook:
                     self.progress_hook({"description": description, "progress": progress_percentage})
-                elif progress_state and self.progress_tracker:
+                elif progress_state is None and self.progress_tracker:
                     self.progress_tracker.update_phase(progress_state, description.lower().replace(" ", "_"), description)
+                # NEW: Update CLI panels if progress_state is provided
+                if progress_state is not None and "cli_progress" in progress_state:
+                    progress_state["cli_progress"].update_cli_panels(
+                        progress_state,
+                        phase,
+                        description,
+                        progress_percentage,
+                        cost_amount,
+                        cost_operation
+                    )
+                # NEW: Update cost tracker and CLI cost display
+                if self.cost_tracker and cost_amount and cost_operation:
+                    self.cost_tracker.add_cost(cost_amount, cost_operation, description)
+                    if progress_state is None and hasattr(self.progress_tracker, 'update_cost'):
+                        self.progress_tracker.update_cost(progress_state, self.cost_tracker.current_cost)
 
             # Check cache first
             cache_key = self._get_cache_key(video_url)
@@ -243,7 +262,7 @@ class VideoIntelligenceRetriever:
             
             logger.info(f"Processing video with Enhanced Temporal Intelligence: {video_url}")
             
-            _update_progress("Downloading video for enhanced processing")
+            _update_progress("Downloading video for enhanced processing", cost_amount=0.0005, cost_operation="download")
             
             # v2.17.0: Enhanced processing mode determination
             processing_mode = await self._determine_enhanced_processing_mode(video_url)
@@ -272,7 +291,7 @@ class VideoIntelligenceRetriever:
             media_path = Path(media_file)
             
             try:
-                _update_progress("Processing with Enhanced Temporal Intelligence")
+                _update_progress("Processing with Enhanced Temporal Intelligence", cost_amount=0.0005, cost_operation="transcription")
                 
                 # v2.17.0: Enhanced processing based on mode
                 # TEMPORARY: Always use audio transcription for now
@@ -372,7 +391,7 @@ class VideoIntelligenceRetriever:
                 
                 # Run intelligence extraction if requested
                 if self.use_advanced_extraction and hasattr(self.entity_extractor, 'extract_all'):
-                    _update_progress("Extracting enhanced intelligence")
+                    _update_progress("Extracting enhanced intelligence", cost_amount=0.0005, cost_operation="entity_extraction")
                     logger.info(f"Extracting intelligence with advanced extractor (domain={self.domain})...")
                     try:
                         video_intelligence = await self.entity_extractor.extract_all(
@@ -399,7 +418,7 @@ class VideoIntelligenceRetriever:
                 if hasattr(self.entity_extractor, 'get_total_cost'):
                     video_intelligence.processing_cost += self.entity_extractor.get_total_cost()
                 
-                _update_progress("Building enhanced timeline with Timeline Intelligence v2.0")
+                _update_progress("Building enhanced timeline with Timeline Intelligence v2.0", cost_amount=0.0002, cost_operation="timeline")
                 
                 # 🚀 Timeline Intelligence v2.0 Processing for Single Videos
                 try:
@@ -528,7 +547,7 @@ class VideoIntelligenceRetriever:
                     }
                 
                 # v2.17.0: Video retention management
-                _update_progress("Managing video retention")
+                _update_progress("Managing video retention", cost_amount=0.0001, cost_operation="retention")
                 
                 # Handle video retention based on policy
                 retention_result = await self.retention_manager.handle_video_retention(
@@ -1297,30 +1316,26 @@ class VideoIntelligenceRetriever:
         paths["chimera"] = chimera_path
     
     def _save_timelinejs_file(self, video: VideoIntelligence, paths: Dict[str, Path]):
-        """Saves timeline.json in TimelineJS3 format if Timeline v2.0 data exists."""
+        """Saves timeline_js.json in TimelineJS3 format if Timeline v2.0 data exists."""
         # Check if Timeline v2.0 data exists
         if not hasattr(video, 'timeline_v2') or not video.timeline_v2:
             logger.debug("No Timeline v2.0 data to convert to TimelineJS format")
             return
-            
         try:
             # Get timeline events from the timeline_v2 data
-            timeline_events = video.timeline_v2.get('events', [])  # Changed from 'timeline_events' to 'events'
+            timeline_events = video.timeline_v2.get('events', [])
             if not timeline_events:
                 logger.debug("No timeline events found in Timeline v2.0 data")
                 return
-                
-            # Create ConsolidatedTimeline object from the events
-            from ..timeline.models import ConsolidatedTimeline, TemporalEvent
-            
+            # Import TimelineJSFormatter from utils
+            from clipscribe.utils.timeline_js_formatter import TimelineJSFormatter
+            from clipscribe.timeline.models import ConsolidatedTimeline, TemporalEvent
             # Convert raw events to TemporalEvent objects
             temporal_events = []
             for event_data in timeline_events:
-                # Skip if not a proper event structure
                 if not isinstance(event_data, dict):
                     continue
-                    
-                # Parse date - handle both string and datetime objects
+                # Parse date
                 date_value = event_data.get('date', datetime.now().isoformat())
                 if isinstance(date_value, str):
                     parsed_date = datetime.fromisoformat(date_value.replace(' ', 'T'))
@@ -1328,7 +1343,6 @@ class VideoIntelligenceRetriever:
                     parsed_date = date_value
                 else:
                     parsed_date = datetime.now()
-                
                 temporal_event = TemporalEvent(
                     event_id=event_data.get('event_id', f"event_{len(temporal_events)}"),
                     content_hash=event_data.get('content_hash', ''),
@@ -1348,20 +1362,23 @@ class VideoIntelligenceRetriever:
                     validation_status=event_data.get('validation_status', 'unverified')
                 )
                 temporal_events.append(temporal_event)
-            
             if not temporal_events:
                 logger.debug("No valid temporal events to convert")
                 return
-                
             # Create consolidated timeline
             consolidated_timeline = ConsolidatedTimeline(
                 events=temporal_events,
                 video_sources=[video.metadata.url]
             )
-            
-            # TimelineJS export discontinued per strategic pivot
-            logger.info("TimelineJS export skipped - timeline features discontinued")
-            
+            # Use TimelineJSFormatter to convert
+            formatter = TimelineJSFormatter()
+            timeline_js = formatter.format_timeline(consolidated_timeline, title=video.metadata.title, description=video.summary)
+            # Save to timeline_js.json
+            timeline_js_path = paths["directory"] / "timeline_js.json"
+            with open(timeline_js_path, 'w', encoding='utf-8') as f:
+                json.dump(timeline_js, f, indent=2, default=str)
+            paths["timeline_js"] = timeline_js_path
+            logger.info(f"Saved TimelineJS3 format to {timeline_js_path}")
         except Exception as e:
             logger.warning(f"Failed to generate TimelineJS format: {e}")
             # Don't fail the entire process if TimelineJS export fails

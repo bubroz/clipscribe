@@ -9,7 +9,6 @@ from google.generativeai.types import RequestOptions
 
 from .spacy_extractor import SpacyEntityExtractor
 from ..models import Entity
-from ..retrievers.transcriber import GeminiFlashTranscriber
 from ..config.settings import Settings
 
 logger = logging.getLogger(__name__)
@@ -40,6 +39,8 @@ class HybridEntityExtractor:
             enable_cost_tracking: Track costs in real-time
         """
         self.spacy_extractor = SpacyEntityExtractor()
+        # Move import here to avoid circular import
+        from ..retrievers.transcriber import GeminiFlashTranscriber
         self.llm_validator = GeminiFlashTranscriber()
         self.confidence_threshold = confidence_threshold
         self.batch_size = batch_size

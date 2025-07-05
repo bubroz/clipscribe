@@ -34,17 +34,6 @@ class ResearchResult:
     enrichment_data: Optional[Dict[str, Any]] = None
 
 
-@dataclass
-class TimelineEnrichment:
-    """Enhanced timeline event with web research context."""
-    original_event_id: str
-    enhanced_description: str
-    additional_context: str
-    related_events: List[str]
-    confidence_boost: float
-    validation_sources: List[str]
-
-
 class WebResearchIntegrator:
     """
     Integrates web research capabilities for timeline event validation and enrichment.
@@ -112,38 +101,6 @@ class WebResearchIntegrator:
         
         logger.info(f"Completed validation for {len(research_results)} events")
         return research_results
-    
-    async def enrich_timeline_with_context(
-        self,
-        timeline_events: List[Dict[str, Any]],
-        research_results: List[ResearchResult],
-        collection_theme: str
-    ) -> List[TimelineEnrichment]:
-        """
-        Enrich timeline events with additional context from research.
-        
-        Args:
-            timeline_events: Original timeline events
-            research_results: Validation results from web research
-            collection_theme: Overall theme of the video collection
-            
-        Returns:
-            List of timeline enrichments
-        """
-        if not self.enable_research:
-            return self._create_local_enrichments(timeline_events)
-        
-        logger.info("Enriching timeline events with web research context...")
-        enrichments = []
-        
-        for event, research in zip(timeline_events, research_results):
-            if research.validation_status in ["validated", "enhanced"]:
-                enrichment = await self._create_event_enrichment(event, research, collection_theme)
-                if enrichment:
-                    enrichments.append(enrichment)
-        
-        logger.info(f"Created {len(enrichments)} timeline enrichments")
-        return enrichments
     
     async def _validate_event_batch(
         self,
@@ -284,35 +241,6 @@ Focus on factual accuracy and providing valuable context enhancement.
             logger.error(f"Failed to parse validation response: {e}")
             return self._create_local_validation_results(original_events)
     
-    async def _create_event_enrichment(
-        self,
-        event: Dict[str, Any],
-        research: ResearchResult,
-        collection_theme: str
-    ) -> Optional[TimelineEnrichment]:
-        """Create timeline enrichment from research result."""
-        if research.validation_status not in ["validated", "enhanced"]:
-            return None
-        
-        # Create enriched description
-        enhanced_description = event.get('description', '')
-        if research.enrichment_data and research.enrichment_data.get('additional_details'):
-            enhanced_description += f" Context: {research.enrichment_data['additional_details']}"
-        
-        # Calculate confidence boost
-        confidence_boost = 0.1 if research.validation_status == "validated" else 0.2
-        
-        enrichment = TimelineEnrichment(
-            original_event_id=event.get('event_id', ''),
-            enhanced_description=enhanced_description,
-            additional_context=research.external_context,
-            related_events=[],  # Could be enhanced with event correlation
-            confidence_boost=confidence_boost,
-            validation_sources=research.sources_cited
-        )
-        
-        return enrichment
-    
     def _create_local_validation_results(
         self,
         events: List[Dict[str, Any]]
@@ -331,91 +259,4 @@ Focus on factual accuracy and providing valuable context enhancement.
             )
             results.append(result)
         
-        return results
-    
-    def _create_local_enrichments(
-        self,
-        events: List[Dict[str, Any]]
-    ) -> List[TimelineEnrichment]:
-        """Create local enrichments when web research is disabled."""
-        enrichments = []
-        for event in events:
-            enrichment = TimelineEnrichment(
-                original_event_id=event.get('event_id', ''),
-                enhanced_description=event.get('description', ''),
-                additional_context="Local processing only (web research disabled)",
-                related_events=[],
-                confidence_boost=0.0,
-                validation_sources=["local_extraction"]
-            )
-            enrichments.append(enrichment)
-        
-        return enrichments
-
-
-class TimelineContextValidator:
-    """
-    Validates timeline events for consistency and accuracy.
-    Complements web research with local validation logic.
-    """
-    
-    def __init__(self):
-        """Initialize timeline context validator."""
-        pass
-    
-    def validate_temporal_consistency(
-        self,
-        timeline_events: List[Dict[str, Any]]
-    ) -> List[Dict[str, Any]]:
-        """
-        Validate temporal consistency of timeline events.
-        
-        Args:
-            timeline_events: Timeline events to validate
-            
-        Returns:
-            List of consistency validation results
-        """
-        logger.info(f"Validating temporal consistency for {len(timeline_events)} events")
-        
-        validation_results = []
-        
-        # Check consistency in original order (not sorted)
-        for i, event in enumerate(timeline_events):
-            result = {
-                'event_id': event.get('event_id', f'event_{i}'),
-                'temporal_consistency': True,
-                'consistency_score': 1.0,
-                'issues': []
-            }
-            
-            # Check for temporal anomalies against previous event
-            if i > 0:
-                prev_event = timeline_events[i-1]
-                time_gap = self._calculate_time_gap(prev_event, event)
-                
-                if time_gap < timedelta(seconds=0):
-                    result['temporal_consistency'] = False
-                    result['consistency_score'] = 0.3
-                    result['issues'].append('Negative time gap detected')
-                elif time_gap > timedelta(days=365):
-                    result['consistency_score'] = 0.7
-                    result['issues'].append('Large time gap (>1 year)')
-            
-            validation_results.append(result)
-        
-        return validation_results
-    
-    def _calculate_time_gap(self, event1: Dict[str, Any], event2: Dict[str, Any]) -> timedelta:
-        """Calculate time gap between two events."""
-        try:
-            ts1 = event1.get('timestamp')
-            ts2 = event2.get('timestamp')
-            
-            if isinstance(ts1, datetime) and isinstance(ts2, datetime):
-                return ts2 - ts1
-            
-            return timedelta(seconds=0)
-            
-        except Exception:
-            return timedelta(seconds=0) 
+        return results 

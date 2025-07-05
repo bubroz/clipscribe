@@ -14,6 +14,8 @@ from typing import Any, Dict, Optional, Iterator, Callable, List
 from datetime import datetime, timedelta
 from pathlib import Path
 import json
+import logging
+import traceback
 
 from rich.console import Console
 from rich.progress import (
@@ -129,7 +131,37 @@ class AsyncProgressIndicator:
         """Enhanced video processing progress with real-time cost tracking."""
         self.start_time = time.time()
         
-        # Create layout for live display
+        # Diagnostic logging for Live context
+        logger = logging.getLogger("clipscribe.utils.cli_performance")
+        logger.debug(f"[DIAG] Before Live guard: self.console._live={getattr(self.console, '_live', None)}")
+        if getattr(self.console, '_live', None) is not None:
+            logger.warning("[DIAG] A Rich Live display is already active on this console. Forcibly resetting _live to None. This is a diagnostic workaround.")
+            # Print stack trace for debugging
+            traceback.print_stack()
+            self.console._live = None
+        logger.debug(f"[DIAG] After Live guard: self.console._live={getattr(self.console, '_live', None)}")
+        
+        layout = self._build_layout(url, estimated_cost)
+        try:
+            with Live(layout, console=self.console, refresh_per_second=2) as live:
+                # Minimal valid progress_state for downstream code
+                self.progress_state = {
+                    "layout": layout,
+                    "cost_tracker": self.cost_tracker,
+                    "progress": None,  # Placeholder for future progress bar
+                    "main_task": None,
+                    "detail_task": None,
+                    "live": live,
+                    "phases_completed": 0,
+                    "total_phases": 7,
+                    "cli_progress": self  # Reference to this indicator for updates
+                }
+                yield self.progress_state
+        finally:
+            logger.debug("[DIAG] Exiting Live context, ensuring cleanup.")
+    
+    def _build_layout(self, url: str, estimated_cost: float = None) -> Layout:
+        """Builds the full-featured layout for video processing progress."""
         layout = Layout()
         layout.split(
             Layout(name="header", size=3),
@@ -137,55 +169,22 @@ class AsyncProgressIndicator:
             Layout(name="cost", size=5),
             Layout(name="status", size=3)
         )
-        
         # Header
         header_text = f"[bold cyan]Processing Video:[/bold cyan] {url}"
         if estimated_cost:
             header_text += f" [dim](Est. ${estimated_cost:.4f})[/dim]"
         layout["header"].update(Panel(header_text, box=box.ROUNDED))
-        
-        # Progress bars
-        with Progress(
-            SpinnerColumn(),
-            TextColumn("[bold blue]{task.description}"),
-            BarColumn(),
-            TextColumn("[progress.percentage]{task.percentage:>3.0f}%"),
-            TimeElapsedColumn(),
-            console=self.console,
-            transient=False
-        ) as progress:
-            
-            # Main progress task
-            main_task = progress.add_task("Overall Progress", total=100)
-            detail_task = progress.add_task("Initializing...", total=100)
-            
-            layout["progress"].update(progress)
-            
-            # Cost tracking display
-            cost_table = self._create_cost_table()
-            layout["cost"].update(cost_table)
-            
-            # Status
-            layout["status"].update(Panel("Ready to process", style="green"))
-            
-            # Live display
-            with Live(layout, console=self.console, refresh_per_second=2) as live:
-                
-                state = {
-                    "progress": progress,
-                    "main_task": main_task,
-                    "detail_task": detail_task,
-                    "layout": layout,
-                    "live": live,
-                    "phases_completed": 0,
-                    "total_phases": 7,
-                    "cost_tracker": self.cost_tracker
-                }
-                
-                yield state
-        
-        # Show final summary
-        await self._show_completion_summary()
+        # Progress (placeholder)
+        layout["progress"].update(Panel("Progress will appear here", box=box.ROUNDED))
+        # Cost (placeholder table)
+        cost_table = Table(title="Cost Tracking", box=box.ROUNDED)
+        cost_table.add_column("Operation")
+        cost_table.add_column("Cost ($)")
+        cost_table.add_row("Init", "0.0000")
+        layout["cost"].update(cost_table)
+        # Status
+        layout["status"].update(Panel("[green]Ready to process[/green]", box=box.ROUNDED))
+        return layout
     
     def _create_cost_table(self) -> Table:
         """Create real-time cost tracking table."""
@@ -294,6 +293,23 @@ class AsyncProgressIndicator:
         self.console.print("\n")
         self.console.print(summary)
         self.console.print("\n")
+
+    def update_cli_panels(self, state, phase, description, percent, cost_amount=None, cost_operation=None):
+        """Update the CLI layout panels for progress, cost, and status."""
+        # Progress panel
+        progress_text = f"[bold blue]{phase}[/bold blue]\n{description}\n[dim]{percent}% complete[/dim]"
+        state["layout"]["progress"].update(Panel(progress_text, box=box.ROUNDED))
+        # Cost panel
+        if cost_amount and cost_operation:
+            self.cost_tracker.add_cost(cost_amount, cost_operation, description)
+        cost_table = self._create_cost_table()
+        state["layout"]["cost"].update(cost_table)
+        # Status panel
+        if self.cost_tracker.should_warn_user():
+            status_text = f"[yellow]⚠ High cost: {self.cost_tracker.get_cost_display()}[/yellow]"
+        else:
+            status_text = f"[green]✓ {description}[/green]"
+        state["layout"]["status"].update(Panel(status_text, box=box.ROUNDED))
 
 
 class InteractiveCostWorkflow:

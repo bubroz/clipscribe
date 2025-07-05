@@ -22,7 +22,6 @@ output/
     ├── facts.txt               # Top 100 key facts with source annotations
     ├── report.md               # Interactive Markdown intelligence report
     ├── chimera_format.json     # Chimera Researcher compatible format
-    ├── timeline_js.json        # NEW v2.18.17: TimelineJS3 format for interactive timelines
     └── manifest.json           # File index with SHA256 checksums
 ```
 
@@ -94,15 +93,6 @@ A human-readable list of the top 100 most important facts extracted from the vid
 
 ### chimera_format.json
 A standardized JSON format designed for seamless integration with the [Chimera Researcher](https://github.com/bubroz/chimera-researcher) ecosystem.
-
-### timeline_js.json (**NEW in v2.18.17**)
-A TimelineJS3-compatible JSON file that transforms Timeline v2.0 temporal events into beautiful, interactive timeline visualizations.
-- **Generated When**: Only when Timeline v2.0 data is available (videos processed with enhanced temporal intelligence)
-- **Interactive Features**: Events with dates, descriptions, media thumbnails, and video timestamp links
-- **Date Precision**: Supports exact time, day, month, or year-level precision based on extracted date confidence
-- **Media Integration**: Automatic YouTube thumbnail extraction with clickable links to exact video timestamps
-- **Event Types**: Visual grouping by event type (factual, reported, claimed, inferred)
-- **Usage**: Upload to [timeline.knightlab.com](https://timeline.knightlab.com/) or integrate into web applications
 
 ### manifest.json
 An inventory of all files generated for the video.

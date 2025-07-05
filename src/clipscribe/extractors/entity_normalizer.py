@@ -388,7 +388,7 @@ class EntityNormalizer:
                 'aliases': {'DATE', 'TIME', 'TEMPORAL'},
                 'subtypes': {
                     'HISTORICAL_PERIOD': {'COLD_WAR', 'POST_9_11', 'ARAB_SPRING'},
-                    'OPERATIONAL_TIMEFRAME': {'DEPLOYMENT_PERIOD', 'MISSION_DURATION', 'CAMPAIGN_TIMELINE'}
+                    'OPERATIONAL_TIMEFRAME': {'DEPLOYMENT_PERIOD', 'MISSION_DURATION'}
                 }
             },
             

@@ -5,6 +5,7 @@ transcription of videos from 1800+ platforms using Gemini 2.5 Flash.
 """
 
 import sys
+import importlib
 
 # Fast path for version check - bypass Click entirely for performance
 def _check_fast_commands():
@@ -109,6 +110,11 @@ def _setup_rich_logging():
         handlers=[RichHandler(console=console, show_path=False)]
     )
     return logging.getLogger(__name__)
+
+# Add import for real-time cost tracking and progress
+cli_perf = importlib.import_module('src.clipscribe.utils.cli_performance')
+RealTimeCostTracker = cli_perf.RealTimeCostTracker
+AsyncProgressIndicator = cli_perf.AsyncProgressIndicator
 
 @click.group()
 @click.version_option(version=__version__, prog_name="ClipScribe")
@@ -256,6 +262,10 @@ async def transcribe_async(
     # Create output directory
     output_dir.mkdir(parents=True, exist_ok=True)
     
+    # Initialize real-time cost tracker and progress indicator
+    cost_tracker = RealTimeCostTracker()
+    progress_indicator = AsyncProgressIndicator(cost_tracker)
+
     # Initialize retriever
     try:
         retriever = imports['VideoIntelligenceRetriever'](
@@ -264,7 +274,8 @@ async def transcribe_async(
             domain=domain,
             mode=mode,
             output_dir=str(output_dir),
-            enhance_transcript=enhance_transcript
+            enhance_transcript=enhance_transcript,
+            cost_tracker=cost_tracker  # Pass cost tracker to retriever
         )
         
         # Set cleaning option
@@ -273,43 +284,43 @@ async def transcribe_async(
         elif skip_cleaning:
             retriever.clean_graph = False
         
-        # Process video
-        result = await retriever.process_url(url)
-        
-        # Save outputs
-        if save_all_formats:
-            saved_files = retriever.save_all_formats(result, str(output_dir))
-            console.print(f"\n[green]✅ Saved all formats to: {saved_files['directory']}[/green]")
-        else:
-            # Save just the basic files
-            transcript_file = output_dir / "transcript.json"
-            with open(transcript_file, 'w', encoding='utf-8') as f:
-                json.dump(result.model_dump(), f, ensure_ascii=False, indent=2, default=str)
-            console.print(f"\n[green]✅ Saved transcript to: {transcript_file}[/green]")
+        # Use progress indicator context for live updates
+        async with progress_indicator.video_processing_progress(url) as state:
+            # Process video and update cost at each phase
+            result = await retriever.process_url(url, progress_state=state)
             
-        # Display summary
-        _display_results(console, result)
-        
-        # Display cost
-        console.print(f"\n[cyan]Total cost: ${result.processing_cost:.4f}[/cyan]")
-        
-        # Generate performance report if requested
-        if performance_report:
-            report_path = output_dir / "performance_report.json"
-            performance_data = {
-                "url": url,
-                "mode": mode,
-                "model": model,
-                "processing_time": result.processing_time,
-                "processing_cost": result.processing_cost,
-                "transcript_length": len(result.transcript.full_text) if result.transcript else 0,
-                "entity_count": len(result.entities),
-                "relationship_count": len(result.relationships) if hasattr(result, 'relationships') else 0,
-                "key_point_count": len(result.key_points) if result.key_points else 0
-            }
-            with open(report_path, 'w') as f:
-                json.dump(performance_data, f, indent=2)
-            console.print(f"[dim]Performance report saved to: {report_path}[/dim]")
+            # Save outputs
+            if save_all_formats:
+                saved_files = retriever.save_all_formats(result, str(output_dir))
+                console.print(f"\n[green]✅ Saved all formats to: {saved_files['directory']}[/green]")
+            else:
+                # Save just the basic files
+                transcript_file = output_dir / "transcript.json"
+                with open(transcript_file, 'w', encoding='utf-8') as f:
+                    json.dump(result.model_dump(), f, ensure_ascii=False, indent=2, default=str)
+                console.print(f"\n[green]✅ Saved transcript to: {transcript_file}[/green]")
+            
+            # Display summary
+            _display_results(console, result)
+            
+            # Show final cost summary (handled by progress indicator)
+            # Generate performance report if requested
+            if performance_report:
+                report_path = output_dir / "performance_report.json"
+                performance_data = {
+                    "url": url,
+                    "mode": mode,
+                    "model": model,
+                    "processing_time": result.processing_time,
+                    "processing_cost": result.processing_cost,
+                    "transcript_length": len(result.transcript.full_text) if result.transcript else 0,
+                    "entity_count": len(result.entities),
+                    "relationship_count": len(result.relationships) if hasattr(result, 'relationships') else 0,
+                    "key_point_count": len(result.key_points) if result.key_points else 0
+                }
+                with open(report_path, 'w') as f:
+                    json.dump(performance_data, f, indent=2)
+                console.print(f"[dim]Performance report saved to: {report_path}[/dim]")
             
     except Exception as e:
         logger.exception("Transcription failed")

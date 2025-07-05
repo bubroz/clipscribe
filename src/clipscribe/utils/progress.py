@@ -47,6 +47,10 @@ class ClipScribeProgress:
         self.current_cost = 0.0
         self.phase_times = {}
         
+        # Defensive guard: check for existing Live context
+        if getattr(self.console, '_live', None) is not None:
+            raise RuntimeError("A Rich Live display is already active on this console. Only one Live/progress context may be active at a time. Use the provided progress state instead of creating a new one.")
+        
         # Simple header
         self.console.print("\n")
         self.console.print(Panel(

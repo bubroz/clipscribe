@@ -145,28 +145,6 @@ class ExtractedDate(BaseModel):
     date_source: Optional[str] = Field(None, description="Additional source info")
 
 
-class TimelineEvent(BaseModel):
-    """A single, timestamped event that occurred across a collection of videos."""
-    event_id: str = Field(..., description="Unique identifier for the event")
-    timestamp: datetime = Field(..., description="The absolute timestamp when the event occurred")
-    description: str = Field(..., description="A description of the event")
-    source_video_id: str = Field(..., description="The video ID where this event was identified")
-    source_video_title: str = Field(..., description="The title of the source video")
-    video_timestamp_seconds: int = Field(..., description="The timestamp of the event within its source video, in seconds")
-    involved_entities: List[str] = Field(default_factory=list, description="Names of entities involved in this event")
-    confidence: float = Field(default=0.8, description="Confidence score for the event's accuracy and relevance")
-    extracted_date: Optional[ExtractedDate] = Field(None, description="Detailed info if date was extracted from text")
-    date_source: str = Field("video_published_date", description="Source of the event's timestamp")
-
-
-class ConsolidatedTimeline(BaseModel):
-    """A chronologically sorted sequence of events synthesized from multiple videos."""
-    timeline_id: str = Field(..., description="Unique identifier for this timeline")
-    collection_id: str = Field(..., description="The ID of the video collection this timeline belongs to")
-    events: List[TimelineEvent] = Field(default_factory=list)
-    summary: Optional[str] = Field(None, description="An AI-generated summary of the entire timeline")
-
-
 class EntityActivity(BaseModel):
     """A specific activity or mention of an entity in a video."""
     activity_id: str = Field(..., description="Unique identifier for this activity")
@@ -266,11 +244,6 @@ class MultiVideoIntelligence(BaseModel):
     key_insights: List[str] = Field(default_factory=list, description="Cross-video insights")
     unified_knowledge_graph: Optional[Dict[str, Any]] = None
     
-    # NEW: Consolidated timeline from synthesis engine
-    consolidated_timeline: Optional[ConsolidatedTimeline] = None
-    
-    # Knowledge panels feature removed - moved to Chimera
-    
     # NEW: Information Flow Maps - concept evolution tracking
     information_flow_map: Optional['InformationFlowMap'] = None
     
@@ -348,9 +321,6 @@ class VideoIntelligence(BaseModel):
     collection_context: Optional[Dict[str, Any]] = Field(None, description="Context if part of a collection")
     series_metadata: Optional[SeriesMetadata] = None
     related_videos: List[str] = Field(default_factory=list, description="IDs of related videos")
-    
-    # NEW: Timeline v2.0 data
-    timeline_v2: Optional[Dict[str, Any]] = Field(None, description="Timeline Intelligence v2.0 data")
     
     # NEW: Gemini date extraction (Phase 1)
     dates: Optional[List[Dict[str, Any]]] = Field(None, description="Dates extracted by Gemini from transcript and visual content")
