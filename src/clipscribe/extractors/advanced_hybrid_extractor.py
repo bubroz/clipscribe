@@ -21,12 +21,13 @@ import networkx as nx
 import google.generativeai as genai
 from google.generativeai.types import RequestOptions
 
-from ..models import VideoIntelligence, Entity, Relationship
+from ..models import VideoIntelligence, Entity, Relationship, VideoTranscript, EnhancedEntity
 from .spacy_extractor import SpacyEntityExtractor
 from .rebel_extractor import REBELExtractor
 from .gliner_extractor import GLiNERExtractor
 from .entity_normalizer import EntityNormalizer
 from .entity_quality_filter import EntityQualityFilter
+from .enhanced_entity_extractor import EnhancedEntityExtractor
 from ..config.settings import Settings
 from ..retrievers.gemini_pool import GeminiPool, TaskType
 
@@ -120,6 +121,8 @@ class AdvancedHybridExtractor:
         # Domain-specific enhancement patterns
         self.domain_patterns = self._initialize_domain_patterns()
         
+        self.enhanced_extractor = EnhancedEntityExtractor()
+        
         logger.info(f"Advanced hybrid extractor initialized with GLiNER={use_gliner}, REBEL={use_rebel}, LLM={use_llm} :-)")
         
     async def extract_all(
@@ -155,12 +158,21 @@ class AdvancedHybridExtractor:
         quality_filtered_entities, quality_metrics = await self.quality_filter.filter_and_enhance_entities(
             normalized_entities, video_intel
         )
-        video_intel.entities = quality_filtered_entities
+        
+        # Step 2.6: Enhance entities with metadata (Phase 1 implementation)
+        enhanced_entities = self.enhanced_extractor.enhance_entities(
+            quality_filtered_entities,
+            transcript_segments=video_intel.transcript.segments if hasattr(video_intel.transcript, 'segments') else None,
+            visual_data=None  # TODO: Add visual data when available
+        )
+        
+        video_intel.entities = enhanced_entities
         
         # Log quality improvements
         logger.info(f"Quality enhancement: {quality_metrics.total_input_entities} → {quality_metrics.filtered_entities} entities")
         logger.info(f"Removed {quality_metrics.false_positives_removed} false positives, {quality_metrics.language_filtered} non-English")
         logger.info(f"Quality score: {quality_metrics.final_quality_score:.3f}, Language purity: {quality_metrics.language_purity_score:.3f}")
+        logger.info(f"Enhanced {len(enhanced_entities)} entities with metadata")
         
         # Add quality metrics to processing stats
         stats.update({
@@ -168,7 +180,8 @@ class AdvancedHybridExtractor:
             'quality_language_filtered': quality_metrics.language_filtered,
             'quality_confidence_improved': quality_metrics.confidence_improved,
             'quality_score': quality_metrics.final_quality_score,
-            'language_purity': quality_metrics.language_purity_score
+            'language_purity': quality_metrics.language_purity_score,
+            'enhanced_entities': len(enhanced_entities)
         })
         
         entity_lookup = self.entity_normalizer.create_entity_lookup(video_intel.entities)
@@ -885,3 +898,74 @@ Include ONLY meaningful, specific relationships that convey real information.
         # Key facts are already extracted by Gemini during initial processing
         # This method exists for compatibility but doesn't need to do anything
         return video_intel 
+
+    async def extract(
+        self, transcript: VideoTranscript, video_title: str
+    ) -> Tuple[List[dict], List[dict]]:
+        # ... existing code ...
+        logger.info(f"Extracted {len(spacy_entities)} entities from SpaCy.")
+
+        # Step 2: Extract entities with GLiNER
+        gliner_entities = self.gliner_extractor.extract(
+            transcript.full_text, {"Person": "person", "Organization": "organization"}
+        )
+        logger.info(f"Extracted {len(gliner_entities)} entities from GLiNER.")
+
+        # Step 3: Extract relationships with REBEL
+        relationships = self.rebel_extractor.extract(transcript.full_text)
+        logger.info(f"Extracted {len(relationships)} relationships from REBEL.")
+        rebel_entities = self._get_entities_from_relationships(relationships)
+        logger.info(
+            f"Inferred {len(rebel_entities)} entities from REBEL relationships."
+        )
+
+        # Combine all entities
+        all_entities = spacy_entities + gliner_entities + rebel_entities
+        logger.info(f"Total entities before deduplication: {len(all_entities)}")
+
+        # Step 4: Enhance entities
+        enhanced_entities = self.enhanced_extractor.enhance_entities(
+            entities=all_entities,
+            transcript_segments=transcript.segments
+        )
+        logger.info(f"Enhanced {len(enhanced_entities)} unique entities.")
+
+        # Step 5: Filter entities for quality
+        quality_entities, quality_report = self.quality_filter.filter_entities(
+            enhanced_entities
+        )
+        logger.info(
+            f"Filtered entities, retaining {len(quality_entities)} high-quality entities."
+        )
+        logger.debug(f"Quality report: {quality_report}")
+
+        # Step 6: Optional LLM validation
+        if self.use_llm_validation and self.llm_validator:
+            # ... existing LLM validation logic ...
+            # This part may need to be adapted for EnhancedEntity objects
+            pass
+
+        # Convert EnhancedEntity objects to dicts for output
+        final_entities = [entity.model_dump() for entity in quality_entities]
+        final_relationships = [rel.model_dump() for rel in relationships]
+
+        return final_entities, final_relationships
+
+    def _get_entities_from_relationships(self, relationships: List[Relationship]) -> List[Entity]:
+        # ... existing code ...
+        return list(entities.values())
+
+    def _deduplicate_and_normalize_entities(
+        self, entities: List[Entity]
+    ) -> List[Entity]:
+        """
+        This method is now handled by the EnhancedEntityExtractor.
+        It can be deprecated or removed.
+        """
+        logger.warning(
+            "_deduplicate_and_normalize_entities is deprecated. "
+            "Functionality is now in EnhancedEntityExtractor."
+        )
+        # For backward compatibility, we can still do a simple normalization
+        # Or just return the entities as is.
+        return entities 

@@ -6,58 +6,19 @@ windows, and alias detection to entity extraction.
 """
 
 import re
+import logging
 from collections import defaultdict
-from typing import Dict, List, Optional, Set, Tuple
-from pydantic import BaseModel, Field
+from typing import Dict, List, Optional
 
-from ..models import Entity, Relationship
-from ..utils.logging import get_logger
+from ..models import (
+    Entity,
+    EnhancedEntity,
+    EntityContext,
+    TemporalMention,
+    VideoTranscript,
+)
 
-logger = get_logger(__name__)
-
-
-class EntityContext(BaseModel):
-    """Context window for an entity mention."""
-    
-    text: str = Field(..., description="Surrounding text (±50 chars)")
-    timestamp: str = Field(..., description="When mentioned (HH:MM:SS)")
-    confidence: float = Field(..., description="Context-specific confidence")
-    speaker: Optional[str] = Field(None, description="Who mentioned it")
-    visual_present: bool = Field(False, description="Entity visible on screen")
-
-
-class TemporalMention(BaseModel):
-    """When and how an entity is mentioned."""
-    
-    timestamp: str = Field(..., description="HH:MM:SS format")
-    duration: float = Field(..., description="How long discussed (seconds)")
-    context_type: str = Field(..., description="spoken, visual, or both")
-
-
-class EnhancedEntity(BaseModel):
-    """Enhanced entity with confidence and attribution."""
-    
-    # Core fields (backward compatible)
-    entity: str = Field(..., description="The entity text")
-    type: str = Field(..., description="Entity type (PERSON, ORG, LOC, etc.)")
-    
-    # Enhanced metadata (new in v2.19.0)
-    confidence: float = Field(..., description="Overall confidence score (0.0-1.0)")
-    extraction_sources: List[str] = Field(..., description="Which methods found this")
-    mention_count: int = Field(..., description="Total occurrences in video")
-    
-    # Context windows
-    context_windows: List[EntityContext] = Field(default_factory=list)
-    
-    # Alias management
-    aliases: List[str] = Field(default_factory=list)
-    canonical_form: str = Field(..., description="Normalized primary form")
-    
-    # Source-specific confidence
-    source_confidence: Dict[str, float] = Field(default_factory=dict)
-    
-    # Temporal distribution
-    temporal_distribution: List[TemporalMention] = Field(default_factory=list)
+logger = logging.getLogger(__name__)
 
 
 class EnhancedEntityExtractor:

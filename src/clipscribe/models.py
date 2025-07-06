@@ -1,13 +1,10 @@
 """Video Intelligence Models for Chimera Integration."""
 
+from __future__ import annotations
 from typing import List, Dict, Any, Optional, Union, TYPE_CHECKING
 from datetime import datetime
 from pydantic import BaseModel, Field, HttpUrl
 from enum import Enum
-
-if TYPE_CHECKING:
-    from typing import ForwardRef
-
 
 class VideoChapter(BaseModel):
     """Video chapter/section with timing."""
@@ -26,34 +23,82 @@ class KeyPoint(BaseModel):
 
 
 class Entity(BaseModel):
-    """Entity extracted from video - compatible with Chimera's entity model."""
-    name: str
-    type: str  # PERSON, ORGANIZATION, LOCATION, EVENT, CONCEPT, TECHNOLOGY
-    properties: Dict[str, Any] = Field(default_factory=dict)
-    confidence: float = Field(1.0, ge=0, le=1)
-    timestamp: Optional[int] = Field(None, description="When mentioned in video")
+    """Represents a single extracted entity."""
+
+    entity: str
+    type: str
+    start_char: Optional[int] = None
+    end_char: Optional[int] = None
+    confidence: Optional[float] = None
+    source: Optional[str] = None
+
+
+class EntityContext(BaseModel):
+    """Context window for an entity mention."""
+
+    text: str = Field(..., description="Surrounding text (±50 chars)")
+    timestamp: str = Field(..., description="When mentioned (HH:MM:SS)")
+    confidence: float = Field(..., description="Context-specific confidence")
+    speaker: Optional[str] = Field(None, description="Who mentioned it")
+    visual_present: bool = Field(False, description="Entity visible on screen")
+
+
+class TemporalMention(BaseModel):
+    """When and how an entity is mentioned."""
+
+    timestamp: str = Field(..., description="HH:MM:SS format")
+    duration: float = Field(..., description="How long discussed (seconds)")
+    context_type: str = Field(..., description="spoken, visual, or both")
+
+
+class EnhancedEntity(Entity):
+    """Enhanced entity with confidence and attribution."""
+
+    extraction_sources: List[str] = Field(..., description="Which methods found this")
+    mention_count: int = Field(..., description="Total occurrences in video")
+    context_windows: List[EntityContext] = Field(default_factory=list)
+    aliases: List[str] = Field(default_factory=list)
+    canonical_form: str = Field(..., description="Normalized primary form")
+    source_confidence: Dict[str, float] = Field(default_factory=dict)
+    temporal_distribution: List[TemporalMention] = Field(default_factory=list)
+
+
+class Relationship(BaseModel):
+    """Represents a relationship between two entities."""
+    subject: str
+    predicate: str
+    object: str
+    confidence: Optional[float] = None
+    source: Optional[str] = None
 
 
 class VideoTranscript(BaseModel):
-    """Raw transcription output from Gemini."""
+    """Represents the transcript of a video, including text and segments."""
     full_text: str
-    segments: List[Dict[str, Any]] = Field(default_factory=list)
-    language: str = Field("en", description="Detected language")
-    confidence: float = Field(1.0, ge=0, le=1)
+    segments: List[Dict[str, Any]]
+    language: Optional[str] = None
+    raw_transcript: Optional[Any] = None
 
 
 class VideoMetadata(BaseModel):
     """YouTube video metadata."""
     video_id: str
-    title: str
+    title: Optional[str] = None
     channel: str
     channel_id: str
-    duration: float  # seconds
-    url: str
     published_at: datetime
+    duration: int
     view_count: Optional[int] = None
+    like_count: Optional[int] = None
+    comment_count: Optional[int] = None
     description: Optional[str] = None
     tags: List[str] = Field(default_factory=list)
+    entities: List[EnhancedEntity] = Field(
+        default_factory=list, description="List of enhanced extracted entities."
+    )
+    relationships: List[Relationship] = Field(
+        default_factory=list, description="List of extracted relationships."
+    )
 
 
 class Topic(BaseModel):
@@ -70,13 +115,21 @@ class Segment(BaseModel):
     speaker: Optional[str] = None
 
 
-class Relationship(BaseModel):
-    """A relationship between entities extracted from the video."""
-    subject: str
-    predicate: str
-    object: str
-    confidence: float = Field(default=0.9, ge=0.0, le=1.0)
-    context: Optional[str] = None
+class VideoIntelligence(BaseModel):
+    """Represents the complete set of intelligence extracted from a video."""
+    metadata: VideoMetadata
+    transcript: "VideoTranscript"
+    entities: List[EnhancedEntity] = Field(
+        default_factory=list, description="List of enhanced extracted entities."
+    )
+    relationships: List[Relationship] = Field(
+        default_factory=list, description="List of extracted relationships."
+    )
+    key_points: List["KeyPoint"] = Field(default_factory=list)
+    summary: str = Field(..., description="Executive summary")
+    knowledge_graph: Optional[Dict[str, Any]] = None
+    dates: List[Dict[str, Any]] = Field(default_factory=list)
+    # ... other fields
 
 
 # NEW: Multi-Video Intelligence Models
@@ -245,7 +298,7 @@ class MultiVideoIntelligence(BaseModel):
     unified_knowledge_graph: Optional[Dict[str, Any]] = None
     
     # NEW: Information Flow Maps - concept evolution tracking
-    information_flow_map: Optional['InformationFlowMap'] = None
+    # information_flow_map: Optional['InformationFlowMap'] = None  # TODO: Define InformationFlowMap model
     
     # Processing metadata
     processing_stats: Dict[str, Any] = Field(default_factory=dict)
@@ -282,227 +335,7 @@ class VideoSimilarity(BaseModel):
     shared_topics: List[str] = Field(default_factory=list)
 
 
-# Enhanced VideoIntelligence with multi-video awareness
-class VideoIntelligence(BaseModel):
-    """Complete video analysis output compatible with Chimera."""
-    
-    # Metadata
-    metadata: VideoMetadata
-    
-    # Transcript data
-    transcript: VideoTranscript
-    chapters: List[VideoChapter] = Field(default_factory=list)
-    
-    # Extracted intelligence
-    key_points: List[KeyPoint] = Field(default_factory=list)
-    summary: str = Field(..., description="Executive summary")
-    entities: List[Entity] = Field(default_factory=list)
-    
-    # For news monitoring
-    topics: List[Topic] = Field(default_factory=list, description="Main topics discussed")
-    sentiment: Optional[Dict[str, float]] = Field(None, description="Sentiment analysis")
-    
-    # Metrics
-    confidence_score: float = Field(1.0, ge=0, le=1)
-    processing_cost: float = Field(0.0, description="Cost in USD")
-    processing_time: float = Field(0.0, description="Time in seconds")
-    
-    # Relationships and Knowledge Graph
-    relationships: List[Relationship] = Field(default_factory=list)
-    knowledge_graph: Optional[Dict[str, Any]] = None
-    
-    # Key Moments
-    key_moments: List[Dict[str, Any]] = Field(default_factory=list)
-    
-    # Processing Stats
-    processing_stats: Dict[str, Any] = Field(default_factory=dict)
-    
-    # NEW: Multi-video context
-    collection_context: Optional[Dict[str, Any]] = Field(None, description="Context if part of a collection")
-    series_metadata: Optional[SeriesMetadata] = None
-    related_videos: List[str] = Field(default_factory=list, description="IDs of related videos")
-    
-    # NEW: Gemini date extraction (Phase 1)
-    dates: Optional[List[Dict[str, Any]]] = Field(None, description="Dates extracted by Gemini from transcript and visual content")
-    
-    def to_chimera_format(self) -> Dict[str, Any]:
-        """Convert to format expected by Chimera's research agent."""
-        return {
-            "title": f"Video: {self.metadata.title}",
-            "href": self.metadata.url,
-            "body": self.summary,
-            "metadata": {
-                "source": "youtube",
-                "video_id": self.metadata.video_id,
-                "channel": self.metadata.channel,
-                "duration": self.metadata.duration,
-                "key_points": [kp.dict() for kp in self.key_points],
-                "entities": [e.dict() for e in self.entities],
-                "collection_context": self.collection_context
-            }
-        } 
-
-    class Config:
-        json_encoders = {
-            datetime: lambda v: v.isoformat() if v else None,
-            HttpUrl: lambda v: str(v)
-        }
-
-
-# NEW: Information Flow Maps Models
-
-class ConceptMaturityLevel(str, Enum):
-    """Levels of concept development and understanding."""
-    MENTIONED = "mentioned"           # Basic mention or introduction
-    DEFINED = "defined"              # Concept is explained or defined
-    EXPLORED = "explored"            # Detailed discussion or analysis
-    SYNTHESIZED = "synthesized"      # Integrated with other concepts
-    CRITICIZED = "criticized"        # Evaluated or challenged
-    EVOLVED = "evolved"              # Concept has changed or developed
-
-
-class ConceptNode(BaseModel):
-    """A concept at a specific point in time within a video collection."""
-    
-    node_id: str = Field(..., description="Unique identifier for this concept node")
-    concept_name: str = Field(..., description="Name of the concept")
-    video_id: str = Field(..., description="Video where this concept appears")
-    video_title: str = Field(..., description="Title of the source video")
-    timestamp: int = Field(..., description="Timestamp in video (seconds)")
-    
-    # Concept development
-    maturity_level: ConceptMaturityLevel = Field(..., description="How developed the concept is")
-    context: str = Field(..., description="Context in which concept appears")
-    explanation_depth: float = Field(default=0.5, description="How deeply the concept is explained (0-1)")
-    
-    # Content analysis
-    key_points: List[str] = Field(default_factory=list, description="Key points about this concept")
-    related_entities: List[str] = Field(default_factory=list, description="Entities associated with concept")
-    sentiment: float = Field(default=0.0, description="Sentiment toward concept (-1 to 1)")
-    
-    # Meta information
-    confidence: float = Field(default=0.8, description="Confidence in concept extraction")
-    information_density: float = Field(default=0.5, description="How much new information is provided")
-    video_sequence_position: int = Field(..., description="Position of video in collection")
-
-
-class ConceptDependency(BaseModel):
-    """Dependencies between concepts showing information flow."""
-    
-    dependency_id: str = Field(..., description="Unique identifier for this dependency")
-    prerequisite_concept: str = Field(..., description="Concept that must be understood first")
-    dependent_concept: str = Field(..., description="Concept that builds on the prerequisite")
-    
-    # Dependency characteristics
-    dependency_type: str = Field(..., description="Type of dependency (builds_on, contradicts, refines, etc.)")
-    dependency_strength: float = Field(default=0.5, description="Strength of dependency (0-1)")
-    
-    # Evidence
-    video_evidence: List[str] = Field(default_factory=list, description="Videos that demonstrate this dependency")
-    textual_evidence: List[str] = Field(default_factory=list, description="Text quotes showing dependency")
-    
-    # Analysis
-    explanation: str = Field(..., description="Why this dependency exists")
-    confidence: float = Field(default=0.8, description="Confidence in dependency detection")
-
-
-class InformationFlow(BaseModel):
-    """A flow of information between concept nodes across videos."""
-    
-    flow_id: str = Field(..., description="Unique identifier for this information flow")
-    source_node: ConceptNode = Field(..., description="Source concept node")
-    target_node: ConceptNode = Field(..., description="Target concept node")
-    
-    # Flow characteristics
-    flow_type: str = Field(..., description="Type of information flow (development, contradiction, synthesis)")
-    information_transferred: str = Field(..., description="What information flows between concepts")
-    transformation_type: str = Field(..., description="How information is transformed")
-    
-    # Quality metrics
-    flow_quality: float = Field(default=0.5, description="Quality of information flow (0-1)")
-    coherence_score: float = Field(default=0.5, description="How coherent the flow is")
-    temporal_gap: int = Field(..., description="Time between concept appearances (seconds)")
-    
-    # Analysis
-    bridge_entities: List[str] = Field(default_factory=list, description="Entities that bridge the concepts")
-    supporting_evidence: List[str] = Field(default_factory=list, description="Evidence supporting this flow")
-
-
-class ConceptEvolutionPath(BaseModel):
-    """How a specific concept evolves across multiple videos."""
-    
-    path_id: str = Field(..., description="Unique identifier for this evolution path")
-    concept_name: str = Field(..., description="Name of the evolving concept")
-    
-    # Evolution sequence
-    evolution_nodes: List[ConceptNode] = Field(default_factory=list, description="Nodes in evolution order")
-    maturity_progression: List[ConceptMaturityLevel] = Field(default_factory=list, description="Maturity levels over time")
-    
-    # Evolution analysis
-    evolution_summary: str = Field(..., description="Summary of how concept evolved")
-    key_transformations: List[str] = Field(default_factory=list, description="Major changes in understanding")
-    breakthrough_moments: List[Dict[str, Any]] = Field(default_factory=list, description="Significant developments")
-    
-    # Quality metrics
-    evolution_coherence: float = Field(default=0.5, description="How coherent the evolution is")
-    completeness_score: float = Field(default=0.5, description="How complete the evolution is")
-    understanding_depth: float = Field(default=0.5, description="Final depth of understanding")
-
-
-class ConceptCluster(BaseModel):
-    """A cluster of related concepts that evolve together."""
-    
-    cluster_id: str = Field(..., description="Unique identifier for this cluster")
-    cluster_name: str = Field(..., description="Name of the concept cluster")
-    core_concepts: List[str] = Field(default_factory=list, description="Main concepts in cluster")
-    
-    # Cluster evolution
-    cluster_evolution: str = Field(..., description="How the cluster develops over time")
-    internal_relationships: List[ConceptDependency] = Field(default_factory=list, description="Relationships within cluster")
-    external_connections: List[str] = Field(default_factory=list, description="Connections to other clusters")
-    
-    # Analysis
-    coherence_score: float = Field(default=0.5, description="Internal coherence of cluster")
-    influence_score: float = Field(default=0.5, description="Influence on other concepts")
-    completeness: float = Field(default=0.5, description="How complete the cluster understanding is")
-
-
-class InformationFlowMap(BaseModel):
-    """Complete map of information flow and concept evolution across a video collection."""
-    
-    map_id: str = Field(..., description="Unique identifier for this flow map")
-    collection_id: str = Field(..., description="Video collection this map belongs to")
-    collection_title: str = Field(..., description="Title of the video collection")
-    
-    # Core components
-    concept_nodes: List[ConceptNode] = Field(default_factory=list, description="All concept nodes")
-    information_flows: List[InformationFlow] = Field(default_factory=list, description="All information flows")
-    concept_dependencies: List[ConceptDependency] = Field(default_factory=list, description="All concept dependencies")
-    evolution_paths: List[ConceptEvolutionPath] = Field(default_factory=list, description="Concept evolution paths")
-    concept_clusters: List[ConceptCluster] = Field(default_factory=list, description="Related concept clusters")
-    
-    # Flow analysis
-    primary_information_pathways: List[str] = Field(default_factory=list, description="Main information pathways")
-    knowledge_bottlenecks: List[str] = Field(default_factory=list, description="Concepts that block understanding")
-    information_gaps: List[str] = Field(default_factory=list, description="Missing information or broken flows")
-    
-    # Map-level insights
-    flow_summary: str = Field(..., description="Summary of information flow patterns")
-    learning_progression: str = Field(..., description="How understanding progresses through videos")
-    concept_complexity: str = Field(..., description="Analysis of concept complexity evolution")
-    strategic_insights: List[str] = Field(default_factory=list, description="Strategic insights from flow analysis")
-    
-    # Quality metrics
-    overall_coherence: float = Field(default=0.5, description="Overall coherence of information flow")
-    pedagogical_quality: float = Field(default=0.5, description="How well structured for learning")
-    information_density: float = Field(default=0.5, description="Information density across collection")
-    
-    # Metadata
-    created_at: datetime = Field(default_factory=datetime.now)
-    total_concepts: int = Field(default=0, description="Total number of concepts tracked")
-    total_flows: int = Field(default=0, description="Total number of information flows")
-    synthesis_quality: str = Field(default="STANDARD", description="Quality level of synthesis") 
-
-
-# Update forward references after all models are defined
+# Rebuild models to resolve forward references
+VideoIntelligence.model_rebuild()
+VideoMetadata.model_rebuild()
 MultiVideoIntelligence.model_rebuild()
