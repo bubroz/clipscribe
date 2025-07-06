@@ -1,6 +1,6 @@
 # ClipScribe Documentation
 
-*Last Updated: July 5, 2025 20:47 PDT*
+*Last Updated: July 6, 2025 12:04 PDT*
 *Related: [Main README](../README.md) | [Core Excellence Plan](CORE_EXCELLENCE_IMPLEMENTATION_PLAN.md)*
 
 Welcome to ClipScribe's documentation! This guide will help you understand and use all features of the advanced video intelligence extraction platform.
@@ -11,7 +11,7 @@ Welcome to ClipScribe's documentation! This guide will help you understand and u
 
 **Strategic Direction**: ClipScribe focuses on being the premier video intelligence extraction tool, providing enhanced metadata that enables sophisticated analysis by tools like Chimera.
 
-**Current Status**: **v2.19.0 Phase 1 COMPLETE - Enhanced Entity Metadata** ✅
+**Current Status**: **v2.19.0 Phases 1 & 2 COMPLETE - Enhanced Entity & Relationship Metadata** ✅
 
 ## 🏗️ Architectural Boundaries: ClipScribe + Chimera
 
@@ -65,13 +65,13 @@ Welcome to ClipScribe's documentation! This guide will help you understand and u
 - **✅ Context Windows**: Include surrounding text for each mention (±50 chars)
 - **✅ Alias Detection**: Normalize "Biden", "President Biden", "Joe Biden"
 
-### Phase 2: Relationship Evidence Chains (Weeks 3-4) - **🚧 NEXT**
-- **Evidence Collection**: Direct quotes supporting relationships
-- **Visual Context**: What was on screen during claims
-- **Timestamp Precision**: Exact moments of relationship mentions
-- **Contradiction Flagging**: Identify conflicting claims
+### Phase 2: Relationship Evidence Chains (Weeks 3-4) - **✅ COMPLETE**
+- **✅ Evidence Collection**: Direct quotes supporting relationships with regex patterns
+- **✅ Visual Context**: Visual correlation detection when video shows evidence
+- **✅ Timestamp Precision**: Exact moments with speaker attribution
+- **✅ Contradiction Detection**: Identify conflicting claims across segments
 
-### Phase 3: Temporal Enhancement (Weeks 5-6)
+### Phase 3: Temporal Enhancement (Weeks 5-6) - **🚧 NEXT**
 - **Reference Resolution**: Convert relative to absolute dates
 - **Event Sequencing**: Build chronological event chains
 - **Duration Tracking**: How long topics were discussed
