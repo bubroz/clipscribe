@@ -1,15 +1,15 @@
 # ClipScribe AI Assistant Continuation Prompt
 
-## Current State (2025-07-06 11:59 PDT)
+## Current State (2025-07-06 13:33 PDT)
 
-### Latest Version: v2.19.0 (Phase 1 & 2 Complete)
-Enhanced Entity & Relationship Metadata Phases 1 & 2 successfully implemented and tested. RelationshipEvidenceExtractor integrated into pipeline with 95% test coverage. Ready for Phase 3: Temporal Enhancement.
+### Latest Version: v2.19.0 (Phase 1 & 2 Complete, Phase 3 Architecture Ready)
+Enhanced Entity & Relationship Metadata Phases 1 & 2 successfully implemented and tested. RelationshipEvidenceExtractor integrated into pipeline with 95% test coverage. Phase 3 temporal resolution architecture created with intelligent content date detection. Ready for Phase 3 implementation.
 
 ### Recent Changes
+- **v2.19.0 Phase 3 Architecture** (2025-07-06): Temporal reference resolution architecture created with intelligent content date detection
 - **v2.19.0 Phase 2** (2025-07-06): Relationship Evidence Chains implemented - direct quotes, visual correlation, contradiction detection
 - **v2.19.0 Phase 1** (2025-07-05): Enhanced Entity Metadata implemented - confidence scores, source attribution, context windows, aliases, temporal distribution
 - **v2.18.26** (2025-07-05): Timeline features fully removed, codebase confirmed timeline-free
-- **v2.18.25** (2025-07-04): Real-time cost tracking and CLI progress integration completed
 
 ### What's Working Well ✅
 - **Enhanced Entity Extraction**: 300% more intelligence with confidence scores, source attribution, aliases
@@ -40,7 +40,7 @@ Enhanced Entity & Relationship Metadata Phases 1 & 2 successfully implemented an
 - **95% test coverage** with 17 comprehensive tests validating all functionality
 
 ### Known Issues ⚠️
-- Temporal references not resolved to absolute dates (Phase 3)
+- Temporal reference resolver architecture created but not yet integrated into pipeline (Phase 3)
 - Advanced quality metrics not yet implemented (Phase 4)
 - Cross-video evidence correlation not yet available (Future)
 
@@ -81,11 +81,12 @@ Enhanced Entity & Relationship Metadata Phases 1 & 2 successfully implemented an
 - ✅ Direct quote extraction with regex patterns and action verbs
 - ✅ 95% test coverage with 17 comprehensive tests
 
-**🚧 Phase 3: Temporal Enhancement** (NEXT - Weeks 5-6)
-- Resolve relative date references ("last Tuesday" → "2025-06-30")
-- Build event sequences from videos
-- Enhanced timeline extraction (without timeline visualization)
-- Temporal context for entities and relationships
+**🚧 Phase 3: Temporal Enhancement** (ARCHITECTURE READY - Implementation Next)
+- ✅ TemporalReferenceResolver architecture created with intelligent content date detection
+- ✅ Multi-source date detection (explicit dates, Gemini extraction, context clues, metadata)
+- ✅ Content date vs publication date differential handling
+- 🚧 Pipeline integration into AdvancedHybridExtractor (NEXT)
+- 🚧 Testing and validation with comprehensive test suite (NEXT)
 
 **Success Metrics**:
 - ✅ Maintain 95%+ entity extraction accuracy
@@ -151,26 +152,25 @@ Relationship(
 )
 ```
 
-**🚧 NEXT - Temporal Enhancement Structure (Phase 3)**:
+**🚧 ARCHITECTURE READY - Temporal Enhancement Structure (Phase 3)**:
 ```python
-{
-    "temporal_references": [
-        {
-            "text": "last Tuesday",
-            "resolved_date": "2025-06-30",
-            "confidence": 0.85,
-            "context": "meeting occurred last Tuesday"
-        }
-    ],
-    "event_sequences": [
-        {
-            "events": ["announcement", "signing", "implementation"],
-            "timeline": ["2025-06-30", "2025-07-01", "2025-07-15"],
-            "confidence": 0.8
-        }
-    ]
-}
+TemporalReference(
+    reference_text="last Tuesday",
+    resolved_date="2023-03-14",  # Intelligent content date detection
+    confidence=0.85,
+    resolution_method="explicit_date_detection",
+    context="Biden announced meeting last Tuesday",
+    original_context="...the President announced that last Tuesday's meeting...",
+    date_source="content_date",  # vs publication_date
+    content_vs_publication_delta=827  # Days between content and publication
+)
 ```
+
+**Key Architecture Features**:
+- **Multi-source date detection**: Explicit dates, Gemini extraction, context clues, metadata
+- **Content vs publication differential**: Handles archive footage and historical content
+- **Confidence scoring**: Based on detection method and context strength
+- **Source attribution**: Tracks how dates were resolved for transparency
 
 ### Development Environment 💻
 ```bash
@@ -178,9 +178,10 @@ Relationship(
 poetry run pytest tests/integration/test_enhanced_entity_extractor.py
 poetry run pytest tests/integration/test_relationship_evidence_extractor.py
 
-# Validate Phase 1 & 2 implementations
+# Validate Phase 1, 2 & 3 architecture
 poetry run python -c "from clipscribe.extractors.enhanced_entity_extractor import EnhancedEntityExtractor; print('✅ Phase 1 Ready')"
 poetry run python -c "from clipscribe.extractors.relationship_evidence_extractor import RelationshipEvidenceExtractor; print('✅ Phase 2 Ready')"
+poetry run python -c "from clipscribe.extractors.temporal_reference_resolver import TemporalReferenceResolver; print('✅ Phase 3 Architecture Ready')"
 
 # Check integration status
 poetry run python -c "from clipscribe.extractors.advanced_hybrid_extractor import AdvancedHybridExtractor; print('✅ Integration Complete')"
@@ -238,19 +239,19 @@ poetry run python -c "from clipscribe.extractors.advanced_hybrid_extractor impor
 
 ### Next Steps (IMMEDIATE) ⚡
 
-**Phase 3 Implementation Plan**:
-1. Create `temporal_reference_resolver.py` for date resolution
-2. Implement relative date parsing ("last Tuesday" → "2025-06-30")
-3. Build event sequence detection from temporal references
-4. Add temporal context to entities and relationships
-5. Enhanced timeline extraction without visualization
+**Phase 3 Implementation Plan** (Architecture Complete):
+1. ✅ Created `temporal_reference_resolver.py` with intelligent content date detection
+2. ✅ Implemented multi-source date detection (explicit, Gemini, context clues, metadata)
+3. ✅ Built content vs publication date differential handling
+4. 🚧 **NEXT**: Integrate TemporalReferenceResolver into AdvancedHybridExtractor pipeline
+5. 🚧 **NEXT**: Create comprehensive test suite following Phase 1 & 2 patterns
 
-**Technical Specifications for Phase 3**:
-- Temporal reference parsing algorithms
-- Date resolution with context awareness
-- Event sequence building from temporal markers
-- Integration with existing entity and relationship data
-- Timeline data structures for enhanced intelligence
+**Phase 3 Architecture Highlights**:
+- **TemporalReferenceResolver**: Complete class with 4 detection methods
+- **Content date detection**: Handles archive footage and historical content
+- **Confidence scoring**: Based on detection method and context strength
+- **Source attribution**: Tracks resolution method for transparency
+- **Pydantic integration**: TemporalReference model ready for pipeline
 
 ### Testing Status 🧪
 - **Phase 1**: 4/4 tests passing, 90% coverage for enhanced_entity_extractor.py
@@ -288,17 +289,18 @@ poetry run python -c "from clipscribe.extractors.advanced_hybrid_extractor impor
 ### Development Continuity Notes 📝
 
 **For Next Session**:
-1. **Phase 3 Focus**: Temporal Reference Resolution implementation
-2. **Key Files**: Will need to create temporal_reference_resolver.py
-3. **Integration Point**: Add temporal context to existing entity and relationship data
-4. **Testing Strategy**: Follow Phase 1 & 2 patterns with comprehensive unit tests
-5. **Success Criteria**: Relative date resolution, event sequences, temporal context
+1. **Phase 3 Focus**: TemporalReferenceResolver pipeline integration and testing
+2. **Key Files**: temporal_reference_resolver.py (CREATED), need integration into advanced_hybrid_extractor.py
+3. **Integration Point**: Add temporal resolution after relationship evidence extraction
+4. **Testing Strategy**: Create test_temporal_reference_resolver.py following Phase 1 & 2 patterns
+5. **Success Criteria**: Pipeline integration, 95% test coverage, intelligent content date detection working
 
 **Technical Context**:
-- EnhancedEntityExtractor and RelationshipEvidenceExtractor are fully functional and integrated
-- Circular import patterns resolved - use same approach for Phase 3
-- Test structure established - follow same patterns with 95% coverage target
-- Pipeline integration proven twice - apply to temporal enhancement
+- TemporalReferenceResolver architecture complete with multi-source date detection
+- EnhancedEntityExtractor and RelationshipEvidenceExtractor fully functional and integrated
+- Circular import patterns resolved - same approach used for Phase 3
+- Test structure established - target 95% coverage like Phase 2
+- Pipeline integration proven twice - ready for temporal enhancement integration
 
 **Phase 2 Evidence**:
 - 17/17 tests passing with 95% coverage on RelationshipEvidenceExtractor
