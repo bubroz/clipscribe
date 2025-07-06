@@ -28,6 +28,7 @@ from .gliner_extractor import GLiNERExtractor
 from .entity_normalizer import EntityNormalizer
 from .entity_quality_filter import EntityQualityFilter
 from .enhanced_entity_extractor import EnhancedEntityExtractor
+from .relationship_evidence_extractor import RelationshipEvidenceExtractor
 from ..config.settings import Settings
 from ..retrievers.gemini_pool import GeminiPool, TaskType
 
@@ -123,6 +124,9 @@ class AdvancedHybridExtractor:
         
         self.enhanced_extractor = EnhancedEntityExtractor()
         
+        # Phase 2: Initialize relationship evidence extractor
+        self.relationship_evidence_extractor = RelationshipEvidenceExtractor()
+        
         logger.info(f"Advanced hybrid extractor initialized with GLiNER={use_gliner}, REBEL={use_rebel}, LLM={use_llm} :-)")
         
     async def extract_all(
@@ -186,6 +190,23 @@ class AdvancedHybridExtractor:
         
         entity_lookup = self.entity_normalizer.create_entity_lookup(video_intel.entities)
         video_intel = self._extract_relationships_with_entity_awareness(video_intel, entity_lookup, stats)
+        
+        # Phase 2: Extract evidence chains for relationships
+        if video_intel.relationships:
+            logger.info("Extracting evidence chains for relationships...")
+            enhanced_relationships = self.relationship_evidence_extractor.extract_evidence_chains(
+                video_intel.relationships,
+                video_intel,
+                enhanced_entities
+            )
+            video_intel.relationships = enhanced_relationships
+            
+            # Update stats with evidence metrics
+            total_evidence = sum(len(r.evidence_chain) for r in enhanced_relationships)
+            relationships_with_evidence = sum(1 for r in enhanced_relationships if r.evidence_chain)
+            stats["relationship_evidence_total"] = total_evidence
+            stats["relationships_with_evidence"] = relationships_with_evidence
+            logger.info(f"Enhanced {len(enhanced_relationships)} relationships with {total_evidence} pieces of evidence")
 
         # Step 3: Optional LLM validation and knowledge graph construction
         if self.use_llm:

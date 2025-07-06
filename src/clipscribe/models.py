@@ -63,6 +63,17 @@ class EnhancedEntity(Entity):
     temporal_distribution: List[TemporalMention] = Field(default_factory=list)
 
 
+class RelationshipEvidence(BaseModel):
+    """Evidence supporting a relationship - Phase 2 enhancement."""
+    direct_quote: str = Field(..., description="Direct quote supporting the relationship")
+    timestamp: str = Field(..., description="When evidence occurs (HH:MM:SS)")
+    speaker: Optional[str] = Field(None, description="Who provided the evidence")
+    visual_context: Optional[str] = Field(None, description="Visual context description")
+    confidence: float = Field(default=0.8, description="Confidence in this evidence")
+    context_window: str = Field(default="", description="Surrounding context")
+    evidence_type: str = Field(default="spoken", description="Type: spoken, visual, document")
+
+
 class Relationship(BaseModel):
     """Represents a relationship between two entities."""
     subject: str
@@ -70,6 +81,13 @@ class Relationship(BaseModel):
     object: str
     confidence: Optional[float] = None
     source: Optional[str] = None
+    
+    # Phase 2: Evidence Chain Support (optional for backward compatibility)
+    evidence_chain: List[RelationshipEvidence] = Field(default_factory=list, description="Supporting evidence")
+    supporting_mentions: int = Field(default=0, description="Number of supporting mentions")
+    contradictions: List[str] = Field(default_factory=list, description="Contradictory statements")
+    visual_correlation: bool = Field(default=False, description="Has visual correlation")
+    properties: Dict[str, Any] = Field(default_factory=dict, description="Additional metadata")
 
 
 class VideoTranscript(BaseModel):
