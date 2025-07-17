@@ -29,6 +29,7 @@ from .entity_normalizer import EntityNormalizer
 from .entity_quality_filter import EntityQualityFilter
 from .enhanced_entity_extractor import EnhancedEntityExtractor
 from .relationship_evidence_extractor import RelationshipEvidenceExtractor
+from .temporal_reference_resolver import TemporalReferenceResolver
 from ..config.settings import Settings
 from ..retrievers.gemini_pool import GeminiPool, TaskType
 
@@ -126,6 +127,7 @@ class AdvancedHybridExtractor:
         
         # Phase 2: Initialize relationship evidence extractor
         self.relationship_evidence_extractor = RelationshipEvidenceExtractor()
+        self.temporal_reference_resolver = TemporalReferenceResolver()
         
         logger.info(f"Advanced hybrid extractor initialized with GLiNER={use_gliner}, REBEL={use_rebel}, LLM={use_llm} :-)")
         
@@ -207,6 +209,12 @@ class AdvancedHybridExtractor:
             stats["relationship_evidence_total"] = total_evidence
             stats["relationships_with_evidence"] = relationships_with_evidence
             logger.info(f"Enhanced {len(enhanced_relationships)} relationships with {total_evidence} pieces of evidence")
+
+        # Phase 3: Resolve temporal references
+        temporal_references = self.temporal_reference_resolver.resolve_temporal_references(video_intel)
+        video_intel.temporal_references = temporal_references
+        stats["temporal_references"] = len(temporal_references)
+        logger.info(f"Resolved {len(temporal_references)} temporal references")
 
         # Step 3: Optional LLM validation and knowledge graph construction
         if self.use_llm:

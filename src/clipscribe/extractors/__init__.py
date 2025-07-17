@@ -2,7 +2,8 @@
 Entity and relationship extractors for ClipScribe.
 """
 
-from .spacy_extractor import SpacyEntityExtractor
+# Temporarily commented out to avoid dependency loading in tests - restore if needed for package init
+# from .spacy_extractor import SpacyEntityExtractor
 from .hybrid_extractor import HybridEntityExtractor
 from .rebel_extractor import REBELExtractor
 from .gliner_extractor import GLiNERExtractor

@@ -18,7 +18,7 @@ class KeyPoint(BaseModel):
     """Important point from video with temporal context."""
     timestamp: float = Field(..., description="Seconds from start")  # Changed from int to float
     text: str = Field(..., description="Key point text")
-    importance: float = Field(..., ge=0, le=1, description="Importance score 0-1")
+    importance: float = Field(ge=0, le=1, description="Importance score 0-1")
     context: Optional[str] = Field(None, description="Surrounding context")
 
 
@@ -147,6 +147,7 @@ class VideoIntelligence(BaseModel):
     summary: str = Field(..., description="Executive summary")
     knowledge_graph: Optional[Dict[str, Any]] = None
     dates: List[Dict[str, Any]] = Field(default_factory=list)
+    temporal_references: List[TemporalReference] = Field(default_factory=list, description="Resolved temporal references from video content")
     # ... other fields
 
 
