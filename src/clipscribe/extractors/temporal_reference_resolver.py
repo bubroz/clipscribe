@@ -11,33 +11,9 @@ from typing import List, Dict, Any, Optional
 from datetime import datetime, timedelta
 from collections import defaultdict
 
-from ..models import VideoIntelligence, VideoTranscript, VideoMetadata
+from ..models import VideoIntelligence, VideoTranscript, VideoMetadata, TemporalReference
 
 logger = logging.getLogger(__name__)
-
-
-class TemporalReference:
-    """A resolved temporal reference from video content."""
-    
-    def __init__(
-        self,
-        reference_text: str,
-        resolved_date: str,
-        confidence: float,
-        resolution_method: str,
-        context: str,
-        original_context: str = "",
-        date_source: str = "",
-        content_vs_publication_delta: int = 0
-    ):
-        self.reference_text = reference_text
-        self.resolved_date = resolved_date  # YYYY-MM-DD format
-        self.confidence = confidence
-        self.resolution_method = resolution_method
-        self.context = context
-        self.original_context = original_context
-        self.date_source = date_source
-        self.content_vs_publication_delta = content_vs_publication_delta
 
 
 class TemporalReferenceResolver:

@@ -1,4 +1,6 @@
-# Output Formats Guide
+# ClipScribe Output Formats
+
+*Last Updated: July 6, 2025 - v2.19.0 Enhanced Metadata*
 
 ClipScribe generates a comprehensive set of structured output files for each processed video, all organized within a timestamped directory.
 
@@ -43,7 +45,67 @@ A lightweight JSON file providing high-level information at a glance:
 - Core processing details (cost, time).
 - Key statistics (word count, entity count, relationship count).
 
-### entities.json / entities.csv
+## Core Output Files
+
+### entities.json
+
+Contains all extracted entities with **enhanced metadata** (v2.19.0):
+
+```json
+{
+  "entities": [
+    {
+      "name": "John Doe",
+      "type": "PERSON",
+      "confidence": 0.95,          // NEW: Confidence score
+      "mentions": 5,
+      "source": "hybrid",          // NEW: Extraction source
+      "aliases": ["J. Doe"],       // NEW: Detected aliases
+      "temporal_distribution": {   // NEW: When entity appears
+        "0-300": 3,
+        "300-600": 2
+      },
+      "context_windows": [         // NEW: Surrounding context
+        {
+          "text": "...John Doe said...",
+          "timestamp": 120
+        }
+      ]
+    }
+  ]
+}
+```
+
+### relationships.json
+
+Contains entity relationships with **evidence chains** (v2.19.0):
+
+```json
+{
+  "relationships": [
+    {
+      "subject": "John Doe",
+      "predicate": "works for",
+      "object": "TechCorp",
+      "confidence": 0.92,
+      "evidence": {                // NEW: Evidence chain
+        "direct_quotes": [
+          "John Doe has been with TechCorp for 5 years"
+        ],
+        "visual_evidence": [
+          "Name shown on TechCorp slide at 2:30"
+        ],
+        "supporting_mentions": [
+          "Mentioned as TechCorp employee at 3:45"
+        ]
+      },
+      "contradiction_score": 0.0   // NEW: Contradiction detection
+    }
+  ]
+}
+```
+
+### entities.csv / entities.json
 A complete list of all entities extracted from the video.
 - **`entities.json`**: Detailed JSON output with `name`, `type`, `confidence`, `source`, and raw `properties`.
 - **`entities.csv`**: A spreadsheet-friendly format containing the most important fields.

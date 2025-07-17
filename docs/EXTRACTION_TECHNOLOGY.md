@@ -168,3 +168,34 @@ Together, GLiNER and REBEL allow ClipScribe to transform unstructured video tran
 - **Professional narration** for accurate extraction
 
 Avoid music videos or entertainment content which produce poor relationship extraction quality. 
+
+# Entity Extraction Technology
+
+*Last Updated: July 6, 2025 - v2.19.0 Enhanced Metadata*
+
+ClipScribe uses a sophisticated multi-phase hybrid approach to extract entities and relationships from video content with enhanced metadata for maximum intelligence value.
+
+## 🚀 v2.19.0 Enhanced Metadata Extraction
+
+### Three-Phase Enhancement Architecture
+
+**Phase 1 - Entity Confidence & Metadata**
+- Confidence scores (0.0-1.0) for every entity
+- Source attribution (which extractor found it)
+- Temporal distribution (when entity appears in video)
+- Alias detection and normalization
+- Context window extraction
+
+**Phase 2 - Relationship Evidence Chains**
+- Direct quote extraction from transcript
+- Visual evidence correlation
+- Supporting mention tracking
+- Contradiction detection and scoring
+- Multi-source validation
+
+**Phase 3 - Temporal Reference Resolution**
+- Intelligent parsing of relative dates ("yesterday", "last week")
+- Content date detection from transcript
+- Date resolution with confidence scoring
+- Cross-video temporal correlation
+- Event chronology reconstruction 

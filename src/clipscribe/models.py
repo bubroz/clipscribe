@@ -358,3 +358,14 @@ class VideoSimilarity(BaseModel):
 VideoIntelligence.model_rebuild()
 VideoMetadata.model_rebuild()
 MultiVideoIntelligence.model_rebuild()
+
+class TemporalReference(BaseModel):
+    """A resolved temporal reference from video content."""
+    reference_text: str = Field(..., description="Original temporal reference text")
+    resolved_date: str = Field(..., description="Resolved date in YYYY-MM-DD format")
+    confidence: float = Field(..., description="Confidence in resolution")
+    resolution_method: str = Field(..., description="Method used for resolution")
+    context: str = Field(..., description="Immediate context")
+    original_context: str = Field("", description="Original surrounding text")
+    date_source: str = Field("", description="Source of the date (content/publication)")
+    content_vs_publication_delta: int = Field(0, description="Days between content and publication")

@@ -1,23 +1,16 @@
-# ClipScribe CLI Reference (v2.18.25 - CLI Performance Optimized 🚀)
+# ClipScribe CLI Reference (v2.19.0 - Enhanced Metadata Complete 🚀)
 
-*Last Updated: July 5, 2025 - 93% CLI Startup Performance Improvement*
+*Last Updated: July 6, 2025 - Enhanced Entity & Relationship Metadata with Temporal Resolution*
 
-Complete reference for all ClipScribe commands and options, now featuring **lightning-fast CLI performance** with 93% startup optimization.
+Complete reference for all ClipScribe commands and options, featuring **lightning-fast CLI performance** and **enhanced metadata extraction**.
 
-## 🚀 CLI Performance Breakthrough (v2.18.25)
+## 🚀 Enhanced Metadata & Performance (v2.19.0)
 
-**Major Achievement**: CLI startup optimized from 5.47s → 0.4s (13.4x faster!)
-
-- **Fast Path Commands**: `--version` and `--help` bypass framework loading entirely (immediate response)
-- **Smart Loading**: Heavy frameworks only load when processing commands are invoked
-- **User Experience**: Every CLI interaction now immediately responsive for researchers and journalists  
-- **Processing Performance**: Full functionality maintained for processing commands (~3s with framework loading)
-- **Evidence-Based**: Optimization targets the largest single performance bottleneck identified through measurement
-
-## ⚠️ Timeline Intelligence v2.0 Status: DISCONTINUED
-
-**Strategic Focus Change**: Timeline development discontinued (July 2, 2025) due to insufficient accuracy (24.66%). 
-All resources redirected to core excellence: entity extraction, relationship mapping, and user experience optimization.
+**Major Achievements**: 
+- Enhanced entity metadata with confidence scores and source attribution
+- Relationship evidence chains with direct quotes and visual correlation
+- Temporal reference resolution for intelligent date parsing
+- CLI startup optimized from 5.47s → 0.4s (13.4x faster!)
 
 ## Global Options
 
@@ -29,7 +22,7 @@ clipscribe [GLOBAL OPTIONS] COMMAND [COMMAND OPTIONS]
 
 | Option | Description | Performance |
 |--------|-------------|-------------|
-| `--version` | Show ClipScribe version (v2.18.25) and exit | **⚡ Fast Path**: <400ms (bypasses framework loading) |
+| `--version` | Show ClipScribe version (v2.19.0) and exit | **⚡ Fast Path**: <400ms (bypasses framework loading) |
 | `--help` | Show help message and exit | **⚡ Fast Path**: <400ms (bypasses framework loading) |  
 | `--debug` | Enable debug logging for troubleshooting | Standard loading (~3s with frameworks) |
 
@@ -40,9 +33,9 @@ clipscribe [GLOBAL OPTIONS] COMMAND [COMMAND OPTIONS]
 
 ## Commands
 
-### `process` - Process Video with Timeline Intelligence v2.0
+### `process` - Process Video with Enhanced Intelligence
 
-Process videos from 1800+ platforms with **Timeline Intelligence v2.0** featuring proven temporal intelligence capabilities.
+Process videos from 1800+ platforms with **enhanced metadata extraction** featuring confidence scores, evidence chains, and temporal resolution.
 
 ```bash
 clipscribe process [OPTIONS] URL

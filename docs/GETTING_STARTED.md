@@ -1,8 +1,8 @@
-# Getting Started with ClipScribe
+# Getting Started with ClipScribe v2.19.0
 
-*Last Updated: June 30, 2025*
+*Last Updated: July 6, 2025*
 
-ClipScribe is an AI-powered video intelligence tool that analyzes videos from 1800+ platforms including YouTube, Twitter, TikTok, and more. This guide will get you up and running in 5 minutes with **Timeline Intelligence v2.0** - breakthrough temporal intelligence capabilities.
+Welcome to ClipScribe! This guide will help you quickly get up and running with video intelligence extraction featuring enhanced metadata, confidence scoring, and temporal resolution.
 
 ## 🚀 What's New: Timeline Intelligence v2.0 Complete!
 
