@@ -172,6 +172,16 @@ clipscribe process-collection \
 - **Timeline Synthesis**: Comprehensive temporal intelligence across all videos
 - **Chapter Correlation**: Cross-video chapter awareness and content boundaries
 
+#### Example: Processing a Playlist
+
+Process 20+ CNBC videos for market analysis:
+
+```bash
+clipscribe process-collection "cnbc-market-daily" "https://www.youtube.com/playlist?list=PLVbP054jv0KoXU0a-MdzLVguQW6Nh9Wzo" --output-dir demo/cnbc_30day --skip-confirmation
+```
+
+Output: Unified graph, temporal trends in demo/cnbc_30day/
+
 ### `research` - Research with Timeline Intelligence v2.0
 
 Search and analyze multiple videos with **Timeline v2.0 synthesis** for comprehensive temporal intelligence across research topics.

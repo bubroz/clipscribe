@@ -1,261 +1,72 @@
-# ClipScribe Demo Plan for Co-Founders
+# ClipScribe Demo Plan for Analyst Co-Founders
 
-*Created: July 6, 2025*
+*Updated: July 18, 2025*
 
 ## Executive Summary
 
-ClipScribe is a **production-ready video intelligence platform** that extracts structured knowledge from video content at industry-leading cost efficiency ($0.002/minute). With v2.19.0, we've achieved 95%+ entity extraction accuracy with rich metadata that competitors can't match.
+ClipScribe is a **production-ready video intelligence platform** that extracts structured knowledge from video content at industry-leading cost efficiency ($0.002/minute). With v2.19.0, we've achieved 95%+ entity extraction accuracy with enhanced metadata that competitors can't match.
 
 ### Key Differentiators
+- **Service-Disabled Veteran-Owned Small Business (SDVOSB)**: $6.5M sole-source threshold for DoD/IC procurement
 - **1800+ Platform Support**: YouTube, Twitter/X, TikTok, and any yt-dlp supported platform
-- **Enhanced Intelligence**: Confidence scores, evidence chains, temporal resolution
-- **Cost Leadership**: 92% cheaper than competitors while delivering more intelligence
-- **Professional Architecture**: 95% test coverage, async throughout, production-ready
+- **Enhanced Intelligence**: Confidence scores, evidence chains, temporal resolution, contradiction detection
+- **Cost Leadership**: $0.002/minute vs $10-50/video for competitors
+- **Analyst Workflow Fit**: Multi-video synthesis reveals hidden patterns in minutes
 
-## Demo Scenarios
+### Demo Readiness Status
+- **Core Functionality**: 100% - Successful test of 20-video CNBC playlist with temporal analysis
+- **Documentation**: 100% - All docs updated with analyst focus and demo scripts
+- **Visuals**: 90% - Streamlit app ready; add 1-2 screenshots to deck
+- **Presentation**: 80% - Script outlined below; create slides
+- **Overall**: READY for rehearsal - Schedule dry run
 
-### 1. **Investigative Journalism** (5 minutes)
-**Video**: PBS NewsHour segment on NSA surveillance
-**Demonstrates**: Entity extraction, relationship mapping, evidence chains
+## Target Audience Profile
 
-```bash
-# Extract intelligence from news segment
-clipscribe process "https://www.youtube.com/watch?v=6ZVj1_SE4Mo" \
-  --output-dir demo/journalism
+### Primary Personas
+- **OSINT Analysts (DoD/IC/LE)**: Need fast extraction from global news videos
+- **Market Research Analysts (Consulting)**: Track trends across earnings calls/podcasts
+- **Competitive Intelligence Managers (Tech/Finance)**: Monitor competitors' announcements
+- **Security/Risk Analysts (Private Sector)**: Analyze threat videos from multiple sources
 
-# Show the evidence chains
-cat demo/journalism/*/relationships.json | jq '.relationships[] | {subject, predicate, object, evidence}'
-```
+### Pain Points Addressed
+- Manual review of 100+ videos/month → Automated in minutes
+- Missed connections in siloed videos → Unified graphs and temporal flows
+- High costs ($5K/month) → $0.002/min with SDVOSB procurement ease
 
-**Key Points**:
-- Extracts people, organizations, locations with 95%+ accuracy
-- Shows WHO said WHAT about WHOM with direct quotes
-- Evidence chains prove every relationship claim
-- Perfect for fact-checking and source validation
+## Demo Flow: "From Video Chaos to Actionable Intelligence"
 
-### 2. **Corporate Intelligence** (5 minutes)
-**Videos**: Tech company earnings calls or product announcements
-**Demonstrates**: Multi-video synthesis, trend detection
+**Total Time: 15-20 minutes** | **Story Arc: Problem → Solution → Wow Factor → Business Case**
 
-```bash
-# Process multiple earnings calls
-clipscribe collection process "Q3-Earnings" \
-  "https://youtube.com/watch?v=apple_q3" \
-  "https://youtube.com/watch?v=google_q3" \
-  "https://youtube.com/watch?v=microsoft_q3" \
-  --analyze-flow
+### Act 1: The Analyst's Pain (2 min)
+- **Narrative**: "Imagine analyzing 30 days of market news manually... hours wasted, insights missed."
+- **Visual**: Show raw video playlist (e.g., CNBC 20 videos)
+- **Transition**: "ClipScribe changes that in minutes."
 
-# Visualize competitive intelligence
-python scripts/visualize.py output/collections/*/unified_knowledge_graph.gexf
-```
+### Act 2: Core Extraction Demo (5 min)
+- **Live Command**: `poetry run clipscribe process "https://youtu.be/tRvZty3Ub4g" --mode video --enhance --clean-graph`
+- **Show**: Real-time extraction, entities, relationships, graph
+- **Highlight**: Temporal dates, confidence scores, $0.002 cost
 
-**Key Points**:
-- Track executive statements across companies
-- Identify market trends and competitive positioning
-- Temporal resolution shows "last quarter" vs "next year"
-- Export to business intelligence tools
+### Act 3: Multi-Video Magic (7 min)
+- **Live Command**: `poetry run clipscribe process-collection "cnbc-market-daily" "https://www.youtube.com/playlist?list=PLVbP054jv0KoXU0a-MdzLVguQW6Nh9Wzo" --output-dir demo/cnbc_30day --skip-confirmation`
+- **Show**: Processing 20 videos, unified graph, temporal trends (e.g., stock mentions over time)
+- **Wow Moment**: "Hidden pattern: XYZ stock sentiment shifted negative over 2 weeks"
 
-### 3. **Educational Content Analysis** (5 minutes)
-**Video**: Technical tutorial or online course
-**Demonstrates**: Knowledge structure extraction, concept mapping
+### Act 4: Business Case & Close (3 min)
+- **ROI Pitch**: "Save 100+ hours/month; SDVOSB sole-source for quick DoD adoption"
+- **Call to Action**: "Let's build this for analysts—join as co-founder?"
+- **Q&A**: Address budgets, integration, customizations
 
-```bash
-# Extract knowledge from educational content
-clipscribe process "https://www.youtube.com/watch?v=mit_cs_lecture" \
-  --format all
+## Demo Preparation Checklist
+- **Scripts**: Bash files in /demo/scripts/ (e.g., cnbc_30day.sh with command above)
+- **Videos**: Use MASTER_TEST_VIDEO_TABLE.md - CNBC playlist tested successfully
+- **Deck**: 10 slides (Problem, Solution, Demo Screenshots, ROI, Team/SDVOSB)
+- **Rehearsal**: Run full flow twice; time under 20 min
+- **Backup**: Local videos if network fails
 
-# Generate concept map
-cat output/*/knowledge_graph.json | python scripts/convert_to_gephi.py
-```
+## Competitive Analysis Summary
+- **vs Palantir**: Cheaper ($0.002/min vs $10K/month), easier video focus
+- **vs Recorded Future**: Better temporal synthesis, SDVOSB advantage
+- **vs Otter.ai**: Adds entities/graphs, multi-platform support
 
-**Key Points**:
-- Automatically builds course outline from video
-- Identifies key concepts and their relationships
-- Perfect for content creators and educators
-- Can process entire course series
-
-### 4. **Research & Development** (5 minutes)
-**Videos**: Scientific presentations or research talks
-**Demonstrates**: Cross-video intelligence, citation tracking
-
-```bash
-# Process research conference playlist
-clipscribe collection process "AI-Conference-2024" \
-  "https://youtube.com/playlist?list=..." \
-  --detect-series
-
-# Extract research relationships
-grep -i "cites\|references\|builds on" output/*/relationships.json
-```
-
-**Key Points**:
-- Track research lineage and citations
-- Identify collaboration networks
-- Extract technical terminology with high accuracy
-- Build knowledge graphs of research domains
-
-### 5. **Legal & Compliance** (5 minutes)
-**Video**: Congressional hearing or legal deposition
-**Demonstrates**: Temporal reference resolution, contradiction detection
-
-```bash
-# Process testimony with temporal intelligence
-clipscribe process "https://youtube.com/watch?v=congress_hearing" \
-  --output-dir demo/legal
-
-# Find contradictions and temporal references
-cat demo/legal/*/relationships.json | jq '.relationships[] | select(.contradiction_score > 0.5)'
-```
-
-**Key Points**:
-- Resolve "yesterday", "last week" to actual dates
-- Detect contradictory statements with evidence
-- Track who said what and when
-- Export timeline of events
-
-### 6. **Media Monitoring** (5 minutes)
-**Videos**: News clips from different sources
-**Demonstrates**: Cross-platform processing, narrative tracking
-
-```bash
-# Process cross-platform coverage
-clipscribe process "https://twitter.com/CNN/status/..." --output-dir demo/media/cnn
-clipscribe process "https://www.tiktok.com/@foxnews/video/..." --output-dir demo/media/fox
-clipscribe process "https://youtube.com/watch?v=bbc_coverage" --output-dir demo/media/bbc
-
-# Compare coverage
-python scripts/analyze_entity_sources.py demo/media/
-```
-
-**Key Points**:
-- Works across ALL major platforms
-- Compare how different sources cover same story
-- Track narrative evolution over time
-- Identify bias through entity/relationship differences
-
-## Technical Architecture Walkthrough (10 minutes)
-
-### Code Quality Demonstration
-```bash
-# Show test coverage
-poetry run pytest --cov=clipscribe --cov-report=html
-open htmlcov/index.html  # 95%+ coverage
-
-# Show architecture
-tree src/clipscribe/ -L 2
-
-# Performance metrics
-poetry run clipscribe process "test_video.mp4" --show-performance
-```
-
-### Key Architecture Points
-1. **Async Throughout**: Built for scale from day one
-2. **Modular Extractors**: Easy to add new intelligence types
-3. **Cost Optimization**: Smart routing saves 92% on API costs
-4. **Professional Patterns**: Dependency injection, type safety, SOLID principles
-
-## Live Demo Script
-
-### Setup (Before Meeting)
-```bash
-# Ensure clean environment
-cd ~/Projects/clipscribe
-poetry install
-poetry run pytest  # Ensure all tests pass
-
-# Pre-download demo videos to avoid network issues
-poetry run clipscribe process "https://www.youtube.com/watch?v=6ZVj1_SE4Mo" --output-dir demo_cache
-```
-
-### Opening (2 minutes)
-"Let me show you how ClipScribe turns any video into structured, searchable intelligence..."
-
-### Demo Flow (20 minutes)
-1. **Single Video Processing** (5 min)
-   - Run live extraction
-   - Show real-time cost tracking
-   - Open output files
-   - Highlight evidence chains
-
-2. **Multi-Video Intelligence** (5 min)
-   - Process small collection
-   - Show entity resolution across videos
-   - Demonstrate information flow mapping
-
-3. **Architecture Deep Dive** (5 min)
-   - Walk through code structure
-   - Show test coverage
-   - Explain cost optimization
-
-4. **Business Applications** (5 min)
-   - Discuss use cases
-   - Show market opportunity
-   - Explain competitive advantages
-
-## Q&A Preparation
-
-### Likely Questions & Answers
-
-**Q: How does this compare to [Competitor]?**
-A: We're 92% cheaper while providing evidence chains and temporal intelligence they don't offer. Our 1800+ platform support vs their YouTube-only approach opens entire markets.
-
-**Q: What about non-English content?**
-A: Gemini 2.5 Flash supports 100+ languages. We've tested Spanish, French, German, and Chinese with excellent results. Easy to add language-specific entity extractors.
-
-**Q: How do you handle video storage?**
-A: Smart retention system. We analyze cost of storage vs reprocessing and only keep videos when it's economically optimal. Most are deleted after processing.
-
-**Q: What's the scaling plan?**
-A: Current architecture handles 100+ concurrent videos. With Redis queuing and horizontal scaling, we can handle enterprise volumes. Cost stays at $0.002/minute.
-
-**Q: Why CLI instead of web interface?**
-A: We have both! CLI for power users and developers, Streamlit dashboard for visual exploration. API layer ready for custom integrations.
-
-## Technical Challenges to Address
-
-### Before Demo
-1. Fix any Python 3.13 compatibility issues
-2. Ensure all dependencies are properly installed
-3. Test with fresh videos (not cached)
-4. Prepare offline fallbacks
-
-### Backup Plans
-- Have pre-processed outputs ready
-- Screenshots of successful runs
-- Performance metrics documented
-- Cost comparison spreadsheet
-
-## Next Steps After Demo
-
-### If Positive Response:
-1. **Deep Technical Dive**: 2-hour code walkthrough
-2. **Business Planning**: Market analysis and go-to-market strategy
-3. **Pilot Project**: Run ClipScribe on their specific use case
-4. **Financial Modeling**: Show path to profitability
-
-### If Needs More Convincing:
-1. **Custom Demo**: Process videos from their industry
-2. **Competitive Analysis**: Detailed feature/cost comparison
-3. **Reference Customers**: Connect with beta users
-4. **Technical Proof**: Let them run it themselves
-
-## Demo Assets Checklist
-
-- [ ] Test videos downloaded and cached
-- [ ] Output examples prepared
-- [ ] Performance metrics documented
-- [ ] Cost comparison spreadsheet
-- [ ] Architecture diagram printed
-- [ ] Backup laptop with environment
-- [ ] Offline documentation ready
-- [ ] Business cards / contact info
-
-## Closing Message
-
-"ClipScribe isn't just another transcription tool - it's an intelligence platform that understands video content better than any human could, at a fraction of the cost. With your expertise in [engineering/data science], we can build this into the definitive platform for video intelligence."
-
-**Call to Action**: "Want to see how this could transform [specific industry/use case]? Let's run it on your data right now..."
-
----
-
-*Remember: Focus on the VALUE, not just the technology. Show how ClipScribe solves REAL problems for REAL users who will PAY for the solution.* 
+We're READY - this demo will crush it! :-) 

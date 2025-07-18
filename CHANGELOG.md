@@ -5,6 +5,44 @@ All notable changes to ClipScribe will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v2.19.0 Demo Planning] - 2025-07-17
+
+### 📋 Demo Strategy & Documentation Updates
+
+**🎯 Strategic Pivot: Analysts > Journalists**
+- **DEFINED**: Target market as analysts (BI, OSINT, market research) not journalists
+- **IDENTIFIED**: Key analyst personas and their $1K-10K/month tool budgets
+- **EMPHASIZED**: SDVOSB status with $6.5M sole-source threshold for DoD/IC
+
+**📚 Documentation Updates**
+- **UPDATED**: `MASTER_TEST_VIDEO_TABLE.md` with 20+ analyst-focused videos:
+  - Business Intelligence: DefenseMavericks, GovClose (SDVOSB contracts)
+  - Geopolitics/Defense: PBS NewsHour, White House briefings, cross-source analysis
+  - Finance/Tech: CNBC market wraps, crypto regulation, InvestAnswers
+- **REVISED**: `DEMO_PLAN.md` completely rewritten for analyst audience
+- **ADDED**: Four specific demo scenarios with exact commands:
+  1. Government Contractor Intelligence (DoD/IC focus)
+  2. Geopolitical Threat Assessment (OSINT)
+  3. Financial Market Intelligence (Investment analysts)
+  4. Multi-Source OSINT Collection
+
+**🚀 Demo Flow Defined**
+- **Act 1**: Problem (2min) - 4-10x time waste, current tools inadequate
+- **Act 2**: Single Video (5min) - Live extraction with cost tracking
+- **Act 3**: Cross-Source (5min) - Contradiction detection, pattern finding
+- **Act 4**: ROI & Integration (3min) - $0.002/min vs $10-50/video
+
+**💡 Key Messages**
+- Time Savings: "3 hours → 90 seconds"
+- Cost Leadership: "$20/month vs $10,000+"
+- SDVOSB Advantage: "Fast-track to $6.5M contracts"
+- Evidence Quality: "95% accuracy with evidence chains"
+
+**📋 Next Steps**
+1. Find current videos (< 48 hours old) for maximum impact
+2. Test complete demo flow with actual URLs
+3. Prepare demo assets (screenshots, ROI calculations)
+
 ## [v2.19.0 Phase 1] - 2025-07-05
 
 ### ✅ MAJOR MILESTONE: Enhanced Entity Metadata (Phase 1) Complete

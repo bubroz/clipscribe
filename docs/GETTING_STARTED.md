@@ -221,6 +221,16 @@ poetry run clipscribe research "scientific breakthroughs 2024" \
   --enable-caching
 ```
 
+### Quick Analyst Demo: 30-Day Market Analysis
+
+To demo for analysts, process a CNBC playlist:
+
+```bash
+poetry run clipscribe process-collection "cnbc-market-daily" "https://www.youtube.com/playlist?list=PLVbP054jv0KoXU0a-MdzLVguQW6Nh9Wzo" --output-dir demo/cnbc_30day --skip-confirmation
+```
+
+This extracts trends from 20+ videos in minutes! View in Streamlit app.
+
 ## Understanding Costs
 
 ClipScribe with Timeline v2.0 provides enhanced intelligence for minimal cost increase:

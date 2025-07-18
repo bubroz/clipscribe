@@ -316,8 +316,7 @@ class MultiVideoIntelligence(BaseModel):
     key_insights: List[str] = Field(default_factory=list, description="Cross-video insights")
     unified_knowledge_graph: Optional[Dict[str, Any]] = None
     
-    # NEW: Information Flow Maps - concept evolution tracking
-    # information_flow_map: Optional['InformationFlowMap'] = None  # TODO: Define InformationFlowMap model
+    information_flow_map: Optional['InformationFlowMap'] = None
     
     # Processing metadata
     processing_stats: Dict[str, Any] = Field(default_factory=dict)
@@ -354,11 +353,6 @@ class VideoSimilarity(BaseModel):
     shared_topics: List[str] = Field(default_factory=list)
 
 
-# Rebuild models to resolve forward references
-VideoIntelligence.model_rebuild()
-VideoMetadata.model_rebuild()
-MultiVideoIntelligence.model_rebuild()
-
 class TemporalReference(BaseModel):
     """A resolved temporal reference from video content."""
     reference_text: str = Field(..., description="Original temporal reference text")
@@ -369,3 +363,98 @@ class TemporalReference(BaseModel):
     original_context: str = Field("", description="Original surrounding text")
     date_source: str = Field("", description="Source of the date (content/publication)")
     content_vs_publication_delta: int = Field(0, description="Days between content and publication")
+
+
+class ConceptMaturityLevel(str, Enum):
+    """Maturity levels for concept evolution."""
+    MENTIONED = "mentioned"
+    INTRODUCED = "introduced"
+    EXPLAINED = "explained"
+    ANALYZED = "analyzed"
+    SYNTHESIZED = "synthesized"
+    EVOLVED = "evolved"
+
+
+class ConceptNode(BaseModel):
+    """A single concept or idea identified in a video."""
+    node_id: str
+    concept_name: str
+    video_id: str
+    video_title: str
+    timestamp: int
+    maturity_level: str
+    context: str
+    explanation_depth: float
+    key_points: List[str]
+    related_entities: List[str]
+    sentiment: float
+    confidence: float
+    information_density: float
+    video_sequence_position: int
+
+class InformationFlow(BaseModel):
+    """The flow of information between two concept nodes."""
+    flow_id: str
+    source_node: ConceptNode
+    target_node: ConceptNode
+    flow_type: str
+    information_transferred: str
+    transformation_type: str
+    flow_quality: float
+    coherence_score: float
+    temporal_gap: float
+    bridge_entities: List[str]
+    supporting_evidence: List[str]
+
+class ConceptDependency(BaseModel):
+    """A dependency between two concepts."""
+    dependent_concept: str
+    prerequisite_concept: str
+    dependency_type: str
+    strength: float
+
+class ConceptEvolutionPath(BaseModel):
+    """The evolution of a single concept across multiple videos."""
+    concept_name: str
+    initial_maturity: str
+    final_maturity: str
+    progression_steps: List[Dict[str, Any]]
+    key_dependencies: List[ConceptDependency]
+
+class ConceptCluster(BaseModel):
+    """A cluster of related concepts."""
+    cluster_name: str
+    core_concepts: List[str]
+    cluster_evolution: Optional[str] = None
+    coherence_score: float
+
+class InformationFlowMap(BaseModel):
+    """A map of how information and concepts evolve across a collection."""
+    map_id: str
+    collection_id: str
+    collection_title: str
+    concept_nodes: List[ConceptNode]
+    information_flows: List[InformationFlow]
+    concept_dependencies: List[ConceptDependency]
+    evolution_paths: List[ConceptEvolutionPath]
+    concept_clusters: List[ConceptCluster]
+    primary_information_pathways: List[str]
+    knowledge_bottlenecks: List[str]
+    information_gaps: List[str]
+    flow_summary: str
+    learning_progression: str
+    concept_complexity: str
+    strategic_insights: List[str]
+    overall_coherence: float
+    pedagogical_quality: float
+    information_density: float
+    total_concepts: int
+    total_flows: int
+    synthesis_quality: str
+
+
+# Rebuild models to resolve forward references
+VideoIntelligence.model_rebuild()
+VideoMetadata.model_rebuild()
+MultiVideoIntelligence.model_rebuild()
+MultiVideoIntelligence.model_rebuild(force=True)
