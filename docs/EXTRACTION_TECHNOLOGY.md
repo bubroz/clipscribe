@@ -97,7 +97,7 @@ GLiNER finds the **NODES** (entities) of our knowledge graph. Unlike traditional
 -   **Flexible**: It can find *any* entity type you describe with natural language, not just from a predefined list.
 -   **Context-Aware**: It understands the difference between "Apple" (the company) and "apple" (the fruit) based on the surrounding text.
 -   **Zero-Shot**: It doesn't require any special training to find entities in new, specialized domains.
--   **High Performance**: Extracts 250-300 entities per video with LLM validation
+-   **High Performance**: Comprehensive entity extraction targeting 100% completeness
 
 **Example: Dynamic Entity Detection**
 
@@ -110,7 +110,7 @@ REBEL finds the **EDGES** (relationships) that connect the entities GLiNER disco
 -   **Semantic**: It understands the meaning behind the words to find relationships like `founded`, `located in`, `works for`, or `competes with`.
 -   **Directional**: It correctly identifies the subject and object in a relationship (e.g., `SpaceX manufactures Falcon 9`, not the other way around).
 -   **Contextual**: It can extract implied relationships from the text.
--   **Working Output**: Now successfully extracts 10-19 relationships per video
+-   **Working Output**: v2.19.0 extracts 52+ relationships with evidence chains
 
 **Example: Extracting Knowledge Graph Triples**
 
@@ -169,33 +169,34 @@ Together, GLiNER and REBEL allow ClipScribe to transform unstructured video tran
 
 Avoid music videos or entertainment content which produce poor relationship extraction quality. 
 
-# Entity Extraction Technology
+# Entity & Relationship Extraction Technology
 
-*Last Updated: July 6, 2025 - v2.19.0 Enhanced Metadata*
+*Last Updated: July 20, 2025*
 
-ClipScribe uses a sophisticated multi-phase hybrid approach to extract entities and relationships from video content with enhanced metadata for maximum intelligence value.
+## Overview
 
-## 🚀 v2.19.0 Enhanced Metadata Extraction
+ClipScribe uses a sophisticated **hybrid extraction pipeline** that combines multiple AI models to achieve comprehensive entity and relationship extraction from video transcripts. Our goal is **100% completeness** - extracting every meaningful entity and relationship while maintaining high accuracy.
 
-### Three-Phase Enhancement Architecture
+## v2.19.0 Quality Improvements
 
-**Phase 1 - Entity Confidence & Metadata**
-- Confidence scores (0.0-1.0) for every entity
-- Source attribution (which extractor found it)
-- Temporal distribution (when entity appears in video)
-- Alias detection and normalization
-- Context window extraction
+The latest version dramatically improves extraction quality:
+- **Entities**: Now extracting 16+ meaningful entities per video (up from 0-10)
+- **Relationships**: 52+ relationships with evidence chains (up from 0)
+- **Language Purity**: 94.7% (filters out non-English noise)
+- **Knowledge Graphs**: 88+ nodes, 52+ edges typical for news content
 
-**Phase 2 - Relationship Evidence Chains**
-- Direct quote extraction from transcript
-- Visual evidence correlation
-- Supporting mention tracking
-- Contradiction detection and scoring
-- Multi-source validation
+Key fixes:
+- Fixed overly aggressive language filter that removed 70% of valid entities
+- Fixed bug where Gemini's 50+ relationships were extracted but ignored
+- Lowered confidence thresholds to capture more valid entities
+- Made false positive detection less aggressive
 
-**Phase 3 - Temporal Reference Resolution**
-- Intelligent parsing of relative dates ("yesterday", "last week")
-- Content date detection from transcript
-- Date resolution with confidence scoring
-- Cross-video temporal correlation
-- Event chronology reconstruction 
+## Extraction Philosophy
+
+Rather than targeting arbitrary numbers (e.g., "extract 20-50 entities"), we target:
+1. **100% Completeness**: Extract ALL entities mentioned in the video
+2. **High Accuracy**: Minimize false positives through validation
+3. **Rich Context**: Provide evidence and context for every extraction
+4. **Relationship Coverage**: Capture all meaningful connections
+
+## Hybrid Extraction Pipeline

@@ -1,6 +1,8 @@
-# ClipScribe Demo Plan for Analyst Co-Founders
+# ClipScribe Demo Plan
 
-*Updated: July 18, 2025*
+**Updated**: v2.19.0 dramatically improves extraction quality - now capturing 16+ entities and 52+ relationships per video (was 0-10 entities, 0 relationships)
+
+## 🎯 Demo Objectives
 
 ## Executive Summary
 

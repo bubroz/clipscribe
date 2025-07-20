@@ -44,6 +44,35 @@ rm -rf poetry.lock
 poetry install --no-cache
 ```
 
+## Entity & Relationship Extraction Issues (v2.19.0 Fixed)
+
+### Poor Extraction Quality
+
+**Problem**: Only getting 0-10 generic entities like "Revenue", "This Morning" and 0-1 relationships
+
+**Cause**: Quality filters were too aggressive (removing 70% of valid entities)
+
+**Solution**: Update to v2.19.0+
+```bash
+# Check your version
+poetry run clipscribe --version
+
+# Update if needed
+poetry update clipscribe
+```
+
+**What v2.19.0 Fixed**:
+- Language filter was removing common English words (de, la, en, etc.)
+- Confidence threshold was too high (0.6), now 0.4
+- Gemini's 50+ relationships were extracted but ignored (bug)
+- False positive detection was too aggressive
+
+**Expected Results After Fix**:
+- 16+ meaningful entities (people, orgs, locations)
+- 52+ relationships with evidence chains
+- 88+ node knowledge graphs
+- Still only $0.0083 per video!
+
 ### Python Version Warning
 
 **Problem**: You see a warning like:

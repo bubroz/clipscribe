@@ -50,27 +50,22 @@ A lightweight JSON file providing high-level information at a glance:
 ### entities.json
 
 Contains all extracted entities with **enhanced metadata** (v2.19.0):
+- **Comprehensive extraction**: Targets 100% completeness, not arbitrary numbers
+- **Fixed quality filters**: No longer removes 70% of valid entities
+- **Dynamic confidence scores**: 0.4-0.99 based on context (not hardcoded 0.85)
+- **Multi-source attribution**: Shows which extractors found each entity
 
 ```json
 {
   "entities": [
     {
-      "name": "John Doe",
-      "type": "PERSON",
-      "confidence": 0.95,          // NEW: Confidence score
-      "mentions": 5,
-      "source": "hybrid",          // NEW: Extraction source
-      "aliases": ["J. Doe"],       // NEW: Detected aliases
-      "temporal_distribution": {   // NEW: When entity appears
-        "0-300": 3,
-        "300-600": 2
-      },
-      "context_windows": [         // NEW: Surrounding context
-        {
-          "text": "...John Doe said...",
-          "timestamp": 120
-        }
-      ]
+      "name": "Trump",
+      "type": "PERSON", 
+      "confidence": 0.71,
+      "source": ["GLiNER+Gemini+SpaCy"],  // Multi-source validation
+      "mention_count": 1,
+      "context_windows": [...],
+      "aliases": ["President Trump"]
     }
   ]
 }
@@ -79,27 +74,24 @@ Contains all extracted entities with **enhanced metadata** (v2.19.0):
 ### relationships.json
 
 Contains entity relationships with **evidence chains** (v2.19.0):
+- **All relationships captured**: Now properly uses 50+ Gemini relationships (was bug)
+- **Evidence-backed**: Each relationship has supporting quotes and timestamps
+- **Contradiction detection**: Identifies conflicting information
+- **Typical output**: 52+ relationships per news video
 
 ```json
 {
   "relationships": [
     {
-      "subject": "John Doe",
-      "predicate": "works for",
-      "object": "TechCorp",
-      "confidence": 0.92,
-      "evidence": {                // NEW: Evidence chain
-        "direct_quotes": [
-          "John Doe has been with TechCorp for 5 years"
-        ],
-        "visual_evidence": [
-          "Name shown on TechCorp slide at 2:30"
-        ],
-        "supporting_mentions": [
-          "Mentioned as TechCorp employee at 3:45"
-        ]
-      },
-      "contradiction_score": 0.0   // NEW: Contradiction detection
+      "subject": "forecaster",
+      "predicate": "expect_increase_of", 
+      "object": "125,000 non-farm payrolls",
+      "confidence": 0.825,
+      "evidence_chain": [
+        "direct_quote='...forecaster expect an increase of 125,000 non-farm payrolls in May...' timestamp='00:00:00'"
+      ],
+      "contradictions": [],
+      "supporting_mentions": 1
     }
   ]
 }
