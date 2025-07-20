@@ -86,6 +86,7 @@ poetry run clipscribe process-collection \
     "$COLLECTION_NAME" \
     "$PLAYLIST_URL" \
     --output-dir "$OUTPUT_DIR" \
+    --limit $LIMIT \
     --skip-confirmation
 
 print_success "5-video collection processing complete!"

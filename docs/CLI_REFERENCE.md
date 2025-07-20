@@ -137,6 +137,7 @@ clipscribe process-collection [OPTIONS] URL1 URL2 [URL3...]
 | `--collection-title` | `-t` | Auto-generated | Title for the video collection |
 | `--collection-type` | | `custom_collection` | Type: `series`, `topic_research`, `channel_analysis`, `cross_source_topic` |
 | `--output-dir` | `-o` | `output/collections` | Output directory for collection analysis |
+| `--limit` | `-l` | None | Limit the number of videos to process from playlists |
 | `--enable-caching` | | True | Use cached results for improved performance |
 | `--performance-report` | | False | Generate detailed performance and optimization report |
 

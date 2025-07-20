@@ -515,6 +515,12 @@ async def research_async(ctx: click.Context, query: str, max_results: int, perio
     default=Path("output/collections"),
     help="Output directory for collection analysis"
 )
+@click.option(
+    "--limit",
+    "-l",
+    type=int,
+    help="Limit the number of videos to process from playlists"
+)
 @click.option('--mode', '-m', type=click.Choice(['audio', 'video', 'auto']), default='audio')
 @click.option('--use-cache/--no-cache', default=True)
 @click.option('--enhance-transcript', is_flag=True)
@@ -531,6 +537,7 @@ def process_collection(
     auto_detect_series: bool,
     user_confirmed_series: bool,
     output_dir: Path,
+    limit: Optional[int],
     skip_confirmation: bool,
     **kwargs
 ) -> None:
@@ -548,6 +555,7 @@ def process_collection(
         auto_detect_series,
         user_confirmed_series,
         output_dir,
+        limit,
         skip_confirmation,
         **kwargs
     ))
@@ -561,6 +569,7 @@ async def process_collection_async(
     auto_detect_series: bool,
     user_confirmed_series: bool,
     output_dir: Path,
+    limit: Optional[int],
     skip_confirmation: bool,
     **kwargs
 ) -> None:
@@ -636,11 +645,18 @@ async def process_collection_async(
                         console.print("❌ Playlist processing cancelled.")
                         ctx.exit(0)
                     
-                    # Extract all URLs
-                    console.print("🔄 Extracting all video URLs from playlist...")
+                    # Extract all URLs (with limit if specified)
+                    console.print("🔄 Extracting video URLs from playlist...")
                     playlist_urls = await video_client.extract_all_playlist_urls(url)
+                    
+                    # Apply limit if specified
+                    if limit and len(playlist_urls) > limit:
+                        playlist_urls = playlist_urls[:limit]
+                        console.print(f"✅ Extracted {len(playlist_urls)} video URLs (limited from {total_count})")
+                    else:
+                        console.print(f"✅ Extracted {len(playlist_urls)} video URLs")
+                    
                     final_urls.extend(playlist_urls)
-                    console.print(f"✅ Extracted {len(playlist_urls)} video URLs")
                     
                 except Exception as e:
                     console.print(f"[red]❌ Failed to extract playlist: {e}[/red]")
@@ -650,6 +666,12 @@ async def process_collection_async(
                 # Skip confirmation, extract all URLs
                 try:
                     playlist_urls = await video_client.extract_all_playlist_urls(url)
+                    
+                    # Apply limit if specified
+                    if limit and len(playlist_urls) > limit:
+                        playlist_urls = playlist_urls[:limit]
+                        console.print(f"📋 Processing first {limit} videos from playlist")
+                    
                     final_urls.extend(playlist_urls)
                 except Exception as e:
                     console.print(f"[red]❌ Failed to extract playlist: {e}[/red]")

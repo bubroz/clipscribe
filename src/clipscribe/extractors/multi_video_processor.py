@@ -991,6 +991,7 @@ class MultiVideoProcessor:
             collection_summary=f"Automated summary of {len(videos)} {collection_type.value} videos",  # Include count
             video_ids=[v.metadata.video_id for v in videos],
             video_titles=[v.metadata.title for v in videos],
+            videos=videos,  # Include the actual video objects
             unified_entities=unified_entities,
             cross_video_relationships=cross_video_relationships,
             unified_knowledge_graph=unified_knowledge_graph,

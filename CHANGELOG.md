@@ -5,6 +5,20 @@ All notable changes to ClipScribe will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v2.19.1] - 2025-07-20
+
+### Fixed
+- **Collection Summary Bug**: Fixed incorrect video count in collection summaries
+  - Added missing `videos` field population in MultiVideoIntelligence
+  - Collection summaries now correctly report actual processed video count
+- **Added --limit Option**: Added `--limit` flag to process-collection command
+  - Allows limiting the number of videos processed from playlists
+  - Fixes issue where all playlist videos were extracted regardless of intended limit
+  - Updated cnbc_test_5.sh to use --limit 5
+
+### Changed
+- Multi-video processor now includes actual VideoIntelligence objects in the collection
+
 ## [v2.19.0] - 2025-07-20
 
 ### Fixed
