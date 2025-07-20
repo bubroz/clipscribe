@@ -1,19 +1,16 @@
-# Getting Started with ClipScribe v2.19.0
+# Getting Started with ClipScribe
 
-*Last Updated: July 6, 2025*
+*Last Updated: July 20, 2025*
+*Related: [CLI Reference](mdc:CLI_REFERENCE.md) | [Output Formats](mdc:OUTPUT_FORMATS.md)*
 
-Welcome to ClipScribe! This guide will help you quickly get up and running with video intelligence extraction featuring enhanced metadata, confidence scoring, and temporal resolution.
+## 🚀 What's New: v2.19.0 Extraction Quality!
 
-## 🚀 What's New: Timeline Intelligence v2.0 Complete!
-
-**ClipScribe v2.18.16** features the complete Timeline Intelligence v2.0 system with:
-- **Comprehensive Timeline Intelligence**: Real temporal events with accurate historical dates
-- **Event Deduplication**: Eliminates the 44-duplicate crisis through intelligent consolidation
-- **Content Date Extraction**: 95%+ accuracy extracting dates from content (not video metadata)
-- **Chapter-Aware Processing**: Uses yt-dlp chapter boundaries for intelligent segmentation
-- **Performance Optimization**: 3-4x speedup for large collections with streaming capabilities
-
-**Proven Results**: Transforms 82 broken events → 40 accurate temporal events (144% quality improvement)
+**ClipScribe v2.19.0** features dramatically improved extraction quality:
+- **Comprehensive Entity Extraction**: Targets 100% completeness (16+ entities per video)
+- **Evidence-Based Relationships**: 52+ relationships with direct quotes and timestamps
+- **Fixed Quality Filters**: No longer removes 70% of valid entities
+- **Knowledge Graphs**: 88+ nodes and 52+ edges for rich intelligence
+- **Still Cost-Effective**: Only $0.0083 per video!
 
 ## Prerequisites
 
@@ -55,284 +52,186 @@ poetry run clipscribe --help
 
 ## Basic Usage
 
-### Process a Single Video with Timeline Intelligence v2.0
+### Process a Single Video
 
 ```bash
-# Basic video intelligence extraction with Timeline v2.0
-poetry run clipscribe process "https://www.youtube.com/watch?v=6ZVj1_SE4Mo" --timeline-v2
+# Basic video intelligence extraction
+poetry run clipscribe process "https://www.youtube.com/watch?v=6ZVj1_SE4Mo"
 
-# Full temporal intelligence extraction (recommended)
+# Full extraction with all output formats
 poetry run clipscribe process "https://vimeo.com/123456789" \
-  --timeline-v2 \
-  --enhanced-temporal \
+  --format all \
+  --clean-graph \
   -o analysis/
 
-# Performance-optimized processing
+# Process with cost tracking
 poetry run clipscribe process "https://twitter.com/user/status/123456" \
-  --timeline-v2 \
-  --performance-optimized
+  --show-cost \
+  --format json,markdown
 ```
 
-### Process Multiple Videos (Collection Analysis with Timeline v2.0)
+### Process Multiple Videos (Collection Analysis)
 
 ```bash
-# Process collection with Timeline v2.0 synthesis
+# Process collection with automatic synthesis
 poetry run clipscribe process-collection \
+  "My Research Collection" \
   "https://youtube.com/watch?v=video1" \
   "https://youtube.com/watch?v=video2" \
-  "https://youtube.com/watch?v=video3" \
-  --collection-title "Investigation Series" \
-  --timeline-v2
+  "https://youtube.com/watch?v=video3"
 
-# Large collection with streaming optimization
+# Process playlist automatically
 poetry run clipscribe process-collection \
-  $(cat urls.txt) \
-  --collection-title "Large Dataset" \
-  --timeline-v2 \
-  --streaming-mode \
-  --performance-optimized
+  "CNBC Market Analysis" \
+  "https://www.youtube.com/playlist?list=PLVbP054jv0Ko..." \
+  --format all
 ```
 
-### Research Command with Timeline Intelligence
+### Research Command
 
 ```bash
-# Research a topic with Timeline v2.0 synthesis
+# Research a topic across multiple videos
 poetry run clipscribe research "climate change reports" \
   --max-results 5 \
-  --timeline-v2 \
-  --enhanced-temporal
+  --format markdown
 ```
 
-### Output Formats with Timeline v2.0
+### Output Formats
 
-ClipScribe now supports comprehensive temporal intelligence extraction:
+ClipScribe supports comprehensive intelligence extraction:
 
-- **json** - Complete Timeline v2.0 data with temporal events, chapters, and quality metrics
-- **csv** - Temporal events and entity data for analysis
-- **gexf** - Timeline-enhanced knowledge graphs for Gephi
-- **markdown** - Professional reports with Timeline v2.0 insights
-- **timeline** - Dedicated timeline export format
+- **json** - Complete structured data with entities, relationships, and metadata
+- **csv** - Entities and relationships in spreadsheet format
+- **gexf** - Knowledge graphs for Gephi visualization
+- **markdown** - Professional reports with summaries and insights
+- **all** - Generate all available formats
 
 ```bash
-# Get all formats with Timeline v2.0 intelligence
+# Get all formats
 poetry run clipscribe process "https://youtube.com/watch?v=..." \
-  --timeline-v2 \
   --format all \
-  --enhanced-temporal
+  --clean-graph
 ```
 
-### Launch Mission Control with Timeline v2.0
+### Launch Mission Control
 
 ```bash
-# Launch the comprehensive web interface with Timeline v2.0 features
+# Launch the comprehensive web interface
 poetry run streamlit run streamlit_app/ClipScribe_Mission_Control.py
 ```
 
-Access the **Timeline Intelligence** page for:
-- 🎬 Timeline v2.0 Viewer with quality metrics
-- 📊 Quality transformation showcase (82→40 events)
-- 🔧 5-Step processing pipeline visualization
-- 🎞️ Chapter intelligence features
-- 💾 Enhanced export and integration tools
+Access features:
+- 🎬 Video processing monitor
+- 📊 Entity and relationship visualization
+- 🔧 Collection management
+- 🎞️ Information flow analysis
+- 💾 Export and integration tools 
 
-## Understanding Timeline Intelligence v2.0
+## Understanding Entity & Relationship Extraction (v2.19.0 Enhanced)
 
-### The Transformation
+ClipScribe's extraction targets **100% completeness** - extracting ALL entities and relationships from videos:
 
-**Before (v1.0):**
-- 82 events with 44 duplicates
-- 90% wrong dates (video publish date vs actual events)
-- No temporal intelligence
+- **Entities**: People, organizations, locations, events, products, etc.
+- **Relationships**: Who interacts with whom, what happened where, etc.
+- **Evidence**: Direct quotes and timestamps backing every claim
+- **Knowledge Graphs**: Visual network of all connections
 
-**After (v2.0):**
-- ~40 accurate events with 0 duplicates
-- 95% correct content dates
-- Comprehensive temporal intelligence with chapter context
-
-### Quality Metrics
-
-Timeline v2.0 provides transparent quality tracking:
-
-```json
-{
-  "quality_metrics": {
-    "total_events_extracted": 82,
-    "events_after_deduplication": 45,
-    "events_with_content_dates": 43,
-    "final_high_quality_events": 40,
-    "quality_improvement_ratio": 0.488
-  }
-}
-```
-
-### 5-Step Processing Pipeline
-
-1. **Enhanced Temporal Extraction** - yt-dlp temporal intelligence integration
-2. **Event Deduplication** - Eliminate duplicate event crisis
-3. **Content Date Extraction** - Real dates from video content
-4. **Quality Filtering** - Multi-stage validation and noise elimination
-5. **Chapter Segmentation** - Intelligent content boundaries
+### What v2.19.0 Fixed:
+- No longer filters out 70% of valid entities (quality filter was too aggressive)
+- Actually uses all 50+ Gemini-extracted relationships (they were being ignored!)
+- Dynamic confidence scoring based on context (not hardcoded 0.85)
+- Results: 16+ entities and 52+ relationships per video (was 0-10 entities, 0 relationships)
 
 ## Common Use Cases
 
-### 1. Documentary Analysis with Timeline v2.0
-
+### 1. News Analysis
 ```bash
-poetry run clipscribe process "https://youtube.com/watch?v=6ZVj1_SE4Mo" \
-  --timeline-v2 \
-  --enhanced-temporal \
-  --chapter-aware \
-  -o documentary-analysis/
+poetry run clipscribe process "https://youtube.com/watch?v=news_video" \
+  --format all \
+  --clean-graph \
+  -o news-analysis/
 ```
 
-### 2. Multi-Video Investigation Timeline
-
+### 2. Multi-Video Investigation
 ```bash
 poetry run clipscribe process-collection \
+  "Pegasus Investigation" \
   "https://youtube.com/watch?v=investigation_pt1" \
   "https://youtube.com/watch?v=investigation_pt2" \
-  "https://youtube.com/watch?v=investigation_pt3" \
-  --collection-title "Investigation Timeline" \
-  --timeline-v2 \
-  --cross-video-synthesis
+  --format all
 ```
 
-### 3. Large-Scale Collection Processing
-
+### 3. Market Analysis Demo
 ```bash
-# Process 100+ videos with streaming optimization
+# Process CNBC playlist for analyst demo
 poetry run clipscribe process-collection \
-  $(cat large_dataset_urls.txt) \
-  --collection-title "Large Research Dataset" \
-  --timeline-v2 \
-  --streaming-mode \
-  --memory-limit 2048 \
-  --batch-size 10
+  "CNBC Market Analysis" \
+  "https://www.youtube.com/playlist?list=PLVbP054jv0Ko..." \
+  --output-dir demo/cnbc_analysis \
+  --skip-confirmation
 ```
-
-### 4. Performance-Optimized Research
-
-```bash
-# Research with Timeline v2.0 and performance optimization
-poetry run clipscribe research "scientific breakthroughs 2024" \
-  --max-results 10 \
-  --timeline-v2 \
-  --performance-optimized \
-  --enable-caching
-```
-
-### Quick Analyst Demo: 30-Day Market Analysis
-
-To demo for analysts, process a CNBC playlist:
-
-```bash
-poetry run clipscribe process-collection "cnbc-market-daily" "https://www.youtube.com/playlist?list=PLVbP054jv0KoXU0a-MdzLVguQW6Nh9Wzo" --output-dir demo/cnbc_30day --skip-confirmation
-```
-
-This extracts trends from 20+ videos in minutes! View in Streamlit app.
 
 ## Understanding Costs
 
-ClipScribe with Timeline v2.0 provides enhanced intelligence for minimal cost increase:
+ClipScribe provides comprehensive intelligence extraction at industry-leading costs:
 
-- **5-minute video**: ~$0.012 (20% increase for 300% more intelligence)
-- **30-minute video**: ~$0.072 (includes comprehensive temporal intelligence)
-- **1-hour video**: ~$0.144 (with chapter-aware processing)
+- **5-minute video**: ~$0.008
+- **30-minute video**: ~$0.048  
+- **1-hour video**: ~$0.096
 
-Timeline v2.0 delivers **300% more temporal intelligence for only 12-20% cost increase**!
-
-## Timeline v2.0 Best Practices
-
-### Speed Up Processing
-- Use `--performance-optimized` for large collections
-- Enable `--streaming-mode` for 100+ video datasets
-- Use `--enable-caching` for repeated processing
-
-### Better Timeline Intelligence
-- Use `--enhanced-temporal` for comprehensive temporal analysis
-- Use `--chapter-aware` for chapter boundary intelligence
-- Specify collection types for optimized synthesis
-
-### Manage Resources
-- Use `--memory-limit` for memory-constrained environments
-- Use `--batch-size` to control concurrency
-- Monitor with `--performance-report` for optimization insights
+Cost includes full entity extraction, relationship mapping, and knowledge graph generation.
 
 ## Configuration
-
-ClipScribe v2.18.16 uses environment variables for Timeline v2.0 configuration:
 
 ```bash
 # Required
 GOOGLE_API_KEY=your_google_api_key_here
 
-# Timeline v2.0 Configuration
-TIMELINE_V2_ENABLED=true
-TIMELINE_V2_PERFORMANCE_MODE=optimized
-TIMELINE_V2_CACHE_ENABLED=true
-
-# Performance Optimization
-TIMELINE_V2_BATCH_SIZE=10
-TIMELINE_V2_MAX_CONCURRENT=3
-TIMELINE_V2_MEMORY_LIMIT=2048
-
-# Quality Configuration
-MIN_CONFIDENCE_THRESHOLD=0.7
-ENABLE_DATE_VALIDATION=true
-ENABLE_TECHNICAL_NOISE_DETECTION=true
+# Optional optimization
+CONFIDENCE_THRESHOLD=0.4  # v2.19.0 lowered for completeness
+LANGUAGE_CONFIDENCE_THRESHOLD=0.3  # v2.19.0 less aggressive
+ENABLE_LLM_VALIDATION=false  # Set true for critical applications
 ```
 
 ## Troubleshooting
 
-### "Timeline v2.0 not found"
-Timeline v2.0 is automatically included in v2.18.16. If you see this error:
+### "Poor extraction quality" (Fixed in v2.19.0)
+If you're seeing only 0-10 entities and 0 relationships:
 ```bash
-poetry update
-poetry run clipscribe --version  # Should show 2.18.16+
+# Update to v2.19.0
+poetry update clipscribe
+poetry run clipscribe --version  # Should show 2.19.0+
 ```
 
-### "High memory usage"
-For large collections, use resource limits:
+### "Memory issues with large collections"
 ```bash
+# Process in smaller batches
 poetry run clipscribe process-collection \
+  "Large Collection" \
   "url1" "url2" "url3" \
-  --timeline-v2 \
-  --memory-limit 1024 \
   --batch-size 5
 ```
 
 ### "Slow processing"
-Enable performance optimization:
 ```bash
-poetry run clipscribe process-collection \
-  "url1" "url2" "url3" \
-  --timeline-v2 \
-  --performance-optimized \
-  --enable-caching
-```
-
-### Long Video Support
-
-Timeline v2.0 optimizes processing for long videos through chapter-aware segmentation:
-
-```bash
-# For very long videos (2+ hours)
-TIMELINE_V2_STREAMING_THRESHOLD=50
-TIMELINE_V2_ADAPTIVE_SEGMENTATION=true
+# Enable caching for repeated processing
+poetry run clipscribe process "URL" \
+  --format json \
+  --use-cache
 ```
 
 ## What's Next?
 
-- Explore **Timeline Intelligence v2.0** features in the [Timeline v2.0 User Guide](TIMELINE_INTELLIGENCE_V2_USER_GUIDE.md)
-- Learn about advanced features in the [CLI Reference](CLI_REFERENCE.md)
-- See **Mission Control** Timeline v2.0 features in the web interface
-- Check out timeline export formats in [Output Formats Guide](OUTPUT_FORMATS.md)
+- Learn about all output formats in the [Output Formats Guide](OUTPUT_FORMATS.md)
+- Explore advanced CLI options in the [CLI Reference](CLI_REFERENCE.md)
+- Launch Mission Control web interface for visual exploration
+- Check [Troubleshooting Guide](TROUBLESHOOTING.md) for common issues
 
 ## Getting Help
 
-- **Documentation**: Complete Timeline v2.0 documentation in `docs/`
-- **Mission Control**: Web interface with Timeline Intelligence page
-- **Timeline v2.0 User Guide**: Comprehensive feature documentation
-- **GitHub Issues**: Report Timeline v2.0 specific issues
+- **Documentation**: Complete documentation in `docs/`
+- **Mission Control**: Web interface at http://localhost:8501
+- **GitHub Issues**: Report bugs or request features
+- **Examples**: See `examples/` directory for working code
 
-**Timeline Intelligence v2.0**: From broken timelines to brilliant temporal intelligence! 🚀✨ 
+Remember: ClipScribe now targets **100% extraction completeness**, not arbitrary numbers! 🎯 

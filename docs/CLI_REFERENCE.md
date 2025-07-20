@@ -1,8 +1,16 @@
-# ClipScribe CLI Reference (v2.19.0 - Enhanced Metadata Complete 🚀)
+# ClipScribe CLI Reference
 
-*Last Updated: July 6, 2025 - Enhanced Entity & Relationship Metadata with Temporal Resolution*
+*Last Updated: July 20, 2025 - v2.19.0 with dramatically improved entity/relationship extraction*
 
-Complete reference for all ClipScribe commands and options, featuring **lightning-fast CLI performance** and **enhanced metadata extraction**.
+Complete reference for all ClipScribe commands and options, featuring **lightning-fast CLI performance** and **comprehensive extraction quality**.
+
+## ✨ Key Features
+
+- **0.4s CLI startup** - 93% performance improvement for instant response
+- Enhanced entity extraction targeting 100% completeness (v2.19.0: 16+ entities per video)
+- Relationship evidence chains with direct quotes (v2.19.0: 52+ relationships per video)
+- Direct video processing with Gemini integration
+- Cost-optimized at $0.002/minute
 
 ## 🚀 Enhanced Metadata & Performance (v2.19.0)
 
