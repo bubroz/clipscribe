@@ -221,41 +221,87 @@ class GeminiFlashTranscriber:
             
             # OPTIMIZED: Combined extraction in ONE API call instead of 5
             combined_prompt = f"""
-            Analyze this transcript and extract ALL of the following in one comprehensive response.
-            Be thorough and extract as much information as possible.
+            Analyze this transcript and extract COMPREHENSIVE intelligence. You are an expert analyst extracting actionable intelligence from video content.
+            
+            CRITICAL REQUIREMENTS:
+            - Extract AT LEAST 20-50 entities (aim for 50+)
+            - Extract AT LEAST 20-50 relationships (aim for 50+)  
+            - Include ALL people, organizations, locations, events, technologies, products, concepts
+            - Use SPECIFIC predicates for relationships (not generic "related to")
+            - Calculate REALISTIC confidence scores (0.3-0.99, vary based on context clarity)
             
             Transcript:
-            {transcript_text[:10000]}  # Increased from 8000 for better coverage
+            {transcript_text[:12000]}  # Increased for better coverage
             
             Return a JSON object with this EXACT structure:
             {{
-                "summary": "Write a comprehensive 3-4 paragraph summary covering all main points",
+                "summary": "Write a comprehensive 3-4 paragraph executive summary covering all main points, key players, and critical insights",
                 "key_points": [
-                    {{"timestamp": 0, "text": "Important point or moment", "importance": 0.9}},
-                    // Extract 30-50 key points for comprehensive coverage
+                    {{"timestamp": 0, "text": "Specific, actionable insight or key moment", "importance": 0.9}},
+                    // Extract 30-50 key points - every significant statement, fact, or claim
                 ],
-                "topics": ["main topic 1", "main topic 2", "topic 3"],
+                "topics": ["primary topic", "secondary topic", "tertiary topic", "domain area", "theme"],
                 "entities": [
-                    {{"name": "Person/Org/Location Name", "type": "PERSON/ORGANIZATION/LOCATION", "confidence": 0.9}},
-                    // Extract ALL named entities
+                    // PEOPLE: Extract ALL names, titles, roles
+                    {{"name": "Donald Trump", "type": "PERSON", "confidence": 0.95}},
+                    {{"name": "President Biden", "type": "PERSON", "confidence": 0.93}},
+                    {{"name": "The CEO", "type": "PERSON", "confidence": 0.7}},  // Even unnamed roles
+                    
+                    // ORGANIZATIONS: Companies, agencies, groups, institutions
+                    {{"name": "Department of Justice", "type": "ORGANIZATION", "confidence": 0.9}},
+                    {{"name": "Wall Street Journal", "type": "ORGANIZATION", "confidence": 0.95}},  // NOT location!
+                    {{"name": "Republican Party", "type": "ORGANIZATION", "confidence": 0.92}},
+                    
+                    // LOCATIONS: Countries, cities, regions, venues
+                    {{"name": "United States", "type": "LOCATION", "confidence": 0.98}},
+                    {{"name": "Ukraine", "type": "LOCATION", "confidence": 0.95}},
+                    {{"name": "Washington DC", "type": "LOCATION", "confidence": 0.9}},
+                    
+                    // EVENTS: Meetings, incidents, occurrences
+                    {{"name": "2024 Presidential Election", "type": "EVENT", "confidence": 0.93}},
+                    {{"name": "January 6 Capitol Attack", "type": "EVENT", "confidence": 0.96}},
+                    
+                    // PRODUCTS/TECH: Software, systems, technologies
+                    {{"name": "Pegasus spyware", "type": "PRODUCT", "confidence": 0.91}},
+                    {{"name": "ChatGPT", "type": "PRODUCT", "confidence": 0.94}},
+                    
+                    // Extract EVERYTHING - err on the side of too much rather than too little
                 ],
                 "relationships": [
-                    {{"subject": "Entity A", "predicate": "specific action", "object": "Entity B", "confidence": 0.9}},
-                    // Use specific predicates: founded, acquired, partnered with, invested in, developed, etc.
-                    // Extract 20-50 relationships
+                    // Use SPECIFIC, MEANINGFUL predicates
+                    {{"subject": "Donald Trump", "predicate": "indicted_by", "object": "Department of Justice", "confidence": 0.92}},
+                    {{"subject": "Russia", "predicate": "invaded", "object": "Ukraine", "confidence": 0.98}},
+                    {{"subject": "Elon Musk", "predicate": "acquired", "object": "Twitter", "confidence": 0.97}},
+                    {{"subject": "Federal Reserve", "predicate": "raised_interest_rates_to", "object": "5.5%", "confidence": 0.89}},
+                    {{"subject": "China", "predicate": "banned_export_of", "object": "rare earth minerals", "confidence": 0.85}},
+                    {{"subject": "OpenAI", "predicate": "developed", "object": "GPT-4", "confidence": 0.96}},
+                    {{"subject": "Congress", "predicate": "passed", "object": "Infrastructure Bill", "confidence": 0.91}},
+                    {{"subject": "Apple", "predicate": "announced", "object": "Vision Pro", "confidence": 0.94}},
+                    
+                    // Include causal relationships, temporal sequences, hierarchies
+                    {{"subject": "Inflation", "predicate": "caused_by", "object": "supply chain disruption", "confidence": 0.78}},
+                    {{"subject": "Bank failures", "predicate": "triggered", "object": "regulatory response", "confidence": 0.83}},
+                    
+                    // Extract EVERY meaningful connection between entities
                 ],
                 "dates": [
-                    {{"original_text": "October 2018", "normalized_date": "2018-10-01", "precision": "month", "confidence": 0.9, "source": "transcript", "context": "when Pegasus was discovered", "timestamp": 120.5}},
-                    // Extract ALL dates and temporal expressions including:
-                    // - Dates mentioned in speech ("in October 2018", "last June")
-                    // - Relative dates ("three years ago" - calculate from video date)
-                    // - Date ranges ("from 2018 to 2021")
-                    // - Partial dates ("early 2019", "summer of 2020")
-                    // - Extract 10-50 dates from the content
+                    {{"original_text": "October 2018", "normalized_date": "2018-10-01", "precision": "month", "confidence": 0.95, "source": "transcript", "context": "when Pegasus was discovered", "timestamp": 120.5}},
+                    {{"original_text": "last Tuesday", "normalized_date": "2025-07-15", "precision": "day", "confidence": 0.8, "source": "transcript", "context": "meeting date", "timestamp": 45.2}},
+                    {{"original_text": "three years ago", "normalized_date": "2022-07-01", "precision": "month", "confidence": 0.7, "source": "transcript", "context": "project start", "timestamp": 200.1}},
+                    // Extract ALL temporal references and calculate actual dates
                 ]
             }}
             
-            CRITICAL: Extract ALL dates and temporal expressions. For relative dates like "last year" or "three months ago", calculate the actual date based on the video's publication date if available. Be comprehensive and don't miss important information. Quality over speed.
+            EXTRACTION RULES:
+            1. Entity confidence: 0.95+ for explicitly named, 0.8-0.94 for clearly referenced, 0.6-0.79 for inferred, <0.6 for uncertain
+            2. Relationship predicates must be SPECIFIC ACTIONS/STATES not generic terms
+            3. Include entities mentioned only once - they might be crucial
+            4. Extract implied relationships from context
+            5. For unnamed entities (e.g., "the CEO"), still extract with lower confidence
+            6. Every fact should generate at least one relationship
+            7. Quality over quantity, but aim for COMPREHENSIVE extraction
+            
+            BE AGGRESSIVE - I need rich, detailed intelligence extraction. Missing information is worse than including uncertain information with low confidence.
             """
             
             logger.info("Performing combined extraction (summary, key points, topics, entities, relationships)...")
@@ -359,34 +405,59 @@ class GeminiFlashTranscriber:
             dates = combined_data.get("dates", [])
             
             # Optional: Second pass for entity/relationship extraction if first pass seems incomplete
-            if len(entities) < 10 or len(relationships) < 5:
+            if len(entities) < 30 or len(relationships) < 20:  # Increased thresholds
                 logger.info("Performing second pass for better entity/relationship extraction...")
                 
                 second_pass_prompt = f"""
-                This is a second pass to catch any missed entities and relationships.
-                Look carefully for:
-                - People mentioned by title/role even without names
-                - Organizations, companies, agencies
-                - Locations, countries, cities
-                - Products, technologies, systems
-                - Events, dates, meetings
+                SECOND PASS - Extract MORE entities and relationships that were missed in the first pass.
+                
+                You are an expert intelligence analyst. The first pass found only {len(entities)} entities and {len(relationships)} relationships, which is INSUFFICIENT.
+                
+                I need AT LEAST 50 total entities and 50 total relationships for comprehensive intelligence.
+                
+                Look for:
+                - PEOPLE: Every person mentioned by name, title, role, or reference
+                  * Government officials, business leaders, experts, sources
+                  * "The spokesperson", "a senior official", "analysts" - extract these too
+                - ORGANIZATIONS: Every company, agency, group, institution
+                  * Government bodies, companies, NGOs, trade groups, media outlets
+                  * Departments, divisions, committees, teams
+                - LOCATIONS: Every geographic reference
+                  * Countries, states, cities, regions, buildings, venues
+                  * "The Middle East", "Silicon Valley", "Wall Street" - these count
+                - EVENTS: Every incident, meeting, occurrence
+                  * Elections, attacks, announcements, releases, crises
+                  * "The 2008 financial crisis", "last week's summit"
+                - CONCEPTS/PRODUCTS: Technologies, systems, policies, laws
+                  * Software, hardware, financial instruments, regulations
+                  * Abstract concepts if they're central to the discussion
                 
                 Transcript:
-                {transcript_text[:10000]}
+                {transcript_text[:12000]}
                 
-                Already found entities: {[e['name'] for e in entities][:20]}
+                Already found entities: {[e['name'] for e in entities][:30]}
                 
-                Find ADDITIONAL entities and relationships not in the above list.
+                Find ALL ADDITIONAL entities and relationships not in the above list.
                 
                 Return JSON:
                 {{
                     "additional_entities": [
-                        {{"name": "Entity", "type": "TYPE", "confidence": 0.9}}
+                        {{"name": "Entity Name", "type": "PERSON/ORGANIZATION/LOCATION/EVENT/PRODUCT", "confidence": 0.85}},
+                        // Find at least 20-30 MORE entities
                     ],
                     "additional_relationships": [
-                        {{"subject": "A", "predicate": "action", "object": "B", "confidence": 0.9}}
+                        {{"subject": "Entity A", "predicate": "specific_action_verb", "object": "Entity B", "confidence": 0.85}},
+                        // Find at least 20-30 MORE relationships
+                        // Examples of good predicates:
+                        // - announced, acquired, partnered_with, invested_in, sued, regulated
+                        // - increased_by, decreased_to, exceeded, fell_below
+                        // - caused, triggered, prevented, enabled, blocked
+                        // - located_in, headquartered_in, operates_in, expanded_to
+                        // - competed_with, allied_with, opposed, supported
                     ]
                 }}
+                
+                BE EXHAUSTIVE - Every sentence likely contains multiple entities and at least one relationship.
                 """
                 
                 second_model = self.pool.get_model(TaskType.ENTITIES)

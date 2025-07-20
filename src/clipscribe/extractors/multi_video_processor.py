@@ -988,7 +988,7 @@ class MultiVideoProcessor:
             collection_id=collection_id,
             collection_title=collection_title,
             collection_type=collection_type,
-            collection_summary="Automated summary of CNBC market videos",
+            collection_summary=f"Automated summary of {len(videos)} {collection_type.value} videos",  # Include count
             video_ids=[v.metadata.video_id for v in videos],
             video_titles=[v.metadata.title for v in videos],
             unified_entities=unified_entities,
@@ -1001,7 +1001,7 @@ class MultiVideoProcessor:
             total_processing_cost=total_processing_cost,
             consolidated_timeline=None,
             processing_stats={
-                "videos_processed": len(videos),
+                "videos_processed": len(videos),  # This should be the accurate count
                 "entities_unified": len(unified_entities),
                 "relationships_cross_video": len(cross_video_relationships),
                 "concepts_tracked": len(information_flow_map.concept_nodes) if information_flow_map else 0,
@@ -1009,7 +1009,8 @@ class MultiVideoProcessor:
             }
         )
         
-        logger.info(f"Successfully processed video collection with {len(unified_entities)} unified entities and {len(cross_video_relationships)} cross-video relationships")
+        logger.info(f"Successfully processed video collection with {len(videos)} videos, {len(unified_entities)} unified entities and {len(cross_video_relationships)} cross-video relationships")
+        logger.info(f"Collection summary set to: {multi_video_result.collection_summary}")  # Debug log
         return multi_video_result
 
     async def _unify_entities_across_videos(self, videos: List[VideoIntelligence]) -> List["CrossVideoEntity"]:

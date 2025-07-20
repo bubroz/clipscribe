@@ -9,6 +9,7 @@ import json
 from pathlib import Path
 import networkx as nx
 import csv
+from collections import defaultdict
 
 from ..models import VideoIntelligence, VideoTranscript, KeyPoint, Entity, Topic, Relationship, MultiVideoIntelligence
 from .universal_video_client import UniversalVideoClient
@@ -216,7 +217,14 @@ class VideoIntelligenceRetriever:
         if self.progress_hook:
             self.progress_hook({"description": "Processing with Enhanced Temporal Intelligence..."})
         
-        return await self._process_video_enhanced(video_url, progress_state)
+        try:
+            logger.info(f"Starting _process_video_enhanced for URL: {video_url}")
+            result = await self._process_video_enhanced(video_url, progress_state)
+            logger.info(f"_process_video_enhanced returned: {result is not None}")
+            return result
+        except Exception as e:
+            logger.error(f"Exception in process_url: {e}", exc_info=True)
+            return None
     
     async def _process_video_enhanced(self, video_url: str, progress_state: Optional[Dict[str, Any]] = None) -> Optional[VideoIntelligence]:
         """Process a single video with v2.17.0 Enhanced Temporal Intelligence."""
@@ -373,6 +381,11 @@ class VideoIntelligenceRetriever:
                     processing_cost=analysis['processing_cost']
                 )
                 
+                # Store initial Gemini entities in processing_stats for advanced extractor to use
+                # This prevents them from being saved in the final output
+                video_intelligence.processing_stats['gemini_entities'] = analysis.get('entities', [])
+                video_intelligence.processing_stats['gemini_relationships'] = analysis.get('relationships', [])
+                
                 # Add enhanced temporal intelligence data
                 if 'timeline_events' in analysis:
                     video_intelligence.processing_stats['timeline_events'] = analysis['timeline_events']
@@ -421,130 +434,22 @@ class VideoIntelligenceRetriever:
                 _update_progress("Building enhanced timeline with Timeline Intelligence v2.0", cost_amount=0.0002, cost_operation="timeline")
                 
                 # 🚀 Timeline Intelligence v2.0 Processing for Single Videos
-                try:
-                    logger.info("Starting Timeline Intelligence v2.0 processing for single video...")
-                    
-                    # Step 1: Enhanced temporal extraction using Timeline v2.0
-                    logger.info("📊 Step 1: Enhanced temporal extraction...")
-                    temporal_events = await self.temporal_extractor.extract_temporal_events(
-                        video_url=video_url,
-                        transcript_text=analysis['transcript'],
-                        entities=video_intelligence.entities
-                    )
-                    logger.info(f"✅ Extracted {len(temporal_events)} temporal events")
-                    
-                    # Step 2: Event deduplication 
-                    logger.info("🔄 Step 2: Event deduplication...")
-                    deduplicated_events = self.event_deduplicator.deduplicate_events(temporal_events)
-                    logger.info(f"✅ Deduplicated to {len(deduplicated_events)} unique events")
-                    
-                    # Step 3: Gemini date extraction and processing
-                    logger.info("📅 Step 3: Gemini date extraction and processing...")
-                    
-                    # Extract dates from Gemini transcription if available
-                    gemini_dates = []
-                    if 'dates' in analysis and analysis['dates']:
-                        logger.info(f"🎯 Found {len(analysis['dates'])} dates from Gemini transcription")
-                        # Convert to ExtractedDate objects for GeminiDateProcessor
-                        from ..models import ExtractedDate
-                        for date_info in analysis['dates']:
-                            extracted_date = ExtractedDate(
-                                original_text=date_info.get('original_text', ''),
-                                normalized_date=date_info.get('normalized_date'),
-                                precision=date_info.get('precision', 'approximate'),
-                                confidence=date_info.get('confidence', 0.5),
-                                context=date_info.get('context', ''),
-                                source=date_info.get('source', 'transcript'),
-                                visual_description=date_info.get('visual_description', ''),  # Default to empty string
-                                timestamp=date_info.get('timestamp', 0)
-                            )
-                            gemini_dates.append(extracted_date)
-                    
-                    # Process dates with GeminiDateProcessor
-                    from ..timeline.gemini_date_processor import GeminiDateProcessor
-                    gemini_processor = GeminiDateProcessor()
-                    
-                    # Associate dates with events
-                    dated_events = gemini_processor.associate_dates_with_events(
-                        deduplicated_events, 
-                        gemini_dates,
-                        window_seconds=60.0  # Use 60-second window for date proximity matching (increased for sparse events)
-                    )
-                    
-                    # Count accurate dates
-                    accurate_dates = len([e for e in dated_events if e.date and e.date_confidence > 0.7])
-                    logger.info(f"✅ Extracted content dates for {accurate_dates}/{len(dated_events)} events")
-                    
-                    # Step 4: Quality filtering
-                    logger.info("🎯 Step 4: Quality filtering...")
-                    # Create a simple timeline object for the quality filter
-                    from ..timeline.models import ConsolidatedTimeline
-                    simple_timeline = ConsolidatedTimeline(
-                        timeline_id=f"video_{video_url.split('/')[-1]}",
-                        events=dated_events,
-                        video_sources=[video_url],
-                        creation_date=datetime.now(),
-                        quality_metrics={},  # Fixed: Use empty dict instead of None
-                        cross_video_correlations=[],
-                        metadata={}
-                    )
-                    filtered_timeline, quality_report = await self.timeline_quality_filter.filter_timeline_quality(simple_timeline)
-                    filtered_events = filtered_timeline.events
-                    logger.info(f"✅ Filtered to {len(filtered_events)} high-quality events")
-                    
-                    # Step 5: Chapter segmentation
-                    logger.info("📑 Step 5: Chapter segmentation...")
-                    # Use TemporalMetadata for chapter segmentation
-                    from ..retrievers.universal_video_client import TemporalMetadata
-                    temp_metadata = TemporalMetadata(
-                        chapters=[],
-                        subtitles=None,
-                        sponsorblock_segments=[],
-                        video_metadata=metadata.__dict__,
-                        word_level_timing={},
-                        content_sections=[]
-                    )
-                    segmentation = await self.chapter_segmenter.segment_video(
-                        video_url,
-                        temp_metadata,
-                        analysis['transcript']
-                    )
-                    chapters = segmentation.chapters
-                    logger.info(f"✅ Created {len(chapters)} timeline chapters")
-                    
-                    # Add Timeline v2.0 data to VideoIntelligence
-                    # Convert ChapterAnalysis dataclasses to dict format
-                    from dataclasses import asdict
-                    chapters_as_dict = []
-                    for chapter_analysis in chapters:
-                        # Convert ChapterAnalysis dataclass to dict
-                        chapter_dict = asdict(chapter_analysis)
-                        chapters_as_dict.append(chapter_dict)
-                    
-                    video_intelligence.timeline_v2 = {
-                        "events": [event.model_dump() for event in filtered_events],  # Changed from temporal_events to events
-                        "chapters": chapters_as_dict,
-                        "quality_metrics": {
-                            "total_events_extracted": len(temporal_events),
-                            "events_after_deduplication": len(deduplicated_events),
-                            "events_with_content_dates": accurate_dates,
-                            "final_high_quality_events": len(filtered_events),
-                            "chapters_created": len(chapters),
-                            "quality_improvement_ratio": len(filtered_events) / max(len(temporal_events), 1)
-                        }
-                    }
-                    
-                    logger.info(f"✅ Timeline Intelligence v2.0 processing complete! Quality improvement: {video_intelligence.timeline_v2['quality_metrics']['quality_improvement_ratio']:.2%}")
-                    
-                except Exception as e:
-                    logger.error(f"Timeline Intelligence v2.0 processing failed: {e}")
-                    logger.error("Falling back to basic timeline processing...")
-                    video_intelligence.timeline_v2 = {
-                        "error": str(e),
-                        "fallback_used": True,
-                        "events": [],  # Changed from temporal_events to events
-                        "chapters": []
-                    }
+                # DISCONTINUED: Timeline features have been discontinued per strategic pivot
+                # Provide a simple placeholder structure for backward compatibility
+                video_intelligence.timeline_v2 = {
+                    "events": [],
+                    "chapters": [],
+                    "quality_metrics": {
+                        "total_events_extracted": 0,
+                        "events_after_deduplication": 0,
+                        "events_with_content_dates": 0,
+                        "final_high_quality_events": 0,
+                        "chapters_created": 0,
+                        "quality_improvement_ratio": 0
+                    },
+                    "status": "discontinued",
+                    "message": "Timeline features discontinued - focusing on core intelligence extraction"
+                }
                 
                 # v2.17.0: Video retention management
                 _update_progress("Managing video retention", cost_amount=0.0001, cost_operation="retention")
@@ -858,7 +763,18 @@ class VideoIntelligenceRetriever:
             "analysis": {
                 "summary": video.summary,
                 "key_points": [kp.dict() for kp in video.key_points],
-                "entities": [e.dict() for e in video.entities],
+                "entities": [
+                    {
+                        # Handle both Entity/EnhancedEntity (has .entity) and dict format (has 'name')
+                        "entity": e.entity if hasattr(e, 'entity') else e.get('name', ''),
+                        "type": e.type if hasattr(e, 'type') else e.get('type', ''),
+                        "confidence": e.confidence if hasattr(e, 'confidence') else e.get('confidence', 0.0),
+                        "extraction_sources": getattr(e, 'extraction_sources', []),
+                        "mention_count": getattr(e, 'mention_count', 1),
+                        "context_windows": [cw.dict() for cw in getattr(e, 'context_windows', [])] if hasattr(e, 'context_windows') else [],
+                        "aliases": getattr(e, 'aliases', [])
+                    } for e in video.entities
+                ],
                 "topics": [t.dict() if hasattr(t, 'dict') else {"name": t.name, "confidence": t.confidence} for t in video.topics],
                 "sentiment": video.sentiment
             },
@@ -916,7 +832,20 @@ class VideoIntelligenceRetriever:
 
     def _save_entities_files(self, video: VideoIntelligence, paths: Dict[str, Path]):
         """Saves entities.json and entities.csv."""
-        all_entities = list(video.entities) + list(getattr(video, 'custom_entities', []))
+        # Use only the enhanced entities from the advanced extractor, NOT the initial Gemini entities
+        all_entities = video.entities
+        
+        # Log entity sources for debugging
+        entity_sources = defaultdict(int)
+        for e in all_entities:
+            if hasattr(e, 'extraction_sources'):
+                for source in e.extraction_sources:
+                    entity_sources[source] += 1
+            elif hasattr(e, 'source'):
+                entity_sources[e.source] += 1
+            else:
+                entity_sources['unknown'] += 1
+        logger.info(f"Entity sources: {dict(entity_sources)}")
         
         # Entities JSON
         entities_data = {
@@ -927,9 +856,12 @@ class VideoIntelligenceRetriever:
                     "name": e.entity,
                     "type": e.type,
                     "confidence": e.confidence,
-                    "source": getattr(e, 'source', 'unknown'),
+                    "source": getattr(e, 'extraction_sources', getattr(e, 'source', 'unknown')),
                     "properties": getattr(e, 'properties', None),
-                    "timestamp": getattr(e, 'timestamp', None)
+                    "timestamp": getattr(e, 'timestamp', None),
+                    "mention_count": getattr(e, 'mention_count', 1),
+                    "context_windows": [cw.dict() for cw in getattr(e, 'context_windows', [])],
+                    "aliases": getattr(e, 'aliases', [])
                 } for e in all_entities
             ],
             "topics": [t.dict() if hasattr(t, 'dict') else {"name": t.name, "confidence": t.confidence} for t in video.topics],
@@ -942,1083 +874,69 @@ class VideoIntelligenceRetriever:
         entities_csv_path = paths["directory"] / "entities.csv"
         with open(entities_csv_path, 'w', encoding='utf-8', newline='') as f:
             writer = csv.writer(f)
-            writer.writerow(["name", "type", "confidence", "source", "timestamp"])
+            writer.writerow(["name", "type", "confidence", "source", "timestamp", "mention_count"])
             for entity in all_entities:
                 writer.writerow([
                     entity.entity,
                     entity.type,
                     getattr(entity, 'confidence', 0.0),
-                    getattr(entity, 'source', 'unknown'),
-                    getattr(entity, 'timestamp', '')
+                    getattr(entity, 'extraction_sources', getattr(entity, 'source', 'unknown')),
+                    getattr(entity, 'timestamp', ''),
+                    getattr(entity, 'mention_count', 1)
                 ])
         paths["entities_csv"] = entities_csv_path
         logger.info(f"Saved {len(all_entities)} entities to JSON and CSV :-)")
 
     def _save_relationships_files(self, video: VideoIntelligence, paths: Dict[str, Path]):
-        """Saves relationships.json and relationships.csv if they exist."""
-        if not hasattr(video, 'relationships') or not video.relationships:
-            return
-
-        # Relationships JSON
+        """Saves relationships.json and relationships.csv."""
+        if not hasattr(video, 'relationships'):
+            video.relationships = []
+            
+        # Relationships JSON with enhanced metadata
         relationships_path = paths["directory"] / "relationships.json"
         relationships_data = {
             "video_url": video.metadata.url,
             "video_title": video.metadata.title,
-            "relationships": [r.dict() for r in video.relationships],
-            "total_count": len(video.relationships)
-        }
-        with open(relationships_path, 'w', encoding='utf-8') as f:
-            json.dump(relationships_data, f, default=str, indent=2)
-        paths["relationships"] = relationships_path
-
-        # Relationships CSV
-        relationships_csv_path = paths["directory"] / "relationships.csv"
-        with open(relationships_csv_path, 'w', encoding='utf-8', newline='') as f:
-            writer = csv.writer(f)
-            writer.writerow(["subject", "predicate", "object", "confidence", "context"])
-            for rel in video.relationships:
-                # Safe handling of context field that might be None
-                context = getattr(rel, 'context', '') or ''
-                context_truncated = context[:100] if context else ''
-                
-                writer.writerow([
-                    rel.subject,
-                    rel.predicate,
-                    rel.object,
-                    getattr(rel, 'confidence', 0.0),
-                    context_truncated
-                ])
-        paths["relationships_csv"] = relationships_csv_path
-        logger.info(f"Saved {len(video.relationships)} relationships to JSON and CSV :-)")
-
-    def _save_knowledge_graph_files(self, video: VideoIntelligence, paths: Dict[str, Path]):
-        """Saves knowledge_graph.json and knowledge_graph.gexf if they exist."""
-        if not hasattr(video, 'knowledge_graph') or not video.knowledge_graph:
-            logger.debug("No knowledge graph to save")
-            return
-
-        # Additional safety check - ensure knowledge_graph is not None
-        if video.knowledge_graph is None:
-            logger.warning("Knowledge graph is None, skipping save")
-            return
-
-        # Knowledge Graph JSON
-        graph_path = paths["directory"] / "knowledge_graph.json"
-        with open(graph_path, 'w', encoding='utf-8') as f:
-            json.dump(video.knowledge_graph, f, indent=2)
-        paths["knowledge_graph"] = graph_path
-        
-        # Safe access to knowledge graph properties
-        node_count = video.knowledge_graph.get('node_count', 0) if isinstance(video.knowledge_graph, dict) else 0
-        edge_count = video.knowledge_graph.get('edge_count', 0) if isinstance(video.knowledge_graph, dict) else 0
-        
-        logger.info(
-            f"Saved knowledge graph with {node_count} nodes "
-            f"and {edge_count} edges :-)"
-        )
-
-        # GEXF for Gephi
-        gexf_path = paths["directory"] / "knowledge_graph.gexf"
-        try:
-            gexf_content = self._generate_gexf_content(video.knowledge_graph)
-            with open(gexf_path, 'w', encoding='utf-8') as f:
-                f.write(gexf_content)
-            paths["gexf"] = gexf_path
-            logger.info("Saved GEXF file for Gephi visualization :-)")
-        except Exception as e:
-            logger.warning(f"Failed to generate GEXF: {e}")
-
-    def _save_facts_file(self, video: VideoIntelligence, paths: Dict[str, Path]):
-        """Saves facts.txt if key moments exist."""
-"""ClipScribe Video Intelligence Retriever - Process videos from ANY platform."""
-
-import asyncio
-import logging
-from typing import List, Dict, Optional, Any
-from datetime import datetime
-import os
-import json
-from pathlib import Path
-import networkx as nx
-import csv
-
-from ..models import VideoIntelligence, VideoTranscript, KeyPoint, Entity, Topic, Relationship, MultiVideoIntelligence
-from .universal_video_client import UniversalVideoClient
-from .transcriber import GeminiFlashTranscriber
-from .video_retention_manager import VideoRetentionManager
-from ..utils.filename import create_output_filename, create_output_structure, extract_platform_from_url
-from ..config.settings import Settings, TemporalIntelligenceLevel, VideoRetentionPolicy
-from ..utils.file_utils import calculate_sha256
-# Timeline features permanently discontinued per strategic pivot
-
-logger = logging.getLogger(__name__)
-
-
-class VideoIntelligenceRetriever:
-    """
-    Main retriever class for video intelligence extraction with v2.17.0 Enhanced Temporal Intelligence.
-    
-    Features:
-    - Enhanced Temporal Intelligence extraction (300% more temporal data)
-    - Video Retention System with cost optimization
-    - Direct video-to-Gemini processing
-    - Support for 1800+ video platforms via yt-dlp
-    """
-    
-    def __init__(
-        self, 
-        cache_dir: Optional[str] = None,
-        use_advanced_extraction: bool = True,
-        domain: Optional[str] = None,
-        mode: str = "auto",  # Changed default to auto for v2.17.0
-        use_cache: bool = True,
-        output_dir: Optional[str] = None,
-        output_formats: Optional[List[str]] = None,
-        enhance_transcript: bool = False,
-        progress_tracker: Optional[Any] = None,
-        performance_monitor: Optional[Any] = None,
-        progress_hook: Optional[Any] = None,
-        cost_tracker: Optional[Any] = None  # NEW: cost tracker for real-time cost updates
-    ):
-        """
-        Initialize the video intelligence retriever with v2.17.0 enhancements.
-        
-        Args:
-            cache_dir: Directory for caching results
-            use_advanced_extraction: Use REBEL+GLiNER extraction
-            domain: Domain for specialized extraction
-            mode: Processing mode ("audio", "video", "auto") - auto uses enhanced temporal intelligence
-            use_cache: Whether to use cached results
-            output_dir: Directory for output files
-            output_formats: List of output formats
-            enhance_transcript: Whether to enhance transcript
-            progress_tracker: Progress tracking instance
-            performance_monitor: Performance monitoring instance
-            progress_hook: Progress hook for progress updates
-            cost_tracker: Cost tracker for real-time cost updates
-        """
-        self.cache_dir = cache_dir or ".video_cache"
-        os.makedirs(self.cache_dir, exist_ok=True)
-        
-        self.mode = mode
-        self.use_cache = use_cache
-        self.output_dir = output_dir
-        self.output_formats = output_formats or ["txt"]
-        self.enhance_transcript = enhance_transcript
-        self.clean_graph = False  # Will be set by CLI if --clean-graph is used
-        self.use_advanced_extraction = use_advanced_extraction
-        self.progress_tracker = progress_tracker
-        self.performance_monitor = performance_monitor
-        self.progress_hook = progress_hook
-        self.cost_tracker = cost_tracker  # Store cost tracker
-        
-        # Get v2.17.0 settings
-        self.settings = Settings()
-        self.temporal_config = self.settings.get_temporal_intelligence_config()
-        
-        # Initialize video retention manager
-        self.retention_manager = VideoRetentionManager(self.settings)
-        
-        # Initialize clients
-        self.video_client = UniversalVideoClient()
-        self.transcriber = GeminiFlashTranscriber(performance_monitor=performance_monitor)
-        
-        # Initialize mode detector for auto mode (v2.17.0 enhancement)
-        if mode == "auto":
-            from .video_mode_detector import VideoModeDetector
-            self.mode_detector = VideoModeDetector()
-        else:
-            self.mode_detector = None
-        
-        # Choose entity extractor based on advanced extraction setting
-        if use_advanced_extraction:
-            logger.info("Using advanced extraction with REBEL+GLiNER :-)")
-            try:
-                from ..extractors.advanced_hybrid_extractor import AdvancedHybridExtractor
-                self.entity_extractor = AdvancedHybridExtractor(
-                    use_gliner=True,
-                    use_rebel=True,
-                    use_llm=True,
-                    api_key=self.settings.google_api_key
-                )
-            except ImportError:
-                logger.warning("Advanced extractors not available, falling back to hybrid")
-                from ..extractors.hybrid_extractor import HybridEntityExtractor
-                self.entity_extractor = HybridEntityExtractor()
-        else:
-            logger.info("Using basic hybrid extraction")
-            from ..extractors.hybrid_extractor import HybridEntityExtractor
-            self.entity_extractor = HybridEntityExtractor()
-        
-        self.domain = domain
-        
-        # Timeline Intelligence v2.0 Components DISCONTINUED per strategic pivot
-        logger.info("Timeline features discontinued - focusing on core intelligence extraction")
-        
-        # Processing statistics
-        self.videos_processed = 0
-        self.total_cost = 0.0
-        
-        logger.info(f"v2.17.0 Enhanced Temporal Intelligence: {self.temporal_config['level']}")
-        logger.info(f"Video Retention Policy: {self.settings.video_retention_policy}")
-    
-    async def search(
-        self, 
-        query: str, 
-        max_results: int = 5,
-        site: str = "youtube"
-    ) -> List[VideoIntelligence]:
-        """
-        Search for videos and analyze them with v2.17.0 Enhanced Temporal Intelligence.
-        
-        Args:
-            query: Search query
-            max_results: Maximum number of videos to process
-            site: Site to search (currently only 'youtube')
-            
-        Returns:
-            List of VideoIntelligence objects with enhanced temporal intelligence
-        """
-        try:
-            logger.info(f"Searching for videos: {query}")
-            
-            # Search for videos
-            videos = await self.video_client.search_videos(
-                query=query,
-                max_results=max_results,
-                site=site
-            )
-            
-            if not videos:
-                logger.warning(f"No videos found for query: {query}")
-                return []
-            
-            # Process videos in parallel with enhanced temporal intelligence
-            tasks = [
-                self._process_video_enhanced(video.url)
-                for video in videos
-            ]
-            
-            results = await asyncio.gather(*tasks, return_exceptions=True)
-            
-            # Filter out errors
-            intelligence_results = []
-            for result in results:
-                if isinstance(result, Exception):
-                    logger.error(f"Failed to process video: {result}")
-                elif result:
-                    intelligence_results.append(result)
-            
-            return intelligence_results
-            
-        except Exception as e:
-            logger.error(f"Search failed: {e}")
-            return []
-    
-    async def process_url(self, video_url: str, progress_state: Optional[Dict[str, Any]] = None) -> Optional[VideoIntelligence]:
-        """
-        Process a video from ANY supported platform with v2.17.0 Enhanced Temporal Intelligence.
-        
-        Enhanced features:
-        - Enhanced temporal intelligence extraction
-        - Visual temporal cues from video content
-        - Smart video retention management
-        - Direct video-to-Gemini processing
-        
-        Supports:
-        - YouTube, Vimeo, Dailymotion
-        - Twitter/X, TikTok, Instagram
-        - BBC, CNN, TED, NBC
-        - SoundCloud, Bandcamp
-        - Twitch, Reddit
-        - And 1800+ more!
-        
-        Args:
-            video_url: URL from any supported video platform
-            progress_state: Optional progress tracking state
-            
-        Returns:
-            VideoIntelligence object with enhanced temporal intelligence or None if failed
-        """
-        # Check if URL is supported
-        if not self.video_client.is_supported_url(video_url):
-            logger.error(f"URL not supported by yt-dlp: {video_url}")
-            return None
-            
-        if self.progress_hook:
-            self.progress_hook({"description": "Processing with Enhanced Temporal Intelligence..."})
-        
-        return await self._process_video_enhanced(video_url, progress_state)
-    
-    async def _process_video_enhanced(self, video_url: str, progress_state: Optional[Dict[str, Any]] = None) -> Optional[VideoIntelligence]:
-        """Process a single video with v2.17.0 Enhanced Temporal Intelligence."""
-        try:
-            total_steps = 6  # download, process, extract, timeline, retention, facts
-            current_step = 0
-
-            def _update_progress(description: str, cost_amount: float = None, cost_operation: str = None):
-                nonlocal current_step
-                current_step += 1
-                progress_percentage = int((current_step / total_steps) * 100)
-                phase = f"Phase {current_step}/{total_steps}"
-                # Only use progress_tracker if progress_state is None (legacy mode)
-                if self.progress_hook:
-                    self.progress_hook({"description": description, "progress": progress_percentage})
-                elif progress_state is None and self.progress_tracker:
-                    self.progress_tracker.update_phase(progress_state, description.lower().replace(" ", "_"), description)
-                # NEW: Update CLI panels if progress_state is provided
-                if progress_state is not None and "cli_progress" in progress_state:
-                    progress_state["cli_progress"].update_cli_panels(
-                        progress_state,
-                        phase,
-                        description,
-                        progress_percentage,
-                        cost_amount,
-                        cost_operation
-                    )
-                # NEW: Update cost tracker and CLI cost display
-                if self.cost_tracker and cost_amount and cost_operation:
-                    self.cost_tracker.add_cost(cost_amount, cost_operation, description)
-                    if progress_state is None and hasattr(self.progress_tracker, 'update_cost'):
-                        self.progress_tracker.update_cost(progress_state, self.cost_tracker.current_cost)
-
-            # Check cache first
-            cache_key = self._get_cache_key(video_url)
-            if self.use_cache:
-                cached_result = self._load_from_cache(cache_key)
-                if cached_result:
-                    logger.info(f"Using cached result for: {video_url}")
-                    if self.progress_tracker and progress_state:
-                        self.progress_tracker.log_info("Using cached result")
-                    return cached_result
-            
-            logger.info(f"Processing video with Enhanced Temporal Intelligence: {video_url}")
-            
-            _update_progress("Downloading video for enhanced processing", cost_amount=0.0005, cost_operation="download")
-            
-            # v2.17.0: Enhanced processing mode determination
-            processing_mode = await self._determine_enhanced_processing_mode(video_url)
-            
-            logger.info(f"Using {processing_mode} mode for enhanced temporal intelligence")
-            
-            # Download media based on enhanced mode
-            # TEMPORARY: Always use audio for now due to video download issues
-            if False and processing_mode in ["video", "enhanced"]:
-                logger.info("Downloading full video for enhanced temporal intelligence...")
-                if self.progress_tracker:
-                    self.progress_tracker.log_info("Downloading full video for enhanced temporal intelligence...")
-                media_file, metadata = await self.video_client.download_video(
-                    video_url,
-                    output_dir=self.cache_dir
-                )
-            else:
-                logger.info("Downloading audio for processing...")
-                if self.progress_tracker:
-                    self.progress_tracker.log_info("Downloading audio for processing...")
-                media_file, metadata = await self.video_client.download_audio(
-                    video_url,
-                    output_dir=self.cache_dir
-                )
-            
-            media_path = Path(media_file)
-            
-            try:
-                _update_progress("Processing with Enhanced Temporal Intelligence", cost_amount=0.0005, cost_operation="transcription")
-                
-                # v2.17.0: Enhanced processing based on mode
-                # TEMPORARY: Always use audio transcription for now
-                if False and processing_mode in ["video", "enhanced"]:
-                    analysis = await self.transcriber.transcribe_video(
-                        media_file,
-                        metadata.duration
-                    )
-                else:
-                    analysis = await self.transcriber.transcribe_audio(
-                        media_file,
-                        metadata.duration
-                    )
-                
-                # Log enhanced processing details
-                logger.info(f"Enhanced temporal intelligence processing complete:")
-                logger.info(f"  Mode: {processing_mode}")
-                logger.info(f"  Cost: ${analysis['processing_cost']:.4f}")
-                logger.info(f"  Timeline events: {len(analysis.get('timeline_events', []))}")
-                logger.info(f"  Visual temporal cues: {len(analysis.get('visual_temporal_cues', []))}")
-                
-                if self.progress_tracker:
-                    self.progress_tracker.update_cost(analysis['processing_cost'])
-                
-                # Update cost tracking
-                self.total_cost += analysis['processing_cost']
-                self.videos_processed += 1
-                
-                # Generate segments from transcript
-                segments = self._generate_segments(
-                    analysis['transcript'],
-                    metadata.duration,
-                    segment_length=30
-                )
-                
-                # Create VideoTranscript object with segments
-                transcript = VideoTranscript(
-                    full_text=analysis['transcript'],
-                    segments=segments,
-                    language=analysis.get('language', 'en'),
-                    confidence=analysis.get('confidence_score', 0.95)
-                )
-                
-                # Convert key points to KeyPoint objects
-                key_points = []
-                for kp in analysis.get('key_points', []):
-                    key_points.append(KeyPoint(
-                        timestamp=kp.get('timestamp', 0),
-                        text=kp.get('text', ''),
-                        importance=kp.get('importance', 0.8),
-                        context=kp.get('context')
-                    ))
-                
-                # Convert topics to Topic objects
-                topics = []
-                raw_topics = analysis.get('topics', [])
-                for topic in raw_topics:
-                    if isinstance(topic, str):
-                        topics.append(Topic(name=topic, confidence=0.85))
-                    elif isinstance(topic, dict):
-                        topics.append(Topic(
-                            name=topic.get('name', ''),
-                            confidence=topic.get('confidence', 0.85)
-                        ))
-                    else:
-                        topics.append(topic)
-                
-                # Create enhanced VideoIntelligence object
-                video_intelligence = VideoIntelligence(
-                    metadata=metadata,
-                    transcript=transcript,
-                    summary=analysis['summary'],
-                    key_points=key_points,
-                    entities=[],  # Will be populated by extractor
-                    topics=topics,
-                    sentiment=None,
-                    confidence_score=analysis.get('confidence_score', 0.95),
-                    processing_time=analysis['processing_time'],
-                    processing_cost=analysis['processing_cost']
-                )
-                
-                # Add enhanced temporal intelligence data
-                if 'timeline_events' in analysis:
-                    video_intelligence.processing_stats['timeline_events'] = analysis['timeline_events']
-                if 'visual_temporal_cues' in analysis:
-                    video_intelligence.processing_stats['visual_temporal_cues'] = analysis['visual_temporal_cues']
-                if 'temporal_patterns' in analysis:
-                    video_intelligence.processing_stats['temporal_patterns'] = analysis['temporal_patterns']
-                
-                # ADD DATES FROM GEMINI EXTRACTION (Phase 1 critical fix)
-                if 'dates' in analysis:
-                    video_intelligence.processing_stats['dates'] = analysis['dates']
-                    # Also store at top level for easier access
-                    video_intelligence.dates = analysis['dates']
-                if 'visual_dates' in analysis:
-                    video_intelligence.processing_stats['visual_dates'] = analysis['visual_dates']
-                
-                # Run intelligence extraction if requested
-                if self.use_advanced_extraction and hasattr(self.entity_extractor, 'extract_all'):
-                    _update_progress("Extracting enhanced intelligence", cost_amount=0.0005, cost_operation="entity_extraction")
-                    logger.info(f"Extracting intelligence with advanced extractor (domain={self.domain})...")
-                    try:
-                        video_intelligence = await self.entity_extractor.extract_all(
-                            video_intelligence, domain=self.domain
-                        )
-                        
-                        # Optional: Clean the graph with Gemini
-                        if video_intelligence.knowledge_graph and self.clean_graph:
-                            logger.info("Cleaning knowledge graph with AI...")
-                            if self.progress_tracker and progress_state:
-                                self.progress_tracker.update_phase(progress_state, "clean", "Cleaning knowledge graph...")
-                            
-                            from ..extractors.graph_cleaner import GraphCleaner
-                            cleaner = GraphCleaner()
-                            video_intelligence = await cleaner.clean_knowledge_graph(video_intelligence)
-                            logger.info("Knowledge graph cleaned successfully :-)")
-
-                    except Exception as e:
-                        logger.error(f"Advanced intelligence extraction failed: {e}", exc_info=True)
-                        if self.progress_tracker:
-                            self.progress_tracker.log_error(f"Advanced extraction failed: {e}")
-                
-                # Update cost with extraction costs
-                if hasattr(self.entity_extractor, 'get_total_cost'):
-                    video_intelligence.processing_cost += self.entity_extractor.get_total_cost()
-                
-                _update_progress("Building enhanced timeline with Timeline Intelligence v2.0", cost_amount=0.0002, cost_operation="timeline")
-                
-                # 🚀 Timeline Intelligence v2.0 Processing for Single Videos
-                try:
-                    logger.info("Starting Timeline Intelligence v2.0 processing for single video...")
-                    
-                    # Step 1: Enhanced temporal extraction using Timeline v2.0
-                    logger.info("📊 Step 1: Enhanced temporal extraction...")
-                    temporal_events = await self.temporal_extractor.extract_temporal_events(
-                        video_url=video_url,
-                        transcript_text=analysis['transcript'],
-                        entities=video_intelligence.entities
-                    )
-                    logger.info(f"✅ Extracted {len(temporal_events)} temporal events")
-                    
-                    # Step 2: Event deduplication 
-                    logger.info("🔄 Step 2: Event deduplication...")
-                    deduplicated_events = self.event_deduplicator.deduplicate_events(temporal_events)
-                    logger.info(f"✅ Deduplicated to {len(deduplicated_events)} unique events")
-                    
-                    # Step 3: Gemini date extraction and processing
-                    logger.info("📅 Step 3: Gemini date extraction and processing...")
-                    
-                    # Extract dates from Gemini transcription if available
-                    gemini_dates = []
-                    if 'dates' in analysis and analysis['dates']:
-                        logger.info(f"🎯 Found {len(analysis['dates'])} dates from Gemini transcription")
-                        # Convert to ExtractedDate objects for GeminiDateProcessor
-                        from ..models import ExtractedDate
-                        for date_info in analysis['dates']:
-                            extracted_date = ExtractedDate(
-                                original_text=date_info.get('original_text', ''),
-                                normalized_date=date_info.get('normalized_date'),
-                                precision=date_info.get('precision', 'approximate'),
-                                confidence=date_info.get('confidence', 0.5),
-                                context=date_info.get('context', ''),
-                                source=date_info.get('source', 'transcript'),
-                                visual_description=date_info.get('visual_description', ''),  # Default to empty string
-                                timestamp=date_info.get('timestamp', 0)
-                            )
-                            gemini_dates.append(extracted_date)
-                    
-                    # Process dates with GeminiDateProcessor
-                    from ..timeline.gemini_date_processor import GeminiDateProcessor
-                    gemini_processor = GeminiDateProcessor()
-                    
-                    # Associate dates with events
-                    dated_events = gemini_processor.associate_dates_with_events(
-                        deduplicated_events, 
-                        gemini_dates,
-                        window_seconds=60.0  # Use 60-second window for date proximity matching (increased for sparse events)
-                    )
-                    
-                    # Count accurate dates
-                    accurate_dates = len([e for e in dated_events if e.date and e.date_confidence > 0.7])
-                    logger.info(f"✅ Extracted content dates for {accurate_dates}/{len(dated_events)} events")
-                    
-                    # Step 4: Quality filtering
-                    logger.info("🎯 Step 4: Quality filtering...")
-                    # Create a simple timeline object for the quality filter
-                    from ..timeline.models import ConsolidatedTimeline
-                    simple_timeline = ConsolidatedTimeline(
-                        timeline_id=f"video_{video_url.split('/')[-1]}",
-                        events=dated_events,
-                        video_sources=[video_url],
-                        creation_date=datetime.now(),
-                        quality_metrics={},  # Fixed: Use empty dict instead of None
-                        cross_video_correlations=[],
-                        metadata={}
-                    )
-                    filtered_timeline, quality_report = await self.timeline_quality_filter.filter_timeline_quality(simple_timeline)
-                    filtered_events = filtered_timeline.events
-                    logger.info(f"✅ Filtered to {len(filtered_events)} high-quality events")
-                    
-                    # Step 5: Chapter segmentation
-                    logger.info("📑 Step 5: Chapter segmentation...")
-                    # Use TemporalMetadata for chapter segmentation
-                    from ..retrievers.universal_video_client import TemporalMetadata
-                    temp_metadata = TemporalMetadata(
-                        chapters=[],
-                        subtitles=None,
-                        sponsorblock_segments=[],
-                        video_metadata=metadata.__dict__,
-                        word_level_timing={},
-                        content_sections=[]
-                    )
-                    segmentation = await self.chapter_segmenter.segment_video(
-                        video_url,
-                        temp_metadata,
-                        analysis['transcript']
-                    )
-                    chapters = segmentation.chapters
-                    logger.info(f"✅ Created {len(chapters)} timeline chapters")
-                    
-                    # Add Timeline v2.0 data to VideoIntelligence
-                    # Convert ChapterAnalysis dataclasses to dict format
-                    from dataclasses import asdict
-                    chapters_as_dict = []
-                    for chapter_analysis in chapters:
-                        # Convert ChapterAnalysis dataclass to dict
-                        chapter_dict = asdict(chapter_analysis)
-                        chapters_as_dict.append(chapter_dict)
-                    
-                    video_intelligence.timeline_v2 = {
-                        "events": [event.model_dump() for event in filtered_events],  # Changed from temporal_events to events
-                        "chapters": chapters_as_dict,
-                        "quality_metrics": {
-                            "total_events_extracted": len(temporal_events),
-                            "events_after_deduplication": len(deduplicated_events),
-                            "events_with_content_dates": accurate_dates,
-                            "final_high_quality_events": len(filtered_events),
-                            "chapters_created": len(chapters),
-                            "quality_improvement_ratio": len(filtered_events) / max(len(temporal_events), 1)
-                        }
-                    }
-                    
-                    logger.info(f"✅ Timeline Intelligence v2.0 processing complete! Quality improvement: {video_intelligence.timeline_v2['quality_metrics']['quality_improvement_ratio']:.2%}")
-                    
-                except Exception as e:
-                    logger.error(f"Timeline Intelligence v2.0 processing failed: {e}")
-                    logger.error("Falling back to basic timeline processing...")
-                    video_intelligence.timeline_v2 = {
-                        "error": str(e),
-                        "fallback_used": True,
-                        "events": [],  # Changed from temporal_events to events
-                        "chapters": []
-                    }
-                
-                # v2.17.0: Video retention management
-                _update_progress("Managing video retention", cost_amount=0.0001, cost_operation="retention")
-                
-                # Handle video retention based on policy
-                retention_result = await self.retention_manager.handle_video_retention(
-                    media_path, video_intelligence
-                )
-                
-                logger.info(f"Video retention: {retention_result['action']} - {retention_result.get('reason', 'No reason')}")
-                video_intelligence.processing_stats['retention_decision'] = retention_result
-                
-                # Cache the result
-                self._save_to_cache(cache_key, video_intelligence)
-                
-                # Record performance metrics if monitor is enabled
-                if self.performance_monitor:
-                    self.performance_monitor.record_metric(
-                        "enhanced_extraction_quality",
-                        {
-                            "entities": len(video_intelligence.entities),
-                            "relationships": len(getattr(video_intelligence, 'relationships', [])),
-                            "key_points": len(video_intelligence.key_points),
-                            "timeline_events": len(video_intelligence.processing_stats.get('timeline_events', [])),
-                            "visual_temporal_cues": len(video_intelligence.processing_stats.get('visual_temporal_cues', [])),
-                            "duration": video_intelligence.metadata.duration,
-                            "temporal_intelligence_level": self.temporal_config['level'],
-                            "processing_mode": processing_mode
-                        },
-                        platform=extract_platform_from_url(video_url),
-                        video_title=video_intelligence.metadata.title
-                    )
-
-                return video_intelligence
-                
-            finally:
-                # Note: Don't delete media file here if it was moved by retention manager
-                if media_path.exists():
-                    try:
-                        os.remove(media_path)
-                    except:
-                        pass
-                    
-        except Exception as e:
-            logger.error(f"Failed to process video {video_url}: {e}")
-            if self.progress_tracker:
-                self.progress_tracker.log_error(f"Failed to process video: {e}")
-            return None
-    
-    async def _determine_enhanced_processing_mode(self, video_url: str) -> str:
-        """Determine the best processing mode for v2.17.0 Enhanced Temporal Intelligence."""
-        
-        # If mode is explicitly set, use it
-        if self.mode in ["video", "audio"]:
-            return self.mode
-        
-        # For auto mode, use enhanced intelligence
-        if self.mode == "auto":
-            # Use temporal intelligence level to determine mode
-            if self.temporal_config['level'] == TemporalIntelligenceLevel.ENHANCED:
-                # Enhanced mode uses video processing for visual temporal cues
-                return "enhanced"
-            elif self.temporal_config['level'] == TemporalIntelligenceLevel.MAXIMUM:
-                # Maximum mode uses full video processing
-                return "video"
-            else:
-                # Standard mode uses audio processing
-                return "audio"
-        
-        # Default enhanced processing
-        return "enhanced"
-    
-    # Keep existing methods unchanged
-    async def _process_video(self, video_url: str, progress_state: Optional[Dict[str, Any]] = None) -> Optional[VideoIntelligence]:
-        """Legacy method - redirects to enhanced processing."""
-        return await self._process_video_enhanced(video_url, progress_state)
-    
-    def _get_cache_key(self, video_url: str) -> str:
-        """Generate cache key from URL."""
-        import hashlib
-        # Include temporal intelligence level in cache key for v2.17.0
-        cache_data = f"{video_url}_{self.temporal_config['level']}"
-        return hashlib.md5(cache_data.encode()).hexdigest()
-    
-    def _load_from_cache(self, cache_key: str) -> Optional[VideoIntelligence]:
-        """Load result from cache."""
-        cache_file = os.path.join(self.cache_dir, f"{cache_key}.json")
-        
-        if os.path.exists(cache_file):
-            try:
-                with open(cache_file, 'r') as f:
-                    data = json.load(f)
-                return VideoIntelligence.parse_obj(data)
-            except:
-                pass
-        
-        return None
-    
-    def _save_to_cache(self, cache_key: str, result: VideoIntelligence):
-        """Save result to cache."""
-        cache_file = os.path.join(self.cache_dir, f"{cache_key}.json")
-        
-        try:
-            with open(cache_file, 'w') as f:
-                json.dump(result.dict(), f, default=str, indent=2)
-        except Exception as e:
-            logger.warning(f"Failed to cache result: {e}")
-    
-    def get_stats(self) -> Dict[str, Any]:
-        """Get enhanced processing statistics for v2.17.0."""
-        retention_stats = self.retention_manager.get_retention_stats()
-        
-        return {
-            "videos_processed": self.videos_processed,
-            "total_cost": self.total_cost,
-            "average_cost": self.total_cost / max(1, self.videos_processed),
-            "cache_dir": self.cache_dir,
-            "supported_sites": "1800+ (via yt-dlp)",
-            # v2.17.0 Enhanced stats
-            "temporal_intelligence_level": self.temporal_config['level'],
-            "temporal_intelligence_enabled": self.temporal_config['level'] != TemporalIntelligenceLevel.STANDARD,
-            "video_retention_policy": self.settings.video_retention_policy,
-            "retention_stats": retention_stats
-        }
-    
-    def save_transcript(
-        self, 
-        video: VideoIntelligence, 
-        output_dir: str = None,
-        formats: List[str] = ["txt"]
-    ) -> Dict[str, Path]:
-        """
-        Save transcript with meaningful filename based on video title.
-        
-        Args:
-            video: VideoIntelligence object with transcript
-            output_dir: Directory to save files (default: current directory)
-            formats: List of formats to save (txt, json)
-            
-        Returns:
-            Dictionary of format -> Path for saved files
-        """
-        saved_files = {}
-        
-        for format_type in formats:
-            if format_type == "txt":
-                # Save plain text
-                output_file = create_output_filename(
-                    video.metadata.title, 
-                    "txt", 
-                    output_dir
-                )
-                with open(output_file, 'w', encoding='utf-8') as f:
-                    f.write(video.transcript.full_text)
-                saved_files["txt"] = output_file
-                
-            elif format_type == "json":
-                # Save full JSON with metadata
-                output_file = create_output_filename(
-                    video.metadata.title, 
-                    "json", 
-                    output_dir
-                )
-                with open(output_file, 'w', encoding='utf-8') as f:
-                    json.dump(video.dict(), f, default=str, indent=2)
-                saved_files["json"] = output_file
-        
-        return saved_files
-    
-    def _generate_segments(
-        self, 
-        text: str, 
-        duration: int, 
-        segment_length: int = 30
-    ) -> List[Dict[str, Any]]:
-        """
-        Generate time-based segments from transcript.
-        
-        Args:
-            text: Full transcript text
-            duration: Video duration in seconds
-            segment_length: Target segment length in seconds
-            
-        Returns:
-            List of segment dictionaries with start, end, and text
-        """
-        if not text:
-            return []
-            
-        # Split text into words
-        words = text.split()
-        if not words:
-            return []
-            
-        # Calculate words per segment
-        total_segments = max(1, duration // segment_length)
-        words_per_segment = len(words) / total_segments
-        
-        segments = []
-        
-        for i in range(0, len(words), int(words_per_segment)):
-            # Calculate time boundaries
-            start_time = (i / len(words)) * duration
-            end_time = min(((i + words_per_segment) / len(words)) * duration, duration)
-            
-            # Get segment text
-            segment_words = words[i:int(i + words_per_segment)]
-            segment_text = ' '.join(segment_words)
-            
-            if segment_text.strip():  # Only add non-empty segments
-                segments.append({
-                    "start": round(start_time, 2),
-                    "end": round(end_time, 2),
-                    "text": segment_text.strip()
-                })
-        
-        # Ensure last segment ends at video duration
-        if segments:
-            segments[-1]["end"] = duration
-        
-        logger.info(f"Generated {len(segments)} segments from {duration}s video")
-        return segments
-    
-    def save_all_formats(
-        self,
-        video: VideoIntelligence,
-        output_dir: str = "output",
-        include_chimera_format: bool = True
-    ) -> Dict[str, Path]:
-        """
-        Save video data in all formats with a structured directory.
-
-        Orchestrates the saving of multiple file formats by calling dedicated
-        private methods for each format.
-
-        Args:
-            video: VideoIntelligence object.
-            output_dir: Base output directory.
-            include_chimera_format: Include Chimera-compatible format.
-
-        Returns:
-            Dictionary of file types to paths.
-        """
-        # Debug logging to track knowledge graph state
-        logger.debug(f"save_all_formats called with video.knowledge_graph: {hasattr(video, 'knowledge_graph')} / {getattr(video, 'knowledge_graph', None) is not None}")
-        
-        metadata = self._get_video_metadata_dict(video)
-        paths = create_output_structure(metadata, output_dir)
-
-        self._save_transcript_files(video, paths, metadata)
-        self._save_metadata_file(video, paths, metadata)
-        self._save_entities_files(video, paths)
-        self._save_entity_sources_file(video, paths)  # New method to track entity sources
-        self._save_relationships_files(video, paths)
-        
-        # Debug before knowledge graph save
-        logger.debug(f"About to save knowledge graph. Exists: {hasattr(video, 'knowledge_graph')}, Not None: {getattr(video, 'knowledge_graph', None) is not None}")
-        
-        self._save_knowledge_graph_files(video, paths)
-        self._save_facts_file(video, paths)
-        self._save_report_file(video, paths)
-        if include_chimera_format:
-            self._save_chimera_file(video, paths)
-        # Save TimelineJS if Timeline v2.0 data exists
-        self._save_timelinejs_file(video, paths)
-
-        self._create_manifest_file(video, paths)
-
-        logger.info(f"Saved all formats to: {paths['directory']}")
-        return paths
-
-    def _get_video_metadata_dict(self, video: VideoIntelligence) -> Dict[str, Any]:
-        """Extracts video metadata into a dictionary."""
-        if video is None or video.metadata is None:
-            logger.warning("Video or metadata is None, using default values")
-            return {
-                "title": "Unknown",
-                "url": "Unknown",
-                "channel": "Unknown",
-                "duration": 0,
-                "published_at": None,
-                "view_count": None,
-                "description": None,
-            }
-        
-        return {
-            "title": video.metadata.title,
-            "url": video.metadata.url,
-            "channel": video.metadata.channel,
-            "duration": video.metadata.duration,
-            "published_at": video.metadata.published_at.isoformat() if video.metadata.published_at else None,
-            "view_count": video.metadata.view_count,
-            "description": video.metadata.description,
-        }
-
-    def _save_transcript_files(self, video: VideoIntelligence, paths: Dict[str, Path], metadata: Dict[str, Any]):
-        """Saves transcript.txt and transcript.json."""
-        # 1. Plain text
-        with open(paths["transcript_txt"], 'w', encoding='utf-8') as f:
-            f.write(video.transcript.full_text)
-
-        # 2. Full JSON
-        full_data = {
-            "metadata": metadata,
-            "transcript": {
-                "full_text": video.transcript.full_text,
-                "segments": video.transcript.segments,
-                "language": video.transcript.language,
-                "confidence": video.transcript.confidence
-            },
-            "analysis": {
-                "summary": video.summary,
-                "key_points": [kp.dict() for kp in video.key_points],
-                "entities": [e.dict() for e in video.entities],
-                "topics": [t.dict() if hasattr(t, 'dict') else {"name": t.name, "confidence": t.confidence} for t in video.topics],
-                "sentiment": video.sentiment
-            },
-            "processing": {
-                "cost": video.processing_cost,
-                "time": video.processing_time,
-                "processed_at": datetime.now().isoformat(),
-                "model": "gemini-2.5-flash",
-                "extractor": "advanced_hybrid_v2.2" if hasattr(self.entity_extractor, 'extract_all') else "basic_hybrid"
-            }
-        }
-        
-        # ADD DATES FIELD (Phase 1 fix)
-        if hasattr(video, 'dates') and video.dates:
-            full_data["dates"] = video.dates
-        # Also check processing_stats for dates
-        if hasattr(video, 'processing_stats') and video.processing_stats:
-            if 'dates' in video.processing_stats:
-                full_data["dates"] = video.processing_stats['dates']
-            if 'visual_dates' in video.processing_stats:
-                full_data["visual_dates"] = video.processing_stats['visual_dates']
-        if hasattr(video, 'relationships') and video.relationships:
-            full_data["relationships"] = [r.dict() for r in video.relationships]
-        if hasattr(video, 'knowledge_graph') and video.knowledge_graph:
-            full_data["knowledge_graph"] = video.knowledge_graph
-        if hasattr(video, 'key_moments') and video.key_moments:
-            full_data["key_facts"] = video.key_moments
-        if hasattr(video, 'processing_stats') and video.processing_stats:
-            full_data["extraction_stats"] = video.processing_stats
-        if hasattr(video, 'timeline_v2') and video.timeline_v2:
-            full_data["timeline_v2"] = video.timeline_v2
-        
-        with open(paths["transcript_json"], 'w', encoding='utf-8') as f:
-            json.dump(full_data, f, default=str, indent=2)
-
-    def _save_metadata_file(self, video: VideoIntelligence, paths: Dict[str, Path], metadata: Dict[str, Any]):
-        """Saves metadata.json."""
-        with open(paths["metadata"], 'w', encoding='utf-8') as f:
-            json.dump({
-                "video": metadata,
-                "processing": {
-                    "cost": video.processing_cost,
-                    "time": video.processing_time,
-                    "processed_at": datetime.now().isoformat(),
-                    "clipscribe_version": "2.0.0"
-                },
-                "statistics": {
-                    "transcript_length": len(video.transcript.full_text),
-                    "word_count": len(video.transcript.full_text.split()),
-                    "entity_count": len(video.entities),
-                    "key_point_count": len(video.key_points),
-                    "topic_count": len(video.topics)
-                }
-            }, f, indent=2)
-
-    def _save_entities_files(self, video: VideoIntelligence, paths: Dict[str, Path]):
-        """Saves entities.json and entities.csv."""
-        all_entities = list(video.entities) + list(getattr(video, 'custom_entities', []))
-        
-        # Entities JSON
-        entities_data = {
-            "video_url": video.metadata.url,
-            "video_title": video.metadata.title,
-            "entities": [
+            "relationships": [
                 {
-                    "name": e.entity,
-                    "type": e.type,
-                    "confidence": e.confidence,
-                    "source": getattr(e, 'source', 'unknown'),
-                    "properties": getattr(e, 'properties', None),
-                    "timestamp": getattr(e, 'timestamp', None)
-                } for e in all_entities
+                    "subject": rel.subject,
+                    "predicate": rel.predicate, 
+                    "object": rel.object,
+                    "confidence": rel.confidence,
+                    "properties": getattr(rel, 'properties', {}),
+                    "context": getattr(rel, 'context', None),
+                    "evidence_chain": getattr(rel, 'evidence_chain', []),
+                    "contradictions": getattr(rel, 'contradictions', []),
+                    "confidence_score": getattr(rel, 'confidence_score', rel.confidence),
+                    "extraction_source": getattr(rel, 'extraction_source', 'unknown')
+                } for rel in video.relationships
             ],
-            "topics": [t.dict() if hasattr(t, 'dict') else {"name": t.name, "confidence": t.confidence} for t in video.topics],
-            "key_facts": [kp.text for kp in video.key_points[:5]]
-        }
-        with open(paths["entities"], 'w', encoding='utf-8') as f:
-            json.dump(entities_data, f, indent=2)
-
-        # Entities CSV
-        entities_csv_path = paths["directory"] / "entities.csv"
-        with open(entities_csv_path, 'w', encoding='utf-8', newline='') as f:
-            writer = csv.writer(f)
-            writer.writerow(["name", "type", "confidence", "source", "timestamp"])
-            for entity in all_entities:
-                writer.writerow([
-                    entity.entity,
-                    entity.type,
-                    getattr(entity, 'confidence', 0.0),
-                    getattr(entity, 'source', 'unknown'),
-                    getattr(entity, 'timestamp', '')
-                ])
-        paths["entities_csv"] = entities_csv_path
-        logger.info(f"Saved {len(all_entities)} entities to JSON and CSV :-)")
-
-    def _save_relationships_files(self, video: VideoIntelligence, paths: Dict[str, Path]):
-        """Saves relationships.json and relationships.csv if they exist."""
-        if not hasattr(video, 'relationships') or not video.relationships:
-            return
-
-        # Relationships JSON
-        relationships_path = paths["directory"] / "relationships.json"
-        relationships_data = {
-            "video_url": video.metadata.url,
-            "video_title": video.metadata.title,
-            "relationships": [r.dict() for r in video.relationships],
-            "total_count": len(video.relationships)
+            "total_count": len(video.relationships),
+            "relationships_with_evidence": sum(1 for rel in video.relationships if hasattr(rel, 'evidence_chain') and rel.evidence_chain),
+            "total_evidence_pieces": sum(len(getattr(rel, 'evidence_chain', [])) for rel in video.relationships)
         }
         with open(relationships_path, 'w', encoding='utf-8') as f:
             json.dump(relationships_data, f, default=str, indent=2)
         paths["relationships"] = relationships_path
 
-        # Relationships CSV
+        # Relationships CSV with evidence count
         relationships_csv_path = paths["directory"] / "relationships.csv"
         with open(relationships_csv_path, 'w', encoding='utf-8', newline='') as f:
             writer = csv.writer(f)
-            writer.writerow(["subject", "predicate", "object", "confidence", "context"])
+            writer.writerow(["subject", "predicate", "object", "confidence", "context", "evidence_count"])
             for rel in video.relationships:
                 # Safe handling of context field that might be None
                 context = getattr(rel, 'context', '') or ''
                 context_truncated = context[:100] if context else ''
+                evidence_count = len(getattr(rel, 'evidence_chain', []))
                 
                 writer.writerow([
                     rel.subject,
                     rel.predicate,
                     rel.object,
                     getattr(rel, 'confidence', 0.0),
-                    context_truncated
+                    context_truncated,
+                    evidence_count
                 ])
         paths["relationships_csv"] = relationships_csv_path
         logger.info(f"Saved {len(video.relationships)} relationships to JSON and CSV :-)")
@@ -2774,11 +1692,17 @@ class VideoIntelligenceRetriever:
         """Generate a human-readable markdown summary of information flow maps."""
         from clipscribe.models import InformationFlowMap
         
+        # Calculate unique video count from concept nodes
+        unique_videos = set()
+        for node in flow_map.concept_nodes:
+            unique_videos.add(node.video_id)
+        actual_video_count = len(unique_videos)
+        
         with open(output_path, 'w', encoding='utf-8') as f:
             f.write(f"# Information Flow Map: {flow_map.collection_title}\n\n")
             f.write(f"**Collection ID:** {flow_map.collection_id}\n")
             f.write(f"**Created:** {flow_map.created_at.strftime('%Y-%m-%d %H:%M:%S')}\n")
-            f.write(f"**Total Videos:** {len(flow_map.information_flows)}\n")
+            f.write(f"**Total Videos:** {actual_video_count}\n")  # Fixed: use actual video count
             f.write(f"**Concepts Tracked:** {flow_map.total_concepts}\n")
             f.write(f"**Flow Patterns Identified:** {flow_map.total_flows}\n\n")
             

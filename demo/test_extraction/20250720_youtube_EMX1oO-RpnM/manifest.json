@@ -1,0 +1,327 @@
+{
+  "version": "2.3",
+  "created_at": "2025-07-20T13:23:47.882194",
+  "video": {
+    "title": "5 Things To Know: June 6, 2025",
+    "url": "https://www.youtube.com/watch?v=EMX1oO-RpnM",
+    "platform": "youtube"
+  },
+  "extraction_stats": {
+    "gemini_entities": 42,
+    "gemini_relationships": 50,
+    "timeline_events": [
+      {
+        "confidence": 1,
+        "event_description": "Opening bell today for the stock market, identified as 'jobs Friday'.",
+        "event_type": "market event",
+        "timestamp": 1685718000,
+        "involved_entities": []
+      },
+      {
+        "confidence": 1,
+        "event_description": "Pulled forecasters expect an increase of 125,000 non-farm payrolls in May.",
+        "event_type": "economic forecast",
+        "timestamp": 1682899200,
+        "involved_entities": [
+          "forecasters"
+        ]
+      },
+      {
+        "confidence": 1,
+        "event_description": "Circle shares were sharply higher in pre-market trading, reaching $94.",
+        "event_type": "stock performance",
+        "timestamp": 1685718000,
+        "involved_entities": [
+          "Circle"
+        ]
+      },
+      {
+        "confidence": 1,
+        "event_description": "Circle shares made a 'big move yesterday', with the stock opening at $69.",
+        "event_type": "stock performance",
+        "timestamp": 1685631600,
+        "involved_entities": [
+          "Circle"
+        ]
+      },
+      {
+        "confidence": 1,
+        "event_description": "Lulu Lemon cut its full year guidance, citing a dynamic macro environment.",
+        "event_type": "financial announcement",
+        "timestamp": 1685718000,
+        "involved_entities": [
+          "Lulu Lemon"
+        ]
+      },
+      {
+        "confidence": 1,
+        "event_description": "DocuSign's billings in the first quarter came in weaker than expected.",
+        "event_type": "financial report",
+        "timestamp": 1678886400,
+        "involved_entities": [
+          "DocuSign"
+        ]
+      },
+      {
+        "confidence": 1,
+        "event_description": "DocuSign's guidance for billing in the current quarter also came in below estimates.",
+        "event_type": "financial guidance",
+        "timestamp": 1685718000,
+        "involved_entities": [
+          "DocuSign"
+        ]
+      },
+      {
+        "confidence": 1,
+        "event_description": "Broadcom's stock hit a recent low.",
+        "event_type": "stock performance",
+        "timestamp": 1680652800,
+        "involved_entities": [
+          "Broadcom"
+        ]
+      },
+      {
+        "confidence": 1,
+        "event_description": "President Trump announced a sweeping tariff plan.",
+        "event_type": "policy announcement",
+        "timestamp": 1680652800,
+        "involved_entities": [
+          "President Trump"
+        ]
+      },
+      {
+        "confidence": 1,
+        "event_description": "Concerns were raised during the Broadcom call yesterday regarding AI growth strength.",
+        "event_type": "company earnings call",
+        "timestamp": 1685631600,
+        "involved_entities": [
+          "Broadcom"
+        ]
+      }
+    ],
+    "visual_temporal_cues": [],
+    "temporal_patterns": [
+      {
+        "description": "The current day is identified as 'jobs Friday', implying a recurring weekly event related to job market reports.",
+        "pattern_type": "recurring",
+        "significance": "Economic indicator release schedule",
+        "timespan": "Weekly"
+      },
+      {
+        "description": "Circle shares show a progression in price: a 'big move yesterday' (stock opened at $69) followed by a further increase 'today' to $94, up another 13%.",
+        "pattern_type": "progression",
+        "significance": "Stock performance trend",
+        "timespan": "Yesterday to today"
+      },
+      {
+        "description": "DocuSign's financial performance shows a pattern of decline: Q1 billings were 'weaker than expected', and guidance for the 'current quarter also came in below estimates'.",
+        "pattern_type": "progression",
+        "significance": "Financial performance trend",
+        "timespan": "First quarter to current quarter"
+      },
+      {
+        "description": "Broadcom's stock price experienced a progression: hitting a 'recent low hit in early April', followed by a 'strong run up' (up about 70% from April), and then 'pulling back a bit' recently.",
+        "pattern_type": "progression",
+        "significance": "Stock performance trend",
+        "timespan": "Early April to present"
+      }
+    ],
+    "dates": [
+      {
+        "confidence": 0.95,
+        "normalized_date": "2024-05-17",
+        "original_text": "today",
+        "precision": "day",
+        "source": "transcript",
+        "context": "ahead of the opening bell"
+      },
+      {
+        "confidence": 0.95,
+        "normalized_date": "2024-05-17",
+        "original_text": "jobs Friday",
+        "precision": "day",
+        "source": "transcript",
+        "context": "It's jobs Friday"
+      },
+      {
+        "confidence": 0.9,
+        "normalized_date": "2024-05-01",
+        "original_text": "May",
+        "precision": "month",
+        "source": "transcript",
+        "context": "non-farm payrolls in May"
+      },
+      {
+        "confidence": 0.9,
+        "normalized_date": "2024-05-16",
+        "original_text": "yesterday",
+        "precision": "day",
+        "source": "transcript",
+        "context": "big move yesterday (Circle)"
+      },
+      {
+        "confidence": 0.9,
+        "normalized_date": "2024-05-16",
+        "original_text": "yesterday",
+        "precision": "day",
+        "source": "transcript",
+        "context": "Broadcom call yesterday"
+      },
+      {
+        "confidence": 0.9,
+        "normalized_date": "2024-04-01",
+        "original_text": "early April",
+        "precision": "month",
+        "source": "transcript",
+        "context": "low hit in early April"
+      },
+      {
+        "confidence": 0.85,
+        "normalized_date": "2024-04-01",
+        "original_text": "April",
+        "precision": "month",
+        "source": "transcript",
+        "context": "up about 70% from the April"
+      },
+      {
+        "confidence": 0.85,
+        "normalized_date": "2024-03-31",
+        "original_text": "first quarter",
+        "precision": "approximate",
+        "source": "transcript",
+        "context": "billings in the first quarter"
+      },
+      {
+        "confidence": 0.85,
+        "normalized_date": "2024-06-30",
+        "original_text": "current quarter",
+        "precision": "approximate",
+        "source": "transcript",
+        "context": "guidance for billing in the current quarter"
+      },
+      {
+        "confidence": 0.85,
+        "normalized_date": "2024-12-31",
+        "original_text": "full year",
+        "precision": "year",
+        "source": "transcript",
+        "context": "cut its full year guidance"
+      }
+    ],
+    "visual_dates": [],
+    "spacy_entities": 28,
+    "gliner_entities": 49,
+    "quality_false_positives_removed": 0,
+    "quality_language_filtered": 7,
+    "quality_confidence_improved": 60,
+    "quality_score": 0.5571596452057361,
+    "language_purity": 0.9473684210526315,
+    "enhanced_entities": 16,
+    "relationships": 2,
+    "relationship_evidence_total": 64,
+    "relationships_with_evidence": 44,
+    "temporal_references": 2,
+    "llm_validated": 16,
+    "graph_nodes": 88,
+    "graph_edges": 52,
+    "retention_decision": {
+      "action": "deleted",
+      "video_path": ".video_cache/5 Things To Know\uff1a June 6, 2025-EMX1oO-RpnM.mp3",
+      "video_hash": "5f8bb9b20b21adfad4889fc904d43502",
+      "reason": "Policy: Always delete source videos",
+      "cost_savings": {
+        "storage_cost_avoided": 0.0008973904699087142,
+        "reprocessing_cost": 0.0091139296875
+      },
+      "timestamp": "2025-07-20T13:23:47.853819"
+    }
+  },
+  "timeline_v2": {
+    "events": [],
+    "chapters": [],
+    "quality_metrics": {
+      "total_events_extracted": 0,
+      "events_after_deduplication": 0,
+      "events_with_content_dates": 0,
+      "final_high_quality_events": 0,
+      "chapters_created": 0,
+      "quality_improvement_ratio": 0
+    },
+    "status": "discontinued",
+    "message": "Timeline features discontinued - focusing on core intelligence extraction"
+  },
+  "files": {
+    "transcript_txt": {
+      "path": "transcript.txt",
+      "format": "plain_text",
+      "size": 2281,
+      "sha256": "e437320f0ee2e9e36b9670653de9040fc2151b64e684ac39c88a93b429237732"
+    },
+    "transcript_json": {
+      "path": "transcript.json",
+      "format": "json",
+      "size": 113464,
+      "sha256": "1aa38b4081cb40d08e290670098bc138e3d0262bc64e18be7d4538fdf9edc9f5"
+    },
+    "metadata": {
+      "path": "metadata.json",
+      "format": "json",
+      "size": 641,
+      "sha256": "6bfd74798fe68d301818abecd75a235c4f215f662fc0740e888d68a3f272f8c8"
+    },
+    "entities": {
+      "path": "entities.json",
+      "format": "json",
+      "size": 12340,
+      "sha256": "e4547e7e9e32329580c0964ce93df7cd93736ad864fd773e1e4f07248a439a6e"
+    },
+    "relationships": {
+      "path": "relationships.json",
+      "format": "json",
+      "size": 57334,
+      "sha256": "e61189ad68f9eacdfe3293c80970b20d9b0591575e0ef7335e481d26ae5d6cea",
+      "count": 52
+    },
+    "knowledge_graph": {
+      "path": "knowledge_graph.json",
+      "format": "json",
+      "size": 15624,
+      "sha256": "fb7a045a8e98a5ecc165375cf7b3882e0cb34612045f407ca447bef5ca97d2e1"
+    },
+    "gexf": {
+      "path": "knowledge_graph.gexf",
+      "format": "gexf",
+      "size": 37428,
+      "sha256": "714e0167e42c5aae162279c9da5e420bfe59d687c593c541c4cbbc2e6edaa42c",
+      "description": "Gephi-compatible graph file"
+    },
+    "entities_csv": {
+      "path": "entities.csv",
+      "format": "csv",
+      "size": 826,
+      "sha256": "79701e7bb2409f953757efdb04167eb0cd8ac7b87e817842ab2c87ce9c1cb1e6",
+      "description": "All entities in CSV format"
+    },
+    "relationships_csv": {
+      "path": "relationships.csv",
+      "format": "csv",
+      "size": 2809,
+      "sha256": "c6aa27557d3a84ec8f01f72002ea261ba4f14144abc48d20dca634242a4079af",
+      "description": "All relationships in CSV format"
+    },
+    "report": {
+      "path": "report.md",
+      "format": "markdown",
+      "size": 10620,
+      "sha256": "aa8c0706640b80f1bf15e9b1f746532df077fddf9e0975344c3e95f0a215f097",
+      "description": "Human-readable intelligence report"
+    },
+    "chimera": {
+      "path": "chimera_format.json",
+      "format": "json",
+      "size": 25914,
+      "sha256": "e48707be5082d0378972bc1f7d082ee2062a27bceb1d9ac266f1ea909122bbf6",
+      "description": "Chimera-compatible format"
+    }
+  }
+}

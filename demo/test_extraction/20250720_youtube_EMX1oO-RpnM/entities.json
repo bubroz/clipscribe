@@ -1,0 +1,451 @@
+{
+  "video_url": "https://www.youtube.com/watch?v=EMX1oO-RpnM",
+  "video_title": "5 Things To Know: June 6, 2025",
+  "entities": [
+    {
+      "name": "Opening Bell",
+      "type": "EVENT",
+      "confidence": 0.95,
+      "source": [
+        "Gemini"
+      ],
+      "properties": null,
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "Five things to know ahead of the opening bell today. It's jobs Friday. Number one, pulled forec",
+          "timestamp": "00:00:00",
+          "confidence": 0.9,
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": []
+    },
+    {
+      "name": "the April",
+      "type": "DATE",
+      "confidence": 0.74,
+      "source": [
+        "SpaCy"
+      ],
+      "properties": null,
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "e sweeping tariff plan. Stock's up about 70% from the April. There were some concerns from the Broadcom call ",
+          "timestamp": "00:00:00",
+          "confidence": 0.9,
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": []
+    },
+    {
+      "name": "Trump",
+      "type": "PERSON",
+      "confidence": 0.7100000000000001,
+      "source": [
+        "GLiNER+Gemini+SpaCy"
+      ],
+      "properties": null,
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": " the recent uh low hit in early April, just after President Trump announced uh the sweeping tariff plan. Stock's up",
+          "timestamp": "00:00:00",
+          "confidence": 0.9,
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "t uh low hit in early April, just after President Trump announced uh the sweeping tariff plan. Stock's up",
+          "timestamp": "00:00:00",
+          "confidence": 0.9,
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [
+        "President Trump"
+      ]
+    },
+    {
+      "name": "May",
+      "type": "DATE",
+      "confidence": 0.95,
+      "source": [
+        "GLiNER+SpaCy"
+      ],
+      "properties": null,
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "xpect an increase of 125,000 non-farm payrolls in May. The unemployment rate is expected to hold steady",
+          "timestamp": "00:00:00",
+          "confidence": 0.9,
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "me concerns from the Broadcom call yesterday that maybe all of this AI growth is not going to be quite ",
+          "timestamp": "00:00:00",
+          "confidence": 0.9,
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": []
+    },
+    {
+      "name": "Lulu Lemon",
+      "type": "PERSON",
+      "confidence": 0.7100000000000001,
+      "source": [
+        "GLiNER+SpaCy"
+      ],
+      "properties": null,
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "y up to 94. Uh, up another 13%, and the shares of Lulu Lemon. I wanted uh to lead with that this morning. I I ",
+          "timestamp": "00:00:00",
+          "confidence": 0.9,
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": []
+    },
+    {
+      "name": "The First Quarter",
+      "type": "CARDINAL",
+      "confidence": 0.8200000000000001,
+      "source": [
+        "SpaCy",
+        "GLiNER+SpaCy"
+      ],
+      "properties": null,
+      "timestamp": null,
+      "mention_count": 2,
+      "context_windows": [
+        {
+          "text": "revenue beat estimates, but billings in the first quarter uh came in weaker than expected. Um, the guidance",
+          "timestamp": "00:00:00",
+          "confidence": 0.9,
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "nings and revenue beat estimates, but billings in the first quarter uh came in weaker than expected. Um, the guidance",
+          "timestamp": "00:00:00",
+          "confidence": 0.9,
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "lightly higher than analysts expected and current quarter guidance also beat estimates on strong AI uh reve",
+          "timestamp": "00:00:00",
+          "confidence": 0.9,
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [
+        "Quarter"
+      ]
+    },
+    {
+      "name": "Pre-Market Trading",
+      "type": "EVENT",
+      "confidence": 0.95,
+      "source": [
+        "Gemini"
+      ],
+      "properties": null,
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "es of stablecoin company circle sharply higher in pre-market trading after a big move yesterday. I think it was priced",
+          "timestamp": "00:00:00",
+          "confidence": 0.9,
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": []
+    },
+    {
+      "name": "Unemployment Rate",
+      "type": "PRODUCT",
+      "confidence": 0.8200000000000001,
+      "source": [
+        "GLiNER",
+        "Gemini"
+      ],
+      "properties": null,
+      "timestamp": null,
+      "mention_count": 2,
+      "context_windows": [
+        {
+          "text": "increase of 125,000 non-farm payrolls in May. The unemployment rate is expected to hold steady. Remember ADP on Frida",
+          "timestamp": "00:00:00",
+          "confidence": 0.9,
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": []
+    },
+    {
+      "name": "Jobless Claims",
+      "type": "PERSON",
+      "confidence": 0.7100000000000001,
+      "source": [
+        "Gemini"
+      ],
+      "properties": null,
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "ot necessarily indicative, maybe even jobs claim, jobless claims might be more of jolts or something, but that was",
+          "timestamp": "00:00:00",
+          "confidence": 0.9,
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": []
+    },
+    {
+      "name": "Xi",
+      "type": "PERSON",
+      "confidence": 0.95,
+      "source": [
+        "GLiNER+Gemini+SpaCy"
+      ],
+      "properties": null,
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": " right? A couple other things Yeah, interceded in President Xi didn't even get top. Yeah, President Xi didn't ev",
+          "timestamp": "00:00:00",
+          "confidence": 0.9,
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "couple other things Yeah, interceded in President Xi didn't even get top. Yeah, President Xi didn't ev",
+          "timestamp": "00:00:00",
+          "confidence": 0.9,
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [
+        "President Xi"
+      ]
+    },
+    {
+      "name": "Estimates",
+      "type": "PRODUCT",
+      "confidence": 0.95,
+      "source": [
+        "Gemini"
+      ],
+      "properties": null,
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": ", right? Huh and she. Huh, he, yeah. Revenue beat estimates but comps uh sales growth of 1% missed estimates ",
+          "timestamp": "00:00:00",
+          "confidence": 0.9,
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "in below estimates. Broadcom earnings and revenue came in slightly h",
+          "timestamp": "00:00:00",
+          "confidence": 0.9,
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": []
+    },
+    {
+      "name": "Macro Environment",
+      "type": "PRODUCT",
+      "confidence": 0.95,
+      "source": [
+        "Gemini"
+      ],
+      "properties": null,
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "ny cut its full year uh guidance citing a dynamic macro environment. The CFO said they're planning strategic price in",
+          "timestamp": "00:00:00",
+          "confidence": 0.9,
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": []
+    },
+    {
+      "name": "Number one",
+      "type": "CARDINAL",
+      "confidence": 0.95,
+      "source": [
+        "SpaCy"
+      ],
+      "properties": null,
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "head of the opening bell today. It's jobs Friday. Number one, pulled forecaster expect an increase of 125,000 ",
+          "timestamp": "00:00:00",
+          "confidence": 0.9,
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": []
+    },
+    {
+      "name": "This Morning",
+      "type": "TIME",
+      "confidence": 0.72,
+      "source": [
+        "SpaCy"
+      ],
+      "properties": null,
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "ares of Lulu Lemon. I wanted uh to lead with that this morning. I I suggested that this would I I I did a double",
+          "timestamp": "00:00:00",
+          "confidence": 0.9,
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": []
+    },
+    {
+      "name": "Forecaster",
+      "type": "PERSON",
+      "confidence": 0.7100000000000001,
+      "source": [
+        "GLiNER+Gemini"
+      ],
+      "properties": null,
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": " bell today. It's jobs Friday. Number one, pulled forecaster expect an increase of 125,000 non-farm payrolls i",
+          "timestamp": "00:00:00",
+          "confidence": 0.9,
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": []
+    },
+    {
+      "name": "Revenue",
+      "type": "MONEY",
+      "confidence": 0.74,
+      "source": [
+        "GLiNER"
+      ],
+      "properties": null,
+      "timestamp": null,
+      "mention_count": 2,
+      "context_windows": [
+        {
+          "text": "she said. Uh didn't even get Uh Plum earnings and revenue, uh and the other",
+          "timestamp": "00:00:00",
+          "confidence": 0.9,
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "h. He and she, right? Huh and she. Huh, he, yeah. Revenue beat estimates but comps uh sales growth of 1% mi",
+          "timestamp": "00:00:00",
+          "confidence": 0.9,
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "in below estimates. Broadcom earnings and revenue came in slightly higher than analysts expected an",
+          "timestamp": "00:00:00",
+          "confidence": 0.9,
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": []
+    }
+  ],
+  "topics": [
+    {
+      "name": "Market Analysis",
+      "confidence": 0.85
+    },
+    {
+      "name": "Economic Indicators",
+      "confidence": 0.85
+    },
+    {
+      "name": "Corporate Earnings",
+      "confidence": 0.85
+    },
+    {
+      "name": "Stock Performance",
+      "confidence": 0.85
+    },
+    {
+      "name": "Trade Policy",
+      "confidence": 0.85
+    },
+    {
+      "name": "Artificial Intelligence",
+      "confidence": 0.85
+    },
+    {
+      "name": "Retail Sector",
+      "confidence": 0.85
+    },
+    {
+      "name": "Software Sector",
+      "confidence": 0.85
+    },
+    {
+      "name": "Semiconductor Industry",
+      "confidence": 0.85
+    }
+  ],
+  "key_facts": [
+    "Forecasters expect an increase of 125,000 non-farm payrolls in May.",
+    "The unemployment rate is expected to hold steady.",
+    "Previous ADP, jobless claims, and JOLTS data were noted as weak.",
+    "Shares of stablecoin company Circle rose sharply in pre-market trading after a significant move yesterday.",
+    "Circle's stock opened at $69, rose to $94, and was up another 13% today."
+  ]
+}

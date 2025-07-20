@@ -80,8 +80,8 @@ class EntityQualityFilter:
     
     def __init__(
         self,
-        min_confidence_threshold: float = 0.6,
-        language_confidence_threshold: float = 0.8,
+        min_confidence_threshold: float = 0.4,  # Lowered from 0.6 to keep more entities
+        language_confidence_threshold: float = 0.3,  # Lowered from 0.8 to be less strict
         enable_llm_validation: bool = False
     ):
         """Initialize entity quality filter."""
@@ -109,36 +109,36 @@ class EntityQualityFilter:
         # Non-English language patterns for filtering
         self.non_english_patterns = {
             'spanish_indicators': {
-                'el', 'la', 'los', 'las', 'de', 'del', 'y', 'o', 'en', 'con', 'por', 'para',
-                'que', 'lo', 'como', 'bien', 'muy', 'más', 'también', 'cuando', 'donde',
-                'qué', 'cómo', 'dónde', 'cuándo', 'bueno', 'buena', 'mejor', 'mayor'
+                # Remove common words that also appear in English
+                # Only keep distinctly Spanish words
+                'qué', 'cómo', 'dónde', 'cuándo', 'español', 'señor', 'señora',
+                'mañana', 'hasta', 'después', 'mientras', 'ningún', 'algún'
             },
             'french_indicators': {
-                'le', 'la', 'les', 'de', 'du', 'des', 'et', 'ou', 'dans', 'avec', 'pour',
-                'que', 'qui', 'ce', 'cette', 'ces', 'bien', 'très', 'plus', 'aussi',
-                'quand', 'où', 'comment', 'pourquoi', 'c\'est', 'il', 'elle', 'nous', 'vous'
+                # Remove common words that also appear in English
+                # Only keep distinctly French words
+                'très', 'après', 'beaucoup', 'maintenant', 'aujourd\'hui',
+                'quelque', 'même', 'ça', 'été', 'être', 'avoir'
             },
             'arabic_script': re.compile(r'[\u0600-\u06FF]'),
             'chinese_script': re.compile(r'[\u4e00-\u9fff]'),
-            'cyrillic_script': re.compile(r'[\u0400-\u04FF]')
+            'cyrillic_script': re.compile(r'[\u0400-\u04FF]'),
+            'japanese_script': re.compile(r'[\u3040-\u309f\u30a0-\u30ff]'),
+            'korean_script': re.compile(r'[\uac00-\ud7af]')
         }
         
         # False positive patterns
         self.false_positive_patterns = {
             'noise_phrases': {
                 # Common transcription artifacts
-                'uh', 'um', 'ah', 'er', 'mm', 'hmm', 'yeah', 'ok', 'okay',
-                # Generic words that shouldn't be entities
-                'thing', 'stuff', 'something', 'anything', 'everything', 'nothing',
-                'someone', 'anyone', 'everyone', 'nobody',
-                # Common filler phrases
-                'you know', 'i mean', 'like', 'so', 'well', 'now', 'here', 'there'
+                'uh', 'um', 'ah', 'er', 'mm', 'hmm',
+                # Remove overly generic filters that might catch real entities
+                # Keep only true noise words
             },
-            'partial_sentences': re.compile(r'^(and|or|but|so|then|now|well|here|there)\s', re.IGNORECASE),
+            'partial_sentences': re.compile(r'^(uh|um|ah|er)\s', re.IGNORECASE),
             'single_letters': re.compile(r'^[a-zA-Z]$'),
-            'number_only': re.compile(r'^\d+$'),
             'special_chars_only': re.compile(r'^[^\w\s]+$'),
-            'repeated_chars': re.compile(r'^(.)\1{2,}$'),  # "aaa", "!!!", etc.
+            'repeated_chars': re.compile(r'^(.)\1{4,}$'),  # Only filter if 5+ repeated chars
         }
         
         # Type validation patterns
@@ -267,7 +267,6 @@ class EntityQualityFilter:
             name_clean = entity.entity.strip()
             if (self.false_positive_patterns['partial_sentences'].match(name_clean) or
                 self.false_positive_patterns['single_letters'].match(name_clean) or
-                self.false_positive_patterns['number_only'].match(name_clean) or
                 self.false_positive_patterns['special_chars_only'].match(name_clean) or
                 self.false_positive_patterns['repeated_chars'].match(name_clean)):
                 is_false_positive = True

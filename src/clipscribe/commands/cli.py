@@ -289,6 +289,12 @@ async def transcribe_async(
             # Process video and update cost at each phase
             result = await retriever.process_url(url, progress_state=state)
             
+            # Check if result is None
+            if result is None:
+                console.print("[red]❌ Video processing returned no result[/red]")
+                console.print("[yellow]Check logs for details about what went wrong[/yellow]")
+                ctx.exit(1)
+            
             # Save outputs
             if save_all_formats:
                 saved_files = retriever.save_all_formats(result, str(output_dir))
@@ -828,6 +834,105 @@ def process_series(
         skip_confirmation=False,
         **kwargs
     ))
+
+@cli.command()
+@click.option(
+    "--demo-dir",
+    "-d",
+    type=click.Path(path_type=Path),
+    default=Path("demo"),
+    help="Demo directory to clean"
+)
+@click.option(
+    "--dry-run",
+    is_flag=True,
+    help="Show what would be deleted without actually deleting"
+)
+@click.option(
+    "--keep-recent",
+    "-k",
+    type=int,
+    default=3,
+    help="Number of recent collections to keep per test directory"
+)
+@click.pass_context
+def clean_demo(ctx: click.Context, demo_dir: Path, dry_run: bool, keep_recent: int) -> None:
+    """Clean up old demo and test collection folders."""
+    console = _get_console()
+    
+    if not demo_dir.exists():
+        console.print(f"[yellow]Demo directory not found: {demo_dir}[/yellow]")
+        return
+    
+    console.print(f"🧹 Cleaning demo directory: {demo_dir}")
+    
+    total_size = 0
+    folders_to_delete = []
+    
+    # Find all test directories
+    test_dirs = [d for d in demo_dir.iterdir() if d.is_dir() and ("test" in d.name or "cnbc" in d.name)]
+    
+    for test_dir in test_dirs:
+        console.print(f"\n📁 Checking: {test_dir.name}")
+        
+        # Find all collection folders
+        collection_folders = []
+        for item in test_dir.iterdir():
+            if item.is_dir() and "collection_" in item.name:
+                # Extract timestamp from folder name
+                try:
+                    parts = item.name.split("_")
+                    if len(parts) >= 2:
+                        timestamp = int(parts[1])
+                        collection_folders.append((timestamp, item))
+                except (ValueError, IndexError):
+                    continue
+        
+        # Sort by timestamp (newest first)
+        collection_folders.sort(reverse=True)
+        
+        # Mark old folders for deletion
+        if len(collection_folders) > keep_recent:
+            for _, folder in collection_folders[keep_recent:]:
+                folders_to_delete.append(folder)
+                # Calculate size
+                folder_size = sum(f.stat().st_size for f in folder.rglob("*") if f.is_file())
+                total_size += folder_size
+    
+    if not folders_to_delete:
+        console.print("[green]✅ No old collections to clean up![/green]")
+        return
+    
+    # Display what will be deleted
+    console.print(f"\n🗑️  Found {len(folders_to_delete)} old collections to delete")
+    console.print(f"💾 Total space to reclaim: {total_size / (1024 * 1024):.2f} MB")
+    
+    if dry_run:
+        console.print("\n[yellow]DRY RUN - Would delete:[/yellow]")
+        for folder in folders_to_delete[:10]:  # Show first 10
+            console.print(f"  - {folder.relative_to(demo_dir)}")
+        if len(folders_to_delete) > 10:
+            console.print(f"  ... and {len(folders_to_delete) - 10} more")
+    else:
+        # Confirm deletion
+        if not click.confirm(f"\nDelete {len(folders_to_delete)} old collections?"):
+            console.print("❌ Cleanup cancelled")
+            return
+        
+        # Delete folders
+        import shutil
+        deleted = 0
+        with console.status("[bold green]Deleting old collections...") as status:
+            for folder in folders_to_delete:
+                try:
+                    shutil.rmtree(folder)
+                    deleted += 1
+                    status.update(f"[bold green]Deleted {deleted}/{len(folders_to_delete)} folders...")
+                except Exception as e:
+                    console.print(f"[red]Error deleting {folder}: {e}[/red]")
+        
+        console.print(f"\n[green]✅ Cleaned up {deleted} old collections![/green]")
+        console.print(f"[green]💾 Reclaimed {total_size / (1024 * 1024):.2f} MB of disk space[/green]")
 
 
 def run_cli():

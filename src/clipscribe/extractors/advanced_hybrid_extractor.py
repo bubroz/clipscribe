@@ -152,12 +152,27 @@ class AdvancedHybridExtractor:
 
         stats = defaultdict(int)
 
+        # Step 0: Get initial entities from Gemini if available
+        gemini_entities = []
+        if hasattr(video_intel, 'processing_stats') and 'gemini_entities' in video_intel.processing_stats:
+            for ge in video_intel.processing_stats['gemini_entities']:
+                # Convert from Gemini format (name) to Entity format (entity)
+                entity = Entity(
+                    entity=ge.get('name', ''),
+                    type=ge.get('type', 'MISC'),
+                    confidence=ge.get('confidence', 0.5),
+                    source='Gemini'
+                )
+                gemini_entities.append(entity)
+            stats["gemini_entities"] = len(gemini_entities)
+            logger.info(f"Using {len(gemini_entities)} entities from Gemini initial extraction")
+
         # Step 1: Extract entities from all sources
         spacy_entities = self._extract_spacy_entities(video_intel.transcript.full_text, stats)
         gliner_entities = self._extract_gliner_entities(video_intel.transcript.full_text, domain, stats)
 
         # Step 2: Normalize entities and extract relationships
-        all_raw_entities = spacy_entities + gliner_entities
+        all_raw_entities = gemini_entities + spacy_entities + gliner_entities
         normalized_entities = self.entity_normalizer.normalize_entities(all_raw_entities)
         
         # Step 2.5: Apply quality filtering and enhancement
@@ -189,6 +204,25 @@ class AdvancedHybridExtractor:
             'language_purity': quality_metrics.language_purity_score,
             'enhanced_entities': len(enhanced_entities)
         })
+        
+        # Step 2.7: Get initial relationships from Gemini if available
+        gemini_relationships = []
+        if hasattr(video_intel, 'processing_stats') and 'gemini_relationships' in video_intel.processing_stats:
+            for gr in video_intel.processing_stats['gemini_relationships']:
+                # Convert from Gemini format to Relationship format
+                rel = Relationship(
+                    subject=gr.get('subject', ''),
+                    predicate=gr.get('predicate', ''),
+                    object=gr.get('object', ''),
+                    confidence=gr.get('confidence', 0.7),
+                    properties={"source": "Gemini", "original_source": "gemini_initial"}
+                )
+                gemini_relationships.append(rel)
+            stats["gemini_relationships"] = len(gemini_relationships)
+            logger.info(f"Using {len(gemini_relationships)} relationships from Gemini initial extraction")
+        
+        # Add Gemini relationships to video_intel before further processing
+        video_intel.relationships = gemini_relationships
         
         entity_lookup = self.entity_normalizer.create_entity_lookup(video_intel.entities)
         video_intel = self._extract_relationships_with_entity_awareness(video_intel, entity_lookup, stats)
@@ -798,7 +832,7 @@ Include ONLY meaningful, specific relationships that convey real information.
                     
                     if len(entity_name) > 2:  # Avoid very short matches
                         entity = Entity(
-                            name=entity_name,
+                            entity=entity_name,
                             type=entity_type,
                             confidence=0.7 + config['boost_factor'],
                             properties={

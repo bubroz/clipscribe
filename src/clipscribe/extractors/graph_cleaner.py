@@ -167,8 +167,14 @@ Every entity might be important for understanding relationships.
             
     async def _clean_relationships(self, relationships: List[Any], entities: List[Any], context: str) -> List[Any]:
         """Clean relationships by fixing malformed ones and removing noise."""
-        # Get entity names for validation
-        entity_names = {e.name for e in entities}
+        # Get entity names for validation - handle both Entity and EnhancedEntity objects
+        entity_names = set()
+        for e in entities:
+            # Handle both Entity (has .entity) and EnhancedEntity (has .entity)
+            if hasattr(e, 'entity'):
+                entity_names.add(e.entity)
+            elif hasattr(e, 'name'):
+                entity_names.add(e.name)
         
         # Create relationship list
         rel_list = []
@@ -273,8 +279,10 @@ It's better to have too many relationships than too few.
         
         # Add entities as nodes
         for entity in video_intel.entities:
+            # Handle both Entity (has .entity) and EnhancedEntity (has .entity)
+            entity_name = entity.entity if hasattr(entity, 'entity') else entity.name
             G.add_node(
-                entity.name,
+                entity_name,
                 type=entity.type,
                 confidence=entity.confidence
             )

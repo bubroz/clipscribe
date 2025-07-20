@@ -18,6 +18,7 @@ from youtubesearchpython.__future__ import (
     CustomSearch
 )
 from youtubesearchpython import VideoSortOrder, playlist_from_channel_id
+from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
 
 from ..models import VideoMetadata
 
@@ -648,6 +649,12 @@ class EnhancedUniversalVideoClient:
         }
         return sort_map.get(sort_by.lower(), VideoSortOrder.relevance) 
 
+    @retry(
+        stop=stop_after_attempt(5), 
+        wait=wait_exponential(multiplier=2, min=4, max=60),
+        retry=retry_if_exception_type(Exception),
+        before_sleep=lambda retry_state: logger.warning(f"Playlist URL extraction attempt {retry_state.attempt_number} failed, retrying...")
+    )
     async def extract_playlist_preview(
         self, 
         playlist_url: str, 
@@ -715,6 +722,12 @@ class EnhancedUniversalVideoClient:
         """Check if URL is a playlist URL."""
         return 'playlist?list=' in url or '/playlist/' in url
 
+    @retry(
+        stop=stop_after_attempt(5), 
+        wait=wait_exponential(multiplier=2, min=4, max=60),
+        retry=retry_if_exception_type(Exception),
+        before_sleep=lambda retry_state: logger.warning(f"Playlist URL extraction attempt {retry_state.attempt_number} failed, retrying...")
+    )
     async def extract_all_playlist_urls(self, playlist_url: str) -> List[str]:
         """
         Extract all video URLs from a playlist.
