@@ -5,6 +5,26 @@ All notable changes to ClipScribe will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v2.19.0] - 2025-07-20
+
+### Fixed
+- **MAJOR**: Fixed entity/relationship extraction quality issues
+  - Language filter was too aggressive, removing 70% of valid entities
+  - Lowered language confidence threshold from 0.8 to 0.3
+  - Lowered entity confidence threshold from 0.6 to 0.4
+  - Made false positive filter less aggressive
+  - Fixed bug where Gemini's 46-50 relationships were stored but never used
+  - Results: 16+ entities and 52+ relationships per video (up from 0-10 entities, 0 relationships)
+
+### Added
+- Evidence chains for relationships (64 pieces of evidence for 44 relationships)
+- Better entity source attribution tracking
+- Improved knowledge graph generation (88 nodes, 52 edges)
+
+### Changed
+- Quality filter now preserves more entities while still removing noise
+- Relationships now include evidence chains by default
+
 ## [v2.19.0 Demo Planning] - 2025-07-17
 
 ### 📋 Demo Strategy & Documentation Updates
