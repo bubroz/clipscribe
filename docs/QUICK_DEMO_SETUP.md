@@ -1,108 +1,91 @@
-# 🚀 ARGOS Quick Demo Setup
+# Quick Demo Setup Guide
 
-**Get ARGOS running in 3 minutes!** Perfect for colleagues who want to see what this video intelligence tool can do.
+*Last Updated: July 20, 2025*  
+*Estimated Time: 2 minutes*
 
-## ⚡ One-Command Setup
+## 🚀 One-Minute Demo
 
+### 1. Process a News Video
 ```bash
-# Clone and setup (requires Python 3.12+)
-git clone https://github.com/bubroz/clipscribe.git
-cd clipscribe
-poetry install
+# Extract comprehensive intelligence from a news video
+poetry run clipscribe process "https://www.youtube.com/watch?v=6ZVj1_SE4Mo" \
+  --format all \
+  --clean-graph \
+  -o demo/pegasus_analysis
 ```
 
-## 🔑 Get Your FREE API Key (30 seconds)
-
-1. Go to [Google AI Studio](https://makersuite.google.com/app/apikey)
-2. Click "Create API Key" (FREE!)
-3. Copy the key (starts with `AIza...`)
-
-## 🎬 Try It Out
-
+### 2. Launch Mission Control
 ```bash
-# Create .env file with your API key (SECURE METHOD)
-echo "GOOGLE_API_KEY=your_actual_key_here" > .env
-
-# Quick test with enhanced temporal intelligence (v2.17.0)
-poetry run clipscribe transcribe "https://www.youtube.com/watch?v=6ZVj1_SE4Mo" --enhanced-temporal
-
-# Or run the TWO-PART demo script for a complete batch showcase
-poetry run python demo.py
-
-# Launch Mission Control web interface
+# Open the web interface
 poetry run streamlit run streamlit_app/ClipScribe_Mission_Control.py
 ```
 
-## 🎯 Demo Features
+### 3. View Results
+1. Navigate to **Collections** → Select your processed video
+2. Explore **Entities** tab (16+ entities with metadata)
+3. Check **Knowledge Synthesis** (52+ relationships with evidence)
+4. Download results in any format
 
-### 1. **Mission Control Interface** (Most Impressive!)
-- Visit Mission Control after running the streamlit command
-- Browse Collections for multi-video analysis
-- Explore Knowledge Panels for entity-centric intelligence
-- View Information Flow Maps for concept evolution
-- Check Analytics dashboard for cost and performance monitoring
+## 🎯 What You'll See
 
-### 2. **Enhanced Temporal Intelligence (v2.17.0)**
+### Extraction Quality (v2.19.0)
+- **16+ meaningful entities** (people, orgs, locations, events)
+- **52+ relationships** with evidence chains and quotes
+- **88+ node knowledge graph** with rich connections
+- **$0.0083 processing cost** for comprehensive intelligence
+
+### Key Features Demonstrated
+- **Entity Extraction**: Comprehensive extraction targeting 100% completeness
+- **Relationship Mapping**: Evidence-backed connections with quotes
+- **Knowledge Graphs**: Visual network of all connections
+- **Cross-Video Synthesis**: Multi-video entity correlation (if processing collections)
+
+## 💡 Extended Demo Options
+
+### Option 1: Multi-Video Collection
 ```bash
-# Process with Timeline Building Pipeline
-poetry run clipscribe process-collection "demo-collection" \
+# Process a collection for cross-video intelligence
+poetry run clipscribe process-collection \
+  "Pegasus Investigation" \
   "https://www.youtube.com/watch?v=6ZVj1_SE4Mo" \
   "https://www.youtube.com/watch?v=xYMWTXIkANM" \
-  --enhanced-temporal
+  --format all
 ```
 
-### 3. **Entity Source Analysis**
+### Option 2: News Playlist Analysis
 ```bash
-# Analyze extraction method effectiveness
-poetry run python scripts/analyze_entity_sources.py --output-dir demo_output --create-visualizations --save-excel
+# Process CNBC playlist for market intelligence
+poetry run clipscribe process-collection \
+  "CNBC Market Analysis" \
+  "https://www.youtube.com/playlist?list=PLVbP054jv0Ko..." \
+  --format all
 ```
 
-### 4. **Advanced Intelligence Features**
-```bash
-# Research with enhanced temporal intelligence
-poetry run clipscribe research "climate change" --max-results 5
+## 📊 Cost Transparency
 
-# Full intelligence extraction with relationships
-poetry run clipscribe transcribe "https://youtube.com/watch?v=VIDEO_ID" --use-advanced-extraction
-```
+- **Single 5-min video**: ~$0.008
+- **30-min documentary**: ~$0.048  
+- **10-video collection**: ~$0.08-0.10
 
-## 🎨 What You'll See
+## 🎬 Best Demo Content
 
-- **Timeline Building Pipeline**: Enhanced temporal intelligence with web research integration (v2.17.0)
-- **Cross-Video Analysis**: Multi-video collection processing with unified knowledge graphs
-- **Interactive Visualizations**: Plotly charts showing cross-video entity and concept evolution
-- **Excel Reports**: Multi-sheet exports with comprehensive video intelligence analytics
-- **Real-time Progress**: Live updates during enhanced temporal processing
-- **Knowledge Graphs**: Visual relationship networks with temporal context
-- **Performance Insights**: Model cache efficiency and processing optimization
-- **Mission Control**: Complete web interface for video intelligence management
+1. **News/Documentary**: PBS Frontline, 60 Minutes, investigative journalism
+2. **Educational**: TED Talks, lectures, tutorials
+3. **Business**: Earnings calls, market analysis, industry reports
 
-## 🏆 Best Demo Videos
+Avoid: Music videos, entertainment content (poor extraction quality)
 
-Use these for impressive results:
+## 🚧 Common Questions
 
-- **PBS Two-Part Series**: 
-  - Part 1: `https://www.youtube.com/watch?v=6ZVj1_SE4Mo`
-  - Part 2: `https://www.youtube.com/watch?v=xYMWTXIkANM`
-- **NPR News**: Search "NPR" in the research command
-- **BBC News**: Search "BBC News" for current events
+**Q: Why are there 88+ nodes but only 16 entities?**  
+A: The knowledge graph includes entities, relationships, and conceptual nodes - creating a rich network.
 
-Avoid music videos - they don't showcase the entity extraction and temporal intelligence capabilities effectively.
+**Q: How is this different from transcription?**  
+A: We extract structured intelligence - who said what about whom, with evidence and context.
 
-## 🆘 Need Help?
-
-- **Issues?** Check `docs/TROUBLESHOOTING.md`
-- **Features?** See `docs/CLI_REFERENCE.md`
-- **Questions?** The code is well-documented with docstrings
-
-## 💡 Pro Tips
-
-1. **Use .env file** - Never put API keys in shell history
-2. **Start with Mission Control** - Most comprehensive interface
-3. **Use news content** - Shows off temporal intelligence best
-4. **Try collection processing** - Shows the real multi-video power
-5. **Enable enhanced temporal** - See the v2.17.0 capabilities in action
+**Q: Can I process my own videos?**  
+A: Yes! Upload to any supported platform (YouTube, Vimeo, etc.) or use local files.
 
 ---
 
-**That's it!** You now have ARGOS - a powerful video intelligence tool with enhanced temporal intelligence that can extract structured knowledge and build comprehensive timelines from any video content. Perfect for research, analysis, and knowledge discovery. 
+**Ready to extract intelligence?** ClipScribe transforms videos into structured knowledge! 🎯 
