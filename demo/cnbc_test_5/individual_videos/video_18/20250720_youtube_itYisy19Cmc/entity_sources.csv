@@ -1,0 +1,14 @@
+name,type,confidence,source,extraction_methods,aliases,is_normalized
+Jameson Greer,PERSON,0.71,Unknown,Unknown,,False
+A Fourth Consecutive Month,DATE,0.79,Unknown,Unknown,,False
+Less Than A Year,DATE,0.79,Unknown,Unknown,,False
+the United States,LOCATION,0.71,Unknown,Unknown,,False
+Fed,ORGANIZATION,0.95,Unknown,Unknown,,False
+Billions Of Dollars,MONEY,0.78,Unknown,Unknown,,False
+34 And A Half%,PERCENTAGE,0.71,Unknown,Unknown,,False
+Evening,TIME,0.72,Unknown,Unknown,,False
+Overnight,TIME,0.72,Unknown,Unknown,,False
+"May, May of 2026",DATE,0.79,Unknown,Unknown,,False
+Trump,PERSON,0.71,Unknown,Unknown,,False
+last Thursday and,DATE,0.79,Unknown,Unknown,,False
+Friday evening,DATE,0.74,Unknown,Unknown,,False

@@ -1,0 +1,24 @@
+{
+  "video": {
+    "title": "5 Things To Know: June 18, 2025",
+    "url": "https://www.youtube.com/watch?v=FPa82id02bY",
+    "channel": "CNBC Television",
+    "duration": 168,
+    "published_at": "2025-06-18T04:27:48",
+    "view_count": 3632,
+    "description": "CNBC\u2019s Becky Quick reports on the 5 things to know on June 18, 2025."
+  },
+  "processing": {
+    "cost": 0.009599625,
+    "time": 0.0,
+    "processed_at": "2025-07-20T10:09:35.297753",
+    "clipscribe_version": "2.0.0"
+  },
+  "statistics": {
+    "transcript_length": 2870,
+    "word_count": 513,
+    "entity_count": 8,
+    "key_point_count": 34,
+    "topic_count": 12
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "video": {
+    "title": "5 Things To Know: July 2, 2025",
+    "url": "https://www.youtube.com/watch?v=lHc9xeM0lQk",
+    "channel": "CNBC Television",
+    "duration": 88,
+    "published_at": "2025-07-02T03:57:54",
+    "view_count": 906,
+    "description": "CNBC\u2019s Andrew Ross Sorkin reports on the 5 things to know on July 2, 2025."
+  },
+  "processing": {
+    "cost": 0.005028375,
+    "time": 0.0,
+    "processed_at": "2025-07-20T10:09:18.565057",
+    "clipscribe_version": "2.0.0"
+  },
+  "statistics": {
+    "transcript_length": 1518,
+    "word_count": 255,
+    "entity_count": 5,
+    "key_point_count": 23,
+    "topic_count": 8
+  }
+}

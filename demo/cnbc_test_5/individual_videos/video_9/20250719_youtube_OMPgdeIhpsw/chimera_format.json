@@ -1,0 +1,270 @@
+{
+  "type": "video",
+  "source": "video_intelligence",
+  "url": "https://www.youtube.com/watch?v=OMPgdeIhpsw",
+  "title": "5 Things To Know: June 30, 2025",
+  "content": "Five things to know ahead of today's opening bell. First up, an official survey showing that China's manufacturing activity actually contracted for a third consecutive month in June. That comes despite the country's stimulus efforts trying to help stabilize certain aspects of the industrial sector.\n\nPresident Trump teasing a potentially big development in the Tic-Tac ownership saga. The President telling Fox News that he has a group of his in his words, very wealthy people ready to buy the short form video app and that he can reveal their identities in about two weeks. Although Trump did add that the deal will probably need China's approval.\n\nCourt filing show that the Department of Justice has settled its lawsuit challenging Hewlett-Packard Enterprise's $14 billion all cash acquisition of Juniper Networks. Tesla says it has completed its first driverless delivery of a new car. The company's X account posting a video showing what it said was a Model Y driving on public roads Friday in Austin, Texas, straight to a customer. And Warren Buffett making a massive charitable contribution. He is donating $6 billion worth of his company's stock to five foundations. The largest portion is going to the Bill and Melinda Gates Foundation Trust, which will receive more than 9 million shares. Since 2006, Buffett's total charitable uh give exceeds $60 billion.",
+  "summary": "The transcript provides an overview of several key business and economic headlines. First, China's manufacturing sector experienced its third consecutive month of contraction in June, a development that occurred despite the government's ongoing stimulus efforts designed to stabilize its industrial sector. This suggests persistent economic challenges in the region.\n\nSecondly, President Trump has hinted at a major upcoming announcement concerning the ownership of the short-form video app TikTok. He informed Fox News that a group of wealthy individuals is prepared to acquire the app, and he expects to disclose their identities within approximately two weeks. However, Trump also noted that any such deal would likely require the approval of the Chinese government, highlighting the complex geopolitical dimension of the potential transaction.\n\nFinally, the update covers three distinct corporate and philanthropic news items. The Department of Justice has settled its lawsuit challenging Hewlett-Packard Enterprise's $14 billion all-cash acquisition of Juniper Networks. Separately, Tesla announced a milestone, completing its first driverless delivery of a new car, with a video on its X account showing a Model Y being driven autonomously to a customer in Austin, Texas. Lastly, Warren Buffett has made a significant charitable contribution, donating $6 billion worth of his company's stock to five foundations, with the largest share going to the Bill and Melinda Gates Foundation Trust, which will receive over 9 million shares. This latest donation brings Buffett's total charitable giving since 2006 to over $60 billion.",
+  "metadata": {
+    "channel": "CNBC Television",
+    "duration": 87,
+    "published_at": "2025-06-30T04:01:51",
+    "view_count": 3164,
+    "key_points": [
+      {
+        "timestamp": 0.0,
+        "text": "An official survey indicates China's manufacturing activity contracted for a third consecutive month in June.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 9.0,
+        "text": "The contraction occurred despite China's stimulus efforts aimed at stabilizing the industrial sector.",
+        "importance": 0.85,
+        "context": null
+      },
+      {
+        "timestamp": 12.0,
+        "text": "President Trump teased a potentially significant development in the TikTok (referred to as Tic-Tac) ownership saga.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 15.0,
+        "text": "Trump told Fox News that he has a group of 'very wealthy people' ready to buy the short-form video app.",
+        "importance": 0.85,
+        "context": null
+      },
+      {
+        "timestamp": 19.0,
+        "text": "He stated he could reveal their identities in about two weeks.",
+        "importance": 0.8,
+        "context": null
+      },
+      {
+        "timestamp": 22.0,
+        "text": "Trump also added that the deal would likely require China's approval.",
+        "importance": 0.85,
+        "context": null
+      },
+      {
+        "timestamp": 25.0,
+        "text": "Court filings show that the Department of Justice has settled its lawsuit challenging Hewlett-Packard Enterprise's acquisition of Juniper Networks.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 29.0,
+        "text": "The acquisition of Juniper Networks by Hewlett-Packard Enterprise was an all-cash deal valued at $14 billion.",
+        "importance": 0.85,
+        "context": null
+      },
+      {
+        "timestamp": 32.0,
+        "text": "Tesla announced it has completed its first driverless delivery of a new car.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 35.0,
+        "text": "Tesla's X account posted a video showing a Model Y driving autonomously on public roads.",
+        "importance": 0.85,
+        "context": null
+      },
+      {
+        "timestamp": 39.0,
+        "text": "The driverless delivery occurred on a Friday in Austin, Texas, directly to a customer.",
+        "importance": 0.8,
+        "context": null
+      },
+      {
+        "timestamp": 45.0,
+        "text": "Warren Buffett made a massive charitable contribution.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 48.0,
+        "text": "He is donating $6 billion worth of his company's stock.",
+        "importance": 0.85,
+        "context": null
+      },
+      {
+        "timestamp": 52.0,
+        "text": "The donation is being distributed to five foundations.",
+        "importance": 0.8,
+        "context": null
+      },
+      {
+        "timestamp": 55.0,
+        "text": "The largest portion of Buffett's donation is going to the Bill and Melinda Gates Foundation Trust.",
+        "importance": 0.85,
+        "context": null
+      },
+      {
+        "timestamp": 59.0,
+        "text": "The Bill and Melinda Gates Foundation Trust will receive more than 9 million shares.",
+        "importance": 0.8,
+        "context": null
+      },
+      {
+        "timestamp": 102.0,
+        "text": "Since 2006, Warren Buffett's total charitable contributions have exceeded $60 billion.",
+        "importance": 0.9,
+        "context": null
+      }
+    ],
+    "entities": [
+      {
+        "entity": "Juniper Networks",
+        "type": "ORGANIZATION",
+        "start_char": null,
+        "end_char": null,
+        "confidence": 0.95,
+        "source": null,
+        "extraction_sources": [
+          "GLiNER+SpaCy"
+        ],
+        "mention_count": 1,
+        "context_windows": [
+          {
+            "text": " Enterprise's $14 billion all cash acquisition of Juniper Networks. Tesla says it has completed its first driverless",
+            "timestamp": "00:00:00",
+            "confidence": 0.9,
+            "speaker": null,
+            "visual_present": false
+          }
+        ],
+        "aliases": [],
+        "canonical_form": "Juniper Networks",
+        "source_confidence": {
+          "GLiNER+SpaCy": 0.7
+        },
+        "temporal_distribution": [
+          {
+            "timestamp": "00:00:00",
+            "duration": 5.0,
+            "context_type": "spoken"
+          }
+        ]
+      },
+      {
+        "entity": "A Third Consecutive Month",
+        "type": "DATE",
+        "start_char": null,
+        "end_char": null,
+        "confidence": 0.79,
+        "source": null,
+        "extraction_sources": [
+          "SpaCy"
+        ],
+        "mention_count": 1,
+        "context_windows": [
+          {
+            "text": "'s manufacturing activity actually contracted for a third consecutive month in June. That comes despite the country's stimulu",
+            "timestamp": "00:00:00",
+            "confidence": 0.9,
+            "speaker": null,
+            "visual_present": false
+          }
+        ],
+        "aliases": [],
+        "canonical_form": "A Third Consecutive Month",
+        "source_confidence": {
+          "SpaCy": 0.7
+        },
+        "temporal_distribution": [
+          {
+            "timestamp": "00:00:00",
+            "duration": 5.0,
+            "context_type": "spoken"
+          }
+        ]
+      },
+      {
+        "entity": "Trump",
+        "type": "PERSON",
+        "start_char": null,
+        "end_char": null,
+        "confidence": 0.7100000000000001,
+        "source": null,
+        "extraction_sources": [
+          "GLiNER+SpaCy"
+        ],
+        "mention_count": 1,
+        "context_windows": [
+          {
+            "text": "rtain aspects of the industrial sector. President Trump teasing a potentially big development in the Tic-",
+            "timestamp": "00:00:00",
+            "confidence": 0.9,
+            "speaker": null,
+            "visual_present": false
+          },
+          {
+            "text": "abilize certain aspects of the industrial sector. President Trump teasing a potentially big development in the Tic-",
+            "timestamp": "00:00:00",
+            "confidence": 0.9,
+            "speaker": null,
+            "visual_present": false
+          }
+        ],
+        "aliases": [
+          "President Trump"
+        ],
+        "canonical_form": "Trump",
+        "source_confidence": {
+          "GLiNER+SpaCy": 0.7
+        },
+        "temporal_distribution": [
+          {
+            "timestamp": "00:00:00",
+            "duration": 5.0,
+            "context_type": "spoken"
+          }
+        ]
+      }
+    ],
+    "topics": [
+      {
+        "name": "Global Economy",
+        "confidence": 0.85
+      },
+      {
+        "name": "China's Economy",
+        "confidence": 0.85
+      },
+      {
+        "name": "US Politics",
+        "confidence": 0.85
+      },
+      {
+        "name": "Technology Acquisitions",
+        "confidence": 0.85
+      },
+      {
+        "name": "Corporate Law",
+        "confidence": 0.85
+      },
+      {
+        "name": "Automotive Innovation",
+        "confidence": 0.85
+      },
+      {
+        "name": "Philanthropy",
+        "confidence": 0.85
+      },
+      {
+        "name": "Business News",
+        "confidence": 0.85
+      }
+    ],
+    "sentiment": null,
+    "processing_cost": 0.004971234374999999,
+    "timeline_v2": {
+      "error": "'VideoIntelligenceRetriever' object has no attribute 'temporal_extractor'",
+      "fallback_used": true,
+      "events": [],
+      "chapters": []
+    }
+  }
+}

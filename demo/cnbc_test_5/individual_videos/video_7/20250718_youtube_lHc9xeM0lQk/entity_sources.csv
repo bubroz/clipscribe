@@ -1,0 +1,6 @@
+name,type,confidence,source,extraction_methods,aliases,is_normalized
+Constellation Brands,PERSON,0.87,Unknown,Unknown,,False
+The Most Recent Quarter,DATE,0.79,Unknown,Unknown,,False
+the Wall Street Journal,LOCATION,0.71,Unknown,Unknown,,False
+About A Quarter,CARDINAL,0.71,Unknown,Unknown,,False
+This Morning,TIME,0.72,Unknown,Unknown,,False

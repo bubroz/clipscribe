@@ -1,0 +1,8 @@
+name,type,confidence,source,timestamp
+Dell,PERSON,0.7100000000000001,,
+The Wall Street Journal,LOCATION,0.7100000000000001,,
+Lilo and Stitch,ORGANIZATION,0.7100000000000001,,
+The Weekend,DATE,0.74,,
+The Year,DATE,0.74,,
+This Week,DATE,0.74,,
+Republican,GROUP,0.95,,

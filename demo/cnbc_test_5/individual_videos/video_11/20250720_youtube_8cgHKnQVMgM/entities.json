@@ -1,0 +1,91 @@
+{
+  "video_url": "https://www.youtube.com/watch?v=8cgHKnQVMgM",
+  "video_title": "5 Things To Know: June 25, 2025",
+  "entities": [
+    {
+      "name": "Quarterly",
+      "type": "DATE",
+      "confidence": 0.74,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    },
+    {
+      "name": "The Last Two Months",
+      "type": "DATE",
+      "confidence": 0.79,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    },
+    {
+      "name": "The Next 24 To 48 Hours",
+      "type": "DATE",
+      "confidence": 0.79,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    },
+    {
+      "name": "Republic",
+      "type": "LOCATION",
+      "confidence": 0.8300000000000001,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    },
+    {
+      "name": "Trump",
+      "type": "PERSON",
+      "confidence": 0.7100000000000001,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    }
+  ],
+  "topics": [
+    {
+      "name": "Financial Markets",
+      "confidence": 0.85
+    },
+    {
+      "name": "Legislative News",
+      "confidence": 0.85
+    },
+    {
+      "name": "Corporate Finance",
+      "confidence": 0.85
+    },
+    {
+      "name": "Technology Sector",
+      "confidence": 0.85
+    },
+    {
+      "name": "Chip Industry",
+      "confidence": 0.85
+    },
+    {
+      "name": "Investment Platforms",
+      "confidence": 0.85
+    },
+    {
+      "name": "Blockchain Technology",
+      "confidence": 0.85
+    },
+    {
+      "name": "Artificial Intelligence (AI)",
+      "confidence": 0.85
+    },
+    {
+      "name": "Stock Market Trends",
+      "confidence": 0.85
+    }
+  ],
+  "key_facts": [
+    "The segment introduces five key things to know ahead of the day's opening bell.",
+    "Treasury Secretary Scott Bassant believes the Senate is on track for a vote.",
+    "The Senate vote is scheduled for this Friday.",
+    "The vote concerns President Trump's tax and spending bill.",
+    "Yesterday, Bassant predicted a deal between House and Senate Republicans."
+  ]
+}

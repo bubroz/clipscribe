@@ -1,0 +1,293 @@
+{
+  "version": "2.3",
+  "created_at": "2025-07-19T10:38:41.065393",
+  "video": {
+    "title": "5 Things To Know: June 18, 2025",
+    "url": "https://www.youtube.com/watch?v=FPa82id02bY",
+    "platform": "youtube"
+  },
+  "extraction_stats": {
+    "timeline_events": [
+      {
+        "confidence": 0.9,
+        "event_description": "Israel and Iran have been trading air strikes for the sixth straight day, indicating ongoing conflict.",
+        "event_type": "International Conflict",
+        "timestamp": 0.0,
+        "involved_entities": [
+          "Israel",
+          "Iran"
+        ]
+      },
+      {
+        "confidence": 0.8,
+        "event_description": "Current and former Trump administration officials indicate that the president is considering a range of options, including a possible US strike on Iran.",
+        "event_type": "Policy Discussion",
+        "timestamp": 10.0,
+        "involved_entities": [
+          "Trump administration",
+          "NBC News",
+          "US",
+          "Iran"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "Amazon's CEO Andy Jassy announced that the company's corporate workforce will shrink in the coming years due to the adoption of generative AI tools.",
+        "event_type": "Corporate Strategy",
+        "timestamp": 25.0,
+        "involved_entities": [
+          "Amazon",
+          "Andy Jassy"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "New York City Democratic Mayoral candidate Brad Lander was arrested by federal agents at an immigration court in Manhattan for linking arms with a person authorities tried to detain.",
+        "event_type": "Legal Event",
+        "timestamp": 45.0,
+        "involved_entities": [
+          "Brad Lander",
+          "Federal agents"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "Brad Lander was released from custody shortly after his arrest.",
+        "event_type": "Legal Event",
+        "timestamp": 46.0,
+        "involved_entities": [
+          "Brad Lander"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "Brad Lander's wife posted on X confirming that the New York City controller had been escorting a defendant out of court.",
+        "event_type": "Media Statement",
+        "timestamp": 55.0,
+        "involved_entities": [
+          "Brad Lander's wife",
+          "Brad Lander",
+          "X"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "Brad Lander appeared on CNN 'last night', which was noted as a 'pretty good video for him' for his campaign.",
+        "event_type": "Media Appearance",
+        "timestamp": 75.0,
+        "involved_entities": [
+          "Brad Lander",
+          "CNN"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "The Senate passed a bill to regulate US dollar-pegged stable coins, known as the Genius Act, with a vote of 68 to 30.",
+        "event_type": "Legislative Action",
+        "timestamp": 90.0,
+        "involved_entities": [
+          "US Senate"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "Attention has now turned to the House, which is working on getting its own stable coin bill.",
+        "event_type": "Legislative Action",
+        "timestamp": 95.0,
+        "involved_entities": [
+          "US House of Representatives"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "The non-partisan Congressional Budget Office reported that President Trump's package of tax cuts would increase deficits by $2.8 trillion over the next decade.",
+        "event_type": "Economic Analysis",
+        "timestamp": 110.0,
+        "involved_entities": [
+          "Congressional Budget Office (CBO)",
+          "President Trump"
+        ]
+      }
+    ],
+    "visual_temporal_cues": [],
+    "temporal_patterns": [
+      {
+        "description": "Israel and Iran have been continuously trading air strikes for the sixth straight day, indicating a sustained and escalating period of conflict.",
+        "pattern_type": "Repetitive Cycle",
+        "significance": "Highlights the persistent nature of the conflict and its daily recurrence.",
+        "timespan": "Sixth straight day (ongoing)"
+      },
+      {
+        "description": "Amazon's corporate workforce is projected to shrink in the coming years, directly caused by the company's increased adoption of generative AI tools and agents.",
+        "pattern_type": "Causal Progression",
+        "significance": "Illustrates a long-term corporate strategy involving technological adoption leading to workforce restructuring.",
+        "timespan": "In the coming years"
+      },
+      {
+        "description": "The incident involving Brad Lander's arrest and subsequent media appearance is described as a 'trend' and a 'thing' that will 'keep happening', suggesting a pattern of similar politically motivated actions or media stunts.",
+        "pattern_type": "Recurring Pattern",
+        "significance": "Indicates a perceived strategic pattern of behavior in politics to gain media attention.",
+        "timespan": "Ongoing/Future recurrence"
+      },
+      {
+        "description": "The legislative process for stable coins is moving sequentially, with the Senate having passed its bill (the Genius Act) and attention now shifting to the House for its own bill, illustrating the standard progression of a bill through Congress.",
+        "pattern_type": "Chronological Sequence/Progression",
+        "significance": "Maps out the sequential steps in the US legislative process for a specific bill.",
+        "timespan": "Recent past to present/near future"
+      },
+      {
+        "description": "The Congressional Budget Office projects that President Trump's tax cuts would increase deficits over the next decade, while Congressional Republicans argue that these cuts would conversely spur economic growth and offset revenue loss.",
+        "pattern_type": "Projected Causal Effect / Counter-argument",
+        "significance": "Presents a long-term economic forecast and a contrasting causal argument regarding the effects of tax policy.",
+        "timespan": "Over the next decade"
+      }
+    ],
+    "dates": [
+      {
+        "confidence": 0.9,
+        "normalized_date": "2024-05-15",
+        "original_text": "today's opening bell",
+        "precision": "day",
+        "source": "transcript",
+        "context": "five things to know ahead of today's opening bell",
+        "timestamp": 0
+      },
+      {
+        "confidence": 0.8,
+        "normalized_date": "2024-05-10_to_2024-05-15",
+        "original_text": "for the sixth straight day",
+        "precision": "approximate",
+        "source": "transcript",
+        "context": "Israel and Iran trading air strikes for the sixth straight day",
+        "timestamp": 0
+      },
+      {
+        "confidence": 0.8,
+        "normalized_date": "future_years",
+        "original_text": "in the coming years",
+        "precision": "approximate",
+        "source": "transcript",
+        "context": "corporate workforce will shrink in the coming years",
+        "timestamp": 0
+      },
+      {
+        "confidence": 0.9,
+        "normalized_date": "2024-05-15",
+        "original_text": "today",
+        "precision": "day",
+        "source": "transcript",
+        "context": "jobs that are being done today",
+        "timestamp": 0
+      },
+      {
+        "confidence": 0.9,
+        "normalized_date": "2024-05-14",
+        "original_text": "last night",
+        "precision": "day",
+        "source": "transcript",
+        "context": "Brad Lander was on CNN last night",
+        "timestamp": 0
+      },
+      {
+        "confidence": 0.8,
+        "normalized_date": "2024-2034",
+        "original_text": "over the next decade",
+        "precision": "approximate",
+        "source": "transcript",
+        "context": "increase deficits by $2.8 trillion over the next decade",
+        "timestamp": 0
+      }
+    ],
+    "visual_dates": [],
+    "spacy_entities": 34,
+    "gliner_entities": 38,
+    "quality_false_positives_removed": 0,
+    "quality_language_filtered": 30,
+    "quality_confidence_improved": 10,
+    "quality_score": 0.564791659339269,
+    "language_purity": 1.0,
+    "enhanced_entities": 8,
+    "relationships": 0,
+    "temporal_references": 1,
+    "llm_validated": 8,
+    "graph_nodes": 8,
+    "graph_edges": 0,
+    "retention_decision": {
+      "action": "deleted",
+      "video_path": ".video_cache/5 Things To Know\uff1a June 18, 2025-FPa82id02bY.mp3",
+      "video_hash": "ca7adb7e11c047f3e2ba4ea95ec66c7a",
+      "reason": "Policy: Always delete source videos",
+      "cost_savings": {
+        "storage_cost_avoided": 0.001037359457463026,
+        "reprocessing_cost": 0.0105595875
+      },
+      "timestamp": "2025-07-18T22:49:12.598618"
+    }
+  },
+  "timeline_v2": {
+    "error": "'VideoIntelligenceRetriever' object has no attribute 'temporal_extractor'",
+    "fallback_used": true,
+    "events": [],
+    "chapters": []
+  },
+  "files": {
+    "transcript_txt": {
+      "path": "transcript.txt",
+      "format": "plain_text",
+      "size": 2870,
+      "sha256": "46b14da6768823f3fcbae2fbadc00d1d8e25c8eb089905e61d87921e5115ae80"
+    },
+    "transcript_json": {
+      "path": "transcript.json",
+      "format": "json",
+      "size": 36455,
+      "sha256": "220b20f34073316d618a8b1e9f0f194e9b1dc87ae70c84c2debfc3c2de575dc9"
+    },
+    "metadata": {
+      "path": "metadata.json",
+      "format": "json",
+      "size": 641,
+      "sha256": "f5b28c148f551be53a77a410ff23af25afe923ebf46f9949f3b51e0de1be1370"
+    },
+    "entities": {
+      "path": "entities.json",
+      "format": "json",
+      "size": 2926,
+      "sha256": "3a487a72e81c64ed928f0728b9562994185505d3b64c070f75b2ce628d118eb2"
+    },
+    "knowledge_graph": {
+      "path": "knowledge_graph.json",
+      "format": "json",
+      "size": 922,
+      "sha256": "bfbf70ccae87b597cf99fc9cbd857e3de5585c3da27120c0cbce387eee78a042"
+    },
+    "gexf": {
+      "path": "knowledge_graph.gexf",
+      "format": "gexf",
+      "size": 3131,
+      "sha256": "9a4f1d8035de9e7dcbe219f3af950033a735401bac99ed970c57c84e465b8be6",
+      "description": "Gephi-compatible graph file"
+    },
+    "entities_csv": {
+      "path": "entities.csv",
+      "format": "csv",
+      "size": 348,
+      "sha256": "23213d64f70cc63dd627c9e13c2837f3155c839a2c3de34b34f4446f8bb3be9b",
+      "description": "All entities in CSV format"
+    },
+    "report": {
+      "path": "report.md",
+      "format": "markdown",
+      "size": 6126,
+      "sha256": "91466b74cc4355fa833c1aeca7d0f0af73d7e50c755986f25dec4d855debe27f",
+      "description": "Human-readable intelligence report"
+    },
+    "chimera": {
+      "path": "chimera_format.json",
+      "format": "json",
+      "size": 21403,
+      "sha256": "8ea3a54b180dd2eb731441cbf4aa8c57141d42d61c80f3d6d052897689bcf17a",
+      "description": "Chimera-compatible format"
+    }
+  }
+}

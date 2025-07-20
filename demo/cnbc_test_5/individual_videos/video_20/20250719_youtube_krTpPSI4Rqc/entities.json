@@ -1,0 +1,95 @@
+{
+  "video_url": "https://www.youtube.com/watch?v=krTpPSI4Rqc",
+  "video_title": "5 things to know: Monday, June 2",
+  "entities": [
+    {
+      "name": "Dell",
+      "type": "PERSON",
+      "confidence": 0.7100000000000001,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    },
+    {
+      "name": "The Wall Street Journal",
+      "type": "LOCATION",
+      "confidence": 0.7100000000000001,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    },
+    {
+      "name": "Lilo and Stitch",
+      "type": "ORGANIZATION",
+      "confidence": 0.7100000000000001,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    },
+    {
+      "name": "The Weekend",
+      "type": "DATE",
+      "confidence": 0.74,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    },
+    {
+      "name": "The Year",
+      "type": "DATE",
+      "confidence": 0.74,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    },
+    {
+      "name": "This Week",
+      "type": "DATE",
+      "confidence": 0.74,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    },
+    {
+      "name": "Republican",
+      "type": "GROUP",
+      "confidence": 0.95,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    }
+  ],
+  "topics": [
+    {
+      "name": "Government & Politics",
+      "confidence": 0.85
+    },
+    {
+      "name": "International Relations",
+      "confidence": 0.85
+    },
+    {
+      "name": "Business & Technology",
+      "confidence": 0.85
+    },
+    {
+      "name": "Aviation & Infrastructure",
+      "confidence": 0.85
+    },
+    {
+      "name": "Entertainment & Box Office",
+      "confidence": 0.85
+    },
+    {
+      "name": "Military Operations",
+      "confidence": 0.85
+    }
+  ],
+  "key_facts": [
+    "Lawmakers are returning to work this week, with the Senate set to address the reconciliation bill.",
+    "Republican Senator Ron Johnson intends to demand deeper spending cuts to alleviate the debt burden.",
+    "The Trump administration's effort to reduce government costs has broadened to include technology companies.",
+    "The Wall Street Journal reported that officials sent letters to 10 tech firms last week.",
+    "The tech firms that received letters include Dell and IT firm CDW."
+  ]
+}

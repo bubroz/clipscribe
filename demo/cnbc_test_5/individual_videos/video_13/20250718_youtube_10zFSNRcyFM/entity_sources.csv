@@ -1,0 +1,6 @@
+name,type,confidence,source,extraction_methods,aliases,is_normalized
+Trump,PERSON,0.71,Unknown,Unknown,,False
+the Financial Times,ORGANIZATION,0.71,Unknown,Unknown,,False
+The Next Several Weeks,DATE,0.79,Unknown,Unknown,,False
+The Next Two Weeks,DATE,0.79,Unknown,Unknown,,False
+Foreign Minister,PERSON,0.71,Unknown,Unknown,,False

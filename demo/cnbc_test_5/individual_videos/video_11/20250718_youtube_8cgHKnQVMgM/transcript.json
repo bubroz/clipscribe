@@ -1,0 +1,753 @@
+{
+  "metadata": {
+    "title": "5 Things To Know: June 25, 2025",
+    "url": "https://www.youtube.com/watch?v=8cgHKnQVMgM",
+    "channel": "CNBC Television",
+    "duration": 85,
+    "published_at": "2025-06-25T07:16:16",
+    "view_count": 1272,
+    "description": "CNBC\u2019s Becky Quick reports on the 5 things to know on June 25, 2025."
+  },
+  "transcript": {
+    "full_text": "Five things to know ahead of today's opening bell. Treasury Secretary Scott Bassant says that he believes the Senate is on track for a vote this Friday on President Trump's tax and spending bill. Yesterday Bassant also predicted House and Senate Republicans would reach a deal on the salt deduction cap somewhere in the next 24 to 48 hours. Reports say Polymarket is close to raising $200 million in a funding round that would value the prediction market company at about a billion dollars. An investment platform is launching new digital tokens that use blockchain technology to mirror the performance of the private shares of SpaceX. That's according to a Wall Street Journal report that says the platform called Republic is using the strategy to give investors access to companies typically reserved for the wealthy. The method hasn't been tested with regulators yet. And chip design firm Ambrella coming off more than 20% stock gain yesterday. A report says that the company is working with bankers on a potential sale. Also, speaking of chips, Micron Technologies quarterly results are due after today's closing bell. Those shares have roughly doubled since the S&P 500's April low. Investors will be looking for insight on Micron's ability to meet the surge and demand for high bandwidth memory chips for AI applications. And by the way, all of these chip stocks have done this too. Nvidia is up 40% just in the last two months.",
+    "segments": [
+      {
+        "start": 0.0,
+        "end": 42.5,
+        "text": "Five things to know ahead of today's opening bell. Treasury Secretary Scott Bassant says that he believes the Senate is on track for a vote this Friday on President Trump's tax and spending bill. Yesterday Bassant also predicted House and Senate Republicans would reach a deal on the salt deduction cap somewhere in the next 24 to 48 hours. Reports say Polymarket is close to raising $200 million in a funding round that would value the prediction market company at about a billion dollars. An investment platform is launching new digital tokens that use blockchain technology to mirror the performance of the private shares of SpaceX. That's according to a Wall Street Journal report that says the platform called Republic"
+      },
+      {
+        "start": 42.32,
+        "end": 84.82,
+        "text": "is using the strategy to give investors access to companies typically reserved for the wealthy. The method hasn't been tested with regulators yet. And chip design firm Ambrella coming off more than 20% stock gain yesterday. A report says that the company is working with bankers on a potential sale. Also, speaking of chips, Micron Technologies quarterly results are due after today's closing bell. Those shares have roughly doubled since the S&P 500's April low. Investors will be looking for insight on Micron's ability to meet the surge and demand for high bandwidth memory chips for AI applications. And by the way, all of these chip stocks have done this too. Nvidia is up 40% just in the last two"
+      },
+      {
+        "start": 84.65,
+        "end": 85,
+        "text": "months."
+      }
+    ],
+    "language": "en",
+    "confidence": 0.95
+  },
+  "analysis": {
+    "summary": "This market update provides five key insights ahead of the opening bell, covering legislative, corporate, and tech sector news. Treasury Secretary Scott Bassant indicated that the Senate is set to vote this Friday on President Trump's tax and spending bill. Furthermore, Bassant predicted that House and Senate Republicans are nearing a deal on the salt deduction cap, expected within the next 24 to 48 hours.\n\nIn corporate finance, Polymarket is reportedly close to securing $200 million in a funding round, which would elevate its valuation to approximately one billion dollars. Concurrently, an investment platform named Republic is launching innovative digital tokens. These tokens, leveraging blockchain technology, are designed to mirror the performance of private shares in companies like SpaceX, aiming to democratize access for investors typically excluded from such opportunities, although this method has yet to be vetted by regulators.\n\nFinally, the chip sector is under the spotlight, with Ambrella, a chip design firm, experiencing a notable stock gain of over 20% yesterday amid reports of a potential sale involving bankers. Micron Technologies' quarterly results are anticipated after today's closing bell, with investors closely watching for insights into its capacity to meet the surging demand for high bandwidth memory chips crucial for AI applications. The broader chip market is also thriving, highlighted by Nvidia's shares soaring 40% in just the last two months, underscoring a robust trend across the sector since the S&P 500's April low.",
+    "key_points": [
+      {
+        "timestamp": 0.0,
+        "text": "The segment introduces five key things to know ahead of the day's opening bell.",
+        "importance": 0.8,
+        "context": null
+      },
+      {
+        "timestamp": 5.0,
+        "text": "Treasury Secretary Scott Bassant believes the Senate is on track for a vote.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 7.0,
+        "text": "The Senate vote is scheduled for this Friday.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 8.0,
+        "text": "The vote concerns President Trump's tax and spending bill.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 10.0,
+        "text": "Yesterday, Bassant predicted a deal between House and Senate Republicans.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 13.0,
+        "text": "The predicted deal is regarding the salt deduction cap.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 14.0,
+        "text": "The deal is expected to be reached within the next 24 to 48 hours.",
+        "importance": 0.8,
+        "context": null
+      },
+      {
+        "timestamp": 15.0,
+        "text": "Reports indicate Polymarket is close to raising $200 million.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 17.0,
+        "text": "This funding round would value Polymarket, a prediction market company, at about a billion dollars.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 20.0,
+        "text": "An investment platform is launching new digital tokens.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 21.0,
+        "text": "These digital tokens utilize blockchain technology.",
+        "importance": 0.8,
+        "context": null
+      },
+      {
+        "timestamp": 22.0,
+        "text": "The tokens are designed to mirror the performance of SpaceX's private shares.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 25.0,
+        "text": "This information is according to a Wall Street Journal report.",
+        "importance": 0.8,
+        "context": null
+      },
+      {
+        "timestamp": 26.0,
+        "text": "The investment platform mentioned is called Republic.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 28.0,
+        "text": "Republic's strategy aims to provide investors access to companies typically reserved for the wealthy.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 30.0,
+        "text": "The method used by Republic hasn't been tested with regulators yet.",
+        "importance": 0.8,
+        "context": null
+      },
+      {
+        "timestamp": 35.0,
+        "text": "Chip design firm Ambrella experienced a significant stock gain.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 36.0,
+        "text": "Ambrella's stock gained more than 20% yesterday.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 40.0,
+        "text": "A report indicates Ambrella is working with bankers on a potential sale.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 45.0,
+        "text": "Micron Technologies' quarterly results are scheduled to be released.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 46.0,
+        "text": "The results are due after today's closing bell.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 50.0,
+        "text": "Micron Technologies' shares have approximately doubled in value.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 51.0,
+        "text": "This doubling occurred since the S&P 500's low point in April.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 55.0,
+        "text": "Investors are keen to gain insight into Micron's capacity.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 56.0,
+        "text": "The insight sought is on Micron's ability to meet the surge in demand for high bandwidth memory chips.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 57.0,
+        "text": "These high bandwidth memory chips are crucial for AI applications.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 60.0,
+        "text": "A general trend of strong performance is noted for all chip stocks.",
+        "importance": 0.8,
+        "context": null
+      },
+      {
+        "timestamp": 65.0,
+        "text": "Nvidia's stock has shown exceptional growth recently.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 66.0,
+        "text": "Nvidia's shares are up 40% in just the last two months.",
+        "importance": 0.9,
+        "context": null
+      }
+    ],
+    "entities": [
+      {
+        "entity": "Quarterly",
+        "type": "DATE",
+        "start_char": null,
+        "end_char": null,
+        "confidence": 0.74,
+        "source": null,
+        "extraction_sources": [
+          "SpaCy"
+        ],
+        "mention_count": 1,
+        "context_windows": [
+          {
+            "text": "ale. Also, speaking of chips, Micron Technologies quarterly results are due after today's closing bell. Those",
+            "timestamp": "00:00:00",
+            "confidence": 0.9,
+            "speaker": null,
+            "visual_present": false
+          }
+        ],
+        "aliases": [],
+        "canonical_form": "Quarterly",
+        "source_confidence": {
+          "SpaCy": 0.7
+        },
+        "temporal_distribution": [
+          {
+            "timestamp": "00:00:00",
+            "duration": 5.0,
+            "context_type": "spoken"
+          }
+        ]
+      },
+      {
+        "entity": "The Last Two Months",
+        "type": "DATE",
+        "start_char": null,
+        "end_char": null,
+        "confidence": 0.79,
+        "source": null,
+        "extraction_sources": [
+          "SpaCy"
+        ],
+        "mention_count": 1,
+        "context_windows": [],
+        "aliases": [],
+        "canonical_form": "The Last Two Months",
+        "source_confidence": {
+          "SpaCy": 0.7
+        },
+        "temporal_distribution": []
+      },
+      {
+        "entity": "The Next 24 To 48 Hours",
+        "type": "DATE",
+        "start_char": null,
+        "end_char": null,
+        "confidence": 0.79,
+        "source": null,
+        "extraction_sources": [
+          "SpaCy"
+        ],
+        "mention_count": 1,
+        "context_windows": [
+          {
+            "text": "ach a deal on the salt deduction cap somewhere in the next 24 to 48 hours. Reports say Polymarket is close to raising $200 ",
+            "timestamp": "00:00:00",
+            "confidence": 0.9,
+            "speaker": null,
+            "visual_present": false
+          }
+        ],
+        "aliases": [],
+        "canonical_form": "The Next 24 To 48 Hours",
+        "source_confidence": {
+          "SpaCy": 0.7
+        },
+        "temporal_distribution": [
+          {
+            "timestamp": "00:00:00",
+            "duration": 5.0,
+            "context_type": "spoken"
+          }
+        ]
+      },
+      {
+        "entity": "Republic",
+        "type": "LOCATION",
+        "start_char": null,
+        "end_char": null,
+        "confidence": 0.8300000000000001,
+        "source": null,
+        "extraction_sources": [
+          "SpaCy",
+          "GLiNER"
+        ],
+        "mention_count": 3,
+        "context_windows": [
+          {
+            "text": "Yesterday Bassant also predicted House and Senate Republicans would reach a deal on the salt deduction cap s",
+            "timestamp": "00:00:00",
+            "confidence": 0.9,
+            "speaker": null,
+            "visual_present": false
+          },
+          {
+            "text": "Yesterday Bassant also predicted House and Senate Republicans would reach a deal on the salt deduction cap some",
+            "timestamp": "00:00:00",
+            "confidence": 0.9,
+            "speaker": null,
+            "visual_present": false
+          }
+        ],
+        "aliases": [
+          "Republicans"
+        ],
+        "canonical_form": "Republic",
+        "source_confidence": {
+          "SpaCy": 0.6499999999999999,
+          "GLiNER": 0.7
+        },
+        "temporal_distribution": [
+          {
+            "timestamp": "00:00:00",
+            "duration": 5.0,
+            "context_type": "spoken"
+          }
+        ]
+      },
+      {
+        "entity": "Trump",
+        "type": "PERSON",
+        "start_char": null,
+        "end_char": null,
+        "confidence": 0.7100000000000001,
+        "source": null,
+        "extraction_sources": [
+          "GLiNER+SpaCy"
+        ],
+        "mention_count": 1,
+        "context_windows": [
+          {
+            "text": "e is on track for a vote this Friday on President Trump's tax and spending bill. Yesterday Bassant also p",
+            "timestamp": "00:00:00",
+            "confidence": 0.9,
+            "speaker": null,
+            "visual_present": false
+          },
+          {
+            "text": " the Senate is on track for a vote this Friday on President Trump's tax and spending bill. Yesterday Bassant also p",
+            "timestamp": "00:00:00",
+            "confidence": 0.9,
+            "speaker": null,
+            "visual_present": false
+          }
+        ],
+        "aliases": [
+          "President Trump"
+        ],
+        "canonical_form": "Trump",
+        "source_confidence": {
+          "GLiNER+SpaCy": 0.7
+        },
+        "temporal_distribution": [
+          {
+            "timestamp": "00:00:00",
+            "duration": 5.0,
+            "context_type": "spoken"
+          }
+        ]
+      }
+    ],
+    "topics": [
+      {
+        "name": "Financial Markets",
+        "confidence": 0.85
+      },
+      {
+        "name": "Legislative News",
+        "confidence": 0.85
+      },
+      {
+        "name": "Corporate Finance",
+        "confidence": 0.85
+      },
+      {
+        "name": "Technology Sector",
+        "confidence": 0.85
+      },
+      {
+        "name": "Chip Industry",
+        "confidence": 0.85
+      },
+      {
+        "name": "Investment Platforms",
+        "confidence": 0.85
+      },
+      {
+        "name": "Blockchain Technology",
+        "confidence": 0.85
+      },
+      {
+        "name": "Artificial Intelligence (AI)",
+        "confidence": 0.85
+      },
+      {
+        "name": "Stock Market Trends",
+        "confidence": 0.85
+      }
+    ],
+    "sentiment": null
+  },
+  "processing": {
+    "cost": 0.004856953125,
+    "time": 0.0,
+    "processed_at": "2025-07-18T23:27:38.463546",
+    "model": "gemini-2.5-flash",
+    "extractor": "advanced_hybrid_v2.2"
+  },
+  "dates": [
+    {
+      "confidence": 0.9,
+      "normalized_date": "2024-05-24",
+      "original_text": "today's opening bell",
+      "precision": "day",
+      "source": "transcript",
+      "context": "ahead of today's opening bell",
+      "timestamp": 0.0
+    },
+    {
+      "confidence": 0.9,
+      "normalized_date": "2024-05-24",
+      "original_text": "this Friday",
+      "precision": "day",
+      "source": "transcript",
+      "context": "vote this Friday on President Trump's tax and spending bill",
+      "timestamp": 7.0
+    },
+    {
+      "confidence": 0.9,
+      "normalized_date": "2024-05-23",
+      "original_text": "Yesterday",
+      "precision": "day",
+      "source": "transcript",
+      "context": "Yesterday Bassant also predicted",
+      "timestamp": 11.0
+    },
+    {
+      "confidence": 0.8,
+      "normalized_date": "2024-05-24",
+      "original_text": "next 24 to 48 hours",
+      "precision": "approximate",
+      "source": "transcript",
+      "context": "reach a deal on the salt deduction cap somewhere in the next 24 to 48 hours",
+      "timestamp": 14.0
+    },
+    {
+      "confidence": 0.9,
+      "normalized_date": "2024-05-23",
+      "original_text": "yesterday",
+      "precision": "day",
+      "source": "transcript",
+      "context": "Ambrella coming off more than 20% stock gain yesterday",
+      "timestamp": 36.0
+    },
+    {
+      "confidence": 0.9,
+      "normalized_date": "2024-05-24",
+      "original_text": "today's closing bell",
+      "precision": "day",
+      "source": "transcript",
+      "context": "Micron Technologies quarterly results are due after today's closing bell",
+      "timestamp": 46.0
+    },
+    {
+      "confidence": 0.9,
+      "normalized_date": "2024-04-01",
+      "original_text": "April low",
+      "precision": "month",
+      "source": "transcript",
+      "context": "since the S&P 500's April low",
+      "timestamp": 51.0
+    },
+    {
+      "confidence": 0.9,
+      "normalized_date": "2024-03-24",
+      "original_text": "last two months",
+      "precision": "month",
+      "source": "transcript",
+      "context": "Nvidia is up 40% just in the last two months",
+      "timestamp": 66.0
+    }
+  ],
+  "visual_dates": [],
+  "knowledge_graph": {
+    "nodes": [
+      {
+        "id": "Quarterly",
+        "type": "DATE",
+        "confidence": 0.74
+      },
+      {
+        "id": "The Last Two Months",
+        "type": "DATE",
+        "confidence": 0.79
+      },
+      {
+        "id": "The Next 24 To 48 Hours",
+        "type": "DATE",
+        "confidence": 0.79
+      },
+      {
+        "id": "Republic",
+        "type": "LOCATION",
+        "confidence": 0.8300000000000001
+      },
+      {
+        "id": "Trump",
+        "type": "PERSON",
+        "confidence": 0.7100000000000001
+      }
+    ],
+    "edges": [],
+    "node_count": 5,
+    "edge_count": 0,
+    "connected_components": 5,
+    "density": 0
+  },
+  "extraction_stats": {
+    "timeline_events": [
+      {
+        "confidence": 0.9,
+        "event_description": "Treasury Secretary Scott Bassant states his belief that the Senate is on track for a vote on President Trump's tax and spending bill.",
+        "event_type": "Political Development",
+        "timestamp": 0,
+        "involved_entities": [
+          "Treasury Secretary Scott Bassant",
+          "Senate",
+          "President Trump"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "Treasury Secretary Scott Bassant predicted that House and Senate Republicans would reach a deal on the salt deduction cap.",
+        "event_type": "Political Prediction",
+        "timestamp": -1,
+        "involved_entities": [
+          "Treasury Secretary Scott Bassant",
+          "House Republicans",
+          "Senate Republicans"
+        ]
+      },
+      {
+        "confidence": 0.8,
+        "event_description": "Reports indicate Polymarket is close to raising $200 million in a funding round, valuing the company at about a billion dollars.",
+        "event_type": "Financial Funding",
+        "timestamp": 0,
+        "involved_entities": [
+          "Polymarket"
+        ]
+      },
+      {
+        "confidence": 0.8,
+        "event_description": "An investment platform, Republic, is launching new digital tokens using blockchain technology to mirror the performance of SpaceX's private shares, as per a Wall Street Journal report.",
+        "event_type": "Financial Innovation",
+        "timestamp": 0,
+        "involved_entities": [
+          "Republic",
+          "SpaceX",
+          "Wall Street Journal"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "Chip design firm Ambrella experienced a significant stock gain.",
+        "event_type": "Stock Performance",
+        "timestamp": -1,
+        "involved_entities": [
+          "Ambrella"
+        ]
+      },
+      {
+        "confidence": 0.8,
+        "event_description": "A report indicates that Ambrella is working with bankers on a potential sale.",
+        "event_type": "Business Strategy",
+        "timestamp": 0,
+        "involved_entities": [
+          "Ambrella",
+          "bankers"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "Micron Technologies' quarterly results are due.",
+        "event_type": "Financial Reporting",
+        "timestamp": 0,
+        "involved_entities": [
+          "Micron Technologies"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "Micron Technologies' shares have roughly doubled.",
+        "event_type": "Stock Performance",
+        "timestamp": 0,
+        "involved_entities": [
+          "Micron Technologies",
+          "S&P 500"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "Nvidia's stock is up 40%.",
+        "event_type": "Stock Performance",
+        "timestamp": 0,
+        "involved_entities": [
+          "Nvidia"
+        ]
+      }
+    ],
+    "visual_temporal_cues": [],
+    "temporal_patterns": [
+      {
+        "description": "A progression of legislative actions and predictions concerning President Trump's tax and spending bill, moving from a past prediction to a future vote and an imminent deal.",
+        "pattern_type": "Progression",
+        "significance": "Illustrates the active and time-sensitive nature of legislative developments and their anticipated timeline.",
+        "timespan": "From yesterday to this Friday, with a key development expected in the next 24 to 48 hours."
+      },
+      {
+        "description": "A notable trend of significant stock gains across multiple companies in the chip/semiconductor sector, driven by strong demand for high bandwidth memory chips for AI applications.",
+        "pattern_type": "Trend",
+        "significance": "Indicates a booming period for the semiconductor industry, particularly those involved in AI-related technologies.",
+        "timespan": "From the S&P 500's April low to the present day, with specific gains noted over the last two months and yesterday."
+      }
+    ],
+    "dates": [
+      {
+        "confidence": 0.9,
+        "normalized_date": "2024-05-24",
+        "original_text": "today's opening bell",
+        "precision": "day",
+        "source": "transcript",
+        "context": "ahead of today's opening bell",
+        "timestamp": 0.0
+      },
+      {
+        "confidence": 0.9,
+        "normalized_date": "2024-05-24",
+        "original_text": "this Friday",
+        "precision": "day",
+        "source": "transcript",
+        "context": "vote this Friday on President Trump's tax and spending bill",
+        "timestamp": 7.0
+      },
+      {
+        "confidence": 0.9,
+        "normalized_date": "2024-05-23",
+        "original_text": "Yesterday",
+        "precision": "day",
+        "source": "transcript",
+        "context": "Yesterday Bassant also predicted",
+        "timestamp": 11.0
+      },
+      {
+        "confidence": 0.8,
+        "normalized_date": "2024-05-24",
+        "original_text": "next 24 to 48 hours",
+        "precision": "approximate",
+        "source": "transcript",
+        "context": "reach a deal on the salt deduction cap somewhere in the next 24 to 48 hours",
+        "timestamp": 14.0
+      },
+      {
+        "confidence": 0.9,
+        "normalized_date": "2024-05-23",
+        "original_text": "yesterday",
+        "precision": "day",
+        "source": "transcript",
+        "context": "Ambrella coming off more than 20% stock gain yesterday",
+        "timestamp": 36.0
+      },
+      {
+        "confidence": 0.9,
+        "normalized_date": "2024-05-24",
+        "original_text": "today's closing bell",
+        "precision": "day",
+        "source": "transcript",
+        "context": "Micron Technologies quarterly results are due after today's closing bell",
+        "timestamp": 46.0
+      },
+      {
+        "confidence": 0.9,
+        "normalized_date": "2024-04-01",
+        "original_text": "April low",
+        "precision": "month",
+        "source": "transcript",
+        "context": "since the S&P 500's April low",
+        "timestamp": 51.0
+      },
+      {
+        "confidence": 0.9,
+        "normalized_date": "2024-03-24",
+        "original_text": "last two months",
+        "precision": "month",
+        "source": "transcript",
+        "context": "Nvidia is up 40% just in the last two months",
+        "timestamp": 66.0
+      }
+    ],
+    "visual_dates": [],
+    "spacy_entities": 26,
+    "gliner_entities": 27,
+    "quality_false_positives_removed": 0,
+    "quality_language_filtered": 26,
+    "quality_confidence_improved": 7,
+    "quality_score": 0.5261699985742568,
+    "language_purity": 1.0,
+    "enhanced_entities": 5,
+    "relationships": 0,
+    "temporal_references": 2,
+    "llm_validated": 5,
+    "graph_nodes": 5,
+    "graph_edges": 0,
+    "retention_decision": {
+      "action": "deleted",
+      "video_path": ".video_cache/5 Things To Know\uff1a June 25, 2025-8cgHKnQVMgM.mp3",
+      "video_hash": "4eb6cfd2f41bdcd6ef8673cb2bd358e6",
+      "reason": "Policy: Always delete source videos",
+      "cost_savings": {
+        "storage_cost_avoided": 0.0005268312692642211,
+        "reprocessing_cost": 0.0053426484375
+      },
+      "timestamp": "2025-07-18T22:44:30.004929"
+    }
+  },
+  "timeline_v2": {
+    "error": "'VideoIntelligenceRetriever' object has no attribute 'temporal_extractor'",
+    "fallback_used": true,
+    "events": [],
+    "chapters": []
+  }
+}

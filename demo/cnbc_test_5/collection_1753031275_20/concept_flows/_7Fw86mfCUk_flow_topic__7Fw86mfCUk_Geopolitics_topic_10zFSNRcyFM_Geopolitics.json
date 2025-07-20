@@ -1,0 +1,46 @@
+{
+  "flow_id": "flow_topic__7Fw86mfCUk_Geopolitics_topic_10zFSNRcyFM_Geopolitics",
+  "source_node": {
+    "node_id": "topic__7Fw86mfCUk_Geopolitics",
+    "concept_name": "Geopolitics",
+    "video_id": "_7Fw86mfCUk",
+    "video_title": "5 Things To Know: June 23, 2025",
+    "timestamp": 0,
+    "maturity_level": "mentioned",
+    "context": "Topic 'Geopolitics' discussed in video",
+    "explanation_depth": 0.85,
+    "key_points": [],
+    "related_entities": [],
+    "sentiment": 0.0,
+    "confidence": 0.85,
+    "information_density": 0.3,
+    "video_sequence_position": 11
+  },
+  "target_node": {
+    "node_id": "topic_10zFSNRcyFM_Geopolitics",
+    "concept_name": "Geopolitics",
+    "video_id": "10zFSNRcyFM",
+    "video_title": "5 Things To Know: June 20, 2025",
+    "timestamp": 0,
+    "maturity_level": "mentioned",
+    "context": "This broadcast from Squad Box 5 provides an overview of various significant developments across geopolitics, technology, and business ahead of the day's opening bell",
+    "explanation_depth": 0.85,
+    "key_points": [],
+    "related_entities": [],
+    "sentiment": 0.0,
+    "confidence": 0.85,
+    "information_density": 0.3,
+    "video_sequence_position": 12
+  },
+  "flow_type": "development",
+  "information_transferred": "Enhanced understanding of Geopolitics",
+  "transformation_type": "integration",
+  "flow_quality": 0.95,
+  "coherence_score": 0.5,
+  "temporal_gap": 3600.0,
+  "bridge_entities": [],
+  "supporting_evidence": [
+    "Topic 'Geopolitics' discussed in video",
+    "This broadcast from Squad Box 5 provides an overview of various significant developments across geopolitics, technology, and business ahead of the day's opening bell"
+  ]
+}

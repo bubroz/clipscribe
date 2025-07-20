@@ -1,5 +1,0 @@
-name,type,confidence,source,extraction_methods,aliases,is_normalized
-Game,GAME,0.915,GLiNER,GLiNER,,False
-You,PERSON,0.739,GLiNER,GLiNER,,False
-We,PERSON,0.95,GLiNER,GLiNER,,False
-Aching,SYMPTOM,0.95,GLiNER,GLiNER,,False

@@ -79,7 +79,7 @@ class GraphCleaner:
         entity_list = []
         for entity in entities:
             entity_list.append({
-                "name": entity.name,
+                "name": entity.entity,
                 "type": entity.type,
                 "confidence": entity.confidence
             })

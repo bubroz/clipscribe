@@ -249,7 +249,7 @@ class AdvancedHybridExtractor:
             custom_entities = self.gliner_extractor.extract_entities(text)
         
         gliner_entities = [
-            Entity(name=e.text, type=e.label, confidence=e.confidence, properties={"source": "GLiNER"})
+            Entity(entity=e.text, type=e.label, confidence=e.confidence, source="GLiNER")
             for e in custom_entities
         ]
         stats["gliner_entities"] = len(gliner_entities)
@@ -269,7 +269,7 @@ class AdvancedHybridExtractor:
         triplets = self.rebel_extractor.extract_triplets(video_intel.transcript.full_text)
         
         relationships = []
-        entity_names = {e.name.lower() for e in video_intel.entities}
+        entity_names = {e.entity.lower() for e in video_intel.entities}
 
         for triplet in triplets:
             subject = triplet['subject']
@@ -303,7 +303,7 @@ class AdvancedHybridExtractor:
         logger.debug(f"Building graph with {len(video_intel.entities)} entities and {len(video_intel.relationships)} relationships")
         
         for entity in video_intel.entities:
-            G.add_node(entity.name, type=entity.type, confidence=entity.confidence)
+            G.add_node(entity.entity, type=entity.type, confidence=entity.confidence)
             
         for rel in video_intel.relationships:
             G.add_edge(rel.subject, rel.object, predicate=rel.predicate, confidence=rel.confidence)
@@ -386,7 +386,7 @@ class AdvancedHybridExtractor:
         
     def _build_entity_validation_prompt(self, entities: List[Entity], transcript: str) -> str:
         """Build prompt for entity validation."""
-        entity_list = "\n".join([f"- {e.name} ({e.type})" for e in entities])
+        entity_list = "\n".join([f"- {e.entity} ({e.type})" for e in entities])
         
         return f"""
 Please validate these entities extracted from the video transcript.
@@ -439,7 +439,7 @@ Include ONLY meaningful, specific relationships that convey real information.
         
         for entity in original:
             # Check if entity appears in response
-            if entity.name.lower() in response_lower:
+            if entity.entity.lower() in response_lower:
                 entity.confidence = 0.95  # Boost confidence after validation
                 validated.append(entity)
                 
@@ -698,7 +698,7 @@ Include ONLY meaningful, specific relationships that convey real information.
     def _enhance_single_entity(self, entity: Entity, text: str, text_lower: str, active_domains: Set[str]) -> Entity:
         """Enhance a single entity with domain-specific classification."""
         enhanced_entity = Entity(
-            name=entity.name,
+                            entity=entity.entity,
             type=entity.type,
             confidence=entity.confidence,
             properties=entity.properties or {}
@@ -710,7 +710,7 @@ Include ONLY meaningful, specific relationships that convey real information.
                 continue
                 
             config = self.domain_patterns[domain]
-            entity_name_lower = entity.name.lower()
+            entity_name_lower = entity.entity.lower()
             
             # Check if entity name contains domain keywords
             for keyword in config['keywords']:
@@ -728,7 +728,7 @@ Include ONLY meaningful, specific relationships that convey real information.
         
     def _get_enhanced_type(self, entity: Entity, domain: str, text: str) -> Optional[str]:
         """Get enhanced entity type based on domain and context."""
-        entity_name = entity.name.lower()
+        entity_name = entity.entity.lower()
         
         # Domain-specific type mappings
         if domain == 'military':
@@ -817,7 +817,7 @@ Include ONLY meaningful, specific relationships that convey real information.
         enhanced_relationships = []
         
         # Create entity type mapping for context
-        entity_types = {entity.name.lower(): entity.type for entity in entities}
+        entity_types = {entity.entity.lower(): entity.type for entity in entities}
         
         for relationship in relationships:
             enhanced_rel = Relationship(

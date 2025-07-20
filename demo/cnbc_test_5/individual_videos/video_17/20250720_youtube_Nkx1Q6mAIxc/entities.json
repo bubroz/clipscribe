@@ -1,0 +1,59 @@
+{
+  "video_url": "https://www.youtube.com/watch?v=Nkx1Q6mAIxc",
+  "video_title": "5 Things To Know: June 11, 2025",
+  "entities": [
+    {
+      "name": "Trump",
+      "type": "PERSON",
+      "confidence": 0.7100000000000001,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    },
+    {
+      "name": "At Least Six Hours",
+      "type": "TIME",
+      "confidence": 0.77,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    }
+  ],
+  "topics": [
+    {
+      "name": "Tech News",
+      "confidence": 0.85
+    },
+    {
+      "name": "US Politics",
+      "confidence": 0.85
+    },
+    {
+      "name": "International Relations",
+      "confidence": 0.85
+    },
+    {
+      "name": "Trade Policy",
+      "confidence": 0.85
+    },
+    {
+      "name": "Economic Policy",
+      "confidence": 0.85
+    },
+    {
+      "name": "Business Leadership",
+      "confidence": 0.85
+    },
+    {
+      "name": "Autonomous Vehicles",
+      "confidence": 0.85
+    }
+  ],
+  "key_facts": [
+    "The report highlights five key developments for the opening bell.",
+    "Elon Musk walked back his criticism of President Trump.",
+    "Musk posted his apology on X just after 3:00 a.m. Eastern time.",
+    "Musk wrote he regrets some of his posts about President Trump last week.",
+    "Musk admitted his posts 'went too far'."
+  ]
+}

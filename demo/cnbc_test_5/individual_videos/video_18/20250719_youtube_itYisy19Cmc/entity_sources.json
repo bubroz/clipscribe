@@ -1,0 +1,355 @@
+{
+  "summary": {
+    "total_entities": 13,
+    "normalization_applied": true,
+    "normalization_stats": {
+      "total_normalized": 0,
+      "entities_with_multiple_sources": 0,
+      "entities_with_aliases": 0
+    },
+    "by_source": {
+      "Unknown": {
+        "count": 13,
+        "percentage": 100.0
+      }
+    },
+    "by_type": {
+      "PERSON": 2,
+      "DATE": 5,
+      "LOCATION": 1,
+      "ORGANIZATION": 1,
+      "MONEY": 1,
+      "PERCENTAGE": 1,
+      "TIME": 2
+    },
+    "extraction_methods": {
+      "SpaCy": "Basic Named Entity Recognition (free, local)",
+      "GLiNER": "Custom entity detection (local model)",
+      "REBEL": "Relationship extraction (local model)",
+      "Combined": "Entities found by multiple methods and normalized"
+    },
+    "quality_metrics": {
+      "average_confidence": 0.762,
+      "high_confidence_entities": 1,
+      "normalized_entities": 0
+    }
+  },
+  "all_entities": [
+    {
+      "name": "Jameson Greer",
+      "type": "PERSON",
+      "confidence": 0.71,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "A Fourth Consecutive Month",
+      "type": "DATE",
+      "confidence": 0.79,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Less Than A Year",
+      "type": "DATE",
+      "confidence": 0.79,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "the United States",
+      "type": "LOCATION",
+      "confidence": 0.71,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Fed",
+      "type": "ORGANIZATION",
+      "confidence": 0.95,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Billions Of Dollars",
+      "type": "MONEY",
+      "confidence": 0.78,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "34 And A Half%",
+      "type": "PERCENTAGE",
+      "confidence": 0.71,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Evening",
+      "type": "TIME",
+      "confidence": 0.72,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Overnight",
+      "type": "TIME",
+      "confidence": 0.72,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "May, May of 2026",
+      "type": "DATE",
+      "confidence": 0.79,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Trump",
+      "type": "PERSON",
+      "confidence": 0.71,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "last Thursday and",
+      "type": "DATE",
+      "confidence": 0.79,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Friday evening",
+      "type": "DATE",
+      "confidence": 0.74,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    }
+  ],
+  "by_source": {
+    "Unknown": [
+      {
+        "name": "Jameson Greer",
+        "type": "PERSON",
+        "confidence": 0.71,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "A Fourth Consecutive Month",
+        "type": "DATE",
+        "confidence": 0.79,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Less Than A Year",
+        "type": "DATE",
+        "confidence": 0.79,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "the United States",
+        "type": "LOCATION",
+        "confidence": 0.71,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Fed",
+        "type": "ORGANIZATION",
+        "confidence": 0.95,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Billions Of Dollars",
+        "type": "MONEY",
+        "confidence": 0.78,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "34 And A Half%",
+        "type": "PERCENTAGE",
+        "confidence": 0.71,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Evening",
+        "type": "TIME",
+        "confidence": 0.72,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Overnight",
+        "type": "TIME",
+        "confidence": 0.72,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "May, May of 2026",
+        "type": "DATE",
+        "confidence": 0.79,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Trump",
+        "type": "PERSON",
+        "confidence": 0.71,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "last Thursday and",
+        "type": "DATE",
+        "confidence": 0.79,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Friday evening",
+        "type": "DATE",
+        "confidence": 0.74,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      }
+    ]
+  }
+}

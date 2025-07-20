@@ -1,0 +1,848 @@
+{
+  "metadata": {
+    "title": "5 Things To Know: July 1, 2025",
+    "url": "https://www.youtube.com/watch?v=HcAQBfKLMjA",
+    "channel": "CNBC Television",
+    "duration": 90,
+    "published_at": "2025-07-01T03:58:54",
+    "view_count": 2584,
+    "description": "CNBC\u2019s Becky Quick reports on the 5 things to know on July 1, 2025."
+  },
+  "transcript": {
+    "full_text": "Five things to know ahead of today's opening bell. Stablecoin issuer Circle has applied for a national trust bank charter. If the Office of the Controller of the Currency grants that request, Circle would be able to offer custody services to institutional clients for assets, which could include representations of stocks and bonds on a blockchain network. Boeing's Chief Financial Officer Brian West is stepping down effective August 15th. He'll be succeeded by former Lockheed Martin executive J Malave. West will stay on as advisor to Boeing CEO. Shares of Robin Hood coming off a nearly 13% gain yesterday. That stock is higher once again this morning after the company rolled out tokenized shares of Open AI and SpaceX to users in Europe. We're going to talk more about these new products coming up in the 8:00 a.m. Eastern Time hour. And NASA's live programming including rocket launches and spacewalks will begin streaming on Netflix this summer. Financial details of that deal have not been disclosed. And according to a court filing, President Trump and Paramount Global are in advanced settlement negotiations to resolve a law a lawsuit where Trump accused CBS of deceptively editing a 60 Minutes interview with then Vice President Kamala Harris. The President has been looking for Paramount to pay $20 billion. A mediator reportedly floated a potential payment of about $20 million. Paramount is set to hold its annual shareholder meeting tomorrow.",
+    "segments": [
+      {
+        "start": 0.0,
+        "end": 30.0,
+        "text": "Five things to know ahead of today's opening bell. Stablecoin issuer Circle has applied for a national trust bank charter. If the Office of the Controller of the Currency grants that request, Circle would be able to offer custody services to institutional clients for assets, which could include representations of stocks and bonds on a blockchain network. Boeing's Chief Financial Officer Brian West is stepping down effective August 15th. He'll be succeeded by former Lockheed Martin executive J Malave."
+      },
+      {
+        "start": 30.0,
+        "end": 60.0,
+        "text": "West will stay on as advisor to Boeing CEO. Shares of Robin Hood coming off a nearly 13% gain yesterday. That stock is higher once again this morning after the company rolled out tokenized shares of Open AI and SpaceX to users in Europe. We're going to talk more about these new products coming up in the 8:00 a.m. Eastern Time hour. And NASA's live programming including rocket launches and spacewalks will begin streaming on Netflix this summer. Financial"
+      },
+      {
+        "start": 60.0,
+        "end": 90,
+        "text": "details of that deal have not been disclosed. And according to a court filing, President Trump and Paramount Global are in advanced settlement negotiations to resolve a law a lawsuit where Trump accused CBS of deceptively editing a 60 Minutes interview with then Vice President Kamala Harris. The President has been looking for Paramount to pay $20 billion. A mediator reportedly floated a potential payment of about $20 million. Paramount is set to hold its annual shareholder meeting tomorrow."
+      }
+    ],
+    "language": "en",
+    "confidence": 0.95
+  },
+  "analysis": {
+    "summary": "Stablecoin issuer Circle has applied for a national trust bank charter, a move that, if approved by the Office of the Controller of the Currency, would enable them to offer custody services for institutional clients, potentially including tokenized stocks and bonds on a blockchain. This highlights a growing trend of traditional financial structures intersecting with digital assets.\n\nIn corporate leadership news, Boeing's Chief Financial Officer Brian West is set to step down on August 15th. He will be succeeded by J Malave, formerly an executive at Lockheed Martin. West will remain involved with Boeing as an advisor to the CEO, ensuring a smooth transition.\n\nFinancial technology firm Robin Hood saw significant gains, with shares climbing nearly 13% yesterday and continuing to rise this morning. This surge follows Robin Hood's introduction of tokenized shares of prominent companies like Open AI and SpaceX to its European user base, signifying an expansion of their product offerings and market reach. Additionally, NASA's live programming, including rocket launches and spacewalks, is slated to begin streaming on Netflix this summer, though the financial terms of this partnership remain undisclosed.\n\nFinally, a high-profile legal dispute between President Trump and Paramount Global is reportedly nearing a settlement. The lawsuit stems from Trump's accusation that CBS deceptively edited a 60 Minutes interview featuring then-Vice President Kamala Harris. While Trump initially sought $20 billion, reports suggest a mediator has proposed a $20 million payment. Paramount is also scheduled to hold its annual shareholder meeting tomorrow, amidst these negotiations.",
+    "key_points": [
+      {
+        "timestamp": 0.0,
+        "text": "Stablecoin issuer Circle has applied for a national trust bank charter.",
+        "importance": 0.95,
+        "context": null
+      },
+      {
+        "timestamp": 3.0,
+        "text": "The application is with the Office of the Controller of the Currency (OCC).",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 7.0,
+        "text": "If granted, Circle would be able to offer custody services to institutional clients.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 10.0,
+        "text": "These custody services could include representations of stocks and bonds.",
+        "importance": 0.85,
+        "context": null
+      },
+      {
+        "timestamp": 12.0,
+        "text": "The assets would be represented on a blockchain network.",
+        "importance": 0.8,
+        "context": null
+      },
+      {
+        "timestamp": 16.0,
+        "text": "Boeing's Chief Financial Officer Brian West is stepping down.",
+        "importance": 0.95,
+        "context": null
+      },
+      {
+        "timestamp": 19.0,
+        "text": "Brian West's departure is effective August 15th.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 22.0,
+        "text": "J Malave will succeed Brian West.",
+        "importance": 0.95,
+        "context": null
+      },
+      {
+        "timestamp": 25.0,
+        "text": "J Malave is a former Lockheed Martin executive.",
+        "importance": 0.85,
+        "context": null
+      },
+      {
+        "timestamp": 28.0,
+        "text": "West will stay on as an advisor to the Boeing CEO.",
+        "importance": 0.8,
+        "context": null
+      },
+      {
+        "timestamp": 31.0,
+        "text": "Shares of Robin Hood experienced a nearly 13% gain yesterday.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 34.0,
+        "text": "Robin Hood's stock is higher once again this morning.",
+        "importance": 0.85,
+        "context": null
+      },
+      {
+        "timestamp": 37.0,
+        "text": "Robin Hood rolled out tokenized shares of Open AI.",
+        "importance": 0.95,
+        "context": null
+      },
+      {
+        "timestamp": 40.0,
+        "text": "Robin Hood also rolled out tokenized shares of SpaceX.",
+        "importance": 0.95,
+        "context": null
+      },
+      {
+        "timestamp": 42.0,
+        "text": "These tokenized shares were rolled out to users in Europe.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 45.0,
+        "text": "More discussion on these new products is scheduled for the 8:00 a.m. Eastern Time hour.",
+        "importance": 0.8,
+        "context": null
+      },
+      {
+        "timestamp": 49.0,
+        "text": "NASA's live programming will begin streaming on Netflix.",
+        "importance": 0.95,
+        "context": null
+      },
+      {
+        "timestamp": 52.0,
+        "text": "NASA's programming includes rocket launches.",
+        "importance": 0.85,
+        "context": null
+      },
+      {
+        "timestamp": 53.0,
+        "text": "NASA's programming also includes spacewalks.",
+        "importance": 0.85,
+        "context": null
+      },
+      {
+        "timestamp": 55.0,
+        "text": "The streaming on Netflix will commence this summer.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 58.0,
+        "text": "Financial details of the NASA-Netflix deal have not been disclosed.",
+        "importance": 0.8,
+        "context": null
+      },
+      {
+        "timestamp": 62.0,
+        "text": "President Trump and Paramount Global are in advanced settlement negotiations.",
+        "importance": 0.95,
+        "context": null
+      },
+      {
+        "timestamp": 64.0,
+        "text": "The negotiations aim to resolve a lawsuit.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 66.0,
+        "text": "Trump accused CBS of deceptively editing a 60 Minutes interview.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 72.0,
+        "text": "The 60 Minutes interview was with then Vice President Kamala Harris.",
+        "importance": 0.85,
+        "context": null
+      },
+      {
+        "timestamp": 75.0,
+        "text": "President Trump had been seeking $20 billion in the lawsuit.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 79.0,
+        "text": "A mediator reportedly floated a potential payment of about $20 million.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 83.0,
+        "text": "Paramount is set to hold its annual shareholder meeting tomorrow.",
+        "importance": 0.9,
+        "context": null
+      }
+    ],
+    "entities": [
+      {
+        "entity": "Brian West",
+        "type": "PERSON",
+        "start_char": null,
+        "end_char": null,
+        "confidence": 0.7100000000000001,
+        "source": null,
+        "extraction_sources": [
+          "GLiNER+SpaCy"
+        ],
+        "mention_count": 1,
+        "context_windows": [
+          {
+            "text": "ckchain network. Boeing's Chief Financial Officer Brian West is stepping down effective August 15th. He'll be ",
+            "timestamp": "00:00:00",
+            "confidence": 0.9,
+            "speaker": null,
+            "visual_present": false
+          }
+        ],
+        "aliases": [],
+        "canonical_form": "Brian West",
+        "source_confidence": {
+          "GLiNER+SpaCy": 0.7
+        },
+        "temporal_distribution": [
+          {
+            "timestamp": "00:00:00",
+            "duration": 5.0,
+            "context_type": "spoken"
+          }
+        ]
+      },
+      {
+        "entity": "Boeing",
+        "type": "ORGANIZATION",
+        "start_char": null,
+        "end_char": null,
+        "confidence": 0.95,
+        "source": null,
+        "extraction_sources": [
+          "GLiNER+SpaCy"
+        ],
+        "mention_count": 1,
+        "context_windows": [
+          {
+            "text": "ions of stocks and bonds on a blockchain network. Boeing's Chief Financial Officer Brian West is stepping ",
+            "timestamp": "00:00:00",
+            "confidence": 0.9,
+            "speaker": null,
+            "visual_present": false
+          },
+          {
+            "text": "West will stay on as advisor to Boeing CEO. Shares of Robin Hood coming off a nearly 13%",
+            "timestamp": "00:00:00",
+            "confidence": 0.9,
+            "speaker": null,
+            "visual_present": false
+          }
+        ],
+        "aliases": [],
+        "canonical_form": "Boeing",
+        "source_confidence": {
+          "GLiNER+SpaCy": 0.7
+        },
+        "temporal_distribution": [
+          {
+            "timestamp": "00:00:00",
+            "duration": 5.0,
+            "context_type": "spoken"
+          }
+        ]
+      },
+      {
+        "entity": "This Summer",
+        "type": "DATE",
+        "start_char": null,
+        "end_char": null,
+        "confidence": 0.74,
+        "source": null,
+        "extraction_sources": [
+          "SpaCy"
+        ],
+        "mention_count": 1,
+        "context_windows": [
+          {
+            "text": "es and spacewalks will begin streaming on Netflix this summer. Financial",
+            "timestamp": "00:00:00",
+            "confidence": 0.9,
+            "speaker": null,
+            "visual_present": false
+          }
+        ],
+        "aliases": [],
+        "canonical_form": "This Summer",
+        "source_confidence": {
+          "SpaCy": 0.7
+        },
+        "temporal_distribution": [
+          {
+            "timestamp": "00:00:00",
+            "duration": 5.0,
+            "context_type": "spoken"
+          }
+        ]
+      },
+      {
+        "entity": "Lockheed Martin",
+        "type": "ORGANIZATION",
+        "start_char": null,
+        "end_char": null,
+        "confidence": 0.95,
+        "source": null,
+        "extraction_sources": [
+          "GLiNER+SpaCy"
+        ],
+        "mention_count": 1,
+        "context_windows": [
+          {
+            "text": "fective August 15th. He'll be succeeded by former Lockheed Martin executive J Malave.",
+            "timestamp": "00:00:00",
+            "confidence": 0.9,
+            "speaker": null,
+            "visual_present": false
+          }
+        ],
+        "aliases": [],
+        "canonical_form": "Lockheed Martin",
+        "source_confidence": {
+          "GLiNER+SpaCy": 0.7
+        },
+        "temporal_distribution": [
+          {
+            "timestamp": "00:00:00",
+            "duration": 5.0,
+            "context_type": "spoken"
+          }
+        ]
+      },
+      {
+        "entity": "Trump",
+        "type": "PERSON",
+        "start_char": null,
+        "end_char": null,
+        "confidence": 0.7100000000000001,
+        "source": null,
+        "extraction_sources": [
+          "GLiNER+SpaCy"
+        ],
+        "mention_count": 1,
+        "context_windows": [
+          {
+            "text": "losed. And according to a court filing, President Trump and Paramount Global are in advanced settlement n",
+            "timestamp": "00:00:00",
+            "confidence": 0.9,
+            "speaker": null,
+            "visual_present": false
+          },
+          {
+            "text": " been disclosed. And according to a court filing, President Trump and Paramount Global are in advanced settlement n",
+            "timestamp": "00:00:00",
+            "confidence": 0.9,
+            "speaker": null,
+            "visual_present": false
+          }
+        ],
+        "aliases": [
+          "President Trump"
+        ],
+        "canonical_form": "Trump",
+        "source_confidence": {
+          "GLiNER+SpaCy": 0.7
+        },
+        "temporal_distribution": [
+          {
+            "timestamp": "00:00:00",
+            "duration": 5.0,
+            "context_type": "spoken"
+          }
+        ]
+      },
+      {
+        "entity": "This Morning",
+        "type": "TIME",
+        "start_char": null,
+        "end_char": null,
+        "confidence": 0.72,
+        "source": null,
+        "extraction_sources": [
+          "SpaCy"
+        ],
+        "mention_count": 1,
+        "context_windows": [
+          {
+            "text": "% gain yesterday. That stock is higher once again this morning after the company rolled out tokenized shares of ",
+            "timestamp": "00:00:00",
+            "confidence": 0.9,
+            "speaker": null,
+            "visual_present": false
+          }
+        ],
+        "aliases": [],
+        "canonical_form": "This Morning",
+        "source_confidence": {
+          "SpaCy": 0.7
+        },
+        "temporal_distribution": [
+          {
+            "timestamp": "00:00:00",
+            "duration": 5.0,
+            "context_type": "spoken"
+          }
+        ]
+      },
+      {
+        "entity": "President",
+        "type": "PERSON",
+        "start_char": null,
+        "end_char": null,
+        "confidence": 0.7100000000000001,
+        "source": null,
+        "extraction_sources": [
+          "GLiNER+SpaCy"
+        ],
+        "mention_count": 1,
+        "context_windows": [
+          {
+            "text": " been disclosed. And according to a court filing, President Trump and Paramount Global are in advanced settle",
+            "timestamp": "00:00:00",
+            "confidence": 0.9,
+            "speaker": null,
+            "visual_present": false
+          }
+        ],
+        "aliases": [],
+        "canonical_form": "President",
+        "source_confidence": {
+          "GLiNER+SpaCy": 0.7
+        },
+        "temporal_distribution": [
+          {
+            "timestamp": "00:00:00",
+            "duration": 5.0,
+            "context_type": "spoken"
+          }
+        ]
+      }
+    ],
+    "topics": [
+      {
+        "name": "Financial Services Regulation",
+        "confidence": 0.85
+      },
+      {
+        "name": "Cryptocurrency and Blockchain",
+        "confidence": 0.85
+      },
+      {
+        "name": "Corporate Management Changes",
+        "confidence": 0.85
+      },
+      {
+        "name": "Stock Market Trends",
+        "confidence": 0.85
+      },
+      {
+        "name": "Digital Asset Offerings",
+        "confidence": 0.85
+      },
+      {
+        "name": "Space Exploration",
+        "confidence": 0.85
+      },
+      {
+        "name": "Media Partnerships",
+        "confidence": 0.85
+      },
+      {
+        "name": "Legal Disputes",
+        "confidence": 0.85
+      },
+      {
+        "name": "Political Lawsuits",
+        "confidence": 0.85
+      }
+    ],
+    "sentiment": null
+  },
+  "processing": {
+    "cost": 0.00514265625,
+    "time": 0.0,
+    "processed_at": "2025-07-18T23:27:31.509688",
+    "model": "gemini-2.5-flash",
+    "extractor": "advanced_hybrid_v2.2"
+  },
+  "dates": [
+    {
+      "confidence": 0.95,
+      "normalized_date": "2023-10-27",
+      "original_text": "today's opening bell",
+      "precision": "day",
+      "source": "transcript",
+      "context": "Five things to know ahead of today's opening bell.",
+      "timestamp": 1.0
+    },
+    {
+      "confidence": 0.95,
+      "normalized_date": "2024-08-15",
+      "original_text": "August 15th",
+      "precision": "day",
+      "source": "transcript",
+      "context": "Boeing's Chief Financial Officer Brian West is stepping down effective August 15th.",
+      "timestamp": 19.0
+    },
+    {
+      "confidence": 0.95,
+      "normalized_date": "2023-10-26",
+      "original_text": "yesterday",
+      "precision": "day",
+      "source": "transcript",
+      "context": "Shares of Robin Hood coming off a nearly 13% gain yesterday.",
+      "timestamp": 31.0
+    },
+    {
+      "confidence": 0.95,
+      "normalized_date": "2023-10-27",
+      "original_text": "this morning",
+      "precision": "day",
+      "source": "transcript",
+      "context": "That stock is higher once again this morning.",
+      "timestamp": 34.0
+    },
+    {
+      "confidence": 0.95,
+      "normalized_date": "2023-10-27T08:00:00-04:00",
+      "original_text": "8:00 a.m. Eastern Time hour",
+      "precision": "exact",
+      "source": "transcript",
+      "context": "We're going to talk more about these new products coming up in the 8:00 a.m. Eastern Time hour.",
+      "timestamp": 45.0
+    },
+    {
+      "confidence": 0.95,
+      "normalized_date": "2024-06-01",
+      "original_text": "this summer",
+      "precision": "month",
+      "source": "transcript",
+      "context": "NASA's live programming including rocket launches and spacewalks will begin streaming on Netflix this summer.",
+      "timestamp": 55.0
+    },
+    {
+      "confidence": 0.95,
+      "normalized_date": "2023-10-28",
+      "original_text": "tomorrow",
+      "precision": "day",
+      "source": "transcript",
+      "context": "Paramount is set to hold its annual shareholder meeting tomorrow.",
+      "timestamp": 83.0
+    }
+  ],
+  "visual_dates": [],
+  "knowledge_graph": {
+    "nodes": [
+      {
+        "id": "Brian West",
+        "type": "PERSON",
+        "confidence": 0.7100000000000001
+      },
+      {
+        "id": "Boeing",
+        "type": "ORGANIZATION",
+        "confidence": 0.95
+      },
+      {
+        "id": "This Summer",
+        "type": "DATE",
+        "confidence": 0.74
+      },
+      {
+        "id": "Lockheed Martin",
+        "type": "ORGANIZATION",
+        "confidence": 0.95
+      },
+      {
+        "id": "Trump",
+        "type": "PERSON",
+        "confidence": 0.7100000000000001
+      },
+      {
+        "id": "This Morning",
+        "type": "TIME",
+        "confidence": 0.72
+      },
+      {
+        "id": "President",
+        "type": "PERSON",
+        "confidence": 0.7100000000000001
+      }
+    ],
+    "edges": [],
+    "node_count": 7,
+    "edge_count": 0,
+    "connected_components": 7,
+    "density": 0
+  },
+  "extraction_stats": {
+    "timeline_events": [
+      {
+        "confidence": 0.9,
+        "event_description": "Stablecoin issuer Circle applied for a national trust bank charter.",
+        "event_type": "Application Submitted",
+        "timestamp": -172800,
+        "involved_entities": [
+          "Circle",
+          "Office of the Controller of the Currency"
+        ]
+      },
+      {
+        "confidence": 0.95,
+        "event_description": "Boeing's Chief Financial Officer Brian West is stepping down.",
+        "event_type": "Leadership Change",
+        "timestamp": 1728000,
+        "involved_entities": [
+          "Boeing",
+          "Brian West"
+        ]
+      },
+      {
+        "confidence": 0.95,
+        "event_description": "J Malave will succeed Brian West as Boeing CFO.",
+        "event_type": "Succession",
+        "timestamp": 1728000,
+        "involved_entities": [
+          "Boeing",
+          "J Malave",
+          "Brian West"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "Brian West will stay on as an advisor to Boeing CEO.",
+        "event_type": "Advisory Role Transition",
+        "timestamp": 1728000,
+        "involved_entities": [
+          "Boeing",
+          "Brian West"
+        ]
+      },
+      {
+        "confidence": 0.95,
+        "event_description": "Shares of Robin Hood experienced a nearly 13% gain.",
+        "event_type": "Stock Market Activity",
+        "timestamp": -86400,
+        "involved_entities": [
+          "Robin Hood"
+        ]
+      },
+      {
+        "confidence": 0.95,
+        "event_description": "Robin Hood stock is higher after rolling out tokenized shares of Open AI and SpaceX to European users.",
+        "event_type": "Stock Market Activity",
+        "timestamp": 0,
+        "involved_entities": [
+          "Robin Hood",
+          "Open AI",
+          "SpaceX"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "Discussion about Robin Hood's new products scheduled to occur.",
+        "event_type": "Scheduled Broadcast Segment",
+        "timestamp": 3600,
+        "involved_entities": [
+          "Robin Hood"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "NASA's live programming, including rocket launches and spacewalks, will begin streaming on Netflix.",
+        "event_type": "Content Streaming Partnership",
+        "timestamp": 864000,
+        "involved_entities": [
+          "NASA",
+          "Netflix"
+        ]
+      },
+      {
+        "confidence": 0.85,
+        "event_description": "President Trump accused CBS of deceptively editing a 60 Minutes interview with then Vice President Kamala Harris, leading to a lawsuit.",
+        "event_type": "Legal Accusation and Lawsuit Filing",
+        "timestamp": -604800,
+        "involved_entities": [
+          "President Trump",
+          "CBS",
+          "Kamala Harris"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "President Trump and Paramount Global are in advanced settlement negotiations to resolve a lawsuit.",
+        "event_type": "Legal Negotiation",
+        "timestamp": 0,
+        "involved_entities": [
+          "President Trump",
+          "Paramount Global"
+        ]
+      },
+      {
+        "confidence": 0.95,
+        "event_description": "Paramount Global is set to hold its annual shareholder meeting.",
+        "event_type": "Corporate Meeting",
+        "timestamp": 86400,
+        "involved_entities": [
+          "Paramount Global"
+        ]
+      }
+    ],
+    "visual_temporal_cues": [],
+    "temporal_patterns": [
+      {
+        "description": "A progression of actions related to Circle's banking aspirations, from application to potential service offering.",
+        "pattern_type": "Progression",
+        "significance": "Illustrates a strategic business development path.",
+        "timespan": "Ongoing into the future"
+      },
+      {
+        "description": "A sequence of events regarding Boeing's CFO transition: stepping down, succession, and advisory role.",
+        "pattern_type": "Sequence",
+        "significance": "Details a key leadership change within a major corporation.",
+        "timespan": "Leading up to and after August 15th"
+      },
+      {
+        "description": "A chronological sequence of Robin Hood's stock performance and related product rollout: gain yesterday, higher this morning, and future discussion.",
+        "pattern_type": "Chronological Sequence",
+        "significance": "Highlights recent market activity and upcoming discussions for a specific stock.",
+        "timespan": "Past 24 hours into today's 8:00 a.m. Eastern Time hour"
+      },
+      {
+        "description": "A causal chain leading to current settlement negotiations: Trump's accusation leading to a lawsuit, which in turn leads to ongoing settlement talks.",
+        "pattern_type": "Causality Chain",
+        "significance": "Explains the origin and current status of a high-profile legal dispute.",
+        "timespan": "Past (accusation) to ongoing (negotiations)"
+      }
+    ],
+    "dates": [
+      {
+        "confidence": 0.95,
+        "normalized_date": "2023-10-27",
+        "original_text": "today's opening bell",
+        "precision": "day",
+        "source": "transcript",
+        "context": "Five things to know ahead of today's opening bell.",
+        "timestamp": 1.0
+      },
+      {
+        "confidence": 0.95,
+        "normalized_date": "2024-08-15",
+        "original_text": "August 15th",
+        "precision": "day",
+        "source": "transcript",
+        "context": "Boeing's Chief Financial Officer Brian West is stepping down effective August 15th.",
+        "timestamp": 19.0
+      },
+      {
+        "confidence": 0.95,
+        "normalized_date": "2023-10-26",
+        "original_text": "yesterday",
+        "precision": "day",
+        "source": "transcript",
+        "context": "Shares of Robin Hood coming off a nearly 13% gain yesterday.",
+        "timestamp": 31.0
+      },
+      {
+        "confidence": 0.95,
+        "normalized_date": "2023-10-27",
+        "original_text": "this morning",
+        "precision": "day",
+        "source": "transcript",
+        "context": "That stock is higher once again this morning.",
+        "timestamp": 34.0
+      },
+      {
+        "confidence": 0.95,
+        "normalized_date": "2023-10-27T08:00:00-04:00",
+        "original_text": "8:00 a.m. Eastern Time hour",
+        "precision": "exact",
+        "source": "transcript",
+        "context": "We're going to talk more about these new products coming up in the 8:00 a.m. Eastern Time hour.",
+        "timestamp": 45.0
+      },
+      {
+        "confidence": 0.95,
+        "normalized_date": "2024-06-01",
+        "original_text": "this summer",
+        "precision": "month",
+        "source": "transcript",
+        "context": "NASA's live programming including rocket launches and spacewalks will begin streaming on Netflix this summer.",
+        "timestamp": 55.0
+      },
+      {
+        "confidence": 0.95,
+        "normalized_date": "2023-10-28",
+        "original_text": "tomorrow",
+        "precision": "day",
+        "source": "transcript",
+        "context": "Paramount is set to hold its annual shareholder meeting tomorrow.",
+        "timestamp": 83.0
+      }
+    ],
+    "visual_dates": [],
+    "spacy_entities": 32,
+    "gliner_entities": 28,
+    "quality_false_positives_removed": 0,
+    "quality_language_filtered": 28,
+    "quality_confidence_improved": 7,
+    "quality_score": 0.6286446415492466,
+    "language_purity": 1.0,
+    "enhanced_entities": 7,
+    "relationships": 0,
+    "temporal_references": 3,
+    "llm_validated": 7,
+    "graph_nodes": 7,
+    "graph_edges": 0,
+    "retention_decision": {
+      "action": "deleted",
+      "video_path": ".video_cache/5 Things To Know\uff1a July 1, 2025-HcAQBfKLMjA.mp3",
+      "video_hash": "75cdb649ed7b029033d3fe8a7a30c76d",
+      "reason": "Policy: Always delete source videos",
+      "cost_savings": {
+        "storage_cost_avoided": 0.0005527768805623054,
+        "reprocessing_cost": 0.005656921875
+      },
+      "timestamp": "2025-07-18T22:40:53.743207"
+    }
+  },
+  "timeline_v2": {
+    "error": "'VideoIntelligenceRetriever' object has no attribute 'temporal_extractor'",
+    "fallback_used": true,
+    "events": [],
+    "chapters": []
+  }
+}

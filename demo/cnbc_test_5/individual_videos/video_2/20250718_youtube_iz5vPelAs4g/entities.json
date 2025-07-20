@@ -1,0 +1,95 @@
+{
+  "video_url": "https://www.youtube.com/watch?v=iz5vPelAs4g",
+  "video_title": "5 Things To Know: July 16, 2025",
+  "entities": [
+    {
+      "name": "This Year",
+      "type": "DATE",
+      "confidence": 0.74,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    },
+    {
+      "name": "Trump",
+      "type": "PERSON",
+      "confidence": 0.7100000000000001,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    },
+    {
+      "name": "The Justice Department",
+      "type": "ORGANIZATION",
+      "confidence": 0.7100000000000001,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    },
+    {
+      "name": "Corporation for Public Broadcasting",
+      "type": "ORGANIZATION",
+      "confidence": 0.7100000000000001,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    },
+    {
+      "name": "Republicans",
+      "type": "GROUP",
+      "confidence": 0.95,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    },
+    {
+      "name": "The Wall Street Journal",
+      "type": "LOCATION",
+      "confidence": 0.7100000000000001,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    }
+  ],
+  "topics": [
+    {
+      "name": "Business News",
+      "confidence": 0.85
+    },
+    {
+      "name": "Political Spending",
+      "confidence": 0.85
+    },
+    {
+      "name": "Government Budget",
+      "confidence": 0.85
+    },
+    {
+      "name": "Corporate Finance",
+      "confidence": 0.85
+    },
+    {
+      "name": "Executive Leadership",
+      "confidence": 0.85
+    },
+    {
+      "name": "Sports Technology",
+      "confidence": 0.85
+    },
+    {
+      "name": "Automated Officiating",
+      "confidence": 0.85
+    },
+    {
+      "name": "Public Broadcasting",
+      "confidence": 0.85
+    }
+  ],
+  "key_facts": [
+    "Introduction to Squawk Box's 'five things to know' segment.",
+    "Report on two federal investigations into online prediction betting site Polymarket.",
+    "Investigations, conducted by Justice Department and CFTC, have been closed.",
+    "No charges were filed against Polymarket following the federal investigations.",
+    "Justice Department and CFTC investigated if Polymarket accepted bets from US individuals."
+  ]
+}

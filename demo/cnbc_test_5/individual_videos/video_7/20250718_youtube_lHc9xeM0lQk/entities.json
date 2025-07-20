@@ -1,0 +1,87 @@
+{
+  "video_url": "https://www.youtube.com/watch?v=lHc9xeM0lQk",
+  "video_title": "5 Things To Know: July 2, 2025",
+  "entities": [
+    {
+      "name": "Constellation Brands",
+      "type": "PERSON",
+      "confidence": 0.8700000000000001,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    },
+    {
+      "name": "The Most Recent Quarter",
+      "type": "DATE",
+      "confidence": 0.79,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    },
+    {
+      "name": "the Wall Street Journal",
+      "type": "LOCATION",
+      "confidence": 0.7100000000000001,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    },
+    {
+      "name": "About A Quarter",
+      "type": "CARDINAL",
+      "confidence": 0.7100000000000001,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    },
+    {
+      "name": "This Morning",
+      "type": "TIME",
+      "confidence": 0.72,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    }
+  ],
+  "topics": [
+    {
+      "name": "Market Outlook",
+      "confidence": 0.85
+    },
+    {
+      "name": "Economic Indicators",
+      "confidence": 0.85
+    },
+    {
+      "name": "Corporate Earnings",
+      "confidence": 0.85
+    },
+    {
+      "name": "Automotive Industry",
+      "confidence": 0.85
+    },
+    {
+      "name": "Healthcare Industry",
+      "confidence": 0.85
+    },
+    {
+      "name": "Beverage Industry",
+      "confidence": 0.85
+    },
+    {
+      "name": "Media & Entertainment",
+      "confidence": 0.85
+    },
+    {
+      "name": "Technology Partnerships",
+      "confidence": 0.85
+    }
+  ],
+  "key_facts": [
+    "Five key things to know ahead of the opening bell are presented.",
+    "The jobs picture for June is set to be released at 8:15 Eastern time.",
+    "ADP will release its latest look at private sector hiring.",
+    "Economists expect an addition of 120,000 jobs for last month.",
+    "Second quarter delivery metrics are expected from Tesla."
+  ]
+}

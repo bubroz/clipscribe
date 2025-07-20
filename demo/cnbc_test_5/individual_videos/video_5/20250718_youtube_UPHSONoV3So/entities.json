@@ -1,0 +1,83 @@
+{
+  "video_url": "https://www.youtube.com/watch?v=UPHSONoV3So",
+  "video_title": "5 Things To Know: July 9, 2025",
+  "entities": [
+    {
+      "name": "Boeing",
+      "type": "ORGANIZATION",
+      "confidence": 0.95,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    },
+    {
+      "name": "The End Of The",
+      "type": "DATE",
+      "confidence": 0.79,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    },
+    {
+      "name": "Up To $10 Billion",
+      "type": "MONEY",
+      "confidence": 0.78,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    },
+    {
+      "name": "Early This Morning",
+      "type": "TIME",
+      "confidence": 0.77,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    },
+    {
+      "name": "December of 2023",
+      "type": "DATE",
+      "confidence": 0.79,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    }
+  ],
+  "topics": [
+    {
+      "name": "Business News",
+      "confidence": 0.85
+    },
+    {
+      "name": "Corporate Finance",
+      "confidence": 0.85
+    },
+    {
+      "name": "Aerospace Industry",
+      "confidence": 0.85
+    },
+    {
+      "name": "Travel Security",
+      "confidence": 0.85
+    },
+    {
+      "name": "Labor Relations",
+      "confidence": 0.85
+    },
+    {
+      "name": "Technology",
+      "confidence": 0.85
+    },
+    {
+      "name": "Supply Chain",
+      "confidence": 0.85
+    }
+  ],
+  "key_facts": [
+    "An overview of five key news items is provided before today's opening bell.",
+    "SpaceX is currently in discussions to raise capital.",
+    "SpaceX plans include selling insider shares.",
+    "The proposed deal would value SpaceX at approximately $400 billion.",
+    "The Financial Times reported on the SpaceX deal."
+  ]
+}

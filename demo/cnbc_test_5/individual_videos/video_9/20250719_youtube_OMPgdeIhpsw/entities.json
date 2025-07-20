@@ -1,0 +1,71 @@
+{
+  "video_url": "https://www.youtube.com/watch?v=OMPgdeIhpsw",
+  "video_title": "5 Things To Know: June 30, 2025",
+  "entities": [
+    {
+      "name": "Juniper Networks",
+      "type": "ORGANIZATION",
+      "confidence": 0.95,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    },
+    {
+      "name": "A Third Consecutive Month",
+      "type": "DATE",
+      "confidence": 0.79,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    },
+    {
+      "name": "Trump",
+      "type": "PERSON",
+      "confidence": 0.7100000000000001,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    }
+  ],
+  "topics": [
+    {
+      "name": "Global Economy",
+      "confidence": 0.85
+    },
+    {
+      "name": "China's Economy",
+      "confidence": 0.85
+    },
+    {
+      "name": "US Politics",
+      "confidence": 0.85
+    },
+    {
+      "name": "Technology Acquisitions",
+      "confidence": 0.85
+    },
+    {
+      "name": "Corporate Law",
+      "confidence": 0.85
+    },
+    {
+      "name": "Automotive Innovation",
+      "confidence": 0.85
+    },
+    {
+      "name": "Philanthropy",
+      "confidence": 0.85
+    },
+    {
+      "name": "Business News",
+      "confidence": 0.85
+    }
+  ],
+  "key_facts": [
+    "An official survey indicates China's manufacturing activity contracted for a third consecutive month in June.",
+    "The contraction occurred despite China's stimulus efforts aimed at stabilizing the industrial sector.",
+    "President Trump teased a potentially significant development in the TikTok (referred to as Tic-Tac) ownership saga.",
+    "Trump told Fox News that he has a group of 'very wealthy people' ready to buy the short-form video app.",
+    "He stated he could reveal their identities in about two weeks."
+  ]
+}

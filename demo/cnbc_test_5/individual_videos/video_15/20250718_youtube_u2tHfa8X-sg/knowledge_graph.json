@@ -1,0 +1,34 @@
+{
+  "nodes": [
+    {
+      "id": "Kering",
+      "type": "PERSON",
+      "confidence": 0.8700000000000001
+    },
+    {
+      "id": "Renault",
+      "type": "ORGANIZATION",
+      "confidence": 0.95
+    },
+    {
+      "id": "Trump",
+      "type": "PERSON",
+      "confidence": 0.7100000000000001
+    },
+    {
+      "id": "The Fourth Day",
+      "type": "DATE",
+      "confidence": 0.79
+    },
+    {
+      "id": "The Year 2028",
+      "type": "DATE",
+      "confidence": 0.79
+    }
+  ],
+  "edges": [],
+  "node_count": 5,
+  "edge_count": 0,
+  "connected_components": 5,
+  "density": 0
+}

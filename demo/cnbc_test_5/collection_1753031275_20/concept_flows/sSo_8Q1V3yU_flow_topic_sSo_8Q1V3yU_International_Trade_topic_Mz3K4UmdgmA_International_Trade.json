@@ -1,0 +1,46 @@
+{
+  "flow_id": "flow_topic_sSo_8Q1V3yU_International_Trade_topic_Mz3K4UmdgmA_International_Trade",
+  "source_node": {
+    "node_id": "topic_sSo_8Q1V3yU_International_Trade",
+    "concept_name": "International Trade",
+    "video_id": "sSo_8Q1V3yU",
+    "video_title": "5 Things To Know: July 14, 2025",
+    "timestamp": 0,
+    "maturity_level": "mentioned",
+    "context": "Topic 'International Trade' discussed in video",
+    "explanation_depth": 0.85,
+    "key_points": [],
+    "related_entities": [],
+    "sentiment": 0.0,
+    "confidence": 0.85,
+    "information_density": 0.3,
+    "video_sequence_position": 2
+  },
+  "target_node": {
+    "node_id": "topic_Mz3K4UmdgmA_International_Trade",
+    "concept_name": "International Trade",
+    "video_id": "Mz3K4UmdgmA",
+    "video_title": "5 Things To Know: July 11, 2025",
+    "timestamp": 0,
+    "maturity_level": "mentioned",
+    "context": "Topic 'International Trade' discussed in video",
+    "explanation_depth": 0.85,
+    "key_points": [],
+    "related_entities": [],
+    "sentiment": 0.0,
+    "confidence": 0.85,
+    "information_density": 0.3,
+    "video_sequence_position": 3
+  },
+  "flow_type": "development",
+  "information_transferred": "Enhanced understanding of International Trade",
+  "transformation_type": "integration",
+  "flow_quality": 0.95,
+  "coherence_score": 0.5,
+  "temporal_gap": 3600.0,
+  "bridge_entities": [],
+  "supporting_evidence": [
+    "Topic 'International Trade' discussed in video",
+    "Topic 'International Trade' discussed in video"
+  ]
+}

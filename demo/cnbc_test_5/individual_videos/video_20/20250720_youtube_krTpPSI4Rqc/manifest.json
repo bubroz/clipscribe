@@ -1,0 +1,323 @@
+{
+  "version": "2.3",
+  "created_at": "2025-07-20T10:09:49.497191",
+  "video": {
+    "title": "5 things to know: Monday, June 2",
+    "url": "https://www.youtube.com/watch?v=krTpPSI4Rqc",
+    "platform": "youtube"
+  },
+  "extraction_stats": {
+    "timeline_events": [
+      {
+        "confidence": 0.9,
+        "event_description": "Opening bell is anticipated today.",
+        "event_type": "Financial Event",
+        "timestamp": 0.0,
+        "involved_entities": []
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "Lawmakers are returning to work this week.",
+        "event_type": "Political Event",
+        "timestamp": 0.0,
+        "involved_entities": [
+          "Lawmakers"
+        ]
+      },
+      {
+        "confidence": 0.8,
+        "event_description": "The Senate is set to take up the reconciliation bill this week.",
+        "event_type": "Legislative Process",
+        "timestamp": 0.0,
+        "involved_entities": [
+          "Senate"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "Republican Senator Ron Johnson insists on deeper spending cuts to address debt burden.",
+        "event_type": "Political Stance",
+        "timestamp": 0.0,
+        "involved_entities": [
+          "Republican Senator Ron Johnson"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "The Trump administration's push to cut government costs has expanded from consulting firms to technology companies.",
+        "event_type": "Government Policy Change",
+        "timestamp": 0.0,
+        "involved_entities": [
+          "Trump administration",
+          "consulting firms",
+          "technology companies"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "Officials sent a letter to 10 tech firms last week, as reported by The Wall Street Journal.",
+        "event_type": "Government Action",
+        "timestamp": 0.0,
+        "involved_entities": [
+          "officials",
+          "10 tech firms",
+          "Dell",
+          "CDW",
+          "The Wall Street Journal"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "Ukraine claims to have destroyed dozens of Russian war planes in a clandestine drone attack on Russia's long-range bomber fleet.",
+        "event_type": "Military Conflict Event",
+        "timestamp": 0.0,
+        "involved_entities": [
+          "Ukraine",
+          "Russia"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "Delegations from Russia and Ukraine are set to meet today in Istanbul for ceasefire negotiations.",
+        "event_type": "Diplomatic Meeting",
+        "timestamp": 0.0,
+        "involved_entities": [
+          "Russia",
+          "Ukraine"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "A closed runway at a New York Airport is reopening today after contributing to weeks of delays and chaos.",
+        "event_type": "Infrastructure Reopening",
+        "timestamp": 0.0,
+        "involved_entities": [
+          "New York Airport"
+        ]
+      },
+      {
+        "confidence": 0.8,
+        "event_description": "The FAA evaluated repairs to the New York Airport runway and deemed it safe prior to its reopening.",
+        "event_type": "Safety Evaluation",
+        "timestamp": 0.0,
+        "involved_entities": [
+          "FAA",
+          "New York Airport"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "Repair work on the New York Airport runway was completed 13 days ahead of schedule.",
+        "event_type": "Construction Completion",
+        "timestamp": 0.0,
+        "involved_entities": [
+          "New York Airport"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "Disney's Lilo and Stitch earned $63 million at the recent weekend box office.",
+        "event_type": "Entertainment Box Office",
+        "timestamp": 0.0,
+        "involved_entities": [
+          "Disney",
+          "Lilo and Stitch"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "Lilo and Stitch has cumulatively sold $280 million in tickets in the US and Canada, becoming the second highest grossing movie of the year.",
+        "event_type": "Entertainment Box Office",
+        "timestamp": 0.0,
+        "involved_entities": [
+          "Lilo and Stitch",
+          "Minecraft movie"
+        ]
+      }
+    ],
+    "visual_temporal_cues": [],
+    "temporal_patterns": [
+      {
+        "description": "The Trump administration's cost-cutting initiative shows a progression, expanding from targeting consulting firms to now including technology companies.",
+        "pattern_type": "Progression",
+        "significance": "Expansion of policy scope over time.",
+        "timespan": "Ongoing"
+      },
+      {
+        "description": "A sequence of events related to the New York Airport runway: closure leading to weeks of delays, followed by FAA evaluation, completion of repairs 13 days ahead of schedule, and its reopening today.",
+        "pattern_type": "Chronological Sequence",
+        "significance": "Resolution of an issue; efficiency of repair work.",
+        "timespan": "Weeks to today"
+      },
+      {
+        "description": "The reported drone attack by Ukraine on Russian warplanes is a recent event occurring in proximity to, and possibly influencing, scheduled ceasefire negotiations between Russia and Ukraine today.",
+        "pattern_type": "Concurrent Events / Contextual Causality",
+        "significance": "Indication of ongoing conflict influencing diplomatic efforts.",
+        "timespan": "Recent past to today"
+      },
+      {
+        "description": "The box office performance of Disney's Lilo and Stitch demonstrates a financial progression, with a significant weekend earning ($63 million) contributing to a larger cumulative total ($280 million) up to the current point.",
+        "pattern_type": "Financial Progression",
+        "significance": "Cumulative success over time.",
+        "timespan": "Weekend to present"
+      }
+    ],
+    "dates": [
+      {
+        "confidence": 1.0,
+        "normalized_date": "today",
+        "original_text": "today's opening bell",
+        "precision": "day",
+        "source": "transcript",
+        "context": "Five things to know ahead of today's opening bell"
+      },
+      {
+        "confidence": 1.0,
+        "normalized_date": "this week",
+        "original_text": "this week",
+        "precision": "day",
+        "source": "transcript",
+        "context": "Lawmakers return to work this week"
+      },
+      {
+        "confidence": 1.0,
+        "normalized_date": "last week",
+        "original_text": "last week",
+        "precision": "day",
+        "source": "transcript",
+        "context": "officials sent a letter to 10 tech firms last week"
+      },
+      {
+        "confidence": 1.0,
+        "normalized_date": "today",
+        "original_text": "today",
+        "precision": "day",
+        "source": "transcript",
+        "context": "delegations from Russia and Ukraine are set to meet today in Istanbul"
+      },
+      {
+        "confidence": 1.0,
+        "normalized_date": "today",
+        "original_text": "today",
+        "precision": "day",
+        "source": "transcript",
+        "context": "New York Airport is going to be reopening a closed runway today. It happens today."
+      },
+      {
+        "confidence": 1.0,
+        "normalized_date": "this past weekend",
+        "original_text": "weekend",
+        "precision": "day",
+        "source": "transcript",
+        "context": "at the weekend box office"
+      }
+    ],
+    "visual_dates": [],
+    "spacy_entities": 31,
+    "gliner_entities": 27,
+    "quality_false_positives_removed": 1,
+    "quality_language_filtered": 27,
+    "quality_confidence_improved": 11,
+    "quality_score": 0.5240251404255628,
+    "language_purity": 1.0,
+    "enhanced_entities": 8,
+    "relationships": 1,
+    "relationship_evidence_total": 0,
+    "relationships_with_evidence": 0,
+    "temporal_references": 2,
+    "llm_validated": 7,
+    "graph_nodes": 8,
+    "graph_edges": 1,
+    "retention_decision": {
+      "action": "deleted",
+      "video_path": ".video_cache/5 things to know\uff1a Monday, June 2-krTpPSI4Rqc.mp3",
+      "video_hash": "d33a009f84bca8cc707752146acbb3c0",
+      "reason": "Policy: Always delete source videos",
+      "cost_savings": {
+        "storage_cost_avoided": 0.00048767148703336715,
+        "reprocessing_cost": 0.004965520312499999
+      },
+      "timestamp": "2025-07-18T22:57:51.894826"
+    }
+  },
+  "timeline_v2": {
+    "error": "'VideoIntelligenceRetriever' object has no attribute 'temporal_extractor'",
+    "fallback_used": true,
+    "events": [],
+    "chapters": []
+  },
+  "files": {
+    "transcript_txt": {
+      "path": "transcript.txt",
+      "format": "plain_text",
+      "size": 1333,
+      "sha256": "cf7318db980a0c9fc40aad7938aad431f53d1fb4792b3f180de43de608fc05ef"
+    },
+    "transcript_json": {
+      "path": "transcript.json",
+      "format": "json",
+      "size": 27419,
+      "sha256": "25f2d225edef54b8139b11aec620ebd58a9807fffc1bbababd5f089832a56777"
+    },
+    "metadata": {
+      "path": "metadata.json",
+      "format": "json",
+      "size": 653,
+      "sha256": "37d65aca07b7e7fec79c42bb0b81645ef1701e707ad6615895bc764dbc396138"
+    },
+    "entities": {
+      "path": "entities.json",
+      "format": "json",
+      "size": 2339,
+      "sha256": "41529536cd3d87ad466f9a48397d3f2faeb7558c01729045a87b3e91e803966d"
+    },
+    "relationships": {
+      "path": "relationships.json",
+      "format": "json",
+      "size": 471,
+      "sha256": "10d72559ddc976aba2ab337bd45c80ea628da595f74ecc9f478d4b816d70237a",
+      "count": 1
+    },
+    "knowledge_graph": {
+      "path": "knowledge_graph.json",
+      "format": "json",
+      "size": 980,
+      "sha256": "25b9cbf8b65f8c57d71822e751f1774b5d9ad810c2d33bba4bccf9d40767ba4b"
+    },
+    "gexf": {
+      "path": "knowledge_graph.gexf",
+      "format": "gexf",
+      "size": 3279,
+      "sha256": "6401653ff1d0aaa60e73ba49a55a314f6b3df19132e3014e1f5025d2742f55cc",
+      "description": "Gephi-compatible graph file"
+    },
+    "entities_csv": {
+      "path": "entities.csv",
+      "format": "csv",
+      "size": 274,
+      "sha256": "79b11922781a7159ce0087c363ce3f5fdbeb64a227bd623df932caa34a486583",
+      "description": "All entities in CSV format"
+    },
+    "relationships_csv": {
+      "path": "relationships.csv",
+      "format": "csv",
+      "size": 93,
+      "sha256": "c022ecfe732f8fefd3ce02cf1d46edd433ef5d2d8147164f8cdefa9971b4a159",
+      "description": "All relationships in CSV format"
+    },
+    "report": {
+      "path": "report.md",
+      "format": "markdown",
+      "size": 7055,
+      "sha256": "e851df1470afb404859a5a71612ed96ec35c5e41607686e4f620d5b189c474a1",
+      "description": "Human-readable intelligence report"
+    },
+    "chimera": {
+      "path": "chimera_format.json",
+      "format": "json",
+      "size": 14209,
+      "sha256": "a9d1567837ab39b0815ab1698b4fdd9637b6532140c37994eb9739c4730e6feb",
+      "description": "Chimera-compatible format"
+    }
+  }
+}

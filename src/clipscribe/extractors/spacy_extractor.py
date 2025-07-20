@@ -88,10 +88,10 @@ class SpacyEntityExtractor:
                 
                 # Create Entity object
                 entity = Entity(
-                    name=ent.text,
+                    entity=ent.text,
                     type=entity_type,
                     confidence=dynamic_confidence,
-                    properties={"source": "SpaCy"}
+                    source="SpaCy"
                 )
                 
                 entities.append((entity, dynamic_confidence))
@@ -177,7 +177,7 @@ class SpacyEntityExtractor:
             
             # Create entity
             entity = Entity(
-                name=ent.text,
+                entity=ent.text,
                 type=self._map_entity_type(ent.label_),
                 confidence=0.85
             )

@@ -1,0 +1,29 @@
+{
+  "video_url": "https://www.youtube.com/watch?v=itYisy19Cmc",
+  "video_title": "5 Things To Know: June 9, 2025",
+  "relationships": [
+    {
+      "subject": "Jameson Greer",
+      "predicate": "US Trade Representative",
+      "object": "position held",
+      "confidence": 0.875,
+      "source": null,
+      "evidence_chain": [
+        {
+          "direct_quote": "etary Howard Lutnick, and US Trade Representative Jameson Greer",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_context": null,
+          "confidence": 0.9,
+          "context_window": "etary Howard Lutnick, and US Trade Representative Jameson Greer. The talks come as new data from China overnight ",
+          "evidence_type": "entity_context"
+        }
+      ],
+      "supporting_mentions": 0,
+      "contradictions": [],
+      "visual_correlation": false,
+      "properties": {}
+    }
+  ],
+  "total_count": 1
+}

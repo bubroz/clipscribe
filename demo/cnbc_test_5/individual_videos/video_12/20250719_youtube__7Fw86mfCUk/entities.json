@@ -1,0 +1,87 @@
+{
+  "video_url": "https://www.youtube.com/watch?v=_7Fw86mfCUk",
+  "video_title": "5 Things To Know: June 23, 2025",
+  "entities": [
+    {
+      "name": "Thunder",
+      "type": "PERSON",
+      "confidence": 0.7100000000000001,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    },
+    {
+      "name": "Trump",
+      "type": "PERSON",
+      "confidence": 0.7100000000000001,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    },
+    {
+      "name": "The Next Season",
+      "type": "DATE",
+      "confidence": 0.79,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    },
+    {
+      "name": "The Weekend",
+      "type": "DATE",
+      "confidence": 0.74,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    },
+    {
+      "name": "Ben Stiller",
+      "type": "PERSON",
+      "confidence": 0.7100000000000001,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    }
+  ],
+  "topics": [
+    {
+      "name": "Geopolitics",
+      "confidence": 0.85
+    },
+    {
+      "name": "Financial Markets",
+      "confidence": 0.85
+    },
+    {
+      "name": "Technology and AI",
+      "confidence": 0.85
+    },
+    {
+      "name": "Automotive Industry",
+      "confidence": 0.85
+    },
+    {
+      "name": "NBA Basketball",
+      "confidence": 0.85
+    },
+    {
+      "name": "Sports Business",
+      "confidence": 0.85
+    },
+    {
+      "name": "Sports Injuries",
+      "confidence": 0.85
+    },
+    {
+      "name": "Sports Ratings",
+      "confidence": 0.85
+    }
+  ],
+  "key_facts": [
+    "The segment begins by highlighting five key things to know before today's opening bell.",
+    "The full extent of damage to Iran's nuclear program remains unclear following recent US strikes.",
+    "President Trump claimed ",
+    "Oil prices initially spiked and stock futures fell when markets opened last night in response to the news.",
+    "However, these market moves have since reversed, with Brent and WTI oil prices stable and stock futures higher."
+  ]
+}

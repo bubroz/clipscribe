@@ -1,0 +1,4 @@
+name,type,confidence,source,timestamp
+Juniper Networks,ORGANIZATION,0.95,,
+A Third Consecutive Month,DATE,0.79,,
+Trump,PERSON,0.7100000000000001,,

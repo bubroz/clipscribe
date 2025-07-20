@@ -1,0 +1,267 @@
+{
+  "version": "2.3",
+  "created_at": "2025-07-20T10:09:11.430559",
+  "video": {
+    "title": "5 Things To Know: July 11, 2025",
+    "url": "https://www.youtube.com/watch?v=Mz3K4UmdgmA",
+    "platform": "youtube"
+  },
+  "extraction_stats": {
+    "timeline_events": [
+      {
+        "confidence": 0.9,
+        "event_description": "President Trump announced tariffs of 35% on imports from Canada, effective August 1st.",
+        "event_type": "Economic Policy Announcement",
+        "timestamp": 0,
+        "involved_entities": [
+          "President Trump",
+          "Canada"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "Secretary of State Marco Rubio met with China's Foreign Minister in Malaysia, marking their first in-person meeting amidst ongoing trade tensions.",
+        "event_type": "Diplomatic Meeting",
+        "timestamp": 0,
+        "involved_entities": [
+          "Secretary of State Marco Rubio",
+          "China's Foreign Minister"
+        ]
+      },
+      {
+        "confidence": 0.8,
+        "event_description": "Following his meeting, Secretary of State Marco Rubio stated that a summit between President Trump and Xi is likely.",
+        "event_type": "Diplomatic Prospect",
+        "timestamp": 0,
+        "involved_entities": [
+          "Secretary of State Marco Rubio",
+          "President Trump",
+          "Xi"
+        ]
+      },
+      {
+        "confidence": 0.8,
+        "event_description": "Google has reportedly reached a deal to provide cloud computing services for the US government at a heavily discounted price.",
+        "event_type": "Business Deal",
+        "timestamp": 0,
+        "involved_entities": [
+          "Google",
+          "US government"
+        ]
+      },
+      {
+        "confidence": 0.8,
+        "event_description": "Oracle cut a similar cloud computing deal with the US government last week.",
+        "event_type": "Business Deal",
+        "timestamp": 0,
+        "involved_entities": [
+          "Oracle",
+          "US government"
+        ]
+      },
+      {
+        "confidence": 0.8,
+        "event_description": "Apple is reportedly planning a slate of new product releases for the first half of 2026, including a new low-end iPhone, multiple iPads, and upgraded Mac computers.",
+        "event_type": "Product Development Announcement",
+        "timestamp": 0,
+        "involved_entities": [
+          "Apple",
+          "iPhone",
+          "iPad",
+          "Mac computers"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "Flutter Entertainment has reached a deal to take full ownership of sports betting platform FanDuel by buying Boyd Gaming's 5% stake for $1.76 billion.",
+        "event_type": "Acquisition Deal",
+        "timestamp": 0,
+        "involved_entities": [
+          "Flutter Entertainment",
+          "FanDuel",
+          "Boyd Gaming"
+        ]
+      }
+    ],
+    "visual_temporal_cues": [],
+    "temporal_patterns": [
+      {
+        "description": "Tariffs announced by President Trump are set to become effective on August 1st.",
+        "pattern_type": "Future Effective Date",
+        "significance": "Indicates the start date of a new economic policy.",
+        "timespan": "August 1st"
+      },
+      {
+        "description": "The meeting between Secretary of State Marco Rubio and China's Foreign Minister is their first in-person interaction, marking a new phase in diplomatic engagement.",
+        "pattern_type": "Initial Event in Series",
+        "significance": "Marks a new beginning in diplomatic relations amidst ongoing tensions.",
+        "timespan": "Today"
+      },
+      {
+        "description": "Trade tensions between the US and China are continuing, providing context for current diplomatic efforts.",
+        "pattern_type": "Ongoing State",
+        "significance": "Context for current diplomatic efforts.",
+        "timespan": "Ongoing"
+      },
+      {
+        "description": "The Google cloud computing deal with the US government is expected to be finalized within weeks.",
+        "pattern_type": "Short-Term Future Projection",
+        "significance": "Indicates an anticipated completion timeframe for the deal.",
+        "timespan": "Within weeks"
+      },
+      {
+        "description": "Oracle completed a similar cloud computing deal with the US government last week, preceding Google's current deal.",
+        "pattern_type": "Recent Past Comparison",
+        "significance": "Provides context and a precedent for Google's deal.",
+        "timespan": "Last week"
+      },
+      {
+        "description": "Apple is planning multiple new product releases, including a low-end iPhone, multiple iPads, and upgraded Mac computers, during the first half of 2026.",
+        "pattern_type": "Long-Term Future Planning",
+        "significance": "Outlines a future product roadmap.",
+        "timespan": "First half of 2026"
+      }
+    ],
+    "dates": [
+      {
+        "confidence": 0.95,
+        "normalized_date": "2024-08-01",
+        "original_text": "today's opening bell",
+        "precision": "day",
+        "source": "transcript",
+        "context": "ahead of today's opening bell"
+      },
+      {
+        "confidence": 0.95,
+        "normalized_date": "2024-08-01",
+        "original_text": "August 1st",
+        "precision": "day",
+        "source": "transcript",
+        "context": "tariffs effective August 1st"
+      },
+      {
+        "confidence": 0.95,
+        "normalized_date": "2024-08-01",
+        "original_text": "today",
+        "precision": "day",
+        "source": "transcript",
+        "context": "met with China's Foreign Minister in Malaysia today"
+      },
+      {
+        "confidence": 0.85,
+        "normalized_date": "2024-08-15",
+        "original_text": "within weeks",
+        "precision": "approximate",
+        "source": "transcript",
+        "context": "deal could be finalized within weeks"
+      },
+      {
+        "confidence": 0.9,
+        "normalized_date": "2024-07-25",
+        "original_text": "last week",
+        "precision": "day",
+        "source": "transcript",
+        "context": "Oracle cut a similar deal last week"
+      },
+      {
+        "confidence": 0.95,
+        "normalized_date": "2026-03-01",
+        "original_text": "first half of 2026",
+        "precision": "month",
+        "source": "transcript",
+        "context": "product releases for the first half of 2026"
+      }
+    ],
+    "visual_dates": [],
+    "spacy_entities": 35,
+    "gliner_entities": 36,
+    "quality_false_positives_removed": 0,
+    "quality_language_filtered": 35,
+    "quality_confidence_improved": 7,
+    "quality_score": 0.5260219714045524,
+    "language_purity": 1.0,
+    "enhanced_entities": 3,
+    "relationships": 0,
+    "temporal_references": 2,
+    "llm_validated": 1,
+    "graph_nodes": 1,
+    "graph_edges": 0,
+    "retention_decision": {
+      "action": "deleted",
+      "video_path": ".video_cache/5 Things To Know\uff1a July 11, 2025-Mz3K4UmdgmA.mp3",
+      "video_hash": "84694323b129ea963d9aa57c019ff33b",
+      "reason": "Policy: Always delete source videos",
+      "cost_savings": {
+        "storage_cost_avoided": 0.000457858633249998,
+        "reprocessing_cost": 0.004651246874999999
+      },
+      "timestamp": "2025-07-18T22:34:49.127149"
+    }
+  },
+  "timeline_v2": {
+    "error": "'VideoIntelligenceRetriever' object has no attribute 'temporal_extractor'",
+    "fallback_used": true,
+    "events": [],
+    "chapters": []
+  },
+  "files": {
+    "transcript_txt": {
+      "path": "transcript.txt",
+      "format": "plain_text",
+      "size": 1284,
+      "sha256": "6ea71c3362c1cff25b42a995f21323e108fdd186e390dcc771afc723cd504dfb"
+    },
+    "transcript_json": {
+      "path": "transcript.json",
+      "format": "json",
+      "size": 21617,
+      "sha256": "3f0fc3b96496805b384d9ef65067495d717ef1dfecad935ce92eb547bd6c3604"
+    },
+    "metadata": {
+      "path": "metadata.json",
+      "format": "json",
+      "size": 1597,
+      "sha256": "2e73703a4c70d893eac8d434579a3c5148d464400cf401ceea4c36b62b97a2e7"
+    },
+    "entities": {
+      "path": "entities.json",
+      "format": "json",
+      "size": 1205,
+      "sha256": "75b7748904d7dde4d101cd41b89e733345b1e064d46cbf76f44fd23dd36fbf41"
+    },
+    "knowledge_graph": {
+      "path": "knowledge_graph.json",
+      "format": "json",
+      "size": 214,
+      "sha256": "656dbbd3aca0cf05cc645cb5660a14b5eef5c79541bc05d4545d9c17bfa22fe7"
+    },
+    "gexf": {
+      "path": "knowledge_graph.gexf",
+      "format": "gexf",
+      "size": 1131,
+      "sha256": "6a2b8503e5233aa0c10cf50c31a750ad93409e9d00a9397ce4ad1d98e4cbabb6",
+      "description": "Gephi-compatible graph file"
+    },
+    "entities_csv": {
+      "path": "entities.csv",
+      "format": "csv",
+      "size": 74,
+      "sha256": "149654596b39a4ce8efe8f89158a56d276a039fd3bd27b174ef1e6470bbe8700",
+      "description": "All entities in CSV format"
+    },
+    "report": {
+      "path": "report.md",
+      "format": "markdown",
+      "size": 4498,
+      "sha256": "ca2245a90b787a24e85b9579926be51023e8dec3241bd63d6472e2b16ff0a5f6",
+      "description": "Human-readable intelligence report"
+    },
+    "chimera": {
+      "path": "chimera_format.json",
+      "format": "json",
+      "size": 10148,
+      "sha256": "0af56002bfba7c43b15a57a1a57878d78b192bc8bb7fa88137d9a376a6b2e035",
+      "description": "Chimera-compatible format"
+    }
+  }
+}

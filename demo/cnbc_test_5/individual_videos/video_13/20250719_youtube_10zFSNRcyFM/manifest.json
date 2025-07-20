@@ -1,0 +1,221 @@
+{
+  "version": "2.3",
+  "created_at": "2025-07-19T10:38:38.844686",
+  "video": {
+    "title": "5 Things To Know: June 20, 2025",
+    "url": "https://www.youtube.com/watch?v=10zFSNRcyFM",
+    "platform": "youtube"
+  },
+  "extraction_stats": {
+    "timeline_events": [
+      {
+        "confidence": 0.9,
+        "event_description": "President Trump is expected to decide within the next two weeks whether the US will get involved in the Middle East conflict.",
+        "event_type": "Political Decision",
+        "timestamp": 0,
+        "involved_entities": [
+          "President Trump",
+          "US",
+          "Middle East"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "Iran's foreign minister is set to meet the foreign ministers of Britain, France, and Germany in Switzerland today.",
+        "event_type": "Diplomatic Meeting",
+        "timestamp": 0,
+        "involved_entities": [
+          "Iran",
+          "Britain",
+          "France",
+          "Germany",
+          "Switzerland"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "Microsoft is planning to cut several thousand jobs in sales and other teams in the next several weeks.",
+        "event_type": "Corporate Restructuring",
+        "timestamp": 0,
+        "involved_entities": [
+          "Microsoft"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "A SpaceX Starship rocket exploded at the Starbase facility in Texas on Wednesday during routine testing.",
+        "event_type": "Aerospace Incident",
+        "timestamp": 0,
+        "involved_entities": [
+          "SpaceX",
+          "Elon Musk"
+        ]
+      }
+    ],
+    "visual_temporal_cues": [],
+    "temporal_patterns": [
+      {
+        "description": "Routine market update and news briefing occurring daily, specifically before the opening bell.",
+        "pattern_type": "Recurring/Daily Routine",
+        "significance": "Establishes a regular cadence for news delivery related to market activity.",
+        "timespan": "Daily, pre-market"
+      },
+      {
+        "description": "A future decision timeline for President Trump regarding US involvement in the Middle East conflict, expected within a two-week period.",
+        "pattern_type": "Progression/Decision Timeline",
+        "significance": "Defines a specific window for a significant geopolitical decision.",
+        "timespan": "Next two weeks"
+      },
+      {
+        "description": "Corporate planning for job cuts by Microsoft, projected to occur over several weeks in the near future.",
+        "pattern_type": "Progression/Phased Implementation",
+        "significance": "Indicates a short-term, phased reduction in workforce.",
+        "timespan": "Next several weeks"
+      },
+      {
+        "description": "A sequence of events related to SpaceX Starship: routine testing leading up to a launch. The explosion is an interruption to this typical progression.",
+        "pattern_type": "Progression/Preparation Sequence (interrupted)",
+        "significance": "Highlights the multi-stage process of rocket development and testing, and how an anomaly can disrupt it.",
+        "timespan": "Ongoing (testing phase), with a specific event 'on Wednesday'"
+      }
+    ],
+    "dates": [
+      {
+        "confidence": 0.95,
+        "normalized_date": "CURRENT_BROADCAST_DAY",
+        "original_text": "today's opening bell",
+        "precision": "day",
+        "source": "transcript",
+        "context": "things to know ahead of today's opening bell",
+        "timestamp": 0.0
+      },
+      {
+        "confidence": 0.9,
+        "normalized_date": "NEXT_TWO_WEEKS_FROM_BROADCAST_DAY",
+        "original_text": "within the next two weeks",
+        "precision": "approximate",
+        "source": "transcript",
+        "context": "decide within the next two weeks",
+        "timestamp": 0.0
+      },
+      {
+        "confidence": 0.95,
+        "normalized_date": "CURRENT_BROADCAST_DAY",
+        "original_text": "today",
+        "precision": "day",
+        "source": "transcript",
+        "context": "That's going to happen in Switzerland today",
+        "timestamp": 0.0
+      },
+      {
+        "confidence": 0.9,
+        "normalized_date": "NEXT_SEVERAL_WEEKS_FROM_BROADCAST_DAY",
+        "original_text": "in the next several weeks",
+        "precision": "approximate",
+        "source": "transcript",
+        "context": "cut several thousand jobs. That's just going to be in the next several weeks",
+        "timestamp": 0.0
+      },
+      {
+        "confidence": 0.95,
+        "normalized_date": "WEDNESDAY_PRIOR_TO_BROADCAST_DAY",
+        "original_text": "Wednesday",
+        "precision": "day",
+        "source": "transcript",
+        "context": "That happened on Wednesday",
+        "timestamp": 0.0
+      }
+    ],
+    "visual_dates": [],
+    "spacy_entities": 26,
+    "gliner_entities": 25,
+    "quality_false_positives_removed": 0,
+    "quality_language_filtered": 26,
+    "quality_confidence_improved": 6,
+    "quality_score": 0.585380295987129,
+    "language_purity": 1.0,
+    "enhanced_entities": 5,
+    "relationships": 0,
+    "temporal_references": 1,
+    "llm_validated": 5,
+    "graph_nodes": 5,
+    "graph_edges": 0,
+    "retention_decision": {
+      "action": "deleted",
+      "video_path": ".video_cache/5 Things To Know\uff1a June 20, 2025-10zFSNRcyFM.mp3",
+      "video_hash": "d596c96c6070a16861d64a4ee866ffa0",
+      "reason": "Policy: Always delete source videos",
+      "cost_savings": {
+        "storage_cost_avoided": 0.0004992744997143746,
+        "reprocessing_cost": 0.005091229687499999
+      },
+      "timestamp": "2025-07-18T22:47:34.216385"
+    }
+  },
+  "timeline_v2": {
+    "error": "'VideoIntelligenceRetriever' object has no attribute 'temporal_extractor'",
+    "fallback_used": true,
+    "events": [],
+    "chapters": []
+  },
+  "files": {
+    "transcript_txt": {
+      "path": "transcript.txt",
+      "format": "plain_text",
+      "size": 1458,
+      "sha256": "ba0682d8aae9dd5e6367b55115a40015432d28a72dd3272cee93893e1467c5d0"
+    },
+    "transcript_json": {
+      "path": "transcript.json",
+      "format": "json",
+      "size": 25199,
+      "sha256": "d87dc72f916ede11df7240d225a2cca02b2ab433aa9e810d0f9f642b71d76cc6"
+    },
+    "metadata": {
+      "path": "metadata.json",
+      "format": "json",
+      "size": 656,
+      "sha256": "7c827aa0ca8a53b5868c30754287970d15f1bd7956d8822f9a87475ab4acce2f"
+    },
+    "entities": {
+      "path": "entities.json",
+      "format": "json",
+      "size": 2105,
+      "sha256": "d520aa35f6fcb07f5e51c80a4856a4e984b9e29e7d39773522ef7e18f1a1c478"
+    },
+    "knowledge_graph": {
+      "path": "knowledge_graph.json",
+      "format": "json",
+      "size": 631,
+      "sha256": "8dc8dd98b46d684f8e460e60724166af208a591c5b7ffeaacd9572d636eeb447"
+    },
+    "gexf": {
+      "path": "knowledge_graph.gexf",
+      "format": "gexf",
+      "size": 2299,
+      "sha256": "a292d45b6bd67db1840a068e0c4c7fbc2dc70b439262ec8f1a5c15d8095253b4",
+      "description": "Gephi-compatible graph file"
+    },
+    "entities_csv": {
+      "path": "entities.csv",
+      "format": "csv",
+      "size": 243,
+      "sha256": "d2a6825ec82ad6951e5780c5d8470c6d08f36eb09d3661c2d2ae5462f67be187",
+      "description": "All entities in CSV format"
+    },
+    "report": {
+      "path": "report.md",
+      "format": "markdown",
+      "size": 5064,
+      "sha256": "b1e970b84bdb424982aa93cd82d75d42565958ce949d7c2b277f1e2ef64d9d48",
+      "description": "Human-readable intelligence report"
+    },
+    "chimera": {
+      "path": "chimera_format.json",
+      "format": "json",
+      "size": 15598,
+      "sha256": "0b0440336fb6edbb3bb6942839b6f15586a4d4913de38ada4f4a29c5bf2219d2",
+      "description": "Chimera-compatible format"
+    }
+  }
+}

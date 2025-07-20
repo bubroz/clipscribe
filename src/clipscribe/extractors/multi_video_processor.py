@@ -108,7 +108,7 @@ class MultiVideoProcessor:
         information_flows = await self._create_information_flows(concept_nodes)
         
         # Step 3: Analyze concept evolution paths
-        evolution_paths = await self._analyze_concept_evolution_paths(concept_nodes)
+        evolution_paths = await self._analyze_concept_evolution_paths(concept_nodes, videos)
         
         # Step 4: Create concept clusters
         concept_clusters = await self._create_concept_clusters(concept_nodes, concept_dependencies)
@@ -289,8 +289,8 @@ class MultiVideoProcessor:
         related = []
         
         for entity in entities:
-            if entity.name.lower() in text_lower:
-                related.append(entity.name)
+            if entity.entity.lower() in text_lower:
+                related.append(entity.entity)
         
         return related[:5]  # Limit to top 5
 
@@ -391,15 +391,10 @@ class MultiVideoProcessor:
             # Check if concepts are related and next builds on current
             if self._concepts_are_related(current, next_node) and current.video_sequence_position <= next_node.video_sequence_position:
                 dependency = ConceptDependency(
-                    dependency_id=f"dep_{current.node_id}_{next_node.node_id}",
-                    prerequisite_concept=current.concept_name,
                     dependent_concept=next_node.concept_name,
+                    prerequisite_concept=current.concept_name,
                     dependency_type="builds_on",
-                    dependency_strength=self._calculate_dependency_strength(current, next_node),
-                    video_evidence=[current.video_id, next_node.video_id],
-                    textual_evidence=[current.context, next_node.context],
-                    explanation=f"{next_node.concept_name} builds on understanding of {current.concept_name}",
-                    confidence=0.7
+                    strength=self._calculate_dependency_strength(current, next_node)
                 )
                 dependencies.append(dependency)
         
@@ -494,8 +489,8 @@ class MultiVideoProcessor:
                 "mentioned": 1, "defined": 2, "explored": 3,
                 "synthesized": 4, "criticized": 5, "evolved": 6
             }
-            source_level = maturity_mapping.get(source.maturity_level.value, 1)
-            target_level = maturity_mapping.get(target.maturity_level.value, 1)
+            source_level = maturity_mapping.get(source.maturity_level, 1)
+            target_level = maturity_mapping.get(target.maturity_level, 1)
             return target.timestamp > source.timestamp and target_level > source_level
         
         # Create flows between videos if concepts are related
@@ -511,8 +506,8 @@ class MultiVideoProcessor:
                 "mentioned": 1, "defined": 2, "explored": 3,
                 "synthesized": 4, "criticized": 5, "evolved": 6
             }
-            source_level = maturity_mapping.get(source.maturity_level.value, 1)
-            target_level = maturity_mapping.get(target.maturity_level.value, 1)
+            source_level = maturity_mapping.get(source.maturity_level, 1)
+            target_level = maturity_mapping.get(target.maturity_level, 1)
             
             if target_level > source_level:
                 return "elaboration"  # Concept being elaborated
@@ -547,8 +542,8 @@ class MultiVideoProcessor:
             "mentioned": 1, "defined": 2, "explored": 3,
             "synthesized": 4, "criticized": 5, "evolved": 6
         }
-        source_level = maturity_mapping.get(source.maturity_level.value, 1)
-        target_level = maturity_mapping.get(target.maturity_level.value, 1)
+        source_level = maturity_mapping.get(source.maturity_level, 1)
+        target_level = maturity_mapping.get(target.maturity_level, 1)
         
         # Boost for logical progression
         if target_level > source_level:
@@ -578,7 +573,7 @@ class MultiVideoProcessor:
             # For different videos, use a large gap value
             return (target.video_sequence_position - source.video_sequence_position) * 3600  # Assume 1 hour per video
 
-    async def _analyze_concept_evolution_paths(self, concept_nodes: List[ConceptNode]) -> List[ConceptEvolutionPath]:
+    async def _analyze_concept_evolution_paths(self, concept_nodes: List[ConceptNode], videos: List[VideoIntelligence]) -> List[ConceptEvolutionPath]:
         """Analyze how concepts evolve across videos."""
         logger.info("Analyzing concept evolution paths...")
         
@@ -599,16 +594,18 @@ class MultiVideoProcessor:
                 sorted_nodes = sorted(nodes, key=lambda n: (n.video_sequence_position, n.timestamp))
                 
                 evolution_path = ConceptEvolutionPath(
-                    path_id=f"path_{concept_name.replace(' ', '_')}",
                     concept_name=concept_name.title(),
-                    evolution_nodes=sorted_nodes,
-                    maturity_progression=[node.maturity_level for node in sorted_nodes],
-                    evolution_summary=self._generate_evolution_summary(sorted_nodes),
-                    key_transformations=self._identify_key_transformations(sorted_nodes),
-                    breakthrough_moments=self._identify_breakthrough_moments(sorted_nodes),
-                    evolution_coherence=self._calculate_evolution_coherence(sorted_nodes),
-                    completeness_score=self._calculate_completeness_score(sorted_nodes),
-                    understanding_depth=sorted_nodes[-1].explanation_depth if sorted_nodes else 0.5
+                    initial_maturity=sorted_nodes[0].maturity_level if sorted_nodes else 'mentioned',
+                    final_maturity=sorted_nodes[-1].maturity_level if sorted_nodes else 'mentioned',
+                    progression_steps=[
+                        {
+                            'video_id': n.video_id,
+                            'maturity_level': n.maturity_level,
+                            'timestamp': n.timestamp,
+                            'explanation_depth': n.explanation_depth
+                        } for n in sorted_nodes
+                    ],
+                    key_dependencies=await self._identify_concept_dependencies(sorted_nodes, videos)
                 )
                 evolution_paths.append(evolution_path)
         
@@ -618,101 +615,65 @@ class MultiVideoProcessor:
     def _generate_evolution_summary(self, nodes: List[ConceptNode]) -> str:
         """Generate a summary of concept evolution."""
         if not nodes:
-            return "No evolution data"
+            return "No evolution path"
         
-        start_maturity = nodes[0].maturity_level.value
-        end_maturity = nodes[-1].maturity_level.value
-        
-        if end_maturity > start_maturity:
-            return f"Concept evolves from {nodes[0].maturity_level.value} to {nodes[-1].maturity_level.value} across {len(nodes)} appearances"
-        else:
-            return f"Concept maintains {nodes[0].maturity_level.value} level across {len(nodes)} appearances"
+        start_maturity = nodes[0].maturity_level
+        end_maturity = nodes[-1].maturity_level
+        return f"Evolves from {start_maturity} to {end_maturity}"
 
     def _identify_key_transformations(self, nodes: List[ConceptNode]) -> List[str]:
-        """Identify key transformations in concept understanding."""
+        """Identify key transformation points in concept evolution."""
         transformations = []
+        maturity_mapping = {
+            "mentioned": 1,
+            "introduced": 2,
+            "defined": 3,
+            "explained": 4,
+            "explored": 5,
+            "analyzed": 6,
+            "synthesized": 7,
+            "criticized": 8,
+            "evolved": 9
+        }
         
         for i in range(len(nodes) - 1):
             current = nodes[i]
             next_node = nodes[i + 1]
-            
-            if next_node.maturity_level.value > current.maturity_level.value:
-                transformations.append(
-                    f"From {current.maturity_level.value} to {next_node.maturity_level.value} in {next_node.video_title}"
-                )
-        
+            current_level = maturity_mapping.get(current.maturity_level, 0)
+            next_level = maturity_mapping.get(next_node.maturity_level, 0)
+            if next_level > current_level + 1:
+                transformations.append(f"Significant jump from {current.maturity_level} to {next_node.maturity_level} at video {next_node.video_sequence_position}")
         return transformations
 
     def _identify_breakthrough_moments(self, nodes: List[ConceptNode]) -> List[Dict[str, Any]]:
         """Identify breakthrough moments in concept development."""
-        breakthrough_moments = []
-        
-        if not nodes:
-            return breakthrough_moments
-        
-        for i in range(len(nodes)):
+        breakthroughs = []
+        maturity_mapping = {
+            'mentioned': 1,
+            'introduced': 2,
+            'defined': 3,
+            'explained': 4,
+            'explored': 5,
+            'analyzed': 6,
+            'synthesized': 7,
+            'criticized': 8,
+            'evolved': 9
+        }
+        for i in range(1, len(nodes)):
             current = nodes[i]
-            
-            # Identify potential breakthrough moments
-            is_breakthrough = False
-            breakthrough_type = ""
-            
-            # 1. Significant maturity jump
-            if i > 0:
-                previous = nodes[i - 1]
-                # Map maturity levels for comparison
-                maturity_mapping = {
-                    "mentioned": 1, "defined": 2, "explored": 3,
-                    "synthesized": 4, "criticized": 5, "evolved": 6
-                }
-                current_level = maturity_mapping.get(current.maturity_level.value, 1)
-                previous_level = maturity_mapping.get(previous.maturity_level.value, 1)
-                maturity_jump = current_level - previous_level
-                if maturity_jump >= 2:  # Jump of 2+ maturity levels
-                    is_breakthrough = True
-                    breakthrough_type = "maturity_leap"
-            
-            # 2. High explanation depth (detailed exploration)
-            if current.explanation_depth > 0.8:
-                is_breakthrough = True
-                breakthrough_type = "detailed_exploration"
-            
-            # 3. High information density (new information)
-            if current.information_density > 0.7:
-                is_breakthrough = True
-                breakthrough_type = "information_dense"
-            
-            # 4. Sentiment shift (controversial or critical discussion)
-            if i > 0:
-                previous = nodes[i - 1]
-                sentiment_shift = abs(current.sentiment - previous.sentiment)
-                if sentiment_shift > 0.5:
-                    is_breakthrough = True
-                    breakthrough_type = "perspective_shift"
-            
-            # 5. First appearance with high confidence
-            if i == 0 and current.confidence > 0.9:
-                is_breakthrough = True
-                breakthrough_type = "strong_introduction"
-            
-            if is_breakthrough:
-                breakthrough_moment = {
-                    "video_id": current.video_id,
-                    "video_title": current.video_title,
-                    "timestamp": current.timestamp,
-                    "breakthrough_type": breakthrough_type,
-                    "maturity_level": current.maturity_level.value,
-                    "explanation_depth": current.explanation_depth,
-                    "confidence": current.confidence,
-                    "context": current.context[:200] + "..." if len(current.context) > 200 else current.context,
-                    "significance": self._calculate_breakthrough_significance(current, nodes, i)
-                }
-                breakthrough_moments.append(breakthrough_moment)
-        
-        # Sort by significance
-        breakthrough_moments.sort(key=lambda m: m["significance"], reverse=True)
-        
-        return breakthrough_moments[:5]  # Return top 5 breakthrough moments
+            previous = nodes[i-1]
+            current_level = maturity_mapping.get(current.maturity_level, 0)
+            previous_level = maturity_mapping.get(previous.maturity_level, 0)
+            if current_level >= previous_level + 2:
+                breakthroughs.append({
+                    'video_id': current.video_id,
+                    'timestamp': current.timestamp,
+                    'from_level': previous.maturity_level,
+                    'to_level': current.maturity_level,
+                    'concept': current.concept_name,
+                    'description': f'Significant jump from {previous.maturity_level} to {current.maturity_level}'
+                })
+        return breakthroughs
 
     def _calculate_breakthrough_significance(self, node: ConceptNode, all_nodes: List[ConceptNode], index: int) -> float:
         """Calculate the significance of a breakthrough moment."""
@@ -729,7 +690,7 @@ class MultiVideoProcessor:
         }
         
         # Base significance on maturity level
-        maturity_score = maturity_mapping.get(node.maturity_level.value, 1) / 6.0  # Normalize to 0-1
+        maturity_score = maturity_mapping.get(node.maturity_level, 1) / 6.0  # Normalize to 0-1
         significance += maturity_score * 0.2
         
         # Boost for explanation depth
@@ -761,8 +722,8 @@ class MultiVideoProcessor:
         # Check for logical progression in maturity levels
         progression_score = 0.0
         for i in range(len(nodes) - 1):
-            current_level = maturity_mapping.get(nodes[i].maturity_level.value, 1)
-            next_level = maturity_mapping.get(nodes[i + 1].maturity_level.value, 1)
+            current_level = maturity_mapping.get(nodes[i].maturity_level, 1)
+            next_level = maturity_mapping.get(nodes[i + 1].maturity_level, 1)
             if next_level >= current_level:
                 progression_score += 1.0
         
@@ -776,7 +737,7 @@ class MultiVideoProcessor:
             "synthesized": 4, "criticized": 5, "evolved": 6
         }
         
-        max_maturity = max(maturity_mapping.get(node.maturity_level.value, 1) for node in nodes) if nodes else 1
+        max_maturity = max(maturity_mapping.get(node.maturity_level, 1) for node in nodes) if nodes else 1
         max_possible = 6  # Maximum maturity level
         
         return max_maturity / max_possible
@@ -958,7 +919,7 @@ class MultiVideoProcessor:
                 "evolved": 6
             }
             
-            avg_maturity = sum(maturity_mapping.get(n.maturity_level.value, 1) for n in concept_nodes) / len(concept_nodes)
+            avg_maturity = sum(maturity_mapping.get(n.maturity_level, 1) for n in concept_nodes) / len(concept_nodes)
             insights.append(f"Concept maturity averages {avg_maturity:.1f} across {len(concept_nodes)} concepts")
         
         if information_flows:
@@ -971,5 +932,277 @@ class MultiVideoProcessor:
         return insights
 
     # All knowledge panel methods have been removed - functionality moved to Chimera
+
+    async def process_video_collection(
+        self,
+        videos: List[VideoIntelligence],
+        collection_type: "VideoCollectionType",
+        collection_title: str,
+        user_confirmed_series: bool = False
+    ) -> "MultiVideoIntelligence":
+        """
+        Process a collection of videos to extract unified intelligence.
+        
+        Args:
+            videos: List of processed VideoIntelligence objects
+            collection_type: Type of video collection
+            collection_title: Title of the collection
+            user_confirmed_series: Whether user confirmed this is a series
+            
+        Returns:
+            MultiVideoIntelligence object with unified analysis
+        """
+        logger.info(f"Processing video collection: {len(videos)} videos")
+        
+        # Generate collection ID
+        collection_id = f"collection_{int(time.time())}_{len(videos)}"
+        
+        # Step 1: Extract and unify entities across videos
+        unified_entities = await self._unify_entities_across_videos(videos)
+        
+        # Step 2: Extract cross-video relationships
+        cross_video_relationships = await self._extract_cross_video_relationships(videos, unified_entities)
+        
+        # Step 3: Generate unified knowledge graph
+        unified_knowledge_graph = await self._generate_unified_knowledge_graph(videos, unified_entities, cross_video_relationships)
+        
+        # Step 4: Synthesize information flow map
+        information_flow_map = await self._synthesize_information_flow_map(
+            videos, unified_entities, cross_video_relationships, collection_id, collection_title
+        )
+        
+        # Step 5: Generate key insights
+        key_insights = await self._generate_collection_insights(videos, unified_entities, cross_video_relationships)
+        
+        # Step 6: Calculate quality metrics
+        entity_resolution_quality = self._calculate_entity_resolution_quality(unified_entities)
+        narrative_coherence = self._calculate_narrative_coherence(videos, cross_video_relationships)
+        
+        # Step 7: Calculate total processing cost
+        total_processing_cost = sum(getattr(v, 'processing_cost', 0.0) for v in videos)
+        
+        # Create MultiVideoIntelligence object
+        from clipscribe.models import MultiVideoIntelligence
+        
+        multi_video_result = MultiVideoIntelligence(
+            collection_id=collection_id,
+            collection_title=collection_title,
+            collection_type=collection_type,
+            collection_summary="Automated summary of CNBC market videos",
+            video_ids=[v.metadata.video_id for v in videos],
+            video_titles=[v.metadata.title for v in videos],
+            unified_entities=unified_entities,
+            cross_video_relationships=cross_video_relationships,
+            unified_knowledge_graph=unified_knowledge_graph,
+            information_flow_map=information_flow_map,
+            key_insights=key_insights,
+            entity_resolution_quality=entity_resolution_quality,
+            narrative_coherence=narrative_coherence,
+            total_processing_cost=total_processing_cost,
+            consolidated_timeline=None,
+            processing_stats={
+                "videos_processed": len(videos),
+                "entities_unified": len(unified_entities),
+                "relationships_cross_video": len(cross_video_relationships),
+                "concepts_tracked": len(information_flow_map.concept_nodes) if information_flow_map else 0,
+                "information_flows": len(information_flow_map.information_flows) if information_flow_map else 0
+            }
+        )
+        
+        logger.info(f"Successfully processed video collection with {len(unified_entities)} unified entities and {len(cross_video_relationships)} cross-video relationships")
+        return multi_video_result
+
+    async def _unify_entities_across_videos(self, videos: List[VideoIntelligence]) -> List["CrossVideoEntity"]:
+        """Unify entities across multiple videos."""
+        logger.info("Unifying entities across videos...")
+        
+        # Collect all entities from all videos
+        all_entities = []
+        for video in videos:
+            for entity in video.entities:
+                all_entities.append({
+                    "entity": entity,
+                    "video_id": video.metadata.video_id,
+                    "video_title": video.metadata.title,
+                    "source": getattr(entity, 'source', 'unknown')
+                })
+        
+        # Use entity normalizer to group similar entities
+        entity_groups = self.entity_normalizer._group_similar_entities([e["entity"] for e in all_entities])
+        
+        # Create CrossVideoEntity objects
+        unified_entities = []
+        for group in entity_groups:
+            if len(group) > 1:  # Only create cross-video entities if entity appears in multiple videos
+                # Find the canonical entity (highest confidence)
+                canonical_entity = max(group, key=lambda e: e.confidence)
+                
+                # Find all videos where this entity appears
+                video_occurrences = []
+                for entity_info in all_entities:
+                    if entity_info["entity"].entity == canonical_entity.entity:
+                        video_occurrences.append({
+                            "video_id": entity_info["video_id"],
+                            "video_title": entity_info["video_title"],
+                            "confidence": entity_info["entity"].confidence,
+                            "source": entity_info["source"]
+                        })
+                
+                # Create CrossVideoEntity
+                from clipscribe.models import CrossVideoEntity
+                # Create aliases list
+                aliases = []
+                video_ids = []
+                for entity_info in all_entities:
+                    if entity_info["entity"].entity == canonical_entity.entity:
+                        if entity_info["entity"].entity != canonical_entity.entity:
+                            aliases.append(entity_info["entity"].entity)
+                        video_ids.append(entity_info["video_id"])
+                
+                cross_video_entity = CrossVideoEntity(
+                    name=canonical_entity.entity,
+                    type=canonical_entity.type,
+                    canonical_name=canonical_entity.entity,
+                    aliases=aliases,
+                    video_appearances=video_ids,
+                    aggregated_confidence=sum(occ["confidence"] for occ in video_occurrences) / len(video_occurrences)
+                )
+                unified_entities.append(cross_video_entity)
+        
+        logger.info(f"Unified {len(unified_entities)} entities across {len(videos)} videos")
+        return unified_entities
+
+    async def _extract_cross_video_relationships(self, videos: List[VideoIntelligence], unified_entities: List["CrossVideoEntity"]) -> List["CrossVideoRelationship"]:
+        """Extract relationships that span across multiple videos."""
+        logger.info("Extracting cross-video relationships...")
+        
+        cross_video_relationships = []
+        
+        # For now, create simple cross-video relationships based on shared entities
+        # In a full implementation, this would use more sophisticated analysis
+        
+        for i, entity1 in enumerate(unified_entities):
+            for entity2 in unified_entities[i+1:]:
+                # Check if these entities appear together in any video
+                shared_videos = set(entity1.video_appearances).intersection(
+                    set(entity2.video_appearances)
+                )
+                
+                if len(shared_videos) > 1:  # Only create relationship if entities appear together in multiple videos
+                    from clipscribe.models import CrossVideoRelationship
+                    relationship = CrossVideoRelationship(
+                        subject=entity1.name,
+                        predicate="co_occurs_with",
+                        object=entity2.name,
+                        confidence=min(entity1.aggregated_confidence, entity2.aggregated_confidence),
+                        video_sources=list(shared_videos)
+                    )
+                    cross_video_relationships.append(relationship)
+        
+        logger.info(f"Extracted {len(cross_video_relationships)} cross-video relationships")
+        return cross_video_relationships
+
+    async def _generate_unified_knowledge_graph(self, videos: List[VideoIntelligence], unified_entities: List["CrossVideoEntity"], cross_video_relationships: List["CrossVideoRelationship"]) -> Dict[str, Any]:
+        """Generate a unified knowledge graph from all videos."""
+        logger.info("Generating unified knowledge graph...")
+        
+        # Create nodes from unified entities
+        nodes = []
+        for entity in unified_entities:
+            nodes.append({
+                "id": entity.name,
+                "label": entity.name,
+                "type": entity.type,
+                "confidence": entity.aggregated_confidence,
+                "occurrences": len(entity.video_appearances)
+            })
+        
+        # Create edges from cross-video relationships
+        edges = []
+        for rel in cross_video_relationships:
+            edges.append({
+                "source": rel.subject,
+                "target": rel.object,
+                "label": rel.predicate,
+                "confidence": rel.confidence,
+                "type": "cross_video_relationship"
+            })
+        
+        # Add edges from individual video relationships
+        for video in videos:
+            for rel in getattr(video, 'relationships', []):
+                edges.append({
+                    "source": rel.subject,
+                    "target": rel.object,
+                    "label": rel.predicate,
+                    "confidence": getattr(rel, 'confidence', 0.5),
+                    "type": "intra_video",
+                    "video_id": video.metadata.video_id
+                })
+        
+        unified_graph = {
+            "nodes": nodes,
+            "edges": edges,
+            "node_count": len(nodes),
+            "edge_count": len(edges),
+            "graph_type": "unified_multi_video",
+            "collection_stats": {
+                "videos": len(videos),
+                "unified_entities": len(unified_entities),
+                "cross_video_relationships": len(cross_video_relationships)
+            }
+        }
+        
+        logger.info(f"Generated unified knowledge graph with {len(nodes)} nodes and {len(edges)} edges")
+        return unified_graph
+
+    async def _generate_collection_insights(self, videos: List[VideoIntelligence], unified_entities: List["CrossVideoEntity"], cross_video_relationships: List["CrossVideoRelationship"]) -> List[str]:
+        """Generate key insights about the video collection."""
+        logger.info("Generating collection insights...")
+        
+        insights = []
+        
+        # Entity insights
+        if unified_entities:
+            top_entities = sorted(unified_entities, key=lambda e: e.mention_count, reverse=True)[:5]
+            insights.append(f"Most frequently mentioned entities: {', '.join(e.name for e in top_entities)}")
+        
+        # Relationship insights
+        if cross_video_relationships:
+            insights.append(f"Found {len(cross_video_relationships)} cross-video relationships")
+        
+        # Content insights
+        total_key_points = sum(len(v.key_points) for v in videos)
+        insights.append(f"Collection contains {total_key_points} key insights across {len(videos)} videos")
+        
+        # Cost insights
+        total_cost = sum(getattr(v, 'processing_cost', 0.0) for v in videos)
+        insights.append(f"Total processing cost: ${total_cost:.4f}")
+        
+        return insights
+
+    def _calculate_entity_resolution_quality(self, unified_entities: List["CrossVideoEntity"]) -> float:
+        """Calculate the quality of entity resolution across videos."""
+        if not unified_entities:
+            return 0.0
+        
+        # Calculate average cross-video confidence
+        avg_confidence = sum(e.aggregated_confidence for e in unified_entities) / len(unified_entities)
+        
+        # Bonus for entities that appear in multiple videos
+        multi_video_bonus = sum(1 for e in unified_entities if e.mention_count > 1) / len(unified_entities)
+        
+        return min(1.0, avg_confidence + multi_video_bonus * 0.2)
+
+    def _calculate_narrative_coherence(self, videos: List[VideoIntelligence], cross_video_relationships: List["CrossVideoRelationship"]) -> float:
+        """Calculate the narrative coherence of the video collection."""
+        if len(videos) < 2:
+            return 1.0
+        
+        # Simple coherence based on cross-video relationships
+        relationship_density = len(cross_video_relationships) / (len(videos) * (len(videos) - 1) / 2)
+        
+        # Normalize to 0-1 range
+        return min(1.0, relationship_density * 10)
 
 

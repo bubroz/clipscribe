@@ -1,0 +1,303 @@
+{
+  "version": "2.3",
+  "created_at": "2025-07-19T10:38:46.115787",
+  "video": {
+    "title": "5 Things To Know: June 13, 2025",
+    "url": "https://www.youtube.com/watch?v=xX4AoirekqI",
+    "platform": "youtube"
+  },
+  "extraction_stats": {
+    "timeline_events": [
+      {
+        "confidence": 0.9,
+        "event_description": "Introduction to daily news briefing 'ahead of today's opening bell'.",
+        "event_type": "News Briefing Introduction",
+        "timestamp": 0,
+        "involved_entities": []
+      },
+      {
+        "confidence": 0.8,
+        "event_description": "Israel strikes Iran's nuclear infrastructure in a wave of attacks.",
+        "event_type": "Military Action",
+        "timestamp": 5,
+        "involved_entities": [
+          "Israel",
+          "Iran"
+        ]
+      },
+      {
+        "confidence": 0.8,
+        "event_description": "Iran's elite Revolutionary Guard Corps reports its top commander was killed in Israeli attacks.",
+        "event_type": "Military Casualty Report",
+        "timestamp": 10,
+        "involved_entities": [
+          "Iran's Revolutionary Guard Corps",
+          "Israel"
+        ]
+      },
+      {
+        "confidence": 0.8,
+        "event_description": "Israel works to bring down drones launched by Iran in retaliation.",
+        "event_type": "Military Defense",
+        "timestamp": 15,
+        "involved_entities": [
+          "Israel",
+          "Iran",
+          "drones"
+        ]
+      },
+      {
+        "confidence": 0.7,
+        "event_description": "Iran states a key nuclear enrichment site was damaged but no radiation contamination occurred.",
+        "event_type": "Damage Assessment",
+        "timestamp": 20,
+        "involved_entities": [
+          "Iran",
+          "nuclear enrichment site"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "Investigators search airliner crash site in Western India for evidence and missing people.",
+        "event_type": "Investigation",
+        "timestamp": 30,
+        "involved_entities": [
+          "investigators",
+          "Western India",
+          "Boeing 787 Dreamliner"
+        ]
+      },
+      {
+        "confidence": 0.7,
+        "event_description": "Local media reports one of two black boxes from the Boeing 787 Dreamliner recovered (unconfirmed).",
+        "event_type": "Recovery Report",
+        "timestamp": 35,
+        "involved_entities": [
+          "local media",
+          "Boeing 787 Dreamliner",
+          "black box"
+        ]
+      },
+      {
+        "confidence": 0.8,
+        "event_description": "One passenger survived the airliner crash.",
+        "event_type": "Survival Event",
+        "timestamp": 40,
+        "involved_entities": [
+          "passenger",
+          "airliner crash"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "Federal appeals court rules the Trump administration can maintain control of National Guard troops in California and continue deployments in Los Angeles.",
+        "event_type": "Court Ruling",
+        "timestamp": 50,
+        "involved_entities": [
+          "federal appeals court",
+          "Trump administration",
+          "National Guard",
+          "California",
+          "Los Angeles"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "A lower court previously ruled the National Guard deployment was illegal (this order came shortly before the appeals court ruling).",
+        "event_type": "Prior Court Ruling",
+        "timestamp": 55,
+        "involved_entities": [
+          "lower court",
+          "National Guard"
+        ]
+      },
+      {
+        "confidence": 0.8,
+        "event_description": "The White House deployed troops in response to protests over its immigration crackdown.",
+        "event_type": "Troop Deployment",
+        "timestamp": 60,
+        "involved_entities": [
+          "White House",
+          "troops",
+          "protests",
+          "immigration crackdown"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "House narrowly votes in favor of a proposal to cancel over $9 billion in previously approved federal funding.",
+        "event_type": "Legislative Vote",
+        "timestamp": 70,
+        "involved_entities": [
+          "House",
+          "federal funding"
+        ]
+      },
+      {
+        "confidence": 0.8,
+        "event_description": "More than $8 billion of the canceled funding was earmarked for foreign aid.",
+        "event_type": "Funding Allocation Detail",
+        "timestamp": 75,
+        "involved_entities": [
+          "foreign aid"
+        ]
+      },
+      {
+        "confidence": 0.8,
+        "event_description": "About $1 billion of the canceled funding was meant for the Corporation for Public Broadcasting.",
+        "event_type": "Funding Allocation Detail",
+        "timestamp": 80,
+        "involved_entities": [
+          "Corporation for Public Broadcasting",
+          "PBS",
+          "NPR"
+        ]
+      },
+      {
+        "confidence": 0.8,
+        "event_description": "New York Times reports venture capital firms plan to buy $250 million worth of shares in Elon Musk's XAI.",
+        "event_type": "Investment Planning",
+        "timestamp": 90,
+        "involved_entities": [
+          "New York Times",
+          "venture capital firms",
+          "Elon Musk",
+          "XAI"
+        ]
+      },
+      {
+        "confidence": 0.7,
+        "event_description": "Documents suggest employees could sell shares in a tender offer valuing XAI at $113 billion.",
+        "event_type": "Tender Offer Prospect",
+        "timestamp": 95,
+        "involved_entities": [
+          "employees",
+          "XAI"
+        ]
+      }
+    ],
+    "visual_temporal_cues": [],
+    "temporal_patterns": [
+      {
+        "description": "The report presents a daily news briefing structure, indicated by 'Five things to know ahead of today's opening bell', suggesting a recurring pattern of updates.",
+        "pattern_type": "Daily Briefing",
+        "significance": "Recurring, structured information delivery.",
+        "timespan": "Daily"
+      },
+      {
+        "description": "A causal chain of events regarding National Guard deployment: White House deployed troops -> lower court ruled deployment illegal -> appeals court ruled Trump administration can maintain control, with the appeals court ruling coming 'shortly after' the lower court.",
+        "pattern_type": "Causality Chain",
+        "significance": "Sequential and dependent events.",
+        "timespan": "Past to Present"
+      },
+      {
+        "description": "A retaliatory sequence of events between Israel and Iran: Iran launched drones -> Israel working to bring down drones / Israel striking Iran's nuclear infrastructure (implied retaliation for drones or broader conflict).",
+        "pattern_type": "Retaliatory Sequence",
+        "significance": "Action and reaction, ongoing conflict.",
+        "timespan": "Recent Past to Present"
+      }
+    ],
+    "dates": [
+      {
+        "confidence": 0.9,
+        "normalized_date": "2024-05-15",
+        "original_text": "today's opening bell",
+        "precision": "day",
+        "source": "transcript",
+        "context": "ahead of today's opening bell",
+        "timestamp": 0
+      }
+    ],
+    "visual_dates": [],
+    "spacy_entities": 26,
+    "gliner_entities": 32,
+    "quality_false_positives_removed": 0,
+    "quality_language_filtered": 25,
+    "quality_confidence_improved": 9,
+    "quality_score": 0.5026110727250576,
+    "language_purity": 1.0,
+    "enhanced_entities": 5,
+    "relationships": 0,
+    "temporal_references": 1,
+    "llm_validated": 5,
+    "graph_nodes": 5,
+    "graph_edges": 0,
+    "retention_decision": {
+      "action": "deleted",
+      "video_path": ".video_cache/5 Things To Know\uff1a June 13, 2025-xX4AoirekqI.mp3",
+      "video_hash": "2ffdad6deac49f0acaeec17cb397dffc",
+      "reason": "Policy: Always delete source videos",
+      "cost_savings": {
+        "storage_cost_avoided": 0.0005964488312602043,
+        "reprocessing_cost": 0.006096904687499998
+      },
+      "timestamp": "2025-07-18T22:51:17.261155"
+    }
+  },
+  "timeline_v2": {
+    "error": "'VideoIntelligenceRetriever' object has no attribute 'temporal_extractor'",
+    "fallback_used": true,
+    "events": [],
+    "chapters": []
+  },
+  "files": {
+    "transcript_txt": {
+      "path": "transcript.txt",
+      "format": "plain_text",
+      "size": 1627,
+      "sha256": "5b94061c22e783dd76584a52bd27d609706e3f37b51633100682e1ff61d70e00"
+    },
+    "transcript_json": {
+      "path": "transcript.json",
+      "format": "json",
+      "size": 27420,
+      "sha256": "85300972597cb655c051488996d36f5dee45b06b6446b580c8f3942dcb97f8e7"
+    },
+    "metadata": {
+      "path": "metadata.json",
+      "format": "json",
+      "size": 650,
+      "sha256": "58abcf6c213832a36284ea6b7ea676658e8c604736d9d0dca0a082c4ba7cf639"
+    },
+    "entities": {
+      "path": "entities.json",
+      "format": "json",
+      "size": 2335,
+      "sha256": "802dcb12e67db6f8ce3b95c30a75c40c4f082c8de7fddbf8d49c5efdb6252bcf"
+    },
+    "knowledge_graph": {
+      "path": "knowledge_graph.json",
+      "format": "json",
+      "size": 703,
+      "sha256": "fcb354ab398aec5a26e2ec13657b5d572ec2233bce444ea6b7032faaa57bc720"
+    },
+    "gexf": {
+      "path": "knowledge_graph.gexf",
+      "format": "gexf",
+      "size": 2393,
+      "sha256": "4743e6bcd42ef001b0ffcc3819991cff7f04fca1bcdad0df0a94e49833721056",
+      "description": "Gephi-compatible graph file"
+    },
+    "entities_csv": {
+      "path": "entities.csv",
+      "format": "csv",
+      "size": 315,
+      "sha256": "46e11c371a92a37398c9ebbf93e6da10ae64e597777b8bede4364d657040f63b",
+      "description": "All entities in CSV format"
+    },
+    "report": {
+      "path": "report.md",
+      "format": "markdown",
+      "size": 5417,
+      "sha256": "20515bd6da323e7f50ba88ee4f9bb4dfbcade9078ee46e95ae3204286fd5bd01",
+      "description": "Human-readable intelligence report"
+    },
+    "chimera": {
+      "path": "chimera_format.json",
+      "format": "json",
+      "size": 16198,
+      "sha256": "715a12fc93c500faec9c181b821c9d3127a6d87ab09469987346beb5369ae718",
+      "description": "Chimera-compatible format"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "nodes": [
+    {
+      "id": "Trump",
+      "type": "PERSON",
+      "confidence": 0.7100000000000001
+    },
+    {
+      "id": "At Least Six Hours",
+      "type": "TIME",
+      "confidence": 0.77
+    }
+  ],
+  "edges": [],
+  "node_count": 2,
+  "edge_count": 0,
+  "connected_components": 2,
+  "density": 0
+}

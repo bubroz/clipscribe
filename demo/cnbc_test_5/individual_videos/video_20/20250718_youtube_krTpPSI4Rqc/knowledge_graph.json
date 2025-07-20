@@ -1,0 +1,54 @@
+{
+  "nodes": [
+    {
+      "id": "Dell",
+      "type": "PERSON",
+      "confidence": 0.7100000000000001
+    },
+    {
+      "id": "The Wall Street Journal",
+      "type": "LOCATION",
+      "confidence": 0.7100000000000001
+    },
+    {
+      "id": "Lilo and Stitch",
+      "type": "ORGANIZATION",
+      "confidence": 0.7100000000000001
+    },
+    {
+      "id": "The Weekend",
+      "type": "DATE",
+      "confidence": 0.74
+    },
+    {
+      "id": "The Year",
+      "type": "DATE",
+      "confidence": 0.74
+    },
+    {
+      "id": "This Week",
+      "type": "DATE",
+      "confidence": 0.74
+    },
+    {
+      "id": "Republican",
+      "type": "GROUP",
+      "confidence": 0.95
+    },
+    {
+      "id": "Disney"
+    }
+  ],
+  "edges": [
+    {
+      "source": "Lilo and Stitch",
+      "target": "Disney",
+      "predicate": "production company",
+      "confidence": 0.9
+    }
+  ],
+  "node_count": 8,
+  "edge_count": 1,
+  "connected_components": 7,
+  "density": 0.017857142857142856
+}

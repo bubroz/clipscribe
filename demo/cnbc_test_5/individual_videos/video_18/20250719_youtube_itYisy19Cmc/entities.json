@@ -1,0 +1,155 @@
+{
+  "video_url": "https://www.youtube.com/watch?v=itYisy19Cmc",
+  "video_title": "5 Things To Know: June 9, 2025",
+  "entities": [
+    {
+      "name": "Jameson Greer",
+      "type": "PERSON",
+      "confidence": 0.7100000000000001,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    },
+    {
+      "name": "A Fourth Consecutive Month",
+      "type": "DATE",
+      "confidence": 0.79,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    },
+    {
+      "name": "Less Than A Year",
+      "type": "DATE",
+      "confidence": 0.79,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    },
+    {
+      "name": "the United States",
+      "type": "LOCATION",
+      "confidence": 0.7100000000000001,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    },
+    {
+      "name": "Fed",
+      "type": "ORGANIZATION",
+      "confidence": 0.95,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    },
+    {
+      "name": "Billions Of Dollars",
+      "type": "MONEY",
+      "confidence": 0.78,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    },
+    {
+      "name": "34 And A Half%",
+      "type": "PERCENTAGE",
+      "confidence": 0.7100000000000001,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    },
+    {
+      "name": "Evening",
+      "type": "TIME",
+      "confidence": 0.72,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    },
+    {
+      "name": "Overnight",
+      "type": "TIME",
+      "confidence": 0.72,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    },
+    {
+      "name": "May, May of 2026",
+      "type": "DATE",
+      "confidence": 0.79,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    },
+    {
+      "name": "Trump",
+      "type": "PERSON",
+      "confidence": 0.7100000000000001,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    },
+    {
+      "name": "last Thursday and",
+      "type": "DATE",
+      "confidence": 0.79,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    },
+    {
+      "name": "Friday evening",
+      "type": "DATE",
+      "confidence": 0.74,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    }
+  ],
+  "topics": [
+    {
+      "name": "International Trade",
+      "confidence": 0.85
+    },
+    {
+      "name": "US-China Relations",
+      "confidence": 0.85
+    },
+    {
+      "name": "US-India Relations",
+      "confidence": 0.85
+    },
+    {
+      "name": "Economic Indicators",
+      "confidence": 0.85
+    },
+    {
+      "name": "US Monetary Policy",
+      "confidence": 0.85
+    },
+    {
+      "name": "Federal Reserve",
+      "confidence": 0.85
+    },
+    {
+      "name": "College Sports",
+      "confidence": 0.85
+    },
+    {
+      "name": "Athlete Compensation",
+      "confidence": 0.85
+    },
+    {
+      "name": "Government Officials",
+      "confidence": 0.85
+    }
+  ],
+  "key_facts": [
+    "President Trump's trade officials are in London for talks with Chinese counterparts.",
+    "The US delegation includes Treasury Secretary Scott Bessent.",
+    "The US delegation includes Commerce Secretary Howard Lutnick.",
+    "The US delegation includes US Trade Representative Jameson Greer.",
+    "New data revealed a 34.5% drop in China's exports to the US in May."
+  ]
+}

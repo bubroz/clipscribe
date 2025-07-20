@@ -1,0 +1,30 @@
+{
+  "video_url": null,
+  "video_title": "5 Things To Know: July 18, 2025",
+  "entities": [
+    {
+      "name": "Federal Reserve",
+      "type": "ORGANIZATION",
+      "confidence": 0.95,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    },
+    {
+      "name": "8 And A Half%",
+      "type": "PERCENTAGE",
+      "confidence": 0.7100000000000001,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    }
+  ],
+  "topics": [],
+  "key_facts": [
+    "The broadcast highlights five key things to know ahead of the day's opening bell.",
+    "Chevron has successfully concluded its mediation with Exxon regarding the Guyana oil assets.",
+    "This decision by Chevron clears the path for its acquisition of Hess.",
+    "Hess stock saw a significant premarket increase of 8.5%.",
+    "Chevron's stock also rose by 3.7% in premarket trading."
+  ]
+}

@@ -1,0 +1,6 @@
+name,type,confidence,source,timestamp
+Quarterly,DATE,0.74,,
+The Last Two Months,DATE,0.79,,
+The Next 24 To 48 Hours,DATE,0.79,,
+Republic,LOCATION,0.8300000000000001,,
+Trump,PERSON,0.7100000000000001,,

@@ -1,0 +1,44 @@
+{
+  "nodes": [
+    {
+      "id": "Constellation Brands",
+      "type": "PERSON",
+      "confidence": 0.8700000000000001
+    },
+    {
+      "id": "The Most Recent Quarter",
+      "type": "DATE",
+      "confidence": 0.79
+    },
+    {
+      "id": "the Wall Street Journal",
+      "type": "LOCATION",
+      "confidence": 0.7100000000000001
+    },
+    {
+      "id": "About A Quarter",
+      "type": "CARDINAL",
+      "confidence": 0.7100000000000001
+    },
+    {
+      "id": "This Morning",
+      "type": "TIME",
+      "confidence": 0.72
+    },
+    {
+      "id": "Madela"
+    }
+  ],
+  "edges": [
+    {
+      "source": "Constellation Brands",
+      "target": "Madela",
+      "predicate": "owner of",
+      "confidence": 1.0
+    }
+  ],
+  "node_count": 6,
+  "edge_count": 1,
+  "connected_components": 5,
+  "density": 0.03333333333333333
+}

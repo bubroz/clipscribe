@@ -1,0 +1,6 @@
+name,type,confidence,source,extraction_methods,aliases,is_normalized
+Quarterly,DATE,0.74,Unknown,Unknown,,False
+The Last Two Months,DATE,0.79,Unknown,Unknown,,False
+The Next 24 To 48 Hours,DATE,0.79,Unknown,Unknown,,False
+Republic,LOCATION,0.83,Unknown,Unknown,,False
+Trump,PERSON,0.71,Unknown,Unknown,,False

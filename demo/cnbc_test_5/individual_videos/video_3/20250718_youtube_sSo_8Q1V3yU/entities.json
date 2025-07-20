@@ -1,0 +1,143 @@
+{
+  "video_url": "https://www.youtube.com/watch?v=sSo_8Q1V3yU",
+  "video_title": "5 Things To Know: July 14, 2025",
+  "entities": [
+    {
+      "name": "Underdog",
+      "type": "LOCATION",
+      "confidence": 0.8200000000000001,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    },
+    {
+      "name": "About The Past Three Months",
+      "type": "DATE",
+      "confidence": 0.79,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    },
+    {
+      "name": "last Tuesday to Friday",
+      "type": "DATE",
+      "confidence": 0.79,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    },
+    {
+      "name": "the Wall Street Journal",
+      "type": "LOCATION",
+      "confidence": 0.7100000000000001,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    },
+    {
+      "name": "This Week",
+      "type": "DATE",
+      "confidence": 0.74,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    },
+    {
+      "name": "United States",
+      "type": "LOCATION",
+      "confidence": 0.95,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    },
+    {
+      "name": "Warner Brothers",
+      "type": "ORGANIZATION",
+      "confidence": 0.95,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    },
+    {
+      "name": "Reuters",
+      "type": "ORGANIZATION",
+      "confidence": 0.95,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    },
+    {
+      "name": "Beijing",
+      "type": "LOCATION",
+      "confidence": 0.95,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    },
+    {
+      "name": "This Morning",
+      "type": "TIME",
+      "confidence": 0.72,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    }
+  ],
+  "topics": [
+    {
+      "name": "Film Industry",
+      "confidence": 0.85
+    },
+    {
+      "name": "Box Office Performance",
+      "confidence": 0.85
+    },
+    {
+      "name": "E-commerce",
+      "confidence": 0.85
+    },
+    {
+      "name": "Retail Spending",
+      "confidence": 0.85
+    },
+    {
+      "name": "Technology Sector",
+      "confidence": 0.85
+    },
+    {
+      "name": "Semiconductor Industry",
+      "confidence": 0.85
+    },
+    {
+      "name": "International Trade",
+      "confidence": 0.85
+    },
+    {
+      "name": "Geopolitics",
+      "confidence": 0.85
+    },
+    {
+      "name": "Financial Markets",
+      "confidence": 0.85
+    },
+    {
+      "name": "Private Credit",
+      "confidence": 0.85
+    },
+    {
+      "name": "Banking",
+      "confidence": 0.85
+    },
+    {
+      "name": "Corporate Strategy",
+      "confidence": 0.85
+    }
+  ],
+  "key_facts": [
+    "The segment introduces five key things to know ahead of the day's opening bell.",
+    "Warner Brothers' Superman reboot topped the recent weekend box office.",
+    "The Superman reboot generated $122 million in its debut weekend in the United States and Canada.",
+    "Its global earnings for the Superman movie are estimated at $217 million.",
+    "The movie cost $225 million to produce, not including marketing costs."
+  ]
+}

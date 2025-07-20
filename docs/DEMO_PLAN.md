@@ -13,7 +13,9 @@ ClipScribe is a **production-ready video intelligence platform** that extracts s
 - **Cost Leadership**: $0.002/minute vs $10-50/video for competitors
 - **Analyst Workflow Fit**: Multi-video synthesis reveals hidden patterns in minutes
 
-### Demo Readiness Status
+## 📊 Demo Progress Tracker
+
+### Phase 1: Core Development ✅
 - **Core Functionality**: 100% - Successful test of 20-video CNBC playlist with temporal analysis
 - **Documentation**: 100% - All docs updated with analyst focus and demo scripts
 - **Visuals**: 90% - Streamlit app ready; add 1-2 screenshots to deck
@@ -38,8 +40,8 @@ ClipScribe is a **production-ready video intelligence platform** that extracts s
 **Total Time: 15-20 minutes** | **Story Arc: Problem → Solution → Wow Factor → Business Case**
 
 ### Act 1: The Analyst's Pain (2 min)
-- **Narrative**: "Imagine analyzing 30 days of market news manually... hours wasted, insights missed."
-- **Visual**: Show raw video playlist (e.g., CNBC 20 videos)
+- **Narrative**: "Imagine analyzing 20 videos of market news manually... hours wasted, insights missed."
+- **Visual**: Show raw video playlist (e.g., CNBC last 20 videos)
 - **Transition**: "ClipScribe changes that in minutes."
 
 ### Act 2: Core Extraction Demo (5 min)
@@ -48,7 +50,7 @@ ClipScribe is a **production-ready video intelligence platform** that extracts s
 - **Highlight**: Temporal dates, confidence scores, $0.002 cost
 
 ### Act 3: Multi-Video Magic (7 min)
-- **Live Command**: `poetry run clipscribe process-collection "cnbc-market-daily" "https://www.youtube.com/playlist?list=PLVbP054jv0KoXU0a-MdzLVguQW6Nh9Wzo" --output-dir demo/cnbc_30day --skip-confirmation`
+- **Command**: `clipscribe process-collection "cnbc-market-20" "https://www.youtube.com/playlist?list=PLVbP054jv0KoXU0a-MdzLVguQW6Nh9Wzo" --output-dir demo/cnbc_20 --skip-confirmation --limit 20`
 - **Show**: Processing 20 videos, unified graph, temporal trends (e.g., stock mentions over time)
 - **Wow Moment**: "Hidden pattern: XYZ stock sentiment shifted negative over 2 weeks"
 
@@ -58,7 +60,7 @@ ClipScribe is a **production-ready video intelligence platform** that extracts s
 - **Q&A**: Address budgets, integration, customizations
 
 ## Demo Preparation Checklist
-- **Scripts**: Bash files in /demo/scripts/ (e.g., cnbc_30day.sh with command above)
+- **Scripts**: Bash files in /demo/scripts/ (e.g., cnbc_20.sh with command above)
 - **Videos**: Use MASTER_TEST_VIDEO_TABLE.md - CNBC playlist tested successfully
 - **Deck**: 10 slides (Problem, Solution, Demo Screenshots, ROI, Team/SDVOSB)
 - **Rehearsal**: Run full flow twice; time under 20 min

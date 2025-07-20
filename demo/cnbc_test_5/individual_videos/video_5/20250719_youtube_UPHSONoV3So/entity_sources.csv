@@ -1,0 +1,6 @@
+name,type,confidence,source,extraction_methods,aliases,is_normalized
+Boeing,ORGANIZATION,0.95,Unknown,Unknown,,False
+The End Of The,DATE,0.79,Unknown,Unknown,,False
+Up To $10 Billion,MONEY,0.78,Unknown,Unknown,,False
+Early This Morning,TIME,0.77,Unknown,Unknown,,False
+December of 2023,DATE,0.79,Unknown,Unknown,,False

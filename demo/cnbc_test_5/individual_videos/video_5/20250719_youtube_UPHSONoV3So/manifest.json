@@ -1,0 +1,292 @@
+{
+  "version": "2.3",
+  "created_at": "2025-07-19T10:38:19.170444",
+  "video": {
+    "title": "5 Things To Know: July 9, 2025",
+    "url": "https://www.youtube.com/watch?v=UPHSONoV3So",
+    "platform": "youtube"
+  },
+  "extraction_stats": {
+    "timeline_events": [
+      {
+        "confidence": 0.85,
+        "event_description": "Financial Times reported that SpaceX's deal was sent to investors.",
+        "event_type": "Financial Reporting",
+        "timestamp": 1722067200,
+        "involved_entities": [
+          "SpaceX",
+          "Financial Times",
+          "investors"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "Boeing reported 60 airplane deliveries, the most since December 2023.",
+        "event_type": "Business Performance",
+        "timestamp": 1718452800,
+        "involved_entities": [
+          "Boeing"
+        ]
+      },
+      {
+        "confidence": 0.95,
+        "event_description": "Boeing is scheduled to report full second-quarter results.",
+        "event_type": "Scheduled Financial Event",
+        "timestamp": 1722297600,
+        "involved_entities": [
+          "Boeing"
+        ]
+      },
+      {
+        "confidence": 0.85,
+        "event_description": "TSA confirmed that many travelers can leave their shoes on at US Airport checkpoints.",
+        "event_type": "Policy Change Confirmation",
+        "timestamp": 1722067200,
+        "involved_entities": [
+          "TSA",
+          "US Airport checkpoints",
+          "travelers"
+        ]
+      },
+      {
+        "confidence": 0.75,
+        "event_description": "Homeland Security Secretary Christie Noam announced the end of the 20-year-old shoe rule.",
+        "event_type": "Policy Announcement",
+        "timestamp": 1722067200,
+        "involved_entities": [
+          "Homeland Security Secretary Christie Noam"
+        ]
+      },
+      {
+        "confidence": 0.85,
+        "event_description": "Philadelphia's largest municipal union reached a tentative deal with the city to end a labor strike.",
+        "event_type": "Labor Agreement",
+        "timestamp": 1722146400,
+        "involved_entities": [
+          "Philadelphia municipal union",
+          "City of Philadelphia"
+        ]
+      },
+      {
+        "confidence": 0.95,
+        "event_description": "Labor strike halted garbage collection in Philadelphia.",
+        "event_type": "Labor Dispute",
+        "timestamp": 1719792000,
+        "involved_entities": [
+          "Philadelphia municipal union",
+          "City of Philadelphia"
+        ]
+      }
+    ],
+    "visual_temporal_cues": [],
+    "temporal_patterns": [
+      {
+        "description": "SpaceX is progressing through a financial process to raise money and sell insider shares, with reports indicating a deal was sent to investors recently.",
+        "pattern_type": "Progression",
+        "significance": "Indicates a significant ongoing financial development for SpaceX.",
+        "timespan": "Recent past and ongoing"
+      },
+      {
+        "description": "Boeing's airplane deliveries show an upward trend, with 60 deliveries last month being the most since December 2023, contributing to a total of 150 for the second quarter.",
+        "pattern_type": "Trend",
+        "significance": "Highlights an improvement in Boeing's production and delivery performance over time.",
+        "timespan": "December 2023 to last month (June 2024), encompassing Q2"
+      },
+      {
+        "description": "A 20-year-old TSA rule was ended, directly caused by advances in screening technology, demonstrating a long-term causality between technological progress and policy change.",
+        "pattern_type": "Causality Chain",
+        "significance": "Illustrates how sustained technological improvement can lead to the discontinuation of long-standing regulations.",
+        "timespan": "20-year duration of the rule, with recent termination"
+      },
+      {
+        "description": "The Philadelphia labor strike, which began on July 1st, was resolved early this morning with a new three-year deal that includes raises spread out over its duration.",
+        "pattern_type": "Sequence and Duration",
+        "significance": "Marks the conclusion of a significant labor dispute and establishes a new multi-year agreement for city employees.",
+        "timespan": "Strike from July 1st to early this morning; deal for three years"
+      }
+    ],
+    "dates": [
+      {
+        "confidence": 0.9,
+        "normalized_date": "2024-07-15",
+        "original_text": "yesterday",
+        "precision": "day",
+        "source": "transcript",
+        "context": "The Financial Times reported that the deal was sent to investors yesterday.",
+        "timestamp": 15.0
+      },
+      {
+        "confidence": 0.9,
+        "normalized_date": "2024-06-01",
+        "original_text": "last month",
+        "precision": "month",
+        "source": "transcript",
+        "context": "Boeing reported deliveries of 60 airplanes last month",
+        "timestamp": 65.0
+      },
+      {
+        "confidence": 0.95,
+        "normalized_date": "2023-12-01",
+        "original_text": "December of 2023",
+        "precision": "month",
+        "source": "transcript",
+        "context": "most since December of 2023",
+        "timestamp": 70.0
+      },
+      {
+        "confidence": 0.95,
+        "normalized_date": "2024-07-29",
+        "original_text": "July 29th",
+        "precision": "day",
+        "source": "transcript",
+        "context": "report full second quarter results on July 29th",
+        "timestamp": 80.0
+      },
+      {
+        "confidence": 0.9,
+        "normalized_date": "2024-07-15",
+        "original_text": "yesterday",
+        "precision": "day",
+        "source": "transcript",
+        "context": "The TSA confirming yesterday",
+        "timestamp": 85.0
+      },
+      {
+        "confidence": 0.85,
+        "normalized_date": "2004-07-16",
+        "original_text": "20-year-old",
+        "precision": "year",
+        "source": "transcript",
+        "context": "announced the end of the 20-year-old rule",
+        "timestamp": 100.0
+      },
+      {
+        "confidence": 0.9,
+        "normalized_date": "2024-07-16T06:00:00",
+        "original_text": "early this morning",
+        "precision": "day",
+        "source": "transcript",
+        "context": "reached a tentative deal with the city early this morning",
+        "timestamp": 115.0
+      },
+      {
+        "confidence": 0.95,
+        "normalized_date": "2024-07-01",
+        "original_text": "July 1st",
+        "precision": "day",
+        "source": "transcript",
+        "context": "has halted garbage collection since July 1st",
+        "timestamp": 125.0
+      },
+      {
+        "confidence": 0.8,
+        "normalized_date": "P3Y",
+        "original_text": "three years",
+        "precision": "approximate",
+        "source": "transcript",
+        "context": "the new deal is for three years",
+        "timestamp": 130.0
+      },
+      {
+        "confidence": 0.8,
+        "normalized_date": "P3Y",
+        "original_text": "three years",
+        "precision": "approximate",
+        "source": "transcript",
+        "context": "spread out over three years",
+        "timestamp": 140.0
+      }
+    ],
+    "visual_dates": [],
+    "spacy_entities": 32,
+    "gliner_entities": 29,
+    "quality_false_positives_removed": 2,
+    "quality_language_filtered": 29,
+    "quality_confidence_improved": 6,
+    "quality_score": 0.5172190494322777,
+    "language_purity": 1.0,
+    "enhanced_entities": 5,
+    "relationships": 0,
+    "temporal_references": 3,
+    "llm_validated": 5,
+    "graph_nodes": 5,
+    "graph_edges": 0,
+    "retention_decision": {
+      "action": "deleted",
+      "video_path": ".video_cache/5 Things To Know\uff1a July 9, 2025-UPHSONoV3So.mp3",
+      "video_hash": "72e0ac313ca40a510603a7cd18d0461c",
+      "reason": "Policy: Always delete source videos",
+      "cost_savings": {
+        "storage_cost_avoided": 0.0004723621420562267,
+        "reprocessing_cost": 0.0048398109374999995
+      },
+      "timestamp": "2025-07-18T22:36:11.735532"
+    }
+  },
+  "timeline_v2": {
+    "error": "'VideoIntelligenceRetriever' object has no attribute 'temporal_extractor'",
+    "fallback_used": true,
+    "events": [],
+    "chapters": []
+  },
+  "files": {
+    "transcript_txt": {
+      "path": "transcript.txt",
+      "format": "plain_text",
+      "size": 1348,
+      "sha256": "3331d74f43568729e2da2c9189c2dc14c1ec26b322f38f82ac7fb61e0fedb2f9"
+    },
+    "transcript_json": {
+      "path": "transcript.json",
+      "format": "json",
+      "size": 27321,
+      "sha256": "e39ef92edaeb2755de578b843b1a60e84998a72a9a30aba50fcea7ab1efec39a"
+    },
+    "metadata": {
+      "path": "metadata.json",
+      "format": "json",
+      "size": 649,
+      "sha256": "e9adf6d7653fe9952d9d71a7d92879db50698a68f2d3ddfb883c1208ec281569"
+    },
+    "entities": {
+      "path": "entities.json",
+      "format": "json",
+      "size": 1827,
+      "sha256": "92624b6f9b7dc2b0c963a8e3ca47ff3d0b48926b72809ac1fc9756e9f84476e0"
+    },
+    "knowledge_graph": {
+      "path": "knowledge_graph.json",
+      "format": "json",
+      "size": 577,
+      "sha256": "22491db7c1462575d3f11dd276cf5c5e00bba2835cb33bab9dc883fae14ff48f"
+    },
+    "gexf": {
+      "path": "knowledge_graph.gexf",
+      "format": "gexf",
+      "size": 2250,
+      "sha256": "6b99ec626d545979d4461702a08a26126112880f439e0fbcad58724c46319f34",
+      "description": "Gephi-compatible graph file"
+    },
+    "entities_csv": {
+      "path": "entities.csv",
+      "format": "csv",
+      "size": 189,
+      "sha256": "9b805e8792fca113b5f8eaacecaae4c022dbaa93eef61beca5e85719cfda420a",
+      "description": "All entities in CSV format"
+    },
+    "report": {
+      "path": "report.md",
+      "format": "markdown",
+      "size": 5570,
+      "sha256": "00df91d08d842c89023b257ff651e8c5dbcb7b770c23d7d5eb8c8b0cb49b89b2",
+      "description": "Human-readable intelligence report"
+    },
+    "chimera": {
+      "path": "chimera_format.json",
+      "format": "json",
+      "size": 14228,
+      "sha256": "904ba9a77f945eec88b86e97e8e424fd29b9962cb68efe242c640045246ba536",
+      "description": "Chimera-compatible format"
+    }
+  }
+}

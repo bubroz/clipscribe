@@ -1,0 +1,271 @@
+{
+  "version": "2.3",
+  "created_at": "2025-07-20T10:09:38.108802",
+  "video": {
+    "title": "5 Things To Know: June 16, 2025",
+    "url": "https://www.youtube.com/watch?v=u2tHfa8X-sg",
+    "platform": "youtube"
+  },
+  "extraction_stats": {
+    "timeline_events": [
+      {
+        "confidence": 0.9,
+        "event_description": "Opening bell for today's trading.",
+        "event_type": "Market Event",
+        "timestamp": -1,
+        "involved_entities": []
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "Israel's military achieved aerial superiority over Tehran.",
+        "event_type": "Military Action",
+        "timestamp": -1,
+        "involved_entities": [
+          "Israel",
+          "Iran"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "Israel launched attacks on Iran's nuclear infrastructure.",
+        "event_type": "Military Action",
+        "timestamp": -4,
+        "involved_entities": [
+          "Israel",
+          "Iran"
+        ]
+      },
+      {
+        "confidence": 0.8,
+        "event_description": "US Embassy branch in Tel Aviv sustained minor damage from shockwaves from a nearby explosion.",
+        "event_type": "Incident",
+        "timestamp": -1,
+        "involved_entities": [
+          "US Embassy Tel Aviv"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "President Trump approved Nippon Steel's bid for US Steel.",
+        "event_type": "Business Deal Approval",
+        "timestamp": -1,
+        "involved_entities": [
+          "President Trump",
+          "Nippon Steel",
+          "US Steel"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "Shares of Kering are up sharply in European trading.",
+        "event_type": "Market Event",
+        "timestamp": -1,
+        "involved_entities": [
+          "Kering"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "Renault CEO Luca de Meo stepped down from his position.",
+        "event_type": "Personnel Change",
+        "timestamp": -1,
+        "involved_entities": [
+          "Luca de Meo",
+          "Renault"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "Taiwan's Commerce Ministry added Huawei and SMIC to its export control list.",
+        "event_type": "Government Action",
+        "timestamp": -1,
+        "involved_entities": [
+          "Taiwan's Commerce Ministry",
+          "Huawei",
+          "SMIC"
+        ]
+      },
+      {
+        "confidence": 0.8,
+        "event_description": "A cyber attack on the Washington Post compromised email accounts of journalists.",
+        "event_type": "Cybersecurity Incident",
+        "timestamp": -1,
+        "involved_entities": [
+          "Washington Post"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "Washington Post's executive editor notified staff about the email system intrusion via an internal memo.",
+        "event_type": "Internal Communication",
+        "timestamp": -1,
+        "involved_entities": [
+          "Washington Post"
+        ]
+      }
+    ],
+    "visual_temporal_cues": [],
+    "temporal_patterns": [
+      {
+        "description": "A progression of fighting between Israel and Iran, now in its fourth day since the initial attacks.",
+        "pattern_type": "Progression",
+        "significance": "Ongoing conflict timeline",
+        "timespan": "4 days"
+      },
+      {
+        "description": "A long-term negotiation process spanning 18 months, culminating in a deal approval.",
+        "pattern_type": "Progression",
+        "significance": "Duration of deal negotiation",
+        "timespan": "18 months"
+      },
+      {
+        "description": "A future commitment for investments with a specific deadline.",
+        "pattern_type": "Targeted Future Event",
+        "significance": "Future financial commitment",
+        "timespan": "By the year 2028"
+      }
+    ],
+    "dates": [
+      {
+        "confidence": 0.9,
+        "normalized_date": "2024-05-15",
+        "original_text": "today",
+        "precision": "day",
+        "source": "transcript",
+        "context": "ahead of today's opening bell"
+      },
+      {
+        "confidence": 0.9,
+        "normalized_date": "2024-05-12",
+        "original_text": "fourth day",
+        "precision": "day",
+        "source": "transcript",
+        "context": "It's the fourth day of fighting"
+      },
+      {
+        "confidence": 0.9,
+        "normalized_date": "2022-11-15",
+        "original_text": "18 months",
+        "precision": "month",
+        "source": "transcript",
+        "context": "after 18 months of twists and turns",
+        "timestamp": 0
+      },
+      {
+        "confidence": 0.9,
+        "normalized_date": "2028-12-31",
+        "original_text": "by the year 2028",
+        "precision": "year",
+        "source": "transcript",
+        "context": "includes $11 billion in new investments by the year 2028"
+      },
+      {
+        "confidence": 0.9,
+        "normalized_date": "2024-05-14",
+        "original_text": "yesterday",
+        "precision": "day",
+        "source": "transcript",
+        "context": "Renault said yesterday that de Meo was stepping down"
+      },
+      {
+        "confidence": 0.9,
+        "normalized_date": "2024-05-14",
+        "original_text": "yesterday",
+        "precision": "day",
+        "source": "transcript",
+        "context": "In an internal memo yesterday"
+      }
+    ],
+    "visual_dates": [],
+    "spacy_entities": 35,
+    "gliner_entities": 31,
+    "quality_false_positives_removed": 0,
+    "quality_language_filtered": 31,
+    "quality_confidence_improved": 10,
+    "quality_score": 0.6325866453477313,
+    "language_purity": 1.0,
+    "enhanced_entities": 6,
+    "relationships": 0,
+    "temporal_references": 2,
+    "llm_validated": 5,
+    "graph_nodes": 5,
+    "graph_edges": 0,
+    "retention_decision": {
+      "action": "deleted",
+      "video_path": ".video_cache/5 Things To Know\uff1a June 16, 2025-u2tHfa8X-sg.mp3",
+      "video_hash": "12713f68d2c71d0342e4b9a63613190f",
+      "reason": "Policy: Always delete source videos",
+      "cost_savings": {
+        "storage_cost_avoided": 0.0006172373481094837,
+        "reprocessing_cost": 0.006285468749999999
+      },
+      "timestamp": "2025-07-18T22:50:01.383696"
+    }
+  },
+  "timeline_v2": {
+    "error": "'VideoIntelligenceRetriever' object has no attribute 'temporal_extractor'",
+    "fallback_used": true,
+    "events": [],
+    "chapters": []
+  },
+  "files": {
+    "transcript_txt": {
+      "path": "transcript.txt",
+      "format": "plain_text",
+      "size": 1657,
+      "sha256": "77f481c51f63fb43a0878f3caca6607b5d2b4ca5bff5d4fd44f6b87d4086c383"
+    },
+    "transcript_json": {
+      "path": "transcript.json",
+      "format": "json",
+      "size": 25537,
+      "sha256": "027bc75a29832bbf555a56a1d11c9d2be64adf0712888ed6d10145be71adad88"
+    },
+    "metadata": {
+      "path": "metadata.json",
+      "format": "json",
+      "size": 1570,
+      "sha256": "09d4e54295133a21b906b049ca848167494b06b9f97fdcd807eb4f313b9c143a"
+    },
+    "entities": {
+      "path": "entities.json",
+      "format": "json",
+      "size": 2090,
+      "sha256": "c14c9fd621d62032d7c0ee43d49b34e1a6a857fc5a466320ee0fc88a91ba5a5a"
+    },
+    "knowledge_graph": {
+      "path": "knowledge_graph.json",
+      "format": "json",
+      "size": 582,
+      "sha256": "8e394157e87e8955a352866b981208881fc82a27e9b9c234cf2c0fdb22e8b676"
+    },
+    "gexf": {
+      "path": "knowledge_graph.gexf",
+      "format": "gexf",
+      "size": 2215,
+      "sha256": "bf27803986ad25b5d323ffdae9d747f27b284c7a103829b5c88c5e69311212b6",
+      "description": "Gephi-compatible graph file"
+    },
+    "entities_csv": {
+      "path": "entities.csv",
+      "format": "csv",
+      "size": 194,
+      "sha256": "ec472677e0b04c4cc51aa2a79987b41021071cb601e774811967cd61b185daee",
+      "description": "All entities in CSV format"
+    },
+    "report": {
+      "path": "report.md",
+      "format": "markdown",
+      "size": 5465,
+      "sha256": "567610edbaefe68bc6b977c66430179820336beeb353d531b9aeb245a3fdee0f",
+      "description": "Human-readable intelligence report"
+    },
+    "chimera": {
+      "path": "chimera_format.json",
+      "format": "json",
+      "size": 14080,
+      "sha256": "96c58efcdca310dcae3e86a1603c2e842c2fa506830fb928305eb9a6e54a9e09",
+      "description": "Chimera-compatible format"
+    }
+  }
+}

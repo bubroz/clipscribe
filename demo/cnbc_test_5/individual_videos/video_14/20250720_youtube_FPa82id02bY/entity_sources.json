@@ -1,0 +1,232 @@
+{
+  "summary": {
+    "total_entities": 8,
+    "normalization_applied": true,
+    "normalization_stats": {
+      "total_normalized": 0,
+      "entities_with_multiple_sources": 0,
+      "entities_with_aliases": 0
+    },
+    "by_source": {
+      "Unknown": {
+        "count": 8,
+        "percentage": 100.0
+      }
+    },
+    "by_type": {
+      "PERSON": 3,
+      "DATE": 3,
+      "ORGANIZATION": 1,
+      "LAW": 1
+    },
+    "extraction_methods": {
+      "SpaCy": "Basic Named Entity Recognition (free, local)",
+      "GLiNER": "Custom entity detection (local model)",
+      "REBEL": "Relationship extraction (local model)",
+      "Combined": "Entities found by multiple methods and normalized"
+    },
+    "quality_metrics": {
+      "average_confidence": 0.754,
+      "high_confidence_entities": 1,
+      "normalized_entities": 0
+    }
+  },
+  "all_entities": [
+    {
+      "name": "Trump",
+      "type": "PERSON",
+      "confidence": 0.71,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Brad Lander",
+      "type": "PERSON",
+      "confidence": 0.71,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "The Coming Years",
+      "type": "DATE",
+      "confidence": 0.79,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "The Next Decade",
+      "type": "DATE",
+      "confidence": 0.79,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "The Sixth Straight Day",
+      "type": "DATE",
+      "confidence": 0.79,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Congressional Republicans",
+      "type": "ORGANIZATION",
+      "confidence": 0.82,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "Booker",
+      "type": "PERSON",
+      "confidence": 0.71,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "the Genius Act",
+      "type": "LAW",
+      "confidence": 0.71,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    }
+  ],
+  "by_source": {
+    "Unknown": [
+      {
+        "name": "Trump",
+        "type": "PERSON",
+        "confidence": 0.71,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Brad Lander",
+        "type": "PERSON",
+        "confidence": 0.71,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "The Coming Years",
+        "type": "DATE",
+        "confidence": 0.79,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "The Next Decade",
+        "type": "DATE",
+        "confidence": 0.79,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "The Sixth Straight Day",
+        "type": "DATE",
+        "confidence": 0.79,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Congressional Republicans",
+        "type": "ORGANIZATION",
+        "confidence": 0.82,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "Booker",
+        "type": "PERSON",
+        "confidence": 0.71,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "the Genius Act",
+        "type": "LAW",
+        "confidence": 0.71,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      }
+    ]
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "nodes": [
+    {
+      "id": "Juniper Networks",
+      "type": "ORGANIZATION",
+      "confidence": 0.95
+    },
+    {
+      "id": "A Third Consecutive Month",
+      "type": "DATE",
+      "confidence": 0.79
+    },
+    {
+      "id": "Trump",
+      "type": "PERSON",
+      "confidence": 0.7100000000000001
+    }
+  ],
+  "edges": [],
+  "node_count": 3,
+  "edge_count": 0,
+  "connected_components": 3,
+  "density": 0
+}

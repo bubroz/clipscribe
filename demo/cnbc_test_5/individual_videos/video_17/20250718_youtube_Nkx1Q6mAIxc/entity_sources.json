@@ -1,0 +1,86 @@
+{
+  "summary": {
+    "total_entities": 2,
+    "normalization_applied": true,
+    "normalization_stats": {
+      "total_normalized": 0,
+      "entities_with_multiple_sources": 0,
+      "entities_with_aliases": 0
+    },
+    "by_source": {
+      "Unknown": {
+        "count": 2,
+        "percentage": 100.0
+      }
+    },
+    "by_type": {
+      "PERSON": 1,
+      "TIME": 1
+    },
+    "extraction_methods": {
+      "SpaCy": "Basic Named Entity Recognition (free, local)",
+      "GLiNER": "Custom entity detection (local model)",
+      "REBEL": "Relationship extraction (local model)",
+      "Combined": "Entities found by multiple methods and normalized"
+    },
+    "quality_metrics": {
+      "average_confidence": 0.74,
+      "high_confidence_entities": 0,
+      "normalized_entities": 0
+    }
+  },
+  "all_entities": [
+    {
+      "name": "Trump",
+      "type": "PERSON",
+      "confidence": 0.71,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    },
+    {
+      "name": "At Least Six Hours",
+      "type": "TIME",
+      "confidence": 0.77,
+      "source": "Unknown",
+      "extraction_methods": [
+        "Unknown"
+      ],
+      "aliases": [],
+      "original_names": [],
+      "is_normalized": false
+    }
+  ],
+  "by_source": {
+    "Unknown": [
+      {
+        "name": "Trump",
+        "type": "PERSON",
+        "confidence": 0.71,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      },
+      {
+        "name": "At Least Six Hours",
+        "type": "TIME",
+        "confidence": 0.77,
+        "source": "Unknown",
+        "extraction_methods": [
+          "Unknown"
+        ],
+        "aliases": [],
+        "original_names": [],
+        "is_normalized": false
+      }
+    ]
+  }
+}

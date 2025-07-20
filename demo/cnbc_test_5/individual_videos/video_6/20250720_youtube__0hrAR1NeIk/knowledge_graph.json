@@ -1,0 +1,29 @@
+{
+  "nodes": [
+    {
+      "id": "Trump",
+      "type": "PERSON",
+      "confidence": 0.7100000000000001
+    },
+    {
+      "id": "Republicans",
+      "type": "GROUP",
+      "confidence": 0.95
+    },
+    {
+      "id": "This Morning",
+      "type": "TIME",
+      "confidence": 0.72
+    },
+    {
+      "id": "the end of November",
+      "type": "DATE",
+      "confidence": 0.79
+    }
+  ],
+  "edges": [],
+  "node_count": 4,
+  "edge_count": 0,
+  "connected_components": 4,
+  "density": 0
+}

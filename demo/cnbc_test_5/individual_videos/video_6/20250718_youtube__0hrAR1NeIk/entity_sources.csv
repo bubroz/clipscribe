@@ -1,0 +1,5 @@
+name,type,confidence,source,extraction_methods,aliases,is_normalized
+Trump,PERSON,0.71,Unknown,Unknown,,False
+Republicans,GROUP,0.95,Unknown,Unknown,,False
+This Morning,TIME,0.72,Unknown,Unknown,,False
+the end of November,DATE,0.79,Unknown,Unknown,,False

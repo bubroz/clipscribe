@@ -260,11 +260,11 @@ class EntityQualityFilter:
             is_false_positive = False
             
             # Check noise phrases
-            if entity.name.lower().strip() in self.false_positive_patterns['noise_phrases']:
+            if entity.entity.lower().strip() in self.false_positive_patterns['noise_phrases']:
                 is_false_positive = True
             
             # Check various patterns
-            name_clean = entity.name.strip()
+            name_clean = entity.entity.strip()
             if (self.false_positive_patterns['partial_sentences'].match(name_clean) or
                 self.false_positive_patterns['single_letters'].match(name_clean) or
                 self.false_positive_patterns['number_only'].match(name_clean) or
@@ -293,13 +293,13 @@ class EntityQualityFilter:
         filtered = []
         
         for entity in entities:
-            language_score = self._calculate_language_score(entity.name)
+            language_score = self._calculate_language_score(entity.entity)
             
             if language_score >= self.language_confidence_threshold:
                 filtered.append(entity)
             else:
                 metrics.language_filtered += 1
-                logger.debug(f"Filtered non-English entity: '{entity.name}' (score: {language_score:.3f})")
+                logger.debug(f"Filtered non-English entity: '{entity.entity}' (score: {language_score:.3f})")
         
         return filtered
     
@@ -379,15 +379,10 @@ class EntityQualityFilter:
             
             # Create enhanced entity
             enhanced_entity = Entity(
-                name=entity.name,
+                entity=entity.entity,
                 type=entity.type,
                 confidence=new_confidence,
-                properties={
-                    **(entity.properties or {}),
-                    'quality_score': quality_score.final_score,
-                    'original_confidence': original_confidence,
-                    'quality_flags': quality_score.quality_flags
-                }
+                source=entity.source
             )
             
             enhanced_entities.append(enhanced_entity)
@@ -398,7 +393,7 @@ class EntityQualityFilter:
         """Calculate comprehensive quality score for an entity."""
         
         # 1. Language score
-        language_score = self._calculate_language_score(entity.name)
+        language_score = self._calculate_language_score(entity.entity)
         
         # 2. Context relevance score
         context_score = self._calculate_context_relevance(entity, context_text) if context_text else 0.7
@@ -453,7 +448,7 @@ class EntityQualityFilter:
         if not context_text:
             return 0.7  # Default neutral score
         
-        entity_name_lower = entity.name.lower()
+        entity_name_lower = entity.entity.lower()
         context_lower = context_text.lower()
         
         # Count occurrences
@@ -490,7 +485,7 @@ class EntityQualityFilter:
     def _calculate_type_consistency(self, entity: Entity) -> float:
         """Calculate how consistent the entity type is with the entity name."""
         entity_type = entity.type.upper()
-        entity_name_lower = entity.name.lower()
+        entity_name_lower = entity.entity.lower()
         
         if entity_type in self.type_validation:
             type_config = self.type_validation[entity_type]
@@ -506,7 +501,7 @@ class EntityQualityFilter:
                             positive_score += 0.3
                 
                 # Name pattern matching
-                if type_config['positive_indicators']['name_patterns'].match(entity.name):
+                if type_config['positive_indicators']['name_patterns'].match(entity.entity):
                     positive_score += 0.4
             
             # Organization suffix matching
@@ -528,7 +523,7 @@ class EntityQualityFilter:
     
     def _calculate_semantic_relevance(self, entity: Entity) -> float:
         """Calculate semantic relevance score based on entity characteristics."""
-        name = entity.name.strip()
+        name = entity.entity.strip()
         
         # Length-based scoring
         length_score = 1.0
@@ -574,14 +569,10 @@ class EntityQualityFilter:
             if corrected_type != entity.type:
                 metrics.type_corrections += 1
                 corrected_entity = Entity(
-                    name=entity.name,
+                    entity=entity.entity,
                     type=corrected_type,
                     confidence=entity.confidence,
-                    properties={
-                        **(entity.properties or {}),
-                        'original_type': entity.type,
-                        'type_corrected': True
-                    }
+                    source=entity.source
                 )
                 corrected_entities.append(corrected_entity)
             else:
@@ -591,7 +582,7 @@ class EntityQualityFilter:
     
     def _suggest_type_correction(self, entity: Entity) -> str:
         """Suggest type correction based on entity name patterns."""
-        name_lower = entity.name.lower()
+        name_lower = entity.entity.lower()
         
         # Person indicators
         person_indicators = ['mr', 'mrs', 'ms', 'dr', 'prof', 'president', 'senator', 'general', 'admiral']
@@ -615,7 +606,7 @@ class EntityQualityFilter:
         corrected_entities = []
         
         for entity in entities:
-            source = entity.properties.get('source', 'Unknown') if entity.properties else 'Unknown'
+            source = entity.source or 'Unknown'
             
             if source == 'Unknown':
                 # Try to infer source from other properties or patterns
@@ -624,15 +615,11 @@ class EntityQualityFilter:
                 if corrected_source != 'Unknown':
                     metrics.source_corrections += 1
                     
-                corrected_properties = entity.properties or {}
-                corrected_properties['source'] = corrected_source
-                corrected_properties['source_corrected'] = True
-                
                 corrected_entity = Entity(
-                    name=entity.name,
+                    entity=entity.entity,
                     type=entity.type,
                     confidence=entity.confidence,
-                    properties=corrected_properties
+                    source=corrected_source
                 )
                 corrected_entities.append(corrected_entity)
             else:
@@ -647,7 +634,7 @@ class EntityQualityFilter:
             return 'SpaCy'  # SpaCy commonly uses 0.85
         
         # Check name patterns
-        if re.match(r'^[A-Z][a-z]+(?:\s+[A-Z][a-z]+)*$', entity.name):
+        if re.match(r'^[A-Z][a-z]+(?:\s+[A-Z][a-z]+)*$', entity.entity):
             return 'GLiNER'  # GLiNER good at proper nouns
         
         # Default inference
@@ -697,5 +684,5 @@ class EntityQualityFilter:
         if not entities:
             return 1.0
         
-        english_scores = [self._calculate_language_score(entity.name) for entity in entities]
+        english_scores = [self._calculate_language_score(entity.entity) for entity in entities]
         return sum(english_scores) / len(english_scores) 

@@ -1,0 +1,7 @@
+name,type,confidence,source,extraction_methods,aliases,is_normalized
+Ding,PERSON,0.71,Unknown,Unknown,,False
+Decades,DATE,0.74,Unknown,Unknown,,False
+Uber,COMPANY,0.95,Unknown,Unknown,,False
+Mick Jagger,PERSON,0.71,Unknown,Unknown,,False
+Fed,ORGANIZATION,0.95,Unknown,Unknown,,False
+Over $50 Million,MONEY,0.78,Unknown,Unknown,,False

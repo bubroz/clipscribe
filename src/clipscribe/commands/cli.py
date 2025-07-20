@@ -337,14 +337,23 @@ def _display_results(console, result):
     results_table.add_column("Property", style="cyan")
     results_table.add_column("Value", style="white")
     
-    results_table.add_row("Video Title", result.metadata.title)
+    if result.metadata and result.metadata.title:
+        results_table.add_row("Video Title", result.metadata.title)
+    else:
+        results_table.add_row("Video Title", "Unknown")
     
-    minutes = int(result.metadata.duration // 60)
-    seconds = int(result.metadata.duration % 60)
-    results_table.add_row("Duration", f"{minutes}:{seconds:02d}")
+    if result.metadata and result.metadata.duration:
+        minutes = int(result.metadata.duration // 60)
+        seconds = int(result.metadata.duration % 60)
+        results_table.add_row("Duration", f"{minutes}:{seconds:02d}")
+    else:
+        results_table.add_row("Duration", "Unknown")
     
-    platform = result.metadata.url.split('/')[2].replace('www.', '').capitalize()
-    results_table.add_row("Platform", platform)
+    if result.metadata and result.metadata.url:
+        platform = result.metadata.url.split('/')[2].replace('www.', '').capitalize()
+        results_table.add_row("Platform", platform)
+    else:
+        results_table.add_row("Platform", "Unknown")
     
     if result.transcript:
         results_table.add_row("Transcript Length", f"{len(result.transcript.full_text)} chars")

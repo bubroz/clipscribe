@@ -1,0 +1,8 @@
+name,type,confidence,source,timestamp
+Xi,PERSON,0.95,,
+the April,DATE,0.74,,
+Trump,PERSON,0.7100000000000001,,
+The First Quarter,DATE,0.91,,
+May,DATE,0.95,,
+Number one,CARDINAL,0.95,,
+This Morning,TIME,0.72,,

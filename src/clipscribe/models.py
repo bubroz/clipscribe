@@ -96,11 +96,13 @@ class VideoTranscript(BaseModel):
     segments: List[Dict[str, Any]]
     language: Optional[str] = None
     raw_transcript: Optional[Any] = None
+    confidence: Optional[float] = Field(default=0.9, description="Confidence in transcript accuracy")
 
 
 class VideoMetadata(BaseModel):
     """YouTube video metadata."""
     video_id: str
+    url: Optional[str] = None
     title: Optional[str] = None
     channel: str
     channel_id: str
@@ -144,10 +146,16 @@ class VideoIntelligence(BaseModel):
         default_factory=list, description="List of extracted relationships."
     )
     key_points: List["KeyPoint"] = Field(default_factory=list)
+    topics: List[Topic] = Field(default_factory=list, description="Topics identified in the video")
     summary: str = Field(..., description="Executive summary")
+    sentiment: Optional[float] = Field(default=None, description="Overall sentiment score (-1 to 1)")
     knowledge_graph: Optional[Dict[str, Any]] = None
     dates: List[Dict[str, Any]] = Field(default_factory=list)
     temporal_references: List[TemporalReference] = Field(default_factory=list, description="Resolved temporal references from video content")
+    processing_stats: Dict[str, Any] = Field(default_factory=dict, description="Processing statistics and metadata")
+    processing_cost: float = Field(default=0.0, description="Total processing cost in USD")
+    processing_time: float = Field(default=0.0, description="Total processing time in seconds")
+    timeline_v2: Optional[Dict[str, Any]] = Field(default=None, description="Timeline Intelligence v2.0 data")
     # ... other fields
 
 
@@ -327,6 +335,7 @@ class MultiVideoIntelligence(BaseModel):
     entity_resolution_quality: float = Field(default=0.0, description="Quality of cross-video entity resolution")
     narrative_coherence: float = Field(default=0.0, description="How coherent the narrative is")
     information_completeness: float = Field(default=0.0, description="How complete the information is")
+    consolidated_timeline: Optional[List[Any]] = Field(default=None, description="Consolidated timeline across videos")
 
 
 class SeriesDetectionResult(BaseModel):
@@ -369,10 +378,13 @@ class ConceptMaturityLevel(str, Enum):
     """Maturity levels for concept evolution."""
     MENTIONED = "mentioned"
     INTRODUCED = "introduced"
+    DEFINED = "defined"
     EXPLAINED = "explained"
+    EXPLORED = "explored"
     ANALYZED = "analyzed"
     SYNTHESIZED = "synthesized"
     EVOLVED = "evolved"
+    CRITICIZED = "criticized"
 
 
 class ConceptNode(BaseModel):
@@ -381,16 +393,16 @@ class ConceptNode(BaseModel):
     concept_name: str
     video_id: str
     video_title: str
-    timestamp: int
-    maturity_level: str
-    context: str
-    explanation_depth: float
-    key_points: List[str]
-    related_entities: List[str]
-    sentiment: float
-    confidence: float
-    information_density: float
-    video_sequence_position: int
+    timestamp: int = 0
+    maturity_level: str = ConceptMaturityLevel.MENTIONED
+    context: str = ''
+    explanation_depth: float = 0.0
+    key_points: List[str] = Field(default_factory=list)
+    related_entities: List[str] = Field(default_factory=list)
+    sentiment: float = 0.0
+    confidence: float = 0.0
+    information_density: float = 0.0
+    video_sequence_position: int = 0
 
 class InformationFlow(BaseModel):
     """The flow of information between two concept nodes."""
@@ -420,6 +432,12 @@ class ConceptEvolutionPath(BaseModel):
     final_maturity: str
     progression_steps: List[Dict[str, Any]]
     key_dependencies: List[ConceptDependency]
+    evolution_nodes: List[ConceptNode] = Field(default_factory=list, description="Nodes in this evolution path")
+    evolution_coherence: float = Field(default=0.0, description="Coherence score of the evolution path")
+    completeness_score: float = Field(default=0.0, description="Completeness score of the evolution path")
+    understanding_depth: float = Field(default=0.0, description="Depth of understanding achieved")
+    evolution_summary: Optional[str] = Field(default=None, description="Summary of the evolution")
+    key_transformations: List[str] = Field(default_factory=list, description="Key transformations in the evolution")
 
 class ConceptCluster(BaseModel):
     """A cluster of related concepts."""
@@ -433,6 +451,7 @@ class InformationFlowMap(BaseModel):
     map_id: str
     collection_id: str
     collection_title: str
+    created_at: datetime = Field(default_factory=datetime.now)
     concept_nodes: List[ConceptNode]
     information_flows: List[InformationFlow]
     concept_dependencies: List[ConceptDependency]

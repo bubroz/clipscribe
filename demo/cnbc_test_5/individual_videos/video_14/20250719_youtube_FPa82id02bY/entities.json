@@ -1,0 +1,127 @@
+{
+  "video_url": "https://www.youtube.com/watch?v=FPa82id02bY",
+  "video_title": "5 Things To Know: June 18, 2025",
+  "entities": [
+    {
+      "name": "Trump",
+      "type": "PERSON",
+      "confidence": 0.7100000000000001,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    },
+    {
+      "name": "Brad Lander",
+      "type": "PERSON",
+      "confidence": 0.7100000000000001,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    },
+    {
+      "name": "The Coming Years",
+      "type": "DATE",
+      "confidence": 0.79,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    },
+    {
+      "name": "The Next Decade",
+      "type": "DATE",
+      "confidence": 0.79,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    },
+    {
+      "name": "The Sixth Straight Day",
+      "type": "DATE",
+      "confidence": 0.79,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    },
+    {
+      "name": "Congressional Republicans",
+      "type": "ORGANIZATION",
+      "confidence": 0.8200000000000001,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    },
+    {
+      "name": "Booker",
+      "type": "PERSON",
+      "confidence": 0.7100000000000001,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    },
+    {
+      "name": "the Genius Act",
+      "type": "LAW",
+      "confidence": 0.7100000000000001,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    }
+  ],
+  "topics": [
+    {
+      "name": "Geopolitics",
+      "confidence": 0.85
+    },
+    {
+      "name": "International Relations",
+      "confidence": 0.85
+    },
+    {
+      "name": "US Foreign Policy",
+      "confidence": 0.85
+    },
+    {
+      "name": "Corporate Strategy",
+      "confidence": 0.85
+    },
+    {
+      "name": "Artificial Intelligence",
+      "confidence": 0.85
+    },
+    {
+      "name": "US Domestic Politics",
+      "confidence": 0.85
+    },
+    {
+      "name": "Mayoral Elections",
+      "confidence": 0.85
+    },
+    {
+      "name": "Immigration",
+      "confidence": 0.85
+    },
+    {
+      "name": "Financial Regulation",
+      "confidence": 0.85
+    },
+    {
+      "name": "Cryptocurrency",
+      "confidence": 0.85
+    },
+    {
+      "name": "Economic Policy",
+      "confidence": 0.85
+    },
+    {
+      "name": "Taxation",
+      "confidence": 0.85
+    }
+  ],
+  "key_facts": [
+    "The broadcast highlights five key things to know before today's opening bell.",
+    "Israel and Iran have been trading air strikes for six straight days.",
+    "Current and former Trump administration officials informed NBC News of potential US response options.",
+    "A possible US strike on Iran is among the options being considered by the president.",
+    "Amazon's CEO, Andy Jassy, announced that the company's corporate workforce will shrink in the coming years."
+  ]
+}

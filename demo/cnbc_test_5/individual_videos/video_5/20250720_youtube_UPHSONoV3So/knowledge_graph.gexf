@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gexf xmlns="http://www.gexf.net/1.3" xmlns:viz="http://www.gexf.net/1.3/viz" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://gexf.net/1.3 http://gexf.net/1.3/gexf.xsd" version="1.3">
+  <meta lastmodifieddate="2025-07-20">
+    <creator>ClipScribe</creator>
+    <description>Knowledge graph extracted from video content</description>
+  </meta>
+  <graph mode="static" defaultedgetype="directed">
+    <attributes class="node">
+      <attribute id="0" title="Type" type="string"/>
+      <attribute id="1" title="Confidence" type="double"/>
+    </attributes>
+    <attributes class="edge">
+      <attribute id="0" title="Predicate" type="string"/>
+      <attribute id="1" title="Confidence" type="double"/>
+    </attributes>
+    <nodes>
+      <node id="Boeing" label="Boeing">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.95"/>
+        </attvalues>
+        <viz:color hex="#4ECDC4" a="1.0"/>
+        <viz:size value="48.5"/>
+      </node>
+      <node id="The End Of The" label="The End Of The">
+        <attvalues>
+          <attvalue for="0" value="DATE"/>
+          <attvalue for="1" value="0.79"/>
+        </attvalues>
+        <viz:color hex="#F39C12" a="1.0"/>
+        <viz:size value="43.7"/>
+      </node>
+      <node id="Up To $10 Billion" label="Up To $10 Billion">
+        <attvalues>
+          <attvalue for="0" value="MONEY"/>
+          <attvalue for="1" value="0.78"/>
+        </attvalues>
+        <viz:color hex="#85C1E2" a="1.0"/>
+        <viz:size value="43.400000000000006"/>
+      </node>
+      <node id="Early This Morning" label="Early This Morning">
+        <attvalues>
+          <attvalue for="0" value="TIME"/>
+          <attvalue for="1" value="0.77"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="43.1"/>
+      </node>
+      <node id="December of 2023" label="December of 2023">
+        <attvalues>
+          <attvalue for="0" value="DATE"/>
+          <attvalue for="1" value="0.79"/>
+        </attvalues>
+        <viz:color hex="#F39C12" a="1.0"/>
+        <viz:size value="43.7"/>
+      </node>
+    </nodes>
+    <edges>
+    </edges>
+  </graph>
+</gexf>

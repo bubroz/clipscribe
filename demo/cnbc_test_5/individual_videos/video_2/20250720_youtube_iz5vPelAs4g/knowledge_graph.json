@@ -1,0 +1,39 @@
+{
+  "nodes": [
+    {
+      "id": "This Year",
+      "type": "DATE",
+      "confidence": 0.74
+    },
+    {
+      "id": "Trump",
+      "type": "PERSON",
+      "confidence": 0.7100000000000001
+    },
+    {
+      "id": "The Justice Department",
+      "type": "ORGANIZATION",
+      "confidence": 0.7100000000000001
+    },
+    {
+      "id": "Corporation for Public Broadcasting",
+      "type": "ORGANIZATION",
+      "confidence": 0.7100000000000001
+    },
+    {
+      "id": "Republicans",
+      "type": "GROUP",
+      "confidence": 0.95
+    },
+    {
+      "id": "The Wall Street Journal",
+      "type": "LOCATION",
+      "confidence": 0.7100000000000001
+    }
+  ],
+  "edges": [],
+  "node_count": 6,
+  "edge_count": 0,
+  "connected_components": 6,
+  "density": 0
+}

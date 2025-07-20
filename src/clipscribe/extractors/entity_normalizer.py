@@ -98,20 +98,20 @@ class EntityNormalizer:
         
         for entity in entities:
             # Skip empty or very short names
-            if not entity.name or len(entity.name.strip()) < 2:
+            if not entity.entity or len(entity.entity.strip()) < 2:
                 continue
                 
             # Clean the name
-            clean_name = self._clean_name(entity.name)
+            clean_name = self._clean_name(entity.entity)
             if not clean_name:
                 continue
                 
             # Create cleaned entity
             cleaned_entity = Entity(
-                name=clean_name,
+                entity=clean_name,
                 type=entity.type.upper(),  # Standardize type case
                 confidence=entity.confidence,
-                properties=entity.properties or {}
+                source=entity.source
             )
             cleaned.append(cleaned_entity)
             
@@ -171,7 +171,7 @@ class EntityNormalizer:
             return False
             
         # Check name similarity
-        return self._similar_names(entity1.name, entity2.name)
+        return self._similar_names(entity1.entity, entity2.entity)
         
     def _compatible_types(self, type1: str, type2: str) -> bool:
         """Check if two entity types are compatible using hierarchical mapping."""
@@ -484,29 +484,23 @@ class EntityNormalizer:
         canonical = group[0]
         
         # Choose the best name (usually the longest, most complete one)
-        best_name = self._choose_best_name([e.name for e in group])
-        canonical.name = best_name
+        best_name = self._choose_best_name([e.entity for e in group])
+        canonical.entity = best_name
         
         # Average the confidence scores
         avg_confidence = sum(e.confidence for e in group) / len(group)
         canonical.confidence = min(avg_confidence, 1.0)
         
-        # Merge properties and track sources
-        merged_properties = canonical.properties or {}
+        # Track sources
         sources = set()
         
         for entity in group:
-            if entity.properties:
-                merged_properties.update(entity.properties)
-                if 'source' in entity.properties:
-                    sources.add(entity.properties['source'])
+            if entity.source:
+                sources.add(entity.source)
                     
-        # Track all sources that found this entity
+        # Update source to include all sources
         if sources:
-            merged_properties['sources'] = list(sources)
-            merged_properties['source'] = '+'.join(sorted(sources))  # For backward compatibility
-            
-        canonical.properties = merged_properties
+            canonical.source = '+'.join(sorted(sources))
         
         return canonical
         
@@ -558,17 +552,17 @@ class EntityNormalizer:
                 continue
                 
             # Skip very short names (likely noise)
-            if len(entity.name) < 2:
+            if len(entity.entity) < 2:
                 continue
                 
             # Skip common stop words that got through
-            if entity.name.lower() in {'the', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for', 'of', 'with', 'by'}:
+            if entity.entity.lower() in {'the', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for', 'of', 'with', 'by'}:
                 continue
                 
             valid_entities.append(entity)
             
         # Sort by confidence, then by name
-        valid_entities.sort(key=lambda e: (-e.confidence, e.name.lower()))
+        valid_entities.sort(key=lambda e: (-e.confidence, e.entity.lower()))
         
         return valid_entities
         
@@ -581,10 +575,10 @@ class EntityNormalizer:
         
         for group in groups:
             if len(group) > 1:
-                canonical_name = self._choose_best_name([e.name for e in group])
+                canonical_name = self._choose_best_name([e.entity for e in group])
                 for entity in group:
-                    if entity.name != canonical_name:
-                        aliases[canonical_name].append(entity.name)
+                    if entity.entity != canonical_name:
+                        aliases[canonical_name].append(entity.entity)
                         
         return dict(aliases)
         
@@ -594,7 +588,7 @@ class EntityNormalizer:
         
         # Add the canonical names
         for entity in entities:
-            lookup[entity.name.lower()] = entity.name
+            lookup[entity.entity.lower()] = entity.entity
             
         # Add aliases
         aliases = self.get_entity_aliases(entities)

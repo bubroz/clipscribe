@@ -1,0 +1,4491 @@
+{
+  "collection_id": "collection_1753031275_20",
+  "collection_type": "custom_collection",
+  "collection_title": "cnbc-test-5",
+  "created_at": "2025-07-20T10:07:55.793254",
+  "video_ids": [
+    "tRvZty3Ub4g",
+    "iz5vPelAs4g",
+    "sSo_8Q1V3yU",
+    "Mz3K4UmdgmA",
+    "UPHSONoV3So",
+    "_0hrAR1NeIk",
+    "lHc9xeM0lQk",
+    "HcAQBfKLMjA",
+    "OMPgdeIhpsw",
+    "Am1Of0F9YxE",
+    "8cgHKnQVMgM",
+    "_7Fw86mfCUk",
+    "10zFSNRcyFM",
+    "FPa82id02bY",
+    "u2tHfa8X-sg",
+    "xX4AoirekqI",
+    "Nkx1Q6mAIxc",
+    "itYisy19Cmc",
+    "EMX1oO-RpnM",
+    "krTpPSI4Rqc"
+  ],
+  "videos": [],
+  "series_metadata": null,
+  "narrative_flow": [],
+  "unified_entities": [
+    {
+      "name": "Federal Reserve",
+      "type": "ORGANIZATION",
+      "canonical_name": "Federal Reserve",
+      "aliases": [],
+      "video_appearances": [
+        "tRvZty3Ub4g"
+      ],
+      "aggregated_confidence": 0.95,
+      "first_mentioned": null,
+      "last_mentioned": null,
+      "mention_count": 1,
+      "properties": {},
+      "source_videos": []
+    },
+    {
+      "name": "8 And A Half%",
+      "type": "PERCENTAGE",
+      "canonical_name": "8 And A Half%",
+      "aliases": [],
+      "video_appearances": [
+        "tRvZty3Ub4g"
+      ],
+      "aggregated_confidence": 0.7100000000000001,
+      "first_mentioned": null,
+      "last_mentioned": null,
+      "mention_count": 1,
+      "properties": {},
+      "source_videos": []
+    },
+    {
+      "name": "Trump",
+      "type": "PERSON",
+      "canonical_name": "Trump",
+      "aliases": [],
+      "video_appearances": [
+        "iz5vPelAs4g",
+        "Mz3K4UmdgmA",
+        "_0hrAR1NeIk",
+        "HcAQBfKLMjA",
+        "OMPgdeIhpsw",
+        "8cgHKnQVMgM",
+        "_7Fw86mfCUk",
+        "10zFSNRcyFM",
+        "FPa82id02bY",
+        "u2tHfa8X-sg",
+        "Nkx1Q6mAIxc",
+        "itYisy19Cmc",
+        "EMX1oO-RpnM"
+      ],
+      "aggregated_confidence": 0.7100000000000001,
+      "first_mentioned": null,
+      "last_mentioned": null,
+      "mention_count": 1,
+      "properties": {},
+      "source_videos": []
+    },
+    {
+      "name": "Corporation for Public Broadcasting",
+      "type": "ORGANIZATION",
+      "canonical_name": "Corporation for Public Broadcasting",
+      "aliases": [],
+      "video_appearances": [
+        "iz5vPelAs4g",
+        "xX4AoirekqI"
+      ],
+      "aggregated_confidence": 0.7100000000000001,
+      "first_mentioned": null,
+      "last_mentioned": null,
+      "mention_count": 1,
+      "properties": {},
+      "source_videos": []
+    },
+    {
+      "name": "Republicans",
+      "type": "GROUP",
+      "canonical_name": "Republicans",
+      "aliases": [],
+      "video_appearances": [
+        "iz5vPelAs4g",
+        "_0hrAR1NeIk"
+      ],
+      "aggregated_confidence": 0.95,
+      "first_mentioned": null,
+      "last_mentioned": null,
+      "mention_count": 1,
+      "properties": {},
+      "source_videos": []
+    },
+    {
+      "name": "The Wall Street Journal",
+      "type": "LOCATION",
+      "canonical_name": "The Wall Street Journal",
+      "aliases": [],
+      "video_appearances": [
+        "iz5vPelAs4g",
+        "krTpPSI4Rqc"
+      ],
+      "aggregated_confidence": 0.7100000000000001,
+      "first_mentioned": null,
+      "last_mentioned": null,
+      "mention_count": 1,
+      "properties": {},
+      "source_videos": []
+    },
+    {
+      "name": "This Week",
+      "type": "DATE",
+      "canonical_name": "This Week",
+      "aliases": [],
+      "video_appearances": [
+        "sSo_8Q1V3yU",
+        "krTpPSI4Rqc"
+      ],
+      "aggregated_confidence": 0.74,
+      "first_mentioned": null,
+      "last_mentioned": null,
+      "mention_count": 1,
+      "properties": {},
+      "source_videos": []
+    },
+    {
+      "name": "United States",
+      "type": "LOCATION",
+      "canonical_name": "United States",
+      "aliases": [],
+      "video_appearances": [
+        "sSo_8Q1V3yU"
+      ],
+      "aggregated_confidence": 0.95,
+      "first_mentioned": null,
+      "last_mentioned": null,
+      "mention_count": 1,
+      "properties": {},
+      "source_videos": []
+    },
+    {
+      "name": "Early This Morning",
+      "type": "TIME",
+      "canonical_name": "Early This Morning",
+      "aliases": [],
+      "video_appearances": [
+        "UPHSONoV3So"
+      ],
+      "aggregated_confidence": 0.77,
+      "first_mentioned": null,
+      "last_mentioned": null,
+      "mention_count": 1,
+      "properties": {},
+      "source_videos": []
+    },
+    {
+      "name": "Boeing",
+      "type": "ORGANIZATION",
+      "canonical_name": "Boeing",
+      "aliases": [],
+      "video_appearances": [
+        "UPHSONoV3So",
+        "HcAQBfKLMjA"
+      ],
+      "aggregated_confidence": 0.95,
+      "first_mentioned": null,
+      "last_mentioned": null,
+      "mention_count": 1,
+      "properties": {},
+      "source_videos": []
+    },
+    {
+      "name": "A Third Consecutive Month",
+      "type": "DATE",
+      "canonical_name": "A Third Consecutive Month",
+      "aliases": [],
+      "video_appearances": [
+        "OMPgdeIhpsw"
+      ],
+      "aggregated_confidence": 0.79,
+      "first_mentioned": null,
+      "last_mentioned": null,
+      "mention_count": 1,
+      "properties": {},
+      "source_videos": []
+    },
+    {
+      "name": "The Weekend",
+      "type": "DATE",
+      "canonical_name": "The Weekend",
+      "aliases": [],
+      "video_appearances": [
+        "_7Fw86mfCUk",
+        "krTpPSI4Rqc"
+      ],
+      "aggregated_confidence": 0.74,
+      "first_mentioned": null,
+      "last_mentioned": null,
+      "mention_count": 1,
+      "properties": {},
+      "source_videos": []
+    },
+    {
+      "name": "The Year 2028",
+      "type": "DATE",
+      "canonical_name": "The Year 2028",
+      "aliases": [],
+      "video_appearances": [
+        "u2tHfa8X-sg"
+      ],
+      "aggregated_confidence": 0.79,
+      "first_mentioned": null,
+      "last_mentioned": null,
+      "mention_count": 1,
+      "properties": {},
+      "source_videos": []
+    },
+    {
+      "name": "Friday evening",
+      "type": "DATE",
+      "canonical_name": "Friday evening",
+      "aliases": [],
+      "video_appearances": [
+        "itYisy19Cmc"
+      ],
+      "aggregated_confidence": 0.74,
+      "first_mentioned": null,
+      "last_mentioned": null,
+      "mention_count": 1,
+      "properties": {},
+      "source_videos": []
+    },
+    {
+      "name": "May",
+      "type": "DATE",
+      "canonical_name": "May",
+      "aliases": [],
+      "video_appearances": [
+        "EMX1oO-RpnM"
+      ],
+      "aggregated_confidence": 0.95,
+      "first_mentioned": null,
+      "last_mentioned": null,
+      "mention_count": 1,
+      "properties": {},
+      "source_videos": []
+    }
+  ],
+  "cross_video_relationships": [
+    {
+      "subject": "Trump",
+      "predicate": "co_occurs_with",
+      "object": "Republicans",
+      "confidence": 0.7100000000000001,
+      "video_sources": [
+        "iz5vPelAs4g",
+        "_0hrAR1NeIk"
+      ],
+      "first_mentioned": null,
+      "mention_count": 1,
+      "context_examples": [],
+      "properties": {}
+    }
+  ],
+  "unified_topics": [],
+  "topic_evolution": [],
+  "collection_summary": "Automated summary of CNBC market videos",
+  "key_insights": [
+    "Most frequently mentioned entities: Federal Reserve, 8 And A Half%, Trump, Corporation for Public Broadcasting, Republicans",
+    "Found 1 cross-video relationships",
+    "Collection contains 591 key insights across 20 videos",
+    "Total processing cost: $0.1333"
+  ],
+  "unified_knowledge_graph": {
+    "nodes": [
+      {
+        "id": "Federal Reserve",
+        "label": "Federal Reserve",
+        "type": "ORGANIZATION",
+        "confidence": 0.95,
+        "occurrences": 1
+      },
+      {
+        "id": "8 And A Half%",
+        "label": "8 And A Half%",
+        "type": "PERCENTAGE",
+        "confidence": 0.7100000000000001,
+        "occurrences": 1
+      },
+      {
+        "id": "Trump",
+        "label": "Trump",
+        "type": "PERSON",
+        "confidence": 0.7100000000000001,
+        "occurrences": 13
+      },
+      {
+        "id": "Corporation for Public Broadcasting",
+        "label": "Corporation for Public Broadcasting",
+        "type": "ORGANIZATION",
+        "confidence": 0.7100000000000001,
+        "occurrences": 2
+      },
+      {
+        "id": "Republicans",
+        "label": "Republicans",
+        "type": "GROUP",
+        "confidence": 0.95,
+        "occurrences": 2
+      },
+      {
+        "id": "The Wall Street Journal",
+        "label": "The Wall Street Journal",
+        "type": "LOCATION",
+        "confidence": 0.7100000000000001,
+        "occurrences": 2
+      },
+      {
+        "id": "This Week",
+        "label": "This Week",
+        "type": "DATE",
+        "confidence": 0.74,
+        "occurrences": 2
+      },
+      {
+        "id": "United States",
+        "label": "United States",
+        "type": "LOCATION",
+        "confidence": 0.95,
+        "occurrences": 1
+      },
+      {
+        "id": "Early This Morning",
+        "label": "Early This Morning",
+        "type": "TIME",
+        "confidence": 0.77,
+        "occurrences": 1
+      },
+      {
+        "id": "Boeing",
+        "label": "Boeing",
+        "type": "ORGANIZATION",
+        "confidence": 0.95,
+        "occurrences": 2
+      },
+      {
+        "id": "A Third Consecutive Month",
+        "label": "A Third Consecutive Month",
+        "type": "DATE",
+        "confidence": 0.79,
+        "occurrences": 1
+      },
+      {
+        "id": "The Weekend",
+        "label": "The Weekend",
+        "type": "DATE",
+        "confidence": 0.74,
+        "occurrences": 2
+      },
+      {
+        "id": "The Year 2028",
+        "label": "The Year 2028",
+        "type": "DATE",
+        "confidence": 0.79,
+        "occurrences": 1
+      },
+      {
+        "id": "Friday evening",
+        "label": "Friday evening",
+        "type": "DATE",
+        "confidence": 0.74,
+        "occurrences": 1
+      },
+      {
+        "id": "May",
+        "label": "May",
+        "type": "DATE",
+        "confidence": 0.95,
+        "occurrences": 1
+      }
+    ],
+    "edges": [
+      {
+        "source": "Trump",
+        "target": "Republicans",
+        "label": "co_occurs_with",
+        "confidence": 0.7100000000000001,
+        "type": "cross_video_relationship"
+      },
+      {
+        "source": "Underdog",
+        "target": "instance of",
+        "label": "superhero",
+        "confidence": 0.85,
+        "type": "intra_video",
+        "video_id": "sSo_8Q1V3yU"
+      },
+      {
+        "source": "Constellation Brands",
+        "target": "Madela",
+        "label": "owner of",
+        "confidence": 1.0,
+        "type": "intra_video",
+        "video_id": "lHc9xeM0lQk"
+      },
+      {
+        "source": "Ivanka Trump",
+        "target": "Jared",
+        "label": "spouse",
+        "confidence": 0.8375,
+        "type": "intra_video",
+        "video_id": "Am1Of0F9YxE"
+      },
+      {
+        "source": "Jared",
+        "target": "Ivanka Trump",
+        "label": "spouse",
+        "confidence": 0.8375,
+        "type": "intra_video",
+        "video_id": "Am1Of0F9YxE"
+      },
+      {
+        "source": "Jameson Greer",
+        "target": "position held",
+        "label": "US Trade Representative",
+        "confidence": 0.875,
+        "type": "intra_video",
+        "video_id": "itYisy19Cmc"
+      },
+      {
+        "source": "Lilo and Stitch",
+        "target": "Disney",
+        "label": "production company",
+        "confidence": 0.9,
+        "type": "intra_video",
+        "video_id": "krTpPSI4Rqc"
+      }
+    ],
+    "node_count": 15,
+    "edge_count": 7,
+    "graph_type": "unified_multi_video",
+    "collection_stats": {
+      "videos": 20,
+      "unified_entities": 15,
+      "cross_video_relationships": 1
+    }
+  },
+  "information_flow_map": {
+    "map_id": "flow_map_collection_1753031275_20",
+    "collection_id": "collection_1753031275_20",
+    "collection_title": "cnbc-test-5",
+    "created_at": "2025-07-20T10:07:55.793188",
+    "concept_nodes": [
+      {
+        "node_id": "concept_tRvZty3Ub4g_0.0_0",
+        "concept_name": "Perplexity",
+        "video_id": "tRvZty3Ub4g",
+        "video_title": "5 Things To Know: July 18, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "New investors approached Perplexity after its funding round closed.",
+        "explanation_depth": 0.335,
+        "key_points": [
+          "New investors approached Perplexity after its funding round closed."
+        ],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.9,
+        "information_density": 1.0,
+        "video_sequence_position": 0
+      },
+      {
+        "node_id": "topic_iz5vPelAs4g_Business_News",
+        "concept_name": "Business News",
+        "video_id": "iz5vPelAs4g",
+        "video_title": "5 Things To Know: July 16, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Business News' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 1
+      },
+      {
+        "node_id": "topic_iz5vPelAs4g_Political_Spending",
+        "concept_name": "Political Spending",
+        "video_id": "iz5vPelAs4g",
+        "video_title": "5 Things To Know: July 16, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Political Spending' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 1
+      },
+      {
+        "node_id": "topic_iz5vPelAs4g_Government_Budget",
+        "concept_name": "Government Budget",
+        "video_id": "iz5vPelAs4g",
+        "video_title": "5 Things To Know: July 16, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Government Budget' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 1
+      },
+      {
+        "node_id": "topic_iz5vPelAs4g_Corporate_Finance",
+        "concept_name": "Corporate Finance",
+        "video_id": "iz5vPelAs4g",
+        "video_title": "5 Things To Know: July 16, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Corporate Finance' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 1
+      },
+      {
+        "node_id": "topic_iz5vPelAs4g_Executive_Leadership",
+        "concept_name": "Executive Leadership",
+        "video_id": "iz5vPelAs4g",
+        "video_title": "5 Things To Know: July 16, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Executive Leadership' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 1
+      },
+      {
+        "node_id": "topic_iz5vPelAs4g_Sports_Technology",
+        "concept_name": "Sports Technology",
+        "video_id": "iz5vPelAs4g",
+        "video_title": "5 Things To Know: July 16, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Sports Technology' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 1
+      },
+      {
+        "node_id": "topic_iz5vPelAs4g_Automated_Officiating",
+        "concept_name": "Automated Officiating",
+        "video_id": "iz5vPelAs4g",
+        "video_title": "5 Things To Know: July 16, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "The segment then transitions into a broader debate among the hosts about the merits and drawbacks of automated officiating versus human umpires, citing a controversial incident at Wimbledon this year where an AI system's error significantly impacted a match.",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [
+          "This Year"
+        ],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 1
+      },
+      {
+        "node_id": "topic_iz5vPelAs4g_Public_Broadcasting",
+        "concept_name": "Public Broadcasting",
+        "video_id": "iz5vPelAs4g",
+        "video_title": "5 Things To Know: July 16, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "The proposed measure aims to claw back previously approved funds allocated for foreign aid and for the Corporation for Public Broadcasting, which is responsible for funding public media outlets like PBS and NPR.\n\nIn corporate news, SpaceX, led by Elon Musk, is reportedly planning an insider share sale",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [
+          "Corporation for Public Broadcasting"
+        ],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 1
+      },
+      {
+        "node_id": "concept_sSo_8Q1V3yU_92.0_9",
+        "concept_name": "Crypto, James",
+        "video_id": "sSo_8Q1V3yU",
+        "video_title": "5 Things To Know: July 14, 2025",
+        "timestamp": 92,
+        "maturity_level": "mentioned",
+        "context": "The dog character is Crypto, a mutt modeled after director James Gunn's rescue dog, Ozu.",
+        "explanation_depth": 0.44,
+        "key_points": [
+          "The dog character is Crypto, a mutt modeled after director James Gunn's rescue dog, Ozu."
+        ],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.8,
+        "video_sequence_position": 2
+      },
+      {
+        "node_id": "topic_sSo_8Q1V3yU_Film_Industry",
+        "concept_name": "Film Industry",
+        "video_id": "sSo_8Q1V3yU",
+        "video_title": "5 Things To Know: July 14, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Film Industry' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 2
+      },
+      {
+        "node_id": "topic_sSo_8Q1V3yU_Box_Office_Performance",
+        "concept_name": "Box Office Performance",
+        "video_id": "sSo_8Q1V3yU",
+        "video_title": "5 Things To Know: July 14, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Box Office Performance' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 2
+      },
+      {
+        "node_id": "topic_sSo_8Q1V3yU_E-commerce",
+        "concept_name": "E-commerce",
+        "video_id": "sSo_8Q1V3yU",
+        "video_title": "5 Things To Know: July 14, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "The film's success was partly attributed to the dog character, Crypto, a CGI mutt inspired by director James Gunn's rescue dog, Ozu, which was deemed a 'cute' and potentially impactful element for the movie's appeal.\n\nE-commerce experienced a significant boost from online spending, labeled 'Black Friday in summer,' primarily driven by Amazon's Prime Day",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 2
+      },
+      {
+        "node_id": "topic_sSo_8Q1V3yU_Retail_Spending",
+        "concept_name": "Retail Spending",
+        "video_id": "sSo_8Q1V3yU",
+        "video_title": "5 Things To Know: July 14, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Retail Spending' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 2
+      },
+      {
+        "node_id": "topic_sSo_8Q1V3yU_Technology_Sector",
+        "concept_name": "Technology Sector",
+        "video_id": "sSo_8Q1V3yU",
+        "video_title": "5 Things To Know: July 14, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Technology Sector' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 2
+      },
+      {
+        "node_id": "topic_sSo_8Q1V3yU_Semiconductor_Industry",
+        "concept_name": "Semiconductor Industry",
+        "video_id": "sSo_8Q1V3yU",
+        "video_title": "5 Things To Know: July 14, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Semiconductor Industry' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 2
+      },
+      {
+        "node_id": "topic_sSo_8Q1V3yU_International_Trade",
+        "concept_name": "International Trade",
+        "video_id": "sSo_8Q1V3yU",
+        "video_title": "5 Things To Know: July 14, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'International Trade' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 2
+      },
+      {
+        "node_id": "topic_sSo_8Q1V3yU_Geopolitics",
+        "concept_name": "Geopolitics",
+        "video_id": "sSo_8Q1V3yU",
+        "video_title": "5 Things To Know: July 14, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Geopolitics' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 2
+      },
+      {
+        "node_id": "topic_sSo_8Q1V3yU_Financial_Markets",
+        "concept_name": "Financial Markets",
+        "video_id": "sSo_8Q1V3yU",
+        "video_title": "5 Things To Know: July 14, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Financial Markets' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 2
+      },
+      {
+        "node_id": "topic_sSo_8Q1V3yU_Private_Credit",
+        "concept_name": "Private Credit",
+        "video_id": "sSo_8Q1V3yU",
+        "video_title": "5 Things To Know: July 14, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Jamie Dimon of J.P. Morgan issued a warning about the dangers of private credit.",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 2
+      },
+      {
+        "node_id": "topic_sSo_8Q1V3yU_Banking",
+        "concept_name": "Banking",
+        "video_id": "sSo_8Q1V3yU",
+        "video_title": "5 Things To Know: July 14, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Banking' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 2
+      },
+      {
+        "node_id": "topic_sSo_8Q1V3yU_Corporate_Strategy",
+        "concept_name": "Corporate Strategy",
+        "video_id": "sSo_8Q1V3yU",
+        "video_title": "5 Things To Know: July 14, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Corporate Strategy' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 2
+      },
+      {
+        "node_id": "topic_Mz3K4UmdgmA_International_Trade",
+        "concept_name": "International Trade",
+        "video_id": "Mz3K4UmdgmA",
+        "video_title": "5 Things To Know: July 11, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'International Trade' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 3
+      },
+      {
+        "node_id": "topic_Mz3K4UmdgmA_US_Politics",
+        "concept_name": "US Politics",
+        "video_id": "Mz3K4UmdgmA",
+        "video_title": "5 Things To Know: July 11, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'US Politics' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 3
+      },
+      {
+        "node_id": "topic_Mz3K4UmdgmA_Technology_Deals",
+        "concept_name": "Technology Deals",
+        "video_id": "Mz3K4UmdgmA",
+        "video_title": "5 Things To Know: July 11, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Technology Deals' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 3
+      },
+      {
+        "node_id": "topic_Mz3K4UmdgmA_Cloud_Computing",
+        "concept_name": "Cloud Computing",
+        "video_id": "Mz3K4UmdgmA",
+        "video_title": "5 Things To Know: July 11, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Domestically, Google is reportedly close to finalizing a deal to provide cloud computing services to the US government at a heavily discounted rate, a week after Oracle secured a similar agreement.\n\nLooking ahead, Apple is preparing for a major product launch in the first half of 2026, which is expected to include a new low-end iPhone, several iPads, and updated Mac computers, according to a Bloomberg report",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 3
+      },
+      {
+        "node_id": "topic_Mz3K4UmdgmA_Consumer_Electronics",
+        "concept_name": "Consumer Electronics",
+        "video_id": "Mz3K4UmdgmA",
+        "video_title": "5 Things To Know: July 11, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Consumer Electronics' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 3
+      },
+      {
+        "node_id": "topic_Mz3K4UmdgmA_Sports_Betting",
+        "concept_name": "Sports Betting",
+        "video_id": "Mz3K4UmdgmA",
+        "video_title": "5 Things To Know: July 11, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Finally, in the sports betting industry, Flutter Entertainment is set to gain full ownership of FanDuel by acquiring Boyd Gaming's remaining 5% stake for $1.76 billion, valuing FanDuel at an impressive $31 billion",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 3
+      },
+      {
+        "node_id": "topic_Mz3K4UmdgmA_Corporate_Acquisitions",
+        "concept_name": "Corporate Acquisitions",
+        "video_id": "Mz3K4UmdgmA",
+        "video_title": "5 Things To Know: July 11, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Corporate Acquisitions' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 3
+      },
+      {
+        "node_id": "topic_UPHSONoV3So_Business_News",
+        "concept_name": "Business News",
+        "video_id": "UPHSONoV3So",
+        "video_title": "5 Things To Know: July 9, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Business News' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 4
+      },
+      {
+        "node_id": "topic_UPHSONoV3So_Corporate_Finance",
+        "concept_name": "Corporate Finance",
+        "video_id": "UPHSONoV3So",
+        "video_title": "5 Things To Know: July 9, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Corporate Finance' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 4
+      },
+      {
+        "node_id": "topic_UPHSONoV3So_Aerospace_Industry",
+        "concept_name": "Aerospace Industry",
+        "video_id": "UPHSONoV3So",
+        "video_title": "5 Things To Know: July 9, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Aerospace Industry' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 4
+      },
+      {
+        "node_id": "topic_UPHSONoV3So_Travel_Security",
+        "concept_name": "Travel Security",
+        "video_id": "UPHSONoV3So",
+        "video_title": "5 Things To Know: July 9, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Concurrently, a notable change in travel security policy was confirmed yesterday by the Transportation Security Administration (TSA), which will now permit many travelers to keep their shoes on at U.S",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 4
+      },
+      {
+        "node_id": "topic_UPHSONoV3So_Labor_Relations",
+        "concept_name": "Labor Relations",
+        "video_id": "UPHSONoV3So",
+        "video_title": "5 Things To Know: July 9, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Labor Relations' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 4
+      },
+      {
+        "node_id": "topic_UPHSONoV3So_Technology",
+        "concept_name": "Technology",
+        "video_id": "UPHSONoV3So",
+        "video_title": "5 Things To Know: July 9, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Homeland Security Secretary Christie Noam attributed the cessation of the two-decade-old rule to advancements in screening technology.\n\nFinally, the city of Philadelphia and its largest municipal union have reached a tentative agreement early this morning, aimed at concluding a labor strike that has disrupted garbage collection since July 1st",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [
+          "Early This Morning"
+        ],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 4
+      },
+      {
+        "node_id": "topic_UPHSONoV3So_Supply_Chain",
+        "concept_name": "Supply Chain",
+        "video_id": "UPHSONoV3So",
+        "video_title": "5 Things To Know: July 9, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Supply Chain' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 4
+      },
+      {
+        "node_id": "topic__0hrAR1NeIk_US_Trade_Policy",
+        "concept_name": "US Trade Policy",
+        "video_id": "_0hrAR1NeIk",
+        "video_title": "5 Things To Know: July 7, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'US Trade Policy' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 5
+      },
+      {
+        "node_id": "topic__0hrAR1NeIk_International_Diplomacy",
+        "concept_name": "International Diplomacy",
+        "video_id": "_0hrAR1NeIk",
+        "video_title": "5 Things To Know: July 7, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "The briefing outlines five key developments ahead of the day's opening bell, focusing primarily on US economic policy, international diplomacy, and domestic political shifts",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 5
+      },
+      {
+        "node_id": "topic__0hrAR1NeIk_US_Politics",
+        "concept_name": "US Politics",
+        "video_id": "_0hrAR1NeIk",
+        "video_title": "5 Things To Know: July 7, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'US Politics' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 5
+      },
+      {
+        "node_id": "topic__0hrAR1NeIk_Technology_and_Government",
+        "concept_name": "Technology and Government",
+        "video_id": "_0hrAR1NeIk",
+        "video_title": "5 Things To Know: July 7, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Technology and Government' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 5
+      },
+      {
+        "node_id": "topic__0hrAR1NeIk_Tariffs",
+        "concept_name": "Tariffs",
+        "video_id": "_0hrAR1NeIk",
+        "video_title": "5 Things To Know: July 7, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "This follows Treasury Secretary Scott Bason's statement yesterday, warning that tariffs would revert to April's higher rates if countries fail to finalize trade deals by an August 1st deadline, with Secretary Bason slated for a live interview to discuss these developments further.\n\nIn international affairs, President Trump is scheduled to meet with Israeli Prime Minister Benjamin Netanyahu at the White House today",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [
+          "Trump"
+        ],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 5
+      },
+      {
+        "node_id": "topic__0hrAR1NeIk_Ceasefire_Talks",
+        "concept_name": "Ceasefire Talks",
+        "video_id": "_0hrAR1NeIk",
+        "video_title": "5 Things To Know: July 7, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "This high-level meeting occurs against the backdrop of recently concluded ceasefire talks between Israel and Hamas, which ended this morning without achieving a breakthrough, highlighting ongoing tensions in the region.\n\nDomestically, the technology sector is seeing shifts as Oracle has offered the US government significant discounts: a 75% reduction on its licensed-based software and substantial savings on its cloud services, valid until the end of November",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [
+          "This Morning",
+          "the end of November"
+        ],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 5
+      },
+      {
+        "node_id": "topic__0hrAR1NeIk_Congressional_Resignations",
+        "concept_name": "Congressional Resignations",
+        "video_id": "_0hrAR1NeIk",
+        "video_title": "5 Things To Know: July 7, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Congressional Resignations' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 5
+      },
+      {
+        "node_id": "topic_lHc9xeM0lQk_Market_Outlook",
+        "concept_name": "Market Outlook",
+        "video_id": "lHc9xeM0lQk",
+        "video_title": "5 Things To Know: July 2, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Market Outlook' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 6
+      },
+      {
+        "node_id": "topic_lHc9xeM0lQk_Economic_Indicators",
+        "concept_name": "Economic Indicators",
+        "video_id": "lHc9xeM0lQk",
+        "video_title": "5 Things To Know: July 2, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Economic Indicators' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 6
+      },
+      {
+        "node_id": "topic_lHc9xeM0lQk_Corporate_Earnings",
+        "concept_name": "Corporate Earnings",
+        "video_id": "lHc9xeM0lQk",
+        "video_title": "5 Things To Know: July 2, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Corporate Earnings' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 6
+      },
+      {
+        "node_id": "topic_lHc9xeM0lQk_Automotive_Industry",
+        "concept_name": "Automotive Industry",
+        "video_id": "lHc9xeM0lQk",
+        "video_title": "5 Things To Know: July 2, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Automotive Industry' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 6
+      },
+      {
+        "node_id": "topic_lHc9xeM0lQk_Healthcare_Industry",
+        "concept_name": "Healthcare Industry",
+        "video_id": "lHc9xeM0lQk",
+        "video_title": "5 Things To Know: July 2, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Healthcare Industry' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 6
+      },
+      {
+        "node_id": "topic_lHc9xeM0lQk_Beverage_Industry",
+        "concept_name": "Beverage Industry",
+        "video_id": "lHc9xeM0lQk",
+        "video_title": "5 Things To Know: July 2, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Beverage Industry' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 6
+      },
+      {
+        "node_id": "topic_lHc9xeM0lQk_Media_&_Entertainment",
+        "concept_name": "Media & Entertainment",
+        "video_id": "lHc9xeM0lQk",
+        "video_title": "5 Things To Know: July 2, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Media & Entertainment' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 6
+      },
+      {
+        "node_id": "topic_lHc9xeM0lQk_Technology_Partnerships",
+        "concept_name": "Technology Partnerships",
+        "video_id": "lHc9xeM0lQk",
+        "video_title": "5 Things To Know: July 2, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Technology Partnerships' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 6
+      },
+      {
+        "node_id": "topic_HcAQBfKLMjA_Financial_Services_Regulation",
+        "concept_name": "Financial Services Regulation",
+        "video_id": "HcAQBfKLMjA",
+        "video_title": "5 Things To Know: July 1, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Financial Services Regulation' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 7
+      },
+      {
+        "node_id": "topic_HcAQBfKLMjA_Cryptocurrency_and_Blockchain",
+        "concept_name": "Cryptocurrency and Blockchain",
+        "video_id": "HcAQBfKLMjA",
+        "video_title": "5 Things To Know: July 1, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Cryptocurrency and Blockchain' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 7
+      },
+      {
+        "node_id": "topic_HcAQBfKLMjA_Corporate_Management_Changes",
+        "concept_name": "Corporate Management Changes",
+        "video_id": "HcAQBfKLMjA",
+        "video_title": "5 Things To Know: July 1, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Corporate Management Changes' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 7
+      },
+      {
+        "node_id": "topic_HcAQBfKLMjA_Stock_Market_Trends",
+        "concept_name": "Stock Market Trends",
+        "video_id": "HcAQBfKLMjA",
+        "video_title": "5 Things To Know: July 1, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Stock Market Trends' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 7
+      },
+      {
+        "node_id": "topic_HcAQBfKLMjA_Digital_Asset_Offerings",
+        "concept_name": "Digital Asset Offerings",
+        "video_id": "HcAQBfKLMjA",
+        "video_title": "5 Things To Know: July 1, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Digital Asset Offerings' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 7
+      },
+      {
+        "node_id": "topic_HcAQBfKLMjA_Space_Exploration",
+        "concept_name": "Space Exploration",
+        "video_id": "HcAQBfKLMjA",
+        "video_title": "5 Things To Know: July 1, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Space Exploration' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 7
+      },
+      {
+        "node_id": "topic_HcAQBfKLMjA_Media_Partnerships",
+        "concept_name": "Media Partnerships",
+        "video_id": "HcAQBfKLMjA",
+        "video_title": "5 Things To Know: July 1, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Media Partnerships' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 7
+      },
+      {
+        "node_id": "topic_HcAQBfKLMjA_Legal_Disputes",
+        "concept_name": "Legal Disputes",
+        "video_id": "HcAQBfKLMjA",
+        "video_title": "5 Things To Know: July 1, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Legal Disputes' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 7
+      },
+      {
+        "node_id": "topic_HcAQBfKLMjA_Political_Lawsuits",
+        "concept_name": "Political Lawsuits",
+        "video_id": "HcAQBfKLMjA",
+        "video_title": "5 Things To Know: July 1, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Political Lawsuits' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 7
+      },
+      {
+        "node_id": "concept_OMPgdeIhpsw_35.0_60",
+        "concept_name": "Model",
+        "video_id": "OMPgdeIhpsw",
+        "video_title": "5 Things To Know: June 30, 2025",
+        "timestamp": 35,
+        "maturity_level": "mentioned",
+        "context": "Tesla's X account posted a video showing a Model Y driving autonomously on public roads.",
+        "explanation_depth": 0.44,
+        "key_points": [
+          "Tesla's X account posted a video showing a Model Y driving autonomously on public roads."
+        ],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.6666666666666666,
+        "video_sequence_position": 8
+      },
+      {
+        "node_id": "topic_OMPgdeIhpsw_Global_Economy",
+        "concept_name": "Global Economy",
+        "video_id": "OMPgdeIhpsw",
+        "video_title": "5 Things To Know: June 30, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Global Economy' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 8
+      },
+      {
+        "node_id": "topic_OMPgdeIhpsw_China's_Economy",
+        "concept_name": "China's Economy",
+        "video_id": "OMPgdeIhpsw",
+        "video_title": "5 Things To Know: June 30, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'China's Economy' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 8
+      },
+      {
+        "node_id": "topic_OMPgdeIhpsw_US_Politics",
+        "concept_name": "US Politics",
+        "video_id": "OMPgdeIhpsw",
+        "video_title": "5 Things To Know: June 30, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'US Politics' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 8
+      },
+      {
+        "node_id": "topic_OMPgdeIhpsw_Technology_Acquisitions",
+        "concept_name": "Technology Acquisitions",
+        "video_id": "OMPgdeIhpsw",
+        "video_title": "5 Things To Know: June 30, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Technology Acquisitions' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 8
+      },
+      {
+        "node_id": "topic_OMPgdeIhpsw_Corporate_Law",
+        "concept_name": "Corporate Law",
+        "video_id": "OMPgdeIhpsw",
+        "video_title": "5 Things To Know: June 30, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Corporate Law' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 8
+      },
+      {
+        "node_id": "topic_OMPgdeIhpsw_Automotive_Innovation",
+        "concept_name": "Automotive Innovation",
+        "video_id": "OMPgdeIhpsw",
+        "video_title": "5 Things To Know: June 30, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Automotive Innovation' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 8
+      },
+      {
+        "node_id": "topic_OMPgdeIhpsw_Philanthropy",
+        "concept_name": "Philanthropy",
+        "video_id": "OMPgdeIhpsw",
+        "video_title": "5 Things To Know: June 30, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Philanthropy' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 8
+      },
+      {
+        "node_id": "topic_OMPgdeIhpsw_Business_News",
+        "concept_name": "Business News",
+        "video_id": "OMPgdeIhpsw",
+        "video_title": "5 Things To Know: June 30, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Business News' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 8
+      },
+      {
+        "node_id": "topic_Am1Of0F9YxE_Economic_Forecasts",
+        "concept_name": "Economic Forecasts",
+        "video_id": "Am1Of0F9YxE",
+        "video_title": "5 Things To Know: June 27, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Economic Forecasts' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 9
+      },
+      {
+        "node_id": "topic_Am1Of0F9YxE_Corporate_Management",
+        "concept_name": "Corporate Management",
+        "video_id": "Am1Of0F9YxE",
+        "video_title": "5 Things To Know: June 27, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Corporate Management' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 9
+      },
+      {
+        "node_id": "topic_Am1Of0F9YxE_Technology_Industry",
+        "concept_name": "Technology Industry",
+        "video_id": "Am1Of0F9YxE",
+        "video_title": "5 Things To Know: June 27, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Technology Industry' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 9
+      },
+      {
+        "node_id": "topic_Am1Of0F9YxE_Media_and_Publishing",
+        "concept_name": "Media and Publishing",
+        "video_id": "Am1Of0F9YxE",
+        "video_title": "5 Things To Know: June 27, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Media and Publishing' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 9
+      },
+      {
+        "node_id": "topic_Am1Of0F9YxE_Business_Acquisitions",
+        "concept_name": "Business Acquisitions",
+        "video_id": "Am1Of0F9YxE",
+        "video_title": "5 Things To Know: June 27, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Business Acquisitions' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 9
+      },
+      {
+        "node_id": "topic_Am1Of0F9YxE_Celebrity_Events",
+        "concept_name": "Celebrity Events",
+        "video_id": "Am1Of0F9YxE",
+        "video_title": "5 Things To Know: June 27, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Celebrity Events' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 9
+      },
+      {
+        "node_id": "topic_Am1Of0F9YxE_Inflation_Data",
+        "concept_name": "Inflation Data",
+        "video_id": "Am1Of0F9YxE",
+        "video_title": "5 Things To Know: June 27, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Inflation Data' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 9
+      },
+      {
+        "node_id": "topic_Am1Of0F9YxE_Luxury_Travel",
+        "concept_name": "Luxury Travel",
+        "video_id": "Am1Of0F9YxE",
+        "video_title": "5 Things To Know: June 27, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Luxury Travel' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 9
+      },
+      {
+        "node_id": "topic_8cgHKnQVMgM_Financial_Markets",
+        "concept_name": "Financial Markets",
+        "video_id": "8cgHKnQVMgM",
+        "video_title": "5 Things To Know: June 25, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Financial Markets' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 10
+      },
+      {
+        "node_id": "topic_8cgHKnQVMgM_Legislative_News",
+        "concept_name": "Legislative News",
+        "video_id": "8cgHKnQVMgM",
+        "video_title": "5 Things To Know: June 25, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Legislative News' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 10
+      },
+      {
+        "node_id": "topic_8cgHKnQVMgM_Corporate_Finance",
+        "concept_name": "Corporate Finance",
+        "video_id": "8cgHKnQVMgM",
+        "video_title": "5 Things To Know: June 25, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Furthermore, Bassant predicted that House and Senate Republicans are nearing a deal on the salt deduction cap, expected within the next 24 to 48 hours.\n\nIn corporate finance, Polymarket is reportedly close to securing $200 million in a funding round, which would elevate its valuation to approximately one billion dollars",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [
+          "The Next 24 To 48 Hours",
+          "Republic"
+        ],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 10
+      },
+      {
+        "node_id": "topic_8cgHKnQVMgM_Technology_Sector",
+        "concept_name": "Technology Sector",
+        "video_id": "8cgHKnQVMgM",
+        "video_title": "5 Things To Know: June 25, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Technology Sector' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 10
+      },
+      {
+        "node_id": "topic_8cgHKnQVMgM_Chip_Industry",
+        "concept_name": "Chip Industry",
+        "video_id": "8cgHKnQVMgM",
+        "video_title": "5 Things To Know: June 25, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Chip Industry' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 10
+      },
+      {
+        "node_id": "topic_8cgHKnQVMgM_Investment_Platforms",
+        "concept_name": "Investment Platforms",
+        "video_id": "8cgHKnQVMgM",
+        "video_title": "5 Things To Know: June 25, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Investment Platforms' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 10
+      },
+      {
+        "node_id": "topic_8cgHKnQVMgM_Blockchain_Technology",
+        "concept_name": "Blockchain Technology",
+        "video_id": "8cgHKnQVMgM",
+        "video_title": "5 Things To Know: June 25, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "These tokens, leveraging blockchain technology, are designed to mirror the performance of private shares in companies like SpaceX, aiming to democratize access for investors typically excluded from such opportunities, although this method has yet to be vetted by regulators.\n\nFinally, the chip sector is under the spotlight, with Ambrella, a chip design firm, experiencing a notable stock gain of over 20% yesterday amid reports of a potential sale involving bankers",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 10
+      },
+      {
+        "node_id": "topic_8cgHKnQVMgM_Artificial_Intelligence_(AI)",
+        "concept_name": "Artificial Intelligence (AI)",
+        "video_id": "8cgHKnQVMgM",
+        "video_title": "5 Things To Know: June 25, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Artificial Intelligence (AI)' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 10
+      },
+      {
+        "node_id": "topic_8cgHKnQVMgM_Stock_Market_Trends",
+        "concept_name": "Stock Market Trends",
+        "video_id": "8cgHKnQVMgM",
+        "video_title": "5 Things To Know: June 25, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Stock Market Trends' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 10
+      },
+      {
+        "node_id": "topic__7Fw86mfCUk_Geopolitics",
+        "concept_name": "Geopolitics",
+        "video_id": "_7Fw86mfCUk",
+        "video_title": "5 Things To Know: June 23, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Geopolitics' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 11
+      },
+      {
+        "node_id": "topic__7Fw86mfCUk_Financial_Markets",
+        "concept_name": "Financial Markets",
+        "video_id": "_7Fw86mfCUk",
+        "video_title": "5 Things To Know: June 23, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Financial Markets' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 11
+      },
+      {
+        "node_id": "topic__7Fw86mfCUk_Technology_and_AI",
+        "concept_name": "Technology and AI",
+        "video_id": "_7Fw86mfCUk",
+        "video_title": "5 Things To Know: June 23, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Technology and AI' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 11
+      },
+      {
+        "node_id": "topic__7Fw86mfCUk_Automotive_Industry",
+        "concept_name": "Automotive Industry",
+        "video_id": "_7Fw86mfCUk",
+        "video_title": "5 Things To Know: June 23, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Automotive Industry' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 11
+      },
+      {
+        "node_id": "topic__7Fw86mfCUk_NBA_Basketball",
+        "concept_name": "NBA Basketball",
+        "video_id": "_7Fw86mfCUk",
+        "video_title": "5 Things To Know: June 23, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'NBA Basketball' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 11
+      },
+      {
+        "node_id": "topic__7Fw86mfCUk_Sports_Business",
+        "concept_name": "Sports Business",
+        "video_id": "_7Fw86mfCUk",
+        "video_title": "5 Things To Know: June 23, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Sports Business' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 11
+      },
+      {
+        "node_id": "topic__7Fw86mfCUk_Sports_Injuries",
+        "concept_name": "Sports Injuries",
+        "video_id": "_7Fw86mfCUk",
+        "video_title": "5 Things To Know: June 23, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Sports Injuries' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 11
+      },
+      {
+        "node_id": "topic__7Fw86mfCUk_Sports_Ratings",
+        "concept_name": "Sports Ratings",
+        "video_id": "_7Fw86mfCUk",
+        "video_title": "5 Things To Know: June 23, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Sports Ratings' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 11
+      },
+      {
+        "node_id": "topic_10zFSNRcyFM_Geopolitics",
+        "concept_name": "Geopolitics",
+        "video_id": "10zFSNRcyFM",
+        "video_title": "5 Things To Know: June 20, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "This broadcast from Squad Box 5 provides an overview of various significant developments across geopolitics, technology, and business ahead of the day's opening bell",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 12
+      },
+      {
+        "node_id": "topic_10zFSNRcyFM_International_Relations",
+        "concept_name": "International Relations",
+        "video_id": "10zFSNRcyFM",
+        "video_title": "5 Things To Know: June 20, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'International Relations' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 12
+      },
+      {
+        "node_id": "topic_10zFSNRcyFM_Technology",
+        "concept_name": "Technology",
+        "video_id": "10zFSNRcyFM",
+        "video_title": "5 Things To Know: June 20, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "This broadcast from Squad Box 5 provides an overview of various significant developments across geopolitics, technology, and business ahead of the day's opening bell",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 12
+      },
+      {
+        "node_id": "topic_10zFSNRcyFM_Artificial_Intelligence",
+        "concept_name": "Artificial Intelligence",
+        "video_id": "10zFSNRcyFM",
+        "video_title": "5 Things To Know: June 20, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "This ambitious project aims to focus on the development of robots and artificial intelligence, according to a Bloomberg report",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 12
+      },
+      {
+        "node_id": "topic_10zFSNRcyFM_Robotics",
+        "concept_name": "Robotics",
+        "video_id": "10zFSNRcyFM",
+        "video_title": "5 Things To Know: June 20, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Robotics' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 12
+      },
+      {
+        "node_id": "topic_10zFSNRcyFM_Corporate_Partnerships",
+        "concept_name": "Corporate Partnerships",
+        "video_id": "10zFSNRcyFM",
+        "video_title": "5 Things To Know: June 20, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Corporate Partnerships' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 12
+      },
+      {
+        "node_id": "topic_10zFSNRcyFM_Employment",
+        "concept_name": "Employment",
+        "video_id": "10zFSNRcyFM",
+        "video_title": "5 Things To Know: June 20, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Employment' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 12
+      },
+      {
+        "node_id": "topic_10zFSNRcyFM_Aerospace",
+        "concept_name": "Aerospace",
+        "video_id": "10zFSNRcyFM",
+        "video_title": "5 Things To Know: June 20, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Aerospace' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 12
+      },
+      {
+        "node_id": "topic_10zFSNRcyFM_Space_Exploration",
+        "concept_name": "Space Exploration",
+        "video_id": "10zFSNRcyFM",
+        "video_title": "5 Things To Know: June 20, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Space Exploration' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 12
+      },
+      {
+        "node_id": "topic_10zFSNRcyFM_Business_News",
+        "concept_name": "Business News",
+        "video_id": "10zFSNRcyFM",
+        "video_title": "5 Things To Know: June 20, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Business News' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 12
+      },
+      {
+        "node_id": "topic_FPa82id02bY_Geopolitics",
+        "concept_name": "Geopolitics",
+        "video_id": "FPa82id02bY",
+        "video_title": "5 Things To Know: June 18, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "The transcript covers several significant developments across geopolitics, corporate strategy, and US domestic policy",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 13
+      },
+      {
+        "node_id": "topic_FPa82id02bY_International_Relations",
+        "concept_name": "International Relations",
+        "video_id": "FPa82id02bY",
+        "video_title": "5 Things To Know: June 18, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'International Relations' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 13
+      },
+      {
+        "node_id": "topic_FPa82id02bY_US_Foreign_Policy",
+        "concept_name": "US Foreign Policy",
+        "video_id": "FPa82id02bY",
+        "video_title": "5 Things To Know: June 18, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'US Foreign Policy' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 13
+      },
+      {
+        "node_id": "topic_FPa82id02bY_Corporate_Strategy",
+        "concept_name": "Corporate Strategy",
+        "video_id": "FPa82id02bY",
+        "video_title": "5 Things To Know: June 18, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "The transcript covers several significant developments across geopolitics, corporate strategy, and US domestic policy",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 13
+      },
+      {
+        "node_id": "topic_FPa82id02bY_Artificial_Intelligence",
+        "concept_name": "Artificial Intelligence",
+        "video_id": "FPa82id02bY",
+        "video_title": "5 Things To Know: June 18, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Artificial Intelligence' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 13
+      },
+      {
+        "node_id": "topic_FPa82id02bY_US_Domestic_Politics",
+        "concept_name": "US Domestic Politics",
+        "video_id": "FPa82id02bY",
+        "video_title": "5 Things To Know: June 18, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'US Domestic Politics' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 13
+      },
+      {
+        "node_id": "topic_FPa82id02bY_Mayoral_Elections",
+        "concept_name": "Mayoral Elections",
+        "video_id": "FPa82id02bY",
+        "video_title": "5 Things To Know: June 18, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Mayoral Elections' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 13
+      },
+      {
+        "node_id": "topic_FPa82id02bY_Immigration",
+        "concept_name": "Immigration",
+        "video_id": "FPa82id02bY",
+        "video_title": "5 Things To Know: June 18, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "In New York City politics, Democratic Mayoral candidate Brad Lander gained public attention after being arrested by federal agents at an immigration court in Manhattan",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [
+          "Brad Lander"
+        ],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 13
+      },
+      {
+        "node_id": "topic_FPa82id02bY_Financial_Regulation",
+        "concept_name": "Financial Regulation",
+        "video_id": "FPa82id02bY",
+        "video_title": "5 Things To Know: June 18, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Financial Regulation' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 13
+      },
+      {
+        "node_id": "topic_FPa82id02bY_Cryptocurrency",
+        "concept_name": "Cryptocurrency",
+        "video_id": "FPa82id02bY",
+        "video_title": "5 Things To Know: June 18, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Cryptocurrency' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 13
+      },
+      {
+        "node_id": "topic_FPa82id02bY_Economic_Policy",
+        "concept_name": "Economic Policy",
+        "video_id": "FPa82id02bY",
+        "video_title": "5 Things To Know: June 18, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Economic Policy' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 13
+      },
+      {
+        "node_id": "topic_FPa82id02bY_Taxation",
+        "concept_name": "Taxation",
+        "video_id": "FPa82id02bY",
+        "video_title": "5 Things To Know: June 18, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Taxation' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 13
+      },
+      {
+        "node_id": "topic_u2tHfa8X-sg_International_Relations",
+        "concept_name": "International Relations",
+        "video_id": "u2tHfa8X-sg",
+        "video_title": "5 Things To Know: June 16, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'International Relations' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 14
+      },
+      {
+        "node_id": "topic_u2tHfa8X-sg_Military_Conflict",
+        "concept_name": "Military Conflict",
+        "video_id": "u2tHfa8X-sg",
+        "video_title": "5 Things To Know: June 16, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Military Conflict' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 14
+      },
+      {
+        "node_id": "topic_u2tHfa8X-sg_Cybersecurity",
+        "concept_name": "Cybersecurity",
+        "video_id": "u2tHfa8X-sg",
+        "video_title": "5 Things To Know: June 16, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "In the fashion sector, Kering's shares surged in Europe amid reports of Luca de Meo, current Renault CEO, being appointed as Kering's new CEO, although Kering has not verified this, Renault confirmed de Meo's departure to pursue opportunities outside the automotive industry.\n\nIn technology and cybersecurity news, Taiwan's Commerce Ministry has imposed stricter export controls by adding Chinese chipmakers Huawei and SMIC to its restricted list, necessitating permits for Taiwanese companies to sell products to them",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [
+          "Kering",
+          "Renault"
+        ],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 14
+      },
+      {
+        "node_id": "topic_u2tHfa8X-sg_Business_Acquisitions",
+        "concept_name": "Business Acquisitions",
+        "video_id": "u2tHfa8X-sg",
+        "video_title": "5 Things To Know: June 16, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Business Acquisitions' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 14
+      },
+      {
+        "node_id": "topic_u2tHfa8X-sg_Corporate_Leadership_Changes",
+        "concept_name": "Corporate Leadership Changes",
+        "video_id": "u2tHfa8X-sg",
+        "video_title": "5 Things To Know: June 16, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Corporate Leadership Changes' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 14
+      },
+      {
+        "node_id": "topic_u2tHfa8X-sg_Trade_Policy",
+        "concept_name": "Trade Policy",
+        "video_id": "u2tHfa8X-sg",
+        "video_title": "5 Things To Know: June 16, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Trade Policy' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 14
+      },
+      {
+        "node_id": "topic_u2tHfa8X-sg_Middle_East",
+        "concept_name": "Middle East",
+        "video_id": "u2tHfa8X-sg",
+        "video_title": "5 Things To Know: June 16, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Firstly, in the Middle East, Israel's military has declared aerial superiority over Iran's capital, Tehran, marking the fourth consecutive day of conflict stemming from Israel's initial attacks on Iran's nuclear infrastructure",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 14
+      },
+      {
+        "node_id": "topic_u2tHfa8X-sg_US_Foreign_Policy",
+        "concept_name": "US Foreign Policy",
+        "video_id": "u2tHfa8X-sg",
+        "video_title": "5 Things To Know: June 16, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'US Foreign Policy' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 14
+      },
+      {
+        "node_id": "topic_u2tHfa8X-sg_Technology_Export_Controls",
+        "concept_name": "Technology Export Controls",
+        "video_id": "u2tHfa8X-sg",
+        "video_title": "5 Things To Know: June 16, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Technology Export Controls' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 14
+      },
+      {
+        "node_id": "topic_xX4AoirekqI_International_Relations",
+        "concept_name": "International Relations",
+        "video_id": "xX4AoirekqI",
+        "video_title": "5 Things To Know: June 13, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'International Relations' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 15
+      },
+      {
+        "node_id": "topic_xX4AoirekqI_Military_Actions",
+        "concept_name": "Military Actions",
+        "video_id": "xX4AoirekqI",
+        "video_title": "5 Things To Know: June 13, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Military Actions' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 15
+      },
+      {
+        "node_id": "topic_xX4AoirekqI_Nuclear_Energy",
+        "concept_name": "Nuclear Energy",
+        "video_id": "xX4AoirekqI",
+        "video_title": "5 Things To Know: June 13, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Nuclear Energy' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 15
+      },
+      {
+        "node_id": "topic_xX4AoirekqI_Aviation_Accidents",
+        "concept_name": "Aviation Accidents",
+        "video_id": "xX4AoirekqI",
+        "video_title": "5 Things To Know: June 13, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Aviation Accidents' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 15
+      },
+      {
+        "node_id": "topic_xX4AoirekqI_US_Government_and_Politics",
+        "concept_name": "US Government and Politics",
+        "video_id": "xX4AoirekqI",
+        "video_title": "5 Things To Know: June 13, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'US Government and Politics' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 15
+      },
+      {
+        "node_id": "topic_xX4AoirekqI_Defense_and_National_Security",
+        "concept_name": "Defense and National Security",
+        "video_id": "xX4AoirekqI",
+        "video_title": "5 Things To Know: June 13, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Defense and National Security' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 15
+      },
+      {
+        "node_id": "topic_xX4AoirekqI_Fiscal_Policy",
+        "concept_name": "Fiscal Policy",
+        "video_id": "xX4AoirekqI",
+        "video_title": "5 Things To Know: June 13, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Fiscal Policy' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 15
+      },
+      {
+        "node_id": "topic_xX4AoirekqI_Public_Broadcasting",
+        "concept_name": "Public Broadcasting",
+        "video_id": "xX4AoirekqI",
+        "video_title": "5 Things To Know: June 13, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Furthermore, the House of Representatives has narrowly passed a proposal to cancel over $9 billion in approved federal funding, with more than $8 billion allocated for foreign aid and approximately $1 billion intended for the Corporation for Public Broadcasting, which supports PBS and NPR.\\n\\nIn the tech sector, The New York Times reports that a consortium of venture capital firms intends to acquire approximately $250 million worth of shares in Elon Musk's artificial intelligence company, XAI",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [
+          "the New York Times",
+          "Corporation for Public Broadcasting"
+        ],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 15
+      },
+      {
+        "node_id": "topic_xX4AoirekqI_Artificial_Intelligence",
+        "concept_name": "Artificial Intelligence",
+        "video_id": "xX4AoirekqI",
+        "video_title": "5 Things To Know: June 13, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Furthermore, the House of Representatives has narrowly passed a proposal to cancel over $9 billion in approved federal funding, with more than $8 billion allocated for foreign aid and approximately $1 billion intended for the Corporation for Public Broadcasting, which supports PBS and NPR.\\n\\nIn the tech sector, The New York Times reports that a consortium of venture capital firms intends to acquire approximately $250 million worth of shares in Elon Musk's artificial intelligence company, XAI",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [
+          "the New York Times",
+          "Corporation for Public Broadcasting"
+        ],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 15
+      },
+      {
+        "node_id": "topic_xX4AoirekqI_Venture_Capital",
+        "concept_name": "Venture Capital",
+        "video_id": "xX4AoirekqI",
+        "video_title": "5 Things To Know: June 13, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Furthermore, the House of Representatives has narrowly passed a proposal to cancel over $9 billion in approved federal funding, with more than $8 billion allocated for foreign aid and approximately $1 billion intended for the Corporation for Public Broadcasting, which supports PBS and NPR.\\n\\nIn the tech sector, The New York Times reports that a consortium of venture capital firms intends to acquire approximately $250 million worth of shares in Elon Musk's artificial intelligence company, XAI",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [
+          "the New York Times",
+          "Corporation for Public Broadcasting"
+        ],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 15
+      },
+      {
+        "node_id": "topic_xX4AoirekqI_Corporate_Finance",
+        "concept_name": "Corporate Finance",
+        "video_id": "xX4AoirekqI",
+        "video_title": "5 Things To Know: June 13, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Corporate Finance' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 15
+      },
+      {
+        "node_id": "topic_Nkx1Q6mAIxc_Tech_News",
+        "concept_name": "Tech News",
+        "video_id": "Nkx1Q6mAIxc",
+        "video_title": "5 Things To Know: June 11, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Tech News' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 16
+      },
+      {
+        "node_id": "topic_Nkx1Q6mAIxc_US_Politics",
+        "concept_name": "US Politics",
+        "video_id": "Nkx1Q6mAIxc",
+        "video_title": "5 Things To Know: June 11, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'US Politics' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 16
+      },
+      {
+        "node_id": "topic_Nkx1Q6mAIxc_International_Relations",
+        "concept_name": "International Relations",
+        "video_id": "Nkx1Q6mAIxc",
+        "video_title": "5 Things To Know: June 11, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'International Relations' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 16
+      },
+      {
+        "node_id": "topic_Nkx1Q6mAIxc_Trade_Policy",
+        "concept_name": "Trade Policy",
+        "video_id": "Nkx1Q6mAIxc",
+        "video_title": "5 Things To Know: June 11, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Trade Policy' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 16
+      },
+      {
+        "node_id": "topic_Nkx1Q6mAIxc_Economic_Policy",
+        "concept_name": "Economic Policy",
+        "video_id": "Nkx1Q6mAIxc",
+        "video_title": "5 Things To Know: June 11, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Economic Policy' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 16
+      },
+      {
+        "node_id": "topic_Nkx1Q6mAIxc_Business_Leadership",
+        "concept_name": "Business Leadership",
+        "video_id": "Nkx1Q6mAIxc",
+        "video_title": "5 Things To Know: June 11, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Business Leadership' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 16
+      },
+      {
+        "node_id": "topic_Nkx1Q6mAIxc_Autonomous_Vehicles",
+        "concept_name": "Autonomous Vehicles",
+        "video_id": "Nkx1Q6mAIxc",
+        "video_title": "5 Things To Know: June 11, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Autonomous Vehicles' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 16
+      },
+      {
+        "node_id": "concept_itYisy19Cmc_71.0_143",
+        "concept_name": "Chair",
+        "video_id": "itYisy19Cmc",
+        "video_title": "5 Things To Know: June 9, 2025",
+        "timestamp": 71,
+        "maturity_level": "mentioned",
+        "context": "Jay Powell's term as Fed Chair is approaching its end.",
+        "explanation_depth": 0.27,
+        "key_points": [
+          "Jay Powell's term as Fed Chair is approaching its end."
+        ],
+        "related_entities": [
+          "Fed"
+        ],
+        "sentiment": 0.0,
+        "confidence": 0.7,
+        "information_density": 0.8,
+        "video_sequence_position": 17
+      },
+      {
+        "node_id": "topic_itYisy19Cmc_International_Trade",
+        "concept_name": "International Trade",
+        "video_id": "itYisy19Cmc",
+        "video_title": "5 Things To Know: June 9, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "The market outlook ahead of the opening bell highlights key developments in international trade and domestic policy",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 17
+      },
+      {
+        "node_id": "topic_itYisy19Cmc_US-China_Relations",
+        "concept_name": "US-China Relations",
+        "video_id": "itYisy19Cmc",
+        "video_title": "5 Things To Know: June 9, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'US-China Relations' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 17
+      },
+      {
+        "node_id": "topic_itYisy19Cmc_US-India_Relations",
+        "concept_name": "US-India Relations",
+        "video_id": "itYisy19Cmc",
+        "video_title": "5 Things To Know: June 9, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'US-India Relations' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 17
+      },
+      {
+        "node_id": "topic_itYisy19Cmc_Economic_Indicators",
+        "concept_name": "Economic Indicators",
+        "video_id": "itYisy19Cmc",
+        "video_title": "5 Things To Know: June 9, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Economic Indicators' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 17
+      },
+      {
+        "node_id": "topic_itYisy19Cmc_US_Monetary_Policy",
+        "concept_name": "US Monetary Policy",
+        "video_id": "itYisy19Cmc",
+        "video_title": "5 Things To Know: June 9, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'US Monetary Policy' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 17
+      },
+      {
+        "node_id": "topic_itYisy19Cmc_Federal_Reserve",
+        "concept_name": "Federal Reserve",
+        "video_id": "itYisy19Cmc",
+        "video_title": "5 Things To Know: June 9, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Federal Reserve' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [
+          "Fed"
+        ],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 17
+      },
+      {
+        "node_id": "topic_itYisy19Cmc_College_Sports",
+        "concept_name": "College Sports",
+        "video_id": "itYisy19Cmc",
+        "video_title": "5 Things To Know: June 9, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "This decision allows Division I schools to distribute approximately $20 million annually to their athletes, ushering in a new era for college sports",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 17
+      },
+      {
+        "node_id": "topic_itYisy19Cmc_Athlete_Compensation",
+        "concept_name": "Athlete Compensation",
+        "video_id": "itYisy19Cmc",
+        "video_title": "5 Things To Know: June 9, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Athlete Compensation' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 17
+      },
+      {
+        "node_id": "topic_itYisy19Cmc_Government_Officials",
+        "concept_name": "Government Officials",
+        "video_id": "itYisy19Cmc",
+        "video_title": "5 Things To Know: June 9, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Government Officials' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 17
+      },
+      {
+        "node_id": "topic_EMX1oO-RpnM_Financial_Markets",
+        "concept_name": "Financial Markets",
+        "video_id": "EMX1oO-RpnM",
+        "video_title": "5 Things To Know: June 6, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Financial Markets' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 18
+      },
+      {
+        "node_id": "topic_EMX1oO-RpnM_Economic_Indicators",
+        "concept_name": "Economic Indicators",
+        "video_id": "EMX1oO-RpnM",
+        "video_title": "5 Things To Know: June 6, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "The transcript provides a morning briefing on key financial news, beginning with economic indicators for \"jobs Friday.\" Polled forecasters anticipate an increase of 125,000 non-farm payrolls in May, with the unemployment rate expected to remain stable",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [
+          "May"
+        ],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 18
+      },
+      {
+        "node_id": "topic_EMX1oO-RpnM_Corporate_Earnings",
+        "concept_name": "Corporate Earnings",
+        "video_id": "EMX1oO-RpnM",
+        "video_title": "5 Things To Know: June 6, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Corporate Earnings' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 18
+      },
+      {
+        "node_id": "topic_EMX1oO-RpnM_Stock_Performance",
+        "concept_name": "Stock Performance",
+        "video_id": "EMX1oO-RpnM",
+        "video_title": "5 Things To Know: June 6, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Stock Performance' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 18
+      },
+      {
+        "node_id": "topic_EMX1oO-RpnM_Tariffs",
+        "concept_name": "Tariffs",
+        "video_id": "EMX1oO-RpnM",
+        "video_title": "5 Things To Know: June 6, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "As a result, Lululemon cut its full-year guidance, attributing the decision to a \"dynamic macro environment,\" and its CFO announced plans for strategic price increases to mitigate the effects of tariffs.\n\nDocusign shares saw a sharp decline despite beating earnings and revenue estimates, primarily due to weaker-than-expected billings in the first quarter and a current quarter guidance that also came in below estimates",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [
+          "The First Quarter"
+        ],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 18
+      },
+      {
+        "node_id": "topic_EMX1oO-RpnM_Artificial_Intelligence_(AI)",
+        "concept_name": "Artificial Intelligence (AI)",
+        "video_id": "EMX1oO-RpnM",
+        "video_title": "5 Things To Know: June 6, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Artificial Intelligence (AI)' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 18
+      },
+      {
+        "node_id": "topic_EMX1oO-RpnM_Cryptocurrency",
+        "concept_name": "Cryptocurrency",
+        "video_id": "EMX1oO-RpnM",
+        "video_title": "5 Things To Know: June 6, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Cryptocurrency' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 18
+      },
+      {
+        "node_id": "topic_EMX1oO-RpnM_Macro_Environment",
+        "concept_name": "Macro Environment",
+        "video_id": "EMX1oO-RpnM",
+        "video_title": "5 Things To Know: June 6, 2025",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "As a result, Lululemon cut its full-year guidance, attributing the decision to a \"dynamic macro environment,\" and its CFO announced plans for strategic price increases to mitigate the effects of tariffs.\n\nDocusign shares saw a sharp decline despite beating earnings and revenue estimates, primarily due to weaker-than-expected billings in the first quarter and a current quarter guidance that also came in below estimates",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [
+          "The First Quarter"
+        ],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 18
+      },
+      {
+        "node_id": "topic_krTpPSI4Rqc_Government_&_Politics",
+        "concept_name": "Government & Politics",
+        "video_id": "krTpPSI4Rqc",
+        "video_title": "5 things to know: Monday, June 2",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Government & Politics' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 19
+      },
+      {
+        "node_id": "topic_krTpPSI4Rqc_International_Relations",
+        "concept_name": "International Relations",
+        "video_id": "krTpPSI4Rqc",
+        "video_title": "5 things to know: Monday, June 2",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'International Relations' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 19
+      },
+      {
+        "node_id": "topic_krTpPSI4Rqc_Business_&_Technology",
+        "concept_name": "Business & Technology",
+        "video_id": "krTpPSI4Rqc",
+        "video_title": "5 things to know: Monday, June 2",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Business & Technology' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 19
+      },
+      {
+        "node_id": "topic_krTpPSI4Rqc_Aviation_&_Infrastructure",
+        "concept_name": "Aviation & Infrastructure",
+        "video_id": "krTpPSI4Rqc",
+        "video_title": "5 things to know: Monday, June 2",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Aviation & Infrastructure' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 19
+      },
+      {
+        "node_id": "topic_krTpPSI4Rqc_Entertainment_&_Box_Office",
+        "concept_name": "Entertainment & Box Office",
+        "video_id": "krTpPSI4Rqc",
+        "video_title": "5 things to know: Monday, June 2",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Entertainment & Box Office' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 19
+      },
+      {
+        "node_id": "topic_krTpPSI4Rqc_Military_Operations",
+        "concept_name": "Military Operations",
+        "video_id": "krTpPSI4Rqc",
+        "video_title": "5 things to know: Monday, June 2",
+        "timestamp": 0,
+        "maturity_level": "mentioned",
+        "context": "Topic 'Military Operations' discussed in video",
+        "explanation_depth": 0.85,
+        "key_points": [],
+        "related_entities": [],
+        "sentiment": 0.0,
+        "confidence": 0.85,
+        "information_density": 0.3,
+        "video_sequence_position": 19
+      }
+    ],
+    "information_flows": [
+      {
+        "flow_id": "flow_topic_sSo_8Q1V3yU_International_Trade_topic_Mz3K4UmdgmA_International_Trade",
+        "source_node": {
+          "node_id": "topic_sSo_8Q1V3yU_International_Trade",
+          "concept_name": "International Trade",
+          "video_id": "sSo_8Q1V3yU",
+          "video_title": "5 Things To Know: July 14, 2025",
+          "timestamp": 0,
+          "maturity_level": "mentioned",
+          "context": "Topic 'International Trade' discussed in video",
+          "explanation_depth": 0.85,
+          "key_points": [],
+          "related_entities": [],
+          "sentiment": 0.0,
+          "confidence": 0.85,
+          "information_density": 0.3,
+          "video_sequence_position": 2
+        },
+        "target_node": {
+          "node_id": "topic_Mz3K4UmdgmA_International_Trade",
+          "concept_name": "International Trade",
+          "video_id": "Mz3K4UmdgmA",
+          "video_title": "5 Things To Know: July 11, 2025",
+          "timestamp": 0,
+          "maturity_level": "mentioned",
+          "context": "Topic 'International Trade' discussed in video",
+          "explanation_depth": 0.85,
+          "key_points": [],
+          "related_entities": [],
+          "sentiment": 0.0,
+          "confidence": 0.85,
+          "information_density": 0.3,
+          "video_sequence_position": 3
+        },
+        "flow_type": "development",
+        "information_transferred": "Enhanced understanding of International Trade",
+        "transformation_type": "integration",
+        "flow_quality": 0.95,
+        "coherence_score": 0.5,
+        "temporal_gap": 3600.0,
+        "bridge_entities": [],
+        "supporting_evidence": [
+          "Topic 'International Trade' discussed in video",
+          "Topic 'International Trade' discussed in video"
+        ]
+      },
+      {
+        "flow_id": "flow_topic__7Fw86mfCUk_Geopolitics_topic_10zFSNRcyFM_Geopolitics",
+        "source_node": {
+          "node_id": "topic__7Fw86mfCUk_Geopolitics",
+          "concept_name": "Geopolitics",
+          "video_id": "_7Fw86mfCUk",
+          "video_title": "5 Things To Know: June 23, 2025",
+          "timestamp": 0,
+          "maturity_level": "mentioned",
+          "context": "Topic 'Geopolitics' discussed in video",
+          "explanation_depth": 0.85,
+          "key_points": [],
+          "related_entities": [],
+          "sentiment": 0.0,
+          "confidence": 0.85,
+          "information_density": 0.3,
+          "video_sequence_position": 11
+        },
+        "target_node": {
+          "node_id": "topic_10zFSNRcyFM_Geopolitics",
+          "concept_name": "Geopolitics",
+          "video_id": "10zFSNRcyFM",
+          "video_title": "5 Things To Know: June 20, 2025",
+          "timestamp": 0,
+          "maturity_level": "mentioned",
+          "context": "This broadcast from Squad Box 5 provides an overview of various significant developments across geopolitics, technology, and business ahead of the day's opening bell",
+          "explanation_depth": 0.85,
+          "key_points": [],
+          "related_entities": [],
+          "sentiment": 0.0,
+          "confidence": 0.85,
+          "information_density": 0.3,
+          "video_sequence_position": 12
+        },
+        "flow_type": "development",
+        "information_transferred": "Enhanced understanding of Geopolitics",
+        "transformation_type": "integration",
+        "flow_quality": 0.95,
+        "coherence_score": 0.5,
+        "temporal_gap": 3600.0,
+        "bridge_entities": [],
+        "supporting_evidence": [
+          "Topic 'Geopolitics' discussed in video",
+          "This broadcast from Squad Box 5 provides an overview of various significant developments across geopolitics, technology, and business ahead of the day's opening bell"
+        ]
+      },
+      {
+        "flow_id": "flow_topic_u2tHfa8X-sg_International_Relations_topic_xX4AoirekqI_International_Relations",
+        "source_node": {
+          "node_id": "topic_u2tHfa8X-sg_International_Relations",
+          "concept_name": "International Relations",
+          "video_id": "u2tHfa8X-sg",
+          "video_title": "5 Things To Know: June 16, 2025",
+          "timestamp": 0,
+          "maturity_level": "mentioned",
+          "context": "Topic 'International Relations' discussed in video",
+          "explanation_depth": 0.85,
+          "key_points": [],
+          "related_entities": [],
+          "sentiment": 0.0,
+          "confidence": 0.85,
+          "information_density": 0.3,
+          "video_sequence_position": 14
+        },
+        "target_node": {
+          "node_id": "topic_xX4AoirekqI_International_Relations",
+          "concept_name": "International Relations",
+          "video_id": "xX4AoirekqI",
+          "video_title": "5 Things To Know: June 13, 2025",
+          "timestamp": 0,
+          "maturity_level": "mentioned",
+          "context": "Topic 'International Relations' discussed in video",
+          "explanation_depth": 0.85,
+          "key_points": [],
+          "related_entities": [],
+          "sentiment": 0.0,
+          "confidence": 0.85,
+          "information_density": 0.3,
+          "video_sequence_position": 15
+        },
+        "flow_type": "development",
+        "information_transferred": "Enhanced understanding of International Relations",
+        "transformation_type": "integration",
+        "flow_quality": 0.95,
+        "coherence_score": 0.5,
+        "temporal_gap": 3600.0,
+        "bridge_entities": [],
+        "supporting_evidence": [
+          "Topic 'International Relations' discussed in video",
+          "Topic 'International Relations' discussed in video"
+        ]
+      },
+      {
+        "flow_id": "flow_topic_itYisy19Cmc_Economic_Indicators_topic_EMX1oO-RpnM_Economic_Indicators",
+        "source_node": {
+          "node_id": "topic_itYisy19Cmc_Economic_Indicators",
+          "concept_name": "Economic Indicators",
+          "video_id": "itYisy19Cmc",
+          "video_title": "5 Things To Know: June 9, 2025",
+          "timestamp": 0,
+          "maturity_level": "mentioned",
+          "context": "Topic 'Economic Indicators' discussed in video",
+          "explanation_depth": 0.85,
+          "key_points": [],
+          "related_entities": [],
+          "sentiment": 0.0,
+          "confidence": 0.85,
+          "information_density": 0.3,
+          "video_sequence_position": 17
+        },
+        "target_node": {
+          "node_id": "topic_EMX1oO-RpnM_Economic_Indicators",
+          "concept_name": "Economic Indicators",
+          "video_id": "EMX1oO-RpnM",
+          "video_title": "5 Things To Know: June 6, 2025",
+          "timestamp": 0,
+          "maturity_level": "mentioned",
+          "context": "The transcript provides a morning briefing on key financial news, beginning with economic indicators for \"jobs Friday.\" Polled forecasters anticipate an increase of 125,000 non-farm payrolls in May, with the unemployment rate expected to remain stable",
+          "explanation_depth": 0.85,
+          "key_points": [],
+          "related_entities": [
+            "May"
+          ],
+          "sentiment": 0.0,
+          "confidence": 0.85,
+          "information_density": 0.3,
+          "video_sequence_position": 18
+        },
+        "flow_type": "development",
+        "information_transferred": "Enhanced understanding of Economic Indicators",
+        "transformation_type": "expansion",
+        "flow_quality": 0.95,
+        "coherence_score": 0.5,
+        "temporal_gap": 3600.0,
+        "bridge_entities": [],
+        "supporting_evidence": [
+          "Topic 'Economic Indicators' discussed in video",
+          "The transcript provides a morning briefing on key financial news, beginning with economic indicators for \"jobs Friday.\" Polled forecasters anticipate an increase of 125,000 non-farm payrolls in May, with the unemployment rate expected to remain stable"
+        ]
+      }
+    ],
+    "concept_dependencies": [
+      {
+        "dependent_concept": "Artificial Intelligence",
+        "prerequisite_concept": "Public Broadcasting",
+        "dependency_type": "builds_on",
+        "strength": 0.3
+      },
+      {
+        "dependent_concept": "Venture Capital",
+        "prerequisite_concept": "Artificial Intelligence",
+        "dependency_type": "builds_on",
+        "strength": 0.3
+      }
+    ],
+    "evolution_paths": [
+      {
+        "concept_name": "Business News",
+        "initial_maturity": "mentioned",
+        "final_maturity": "mentioned",
+        "progression_steps": [
+          {
+            "video_id": "iz5vPelAs4g",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          },
+          {
+            "video_id": "UPHSONoV3So",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          },
+          {
+            "video_id": "OMPgdeIhpsw",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          },
+          {
+            "video_id": "10zFSNRcyFM",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          }
+        ],
+        "key_dependencies": [
+          {
+            "dependent_concept": "Business News",
+            "prerequisite_concept": "Business News",
+            "dependency_type": "builds_on",
+            "strength": 0.3
+          },
+          {
+            "dependent_concept": "Business News",
+            "prerequisite_concept": "Business News",
+            "dependency_type": "builds_on",
+            "strength": 0.3
+          },
+          {
+            "dependent_concept": "Business News",
+            "prerequisite_concept": "Business News",
+            "dependency_type": "builds_on",
+            "strength": 0.3
+          }
+        ],
+        "evolution_nodes": [],
+        "evolution_coherence": 0.0
+      },
+      {
+        "concept_name": "Corporate Finance",
+        "initial_maturity": "mentioned",
+        "final_maturity": "mentioned",
+        "progression_steps": [
+          {
+            "video_id": "iz5vPelAs4g",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          },
+          {
+            "video_id": "UPHSONoV3So",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          },
+          {
+            "video_id": "8cgHKnQVMgM",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          },
+          {
+            "video_id": "xX4AoirekqI",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          }
+        ],
+        "key_dependencies": [
+          {
+            "dependent_concept": "Corporate Finance",
+            "prerequisite_concept": "Corporate Finance",
+            "dependency_type": "builds_on",
+            "strength": 0.3
+          },
+          {
+            "dependent_concept": "Corporate Finance",
+            "prerequisite_concept": "Corporate Finance",
+            "dependency_type": "builds_on",
+            "strength": 0.3
+          },
+          {
+            "dependent_concept": "Corporate Finance",
+            "prerequisite_concept": "Corporate Finance",
+            "dependency_type": "builds_on",
+            "strength": 0.3
+          }
+        ],
+        "evolution_nodes": [],
+        "evolution_coherence": 0.0
+      },
+      {
+        "concept_name": "Public Broadcasting",
+        "initial_maturity": "mentioned",
+        "final_maturity": "mentioned",
+        "progression_steps": [
+          {
+            "video_id": "iz5vPelAs4g",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          },
+          {
+            "video_id": "xX4AoirekqI",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          }
+        ],
+        "key_dependencies": [
+          {
+            "dependent_concept": "Public Broadcasting",
+            "prerequisite_concept": "Public Broadcasting",
+            "dependency_type": "builds_on",
+            "strength": 0.3
+          }
+        ],
+        "evolution_nodes": [],
+        "evolution_coherence": 0.0
+      },
+      {
+        "concept_name": "Technology Sector",
+        "initial_maturity": "mentioned",
+        "final_maturity": "mentioned",
+        "progression_steps": [
+          {
+            "video_id": "sSo_8Q1V3yU",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          },
+          {
+            "video_id": "8cgHKnQVMgM",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          }
+        ],
+        "key_dependencies": [
+          {
+            "dependent_concept": "Technology Sector",
+            "prerequisite_concept": "Technology Sector",
+            "dependency_type": "builds_on",
+            "strength": 0.3
+          }
+        ],
+        "evolution_nodes": [],
+        "evolution_coherence": 0.0
+      },
+      {
+        "concept_name": "International Trade",
+        "initial_maturity": "mentioned",
+        "final_maturity": "mentioned",
+        "progression_steps": [
+          {
+            "video_id": "sSo_8Q1V3yU",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          },
+          {
+            "video_id": "Mz3K4UmdgmA",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          },
+          {
+            "video_id": "itYisy19Cmc",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          }
+        ],
+        "key_dependencies": [
+          {
+            "dependent_concept": "International Trade",
+            "prerequisite_concept": "International Trade",
+            "dependency_type": "builds_on",
+            "strength": 0.3
+          },
+          {
+            "dependent_concept": "International Trade",
+            "prerequisite_concept": "International Trade",
+            "dependency_type": "builds_on",
+            "strength": 0.3
+          }
+        ],
+        "evolution_nodes": [],
+        "evolution_coherence": 0.0
+      },
+      {
+        "concept_name": "Geopolitics",
+        "initial_maturity": "mentioned",
+        "final_maturity": "mentioned",
+        "progression_steps": [
+          {
+            "video_id": "sSo_8Q1V3yU",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          },
+          {
+            "video_id": "_7Fw86mfCUk",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          },
+          {
+            "video_id": "10zFSNRcyFM",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          },
+          {
+            "video_id": "FPa82id02bY",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          }
+        ],
+        "key_dependencies": [
+          {
+            "dependent_concept": "Geopolitics",
+            "prerequisite_concept": "Geopolitics",
+            "dependency_type": "builds_on",
+            "strength": 0.3
+          },
+          {
+            "dependent_concept": "Geopolitics",
+            "prerequisite_concept": "Geopolitics",
+            "dependency_type": "builds_on",
+            "strength": 0.3
+          },
+          {
+            "dependent_concept": "Geopolitics",
+            "prerequisite_concept": "Geopolitics",
+            "dependency_type": "builds_on",
+            "strength": 0.3
+          }
+        ],
+        "evolution_nodes": [],
+        "evolution_coherence": 0.0
+      },
+      {
+        "concept_name": "Financial Markets",
+        "initial_maturity": "mentioned",
+        "final_maturity": "mentioned",
+        "progression_steps": [
+          {
+            "video_id": "sSo_8Q1V3yU",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          },
+          {
+            "video_id": "8cgHKnQVMgM",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          },
+          {
+            "video_id": "_7Fw86mfCUk",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          },
+          {
+            "video_id": "EMX1oO-RpnM",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          }
+        ],
+        "key_dependencies": [
+          {
+            "dependent_concept": "Financial Markets",
+            "prerequisite_concept": "Financial Markets",
+            "dependency_type": "builds_on",
+            "strength": 0.3
+          },
+          {
+            "dependent_concept": "Financial Markets",
+            "prerequisite_concept": "Financial Markets",
+            "dependency_type": "builds_on",
+            "strength": 0.3
+          },
+          {
+            "dependent_concept": "Financial Markets",
+            "prerequisite_concept": "Financial Markets",
+            "dependency_type": "builds_on",
+            "strength": 0.3
+          }
+        ],
+        "evolution_nodes": [],
+        "evolution_coherence": 0.0
+      },
+      {
+        "concept_name": "Corporate Strategy",
+        "initial_maturity": "mentioned",
+        "final_maturity": "mentioned",
+        "progression_steps": [
+          {
+            "video_id": "sSo_8Q1V3yU",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          },
+          {
+            "video_id": "FPa82id02bY",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          }
+        ],
+        "key_dependencies": [
+          {
+            "dependent_concept": "Corporate Strategy",
+            "prerequisite_concept": "Corporate Strategy",
+            "dependency_type": "builds_on",
+            "strength": 0.3
+          }
+        ],
+        "evolution_nodes": [],
+        "evolution_coherence": 0.0
+      },
+      {
+        "concept_name": "Us Politics",
+        "initial_maturity": "mentioned",
+        "final_maturity": "mentioned",
+        "progression_steps": [
+          {
+            "video_id": "Mz3K4UmdgmA",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          },
+          {
+            "video_id": "_0hrAR1NeIk",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          },
+          {
+            "video_id": "OMPgdeIhpsw",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          },
+          {
+            "video_id": "Nkx1Q6mAIxc",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          }
+        ],
+        "key_dependencies": [
+          {
+            "dependent_concept": "US Politics",
+            "prerequisite_concept": "US Politics",
+            "dependency_type": "builds_on",
+            "strength": 0.3
+          },
+          {
+            "dependent_concept": "US Politics",
+            "prerequisite_concept": "US Politics",
+            "dependency_type": "builds_on",
+            "strength": 0.3
+          },
+          {
+            "dependent_concept": "US Politics",
+            "prerequisite_concept": "US Politics",
+            "dependency_type": "builds_on",
+            "strength": 0.3
+          }
+        ],
+        "evolution_nodes": [],
+        "evolution_coherence": 0.0
+      },
+      {
+        "concept_name": "Technology",
+        "initial_maturity": "mentioned",
+        "final_maturity": "mentioned",
+        "progression_steps": [
+          {
+            "video_id": "UPHSONoV3So",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          },
+          {
+            "video_id": "10zFSNRcyFM",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          }
+        ],
+        "key_dependencies": [
+          {
+            "dependent_concept": "Technology",
+            "prerequisite_concept": "Technology",
+            "dependency_type": "builds_on",
+            "strength": 0.3
+          }
+        ],
+        "evolution_nodes": [],
+        "evolution_coherence": 0.0
+      },
+      {
+        "concept_name": "Tariffs",
+        "initial_maturity": "mentioned",
+        "final_maturity": "mentioned",
+        "progression_steps": [
+          {
+            "video_id": "_0hrAR1NeIk",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          },
+          {
+            "video_id": "EMX1oO-RpnM",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          }
+        ],
+        "key_dependencies": [
+          {
+            "dependent_concept": "Tariffs",
+            "prerequisite_concept": "Tariffs",
+            "dependency_type": "builds_on",
+            "strength": 0.3
+          }
+        ],
+        "evolution_nodes": [],
+        "evolution_coherence": 0.0
+      },
+      {
+        "concept_name": "Economic Indicators",
+        "initial_maturity": "mentioned",
+        "final_maturity": "mentioned",
+        "progression_steps": [
+          {
+            "video_id": "lHc9xeM0lQk",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          },
+          {
+            "video_id": "itYisy19Cmc",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          },
+          {
+            "video_id": "EMX1oO-RpnM",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          }
+        ],
+        "key_dependencies": [
+          {
+            "dependent_concept": "Economic Indicators",
+            "prerequisite_concept": "Economic Indicators",
+            "dependency_type": "builds_on",
+            "strength": 0.3
+          },
+          {
+            "dependent_concept": "Economic Indicators",
+            "prerequisite_concept": "Economic Indicators",
+            "dependency_type": "builds_on",
+            "strength": 0.3
+          }
+        ],
+        "evolution_nodes": [],
+        "evolution_coherence": 0.0
+      },
+      {
+        "concept_name": "Corporate Earnings",
+        "initial_maturity": "mentioned",
+        "final_maturity": "mentioned",
+        "progression_steps": [
+          {
+            "video_id": "lHc9xeM0lQk",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          },
+          {
+            "video_id": "EMX1oO-RpnM",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          }
+        ],
+        "key_dependencies": [
+          {
+            "dependent_concept": "Corporate Earnings",
+            "prerequisite_concept": "Corporate Earnings",
+            "dependency_type": "builds_on",
+            "strength": 0.3
+          }
+        ],
+        "evolution_nodes": [],
+        "evolution_coherence": 0.0
+      },
+      {
+        "concept_name": "Automotive Industry",
+        "initial_maturity": "mentioned",
+        "final_maturity": "mentioned",
+        "progression_steps": [
+          {
+            "video_id": "lHc9xeM0lQk",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          },
+          {
+            "video_id": "_7Fw86mfCUk",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          }
+        ],
+        "key_dependencies": [
+          {
+            "dependent_concept": "Automotive Industry",
+            "prerequisite_concept": "Automotive Industry",
+            "dependency_type": "builds_on",
+            "strength": 0.3
+          }
+        ],
+        "evolution_nodes": [],
+        "evolution_coherence": 0.0
+      },
+      {
+        "concept_name": "Stock Market Trends",
+        "initial_maturity": "mentioned",
+        "final_maturity": "mentioned",
+        "progression_steps": [
+          {
+            "video_id": "HcAQBfKLMjA",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          },
+          {
+            "video_id": "8cgHKnQVMgM",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          }
+        ],
+        "key_dependencies": [
+          {
+            "dependent_concept": "Stock Market Trends",
+            "prerequisite_concept": "Stock Market Trends",
+            "dependency_type": "builds_on",
+            "strength": 0.3
+          }
+        ],
+        "evolution_nodes": [],
+        "evolution_coherence": 0.0
+      },
+      {
+        "concept_name": "Space Exploration",
+        "initial_maturity": "mentioned",
+        "final_maturity": "mentioned",
+        "progression_steps": [
+          {
+            "video_id": "HcAQBfKLMjA",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          },
+          {
+            "video_id": "10zFSNRcyFM",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          }
+        ],
+        "key_dependencies": [
+          {
+            "dependent_concept": "Space Exploration",
+            "prerequisite_concept": "Space Exploration",
+            "dependency_type": "builds_on",
+            "strength": 0.3
+          }
+        ],
+        "evolution_nodes": [],
+        "evolution_coherence": 0.0
+      },
+      {
+        "concept_name": "Business Acquisitions",
+        "initial_maturity": "mentioned",
+        "final_maturity": "mentioned",
+        "progression_steps": [
+          {
+            "video_id": "Am1Of0F9YxE",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          },
+          {
+            "video_id": "u2tHfa8X-sg",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          }
+        ],
+        "key_dependencies": [
+          {
+            "dependent_concept": "Business Acquisitions",
+            "prerequisite_concept": "Business Acquisitions",
+            "dependency_type": "builds_on",
+            "strength": 0.3
+          }
+        ],
+        "evolution_nodes": [],
+        "evolution_coherence": 0.0
+      },
+      {
+        "concept_name": "Artificial Intelligence (Ai)",
+        "initial_maturity": "mentioned",
+        "final_maturity": "mentioned",
+        "progression_steps": [
+          {
+            "video_id": "8cgHKnQVMgM",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          },
+          {
+            "video_id": "EMX1oO-RpnM",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          }
+        ],
+        "key_dependencies": [
+          {
+            "dependent_concept": "Artificial Intelligence (AI)",
+            "prerequisite_concept": "Artificial Intelligence (AI)",
+            "dependency_type": "builds_on",
+            "strength": 0.3
+          }
+        ],
+        "evolution_nodes": [],
+        "evolution_coherence": 0.0
+      },
+      {
+        "concept_name": "International Relations",
+        "initial_maturity": "mentioned",
+        "final_maturity": "mentioned",
+        "progression_steps": [
+          {
+            "video_id": "10zFSNRcyFM",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          },
+          {
+            "video_id": "FPa82id02bY",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          },
+          {
+            "video_id": "u2tHfa8X-sg",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          },
+          {
+            "video_id": "xX4AoirekqI",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          },
+          {
+            "video_id": "Nkx1Q6mAIxc",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          },
+          {
+            "video_id": "krTpPSI4Rqc",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          }
+        ],
+        "key_dependencies": [
+          {
+            "dependent_concept": "International Relations",
+            "prerequisite_concept": "International Relations",
+            "dependency_type": "builds_on",
+            "strength": 0.3
+          },
+          {
+            "dependent_concept": "International Relations",
+            "prerequisite_concept": "International Relations",
+            "dependency_type": "builds_on",
+            "strength": 0.3
+          },
+          {
+            "dependent_concept": "International Relations",
+            "prerequisite_concept": "International Relations",
+            "dependency_type": "builds_on",
+            "strength": 0.3
+          },
+          {
+            "dependent_concept": "International Relations",
+            "prerequisite_concept": "International Relations",
+            "dependency_type": "builds_on",
+            "strength": 0.3
+          },
+          {
+            "dependent_concept": "International Relations",
+            "prerequisite_concept": "International Relations",
+            "dependency_type": "builds_on",
+            "strength": 0.3
+          }
+        ],
+        "evolution_nodes": [],
+        "evolution_coherence": 0.0
+      },
+      {
+        "concept_name": "Artificial Intelligence",
+        "initial_maturity": "mentioned",
+        "final_maturity": "mentioned",
+        "progression_steps": [
+          {
+            "video_id": "10zFSNRcyFM",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          },
+          {
+            "video_id": "FPa82id02bY",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          },
+          {
+            "video_id": "xX4AoirekqI",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          }
+        ],
+        "key_dependencies": [
+          {
+            "dependent_concept": "Artificial Intelligence",
+            "prerequisite_concept": "Artificial Intelligence",
+            "dependency_type": "builds_on",
+            "strength": 0.3
+          },
+          {
+            "dependent_concept": "Artificial Intelligence",
+            "prerequisite_concept": "Artificial Intelligence",
+            "dependency_type": "builds_on",
+            "strength": 0.3
+          }
+        ],
+        "evolution_nodes": [],
+        "evolution_coherence": 0.0
+      },
+      {
+        "concept_name": "Us Foreign Policy",
+        "initial_maturity": "mentioned",
+        "final_maturity": "mentioned",
+        "progression_steps": [
+          {
+            "video_id": "FPa82id02bY",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          },
+          {
+            "video_id": "u2tHfa8X-sg",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          }
+        ],
+        "key_dependencies": [
+          {
+            "dependent_concept": "US Foreign Policy",
+            "prerequisite_concept": "US Foreign Policy",
+            "dependency_type": "builds_on",
+            "strength": 0.3
+          }
+        ],
+        "evolution_nodes": [],
+        "evolution_coherence": 0.0
+      },
+      {
+        "concept_name": "Cryptocurrency",
+        "initial_maturity": "mentioned",
+        "final_maturity": "mentioned",
+        "progression_steps": [
+          {
+            "video_id": "FPa82id02bY",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          },
+          {
+            "video_id": "EMX1oO-RpnM",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          }
+        ],
+        "key_dependencies": [
+          {
+            "dependent_concept": "Cryptocurrency",
+            "prerequisite_concept": "Cryptocurrency",
+            "dependency_type": "builds_on",
+            "strength": 0.3
+          }
+        ],
+        "evolution_nodes": [],
+        "evolution_coherence": 0.0
+      },
+      {
+        "concept_name": "Economic Policy",
+        "initial_maturity": "mentioned",
+        "final_maturity": "mentioned",
+        "progression_steps": [
+          {
+            "video_id": "FPa82id02bY",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          },
+          {
+            "video_id": "Nkx1Q6mAIxc",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          }
+        ],
+        "key_dependencies": [
+          {
+            "dependent_concept": "Economic Policy",
+            "prerequisite_concept": "Economic Policy",
+            "dependency_type": "builds_on",
+            "strength": 0.3
+          }
+        ],
+        "evolution_nodes": [],
+        "evolution_coherence": 0.0
+      },
+      {
+        "concept_name": "Trade Policy",
+        "initial_maturity": "mentioned",
+        "final_maturity": "mentioned",
+        "progression_steps": [
+          {
+            "video_id": "u2tHfa8X-sg",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          },
+          {
+            "video_id": "Nkx1Q6mAIxc",
+            "maturity_level": "mentioned",
+            "timestamp": 0,
+            "explanation_depth": 0.85
+          }
+        ],
+        "key_dependencies": [
+          {
+            "dependent_concept": "Trade Policy",
+            "prerequisite_concept": "Trade Policy",
+            "dependency_type": "builds_on",
+            "strength": 0.3
+          }
+        ],
+        "evolution_nodes": [],
+        "evolution_coherence": 0.0
+      }
+    ],
+    "concept_clusters": [
+      {
+        "cluster_name": "Public Broadcasting cluster",
+        "core_concepts": [
+          "Public Broadcasting",
+          "Artificial Intelligence",
+          "Venture Capital"
+        ],
+        "cluster_evolution": "Cluster of 3 related concepts",
+        "coherence_score": 0.7
+      },
+      {
+        "cluster_name": "Chair cluster",
+        "core_concepts": [
+          "Chair",
+          "Federal Reserve"
+        ],
+        "cluster_evolution": "Cluster of 2 related concepts",
+        "coherence_score": 0.7
+      },
+      {
+        "cluster_name": "Tariffs cluster",
+        "core_concepts": [
+          "Tariffs",
+          "Macro Environment"
+        ],
+        "cluster_evolution": "Cluster of 2 related concepts",
+        "coherence_score": 0.7
+      }
+    ],
+    "primary_information_pathways": [
+      "development: 4 flows"
+    ],
+    "knowledge_bottlenecks": [],
+    "information_gaps": [
+      "Economic Forecasts",
+      "Crypto, James",
+      "Military Conflict",
+      "Macro Environment",
+      "E-commerce",
+      "Healthcare Industry",
+      "Sports Betting",
+      "Semiconductor Industry",
+      "Investment Platforms",
+      "Robotics",
+      "Media and Publishing",
+      "Chip Industry",
+      "US Trade Policy",
+      "Philanthropy",
+      "Aviation Accidents",
+      "Market Outlook",
+      "Business News",
+      "Technology Sector",
+      "Tech News",
+      "International Diplomacy",
+      "Congressional Resignations",
+      "Artificial Intelligence",
+      "Financial Markets",
+      "Government & Politics",
+      "Cryptocurrency and Blockchain",
+      "Luxury Travel",
+      "US Domestic Politics",
+      "Blockchain Technology",
+      "Private Credit",
+      "Technology Export Controls",
+      "Travel Security",
+      "Space Exploration",
+      "Entertainment & Box Office",
+      "Inflation Data",
+      "China's Economy",
+      "Model",
+      "Beverage Industry",
+      "Business & Technology",
+      "Financial Regulation",
+      "Executive Leadership",
+      "Technology Deals",
+      "Cybersecurity",
+      "Technology Acquisitions",
+      "US Foreign Policy",
+      "Labor Relations",
+      "Sports Ratings",
+      "Government Officials",
+      "Political Spending",
+      "Nuclear Energy",
+      "Chair",
+      "Digital Asset Offerings",
+      "US Government and Politics",
+      "Sports Technology",
+      "Military Operations",
+      "Corporate Law",
+      "Business Acquisitions",
+      "Corporate Strategy",
+      "Technology and AI",
+      "Political Lawsuits",
+      "Federal Reserve",
+      "Consumer Electronics",
+      "Trade Policy",
+      "Employment",
+      "Technology Partnerships",
+      "Mayoral Elections",
+      "Taxation",
+      "Automated Officiating",
+      "Stock Market Trends",
+      "Corporate Acquisitions",
+      "Middle East",
+      "Ceasefire Talks",
+      "Perplexity",
+      "Fiscal Policy",
+      "Corporate Management",
+      "Film Industry",
+      "Global Economy",
+      "US-India Relations",
+      "College Sports",
+      "Defense and National Security",
+      "Technology",
+      "Sports Injuries",
+      "Technology Industry",
+      "Corporate Earnings",
+      "Automotive Industry",
+      "Cloud Computing",
+      "US Monetary Policy",
+      "Cryptocurrency",
+      "Immigration",
+      "Corporate Management Changes",
+      "Corporate Finance",
+      "Aviation & Infrastructure",
+      "Athlete Compensation",
+      "US Politics",
+      "Aerospace Industry",
+      "Automotive Innovation",
+      "Government Budget",
+      "Artificial Intelligence (AI)",
+      "Media & Entertainment",
+      "Economic Policy",
+      "Legal Disputes",
+      "Tariffs",
+      "Sports Business",
+      "Box Office Performance",
+      "Autonomous Vehicles",
+      "Corporate Partnerships",
+      "Public Broadcasting",
+      "Legislative News",
+      "Celebrity Events",
+      "US-China Relations",
+      "Aerospace",
+      "Technology and Government",
+      "Corporate Leadership Changes",
+      "Supply Chain",
+      "Stock Performance",
+      "Business Leadership",
+      "NBA Basketball",
+      "Banking",
+      "Retail Spending",
+      "Media Partnerships",
+      "Venture Capital",
+      "Financial Services Regulation",
+      "Military Actions"
+    ],
+    "flow_summary": "Information flows through 1 main pathways with 0 bottlenecks",
+    "learning_progression": "Concepts develop through systematic information flow patterns",
+    "concept_complexity": "Medium complexity with 4 total flows",
+    "strategic_insights": [
+      "Concept maturity averages 1.0 across 167 concepts",
+      "Information flow quality averages 0.95 across 4 flows",
+      "Information flow shows systematic development across video collection",
+      "Information architecture enables progressive understanding development"
+    ],
+    "overall_coherence": 0.5,
+    "pedagogical_quality": 0.95,
+    "information_density": 0.023952095808383235,
+    "total_concepts": 167,
+    "total_flows": 4,
+    "synthesis_quality": "TEMPLATE"
+  },
+  "processing_stats": {
+    "videos_processed": 20,
+    "entities_unified": 15,
+    "relationships_cross_video": 1,
+    "concepts_tracked": 167,
+    "information_flows": 4
+  },
+  "total_processing_cost": 0.13325193749999997,
+  "total_processing_time": 0.0,
+  "entity_resolution_quality": 0.8106666666666666,
+  "narrative_coherence": 0.05263157894736842,
+  "information_completeness": 0.0,
+  "consolidated_timeline": null
+}

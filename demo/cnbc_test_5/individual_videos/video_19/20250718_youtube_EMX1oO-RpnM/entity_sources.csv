@@ -1,0 +1,8 @@
+name,type,confidence,source,extraction_methods,aliases,is_normalized
+Xi,PERSON,0.95,Unknown,Unknown,,False
+the April,DATE,0.74,Unknown,Unknown,,False
+Trump,PERSON,0.71,Unknown,Unknown,,False
+The First Quarter,DATE,0.91,Unknown,Unknown,,False
+May,DATE,0.95,Unknown,Unknown,,False
+Number one,CARDINAL,0.95,Unknown,Unknown,,False
+This Morning,TIME,0.72,Unknown,Unknown,,False

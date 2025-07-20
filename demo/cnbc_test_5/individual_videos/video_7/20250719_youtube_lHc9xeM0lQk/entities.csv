@@ -1,0 +1,6 @@
+name,type,confidence,source,timestamp
+Constellation Brands,PERSON,0.8700000000000001,,
+The Most Recent Quarter,DATE,0.79,,
+the Wall Street Journal,LOCATION,0.7100000000000001,,
+About A Quarter,CARDINAL,0.7100000000000001,,
+This Morning,TIME,0.72,,

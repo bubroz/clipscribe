@@ -1,0 +1,91 @@
+{
+  "video_url": "https://www.youtube.com/watch?v=u2tHfa8X-sg",
+  "video_title": "5 Things To Know: June 16, 2025",
+  "entities": [
+    {
+      "name": "Kering",
+      "type": "PERSON",
+      "confidence": 0.8700000000000001,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    },
+    {
+      "name": "Renault",
+      "type": "ORGANIZATION",
+      "confidence": 0.95,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    },
+    {
+      "name": "Trump",
+      "type": "PERSON",
+      "confidence": 0.7100000000000001,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    },
+    {
+      "name": "The Fourth Day",
+      "type": "DATE",
+      "confidence": 0.79,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    },
+    {
+      "name": "The Year 2028",
+      "type": "DATE",
+      "confidence": 0.79,
+      "source": null,
+      "properties": null,
+      "timestamp": null
+    }
+  ],
+  "topics": [
+    {
+      "name": "International Relations",
+      "confidence": 0.85
+    },
+    {
+      "name": "Military Conflict",
+      "confidence": 0.85
+    },
+    {
+      "name": "Cybersecurity",
+      "confidence": 0.85
+    },
+    {
+      "name": "Business Acquisitions",
+      "confidence": 0.85
+    },
+    {
+      "name": "Corporate Leadership Changes",
+      "confidence": 0.85
+    },
+    {
+      "name": "Trade Policy",
+      "confidence": 0.85
+    },
+    {
+      "name": "Middle East",
+      "confidence": 0.85
+    },
+    {
+      "name": "US Foreign Policy",
+      "confidence": 0.85
+    },
+    {
+      "name": "Technology Export Controls",
+      "confidence": 0.85
+    }
+  ],
+  "key_facts": [
+    "Israel's military claims aerial superiority over Iran's capital, Tehran.",
+    "This is the fourth day of fighting between Israel and Iran.",
+    "Israel initiated attacks on Iran's nuclear infrastructure.",
+    "US Ambassador to Israel, Mike Huckabee, reported minor damage to the US Embassy branch in Tel Aviv.",
+    "The damage to the embassy was caused by shockwaves from a nearby explosion."
+  ]
+}

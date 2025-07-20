@@ -1,0 +1,273 @@
+{
+  "version": "2.3",
+  "created_at": "2025-07-18T23:27:35.771003",
+  "video": {
+    "title": "5 Things To Know: June 27, 2025",
+    "url": "https://www.youtube.com/watch?v=Am1Of0F9YxE",
+    "platform": "youtube"
+  },
+  "extraction_stats": {
+    "timeline_events": [
+      {
+        "confidence": 0.95,
+        "event_description": "Core PCE data, the Fed's preferred measure of inflation, is due at 8:30 AM Eastern Time.",
+        "event_type": "Economic Release",
+        "timestamp": 5,
+        "involved_entities": [
+          "Fed",
+          "Economists"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "Tesla CEO Elon Musk fired the EV maker's Vice President of Manufacturing Operations.",
+        "event_type": "Corporate Personnel Change",
+        "timestamp": 18,
+        "involved_entities": [
+          "Elon Musk",
+          "Tesla",
+          "CNBC"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "The American edition of Vogue Magazine is set to hire a new head of editorial content.",
+        "event_type": "Media Personnel Change",
+        "timestamp": 32,
+        "involved_entities": [
+          "Vogue Magazine",
+          "Anna Wintour"
+        ]
+      },
+      {
+        "confidence": 0.95,
+        "event_description": "Anna Wintour held the position of head of editorial content at Vogue for decades.",
+        "event_type": "Career Tenure",
+        "timestamp": 38,
+        "involved_entities": [
+          "Anna Wintour",
+          "Vogue Magazine",
+          "Cond\u00e9 Nast"
+        ]
+      },
+      {
+        "confidence": 0.85,
+        "event_description": "Uber is speaking with its co-founder Travis Kalanick on potential funding for his acquisition of the US subsidiary of Chinese company Pony AI.",
+        "event_type": "Business Negotiation",
+        "timestamp": 56,
+        "involved_entities": [
+          "Uber",
+          "Travis Kalanick",
+          "Pony AI",
+          "New York Times"
+        ]
+      },
+      {
+        "confidence": 0.95,
+        "event_description": "Amazon founder Jeff Bezos and fiance Lauren Sanchez arrived in Venice, Italy for their wedding weekend.",
+        "event_type": "Personal Event",
+        "timestamp": 87,
+        "involved_entities": [
+          "Jeff Bezos",
+          "Lauren Sanchez"
+        ]
+      },
+      {
+        "confidence": 0.95,
+        "event_description": "Jeff Bezos and Lauren Sanchez are expected to be married today on the small island of San Giorgio, just across from St. Mark's.",
+        "event_type": "Personal Event",
+        "timestamp": 106,
+        "involved_entities": [
+          "Jeff Bezos",
+          "Lauren Sanchez",
+          "Mick Jagger",
+          "Ivanka Trump",
+          "Jared Kushner",
+          "Oprah Winfrey",
+          "Bill Gates"
+        ]
+      }
+    ],
+    "visual_temporal_cues": [],
+    "temporal_patterns": [
+      {
+        "description": "A list of \"Five things to know\" structured as distinct, sequential news items for immediate awareness.",
+        "pattern_type": "Sequential/List",
+        "significance": "Provides an organized overview of immediate-term news and key updates.",
+        "timespan": "Immediate present to near future"
+      },
+      {
+        "description": "Anna Wintour's long-standing tenure in her role as head of editorial content at Vogue, spanning 'decades'.",
+        "pattern_type": "Duration/Continuity",
+        "significance": "Highlights a significant period of consistent leadership and influence within the fashion industry.",
+        "timespan": "Multi-decade past, ending recently"
+      },
+      {
+        "description": "Reference to the 'opening bell' for financial markets, implying a daily, recurring event.",
+        "pattern_type": "Cyclical/Recurring",
+        "significance": "Marks the regular commencement of trading activities each day.",
+        "timespan": "Daily"
+      },
+      {
+        "description": "Core PCE data showing an increase 'from April', indicating an upward trend in this inflation measure.",
+        "pattern_type": "Trend/Progression",
+        "significance": "Highlights a directional change and potential escalation in economic data over a short period.",
+        "timespan": "Short-term past to present"
+      }
+    ],
+    "dates": [
+      {
+        "confidence": 0.9,
+        "normalized_date": "CURRENT_BUSINESS_DAY",
+        "original_text": "ahead of the opening bell",
+        "precision": "exact",
+        "source": "transcript",
+        "context": "Five things to know ahead of the opening bell.",
+        "timestamp": 0.0
+      },
+      {
+        "confidence": 1.0,
+        "normalized_date": "CURRENT_DATE_T08:30:00",
+        "original_text": "8:30 Eastern time",
+        "precision": "exact",
+        "source": "transcript",
+        "context": "core PCE data is due at 8:30 Eastern time.",
+        "timestamp": 3.0
+      },
+      {
+        "confidence": 1.0,
+        "normalized_date": "XXXX-04-XX",
+        "original_text": "April",
+        "precision": "month",
+        "source": "transcript",
+        "context": "Up a bit from April.",
+        "timestamp": 8.5
+      },
+      {
+        "confidence": 0.9,
+        "normalized_date": "CURRENT_WEEKEND",
+        "original_text": "big wedding weekend",
+        "precision": "approximate",
+        "source": "transcript",
+        "context": "Uh it's the big wedding uh weekend.",
+        "timestamp": 57.0
+      },
+      {
+        "confidence": 1.0,
+        "normalized_date": "CURRENT_DATE",
+        "original_text": "today",
+        "precision": "exact",
+        "source": "transcript",
+        "context": "They're expected to be married today",
+        "timestamp": 66.0
+      }
+    ],
+    "visual_dates": [],
+    "spacy_entities": 41,
+    "gliner_entities": 29,
+    "quality_false_positives_removed": 2,
+    "quality_language_filtered": 34,
+    "quality_confidence_improved": 10,
+    "quality_score": 0.5689823872754971,
+    "language_purity": 1.0,
+    "enhanced_entities": 8,
+    "relationships": 2,
+    "relationship_evidence_total": 8,
+    "relationships_with_evidence": 2,
+    "temporal_references": 1,
+    "llm_validated": 6,
+    "graph_nodes": 8,
+    "graph_edges": 2,
+    "retention_decision": {
+      "action": "deleted",
+      "video_path": ".video_cache/5 Things To Know\uff1a June 27, 2025-Am1Of0F9YxE.mp3",
+      "video_hash": "04981e20ad6f49477e1f0171c9a2e04a",
+      "reason": "Policy: Always delete source videos",
+      "cost_savings": {
+        "storage_cost_avoided": 0.0007206966876983642,
+        "reprocessing_cost": 0.007353998437499999
+      },
+      "timestamp": "2025-07-18T22:43:19.559678"
+    }
+  },
+  "timeline_v2": {
+    "error": "'VideoIntelligenceRetriever' object has no attribute 'temporal_extractor'",
+    "fallback_used": true,
+    "events": [],
+    "chapters": []
+  },
+  "files": {
+    "transcript_txt": {
+      "path": "transcript.txt",
+      "format": "plain_text",
+      "size": 1581,
+      "sha256": "ef9090cb33b0d4ddc8f60ad27b781cc6dc852a2cea75813a6620cdb02feda049"
+    },
+    "transcript_json": {
+      "path": "transcript.json",
+      "format": "json",
+      "size": 31782,
+      "sha256": "a5e84e49ff8d28af571fb9cec2cef90dd0539cbab9f475206eca3f8aa75430c6"
+    },
+    "metadata": {
+      "path": "metadata.json",
+      "format": "json",
+      "size": 648,
+      "sha256": "afcb6e240dc3f7d8c8382280ea976634912be14c445104a06515658977c18f4a"
+    },
+    "entities": {
+      "path": "entities.json",
+      "format": "json",
+      "size": 2101,
+      "sha256": "817bde2b7aa141c9011125c0cebf41d02f143af7d06bd8cc77574fb6e5118ba4"
+    },
+    "relationships": {
+      "path": "relationships.json",
+      "format": "json",
+      "size": 5259,
+      "sha256": "4f4918c9cae8ffefd71e386a5bd97bee4f52ae7f2543b95dadcf95c3ab464aa0",
+      "count": 2
+    },
+    "knowledge_graph": {
+      "path": "knowledge_graph.json",
+      "format": "json",
+      "size": 1007,
+      "sha256": "245b58395be11508bf5fbd71a7e0956033bd28c2bce19b8ef3bbdb084f7e9125"
+    },
+    "gexf": {
+      "path": "knowledge_graph.gexf",
+      "format": "gexf",
+      "size": 3442,
+      "sha256": "4d33b2d2403d4d135e4890e279c16cda2d06791e1b07bf9847754cd0adf8322a",
+      "description": "Gephi-compatible graph file"
+    },
+    "entities_csv": {
+      "path": "entities.csv",
+      "format": "csv",
+      "size": 212,
+      "sha256": "55d5dbbbdfe57362ac537bb160fe10a6302b14fb7edc05524798dfcfaf9a7c36",
+      "description": "All entities in CSV format"
+    },
+    "relationships_csv": {
+      "path": "relationships.csv",
+      "format": "csv",
+      "size": 115,
+      "sha256": "925960a7085a8d94adea36334a74376d36538df218440dc882366ea31d2bb38f",
+      "description": "All relationships in CSV format"
+    },
+    "report": {
+      "path": "report.md",
+      "format": "markdown",
+      "size": 6837,
+      "sha256": "564e4d420fdfe9ce48dd5506e64eea43c9f21c36c29b1377cedf3431e98163af",
+      "description": "Human-readable intelligence report"
+    },
+    "chimera": {
+      "path": "chimera_format.json",
+      "format": "json",
+      "size": 15495,
+      "sha256": "8370ee98d0849cea1523263ddbe5a260241d9e195d57f65ed5713985c2259c66",
+      "description": "Chimera-compatible format"
+    }
+  }
+}
