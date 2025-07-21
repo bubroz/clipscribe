@@ -1,0 +1,312 @@
+{
+  "version": "2.3",
+  "created_at": "2025-07-20T17:15:30.698098",
+  "video": {
+    "title": "5 Things To Know: July 18, 2025",
+    "url": "https://www.youtube.com/watch?v=tRvZty3Ub4g",
+    "platform": "youtube"
+  },
+  "extraction_stats": {
+    "gemini_entities": 42,
+    "gemini_relationships": 55,
+    "timeline_events": [
+      {
+        "confidence": 0.9,
+        "event_description": "Recap of breaking news from the top of the show, setting the stage for 'today's opening bell' items.",
+        "event_type": "News Recap",
+        "timestamp": -60,
+        "involved_entities": []
+      },
+      {
+        "confidence": 0.95,
+        "event_description": "Chevron prevailed in its mediation with Exxon over the Guyana oil assets.",
+        "event_type": "Legal/Business Decision",
+        "timestamp": -30,
+        "involved_entities": [
+          "Chevron",
+          "Exxon",
+          "Guyana oil assets"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "Decision clears the way for Chevron's acquisition of Hess.",
+        "event_type": "Business Development",
+        "timestamp": -20,
+        "involved_entities": [
+          "Chevron",
+          "Hess"
+        ]
+      },
+      {
+        "confidence": 0.95,
+        "event_description": "Hess stock up 8.5% pre-market.",
+        "event_type": "Market Movement",
+        "timestamp": 0,
+        "involved_entities": [
+          "Hess"
+        ]
+      },
+      {
+        "confidence": 0.95,
+        "event_description": "Chevron stock up 3.7% pre-market.",
+        "event_type": "Market Movement",
+        "timestamp": 0,
+        "involved_entities": [
+          "Chevron"
+        ]
+      },
+      {
+        "confidence": 0.85,
+        "event_description": "Federal Reserve chair Jay Powell formerly responded to questions from the White House about renovations to the Central Bank's DC headquarters.",
+        "event_type": "Governmental Response",
+        "timestamp": -120,
+        "involved_entities": [
+          "Jay Powell",
+          "Federal Reserve",
+          "White House"
+        ]
+      },
+      {
+        "confidence": 0.85,
+        "event_description": "Powell provided details on project cost overruns in a letter to the Office of Management and Budget.",
+        "event_type": "Governmental Communication",
+        "timestamp": -110,
+        "involved_entities": [
+          "Jay Powell",
+          "Office of Management and Budget"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "The Financial Times reported the valuation of AI startup Perplexity has risen to $18 billion.",
+        "event_type": "Business Valuation",
+        "timestamp": -150,
+        "involved_entities": [
+          "Perplexity",
+          "Financial Times"
+        ]
+      },
+      {
+        "confidence": 0.8,
+        "event_description": "Perplexity raised money at a $14 billion valuation.",
+        "event_type": "Funding Round",
+        "timestamp": -5300000,
+        "involved_entities": [
+          "Perplexity"
+        ]
+      },
+      {
+        "confidence": 0.85,
+        "event_description": "New investors approached Perplexity and purchased equity at the higher valuation level ($18 billion) after the previous funding round closed.",
+        "event_type": "Investment Activity",
+        "timestamp": -140,
+        "involved_entities": [
+          "Perplexity"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "Amazon is laying off some staffers in its cloud computing division.",
+        "event_type": "Corporate Layoffs",
+        "timestamp": -180,
+        "involved_entities": [
+          "Amazon"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "The Commerce Department says it will impose anti-dumping duties of more than 90% on a type of graphite imported from China.",
+        "event_type": "Trade Policy Announcement",
+        "timestamp": -210,
+        "involved_entities": [
+          "Commerce Department",
+          "China"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "event_description": "The government concluded that the graphite material is being sold in the US at less than fair market value.",
+        "event_type": "Trade Investigation Conclusion",
+        "timestamp": -220,
+        "involved_entities": [
+          "Commerce Department"
+        ]
+      }
+    ],
+    "visual_temporal_cues": [],
+    "temporal_patterns": [
+      {
+        "description": "A regular daily segment format, starting with a recap of breaking news from the 'top of the show' and leading into 'five things to know ahead of today's opening bell,' indicating a structured news briefing.",
+        "pattern_type": "Daily Routine/Recap",
+        "significance": "Establishes a daily or recurring news delivery structure.",
+        "timespan": "Daily"
+      },
+      {
+        "description": "A clear causal chain where Chevron's prevailing in mediation with Exxon directly clears the way for its acquisition of Hess, which in turn impacts Hess's stock price.",
+        "pattern_type": "Causal Sequence",
+        "significance": "Demonstrates cause-and-effect relationships in corporate and market events.",
+        "timespan": "Short-term past to present"
+      },
+      {
+        "description": "A progression in valuation for AI startup Perplexity, where its value increased significantly 'two months after' an earlier funding round, driven by new investor interest.",
+        "pattern_type": "Progression/Growth over Time",
+        "significance": "Illustrates a temporal growth trajectory for a company's valuation.",
+        "timespan": "Over a two-month period"
+      },
+      {
+        "description": "Amazon's layoffs are described as a 'result of ongoing efforts to streamline the workforce,' indicating a continuous or sustained corporate strategy rather than a one-off event.",
+        "pattern_type": "Ongoing Process",
+        "significance": "Highlights continuous operational adjustments within a company.",
+        "timespan": "Continuous"
+      },
+      {
+        "description": "A governmental conclusion about unfair market practices directly leads to a future action of imposing anti-dumping duties, establishing a regulatory cause-and-effect.",
+        "pattern_type": "Causal Sequence/Regulatory Action",
+        "significance": "Shows how a past finding triggers a future policy implementation.",
+        "timespan": "Past finding to future action"
+      }
+    ],
+    "dates": [
+      {
+        "confidence": 0.95,
+        "normalized_date": "2024-07-01",
+        "original_text": "today's opening bell",
+        "precision": "day",
+        "source": "transcript",
+        "context": "Context for market open"
+      },
+      {
+        "confidence": 0.9,
+        "normalized_date": "2024-07-01",
+        "original_text": "today",
+        "precision": "day",
+        "source": "transcript",
+        "context": "General reporting timeframe"
+      },
+      {
+        "confidence": 0.85,
+        "normalized_date": "2024-05-01",
+        "original_text": "two months after",
+        "precision": "month",
+        "source": "transcript",
+        "context": "Perplexity's prior funding round"
+      }
+    ],
+    "visual_dates": [],
+    "spacy_entities": 26,
+    "gliner_entities": 31,
+    "quality_false_positives_removed": 0,
+    "quality_language_filtered": 2,
+    "quality_confidence_improved": 51,
+    "quality_score": 0.5168900296409924,
+    "language_purity": 0.9523809523809524,
+    "enhanced_entities": 14,
+    "relationships": 2,
+    "relationship_evidence_total": 89,
+    "relationships_with_evidence": 52,
+    "temporal_references": 1,
+    "llm_validated": 10,
+    "graph_nodes": 69,
+    "graph_edges": 52,
+    "retention_decision": {
+      "action": "deleted",
+      "video_path": ".video_cache/5 Things To Know\uff1a July 18, 2025-tRvZty3Ub4g.mp3",
+      "video_hash": "9b1198ebb99fb8bbaafaff6293ee05d3",
+      "reason": "Policy: Always delete source videos",
+      "cost_savings": {
+        "storage_cost_avoided": 0.0005204349607229233,
+        "reprocessing_cost": 0.00527979375
+      },
+      "timestamp": "2025-07-20T17:09:14.147913"
+    }
+  },
+  "timeline_v2": {
+    "events": [],
+    "chapters": [],
+    "quality_metrics": {
+      "total_events_extracted": 0,
+      "events_after_deduplication": 0,
+      "events_with_content_dates": 0,
+      "final_high_quality_events": 0,
+      "chapters_created": 0,
+      "quality_improvement_ratio": 0
+    },
+    "status": "discontinued",
+    "message": "Timeline features discontinued - focusing on core intelligence extraction"
+  },
+  "files": {
+    "transcript_txt": {
+      "path": "transcript.txt",
+      "format": "plain_text",
+      "size": 1498,
+      "sha256": "3c06b0f42e1a602a4ba69e0e5c561a03da329a3990f910b51fa0fdea507dc64c"
+    },
+    "transcript_json": {
+      "path": "transcript.json",
+      "format": "json",
+      "size": 115725,
+      "sha256": "29585d462fddc28037638a01e8c63c8b45709476125d8826b787223df9185533"
+    },
+    "metadata": {
+      "path": "metadata.json",
+      "format": "json",
+      "size": 642,
+      "sha256": "336ca95ce43d796786ef394a3f9af0443724dd1d505d2eb35d30499478d5e45c"
+    },
+    "entities": {
+      "path": "entities.json",
+      "format": "json",
+      "size": 7404,
+      "sha256": "55f69f9e3e653b9930f02c439486655f2385e7a84187ca9d8f2e509ed6ca195b"
+    },
+    "relationships": {
+      "path": "relationships.json",
+      "format": "json",
+      "size": 68119,
+      "sha256": "27c599b498b36b7e1e9f8c81102e6ceb219eb515350fc4108d8f716e7e53bb61",
+      "count": 57
+    },
+    "knowledge_graph": {
+      "path": "knowledge_graph.json",
+      "format": "json",
+      "size": 11348,
+      "sha256": "481bd037b32a67f03fd4ff15d1cfeaa85ac51e506a58e7854c78240d6895edf0"
+    },
+    "gexf": {
+      "path": "knowledge_graph.gexf",
+      "format": "gexf",
+      "size": 32690,
+      "sha256": "8d9cd4195657121b515c4e78493d0de9a8e54ce8128aaafd8123f65f1f4c89cf",
+      "description": "Gephi-compatible graph file"
+    },
+    "entities_csv": {
+      "path": "entities.csv",
+      "format": "csv",
+      "size": 543,
+      "sha256": "e636504af8582888d75eb61e4234168b8a03c81041ba56bef87b8da93b28f2d4",
+      "description": "All entities in CSV format"
+    },
+    "relationships_csv": {
+      "path": "relationships.csv",
+      "format": "csv",
+      "size": 3369,
+      "sha256": "76d5f85a82aa4be16a14db2f81543dea96e9384834fa98249078bf34a5a145ee",
+      "description": "All relationships in CSV format"
+    },
+    "report": {
+      "path": "report.md",
+      "format": "markdown",
+      "size": 11123,
+      "sha256": "ef20813b7b395c181c1a3d5051283cd3cf02db4b1016c717c52b098fd1b7434f",
+      "description": "Human-readable intelligence report"
+    },
+    "chimera": {
+      "path": "chimera_format.json",
+      "format": "json",
+      "size": 19448,
+      "sha256": "75ba95c4fec05346e39017c212eafc30e51ea009cec7269ae51392bf3d281bfa",
+      "description": "Chimera-compatible format"
+    }
+  }
+}

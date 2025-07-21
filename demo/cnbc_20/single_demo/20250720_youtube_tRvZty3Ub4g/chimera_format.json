@@ -1,0 +1,557 @@
+{
+  "type": "video",
+  "source": "video_intelligence",
+  "url": "https://www.youtube.com/watch?v=tRvZty3Ub4g",
+  "title": "5 Things To Know: July 18, 2025",
+  "content": "Five things to know ahead of today's opening bell, recapping the breaking news from Becky at the top of the show. Chevron has prevailed in its mediation with Exxon over the Guyana oil assets. The decision clears the way for Chevron's acquisition of Hess. A look at Hess stock up 8 and a half% pre-market, Chevron up 3.7%. Federal Reserve chair Jay Powell formerly responding to questions from the White House about renovations to the Central Bank's DC headquarters. In a letter to the Office of Management and Budget, Powell provided details on project cost overruns. He's also batted down accusations that the renovated buildings will feature luxury amenities. The Financial Times reporting the valuation of AI startup Perplexity has risen 18 to $18 billion, two months after the company raised money at a $14 billion valuation. The paper says that after funding round closed, uh new investors approached Perplexity and were told they could purchase equity at the higher valuation level. And Amazon is laying off some staffers in its cloud computing division. A spokesperson said the cuts were not primarily due to investments in AI, but a result of ongoing efforts to streamline the workforce and refocus on certain priorities. And the Commerce Department says it will impose anti-dumping duties of more than 90% on a type of graphite imported from China and used in making electric vehicle batteries. The government concluding the material is being sold in the US at less than fair market value.",
+  "summary": "The financial markets are anticipating the day's opening bell with significant pre-market movements. In the energy sector, Chevron has successfully concluded its mediation with Exxon concerning the contentious Guyana oil assets. This resolution is pivotal as it removes the last major hurdle for Chevron's planned acquisition of Hess, a development that has already seen Hess's stock surge by 8.5% and Chevron's by 3.7% in pre-market trading, signaling strong investor confidence in the deal. The news was first broken by Becky.\n\nMeanwhile, Federal Reserve Chair Jay Powell has addressed inquiries from the White House regarding the substantial renovations at the Central Bank's Washington D.C. headquarters. In his detailed letter to the Office of Management and Budget, Powell acknowledged project cost overruns but emphatically refuted allegations that the renovated facilities would incorporate luxury amenities, providing transparency on the expenditures.\n\nThe rapidly evolving artificial intelligence sector continues to draw attention, with the Financial Times reporting a significant increase in the valuation of AI startup Perplexity. Just two months after a funding round valued the company at $14 billion, new investors have pushed its valuation to an impressive $18 billion by purchasing equity at a higher price. In the tech giant space, Amazon's cloud computing division is undergoing staff reductions. A spokesperson clarified these layoffs are primarily a result of ongoing workforce streamlining and strategic re-prioritization, rather than a direct consequence of AI investments.\n\nFinally, international trade policy is seeing action as the Commerce Department announced plans to impose anti-dumping duties exceeding 90% on graphite imported from China. This crucial material is widely used in the production of electric vehicle batteries. The decision comes after the government's conclusion that the graphite is being sold in the U.S. market at a price below its fair market value, indicating a move to protect domestic industries from unfair competition.",
+  "metadata": {
+    "channel": "CNBC Television",
+    "duration": 84,
+    "published_at": "2025-07-18T04:02:30",
+    "view_count": 1196,
+    "key_points": [
+      {
+        "timestamp": 0.0,
+        "text": "Breaking news from Becky is being recapped ahead of the opening bell.",
+        "importance": 0.85,
+        "context": null
+      },
+      {
+        "timestamp": 0.0,
+        "text": "Chevron has successfully concluded its mediation with Exxon regarding the Guyana oil assets.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 0.0,
+        "text": "The mediation decision removes obstacles for Chevron's acquisition of Hess.",
+        "importance": 0.95,
+        "context": null
+      },
+      {
+        "timestamp": 0.0,
+        "text": "Hess stock has risen by 8.5% in pre-market trading.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 0.0,
+        "text": "Chevron's stock is up by 3.7% in pre-market trading.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 0.0,
+        "text": "Federal Reserve chair Jay Powell has formally responded to inquiries from the White House.",
+        "importance": 0.85,
+        "context": null
+      },
+      {
+        "timestamp": 0.0,
+        "text": "The White House questions concerned renovations to the Central Bank's DC headquarters.",
+        "importance": 0.8,
+        "context": null
+      },
+      {
+        "timestamp": 0.0,
+        "text": "Powell provided detailed information on project cost overruns in a letter to the Office of Management and Budget.",
+        "importance": 0.85,
+        "context": null
+      },
+      {
+        "timestamp": 0.0,
+        "text": "Powell refuted accusations that the renovated buildings would include luxury amenities.",
+        "importance": 0.8,
+        "context": null
+      },
+      {
+        "timestamp": 0.0,
+        "text": "The Financial Times reported a significant increase in the valuation of AI startup Perplexity.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 0.0,
+        "text": "Perplexity's valuation has surged to $18 billion.",
+        "importance": 0.95,
+        "context": null
+      },
+      {
+        "timestamp": 0.0,
+        "text": "This new valuation follows a previous funding round two months ago where Perplexity was valued at $14 billion.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 0.0,
+        "text": "New investors approached Perplexity after its funding round closed.",
+        "importance": 0.85,
+        "context": null
+      },
+      {
+        "timestamp": 0.0,
+        "text": "These new investors were permitted to purchase equity at the higher $18 billion valuation level.",
+        "importance": 0.8,
+        "context": null
+      },
+      {
+        "timestamp": 0.0,
+        "text": "Amazon is implementing layoffs affecting staffers within its cloud computing division.",
+        "importance": 0.85,
+        "context": null
+      },
+      {
+        "timestamp": 0.0,
+        "text": "An Amazon spokesperson stated that the layoffs are not primarily a result of AI investments.",
+        "importance": 0.8,
+        "context": null
+      },
+      {
+        "timestamp": 0.0,
+        "text": "The cuts are attributed to ongoing efforts to streamline Amazon's workforce.",
+        "importance": 0.85,
+        "context": null
+      },
+      {
+        "timestamp": 0.0,
+        "text": "The layoffs are also part of a strategy to refocus on specific priorities within the company.",
+        "importance": 0.85,
+        "context": null
+      },
+      {
+        "timestamp": 0.0,
+        "text": "The Commerce Department plans to impose anti-dumping duties exceeding 90%.",
+        "importance": 0.9,
+        "context": null
+      },
+      {
+        "timestamp": 0.0,
+        "text": "These duties will target a specific type of graphite imported from China.",
+        "importance": 0.95,
+        "context": null
+      },
+      {
+        "timestamp": 0.0,
+        "text": "The graphite in question is a critical material used in manufacturing electric vehicle batteries.",
+        "importance": 0.85,
+        "context": null
+      },
+      {
+        "timestamp": 0.0,
+        "text": "The U.S. government concluded that the imported graphite is being sold in the US at prices below fair market value.",
+        "importance": 0.9,
+        "context": null
+      }
+    ],
+    "entities": [
+      {
+        "entity": "Hess",
+        "type": "PERSON",
+        "start_char": null,
+        "end_char": null,
+        "confidence": 0.7100000000000001,
+        "source": null,
+        "extraction_sources": [
+          "SpaCy"
+        ],
+        "mention_count": 1,
+        "context_windows": [
+          {
+            "text": "ision clears the way for Chevron's acquisition of Hess. A look at Hess stock up 8 and a half% pre-market",
+            "timestamp": "00:00:00",
+            "confidence": 0.9,
+            "speaker": null,
+            "visual_present": false
+          }
+        ],
+        "aliases": [],
+        "canonical_form": "Hess",
+        "source_confidence": {
+          "SpaCy": 0.7
+        },
+        "temporal_distribution": [
+          {
+            "timestamp": "00:00:00",
+            "duration": 5.0,
+            "context_type": "spoken"
+          }
+        ]
+      },
+      {
+        "entity": "Acquisition",
+        "type": "EVENT",
+        "start_char": null,
+        "end_char": null,
+        "confidence": 0.95,
+        "source": null,
+        "extraction_sources": [
+          "Gemini"
+        ],
+        "mention_count": 1,
+        "context_windows": [
+          {
+            "text": "assets. The decision clears the way for Chevron's acquisition of Hess. A look at Hess stock up 8 and a half% pr",
+            "timestamp": "00:00:00",
+            "confidence": 0.9,
+            "speaker": null,
+            "visual_present": false
+          }
+        ],
+        "aliases": [],
+        "canonical_form": "Acquisition",
+        "source_confidence": {
+          "Gemini": 0.7
+        },
+        "temporal_distribution": [
+          {
+            "timestamp": "00:00:00",
+            "duration": 5.0,
+            "context_type": "spoken"
+          }
+        ]
+      },
+      {
+        "entity": "Cloud Computing Division",
+        "type": "ORGANIZATION",
+        "start_char": null,
+        "end_char": null,
+        "confidence": 0.7100000000000001,
+        "source": null,
+        "extraction_sources": [
+          "Gemini"
+        ],
+        "mention_count": 1,
+        "context_windows": [
+          {
+            "text": "el. And Amazon is laying off some staffers in its cloud computing division. A spokesperson said the cuts were not primarily ",
+            "timestamp": "00:00:00",
+            "confidence": 0.9,
+            "speaker": null,
+            "visual_present": false
+          }
+        ],
+        "aliases": [],
+        "canonical_form": "Cloud Computing Division",
+        "source_confidence": {
+          "Gemini": 0.7
+        },
+        "temporal_distribution": [
+          {
+            "timestamp": "00:00:00",
+            "duration": 5.0,
+            "context_type": "spoken"
+          }
+        ]
+      },
+      {
+        "entity": "Mediation",
+        "type": "EVENT",
+        "start_char": null,
+        "end_char": null,
+        "confidence": 0.95,
+        "source": null,
+        "extraction_sources": [
+          "Gemini"
+        ],
+        "mention_count": 1,
+        "context_windows": [
+          {
+            "text": "the top of the show. Chevron has prevailed in its mediation with Exxon over the Guyana oil assets. The decisi",
+            "timestamp": "00:00:00",
+            "confidence": 0.9,
+            "speaker": null,
+            "visual_present": false
+          }
+        ],
+        "aliases": [],
+        "canonical_form": "Mediation",
+        "source_confidence": {
+          "Gemini": 0.7
+        },
+        "temporal_distribution": [
+          {
+            "timestamp": "00:00:00",
+            "duration": 5.0,
+            "context_type": "spoken"
+          }
+        ]
+      },
+      {
+        "entity": "Renovations",
+        "type": "EVENT",
+        "start_char": null,
+        "end_char": null,
+        "confidence": 0.95,
+        "source": null,
+        "extraction_sources": [
+          "Gemini"
+        ],
+        "mention_count": 1,
+        "context_windows": [
+          {
+            "text": "esponding to questions from the White House about renovations to the Central Bank's DC headquarters. In a lette",
+            "timestamp": "00:00:00",
+            "confidence": 0.9,
+            "speaker": null,
+            "visual_present": false
+          }
+        ],
+        "aliases": [],
+        "canonical_form": "Renovations",
+        "source_confidence": {
+          "Gemini": 0.7
+        },
+        "temporal_distribution": [
+          {
+            "timestamp": "00:00:00",
+            "duration": 5.0,
+            "context_type": "spoken"
+          }
+        ]
+      },
+      {
+        "entity": "Federal Reserve",
+        "type": "ORGANIZATION",
+        "start_char": null,
+        "end_char": null,
+        "confidence": 0.95,
+        "source": null,
+        "extraction_sources": [
+          "GLiNER+Gemini+SpaCy"
+        ],
+        "mention_count": 1,
+        "context_windows": [
+          {
+            "text": "ock up 8 and a half% pre-market, Chevron up 3.7%. Federal Reserve chair Jay Powell formerly responding to questions",
+            "timestamp": "00:00:00",
+            "confidence": 0.9,
+            "speaker": null,
+            "visual_present": false
+          }
+        ],
+        "aliases": [],
+        "canonical_form": "Federal Reserve",
+        "source_confidence": {
+          "GLiNER+Gemini+SpaCy": 0.7
+        },
+        "temporal_distribution": [
+          {
+            "timestamp": "00:00:00",
+            "duration": 5.0,
+            "context_type": "spoken"
+          }
+        ]
+      },
+      {
+        "entity": "Funding Round",
+        "type": "EVENT",
+        "start_char": null,
+        "end_char": null,
+        "confidence": 0.95,
+        "source": null,
+        "extraction_sources": [
+          "Gemini"
+        ],
+        "mention_count": 1,
+        "context_windows": [
+          {
+            "text": " $14 billion valuation. The paper says that after funding round closed, uh new investors approached Perplexity an",
+            "timestamp": "00:00:00",
+            "confidence": 0.9,
+            "speaker": null,
+            "visual_present": false
+          }
+        ],
+        "aliases": [],
+        "canonical_form": "Funding Round",
+        "source_confidence": {
+          "Gemini": 0.7
+        },
+        "temporal_distribution": [
+          {
+            "timestamp": "00:00:00",
+            "duration": 5.0,
+            "context_type": "spoken"
+          }
+        ]
+      },
+      {
+        "entity": "Project Cost Overruns",
+        "type": "EVENT",
+        "start_char": null,
+        "end_char": null,
+        "confidence": 0.7100000000000001,
+        "source": null,
+        "extraction_sources": [
+          "Gemini"
+        ],
+        "mention_count": 1,
+        "context_windows": [
+          {
+            "text": "Management and Budget, Powell provided details on project cost overruns. He's also batted down accusations that the renov",
+            "timestamp": "00:00:00",
+            "confidence": 0.9,
+            "speaker": null,
+            "visual_present": false
+          }
+        ],
+        "aliases": [],
+        "canonical_form": "Project Cost Overruns",
+        "source_confidence": {
+          "Gemini": 0.7
+        },
+        "temporal_distribution": [
+          {
+            "timestamp": "00:00:00",
+            "duration": 5.0,
+            "context_type": "spoken"
+          }
+        ]
+      },
+      {
+        "entity": "Valuation",
+        "type": "PRODUCT",
+        "start_char": null,
+        "end_char": null,
+        "confidence": 0.95,
+        "source": null,
+        "extraction_sources": [
+          "Gemini"
+        ],
+        "mention_count": 1,
+        "context_windows": [
+          {
+            "text": "xury amenities. The Financial Times reporting the valuation of AI startup Perplexity has risen 18 to $18",
+            "timestamp": "00:00:00",
+            "confidence": 0.9,
+            "speaker": null,
+            "visual_present": false
+          },
+          {
+            "text": "s after the company raised money at a $14 billion valuation. The paper says that after funding round closed, ",
+            "timestamp": "00:00:00",
+            "confidence": 0.9,
+            "speaker": null,
+            "visual_present": false
+          }
+        ],
+        "aliases": [],
+        "canonical_form": "Valuation",
+        "source_confidence": {
+          "Gemini": 0.7
+        },
+        "temporal_distribution": [
+          {
+            "timestamp": "00:00:00",
+            "duration": 5.0,
+            "context_type": "spoken"
+          }
+        ]
+      },
+      {
+        "entity": "8 And A Half%",
+        "type": "PERCENTAGE",
+        "start_char": null,
+        "end_char": null,
+        "confidence": 0.7100000000000001,
+        "source": null,
+        "extraction_sources": [
+          "GLiNER"
+        ],
+        "mention_count": 1,
+        "context_windows": [
+          {
+            "text": "on's acquisition of Hess. A look at Hess stock up 8 and a half% pre-market, Chevron up 3.7%. Federal Reserve chai",
+            "timestamp": "00:00:00",
+            "confidence": 0.9,
+            "speaker": null,
+            "visual_present": false
+          }
+        ],
+        "aliases": [],
+        "canonical_form": "8 And A Half%",
+        "source_confidence": {
+          "GLiNER": 0.7
+        },
+        "temporal_distribution": [
+          {
+            "timestamp": "00:00:00",
+            "duration": 5.0,
+            "context_type": "spoken"
+          }
+        ]
+      }
+    ],
+    "topics": [
+      {
+        "name": "Corporate Mergers and Acquisitions",
+        "confidence": 0.85
+      },
+      {
+        "name": "Energy Sector",
+        "confidence": 0.85
+      },
+      {
+        "name": "Financial Markets",
+        "confidence": 0.85
+      },
+      {
+        "name": "Monetary Policy",
+        "confidence": 0.85
+      },
+      {
+        "name": "Government Oversight",
+        "confidence": 0.85
+      },
+      {
+        "name": "Artificial Intelligence (AI)",
+        "confidence": 0.85
+      },
+      {
+        "name": "Startup Valuation",
+        "confidence": 0.85
+      },
+      {
+        "name": "Tech Industry Layoffs",
+        "confidence": 0.85
+      },
+      {
+        "name": "Cloud Computing",
+        "confidence": 0.85
+      },
+      {
+        "name": "International Trade Policy",
+        "confidence": 0.85
+      },
+      {
+        "name": "Anti-Dumping Duties",
+        "confidence": 0.85
+      },
+      {
+        "name": "Electric Vehicles (EV)",
+        "confidence": 0.85
+      },
+      {
+        "name": "Raw Materials",
+        "confidence": 0.85
+      }
+    ],
+    "sentiment": null,
+    "processing_cost": 0.0047998125,
+    "timeline_v2": {
+      "events": [],
+      "chapters": [],
+      "quality_metrics": {
+        "total_events_extracted": 0,
+        "events_after_deduplication": 0,
+        "events_with_content_dates": 0,
+        "final_high_quality_events": 0,
+        "chapters_created": 0,
+        "quality_improvement_ratio": 0
+      },
+      "status": "discontinued",
+      "message": "Timeline features discontinued - focusing on core intelligence extraction"
+    }
+  }
+}

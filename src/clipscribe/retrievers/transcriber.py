@@ -34,13 +34,25 @@ class GeminiFlashTranscriber:
         # Get settings
         self.settings = Settings()
         self.api_key = api_key or self.settings.google_api_key
-        if not self.api_key:
-            raise ValueError("Google API key is required")
+        self.use_vertex_ai = self.settings.use_vertex_ai
         
-        genai.configure(api_key=self.api_key)
-        
-        # Initialize GeminiPool instead of single client
-        self.pool = GeminiPool(api_key=self.api_key)
+        # Initialize appropriate backend
+        if self.use_vertex_ai:
+            logger.info("Using Vertex AI for video processing")
+            # Lazy import to avoid dependency if not using Vertex AI
+            from .vertex_ai_transcriber import VertexAITranscriber
+            self.vertex_transcriber = VertexAITranscriber()
+            self.pool = None  # Not used with Vertex AI
+        else:
+            if not self.api_key:
+                raise ValueError("Google API key is required")
+            
+            genai.configure(api_key=self.api_key)
+            
+            # Initialize GeminiPool instead of single client
+            self.pool = GeminiPool(api_key=self.api_key)
+            self.vertex_transcriber = None
+            
         self.performance_monitor = performance_monitor
         
         # Get temporal intelligence configuration
@@ -201,7 +213,8 @@ class GeminiFlashTranscriber:
                     model=transcription_model.model_name
                 )
 
-            response = await transcription_model.generate_content_async(
+            response = await self._retry_generate_content(
+                transcription_model,
                 [file, transcript_prompt],
                 request_options=RequestOptions(timeout=self.request_timeout)
             )
@@ -381,12 +394,10 @@ class GeminiFlashTranscriber:
                     model=analysis_model.model_name
                 )
 
-            response = await analysis_model.generate_content_async(
+            response = await self._retry_generate_content(
+                analysis_model,
                 combined_prompt,
-                generation_config={
-                    "response_mime_type": "application/json",
-                    "response_schema": response_schema
-                },
+                generation_config={"response_mime_type": "application/json", "response_schema": response_schema},
                 request_options=RequestOptions(timeout=self.request_timeout)
             )
 
@@ -469,7 +480,8 @@ class GeminiFlashTranscriber:
                         model=second_model.model_name
                     )
 
-                response = await second_model.generate_content_async(
+                response = await self._retry_generate_content(
+                    second_model,
                     second_pass_prompt,
                     generation_config={"response_mime_type": "application/json"},
                     request_options=RequestOptions(timeout=self.request_timeout)
@@ -543,6 +555,17 @@ class GeminiFlashTranscriber:
         Returns:
             Dictionary with transcript and enhanced analysis including visual temporal elements
         """
+        # Use Vertex AI if configured
+        if self.use_vertex_ai:
+            logger.info(f"Using Vertex AI to transcribe video: {video_file}")
+            result = await self.vertex_transcriber.transcribe_with_vertex(
+                Path(video_file),
+                enhance_transcript=self.temporal_config['level'] != TemporalIntelligenceLevel.STANDARD,
+                mode="video"
+            )
+            # Convert to expected format
+            return self._convert_vertex_result_to_dict(result)
+            
         logger.info(f"Uploading video file: {video_file}")
         logger.info(f"Enhanced temporal intelligence level: {self.temporal_config['level']}")
         
@@ -577,7 +600,8 @@ class GeminiFlashTranscriber:
                     model=video_model.model_name
                 )
 
-            response = await video_model.generate_content_async(
+            response = await self._retry_generate_content(
+                video_model,
                 [file, transcript_prompt],
                 request_options=RequestOptions(timeout=self.request_timeout)
             )
@@ -611,12 +635,10 @@ class GeminiFlashTranscriber:
                     model=analysis_model.model_name
                 )
 
-            response = await analysis_model.generate_content_async(
+            response = await self._retry_generate_content(
+                analysis_model,
                 combined_prompt,
-                generation_config={
-                    "response_mime_type": "application/json",
-                    "response_schema": response_schema
-                },
+                generation_config={"response_mime_type": "application/json", "response_schema": response_schema},
                 request_options=RequestOptions(timeout=self.request_timeout)
             )
 
@@ -769,7 +791,8 @@ class GeminiFlashTranscriber:
         # Make the temporal intelligence call
         if is_video and video_file and self.temporal_config['extract_visual_cues']:
             # Video mode with visual cues
-            response = await temporal_model.generate_content_async(
+            response = await self._retry_generate_content(
+                temporal_model,
                 [video_file, temporal_prompt],
                 generation_config={
                     "response_mime_type": "application/json",
@@ -779,7 +802,8 @@ class GeminiFlashTranscriber:
             )
         else:
             # Audio mode or visual cues disabled
-            response = await temporal_model.generate_content_async(
+            response = await self._retry_generate_content(
+                temporal_model,
                 temporal_prompt,
                 generation_config={
                     "response_mime_type": "application/json",
@@ -799,6 +823,23 @@ class GeminiFlashTranscriber:
             "visual_dates": temporal_data.get("visual_dates", []),
             "temporal_patterns": temporal_data.get("temporal_patterns", [])
         }
+
+    async def _retry_generate_content(self, model, contents, generation_config=None, request_options=None, retries=3, initial_delay=5):
+        delay = initial_delay
+        for attempt in range(retries):
+            try:
+                return await model.generate_content_async(
+                    contents,
+                    generation_config=generation_config,
+                    request_options=request_options
+                )
+            except Exception as e:
+                if "503" in str(e) and attempt < retries - 1:
+                    logger.warning(f"Transient error (503): Retrying in {delay}s (attempt {attempt+1}/{retries})")
+                    await asyncio.sleep(delay)
+                    delay *= 2
+                    continue
+                raise e
 
     def _build_enhanced_transcript_prompt(self) -> str:
         """Build enhanced transcript prompt for temporal intelligence."""
@@ -988,3 +1029,40 @@ class GeminiFlashTranscriber:
     def get_total_cost(self) -> float:
         """Get total cost of all operations."""
         return self.total_cost 
+
+    def _convert_vertex_result_to_dict(self, vertex_result) -> Dict[str, Any]:
+        """Convert Vertex AI VideoIntelligence result to dictionary format."""
+        return {
+            "text": vertex_result.transcript_text,
+            "segments": [
+                {
+                    "text": seg.text,
+                    "start_time": seg.start_time,
+                    "end_time": seg.end_time,
+                    "speaker": seg.speaker
+                }
+                for seg in vertex_result.transcript_segments
+            ],
+            "entities": [
+                {
+                    "entity": e.entity,
+                    "type": e.type,
+                    "confidence": e.confidence,
+                    "context": e.context
+                }
+                for e in vertex_result.entities
+            ],
+            "relationships": [
+                {
+                    "source_entity": r.source_entity,
+                    "relationship_type": r.relationship_type,
+                    "target_entity": r.target_entity,
+                    "confidence": r.confidence,
+                    "context": r.context
+                }
+                for r in vertex_result.relationships
+            ],
+            "key_insights": vertex_result.key_insights,
+            "temporal_intelligence": vertex_result.temporal_intelligence.dict() if vertex_result.temporal_intelligence else {},
+            "processing_cost": 0.0  # Vertex AI costs are handled differently
+        } 

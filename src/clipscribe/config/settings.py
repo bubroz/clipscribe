@@ -38,6 +38,12 @@ class Settings(BaseSettings):
         description="Google API key for Gemini 2.5 Flash"
     )
     
+    # Vertex AI Configuration
+    use_vertex_ai: bool = Field(
+        default=os.getenv("USE_VERTEX_AI", "false").lower() == "true",
+        description="Use Vertex AI instead of Google AI for video processing"
+    )
+    
     # AI Model Configuration
     ai_model: str = Field(
         default="google_genai:gemini-2.5-flash",

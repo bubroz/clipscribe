@@ -1,0 +1,885 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gexf xmlns="http://www.gexf.net/1.3" xmlns:viz="http://www.gexf.net/1.3/viz" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://gexf.net/1.3 http://gexf.net/1.3/gexf.xsd" version="1.3">
+  <meta lastmodifieddate="2025-07-20">
+    <creator>ClipScribe</creator>
+    <description>Knowledge graph extracted from video content</description>
+  </meta>
+  <graph mode="static" defaultedgetype="directed">
+    <attributes class="node">
+      <attribute id="0" title="Type" type="string"/>
+      <attribute id="1" title="Confidence" type="double"/>
+    </attributes>
+    <attributes class="edge">
+      <attribute id="0" title="Predicate" type="string"/>
+      <attribute id="1" title="Confidence" type="double"/>
+    </attributes>
+    <nodes>
+      <node id="Hess" label="Hess">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.7100000000000001"/>
+        </attvalues>
+        <viz:color hex="#FF6B6B" a="1.0"/>
+        <viz:size value="41.3"/>
+      </node>
+      <node id="Acquisition" label="Acquisition">
+        <attvalues>
+          <attvalue for="0" value="EVENT"/>
+          <attvalue for="1" value="0.95"/>
+        </attvalues>
+        <viz:color hex="#F7DC6F" a="1.0"/>
+        <viz:size value="48.5"/>
+      </node>
+      <node id="Cloud Computing Division" label="Cloud Computing Division">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.7100000000000001"/>
+        </attvalues>
+        <viz:color hex="#4ECDC4" a="1.0"/>
+        <viz:size value="41.3"/>
+      </node>
+      <node id="Mediation" label="Mediation">
+        <attvalues>
+          <attvalue for="0" value="EVENT"/>
+          <attvalue for="1" value="0.95"/>
+        </attvalues>
+        <viz:color hex="#F7DC6F" a="1.0"/>
+        <viz:size value="48.5"/>
+      </node>
+      <node id="Renovations" label="Renovations">
+        <attvalues>
+          <attvalue for="0" value="EVENT"/>
+          <attvalue for="1" value="0.95"/>
+        </attvalues>
+        <viz:color hex="#F7DC6F" a="1.0"/>
+        <viz:size value="48.5"/>
+      </node>
+      <node id="Federal Reserve" label="Federal Reserve">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.95"/>
+        </attvalues>
+        <viz:color hex="#4ECDC4" a="1.0"/>
+        <viz:size value="48.5"/>
+      </node>
+      <node id="Funding Round" label="Funding Round">
+        <attvalues>
+          <attvalue for="0" value="EVENT"/>
+          <attvalue for="1" value="0.95"/>
+        </attvalues>
+        <viz:color hex="#F7DC6F" a="1.0"/>
+        <viz:size value="48.5"/>
+      </node>
+      <node id="Project Cost Overruns" label="Project Cost Overruns">
+        <attvalues>
+          <attvalue for="0" value="EVENT"/>
+          <attvalue for="1" value="0.7100000000000001"/>
+        </attvalues>
+        <viz:color hex="#F7DC6F" a="1.0"/>
+        <viz:size value="41.3"/>
+      </node>
+      <node id="Valuation" label="Valuation">
+        <attvalues>
+          <attvalue for="0" value="PRODUCT"/>
+          <attvalue for="1" value="0.95"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="48.5"/>
+      </node>
+      <node id="8 And A Half%" label="8 And A Half%">
+        <attvalues>
+          <attvalue for="0" value="PERCENTAGE"/>
+          <attvalue for="1" value="0.7100000000000001"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="41.3"/>
+      </node>
+      <node id="Chevron" label="Chevron">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="Exxon" label="Exxon">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="Guyana oil assets" label="Guyana oil assets">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="Mediation decision" label="Mediation decision">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="Chevron's acquisition of Hess" label="Chevron's acquisition of Hess">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="Hess stock" label="Hess stock">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="8 and a half%" label="8 and a half%">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="Chevron stock" label="Chevron stock">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="3.7%" label="3.7%">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="Jay Powell" label="Jay Powell">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="Federal Reserve chair" label="Federal Reserve chair">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="White House" label="White House">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="renovations" label="renovations">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="Central Bank's DC headquarters" label="Central Bank's DC headquarters">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="Office of Management and Budget" label="Office of Management and Budget">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="project cost overruns" label="project cost overruns">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="luxury amenities" label="luxury amenities">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="Financial Times" label="Financial Times">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="AI startup Perplexity" label="AI startup Perplexity">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="Perplexity" label="Perplexity">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="$18 billion" label="$18 billion">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="$14 billion" label="$14 billion">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="$14 billion valuation" label="$14 billion valuation">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="new investors" label="new investors">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="equity" label="equity">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="higher valuation level" label="higher valuation level">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="Amazon" label="Amazon">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="staffers" label="staffers">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="Amazon's cloud computing division" label="Amazon's cloud computing division">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="layoffs" label="layoffs">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="investments in AI" label="investments in AI">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="ongoing efforts to streamline the workforce" label="ongoing efforts to streamline the workforce">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="refocus on certain priorities" label="refocus on certain priorities">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="Commerce Department" label="Commerce Department">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="anti-dumping duties" label="anti-dumping duties">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="graphite" label="graphite">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="China" label="China">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="electric vehicle batteries" label="electric vehicle batteries">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="material" label="material">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="US" label="US">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="less than fair market value" label="less than fair market value">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="Government" label="Government">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="material is being sold at less than fair market value" label="material is being sold at less than fair market value">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="Guyana" label="Guyana">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="oil assets" label="oil assets">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="acquisition of Hess" label="acquisition of Hess">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="DC headquarters" label="DC headquarters">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="AI" label="AI">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="$18 billion valuation" label="$18 billion valuation">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="staff reductions" label="staff reductions">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="90%" label="90%">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="Central Bank" label="Central Bank">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="transcript" label="transcript">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="Becky" label="Becky">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="opening bell" label="opening bell">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="financial news" label="financial news">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="AI sector" label="AI sector">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="cloud computing division" label="cloud computing division">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="workforce" label="workforce">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+        <viz:color hex="#95A5A6" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+    </nodes>
+    <edges>
+      <edge id="0" source="Hess" target="acquisition of Hess" weight="0.985">
+        <attvalues>
+          <attvalue for="0" value="impacts_stock_of"/>
+          <attvalue for="1" value="0.985"/>
+        </attvalues>
+      </edge>
+      <edge id="1" source="Hess" target="Chevron" weight="0.9500000000000001">
+        <attvalues>
+          <attvalue for="0" value="parent organization"/>
+          <attvalue for="1" value="0.9500000000000001"/>
+        </attvalues>
+      </edge>
+      <edge id="2" source="Mediation" target="Guyana oil assets" weight="0.975">
+        <attvalues>
+          <attvalue for="0" value="concerned_in_mediation"/>
+          <attvalue for="1" value="0.975"/>
+        </attvalues>
+      </edge>
+      <edge id="3" source="Federal Reserve" target="DC headquarters" weight="0.965">
+        <attvalues>
+          <attvalue for="0" value="are_located_at"/>
+          <attvalue for="1" value="0.965"/>
+        </attvalues>
+      </edge>
+      <edge id="4" source="Chevron" target="Exxon" weight="1.0">
+        <attvalues>
+          <attvalue for="0" value="prevailed_in_mediation_with"/>
+          <attvalue for="1" value="1.0"/>
+        </attvalues>
+      </edge>
+      <edge id="5" source="Chevron" target="Hess" weight="0.9500000000000001">
+        <attvalues>
+          <attvalue for="0" value="subsidiary"/>
+          <attvalue for="1" value="0.9500000000000001"/>
+        </attvalues>
+      </edge>
+      <edge id="6" source="Chevron" target="acquisition of Hess" weight="0.985">
+        <attvalues>
+          <attvalue for="0" value="impacts_stock_of"/>
+          <attvalue for="1" value="0.985"/>
+        </attvalues>
+      </edge>
+      <edge id="7" source="Exxon" target="Chevron" weight="0.975">
+        <attvalues>
+          <attvalue for="0" value="resolved_dispute_with"/>
+          <attvalue for="1" value="0.975"/>
+        </attvalues>
+      </edge>
+      <edge id="8" source="Mediation decision" target="Chevron's acquisition of Hess" weight="1.0">
+        <attvalues>
+          <attvalue for="0" value="clears_way_for"/>
+          <attvalue for="1" value="1.0"/>
+        </attvalues>
+      </edge>
+      <edge id="9" source="Hess stock" target="8 and a half%" weight="0.985">
+        <attvalues>
+          <attvalue for="0" value="increased_by"/>
+          <attvalue for="1" value="0.985"/>
+        </attvalues>
+      </edge>
+      <edge id="10" source="Chevron stock" target="3.7%" weight="0.985">
+        <attvalues>
+          <attvalue for="0" value="increased_by"/>
+          <attvalue for="1" value="0.985"/>
+        </attvalues>
+      </edge>
+      <edge id="11" source="Jay Powell" target="Federal Reserve chair" weight="1.0">
+        <attvalues>
+          <attvalue for="0" value="holds_title_of"/>
+          <attvalue for="1" value="1.0"/>
+        </attvalues>
+      </edge>
+      <edge id="12" source="Jay Powell" target="White House" weight="0.975">
+        <attvalues>
+          <attvalue for="0" value="responded_to_questions_from"/>
+          <attvalue for="1" value="0.975"/>
+        </attvalues>
+      </edge>
+      <edge id="13" source="Jay Powell" target="Office of Management and Budget" weight="1.0">
+        <attvalues>
+          <attvalue for="0" value="sent_letter_to"/>
+          <attvalue for="1" value="1.0"/>
+        </attvalues>
+      </edge>
+      <edge id="14" source="Jay Powell" target="project cost overruns" weight="0.975">
+        <attvalues>
+          <attvalue for="0" value="provided_details_on"/>
+          <attvalue for="1" value="0.975"/>
+        </attvalues>
+      </edge>
+      <edge id="15" source="Jay Powell" target="luxury amenities" weight="0.9500000000000001">
+        <attvalues>
+          <attvalue for="0" value="batted_down_accusations_of"/>
+          <attvalue for="1" value="0.9500000000000001"/>
+        </attvalues>
+      </edge>
+      <edge id="16" source="Jay Powell" target="Federal Reserve" weight="0.9500000000000001">
+        <attvalues>
+          <attvalue for="0" value="is_governed_by"/>
+          <attvalue for="1" value="0.9500000000000001"/>
+        </attvalues>
+      </edge>
+      <edge id="17" source="White House" target="renovations" weight="0.9349999999999999">
+        <attvalues>
+          <attvalue for="0" value="are_subject_of_scrutiny_from"/>
+          <attvalue for="1" value="0.9349999999999999"/>
+        </attvalues>
+      </edge>
+      <edge id="18" source="renovations" target="Central Bank's DC headquarters" weight="0.975">
+        <attvalues>
+          <attvalue for="0" value="are_for"/>
+          <attvalue for="1" value="0.975"/>
+        </attvalues>
+      </edge>
+      <edge id="19" source="renovations" target="project cost overruns" weight="0.925">
+        <attvalues>
+          <attvalue for="0" value="addressed_in_letter"/>
+          <attvalue for="1" value="0.925"/>
+        </attvalues>
+      </edge>
+      <edge id="20" source="Financial Times" target="AI startup Perplexity" weight="1.0">
+        <attvalues>
+          <attvalue for="0" value="reported_on"/>
+          <attvalue for="1" value="1.0"/>
+        </attvalues>
+      </edge>
+      <edge id="21" source="Perplexity" target="$18 billion" weight="0.9516666666666668">
+        <attvalues>
+          <attvalue for="0" value="valuation_rose_to"/>
+          <attvalue for="1" value="0.9516666666666668"/>
+        </attvalues>
+      </edge>
+      <edge id="22" source="Perplexity" target="$14 billion" weight="0.8150000000000001">
+        <attvalues>
+          <attvalue for="0" value="had_prior_valuation_of"/>
+          <attvalue for="1" value="0.8150000000000001"/>
+        </attvalues>
+      </edge>
+      <edge id="23" source="Perplexity" target="$14 billion valuation" weight="0.9166666666666666">
+        <attvalues>
+          <attvalue for="0" value="raised_money_at"/>
+          <attvalue for="1" value="0.9166666666666666"/>
+        </attvalues>
+      </edge>
+      <edge id="24" source="new investors" target="Perplexity" weight="0.9166666666666666">
+        <attvalues>
+          <attvalue for="0" value="approached"/>
+          <attvalue for="1" value="0.9166666666666666"/>
+        </attvalues>
+      </edge>
+      <edge id="25" source="new investors" target="equity" weight="0.8">
+        <attvalues>
+          <attvalue for="0" value="purchased"/>
+          <attvalue for="1" value="0.8"/>
+        </attvalues>
+      </edge>
+      <edge id="26" source="equity" target="higher valuation level" weight="0.89">
+        <attvalues>
+          <attvalue for="0" value="at"/>
+          <attvalue for="1" value="0.89"/>
+        </attvalues>
+      </edge>
+      <edge id="27" source="Amazon" target="staffers" weight="0.85">
+        <attvalues>
+          <attvalue for="0" value="is_laying_off"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+      </edge>
+      <edge id="28" source="Amazon" target="staff reductions" weight="0.775">
+        <attvalues>
+          <attvalue for="0" value="implemented_by"/>
+          <attvalue for="1" value="0.775"/>
+        </attvalues>
+      </edge>
+      <edge id="29" source="Amazon" target="cloud computing division" weight="0.8">
+        <attvalues>
+          <attvalue for="0" value="is_part_of"/>
+          <attvalue for="1" value="0.8"/>
+        </attvalues>
+      </edge>
+      <edge id="30" source="Amazon" target="workforce" weight="0.8">
+        <attvalues>
+          <attvalue for="0" value="undergoing_streamlining_by"/>
+          <attvalue for="1" value="0.8"/>
+        </attvalues>
+      </edge>
+      <edge id="31" source="staffers" target="Amazon's cloud computing division" weight="0.8350000000000001">
+        <attvalues>
+          <attvalue for="0" value="are_in"/>
+          <attvalue for="1" value="0.8350000000000001"/>
+        </attvalues>
+      </edge>
+      <edge id="32" source="layoffs" target="investments in AI" weight="0.85">
+        <attvalues>
+          <attvalue for="0" value="not_primarily_due_to"/>
+          <attvalue for="1" value="0.85"/>
+        </attvalues>
+      </edge>
+      <edge id="33" source="layoffs" target="ongoing efforts to streamline the workforce" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="are_result_of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="34" source="layoffs" target="refocus on certain priorities" weight="0.9">
+        <attvalues>
+          <attvalue for="0" value="are_result_of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="35" source="Commerce Department" target="anti-dumping duties" weight="0.8150000000000001">
+        <attvalues>
+          <attvalue for="0" value="protects_domestic_industry_from"/>
+          <attvalue for="1" value="0.8150000000000001"/>
+        </attvalues>
+      </edge>
+      <edge id="36" source="anti-dumping duties" target="graphite" weight="0.8350000000000001">
+        <attvalues>
+          <attvalue for="0" value="apply_to"/>
+          <attvalue for="1" value="0.8350000000000001"/>
+        </attvalues>
+      </edge>
+      <edge id="37" source="graphite" target="China" weight="0.775">
+        <attvalues>
+          <attvalue for="0" value="is_source_of_imports"/>
+          <attvalue for="1" value="0.775"/>
+        </attvalues>
+      </edge>
+      <edge id="38" source="graphite" target="electric vehicle batteries" weight="0.8350000000000001">
+        <attvalues>
+          <attvalue for="0" value="used_in_making"/>
+          <attvalue for="1" value="0.8350000000000001"/>
+        </attvalues>
+      </edge>
+      <edge id="39" source="graphite" target="US" weight="0.785">
+        <attvalues>
+          <attvalue for="0" value="is_market_for"/>
+          <attvalue for="1" value="0.785"/>
+        </attvalues>
+      </edge>
+      <edge id="40" source="material" target="US" weight="0.8250000000000001">
+        <attvalues>
+          <attvalue for="0" value="sold_in"/>
+          <attvalue for="1" value="0.8250000000000001"/>
+        </attvalues>
+      </edge>
+      <edge id="41" source="material" target="less than fair market value" weight="0.89">
+        <attvalues>
+          <attvalue for="0" value="at"/>
+          <attvalue for="1" value="0.89"/>
+        </attvalues>
+      </edge>
+      <edge id="42" source="Government" target="material is being sold at less than fair market value" weight="0.8">
+        <attvalues>
+          <attvalue for="0" value="concluded_that"/>
+          <attvalue for="1" value="0.8"/>
+        </attvalues>
+      </edge>
+      <edge id="43" source="Government" target="Commerce Department" weight="0.8150000000000001">
+        <attvalues>
+          <attvalue for="0" value="is_a_unit_of"/>
+          <attvalue for="1" value="0.8150000000000001"/>
+        </attvalues>
+      </edge>
+      <edge id="44" source="Guyana" target="oil assets" weight="0.9500000000000001">
+        <attvalues>
+          <attvalue for="0" value="pertain_to"/>
+          <attvalue for="1" value="0.9500000000000001"/>
+        </attvalues>
+      </edge>
+      <edge id="45" source="AI" target="AI startup Perplexity" weight="0.9166666666666666">
+        <attvalues>
+          <attvalue for="0" value="experienced_rising_valuation"/>
+          <attvalue for="1" value="0.9166666666666666"/>
+        </attvalues>
+      </edge>
+      <edge id="46" source="$18 billion valuation" target="$14 billion valuation" weight="0.9016666666666667">
+        <attvalues>
+          <attvalue for="0" value="preceded"/>
+          <attvalue for="1" value="0.9016666666666667"/>
+        </attvalues>
+      </edge>
+      <edge id="47" source="90%" target="anti-dumping duties" weight="0.8">
+        <attvalues>
+          <attvalue for="0" value="are_greater_than"/>
+          <attvalue for="1" value="0.8"/>
+        </attvalues>
+      </edge>
+      <edge id="48" source="Central Bank" target="Federal Reserve" weight="0.965">
+        <attvalues>
+          <attvalue for="0" value="is_also_known_as"/>
+          <attvalue for="1" value="0.965"/>
+        </attvalues>
+      </edge>
+      <edge id="49" source="transcript" target="Becky" weight="0.75">
+        <attvalues>
+          <attvalue for="0" value="provided_breaking_news"/>
+          <attvalue for="1" value="0.75"/>
+        </attvalues>
+      </edge>
+      <edge id="50" source="opening bell" target="financial news" weight="0.925">
+        <attvalues>
+          <attvalue for="0" value="is_related_to"/>
+          <attvalue for="1" value="0.925"/>
+        </attvalues>
+      </edge>
+      <edge id="51" source="AI sector" target="Perplexity" weight="0.88">
+        <attvalues>
+          <attvalue for="0" value="operates_in"/>
+          <attvalue for="1" value="0.88"/>
+        </attvalues>
+      </edge>
+    </edges>
+  </graph>
+</gexf>
