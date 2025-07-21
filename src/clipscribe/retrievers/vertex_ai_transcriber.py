@@ -1,4 +1,4 @@
-"""Vertex AI-based transcriber implementation for ClipScribe."""
+"""Vertex AI implementation for transcription and intelligence extraction."""
 
 # Load environment variables FIRST, before ANY Google imports
 import os
@@ -69,7 +69,7 @@ class VertexAITranscriber:
         logger.info(f"Initialized Vertex AI transcriber with model: {self.model_name}")
     
     async def upload_to_gcs(self, video_path: Path) -> str:
-        """Upload video to GCS for Vertex AI processing."""
+        """Upload video to GCS for Vertex AI processing with increased timeout."""
         bucket_name = VERTEX_AI_STAGING_BUCKET.replace("gs://", "")
         blob_name = f"videos/{datetime.now().isoformat()}/{video_path.name}"
         
@@ -77,8 +77,14 @@ class VertexAITranscriber:
             bucket = self.storage_client.bucket(bucket_name)
             blob = bucket.blob(blob_name)
             
-            # Upload with retry
-            blob.upload_from_filename(str(video_path), retry=retry.Retry())
+            # Upload with increased timeout and retry
+            with open(video_path, 'rb') as f:
+                blob.upload_from_file(
+                    f,
+                    content_type=self._get_mime_type(video_path),
+                    timeout=600,  # 10 minutes timeout
+                    retry=retry.Retry(deadline=600)  # Overall retry deadline
+                )
             
             gcs_uri = f"gs://{bucket_name}/{blob_name}"
             logger.info(f"Uploaded video to GCS: {gcs_uri}")
@@ -90,33 +96,55 @@ class VertexAITranscriber:
     
     async def transcribe_with_vertex(
         self,
-        video_path: Path,
+        video_path: Optional[Path] = None,
+        gcs_uri: Optional[str] = None,
         enhance_transcript: bool = False,
         mode: str = "video"
     ) -> Dict[str, Any]:
-        """Process video using Vertex AI."""
+        """Process video using Vertex AI.
+        
+        Args:
+            video_path: Local path to video file (will be uploaded to GCS)
+            gcs_uri: Direct GCS URI to use (skips upload)
+            enhance_transcript: Whether to enhance the transcript
+            mode: Processing mode ('video' or 'audio')
+        """
         try:
-            # Upload to GCS
-            gcs_uri = await self.upload_to_gcs(video_path)
-            logger.info(f"Uploaded video to GCS: {gcs_uri}")
+            # Either use provided GCS URI or upload video
+            if gcs_uri:
+                logger.info(f"Using provided GCS URI: {gcs_uri}")
+                # Extract mime type from URI
+                if gcs_uri.endswith('.mp4'):
+                    mime_type = "video/mp4"
+                elif gcs_uri.endswith('.mp3'):
+                    mime_type = "audio/mpeg"
+                else:
+                    mime_type = "video/mp4"  # Default
+            elif video_path:
+                # Upload to GCS
+                gcs_uri = await self.upload_to_gcs(video_path)
+                logger.info(f"Uploaded video to GCS: {gcs_uri}")
+                mime_type = self._get_mime_type(video_path)
+            else:
+                raise ValueError("Either video_path or gcs_uri must be provided")
             
-            # Build prompt
-            prompt = self._build_comprehensive_prompt(enhance_transcript)
+            # Build prompt based on mode
+            prompt = self._build_comprehensive_prompt(enhance_transcript, mode)
             
-            # Create content with video file reference
-            video_part = Part.from_uri(
+            # Create content with video/audio file reference
+            media_part = Part.from_uri(
                 uri=gcs_uri,
-                mime_type=self._get_mime_type(video_path)
+                mime_type=mime_type
             )
             
-            # Create contents list with prompt and video
-            contents = [prompt, video_part]
+            # Create contents list with prompt and media
+            contents = [prompt, media_part]
             
             # Configure generation with JSON response
             generation_config = {
                 "temperature": 0.1,
                 "top_p": 0.95,
-                "max_output_tokens": 8192,
+                "max_output_tokens": 32768,  # Increased to avoid truncation
                 "response_mime_type": "application/json",  # Request JSON response
             }
             
@@ -147,16 +175,20 @@ class VertexAITranscriber:
             )
         )
     
-    def _build_comprehensive_prompt(self, enhance_transcript: bool) -> str:
-        """Build the comprehensive prompt for video analysis."""
-        base_prompt = """Analyze this video comprehensively and extract:
+    def _build_comprehensive_prompt(self, enhance_transcript: bool = False, mode: str = "video") -> str:
+        """Build the comprehensive prompt for video or audio analysis."""
+        base_prompt = """Analyze this {content_type} comprehensively and extract:
 
 1. Full transcript with accurate timestamps
 2. All entities (people, organizations, locations, events) with context
 3. Relationships between entities
 4. Key insights and summary points
-5. Temporal intelligence including dates, timeline events, and chronological references
-
+5. Temporal intelligence including dates, timeline events, and chronological references"""
+        
+        if mode == "video":
+            base_prompt += """\n6. Visual intelligence: on-screen text, dates, and temporal cues"""
+        
+        base_prompt += """\n
 Return the response as a valid JSON object with this structure:
 {
   "transcript": {
@@ -220,6 +252,8 @@ Return the response as a valid JSON object with this structure:
 
 IMPORTANT: Return ONLY valid JSON, no markdown formatting or additional text."""
         
+        base_prompt = base_prompt.format(content_type="video" if mode == "video" else "audio")
+        
         if enhance_transcript:
             base_prompt += "\n\nProvide enhanced temporal intelligence with detailed timeline analysis."
             
@@ -229,7 +263,9 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting or additional text."""
         """Parse the Vertex AI response into our expected format."""
         try:
             # Log the raw response for debugging
-            logger.debug(f"Raw Vertex AI response (first 500 chars): {response_text[:500]}")
+            logger.info(f"Raw Vertex AI response length: {len(response_text)} chars")
+            logger.info(f"First 2000 chars of response: {response_text[:2000]}")
+            logger.debug(f"Full Vertex AI response: {response_text}")
             
             # Handle empty response
             if not response_text or response_text.strip() == "":
@@ -239,18 +275,30 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting or additional text."""
             # Try to parse as JSON
             try:
                 data = json.loads(response_text)
-            except json.JSONDecodeError:
+                logger.info(f"Parsed JSON with keys: {list(data.keys())}")
+                if "entities" in data:
+                    logger.info(f"Found {len(data['entities'])} entities")
+                    if data['entities']:
+                        logger.info(f"First entity example: {data['entities'][0]}")
+            except json.JSONDecodeError as e:
                 # If not JSON, treat as plain text transcript
-                logger.warning("Vertex AI response is not JSON, treating as plain text")
+                logger.warning(f"Vertex AI response is not valid JSON: {e}")
+                logger.warning(f"JSON error position: {e.pos}")
+                logger.warning(f"Error around: ...{response_text[max(0, e.pos-50):min(len(response_text), e.pos+50)]}...")
                 return {
-                    "transcript": response_text,
+                    "transcript": {
+                        "full_text": response_text,
+                        "segments": []  # No segments for plain text
+                    },
+                    "entities": [],
+                    "relationships": [],
+                    "key_insights": [],
                     "processing_cost": 0.01,  # Estimate
                     "model_used": "vertex-ai-gemini-2.5-flash",
                     "temporal_intelligence": {
-                        "timeline_events": [],
-                        "visual_temporal_cues": [],
-                        "visual_dates": [],
-                        "chronological_references": []
+                        "temporal_events": [],
+                        "visual_timestamps": [],
+                        "dates_mentioned": []
                     }
                 }
             
@@ -264,6 +312,30 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting or additional text."""
                     speaker=seg.get("speaker")
                 ))
             
+            # Build entities list - handle field name mapping
+            entities = []
+            for e in data.get("entities", []):
+                # Map 'name' to 'entity' field
+                entity_data = {
+                    "entity": e.get("name", e.get("entity", "")),  # Support both 'name' and 'entity'
+                    "type": e.get("type", ""),
+                    "confidence": e.get("confidence", 0.0),
+                    "source": "vertex-ai"
+                }
+                entities.append(Entity(**entity_data))
+            
+            # Build relationships list - handle field name mapping
+            relationships = []
+            for r in data.get("relationships", []):
+                rel_data = {
+                    "subject": r.get("source", r.get("source_entity", "")),
+                    "predicate": r.get("type", r.get("relationship_type", "")),
+                    "object": r.get("target", r.get("target_entity", "")),
+                    "confidence": r.get("confidence", 0.0),
+                    "source": "vertex-ai"
+                }
+                relationships.append(Relationship(**rel_data))
+            
             # Build VideoIntelligence object
             return {
                 "transcript": {
@@ -275,8 +347,8 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting or additional text."""
                     "visual_timestamps": data.get("temporal_intelligence", {}).get("visual_timestamps", []),
                     "dates_mentioned": data.get("temporal_intelligence", {}).get("dates_mentioned", [])
                 },
-                "entities": [Entity(**e) for e in data.get("entities", [])],
-                "relationships": [Relationship(**r) for r in data.get("relationships", [])],
+                "entities": entities,
+                "relationships": relationships,
                 "key_insights": data.get("key_insights", []),
                 "processing_cost": data.get("processing_cost", 0.01),
                 "model_used": data.get("model_used", "vertex-ai-gemini-2.5-flash")

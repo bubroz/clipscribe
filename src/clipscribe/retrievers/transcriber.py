@@ -1046,8 +1046,89 @@ class GeminiFlashTranscriber:
 
     def _convert_vertex_result_to_dict(self, vertex_result) -> Dict[str, Any]:
         """Convert Vertex AI VideoIntelligence result to dictionary format."""
+        # Handle dictionary response from Vertex AI
+        if isinstance(vertex_result, dict):
+            # The vertex AI already returns a well-structured dict
+            # Just need to convert it to our expected format
+            
+            # Extract transcript text
+            transcript_text = ""
+            segments = []
+            
+            if "transcript" in vertex_result:
+                transcript_data = vertex_result["transcript"]
+                transcript_text = transcript_data.get("full_text", "")
+                
+                # Convert segments if they exist
+                if "segments" in transcript_data and isinstance(transcript_data["segments"], list):
+                    # Handle TranscriptSegment objects or dicts
+                    for seg in transcript_data["segments"]:
+                        if hasattr(seg, '__dict__'):  # It's an object
+                            segments.append({
+                                "text": seg.text,
+                                "start_time": seg.start_time,
+                                "end_time": seg.end_time,
+                                "speaker": getattr(seg, 'speaker', None)
+                            })
+                        else:  # It's already a dict
+                            segments.append({
+                                "text": seg.get("text", ""),
+                                "start_time": seg.get("start_time", 0.0),
+                                "end_time": seg.get("end_time", 0.0),
+                                "speaker": seg.get("speaker")
+                            })
+            
+            # Extract entities
+            entities = []
+            for e in vertex_result.get("entities", []):
+                if hasattr(e, '__dict__'):  # Entity object
+                    entities.append({
+                        "entity": getattr(e, 'name', getattr(e, 'entity', '')),
+                        "type": e.type,
+                        "confidence": getattr(e, 'confidence', 0.0),
+                        "context": getattr(e, 'description', getattr(e, 'context', ''))
+                    })
+                else:  # Dict
+                    entities.append({
+                        "entity": e.get('name', e.get('entity', '')),
+                        "type": e.get('type', ''),
+                        "confidence": e.get('confidence', 0.0),
+                        "context": e.get('description', e.get('context', ''))
+                    })
+            
+            # Extract relationships
+            relationships = []
+            for r in vertex_result.get("relationships", []):
+                if hasattr(r, '__dict__'):  # Relationship object
+                    relationships.append({
+                        "source_entity": r.source,
+                        "relationship_type": r.type,
+                        "target_entity": r.target,
+                        "confidence": getattr(r, 'confidence', 0.0),
+                        "context": getattr(r, 'description', getattr(r, 'context', ''))
+                    })
+                else:  # Dict
+                    relationships.append({
+                        "source_entity": r.get('source', r.get('source_entity', '')),
+                        "relationship_type": r.get('type', r.get('relationship_type', '')),
+                        "target_entity": r.get('target', r.get('target_entity', '')),
+                        "confidence": r.get('confidence', 0.0),
+                        "context": r.get('description', r.get('context', ''))
+                    })
+            
+            return {
+                "transcript": transcript_text,
+                "segments": segments,
+                "entities": entities,
+                "relationships": relationships,
+                "key_insights": vertex_result.get("key_insights", []),
+                "temporal_intelligence": vertex_result.get("temporal_intelligence", {}),
+                "processing_cost": vertex_result.get("processing_cost", 0.0)
+            }
+        
+        # Original logic for object-based response (backward compatibility)
         return {
-            "text": vertex_result.transcript_text,
+            "transcript": vertex_result.transcript_text,
             "segments": [
                 {
                     "text": seg.text,

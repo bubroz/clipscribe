@@ -1,0 +1,102 @@
+{
+  "successful_uploads": [
+    {
+      "url": "https://youtu.be/gxUrKV33yys",
+      "gcs_uri": "gs://prismatic-iris-429006-g6-clipscribe-staging/videos/2025-07-20T21:22:22.527908/The Tragic Early Days of My Chemical Romance-gxUrKV33yys.mp4",
+      "local_path": "output/video_cache/The Tragic Early Days of My Chemical Romance-gxUrKV33yys.mp4",
+      "uploaded_at": "2025-07-20T21:24:03.864591",
+      "file_size_mb": 93.64743423461914
+    },
+    {
+      "url": "https://youtu.be/2jlsVEeZmVo",
+      "gcs_uri": "gs://prismatic-iris-429006-g6-clipscribe-staging/videos/2025-07-20T21:24:47.496494/The Revenge of My Chemical Romance-2jlsVEeZmVo.mp4",
+      "local_path": "output/video_cache/The Revenge of My Chemical Romance-2jlsVEeZmVo.mp4",
+      "uploaded_at": "2025-07-20T21:27:58.915503",
+      "file_size_mb": 187.4914436340332
+    },
+    {
+      "url": "https://youtu.be/o6wtzHtfjyo",
+      "gcs_uri": "gs://prismatic-iris-429006-g6-clipscribe-staging/videos/2025-07-20T21:29:05.668653/The Haunting Beauty of The Black Parade  My Chemical Romance-o6wtzHtfjyo.mp4",
+      "local_path": "output/video_cache/The Haunting Beauty of The Black Parade  My Chemical Romance-o6wtzHtfjyo.mp4",
+      "uploaded_at": "2025-07-20T21:33:01.416766",
+      "file_size_mb": 232.31978511810303
+    },
+    {
+      "url": "https://youtu.be/0ESDiJdCfxY",
+      "gcs_uri": "gs://prismatic-iris-429006-g6-clipscribe-staging/videos/2025-07-20T21:34:18.126151/Danger Days   The End of My Chemical Romance-0ESDiJdCfxY.mp4",
+      "local_path": "output/video_cache/Danger Days   The End of My Chemical Romance-0ESDiJdCfxY.mp4",
+      "uploaded_at": "2025-07-20T21:39:03.302507",
+      "file_size_mb": 314.0410442352295
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=6ZVj1_SE4Mo",
+      "gcs_uri": "gs://prismatic-iris-429006-g6-clipscribe-staging/videos/2025-07-20T21:39:47.718751/Global Spyware Scandal Exposing Pegasus Part One full documentary  FRONTLINE-6ZVj1_SE4Mo.mp4",
+      "local_path": "output/video_cache/Global Spyware Scandal Exposing Pegasus Part One full documentary  FRONTLINE-6ZVj1_SE4Mo.mp4",
+      "uploaded_at": "2025-07-20T21:40:56.968753",
+      "file_size_mb": 81.92873477935791
+    }
+  ],
+  "failed_uploads": [],
+  "skipped": [
+    {
+      "url": "https://www.youtube.com/watch?v=xYMWTXIkANM",
+      "gcs_uri": "gs://prismatic-iris-429006-g6-clipscribe-staging/videos/2025-07-20T21:39:47.718751/Global Spyware Scandal Exposing Pegasus Part One full documentary  FRONTLINE-6ZVj1_SE4Mo.mp4"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=VHcgnRl2xPM",
+      "gcs_uri": "gs://prismatic-iris-429006-g6-clipscribe-staging/videos/2025-07-20T21:39:47.718751/Global Spyware Scandal Exposing Pegasus Part One full documentary  FRONTLINE-6ZVj1_SE4Mo.mp4"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=PvKoniTXWsQ",
+      "gcs_uri": "gs://prismatic-iris-429006-g6-clipscribe-staging/videos/2025-07-20T21:39:47.718751/Global Spyware Scandal Exposing Pegasus Part One full documentary  FRONTLINE-6ZVj1_SE4Mo.mp4"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=PcuxnqQLuAQ",
+      "gcs_uri": "gs://prismatic-iris-429006-g6-clipscribe-staging/videos/2025-07-20T21:39:47.718751/Global Spyware Scandal Exposing Pegasus Part One full documentary  FRONTLINE-6ZVj1_SE4Mo.mp4"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=JUthXIGUsq8",
+      "gcs_uri": "gs://prismatic-iris-429006-g6-clipscribe-staging/videos/2025-07-20T21:39:47.718751/Global Spyware Scandal Exposing Pegasus Part One full documentary  FRONTLINE-6ZVj1_SE4Mo.mp4"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=y_8IKKcTntQ",
+      "gcs_uri": "gs://prismatic-iris-429006-g6-clipscribe-staging/videos/2025-07-20T21:39:47.718751/Global Spyware Scandal Exposing Pegasus Part One full documentary  FRONTLINE-6ZVj1_SE4Mo.mp4"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=bdk6o7CUlXY",
+      "gcs_uri": "gs://prismatic-iris-429006-g6-clipscribe-staging/videos/2025-07-20T21:39:47.718751/Global Spyware Scandal Exposing Pegasus Part One full documentary  FRONTLINE-6ZVj1_SE4Mo.mp4"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=QnClqEBJQmU",
+      "gcs_uri": "gs://prismatic-iris-429006-g6-clipscribe-staging/videos/2025-07-20T21:39:47.718751/Global Spyware Scandal Exposing Pegasus Part One full documentary  FRONTLINE-6ZVj1_SE4Mo.mp4"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=-1riCe0dOpM",
+      "gcs_uri": "gs://prismatic-iris-429006-g6-clipscribe-staging/videos/2025-07-20T21:39:47.718751/Global Spyware Scandal Exposing Pegasus Part One full documentary  FRONTLINE-6ZVj1_SE4Mo.mp4"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=7sWj6D2i4eU",
+      "gcs_uri": "gs://prismatic-iris-429006-g6-clipscribe-staging/videos/2025-07-20T21:39:47.718751/Global Spyware Scandal Exposing Pegasus Part One full documentary  FRONTLINE-6ZVj1_SE4Mo.mp4"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=0jeZPnNPp9M",
+      "gcs_uri": "gs://prismatic-iris-429006-g6-clipscribe-staging/videos/2025-07-20T21:39:47.718751/Global Spyware Scandal Exposing Pegasus Part One full documentary  FRONTLINE-6ZVj1_SE4Mo.mp4"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=f0C_znvD7E8",
+      "gcs_uri": "gs://prismatic-iris-429006-g6-clipscribe-staging/videos/2025-07-20T21:39:47.718751/Global Spyware Scandal Exposing Pegasus Part One full documentary  FRONTLINE-6ZVj1_SE4Mo.mp4"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=pR_bIwOS4Ec",
+      "gcs_uri": "gs://prismatic-iris-429006-g6-clipscribe-staging/videos/2025-07-20T21:39:47.718751/Global Spyware Scandal Exposing Pegasus Part One full documentary  FRONTLINE-6ZVj1_SE4Mo.mp4"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=m5WR6nVISEc",
+      "gcs_uri": "gs://prismatic-iris-429006-g6-clipscribe-staging/videos/2025-07-20T21:39:47.718751/Global Spyware Scandal Exposing Pegasus Part One full documentary  FRONTLINE-6ZVj1_SE4Mo.mp4"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=hj9rK35ucCc",
+      "gcs_uri": "gs://prismatic-iris-429006-g6-clipscribe-staging/videos/2025-07-20T21:39:47.718751/Global Spyware Scandal Exposing Pegasus Part One full documentary  FRONTLINE-6ZVj1_SE4Mo.mp4"
+    }
+  ]
+}

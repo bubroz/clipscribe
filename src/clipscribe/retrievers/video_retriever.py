@@ -354,30 +354,34 @@ class VideoIntelligenceRetriever:
                 
                 # Convert topics to Topic objects
                 topics = []
-                raw_topics = analysis.get('topics', [])
-                for topic in raw_topics:
-                    if isinstance(topic, str):
-                        topics.append(Topic(name=topic, confidence=0.85))
-                    elif isinstance(topic, dict):
-                        topics.append(Topic(
-                            name=topic.get('name', ''),
-                            confidence=topic.get('confidence', 0.85)
-                        ))
-                    else:
-                        topics.append(topic)
+                for topic in analysis.get('topics', []):
+                    topics.append(Topic(
+                        name=topic.get('name', ''),
+                        confidence=topic.get('confidence', 0.0)
+                    ))
                 
-                # Create enhanced VideoIntelligence object
+                # Set default values for missing fields
+                sentiment = None
+                timeline = None
+                temporal_intelligence = analysis.get('temporal_intelligence', {})
+                chapter_summary_map = {}
+                
+                # Create VideoIntelligence object
                 video_intelligence = VideoIntelligence(
                     metadata=metadata,
                     transcript=transcript,
-                    summary=analysis['summary'],
-                    key_points=key_points,
+                    summary=analysis.get('summary', ''),  # Default to empty string if missing
+                    key_points=[],  # Default empty list
                     entities=[],  # Will be populated by extractor
                     topics=topics,
-                    sentiment=None,
-                    confidence_score=analysis.get('confidence_score', 0.95),
-                    processing_time=analysis['processing_time'],
-                    processing_cost=analysis['processing_cost']
+                    sentiment=sentiment,
+                    relationships=[],  # Will be populated by extractor
+                    processing_cost=analysis['processing_cost'],
+                    timeline_v2=timeline,
+                    temporal_intelligence=temporal_intelligence,
+                    raw_entities=analysis.get('entities', []),
+                    raw_relationships=analysis.get('relationships', []),
+                    chapter_summary_map=chapter_summary_map
                 )
                 
                 # Store initial Gemini entities in processing_stats for advanced extractor to use

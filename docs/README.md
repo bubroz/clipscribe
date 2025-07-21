@@ -157,6 +157,12 @@ Results:
     - Specific tasks and success metrics
     - Focus on extraction excellence
 
+11. **[Pre-Upload Videos Guide](PRE_UPLOAD_VIDEOS.md)** - **NEW**
+    - Pre-upload videos to GCS for Vertex AI
+    - Avoid upload timeouts
+    - Batch processing optimization
+    - Cost management strategies
+
 ## 🗺️ Quick Navigation
 
 - **Just want to process a video?** → Start with [Getting Started](GETTING_STARTED.md)

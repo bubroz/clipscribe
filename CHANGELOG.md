@@ -5,6 +5,34 @@ All notable changes to ClipScribe will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v2.19.3] - 2025-07-20
+
+### Added
+- **Pre-Upload Videos to GCS**: New script for batch uploading videos to Google Cloud Storage
+  - Created `scripts/pre_upload_test_videos.py` for pre-uploading test videos
+  - Avoids upload timeouts during Vertex AI processing
+  - Smart tracking to prevent duplicate uploads
+  - Comprehensive summary with all GCS URIs
+  - Documentation in `docs/PRE_UPLOAD_VIDEOS.md`
+
+### Fixed
+- **Vertex AI GCS URI Support**: Enhanced VertexAITranscriber to accept pre-uploaded videos
+  - Added `gcs_uri` parameter to `transcribe_with_vertex` method
+  - Can now process videos directly from GCS without re-uploading
+  - Fixed video ID extraction for both youtu.be and youtube.com URLs
+  - Proper MIME type detection for GCS URIs
+
+### Changed
+- **Test Scripts**: Updated Vertex AI test scripts
+  - Created `test_vertex_ai_gcs.py` for testing with pre-uploaded videos
+  - Added direct API debugging methods
+  - Better error reporting and logging
+
+### Documentation
+- Added comprehensive pre-upload guide: `docs/PRE_UPLOAD_VIDEOS.md`
+- Updated docs README with new guide reference
+- Documented GCS management best practices
+
 ## [v2.19.2] - 2025-07-20
 
 ### Added
