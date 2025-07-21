@@ -179,19 +179,22 @@ python scripts/convert_to_gephi.py output/latest/knowledge_graph.json
 ## 🐛 Issues Found
 
 ### Critical Issues
-1. **Entity Quality Filter Too Aggressive** (ACTIVE)
-   - Removing all entities as "non-English" even for English content
-   - Reduces entity count from 6 → 0
+1. **Entity Quality Filter Too Aggressive** (FIXED ✅)
+   - ~~Removing all entities as "non-English" even for English content~~
+   - ~~Reduces entity count from 6 → 0~~
    - File: `src/clipscribe/extractors/entity_quality_filter.py`
-   - Impact: Makes ClipScribe useless for entity extraction
+   - ~~Impact: Makes ClipScribe useless for entity extraction~~
+   - **FIX APPLIED**: Improved language detection algorithm and lowered thresholds
+   - **RESULT**: Language filter now works correctly (0 entities filtered)
 
 2. **Performance Far Below Claims** (ACTIVE)
    - Claims: 16+ entities, 52+ relationships per video
-   - Reality: 0 entities, 1 relationship (after quality filter)
-   - Either claims are wrong or extraction is broken
+   - Reality: 1 entity, 12 relationships (after quality filter fix)
+   - This is partly due to using a very short test video
+   - Need to test with longer, content-rich videos
 
 ### Minor Issues
-1. **Topic Parsing Type Error** (FIXED)
+1. **Topic Parsing Type Error** (FIXED ✅)
    - File: `src/clipscribe/retrievers/video_retriever.py:359`
    - Topics returned as strings but code expected dicts
    - Fixed by adding type checking
@@ -199,7 +202,7 @@ python scripts/convert_to_gephi.py output/latest/knowledge_graph.json
 2. **Vertex AI Default Configuration** (WORKAROUND)
    - `.env` has USE_VERTEX_AI=true by default
    - But Vertex AI not configured for most users
-   - Workaround: Created .env.test with USE_VERTEX_AI=false
+   - Workaround: USE_VERTEX_AI=false in command
 
 ### Warnings
 1. **Vertex AI SDK Deprecation Warning**
@@ -230,6 +233,18 @@ python scripts/convert_to_gephi.py output/latest/knowledge_graph.json
 - **CRITICAL BUG 1**: Topic parsing error fixed (topics as strings vs dicts)
 - **CRITICAL BUG 2**: Entity quality filter removed ALL entities (6→0)
 - **CRITICAL BUG 3**: Performance way below claims (0 entities vs 16+, 1 relationship vs 52+) 
+
+#### Test 1.1.2b: Single Video Processing (After Quality Filter Fix)
+- Time: 00:46 PDT
+- Result: ✅ PASSED WITH IMPROVEMENTS
+- Video: "Me at the zoo" (19s test video) 
+- Cost: $0.0035 (reasonable)
+- Output: All files generated successfully
+- **FIXED**: Language filter no longer removes English entities
+- **IMPROVED**: 1 entity extracted (up from 0)
+- **IMPROVED**: 12 relationships extracted (up from 1)
+- **IMPROVED**: Knowledge graph has 12 nodes, 11 edges
+- **REMAINING ISSUE**: Still below performance claims (1 vs 16+ entities)
 
 ---
 

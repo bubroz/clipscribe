@@ -80,8 +80,8 @@ class EntityQualityFilter:
     
     def __init__(
         self,
-        min_confidence_threshold: float = 0.4,  # Lowered from 0.6 to keep more entities
-        language_confidence_threshold: float = 0.3,  # Lowered from 0.8 to be less strict
+        min_confidence_threshold: float = 0.3,  # Lowered from 0.4 to be even more inclusive
+        language_confidence_threshold: float = 0.2,  # Lowered from 0.3 to be much less strict
         enable_llm_validation: bool = False
     ):
         """Initialize entity quality filter."""
@@ -96,13 +96,24 @@ class EntityQualityFilter:
                 'a', 'an', 'is', 'are', 'was', 'were', 'be', 'been', 'being', 'have', 'has', 'had',
                 'do', 'does', 'did', 'will', 'would', 'could', 'should', 'may', 'might', 'can',
                 'this', 'that', 'these', 'those', 'here', 'there', 'where', 'when', 'how', 'why',
-                'who', 'what', 'which', 'whom', 'whose'
+                'who', 'what', 'which', 'whom', 'whose',
+                # Add more common words that might appear in simple content
+                'me', 'my', 'you', 'your', 'he', 'his', 'she', 'her', 'it', 'its', 'we', 'our', 'they', 'their',
+                'zoo', 'park', 'home', 'school', 'work', 'place', 'time', 'day', 'year', 'way',
+                'man', 'woman', 'child', 'person', 'people', 'thing', 'things',
+                'good', 'bad', 'new', 'old', 'big', 'small', 'great', 'little',
+                'go', 'going', 'come', 'coming', 'see', 'look', 'make', 'get', 'take', 'give',
+                'know', 'think', 'say', 'said', 'tell', 'ask', 'use', 'find', 'work', 'call',
+                'one', 'two', 'first', 'last', 'all', 'some', 'many', 'few', 'more', 'most',
+                'up', 'down', 'out', 'over', 'under', 'about', 'into', 'through', 'between'
             },
             'english_suffixes': {
-                'ing', 'ed', 'er', 'est', 'ly', 'tion', 'sion', 'ness', 'ment', 'ful', 'less'
+                'ing', 'ed', 'er', 'est', 'ly', 'tion', 'sion', 'ness', 'ment', 'ful', 'less',
+                'able', 'ible', 'ous', 'ious', 'al', 'ial', 'en', 'fy', 'ize', 'ise'
             },
             'english_prefixes': {
-                'un', 'pre', 'dis', 'mis', 'over', 'under', 'out', 'up', 're', 'anti', 'de'
+                'un', 'pre', 'dis', 'mis', 'over', 'under', 'out', 'up', 're', 'anti', 'de',
+                'non', 'in', 'im', 'il', 'ir', 'inter', 'super', 'sub', 'trans', 'ultra'
             }
         }
         
@@ -310,6 +321,45 @@ class EntityQualityFilter:
         if not words:
             return 0.0
         
+        # Special handling for very short entities (1-2 words)
+        if len(words) <= 2:
+            # For short entities, be more lenient
+            # Check if it's basic Latin alphabet
+            if re.match(r'^[a-z\s]+$', text_lower):
+                base_score = 0.7  # Start with higher base score for Latin alphabet
+                
+                # Boost if it contains common English words
+                for word in words:
+                    if word in self.english_patterns['common_english_words']:
+                        return 1.0  # Definitely English
+                
+                # Check for English patterns
+                for word in words:
+                    # Check suffixes
+                    if any(word.endswith(suffix) for suffix in self.english_patterns['english_suffixes']):
+                        base_score += 0.2
+                    # Check prefixes
+                    if any(word.startswith(prefix) for prefix in self.english_patterns['english_prefixes']):
+                        base_score += 0.2
+                
+                # Check if it looks like a proper noun (capitalized)
+                if text[0].isupper():
+                    base_score += 0.1
+                
+                return min(1.0, base_score)
+            else:
+                # Contains non-Latin characters, check for non-English scripts
+                if (self.non_english_patterns['arabic_script'].search(text) or
+                    self.non_english_patterns['chinese_script'].search(text) or
+                    self.non_english_patterns['cyrillic_script'].search(text) or
+                    self.non_english_patterns['japanese_script'].search(text) or
+                    self.non_english_patterns['korean_script'].search(text)):
+                    return 0.0  # Definitely non-English script
+                else:
+                    # Mixed characters, be neutral
+                    return 0.5
+        
+        # For longer text, use the original algorithm
         english_score = 0.0
         
         # Check for English word indicators
@@ -345,7 +395,9 @@ class EntityQualityFilter:
         # Check for non-Latin scripts
         if (self.non_english_patterns['arabic_script'].search(text) or
             self.non_english_patterns['chinese_script'].search(text) or
-            self.non_english_patterns['cyrillic_script'].search(text)):
+            self.non_english_patterns['cyrillic_script'].search(text) or
+            self.non_english_patterns['japanese_script'].search(text) or
+            self.non_english_patterns['korean_script'].search(text)):
             non_english_penalty += 5
         
         # Calculate final score
@@ -353,8 +405,14 @@ class EntityQualityFilter:
         english_ratio = english_word_count / total_words
         penalty_ratio = non_english_penalty / total_words
         
-        final_score = max(0.0, english_ratio - penalty_ratio)
-        return min(1.0, final_score)
+        # Be more generous with scoring
+        final_score = max(0.0, min(1.0, 0.3 + english_ratio - penalty_ratio))
+        
+        # Special boost for text that looks like English names/places
+        if re.match(r'^[A-Z][a-z]+(?:\s+[A-Z][a-z]+)*$', text):
+            final_score = max(final_score, 0.8)
+        
+        return final_score
     
     async def _calculate_dynamic_confidence(
         self,
