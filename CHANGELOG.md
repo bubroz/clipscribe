@@ -21,6 +21,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Moved `vertex_*.log` files to `logs/`
   - Removed `.env.backup` security risk
   - Updated `.gitignore` with proper patterns and organization
+- **Entity Quality Filter**: Fixed overly aggressive language detection
+  - Improved algorithm for short entities (1-2 words) with higher base score (0.7)
+  - Expanded common English words list (added "zoo", "me", etc.)
+  - Lowered confidence thresholds (0.4→0.3, 0.3→0.2)
+  - Language filter now works correctly (0 entities filtered vs 6 before)
+  - Entity extraction now functional (1 entity vs 0, 12 relationships vs 1)
+
+### Discovered
+- **Entity Extraction Architecture Issues**:
+  - Pipeline is over-engineered - Gemini already extracts 20-50+ entities
+  - Running 3 redundant models (SpaCy, GLiNER, REBEL) after Gemini
+  - Created simplification plan at `docs/archive/ENTITY_EXTRACTION_SIMPLIFICATION_PLAN.md`
+  - Plan: Trust Gemini output, convert filter to tagger, improve performance
 
 ### Documentation
 - **Major Documentation Polish**: Ready for public release

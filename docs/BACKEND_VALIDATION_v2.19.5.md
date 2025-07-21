@@ -248,19 +248,32 @@ python scripts/convert_to_gephi.py output/latest/knowledge_graph.json
 
 ---
 
-## 🚀 Next Steps
+## Next Steps
 
-After Phase 1 validation:
-1. Fix any critical issues found
-2. Document workarounds for minor issues
-3. Update CHANGELOG.md with validation status
-4. Proceed to Phase 2: Streamlit Testing
+### Immediate Priority: Entity Extraction Simplification
+Based on Zac's feedback, we've identified that the current entity extraction pipeline is over-engineered:
+- Gemini already extracts 20-50+ entities in ONE API call
+- We then run 3 redundant models (SpaCy, GLiNER, REBEL) 
+- EntityQualityFilter aggressively removes most entities
+- Result: 1-6 entities instead of 20-50+
 
----
+**Plan**: See `docs/archive/ENTITY_EXTRACTION_SIMPLIFICATION_PLAN.md` for full details
+1. Remove redundant extractors - trust Gemini's output
+2. Convert filter to tagger - add language metadata instead of filtering
+3. Test with rich content to validate improvement
+4. Future: Consider Wikidata/DBpedia integration
 
-## 📝 Notes
+### Phase 1 Validation (Continue After Simplification)
+- Test all output formats  
+- Entity extraction with multiple modes
+- Cost tracking validation
+- Batch processing tests
+- Multi-video collections
+- Platform diversity
+- Error handling
+- Full integration tests
 
-- Using PBS NewsHour content for testing (better than music videos)
-- Testing in Poetry environment for consistency
-- Tracking actual costs during tests
-- Documenting all error messages for troubleshooting guide 
+### Phase 2: Streamlit App
+- Fix import issues and dependencies
+- Test all major features
+- Validate UI/UX flow 
