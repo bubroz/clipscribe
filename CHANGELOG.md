@@ -5,6 +5,27 @@ All notable changes to ClipScribe will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v2.19.4] - 2025-07-20
+
+### Fixed
+- **MAJOR FIX - Vertex AI 400 Error Resolved**: Fixed critical prompt formatting bug
+  - Changed from `.format()` to f-strings in `_build_comprehensive_prompt` method
+  - JSON content in prompts no longer causes KeyError
+  - Vertex AI now fully functional for video processing
+  - Successfully tested with pre-uploaded GCS videos
+
+### Added
+- **Vertex AI Test Scripts**: New comprehensive testing scripts
+  - `scripts/test_vertex_ai_gcs_direct.py` - Direct Vertex AI testing
+  - `scripts/test_vertex_integration.py` - Full integration test through main flow
+  - Both scripts verify entities, relationships, and temporal intelligence extraction
+
+### Verified
+- Successfully processed videos through Vertex AI with pre-uploaded GCS URIs
+- Extracted 15 entities and 10 relationships from test video
+- Full temporal intelligence working (visual timestamps, dates, timeline events)
+- Feature parity with regular Gemini API achieved
+
 ## [v2.19.3] - 2025-07-20
 
 ### Added

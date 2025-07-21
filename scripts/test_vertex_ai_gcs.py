@@ -22,7 +22,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 from clipscribe.retrievers.vertex_ai_transcriber import VertexAITranscriber
-from clipscribe.retrievers.transcriber import Transcriber
+from clipscribe.retrievers.transcriber import GeminiFlashTranscriber
 from clipscribe.config.settings import settings
 
 
@@ -52,7 +52,7 @@ async def test_vertex_ai_with_gcs():
     logger.info(f"USE_VERTEX_AI environment: {os.getenv('USE_VERTEX_AI')}")
     
     # Create transcriber
-    transcriber = Transcriber(
+    transcriber = GeminiFlashTranscriber(
         gemini_model=settings.gemini_model,
         temperature=settings.temperature,
         api_key=settings.google_api_key

@@ -177,7 +177,9 @@ class VertexAITranscriber:
     
     def _build_comprehensive_prompt(self, enhance_transcript: bool = False, mode: str = "video") -> str:
         """Build the comprehensive prompt for video or audio analysis."""
-        base_prompt = """Analyze this {content_type} comprehensively and extract:
+        content_type = "video" if mode == "video" else "audio"
+        
+        base_prompt = f"""Analyze this {content_type} comprehensively and extract:
 
 1. Full transcript with accurate timestamps
 2. All entities (people, organizations, locations, events) with context
@@ -251,8 +253,6 @@ Return the response as a valid JSON object with this structure:
 }
 
 IMPORTANT: Return ONLY valid JSON, no markdown formatting or additional text."""
-        
-        base_prompt = base_prompt.format(content_type="video" if mode == "video" else "audio")
         
         if enhance_transcript:
             base_prompt += "\n\nProvide enhanced temporal intelligence with detailed timeline analysis."
