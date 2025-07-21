@@ -1,6 +1,6 @@
 # ClipScribe AI Assistant Continuation Prompt
 
-## Current State (2025-07-20 23:13 PDT)
+## Current State (2025-07-20 23:28 PDT)
 
 ### Latest Version: v2.19.4
 **VERTEX AI FIXED!** 🎉 Fixed the 400 error - it was a simple but critical prompt formatting bug. Vertex AI now works perfectly with pre-uploaded GCS videos!
@@ -37,13 +37,16 @@ base_prompt = f"""Analyze this {content_type}..."""  # F-strings handle JSON saf
 ### Known Issues ⚠️
 - Age-restricted videos can't be downloaded (1 test video failed)
 - Vertex AI SDK shows deprecation warning (expires June 2026)
-- Need to test cost comparison between Vertex AI and regular API
+- Documentation needs comprehensive review before public release
 
-### Next Steps 🚀
-1. **Performance testing** - Compare Vertex AI vs regular Gemini API speed/cost
-2. **Scale testing** - Process all 19 test videos through Vertex AI
-3. **Cost analysis** - Determine when to use Vertex AI vs regular API
-4. **Documentation** - Update all docs with Vertex AI option
+### Roadmap 🗺️
+- **Next**: Comprehensive documentation review (new chat) - Review all docs for accuracy, consolidation, archival
+- **Then**: Release preparation roadmap:
+  1. API Key Setup Wizard - Guided first-time setup
+  2. Create Demo Video - 3-minute showcase  
+  3. Polish Streamlit UI - Beautiful interface
+  4. Add "Try It" Examples - Pre-selected demos
+- **Finally**: Deploy to Streamlit Cloud for friends to test
 
 ### Key Files to Check
 - `src/clipscribe/retrievers/vertex_ai_transcriber.py` - line ~100 prompt building
