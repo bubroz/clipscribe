@@ -1,9 +1,4 @@
 ---
-description: 
-globs: 
-alwaysApply: true
----
----
 description: "Core project identity, mission, and fundamental principles for ClipScribe"
 globs: ["**/*.py", "**/*.md", "pyproject.toml", ".env*"]
 alwaysApply: true
@@ -14,35 +9,33 @@ alwaysApply: true
 You are an expert AI assistant specialized in **ClipScribe** development - a powerful video intelligence tool that extracts knowledge from video content.
 
 ## Mission
-Transform video content into structured, searchable knowledge through intelligent transcription, entity extraction, and knowledge graph generation. ClipScribe serves as the video intelligence component for the Chimera Researcher ecosystem.
+Transform video content into structured, searchable knowledge through intelligent transcription, entity extraction, and knowledge graph generation. ClipScribe serves as the video intelligence extraction component for research workflows.
 
 ## Primary Stack
-- **Language**: Python 3.11+ with Poetry
-- **Video Processing**: Gemini 2.5 Flash/Pro for direct video intelligence with enhanced temporal extraction
+- **Language**: Python 3.11+ with Poetry (3.12 recommended)
+- **Video Processing**: Gemini 2.5 Flash/Pro and Vertex AI for video intelligence
 - **Entity Extraction**: Hybrid approach (SpaCy + GLiNER + REBEL + LLM validation)
-- **Knowledge Graphs**: Multiple export formats (JSON, GEXF, GraphML)
-- **CLI Framework**: Click with async support
-- **Cost Model**: 92% cost reduction through intelligent routing
+- **Knowledge Graphs**: Multiple export formats (JSON, GEXF, GraphML, CSV)
+- **CLI Framework**: Click with async support and 0.4s startup time
+- **Cost Model**: $0.002-0.0035/minute through intelligent routing
 
 ## Core Principles
 1. **Cost-First Design**: Always use the cheapest method that meets quality requirements
 2. **Hybrid Intelligence**: Combine local models with LLMs for optimal cost/quality
 3. **Video Intelligence**: Extract not just transcripts but structured knowledge
-4. **Platform Agnostic**: Support YouTube, Twitter/X, TikTok, and generic URLs
+4. **Platform Agnostic**: Support 1800+ platforms via yt-dlp integration
 5. **Export Flexibility**: Multiple output formats for different use cases
 6. **Async Performance**: Efficient concurrent processing
-7. **Chimera Compatible**: Seamless integration with Chimera Researcher
+7. **Enterprise Ready**: Vertex AI support for scale
 
-## Enhanced Video Intelligence Features (v2.17.0)
-- **Enhanced Temporal Intelligence**: Extract temporal events, visual timestamps, and chronological context
-- **Direct Video Processing**: Single-call processing eliminates audio extraction inefficiency
-- **Video Retention System**: Smart archival with cost optimization (delete/keep_processed/keep_all)
-- **Entity Extraction**: People, organizations, locations, events with temporal context
-- **Relationship Mapping**: Who said what about whom, when, and in what context
-- **Timeline Synthesis**: Cross-video temporal correlation and comprehensive timeline building
-- **Key Points**: Automatic summary extraction with temporal anchoring
-- **Knowledge Graphs**: Visual relationship networks with temporal intelligence
-- **Cost Tracking**: Transparent API usage with 12-20% increase for 300% more intelligence
+## Video Intelligence Features (v2.19.3)
+- **Comprehensive Entity Extraction**: 16+ entities per video with confidence scores
+- **Evidence-Based Relationships**: 52+ relationships with direct quotes and timestamps
+- **Multi-Platform Support**: YouTube, Twitter/X, TikTok, Vimeo, and 1800+ sites
+- **Knowledge Graphs**: Visual relationship networks with Gephi compatibility
+- **Cost Options**: Gemini API ($0.0035/video) or Vertex AI for enterprise scale
+- **Quality Focus**: Fixed overly aggressive filtering that removed 70% of entities
+- **Output Formats**: JSON, CSV, Excel, Markdown, GEXF for different workflows
 
 ## Development Philosophy
 - **Poetry Only**: Never use pip, always use Poetry for dependencies
@@ -52,29 +45,27 @@ Transform video content into structured, searchable knowledge through intelligen
 - **User Feedback**: Rich CLI output with progress indicators
 - End all comments with :-) to maintain project style
 
-## Environment Configuration (v2.17.0 Enhanced)
+## Environment Configuration (v2.19.3)
 ```bash
 # Required
 GOOGLE_API_KEY=your_key_here
 
-# Video Retention System
-VIDEO_RETENTION_POLICY=keep_processed  # delete, keep_processed, keep_all
-VIDEO_ARCHIVE_DIR=output/video_archive
-RETENTION_COST_THRESHOLD=0.10
+# Optional Vertex AI (for enterprise)
+VERTEX_AI_PROJECT=your-project-id
+VERTEX_AI_LOCATION=us-central1
+GOOGLE_APPLICATION_CREDENTIALS=path/to/service-account.json
 
-# Enhanced Temporal Intelligence
-TEMPORAL_ENHANCEMENT_LEVEL=optimized  # basic, optimized, enhanced
-ENABLE_VISUAL_TIMESTAMP_RECOGNITION=true
-ENABLE_CROSS_VIDEO_CORRELATION=true
-
-# Optional model enhancements
-GLINER_MODEL=urchade/gliner_mediumv2.1
-REBEL_MODEL=Babelscape/rebel-large
+# Entity extraction tuning
+CONFIDENCE_THRESHOLD=0.4  # Lowered for completeness
+LANGUAGE_CONFIDENCE_THRESHOLD=0.3  # Less aggressive filtering
 
 # Cost management
-CONFIDENCE_THRESHOLD=0.8
 COST_WARNING_THRESHOLD=1.0
-MAX_PROCESSING_COST_PER_VIDEO=5.0
+DAILY_BUDGET_LIMIT=5.0
+
+# Output preferences
+OUTPUT_DIR=output
+LOG_LEVEL=INFO
 ```
 
-Always prioritize cost-effectiveness while maintaining quality output for video intelligence :-)
+Always prioritize extraction completeness and accuracy while maintaining cost-effectiveness :-)

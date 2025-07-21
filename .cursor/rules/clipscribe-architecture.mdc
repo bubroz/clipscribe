@@ -1,109 +1,120 @@
----
-description: "Core architecture and design patterns for ClipScribe v2.17.0 Enhanced Temporal Intelligence"
-globs: ["src/**/*.py", "pyproject.toml"]
-alwaysApply: true
----
 
-# ClipScribe Architecture Guidelines (v2.17.0 Enhanced Temporal Intelligence)
+# ClipScribe Architecture Guidelines (v2.19.3)
 
-## Core Principles (v2.17.0)
+## Core Principles
 
-1. **Direct Video Intelligence**: Single-call processing eliminates audio extraction inefficiency
-2. **Enhanced Temporal Intelligence**: Extract 300% more temporal intelligence for 12-20% cost increase
-3. **Smart Video Retention**: Balance storage costs vs reprocessing costs
-4. **Type Safety**: Comprehensive type hints with temporal intelligence models
-5. **Cost Optimization**: Transparent cost tracking with intelligent routing
-6. **Timeline Synthesis**: Cross-video temporal correlation and synthesis
-7. **Modular Enhancement**: Each component supports temporal intelligence extension
+1. **Video Intelligence Extraction**: Extract entities, relationships, and knowledge graphs
+2. **Cost Optimization**: $0.002-0.0035/minute through intelligent routing  
+3. **Platform Support**: 1800+ platforms via yt-dlp integration
+4. **Type Safety**: Comprehensive type hints throughout
+5. **Async Performance**: Efficient concurrent processing
+6. **Quality Focus**: 100% extraction completeness, not arbitrary filtering
+7. **Enterprise Ready**: Vertex AI support for scale
 
-## Key Components (v2.17.0 Optimized)
+## Key Components
 
-### Enhanced Video Processing Pipeline
+### Video Processing Pipeline
 ```python
-# Optimized Architecture Flow
-Video URL → UniversalVideoClient.download_video() → 
-VideoProcessor.process_direct() → TemporalIntelligenceExtractor.extract() →
-TimelineBuilder.synthesize() → RetentionManager.handle_retention() →
-Enhanced Intelligence Output
+# Architecture Flow
+Video URL → UniversalVideoClient.download() → 
+Transcriber.transcribe() → HybridExtractor.extract() →
+GraphBuilder.build() → OutputFormatter.format() →
+Structured Intelligence Output
 ```
 
-### Retrievers (Video Processing Core)
-- **VideoProcessor**: Direct video-to-Gemini 2.5 Flash processing with temporal intelligence
-- **UniversalVideoClient**: Enhanced downloading from 1800+ platforms with retention support
-- **TemporalIntelligenceExtractor**: Comprehensive temporal intelligence extraction
-- **RetentionManager**: Smart video retention with cost optimization
-- **GeminiPool**: Model pool management for different processing tasks
-- **VideoIntelligenceRetriever**: Main orchestrator with enhanced temporal capabilities
+### Core Components
 
-### Video Retention System
+#### Retrievers (Video/Audio Processing)
+- **UniversalVideoClient**: Downloads from 1800+ platforms via yt-dlp
+- **Transcriber**: Gemini 2.5 Flash/Pro API integration
+- **YouTubeClient**: Optimized YouTube handling with transcript API
+- **VideoModeDetector**: Determines optimal processing mode
+- **GeminiPool**: Model management for different tasks
+
+#### Extractors (Entity & Relationship Extraction)
+- **HybridExtractor**: Combines SpaCy + GLiNER + REBEL + LLM
+- **SpacyExtractor**: Fast local entity extraction
+- **GLiNERExtractor**: Advanced local entity detection
+- **REBELExtractor**: Relationship extraction
+- **AdvancedHybridExtractor**: Enhanced with confidence scoring
+
+#### Models & Data Structures
+- **VideoIntelligence**: Core data model with entities and relationships
+- **Entity**: Type, name, confidence, source attribution
+- **Relationship**: Subject-predicate-object with evidence
+- **ProcessingResult**: Complete extraction results
+
+## Architectural Patterns
+
+### 1. Hybrid Extraction Pattern
 ```python
-class VideoRetentionManager:
-    """Manage video retention with cost optimization."""
+class HybridExtractor:
+    """Combine multiple extraction methods for best results."""
     
-    def __init__(self, retention_policy: VideoRetentionPolicy = VideoRetentionPolicy.DELETE):
-        self.retention_policy = retention_policy
-        self.archive_directory = Path("output/video_archive")
-        self.cost_optimizer = RetentionCostOptimizer()
+    async def extract(self, text: str) -> ExtractedIntelligence:
+        # Run extractors in parallel for speed
+        spacy_task = self.spacy_extractor.extract(text)
+        gliner_task = self.gliner_extractor.extract(text)
+        rebel_task = self.rebel_extractor.extract(text)
+        
+        # Combine and deduplicate results
+        results = await asyncio.gather(spacy_task, gliner_task, rebel_task)
+        entities = self._merge_entities(results)
+        relationships = self._merge_relationships(results)
+        
+        return ExtractedIntelligence(entities=entities, relationships=relationships)
 ```
 
-### Timeline Building Architecture
+### 2. Cost-Aware Processing
 ```python
-class TimelineBuilder:
-    """Build comprehensive timelines from temporal intelligence."""
+class CostOptimizedProcessor:
+    """Choose processing strategy based on cost/quality trade-offs."""
     
-    async def build_timeline(self, videos: List[VideoIntelligence]) -> ConsolidatedTimeline:
-        """Build comprehensive timeline from multiple videos."""
+    async def process(self, url: str) -> ProcessingResult:
+        # Try free methods first
+        if youtube_url(url):
+            transcript = await self.youtube_client.get_free_transcript(url)
+            if transcript:
+                return await self.process_transcript(transcript)
         
-        # Extract temporal events from each video
-        temporal_events = []
-        for video in videos:
-            events = await self.temporal_extractor.extract_temporal_events(video)
-            temporal_events.extend(events)
-        
-        # Correlate events across videos and synthesize timeline
-        correlated_events = await self.correlator.correlate_temporal_events(temporal_events)
-        timeline = await self.synthesizer.synthesize_timeline(correlated_events)
-        
-        return timeline
+        # Fall back to paid processing
+        video = await self.video_client.download(url)
+        result = await self.transcriber.transcribe(video)
+        return result
 ```
 
-## Architectural Patterns (v2.17.0)
-
-### 1. Direct Processing Pattern
+### 3. Confidence Scoring
 ```python
-# v2.17.0 OPTIMIZED - Single comprehensive call
-async def process_video_enhanced(self, video_path: Path) -> TemporalIntelligence:
-    """Direct video processing with enhanced temporal intelligence."""
+class ConfidenceScorer:
+    """Dynamic confidence scoring based on context."""
     
-    # Single Gemini 2.5 Flash call for comprehensive analysis
-    async with self.cost_tracker.track_operation("enhanced_temporal_processing"):
-        temporal_intelligence = await self.gemini_pool["video_processing"].generate_content_async(
-            [self.comprehensive_temporal_prompt, video_path],
-            generation_config=self.temporal_config
-        )
-    
-    return self._parse_temporal_intelligence(temporal_intelligence.text)
-
-# OLD v2.16.0 - Inefficient multiple steps
-# video → extract_audio → transcribe → analyze → extract_entities
+    def score_entity(self, entity: Entity, context: str) -> float:
+        # Don't hardcode confidence - calculate based on:
+        # - Source extractor reliability
+        # - Context relevance
+        # - Mention frequency
+        # - Cross-validation between extractors
+        
+        base_score = self.source_weights[entity.source]
+        context_boost = self._calculate_context_relevance(entity, context)
+        frequency_factor = min(1.0, entity.mention_count / 10)
+        
+        return base_score * context_boost * frequency_factor
 ```
 
-### 2. Retention Cost Optimization Pattern
-```python
-class RetentionCostOptimizer:
-    """Optimize video retention decisions."""
-    
-    async def analyze_retention_cost(self, video_path: Path, processing_result: ProcessingResult):
-        """Analyze cost trade-offs for video retention."""
-        
-        storage_cost = self._calculate_storage_cost(video_path)
-        reprocessing_cost = self._estimate_reprocessing_cost(processing_result.metadata)
-        
-        return RetentionAnalysis(
-            storage_cost=storage_cost,
-            reprocessing_cost=reprocessing_cost,
-            recommendation="retain" if storage_cost < reprocessing_cost else "delete"
-        )
-```
+## Quality Principles
 
-Remember: v2.17.0 architecture optimizes for enhanced temporal intelligence while maintaining cost efficiency through direct processing and smart retention :-)
+1. **Completeness Over Filtering**: Extract ALL entities, let users filter
+2. **Evidence-Based**: Every relationship needs supporting evidence
+3. **Source Attribution**: Track which extractor found each entity
+4. **Dynamic Confidence**: Calculate scores based on context, not hardcoded
+5. **User Control**: Provide all data, let users set their own thresholds
+
+## Performance Optimization
+
+- **Parallel Processing**: Run extractors concurrently
+- **Caching**: Cache expensive API calls
+- **Batch Operations**: Process multiple videos efficiently
+- **Progressive Loading**: Stream results as available
+
+Remember: Architecture should prioritize extraction completeness and accuracy while maintaining cost efficiency :-)

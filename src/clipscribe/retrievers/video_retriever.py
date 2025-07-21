@@ -355,10 +355,19 @@ class VideoIntelligenceRetriever:
                 # Convert topics to Topic objects
                 topics = []
                 for topic in analysis.get('topics', []):
-                    topics.append(Topic(
-                        name=topic.get('name', ''),
-                        confidence=topic.get('confidence', 0.0)
-                    ))
+                    if isinstance(topic, dict):
+                        topics.append(Topic(
+                            name=topic.get('name', ''),
+                            confidence=topic.get('confidence', 0.0)
+                        ))
+                    elif isinstance(topic, str):
+                        # Handle case where topics are just strings
+                        topics.append(Topic(
+                            name=topic,
+                            confidence=0.8  # Default confidence for string topics
+                        ))
+                    else:
+                        logger.warning(f"Unexpected topic type: {type(topic)}")
                 
                 # Set default values for missing fields
                 sentiment = None

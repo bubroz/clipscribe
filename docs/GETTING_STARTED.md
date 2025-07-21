@@ -3,14 +3,14 @@
 *Last Updated: July 20, 2025*
 *Related: [CLI Reference](mdc:CLI_REFERENCE.md) | [Output Formats](mdc:OUTPUT_FORMATS.md)*
 
-## 🚀 What's New: v2.19.0 Extraction Quality!
+## 🚀 What's New: v2.19.3 with Vertex AI!
 
-**ClipScribe v2.19.0** features dramatically improved extraction quality:
-- **Comprehensive Entity Extraction**: Targets 100% completeness (16+ entities per video)
-- **Evidence-Based Relationships**: 52+ relationships with direct quotes and timestamps
+**ClipScribe v2.19.3** features Vertex AI integration and enhanced extraction:
+- **Vertex AI Support**: Scale to enterprise workloads with GCS integration
+- **Comprehensive Entity Extraction**: 16+ entities per video (100% completeness)
+- **Evidence-Based Relationships**: 52+ relationships with direct quotes
 - **Fixed Quality Filters**: No longer removes 70% of valid entities
-- **Knowledge Graphs**: 88+ nodes and 52+ edges for rich intelligence
-- **Still Cost-Effective**: Only $0.0083 per video!
+- **Cost Options**: Gemini API ($0.0035/video) or Vertex AI for scale
 
 ## Prerequisites
 
@@ -127,7 +127,7 @@ Access features:
 - 🎞️ Information flow analysis
 - 💾 Export and integration tools 
 
-## Understanding Entity & Relationship Extraction (v2.19.0 Enhanced)
+## Understanding Entity & Relationship Extraction
 
 ClipScribe's extraction targets **100% completeness** - extracting ALL entities and relationships from videos:
 
@@ -136,7 +136,7 @@ ClipScribe's extraction targets **100% completeness** - extracting ALL entities 
 - **Evidence**: Direct quotes and timestamps backing every claim
 - **Knowledge Graphs**: Visual network of all connections
 
-### What v2.19.0 Fixed:
+### What's Improved:
 - No longer filters out 70% of valid entities (quality filter was too aggressive)
 - Actually uses all 50+ Gemini-extracted relationships (they were being ignored!)
 - Dynamic confidence scoring based on context (not hardcoded 0.85)
@@ -195,12 +195,12 @@ ENABLE_LLM_VALIDATION=false  # Set true for critical applications
 
 ## Troubleshooting
 
-### "Poor extraction quality" (Fixed in v2.19.0)
+### "Poor extraction quality"
 If you're seeing only 0-10 entities and 0 relationships:
 ```bash
-# Update to v2.19.0
+# Update to latest version
 poetry update clipscribe
-poetry run clipscribe --version  # Should show 2.19.0+
+poetry run clipscribe --version  # Should show 2.19.3+
 ```
 
 ### "Memory issues with large collections"

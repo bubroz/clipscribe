@@ -11,7 +11,7 @@ To check if a specific URL is supported:
 clipscribe transcribe "YOUR_URL_HERE"
 
 # Or test directly with Python
-from clipscribe.chimera_video.retrievers.video import UniversalVideoClient
+from clipscribe.retrievers.universal_video_client import UniversalVideoClient
 
 client = UniversalVideoClient()
 if client.is_supported_url("https://example.com/video"):
@@ -91,7 +91,7 @@ ClipScribe uses yt-dlp as its backend for video extraction, which provides sever
 
 ### Basic Usage
 ```python
-from chimera_video.retrievers.video import VideoIntelligenceRetriever
+from clipscribe.retrievers.video_retriever import VideoIntelligenceRetriever
 
 retriever = VideoIntelligenceRetriever()
 
@@ -101,7 +101,7 @@ result = await retriever.process_url("https://example.com/video")
 
 ### Checking URL Support
 ```python
-from chimera_video.retrievers.video import UniversalVideoClient
+from clipscribe.retrievers.universal_video_client import UniversalVideoClient
 
 client = UniversalVideoClient()
 

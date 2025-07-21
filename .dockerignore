@@ -1,0 +1,68 @@
+# ClipScribe Docker Ignore File
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.pytest_cache/
+*.egg-info/
+.coverage
+htmlcov/
+.tox/
+.nox/
+.hypothesis/
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.cursor/
+
+# Project specific
+output/
+logs/
+*.log
+.env
+.env.*
+!.env.example
+
+# Git
+.git/
+.gitignore
+
+# CI/CD
+.github/
+
+# Documentation build
+docs/_build/
+docs/.doctrees/
+
+# Temporary files
+*.tmp
+*.temp
+.DS_Store
+
+# Development
+test_output/
+demo/
+scripts/test_*.py
+
+# Large files
+*.mp4
+*.avi
+*.mov
+*.mkv
+*.webm
+
+# Cloud Run build
+cloudbuild.yaml

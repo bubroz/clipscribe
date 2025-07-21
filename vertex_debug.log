@@ -1,72 +1,0 @@
-ClipScribe v2.19.2
-AI-powered video transcription with Gemini 2.5 Flash
-
-2025-07-20 18:37:50,850 - clipscribe.commands.cli - INFO - Transcribing video: https://www.youtube.com/watch?v=dQw4w9WgXcQ
-2025-07-20 18:37:50,850 - clipscribe.commands.cli - INFO - Output directory: output/vertex_debug
-2025-07-20 18:37:50,850 - clipscribe.commands.cli - INFO - Mode: audio, Model: gemini-2.5-flash
-2025-07-20 18:37:50,852 - clipscribe.retrievers.video_retention_manager - INFO - Video retention policy: VideoRetentionPolicy.DELETE
-2025-07-20 18:37:50,852 - clipscribe.retrievers.video_retention_manager - INFO - Archive directory: output/video_archive
-2025-07-20 18:37:50,853 - clipscribe.retrievers.transcriber - INFO - Using Vertex AI for video processing
-/Users/base/Library/Caches/pypoetry/virtualenvs/clipscribe-gVbAPCNf-py3.13/lib/python3.13/site-packages/vertexai/generative_models/_generative_models.py:433: UserWarning: This feature is deprecated as of June 24, 2025 and will be removed on June 24, 2026. For details, see https://cloud.google.com/vertex-ai/generative-ai/docs/deprecations/genai-vertexai-sdk.
-  warning_logs.show_deprecation_warning()
-2025-07-20 18:37:51,670 - clipscribe.retrievers.vertex_ai_transcriber - INFO - Initialized Vertex AI transcriber with model: gemini-2.5-flash
-2025-07-20 18:37:51,670 - clipscribe.retrievers.transcriber - INFO - Temporal intelligence level: TemporalIntelligenceLevel.ENHANCED
-2025-07-20 18:37:51,670 - clipscribe.retrievers.transcriber - INFO - Using Gemini request timeout: 300s
-2025-07-20 18:37:51,670 - clipscribe.retrievers.video_retriever - INFO - Using advanced extraction with REBEL+GLiNER :-)
-2025-07-20 18:37:51,672 - clipscribe.extractors.model_manager - INFO - Loading SpaCy model en_core_web_sm (one-time load)...
-2025-07-20 18:37:51,882 - clipscribe.extractors.model_manager - INFO - Cache miss for spacy_en_core_web_sm - loaded in 0.21s
-2025-07-20 18:37:51,882 - clipscribe.extractors.model_manager - INFO - SpaCy model en_core_web_sm loaded successfully in 0.21s :-)
-2025-07-20 18:37:51,882 - clipscribe.extractors.spacy_extractor - INFO - Using SpaCy model: en_core_web_sm
-2025-07-20 18:37:51,882 - clipscribe.extractors.model_manager - INFO - Loading GLiNER model urchade/gliner_multi-v2.1 on auto (one-time load)...
-Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]Fetching 4 files: 100%|██████████| 4/4 [00:00<00:00, 63550.06it/s]
-2025-07-20 18:37:59,789 - clipscribe.extractors.model_manager - INFO - Cache miss for gliner_urchade/gliner_multi-v2.1_auto - loaded in 7.91s
-2025-07-20 18:37:59,789 - clipscribe.extractors.model_manager - INFO - GLiNER model loaded and cached successfully in 7.91s :-)
-2025-07-20 18:37:59,789 - clipscribe.extractors.model_manager - INFO - Loading REBEL model Babelscape/rebel-large on auto (one-time load)...
-Device set to use mps
-2025-07-20 18:38:01,144 - clipscribe.extractors.model_manager - INFO - Cache miss for rebel_Babelscape/rebel-large_auto - loaded in 1.35s
-2025-07-20 18:38:01,144 - clipscribe.extractors.model_manager - INFO - REBEL model loaded and cached successfully in 1.35s :-)
-2025-07-20 18:38:01,146 - clipscribe.extractors.advanced_hybrid_extractor - INFO - Advanced hybrid extractor initialized with GLiNER=True, REBEL=True, LLM=True :-)
-2025-07-20 18:38:01,146 - clipscribe.retrievers.video_retriever - INFO - Timeline features discontinued - focusing on core intelligence extraction
-2025-07-20 18:38:01,146 - clipscribe.retrievers.video_retriever - INFO - v2.17.0 Enhanced Temporal Intelligence: TemporalIntelligenceLevel.ENHANCED
-2025-07-20 18:38:01,146 - clipscribe.retrievers.video_retriever - INFO - Video Retention Policy: VideoRetentionPolicy.DELETE
-2025-07-20 18:38:04,886 - clipscribe.retrievers.video_retriever - INFO - Starting _process_video_enhanced for URL: https://www.youtube.com/watch?v=dQw4w9WgXcQ
-2025-07-20 18:38:04,886 - clipscribe.retrievers.video_retriever - INFO - Processing video with Enhanced Temporal Intelligence: https://www.youtube.com/watch?v=dQw4w9WgXcQ
-2025-07-20 18:38:04,886 - clipscribe.retrievers.video_retriever - INFO - Using audio mode for enhanced temporal intelligence
-2025-07-20 18:38:04,886 - clipscribe.retrievers.video_retriever - INFO - Downloading audio for processing...
-2025-07-20 18:38:04,886 - clipscribe.retrievers.universal_video_client - INFO - Downloading audio from: https://www.youtube.com/watch?v=dQw4w9WgXcQ (attempt 1/3)
-2025-07-20 18:38:08,230 - clipscribe.retrievers.universal_video_client - INFO - Using extractor: youtube
-[download]   0.0% of    3.27MiB at  102.06KiB/s ETA 00:32[download]   0.1% of    3.27MiB at  295.45KiB/s ETA 00:11[download]   0.2% of    3.27MiB at  672.16KiB/s ETA 00:04[download]   0.4% of    3.27MiB at    1.38MiB/s ETA 00:02[download]   0.9% of    3.27MiB at  564.11KiB/s ETA 00:05[download]   1.9% of    3.27MiB at  759.48KiB/s ETA 00:04[download]   3.8% of    3.27MiB at  969.11KiB/s ETA 00:03[download]   7.6% of    3.27MiB at    1.23MiB/s ETA 00:02[download]  15.2% of    3.27MiB at    1.30MiB/s ETA 00:02[download]  30.5% of    3.27MiB at    1.64MiB/s ETA 00:01[download]  61.0% of    3.27MiB at    1.78MiB/s ETA 00:00[download] 100.0% of    3.27MiB at    2.10MiB/s ETA 00:00[download] 100% of    3.27MiB in 00:00:01 at 1.92MiB/s                                                         2025-07-20 18:38:15,042 - clipscribe.retrievers.universal_video_client - INFO - Audio downloaded: .video_cache/Rick Astley - Never Gonna Give You Up (Official Video) (4K Remaster)-dQw4w9WgXcQ.mp3
-2025-07-20 18:38:15,043 - clipscribe.retrievers.transcriber - INFO - Uploading audio file: .video_cache/Rick Astley - Never Gonna Give You Up (Official Video) (4K Remaster)-dQw4w9WgXcQ.mp3
-2025-07-20 18:38:15,043 - clipscribe.retrievers.transcriber - INFO - Temporal intelligence level: TemporalIntelligenceLevel.ENHANCED
-2025-07-20 18:38:22,180 - clipscribe.retrievers.video_retriever - ERROR - Failed to process video https://www.youtube.com/watch?v=dQw4w9WgXcQ: 'NoneType' object has no attribute 'get_model'
-2025-07-20 18:38:22,180 - clipscribe.retrievers.video_retriever - INFO - _process_video_enhanced returned: False
-❌ Video processing returned no result
-Check logs for details about what went wrong
-╭──────────────────────────────────────────────────────────────────────────────────────────────────────────╮
-│ Processing Video: https://www.youtube.com/watch?v=dQw4w9WgXcQ                                            │
-╰──────────────────────────────────────────────────────────────────────────────────────────────────────────╯
-╭──────────────────────────────────────────────────────────────────────────────────────────────────────────╮
-│ Phase 2/6                                                                                                │
-│ Processing with Enhanced Temporal Intelligence                                                           │
-│ 33% complete                                                                                             │
-│                                                                                                          │
-│                                                                                                          │
-│                                                                                                          │
-╰──────────────────────────────────────────────────────────────────────────────────────────────────────────╯
-    💰 Real-Time Cost Tracking                                                                              
-╭────────────────┬───────────────╮                                                                          
-│ Metric         │ Value         │                                                                          
-├────────────────┼───────────────┤                                                                          
-│ Current Cost   │ 🟢 $0.0015    │                                                                          
-╭──────────────────────────────────────────────────────────────────────────────────────────────────────────╮
-│ ✓ Processing with Enhanced Temporal Intelligence                                                         │
-╰──────────────────────────────────────────────────────────────────────────────────────────────────────────╯
-2025-07-20 18:38:22,185 - clipscribe.commands.cli - ERROR - Transcription failed
-Traceback (most recent call last):
-  File "/Users/base/Projects/clipscribe/src/clipscribe/commands/cli.py", line 296, in transcribe_async
-    ctx.exit(1)
-    ~~~~~~~~^^^
-  File "/Users/base/Library/Caches/pypoetry/virtualenvs/clipscribe-gVbAPCNf-py3.13/lib/python3.13/site-packages/click/core.py", line 718, in exit
-    raise Exit(code)
-click.exceptions.Exit: 1
-❌ Error: 1

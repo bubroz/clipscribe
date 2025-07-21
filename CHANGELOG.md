@@ -5,6 +5,30 @@ All notable changes to ClipScribe will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v2.19.5] - 2025-07-21
+
+### Added
+- **Cloud Run Deployment Support**: Production-ready containerization
+  - Created `Dockerfile` for Google Cloud Run deployment
+  - Added `.dockerignore` for optimized builds
+  - Created `cloudbuild.yaml` for CI/CD automation
+  - Comprehensive deployment guide at `docs/advanced/DEPLOYMENT_GUIDE.md`
+  - Support for both Streamlit Cloud (free) and Cloud Run (professional)
+
+### Fixed
+- **Project Structure Cleanup**: Organized root directory
+  - Moved `test.mp3` to `tests/fixtures/`
+  - Moved `vertex_*.log` files to `logs/`
+  - Removed `.env.backup` security risk
+  - Updated `.gitignore` with proper patterns and organization
+
+### Documentation
+- **Major Documentation Polish**: Ready for public release
+  - Added deployment options comparison
+  - Updated docs navigation hub with deployment link
+  - Fixed all references to removed Timeline Intelligence
+  - Completed comprehensive rules audit
+
 ## [v2.19.4] - 2025-07-20
 
 ### Fixed
