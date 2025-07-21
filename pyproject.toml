@@ -4,8 +4,8 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "clipscribe"
-version = "2.19.1"
-description = "ARGOS - AI-powered video intelligence with enhanced temporal intelligence and timeline building pipeline"
+version = "2.19.2"
+description = "ClipScribe - AI-powered video intelligence tool for extracting knowledge from video content"
 authors = ["Zac Forristall <zforristall@gmail.com>"]
 readme = "README.md"
 license = "MIT"
