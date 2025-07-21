@@ -161,23 +161,33 @@ class GeminiFlashTranscriber:
                 logger.error(f"Failed to parse JSON response. First 500 chars: {response_text[:500]}")
                 return None
 
-    async def transcribe_audio(
-        self, 
-        audio_file: str,
-        duration: int
-    ) -> Dict[str, Any]:
-        """
-        Transcribe audio file using Gemini with enhanced temporal intelligence.
+    async def transcribe_audio(self, audio_file: str, duration: int) -> Dict[str, Any]:
+        """Transcribe audio file with enhanced temporal intelligence.
         
         Args:
-            audio_file: Path to audio file
+            audio_file: Path to the audio file
             duration: Duration in seconds
             
         Returns:
-            Dictionary with transcript and temporal intelligence analysis
+            Dictionary with transcript and enhanced analysis
         """
+        # Use Vertex AI if configured
+        if self.use_vertex_ai:
+            logger.info(f"Using Vertex AI to transcribe audio: {audio_file}")
+            try:
+                result = await self.vertex_transcriber.transcribe_with_vertex(
+                    Path(audio_file),
+                    enhance_transcript=self.temporal_config['level'] != TemporalIntelligenceLevel.STANDARD,
+                    mode="audio"
+                )
+                # Convert to expected format
+                return self._convert_vertex_result_to_dict(result)
+            except Exception as e:
+                logger.error(f"Vertex AI transcription failed: {e}")
+                raise
+        
         logger.info(f"Uploading audio file: {audio_file}")
-        logger.info(f"Temporal intelligence level: {self.temporal_config['level']}")
+        logger.info(f"Enhanced temporal intelligence level: {self.temporal_config['level']}")
         
         # Upload the audio file
         file = genai.upload_file(audio_file, mime_type=self._get_mime_type(audio_file))
@@ -187,7 +197,7 @@ class GeminiFlashTranscriber:
             await asyncio.sleep(2)
             file = genai.get_file(file.name)
         
-        # Use different model instances from pool for different tasks
+        # Get the transcription model
         transcription_model = self.pool.get_model(TaskType.TRANSCRIPTION)
         
         # Calculate cost based on temporal intelligence level
@@ -545,26 +555,30 @@ class GeminiFlashTranscriber:
         video_file: str,
         duration: int
     ) -> Dict[str, Any]:
-        """
-        Transcribe video file with enhanced temporal intelligence and visual analysis.
+        """Transcribe video file with full temporal and visual analysis.
         
         Args:
-            video_file: Path to video file
+            video_file: Path to the video file
             duration: Duration in seconds
             
         Returns:
-            Dictionary with transcript and enhanced analysis including visual temporal elements
+            Dictionary with transcript and comprehensive intelligence
         """
         # Use Vertex AI if configured
         if self.use_vertex_ai:
             logger.info(f"Using Vertex AI to transcribe video: {video_file}")
-            result = await self.vertex_transcriber.transcribe_with_vertex(
-                Path(video_file),
-                enhance_transcript=self.temporal_config['level'] != TemporalIntelligenceLevel.STANDARD,
-                mode="video"
-            )
-            # Convert to expected format
-            return self._convert_vertex_result_to_dict(result)
+            try:
+                result = await self.vertex_transcriber.transcribe_with_vertex(
+                    Path(video_file),
+                    enhance_transcript=self.temporal_config['level'] != TemporalIntelligenceLevel.STANDARD,
+                    mode="video"
+                )
+                # Convert to expected format
+                return self._convert_vertex_result_to_dict(result)
+            except Exception as e:
+                logger.error(f"Vertex AI transcription failed: {e}")
+                logger.exception("Full Vertex AI error traceback:")
+                raise
             
         logger.info(f"Uploading video file: {video_file}")
         logger.info(f"Enhanced temporal intelligence level: {self.temporal_config['level']}")

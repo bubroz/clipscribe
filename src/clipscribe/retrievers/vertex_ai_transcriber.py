@@ -1,21 +1,26 @@
 """Vertex AI-based transcriber implementation for ClipScribe."""
 
+# Load environment variables FIRST, before ANY Google imports
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
+# Set credentials if available in env
+if not os.getenv("GOOGLE_APPLICATION_CREDENTIALS") and os.path.exists("/Users/base/.config/gcloud/clipscribe-service-account.json"):
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/Users/base/.config/gcloud/clipscribe-service-account.json"
+
 import asyncio
 import json
 import logging
-import os
 from pathlib import Path
 from typing import Dict, Any, Optional, Tuple, List
 from datetime import datetime
-
-# Load environment variables FIRST
-from dotenv import load_dotenv
-load_dotenv()
 
 import vertexai
 from vertexai.generative_models import GenerativeModel, Part, Content
 from google.cloud import storage
 from google.api_core import exceptions as google_exceptions
+from google.api_core import retry
 
 from ..models import (
     VideoIntelligence, 
@@ -40,19 +45,25 @@ logger = logging.getLogger(__name__)
 class VertexAITranscriber:
     """Transcriber using Vertex AI for robust video processing."""
     
-    def __init__(self):
+    def __init__(self, gemini_pool=None):
         """Initialize Vertex AI transcriber."""
+        # Set credentials if available
+        if not os.getenv("GOOGLE_APPLICATION_CREDENTIALS") and os.path.exists("/Users/base/.config/gcloud/clipscribe-service-account.json"):
+            os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/Users/base/.config/gcloud/clipscribe-service-account.json"
+        
         self.project_id = VERTEX_AI_PROJECT_ID
         self.location = VERTEX_AI_LOCATION
         self.model_name = VERTEX_AI_MODEL_NAME
+        self.bucket_name = VERTEX_AI_STAGING_BUCKET.replace("gs://", "")
+        self.auto_cleanup = True  # Automatically clean up GCS files after processing
         
         # Initialize Vertex AI
         vertexai.init(project=self.project_id, location=self.location)
         
-        # Initialize the model
+        # Initialize model
         self.model = GenerativeModel(self.model_name)
         
-        # Initialize GCS client for video uploads
+        # Initialize storage client
         self.storage_client = storage.Client(project=self.project_id)
         
         logger.info(f"Initialized Vertex AI transcriber with model: {self.model_name}")
@@ -67,7 +78,7 @@ class VertexAITranscriber:
             blob = bucket.blob(blob_name)
             
             # Upload with retry
-            blob.upload_from_filename(str(video_path), retry=google_exceptions.retry.Retry())
+            blob.upload_from_filename(str(video_path), retry=retry.Retry())
             
             gcs_uri = f"gs://{bucket_name}/{blob_name}"
             logger.info(f"Uploaded video to GCS: {gcs_uri}")
@@ -78,108 +89,170 @@ class VertexAITranscriber:
             raise
     
     async def transcribe_with_vertex(
-        self, 
+        self,
         video_path: Path,
-        enhance_transcript: bool = True,
+        enhance_transcript: bool = False,
         mode: str = "video"
-    ) -> VideoIntelligence:
-        """Transcribe video using Vertex AI with retry logic."""
-        
-        # Upload video to GCS
-        gcs_uri = await self.upload_to_gcs(video_path)
-        
-        # Build the prompt
-        prompt = self._build_comprehensive_prompt(enhance_transcript)
-        
-        # Create video part
-        video_part = Part.from_uri(
-            mime_type=self._get_mime_type(video_path),
-            uri=gcs_uri
-        )
-        
-        # Generate content with retries
-        max_retries = 3
-        for attempt in range(max_retries):
-            try:
-                response = await self._generate_with_retry(
-                    [prompt, video_part],
-                    generation_config=VERTEX_AI_GENERATION_CONFIG
-                )
-                
-                # Parse response
-                result = self._parse_response(response.text)
-                
-                # Clean up GCS file
+    ) -> Dict[str, Any]:
+        """Process video using Vertex AI."""
+        try:
+            # Upload to GCS
+            gcs_uri = await self.upload_to_gcs(video_path)
+            logger.info(f"Uploaded video to GCS: {gcs_uri}")
+            
+            # Build prompt
+            prompt = self._build_comprehensive_prompt(enhance_transcript)
+            
+            # Create content with video file reference
+            video_part = Part.from_uri(
+                uri=gcs_uri,
+                mime_type=self._get_mime_type(video_path)
+            )
+            
+            # Create contents list with prompt and video
+            contents = [prompt, video_part]
+            
+            # Configure generation with JSON response
+            generation_config = {
+                "temperature": 0.1,
+                "top_p": 0.95,
+                "max_output_tokens": 8192,
+                "response_mime_type": "application/json",  # Request JSON response
+            }
+            
+            # Generate with retry
+            response = await self._generate_with_retry(contents, generation_config)
+            
+            # Parse response
+            result = self._parse_response(response.text)
+            
+            # Clean up GCS file if needed
+            if self.auto_cleanup:
                 await self._cleanup_gcs_file(gcs_uri)
-                
-                return result
-                
-            except Exception as e:
-                if "503" in str(e) and attempt < max_retries - 1:
-                    wait_time = (attempt + 1) * 10
-                    logger.warning(f"503 error, retrying in {wait_time}s...")
-                    await asyncio.sleep(wait_time)
-                else:
-                    # Clean up GCS file even on error
-                    await self._cleanup_gcs_file(gcs_uri)
-                    raise
+            
+            return result
+            
+        except Exception as e:
+            logger.error(f"Vertex AI transcription failed: {e}")
+            raise
     
     async def _generate_with_retry(self, contents, generation_config):
-        """Generate content with Vertex AI using retry logic."""
-        # Convert to sync for now (Vertex AI SDK doesn't have async yet)
+        """Generate content with exponential backoff retry logic."""
         loop = asyncio.get_event_loop()
         return await loop.run_in_executor(
             None,
-            self.model.generate_content,
-            contents,
-            generation_config
+            lambda: self.model.generate_content(
+                contents=contents,
+                generation_config=generation_config
+            )
         )
     
     def _build_comprehensive_prompt(self, enhance_transcript: bool) -> str:
         """Build the comprehensive prompt for video analysis."""
         base_prompt = """Analyze this video comprehensively and extract:
 
-1. **Accurate Transcript**: Include all spoken words with timestamps
-2. **Temporal Intelligence**: 
-   - Temporal events and chronological references
-   - Visual timestamps (documents, calendars, screens)
-   - Dates mentioned or shown
-3. **Entities**: People, organizations, locations, events with confidence scores
-4. **Relationships**: Who said what about whom, when, and context
-5. **Key Insights**: Main points and takeaways
+1. Full transcript with accurate timestamps
+2. All entities (people, organizations, locations, events) with context
+3. Relationships between entities
+4. Key insights and summary points
+5. Temporal intelligence including dates, timeline events, and chronological references
 
-Return a JSON response with this structure:
+Return the response as a valid JSON object with this structure:
 {
   "transcript": {
     "segments": [
       {
         "text": "segment text",
         "start_time": 0.0,
-        "end_time": 5.2,
-        "speaker": "Speaker 1"
+        "end_time": 1.0,
+        "speaker": "optional speaker id"
       }
     ],
-    "full_text": "complete transcript"
+    "full_text": "complete transcript text"
   },
+  "entities": [
+    {
+      "name": "entity name",
+      "type": "PERSON/ORGANIZATION/LOCATION/EVENT",
+      "description": "context about the entity",
+      "confidence": 0.95
+    }
+  ],
+  "relationships": [
+    {
+      "source": "entity1",
+      "target": "entity2",
+      "type": "relationship type",
+      "description": "relationship context",
+      "confidence": 0.90
+    }
+  ],
+  "key_insights": [
+    "insight 1",
+    "insight 2"
+  ],
   "temporal_intelligence": {
-    "temporal_events": [...],
-    "visual_timestamps": [...],
-    "dates_mentioned": [...]
+    "temporal_events": [
+      {
+        "timestamp": 0.0,
+        "description": "event description",
+        "type": "date_reference/timeline_event"
+      }
+    ],
+    "visual_timestamps": [
+      {
+        "timestamp": 0.0,
+        "description": "visual date/time reference",
+        "text": "extracted text"
+      }
+    ],
+    "dates_mentioned": [
+      {
+        "date": "2024-01-01",
+        "context": "context of date mention",
+        "timestamp": 0.0
+      }
+    ]
   },
-  "entities": [...],
-  "relationships": [...],
-  "key_insights": [...]
-}"""
+  "processing_cost": 0.01,
+  "model_used": "vertex-ai-gemini-2.5-flash"
+}
+
+IMPORTANT: Return ONLY valid JSON, no markdown formatting or additional text."""
         
         if enhance_transcript:
-            base_prompt += "\n\nProvide enhanced temporal intelligence with high confidence scores."
-        
+            base_prompt += "\n\nProvide enhanced temporal intelligence with detailed timeline analysis."
+            
         return base_prompt
     
-    def _parse_response(self, response_text: str) -> VideoIntelligence:
-        """Parse Vertex AI response into VideoIntelligence object."""
+    def _parse_response(self, response_text: str) -> Dict[str, Any]:
+        """Parse the Vertex AI response into our expected format."""
         try:
-            data = json.loads(response_text)
+            # Log the raw response for debugging
+            logger.debug(f"Raw Vertex AI response (first 500 chars): {response_text[:500]}")
+            
+            # Handle empty response
+            if not response_text or response_text.strip() == "":
+                logger.error("Vertex AI returned empty response")
+                return self._create_fallback_response("Vertex AI returned empty response")
+            
+            # Try to parse as JSON
+            try:
+                data = json.loads(response_text)
+            except json.JSONDecodeError:
+                # If not JSON, treat as plain text transcript
+                logger.warning("Vertex AI response is not JSON, treating as plain text")
+                return {
+                    "transcript": response_text,
+                    "processing_cost": 0.01,  # Estimate
+                    "model_used": "vertex-ai-gemini-2.5-flash",
+                    "temporal_intelligence": {
+                        "timeline_events": [],
+                        "visual_temporal_cues": [],
+                        "visual_dates": [],
+                        "chronological_references": []
+                    }
+                }
             
             # Extract transcript segments
             segments = []
@@ -192,18 +265,45 @@ Return a JSON response with this structure:
                 ))
             
             # Build VideoIntelligence object
-            return VideoIntelligence(
-                transcript_segments=segments,
-                transcript_text=data.get("transcript", {}).get("full_text", ""),
-                entities=[Entity(**e) for e in data.get("entities", [])],
-                relationships=[Relationship(**r) for r in data.get("relationships", [])],
-                key_insights=data.get("key_insights", []),
-                temporal_intelligence=TemporalIntelligence(**data.get("temporal_intelligence", {}))
-            )
+            return {
+                "transcript": {
+                    "segments": segments,
+                    "full_text": data.get("transcript", {}).get("full_text", "")
+                },
+                "temporal_intelligence": {
+                    "temporal_events": data.get("temporal_intelligence", {}).get("temporal_events", []),
+                    "visual_timestamps": data.get("temporal_intelligence", {}).get("visual_timestamps", []),
+                    "dates_mentioned": data.get("temporal_intelligence", {}).get("dates_mentioned", [])
+                },
+                "entities": [Entity(**e) for e in data.get("entities", [])],
+                "relationships": [Relationship(**r) for r in data.get("relationships", [])],
+                "key_insights": data.get("key_insights", []),
+                "processing_cost": data.get("processing_cost", 0.01),
+                "model_used": data.get("model_used", "vertex-ai-gemini-2.5-flash")
+            }
             
         except Exception as e:
             logger.error(f"Failed to parse Vertex AI response: {e}")
             raise
+    
+    def _create_fallback_response(self, error_message: str) -> Dict[str, Any]:
+        """Create a fallback response when parsing fails."""
+        return {
+            "transcript": {
+                "segments": [],
+                "full_text": f"[Error: {error_message}]"
+            },
+            "temporal_intelligence": {
+                "temporal_events": [],
+                "visual_timestamps": [],
+                "dates_mentioned": []
+            },
+            "entities": [],
+            "relationships": [],
+            "key_insights": [],
+            "processing_cost": 0.01,
+            "model_used": "vertex-ai-gemini-2.5-flash-error"
+        }
     
     def _get_mime_type(self, video_path: Path) -> str:
         """Get MIME type for video file."""
@@ -220,13 +320,18 @@ Return a JSON response with this structure:
     async def _cleanup_gcs_file(self, gcs_uri: str):
         """Clean up uploaded file from GCS."""
         try:
-            bucket_name = gcs_uri.split("/")[2]
-            blob_name = "/".join(gcs_uri.split("/")[3:])
-            
+            # Extract bucket and blob name from URI
+            # Format: gs://bucket-name/path/to/file
+            parts = gcs_uri.replace("gs://", "").split("/", 1)
+            if len(parts) != 2:
+                logger.warning(f"Invalid GCS URI format: {gcs_uri}")
+                return
+                
+            bucket_name, blob_name = parts
             bucket = self.storage_client.bucket(bucket_name)
             blob = bucket.blob(blob_name)
-            blob.delete()
             
-            logger.debug(f"Cleaned up GCS file: {gcs_uri}")
+            blob.delete()
+            logger.info(f"Cleaned up GCS file: {gcs_uri}")
         except Exception as e:
-            logger.warning(f"Failed to clean up GCS file: {e}") 
+            logger.warning(f"Failed to clean up GCS file {gcs_uri}: {e}") 

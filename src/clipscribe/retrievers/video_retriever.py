@@ -278,8 +278,7 @@ class VideoIntelligenceRetriever:
             logger.info(f"Using {processing_mode} mode for enhanced temporal intelligence")
             
             # Download media based on enhanced mode
-            # TEMPORARY: Always use audio for now due to video download issues
-            if False and processing_mode in ["video", "enhanced"]:
+            if processing_mode in ["video", "enhanced"]:
                 logger.info("Downloading full video for enhanced temporal intelligence...")
                 if self.progress_tracker:
                     self.progress_tracker.log_info("Downloading full video for enhanced temporal intelligence...")
@@ -302,8 +301,8 @@ class VideoIntelligenceRetriever:
                 _update_progress("Processing with Enhanced Temporal Intelligence", cost_amount=0.0005, cost_operation="transcription")
                 
                 # v2.17.0: Enhanced processing based on mode
-                # TEMPORARY: Always use audio transcription for now
-                if False and processing_mode in ["video", "enhanced"]:
+                # Process based on the actual mode
+                if processing_mode in ["video", "enhanced"]:
                     analysis = await self.transcriber.transcribe_video(
                         media_file,
                         metadata.duration
@@ -495,6 +494,7 @@ class VideoIntelligenceRetriever:
                     
         except Exception as e:
             logger.error(f"Failed to process video {video_url}: {e}")
+            logger.exception("Full traceback:")  # This will log the full traceback
             if self.progress_tracker:
                 self.progress_tracker.log_error(f"Failed to process video: {e}")
             return None
