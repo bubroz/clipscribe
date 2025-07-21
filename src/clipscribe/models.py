@@ -14,6 +14,22 @@ class VideoChapter(BaseModel):
     summary: Optional[str] = Field(None, description="Chapter summary")
 
 
+class TranscriptSegment(BaseModel):
+    """Individual transcript segment with timing information."""
+    text: str = Field(..., description="Segment text")
+    start_time: float = Field(..., description="Start time in seconds")
+    end_time: float = Field(..., description="End time in seconds") 
+    speaker: Optional[str] = Field(None, description="Speaker identifier")
+
+
+class TemporalIntelligence(BaseModel):
+    """Enhanced temporal intelligence extracted from video content."""
+    timeline_events: List[Dict[str, Any]] = Field(default_factory=list, description="Timeline events with timestamps")
+    visual_temporal_cues: List[Dict[str, Any]] = Field(default_factory=list, description="Visual temporal cues from video")
+    visual_dates: List[Dict[str, Any]] = Field(default_factory=list, description="Dates extracted from visual content")
+    temporal_patterns: List[Dict[str, Any]] = Field(default_factory=list, description="Temporal patterns and sequences")
+
+
 class KeyPoint(BaseModel):
     """Important point from video with temporal context."""
     timestamp: float = Field(..., description="Seconds from start")  # Changed from int to float

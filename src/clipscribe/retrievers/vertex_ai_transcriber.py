@@ -3,9 +3,14 @@
 import asyncio
 import json
 import logging
+import os
 from pathlib import Path
 from typing import Dict, Any, Optional, Tuple, List
 from datetime import datetime
+
+# Load environment variables FIRST
+from dotenv import load_dotenv
+load_dotenv()
 
 import vertexai
 from vertexai.generative_models import GenerativeModel, Part, Content

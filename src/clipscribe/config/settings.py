@@ -6,7 +6,7 @@ Uses Pydantic BaseSettings for environment variable management and validation.
 import os
 from pathlib import Path
 from typing import Optional, List, Dict, Any
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import Field, field_validator
 from dotenv import load_dotenv
 from enum import Enum
@@ -31,6 +31,13 @@ class TemporalIntelligenceLevel(str, Enum):
 
 class Settings(BaseSettings):
     """Application settings with environment variable support."""
+    
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        env_file_encoding="utf-8",
+        case_sensitive=False,
+        extra='ignore'  # Ignore extra fields from environment
+    )
     
     # API Keys
     google_api_key: str = Field(
@@ -249,12 +256,6 @@ class Settings(BaseSettings):
                 raise ValueError(f"Invalid output format: {format}")
         return v
     
-    class Config:
-        """Pydantic configuration."""
-        env_file = ".env"
-        env_file_encoding = "utf-8"
-        case_sensitive = False
-        
     def get_gemini_config(self) -> dict:
         """Get Gemini-specific configuration."""
         return {

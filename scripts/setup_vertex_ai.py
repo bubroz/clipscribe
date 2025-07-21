@@ -33,11 +33,11 @@ def create_staging_bucket():
         bucket = client.create_bucket(bucket_name, location=VERTEX_AI_LOCATION)
         
         # Set lifecycle rule to delete videos after 1 day
-        rule = storage.Bucket.lifecycle_rule(
+        rule = storage.lifecycle_rules.LifecycleRule(
             action={'type': 'Delete'},
             condition={'age': 1}
         )
-        bucket.lifecycle_rules.append(rule)
+        bucket.add_lifecycle_rule(rule)
         bucket.patch()
         
         print(f"✅ Created bucket {bucket_name} with 1-day lifecycle rule")
