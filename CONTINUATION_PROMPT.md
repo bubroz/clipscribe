@@ -1,6 +1,6 @@
 # ClipScribe AI Assistant Continuation Prompt
 
-## Current State (2025-07-20 17:55 PDT)
+## Current State (2025-07-20 18:05 PDT)
 
 ### Latest Version: v2.19.2
 **Vertex AI SDK migration implemented!** Addresses 503 "Socket closed" errors with enterprise-grade infrastructure. Collection processing fixed with --limit option. Entity extraction excellent (16+ entities, 52+ relationships per video).
@@ -27,7 +27,8 @@
 - Knowledge graphs: 88 nodes, 52 edges with visualization
 - Collection processing: --limit option ensures correct video counts
 - Vertex AI migration: Ready for 503 error mitigation
-- Documentation: Cleaned up ARGOS references, updated for v2.19.2
+- Documentation: All cleaned up - removed ARGOS references, fixed bloated env.example
+- Clean env.example: Reduced from 141 to 64 lines, sensible defaults (5 min timeout, not 4 hours!)
 
 ### Current Focus Areas 🎯
 1. **Vertex AI Validation**: Need to test the new backend thoroughly
