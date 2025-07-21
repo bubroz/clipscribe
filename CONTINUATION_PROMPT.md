@@ -1,13 +1,14 @@
 # ClipScribe AI Assistant Continuation Prompt
 
-## Current State (2025-07-20 16:38 PDT)
+## Current State (2025-07-20 17:49 PDT)
 
-### Latest Version: v2.19.1
-Fixed collection summary bug! Added --limit option to process-collection command. Collections now correctly report actual processed video count instead of playlist size. Multi-video processor now includes VideoIntelligence objects in collection.
+### Latest Version: v2.19.2
+Vertex AI SDK migration support added! Addresses 503 "Socket closed" errors with enterprise-grade infrastructure. Set USE_VERTEX_AI=true to enable. Collection summaries fixed, entity extraction excellent (16+ entities, 52+ relationships).
 
 ### Recent Changes
-- **v2.19.1** (2025-07-20): Fixed collection summary bug - added --limit option, populate videos field, correct video counts
-- **v2.19.0** (2025-07-20): Fixed entity/relationship extraction - language filter less aggressive, confidence thresholds lowered, Gemini relationships actually used
+- **v2.19.2** (2025-07-20): Added Vertex AI SDK support - better reliability, retry logic, GCS staging
+- **v2.19.1** (2025-07-20): Fixed collection summary bug - added --limit option, populate videos field
+- **v2.19.0** (2025-07-20): Fixed entity/relationship extraction - confidence thresholds optimized
 - **v2.18.20** (2025-07-20): Fixed ~10 missing model fields (entity.name→entity.entity, added evolution_nodes, etc.)
 - **v2.18.15** (2025-07-19): Cleanup & Demo Update - Removed old outputs, updated demo plan
 - **v2.18.10** (2025-07-18): TimelineJS3 export format added with temporal intelligence

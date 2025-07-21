@@ -5,6 +5,23 @@ All notable changes to ClipScribe will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v2.19.2] - 2025-07-20
+
+### Added
+- **Vertex AI SDK Support**: Added migration path to Vertex AI for improved reliability
+  - Created VertexAITranscriber for robust video processing via Vertex AI SDK
+  - Addresses 503 "Socket closed" errors with better retry logic and infrastructure
+  - Added USE_VERTEX_AI environment flag to switch between Google AI and Vertex AI
+  - Implemented GCS staging bucket for video uploads with automatic cleanup
+  - Created setup_vertex_ai.py script for easy bucket configuration
+  - Maintains full backward compatibility with existing Google AI SDK
+
+### Technical Details
+- **Models**: Using Gemini 2.5 Flash (GA) and Gemini 2.5 Pro (GA) via Vertex AI
+- **Cost**: Same pricing as Google AI SDK, with GCS storage costs negligible (auto-cleanup)
+- **Benefits**: Enterprise-grade infrastructure, better reliability, automatic retries
+- **Configuration**: Set USE_VERTEX_AI=true and configure GCP project settings
+
 ## [v2.19.1] - 2025-07-20
 
 ### Fixed

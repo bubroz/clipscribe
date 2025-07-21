@@ -8,6 +8,7 @@ This guide helps you resolve common issues with ClipScribe.
 - [Installation Issues](#installation-issues)
 - [API Key Problems](#api-key-problems)
 - [Video Processing Errors](#video-processing-errors)
+- [503 Socket Closed Errors](#503-socket-closed-errors)
 - [Performance Issues](#performance-issues)
 - [Output Problems](#output-problems)
 - [Platform-Specific Issues](#platform-specific-issues)
@@ -125,6 +126,31 @@ clipscribe process "URL" --api-key "your_key_here"
 - Verify billing is enabled for the project
 
 ## Video Processing Errors
+
+## 503 Socket Closed Errors
+
+### Problem: "Premature close" or "Socket closed" errors
+
+**New in v2.19.2**: Use Vertex AI SDK for better reliability
+
+```bash
+# Enable Vertex AI mode
+export USE_VERTEX_AI=true
+export VERTEX_AI_PROJECT_ID=your-project-id
+
+# Set up GCS bucket (one-time)
+poetry run python scripts/setup_vertex_ai.py
+
+# Process videos with improved reliability
+poetry run clipscribe transcribe "URL"
+```
+
+Benefits of Vertex AI:
+- Enterprise-grade infrastructure
+- Automatic retry logic
+- Better error handling
+- Same pricing as Google AI SDK
+- Minimal GCS storage costs (auto-cleanup)
 
 ### "No Transcript Available"
 This happens when:
