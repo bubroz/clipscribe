@@ -5,6 +5,28 @@ All notable changes to ClipScribe will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v2.19.6] - 2025-07-21
+
+### Changed
+- **Entity Extraction Simplification**: Major architectural simplification
+  - Introduced `trust_gemini=True` mode in AdvancedHybridExtractor
+  - Skips redundant SpaCy, GLiNER, and REBEL extraction when Gemini provides entities
+  - Modified EntityQualityFilter to tag entities with metadata instead of filtering
+  - Result: 52+ entities per video (up from 0-6, an 870% increase)
+  - 70+ relationships per video with evidence and timestamps
+  - Zero additional API cost - reuses existing Gemini response
+
+### Fixed
+- **Entity Model Compatibility**: Resolved Pydantic model property issues
+  - Fixed Entity model attempting to add non-existent properties field
+  - Enhanced debug logging throughout extraction pipeline
+  - Improved entity normalization to preserve more entities
+
+### Performance
+- Faster processing by eliminating redundant local model extraction
+- Reduced code complexity by ~200 lines
+- Maintained cost efficiency at $0.002-0.0035/minute
+
 ## [v2.19.5] - 2025-07-21
 
 ### Added

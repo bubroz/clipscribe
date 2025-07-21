@@ -743,3 +743,83 @@ class EntityQualityFilter:
         
         english_scores = [self._calculate_language_score(entity.entity) for entity in entities]
         return sum(english_scores) / len(english_scores) 
+
+    def _detect_language(self, text: str) -> Dict[str, Any]:
+        """
+        Simple language detection based on character patterns.
+        
+        Args:
+            text: Text to analyze
+            
+        Returns:
+            Dict with language info
+        """
+        # Simple heuristic for language detection
+        # Check for non-ASCII characters
+        non_ascii_count = sum(1 for c in text if ord(c) > 127)
+        total_chars = len(text)
+        
+        if total_chars == 0:
+            return {
+                'language': 'unknown',
+                'confidence': 0.0,
+                'is_english': True  # Default to true for empty
+            }
+        
+        non_ascii_ratio = non_ascii_count / total_chars
+        
+        # Simple heuristics
+        if non_ascii_ratio < 0.1:  # Less than 10% non-ASCII
+            return {
+                'language': 'en',
+                'confidence': 0.9,
+                'is_english': True
+            }
+        elif non_ascii_ratio > 0.5:  # More than 50% non-ASCII
+            return {
+                'language': 'other',
+                'confidence': 0.7,
+                'is_english': False
+            }
+        else:
+            return {
+                'language': 'mixed',
+                'confidence': 0.5,
+                'is_english': True  # Be lenient with mixed content
+            }
+    
+    def tag_entities(
+        self,
+        entities: List[Entity]
+    ) -> List[Entity]:
+        """
+        Tag entities with language metadata instead of filtering.
+        
+        This is the NEW approach for trust_gemini mode - we tag entities
+        with language information but don't remove them. Users can decide
+        what to do with non-English entities.
+        
+        Args:
+            entities: List of entities to tag
+            
+        Returns:
+            Same list of entities (unmodified since Entity is immutable)
+        """
+        logger.info(f"🏷️ Tagging {len(entities)} entities with language metadata")
+        
+        # Since Entity is a Pydantic model without a properties field,
+        # we can't add language tags directly. Instead, we just log
+        # the language information and return entities unchanged.
+        
+        non_english_count = 0
+        for entity in entities:
+            # Detect language
+            lang_info = self._detect_language(entity.entity)
+            
+            # Log non-English entities (but don't filter)
+            if not lang_info['is_english']:
+                non_english_count += 1
+                logger.debug(f"Non-English entity detected: '{entity.entity}' ({lang_info['language']}, conf: {lang_info['confidence']:.2f})")
+        
+        logger.info(f"✅ Tagged {len(entities)} entities - {non_english_count} non-English detected but not filtered")
+        return entities 

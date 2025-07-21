@@ -64,16 +64,23 @@ class EnhancedEntityExtractor:
         Returns:
             List of enhanced entities with full metadata
         """
+        logger.debug(f"DEBUG: enhance_entities called with {len(entities)} entities")
+        
         # Group entities by canonical form
         entity_groups = self._group_entities(entities)
+        logger.debug(f"DEBUG: _group_entities returned {len(entity_groups)} groups")
         
         enhanced_entities = []
         for canonical_form, entity_group in entity_groups.items():
+            logger.debug(f"DEBUG: Processing group '{canonical_form}' with {len(entity_group)} entities")
+            
             # Calculate confidence scores
             confidence = self._calculate_confidence(entity_group)
             
             # Extract source information
             sources = list({e.source for e in entity_group if hasattr(e, 'source')})
+            if not sources:
+                sources = ['Gemini']  # Default source
             source_confidence = self._calculate_source_confidence(entity_group)
             
             # Get context windows if transcript provided
@@ -109,17 +116,25 @@ class EnhancedEntityExtractor:
             )
             
             enhanced_entities.append(enhanced)
+            logger.debug(f"DEBUG: Created enhanced entity: {enhanced.entity} (type: {enhanced.type})")
             
+        logger.debug(f"DEBUG: enhance_entities returning {len(enhanced_entities)} enhanced entities")
         return enhanced_entities
     
     def _group_entities(self, entities: List[Entity]) -> Dict[str, List[Entity]]:
         """Group entities by their canonical form."""
+        logger.debug(f"DEBUG: _group_entities called with {len(entities)} entities")
+        
         groups = defaultdict(list)
         
         # First pass: group exact matches
         for entity in entities:
+            logger.debug(f"DEBUG: Processing entity: {entity}")
             canonical = self._get_canonical_form(entity.entity)
+            logger.debug(f"DEBUG: Entity '{entity.entity}' -> canonical '{canonical}'")
             groups[canonical].append(entity)
+        
+        logger.debug(f"DEBUG: After first pass, have {len(groups)} groups")
         
         # Second pass: merge similar entities
         merged_groups = {}
@@ -150,6 +165,7 @@ class EnhancedEntityExtractor:
             merged_groups[best_canonical] = merged_group
             processed.add(canonical)
         
+        logger.debug(f"DEBUG: After merging, have {len(merged_groups)} final groups")
         return merged_groups
     
     def _get_canonical_form(self, entity_text: str) -> str:

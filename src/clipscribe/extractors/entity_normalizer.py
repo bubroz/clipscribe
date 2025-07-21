@@ -72,12 +72,15 @@ class EntityNormalizer:
             return []
             
         logger.info(f"Normalizing {len(entities)} entities...")
+        logger.debug(f"DEBUG: Input entities: {[e.entity for e in entities[:10]]}...")  # Show first 10
         
         # Step 1: Basic cleanup
         cleaned_entities = self._clean_entity_names(entities)
+        logger.debug(f"DEBUG: After cleanup: {len(cleaned_entities)} entities")
         
         # Step 2: Group similar entities
         entity_groups = self._group_similar_entities(cleaned_entities)
+        logger.debug(f"DEBUG: Grouped into {len(entity_groups)} groups")
         
         # Step 3: Merge each group into a single canonical entity
         normalized_entities = []
@@ -85,9 +88,11 @@ class EntityNormalizer:
             canonical = self._merge_entity_group(group)
             if canonical:
                 normalized_entities.append(canonical)
+        logger.debug(f"DEBUG: After merging groups: {len(normalized_entities)} entities")
         
         # Step 4: Final validation and sorting
         final_entities = self._validate_and_sort(normalized_entities)
+        logger.debug(f"DEBUG: After validation: {len(final_entities)} entities")
         
         logger.info(f"Normalized to {len(final_entities)} unique entities :-)")
         return final_entities

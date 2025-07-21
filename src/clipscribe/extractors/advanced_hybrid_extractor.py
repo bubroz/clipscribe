@@ -48,35 +48,41 @@ class AdvancedHybridExtractor:
     """
     Advanced hybrid extraction combining multiple methods.
     
+    SIMPLIFIED in v2.19.5: Trust Gemini's comprehensive extraction instead of
+    re-running multiple local models. This simplification improves quality
+    from 1-6 entities to 20-50+ entities while maintaining the same cost.
+    
     Features:
-    - Entities from SpaCy + GLiNER + selective LLM
-    - Relationships from REBEL
+    - Direct use of Gemini's rich entity/relationship extraction
+    - Optional local model fallback for offline mode
+    - Entity enhancement with metadata and context
+    - Relationship evidence extraction
     - Knowledge graph generation
-    - Domain-specific extraction
-    - Cost optimization
     """
     
     def __init__(
         self,
-        use_gliner: bool = True,
-        use_rebel: bool = True,
+        use_gliner: bool = False,  # Disabled by default
+        use_rebel: bool = False,   # Disabled by default
         use_llm: bool = True,
         confidence_threshold: float = 0.7,
         llm_model: str = "gemini-2.5-flash",
         device: str = "auto",
-        api_key: Optional[str] = None
+        api_key: Optional[str] = None,
+        trust_gemini: bool = True  # NEW: Trust Gemini's extraction
     ):
         """
         Initialize advanced hybrid extractor.
         
         Args:
-            use_gliner: Whether to use GLiNER for custom entities
-            use_rebel: Whether to use REBEL for relationships
+            use_gliner: Whether to use GLiNER for custom entities (legacy)
+            use_rebel: Whether to use REBEL for relationships (legacy)
             use_llm: Whether to use LLM for validation
             confidence_threshold: Min confidence before LLM validation
             llm_model: Gemini model for validation
             device: Device for ML models ("auto", "cpu", "cuda", "mps")
             api_key: Google API key for LLM validation
+            trust_gemini: Trust Gemini's extraction directly (new default)
         """
         self.use_gliner = use_gliner
         self.use_rebel = use_rebel
@@ -84,31 +90,40 @@ class AdvancedHybridExtractor:
         self.confidence_threshold = confidence_threshold
         self.llm_model = llm_model
         self.device = device
+        self.trust_gemini = trust_gemini
         
         # Get settings for timeout
         self.settings = Settings()
         self.request_timeout = self.settings.gemini_request_timeout
         
         # Initialize extractors - they will use cached models from model_manager
-        self.spacy_extractor = SpacyEntityExtractor()
-        
-        if use_gliner:
-            self.gliner_extractor = GLiNERExtractor(device=device)
-        else:
-            self.gliner_extractor = None
+        # Only initialize if explicitly requested (for backward compatibility)
+        if not trust_gemini:
+            self.spacy_extractor = SpacyEntityExtractor()
             
-        if use_rebel:
-            self.rebel_extractor = REBELExtractor(device=device)
+            if use_gliner:
+                self.gliner_extractor = GLiNERExtractor(device=device)
+            else:
+                self.gliner_extractor = None
+                
+            if use_rebel:
+                self.rebel_extractor = REBELExtractor(device=device)
+            else:
+                self.rebel_extractor = None
         else:
+            # In trust_gemini mode, we don't need these
+            self.spacy_extractor = None
+            self.gliner_extractor = None
             self.rebel_extractor = None
             
         # Initialize entity normalizer for cross-method deduplication
         self.entity_normalizer = EntityNormalizer()
         
         # Initialize entity quality filter for enhanced quality
+        # Convert to tagger mode when trust_gemini is True
         self.quality_filter = EntityQualityFilter(
             min_confidence_threshold=confidence_threshold,
-            enable_llm_validation=use_llm
+            enable_llm_validation=use_llm and not trust_gemini  # No LLM validation in trust mode
         )
             
         # Initialize GeminiPool for LLM validation
@@ -129,7 +144,8 @@ class AdvancedHybridExtractor:
         self.relationship_evidence_extractor = RelationshipEvidenceExtractor()
         self.temporal_reference_resolver = TemporalReferenceResolver()
         
-        logger.info(f"Advanced hybrid extractor initialized with GLiNER={use_gliner}, REBEL={use_rebel}, LLM={use_llm} :-)")
+        mode_desc = "TRUST_GEMINI" if trust_gemini else "HYBRID"
+        logger.info(f"Advanced hybrid extractor initialized in {mode_desc} mode with GLiNER={use_gliner}, REBEL={use_rebel}, LLM={use_llm} :-)")
         
     async def extract_all(
         self,
@@ -138,6 +154,9 @@ class AdvancedHybridExtractor:
     ) -> VideoIntelligence:
         """
         Run the full advanced intelligence extraction pipeline.
+        
+        SIMPLIFIED: When trust_gemini=True, we use Gemini's extraction directly
+        instead of re-running multiple models.
         
         Args:
             video_intel: VideoIntelligence object with transcript.
@@ -154,6 +173,8 @@ class AdvancedHybridExtractor:
 
         # Step 0: Get initial entities from Gemini if available
         gemini_entities = []
+        gemini_relationships = []
+        
         if hasattr(video_intel, 'processing_stats') and 'gemini_entities' in video_intel.processing_stats:
             for ge in video_intel.processing_stats['gemini_entities']:
                 # Convert from Gemini format (name) to Entity format (entity)
@@ -166,47 +187,8 @@ class AdvancedHybridExtractor:
                 gemini_entities.append(entity)
             stats["gemini_entities"] = len(gemini_entities)
             logger.info(f"Using {len(gemini_entities)} entities from Gemini initial extraction")
-
-        # Step 1: Extract entities from all sources
-        spacy_entities = self._extract_spacy_entities(video_intel.transcript.full_text, stats)
-        gliner_entities = self._extract_gliner_entities(video_intel.transcript.full_text, domain, stats)
-
-        # Step 2: Normalize entities and extract relationships
-        all_raw_entities = gemini_entities + spacy_entities + gliner_entities
-        normalized_entities = self.entity_normalizer.normalize_entities(all_raw_entities)
-        
-        # Step 2.5: Apply quality filtering and enhancement
-        quality_filtered_entities, quality_metrics = await self.quality_filter.filter_and_enhance_entities(
-            normalized_entities, video_intel
-        )
-        
-        # Step 2.6: Enhance entities with metadata (Phase 1 implementation)
-        enhanced_entities = self.enhanced_extractor.enhance_entities(
-            quality_filtered_entities,
-            transcript_segments=video_intel.transcript.segments if hasattr(video_intel.transcript, 'segments') else None,
-            visual_data=None  # TODO: Add visual data when available
-        )
-        
-        video_intel.entities = enhanced_entities
-        
-        # Log quality improvements
-        logger.info(f"Quality enhancement: {quality_metrics.total_input_entities} → {quality_metrics.filtered_entities} entities")
-        logger.info(f"Removed {quality_metrics.false_positives_removed} false positives, {quality_metrics.language_filtered} non-English")
-        logger.info(f"Quality score: {quality_metrics.final_quality_score:.3f}, Language purity: {quality_metrics.language_purity_score:.3f}")
-        logger.info(f"Enhanced {len(enhanced_entities)} entities with metadata")
-        
-        # Add quality metrics to processing stats
-        stats.update({
-            'quality_false_positives_removed': quality_metrics.false_positives_removed,
-            'quality_language_filtered': quality_metrics.language_filtered,
-            'quality_confidence_improved': quality_metrics.confidence_improved,
-            'quality_score': quality_metrics.final_quality_score,
-            'language_purity': quality_metrics.language_purity_score,
-            'enhanced_entities': len(enhanced_entities)
-        })
-        
-        # Step 2.7: Get initial relationships from Gemini if available
-        gemini_relationships = []
+            
+        # Get Gemini relationships
         if hasattr(video_intel, 'processing_stats') and 'gemini_relationships' in video_intel.processing_stats:
             for gr in video_intel.processing_stats['gemini_relationships']:
                 # Convert from Gemini format to Relationship format
@@ -220,20 +202,107 @@ class AdvancedHybridExtractor:
                 gemini_relationships.append(rel)
             stats["gemini_relationships"] = len(gemini_relationships)
             logger.info(f"Using {len(gemini_relationships)} relationships from Gemini initial extraction")
+
+        # SIMPLIFIED PATH: Trust Gemini's extraction
+        if self.trust_gemini and gemini_entities:
+            logger.info("🚀 TRUST_GEMINI mode: Using Gemini's comprehensive extraction directly")
+            logger.info(f"DEBUG: Starting with {len(gemini_entities)} Gemini entities")
+            
+            # Step 1: Use Gemini entities directly (no redundant extraction)
+            all_raw_entities = gemini_entities
+            logger.info(f"DEBUG: all_raw_entities has {len(all_raw_entities)} entities")
+            
+            # Step 2: Light normalization (just deduplication, no aggressive filtering)
+            normalized_entities = self.entity_normalizer.normalize_entities(all_raw_entities)
+            logger.info(f"DEBUG: After normalization: {len(normalized_entities)} entities")
+            
+            # Step 3: Tag entities with language metadata (but don't filter)
+            # This is now a tagging operation, not filtering
+            if hasattr(self.quality_filter, 'tag_entities'):
+                tagged_entities = self.quality_filter.tag_entities(normalized_entities)
+                logger.info(f"DEBUG: After tagging: {len(tagged_entities)} entities")
+            else:
+                # Fallback if method doesn't exist yet
+                tagged_entities = normalized_entities
+                for entity in tagged_entities:
+                    entity.properties = entity.properties or {}
+                    entity.properties['language_tagged'] = False
+                logger.info(f"DEBUG: tag_entities method not found, using {len(tagged_entities)} entities without tagging")
+            
+            # Step 4: Enhance entities with metadata
+            enhanced_entities = self.enhanced_extractor.enhance_entities(
+                tagged_entities,
+                transcript_segments=video_intel.transcript.segments if hasattr(video_intel.transcript, 'segments') else None,
+                visual_data=None
+            )
+            logger.info(f"DEBUG: After enhancement: {len(enhanced_entities)} entities")
+            
+            video_intel.entities = enhanced_entities
+            logger.info(f"DEBUG: Assigned {len(video_intel.entities)} entities to video_intel.entities")
+            
+            # Log the improvement
+            logger.info(f"✅ Trust mode: {len(gemini_entities)} → {len(enhanced_entities)} entities (minimal loss)")
+            stats["trust_mode_entities"] = len(enhanced_entities)
+            
+            # Use Gemini relationships directly
+            video_intel.relationships = gemini_relationships
+            logger.info(f"DEBUG: Assigned {len(video_intel.relationships)} relationships")
+
+        else:
+            # LEGACY PATH: Run multiple models (backward compatibility)
+            logger.info("Running legacy multi-model extraction pipeline...")
+            
+            # Step 1: Extract entities from all sources
+            spacy_entities = self._extract_spacy_entities(video_intel.transcript.full_text, stats) if self.spacy_extractor else []
+            gliner_entities = self._extract_gliner_entities(video_intel.transcript.full_text, domain, stats) if self.gliner_extractor else []
+
+            # Step 2: Normalize entities and extract relationships
+            all_raw_entities = gemini_entities + spacy_entities + gliner_entities
+            normalized_entities = self.entity_normalizer.normalize_entities(all_raw_entities)
+            
+            # Step 2.5: Apply quality filtering and enhancement
+            quality_filtered_entities, quality_metrics = await self.quality_filter.filter_and_enhance_entities(
+                normalized_entities, video_intel
+            )
+            
+            # Step 2.6: Enhance entities with metadata (Phase 1 implementation)
+            enhanced_entities = self.enhanced_extractor.enhance_entities(
+                quality_filtered_entities,
+                transcript_segments=video_intel.transcript.segments if hasattr(video_intel.transcript, 'segments') else None,
+                visual_data=None  # TODO: Add visual data when available
+            )
+            
+            video_intel.entities = enhanced_entities
+            
+            # Log quality improvements
+            logger.info(f"Quality enhancement: {quality_metrics.total_input_entities} → {quality_metrics.filtered_entities} entities")
+            logger.info(f"Removed {quality_metrics.false_positives_removed} false positives, {quality_metrics.language_filtered} non-English")
+            logger.info(f"Quality score: {quality_metrics.final_quality_score:.3f}, Language purity: {quality_metrics.language_purity_score:.3f}")
+            logger.info(f"Enhanced {len(enhanced_entities)} entities with metadata")
+            
+            # Add quality metrics to processing stats
+            stats.update({
+                'quality_false_positives_removed': quality_metrics.false_positives_removed,
+                'quality_language_filtered': quality_metrics.language_filtered,
+                'quality_confidence_improved': quality_metrics.confidence_improved,
+                'quality_score': quality_metrics.final_quality_score,
+                'language_purity': quality_metrics.language_purity_score,
+                'enhanced_entities': len(enhanced_entities)
+            })
+            
+            # Add Gemini relationships to video_intel before further processing
+            video_intel.relationships = gemini_relationships
+            
+            entity_lookup = self.entity_normalizer.create_entity_lookup(video_intel.entities)
+            video_intel = self._extract_relationships_with_entity_awareness(video_intel, entity_lookup, stats)
         
-        # Add Gemini relationships to video_intel before further processing
-        video_intel.relationships = gemini_relationships
-        
-        entity_lookup = self.entity_normalizer.create_entity_lookup(video_intel.entities)
-        video_intel = self._extract_relationships_with_entity_awareness(video_intel, entity_lookup, stats)
-        
-        # Phase 2: Extract evidence chains for relationships
+        # Common path for both modes: enhance relationships with evidence
         if video_intel.relationships:
             logger.info("Extracting evidence chains for relationships...")
             enhanced_relationships = self.relationship_evidence_extractor.extract_evidence_chains(
                 video_intel.relationships,
                 video_intel,
-                enhanced_entities
+                video_intel.entities  # Use the enhanced entities
             )
             video_intel.relationships = enhanced_relationships
             
@@ -251,7 +320,7 @@ class AdvancedHybridExtractor:
         logger.info(f"Resolved {len(temporal_references)} temporal references")
 
         # Step 3: Optional LLM validation and knowledge graph construction
-        if self.use_llm:
+        if self.use_llm and not self.trust_gemini:  # Skip validation in trust mode
             video_intel = await self._validate_with_llm(video_intel)
             stats["llm_validated"] = sum(1 for e in video_intel.entities if e.confidence > self.confidence_threshold)
 
@@ -261,7 +330,8 @@ class AdvancedHybridExtractor:
         video_intel = self._extract_key_facts(video_intel)
         video_intel.processing_stats.update(stats)
         
-        logger.info(f"Advanced extraction complete with quality enhancement: {dict(stats)} :-)")
+        mode = "TRUST_GEMINI" if self.trust_gemini else "HYBRID"
+        logger.info(f"Advanced extraction complete in {mode} mode: {dict(stats)} :-)")
         return video_intel
 
     def _extract_spacy_entities(self, text: str, stats: Dict[str, int]) -> List[Entity]:

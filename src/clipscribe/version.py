@@ -1,3 +1,3 @@
-"""ClipScribe version information."""
+"""Version information for ClipScribe."""
 
-__version__ = "2.19.5" 
+__version__ = "2.19.6" 
