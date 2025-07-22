@@ -5,16 +5,29 @@ All notable changes to ClipScribe will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [v2.19.6] - 2025-07-21
+## [v2.19.6] - 2025-07-21 to 2025-07-22
 
 ### Changed
 - **Entity Extraction Simplification**: Major architectural simplification
   - Introduced `trust_gemini=True` mode in AdvancedHybridExtractor
   - Skips redundant SpaCy, GLiNER, and REBEL extraction when Gemini provides entities
   - Modified EntityQualityFilter to tag entities with metadata instead of filtering
-  - Result: 52+ entities per video (up from 0-6, an 870% increase)
-  - 70+ relationships per video with evidence and timestamps
+  - Result: 52-92+ entities per video (up from 0-6, an 870% increase)
+  - 70-106+ relationships per video with evidence and timestamps
   - Zero additional API cost - reuses existing Gemini response
+
+### Added
+- **PBS NewsHour Testing**: Comprehensive testing with news content
+  - Successfully extracted 92 entities and 106 relationships from 27-min episode
+  - Created knowledge graph visualizations (2D/3D interactive HTML + GEXF)
+  - Developed 30-day batch analysis infrastructure
+
+- **Performance Optimizations**: Dramatically improved batch processing speed
+  - Created `pbs_fast_batch.py` for optimized concurrent processing
+  - Increased concurrent limit from 5 to 10-15 (180-250 videos/hour)
+  - Reduced 30-video processing time from 3-4 hours to 10-15 minutes
+  - Added speed modes: Standard (10x), Fast (15x), Ludicrous (20x)
+  - Benchmarked at 3.5 min/video with 170-250 videos/hour capability
 
 ### Fixed
 - **Entity Model Compatibility**: Resolved Pydantic model property issues

@@ -202,7 +202,7 @@ result = await processor.process_collection(
 
 - **Speed**: 2-4 minutes to process 1 hour of video
 - **Cost**: $0.002/minute ($0.0083 per 5-minute video)
-- **Extraction**: 16+ entities, 52+ relationships per video
+- **Extraction**: 52-92+ entities, 70-106+ relationships per video
 - **Memory**: <2GB for typical usage
 - **Platforms**: 1800+ supported sites
 
