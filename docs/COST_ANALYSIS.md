@@ -10,12 +10,22 @@ ClipScribe processes videos through Google's Gemini AI models. Understanding the
 
 ### Per-Video Costs (Estimated)
 
-| Video Duration | Gemini 2.5 Flash | Processing Time | Cost |
-|----------------|------------------|-----------------|------|
-| 5 minutes      | ~30K tokens      | ~15 seconds     | $0.0018 |
-| 10 minutes     | ~60K tokens      | ~25 seconds     | $0.0035 |
-| 30 minutes     | ~180K tokens     | ~45 seconds     | $0.0105 |
-| 60 minutes     | ~360K tokens     | ~90 seconds     | $0.021 |
+| Service / Model | Unit | Cost (USD) | Notes |
+| :--- | :--- | :--- | :--- |
+| **Gemini 2.5 Flash** | 1k characters (input) | $0.000125 | Primary model for transcription and standard analysis. |
+| **Gemini 2.5 Flash** | 1k characters (output) | $0.000250 | |
+| **Gemini 2.5 Pro** | 1k characters (input) | $0.00125 | Used for complex reasoning and multi-video synthesis. |
+| **Gemini 2.5 Pro** | 1k characters (output) | $0.00250 | |
+| YouTube Transcript API | per video | $0.00 | Free, used when available. |
+
+The following table outlines the estimated cost per minute of video processing, which includes transcription, entity and relationship extraction, and knowledge graph generation using our hybrid **Gemini 2.5 Flash**-based system.
+
+| Video Duration | Standard Quality (Audio) | Enhanced Quality (Video) |
+| :--- | :--- | :--- |
+| 1 minute | ~$0.0035 | ~$0.0070 |
+| 10 minutes | ~$0.035 | ~$0.070 |
+| 30 minutes | ~$0.105 | ~$0.210 |
+| 60 minutes | ~$0.210 | ~$0.420 |
 
 ### API Pricing (as of July 2025)
 
