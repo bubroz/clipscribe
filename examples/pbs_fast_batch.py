@@ -12,11 +12,13 @@ from pathlib import Path
 from datetime import datetime
 import os
 from dotenv import load_dotenv
+import tenacity
+from clipscribe.extractors.multi_video_processor import MultiVideoProcessor
 
 # Load environment variables
 load_dotenv()
 
-from clipscribe.retrievers import UniversalVideoClient
+from clipscribe.retrievers import VideoIntelligenceRetriever
 from clipscribe.models import VideoIntelligence
 
 
@@ -35,7 +37,7 @@ async def process_batch_fast(urls: list[str], concurrent_limit: int = 10):
     semaphore = asyncio.Semaphore(concurrent_limit)
     
     # Create shared client
-    client = UniversalVideoClient(trust_gemini=True)  # Trust mode for speed
+    client = VideoIntelligenceRetriever(output_formats=['json', 'csv'])
     
     async def process_one(url: str, index: int):
         async with semaphore:
@@ -46,15 +48,9 @@ async def process_batch_fast(urls: list[str], concurrent_limit: int = 10):
                 print(f"⚡ [{index}/{len(urls)}] Starting: {url}")
                 
                 # Process with all optimizations
-                result = await client.transcribe_video(
-                    url,
-                    output_dir=output_dir,
-                    save_outputs=True,
-                    output_formats=['json', 'csv'],  # Skip heavy formats
-                    mode='audio',  # Audio-only for speed
-                    use_cache=False,  # Fresh data
-                    delete_video=True  # Don't retain videos
-                )
+                result = await client.process_url(url)
+                if result:
+                    client.save_all_formats(result, output_dir=output_dir)
                 
                 duration = (datetime.now() - start).total_seconds()
                 entities = len(result.entities) if result else 0

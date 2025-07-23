@@ -1,6 +1,6 @@
 # ClipScribe AI Assistant Continuation Prompt
 
-## Current State (2025-07-22 01:51 PDT)
+## Current State (2025-07-22 18:00 PDT)
 
 ### Latest Version: v2.19.6
 Successfully tested comprehensive entity extraction with PBS NewsHour. Optimized batch processing to handle 30 days of content in ~10 minutes (not 3-4 hours!) using 10-15x concurrent processing.
@@ -28,19 +28,24 @@ Successfully tested comprehensive entity extraction with PBS NewsHour. Optimized
 - Some YouTube videos may be unavailable or geo-blocked
 - Vertex AI setup still requires manual configuration
 - TimelineJS export format not yet implemented
+- Batch processing scripts (e.g., pbs_fast_batch.py) have outdated API usage (e.g., wrong client init, missing trust_gemini handling), leading to errors like TypeError and attribute failures
+- Vertex AI integration prone to quota/timeouts without proper fallbacks
 
 ### Work in Progress 🚧
 - **PBS 30-Day Analysis**: Created fast batch processor (`pbs_fast_batch.py`)
 - **Speed Optimizations**: Increased concurrent limit from 5 to 10-15
 - **Collection Scripts**: `collect_pbs_newshour_urls.py` ready to gather URLs
 - **Knowledge Graph Viz**: Successfully created interactive 2D/3D visualizations
+- **Batch Processing Fixes**: Plan in place to resolve script errors (see Roadmap)
 
 ### Roadmap 🗺️
-- **Next**: Execute 30-day PBS NewsHour batch (10 min, not 3-4 hours!)
+- **Immediate**: Fix batch processing issues (update pbs_fast_batch.py for correct VideoIntelligenceRetriever usage, disable Vertex AI temporarily, add retries/error handling)
+- **Next**: Execute 30-day PBS NewsHour batch (10 min, not 3-4 hours!) with individual + overall analyses
 - **Soon**: Phase 2 date extraction (entity-date associations)
 - **Soon**: TimelineJS export for temporal visualization
 - **Soon**: Multi-video collection intelligence synthesis (30-day aggregation)
 - **Future**: Trend analysis and entity evolution tracking
+- **Tracked Plan**: See GitHub Issue #1 for detailed PBS test fixes and enhancements
 
 ### Speed Benchmarks 📊
 - Single video: 3.5 minutes
@@ -48,7 +53,14 @@ Successfully tested comprehensive entity extraction with PBS NewsHour. Optimized
 - 15x concurrent: 250+ videos/hour
 - 30 PBS episodes: ~10-15 minutes total
 
-### 🚀 NEXT SESSION: Month-Long PBS NewsHour Test
+### 🚀 NEXT SESSION: Implement PBS Test Fixes and Run Batch
+
+**Detailed Plan for PBS Month-Long Test Fixes (Tracked in GitHub Issue #1)**:
+1. Disable Vertex AI (set USE_VERTEX_AI=False in .env) to avoid quota errors.
+2. Update pbs_fast_batch.py: Use VideoIntelligenceRetriever with trust_gemini enabled, add retries, reduce concurrency to 10x initially.
+3. Test single video, then small batch (2-3), then full.
+4. Ensure series processing includes individual outputs + multi-video synthesis (via MultiVideoProcessor).
+5. Update docs: CHANGELOG.md, README.md, CONTINUATION_PROMPT.md.
 
 **Ready-to-Run Commands:**
 ```bash

@@ -303,3 +303,7 @@ Following the strategic pivot to core excellence, our immediate focus is on:
 5. **Market-Driven Features** - Build only what users actually request and use
 
 See [docs/CORE_EXCELLENCE_IMPLEMENTATION_PLAN.md](docs/CORE_EXCELLENCE_IMPLEMENTATION_PLAN.md) for detailed 12-week roadmap.
+
+### Batch Processing
+- Use `examples/pbs_fast_batch.py` for optimized processing of PBS NewsHour series.
+- Note: For Vertex AI, ensure proper configuration (credentials, project ID) or set `USE_VERTEX_AI=False` in .env for Gemini fallback.
