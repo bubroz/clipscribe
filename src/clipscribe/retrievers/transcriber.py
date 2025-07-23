@@ -172,8 +172,8 @@ class GeminiFlashTranscriber:
             Dictionary with transcript and enhanced analysis
         """
         # Use Vertex AI if configured
-        if self.use_vertex_ai:
-            logger.info(f"Using Vertex AI to transcribe audio: {audio_file}")
+        if self.use_vertex_ai and self.vertex_transcriber:
+            logger.info(f"Attempting to transcribe audio with Vertex AI: {audio_file}")
             try:
                 result = await self.vertex_transcriber.transcribe_with_vertex(
                     Path(audio_file),
@@ -183,10 +183,10 @@ class GeminiFlashTranscriber:
                 # Convert to expected format
                 return self._convert_vertex_result_to_dict(result)
             except Exception as e:
-                logger.error(f"Vertex AI transcription failed: {e}")
-                raise
+                logger.warning(f"Vertex AI transcription failed: {e}. Falling back to standard Gemini API.")
+                # Fallback to standard Gemini API below
         
-        logger.info(f"Uploading audio file: {audio_file}")
+        logger.info(f"Using standard Gemini API to transcribe audio: {audio_file}")
         logger.info(f"Enhanced temporal intelligence level: {self.temporal_config['level']}")
         
         # Upload the audio file
@@ -565,8 +565,8 @@ class GeminiFlashTranscriber:
             Dictionary with transcript and comprehensive intelligence
         """
         # Use Vertex AI if configured
-        if self.use_vertex_ai:
-            logger.info(f"Using Vertex AI to transcribe video: {video_file}")
+        if self.use_vertex_ai and self.vertex_transcriber:
+            logger.info(f"Attempting to transcribe video with Vertex AI: {video_file}")
             try:
                 result = await self.vertex_transcriber.transcribe_with_vertex(
                     Path(video_file),
@@ -576,11 +576,10 @@ class GeminiFlashTranscriber:
                 # Convert to expected format
                 return self._convert_vertex_result_to_dict(result)
             except Exception as e:
-                logger.error(f"Vertex AI transcription failed: {e}")
-                logger.exception("Full Vertex AI error traceback:")
-                raise
-            
-        logger.info(f"Uploading video file: {video_file}")
+                logger.warning(f"Vertex AI transcription failed: {e}. Falling back to standard Gemini API.")
+                # Fallback to standard Gemini API below
+
+        logger.info(f"Using standard Gemini API to transcribe video: {video_file}")
         logger.info(f"Enhanced temporal intelligence level: {self.temporal_config['level']}")
         
         # Upload the video file
