@@ -6,6 +6,24 @@ This document contains all approved test videos for ClipScribe development and t
 
 ## 📖 **Series (Same Channel + Same Topic)**
 
+### Series 0: Tier 1 & 2 Selections Training (PRIORITY TEST SERIES)
+**Channel:** Same  
+**Topic:** Professional development/training - selection processes  
+**Testing Purpose:** **IMMEDIATE 3-VIDEO ANALYSIS** - competitive intelligence extraction, series detection, professional training content  
+**Demo Value:** Perfect for tonight's real-world test - comprehensive educational content  
+
+| Video | URL | Title | Notes |
+|-------|-----|-------|-------|
+| Part 1 | https://www.youtube.com/watch?v=Nr7vbOSzpSk | How to Pass Tier 1 & 2 Selections Part 1/3: Difference Between Tier 1 & 2 | Foundation concepts |
+| Part 2 | https://www.youtube.com/watch?v=tjFNZlZEJLY | How to Pass Tier 1 & 2 Selections - Part 2/3: Tier 2 Selections | Advanced strategies |
+| Part 3 | https://www.youtube.com/watch?v=7r-qOjUOjbs | How To Pass Tier 1 & 2 Selections Part 3/3: Tier 1 Selections | Tactical implementation |
+
+**Expected Extraction:**
+- **Entities**: Training concepts, selection criteria, methodologies, instructors
+- **Relationships**: Process flows, requirement dependencies, skill hierarchies
+- **Timeline**: Step-by-step progression through selection processes
+- **Intelligence Value**: Competitive advantage in understanding selection requirements
+
 ### Series 1: My Chemical Romance Documentary Series
 **Channel:** Same  
 **Topic:** Music documentary series  
@@ -218,3 +236,25 @@ This document contains all approved test videos for ClipScribe development and t
 Video1: url1
 Video2: url2
 Video3: url3 
+
+## 🎯 **Tonight's Immediate Test (Priority)**
+
+### Quick 3-Video Analysis - Tier 1 & 2 Selections Series
+**Ready for immediate testing with ClipScribe v2.19.8**
+
+```bash
+# Test command for tonight's analysis
+clipscribe process-collection "Tier 1 & 2 Selections Training" \
+  https://www.youtube.com/watch?v=Nr7vbOSzpSk \
+  https://www.youtube.com/watch?v=tjFNZlZEJLY \
+  https://www.youtube.com/watch?v=7r-qOjUOjbs
+
+# Or via batch script (recommended)
+poetry run python examples/pbs_fast_batch.py --urls tier12_urls.txt --limit 3
+```
+
+**Expected Processing Time**: <5 minutes (full parallel processing)  
+**Expected Cost**: ~$0.11 total  
+**Expected Output**: 150-300+ entities, 150-300+ relationships, complete knowledge graphs
+
+--- 

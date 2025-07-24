@@ -31,25 +31,37 @@
 - **Large Batches**: 30+ videos use conservative concurrency
 
 ### Tonight's Goal 🎯
-**ANALYZE 3 VIDEOS FOR REAL** - competitive intelligence extraction
+**ANALYZE 3 VIDEOS FOR REAL** - Tier 1 & 2 Selections Training Series
 
-### Immediate Roadmap 🗺️
-- **Next**: Run test suite to validate system (`poetry run pytest`)
-- **Then**: Execute 3-video analysis (`poetry run python examples/pbs_fast_batch.py --limit 3`)
-- **Soon**: Phase 2 date extraction (entity-date associations)
-- **Future**: Enterprise Kubernetes deployment
+**Target Videos:**
+1. https://www.youtube.com/watch?v=Nr7vbOSzpSk (Part 1/3: Difference Between Tier 1 & 2)
+2. https://www.youtube.com/watch?v=tjFNZlZEJLY (Part 2/3: Tier 2 Selections)  
+3. https://www.youtube.com/watch?v=7r-qOjUOjbs (Part 3/3: Tier 1 Selections)
 
-### Ready Commands 🚀
+### Current System Status ✅⚠️
+**WORKING PERFECTLY:**
+- Video processing (3.2s per video, no API errors)
+- Transcript extraction (full, detailed, timestamped) 
+- Topic extraction (excellent quality)
+- Batch processing with safe concurrency
+- Collection synthesis and unified analysis
+
+**NEEDS DEBUG** (blocking entity extraction):
+- Entity extraction returning empty arrays despite good prompts
+- Relationship extraction also empty (same root cause)
+- System extracts topics perfectly but entities/relationships fail
+- Likely JSON parsing or prompt structure issue in transcriber.py
+
+### Ready Commands for Tonight 🚀
 ```bash
-# Validate system health
-poetry run pytest
+# Quick entity extraction debug test
+poetry run python examples/pbs_fast_batch.py --limit 1
 
-# Quick 3-video test (TONIGHT'S GOAL)
-poetry run python examples/pbs_fast_batch.py --limit 3
-# Select option 4 (Test mode) for maximum speed
+# Full 3-video analysis (once entities work)
+poetry run python examples/pbs_fast_batch.py --urls tier12_urls.txt --limit 3
 
-# Full 30-day batch (when ready)
-poetry run python examples/pbs_fast_batch.py
+# Alternative: Process individual videos to debug
+clipscribe process https://www.youtube.com/watch?v=Nr7vbOSzpSk
 ```
 
 ### Expected Results Tonight ✅

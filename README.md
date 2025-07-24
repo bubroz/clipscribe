@@ -325,3 +325,15 @@ See [docs/CORE_EXCELLENCE_IMPLEMENTATION_PLAN.md](docs/CORE_EXCELLENCE_IMPLEMENT
 ### Batch Processing
 - Use `examples/pbs_fast_batch.py` for optimized processing of PBS NewsHour series.
 - Note: For Vertex AI, ensure proper configuration (credentials, project ID) or set `USE_VERTEX_AI=False` in .env for Gemini fallback.
+
+## Quick Start for Real Use
+
+For immediate 3-video series analysis (Tier 1 & 2 Selections Training):
+```bash
+# Tonight's test series
+poetry run python examples/pbs_fast_batch.py --urls tier12_urls.txt --limit 3
+
+# Expected: <5 minutes, $0.11 cost, 150-300+ entities per series
+```
+
+**Current Status**: Production-ready processing, entity extraction debug in progress.

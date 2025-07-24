@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **SMART SCALING**: Intelligent concurrency based on batch size (3 videos = full parallel, 30+ videos = safe limits)
 - **VERTEX AI**: Disabled by default to avoid 400/503 errors, Gemini API as primary
 - **UI IMPROVEMENTS**: Cleaner speed options, test mode for quick validation
+- **TEST SERIES**: Added Tier 1 & 2 Selections Training videos for immediate real-world testing
 
 ### Technical Changes
 - Prompt optimization: removed "AT LEAST 50 entities" requirements
