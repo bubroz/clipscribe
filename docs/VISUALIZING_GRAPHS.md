@@ -373,3 +373,6 @@ For more advanced, scientific-grade analysis and visualization, you can use the 
 2.  Open Gephi.
 3.  Go to `File > Open` and select your `.gexf` file.
 4.  Use Gephi's layout algorithms (like ForceAtlas2) and appearance settings to style your graph. 
+
+## Example Graph
+See test_pbs_july20_v2.19.6_fg/20250722_youtube_J3fPtqCHGBc/knowledge_graph_interactive.html for successful output 

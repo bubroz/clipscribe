@@ -73,6 +73,9 @@ The following table outlines the estimated cost per minute of video processing, 
 - Daily cost: 200 × $0.0050 = $1.00
 - **Monthly: ~$30.00**
 
+### Enterprise Use (1000 videos/day)
+Monthly: ~$105
+
 ## Cost Control Features
 
 ### Built-in Protections

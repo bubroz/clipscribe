@@ -213,3 +213,8 @@ This document contains all approved test videos for ClipScribe development and t
 ---
 
 *This table should be updated whenever new test videos are identified or testing requirements change. For analyst demos, prioritize recent content (< 30 days old) for maximum relevance.* 
+
+### Quick 3-Video Series
+Video1: url1
+Video2: url2
+Video3: url3 

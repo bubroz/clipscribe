@@ -200,3 +200,6 @@ Rather than targeting arbitrary numbers (e.g., "extract 20-50 entities"), we tar
 4. **Relationship Coverage**: Capture all meaningful connections
 
 ## Hybrid Extraction Pipeline
+
+# Add prompt optimization
+Prompts focus on accuracy over quantity

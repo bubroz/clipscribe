@@ -885,7 +885,7 @@ class MultiVideoProcessor:
             Format as bullet points, each 1-2 sentences.
             """
             
-            response = await self.ai_model.generate_content_async(prompt)
+            response = await self.ai_model.generate_content_async(prompt, request_options={'timeout': 120 if len(concept_nodes) <= 5 else 300})
             
             # Parse insights
             insights = []

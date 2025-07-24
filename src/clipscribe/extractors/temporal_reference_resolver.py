@@ -376,7 +376,7 @@ class TemporalReferenceResolver:
         
         # Calculate days back to last occurrence
         current_weekday = reference_date.weekday()
-        days_back = (current_weekday - target_weekday) % 7
+        days_back = (current_weekday - target_weekday + 7) % 7
         if days_back == 0:  # Same day, go back a week
             days_back = 7
         

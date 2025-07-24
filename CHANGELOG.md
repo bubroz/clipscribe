@@ -5,6 +5,35 @@ All notable changes to ClipScribe will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v2.19.8] - 2025-07-23
+
+### Production Ready 🚀
+- **SAFE CONCURRENCY**: Locked max concurrency at 8 videos for reliability
+- **OPTIMIZED PROMPTS**: Removed arbitrary extraction limits, focus on quality over quantity  
+- **REAL-WORLD READY**: Production-ready for 3-video series analysis and enterprise scaling
+- **SMART SCALING**: Intelligent concurrency based on batch size (3 videos = full parallel, 30+ videos = safe limits)
+- **VERTEX AI**: Disabled by default to avoid 400/503 errors, Gemini API as primary
+- **UI IMPROVEMENTS**: Cleaner speed options, test mode for quick validation
+
+### Technical Changes
+- Prompt optimization: removed "AT LEAST 50 entities" requirements
+- Concurrency safety: 3 videos (full parallel), 10 videos (8 concurrent), 30+ videos (8 concurrent)  
+- Enhanced error handling in batch processing
+- Disabled Vertex AI by default in settings
+- Added --force-concurrent flag for advanced users
+
+### Bug Fixes
+- Fixed MultiVideoProcessor timeout issues
+- Resolved MIME type errors for MP3 files
+- Enhanced retry logic for network failures
+
+## [v2.19.7] - 2025-07-22
+
+### Resilience Implemented
+- **Graceful Fallbacks**: Transcriber falls back from Vertex AI to Gemini API
+- **Hardened Batch Scripts**: Enhanced error handling with tenacity retries
+- **Test Suite Fixes**: Resolved mock issues in batch processing and transcriber tests
+
 ## [v2.19.6] - 2025-07-21 to 2025-07-22
 
 ### Changed

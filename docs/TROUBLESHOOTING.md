@@ -457,3 +457,11 @@ When errors occur:
 This prevents deploying broken code and saves debugging time later.
 
 Remember: When in doubt, run with `--log-level DEBUG` :-) 
+
+### Vertex AI Failures
+- **Symptom**: The application crashes with errors related to `vertexai` or Google Cloud permissions, especially during batch processing.
+- **Solution**: As of v2.19.7, the system has a **graceful fallback mechanism**. If Vertex AI processing fails for any reason (e.g., incorrect configuration, quota limits), ClipScribe will automatically log a warning and switch to the standard Gemini API to complete the job. This ensures that your processing can continue even if the Vertex AI setup is not perfect. To force the use of the standard Gemini API, you can set `USE_VERTEX_AI=False` in your `.env` file. 
+
+# Add enterprise section
+## Enterprise Issues
+For scaling problems, check Vertex quotas 

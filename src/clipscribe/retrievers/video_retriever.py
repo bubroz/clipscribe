@@ -104,21 +104,12 @@ class VideoIntelligenceRetriever:
             logger.info("Using advanced extraction with trust_gemini mode :-)")
             try:
                 from ..extractors.advanced_hybrid_extractor import AdvancedHybridExtractor
-                self.entity_extractor = AdvancedHybridExtractor(
-                    use_gliner=False,  # Disabled in trust mode
-                    use_rebel=False,   # Disabled in trust mode
-                    use_llm=True,
-                    api_key=self.settings.google_api_key,
-                    trust_gemini=True  # NEW: Trust Gemini's extraction
-                )
+                self.entity_extractor = AdvancedHybridExtractor()
             except ImportError:
-                logger.warning("Advanced extractors not available, falling back to hybrid")
-                from ..extractors.hybrid_extractor import HybridEntityExtractor
-                self.entity_extractor = HybridEntityExtractor()
+                logger.error("AdvancedHybridExtractor not found. Please check installation.")
+                self.entity_extractor = None
         else:
-            logger.info("Using basic hybrid extraction")
-            from ..extractors.hybrid_extractor import HybridEntityExtractor
-            self.entity_extractor = HybridEntityExtractor()
+            self.entity_extractor = None
         
         self.domain = domain
         

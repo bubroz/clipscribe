@@ -13,9 +13,9 @@ from pathlib import Path
 import asyncio
 import mimetypes
 
-from ..models import VideoTranscript, KeyPoint, Entity, Topic
 from ..config.settings import Settings, TemporalIntelligenceLevel
 from .gemini_pool import GeminiPool, TaskType
+from .vertex_ai_transcriber import VertexAITranscriber
 
 logger = logging.getLogger(__name__)
 
@@ -35,14 +35,13 @@ class GeminiFlashTranscriber:
         self.settings = Settings()
         self.api_key = api_key or self.settings.google_api_key
         self.use_vertex_ai = self.settings.use_vertex_ai
+        self.pool = GeminiPool(api_key=self.api_key) # ALWAYS initialize the pool
         
         # Initialize appropriate backend
         if self.use_vertex_ai:
             logger.info("Using Vertex AI for video processing")
             # Lazy import to avoid dependency if not using Vertex AI
-            from .vertex_ai_transcriber import VertexAITranscriber
             self.vertex_transcriber = VertexAITranscriber()
-            self.pool = None  # Not used with Vertex AI
         else:
             if not self.api_key:
                 raise ValueError("Google API key is required")
@@ -50,7 +49,7 @@ class GeminiFlashTranscriber:
             genai.configure(api_key=self.api_key)
             
             # Initialize GeminiPool instead of single client
-            self.pool = GeminiPool(api_key=self.api_key)
+            # self.pool = GeminiPool(api_key=self.api_key) # This line is now redundant as pool is initialized above
             self.vertex_transcriber = None
             
         self.performance_monitor = performance_monitor
@@ -60,7 +59,7 @@ class GeminiFlashTranscriber:
         logger.info(f"Temporal intelligence level: {self.temporal_config['level']}")
         
         # Get timeout setting
-        self.request_timeout = self.settings.gemini_request_timeout
+        self.request_timeout = 600
         logger.info(f"Using Gemini request timeout: {self.request_timeout}s")
         
         # Track costs
@@ -247,8 +246,9 @@ class GeminiFlashTranscriber:
             Analyze this transcript and extract COMPREHENSIVE intelligence. You are an expert analyst extracting actionable intelligence from video content.
             
             CRITICAL REQUIREMENTS:
-            - Extract AT LEAST 20-50 entities (aim for 50+)
-            - Extract AT LEAST 20-50 relationships (aim for 50+)  
+            - Extract ALL meaningful entities and relationships comprehensively
+            - Extract ALL meaningful entities (aim for 50+)
+            - Extract ALL meaningful relationships (aim for 50+)  
             - Include ALL people, organizations, locations, events, technologies, products, concepts
             - Use SPECIFIC predicates for relationships (not generic "related to")
             - Calculate REALISTIC confidence scores (0.3-0.99, vary based on context clarity)
@@ -426,15 +426,15 @@ class GeminiFlashTranscriber:
             dates = combined_data.get("dates", [])
             
             # Optional: Second pass for entity/relationship extraction if first pass seems incomplete
-            if len(entities) < 30 or len(relationships) < 20:  # Increased thresholds
-                logger.info("Performing second pass for better entity/relationship extraction...")
+            if len(entities) < 15 or len(relationships) < 10:  # More realistic thresholds
+                logger.info("Performing second pass for enhanced entity/relationship extraction...")
                 
                 second_pass_prompt = f"""
-                SECOND PASS - Extract MORE entities and relationships that were missed in the first pass.
+                SECOND PASS - Extract additional meaningful entities and relationships.
                 
-                You are an expert intelligence analyst. The first pass found only {len(entities)} entities and {len(relationships)} relationships, which is INSUFFICIENT.
+                You are an expert intelligence analyst. The first pass found {len(entities)} entities and {len(relationships)} relationships.
                 
-                I need AT LEAST 50 total entities and 50 total relationships for comprehensive intelligence.
+                Extract ALL additional meaningful entities and relationships comprehensively.
                 
                 Look for:
                 - PEOPLE: Every person mentioned by name, title, role, or reference
@@ -464,11 +464,11 @@ class GeminiFlashTranscriber:
                 {{
                     "additional_entities": [
                         {{"name": "Entity Name", "type": "PERSON/ORGANIZATION/LOCATION/EVENT/PRODUCT", "confidence": 0.85}},
-                        // Find at least 20-30 MORE entities
+                        // Find ALL additional meaningful entities
                     ],
                     "additional_relationships": [
                         {{"subject": "Entity A", "predicate": "specific_action_verb", "object": "Entity B", "confidence": 0.85}},
-                        // Find at least 20-30 MORE relationships
+                        // Find ALL additional meaningful relationships
                         // Examples of good predicates:
                         // - announced, acquired, partnered_with, invested_in, sued, regulated
                         // - increased_by, decreased_to, exceeded, fell_below
@@ -873,7 +873,7 @@ class GeminiFlashTranscriber:
         4. TEMPORAL CONTEXT: Note temporal relationships and sequences
         5. VISUAL ANNOTATIONS: Format visual elements as [VISUAL: description]
         
-        CRITICAL: Extract ALL visual dates - they're often more accurate than spoken dates!
+        CRITICAL: Extract ALL visual dates from on-screen text, chyrons, documents, timelines
         Focus on extracting 300% more temporal intelligence through combined audio-visual analysis.
         """
 
@@ -1037,6 +1037,8 @@ class GeminiFlashTranscriber:
     def _get_mime_type(self, file_path: str) -> str:
         """Get MIME type for file."""
         mime_type, _ = mimetypes.guess_type(file_path)
+        if file_path.endswith('.mp3'):
+            return 'audio/mpeg'
         return mime_type or 'application/octet-stream'
     
     def get_total_cost(self) -> float:

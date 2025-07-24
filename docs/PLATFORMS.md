@@ -213,3 +213,7 @@ Found a site that doesn't work?
 4. Report to us if it's a ClipScribe integration issue
 
 Remember: The power of ClipScribe comes from yt-dlp's extensive site support. As yt-dlp adds new sites, ClipScribe automatically gains support for them! 
+
+# Add scaling section
+## Enterprise Scaling
+Supports 1800+ platforms at scale with Vertex AI 

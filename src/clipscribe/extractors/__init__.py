@@ -1,23 +1,35 @@
 """
-Entity and relationship extractors for ClipScribe.
+This module initializes the extractors package.
 """
 
-from .spacy_extractor import SpacyEntityExtractor
-from .hybrid_extractor import HybridEntityExtractor
-from .rebel_extractor import REBELExtractor
-from .gliner_extractor import GLiNERExtractor
+# Modern, Gemini-first extractors
 from .advanced_hybrid_extractor import AdvancedHybridExtractor
+from .enhanced_entity_extractor import EnhancedEntityExtractor
+from .relationship_evidence_extractor import RelationshipEvidenceExtractor
+from .temporal_reference_resolver import TemporalReferenceResolver
+
+# Core components
+from .batch_extractor import BatchExtractor
 from .entity_normalizer import EntityNormalizer
+from .entity_quality_filter import EntityQualityFilter
+from .graph_cleaner import GraphCleaner
 from .model_manager import model_manager
-from .enhanced_entity_extractor import EnhancedEntityExtractor, EnhancedEntity, AliasNormalizer
+from .multi_video_processor import MultiVideoProcessor
+from .series_detector import SeriesDetector
+from .streaming_extractor import StreamingExtractor
+
 
 __all__ = [
-    "SpacyEntityExtractor",
-    "HybridEntityExtractor", 
     "AdvancedHybridExtractor",
-    "EntityNormalizer",
-    "model_manager",
     "EnhancedEntityExtractor",
-    "EnhancedEntity",
-    "AliasNormalizer"
+    "RelationshipEvidenceExtractor",
+    "TemporalReferenceResolver",
+    "BatchExtractor",
+    "EntityNormalizer",
+    "EntityQualityFilter",
+    "GraphCleaner",
+    "model_manager",
+    "MultiVideoProcessor",
+    "SeriesDetector",
+    "StreamingExtractor",
 ] 

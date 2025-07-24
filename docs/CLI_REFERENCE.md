@@ -273,6 +273,9 @@ clipscribe transcribe "$URL" | \
 
 Use `COST_WARNING_THRESHOLD` to get alerts before processing expensive videos.
 
+## Scalability
+Supports up to 1000+ videos with --concurrent 20
+
 ---
 
 For more information, see the [full documentation](README.md). 

@@ -414,14 +414,10 @@ class TestRelationshipEvidenceIntegration:
     def setup_method(self):
         """Set up integration test fixtures."""
         from clipscribe.extractors.advanced_hybrid_extractor import AdvancedHybridExtractor
-        
+
         # Mock the API key and other dependencies
         with patch.dict('os.environ', {'GOOGLE_API_KEY': 'fake_key'}):
-            self.hybrid_extractor = AdvancedHybridExtractor(
-                use_gliner=False,  # Disable to avoid model loading
-                use_rebel=False,   # Disable to avoid model loading
-                use_llm=False      # Disable to avoid API calls
-            )
+            self.hybrid_extractor = AdvancedHybridExtractor()
     
     def test_relationship_evidence_extractor_initialized(self):
         """Test that the relationship evidence extractor is properly initialized."""

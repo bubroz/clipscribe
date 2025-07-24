@@ -391,3 +391,7 @@ docker build -t clipscribe . && docker run -p 8501:8501 clipscribe
 ```
 
 **Ready to demo!** 🚀 
+
+# Add enterprise option
+## Kubernetes Deployment
+For thousands of users 

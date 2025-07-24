@@ -194,3 +194,7 @@ Future enhancements planned:
 For 20 test videos (~2GB total): ~$0.04/month storage cost.
 
 Remember: Pre-uploading is most valuable for frequently processed videos or when testing :-) 
+
+# Add enterprise note
+## Enterprise Use
+Pre-upload for batch processing thousands of videos 

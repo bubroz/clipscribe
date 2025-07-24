@@ -287,9 +287,12 @@ class EntityQualityFilter:
                 is_false_positive = True
             
             # Check for excessive punctuation
-            punct_ratio = sum(1 for c in name_clean if not c.isalnum() and c != ' ') / len(name_clean)
-            if punct_ratio > 0.5:
+            if not name_clean:
                 is_false_positive = True
+            else:
+                punct_ratio = sum(1 for c in name_clean if not c.isalnum() and c != ' ') / len(name_clean)
+                if punct_ratio > 0.5:
+                    is_false_positive = True
             
             if is_false_positive:
                 metrics.false_positives_removed += 1
@@ -299,19 +302,30 @@ class EntityQualityFilter:
         return filtered
     
     def _filter_non_english_entities(self, entities: List[Entity], metrics: QualityMetrics) -> List[Entity]:
-        """Filter entities that are clearly non-English."""
-        filtered = []
-        
+        """Filter out entities that are likely not English using a combination of heuristics."""
+        english_entities = []
+        english_stopwords = {'the', 'a', 'in', 'of', 'to', 'and', 'is', 'it', 'for', 'on'}
+
         for entity in entities:
-            language_score = self._calculate_language_score(entity.entity)
-            
-            if language_score >= self.language_confidence_threshold:
-                filtered.append(entity)
-            else:
+            entity_text = entity.entity.lower()
+            words = set(entity_text.split())
+
+            # Heuristic 1: Filter if entity consists ONLY of stopwords.
+            if words and words.issubset(english_stopwords):
                 metrics.language_filtered += 1
-                logger.debug(f"Filtered non-English entity: '{entity.entity}' (score: {language_score:.3f})")
-        
-        return filtered
+                logger.debug(f"Filtered stopword entity: '{entity.entity}'")
+                continue
+
+            # Heuristic 2: Filter if the entity contains non-ASCII characters, which is a strong
+            # indicator of a different language, especially for proper nouns.
+            if not entity_text.isascii():
+                 metrics.language_filtered += 1
+                 logger.debug(f"Filtered non-ASCII entity: '{entity.entity}'")
+                 continue
+
+            english_entities.append(entity)
+
+        return english_entities
     
     def _calculate_language_score(self, text: str) -> float:
         """Calculate English language confidence score."""

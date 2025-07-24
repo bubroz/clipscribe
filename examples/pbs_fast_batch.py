@@ -13,15 +13,23 @@ from datetime import datetime
 import os
 from dotenv import load_dotenv
 import tenacity
+import argparse
 
 from clipscribe.retrievers import VideoIntelligenceRetriever
 from clipscribe.models import VideoIntelligence
 from clipscribe.extractors.multi_video_processor import MultiVideoProcessor
+from clipscribe.models import VideoCollectionType
 
 # Load environment variables
 load_dotenv()
 
-async def process_batch_fast(urls: list[str], concurrent_limit: int = 10):
+def parse_args():
+    parser = argparse.ArgumentParser(description='PBS Fast Batch Processor')
+    parser.add_argument('--limit', type=int, default=None, help='Limit number of videos to process')
+    parser.add_argument('--force-concurrent', type=int, default=None, help='Force specific concurrency level (advanced users only)')
+    return parser.parse_args()
+
+async def process_batch_fast(urls: list[str], concurrent_limit: int = 20):
     """
     Process videos with maximum concurrency for speed.
     
@@ -31,6 +39,21 @@ async def process_batch_fast(urls: list[str], concurrent_limit: int = 10):
     - Connection pooling via GeminiPool
     - No video retention (delete after processing)
     """
+    
+    # Add intelligent concurrency scaling
+    if len(urls) <= 3:
+        concurrent_limit = len(urls)  # Full parallel for tiny batches
+        print(f'Tiny batch mode: Processing {len(urls)} videos with full concurrency')
+    elif len(urls) <= 10:
+        concurrent_limit = min(concurrent_limit, 8)  # Conservative for small batches
+        print(f'Small batch mode: Processing {len(urls)} videos with {concurrent_limit} concurrent')
+    elif len(urls) <= 30:
+        concurrent_limit = min(concurrent_limit, 8)  # Keep it safe - max 8 concurrent
+        print(f'Medium batch mode: Processing {len(urls)} videos with {concurrent_limit} concurrent')
+    else:
+        concurrent_limit = min(concurrent_limit, 8)  # Large batches - stay conservative
+        print(f'Large batch mode: Processing {len(urls)} videos with {concurrent_limit} concurrent')
+        print(f'⚠️  Large batch detected. Processing with safe concurrency limits.')
     
     # Create semaphore for concurrency control
     semaphore = asyncio.Semaphore(concurrent_limit)
@@ -106,7 +129,11 @@ async def process_batch_fast(urls: list[str], concurrent_limit: int = 10):
         try:
             processor = MultiVideoProcessor()
             output_dir_collection = "output/pbs_30day_collection"
-            collection = await processor.process_videos(successful)
+            collection = await processor.process_video_collection(
+                successful,
+                collection_type=VideoCollectionType.SERIES,
+                collection_title='PBS NewsHour 30-Day Batch'
+            )
             retriever.save_collection_outputs(collection, output_dir=output_dir_collection)
             print(f"✅ Collection synthesis complete! Check {output_dir_collection}")
         except Exception as e:
@@ -150,41 +177,44 @@ async def main():
     
     urls = [item['url'] for item in config['videos']]
     
+    args = parse_args()
+    if args.limit:
+        urls = urls[:args.limit]
+
+    if args.force_concurrent:
+        print(f'🚨 FORCING CONCURRENCY TO {args.force_concurrent} - You asked for it!')
+        concurrent_limit = args.force_concurrent
+
     print(f"\n📺 Found {len(urls)} PBS NewsHour episodes")
     print(f"💰 Estimated cost: ${len(urls) * 0.035:.2f}") # Updated cost estimate for 2.5 Flash
     print(f"⏱️  Target time: <15 minutes")
     
-    # Options for speed
-    print("\n🎯 Speed options:")
-    print("  1. Standard (10 concurrent) - ~11 minutes")
-    print("  2. Fast (15 concurrent) - ~7 minutes")
-    print("  3. Ludicrous (20 concurrent) - ~5 minutes")
-    print("  4. Weekdays only (~22 videos) - even faster!")
+    # Update the speed options in the UI
+    print("🎯 Speed options:")
+    print("  1. Standard (5 concurrent) - ~11 minutes") 
+    print("  2. Fast (8 concurrent) - ~7 minutes")
+    print("  3. Weekdays only (~22 videos) - filtered subset")
+    print("  4. Test mode (3 videos) - quick validation")
+
+    choice = input("\nSelect speed mode (1-4): ").strip() or '1' # Default to 1
     
-    choice = input("\nSelect speed mode (1-4): ").strip()
-    
-    concurrent = 10  # Default to safe concurrency
     if choice == "1":
-        concurrent = 10
-    elif choice == "2":
-        concurrent = 15
+        concurrent_limit = 5
+    elif choice == "2": 
+        concurrent_limit = 8  # Max safe concurrency
     elif choice == "3":
-        concurrent = 20
-        print("\n⚠️  Warning: This may hit rate limits!")
+        # Filter to weekdays only (faster subset)
+        urls = [url for i, url in enumerate(urls) if i % 7 < 5]  # Rough weekday filter
+        concurrent_limit = 8
     elif choice == "4":
-        # Filter weekdays only (PBS doesn't air weekends)
-        print("\n📅 Filtering to weekdays only...")
-        urls = urls[:22]  # Approximate weekdays in 30 days
-        concurrent = 15
-    else:
-        print("Invalid choice, using default standard speed.")
-        concurrent = 10
-    
-    print(f"\n🚀 Starting batch with {concurrent}x concurrency...")
+        urls = urls[:3]  # Test with just 3 videos
+        concurrent_limit = 3
+
+    print(f"\n🚀 Starting batch with {concurrent_limit}x concurrency...")
     print(f"📊 Processing {len(urls)} videos")
     
     # Process the batch
-    await process_batch_fast(urls, concurrent_limit=concurrent)
+    await process_batch_fast(urls, concurrent_limit=concurrent_limit)
     
     print("\n✨ Done! Check output/pbs_30day/ for individual results and output/pbs_30day_collection/ for the unified analysis.")
     print("\n💡 Next steps:")

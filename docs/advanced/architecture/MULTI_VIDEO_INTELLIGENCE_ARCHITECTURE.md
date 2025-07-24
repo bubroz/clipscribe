@@ -299,3 +299,9 @@ clipscribe batch-process urls.txt --auto-group --quality standard
 - User satisfaction: >4.5/5 for multi-video features
 
 This architecture provides the foundation for transforming ClipScribe from individual video analysis to comprehensive multi-video intelligence, directly addressing your prioritized use cases with aggressive AI-powered entity merging and professional-grade outputs. 
+
+### Quick Series (3 videos)
+Optimized for fast analysis
+
+### Enterprise Scale
+Handles thousands of videos 

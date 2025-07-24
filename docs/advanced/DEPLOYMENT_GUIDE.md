@@ -250,3 +250,7 @@ gcloud alpha run services logs tail clipscribe
 4. **Week 4**: Enable CI/CD with Cloud Build
 
 Remember: Start simple, then scale as needed :-) 
+
+# Add enterprise section
+## Enterprise Deployment
+Use Kubernetes for thousands of users 

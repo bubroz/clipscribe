@@ -261,3 +261,6 @@ If you need to generate the latest output formats from older processing runs, yo
 ```bash
 poetry run python scripts/convert_to_chimera.py output/YYYYMMDD_platform_videoId
 ```
+
+## Enterprise Exports
+Supports bulk CSV/Excel for large collections

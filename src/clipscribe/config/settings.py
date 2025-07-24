@@ -46,10 +46,7 @@ class Settings(BaseSettings):
     )
     
     # Vertex AI Configuration
-    use_vertex_ai: bool = Field(
-        default=os.getenv("USE_VERTEX_AI", "false").lower() == "true",
-        description="Use Vertex AI instead of Google AI for video processing"
-    )
+    use_vertex_ai: bool = Field(default=False)
     
     # AI Model Configuration
     ai_model: str = Field(
@@ -192,12 +189,7 @@ class Settings(BaseSettings):
     )
     
     # Performance Settings
-    concurrent_downloads: int = Field(
-        default=3,
-        ge=1,
-        le=10,
-        description="Maximum concurrent video downloads"
-    )
+    concurrent_downloads: int = Field(default=10)  # Increased for enterprise
     chunk_size: int = Field(
         default=600,  # 10 minutes
         description="Audio chunk size in seconds for processing"
@@ -381,7 +373,7 @@ except Exception as e:
         include_timestamps_default = False
         enhance_transcript_default = False
         default_output_formats = ["txt"]
-        concurrent_downloads = 3
+        concurrent_downloads = 10
         chunk_size = 600
         gemini_request_timeout = 14400
         enable_cost_tracking = True

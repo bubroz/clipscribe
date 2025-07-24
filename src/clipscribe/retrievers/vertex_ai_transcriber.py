@@ -21,6 +21,7 @@ from vertexai.generative_models import GenerativeModel, Part, Content
 from google.cloud import storage
 from google.api_core import exceptions as google_exceptions
 from google.api_core import retry
+import tenacity
 
 from ..models import (
     VideoIntelligence, 
@@ -78,13 +79,17 @@ class VertexAITranscriber:
             blob = bucket.blob(blob_name)
             
             # Upload with increased timeout and retry
-            with open(video_path, 'rb') as f:
-                blob.upload_from_file(
-                    f,
-                    content_type=self._get_mime_type(video_path),
-                    timeout=600,  # 10 minutes timeout
-                    retry=retry.Retry(deadline=600)  # Overall retry deadline
-                )
+            try:
+                with open(video_path, 'rb') as f:
+                    blob.upload_from_file(
+                        f,
+                        content_type=self._get_mime_type(video_path),
+                        timeout=600,  # 10 minutes timeout
+                        retry=retry.Retry(deadline=600)  # Overall retry deadline
+                    )
+            except BrokenPipeError:
+                await asyncio.sleep(10)
+                raise
             
             gcs_uri = f"gs://{bucket_name}/{blob_name}"
             logger.info(f"Uploaded video to GCS: {gcs_uri}")
@@ -164,16 +169,23 @@ class VertexAITranscriber:
             logger.error(f"Vertex AI transcription failed: {e}")
             raise
     
+    @tenacity.retry(stop=tenacity.stop_after_attempt(10), wait=tenacity.wait_exponential(min=5, max=300))
     async def _generate_with_retry(self, contents, generation_config):
         """Generate content with exponential backoff retry logic."""
         loop = asyncio.get_event_loop()
-        return await loop.run_in_executor(
-            None,
-            lambda: self.model.generate_content(
-                contents=contents,
-                generation_config=generation_config
+        try:
+            return await loop.run_in_executor(
+                None,
+                lambda: self.model.generate_content(
+                    contents=contents,
+                    generation_config=generation_config
+                )
             )
-        )
+        except Exception as e:
+            logger.error(f'Vertex AI generate failed: {str(e)}')
+            logger.error(f'Request contents: {contents}')
+            logger.error(f'Generation config: {generation_config}')
+            raise
     
     def _build_comprehensive_prompt(self, enhance_transcript: bool = False, mode: str = "video") -> str:
         """Build the comprehensive prompt for video or audio analysis."""

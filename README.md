@@ -1,4 +1,22 @@
-# ClipScribe v2.19.3 - Video Intelligence Platform 🚀 Vertex AI Integration Complete
+# ClipScribe v2.19.8
+
+## Overarching Goals and Vision
+
+**Immediate Goal**: Quick series analysis (3 videos in <5 minutes) for competitive intelligence
+**Long-term Vision**: Enterprise scale (thousands of users, 1000+ videos) with reliable extraction
+
+### Use Cases
+- **Research Intelligence**: Analyze breaking news series before competitors  
+- **Content Analysis**: Extract knowledge from video content at scale
+- **Enterprise Intelligence**: Process large video collections for insights
+
+## Safe Concurrency Limits ⚡
+
+ClipScribe uses intelligent concurrency scaling for reliability:
+- **3 videos**: Full parallel processing (~2-5 minutes)
+- **10 videos**: 8 concurrent (safe for most systems)  
+- **30+ videos**: 8 concurrent with smart batching
+- **Enterprise**: Kubernetes deployment for massive scale
 
 <p align="center">
   <img src="assets/clipscribe-logo.png" alt="ClipScribe Logo" width="200">

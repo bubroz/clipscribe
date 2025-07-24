@@ -235,3 +235,12 @@ poetry run clipscribe process "URL" \
 - **Examples**: See `examples/` directory for working code
 
 Remember: ClipScribe now targets **100% extraction completeness**, not arbitrary numbers! 🎯 
+
+## Add enterprise section
+## Enterprise Use
+For large-scale deployment, see DEPLOYMENT_GUIDE.md
+
+## Add quick series example
+poetry run clipscribe process-collection 'Quick Series' url1 url2 url3
+
+## Update version 
