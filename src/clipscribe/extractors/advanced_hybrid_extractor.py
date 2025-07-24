@@ -75,8 +75,29 @@ class AdvancedHybridExtractor:
             return video_intel
 
         # Use entities and relationships directly from Gemini
-        gemini_entities = video_intel.entities
-        gemini_relationships = video_intel.relationships
+        # BUG FIX: Get from processing_stats where they're actually stored
+        raw_gemini_entities = video_intel.processing_stats.get('gemini_entities', video_intel.entities)
+        raw_gemini_relationships = video_intel.processing_stats.get('gemini_relationships', video_intel.relationships)
+        
+        logger.info(f"🔧 BUG FIX: Found {len(raw_gemini_entities)} entities from Gemini (was looking in wrong place!)")
+        logger.info(f"🔧 BUG FIX: Found {len(raw_gemini_relationships)} relationships from Gemini")
+        
+        # BUG FIX: Convert raw dictionaries to Entity objects
+        from ..models import Entity
+        gemini_entities = []
+        for raw_entity in raw_gemini_entities:
+            if isinstance(raw_entity, dict):
+                entity = Entity(
+                    entity=raw_entity.get('name', raw_entity.get('entity', '')),
+                    type=raw_entity.get('type', ''),
+                    confidence=raw_entity.get('confidence', 0.0),
+                    source='gemini'
+                )
+                gemini_entities.append(entity)
+            else:
+                gemini_entities.append(raw_entity)  # Already an Entity object
+        
+        logger.info(f"🔧 Converted {len(gemini_entities)} raw entities to Entity objects")
 
         # Light normalization and enhancement
         normalized_entities = self.entity_normalizer.normalize_entities(gemini_entities)
@@ -88,7 +109,25 @@ class AdvancedHybridExtractor:
         )
         video_intel.entities = enhanced_entities
         
-        if gemini_relationships:
+        # BUG FIX: Convert raw relationships to Relationship objects
+        if raw_gemini_relationships:
+            from ..models import Relationship
+            gemini_relationships = []
+            for raw_rel in raw_gemini_relationships:
+                if isinstance(raw_rel, dict):
+                    relationship = Relationship(
+                        subject=raw_rel.get('subject', ''),
+                        predicate=raw_rel.get('predicate', ''),
+                        object=raw_rel.get('object', ''),
+                        confidence=raw_rel.get('confidence', 0.0),
+                        source='gemini'
+                    )
+                    gemini_relationships.append(relationship)
+                else:
+                    gemini_relationships.append(raw_rel)  # Already a Relationship object
+            
+            logger.info(f"🔧 Converted {len(gemini_relationships)} raw relationships to Relationship objects")
+            
             enhanced_relationships = self.relationship_evidence_extractor.extract_evidence_chains(
                 gemini_relationships,
                 video_intel,
