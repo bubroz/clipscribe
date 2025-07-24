@@ -115,7 +115,6 @@ class EntityNormalizer:
             cleaned_entity = Entity(
                 entity=clean_name,
                 type=entity.type.upper(),  # Standardize type case
-                confidence=entity.confidence,
                 source=entity.source
             )
             cleaned.append(cleaned_entity)
@@ -482,19 +481,15 @@ class EntityNormalizer:
         if len(group) == 1:
             return group[0]
             
-        # Sort by confidence (highest first)
-        group.sort(key=lambda e: e.confidence, reverse=True)
+        # Sort by entity name length (longest first)
+        group.sort(key=lambda e: len(e.entity), reverse=True)
         
-        # Use the highest confidence entity as base
+        # Use the entity with longest name as base
         canonical = group[0]
         
         # Choose the best name (usually the longest, most complete one)
         best_name = self._choose_best_name([e.entity for e in group])
         canonical.entity = best_name
-        
-        # Average the confidence scores
-        avg_confidence = sum(e.confidence for e in group) / len(group)
-        canonical.confidence = min(avg_confidence, 1.0)
         
         # Track sources
         sources = set()
@@ -552,8 +547,8 @@ class EntityNormalizer:
         valid_entities = []
         
         for entity in entities:
-            # Skip entities with very low confidence
-            if entity.confidence < 0.1:
+            # Skip entities with empty names
+            if not entity.entity or len(entity.entity.strip()) < 2:
                 continue
                 
             # Skip very short names (likely noise)
@@ -566,8 +561,8 @@ class EntityNormalizer:
                 
             valid_entities.append(entity)
             
-        # Sort by confidence, then by name
-        valid_entities.sort(key=lambda e: (-e.confidence, e.entity.lower()))
+        # Sort by name length (longer first), then alphabetically
+        valid_entities.sort(key=lambda e: (-len(e.entity), e.entity.lower()))
         
         return valid_entities
         
