@@ -1,7 +1,0 @@
-name,type,confidence,source,extraction_methods,aliases,is_normalized
-This Year,DATE,0.74,Unknown,Unknown,,False
-Trump,PERSON,0.71,Unknown,Unknown,,False
-The Justice Department,ORGANIZATION,0.71,Unknown,Unknown,,False
-Corporation for Public Broadcasting,ORGANIZATION,0.71,Unknown,Unknown,,False
-Republicans,GROUP,0.95,Unknown,Unknown,,False
-The Wall Street Journal,LOCATION,0.71,Unknown,Unknown,,False

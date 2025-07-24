@@ -1,6 +1,0 @@
-name,type,confidence,source,timestamp
-Kering,PERSON,0.8700000000000001,,
-Renault,ORGANIZATION,0.95,,
-Trump,PERSON,0.7100000000000001,,
-The Fourth Day,DATE,0.79,,
-The Year 2028,DATE,0.79,,

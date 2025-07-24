@@ -1,4 +1,0 @@
-name,type,confidence,source,extraction_methods,aliases,is_normalized
-Juniper Networks,ORGANIZATION,0.95,Unknown,Unknown,,False
-A Third Consecutive Month,DATE,0.79,Unknown,Unknown,,False
-Trump,PERSON,0.71,Unknown,Unknown,,False

@@ -1,9 +1,0 @@
-name,type,confidence,source,extraction_methods,aliases,is_normalized
-Trump,PERSON,0.71,Unknown,Unknown,,False
-Brad Lander,PERSON,0.71,Unknown,Unknown,,False
-The Coming Years,DATE,0.79,Unknown,Unknown,,False
-The Next Decade,DATE,0.79,Unknown,Unknown,,False
-The Sixth Straight Day,DATE,0.79,Unknown,Unknown,,False
-Congressional Republicans,ORGANIZATION,0.82,Unknown,Unknown,,False
-Booker,PERSON,0.71,Unknown,Unknown,,False
-the Genius Act,LAW,0.71,Unknown,Unknown,,False

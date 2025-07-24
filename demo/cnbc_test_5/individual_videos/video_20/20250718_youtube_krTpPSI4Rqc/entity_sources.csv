@@ -1,8 +1,0 @@
-name,type,confidence,source,extraction_methods,aliases,is_normalized
-Dell,PERSON,0.71,Unknown,Unknown,,False
-The Wall Street Journal,LOCATION,0.71,Unknown,Unknown,,False
-Lilo and Stitch,ORGANIZATION,0.71,Unknown,Unknown,,False
-The Weekend,DATE,0.74,Unknown,Unknown,,False
-The Year,DATE,0.74,Unknown,Unknown,,False
-This Week,DATE,0.74,Unknown,Unknown,,False
-Republican,GROUP,0.95,Unknown,Unknown,,False

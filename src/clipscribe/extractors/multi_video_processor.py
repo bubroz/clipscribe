@@ -159,7 +159,7 @@ class MultiVideoProcessor:
         
         for video_index, video in enumerate(videos):
             # Extract concepts from key points
-            for kp in video.key_points:
+            for kp_idx, kp in enumerate(video.key_points):
                 # Filter for conceptual key points (not just factual statements)
                 if self._is_conceptual_content(kp.text):
                     concept_name = await self._extract_main_concept(kp.text)
@@ -167,11 +167,11 @@ class MultiVideoProcessor:
                         maturity_level = self._assess_concept_maturity(kp.text)
                         
                         node = ConceptNode(
-                            node_id=f"concept_{video.metadata.video_id}_{kp.timestamp}_{len(concept_nodes)}",
+                            node_id=f"concept_{video.metadata.video_id}_{kp_idx}_{len(concept_nodes)}",
                             concept_name=concept_name,
                             video_id=video.metadata.video_id,
                             video_title=video.metadata.title,
-                            timestamp=kp.timestamp,
+                            timestamp=0.0,  # Timestamps removed in v2.20.0 confidence-free architecture
                             maturity_level=maturity_level,
                             context=kp.text,
                             explanation_depth=self._assess_explanation_depth(kp.text),
@@ -1036,8 +1036,8 @@ class MultiVideoProcessor:
         unified_entities = []
         for group in entity_groups:
             if len(group) > 1:  # Only create cross-video entities if entity appears in multiple videos
-                # Find the canonical entity (highest confidence)
-                canonical_entity = max(group, key=lambda e: e.confidence)
+                # Find the canonical entity (highest mention count in confidence-free architecture)
+                canonical_entity = max(group, key=lambda e: e.mention_count)
                 
                 # Find all videos where this entity appears
                 video_occurrences = []
@@ -1046,7 +1046,7 @@ class MultiVideoProcessor:
                         video_occurrences.append({
                             "video_id": entity_info["video_id"],
                             "video_title": entity_info["video_title"],
-                            "confidence": entity_info["entity"].confidence,
+                            "mention_count": entity_info["entity"].mention_count,
                             "source": entity_info["source"]
                         })
                 
@@ -1067,7 +1067,7 @@ class MultiVideoProcessor:
                     canonical_name=canonical_entity.entity,
                     aliases=aliases,
                     video_appearances=video_ids,
-                    aggregated_confidence=sum(occ["confidence"] for occ in video_occurrences) / len(video_occurrences)
+                    mention_count=sum(occ["mention_count"] for occ in video_occurrences)
                 )
                 unified_entities.append(cross_video_entity)
         
@@ -1096,7 +1096,7 @@ class MultiVideoProcessor:
                         subject=entity1.name,
                         predicate="co_occurs_with",
                         object=entity2.name,
-                        confidence=min(entity1.aggregated_confidence, entity2.aggregated_confidence),
+                        mention_count=len(shared_videos),
                         video_sources=list(shared_videos)
                     )
                     cross_video_relationships.append(relationship)
@@ -1115,7 +1115,7 @@ class MultiVideoProcessor:
                 "id": entity.name,
                 "label": entity.name,
                 "type": entity.type,
-                "confidence": entity.aggregated_confidence,
+                "mention_count": entity.mention_count,
                 "occurrences": len(entity.video_appearances)
             })
         
@@ -1126,7 +1126,7 @@ class MultiVideoProcessor:
                 "source": rel.subject,
                 "target": rel.object,
                 "label": rel.predicate,
-                "confidence": rel.confidence,
+                "mention_count": rel.mention_count,
                 "type": "cross_video_relationship"
             })
         
@@ -1188,13 +1188,15 @@ class MultiVideoProcessor:
         if not unified_entities:
             return 0.0
         
-        # Calculate average cross-video confidence
-        avg_confidence = sum(e.aggregated_confidence for e in unified_entities) / len(unified_entities)
+        # Calculate average mention frequency across videos (confidence-free architecture)
+        avg_mention_freq = sum(e.mention_count for e in unified_entities) / len(unified_entities)
+        # Normalize to 0-1 range (assuming max ~20 mentions per entity across videos)
+        normalized_freq = min(1.0, avg_mention_freq / 20.0)
         
         # Bonus for entities that appear in multiple videos
-        multi_video_bonus = sum(1 for e in unified_entities if e.mention_count > 1) / len(unified_entities)
+        multi_video_bonus = sum(1 for e in unified_entities if len(e.video_appearances) > 1) / len(unified_entities)
         
-        return min(1.0, avg_confidence + multi_video_bonus * 0.2)
+        return min(1.0, normalized_freq + multi_video_bonus * 0.2)
 
     def _calculate_narrative_coherence(self, videos: List[VideoIntelligence], cross_video_relationships: List["CrossVideoRelationship"]) -> float:
         """Calculate the narrative coherence of the video collection."""

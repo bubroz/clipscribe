@@ -1,6 +1,0 @@
-name,type,confidence,source,extraction_methods,aliases,is_normalized
-Kering,PERSON,0.87,Unknown,Unknown,,False
-Renault,ORGANIZATION,0.95,Unknown,Unknown,,False
-Trump,PERSON,0.71,Unknown,Unknown,,False
-The Fourth Day,DATE,0.79,Unknown,Unknown,,False
-The Year 2028,DATE,0.79,Unknown,Unknown,,False

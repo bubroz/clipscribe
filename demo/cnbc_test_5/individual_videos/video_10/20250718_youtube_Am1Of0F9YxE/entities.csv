@@ -1,7 +1,0 @@
-name,type,confidence,source,timestamp
-Ding,PERSON,0.7100000000000001,,
-Decades,DATE,0.74,,
-Uber,COMPANY,0.95,,
-Mick Jagger,PERSON,0.7100000000000001,,
-Fed,ORGANIZATION,0.95,,
-Over $50 Million,MONEY,0.78,,

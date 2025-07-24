@@ -1,8 +1,0 @@
-name,type,confidence,source,extraction_methods,aliases,is_normalized
-Brian West,PERSON,0.71,Unknown,Unknown,,False
-Boeing,ORGANIZATION,0.95,Unknown,Unknown,,False
-This Summer,DATE,0.74,Unknown,Unknown,,False
-Lockheed Martin,ORGANIZATION,0.95,Unknown,Unknown,,False
-Trump,PERSON,0.71,Unknown,Unknown,,False
-This Morning,TIME,0.72,Unknown,Unknown,,False
-President,PERSON,0.71,Unknown,Unknown,,False

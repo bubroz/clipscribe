@@ -1,7 +1,0 @@
-name,type,confidence,source,timestamp
-This Year,DATE,0.74,,
-Trump,PERSON,0.7100000000000001,,
-The Justice Department,ORGANIZATION,0.7100000000000001,,
-Corporation for Public Broadcasting,ORGANIZATION,0.7100000000000001,,
-Republicans,GROUP,0.95,,
-The Wall Street Journal,LOCATION,0.7100000000000001,,

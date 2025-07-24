@@ -1,8 +1,0 @@
-name,type,confidence,source,timestamp
-Brian West,PERSON,0.7100000000000001,,
-Boeing,ORGANIZATION,0.95,,
-This Summer,DATE,0.74,,
-Lockheed Martin,ORGANIZATION,0.95,,
-Trump,PERSON,0.7100000000000001,,
-This Morning,TIME,0.72,,
-President,PERSON,0.7100000000000001,,
