@@ -45,7 +45,6 @@ class Entity(BaseModel):
     type: str
     start_char: Optional[int] = None
     end_char: Optional[int] = None
-    confidence: Optional[float] = None
     source: Optional[str] = None
     properties: Optional[Dict[str, Any]] = Field(default_factory=dict) # Re-add for compatibility
 
@@ -55,7 +54,6 @@ class EntityContext(BaseModel):
 
     text: str = Field(..., description="Surrounding text (±50 chars)")
     timestamp: str = Field(..., description="When mentioned (HH:MM:SS)")
-    confidence: float = Field(..., description="Context-specific confidence")
     speaker: Optional[str] = Field(None, description="Who mentioned it")
     visual_present: bool = Field(False, description="Entity visible on screen")
 
@@ -76,7 +74,7 @@ class EnhancedEntity(Entity):
     context_windows: List[EntityContext] = Field(default_factory=list)
     aliases: List[str] = Field(default_factory=list)
     canonical_form: str = Field(..., description="Normalized primary form")
-    source_confidence: Dict[str, float] = Field(default_factory=dict)
+
     temporal_distribution: List[TemporalMention] = Field(default_factory=list)
 
 
@@ -86,7 +84,7 @@ class RelationshipEvidence(BaseModel):
     timestamp: str = Field(..., description="When evidence occurs (HH:MM:SS)")
     speaker: Optional[str] = Field(None, description="Who provided the evidence")
     visual_context: Optional[str] = Field(None, description="Visual context description")
-    confidence: float = Field(default=0.8, description="Confidence in this evidence")
+
     context_window: str = Field(default="", description="Surrounding context")
     evidence_type: str = Field(default="spoken", description="Type: spoken, visual, document")
 
@@ -96,7 +94,6 @@ class Relationship(BaseModel):
     subject: str
     predicate: str
     object: str
-    confidence: Optional[float] = None
     source: Optional[str] = None
     
     # Phase 2: Evidence Chain Support (optional for backward compatibility)
@@ -113,7 +110,7 @@ class VideoTranscript(BaseModel):
     segments: List[Dict[str, Any]]
     language: Optional[str] = None
     raw_transcript: Optional[Any] = None
-    confidence: Optional[float] = Field(default=0.9, description="Confidence in transcript accuracy")
+
 
 
 class VideoMetadata(BaseModel):
@@ -195,7 +192,7 @@ class SeriesMetadata(BaseModel):
     part_number: Optional[int] = Field(None, description="Part number in series")
     total_parts: Optional[int] = Field(None, description="Total parts if known")
     series_pattern: Optional[str] = Field(None, description="Detected naming pattern")
-    confidence: float = Field(default=0.9, description="Confidence in series detection")
+
 
 
 class CrossVideoEntity(BaseModel):
@@ -205,7 +202,7 @@ class CrossVideoEntity(BaseModel):
     canonical_name: str = Field(..., description="Normalized canonical name")
     aliases: List[str] = Field(default_factory=list, description="All name variations found")
     video_appearances: List[str] = Field(default_factory=list, description="Video IDs where entity appears")
-    aggregated_confidence: float = Field(..., description="Confidence aggregated across videos")
+
     first_mentioned: Optional[datetime] = Field(None, description="First appearance timestamp")
     last_mentioned: Optional[datetime] = Field(None, description="Last appearance timestamp")
     mention_count: int = Field(default=1, description="Total mentions across all videos")
@@ -218,7 +215,7 @@ class CrossVideoRelationship(BaseModel):
     subject: str
     predicate: str
     object: str
-    confidence: float = Field(..., description="Aggregated confidence across videos")
+
     video_sources: List[str] = Field(default_factory=list, description="Videos where relationship appears")
     first_mentioned: Optional[datetime] = Field(None)
     mention_count: int = Field(default=1)
@@ -231,7 +228,7 @@ class ExtractedDate(BaseModel):
     original_text: str = Field(..., description="The original text the date was extracted from")
     normalized_date: str = Field(..., description="Normalized date in ISO format (YYYY-MM-DD)")
     precision: str = Field(..., description="Precision level: exact, day, month, year, approximate, unknown")
-    confidence: float = Field(default=0.8, description="The model's confidence in the extraction")
+
     context: str = Field(default="", description="Context in which the date was mentioned")
     source: str = Field(..., description="Source of date: transcript, visual, or both")
     visual_description: str = Field(default="", description="Description if date was visual (e.g., 'lower third')")
@@ -251,7 +248,7 @@ class EntityActivity(BaseModel):
     description: str = Field(..., description="Description of the activity or mention")
     context: str = Field(..., description="Surrounding context from the video")
     activity_type: str = Field(..., description="Type of activity (action, mention, quote, etc.)")
-    confidence: float = Field(default=0.8, description="Confidence in this activity")
+
     related_entities: List[str] = Field(default_factory=list, description="Other entities involved")
 
 
@@ -383,7 +380,7 @@ class TemporalReference(BaseModel):
     """A resolved temporal reference from video content."""
     reference_text: str = Field(..., description="Original temporal reference text")
     resolved_date: str = Field(..., description="Resolved date in YYYY-MM-DD format")
-    confidence: float = Field(..., description="Confidence in resolution")
+
     resolution_method: str = Field(..., description="Method used for resolution")
     context: str = Field(..., description="Immediate context")
     original_context: str = Field("", description="Original surrounding text")

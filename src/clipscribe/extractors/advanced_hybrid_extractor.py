@@ -90,7 +90,6 @@ class AdvancedHybridExtractor:
                 entity = Entity(
                     entity=raw_entity.get('name', raw_entity.get('entity', '')),
                     type=raw_entity.get('type', ''),
-                    confidence=raw_entity.get('confidence', 0.0),
                     source='gemini'
                 )
                 gemini_entities.append(entity)
@@ -119,7 +118,6 @@ class AdvancedHybridExtractor:
                         subject=raw_rel.get('subject', ''),
                         predicate=raw_rel.get('predicate', ''),
                         object=raw_rel.get('object', ''),
-                        confidence=raw_rel.get('confidence', 0.0),
                         source='gemini'
                     )
                     gemini_relationships.append(relationship)

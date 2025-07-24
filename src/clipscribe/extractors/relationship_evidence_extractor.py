@@ -108,20 +108,11 @@ class RelationshipEvidenceExtractor:
                 relationship, video_intel
             )
             
-            # Calculate enhanced confidence
-            enhanced_confidence = self._calculate_evidence_confidence(
-                relationship.confidence or 0.8,
-                evidence_chain,
-                supporting_mentions,
-                contradictions
-            )
-            
             # Create enhanced relationship using the Pydantic model
             enhanced_rel = Relationship(
                 subject=relationship.subject,
                 predicate=relationship.predicate,
                 object=relationship.object,
-                confidence=enhanced_confidence,
                 source=getattr(relationship, 'source', 'REBEL'),
                 evidence_chain=evidence_chain,
                 supporting_mentions=supporting_mentions,
@@ -168,17 +159,11 @@ class RelationshipEvidenceExtractor:
                     # Get visual context if available
                     visual_context = self._extract_visual_context(text)
                     
-                    # Calculate confidence for this evidence
-                    evidence_confidence = self._calculate_segment_confidence(
-                        text, relationship, quote
-                    )
-                    
                     evidence = RelationshipEvidence(
                         direct_quote=quote,
                         timestamp=timestamp,
                         speaker=speaker,
                         visual_context=visual_context,
-                        confidence=evidence_confidence,
                         context_window=text[:200],  # First 200 chars as context
                         evidence_type=evidence_type
                     )
@@ -193,7 +178,7 @@ class RelationshipEvidenceExtractor:
                         direct_quote=self._extract_key_phrase(context.text, relationship),
                         timestamp=context.timestamp,
                         speaker=context.speaker,
-                        confidence=context.confidence,
+
                         context_window=context.text,
                         evidence_type="entity_context"
                     )
@@ -284,32 +269,7 @@ class RelationshipEvidenceExtractor:
         
         return None
     
-    def _calculate_segment_confidence(
-        self, 
-        text: str, 
-        relationship: Relationship, 
-        quote: str
-    ) -> float:
-        """Calculate confidence for evidence from a segment."""
-        confidence = 0.7  # Base confidence
-        
-        # Boost for direct quotes
-        if '"' in text or '"' in text:
-            confidence += 0.2
-        
-        # Boost for action verbs
-        if any(verb in text.lower() for verb in self.action_verbs):
-            confidence += 0.1
-        
-        # Boost for specific predicate match
-        if relationship.predicate.lower() in text.lower():
-            confidence += 0.15
-        
-        # Boost for longer, more detailed quotes
-        if len(quote) > 50:
-            confidence += 0.05
-        
-        return min(1.0, confidence)
+
     
     def _context_supports_relationship(
         self, 
@@ -413,33 +373,6 @@ class RelationshipEvidenceExtractor:
         
         return False
     
-    def _calculate_evidence_confidence(
-        self,
-        base_confidence: float,
-        evidence_chain: List[RelationshipEvidence],
-        supporting_mentions: int,
-        contradictions: List[str]
-    ) -> float:
-        """Calculate enhanced confidence based on evidence."""
-        confidence = base_confidence
-        
-        # Boost for evidence chain strength
-        if evidence_chain:
-            avg_evidence_confidence = sum(e.confidence for e in evidence_chain) / len(evidence_chain)
-            confidence = (confidence + avg_evidence_confidence) / 2
-            
-            # Extra boost for multiple pieces of evidence
-            if len(evidence_chain) > 1:
-                confidence += 0.1
-        
-        # Boost for supporting mentions
-        mention_boost = min(0.2, supporting_mentions * 0.05)
-        confidence += mention_boost
-        
-        # Penalty for contradictions
-        if contradictions:
-            confidence -= len(contradictions) * 0.1
-        
-        return max(0.1, min(1.0, confidence))
+
     
     # No conversion needed - working directly with enhanced Relationship model 

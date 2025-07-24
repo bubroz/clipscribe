@@ -763,7 +763,7 @@ class VideoIntelligenceRetriever:
                 "full_text": video.transcript.full_text,
                 "segments": video.transcript.segments,
                 "language": video.transcript.language,
-                "confidence": video.transcript.confidence
+
             },
             "analysis": {
                 "summary": video.summary,
@@ -773,14 +773,14 @@ class VideoIntelligenceRetriever:
                         # Handle both Entity/EnhancedEntity (has .entity) and dict format (has 'name')
                         "entity": e.entity if hasattr(e, 'entity') else e.get('name', ''),
                         "type": e.type if hasattr(e, 'type') else e.get('type', ''),
-                        "confidence": e.confidence if hasattr(e, 'confidence') else e.get('confidence', 0.0),
+
                         "extraction_sources": getattr(e, 'extraction_sources', []),
                         "mention_count": getattr(e, 'mention_count', 1),
                         "context_windows": [cw.dict() for cw in getattr(e, 'context_windows', [])] if hasattr(e, 'context_windows') else [],
                         "aliases": getattr(e, 'aliases', [])
                     } for e in video.entities
                 ],
-                "topics": [t.dict() if hasattr(t, 'dict') else {"name": t.name, "confidence": t.confidence} for t in video.topics],
+                "topics": [t.dict() if hasattr(t, 'dict') else {"name": t.name} for t in video.topics],
                 "sentiment": video.sentiment
             },
             "processing": {
@@ -860,7 +860,7 @@ class VideoIntelligenceRetriever:
                 {
                     "name": e.entity,
                     "type": e.type,
-                    "confidence": e.confidence,
+
                     "source": getattr(e, 'extraction_sources', getattr(e, 'source', 'unknown')),
                     "properties": getattr(e, 'properties', None),
                     "timestamp": getattr(e, 'timestamp', None),
@@ -869,7 +869,7 @@ class VideoIntelligenceRetriever:
                     "aliases": getattr(e, 'aliases', [])
                 } for e in all_entities
             ],
-            "topics": [t.dict() if hasattr(t, 'dict') else {"name": t.name, "confidence": t.confidence} for t in video.topics],
+            "topics": [t.dict() if hasattr(t, 'dict') else {"name": t.name} for t in video.topics],
             "key_facts": [kp.text for kp in video.key_points[:5]]
         }
         with open(paths["entities"], 'w', encoding='utf-8') as f:
@@ -879,12 +879,12 @@ class VideoIntelligenceRetriever:
         entities_csv_path = paths["directory"] / "entities.csv"
         with open(entities_csv_path, 'w', encoding='utf-8', newline='') as f:
             writer = csv.writer(f)
-            writer.writerow(["name", "type", "confidence", "source", "timestamp", "mention_count"])
+            writer.writerow(["name", "type", "source", "timestamp", "mention_count"])
             for entity in all_entities:
                 writer.writerow([
                     entity.entity,
                     entity.type,
-                    getattr(entity, 'confidence', 0.0),
+
                     getattr(entity, 'extraction_sources', getattr(entity, 'source', 'unknown')),
                     getattr(entity, 'timestamp', ''),
                     getattr(entity, 'mention_count', 1)
@@ -907,12 +907,12 @@ class VideoIntelligenceRetriever:
                     "subject": rel.subject,
                     "predicate": rel.predicate, 
                     "object": rel.object,
-                    "confidence": rel.confidence,
+
                     "properties": getattr(rel, 'properties', {}),
                     "context": getattr(rel, 'context', None),
                     "evidence_chain": getattr(rel, 'evidence_chain', []),
                     "contradictions": getattr(rel, 'contradictions', []),
-                    "confidence_score": getattr(rel, 'confidence_score', rel.confidence),
+
                     "extraction_source": getattr(rel, 'extraction_source', 'unknown')
                 } for rel in video.relationships
             ],
@@ -928,7 +928,7 @@ class VideoIntelligenceRetriever:
         relationships_csv_path = paths["directory"] / "relationships.csv"
         with open(relationships_csv_path, 'w', encoding='utf-8', newline='') as f:
             writer = csv.writer(f)
-            writer.writerow(["subject", "predicate", "object", "confidence", "context", "evidence_count"])
+            writer.writerow(["subject", "predicate", "object", "context", "evidence_count"])
             for rel in video.relationships:
                 # Safe handling of context field that might be None
                 context = getattr(rel, 'context', '') or ''
@@ -939,7 +939,7 @@ class VideoIntelligenceRetriever:
                     rel.subject,
                     rel.predicate,
                     rel.object,
-                    getattr(rel, 'confidence', 0.0),
+
                     context_truncated,
                     evidence_count
                 ])
@@ -996,7 +996,7 @@ class VideoIntelligenceRetriever:
             f.write(f"Extracted: {datetime.now().isoformat()}\n\n")
             for i, fact in enumerate(video.key_moments, 1):
                 source = fact.get('source', 'Fact')
-                f.write(f"{i}. [{source}] {fact['fact']} (confidence: {fact['confidence']:.2f})\n")
+                f.write(f"{i}. [{source}] {fact['fact']}\n")
         paths["facts"] = facts_path
         logger.info(f"Saved {len(video.key_moments)} key facts :-)")
 
@@ -1525,7 +1525,7 @@ class VideoIntelligenceRetriever:
             entity_info = {
                 "name": entity.entity,
                 "type": entity.type,
-                "confidence": round(entity.confidence, 3),
+
                 "source": source,
                 "extraction_methods": source.split('+') if '+' in source else [source],
                 "aliases": aliases,
@@ -1564,8 +1564,8 @@ class VideoIntelligenceRetriever:
                 "Combined": "Entities found by multiple methods and normalized"
             },
             "quality_metrics": {
-                "average_confidence": round(sum(e['confidence'] for e in entities_with_sources) / len(entities_with_sources), 3) if entities_with_sources else 0,
-                "high_confidence_entities": len([e for e in entities_with_sources if e['confidence'] > 0.8]),
+
+
                 "normalized_entities": normalization_stats["total_normalized"]
             }
         }
@@ -1589,7 +1589,7 @@ class VideoIntelligenceRetriever:
         # Save CSV for analysis
         csv_file = paths['entity_sources_csv']
         with open(csv_file, 'w', encoding='utf-8', newline='') as f:
-            fieldnames = ['name', 'type', 'confidence', 'source', 'extraction_methods', 'aliases', 'is_normalized']
+            fieldnames = ['name', 'type', 'source', 'extraction_methods', 'aliases', 'is_normalized']
             writer = csv.DictWriter(f, fieldnames=fieldnames)
             writer.writeheader()
             

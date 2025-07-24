@@ -26,20 +26,7 @@ class EnhancedEntityExtractor:
     
     def __init__(self):
         """Initialize the enhanced entity extractor."""
-        self.type_confidence_modifiers = {
-            "PERSON": 0.05,
-            "ORG": 0.03,
-            "GPE": 0.04,
-            "LOC": 0.04,
-            "DATE": 0.08,
-            "TIME": 0.06,
-            "MONEY": 0.07,
-            "PERCENT": 0.08,
-            "MISC": -0.05,
-            "UNKNOWN": -0.10
-        }
-        
-        self.high_quality_sources = {"gemini", "gliner", "spacy", "rebel"}
+        pass
         
         # Common title patterns for normalization
         self.title_patterns = [
@@ -74,14 +61,10 @@ class EnhancedEntityExtractor:
         for canonical_form, entity_group in entity_groups.items():
             logger.debug(f"DEBUG: Processing group '{canonical_form}' with {len(entity_group)} entities")
             
-            # Calculate confidence scores
-            confidence = self._calculate_confidence(entity_group)
-            
             # Extract source information
             sources = list({e.source for e in entity_group if hasattr(e, 'source')})
             if not sources:
                 sources = ['Gemini']  # Default source
-            source_confidence = self._calculate_source_confidence(entity_group)
             
             # Get context windows if transcript provided
             context_windows = []
@@ -105,13 +88,11 @@ class EnhancedEntityExtractor:
             enhanced = EnhancedEntity(
                 entity=canonical_form,
                 type=entity_type,
-                confidence=confidence,
                 extraction_sources=sources,
                 mention_count=len(entity_group),
                 context_windows=context_windows,
                 aliases=self._extract_aliases(canonical_form, entity_group),
                 canonical_form=canonical_form,
-                source_confidence=source_confidence,
                 temporal_distribution=temporal_distribution
             )
             
@@ -246,79 +227,9 @@ class EnhancedEntityExtractor:
         # Return highest scoring candidate
         return max(scores, key=scores.get)
     
-    def _calculate_confidence(self, entity_group: List[Entity]) -> float:
-        """Calculate overall confidence score for an entity group."""
-        # Base confidence from source agreement
-        unique_sources = set()
-        for entity in entity_group:
-            if hasattr(entity, 'source'):
-                unique_sources.add(entity.source)
-        
-        source_count = len(unique_sources)
-        base_confidence = min(0.5 + (source_count * 0.15), 0.95)
-        
-        # Get the canonical form for analysis
-        canonical = self._get_canonical_form(entity_group[0].entity)
-        
-        # Length modifier
-        word_count = len(canonical.split())
-        length_modifier = 0.0
-        if word_count >= 3:
-            length_modifier = 0.05
-        elif word_count == 1 and len(canonical) < 4:
-            length_modifier = -0.10
-        
-        # Type modifier
-        entity_type = self._determine_entity_type(entity_group)
-        type_modifier = self.type_confidence_modifiers.get(entity_type, 0)
-        
-        # Source quality modifier
-        source_quality_modifier = 0.0
-        if unique_sources & self.high_quality_sources:
-            source_quality_modifier = 0.05
-        
-        # Frequency modifier (more mentions = higher confidence)
-        frequency_modifier = min(len(entity_group) * 0.01, 0.10)
-        
-        # Calculate final confidence
-        final_confidence = (
-            base_confidence + 
-            length_modifier + 
-            type_modifier + 
-            source_quality_modifier +
-            frequency_modifier
-        )
-        
-        return max(0.1, min(0.99, final_confidence))
+
     
-    def _calculate_source_confidence(
-        self, 
-        entity_group: List[Entity]
-    ) -> Dict[str, float]:
-        """Calculate per-source confidence scores."""
-        source_confidence = {}
-        source_entities = defaultdict(list)
-        
-        # Group by source
-        for entity in entity_group:
-            if hasattr(entity, 'source'):
-                source_entities[entity.source].append(entity)
-        
-        # Calculate confidence per source
-        for source, entities in source_entities.items():
-            # Base confidence for the source
-            if source in self.high_quality_sources:
-                base = 0.85
-            else:
-                base = 0.70
-            
-            # Adjust based on consistency
-            unique_forms = set(e.entity for e in entities)
-            consistency_modifier = -0.05 * (len(unique_forms) - 1)
-            
-            source_confidence[source] = max(0.5, base + consistency_modifier)
-        
-        return source_confidence
+
     
     def _extract_context_windows(
         self,

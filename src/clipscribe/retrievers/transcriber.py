@@ -1087,14 +1087,14 @@ class GeminiFlashTranscriber:
                     entities.append({
                         "entity": getattr(e, 'name', getattr(e, 'entity', '')),
                         "type": e.type,
-                        "confidence": getattr(e, 'confidence', 0.0),
+
                         "context": getattr(e, 'description', getattr(e, 'context', ''))
                     })
                 else:  # Dict
                     entities.append({
                         "entity": e.get('name', e.get('entity', '')),
                         "type": e.get('type', ''),
-                        "confidence": e.get('confidence', 0.0),
+
                         "context": e.get('description', e.get('context', ''))
                     })
             
@@ -1106,7 +1106,7 @@ class GeminiFlashTranscriber:
                         "source_entity": r.source,
                         "relationship_type": r.type,
                         "target_entity": r.target,
-                        "confidence": getattr(r, 'confidence', 0.0),
+
                         "context": getattr(r, 'description', getattr(r, 'context', ''))
                     })
                 else:  # Dict
@@ -1114,7 +1114,7 @@ class GeminiFlashTranscriber:
                         "source_entity": r.get('source', r.get('source_entity', '')),
                         "relationship_type": r.get('type', r.get('relationship_type', '')),
                         "target_entity": r.get('target', r.get('target_entity', '')),
-                        "confidence": r.get('confidence', 0.0),
+
                         "context": r.get('description', r.get('context', ''))
                     })
             
