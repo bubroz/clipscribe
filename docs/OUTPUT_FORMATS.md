@@ -52,7 +52,7 @@ A lightweight JSON file providing high-level information at a glance:
 Contains all extracted entities with **enhanced metadata** (v2.19.0):
 - **Comprehensive extraction**: Targets 100% completeness, not arbitrary numbers
 - **Fixed quality filters**: No longer removes 70% of valid entities
-- **Dynamic confidence scores**: 0.4-0.99 based on context (not hardcoded 0.85)
+- **Quality-focused extraction**: Honest results without AI theater confidence scoring
 - **Multi-source attribution**: Shows which extractors found each entity
 
 ```json
@@ -61,7 +61,7 @@ Contains all extracted entities with **enhanced metadata** (v2.19.0):
     {
       "name": "Trump",
       "type": "PERSON", 
-      "confidence": 0.71,
+  
       "source": ["GLiNER+Gemini+SpaCy"],  // Multi-source validation
       "mention_count": 1,
       "context_windows": [...],
@@ -86,7 +86,7 @@ Contains entity relationships with **evidence chains** (v2.19.0):
       "subject": "forecaster",
       "predicate": "expect_increase_of", 
       "object": "125,000 non-farm payrolls",
-      "confidence": 0.825,
+  
       "evidence_chain": [
         "direct_quote='...forecaster expect an increase of 125,000 non-farm payrolls in May...' timestamp='00:00:00'"
       ],
@@ -99,7 +99,7 @@ Contains entity relationships with **evidence chains** (v2.19.0):
 
 ### entities.csv / entities.json
 A complete list of all entities extracted from the video.
-- **`entities.json`**: Detailed JSON output with `name`, `type`, `confidence`, `source`, and raw `properties`.
+- **`entities.json`**: Detailed JSON output with `name`, `type`, `source`, and raw `properties`.
 - **`entities.csv`**: A spreadsheet-friendly format containing the most important fields.
 - **Source Tracking**: Both formats include the source of the entity (e.g., `SpaCy`, `GLiNER`, `REBEL`) for pipeline transparency.
 
@@ -142,7 +142,7 @@ A human-readable list of the top 100 most important facts extracted from the vid
   - Entity type distribution (pie chart).
 - **Collapsible Sections**: Uses `<details>` tags for all major sections, making large reports easy to navigate.
 - **Visual Dashboards**: Includes a "Quick Stats" dashboard with emoji-based bar charts and a relationship type distribution table.
-- **Rich Formatting**: Uses emoji, confidence indicators (🟩🟨🟥), and tables for a highly scannable and visually appealing summary.
+- **Rich Formatting**: Uses emoji and tables for a highly scannable and visually appealing summary.
 - **How to View**: For the best experience, view this file in a Markdown viewer that supports Mermaid, such as GitHub, GitLab, or the Cursor editor.
 
 ### chimera_format.json

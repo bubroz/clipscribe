@@ -46,12 +46,12 @@ ClipScribe is a video intelligence tool that leverages Google's Gemini to provid
 
 **v2.19.3 - Vertex AI Integration & Enhanced Metadata Complete!**
 
-**🚀 BREAKTHROUGH**: Full Vertex AI support with pre-uploaded GCS videos, plus enhanced metadata extraction with confidence scores, source attribution, and relationship evidence chains. 300% more intelligence while maintaining $0.002/minute cost leadership.
+**🚀 BREAKTHROUGH**: Full Vertex AI support with pre-uploaded GCS videos, plus enhanced metadata extraction with source attribution and relationship evidence chains. 300% more intelligence while maintaining $0.002/minute cost leadership.
 
 ClipScribe focuses on **core excellence**: making our proven strengths (95%+ entity extraction, 90%+ relationship mapping) industry-leading through stability, performance, and user experience improvements.
 
 ### ✅ What ClipScribe Does Exceptionally Well
-- **Enhanced Entity Extraction** - 95%+ accuracy with confidence scores, source attribution, and context windows ✅
+- **Enhanced Entity Extraction** - High-quality extraction with source attribution and context windows ✅
 - **Relationship Evidence Chains** - Direct quotes, visual correlation, and contradiction detection ✅
 - **Temporal Reference Resolution** - Intelligent parsing of relative dates like "yesterday", "last week" ✅
 - **Cross-Video Intelligence** - 26K+ lines of collection intelligence ✅
@@ -101,7 +101,7 @@ See [docs/CORE_EXCELLENCE_IMPLEMENTATION_PLAN.md](docs/CORE_EXCELLENCE_IMPLEMENT
 ### 🔬 Video Intelligence Capabilities (v2.19.0 Enhanced)
 - **High-Completeness Entity Extraction** - Targets 100% recall with 94.7% language purity
   - No longer filters out valid entities (fixed overly aggressive quality filters)
-  - Dynamic confidence scoring based on context (0.4-0.99)
+  - Honest quality-focused extraction without AI theater
   - Multi-source validation: SpaCy + GLiNER + REBEL + Gemini
 - **Comprehensive Relationship Mapping** - Captures all meaningful relationships with evidence
   - Now properly uses all 50+ Gemini-extracted relationships (was bug: ignored)
@@ -200,7 +200,7 @@ poetry run streamlit run streamlit_app/ClipScribe_Mission_Control.py
 
 ### Current Development Phase
 **v2.19.0 Complete** - All three phases successfully implemented:
-- ✅ **Phase 1**: Enhanced entity metadata with confidence scores and source attribution
+- ✅ **Phase 1**: Enhanced entity metadata with source attribution (v2.20.0: confidence scoring removed)
 - ✅ **Phase 2**: Relationship evidence chains with direct quotes and visual correlation
 - ✅ **Phase 3**: Temporal reference resolution with intelligent date parsing
 
