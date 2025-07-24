@@ -27,6 +27,7 @@ def parse_args():
     parser = argparse.ArgumentParser(description='PBS Fast Batch Processor')
     parser.add_argument('--limit', type=int, default=None, help='Limit number of videos to process')
     parser.add_argument('--force-concurrent', type=int, default=None, help='Force specific concurrency level (advanced users only)')
+    parser.add_argument('--urls', type=str, default=None, help='File containing URLs to process (one per line)')
     return parser.parse_args()
 
 async def process_batch_fast(urls: list[str], concurrent_limit: int = 20):
@@ -160,24 +161,19 @@ async def main():
     print("⚡ PBS NewsHour Fast Batch Processor")
     print("=" * 50)
     
-    # Load batch configuration
-    config_path = Path("pbs_newshour_30day_batch.json")
-    
-    try:
-        if not config_path.exists():
-            print("❌ No batch configuration found!")
-            print("Run this first: poetry run python scripts/collect_pbs_newshour_urls.py")
-            return
-    
-        with open(config_path) as f:
-            config = json.load(f)
-    except (FileNotFoundError, json.JSONDecodeError) as e:
-        print(f"❌ Error loading configuration file '{config_path}': {e}")
-        return
-    
-    urls = [item['url'] for item in config['videos']]
-    
     args = parse_args()
+    
+    if args.urls:
+        # Load URLs from file
+        with open(args.urls, 'r') as f:
+            urls = [line.strip() for line in f if line.strip() and not line.startswith('#')]
+        print(f"📁 Loaded {len(urls)} URLs from {args.urls}")
+    else:
+        # Load URLs from JSON file
+        with open("pbs_newshour_30day_batch.json", "r") as f:
+            data = json.load(f)
+            urls = data.get("urls", [])
+    
     if args.limit:
         urls = urls[:args.limit]
 
