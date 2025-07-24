@@ -182,19 +182,21 @@ class TestRelationshipEvidenceExtractor:
         assert len(quotes2) > 0  # Should extract sentence with action verb
     
     def test_determine_evidence_type(self):
-        """Test evidence type classification."""
-        # Test visual evidence
-        visual_text = "The video shows Biden at a podium"
-        assert self.extractor._determine_evidence_type(visual_text) == "visual"
+        """Test evidence type determination."""
+        # Test spoken evidence
+        spoken_type = self.extractor._determine_evidence_type(
+            "Biden said that he would support the bill.",
+            self.test_relationships[0]
+        )
+        assert spoken_type == "spoken"
         
-        # Test document evidence
-        doc_text = "According to the official statement released today"
-        assert self.extractor._determine_evidence_type(doc_text) == "document"
-        
-        # Test spoken evidence (default)
-        spoken_text = "Biden announced the new policy"
-        assert self.extractor._determine_evidence_type(spoken_text) == "spoken"
-    
+        # Test entity context evidence  
+        context_type = self.extractor._determine_evidence_type(
+            "Biden supports legislation",
+            self.test_relationships[0]
+        )
+        assert context_type == "entity_context"
+
     def test_extract_visual_context(self):
         """Test visual context extraction."""
         text = "The video shows Biden at a podium making the announcement."
@@ -206,27 +208,6 @@ class TestRelationshipEvidenceExtractor:
         text2 = "Biden made an announcement today"
         visual_context2 = self.extractor._extract_visual_context(text2)
         assert visual_context2 is None
-    
-    def test_calculate_segment_confidence(self):
-        """Test confidence calculation for evidence segments."""
-        relationship = Relationship(
-            subject="Joe Biden",
-            predicate="announced",
-            object="sanctions",
-            confidence=0.8
-        )
-        
-        # Test high confidence with direct quote
-        text_with_quote = 'Biden said "We will take action"'
-        quote = "We will take action"
-        confidence = self.extractor._calculate_segment_confidence(text_with_quote, relationship, quote)
-        assert confidence > 0.8  # Should be boosted for quote
-        
-        # Test medium confidence with action verb
-        text_with_verb = "Biden announced new sanctions"
-        quote2 = "announced new sanctions"
-        confidence2 = self.extractor._calculate_segment_confidence(text_with_verb, relationship, quote2)
-        assert 0.7 <= confidence2 <= 1.0
     
     def test_count_supporting_mentions(self):
         """Test counting of supporting mentions."""
@@ -285,29 +266,6 @@ class TestRelationshipEvidenceExtractor:
         # Our test data has "Biden" in visual segment but not "sanctions" specifically
         assert isinstance(has_visual, bool)  # Function works correctly
     
-    def test_calculate_evidence_confidence(self):
-        """Test evidence-based confidence calculation."""
-        # Create mock evidence
-        evidence = [
-            RelationshipEvidence(
-                direct_quote="We will hold Putin accountable",
-                timestamp="00:02:15",
-                confidence=0.9,
-                evidence_type="spoken"
-            )
-        ]
-        
-        base_confidence = 0.8
-        supporting_mentions = 2
-        contradictions = []
-        
-        enhanced_confidence = self.extractor._calculate_evidence_confidence(
-            base_confidence, evidence, supporting_mentions, contradictions
-        )
-        
-        assert enhanced_confidence > base_confidence  # Should be boosted
-        assert enhanced_confidence <= 1.0
-    
     def test_extract_evidence_chains_integration(self):
         """Test full evidence chain extraction integration."""
         enhanced_relationships = self.extractor.extract_evidence_chains(
@@ -341,11 +299,10 @@ class TestRelationshipEvidenceExtractor:
         
         assert len(evidence_chain) > 0
         
-        # Check evidence properties
+        # Check evidence properties (v2.20.0 - confidence-free architecture)
         evidence = evidence_chain[0]
         assert evidence.direct_quote
         assert evidence.timestamp
-        assert evidence.confidence > 0
         assert evidence.evidence_type in ["spoken", "visual", "document", "entity_context"]
     
     def test_enhanced_relationship_model_compatibility(self):

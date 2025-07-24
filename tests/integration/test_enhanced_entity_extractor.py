@@ -78,20 +78,18 @@ async def test_enhanced_entity_extraction_unit():
     pegasus_entity = pegasus_entities[0]
     assert pegasus_entity.mention_count >= 2, f"Pegasus should have 2+ mentions, got {pegasus_entity.mention_count}"
     
-    # 5. Verify confidence scores are calculated
+    # 5. Verify quality-focused extraction (v2.20.0 - confidence-free architecture)
     for entity in enhanced_entities:
-        assert entity.confidence is not None, f"Entity {entity.entity} missing confidence score"
-        assert 0.0 <= entity.confidence <= 1.0, f"Entity {entity.entity} confidence out of range: {entity.confidence}"
+        # All entities should have proper names (not empty)
+        assert entity.entity.strip(), f"Entity has empty name: {entity}"
+        # All entities should have a valid type (including SpaCy/GLiNER formats)
+        valid_types = ["PERSON", "ORG", "ORGANIZATION", "LOCATION", "GPE", "EVENT", "PRODUCT", "MISC"]
+        assert entity.type in valid_types, f"Entity {entity.entity} has invalid type: {entity.type}"
     
     # 6. Verify source attribution
     for entity in enhanced_entities:
         assert entity.extraction_sources, f"Entity {entity.entity} missing extraction sources"
         assert len(entity.extraction_sources) > 0, f"Entity {entity.entity} has empty extraction sources"
-        
-        # Check source confidence mapping
-        assert entity.source_confidence, f"Entity {entity.entity} missing source confidence"
-        for source in entity.extraction_sources:
-            assert source in entity.source_confidence, f"Source {source} missing from confidence mapping"
     
     # 7. Verify context windows were extracted
     entities_with_context = [e for e in enhanced_entities if len(e.context_windows) > 0]
@@ -129,19 +127,14 @@ def test_enhanced_entity_extractor_initialization():
     """Test that EnhancedEntityExtractor initializes correctly."""
     extractor = EnhancedEntityExtractor()
     
-    # Check that type confidence modifiers are set
-    assert extractor.type_confidence_modifiers is not None
-    assert "PERSON" in extractor.type_confidence_modifiers
-    assert "ORG" in extractor.type_confidence_modifiers
+    # Check that core functionality is available (v2.20.0 - confidence-free architecture)
+    assert hasattr(extractor, 'enhance_entities'), "Extractor should have enhance_entities method"
+    assert hasattr(extractor, '_get_canonical_form'), "Extractor should have _get_canonical_form method"
     
-    # Check high quality sources
+    # Check high quality sources configuration
     assert extractor.high_quality_sources is not None
     assert "spacy" in extractor.high_quality_sources
     assert "gliner" in extractor.high_quality_sources
-    
-    # Check title patterns
-    assert extractor.title_patterns is not None
-    assert len(extractor.title_patterns) > 0
 
 
 def test_canonical_form_normalization():
