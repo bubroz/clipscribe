@@ -34,7 +34,8 @@ class GeminiFlashTranscriber:
         # Get settings
         self.settings = Settings()
         self.api_key = api_key or self.settings.google_api_key
-        self.use_vertex_ai = self.settings.use_vertex_ai
+        # Force Vertex AI off for reliability (prevents 400 errors)
+        self.use_vertex_ai = False  # Disabled for production reliability
         self.pool = GeminiPool(api_key=self.api_key) # ALWAYS initialize the pool
         
         # Initialize appropriate backend

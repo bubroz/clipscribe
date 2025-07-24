@@ -81,12 +81,7 @@ class VertexAITranscriber:
             # Upload with increased timeout and retry
             try:
                 with open(video_path, 'rb') as f:
-                    blob.upload_from_file(
-                        f,
-                        content_type=self._get_mime_type(video_path),
-                        timeout=600,  # 10 minutes timeout
-                        retry=retry.Retry(deadline=600)  # Overall retry deadline
-                    )
+                    blob.upload_from_file(f, content_type=self._get_mime_type(str(video_path)))
             except BrokenPipeError:
                 await asyncio.sleep(10)
                 raise
@@ -129,7 +124,7 @@ class VertexAITranscriber:
                 # Upload to GCS
                 gcs_uri = await self.upload_to_gcs(video_path)
                 logger.info(f"Uploaded video to GCS: {gcs_uri}")
-                mime_type = self._get_mime_type(video_path)
+                mime_type = self._get_mime_type(str(video_path))
             else:
                 raise ValueError("Either video_path or gcs_uri must be provided")
             
@@ -389,17 +384,16 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting or additional text."""
             "model_used": "vertex-ai-gemini-2.5-flash-error"
         }
     
-    def _get_mime_type(self, video_path: Path) -> str:
-        """Get MIME type for video file."""
-        ext = video_path.suffix.lower()
-        mime_types = {
-            ".mp4": "video/mp4",
-            ".avi": "video/x-msvideo",
-            ".mov": "video/quicktime",
-            ".webm": "video/webm",
-            ".mkv": "video/x-matroska"
-        }
-        return mime_types.get(ext, "video/mp4")
+    def _get_mime_type(self, file_path: str) -> str:
+        """Get MIME type based on file extension."""
+        if file_path.endswith('.mp3'):
+            return 'audio/mpeg'  # Correct MIME type for MP3
+        elif file_path.endswith('.mp4'):
+            return 'video/mp4'
+        elif file_path.endswith('.wav'):
+            return 'audio/wav'
+        else:
+            return 'audio/mpeg'  # Default to audio for audio processing
     
     async def _cleanup_gcs_file(self, gcs_uri: str):
         """Clean up uploaded file from GCS."""
