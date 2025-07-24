@@ -1,16 +1,16 @@
 # ClipScribe CLI Reference
 
-*Last Updated: July 20, 2025 - v2.19.3 with Vertex AI integration*
+*Last Updated: July 24, 2025 - v2.20.0 with Professional Intelligence Standards*
 
 Complete reference for all ClipScribe commands and options.
 
 ## ✨ Key Features
 
-- **Lightning-fast CLI** - 0.4s startup time
+- **Professional intelligence extraction** - 31-34 key points in briefing format per video
 - **1800+ platforms** - YouTube, Twitter, TikTok, Vimeo, and more
-- **Enhanced extraction** - 16+ entities and 52+ relationships per video
-- **Cost-effective** - $0.002-0.0035/minute processing
-- **Multiple outputs** - JSON, CSV, GEXF, Markdown formats
+- **Enhanced classification** - Perfect ORGANIZATION vs PRODUCT classification
+- **Cost-effective** - $0.015-0.030 per video processing
+- **12 output formats** - JSON, CSV, GEXF, Markdown, knowledge graphs
 
 ## Global Options
 
