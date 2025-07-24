@@ -372,7 +372,7 @@ class VideoIntelligenceRetriever:
                     metadata=metadata,
                     transcript=transcript,
                     summary=analysis.get('summary', ''),  # Default to empty string if missing
-                    key_points=[],  # Default empty list
+                    key_points=key_points,  # Use extracted key points instead of empty list!
                     entities=[],  # Will be populated by extractor
                     topics=topics,
                     sentiment=sentiment,

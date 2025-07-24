@@ -31,11 +31,11 @@ class TemporalIntelligence(BaseModel):
 
 
 class KeyPoint(BaseModel):
-    """Important point from video with temporal context."""
-    timestamp: float = Field(..., description="Seconds from start")  # Changed from int to float
+    """Important point from video - timestamps removed and saved for roadmap."""
     text: str = Field(..., description="Key point text")
     importance: float = Field(ge=0, le=1, description="Importance score 0-1")
     context: Optional[str] = Field(None, description="Surrounding context")
+    # NOTE: timestamp field removed - complex timestamp extraction saved for roadmap with Whisper
 
 
 class Entity(BaseModel):

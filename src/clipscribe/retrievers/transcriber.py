@@ -255,39 +255,55 @@ class GeminiFlashTranscriber:
             - Calculate REALISTIC confidence scores (0.3-0.99, vary based on context clarity)
             
             Transcript:
-            {transcript_text[:12000]}  # Increased for better coverage
+            {transcript_text[:12000]}
             
             Return a JSON object with this EXACT structure:
             {{
                 "summary": "Write a comprehensive 3-4 paragraph executive summary covering all main points, key players, and critical insights",
                 "key_points": [
-                    {{"timestamp": 0, "text": "Specific, actionable insight or key moment", "importance": 0.9}},
+                    {{"text": "Specific, actionable insight or key moment", "importance": 0.9}},
                     // Extract 30-50 key points - every significant statement, fact, or claim
                 ],
                 "topics": ["primary topic", "secondary topic", "tertiary topic", "domain area", "theme"],
                 "entities": [
-                    // PEOPLE: Extract ALL names, titles, roles
+                    // PEOPLE: Extract ALL names, titles, roles, backgrounds, positions
                     {{"name": "Donald Trump", "type": "PERSON", "confidence": 0.95}},
                     {{"name": "President Biden", "type": "PERSON", "confidence": 0.93}},
                     {{"name": "The CEO", "type": "PERSON", "confidence": 0.7}},  // Even unnamed roles
+                    {{"name": "Former Special Forces operator", "type": "PERSON", "confidence": 0.88}},  // Military backgrounds
+                    {{"name": "Tier one instructor", "type": "PERSON", "confidence": 0.85}},  // Military roles
+                    {{"name": "Selection cadre", "type": "PERSON", "confidence": 0.82}},  // Training personnel
+                    {{"name": "Combat veteran", "type": "PERSON", "confidence": 0.84}},  // Experience descriptors
+                    {{"name": "Senior analyst", "type": "PERSON", "confidence": 0.79}},  // Professional titles
+                    {{"name": "The spokesperson", "type": "PERSON", "confidence": 0.76}},  // Functional roles
                     
-                    // ORGANIZATIONS: Companies, agencies, groups, institutions
+                    // ORGANIZATIONS: Companies, agencies, groups, institutions, military units and sub-units
                     {{"name": "Department of Justice", "type": "ORGANIZATION", "confidence": 0.9}},
                     {{"name": "Wall Street Journal", "type": "ORGANIZATION", "confidence": 0.95}},  // NOT location!
                     {{"name": "Republican Party", "type": "ORGANIZATION", "confidence": 0.92}},
+                    {{"name": "Delta Force", "type": "ORGANIZATION", "confidence": 0.98}},
+                    {{"name": "SEAL Team Six", "type": "ORGANIZATION", "confidence": 0.98}},
+                    {{"name": "Black Side SEALs", "type": "ORGANIZATION", "confidence": 0.93}},  // Military sub-units are ORGANIZATIONS
+                    {{"name": "White Side SEALs", "type": "ORGANIZATION", "confidence": 0.93}},  // NOT PRODUCTS!
+                    {{"name": "Special Forces", "type": "ORGANIZATION", "confidence": 0.95}},
+                    {{"name": "MARSOC Raiders", "type": "ORGANIZATION", "confidence": 0.94}},
+                    {{"name": "24th Special Tactics Squadron", "type": "ORGANIZATION", "confidence": 0.92}},
                     
                     // LOCATIONS: Countries, cities, regions, venues
                     {{"name": "United States", "type": "LOCATION", "confidence": 0.98}},
                     {{"name": "Ukraine", "type": "LOCATION", "confidence": 0.95}},
                     {{"name": "Washington DC", "type": "LOCATION", "confidence": 0.9}},
                     
-                    // EVENTS: Meetings, incidents, occurrences
+                    // EVENTS: Meetings, incidents, occurrences, selections, operations
                     {{"name": "2024 Presidential Election", "type": "EVENT", "confidence": 0.93}},
                     {{"name": "January 6 Capitol Attack", "type": "EVENT", "confidence": 0.96}},
+                    {{"name": "Tier One selection", "type": "EVENT", "confidence": 0.89}},
+                    {{"name": "Tier Two selection", "type": "EVENT", "confidence": 0.89}},
                     
-                    // PRODUCTS/TECH: Software, systems, technologies
+                    // PRODUCTS/TECH: Software, systems, technologies, equipment, weapons, tools
                     {{"name": "Pegasus spyware", "type": "PRODUCT", "confidence": 0.91}},
                     {{"name": "ChatGPT", "type": "PRODUCT", "confidence": 0.94}},
+                    {{"name": "M4 rifle", "type": "PRODUCT", "confidence": 0.90}},  // Equipment/weapons are PRODUCTS
                     
                     // Extract EVERYTHING - err on the side of too much rather than too little
                 ],
@@ -309,12 +325,30 @@ class GeminiFlashTranscriber:
                     // Extract EVERY meaningful connection between entities
                 ],
                 "dates": [
-                    {{"original_text": "October 2018", "normalized_date": "2018-10-01", "precision": "month", "confidence": 0.95, "source": "transcript", "context": "when Pegasus was discovered", "timestamp": 120.5}},
-                    {{"original_text": "last Tuesday", "normalized_date": "2025-07-15", "precision": "day", "confidence": 0.8, "source": "transcript", "context": "meeting date", "timestamp": 45.2}},
-                    {{"original_text": "three years ago", "normalized_date": "2022-07-01", "precision": "month", "confidence": 0.7, "source": "transcript", "context": "project start", "timestamp": 200.1}},
-                    // Extract ALL temporal references and calculate actual dates
+                    {{"original_text": "October 2018", "normalized_date": "2018-10-01", "precision": "month", "confidence": 0.95, "context": "when Pegasus was discovered"}},
+                    {{"original_text": "last Tuesday", "normalized_date": "2025-07-15", "precision": "day", "confidence": 0.8, "context": "meeting date"}},
+                    {{"original_text": "three years ago", "normalized_date": "2022-07-01", "precision": "month", "confidence": 0.7, "context": "project start"}},
+                    // Extract temporal references and calculate actual dates (timestamps not needed)
                 ]
             }}
+            
+            ENTITY CLASSIFICATION RULES:
+            1. ORGANIZATIONS = Military units, companies, agencies, institutions, political groups, sports teams
+               - Include ALL military sub-units: "Black Side SEALs", "White Side SEALs", "Tier 1 units"
+               - Include designations: "JV SEALs", "Varsity SEALs", "White SOF", "Black SOF"
+               - Include specific units: "SEAL Team Six", "Delta Force", "24th STS"
+            2. PRODUCTS = Technology, software, equipment, weapons, vehicles, tools, systems
+               - Physical items: rifles, vehicles, aircraft, ships
+               - Software: applications, AI systems, platforms
+               - NOT organizational designations or unit names
+            3. PEOPLE = Individuals, roles, titles, backgrounds, experience descriptors
+               - Named persons: "John Smith", "General Miller"
+               - Roles and titles: "The CEO", "Commander", "Instructor"
+               - Military backgrounds: "Former Special Forces operator", "Combat veteran"
+               - Professional descriptors: "Senior analyst", "Selection cadre", "Tier one instructor"
+               - Even unnamed functional roles: "The spokesperson", "A senior official"
+            4. LOCATIONS = Geographic areas, buildings, facilities
+            5. EVENTS = Incidents, meetings, operations, selections, exercises
             
             EXTRACTION RULES:
             1. Entity confidence: 0.95+ for explicitly named, 0.8-0.94 for clearly referenced, 0.6-0.79 for inferred, <0.6 for uncertain
@@ -340,11 +374,10 @@ class GeminiFlashTranscriber:
                         "items": {
                             "type": "OBJECT",
                             "properties": {
-                                "timestamp": {"type": "NUMBER"},
                                 "text": {"type": "STRING"},
                                 "importance": {"type": "NUMBER"}
                             },
-                            "required": ["timestamp", "text", "importance"]
+                            "required": ["text", "importance"]
                         }
                     },
                     "topics": {
@@ -385,12 +418,9 @@ class GeminiFlashTranscriber:
                                 "normalized_date": {"type": "STRING"},
                                 "precision": {"type": "STRING", "enum": ["exact", "day", "month", "year", "approximate"]},
                                 "confidence": {"type": "NUMBER"},
-                                "context": {"type": "STRING"},
-                                "source": {"type": "STRING", "enum": ["transcript", "visual", "both"]},
-                                "visual_description": {"type": "STRING"},
-                                "timestamp": {"type": "NUMBER"}
+                                "context": {"type": "STRING"}
                             },
-                            "required": ["original_text", "normalized_date", "precision", "confidence", "source"]
+                            "required": ["original_text", "normalized_date", "precision", "confidence"]
                         }
                     }
                 },
@@ -438,9 +468,12 @@ class GeminiFlashTranscriber:
                 Extract ALL additional meaningful entities and relationships comprehensively.
                 
                 Look for:
-                - PEOPLE: Every person mentioned by name, title, role, or reference
+                - PEOPLE: Every person mentioned by name, title, role, background, or experience
+                  * Named individuals: "John Smith", "General Miller", "Dr. Sarah Johnson"
                   * Government officials, business leaders, experts, sources
-                  * "The spokesperson", "a senior official", "analysts" - extract these too
+                  * Military backgrounds: "Former Special Forces operator", "Combat veteran", "Tier one instructor"
+                  * Professional roles: "Senior analyst", "Selection cadre", "Training instructor"
+                  * Functional roles: "The spokesperson", "A senior official", "The commander"
                 - ORGANIZATIONS: Every company, agency, group, institution
                   * Government bodies, companies, NGOs, trade groups, media outlets
                   * Departments, divisions, committees, teams
@@ -717,125 +750,16 @@ class GeminiFlashTranscriber:
         is_video: bool = False,
         video_file: Optional[Any] = None
     ) -> Dict[str, Any]:
-        """Extract enhanced temporal intelligence from content."""
-        logger.info("Extracting enhanced temporal intelligence...")
+        """Simplified temporal intelligence - complex timestamp extraction saved for roadmap with Whisper."""
+        logger.info("Temporal intelligence simplified - complex timestamps saved for roadmap")
         
-        # Skip if temporal intelligence is disabled
-        if self.temporal_config['level'] == TemporalIntelligenceLevel.STANDARD:
-            return {"timeline_events": [], "visual_temporal_cues": [], "temporal_patterns": []}
-        
-        temporal_model = self.pool.get_model(TaskType.TEMPORAL_INTELLIGENCE)
-        
-        # Build temporal intelligence prompt based on configuration
-        temporal_prompt = self._build_temporal_intelligence_prompt(
-            transcript_text, is_video, duration
-        )
-        
-        # Define temporal intelligence schema
-        temporal_schema = {
-            "type": "OBJECT",
-            "properties": {
-                "timeline_events": {
-                    "type": "ARRAY",
-                    "items": {
-                        "type": "OBJECT",
-                        "properties": {
-                            "timestamp": {"type": "NUMBER"},
-                            "event_description": {"type": "STRING"},
-                            "event_type": {"type": "STRING"},
-                            "confidence": {"type": "NUMBER"},
-                            "involved_entities": {
-                                "type": "ARRAY",
-                                "items": {"type": "STRING"}
-                            }
-                        },
-                        "required": ["timestamp", "event_description", "event_type", "confidence"]
-                    }
-                },
-                "visual_temporal_cues": {
-                    "type": "ARRAY",
-                    "items": {
-                        "type": "OBJECT",
-                        "properties": {
-                            "timestamp": {"type": "NUMBER"},
-                            "cue_type": {"type": "STRING"},
-                            "description": {"type": "STRING"},
-                            "temporal_significance": {"type": "STRING"}
-                        },
-                        "required": ["timestamp", "cue_type", "description"]
-                    }
-                },
-                "visual_dates": {
-                    "type": "ARRAY",
-                    "items": {
-                        "type": "OBJECT",
-                        "properties": {
-                            "timestamp": {"type": "NUMBER"},
-                            "date_text": {"type": "STRING"},
-                            "normalized_date": {"type": "STRING"},
-                            "screen_location": {"type": "STRING"},
-                            "confidence": {"type": "NUMBER"}
-                        },
-                        "required": ["timestamp", "date_text", "confidence"]
-                    }
-                },
-                "temporal_patterns": {
-                    "type": "ARRAY",
-                    "items": {
-                        "type": "OBJECT",
-                        "properties": {
-                            "pattern_type": {"type": "STRING"},
-                            "description": {"type": "STRING"},
-                            "timespan": {"type": "STRING"},
-                            "significance": {"type": "STRING"}
-                        }
-                    }
-                }
-            },
-            "required": ["timeline_events", "visual_temporal_cues", "visual_dates", "temporal_patterns"]
-        }
-        
-        temporal_event = None
-        if self.performance_monitor:
-            temporal_event = self.performance_monitor.start_timer(
-                "gemini_temporal_intelligence",
-                model=temporal_model.model_name
-            )
-
-        # Make the temporal intelligence call
-        if is_video and video_file and self.temporal_config['extract_visual_cues']:
-            # Video mode with visual cues
-            response = await self._retry_generate_content(
-                temporal_model,
-                [video_file, temporal_prompt],
-                generation_config={
-                    "response_mime_type": "application/json",
-                    "response_schema": temporal_schema
-                },
-                request_options=RequestOptions(timeout=self.request_timeout)
-            )
-        else:
-            # Audio mode or visual cues disabled
-            response = await self._retry_generate_content(
-                temporal_model,
-                temporal_prompt,
-                generation_config={
-                    "response_mime_type": "application/json",
-                    "response_schema": temporal_schema
-                },
-                request_options=RequestOptions(timeout=self.request_timeout)
-            )
-
-        if self.performance_monitor:
-            self.performance_monitor.stop_timer(temporal_event)
-        
-        temporal_data = self._parse_json_response(response.text, "object") or {}
-        
+        # Return empty temporal data - timestamps require Whisper for accuracy
+        # This functionality is saved for the roadmap as "nice to have eventually"
         return {
-            "timeline_events": temporal_data.get("timeline_events", []),
-            "visual_temporal_cues": temporal_data.get("visual_temporal_cues", []),
-            "visual_dates": temporal_data.get("visual_dates", []),
-            "temporal_patterns": temporal_data.get("temporal_patterns", [])
+            "timeline_events": [],
+            "visual_temporal_cues": [],
+            "temporal_patterns": [],
+            "visual_dates": []
         }
 
     async def _retry_generate_content(self, model, contents, generation_config=None, request_options=None, retries=3, initial_delay=5):
@@ -879,24 +803,51 @@ class GeminiFlashTranscriber:
         """
 
     def _build_enhanced_analysis_prompt(self, transcript_text: str) -> str:
-        """Build enhanced analysis prompt with temporal intelligence."""
+        """Build enhanced analysis prompt with temporal intelligence AND aggressive key points extraction."""
         return f"""
-        Analyze this transcript with enhanced temporal intelligence extraction.
-        Extract comprehensive information including temporal patterns and relationships.
+        Analyze this transcript with enhanced temporal intelligence extraction AND comprehensive key points analysis.
+        You are an expert intelligence analyst creating a professional briefing.
         
         Transcript with Visual Annotations:
         {transcript_text[:12000]}  # Increased for visual content
         
         Return a JSON object with this EXACT structure:
         {{
-            "summary": "Comprehensive 3-4 paragraph summary including temporal context",
+            "summary": "Comprehensive 3-4 paragraph executive summary covering all main points, key players, and critical insights",
             "key_points": [
-                {{"timestamp": 0, "text": "Important point with temporal context", "importance": 0.9}},
-                // Extract 40-60 key points including temporal significance
+                {{"text": "Specific, actionable insight or key statement - intelligence briefing style", "importance": 0.9}},
+                {{"text": "Every significant fact, claim, or strategic point", "importance": 0.8}},
+                {{"text": "Key tactical information or important detail", "importance": 0.85}},
+                // Extract 30-50 key points - EVERY significant statement, fact, claim, or insight
+                // Think professional intelligence briefing: What would an analyst highlight?
+                // Include: strategic points, tactical details, key facts, important claims, critical insights
+                // Format: Direct, actionable, specific - NOT generic summaries
             ],
             "topics": ["main topic 1", "temporal theme", "chronological topic"],
             "entities": [
-                {{"name": "Entity Name", "type": "PERSON/ORGANIZATION/LOCATION/EVENT", "confidence": 0.9}},
+                // PEOPLE: Individuals, roles, titles, backgrounds, positions
+                {{"name": "Speaker Name", "type": "PERSON", "confidence": 0.95}},
+                {{"name": "The Commander", "type": "PERSON", "confidence": 0.8}},
+                {{"name": "Former Special Forces operator", "type": "PERSON", "confidence": 0.88}},  // Military backgrounds
+                {{"name": "Tier one instructor", "type": "PERSON", "confidence": 0.85}},  // Military roles
+                {{"name": "Selection cadre", "type": "PERSON", "confidence": 0.82}},  // Training personnel
+                {{"name": "Combat veteran", "type": "PERSON", "confidence": 0.84}},  // Experience descriptors
+                
+                // ORGANIZATIONS: Military units, companies, agencies (including sub-units)
+                {{"name": "Delta Force", "type": "ORGANIZATION", "confidence": 0.98}},
+                {{"name": "SEAL Team Six", "type": "ORGANIZATION", "confidence": 0.98}},
+                {{"name": "Black Side SEALs", "type": "ORGANIZATION", "confidence": 0.93}},  // Military sub-units are ORGANIZATIONS
+                {{"name": "White Side SEALs", "type": "ORGANIZATION", "confidence": 0.93}},  // NOT PRODUCTS!
+                {{"name": "Special Forces", "type": "ORGANIZATION", "confidence": 0.95}},
+                {{"name": "MARSOC Raiders", "type": "ORGANIZATION", "confidence": 0.94}},
+                
+                // LOCATIONS: Geographic areas, facilities
+                {{"name": "Fort Bragg", "type": "LOCATION", "confidence": 0.92}},
+                
+                // EVENTS: Operations, selections, incidents (include temporal events)
+                {{"name": "Tier One selection", "type": "EVENT", "confidence": 0.89}},
+                {{"name": "Combat deployment", "type": "EVENT", "confidence": 0.87}},
+                
                 // Include temporal entities (events, dates, periods)
             ],
             "relationships": [
@@ -904,16 +855,42 @@ class GeminiFlashTranscriber:
                 // Include temporal relationships: before, after, during, caused, led_to
             ],
             "dates": [
-                {{"original_text": "October 2018", "normalized_date": "2018-10-01", "precision": "month", "confidence": 0.9, "source": "both", "context": "Pegasus discovery", "visual_description": "date shown on screen", "timestamp": 120.5}},
-                // Extract ALL dates from both transcript AND visual elements:
-                // - Dates shown in chyrons, overlays, documents
+                {{"original_text": "October 2018", "normalized_date": "2018-10-01", "precision": "month", "confidence": 0.9, "context": "Pegasus discovery"}},
+                // Extract dates from transcript and visual elements (simplified without timestamps):
+                // - Dates shown in chyrons, overlays, documents  
                 // - Dates mentioned in speech
                 // - Timeline graphics and temporal visualizations
-                // Visual dates are often more accurate than spoken dates
             ]
         }}
         
-        Focus on temporal intelligence: sequences, causality, chronology, evolution. Pay special attention to visual dates as they're often more accurate than spoken dates.
+        KEY POINTS EXTRACTION REQUIREMENTS:
+        1. Extract 30-50 key points minimum - think intelligence briefing highlights
+        2. Every significant statement, fact, or claim gets a key point
+        3. Be specific and actionable - "Delta Force requires prior special ops experience" not "Requirements discussed"
+        4. Include tactical details, strategic insights, key facts, important claims
+        5. Professional intelligence report style - direct, precise, actionable
+        6. Importance scores: 0.9+ for critical facts, 0.8+ for important details, 0.7+ for supporting info
+        
+        ENTITY CLASSIFICATION RULES:
+        1. ORGANIZATIONS = Military units, companies, agencies, institutions, political groups
+           - Include ALL military sub-units: "Black Side SEALs", "White Side SEALs", "Tier 1 units"  
+           - Include designations: "JV SEALs", "Varsity SEALs", "White SOF", "Black SOF"
+           - Include specific units: "SEAL Team Six", "Delta Force", "24th STS"
+        2. PRODUCTS = Technology, software, equipment, weapons, vehicles, tools, systems
+           - Physical items: rifles, vehicles, aircraft, ships
+           - Software: applications, AI systems, platforms  
+           - NOT organizational designations or unit names
+        3. PEOPLE = Individuals, roles, titles, backgrounds, experience descriptors
+           - Named persons: "John Smith", "General Miller"
+           - Roles and titles: "The CEO", "Commander", "Instructor"
+           - Military backgrounds: "Former Special Forces operator", "Combat veteran"
+           - Professional descriptors: "Senior analyst", "Selection cadre", "Tier one instructor"
+           - Even unnamed functional roles: "The spokesperson", "A senior official"
+        4. LOCATIONS = Geographic areas, buildings, facilities
+        5. EVENTS = Incidents, meetings, operations, selections, exercises
+        
+        Focus on extracting comprehensive information: key facts, relationships, and important dates mentioned.
+        BE AGGRESSIVE with key points extraction - missing key information is worse than including too much detail.
         """
 
     def _build_enhanced_response_schema(self) -> Dict[str, Any]:
@@ -927,12 +904,10 @@ class GeminiFlashTranscriber:
                     "items": {
                         "type": "OBJECT",
                         "properties": {
-                            "timestamp": {"type": "NUMBER"},
                             "text": {"type": "STRING"},
-                            "importance": {"type": "NUMBER"},
-                            "temporal_significance": {"type": "STRING"}
+                            "importance": {"type": "NUMBER"}
                         },
-                        "required": ["timestamp", "text", "importance"]
+                        "required": ["text", "importance"]
                     }
                 },
                 "topics": {
@@ -975,12 +950,9 @@ class GeminiFlashTranscriber:
                             "normalized_date": {"type": "STRING"},
                             "precision": {"type": "STRING", "enum": ["exact", "day", "month", "year", "approximate"]},
                             "confidence": {"type": "NUMBER"},
-                            "context": {"type": "STRING"},
-                            "source": {"type": "STRING", "enum": ["transcript", "visual", "both"]},
-                            "visual_description": {"type": "STRING"},
-                            "timestamp": {"type": "NUMBER"}
+                            "context": {"type": "STRING"}
                         },
-                        "required": ["original_text", "normalized_date", "precision", "confidence", "source"]
+                        "required": ["original_text", "normalized_date", "precision", "confidence"]
                     }
                 }
             },
