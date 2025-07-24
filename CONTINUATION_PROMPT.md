@@ -40,17 +40,26 @@
 
 ### Current System Status ✅⚠️
 **WORKING PERFECTLY:**
-- Video processing (3.2s per video, no API errors)
-- Transcript extraction (full, detailed, timestamped) 
-- Topic extraction (excellent quality)
-- Batch processing with safe concurrency
+- Video processing (84.6s per video, no API errors)
+- Transcript extraction (FLAWLESS - rich military content with organizations, people, concepts)
+- Topic extraction (PERFECT - "Special Operations Forces", "Military Selection Processes", etc.)
+- Batch processing with safe concurrency and --urls parameter
 - Collection synthesis and unified analysis
 
-**NEEDS DEBUG** (blocking entity extraction):
-- Entity extraction returning empty arrays despite good prompts
-- Relationship extraction also empty (same root cause)
-- System extracts topics perfectly but entities/relationships fail
-- Likely JSON parsing or prompt structure issue in transcriber.py
+**NEEDS DEBUG** (1 specific bug blocking entity extraction):
+- Entity extraction returning empty arrays despite perfect prompts and transcripts
+- Relationship extraction also empty (same root cause)  
+- **Confirmed**: Transcripts contain rich entities (Delta Force, SEAL Team Six, Special Forces, etc.)
+- **Confirmed**: Topics extracted perfectly from same content
+- **Root Cause**: Bug in entity parsing logic in transcriber.py (likely JSON response parsing)
+
+### Bug Location 🔍
+The issue is in `src/clipscribe/retrievers/transcriber.py` around line 450-500 where entity responses are parsed. The Gemini API is likely returning entities, but the JSON parsing is failing silently, leaving entities[] empty while topics[] work fine.
+
+### Quick Fix Strategy 🛠️
+1. Add debug logging to see raw Gemini responses for entities
+2. Check if entities are in a different JSON structure than expected
+3. Compare working topics extraction vs broken entities extraction
 
 ### Ready Commands for Tonight 🚀
 ```bash
