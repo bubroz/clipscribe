@@ -37,37 +37,30 @@ clipscribe transcribe [OPTIONS] URL
 ```
 
 **Arguments:**
-- `URL` (required) - Video URL to process
+- `URL` (required) - Video URL to process (supports 1800+ platforms via yt-dlp)
 
 **Options:**
 
-| Option | Short | Default | Description |
-|--------|-------|---------|-------------|
-| `--output-dir` | `-o` | `output` | Directory to save outputs |
-| `--mode` | `-m` | `auto` | Processing mode: audio, video, auto |
-| `--use-pro` | | False | **NEW**: Use Gemini 2.5 Pro for highest quality (~$0.017/video) |
-| `--use-cache/--no-cache` | | True | Use cached results if available |
-| `--enhance-transcript` | | False | Add speaker diarization and timestamps |
-| `--clean-graph` | | False | Clean knowledge graph with AI |
-| `--skip-cleaning` | | False | Skip graph cleaning to see raw results |
-| `--visualize` | | False | Generate interactive visualization |
-| `--performance-report` | | False | Generate performance report |
+| Option | Short | Default | Description | Tech Notes |
+|--------|-------|---------|-------------|------------|
+| `--output-dir` | `-o` | `output` | Directory to save outputs | Creates timestamped subdir |
+| `--mode` | `-m` | `auto` | Processing mode: audio, video, auto | 'video' enables visual analysis, adds ~20% time |
+| `--use-pro` | | False | Use Gemini 2.5 Pro (~$0.017/video) | Improves entity accuracy by 30-50% (benchmarked) |
+| `--use-cache/--no-cache` | | True | Use cached results | Reduces repeat costs by 100% |
+| `--enhance-transcript` | | False | Add diarization/timestamps | Adds $0.001-0.002, enables temporal features |
+| `--clean-graph` | | False | AI-clean knowledge graph | Adds 5-10s, improves graph quality |
+| `--skip-cleaning` | | False | Skip cleaning for raw results | Useful for debugging extractors |
+| `--visualize` | | False | Generate interactive viz | Outputs HTML graph, requires pyvis |
+| `--performance-report` | | False | Generate report | Includes timings, costs, metrics |
 
 **Examples:**
 
 ```bash
-# Basic video processing
-clipscribe transcribe "https://youtube.com/watch?v=6ZVj1_SE4Mo"
+# High-quality analysis for data science
+clipscribe transcribe "https://youtube.com/watch?v=6ZVj1_SE4Mo" --use-pro --performance-report
 
-# Process with visualization
-clipscribe transcribe "https://youtube.com/watch?v=6ZVj1_SE4Mo" \
-  --clean-graph \
-  --visualize
-
-# Use video mode for visual content
-clipscribe transcribe "https://vimeo.com/123456" \
-  --mode video \
-  --enhance-transcript
+# Extend with custom mode
+# See Contributing for subclassing VideoIntelligenceRetriever
 ```
 
 ### `research` - Research Videos by Topic

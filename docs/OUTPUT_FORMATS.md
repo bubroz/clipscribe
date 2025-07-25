@@ -70,6 +70,17 @@ Lightweight JSON file with processing overview:
 - Processing details (cost, time, model used: Flash vs Pro)
 - Statistics (entity count, relationship count, confidence metrics)
 
+## File Details
+
+### 1. `transcript.txt` - Raw Transcript
+- Plain text with optional timestamps
+- Example: "[00:01] Speaker: Hello world"
+- Parse with: `with open('transcript.txt') as f: text = f.read()`
+
+### 2. `transcript.json` - Complete Intelligence
+- Schema: {'transcript': str, 'entities': List[Dict], 'relationships': List[Dict], ...}
+- Example Access: `import json; data = json.load(open('transcript.json')); len(data['entities'])`
+
 ## Core Output Files
 
 ### entities.json ✅ WORKING
@@ -86,3 +97,8 @@ Contains all extracted entities with **validated working pipeline** (v2.20.4):
   "video_title": "Video Title",
   "entities": [
 ```
+
+## For Data Scientists
+- Load graphs: `import networkx as nx; g = nx.read_gexf('knowledge_graph.gexf')`
+- Analyze entities: Use pandas for CSV: `import pandas as pd; df = pd.read_csv('entities.csv')`
+- Custom Scripts: See examples/structured_output_demo.py

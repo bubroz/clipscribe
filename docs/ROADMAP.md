@@ -154,3 +154,15 @@
 - Parallel processing improvements
 - Memory optimization for large collections
 - Cost optimization algorithms 
+
+## Short-Term Priorities (Next 1-2 Weeks) 🚀
+
+1. **Benchmark Speed Differentials** (Critical for Architecture Decision)
+   - Compare hybrid vs pro-only: Time per minute, entities/relationships per second
+   - Tools: Use tests/integration/test_full_workflow.py with timing
+   - Goal: <20% speed loss for >50% quality gain to justify Pro default
+
+## Contributing to Roadmap
+- See GitHub issues for tasks
+- Run benchmarks locally: poetry run pytest --durations=0
+- Submit PRs with data to inform decisions 

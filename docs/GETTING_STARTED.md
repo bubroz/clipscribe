@@ -15,11 +15,11 @@
 
 ## Prerequisites
 
-You'll need:
-- Python 3.11+ installed (3.12+ recommended)
-- Poetry package manager ([Install instructions](https://python-poetry.org/docs/#installation))
-- A Google API key for Gemini ([Get one free](https://makersuite.google.com/app/apikey))
-- ffmpeg installed (`brew install ffmpeg` on macOS)
+- Python 3.11+ (3.12+ for optimal performance)
+- Poetry ([install](https://python-poetry.org/docs/#installation)) for dependency management
+- Google API key ([free tier](https://makersuite.google.com/app/apikey))
+- FFmpeg (`brew install ffmpeg` on macOS, `apt install ffmpeg` on Ubuntu)
+- Optional: NVIDIA GPU for faster local ML (GLiNER/REBEL)
 
 ## Quick Installation
 
@@ -51,6 +51,28 @@ poetry run clipscribe --version
 # Should output: ClipScribe v2.20.4
 
 poetry run clipscribe --help
+```
+
+### Python API (For Data Scientists)
+
+```python
+import asyncio
+from clipscribe.retrievers.video_retriever import VideoIntelligenceRetriever
+
+async def analyze_video(url: str, use_pro: bool = False):
+    retriever = VideoIntelligenceRetriever(use_pro=use_pro)
+    result = await retriever.process_url(url)
+    
+    # Access structured data
+    print(f"Entities: {len(result.entities)}")  # 24-59
+    print(f"Relationships: {len(result.relationships)}")  # 53+
+    print(f"Cost: ${result.processing_cost:.4f}")
+    
+    # Custom analysis example
+    people = [e for e in result.entities if e['type'] == 'PERSON']
+    print(f"People mentioned: {len(people)}")
+
+asyncio.run(analyze_video("https://youtube.com/watch?v=...", use_pro=True))
 ```
 
 ## Basic Usage
@@ -210,30 +232,19 @@ ENABLE_LLM_VALIDATION=false  # Set true for critical applications
 
 ## Troubleshooting
 
-### "Poor extraction quality"
-If you're seeing only 0-10 entities and 0 relationships:
-```bash
-# Update to latest version
-poetry update clipscribe
-poetry run clipscribe --version  # Should show 2.19.3+
-```
+### "API Key Not Found"
+- Confirm .env file exists and is loaded (or export GOOGLE_API_KEY)
+- Test: `poetry run python -c "import os; print(os.getenv('GOOGLE_API_KEY'))"`
 
-### "Memory issues with large collections"
-```bash
-# Process in smaller batches
-poetry run clipscribe process-collection \
-  "Large Collection" \
-  "url1" "url2" "url3" \
-  --batch-size 5
-```
+### "Import Errors"
+- Run `poetry install --with dev`
+- Check Python version: `poetry run python --version`
 
-### "Slow processing"
-```bash
-# Enable caching for repeated processing
-poetry run clipscribe process "URL" \
-  --format json \
-  --use-cache
-```
+### "Low Entity Counts"
+- Use --use-pro for better quality
+- Update to v2.20.4+: `poetry update clipscribe`
+
+Full guide: [TROUBLESHOOTING.md](TROUBLESHOOTING.md)
 
 ## What's Next?
 
