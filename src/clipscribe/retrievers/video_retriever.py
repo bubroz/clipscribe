@@ -60,6 +60,7 @@ class VideoIntelligenceRetriever:
         self.performance_monitor = performance_monitor
         self.cost_tracker = cost_tracker
         self.use_pro = use_pro  # Store use_pro flag
+        self.use_advanced_extraction = use_advanced_extraction  # BUG FIX: Store the advanced extraction flag!
         
         # Get v2.17.0 settings
         self.settings = Settings()

@@ -1,229 +1,127 @@
-# ClipScribe Roadmap
+# ClipScribe Development Roadmap
 
-*Last Updated: July 24, 2025*
-*Current Version: v2.20.0*
+*Last Updated: 2025-07-25*
 
-## 🎯 **v2.20.0 - CORE FOUNDATION COMPLETE! ✅**
+## Architecture Decision: Hybrid vs Pro-Only Extraction
 
-All 6 critical components successfully implemented and validated:
+### Current State
+- **Hybrid Extraction (Default)**: Gemini 2.5 Flash (~$0.003/video) with local model fallbacks
+- **Pro Extraction (--use-pro)**: Gemini 2.5 Pro (~$0.017/video) for highest quality
+- **Quality Gap**: User feedback indicates hybrid output can be "seriously lacking in accuracy"
 
-### ✅ **Completed Core Features**
-- **Professional Key Points Extraction**: 25-35 intelligence-grade key points per video
-- **Enhanced PERSON Entity Extraction**: Military roles, backgrounds, experience descriptors  
-- **Perfect Entity Classification**: ORGANIZATION vs PRODUCT classification working flawlessly
-- **Confidence-Free Architecture**: Eliminated all "AI theater" for honest, quality-focused extraction
-- **Multi-Format Output**: 12 file formats including JSON, CSV, GEXF, Markdown reports
-- **Cost Leadership**: $0.015-0.030 per video with Gemini 2.5 Flash routing
-- **Professional Standards**: Intelligence analyst-grade output quality established
+### Decision Framework
 
-### 📊 **Proven Performance Metrics**
-- **Processing Speed**: 2-4 minutes per video
-- **Cost Efficiency**: $0.0203 average per video (validated on 3-video series)
-- **Quality Baseline**: 92 key points, 113 entities, 236 relationships across 3 videos
-- **Output Standards**: Comprehensive quality benchmarks established
+#### Option 1: Keep Hybrid as Default (Cost-First)
+**Pros:**
+- Lower barrier to entry (~$0.003 vs $0.017 per video)
+- Good enough for basic transcription and entity extraction
+- Supports cost-conscious users and high-volume processing
 
----
+**Cons:**
+- Quality complaints from users expecting professional-grade output
+- May hurt product reputation if default experience is subpar
+- Requires users to know about --use-pro flag for quality work
 
-## 🚀 **Future Roadmap - Post v2.20.0**
+#### Option 2: Switch to Pro-Only Default (Quality-First)
+**Pros:**
+- Consistent high-quality output experience
+- Eliminates quality gap confusion
+- Aligns with "video intelligence" positioning vs basic transcription
 
-### **Phase 1: Temporal Intelligence Enhancement (Q4 2025)**
+**Cons:**
+- Higher cost barrier (~6x more expensive)
+- May limit adoption for high-volume use cases
+- Still need hybrid option for cost-sensitive scenarios
 
-#### **🕐 Precise Timestamp Extraction with Whisper**
-**Priority**: High  
-**Status**: Saved for implementation with OpenAI Whisper
+#### Option 3: Smart Auto-Selection (Adaptive)
+**Pros:**
+- Automatically choose model based on content complexity
+- Best of both worlds: cost efficiency + quality when needed
+- User doesn't need to understand model differences
 
-**Current State**: 
-- Gemini provides inaccurate timestamps (all defaulting to 00:00:00)
-- Complex temporal intelligence simplified to focus on core extraction
-- Timestamp-dependent features temporarily disabled
+**Cons:**
+- Added complexity in decision logic
+- Unpredictable costs for users
+- Risk of wrong model selection
 
-**Target Implementation**:
-```python
-# Whisper Integration for Precise Timestamps
-class WhisperTimestampExtractor:
-    """High-precision timestamp extraction using OpenAI Whisper."""
-    
-    async def extract_with_timestamps(self, audio_file):
-        # Word-level timestamp accuracy
-        # Sentence-level segmentation
-        # Speaker diarization support
-        return segments_with_precise_timing
-```
+### Recommendation: Quality-First with Cost Options
 
-**Features to Re-enable**:
-- **Key Points with Timestamps**: Precise timing for each key insight
-- **Entity Temporal Context**: When entities are mentioned in video timeline
-- **Relationship Temporal Mapping**: Timeline of relationship development
-- **Chapter-Based Analysis**: Automatic content segmentation
-- **Timeline Visualization**: Interactive video timeline with extracted intelligence
+**Proposed Changes:**
+1. **Default to Gemini 2.5 Pro** for highest quality user experience
+2. **Add --use-flash flag** for cost-conscious processing
+3. **Clear cost messaging** in CLI output ($0.017 vs $0.003)
+4. **Batch processing discounts** for high-volume Pro usage
 
-**Estimated Effort**: 2-3 weeks
-**Cost Impact**: Additional $0.002-0.005 per video for Whisper processing
+**Implementation Plan:**
 
----
+#### Phase 1: Quality-First Default (v2.21.0)
+- [ ] Switch default model from Flash to Pro
+- [ ] Add --use-flash flag for cost-conscious users  
+- [ ] Update CLI help text with cost implications
+- [ ] Add cost warnings for large batch jobs
 
-### **Phase 2: Advanced Export Formats (Q1 2026)**
+#### Phase 2: Enhanced Cost Management (v2.22.0)
+- [ ] Add --max-cost flag to prevent runaway expenses
+- [ ] Implement cost tracking across sessions
+- [ ] Add cost estimation before processing
+- [ ] Create cost-per-minute calculator
 
-#### **📊 TimelineJS Integration**
-**Priority**: Medium  
-**Status**: Framework prepared, awaiting timestamp accuracy
+#### Phase 3: Smart Auto-Selection (v2.23.0)
+- [ ] Content complexity analysis
+- [ ] Auto-model selection based on content type
+- [ ] User preferences and cost limits
+- [ ] Fallback strategies for rate limits
 
-**Target**: Interactive timeline visualization for knowledge presentation
-```json
-{
-  "title": "Military Selection Process Timeline",
-  "events": [
-    {
-      "start_date": {"year": "2024"},
-      "text": {"headline": "Tier 1 Selection Process"},
-      "media": {"url": "video_timestamp_link"}
-    }
-  ]
-}
-```
+### Quality Metrics to Track
 
-#### **🎨 Additional Visualization Formats**
-- **D3.js Knowledge Graphs**: Interactive web-based network visualization
-- **Mermaid Diagrams**: Automated flowchart generation for processes
-- **PowerBI Integration**: Business intelligence dashboard compatibility
-- **Obsidian Vault Export**: Knowledge management system integration
+**Before Change (Hybrid Default):**
+- Entity extraction accuracy
+- Relationship specificity scores
+- User satisfaction ratings
+- Cost per quality unit
 
----
+**After Change (Pro Default):**
+- Improved entity/relationship quality
+- Reduced "seriously lacking accuracy" feedback
+- Adoption rate vs cost increase
+- Cost optimization usage (--use-flash)
 
-### **Phase 3: Advanced Intelligence Features (Q2 2026)**
+### Timeline
+- **Decision Point**: End of July 2025
+- **Implementation**: August 2025
+- **Quality Assessment**: September 2025
+- **Iteration**: October 2025
 
-#### **🧠 Multi-Video Collection Intelligence**
-**Priority**: High  
-**Status**: Foundation exists, needs temporal coordination
-
-**Features**:
-- **Cross-Video Entity Resolution**: Track entities across video series
-- **Narrative Flow Analysis**: Story progression across multiple videos
-- **Concept Evolution Tracking**: How ideas develop across content
-- **Series-Level Intelligence Reports**: Comprehensive multi-video analysis
-
-#### **🔍 Enhanced Entity Resolution**
-- **Alias Detection**: "MARSOC" vs "Marine Raiders" recognition
-- **Hierarchical Organization Mapping**: Unit command structures  
-- **Geographic Context Enhancement**: Location-based entity relationships
-- **Temporal Entity Tracking**: How entities change over time
+### Success Criteria
+1. **Quality**: >90% reduction in quality complaints
+2. **Adoption**: <20% decrease in new user adoption
+3. **Revenue**: Cost increase offset by improved user retention
+4. **Satisfaction**: >4.5/5 average quality rating
 
 ---
 
-### **Phase 4: Enterprise Scale Features (Q3 2026)**
+## Future Roadmap Items
 
-#### **⚡ Performance Optimization**
-- **Kubernetes Deployment**: Horizontal scaling for enterprise workloads
-- **Redis Caching**: Intelligent result caching across video collections
-- **Batch Processing Pipeline**: Queue-based processing for large collections
-- **Real-time Processing**: Live stream intelligence extraction
+### Timeline Intelligence (Q4 2025)
+- Replace Gemini with specialized timeline models
+- Accurate timestamp extraction and temporal chains
+- Evidence synchronization with video timestamps
+- Timeline visualization and export
 
-#### **🔐 Enterprise Security & Compliance**
-- **Role-Based Access Control**: User permission management
-- **Audit Logging**: Complete processing trail documentation
-- **Data Encryption**: End-to-end encryption for sensitive content
-- **GDPR Compliance**: Privacy-focused data handling
+### Multi-Modal Intelligence (Q1 2026)
+- Visual scene analysis integration
+- Audio sentiment and speaker identification
+- Synchronized text + visual + audio extraction
+- Cross-modal relationship detection
 
----
+### Enterprise Features (Q2 2026)
+- Advanced security and compliance features
+- Custom model training and fine-tuning
+- Enterprise-grade API and integrations
+- Advanced analytics and reporting
 
-### **Phase 5: AI Enhancement (Q4 2026)**
-
-#### **🤖 Model Optimization**
-- **Gemini 3.0 Integration**: Next-generation model capabilities
-- **Custom Fine-tuning**: Domain-specific model adaptation
-- **Multi-Modal Enhancement**: Better video-text correlation
-- **Reasoning Chain Validation**: Logic verification for extracted relationships
-
-#### **📈 Quality Assurance Automation**
-- **Automated Quality Scoring**: ML-based output validation
-- **Anomaly Detection**: Identify processing errors automatically
-- **Continuous Learning**: Model improvement from user feedback
-- **A/B Testing Framework**: Systematic prompt optimization
-
----
-
-## 🎯 **Immediate Next Priorities (Next 30 Days)**
-
-### **1. Whisper Integration Planning**
-- [ ] Research OpenAI Whisper API integration patterns
-- [ ] Design timestamp-entity correlation system
-- [ ] Plan cost-benefit analysis for timestamp accuracy
-- [ ] Create proof-of-concept for word-level timing
-
-### **2. Enterprise Validation**
-- [ ] Process larger video collections (10-20 videos)
-- [ ] Validate performance with different content types
-- [ ] Test concurrent processing capabilities
-- [ ] Establish enterprise cost modeling
-
-### **3. Community Features**
-- [ ] Open-source contribution guidelines
-- [ ] Plugin architecture for custom extractors
-- [ ] API documentation for external integrations
-- [ ] Community feedback collection system
-
----
-
-## 💰 **Cost Evolution Strategy**
-
-### **Current v2.20.0 Costs**
-- **Base Processing**: $0.015-0.030 per video
-- **Target**: Maintain cost leadership in video intelligence market
-
-### **Future Cost Considerations**
-- **Whisper Addition**: +$0.002-0.005 per video (acceptable for precision gain)
-- **Enterprise Features**: Subscription model for advanced capabilities
-- **Volume Pricing**: Bulk processing discounts for large customers
-
----
-
-## 🏆 **Success Metrics**
-
-### **Technical Metrics**
-- **Processing Speed**: Target <2 minutes for 5-minute videos
-- **Cost Efficiency**: Maintain <$0.006/minute average
-- **Quality Score**: >90% user satisfaction on output quality
-- **Reliability**: >99% successful processing rate
-
-### **Business Metrics**
-- **User Adoption**: 1000+ active users by Q2 2026
-- **Content Volume**: 100,000+ videos processed
-- **Enterprise Customers**: 50+ organizations using ClipScribe
-- **Community Contributions**: Active open-source development
-
----
-
-## 🚨 **Risk Mitigation**
-
-### **Technical Risks**
-- **API Changes**: Gemini model deprecation (mitigation: multi-model support)
-- **Cost Escalation**: Unexpected API price increases (mitigation: local model fallbacks)
-- **Quality Degradation**: Model performance changes (mitigation: continuous validation)
-
-### **Business Risks**
-- **Competition**: Other video intelligence tools (mitigation: quality leadership)
-- **Market Changes**: Reduced demand for video intelligence (mitigation: diverse use cases)
-- **Technology Shifts**: New AI paradigms (mitigation: flexible architecture)
-
----
-
-## 📝 **Implementation Notes**
-
-### **Backward Compatibility**
-- All v2.20.0 output formats maintained through future versions
-- Progressive enhancement approach for new features
-- Legacy system integration pathways preserved
-
-### **Open Source Strategy**
-- Core extraction engine remains open source
-- Enterprise features offered as commercial extensions
-- Community-driven plugin ecosystem encouraged
-
-### **Quality Assurance**
-- Comprehensive test suite for all new features
-- User acceptance testing for major releases
-- Continuous integration with quality gates
-
----
-
-*This roadmap represents the strategic direction for ClipScribe based on the successful foundation established in v2.20.0. All features are designed to maintain the core principles of cost-effectiveness, professional-grade quality, and intelligent extraction that define ClipScribe's value proposition.* 
+### Performance Optimization (Ongoing)
+- Streaming extraction for long videos
+- Parallel processing improvements
+- Memory optimization for large collections
+- Cost optimization algorithms 
