@@ -345,6 +345,17 @@ class MultiVideoProcessor:
 
     def _deduplicate_concepts(self, concept_nodes: List[ConceptNode]) -> List[ConceptNode]:
         """Remove duplicate concept nodes."""
+        maturity_values = {
+            "mentioned": 1,
+            "introduced": 2,
+            "defined": 3,
+            "explained": 4,
+            "explored": 5,
+            "analyzed": 6,
+            "synthesized": 7,
+            "evolved": 8,
+            "criticized": 9
+        }
         seen_concepts = {}
         unique_nodes = []
         
@@ -356,7 +367,7 @@ class MultiVideoProcessor:
             else:
                 # Merge with existing if this one has higher maturity
                 existing = seen_concepts[key]
-                if node.maturity_level.value > existing.maturity_level.value:
+                if maturity_values.get(node.maturity_level, 0) > maturity_values.get(existing.maturity_level, 0):
                     seen_concepts[key] = node
                     unique_nodes = [n for n in unique_nodes if n.node_id != existing.node_id]
                     unique_nodes.append(node)

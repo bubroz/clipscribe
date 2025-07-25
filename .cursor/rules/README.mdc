@@ -1,9 +1,4 @@
 ---
-description: 
-globs: 
-alwaysApply: true
----
----
 description: "Master rule governing all other rules and task completion"
 globs: []
 alwaysApply: true
@@ -28,7 +23,7 @@ alwaysApply: false  # Whether the rule always applies
 # Rule Content
 ```
 
-### Available Rules (17 total, consolidated from 20)
+### Available Rules (18 total, consolidated from 20)
 
 **Core Rules:**
 - `README.mdc` (this file) - Master rule governing all others, includes CONTINUATION_PROMPT format
@@ -54,6 +49,7 @@ alwaysApply: false  # Whether the rule always applies
 - `documentation.mdc` - Documentation standards and update triggers (merged from 2 rules)
 - `testing-standards.mdc` - Testing requirements with validation protocols
 - `troubleshooting-guide.mdc` - Common debugging patterns (condensed)
+- `quality-assurance.mdc` - Output completeness and extraction quality standards
 
 ### How Rules Work
 1. **Auto-attachment**: Rules with matching `globs` patterns automatically apply when working on those files
@@ -403,6 +399,11 @@ Before updating CONTINUATION_PROMPT.md, ALWAYS run `date` command to get the cur
 3. **BE SPECIFIC** - Include version numbers, dates, metrics
 4. **UPDATE DATE** - Always update the date in "Current State"
 5. **KEEP CONCISE** - Each section should be 3-10 lines max
+6. **USE CONSISTENT EMOJI** - ✅ ⚠️ 🚧 🗺️ only
+
+Remember: This rule is the governance framework for the entire project. When in doubt, refer back to this document and ensure all checklist items are completed.
+
+
 6. **USE CONSISTENT EMOJI** - ✅ ⚠️ 🚧 🗺️ only
 
 Remember: This rule is the governance framework for the entire project. When in doubt, refer back to this document and ensure all checklist items are completed.

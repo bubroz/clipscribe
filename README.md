@@ -1,78 +1,50 @@
-# ClipScribe v2.20.0
+# ClipScribe
 
-## AI-Powered Video Intelligence for Professional Analysis
+**AI-Powered Video Intelligence for Professional Analysis**
 
-<p align="center">
-  <strong>🎯 Professional intelligence extraction from 1800+ video platforms</strong>
-</p>
+*Transform video content into structured, searchable intelligence • $0.002-0.0035 per minute*
 
-<p align="center">
-  <em>All 6 core components complete • Intelligence analyst standards • $0.015-0.030 per video</em>
-</p>
-
-<p align="center">
-  <a href="#features">Features</a> •
-  <a href="#installation">Installation</a> •
-  <a href="#quick-start">Quick Start</a> •
-  <a href="#validation">Validation</a> •
-  <a href="#documentation">Documentation</a>
-</p>
+[Features](#features) • [Installation](#installation) • [Quick Start](#quick-start) • [Use Cases](#use-cases) • [Documentation](#documentation)
 
 ---
 
-ClipScribe transforms video content into structured, searchable intelligence through professional-grade extraction of entities, relationships, and key insights. Built for researchers, analysts, and organizations that need reliable video intelligence at scale.
+ClipScribe extracts structured intelligence from video content through professional-grade entity recognition, relationship mapping, and key insight identification. Built for researchers, analysts, and organizations requiring reliable video intelligence at scale.
 
-## 🏆 **v2.20.0 - ALL CORE COMPONENTS COMPLETE!**
+## What's New in v2.20.0
 
-**Major Milestone**: Professional intelligence-grade extraction achieved with comprehensive validation on military training content.
+**Multi-Video Intelligence**: Complete collection processing with unified entity resolution, cross-video relationships, and information flow mapping.
 
-### ✅ **Proven Performance (Validated on 3-Video Military Series)**
-- **Key Points**: 31-34 intelligence briefing-style points per video  
-- **Entities**: 25-44 entities with specific military roles and classifications
-- **Relationships**: 64-89 relationships with evidence chains and direct quotes
-- **Processing Cost**: $0.0167-0.0263 per video (~$0.0035/minute)
-- **Processing Speed**: 2-4 minutes per video for complete intelligence extraction
-- **Quality Standard**: Professional intelligence analyst benchmarks achieved
+### Validated Performance
+- **Individual Videos**: 39-46 entities, 80-94 relationships per video
+- **Multi-Video Intelligence**: 21 unified entities, 24 cross-video relationships  
+- **Knowledge Graphs**: 281-edge unified graphs with concept flow mapping
+- **Processing Cost**: $0.0611 total for 3-video series (~$0.02/video)
+- **Processing Speed**: 5-7 minutes for complete multi-video analysis
+- **Output Quality**: Intelligence analyst standards
 
-### 🎯 **Core Capabilities**
-- **Professional Key Points Extraction**: Intelligence briefing-style summaries with strategic and tactical details
-- **Enhanced Entity Classification**: Military units, person roles, organizations properly identified
-- **Evidence-Based Relationships**: Direct quotes, timestamps, and supporting evidence for all connections
-- **Multi-Platform Support**: YouTube, TikTok, Twitter/X, and 1800+ platforms via yt-dlp
-- **Cost Leadership**: $0.002-0.006 per minute processing cost
-- **Multiple Export Formats**: JSON, CSV, GEXF, Markdown reports, knowledge graphs
+## Features
 
-## ✨ **Key Features**
+### Single Video Analysis
+- **Entity Extraction**: People, organizations, locations, concepts with confidence scores
+- **Relationship Mapping**: 80+ relationships with evidence chains and timestamps
+- **Key Points**: Intelligence briefing-style summaries (25-35 points per video)
+- **Multiple Formats**: JSON, CSV, GEXF, Markdown for any workflow
+- **Cost Optimized**: $0.002-0.0035 per minute via intelligent API routing
 
-### 🧠 **Intelligence Extraction**
-- **Key Points**: 25-35 actionable insights per video in intelligence briefing format
-- **Entity Recognition**: Military roles, organizations, locations, events with proper classification
-- **Relationship Mapping**: Evidence-backed relationships with direct quotes and context
-- **Cross-Video Analysis**: Track entities and concepts across video series
-- **Quality Standards**: Comprehensive output validation with professional benchmarks
+### Multi-Video Collections (NEW!)
+- **Unified Intelligence**: Cross-video entity resolution and alias detection
+- **Information Flows**: Track concept evolution across video series
+- **Collection Analysis**: Synthesis reports spanning multiple videos
+- **Knowledge Graphs**: Unified graphs with 200+ edges for collections
+- **Professional Reports**: Intelligence analyst-grade documentation
 
-### ⚡ **Performance & Reliability**
-- **Fast Processing**: 2-4 minutes per video for complete analysis
-- **Cost Efficient**: Industry-leading $0.015-0.030 per video processing cost
-- **Reliable Extraction**: Confidence-free architecture focusing on quality over metrics
-- **Scalable Processing**: Smart concurrency handling for single videos to large collections
-- **Enterprise Ready**: Vertex AI support for large-scale processing
+### Platform Support
+- **Universal Access**: YouTube, TikTok, Twitter/X, Vimeo + 1800 platforms via yt-dlp
+- **Audio/Video Modes**: Optimized processing for different content types
+- **Enterprise Scale**: Vertex AI integration for high-volume processing
+- **Cost Control**: Budget limits and usage tracking
 
-### 📊 **Export & Integration**
-- **12 File Formats**: Complete analysis exported in multiple formats per video
-- **Knowledge Graphs**: GEXF format compatible with Gephi and network analysis tools
-- **Structured Data**: JSON and CSV formats for programmatic access
-- **Human Reports**: Markdown intelligence reports for direct consumption
-- **API Integration**: Python API for custom workflows and integrations
-
-## 📋 **Requirements**
-
-- **Python**: 3.11+ (3.12 recommended)
-- **API Access**: Google API key with Gemini access enabled
-- **System**: FFmpeg installed for video/audio processing
-- **Storage**: ~50-200KB per video for complete output files
-
-## 🚀 **Installation**
+## Installation
 
 ### 1. Clone Repository
 ```bash
@@ -105,7 +77,7 @@ poetry run clipscribe --version
 # Should output: ClipScribe v2.20.0
 ```
 
-## ⚡ **Quick Start**
+## Quick Start
 
 ### Single Video Analysis
 ```bash
@@ -115,14 +87,16 @@ poetry run clipscribe transcribe "https://www.youtube.com/watch?v=VIDEO_ID"
 # Results saved to: output/YYYYMMDD_youtube_VIDEO_ID/
 ```
 
-### Batch Processing
+### Multi-Video Collection
 ```bash
-# Process multiple videos
-poetry run clipscribe transcribe "URL1" "URL2" "URL3"
+# Process a 3-video series with unified intelligence
+poetry run clipscribe process-collection "MySeries" \
+  "URL1" "URL2" "URL3" \
+  --collection-type series \
+  --enhance-transcript \
+  --clean-graph
 
-# Process from file
-echo "URL1\nURL2\nURL3" > urls.txt
-poetry run python examples/pbs_fast_batch.py --urls urls.txt
+# Results: Unified intelligence in output/collections/collection_TIMESTAMP_3/
 ```
 
 ### Python API
@@ -144,71 +118,85 @@ async def analyze_video():
 asyncio.run(analyze_video())
 ```
 
-## 📁 **Output Structure**
+## Output Structure
 
-Each processed video generates a complete intelligence package:
-
+### Single Video Output
 ```
 output/YYYYMMDD_platform_videoID/
 ├── transcript.txt                 # Plain text transcript
-├── transcript.json               # Complete analysis with metadata
-├── entities.json                 # Entity details with sources
-├── entities.csv                  # Spreadsheet format
-├── relationships.json            # Relationships with evidence chains
-├── relationships.csv            # Spreadsheet format
-├── knowledge_graph.json         # Graph structure
-├── knowledge_graph.gexf         # Gephi-compatible format
-├── report.md                    # Human-readable intelligence report
-├── facts.txt                    # Key points in plain text
-├── chimera_format.json          # Integration format
-└── manifest.json                # File inventory and metadata
+├── transcript.json                # Complete analysis with metadata
+├── entities.json                  # Entity details with sources
+├── entities.csv                   # Spreadsheet format
+├── relationships.json             # Relationships with evidence chains
+├── relationships.csv              # Spreadsheet format
+├── knowledge_graph.json           # Graph structure
+├── knowledge_graph.gexf           # Gephi-compatible format
+├── report.md                      # Human-readable intelligence report
+├── facts.txt                      # Key points in plain text
+├── chimera_format.json            # Integration format
+└── manifest.json                  # File inventory and metadata
 ```
 
-## 🎯 **Use Cases**
+### Multi-Video Collection Output
+```
+output/collections/collection_TIMESTAMP_N/
+├── collection_intelligence.json   # Unified multi-video analysis
+├── unified_knowledge_graph.gexf   # Cross-video entity graph
+├── information_flow_map.json      # Concept evolution flows
+├── information_flow_summary.md    # Readable flow report
+├── concept_flows/                 # Individual flow files
+└── individual_videos/             # Per-video detailed outputs
+```
 
-### **Research & Analysis**
-- **Competitive Intelligence**: Analyze competitor content and strategies
-- **Market Research**: Extract insights from industry videos and presentations
-- **Academic Research**: Process lecture series and educational content
-- **News Analysis**: Track entities and relationships across news coverage
+## Use Cases
 
-### **Professional Intelligence**
-- **Military Analysis**: Process training content and operational briefings
-- **Policy Research**: Analyze government hearings and policy discussions
-- **Financial Intelligence**: Extract insights from earnings calls and market analysis
-- **Technology Research**: Process technical presentations and product demos
+### Research & Analysis
+- **Competitive Intelligence**: Analyze competitor content strategies across video series
+- **Market Research**: Extract insights from industry presentations and earnings calls
+- **Academic Research**: Process lecture series with unified concept tracking
+- **News Analysis**: Track entity relationships across multi-source coverage
 
-### **Content Management**
-- **Video Libraries**: Index and search large video collections
-- **Knowledge Management**: Extract and organize information from video assets
-- **Documentation**: Convert video content into structured documentation
-- **Training Materials**: Process educational content for knowledge extraction
+### Professional Intelligence
+- **Military/Defense**: Process training series with unified doctrine extraction
+- **Policy Research**: Analyze government hearings with cross-session entity tracking
+- **Financial Intelligence**: Extract insights from quarterly calls and market analysis
+- **Technology Research**: Track product evolution across presentation series
 
-## 📊 **Quality Standards**
+### Content Management
+- **Video Libraries**: Index and search large collections with unified entities
+- **Knowledge Management**: Extract structured information from video assets
+- **Training Materials**: Process educational series with concept flow mapping
+- **Documentation**: Convert video content into searchable knowledge bases
+
+## Quality Standards
 
 ClipScribe v2.20.0 meets professional intelligence analyst standards:
 
-### **Key Points Quality**
-- ✅ 25-35 points per video in intelligence briefing format
-- ✅ Specific, actionable information (not generic summaries)
-- ✅ Strategic and tactical details included
-- ✅ Professional intelligence report style
+### Key Points Quality
+- 25-35 points per video in intelligence briefing format
+- Specific, actionable information (not generic summaries)
+- Strategic and tactical details included
+- Professional intelligence report style
 
-### **Entity Classification**
-- ✅ Military units correctly classified as ORGANIZATION (not PRODUCT)
-- ✅ Person entities include roles, backgrounds, experience descriptors
-- ✅ Specific names and titles extracted (not just "Speaker")
-- ✅ 25-50 total entities depending on content density
+### Entity Classification
+- Military units correctly classified as ORGANIZATION (not PRODUCT)
+- Person entities include roles, backgrounds, experience descriptors
+- Specific names and titles extracted (not just "Speaker")
+- 25-50 total entities depending on content density
 
-### **Relationship Quality**
-- ✅ 60-90 relationships with specific predicates (not generic "related_to")
-- ✅ Evidence chains with direct quotes and timestamps
-- ✅ Clear subject-predicate-object structure
-- ✅ Supporting evidence for key relationships
+### Relationship Quality
+- 60-90 relationships with specific predicates (not generic "related_to")
+- Evidence chains with direct quotes and timestamps
+- Clear subject-predicate-object structure
+- Supporting evidence for key relationships
 
-See [docs/OUTPUT_FILE_STANDARDS.md](docs/OUTPUT_FILE_STANDARDS.md) for complete quality benchmarks.
+### Multi-Video Intelligence
+- Entity unification across videos with alias resolution
+- Cross-video relationship detection and validation
+- Information flow mapping with concept evolution tracking
+- Unified knowledge graphs with 200+ edges for 3-video collections
 
-## 🔧 **Configuration**
+## Configuration
 
 ### Environment Variables
 ```env
@@ -242,95 +230,58 @@ poetry run clipscribe transcribe URL --mode video
 poetry run clipscribe transcribe URL --use-vertex-ai
 ```
 
-## 📈 **Performance Benchmarks**
+## Performance Benchmarks
 
-### **Processing Speed**
+### Processing Speed
 - **Single Video**: 2-4 minutes for complete analysis
-- **3-Video Series**: 5-7 minutes with parallel processing
+- **3-Video Series**: 5-7 minutes with unified intelligence
 - **Large Collections**: Smart concurrency prevents rate limiting
 
-### **Cost Efficiency**
-- **Base Processing**: $0.015-0.030 per video
-- **Cost Per Minute**: ~$0.0035/minute of video content
-- **Validated Costs**: $0.0611 for complete 3-video series (18 minutes total)
+### Cost Efficiency
+- **Per Video**: $0.015-0.030 for complete analysis
+- **Per Minute**: ~$0.0035/minute of video content  
+- **Multi-Video**: $0.0611 for 3-video series (cost sharing via unification)
+- **Enterprise**: Vertex AI options for volume pricing
 
-### **Quality Metrics**
-- **Key Points**: 92 total across 3 military training videos
-- **Entities**: 113 total entities with professional classification
-- **Relationships**: 236 evidence-backed relationships
-- **Output Files**: 12 formats per video with complete metadata
+### Quality Metrics (Validated)
+- **Entities**: 25-46 per video with professional classification
+- **Relationships**: 80-94 per video with evidence chains
+- **Multi-Video**: 21 unified entities, 24 cross-video relationships
+- **Output Files**: 12+ formats per video with complete metadata
 
-## 🧪 **Testing & Validation**
+## Documentation
 
-ClipScribe includes comprehensive testing for reliability:
-
-```bash
-# Run full test suite
-poetry run pytest
-
-# Run specific test categories
-poetry run pytest tests/unit/
-poetry run pytest tests/integration/
-
-# Validate against test video collection
-poetry run python examples/test_validation.py
-```
-
-### **Test Categories**
-- **Unit Tests**: Core component functionality
-- **Integration Tests**: End-to-end processing workflows  
-- **Edge Cases**: Error handling and unusual content
-- **Performance Tests**: Speed and cost validation
-
-## 📚 **Documentation**
-
-### **User Guides**
+### User Guides
 - [Getting Started](docs/GETTING_STARTED.md) - Setup and first analysis
 - [CLI Reference](docs/CLI_REFERENCE.md) - Complete command documentation
 - [Output Formats](docs/OUTPUT_FORMATS.md) - All export format details
 - [Platform Support](docs/PLATFORMS.md) - Supported video platforms
 
-### **Technical Documentation**
+### Technical Documentation
 - [Output Standards](docs/OUTPUT_FILE_STANDARDS.md) - Quality benchmarks and validation
+- [Multi-Video Intelligence](docs/advanced/architecture/MULTI_VIDEO_INTELLIGENCE_ARCHITECTURE.md) - Collection processing architecture
 - [Roadmap](docs/ROADMAP.md) - Future development plans
-- [Troubleshooting](docs/TROUBLESHOOTING.md) - Common issues and solutions
 - [Development](docs/DEVELOPMENT.md) - Contributing and development setup
 
-## 🚀 **Roadmap**
+## Why ClipScribe?
 
-### **Completed v2.20.0**
-- ✅ Professional key points extraction
-- ✅ Enhanced entity classification  
-- ✅ Evidence-based relationships
-- ✅ Confidence-free architecture
-- ✅ Comprehensive output standards
+**Intelligence Analysts**: Extract actionable intelligence faster than manual review  
+**Researchers**: Process video collections with unified entity tracking  
+**Organizations**: Scale video intelligence at enterprise level with cost control  
+**Developers**: Python API with structured outputs for custom workflows
 
-### **Next: Temporal Intelligence (Q4 2025)**
-- 🕐 Precise timestamp extraction with OpenAI Whisper
-- 📊 TimelineJS integration for interactive visualizations
-- 🎯 Entity temporal context and timeline mapping
+## Requirements
 
-See [docs/ROADMAP.md](docs/ROADMAP.md) for complete development plan.
+- **Python**: 3.11+ (3.12 recommended)
+- **API Access**: Google API key with Gemini access enabled
+- **System**: FFmpeg installed for video/audio processing
+- **Storage**: ~50-200KB per video for complete output files
+- **Memory**: 4GB+ recommended for multi-video collections
 
-## 🤝 **Contributing**
-
-We welcome contributions! Please see:
-- [Contributing Guidelines](CONTRIBUTING.md)
-- [Development Setup](docs/DEVELOPMENT.md)
-- [Code Standards](docs/DEVELOPMENT.md#code-standards)
-
-## 📄 **License**
+## License
 
 MIT License - see [LICENSE](LICENSE) file for details.
 
-## 🙏 **Acknowledgments**
-
-- [yt-dlp](https://github.com/yt-dlp/yt-dlp) for universal video platform support
-- [Google Gemini](https://deepmind.google/technologies/gemini/) for AI intelligence extraction  
-- [Click](https://click.palletsprojects.com/) and [Rich](https://rich.readthedocs.io/) for CLI excellence
-
 ---
 
-<p align="center">
-  <strong>ClipScribe v2.20.0 - Professional Video Intelligence Complete</strong>
-</p>
+**ClipScribe v2.20.0 - Professional Video Intelligence Complete**
