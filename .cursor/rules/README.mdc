@@ -208,6 +208,24 @@ Would you like me to proceed with [next logical component] to complete the [over
 ❌ **Don't**: Skip the comprehensive milestone documentation  
 ✅ **Do**: Always provide both real-time narrative AND structured summary
 
+❌ **Don't**: Cart-Before-Horse Development - implement features without understanding user needs  
+✅ **Do**: Validate requirements first, then implement to spec
+
+### Cart-Before-Horse Prevention Protocol
+
+**CRITICAL**: Before implementing any feature, validate:
+1. **User Need**: Is this actually solving a real problem?
+2. **Scope Clarity**: What exactly should this do vs not do?
+3. **Quality Standards**: What defines "good enough" vs "perfect"?
+4. **Resource Trade-offs**: Cost vs quality vs speed priorities?
+
+**Example Prevention Questions**:
+- "Should timestamps be perfect now, or is this a future timeline intelligence feature?"
+- "Do we need hybrid+Pro extraction, or just Pro-only for quality?"
+- "Is this a 'nice to have' or blocking core functionality?"
+
+**When in doubt**: Ask for clarification before building. User feedback like "output is directionally good, but seriously lacking in accuracy" indicates we built the wrong thing or to the wrong standard.
+
 Remember: Every task completion should feel like a mini-release with full documentation, testing, and user engagement. This creates a professional development experience and ensures nothing is ever lost or forgotten.
 
 ### Legacy Task Completion Reference

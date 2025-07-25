@@ -42,44 +42,24 @@ class VideoIntelligenceRetriever:
         mode: str = "auto",  # Changed default to auto for v2.17.0
         use_cache: bool = True,
         output_dir: Optional[str] = None,
-        output_formats: Optional[List[str]] = None,
+        use_timeline_extractor: bool = False,
         enhance_transcript: bool = False,
-        progress_tracker: Optional[Any] = None,
-        performance_monitor: Optional[Any] = None,
-        progress_hook: Optional[Any] = None,
-        cost_tracker: Optional[Any] = None  # NEW: cost tracker for real-time cost updates
+        performance_monitor: Optional['PerformanceMonitor'] = None,
+        cost_tracker: Optional['CostTracker'] = None,
+        use_pro: bool = False  # New parameter for using Gemini Pro
     ):
-        """
-        Initialize the video intelligence retriever with v2.17.0 enhancements.
-        
-        Args:
-            cache_dir: Directory for caching results
-            use_advanced_extraction: Use REBEL+GLiNER extraction
-            domain: Domain for specialized extraction
-            mode: Processing mode ("audio", "video", "auto") - auto uses enhanced temporal intelligence
-            use_cache: Whether to use cached results
-            output_dir: Directory for output files
-            output_formats: List of output formats
-            enhance_transcript: Whether to enhance transcript
-            progress_tracker: Progress tracking instance
-            performance_monitor: Performance monitoring instance
-            progress_hook: Progress hook for progress updates
-            cost_tracker: Cost tracker for real-time cost updates
-        """
-        self.cache_dir = cache_dir or ".video_cache"
-        os.makedirs(self.cache_dir, exist_ok=True)
-        
+        """Initialize the retriever."""
+        self.cache_dir = Path(cache_dir or "cache")
+        self.cache_dir.mkdir(exist_ok=True)
+        self.domain = domain
         self.mode = mode
         self.use_cache = use_cache
         self.output_dir = output_dir
-        self.output_formats = output_formats or ["txt"]
         self.enhance_transcript = enhance_transcript
-        self.clean_graph = False  # Will be set by CLI if --clean-graph is used
-        self.use_advanced_extraction = use_advanced_extraction
-        self.progress_tracker = progress_tracker
+        self.clean_graph = False  # Default to False, set via CLI
         self.performance_monitor = performance_monitor
-        self.progress_hook = progress_hook
-        self.cost_tracker = cost_tracker  # Store cost tracker
+        self.cost_tracker = cost_tracker
+        self.use_pro = use_pro  # Store use_pro flag
         
         # Get v2.17.0 settings
         self.settings = Settings()
@@ -90,7 +70,10 @@ class VideoIntelligenceRetriever:
         
         # Initialize clients
         self.video_client = UniversalVideoClient()
-        self.transcriber = GeminiFlashTranscriber(performance_monitor=performance_monitor)
+        self.transcriber = GeminiFlashTranscriber(
+            performance_monitor=performance_monitor,
+            use_pro=use_pro  # Pass use_pro flag to transcriber
+        )
         
         # Initialize mode detector for auto mode (v2.17.0 enhancement)
         if mode == "auto":
@@ -110,8 +93,6 @@ class VideoIntelligenceRetriever:
                 self.entity_extractor = None
         else:
             self.entity_extractor = None
-        
-        self.domain = domain
         
         # Timeline Intelligence v2.0 Components DISCONTINUED per strategic pivot
         logger.info("Timeline features discontinued - focusing on core intelligence extraction")
@@ -206,7 +187,7 @@ class VideoIntelligenceRetriever:
             logger.error(f"URL not supported by yt-dlp: {video_url}")
             return None
             
-        if self.progress_hook:
+        if hasattr(self, 'progress_hook') and self.progress_hook:
             self.progress_hook({"description": "Processing with Enhanced Temporal Intelligence..."})
         
         try:
@@ -230,9 +211,9 @@ class VideoIntelligenceRetriever:
                 progress_percentage = int((current_step / total_steps) * 100)
                 phase = f"Phase {current_step}/{total_steps}"
                 # Only use progress_tracker if progress_state is None (legacy mode)
-                if self.progress_hook:
+                if hasattr(self, 'progress_hook') and self.progress_hook:
                     self.progress_hook({"description": description, "progress": progress_percentage})
-                elif progress_state is None and self.progress_tracker:
+                elif progress_state is None and hasattr(self, 'progress_tracker') and self.progress_tracker:
                     self.progress_tracker.update_phase(progress_state, description.lower().replace(" ", "_"), description)
                 # NEW: Update CLI panels if progress_state is provided
                 if progress_state is not None and "cli_progress" in progress_state:
@@ -247,7 +228,7 @@ class VideoIntelligenceRetriever:
                 # NEW: Update cost tracker and CLI cost display
                 if self.cost_tracker and cost_amount and cost_operation:
                     self.cost_tracker.add_cost(cost_amount, cost_operation, description)
-                    if progress_state is None and hasattr(self.progress_tracker, 'update_cost'):
+                    if progress_state is None and hasattr(self, 'progress_tracker') and hasattr(self.progress_tracker, 'update_cost'):
                         self.progress_tracker.update_cost(progress_state, self.cost_tracker.current_cost)
 
             # Check cache first
@@ -256,7 +237,7 @@ class VideoIntelligenceRetriever:
                 cached_result = self._load_from_cache(cache_key)
                 if cached_result:
                     logger.info(f"Using cached result for: {video_url}")
-                    if self.progress_tracker and progress_state:
+                    if hasattr(self, 'progress_tracker') and self.progress_tracker and progress_state:
                         self.progress_tracker.log_info("Using cached result")
                     return cached_result
             
@@ -272,7 +253,7 @@ class VideoIntelligenceRetriever:
             # Download media based on enhanced mode
             if processing_mode in ["video", "enhanced"]:
                 logger.info("Downloading full video for enhanced temporal intelligence...")
-                if self.progress_tracker:
+                if hasattr(self, 'progress_tracker') and self.progress_tracker:
                     self.progress_tracker.log_info("Downloading full video for enhanced temporal intelligence...")
                 media_file, metadata = await self.video_client.download_video(
                     video_url,
@@ -280,7 +261,7 @@ class VideoIntelligenceRetriever:
                 )
             else:
                 logger.info("Downloading audio for processing...")
-                if self.progress_tracker:
+                if hasattr(self, 'progress_tracker') and self.progress_tracker:
                     self.progress_tracker.log_info("Downloading audio for processing...")
                 media_file, metadata = await self.video_client.download_audio(
                     video_url,
@@ -312,7 +293,7 @@ class VideoIntelligenceRetriever:
                 logger.info(f"  Timeline events: {len(analysis.get('timeline_events', []))}")
                 logger.info(f"  Visual temporal cues: {len(analysis.get('visual_temporal_cues', []))}")
                 
-                if self.progress_tracker:
+                if hasattr(self, 'progress_tracker') and self.progress_tracker:
                     self.progress_tracker.update_cost(analysis['processing_cost'])
                 
                 # Update cost tracking
@@ -407,7 +388,7 @@ class VideoIntelligenceRetriever:
                     video_intelligence.processing_stats['visual_dates'] = analysis['visual_dates']
                 
                 # Run intelligence extraction if requested
-                if self.use_advanced_extraction and hasattr(self.entity_extractor, 'extract_all'):
+                if hasattr(self, 'use_advanced_extraction') and self.use_advanced_extraction and hasattr(self.entity_extractor, 'extract_all'):
                     _update_progress("Extracting enhanced intelligence", cost_amount=0.0005, cost_operation="entity_extraction")
                     logger.info(f"Extracting intelligence with advanced extractor (domain={self.domain})...")
                     try:
@@ -424,7 +405,7 @@ class VideoIntelligenceRetriever:
                         # Optional: Clean the graph with Gemini
                         if video_intelligence.knowledge_graph and self.clean_graph:
                             logger.info("Cleaning knowledge graph with AI...")
-                            if self.progress_tracker and progress_state:
+                            if hasattr(self, 'progress_tracker') and self.progress_tracker and progress_state:
                                 self.progress_tracker.update_phase(progress_state, "clean", "Cleaning knowledge graph...")
                             
                             from ..extractors.graph_cleaner import GraphCleaner
@@ -434,7 +415,7 @@ class VideoIntelligenceRetriever:
 
                     except Exception as e:
                         logger.error(f"Advanced intelligence extraction failed: {e}", exc_info=True)
-                        if self.progress_tracker:
+                        if hasattr(self, 'progress_tracker') and self.progress_tracker:
                             self.progress_tracker.log_error(f"Advanced extraction failed: {e}")
                 
                 # Update cost with extraction costs
@@ -506,7 +487,7 @@ class VideoIntelligenceRetriever:
         except Exception as e:
             logger.error(f"Failed to process video {video_url}: {e}")
             logger.exception("Full traceback:")  # This will log the full traceback
-            if self.progress_tracker:
+            if hasattr(self, 'progress_tracker') and self.progress_tracker:
                 self.progress_tracker.log_error(f"Failed to process video: {e}")
             return None
     

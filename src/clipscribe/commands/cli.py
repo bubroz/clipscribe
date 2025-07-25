@@ -192,6 +192,11 @@ def cli(ctx: click.Context, debug: bool) -> None:
     is_flag=True,
     help='Generate a detailed performance report for the run.'
 )
+@click.option(
+    '--use-pro',
+    is_flag=True,
+    help='Use Gemini 2.5 Pro for highest quality extraction (higher cost).'
+)
 @click.pass_context
 def transcribe(
     ctx: click.Context,
@@ -203,10 +208,11 @@ def transcribe(
     clean_graph: bool,
     skip_cleaning: bool,
     visualize: bool,
-    performance_report: bool
+    performance_report: bool,
+    use_pro: bool
 ) -> None:
     """Transcribe a video and extract intelligence."""
-    asyncio.run(transcribe_async(ctx, url, output_dir, mode, use_cache, enhance_transcript, clean_graph, skip_cleaning, visualize, performance_report))
+    asyncio.run(transcribe_async(ctx, url, output_dir, mode, use_cache, enhance_transcript, clean_graph, skip_cleaning, visualize, performance_report, use_pro))
 
 async def transcribe_async(
     ctx: click.Context,
@@ -218,7 +224,8 @@ async def transcribe_async(
     clean_graph: bool,
     skip_cleaning: bool,
     visualize: bool,
-    performance_report: bool
+    performance_report: bool,
+    use_pro: bool
 ) -> None:
     """Async implementation of transcribe command."""
     # Lazy import all processing components
@@ -275,7 +282,8 @@ async def transcribe_async(
             mode=mode,
             output_dir=str(output_dir),
             enhance_transcript=enhance_transcript,
-            cost_tracker=cost_tracker  # Pass cost tracker to retriever
+            cost_tracker=cost_tracker,  # Pass cost tracker to retriever
+            use_pro=use_pro  # Pass use_pro flag
         )
         
         # Set cleaning option

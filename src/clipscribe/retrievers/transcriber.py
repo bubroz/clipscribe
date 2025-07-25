@@ -23,20 +23,26 @@ logger = logging.getLogger(__name__)
 class GeminiFlashTranscriber:
     """Transcribe video/audio using Gemini models with enhanced temporal intelligence capabilities."""
     
-    def __init__(self, api_key: Optional[str] = None, performance_monitor: Optional[Any] = None):
+    def __init__(self, api_key: Optional[str] = None, performance_monitor: Optional[Any] = None, use_pro: bool = False):
         """
         Initialize transcriber with API key and enhanced temporal intelligence.
         
         Args:
             api_key: Google API key (optional, uses env var if not provided)
             performance_monitor: Performance monitoring instance
+            use_pro: Use Gemini 2.5 Pro for highest quality (higher cost)
         """
         # Get settings
         self.settings = Settings()
         self.api_key = api_key or self.settings.google_api_key
         # Force Vertex AI off for reliability (prevents 400 errors)
         self.use_vertex_ai = False  # Disabled for production reliability
-        self.pool = GeminiPool(api_key=self.api_key) # ALWAYS initialize the pool
+        
+        # Choose model based on use_pro flag
+        model_name = "gemini-2.5-pro" if use_pro else "gemini-2.5-flash"
+        logger.info(f"Using model: {model_name} (use_pro={use_pro})")
+        
+        self.pool = GeminiPool(api_key=self.api_key, model_name=model_name)
         
         # Initialize appropriate backend
         if self.use_vertex_ai:
