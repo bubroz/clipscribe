@@ -16,6 +16,7 @@
 - Lower barrier to entry (~$0.003 vs $0.017 per video)
 - Good enough for basic transcription and entity extraction
 - Supports cost-conscious users and high-volume processing
+- **Speed**: Gemini 2.5 Flash typically faster than Pro (analysis needed)
 
 **Cons:**
 - Quality complaints from users expecting professional-grade output
@@ -32,17 +33,45 @@
 - Higher cost barrier (~6x more expensive)
 - May limit adoption for high-volume use cases
 - Still need hybrid option for cost-sensitive scenarios
+- **Speed**: Gemini 2.5 Pro may be slower than Flash (needs benchmarking)
 
 #### Option 3: Smart Auto-Selection (Adaptive)
 **Pros:**
 - Automatically choose model based on content complexity
 - Best of both worlds: cost efficiency + quality when needed
 - User doesn't need to understand model differences
+- **Speed**: Optimizes for both speed and quality based on content
 
 **Cons:**
 - Added complexity in decision logic
 - Unpredictable costs for users
 - Risk of wrong model selection
+- **Speed**: Analysis overhead for auto-selection
+
+### Speed Analysis Required
+
+**CRITICAL RESEARCH NEEDED**: Before implementing architecture decision, we need:
+
+1. **Processing Speed Benchmarks**:
+   - [ ] Gemini 2.5 Flash vs Pro speed comparison (same video)
+   - [ ] Download speed impact: audio-only vs full video
+   - [ ] End-to-end processing time analysis
+   - [ ] Concurrent processing performance
+
+2. **Speed Optimization Opportunities**:
+   - [ ] Audio-only processing as default with video fallback
+   - [ ] Parallel download + processing pipeline
+   - [ ] Smarter mode detection to avoid unnecessary video downloads
+   - [ ] Streaming processing for long videos
+
+3. **Cost vs Speed vs Quality Matrix**:
+   ```
+   Model    | Speed | Cost  | Quality | Use Case
+   ---------|-------|-------|---------|----------
+   Flash    | Fast  | Low   | Good    | High volume
+   Pro      | ?     | High  | High    | Quality critical
+   Auto     | ?     | ?     | ?       | General use
+   ```
 
 ### Recommendation: Quality-First with Cost Options
 

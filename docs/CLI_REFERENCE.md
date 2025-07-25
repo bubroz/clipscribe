@@ -1,16 +1,16 @@
 # ClipScribe CLI Reference
 
-*Last Updated: July 24, 2025 - v2.20.0 with Professional Intelligence Standards*
+*Last Updated: July 25, 2025 - v2.20.4 with Critical Bug Fixes & Quality Control*
 
 Complete reference for all ClipScribe commands and options.
 
 ## ✨ Key Features
 
-- **Professional intelligence extraction** - 31-34 key points in briefing format per video
+- **Quality Control** - Choose Flash ($0.003) vs Pro ($0.017) models via --use-pro flag
+- **Fixed Pipeline** - Entities/relationships now properly saved to output files ✅
 - **1800+ platforms** - YouTube, Twitter, TikTok, Vimeo, and more
-- **Enhanced classification** - Perfect ORGANIZATION vs PRODUCT classification
-- **Cost-effective** - $0.015-0.030 per video processing
-- **12 output formats** - JSON, CSV, GEXF, Markdown, knowledge graphs
+- **Knowledge Graphs** - GEXF generation working (validated 60 nodes, 53 edges)
+- **Cost-effective** - $0.0122-0.0167 per video with validated processing
 
 ## Global Options
 
@@ -44,7 +44,8 @@ clipscribe transcribe [OPTIONS] URL
 | Option | Short | Default | Description |
 |--------|-------|---------|-------------|
 | `--output-dir` | `-o` | `output` | Directory to save outputs |
-| `--mode` | `-m` | `audio` | Processing mode: audio, video, auto |
+| `--mode` | `-m` | `auto` | Processing mode: audio, video, auto |
+| `--use-pro` | | False | **NEW**: Use Gemini 2.5 Pro for highest quality (~$0.017/video) |
 | `--use-cache/--no-cache` | | True | Use cached results if available |
 | `--enhance-transcript` | | False | Add speaker diarization and timestamps |
 | `--clean-graph` | | False | Clean knowledge graph with AI |
@@ -175,107 +176,3 @@ Clean up old demo and test folders.
 ```bash
 clipscribe clean-demo [OPTIONS]
 ```
-
-**Options:**
-
-| Option | Short | Default | Description |
-|--------|-------|---------|-------------|
-| `--demo-dir` | `-d` | `demo` | Demo directory |
-| `--dry-run` | | False | Show what would be deleted |
-| `--keep-recent` | `-k` | `3` | Keep N recent collections |
-
-**Examples:**
-
-```bash
-# Preview cleanup
-clipscribe clean-demo --dry-run
-
-# Clean keeping last 5
-clipscribe clean-demo --keep-recent 5
-```
-
-## Environment Variables
-
-| Variable | Required | Description | Default |
-|----------|----------|-------------|---------|
-| `GOOGLE_API_KEY` | Yes | Google AI Studio API key | None |
-| `VERTEX_AI_PROJECT` | No | Google Cloud project ID | None |
-| `VERTEX_AI_LOCATION` | No | Vertex AI location | `us-central1` |
-| `LOG_LEVEL` | No | Logging level | `INFO` |
-| `COST_WARNING_THRESHOLD` | No | Cost warning threshold | `1.0` |
-
-## Output Files
-
-Each processed video creates:
-
-- `transcript.txt` - Plain text transcript
-- `transcript.json` - Full structured data with all analysis
-- `metadata.json` - Processing metadata
-- `entities.json` - Extracted entities with confidence scores
-- `entities.csv` - Entities in spreadsheet format
-- `relationships.json` - Entity relationships with evidence
-- `relationships.csv` - Relationships in spreadsheet format
-- `knowledge_graph.json` - Graph structure (nodes and edges)
-- `knowledge_graph.gexf` - Gephi-compatible visualization
-- `report.md` - Markdown intelligence report
-- `manifest.json` - File checksums
-
-## Advanced Usage
-
-### Batch Processing
-```bash
-# Process multiple videos from file
-while read url; do
-  clipscribe transcribe "$url" -o batch-output/
-done < video_urls.txt
-```
-
-### Using with Vertex AI
-```bash
-# First pre-upload videos to GCS
-python scripts/pre_upload_videos.py
-
-# Then process using GCS URIs
-clipscribe transcribe "gs://bucket/videos/video.mp4" \
-  --mode video
-```
-
-### Pipeline Integration
-```bash
-# Extract and analyze
-clipscribe transcribe "$URL" | \
-  jq '.entities[] | select(.confidence > 0.8)' > high_confidence_entities.json
-```
-
-## Exit Codes
-
-| Code | Meaning |
-|------|---------|
-| 0 | Success |
-| 1 | General error |
-| 2 | Invalid arguments |
-| 3 | API key not found |
-| 4 | Network error |
-| 5 | Unsupported video URL |
-
-## Performance Tips
-
-1. **Use caching** - Avoid reprocessing the same videos
-2. **Audio mode** - Faster for speech-only content
-3. **Video mode** - Better for visual information
-4. **Batch collections** - More efficient than individual processing
-
-## Cost Management
-
-- **5-minute video**: ~$0.008
-- **30-minute video**: ~$0.048
-- **1-hour video**: ~$0.096
-
-Use `COST_WARNING_THRESHOLD` to get alerts before processing expensive videos.
-
-## Scalability
-Supports up to 1000+ videos with --concurrent 20
-
----
-
-For more information, see the [full documentation](README.md). 
