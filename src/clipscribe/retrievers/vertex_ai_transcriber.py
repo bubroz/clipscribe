@@ -44,20 +44,18 @@ logger = logging.getLogger(__name__)
 
 
 class VertexAITranscriber:
-    """Transcriber using Vertex AI for robust video processing."""
-    
-    def __init__(self, gemini_pool=None):
-        """Initialize Vertex AI transcriber."""
-        # Set credentials if available
-        if not os.getenv("GOOGLE_APPLICATION_CREDENTIALS") and os.path.exists("/Users/base/.config/gcloud/clipscribe-service-account.json"):
-            os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/Users/base/.config/gcloud/clipscribe-service-account.json"
-        
-        self.project_id = VERTEX_AI_PROJECT_ID
-        self.location = VERTEX_AI_LOCATION
-        self.model_name = VERTEX_AI_MODEL_NAME
-        self.bucket_name = VERTEX_AI_STAGING_BUCKET.replace("gs://", "")
-        self.auto_cleanup = True  # Automatically clean up GCS files after processing
-        
+    """Vertex AI implementation for video transcription and analysis."""
+
+    def __init__(self, performance_monitor: Optional[Any] = None):
+        self.settings = Settings()
+        self.performance_monitor = performance_monitor
+        self.project_id = self.settings.vertex_ai_project
+        self.location = self.settings.vertex_ai_location
+
+        # Set credentials if available in env
+        if not os.getenv("GOOGLE_APPLICATION_CREDENTIALS"):
+            logger.warning("GOOGLE_APPLICATION_CREDENTIALS not set. Attempting to use default credentials")
+
         # Initialize Vertex AI
         vertexai.init(project=self.project_id, location=self.location)
         

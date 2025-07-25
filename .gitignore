@@ -16,6 +16,11 @@ logs/
 .env*
 !.env.example
 
+# Test and temporary files
+pbs_newshour_30day_batch.json
+pbs_newshour_30day_urls.txt
+tier12_urls.txt
+
 # Python
 .pytest_cache/
 .mypy_cache/
