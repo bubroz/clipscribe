@@ -287,7 +287,7 @@ poetry run clipscribe transcribe URL --use-vertex-ai   # Vertex AI processing
 
 ## Requirements
 
-- **Python**: 3.11+ (3.12 recommended)
+- **Python**: 3.12 recommended
 - **API Access**: Google API key with Gemini access enabled
 - **System**: FFmpeg installed for video/audio processing
 - **Storage**: ~50-200KB per video for complete output files
@@ -303,7 +303,7 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 *Choose your balance: Standard quality at $0.003/video or Pro quality at $0.017/video*
 
-## Contributing & Extending (For Engineers/Data Scientists)
+## Contributing & Extending
 
 ClipScribe is designed for extension:
 
