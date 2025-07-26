@@ -8,20 +8,20 @@
 
 ---
 
-ClipScribe extracts structured intelligence from video content through professional-grade entity recognition, relationship mapping, and key insight identification. Built for researchers, analysts, and organizations requiring reliable video intelligence at scale.
+ClipScribe extracts and analyzes structured data from video content through entity recognition, relationship mapping, and key insight identification. Built for students, researchers, analysts, content creators, and organizations requiring reliable video intelligence.
 
-## What's New in v2.20.4 - CRITICAL FIXES & QUALITY IMPROVEMENTS
+## v2.20.4 - CRITICAL FIXES & QUALITY IMPROVEMENTS
 
-**🎉 MAJOR BUG FIXES**: Fixed critical output pipeline issue where entities/relationships weren't saved to final files. All extraction features now working end-to-end.
+**FIXES**: Fixed critical output pipeline issue where entities/relationships weren't saved to final files. All extraction features now working end-to-end.
 
-**⚡ NEW: --use-pro FLAG**: Choose between cost-optimized (Gemini 2.5 Flash, ~$0.003/video) and quality-optimized (Gemini 2.5 Pro, ~$0.017/video) processing.
+**IMPROVEMENTS**: --use-pro FLAG**: Choose between cost-optimized (Gemini 2.5 Flash, ~$0.003/video) and quality-optimized (Gemini 2.5 Pro, ~$0.017/video) processing.
 
 ### Validated Working Pipeline (v2.20.4)
-- **Entity Extraction**: 24-59 entities extracted and saved to output files
-- **Relationship Mapping**: 53+ relationships with evidence chains
-- **Knowledge Graphs**: GEXF generation working (60 nodes, 53 edges)
-- **Output Quality**: All 9 file formats generated correctly
-- **Processing Cost**: $0.0122 for standard, $0.0167 for Pro quality
+- **Entity Extraction**: Entities extracted and saved to output files
+- **Relationship Mapping**: Relationships with evidence chains
+- **Knowledge Graphs**: GEXF generation working
+- **Output Quality**: All nine file formats generated correctly
+- **Processing Cost**: $0.0122 for standard (Gemini 2.5 Flash), $0.0167 for pro quality (Gemini 2.5 Pro)
 - **Multi-Platform**: 1800+ platforms validated via yt-dlp
 
 ## Features
@@ -204,7 +204,7 @@ clipscribe transcribe URL --use-pro     # High quality (Pro)
 - **News Analysis**: Track entity relationships across multi-source coverage
 
 ### Professional Intelligence
-- **Military/Defense**: Process training videos with high-quality entity extraction
+- **Military/Defense**: Automate video content analysis with high-quality entity extraction
 - **Policy Research**: Analyze hours of government content in minutes.
 - **Financial Intelligence**: Extract insights from earnings calls and analysis
 - **Technology Research**: Track product evolution with relationship mapping
@@ -240,7 +240,7 @@ GOOGLE_APPLICATION_CREDENTIALS=path/to/service-account.json
 ### Processing Modes
 ```bash
 # Quality options (NEW)
-poetry run clipscribe transcribe URL                    # Standard quality
+poetry run clipscribe transcribe URL                   # Standard quality
 poetry run clipscribe transcribe URL --use-pro         # High quality
 
 # Media processing modes
@@ -263,11 +263,6 @@ poetry run clipscribe transcribe URL --use-vertex-ai   # Vertex AI processing
 - **Flash (--default)**: $0.0122 for 3.5-min video
 - **Pro (--use-pro)**: $0.0167 for 5-min video
 - **Per Minute**: $0.0035 (Flash) vs $0.02 (Pro)
-
-### Quality Metrics
-- **Entities**: 24-59 per video (normalized from raw 59)
-- **Relationships**: 53+ with evidence chains
-- **Graphs**: 60 nodes, 53 edges in GEXF
 
 ## Documentation
 
