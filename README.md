@@ -14,7 +14,7 @@ ClipScribe extracts and analyzes structured data from video content through enti
 
 **FIXES**: Fixed critical output pipeline issue where entities/relationships weren't saved to final files. All extraction features now work end-to-end.
 
-**IMPROVEMENTS**: --use-pro FLAG**: Choose between cost-optimized (Gemini 2.5 Flash, ~$0.003/video) and quality-optimized (Gemini 2.5 Pro, ~$0.017/video) processing.
+**IMPROVEMENTS**: Choose between cost-optimized (Gemini 2.5 Flash, ~$0.003/video) and quality-optimized (Gemini 2.5 Pro, ~$0.017/video) processing.
 
 ## Features
 
@@ -23,7 +23,7 @@ ClipScribe extracts and analyzes structured data from video content through enti
 - **Relationship Mapping**: Relationships with evidence chains and context
 - **Key Points**: Executive summaries
 - **Multiple Formats**: JSON, CSV, GEXF, Markdown for any workflow
-- **Quality Control**: Choose Flash ($0.003) vs Pro ($0.017) models based on needs
+- **Quality Control**: Choose Gemini 2.5 Flash ($0.003) vs Gemini 2 Pro ($0.017) models based on needs
 
 ### Multi-Video Collections
 - **Unified Intelligence**: Cross-video entity resolution and alias detection
