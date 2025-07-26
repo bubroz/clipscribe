@@ -165,14 +165,14 @@ output/collections/collection_TIMESTAMP_N/
 
 ### Standard Quality (Default)
 - **Model**: Gemini 2.5 Flash
-- **Cost**: ~$0.003/video (~$0.0035/minute)
-- **Quality**: Good entity/relationship extraction
+- **Cost**: approx $0.003/video (~$0.0035/minute)
+- **Quality**: Good entity and relationship extraction
 - **Use Case**: High-volume processing, basic intelligence
 
 ### High Quality (--use-pro)
 - **Model**: Gemini 2.5 Pro  
-- **Cost**: ~$0.017/video (~$0.02/minute)
-- **Quality**: Superior entity extraction and relationship accuracy
+- **Cost**: approx $0.017/video (~$0.02/minute)
+- **Quality**: Superior entity and relationship extraction
 - **Use Case**: Critical analysis, professional intelligence work
 
 ```bash
@@ -181,19 +181,13 @@ clipscribe transcribe URL               # Standard (Flash)
 clipscribe transcribe URL --use-pro     # High quality (Pro)
 ```
 
-## Recent Fixes & Validation (v2.20.4)
+## Recent Fixes (v2.20.4)
 
-### Critical Bug Fixes
+### Fixes
 - **Fixed**: Entities/relationships not saved to output files
 - **Fixed**: Missing GEXF knowledge graph generation
 - **Fixed**: Advanced extraction pipeline not running
 - **Validated**: End-to-end processing with quality output
-
-### Pipeline Validation
-- **Tested**: Video → 24 entities, 53 relationships saved
-- **Confirmed**: Knowledge graph with 60 nodes, 53 edges
-- **Verified**: All 9+ output file formats generated
-- **Benchmarked**: $0.0122 cost for 3.5-minute video
 
 ## Use Cases
 
@@ -277,13 +271,6 @@ poetry run clipscribe transcribe URL --use-vertex-ai   # Vertex AI processing
 - [Roadmap](docs/ROADMAP.md) - Architecture decisions and future development
 - [Development](docs/DEVELOPMENT.md) - Contributing and development setup
 - [Troubleshooting](docs/TROUBLESHOOTING.md) - Common issues and solutions
-
-## Why ClipScribe?
-
-**Intelligence Analysts**: Extract actionable intelligence faster than manual review with Pro quality  
-**Researchers**: Process video collections with unified entity tracking at Flash speed  
-**Organizations**: Scale video intelligence with cost/quality controls and enterprise options  
-**Developers**: Python API with structured outputs and quality guarantees
 
 ## Requirements
 
