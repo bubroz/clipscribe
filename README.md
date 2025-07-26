@@ -1,28 +1,20 @@
 # ClipScribe
 
-**AI-Powered Video Intelligence for Professional Analysis**
+**Video Intelligence Collection, Analysis, and Reporting**
 
-*Transform video content into structured, searchable intelligence • $0.002-0.017 per minute*
+*Transform video content into structured, searchable, and reportable intelligence*
 
-[Features](#features) • [Installation](#installation) • [Quick Start](#quick-start) • [Use Cases](#use-cases) • [Documentation](#documentation)
+[Features](#features) | [Installation](#installation) | [Quick Start](#quick-start) | [Use Cases](#use-cases) | [Documentation](#documentation)
 
 ---
 
 ClipScribe extracts and analyzes structured data from video content through entity recognition, relationship mapping, and key insight identification. Built for students, researchers, analysts, content creators, and organizations requiring reliable video intelligence.
 
-## v2.20.4 - CRITICAL FIXES & QUALITY IMPROVEMENTS
+## v2.20.4 - FIXES & IMPROVEMENTS
 
-**FIXES**: Fixed critical output pipeline issue where entities/relationships weren't saved to final files. All extraction features now working end-to-end.
+**FIXES**: Fixed critical output pipeline issue where entities/relationships weren't saved to final files. All extraction features now work end-to-end.
 
 **IMPROVEMENTS**: --use-pro FLAG**: Choose between cost-optimized (Gemini 2.5 Flash, ~$0.003/video) and quality-optimized (Gemini 2.5 Pro, ~$0.017/video) processing.
-
-### Validated Working Pipeline (v2.20.4)
-- **Entity Extraction**: Entities extracted and saved to output files
-- **Relationship Mapping**: Relationships with evidence chains
-- **Knowledge Graphs**: GEXF generation working
-- **Output Quality**: All nine file formats generated correctly
-- **Processing Cost**: $0.0122 for standard (Gemini 2.5 Flash), $0.0167 for pro quality (Gemini 2.5 Pro)
-- **Multi-Platform**: 1800+ platforms validated via yt-dlp
 
 ## Features
 
