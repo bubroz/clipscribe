@@ -17,19 +17,19 @@ ClipScribe extracts structured intelligence from video content through professio
 **⚡ NEW: --use-pro FLAG**: Choose between cost-optimized (Gemini 2.5 Flash, ~$0.003/video) and quality-optimized (Gemini 2.5 Pro, ~$0.017/video) processing.
 
 ### Validated Working Pipeline (v2.20.4)
-- **Entity Extraction**: 24-59 entities extracted and saved to output files ✅
-- **Relationship Mapping**: 53+ relationships with evidence chains ✅  
-- **Knowledge Graphs**: GEXF generation working (60 nodes, 53 edges) ✅
-- **Output Quality**: All 9 file formats generated correctly ✅
-- **Processing Cost**: $0.0122 for standard, $0.0167 for Pro quality ✅
-- **Multi-Platform**: 1800+ platforms validated via yt-dlp ✅
+- **Entity Extraction**: 24-59 entities extracted and saved to output files
+- **Relationship Mapping**: 53+ relationships with evidence chains
+- **Knowledge Graphs**: GEXF generation working (60 nodes, 53 edges)
+- **Output Quality**: All 9 file formats generated correctly
+- **Processing Cost**: $0.0122 for standard, $0.0167 for Pro quality
+- **Multi-Platform**: 1800+ platforms validated via yt-dlp
 
 ## Features
 
 ### Single Video Analysis
-- **Entity Extraction**: People, organizations, locations, concepts with confidence scores
-- **Relationship Mapping**: 50+ relationships with evidence chains and context
-- **Key Points**: Intelligence briefing-style summaries (15-35 points per video)
+- **Entity Extraction**: People, Organizations, Locations, and Concepts
+- **Relationship Mapping**: Relationships with evidence chains and context
+- **Key Points**: Executive summaries
 - **Multiple Formats**: JSON, CSV, GEXF, Markdown for any workflow
 - **Quality Control**: Choose Flash ($0.003) vs Pro ($0.017) models based on needs
 
@@ -37,11 +37,11 @@ ClipScribe extracts structured intelligence from video content through professio
 - **Unified Intelligence**: Cross-video entity resolution and alias detection
 - **Information Flows**: Track concept evolution across video series
 - **Collection Analysis**: Synthesis reports spanning multiple videos
-- **Knowledge Graphs**: Unified graphs with 200+ edges for collections
-- **Professional Reports**: Intelligence analyst-grade documentation
+- **Knowledge Graphs**: Unified graphs for collections
+- **Professional Reports**: Analyst-grade documentation
 
 ### Platform Support
-- **Universal Access**: YouTube, TikTok, Twitter/X, Vimeo + 1800 platforms via yt-dlp
+- **Universal Access**: YouTube, TikTok, X, Vimeo + 1800 platforms via yt-dlp
 - **Audio/Video Modes**: Optimized processing for different content types
 - **Enterprise Scale**: Vertex AI integration for high-volume processing
 - **Cost Control**: Budget limits and usage tracking
@@ -139,11 +139,11 @@ asyncio.run(analyze_video())
 output/YYYYMMDD_platform_videoID/
 ├── transcript.txt                 # Plain text transcript
 ├── transcript.json                # Complete analysis with metadata
-├── entities.json                  # 24-59 entities with sources ✅
+├── entities.json                  # Entities with sources
 ├── entities.csv                   # Spreadsheet format
-├── relationships.json             # 53+ relationships with evidence ✅
+├── relationships.json             # Relationships with evidence
 ├── relationships.csv              # Spreadsheet format
-├── knowledge_graph.gexf           # Gephi-compatible (60 nodes, 53 edges) ✅
+├── knowledge_graph.gexf           # Gephi-compatible
 ├── report.md                      # Human-readable intelligence report
 ├── entity_sources.json            # Source attribution and normalization
 ├── chimera_format.json            # Integration format
@@ -184,28 +184,28 @@ clipscribe transcribe URL --use-pro     # High quality (Pro)
 ## Recent Fixes & Validation (v2.20.4)
 
 ### Critical Bug Fixes
-- ✅ **Fixed**: Entities/relationships not saved to output files
-- ✅ **Fixed**: Missing GEXF knowledge graph generation
-- ✅ **Fixed**: Advanced extraction pipeline not running
-- ✅ **Validated**: End-to-end processing with quality output
+- **Fixed**: Entities/relationships not saved to output files
+- **Fixed**: Missing GEXF knowledge graph generation
+- **Fixed**: Advanced extraction pipeline not running
+- **Validated**: End-to-end processing with quality output
 
 ### Pipeline Validation
-- ✅ **Tested**: Rick Astley video → 24 entities, 53 relationships saved
-- ✅ **Confirmed**: Knowledge graph with 60 nodes, 53 edges
-- ✅ **Verified**: All 9+ output file formats generated
-- ✅ **Benchmarked**: $0.0122 cost for 3.5-minute video
+- **Tested**: Video → 24 entities, 53 relationships saved
+- **Confirmed**: Knowledge graph with 60 nodes, 53 edges
+- **Verified**: All 9+ output file formats generated
+- **Benchmarked**: $0.0122 cost for 3.5-minute video
 
 ## Use Cases
 
 ### Research & Analysis
-- **Competitive Intelligence**: Analyze competitor content with Pro quality extraction
+- **Competitive Intelligence**: Extract information from competitor content
 - **Market Research**: Extract insights from industry presentations 
 - **Academic Research**: Process lecture series with unified concept tracking
 - **News Analysis**: Track entity relationships across multi-source coverage
 
 ### Professional Intelligence
 - **Military/Defense**: Process training videos with high-quality entity extraction
-- **Policy Research**: Analyze government content with Pro model accuracy
+- **Policy Research**: Analyze hours of government content in minutes.
 - **Financial Intelligence**: Extract insights from earnings calls and analysis
 - **Technology Research**: Track product evolution with relationship mapping
 
