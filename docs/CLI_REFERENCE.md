@@ -1,6 +1,6 @@
 # ClipScribe CLI Reference
 
-*Last Updated: July 25, 2025 - v2.20.4 with Critical Bug Fixes & Quality Control*
+*Last Updated: July 30, 2025 - v2.20.1 with multi-video command fixes*
 
 Complete reference for all ClipScribe commands and options.
 
@@ -115,6 +115,7 @@ clipscribe process-collection [OPTIONS] TITLE URL1 URL2 [URL3...]
 | `--output-dir` | `-o` | `output/collections` | Output directory |
 | `--limit` | `-l` | None | Limit videos from playlists |
 | `--skip-confirmation` | | False | Skip confirmation prompt |
+| `--use-pro` | | False | Use Gemini 2.5 Pro for highest quality extraction |
 
 **Examples:**
 
@@ -151,6 +152,7 @@ clipscribe process-series [OPTIONS] URL1 URL2 [URL3...]
 | `--series-title` | `-t` | Auto | Title for the series |
 | `--output-dir` | `-o` | `output` | Output directory |
 | `--mode` | `-m` | `audio` | Processing mode |
+| `--use-pro` | | False | Use Gemini 2.5 Pro for highest quality extraction |
 
 **Examples:**
 

@@ -535,6 +535,11 @@ async def research_async(ctx: click.Context, query: str, max_results: int, perio
 @click.option('--clean-graph', is_flag=True)
 @click.option('--performance-report', is_flag=True)
 @click.option('--skip-confirmation', is_flag=True, help="Skip playlist preview and confirmation")
+@click.option(
+    '--use-pro',
+    is_flag=True,
+    help='Use Gemini 2.5 Pro for highest quality extraction (higher cost).'
+)
 @click.pass_context
 def process_collection(
     ctx: click.Context,
@@ -565,6 +570,7 @@ def process_collection(
         output_dir,
         limit,
         skip_confirmation,
+        use_pro,
         **kwargs
     ))
 
@@ -579,6 +585,7 @@ async def process_collection_async(
     output_dir: Path,
     limit: Optional[int],
     skip_confirmation: bool,
+    use_pro: bool, # Add use_pro
     **kwargs
 ) -> None:
     # Lazy import all processing components
@@ -720,7 +727,8 @@ async def process_collection_async(
             mode=kwargs.get('mode', 'audio'),
             output_dir=video_output_dir,
             enhance_transcript=kwargs.get('enhance_transcript', False),
-            performance_monitor=imports['PerformanceMonitor'](video_output_dir) if kwargs.get('performance_report') else None
+            performance_monitor=imports['PerformanceMonitor'](video_output_dir) if kwargs.get('performance_report') else None,
+            use_pro=use_pro
         )
         
         if kwargs.get('clean_graph'):
@@ -802,7 +810,10 @@ async def process_collection_async(
         results_table.add_row("Collection Type", multi_video_result.collection_type.value)
         results_table.add_row("Videos Processed", str(len(multi_video_result.video_ids)))
         results_table.add_row("Unified Entities", str(len(multi_video_result.unified_entities)))
-        results_table.add_row("Cross-Video Relationships", str(len(multi_video_result.cross_video_relationships)))
+        results_table.add_row("New Cross-Video Relationships", str(len(multi_video_result.cross_video_relationships)))
+        if multi_video_result.unified_knowledge_graph:
+            total_relationships = len(multi_video_result.unified_knowledge_graph.get("edges", []))
+            results_table.add_row("Total Unified Relationships", str(total_relationships))
         results_table.add_row("Key Insights", str(len(multi_video_result.key_insights)))
         results_table.add_row("Total Cost", f"${multi_video_result.total_processing_cost:.4f}")
         results_table.add_row("Entity Resolution Quality", f"{multi_video_result.entity_resolution_quality:.2f}")
@@ -839,12 +850,18 @@ async def process_collection_async(
 @click.option('--enhance-transcript', is_flag=True)
 @click.option('--clean-graph', is_flag=True)
 @click.option('--performance-report', is_flag=True)
+@click.option(
+    '--use-pro',
+    is_flag=True,
+    help='Use Gemini 2.5 Pro for highest quality extraction (higher cost).'
+)
 @click.pass_context
 def process_series(
     ctx: click.Context,
     urls: tuple,
     output_dir: Path,
     series_title: Optional[str],
+    use_pro: bool,
     **kwargs
 ) -> None:
     """Process videos as a series with automatic detection and narrative flow analysis."""
@@ -861,7 +878,9 @@ def process_series(
         auto_detect_series=True,
         user_confirmed_series=False,
         output_dir=output_dir,
+        limit=None, # Explicitly set limit to None for series processing
         skip_confirmation=False,
+        use_pro=use_pro,
         **kwargs
     ))
 

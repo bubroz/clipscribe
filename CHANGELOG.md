@@ -5,6 +5,19 @@ All notable changes to ClipScribe will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v2.20.1] - 2025-07-30
+
+### Fixed
+- **Multi-Video Commands**: Fixed multiple critical bugs preventing `process-series` and `process-collection` from running correctly.
+  - Added the `--use-pro` flag to both `process-series` and `process-collection` commands.
+  - Fixed a `TypeError` caused by a missing `limit` argument in the `process-series` command.
+  - Fixed an `AttributeError` when accessing the unified knowledge graph edges for the results table.
+
+### Changed
+- **CLI Output Clarity**: Improved the multi-video results table to be more intuitive.
+  - Renamed "Cross-Video Relationships" to "New Cross-Video Relationships".
+  - Added "Total Unified Relationships" to show the complete count of edges in the unified graph, avoiding confusion about data loss.
+
 ## [v2.20.0] - 2025-07-24
 
 ### 🎯 MAJOR MILESTONE: ALL 6 CORE COMPONENTS COMPLETE!

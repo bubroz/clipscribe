@@ -1,31 +1,28 @@
 # ClipScribe AI Assistant Continuation Prompt
 
-## Current State (2025-07-25 19:45 PDT)
+## Current State (2025-07-30 16:46 PDT)
 
-### Latest Version: v2.20.4 - DOCUMENTATION AUDIT & OPTIMIZATION CONFIRMATION
-**Major Achievement**: Verified single-download efficiency (video OR audio, never both). Completed full documentation audit with updates across 4+ files. Roadmapped speed differential analysis for hybrid vs pro-only extraction decision.
+### Latest Version: v2.20.1 - Multi-Video Commands Hardened
 
-### Recent Changes  
-- **v2.20.4** (2025-07-25): ✅ **VIDEO EFFICIENCY VERIFIED** - Confirmed smart single-download approach with no duplicates
-- **v2.20.4** (2025-07-25): 📋 **DOCUMENTATION AUDIT COMPLETE** - Updated README, CLI_REFERENCE, GETTING_STARTED, OUTPUT_FORMATS with v2.20.4 status, --use-pro, bug fixes
-- **v2.20.4** (2025-07-25): 🗺️ **ROADMAP ENHANCED** - Added speed differential analysis to hybrid vs pro-only architecture decision
-- **v2.20.4** (2025-07-25): 🎉 **CRITICAL BUG FIXED** - Advanced extractor now properly called and entities/relationships saved
-- **v2.20.3** (2025-07-25): ✅ **--use-pro FLAG WORKING** - Tested with Tier 1 & 2 Selections video using Gemini 2.5 Pro
+**Major Achievement**: Successfully debugged and fixed multiple critical bugs in the multi-video processing commands (`process-series`, `process-collection`). The `--use-pro` flag is now fully functional for series analysis, and the CLI output has been significantly improved for clarity. The golden set audit is complete.
+
+### Recent Changes
+- **v2.20.1** (2025-07-30): ✅ **Multi-Video Commands Fixed** - `process-series` and `process-collection` now work correctly with the `--use-pro` flag.
+- **v2.20.1** (2025-07-30): 📊 **CLI Clarity Improved** - Results table for multi-video processing is now more intuitive, showing "New" vs. "Total Unified" relationships.
+- **v2.20.1** (2025-07-30): 🐛 **Multiple Bugs Squashed** - Resolved `TypeError` and `AttributeError` in the CLI that prevented multi-video commands from running.
+- **v2.20.0** (2025-07-24): ✅ **Core Components Complete** - Achieved professional, intelligence-grade extraction with comprehensive validation.
 
 ### What's Working Well ✅
-- **Extraction Pipeline**: End-to-end processing validated (24-59 entities, 53 relationships, GEXF graphs)
-- **Quality Control**: --use-pro flag enables Gemini 2.5 Pro ($0.0167/video) with confirmed improvements
-- **Efficiency**: Single-download optimization confirmed - chooses video/audio intelligently
-- **Documentation**: All major docs now accurately reflect current working state
-- **Cost**: $0.0122/video standard, with transparent tracking
+- **Multi-Video Processing**: The `process-series` command is now fully operational, successfully unifying entities and relationships across multiple videos.
+- **High-Quality Series Analysis**: The `--use-pro` flag works as intended, enabling Gemini 2.5 Pro for in-depth series analysis.
+- **Intelligent Caching**: The system correctly uses cached results for individual videos, making series analysis fast and cost-effective on subsequent runs.
+- **Documentation**: `CHANGELOG.md` and `CLI_REFERENCE.md` are fully updated with the latest changes.
 
 ### Known Issues ⚠️
-- **Quality Gap**: Hybrid extraction still "lacking in accuracy" per user feedback - need speed benchmarks for pro-only decision
-- **Temporal Intelligence**: Timestamps/timelines not yet implemented (roadmapped for later)
-- **Performance**: No benchmarks yet for hybrid vs pro speed differential
+- **Quality Gap**: Hybrid extraction (the default) is still potentially "lacking in accuracy" per user feedback. The `--use-pro` flag is the current workaround.
+- **Performance**: No formal benchmarks yet for hybrid vs pro speed differential, which is a key decision point for future architecture.
 
 ### Roadmap 🗺️
-- **Next**: Benchmark speed differentials between hybrid and pro-only extraction (critical for architecture decision)
-- **Soon**: Test --use-pro with challenging content from MASTER_TEST_VIDEO_TABLE.md
-- **Later**: Implement --verify-output flag for post-processing validation
-- **Later**: Full hybrid vs pro-only extraction architecture decision and implementation (including speed analysis)
+- **Next**: Formulate and propose the next well-reasoned steps for project improvement, focusing on professionalizing the codebase.
+- **Soon**: Benchmark speed differentials between hybrid and pro-only extraction to inform architectural decisions.
+- **Later**: Implement a `--verify-output` flag for post-processing validation.
