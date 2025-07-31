@@ -1,6 +1,6 @@
 # ClipScribe Development Roadmap
 
-*Last Updated: July 30, 2025*
+*Last Updated: July 30, 2025 - Strategic Priority Reorder*
 
 ## Architecture: Quality-First by Default
 
@@ -28,19 +28,55 @@ After a comprehensive review of Python's logging landscape, we have decided to a
 - **Unmatched Flexibility**: The processor-based architecture allows for separate, optimal configurations for both human-readable console output (via `rich`) and machine-readable, structured JSON file output.
 - **Production Ready**: This move enables powerful log querying, monitoring, and debugging, which are essential for a professional-grade tool.
 
-### Implementation Plan (Next Session)
-1.  **Add Dependencies**: `poetry add structlog rich`
-2.  **Create New Config**: A new `logging_config.py` module will be created to house the `structlog` configuration.
-3.  **Integrate and Refactor**: The application will be updated to use the new structured logger, and key logging statements will be enriched with contextual key-value pairs.
+---
+
+## Immediate Priorities (Current State: v2.22.1)
+
+### Priority 1: Complete CLI Collection Processing (Next 2-3 hours)
+**Current Status**: 5/6 CLI integration tests passing (83% success rate)
+
+**Issue**: Multi-video collection commands fail due to incomplete integration between CLI and MultiVideoProcessor.
+
+**Tasks**:
+1. Fix the MultiVideoProcessor integration in `process_collection_async()`
+2. Ensure unified knowledge graph generation works
+3. Achieve 6/6 CLI tests passing
+4. Validate end-to-end collection processing
+
+**Why First**: Core functionality that differentiates ClipScribe. Users expect collections to work.
+
+### Priority 2: Test Coverage Improvement (Next 4-6 hours)
+**Current Status**: 33% overall coverage (target: 80%+)
+
+**Critical Gaps**:
+- Retrievers: 17-56% coverage
+- Extractors: 0-48% coverage  
+- Core processing paths undertested
+
+**Tasks**:
+1. Add integration tests for video processing pipeline
+2. Add unit tests for critical extractor components
+3. Add error handling and edge case tests
+4. Validate production readiness
+
+**Why Second**: Foundation for reliable production deployment.
+
+### Priority 3: Structured Logging Implementation (Next 2-3 hours)
+**Tasks**:
+1. **Add Dependencies**: `poetry add structlog rich`
+2. **Create New Config**: A new `logging_config.py` module will be created to house the `structlog` configuration.
+3. **Integrate and Refactor**: The application will be updated to use the new structured logger, and key logging statements will be enriched with contextual key-value pairs.
+
+**Why Third**: Quality-of-life improvement for debugging, but not user-blocking.
 
 ---
 
 ## Future Roadmap Items
 
-### Q4 2025: Core Stability & User Experience
-- **CLI Integration Test Suite**: Build a comprehensive test suite to ensure CLI robustness and prevent regressions.
+### Q4 2025: Advanced Features & Polish
 - **Output Verification**: Implement a `--verify-output` flag for post-processing validation of all generated files.
 - **Enhanced Cost Management**: Add a `--max-cost` flag, session-based cost tracking, and pre-processing cost estimates.
+- **Performance Optimization**: Profile and optimize bottlenecks discovered during testing.
 
 ### Q1 2026: Advanced Intelligence
 - **Multi-Modal Intelligence**: Integrate visual scene analysis and audio sentiment identification.
