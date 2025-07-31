@@ -10,11 +10,11 @@
 
 ClipScribe extracts and analyzes structured data from video content through entity recognition, relationship mapping, and key insight identification. Built for students, researchers, analysts, content creators, and organizations requiring reliable video intelligence.
 
-## v2.20.4 - FIXES & IMPROVEMENTS
+## v2.21.0 - ARCHITECTURAL SHIFT: PRO-FIRST
 
-**FIXES**: Fixed critical output pipeline issue where entities/relationships weren't saved to final files. All extraction features now work end-to-end.
+**QUALITY-FIRST ARCHITECTURE**: Gemini 2.5 Pro is now the default extraction model, ensuring the highest quality, professional-grade intelligence right out of the box.
 
-**IMPROVEMENTS**: Choose between cost-optimized (Gemini 2.5 Flash, ~$0.003/video) and quality-optimized (Gemini 2.5 Pro, ~$0.017/video) processing.
+**FLEXIBILITY**: For use cases where speed is paramount, the faster Gemini 2.5 Flash model is available via the `--use-flash` flag.
 
 ## Features
 
@@ -23,7 +23,7 @@ ClipScribe extracts and analyzes structured data from video content through enti
 - **Relationship Mapping**: Relationships with evidence chains and context
 - **Key Points**: Executive summaries
 - **Multiple Formats**: JSON, CSV, GEXF, Markdown for any workflow
-- **Quality Control**: Choose Gemini 2.5 Flash ($0.003) vs Gemini 2 Pro ($0.017) models based on needs
+- **Quality First Architecture**: Gemini 2.5 Pro default for highest quality, with an optional `--use-flash` flag for speed.
 
 ### Multi-Video Collections
 - **Unified Intelligence**: Cross-video entity resolution and alias detection
@@ -69,7 +69,7 @@ echo "GOOGLE_APPLICATION_CREDENTIALS=/path/to/your/service-account.json" >> .env
 ### 4. Verify Installation
 ```bash
 poetry run clipscribe --version
-# Expected: ClipScribe v2.20.4
+# Expected: ClipScribe v2.21.0
 
 # Test imports for extension
 poetry run python -c "from clipscribe.retrievers.video_retriever import VideoIntelligenceRetriever; print('Imports working')"
@@ -79,11 +79,11 @@ poetry run python -c "from clipscribe.retrievers.video_retriever import VideoInt
 
 ### Single Video Analysis
 ```bash
-# Standard quality processing (Gemini 2.5 Flash, ~$0.003/video)
+# High quality processing (Gemini 2.5 Pro, DEFAULT)
 poetry run clipscribe transcribe "https://www.youtube.com/watch?v=VIDEO_ID"
 
-# High quality processing (Gemini 2.5 Pro, ~$0.017/video)
-poetry run clipscribe transcribe "https://www.youtube.com/watch?v=VIDEO_ID" --use-pro
+# Optional: Faster, standard quality processing (Gemini 2.5 Flash)
+poetry run clipscribe transcribe "https://www.youtube.com/watch?v=VIDEO_ID" --use-flash
 
 # Results saved to: output/YYYYMMDD_youtube_VIDEO_ID/
 ```
@@ -106,11 +106,11 @@ import asyncio
 from clipscribe.retrievers.video_retriever import VideoIntelligenceRetriever
 
 async def analyze_video():
-    # Standard quality (Flash model)
+    # High quality (Pro model, DEFAULT)
     retriever = VideoIntelligenceRetriever()
     
-    # Or high quality (Pro model)
-    retriever = VideoIntelligenceRetriever(use_pro=True)
+    # Or standard quality (Flash model)
+    retriever = VideoIntelligenceRetriever(use_pro=False)
     
     result = await retriever.process_url("https://youtube.com/watch?v=...")
     
@@ -153,24 +153,24 @@ output/collections/collection_TIMESTAMP_N/
 └── individual_videos/             # Per-video detailed outputs
 ```
 
-## Quality vs Cost Options (NEW in v2.20.4)
+## Quality vs Cost Options (NEW in v2.21.0)
 
-### Standard Quality (Default)
-- **Model**: Gemini 2.5 Flash
-- **Cost**: approx $0.003/video (~$0.0035/minute)
-- **Quality**: Good entity and relationship extraction
-- **Use Case**: High-volume processing, basic intelligence
-
-### High Quality (--use-pro)
-- **Model**: Gemini 2.5 Pro  
+### High Quality (Default)
+- **Model**: Gemini 2.5 Pro
 - **Cost**: approx $0.017/video (~$0.02/minute)
-- **Quality**: Superior entity and relationship extraction
-- **Use Case**: Critical analysis, professional intelligence work
+- **Quality**: Superior entity and relationship extraction for professional intelligence work.
+- **Use Case**: Critical analysis, academic research, professional intelligence.
+
+### Standard Quality (--use-flash)
+- **Model**: Gemini 2.5 Flash  
+- **Cost**: approx $0.003/video (~$0.0035/minute)
+- **Quality**: Good entity and relationship extraction, approximately 15-30% faster.
+- **Use Case**: High-volume processing, budget-conscious applications, or when speed is the priority.
 
 ```bash
 # Choose your quality level
-clipscribe transcribe URL               # Standard (Flash)
-clipscribe transcribe URL --use-pro     # High quality (Pro)
+clipscribe transcribe URL               # High quality (Pro, Default)
+clipscribe transcribe URL --use-flash     # Standard quality (Flash)
 ```
 
 ## Recent Fixes (v2.20.4)
