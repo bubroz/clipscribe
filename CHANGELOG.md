@@ -8,13 +8,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [v2.22.0] - 2025-07-30
 
 ### Changed
-- **CLI Refactor**: Restructured the entire CLI for better clarity, scalability, and user experience.
-  - Commands are now organized into logical groups: `process`, `collection`, `research`, and `utils`.
+- **CLI Refactor**: Restructured the entire CLI into logical groups (`process`, `collection`, `research`, `utils`) for better clarity, scalability, and user experience. This is a breaking change for scripters, but a significant improvement for interactive use.
   - `transcribe` is now `process video`.
   - `process-collection` is now `collection custom`.
   - `process-series` is now `collection series`.
   - `clean-demo` is now `utils clean-demo`.
 - **Improved Discoverability**: The new group structure makes it easier for users to find and understand commands.
+
+### Added
+- **Smoke Tests**: Performed manual validation of the new CLI structure to ensure all commands are functional post-refactor.
 
 ## [v2.21.0] - 2025-07-30
 
