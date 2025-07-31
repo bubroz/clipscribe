@@ -46,7 +46,7 @@ export GOOGLE_API_KEY="your-api-key-here"
 
 ```bash
 poetry run clipscribe --version
-# Should output: ClipScribe v2.21.0
+# Should output: ClipScribe v2.22.0
 
 poetry run clipscribe --help
 ```
@@ -79,13 +79,13 @@ asyncio.run(analyze_video("https://youtube.com/watch?v=..."))
 
 ```bash
 # High quality (Gemini 2.5 Pro, DEFAULT)
-poetry run clipscribe transcribe "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+poetry run clipscribe process video "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
 
 # Optional: Faster, standard quality (Gemini 2.5 Flash) 
-poetry run clipscribe transcribe "https://www.youtube.com/watch?v=dQw4w9WgXcQ" --use-flash
+poetry run clipscribe process video "https://www.youtube.com/watch?v=dQw4w9WgXcQ" --use-flash
 
 # With additional processing options
-poetry run clipscribe transcribe "https://vimeo.com/123456789" \
+poetry run clipscribe process video "https://vimeo.com/123456789" \
   --enhance-transcript \
   --clean-graph \
   --output-dir analysis/
@@ -108,17 +108,16 @@ output/YYYYMMDD_youtube_videoID/
 
 ```bash
 # Process collection with unified intelligence
-poetry run clipscribe process-collection \
+poetry run clipscribe collection custom \
   "My Research Collection" \
   "https://youtube.com/watch?v=video1" \
   "https://youtube.com/watch?v=video2" \
   "https://youtube.com/watch?v=video3"
 
 # Process playlist automatically
-poetry run clipscribe process-collection \
+poetry run clipscribe collection custom \
   "CNBC Market Analysis" \
-  "https://www.youtube.com/playlist?list=PLVbP054jv0Ko..." \
-  --format all
+  "https://www.youtube.com/playlist?list=PLVbP054jv0Ko..."
 ```
 
 ### Research Command

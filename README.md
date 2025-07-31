@@ -69,7 +69,7 @@ echo "GOOGLE_APPLICATION_CREDENTIALS=/path/to/your/service-account.json" >> .env
 ### 4. Verify Installation
 ```bash
 poetry run clipscribe --version
-# Expected: ClipScribe v2.21.0
+# Expected: ClipScribe v2.22.0
 
 # Test imports for extension
 poetry run python -c "from clipscribe.retrievers.video_retriever import VideoIntelligenceRetriever; print('Imports working')"
@@ -80,10 +80,10 @@ poetry run python -c "from clipscribe.retrievers.video_retriever import VideoInt
 ### Single Video Analysis
 ```bash
 # High quality processing (Gemini 2.5 Pro, DEFAULT)
-poetry run clipscribe transcribe "https://www.youtube.com/watch?v=VIDEO_ID"
+poetry run clipscribe process video "https://www.youtube.com/watch?v=VIDEO_ID"
 
 # Optional: Faster, standard quality processing (Gemini 2.5 Flash)
-poetry run clipscribe transcribe "https://www.youtube.com/watch?v=VIDEO_ID" --use-flash
+poetry run clipscribe process video "https://www.youtube.com/watch?v=VIDEO_ID" --use-flash
 
 # Results saved to: output/YYYYMMDD_youtube_VIDEO_ID/
 ```
@@ -91,11 +91,7 @@ poetry run clipscribe transcribe "https://www.youtube.com/watch?v=VIDEO_ID" --us
 ### Multi-Video Collection
 ```bash
 # Process a 3-video series with unified intelligence
-poetry run clipscribe process-collection "MySeries" \
-  "URL1" "URL2" "URL3" \
-  --collection-type series \
-  --enhance-transcript \
-  --clean-graph
+poetry run clipscribe collection series "URL1" "URL2" "URL3"
 
 # Results: Unified intelligence in output/collections/collection_TIMESTAMP_3/
 ```
@@ -169,8 +165,8 @@ output/collections/collection_TIMESTAMP_N/
 
 ```bash
 # Choose your quality level
-clipscribe transcribe URL               # High quality (Pro, Default)
-clipscribe transcribe URL --use-flash     # Standard quality (Flash)
+clipscribe process video URL               # High quality (Pro, Default)
+clipscribe process video URL --use-flash     # Standard quality (Flash)
 ```
 
 ## Recent Fixes (v2.20.4)
@@ -226,15 +222,16 @@ GOOGLE_APPLICATION_CREDENTIALS=path/to/service-account.json
 ### Processing Modes
 ```bash
 # Quality options (NEW)
-poetry run clipscribe transcribe URL                   # Standard quality
-poetry run clipscribe transcribe URL --use-pro         # High quality
+poetry run clipscribe process video URL                   # High quality (Pro, Default)
+poetry run clipscribe process video URL --use-flash         # Standard quality (Flash)
 
 # Media processing modes
-poetry run clipscribe transcribe URL --mode audio      # Audio-only (faster)
-poetry run clipscribe transcribe URL --mode video      # Full video processing
+poetry run clipscribe process video URL --mode audio      # Audio-only (faster)
+poetry run clipscribe process video URL --mode video      # Full video processing
 
 # Enterprise scale
-poetry run clipscribe transcribe URL --use-vertex-ai   # Vertex AI processing
+# (Note: Vertex AI support is pending refactor to new command structure)
+# poetry run clipscribe process video URL --use-vertex-ai
 ```
 
 ## Performance Benchmarks (v2.20.4 Validated)
@@ -278,9 +275,9 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ---
 
-**ClipScribe v2.20.4 - Professional Video Intelligence with Quality Control**
+**ClipScribe v2.21.0 - Professional Video Intelligence with Quality-First Architecture**
 
-*Choose your balance: Standard quality at $0.003/video or Pro quality at $0.017/video*
+*Gemini 2.5 Pro is the default for the best results, with an optional `--use-flash` flag for speed.*
 
 ## Contributing & Extending
 

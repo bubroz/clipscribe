@@ -5,6 +5,17 @@ All notable changes to ClipScribe will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v2.22.0] - 2025-07-30
+
+### Changed
+- **CLI Refactor**: Restructured the entire CLI for better clarity, scalability, and user experience.
+  - Commands are now organized into logical groups: `process`, `collection`, `research`, and `utils`.
+  - `transcribe` is now `process video`.
+  - `process-collection` is now `collection custom`.
+  - `process-series` is now `collection series`.
+  - `clean-demo` is now `utils clean-demo`.
+- **Improved Discoverability**: The new group structure makes it easier for users to find and understand commands.
+
 ## [v2.21.0] - 2025-07-30
 
 ### Changed

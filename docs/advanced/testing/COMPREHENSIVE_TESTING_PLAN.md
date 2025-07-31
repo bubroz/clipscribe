@@ -63,12 +63,12 @@ def run_clipscribe_command(command: list[str]) -> subprocess.CompletedProcess:
     return subprocess.run(full_command, capture_output=True, text=True)
 
 def test_transcribe_default_pro_model():
-    """Tests the default transcribe command (should use Pro model)."""
+    """Tests the default process video command."""
     video_url = "https://www.youtube.com/watch?v=..." # Test video
     output_dir = Path("output/test_transcribe_pro")
     
     # Run command
-    result = run_clipscribe_command(["transcribe", video_url, "--output-dir", str(output_dir)])
+    result = run_clipscribe_command(["process", "video", video_url, "--output-dir", str(output_dir)])
     
     # Assertions
     assert result.returncode == 0

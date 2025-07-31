@@ -1,173 +1,143 @@
 # ClipScribe CLI Reference
 
-*Last Updated: July 30, 2025 - v2.21.0 with Pro-First Architecture*
+*Last Updated: July 30, 2025 - v2.22.0 CLI Refactor*
 
-Complete reference for all ClipScribe commands and options.
+Complete reference for all ClipScribe commands, groups, and options.
 
 ## ✨ Key Features
 
-- **Quality First** - Gemini 2.5 Pro is now the default for the highest quality intelligence. Use `--use-flash` for a faster, lower-cost option.
-- **Fixed Pipeline** - Entities/relationships now properly saved to output files ✅
-- **1800+ platforms** - YouTube, Twitter, TikTok, Vimeo, and more
-- **Knowledge Graphs** - GEXF generation working (validated 60 nodes, 53 edges)
-- **Cost-effective** - $0.0122-0.0167 per video with validated processing
+- **Quality First**: Gemini 2.5 Pro is the default for the highest quality intelligence.
+- **Speed Option**: Use `--use-flash` for a faster, lower-cost analysis.
+- **Structured CLI**: Commands are organized into logical groups (`process`, `collection`, `research`, `utils`).
+- **1800+ Platforms**: Supports YouTube, Twitter, TikTok, Vimeo, and more.
 
 ## Global Options
 
 These options work with all commands:
 
 ```bash
-clipscribe [GLOBAL OPTIONS] COMMAND [COMMAND OPTIONS]
+clipscribe [GLOBAL OPTIONS] COMMAND [ARGS]...
 ```
 
 | Option | Description |
-|--------|-------------|
-| `--version` | Show ClipScribe version and exit |
-| `--help` | Show help message and exit |
-| `--debug` | Enable debug logging |
+|---|---|
+| `--version` | Show ClipScribe version and exit. |
+| `--help` | Show help message and exit. |
+| `--debug` | Enable debug logging for detailed output. |
 
-## Commands
+## Command Groups
 
-### `transcribe` - Extract Video Intelligence
+### `process` - Process Single Media Files
 
-Process videos to extract entities, relationships, and generate knowledge graphs.
+Commands for processing a single video or media file.
+
+#### `process video`
+Process a single video from a URL to extract intelligence.
 
 ```bash
-clipscribe transcribe [OPTIONS] URL
+clipscribe process video [OPTIONS] URL
 ```
 
 **Arguments:**
-- `URL` (required) - Video URL to process (supports 1800+ platforms via yt-dlp)
+- `URL` (required) - The URL of the video to process.
 
 **Options:**
+*All options from the previous `transcribe` command are available here, including `--output-dir`, `--mode`, `--use-flash`, etc.*
 
-| Option | Short | Default | Description | Tech Notes |
-|--------|-------|---------|-------------|------------|
-| `--output-dir` | `-o` | `output` | Directory to save outputs | Creates timestamped subdir |
-| `--mode` | `-m` | `auto` | Processing mode: audio, video, auto | 'video' enables visual analysis, adds ~20% time |
-| `--use-flash` | | `False` | Use faster Gemini 2.5 Flash model | Default is Pro. Flash is ~15-30% faster but lower quality. |
-| `--use-cache/--no-cache` | | True | Use cached results | Reduces repeat costs by 100% |
-| `--enhance-transcript` | | False | Add diarization/timestamps | Adds $0.001-0.002, enables temporal features |
-| `--clean-graph` | | False | AI-clean knowledge graph | Adds 5-10s, improves graph quality |
-| `--skip-cleaning` | | False | Skip cleaning for raw results | Useful for debugging extractors |
-| `--visualize` | | False | Generate interactive viz | Outputs HTML graph, requires pyvis |
-| `--performance-report` | | False | Generate report | Includes timings, costs, metrics |
-
-**Examples:**
-
+**Example:**
 ```bash
-# High-quality analysis for data science
-clipscribe transcribe "https://youtube.com/watch?v=6ZVj1_SE4Mo" --use-pro --performance-report
+# Process a video with default (high-quality) settings
+poetry run clipscribe process video "https://www.youtube.com/watch?v=VIDEO_ID"
 
-# Extend with custom mode
-# See Contributing for subclassing VideoIntelligenceRetriever
+# Process with faster, standard quality
+poetry run clipscribe process video "https://www.youtube.com/watch?v=VIDEO_ID" --use-flash
 ```
 
-### `research` - Research Videos by Topic
+---
 
-Search and analyze multiple videos on a topic.
+### `collection` - Analyze Video Collections
+
+Commands for processing multiple videos as a unified collection.
+
+#### `collection series`
+Process multiple related videos as a series with narrative flow analysis.
+
+```bash
+clipscribe collection series [OPTIONS] URLS...
+```
+
+**Arguments:**
+- `URLS...` (required) - A list of video URLs in series order.
+
+**Options:**
+*Includes `--output-dir`, `--series-title`, `--use-flash`, etc.*
+
+**Example:**
+```bash
+# Process a two-part documentary series
+poetry run clipscribe collection series "URL_PART_1" "URL_PART_2"
+```
+
+#### `collection custom`
+Process a custom collection of videos from various sources.
+
+```bash
+clipscribe collection custom [OPTIONS] COLLECTION_NAME URLS...
+```
+
+**Arguments:**
+- `COLLECTION_NAME` (required) - A name for your custom collection.
+- `URLS...` (required) - A list of video or playlist URLs.
+
+**Options:**
+*Includes `--output-dir`, `--collection-type`, `--limit`, `--use-flash`, etc.*
+
+**Example:**
+```bash
+# Analyze three videos about a specific topic
+poetry run clipscribe collection custom "Market Research Q3" "URL1" "URL2" "URL3"
+```
+
+---
+
+### `research` - Research by Topic
+
+Search for and analyze multiple videos on a given topic.
 
 ```bash
 clipscribe research [OPTIONS] QUERY
 ```
 
 **Arguments:**
-- `QUERY` (required) - Search term or YouTube channel URL
+- `QUERY` (required) - The search term or a YouTube channel URL.
 
 **Options:**
+*Includes `--max-results`, `--period`, `--sort-by`, etc.*
 
-| Option | Short | Default | Description |
-|--------|-------|---------|-------------|
-| `--max-results` | `-n` | `2` | Maximum videos to analyze |
-| `--period` | | None | Filter: hour, day, week, month, year |
-| `--sort-by` | | `relevance` | Sort: relevance, newest, oldest, popular |
-| `--output-dir` | `-o` | `output/research` | Output directory |
-
-**Examples:**
-
+**Example:**
 ```bash
-# Research a topic
-clipscribe research "climate change solutions" --max-results 5
-
-# Analyze a YouTube channel
-clipscribe research "https://www.youtube.com/@pbsnewshour" \
-  --max-results 10 \
-  --sort-by newest
+# Research the latest 5 videos on a topic
+poetry run clipscribe research "AI in biotechnology" --max-results 5
 ```
 
-### `process-collection` - Analyze Video Collections
+---
 
-Process multiple videos as a unified collection.
+### `utils` - Utility Commands
+
+Commands for project maintenance and utilities.
+
+#### `utils clean-demo`
+Clean up old demo and test collection folders.
 
 ```bash
-clipscribe process-collection [OPTIONS] TITLE URL1 URL2 [URL3...]
+clipscribe utils clean-demo [OPTIONS]
 ```
-
-**Arguments:**
-- `TITLE` (required) - Collection title
-- `URLs` (required) - Video URLs or playlist URL
 
 **Options:**
+*Includes `--demo-dir`, `--dry-run`, `--keep-recent`.*
 
-| Option | Short | Default | Description |
-|--------|-------|---------|-------------|
-| `--collection-type` | | `custom` | Type: series, topic_research, channel |
-| `--output-dir` | `-o` | `output/collections` | Output directory |
-| `--limit` | `-l` | None | Limit videos from playlists |
-| `--skip-confirmation` | | False | Skip confirmation prompt |
-| `--use-flash` | | `False` | Use faster Gemini 2.5 Flash model |
-
-**Examples:**
-
+**Example:**
 ```bash
-# Process a video series
-clipscribe process-collection \
-  "Investigation Series" \
-  "https://youtube.com/watch?v=part1" \
-  "https://youtube.com/watch?v=part2" \
-  "https://youtube.com/watch?v=part3"
-
-# Process YouTube playlist
-clipscribe process-collection \
-  "CNBC Market Analysis" \
-  "https://www.youtube.com/playlist?list=PLVbP054..." \
-  --limit 20
-```
-
-### `process-series` - Process Related Videos
-
-Process multiple related videos as a series.
-
-```bash
-clipscribe process-series [OPTIONS] URL1 URL2 [URL3...]
-```
-
-**Arguments:**
-- `URLs` (required) - Video URLs in series order
-
-**Options:**
-
-| Option | Short | Default | Description |
-|--------|-------|---------|-------------|
-| `--series-title` | `-t` | Auto | Title for the series |
-| `--output-dir` | `-o` | `output` | Output directory |
-| `--mode` | `-m` | `audio` | Processing mode |
-| `--use-flash` | | `False` | Use faster Gemini 2.5 Flash model |
-
-**Examples:**
-
-```bash
-# Process documentary series
-clipscribe process-series \
-  "https://youtube.com/watch?v=doc_pt1" \
-  "https://youtube.com/watch?v=doc_pt2" \
-  --series-title "Nature Documentary"
-```
-
-### `clean-demo` - Clean Demo Folders
-
-Clean up old demo and test folders.
-
-```bash
-clipscribe clean-demo [OPTIONS]
+# See what would be deleted without actually deleting it
+poetry run clipscribe utils clean-demo --dry-run
 ```

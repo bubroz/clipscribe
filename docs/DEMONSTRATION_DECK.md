@@ -62,7 +62,7 @@
 
 ## Slide 5: Live Demonstration
 ### Step-by-Step Showcase
-1. **Setup**: `poetry run clipscribe transcribe "URL_OF_CHOICE"`
+1. **Setup**: `poetry run clipscribe process video "URL_OF_CHOICE"`
 2. **Watch Magic**: Real-time extraction with the high-quality Pro model.
 3. **Explore Outputs**: Open the `report.md` for a summary and the GEXF in Gephi for an interactive graph.
 4. **Q&A**: Try another video or the `--use-flash` flag!
