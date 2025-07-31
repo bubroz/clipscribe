@@ -1,28 +1,27 @@
 # ClipScribe AI Assistant Continuation Prompt
 
-## Current State (2025-07-30 16:46 PDT)
+## Current State (2025-07-30 19:22 PDT)
 
-### Latest Version: v2.20.1 - Multi-Video Commands Hardened
+### Latest Version: v2.21.0 - Architectural Shift: Pro-First
 
-**Major Achievement**: Successfully debugged and fixed multiple critical bugs in the multi-video processing commands (`process-series`, `process-collection`). The `--use-pro` flag is now fully functional for series analysis, and the CLI output has been significantly improved for clarity. The golden set audit is complete.
+**Major Achievement**: Completed a comprehensive benchmark analysis comparing Gemini 2.5 Flash and Pro models. Based on the clear qualitative superiority of the Pro model, made it the default for all extraction commands. This decision solidifies ClipScribe's commitment to providing professional, intelligence-grade output by default.
 
 ### Recent Changes
-- **v2.20.1** (2025-07-30): ✅ **Multi-Video Commands Fixed** - `process-series` and `process-collection` now work correctly with the `--use-pro` flag.
-- **v2.20.1** (2025-07-30): 📊 **CLI Clarity Improved** - Results table for multi-video processing is now more intuitive, showing "New" vs. "Total Unified" relationships.
-- **v2.20.1** (2025-07-30): 🐛 **Multiple Bugs Squashed** - Resolved `TypeError` and `AttributeError` in the CLI that prevented multi-video commands from running.
-- **v2.20.0** (2025-07-24): ✅ **Core Components Complete** - Achieved professional, intelligence-grade extraction with comprehensive validation.
+- **v2.21.0** (2025-07-30): 🏛️ **Architectural Shift** - Gemini 2.5 Pro is now the default extraction model. The faster, lower-quality Flash model is available via `--use-flash`.
+- **v2.21.0** (2025-07-30): 🐛 **Robustness Fixes** - Increased API timeout to 60 minutes to handle long videos; fixed performance report timing bug.
+- **v2.21.0** (2025-07-30): ✨ **CLI UX Improved** - Added a clear "Intelligence extraction complete!" message.
+- **v2.20.1** (2025-07-30): ✅ **Multi-Video Commands Hardened** - Fixed `--use-pro` flag, `TypeError`, and `AttributeError`. Improved output clarity.
 
 ### What's Working Well ✅
-- **Multi-Video Processing**: The `process-series` command is now fully operational, successfully unifying entities and relationships across multiple videos.
-- **High-Quality Series Analysis**: The `--use-pro` flag works as intended, enabling Gemini 2.5 Pro for in-depth series analysis.
-- **Intelligent Caching**: The system correctly uses cached results for individual videos, making series analysis fast and cost-effective on subsequent runs.
-- **Documentation**: `CHANGELOG.md` and `CLI_REFERENCE.md` are fully updated with the latest changes.
+- **Pro-First Quality**: The default extraction pipeline now produces the highest quality intelligence, directly addressing user feedback.
+- **Data-Driven Decisions**: The new architecture is supported by a rigorous, evidence-based benchmark documented in `BENCHMARK_REPORT.md`.
+- **Long-Form Content**: The tool can now reliably process hour-long videos without timing out.
+- **Professional UX**: The CLI provides clearer, more accurate, and more satisfying user feedback.
 
 ### Known Issues ⚠️
-- **Quality Gap**: Hybrid extraction (the default) is still potentially "lacking in accuracy" per user feedback. The `--use-pro` flag is the current workaround.
-- **Performance**: No formal benchmarks yet for hybrid vs pro speed differential, which is a key decision point for future architecture.
+- **Test Coverage**: The recent debugging sessions highlighted the need for a more comprehensive integration test suite to catch CLI-related bugs automatically.
 
 ### Roadmap 🗺️
-- **Next**: Formulate and propose the next well-reasoned steps for project improvement, focusing on professionalizing the codebase.
-- **Soon**: Benchmark speed differentials between hybrid and pro-only extraction to inform architectural decisions.
-- **Later**: Implement a `--verify-output` flag for post-processing validation.
+- **Next**: Implement a comprehensive integration test suite for the CLI to ensure robustness and prevent regressions.
+- **Soon**: Investigate adding a `--verify-output` flag for post-processing validation of all generated files.
+- **Later**: Begin exploring the next phase of intelligence enhancements, building on the high-quality foundation of the Pro-first model.

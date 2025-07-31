@@ -1,12 +1,12 @@
 # ClipScribe CLI Reference
 
-*Last Updated: July 30, 2025 - v2.20.1 with multi-video command fixes*
+*Last Updated: July 30, 2025 - v2.21.0 with Pro-First Architecture*
 
 Complete reference for all ClipScribe commands and options.
 
 ## ✨ Key Features
 
-- **Quality Control** - Choose Flash ($0.003) vs Pro ($0.017) models via --use-pro flag
+- **Quality First** - Gemini 2.5 Pro is now the default for the highest quality intelligence. Use `--use-flash` for a faster, lower-cost option.
 - **Fixed Pipeline** - Entities/relationships now properly saved to output files ✅
 - **1800+ platforms** - YouTube, Twitter, TikTok, Vimeo, and more
 - **Knowledge Graphs** - GEXF generation working (validated 60 nodes, 53 edges)
@@ -45,7 +45,7 @@ clipscribe transcribe [OPTIONS] URL
 |--------|-------|---------|-------------|------------|
 | `--output-dir` | `-o` | `output` | Directory to save outputs | Creates timestamped subdir |
 | `--mode` | `-m` | `auto` | Processing mode: audio, video, auto | 'video' enables visual analysis, adds ~20% time |
-| `--use-pro` | | False | Use Gemini 2.5 Pro (~$0.017/video) | Improves entity accuracy by 30-50% (benchmarked) |
+| `--use-flash` | | `False` | Use faster Gemini 2.5 Flash model | Default is Pro. Flash is ~15-30% faster but lower quality. |
 | `--use-cache/--no-cache` | | True | Use cached results | Reduces repeat costs by 100% |
 | `--enhance-transcript` | | False | Add diarization/timestamps | Adds $0.001-0.002, enables temporal features |
 | `--clean-graph` | | False | AI-clean knowledge graph | Adds 5-10s, improves graph quality |
@@ -115,7 +115,7 @@ clipscribe process-collection [OPTIONS] TITLE URL1 URL2 [URL3...]
 | `--output-dir` | `-o` | `output/collections` | Output directory |
 | `--limit` | `-l` | None | Limit videos from playlists |
 | `--skip-confirmation` | | False | Skip confirmation prompt |
-| `--use-pro` | | False | Use Gemini 2.5 Pro for highest quality extraction |
+| `--use-flash` | | `False` | Use faster Gemini 2.5 Flash model |
 
 **Examples:**
 
@@ -152,7 +152,7 @@ clipscribe process-series [OPTIONS] URL1 URL2 [URL3...]
 | `--series-title` | `-t` | Auto | Title for the series |
 | `--output-dir` | `-o` | `output` | Output directory |
 | `--mode` | `-m` | `audio` | Processing mode |
-| `--use-pro` | | False | Use Gemini 2.5 Pro for highest quality extraction |
+| `--use-flash` | | `False` | Use faster Gemini 2.5 Flash model |
 
 **Examples:**
 

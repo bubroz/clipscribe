@@ -5,6 +5,21 @@ All notable changes to ClipScribe will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v2.21.0] - 2025-07-30
+
+### Changed
+- **Architectural Shift: Pro-First**: Made Gemini 2.5 Pro the default extraction model for all commands to ensure the highest quality output.
+  - The previous default model (Gemini 2.5 Flash) is now available via an optional `--use-flash` flag.
+  - This decision is based on a comprehensive benchmark analysis that consistently showed a superior quality of intelligence from the Pro model.
+- **Improved CLI Experience**: Added a clear "🎉 Intelligence extraction complete!" message to the end of processing runs for better user feedback.
+
+### Fixed
+- **API Timeout for Long Videos**: Increased the Gemini API request timeout from 10 minutes to 60 minutes to successfully process long-form content (e.g., hour-long videos) without `504 Deadline Exceeded` errors.
+- **Performance Report Accuracy**: Fixed a bug where `processing_time` was incorrectly reported as 0.0. The report now accurately reflects the command's execution time.
+
+### Added
+- **Benchmark Report**: Created a comprehensive `BENCHMARK_REPORT.md` detailing the quantitative and qualitative analysis that drove the Pro-first architectural decision.
+
 ## [v2.20.1] - 2025-07-30
 
 ### Fixed
