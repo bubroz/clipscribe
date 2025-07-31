@@ -1,8 +1,10 @@
 # ClipScribe CLI Reference
 
-*Last Updated: July 30, 2025 - v2.22.0 CLI Refactor*
+*Last Updated: July 30, 2025 - v2.22.1 CLI Status*
 
 Complete reference for all ClipScribe commands, groups, and options.
+
+**Current Status**: 5/6 CLI integration tests passing (83% success rate). All basic commands work; collection processing has integration issues being addressed.
 
 ## ✨ Key Features
 
