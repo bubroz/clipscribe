@@ -66,7 +66,7 @@ class GeminiFlashTranscriber:
         logger.info(f"Temporal intelligence level: {self.temporal_config['level']}")
         
         # Get timeout setting
-        self.request_timeout = 600
+        self.request_timeout = 3600
         logger.info(f"Using Gemini request timeout: {self.request_timeout}s")
         
         # Track costs

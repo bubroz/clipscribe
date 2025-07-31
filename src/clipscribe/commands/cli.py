@@ -47,6 +47,7 @@ import subprocess
 import webbrowser
 import platform
 import json
+import time
 
 import click
 
@@ -193,9 +194,10 @@ def cli(ctx: click.Context, debug: bool) -> None:
     help='Generate a detailed performance report for the run.'
 )
 @click.option(
-    '--use-pro',
+    '--use-flash',
     is_flag=True,
-    help='Use Gemini 2.5 Pro for highest quality extraction (higher cost).'
+    default=False,
+    help='Use Gemini 2.5 Flash for faster, lower-cost extraction (default is Pro).'
 )
 @click.pass_context
 def transcribe(
@@ -209,10 +211,10 @@ def transcribe(
     skip_cleaning: bool,
     visualize: bool,
     performance_report: bool,
-    use_pro: bool
+    use_flash: bool
 ) -> None:
     """Transcribe a video and extract intelligence."""
-    asyncio.run(transcribe_async(ctx, url, output_dir, mode, use_cache, enhance_transcript, clean_graph, skip_cleaning, visualize, performance_report, use_pro))
+    asyncio.run(transcribe_async(ctx, url, output_dir, mode, use_cache, enhance_transcript, clean_graph, skip_cleaning, visualize, performance_report, use_flash))
 
 async def transcribe_async(
     ctx: click.Context,
@@ -225,9 +227,10 @@ async def transcribe_async(
     skip_cleaning: bool,
     visualize: bool,
     performance_report: bool,
-    use_pro: bool
+    use_flash: bool
 ) -> None:
     """Async implementation of transcribe command."""
+    use_pro = not use_flash
     # Lazy import all processing components
     imports = _get_core_imports()
     logger = _setup_rich_logging()
@@ -295,7 +298,10 @@ async def transcribe_async(
         # Use progress indicator context for live updates
         async with progress_indicator.video_processing_progress(url) as state:
             # Process video and update cost at each phase
+            start_time = time.monotonic()
             result = await retriever.process_url(url, progress_state=state)
+            end_time = time.monotonic()
+            processing_duration = end_time - start_time
             
             # Check if result is None
             if result is None:
@@ -325,7 +331,7 @@ async def transcribe_async(
                     "url": url,
                     "mode": mode,
                     "model": model,
-                    "processing_time": result.processing_time,
+                    "processing_time": processing_duration,
                     "processing_cost": result.processing_cost,
                     "transcript_length": len(result.transcript.full_text) if result.transcript else 0,
                     "entity_count": len(result.entities),
@@ -335,6 +341,8 @@ async def transcribe_async(
                 with open(report_path, 'w') as f:
                     json.dump(performance_data, f, indent=2)
                 console.print(f"[dim]Performance report saved to: {report_path}[/dim]")
+            
+            console.print("\n🎉 [bold green]Intelligence extraction complete![/bold green]")
             
     except Exception as e:
         logger.exception("Transcription failed")
@@ -536,9 +544,10 @@ async def research_async(ctx: click.Context, query: str, max_results: int, perio
 @click.option('--performance-report', is_flag=True)
 @click.option('--skip-confirmation', is_flag=True, help="Skip playlist preview and confirmation")
 @click.option(
-    '--use-pro',
+    '--use-flash',
     is_flag=True,
-    help='Use Gemini 2.5 Pro for highest quality extraction (higher cost).'
+    default=False,
+    help='Use Gemini 2.5 Flash for faster, lower-cost extraction (default is Pro).'
 )
 @click.pass_context
 def process_collection(
@@ -552,6 +561,7 @@ def process_collection(
     output_dir: Path,
     limit: Optional[int],
     skip_confirmation: bool,
+    use_flash: bool,
     **kwargs
 ) -> None:
     """Process multiple videos as a unified collection with cross-video intelligence.
@@ -570,7 +580,7 @@ def process_collection(
         output_dir,
         limit,
         skip_confirmation,
-        use_pro,
+        use_flash,
         **kwargs
     ))
 
@@ -585,9 +595,10 @@ async def process_collection_async(
     output_dir: Path,
     limit: Optional[int],
     skip_confirmation: bool,
-    use_pro: bool, # Add use_pro
+    use_flash: bool,
     **kwargs
 ) -> None:
+    use_pro = not use_flash
     # Lazy import all processing components
     imports = _get_core_imports()
     Panel, Table, RichHandler, box, Console = _get_rich_imports()
@@ -851,9 +862,10 @@ async def process_collection_async(
 @click.option('--clean-graph', is_flag=True)
 @click.option('--performance-report', is_flag=True)
 @click.option(
-    '--use-pro',
+    '--use-flash',
     is_flag=True,
-    help='Use Gemini 2.5 Pro for highest quality extraction (higher cost).'
+    default=False,
+    help='Use Gemini 2.5 Flash for faster, lower-cost extraction (default is Pro).'
 )
 @click.pass_context
 def process_series(
@@ -861,7 +873,7 @@ def process_series(
     urls: tuple,
     output_dir: Path,
     series_title: Optional[str],
-    use_pro: bool,
+    use_flash: bool,
     **kwargs
 ) -> None:
     """Process videos as a series with automatic detection and narrative flow analysis."""
@@ -880,7 +892,7 @@ def process_series(
         output_dir=output_dir,
         limit=None, # Explicitly set limit to None for series processing
         skip_confirmation=False,
-        use_pro=use_pro,
+        use_flash=use_flash,
         **kwargs
     ))
 
