@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Improved Discoverability**: The new group structure makes it easier for users to find and understand commands.
 
 ### Added
+- **Architectural Decision**: Adopted the `structlog` library for a future implementation of professional-grade, structured logging.
 - **Smoke Tests**: Performed manual validation of the new CLI structure to ensure all commands are functional post-refactor.
 
 ## [v2.21.0] - 2025-07-30
