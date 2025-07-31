@@ -48,7 +48,7 @@ class SeriesDetector:
     - Channel consistency: Same creator verification
     
     # AI-Powered Pattern Recognition
-    - Gemini Flash analysis of title structures
+    - Gemini Pro analysis of title structures
     - Content coherence validation
     - Narrative flow detection
 ```
@@ -106,7 +106,7 @@ aliases = {
 ### Cross-Video Entity Resolution Process
 1. **Collect**: All entities from all videos
 2. **Normalize**: Aggressive 85% similarity matching
-3. **AI Validate**: Gemini Flash confirms merging decisions
+3. **AI Validate**: Gemini Pro confirms merging decisions
 4. **Enhance**: Add temporal context, video appearances
 5. **Cross-Reference**: Validate against multiple sources
 
@@ -157,16 +157,13 @@ output/
 }
 ```
 
-## 🎚️ Configurable Quality Levels
+## 🎚️ Quality & Speed Configuration
 
-### Processing Modes
-```python
-class ProcessingQuality(Enum):
-    FAST = "fast"           # Basic entity merging, template summaries
-    STANDARD = "standard"   # Full entity normalization, AI validation
-    PREMIUM = "premium"     # Advanced AI analysis, narrative flow, bias detection
-    RESEARCH = "research"   # Maximum analysis, academic-grade citations
-```
+ClipScribe has adopted a "Quality-First" architecture.
+
+### Processing Models
+- **Gemini 2.5 Pro (Default)**: Provides the highest quality, professional-grade intelligence. Used for all analysis by default.
+- **Gemini 2.5 Flash (Optional)**: A faster, lower-cost model available via the `--use-flash` flag for users who prioritize speed over maximum quality.
 
 ### Quality Level Features
 - **FAST**: 70% similarity threshold, no AI validation
@@ -191,17 +188,14 @@ src/clipscribe/
 
 ### CLI Interface Design
 ```bash
-# Automatic series detection
+# Automatic series detection with high-quality Pro model (default)
 clipscribe process-series "https://youtube.com/watch?v=part1" "https://youtube.com/watch?v=part2"
 
-# Manual series creation
-clipscribe create-series --title "PBS Iran Analysis" video1.json video2.json
+# Optional: Use the faster Flash model
+clipscribe process-series "https://youtube.com/watch?v=part1" "https://youtube.com/watch?v=part2" --use-flash
 
-# Cross-source topic analysis
-clipscribe analyze-topic "Iran Nuclear Program" --sources pbs,bbc,cnn --quality premium
-
-# Batch processing with grouping
-clipscribe batch-process urls.txt --auto-group --quality standard
+# Process a custom collection of videos
+clipscribe process-collection "My Research Topic" "URL1" "URL2" "URL3"
 ```
 
 ### Integration Points

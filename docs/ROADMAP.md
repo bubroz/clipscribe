@@ -1,105 +1,38 @@
 # ClipScribe Development Roadmap
 
-*Last Updated: 2025-07-25*
+*Last Updated: 2025-07-30*
 
-## Architecture Decision: Hybrid vs Pro-Only Extraction
+## Architecture: Quality-First by Default
 
-### Current State
-- **Hybrid Extraction (Default)**: Gemini 2.5 Flash (~$0.003/video) with local model fallbacks
-- **Pro Extraction (--use-pro)**: Gemini 2.5 Pro (~$0.017/video) for highest quality
-- **Quality Gap**: User feedback indicates hybrid output can be "seriously lacking in accuracy"
+### Previous State
+- **Hybrid Extraction (Old Default)**: Gemini 2.5 Flash (~$0.003/video). User feedback indicated this was "seriously lacking in accuracy."
+- **Pro Extraction (Old Flag)**: Gemini 2.5 Pro (~$0.017/video) available via `--use-pro`.
 
-### Decision Framework
+### Architectural Decision (v2.21.0)
+Based on a comprehensive benchmark analysis (`BENCHMARK_REPORT.md`), we have shifted to a **Quality-First architecture**:
 
-#### Option 1: Keep Hybrid as Default (Cost-First)
-**Pros:**
-- Lower barrier to entry (~$0.003 vs $0.017 per video)
-- Good enough for basic transcription and entity extraction
-- Supports cost-conscious users and high-volume processing
-- **Speed**: Gemini 2.5 Flash typically faster than Pro (analysis needed)
+1.  **Default to Gemini 2.5 Pro**: Ensures the highest quality, professional-grade intelligence for all users out of the box.
+2.  **Optional `--use-flash` flag**: Provides a cost-conscious option for users who prioritize speed and volume over maximum quality.
 
-**Cons:**
-- Quality complaints from users expecting professional-grade output
-- May hurt product reputation if default experience is subpar
-- Requires users to know about --use-pro flag for quality work
+This change aligns with our core identity of providing reliable video intelligence and directly addresses user feedback on quality.
 
-#### Option 2: Switch to Pro-Only Default (Quality-First)
-**Pros:**
-- Consistent high-quality output experience
-- Eliminates quality gap confusion
-- Aligns with "video intelligence" positioning vs basic transcription
+### Implementation Plan
 
-**Cons:**
-- Higher cost barrier (~6x more expensive)
-- May limit adoption for high-volume use cases
-- Still need hybrid option for cost-sensitive scenarios
-- **Speed**: Gemini 2.5 Pro may be slower than Flash (needs benchmarking)
-
-#### Option 3: Smart Auto-Selection (Adaptive)
-**Pros:**
-- Automatically choose model based on content complexity
-- Best of both worlds: cost efficiency + quality when needed
-- User doesn't need to understand model differences
-- **Speed**: Optimizes for both speed and quality based on content
-
-**Cons:**
-- Added complexity in decision logic
-- Unpredictable costs for users
-- Risk of wrong model selection
-- **Speed**: Analysis overhead for auto-selection
-
-### Speed Analysis Required
-
-**CRITICAL RESEARCH NEEDED**: Before implementing architecture decision, we need:
-
-1. **Processing Speed Benchmarks**:
-   - [ ] Gemini 2.5 Flash vs Pro speed comparison (same video)
-   - [ ] Download speed impact: audio-only vs full video
-   - [ ] End-to-end processing time analysis
-   - [ ] Concurrent processing performance
-
-2. **Speed Optimization Opportunities**:
-   - [ ] Audio-only processing as default with video fallback
-   - [ ] Parallel download + processing pipeline
-   - [ ] Smarter mode detection to avoid unnecessary video downloads
-   - [ ] Streaming processing for long videos
-
-3. **Cost vs Speed vs Quality Matrix**:
-   ```
-   Model    | Speed | Cost  | Quality | Use Case
-   ---------|-------|-------|---------|----------
-   Flash    | Fast  | Low   | Good    | High volume
-   Pro      | ?     | High  | High    | Quality critical
-   Auto     | ?     | ?     | ?       | General use
-   ```
-
-### Recommendation: Quality-First with Cost Options
-
-**Proposed Changes:**
-1. **Default to Gemini 2.5 Pro** for highest quality user experience
-2. **Add --use-flash flag** for cost-conscious processing
-3. **Clear cost messaging** in CLI output ($0.017 vs $0.003)
-4. **Batch processing discounts** for high-volume Pro usage
-
-**Implementation Plan:**
-
-#### Phase 1: Quality-First Default (v2.21.0)
-- [ ] Switch default model from Flash to Pro
-- [ ] Add --use-flash flag for cost-conscious users  
-- [ ] Update CLI help text with cost implications
-- [ ] Add cost warnings for large batch jobs
+#### Phase 1: Quality-First Default (v2.21.0) - ✅ COMPLETE
+- [x] Switched default model from Flash to Pro.
+- [x] Renamed `--use-pro` to `--use-flash` for the cost-conscious option.
+- [x] Updated all CLI help text and documentation.
+- [x] Completed and documented a comprehensive benchmark analysis.
 
 #### Phase 2: Enhanced Cost Management (v2.22.0)
-- [ ] Add --max-cost flag to prevent runaway expenses
-- [ ] Implement cost tracking across sessions
-- [ ] Add cost estimation before processing
-- [ ] Create cost-per-minute calculator
+- [ ] Add `--max-cost` flag to prevent runaway expenses.
+- [ ] Implement cost tracking across sessions.
+- [ ] Add cost estimation before processing.
+- [ ] Create cost-per-minute calculator.
 
 #### Phase 3: Smart Auto-Selection (v2.23.0)
-- [ ] Content complexity analysis
-- [ ] Auto-model selection based on content type
-- [ ] User preferences and cost limits
-- [ ] Fallback strategies for rate limits
+- [ ] Research content complexity analysis to potentially auto-select the best model.
+- [ ] Explore user preferences and cost limits for smarter defaults.
 
 ### Quality Metrics to Track
 

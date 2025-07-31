@@ -1,241 +1,85 @@
 # ClipScribe Comprehensive Testing Plan
 
-*Created: 2025-06-28*  
-*Status: CRITICAL - Multiple production-blocking bugs identified*
+*Last Updated: July 30, 2025*
+*Status: v2.21.0 - Pro-First Architecture Implemented. Next priority: CLI Integration Test Suite.*
 
 ## Executive Summary
 
-ClipScribe has reached a critical juncture where multiple "complete" features have fundamental bugs preventing basic functionality. This document outlines a systematic approach to testing, fixing, and validating all features before any new development.
+ClipScribe has successfully transitioned to a "Pro-First" architecture, making Gemini 2.5 Pro the default for all intelligence extraction. This decision, driven by comprehensive benchmarking, ensures the highest quality output for users. With this architectural shift and numerous bug fixes complete, the next critical step is to build a robust, automated integration test suite to ensure long-term stability and prevent regressions.
 
-## Critical Issues Requiring Immediate Fix
+## Recently Resolved Issues (v2.20.1 & v2.21.0)
 
-### 1. Timeline Intelligence - Date Extraction Logic
-**Severity**: CRITICAL  
-**Impact**: Feature completely broken for intended purpose
+- **✅ Pro-Model by Default**: Addressed user feedback on quality by making Gemini 2.5 Pro the default model.
+- **✅ Multi-Video Command Bugs**: Fixed `TypeError` and `AttributeError` issues that blocked `process-series` and `process-collection`.
+- **✅ API Timeout Errors**: Increased timeout to 60 minutes to handle long-form video content successfully.
+- **✅ Performance Reporting**: Fixed a bug to ensure accurate `processing_time` is captured.
+- **✅ CLI Clarity**: Improved UX by adding a completion message and clarifying multi-video result tables.
 
-**Current Bug**:
-```python
-# WRONG - adds video seconds as days
-event_timestamp = video.metadata.published_at + timedelta(seconds=key_point.timestamp)
-```
+## Next Priority: CLI Integration Test Suite
 
-**Required Fix**:
-```python
-# Option 1: Use video timestamp properly
-event_timestamp = video.metadata.published_at  # Don't add seconds as days
-
-# Option 2: Only show events with extracted dates
-if extracted_date_obj:
-    event_timestamp = extracted_date_obj.parsed_date
-else:
-    continue  # Skip events without real dates
-```
-
-### 2. Information Flow Maps - Model Attribute Errors
-**Severity**: CRITICAL  
-**Impact**: Page crashes immediately on load
-
-**Required Fixes**:
-- Line 51: Replace `flow_map.flow_pattern_analysis` with direct attributes
-- Use `flow_map.learning_progression` instead of `flow_map.flow_pattern_analysis.learning_progression`
-- Use `flow_map.strategic_insights` instead of `flow_map.flow_pattern_analysis.strategic_insights`
-- Audit entire file for model mismatches
-
-### 3. Model-UI Synchronization
-**Severity**: HIGH  
-**Impact**: Multiple UI features broken
-
-**Required Actions**:
-- Generate model documentation from Pydantic models
-- Update all UI code to match actual model attributes
-- Add runtime validation of model structures
-
-## Testing Phases
+Our recent development cycles, while successful, have been characterized by manual, iterative debugging of the CLI. To professionalize our workflow and ensure stability, an automated integration test suite is the highest priority.
 
 ### Phase 1: Core Functionality Testing (Backend)
 
 #### 1.1 Single Video Processing
-- [ ] Process PBS NewsHour video successfully
-- [ ] Verify transcript extraction accuracy
-- [ ] Check entity extraction (SpaCy + GLiNER)
-- [ ] Validate relationship extraction (REBEL)
-- [ ] Confirm knowledge graph generation
-- [ ] Test all output formats (JSON, TXT, CSV, etc.)
+- [ ] Test `transcribe` command with a standard video URL.
+- [ ] Test with `--use-flash` flag to ensure the optional model is correctly invoked.
+- [ ] Test with `--no-cache` to verify non-cached execution.
+- [ ] Assert that all expected output files are generated in the correct directory.
+- [ ] Assert that the `performance_report.json` contains valid, non-zero data.
 
 #### 1.2 Multi-Video Collection Processing
-- [ ] Process 2-part PBS series
-- [ ] Verify cross-video entity resolution
-- [ ] Check unified knowledge graph generation
-- [ ] Validate collection summary generation
-- [ ] Test series detection functionality
+- [ ] Test `process-series` with multiple video URLs.
+- [ ] Test `process-collection` with multiple video URLs.
+- [ ] Test both commands with the `--use-flash` flag.
+- [ ] Assert that both individual and unified collection directories and files are created.
+- [ ] Assert that the final summary table in the CLI output is rendered correctly.
 
-#### 1.3 Enhanced Features
-- [ ] Video retention system (delete/keep_processed/keep_all)
-- [ ] Cost tracking accuracy
-- [ ] Performance metrics collection
-- [ ] Error handling and recovery
+#### 1.3 Error Handling & Edge Cases
+- [ ] Test with an invalid video URL and assert a graceful error message.
+- [ ] Test with a known private/deleted video and assert a clear user message.
+- [ ] Test timeout functionality with an extremely long (mocked) processing time.
 
-### Phase 2: UI Testing (Mission Control)
+### Phase 2: Test Implementation
 
-#### 2.1 Page Load Testing
-- [ ] Main Dashboard - loads without errors
-- [ ] Collections - displays data correctly
-- [ ] Information Flow Maps - CURRENTLY BROKEN
-- [ ] Timeline Intelligence - shows proper dates (CURRENTLY BROKEN)
-- [ ] Analytics - all metrics display
+#### 2.1 Test Framework
+- We will use `pytest` as our testing framework.
+- Tests will be located in the `tests/integration/` directory.
+- We will use a dedicated test video from the `MASTER_TEST_VIDEO_TABLE.md` for consistency.
 
-#### 2.2 Interactive Feature Testing
-- [ ] Search and filtering on all pages
-- [ ] Data export functionality
-- [ ] Visualization rendering
-- [ ] Real-time processing monitor
-- [ ] Settings persistence
+#### 2.2 Test Structure
+A new test file, `tests/integration/test_cli_workflow.py`, will be created to house these tests. Each test will use Python's `subprocess` module to run the `clipscribe` CLI command and will then inspect the filesystem and command output to assert the expected outcome.
 
-#### 2.3 Data Flow Testing
-- [ ] Process video through CLI
-- [ ] Verify data appears in UI
-- [ ] Test all data transformations
-- [ ] Validate export formats
+```python
+# Example Test Structure in test_cli_workflow.py
+import subprocess
+import json
+from pathlib import Path
 
-### Phase 3: Timeline Feature Evaluation
+def run_clipscribe_command(command: list[str]) -> subprocess.CompletedProcess:
+    """Helper function to run a clipscribe command."""
+    base_command = ["poetry", "run", "clipscribe"]
+    full_command = base_command + command
+    return subprocess.run(full_command, capture_output=True, text=True)
 
-#### 3.1 Applicability Assessment
-- [ ] Determine which video types benefit from timeline extraction
-- [ ] Document when timeline feature should be used
-- [ ] Consider making timeline optional based on content type
-
-#### 3.2 Date Extraction Testing
-- [ ] Test with historical documentaries (dates in content)
-- [ ] Test with news videos (current events)
-- [ ] Test with tutorials (no historical dates)
-- [ ] Validate LLM date extraction accuracy
-
-#### 3.3 Timeline Export Testing
-- [ ] JSON export with proper dates
-- [ ] Timeline.js format validation
-- [ ] CSV export functionality
-- [ ] ICS calendar format
-
-### Phase 4: Information Flow Testing
-
-#### 4.1 Concept Extraction
-- [ ] Verify concept identification accuracy
-- [ ] Test maturity level assignment
-- [ ] Validate concept clustering
-- [ ] Check dependency detection
-
-#### 4.2 Evolution Tracking
-- [ ] Test concept evolution across videos
-- [ ] Verify progression tracking
-- [ ] Validate flow visualizations
-- [ ] Check strategic insights generation
-
-### Phase 5: Integration Testing
-
-#### 5.1 End-to-End Workflows
-- [ ] Single video: URL → Process → View in UI → Export
-- [ ] Collection: Multiple URLs → Process → Unified Analysis → Export
-- [ ] Series: Auto-detection → Confirmation → Analysis → Timeline
-
-#### 5.2 Error Scenarios
-- [ ] Invalid video URLs
-- [ ] Private/deleted videos
-- [ ] API quota exceeded
-- [ ] Network failures
-- [ ] Corrupt data handling
-
-## Test Data Sets
-
-### Required Test Videos
-1. **PBS NewsHour Pegasus Series** (2 parts) - Historical dates, entities, relationships
-2. **Technical Tutorial** - Concepts, no historical dates
-3. **News Compilation** - Multiple dates and events
-4. **Short Clip** (<5 min) - Performance baseline
-5. **Long Documentary** (>1 hour) - Stress testing
-
-### Expected Outcomes
-- Document expected results for each test video
-- Create golden data sets for regression testing
-- Establish performance benchmarks
-
-## Testing Tools & Procedures
-
-### Manual Testing Checklist
-```bash
-# 1. Clean environment
-rm -rf output/
-poetry run pytest tests/  # Ensure base tests pass
-
-# 2. Process test video
-poetry run clipscribe transcribe "https://www.youtube.com/watch?v=6ZVj1_SE4Mo" \
-  --use-advanced-extraction \
-  --llm-validate
-
-# 3. Launch UI
-poetry run streamlit run streamlit_app/ClipScribe_Mission_Control.py
-
-# 4. Verify each page loads and displays data correctly
+def test_transcribe_default_pro_model():
+    """Tests the default transcribe command (should use Pro model)."""
+    video_url = "https://www.youtube.com/watch?v=..." # Test video
+    output_dir = Path("output/test_transcribe_pro")
+    
+    # Run command
+    result = run_clipscribe_command(["transcribe", video_url, "--output-dir", str(output_dir)])
+    
+    # Assertions
+    assert result.returncode == 0
+    assert "Intelligence extraction complete!" in result.stdout
+    assert (output_dir / "report.md").exists()
+    # ... more assertions
 ```
-
-### Automated Testing (Future)
-- UI testing with Playwright/Selenium
-- API testing with pytest
-- Performance benchmarking
-- Regression test suite
 
 ## Success Criteria
 
-### Minimum Viable Product (MVP)
-1. All UI pages load without errors
-2. Core video processing works reliably
-3. Timeline shows meaningful dates (or feature is disabled)
-4. Information flows display correctly
-5. No data loss or corruption
-
-### Production Ready
-1. All features work as documented
-2. Comprehensive error handling
-3. Performance meets benchmarks
-4. User documentation complete
-5. 90%+ test coverage
-
-## Timeline & Priorities
-
-### Week 1: Critical Bug Fixes
-- Day 1-2: Fix timeline date logic
-- Day 3-4: Fix Information Flow Maps UI
-- Day 5-7: Basic integration testing
-
-### Week 2: Comprehensive Testing
-- Complete all testing phases
-- Document findings
-- Create user guides
-
-### Week 3: Stabilization
-- Fix remaining bugs
-- Performance optimization
-- Prepare for release
-
-## Recommendations
-
-1. **Immediate Actions**:
-   - Fix the two critical bugs blocking basic functionality
-   - Run through Phase 1 & 2 testing manually
-   - Document all issues found
-
-2. **Process Improvements**:
-   - Require manual testing before marking features "complete"
-   - Add integration tests for UI-model interactions
-   - Create staging environment for pre-release testing
-
-3. **Feature Considerations**:
-   - Make timeline feature optional/configurable
-   - Add content type detection to enable relevant features
-   - Improve error messages and user guidance
-
-## Conclusion
-
-ClipScribe has significant potential but requires immediate stabilization. The timeline and information flow features need fundamental fixes before they can provide value. A systematic testing approach will ensure all features work reliably before adding new functionality.
-
-**Current Status**: NOT PRODUCTION READY - Critical bugs in core features
-**Target Status**: Stable, tested, and documented for v2.19.0 release 
+- **Test Coverage**: The new test suite should cover all major CLI commands and their primary options.
+- **Reliability**: Tests must be reliable and produce consistent results.
+- **CI Integration**: The test suite should be added to our Continuous Integration pipeline to run on every commit, preventing future regressions.
+- **Confidence**: The successful implementation of this test suite will give us high confidence to refactor and add new features in the future without breaking existing functionality. 

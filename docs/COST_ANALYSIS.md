@@ -1,6 +1,6 @@
 # ClipScribe Cost Analysis
 
-*Last Updated: July 20, 2025*
+*Last Updated: July 30, 2025*
 
 ## Overview
 
@@ -18,14 +18,14 @@ ClipScribe processes videos through Google's Gemini AI models. Understanding the
 | **Gemini 2.5 Pro** | 1k characters (output) | $0.00250 | |
 | YouTube Transcript API | per video | $0.00 | Free, used when available. |
 
-The following table outlines the estimated cost per minute of video processing, which includes transcription, entity and relationship extraction, and knowledge graph generation using our hybrid **Gemini 2.5 Flash**-based system.
+The following table outlines the estimated cost per minute of video processing, which includes transcription, entity and relationship extraction, and knowledge graph generation using our **Gemini 2.5 Pro**-based system. Use the `--use-flash` flag for a lower-cost option.
 
-| Video Duration | Standard Quality (Audio) | Enhanced Quality (Video) |
+| Video Duration | High Quality (Pro - Default) | Standard Quality (Flash) |
 | :--- | :--- | :--- |
-| 1 minute | ~$0.0035 | ~$0.0070 |
-| 10 minutes | ~$0.035 | ~$0.070 |
-| 30 minutes | ~$0.105 | ~$0.210 |
-| 60 minutes | ~$0.210 | ~$0.420 |
+| 1 minute | ~$0.020 | ~$0.0035 |
+| 10 minutes | ~$0.20 | ~$0.035 |
+| 30 minutes | ~$0.60 | ~$0.105 |
+| 60 minutes | ~$1.20 | ~$0.210 |
 
 ### API Pricing (as of July 2025)
 
@@ -60,18 +60,18 @@ The following table outlines the estimated cost per minute of video processing, 
 
 ### Personal Use (10 videos/day)
 - Average video: 10 minutes
-- Daily cost: 10 × $0.0035 = $0.035
-- **Monthly: ~$1.05**
+- Daily cost: 10 × $0.20 = $2.00
+- **Monthly: ~$60.00**
 
 ### Research Use (50 videos/day)
 - Mix of short and long videos
-- Daily cost: 50 × $0.0050 = $0.25
-- **Monthly: ~$7.50**
+- Daily cost: 50 × $0.15 (avg) = $7.50
+- **Monthly: ~$225.00**
 
 ### Heavy Use (200 videos/day)
 - Exceeds free tier
-- Daily cost: 200 × $0.0050 = $1.00
-- **Monthly: ~$30.00**
+- Daily cost: 200 × $0.15 (avg) = $30.00
+- **Monthly: ~$900.00**
 
 ### Enterprise Use (1000 videos/day)
 Monthly: ~$105

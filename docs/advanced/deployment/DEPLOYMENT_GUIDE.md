@@ -41,9 +41,8 @@ In Streamlit Cloud dashboard:
 ```toml
 GOOGLE_API_KEY = "your_actual_api_key_here"
 
-# Optional: Custom model settings
-GLINER_MODEL = "urchade/gliner_mediumv2.1"
-REBEL_MODEL = "Babelscape/rebel-large"
+# Optional: Cost Controls
+COST_WARNING_THRESHOLD=1.0
 ```
 
 ### Step 4: Test Deployment
@@ -69,7 +68,7 @@ Create `railway.toml`:
 builder = "nixpacks"
 
 [deploy]
-startCommand = "streamlit run app.py --server.port $PORT --server.address 0.0.0.0"
+startCommand = "streamlit run streamlit_app/ClipScribe_Mission_Control.py --server.port $PORT --server.address 0.0.0.0"
 
 [env]
 PYTHONPATH = "/app/src"
@@ -77,7 +76,7 @@ PYTHONPATH = "/app/src"
 
 Create `Procfile`:
 ```
-web: streamlit run app.py --server.port $PORT --server.address 0.0.0.0 --server.headless true
+web: streamlit run streamlit_app/ClipScribe_Mission_Control.py --server.port $PORT --server.address 0.0.0.0 --server.headless true
 ```
 
 ### Step 3: Deploy
@@ -129,7 +128,7 @@ EXPOSE 8501
 HEALTHCHECK CMD curl --fail http://localhost:8501/_stcore/health
 
 # Run Streamlit
-CMD ["streamlit", "run", "app.py", "--server.port=8501", "--server.address=0.0.0.0", "--server.headless=true"]
+CMD ["streamlit", "run", "streamlit_app/ClipScribe_Mission_Control.py", "--server.port=8501", "--server.address=0.0.0.0", "--server.headless=true"]
 ```
 
 ### Deploy with Docker
@@ -152,12 +151,9 @@ Create a `.env` file in your project root:
 GOOGLE_API_KEY=AIza...
 
 # Optional Performance Tuning
-GLINER_MODEL=urchade/gliner_mediumv2.1
-REBEL_MODEL=Babelscape/rebel-large
 CLIPSCRIBE_LOG_LEVEL=INFO
 
 # Optional Cost Controls
-CONFIDENCE_THRESHOLD=0.8
 COST_WARNING_THRESHOLD=1.0
 ```
 
@@ -375,7 +371,7 @@ poetry install
 echo "GOOGLE_API_KEY=your_key" > .env
 
 # Test the app
-streamlit run app.py
+streamlit run streamlit_app/ClipScribe_Mission_Control.py
 
 # Test with demo data
 poetry run python demo.py

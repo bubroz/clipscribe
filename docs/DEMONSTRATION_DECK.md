@@ -1,7 +1,7 @@
-# ClipScribe v2.20.0 Colleague Demonstration Deck
+# ClipScribe v2.21.0 Colleague Demonstration Deck
 
-*Version: 2.20.0*  
-*Date: 2025-07-24*  
+*Version: v2.21.0*  
+*Date: 2025-07-30*  
 *Presenter: [Your Name]*  
 *Objective: Showcase ClipScribe as professional video intelligence tool for DoD/IC workflows*
 
@@ -17,8 +17,8 @@
 ## Slide 1: Welcome to ClipScribe
 ### Transforming Video Content into Actionable Intelligence
 - **Mission**: Extract structured knowledge from videos for research and analysis
-- **Key Value**: $0.002-0.0035/minute with 16+ entities & 52+ relationships per video
-- **Unique Selling Point**: Hybrid AI (local + LLM) for cost-effective, secure processing
+- **Key Value**: Professional-grade intelligence with Gemini 2.5 Pro as the default.
+- **Unique Selling Point**: Quality-First Architecture - the best results out of the box.
 - **Target Use Case**: DoD/IC video analysis workflows
 
 **Visual**: ClipScribe logo & high-level architecture diagram
@@ -27,9 +27,9 @@
 
 ## Slide 2: Core Capabilities
 ### Single Video Processing
-- **Intelligent Transcription**: YouTube API fallback to Gemini 2.5 Flash
-- **Entity Extraction**: Hybrid SpaCy + GLiNER + REBEL (39-46 entities/video)
-- **Relationship Mapping**: Evidence-based with quotes & timestamps (80-94/video)
+- **Intelligent Transcription & Analysis**: Gemini 2.5 Pro provides state-of-the-art results.
+- **Entity Extraction**: 30-120+ high-quality entities per video (Pro model).
+- **Relationship Mapping**: 40-110+ semantically rich relationships per video.
 - **Output Formats**: JSON, CSV, Excel, Markdown, GEXF for Gephi visualization
 
 **Demo Highlight**: Process single video in <1 minute with full knowledge graph
@@ -51,10 +51,10 @@
 
 ## Slide 4: Cost Optimization & Performance
 ### Enterprise-Grade Efficiency
-- **Cost Hierarchy**: Free → Low ($0.0035/video) → Enterprise
-- **Real Metrics**: 3-video collection: $0.0611 total, ~$0.02/video
-- **Performance**: 0.4s CLI startup, async processing, 80%+ test coverage
-- **Security**: Local models for sensitive data, Vertex AI for scale
+- **Cost Efficiency**: High-quality Pro analysis at ~$0.02/minute. Optional Flash model for speed/cost savings.
+- **Real Metrics**: 3-video collection: ~$0.20-0.40 total, depending on length.
+- **Performance**: 0.4s CLI startup, async processing, robust error handling.
+- **Security**: Cloud-native processing with optional Vertex AI for enterprise scale.
 
 **Visual**: Cost comparison chart vs. competitors + performance dashboard screenshot
 
@@ -62,10 +62,10 @@
 
 ## Slide 5: Live Demonstration
 ### Step-by-Step Showcase
-1. **Setup**: `poetry run clipscribe process-collection "Demo Series" [URL1] [URL2] [URL3] --collection-type series --enhance-transcript --performance-report`
-2. **Watch Magic**: Real-time entity extraction & unification
-3. **Explore Outputs**: Open GEXF in Gephi for interactive graph
-4. **Q&A**: Try your own video URL!
+1. **Setup**: `poetry run clipscribe transcribe "URL_OF_CHOICE"`
+2. **Watch Magic**: Real-time extraction with the high-quality Pro model.
+3. **Explore Outputs**: Open the `report.md` for a summary and the GEXF in Gephi for an interactive graph.
+4. **Q&A**: Try another video or the `--use-flash` flag!
 
 **Expected Results**: Unified intelligence report with actionable insights
 

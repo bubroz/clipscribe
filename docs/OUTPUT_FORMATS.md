@@ -1,6 +1,6 @@
 # ClipScribe Output Formats
 
-*Last Updated: July 25, 2025 - v2.20.4 Pipeline Validated*
+*Last Updated: July 30, 2025 - v2.21.0 Pro-First Architecture*
 
 ClipScribe generates a comprehensive set of structured output files for each processed video, all organized within a timestamped directory. **All formats validated and working in v2.20.4** after critical output pipeline fixes.
 
@@ -24,19 +24,19 @@ output/
     └── manifest.json           # ✅ File index with processing metadata
 ```
 
-## Quality Control Options (NEW v2.20.4)
+## Quality Control Options (v2.21.0)
 
-### Standard Quality (Default - Gemini 2.5 Flash)
-- **Cost**: ~$0.003/video (~$0.0035/minute)
-- **Entities**: 20-30 per video with good accuracy
-- **Relationships**: 40-60 per video with basic evidence
-- **Processing**: Fast, cost-effective for high volume
-
-### High Quality (--use-pro - Gemini 2.5 Pro)
+### High Quality (Default - Gemini 2.5 Pro)
 - **Cost**: ~$0.017/video (~$0.02/minute) 
 - **Entities**: 30-60 per video with superior accuracy
 - **Relationships**: 50+ per video with detailed evidence chains
-- **Processing**: Slower but professional-grade extraction
+- **Processing**: Professional-grade extraction, our recommended default.
+
+### Standard Quality (--use-flash - Gemini 2.5 Flash)
+- **Cost**: ~$0.003/video (~$0.0035/minute)
+- **Entities**: 20-30 per video with good accuracy
+- **Relationships**: 40-60 per video with basic evidence
+- **Processing**: Faster, cost-effective for high volume or when speed is a priority.
 
 ## Critical Fixes in v2.20.4
 

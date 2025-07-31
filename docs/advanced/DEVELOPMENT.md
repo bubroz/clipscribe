@@ -1,10 +1,10 @@
 # ClipScribe Development Guide
 
-*Last Updated: July 6, 2025 - v2.19.0 Enhanced Metadata Complete*
+*Last Updated: July 30, 2025 - v2.21.0 Pro-First Architecture*
 
 ## Overview
 
-ClipScribe is a powerful, AI-powered video intelligence tool that supports **1800+ video platforms** through yt-dlp integration. It uses Google's Gemini 2.5 Flash for direct video processing with **enhanced metadata extraction** - confidence scores, evidence chains, and temporal resolution.
+ClipScribe is a powerful, AI-powered video intelligence tool that supports **1800+ video platforms** through yt-dlp integration. It uses Google's Gemini 2.5 Pro as its default model to ensure the highest quality intelligence extraction. A faster, lower-cost option using Gemini 2.5 Flash is available via a command-line flag.
 
 ## 🚀 Enhanced Metadata Architecture (v2.19.0 Complete)
 
@@ -29,15 +29,11 @@ src/clipscribe/extractors/
 
 ## Key Features
 
-- **Timeline Intelligence v2.0**: Complete architectural transformation with proven results
-- **Universal Platform Support**: Works with YouTube, Twitter/X, TikTok, Instagram, Vimeo, and 1800+ other sites
-- **Enhanced Video Intelligence**: Uses Gemini 2.5 Flash for direct video processing with comprehensive temporal intelligence extraction
-- **Chapter-Aware Processing**: Uses yt-dlp chapter boundaries for intelligent content segmentation
-- **Performance Optimization**: 3-4x speedup with streaming mode for large collections
-- **Cross-Video Synthesis**: Builds coherent timelines across multiple video sources
-- **Quality Transformation**: 82 broken events → 40 accurate events (144% improvement)
-- **Cost-Effective**: ~$0.002/minute with enhanced temporal intelligence for minimal cost increase
-- **Multiple Output Formats**: Generates 10+ formats including Timeline v2.0 specific exports
+- **Universal Platform Support**: Works with YouTube, Twitter/X, TikTok, Instagram, Vimeo, and 1800+ other sites.
+- **Pro-First Quality**: Uses Gemini 2.5 Pro by default for the highest quality entity and relationship extraction.
+- **Cost Flexibility**: Provides an optional `--use-flash` flag for faster, lower-cost processing.
+- **Multi-Video Analysis**: Sophisticated tools for analyzing entire series or collections of videos.
+- **Multiple Output Formats**: Generates over 10 formats, including JSON, CSV, and GEXF for knowledge graphs.
 
 ## Architecture
 
@@ -78,162 +74,12 @@ src/clipscribe/
 - **Poetry**: Exclusive dependency management
 - **Click**: For building the command-line interface
 - **Rich**: For beautiful and informative CLI output
-- **yt-dlp**: Video downloading from 1800+ sites with Timeline v2.0 temporal integration
-- **Gemini 2.5 Flash**: Core AI model for direct video processing and temporal intelligence extraction
-- **Timeline Intelligence v2.0**: Revolutionary temporal intelligence system with proven results
-- **Pydantic v2**: For data validation and settings management
-- **Async/Await**: For high-performance, concurrent I/O operations
-- **spaCy, GLiNER, REBEL**: For hybrid entity and relationship extraction engine
-- **NetworkX**: For building knowledge graphs
-- **Model Caching**: Singleton pattern for ML model management
-- **Plotly**: Interactive visualizations for analysis reports
-- **Streamlit**: Enhanced web interface with Timeline v2.0 features
-
-## Cost Analysis (Timeline v2.0 Enhanced)
-
-| Component | Traditional (Speech-to-Text v2) | ClipScribe v2.16.0 | ClipScribe v2.18.16 (Timeline v2.0) |
-|-----------|--------------------------------|-------------------|-------------------------------------|
-| API Cost | $1.44/hour | ~$0.15/hour | ~$0.18/hour |
-| Processing Time | 20-30 min/hour | 2-5 min/hour | 2-4 min/hour (22% faster) |
-| Temporal Intelligence | None | Basic | **Revolutionary (300% more)** |
-| Event Quality | N/A | Broken (82 duplicates) | **Accurate (40 events, 144% improvement)** |
-| Platform Support | Limited | 1800+ sites | 1800+ sites with chapter intelligence |
-
-*Timeline v2.0 provides 300% more temporal intelligence for only 12-20% cost increase.*
-
-## Development Setup
-
-### Prerequisites
-- Python 3.11+ (3.12+ recommended for Timeline v2.0)
-- Poetry for dependency management
-- `ffmpeg` for audio/video processing
-- A Google API key for Gemini
-
-### Installation
-```bash
-# Clone the repository
-git clone https://github.com/bubroz/clipscribe.git
-cd clipscribe
-
-# Install dependencies with Poetry
-poetry install
-
-# Set up your environment
-cp env.example .env
-# Edit .env and add your GOOGLE_API_KEY
-
-# Verify Timeline v2.0 installation
-poetry run clipscribe --version  # Should show v2.18.16+
-```
-
-### Timeline v2.0 Development Dependencies
-```bash
-# Timeline v2.0 specific dependencies (automatically installed)
-poetry add dateparser  # Content date extraction
-poetry add psutil      # Performance monitoring
-```
-
-### Running Tests
-```bash
-# Run all tests including Timeline v2.0
-poetry run pytest
-
-# Run Timeline v2.0 specific tests
-poetry run pytest tests/integration/test_timeline_v2_real_world.py
-poetry run pytest tests/integration/test_performance_optimizer.py
-
-# Run with coverage report
-poetry run pytest --cov=src/clipscribe
-
-# Test Timeline v2.0 real-world validation
-poetry run python -m tests.integration.test_timeline_v2_real_world
-```
-
-## Key Components
-
-### Timeline Intelligence v2.0 Components
-
-#### `TemporalExtractorV2`
-Core component for Timeline v2.0 temporal intelligence extraction. Leverages yt-dlp's comprehensive temporal metadata for intelligent event extraction with chapter awareness and word-level timing.
-
-#### `TimelineQualityFilter`
-Multi-stage quality filtering system that eliminates the 44-duplicate crisis through intelligent event consolidation and validation. Provides transparent quality metrics and transformation tracking.
-
-#### `ChapterSegmenter`
-yt-dlp chapter-based intelligent segmentation for content-aware processing. Uses chapter boundaries to provide meaningful context for temporal events.
-
-#### `CrossVideoSynthesizer`
-Advanced multi-video timeline correlation and synthesis. Builds coherent timelines across multiple video sources with temporal intelligence.
-
-#### `PerformanceOptimizer`
-Large collection optimization with streaming capabilities. Provides 3-4x speedup for processing 100+ video collections with memory-efficient streaming.
-
-### Core Components
-
-#### `UniversalVideoClient`
-Handles video downloading and metadata extraction from 1800+ platforms using `yt-dlp` with Timeline v2.0 temporal intelligence integration.
-
-#### `GeminiFlashTranscriber`
-Processes video files using Gemini 2.5 Flash's enhanced multimodal capabilities with Timeline v2.0 integration for comprehensive temporal intelligence extraction.
-
-#### `VideoIntelligenceRetriever`
-Main orchestrator with Timeline v2.0 integration. Manages the complete intelligence gathering process including temporal intelligence extraction, caching, cost tracking, and Timeline v2.0 output generation.
-
-#### `MultiVideoProcessor`
-Enhanced with Timeline v2.0 synthesis for multi-video collection processing. Provides cross-video temporal correlation and unified timeline generation.
-
-## Timeline v2.0 Development Workflow
-
-### Adding Timeline Features
-```python
-# Example: Adding new temporal intelligence feature
-from clipscribe.timeline import TemporalExtractorV2, TimelineQualityFilter
-
-class NewTemporalFeature:
-    def __init__(self):
-        self.temporal_extractor = TemporalExtractorV2()
-        self.quality_filter = TimelineQualityFilter()
-    
-    async def extract_temporal_intelligence(self, video_data):
-        # Extract temporal events with Timeline v2.0
-        events = await self.temporal_extractor.extract_temporal_events(video_data)
-        
-        # Apply quality filtering
-        filtered_events = await self.quality_filter.filter_events(events)
-        
-        return filtered_events
-```
-
-### Timeline v2.0 Testing
-```python
-# Test Timeline v2.0 features
-import pytest
-from clipscribe.timeline import TimelineQualityFilter
-
-@pytest.mark.asyncio
-async def test_timeline_v2_quality_improvement():
-    filter = TimelineQualityFilter()
-    
-    # Test with known broken v1.0 data
-    broken_events = load_v1_timeline_data()  # 82 events with duplicates
-    
-    # Apply Timeline v2.0 filtering
-    improved_events = await filter.filter_events(broken_events)
-    
-    # Verify transformation: 82 → ~40 events
-    assert len(improved_events) < len(broken_events) * 0.6
-    assert filter.get_quality_improvement_ratio() > 0.4
-```
-
-## Platform Support
-
-ClipScribe supports 1800+ video platforms through yt-dlp with Timeline v2.0 temporal intelligence integration.
-
-**Timeline v2.0 Platform Features:**
-- Chapter-aware processing for platforms supporting chapters
-- Word-level timing extraction where available
-- SponsorBlock integration for content boundary detection
-- Visual timestamp recognition from video frames
+- **Gemini 2.5 Pro**: The default AI model for the highest quality intelligence extraction.
+- **Gemini 2.5 Flash**: An optional, faster model for use cases where speed is prioritized over quality.
+- **Pydantic v2**: For data validation and settings management.
+- **Async/Await**: For high-performance, concurrent I/O operations.
+- **NetworkX**: For building knowledge graphs.
+- **Streamlit**: For the Mission Control web interface.
 
 ## Contributing
 

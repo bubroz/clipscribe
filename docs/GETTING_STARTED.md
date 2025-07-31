@@ -1,17 +1,15 @@
 # Getting Started with ClipScribe
 
-*Last Updated: July 25, 2025*
+*Last Updated: July 30, 2025*
 *Related: [CLI Reference](mdc:CLI_REFERENCE.md) | [Output Formats](mdc:OUTPUT_FORMATS.md)*
 
-## 🎯 What's New: v2.20.4 - Critical Fixes & Quality Control!
+## 🎯 What's New: v2.21.0 - Pro-First Architecture!
 
-**ClipScribe v2.20.4** resolves critical output issues and adds quality control:
-- **🎉 MAJOR BUG FIXES**: Fixed pipeline where entities/relationships weren't saved to final files
-- **⚡ NEW --use-pro FLAG**: Choose between Flash ($0.003) vs Pro ($0.017) quality levels
-- **✅ Validated Pipeline**: 24 entities, 53 relationships, GEXF generation confirmed working
-- **🔧 End-to-End Processing**: All 9+ output formats generated and tested
-- **💰 Cost Options**: Standard ($0.0122) vs High Quality ($0.0167) per video
-- **🌐 Multi-Platform**: 1800+ video platforms confirmed working via yt-dlp
+**ClipScribe v2.21.0** makes professional-grade intelligence the default:
+- **🎉 Pro by Default**: Gemini 2.5 Pro is now the default for the highest quality extraction.
+- **⚡ NEW --use-flash FLAG**: Use the faster, lower-cost Gemini 2.5 Flash model when speed is your priority.
+- **✅ Validated Pipeline**: Rigorous benchmarks confirm the quality of the Pro model.
+- **🐛 Robustness Fixes**: Now handles hour-long videos without timeouts.
 
 ## Prerequisites
 
@@ -48,7 +46,7 @@ export GOOGLE_API_KEY="your-api-key-here"
 
 ```bash
 poetry run clipscribe --version
-# Should output: ClipScribe v2.20.4
+# Should output: ClipScribe v2.21.0
 
 poetry run clipscribe --help
 ```
@@ -59,36 +57,35 @@ poetry run clipscribe --help
 import asyncio
 from clipscribe.retrievers.video_retriever import VideoIntelligenceRetriever
 
-async def analyze_video(url: str, use_pro: bool = False):
-    retriever = VideoIntelligenceRetriever(use_pro=use_pro)
+async def analyze_video(url: str, use_flash: bool = False):
+    retriever = VideoIntelligenceRetriever(use_pro=not use_flash)
     result = await retriever.process_url(url)
     
     # Access structured data
-    print(f"Entities: {len(result.entities)}")  # 24-59
-    print(f"Relationships: {len(result.relationships)}")  # 53+
+    print(f"Entities: {len(result.entities)}")
+    print(f"Relationships: {len(result.relationships)}")
     print(f"Cost: ${result.processing_cost:.4f}")
     
     # Custom analysis example
-    people = [e for e in result.entities if e['type'] == 'PERSON']
+    people = [e for e in result.entities if e.type == 'PERSON']
     print(f"People mentioned: {len(people)}")
 
-asyncio.run(analyze_video("https://youtube.com/watch?v=...", use_pro=True))
+asyncio.run(analyze_video("https://youtube.com/watch?v=..."))
 ```
 
 ## Basic Usage
 
-### Process a Single Video (NEW: Quality Control)
+### Process a Single Video (NEW: Pro by Default)
 
 ```bash
-# Standard quality (Gemini 2.5 Flash, ~$0.003/video)
+# High quality (Gemini 2.5 Pro, DEFAULT)
 poetry run clipscribe transcribe "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
 
-# High quality (Gemini 2.5 Pro, ~$0.017/video) 
-poetry run clipscribe transcribe "https://www.youtube.com/watch?v=dQw4w9WgXcQ" --use-pro
+# Optional: Faster, standard quality (Gemini 2.5 Flash) 
+poetry run clipscribe transcribe "https://www.youtube.com/watch?v=dQw4w9WgXcQ" --use-flash
 
 # With additional processing options
 poetry run clipscribe transcribe "https://vimeo.com/123456789" \
-  --use-pro \
   --enhance-transcript \
   --clean-graph \
   --output-dir analysis/
