@@ -1,0 +1,115 @@
+import subprocess
+import json
+from pathlib import Path
+import shutil
+import pytest
+
+# --- Test Constants ---
+TEST_VIDEO_URL = "https://www.youtube.com/watch?v=jNQXAC9IVRw" # "Me at the zoo" - short and reliable
+TEST_VIDEO_ID = "jNQXAC9IVRw"
+OUTPUT_DIR = Path("output/test_suite")
+
+# --- Helper Functions ---
+
+def run_clipscribe_command(command: list[str]) -> subprocess.CompletedProcess:
+    """Helper function to run a clipscribe command via poetry."""
+    base_command = ["poetry", "run", "clipscribe"]
+    full_command = base_command + command
+    return subprocess.run(full_command, capture_output=True, text=True, check=False)
+
+@pytest.fixture(scope="module", autouse=True)
+def setup_and_teardown():
+    """Fixture to clear cache and output before and after test module runs."""
+    # Setup: Clear cache and old test outputs
+    if OUTPUT_DIR.exists():
+        shutil.rmtree(OUTPUT_DIR)
+    run_clipscribe_command(["utils", "clean-demo"]) # Use the app's own cleaner
+    
+    yield # This is where the tests will run
+    
+    # Teardown: Clean up created files
+    if OUTPUT_DIR.exists():
+        shutil.rmtree(OUTPUT_DIR)
+
+# --- Test Suite ---
+
+def test_cli_help():
+    """Tests that the main help command works and shows the new groups."""
+    result = run_clipscribe_command(["--help"])
+    assert result.returncode == 0
+    assert "Usage: clipscribe [OPTIONS] COMMAND [ARGS]..." in result.stdout
+    assert "process" in result.stdout
+    assert "collection" in result.stdout
+    assert "research" in result.stdout
+    assert "utils" in result.stdout
+
+def test_process_video_default_pro_model():
+    """Tests the default `process video` command which should use the Pro model."""
+    output_path = OUTPUT_DIR / "process_video_default"
+    command = ["process", "video", TEST_VIDEO_URL, "--output-dir", str(output_path)]
+    
+    result = run_clipscribe_command(command)
+    
+    assert result.returncode == 0, f"CLI command failed: {result.stderr}"
+    assert "Intelligence extraction complete!" in result.stdout
+    
+    # Verify that output files were created
+    expected_report = output_path / f"20250730_youtube_{TEST_VIDEO_ID}" / "report.md"
+    assert expected_report.exists(), "The output report.md was not created."
+
+def test_process_video_use_flash():
+    """Tests the `process video` command with the --use-flash flag."""
+    output_path = OUTPUT_DIR / "process_video_flash"
+    command = ["process", "video", TEST_VIDEO_URL, "--output-dir", str(output_path), "--use-flash"]
+    
+    result = run_clipscribe_command(command)
+    
+    assert result.returncode == 0, f"CLI command failed: {result.stderr}"
+    assert "Intelligence extraction complete!" in result.stdout
+    assert "Model: gemini-2.5-flash" in result.stderr or "Model: gemini-2.5-flash" in result.stdout
+    
+    expected_report = output_path / f"20250730_youtube_{TEST_VIDEO_ID}" / "report.md"
+    assert expected_report.exists(), "The output report.md was not created for flash run."
+
+def test_collection_series_command():
+    """Tests the `collection series` command with two videos."""
+    output_path = OUTPUT_DIR / "collection_series"
+    urls = [TEST_VIDEO_URL, "https://www.youtube.com/watch?v=dQw4w9WgXcQ"] # Using two short videos
+    command = ["collection", "series", "--output-dir", str(output_path)] + urls
+    
+    result = run_clipscribe_command(command)
+    
+    assert result.returncode == 0, f"CLI command failed: {result.stderr}"
+    assert "Multi-video collection processing complete!" in result.stdout
+    
+    # Check that a collection directory was created
+    collection_dirs = list(output_path.glob("collection_*"))
+    assert len(collection_dirs) > 0, "No collection output directory was created."
+    
+    # Check for a unified graph in the collection directory
+    unified_gexf = collection_dirs[0] / "unified_knowledge_graph.gexf"
+    assert unified_gexf.exists(), "Unified knowledge graph was not created for the series."
+
+def test_research_command():
+    """Tests the `research` command."""
+    output_path = OUTPUT_DIR / "research"
+    query = "Jawed Karim" # The user in the test video
+    command = ["research", query, "--output-dir", str(output_path), "--max-results", "1"]
+    
+    result = run_clipscribe_command(command)
+    
+    assert result.returncode == 0, f"CLI command failed: {result.stderr}"
+    assert "Research complete!" in result.stdout or "Research complete!" in result.stderr
+    
+    # Check that output files were created in a subdirectory
+    research_outputs = list(output_path.glob("youtube_*"))
+    assert len(research_outputs) > 0, "No output directories were created for the research command."
+
+def test_invalid_url_error_handling():
+    """Tests that the CLI handles an invalid URL gracefully."""
+    command = ["process", "video", "not-a-real-url"]
+    
+    result = run_clipscribe_command(command)
+    
+    # It should not crash, but might exit with a non-zero code after logging an error
+    assert "URL not supported by yt-dlp" in result.stderr or "ERROR" in result.stderr

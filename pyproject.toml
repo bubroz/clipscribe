@@ -55,7 +55,7 @@ testpaths = ["tests"]
 
 [tool.coverage.run]
 source = ["src"]
-omit = ["tests/*"]
+omit = ["tests/*", "examples/*", "scripts/*"]
 
 [tool.coverage.report]
 exclude_lines = [

@@ -46,9 +46,11 @@ class VideoIntelligenceRetriever:
         enhance_transcript: bool = False,
         performance_monitor: Optional['PerformanceMonitor'] = None,
         cost_tracker: Optional['CostTracker'] = None,
-        use_pro: bool = False  # New parameter for using Gemini Pro
+        use_flash: bool = False
     ):
         """Initialize the retriever."""
+        self.use_pro = not use_flash  # Invert the flag
+
         self.cache_dir = Path(cache_dir or "cache")
         self.cache_dir.mkdir(exist_ok=True)
         self.domain = domain
@@ -59,7 +61,7 @@ class VideoIntelligenceRetriever:
         self.clean_graph = False  # Default to False, set via CLI
         self.performance_monitor = performance_monitor
         self.cost_tracker = cost_tracker
-        self.use_pro = use_pro  # Store use_pro flag
+        
         self.use_advanced_extraction = use_advanced_extraction  # BUG FIX: Store the advanced extraction flag!
         
         # Get v2.17.0 settings
@@ -73,7 +75,7 @@ class VideoIntelligenceRetriever:
         self.video_client = UniversalVideoClient()
         self.transcriber = GeminiFlashTranscriber(
             performance_monitor=performance_monitor,
-            use_pro=use_pro  # Pass use_pro flag to transcriber
+            use_pro=self.use_pro
         )
         
         # Initialize mode detector for auto mode (v2.17.0 enhancement)
