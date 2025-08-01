@@ -5,6 +5,28 @@ All notable changes to ClipScribe will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v2.22.2] - 2025-07-31
+
+### Fixed
+- **Test Suite**: Overhauled the entire test suite to fix numerous failures caused by recent refactoring.
+  - Corrected brittle mocks and incomplete test data that were causing `AttributeError`, `TypeError`, and `ValidationError`.
+  - Created a centralized test helper at `tests/helpers.py` to generate valid Pydantic models for tests.
+  - Rewrote failing unit tests for `transcriber`, `video_retriever`, `multi_video_processor`, and `advanced_hybrid_extractor`.
+  - Fixed logic bug in `video_retriever._generate_segments` that caused a `ValueError` with short transcripts.
+- **CLI Integration**: Resolved an integration issue in the `collection series` command, ensuring that multi-video processing completes successfully and saves all output files.
+
+### Changed
+- **Test Strategy**: Adopted a more robust testing strategy focused on testing public APIs and using realistic test data to prevent future regressions.
+
+## [v2.22.1] - 2025-07-30
+
+### Changed
+- **Documentation Reality Check**: Aligned documentation with the actual state of the project.
+  - Corrected test coverage claims in `README.md` from 80% to the actual 33%.
+  - Updated version information across all relevant files.
+  - Reordered priorities in `docs/ROADMAP.md` to focus on fixing core functionality before adding new features.
+- **Testing**: Fixed several bugs in CLI parameter handling.
+
 ## [v2.22.0] - 2025-07-30
 
 ### Changed

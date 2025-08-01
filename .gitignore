@@ -15,11 +15,13 @@ output/**/knowledge_graph_3d.html
 logs/
 .env*
 !.env.example
+cache/
 
 # Test and temporary files
 pbs_newshour_30day_batch.json
 pbs_newshour_30day_urls.txt
 tier12_urls.txt
+tests/edge_cases/reports/
 
 # Python
 .pytest_cache/

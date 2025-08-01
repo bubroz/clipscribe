@@ -10,9 +10,9 @@
 
 ClipScribe extracts and analyzes structured data from video content through entity recognition, relationship mapping, and key insight identification. Built for students, researchers, analysts, content creators, and organizations requiring reliable video intelligence.
 
-## v2.22.1 - CLI REFACTOR STATUS: MOSTLY COMPLETE
+## v2.22.2 - CLI Fully Functional & Test Suite Stable
 
-**CLI STATUS**: 5/6 integration tests passing (83% success). Basic commands work well; collection processing has integration issues being addressed.
+**CLI STATUS**: ✅ **6/6 integration tests passing (100% success)**. All CLI commands, including single video and multi-video collection processing, are now fully functional and stable.
 
 **QUALITY-FIRST ARCHITECTURE**: Gemini 2.5 Pro is now the default extraction model, ensuring the highest quality, professional-grade intelligence right out of the box.
 
@@ -71,7 +71,7 @@ echo "GOOGLE_APPLICATION_CREDENTIALS=/path/to/your/service-account.json" >> .env
 ### 4. Verify Installation
 ```bash
 poetry run clipscribe --version
-# Expected: ClipScribe v2.22.1
+# Expected: ClipScribe v2.22.2
 
 # Test imports for extension
 poetry run python -c "from clipscribe.retrievers.video_retriever import VideoIntelligenceRetriever; print('Imports working')"
@@ -93,10 +93,9 @@ poetry run clipscribe process video "https://www.youtube.com/watch?v=VIDEO_ID" -
 ### Multi-Video Collection
 ```bash
 # Process a 3-video series with unified intelligence
-# ⚠️ NOTE: Collection processing has integration issues (1/6 tests failing)
 poetry run clipscribe collection series "URL1" "URL2" "URL3"
 
-# Results: Individual videos processed, unified analysis pending fix
+# Results saved to: output/collections/
 ```
 
 ### Python API
@@ -172,14 +171,6 @@ clipscribe process video URL               # High quality (Pro, Default)
 clipscribe process video URL --use-flash     # Standard quality (Flash)
 ```
 
-## Recent Fixes (v2.20.4)
-
-### Fixes
-- **Fixed**: Entities/relationships not saved to output files
-- **Fixed**: Missing GEXF knowledge graph generation
-- **Fixed**: Advanced extraction pipeline not running
-- **Validated**: End-to-end processing with quality output
-
 ## Use Cases
 
 ### Research & Analysis
@@ -237,13 +228,13 @@ poetry run clipscribe process video URL --mode video      # Full video processin
 # poetry run clipscribe process video URL --use-vertex-ai
 ```
 
-## Performance Benchmarks (v2.22.1 Current Status)
+## Performance Benchmarks (v2.22.2 Current Status)
 
 ### Processing Speed
 - **Single 5-min Video**: 1-2 minutes (Flash), 1.5-2.5 minutes (Pro)
 - **CLI Startup**: 0.4s (optimized with lazy loading)
-- **Working Commands**: 5/6 CLI integration tests passing (83% success rate)
-- **Test Coverage**: 33% overall (critical gaps in retrievers 17-56%, extractors 0-48%)
+- **Working Commands**: 6/6 CLI integration tests passing (100% success rate)
+- **Test Coverage**: 44% overall (continuing to improve)
 
 ### Cost Efficiency
 - **Flash (--default)**: $0.0122 for 3.5-min video
@@ -278,11 +269,11 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ---
 
-**ClipScribe v2.22.1 - Professional Video Intelligence with Quality-First Architecture**
+**ClipScribe v2.22.2 - Professional Video Intelligence with Quality-First Architecture**
 
 *Gemini 2.5 Pro is the default for the best results, with an optional `--use-flash` flag for speed.*
 
-**Current Status**: Core single-video processing is production-ready. Multi-video collection processing has integration issues being resolved.
+**Current Status**: Core single-video and multi-video collection processing is production-ready.
 
 ## Contributing & Extending
 
@@ -303,7 +294,7 @@ retriever = VideoIntelligenceRetriever(extractor=CustomExtractor())
 
 ### Running Tests
 ```bash
-poetry run pytest --cov=clipscribe  # Current: 33% coverage, targeting 80%+
+poetry run pytest --cov=clipscribe
 ```
 
 ### Development Setup

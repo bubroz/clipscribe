@@ -1,9 +1,15 @@
 # tests/integration/test_full_workflow.py
 import pytest
-from unittest.mock import patch, AsyncMock
+from unittest.mock import patch, AsyncMock, MagicMock
+from pathlib import Path
 from clipscribe.retrievers.video_retriever import VideoIntelligenceRetriever
-from clipscribe.models import VideoIntelligence
+from clipscribe.models import VideoIntelligence, VideoMetadata, VideoTranscript, EnhancedEntity
+from clipscribe.extractors.multi_video_processor import MultiVideoProcessor
+import asyncio
+from datetime import datetime
 from tests.helpers import create_mock_video_intelligence
+
+TEST_VIDEO_URL = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
 
 @pytest.mark.asyncio
 async def test_full_workflow_end_to_end():
@@ -14,13 +20,15 @@ async def test_full_workflow_end_to_end():
         
         mock_video = create_mock_video_intelligence()
         
-        mock_client.return_value.download_video.return_value = ('test.mp4', mock_video.metadata)
-        mock_transcriber.return_value.transcribe_video.return_value = {
+        # Correctly mock the async download_video to be awaitable
+        mock_client.return_value.download_video = AsyncMock(return_value=('test.mp4', mock_video.metadata))
+        
+        mock_transcriber.return_value.transcribe_video = AsyncMock(return_value={
             'transcript': 'Test transcript', 'summary': 'A summary',
             'key_points': [], 'topics': [], 'entities': [], 'relationships': [], 'dates': [],
             'processing_cost': 0.01
-        }
-        mock_extractor.return_value.extract_all.return_value = mock_video
+        })
+        mock_extractor.return_value.extract_all = AsyncMock(return_value=mock_video)
         
         retriever = VideoIntelligenceRetriever()
         result = await retriever.process_url('https://test.com/video')
