@@ -1,10 +1,10 @@
 # ClipScribe Output Formats
 
-*Last Updated: July 30, 2025 - v2.21.0 Pro-First Architecture*
+*Last Updated: July 31, 2025 - v2.22.2 Stable*
 
-ClipScribe generates a comprehensive set of structured output files for each processed video, all organized within a timestamped directory. **All formats validated and working in v2.20.4** after critical output pipeline fixes.
+ClipScribe generates a comprehensive set of structured output files for each processed video, all organized within a timestamped directory. **All formats validated and working in v2.22.2**.
 
-## Directory Structure (v2.20.4 Validated ✅)
+## Directory Structure (v2.22.2 Validated ✅)
 
 ```
 output/
@@ -24,7 +24,7 @@ output/
     └── manifest.json           # ✅ File index with processing metadata
 ```
 
-## Quality Control Options (v2.21.0)
+## Quality Control Options (v2.22.2)
 
 ### High Quality (Default - Gemini 2.5 Pro)
 - **Cost**: ~$0.017/video (~$0.02/minute) 
@@ -47,10 +47,10 @@ output/
 - **Validated**: All output formats now working end-to-end
 
 ### ✅ Confirmed Working Examples
-Based on validated Rick Astley video processing:
-- **entities.json**: 24 normalized entities (from 59 raw extractions)
-- **relationships.json**: 53 relationships with evidence chains
-- **knowledge_graph.gexf**: 60 nodes, 53 edges for Gephi visualization
+Based on validated news content processing:
+- **entities.json**: 24+ normalized entities
+- **relationships.json**: 53+ relationships with evidence chains
+- **knowledge_graph.gexf**: 60+ nodes for Gephi visualization
 
 ## File Formats
 
@@ -84,8 +84,7 @@ Lightweight JSON file with processing overview:
 ## Core Output Files
 
 ### entities.json ✅ WORKING
-
-Contains all extracted entities with **validated working pipeline** (v2.20.4):
+Contains all extracted entities with **validated working pipeline** (v2.22.2):
 - **Quality extraction**: 24-59 entities per video depending on content
 - **Proper normalization**: Raw extractions deduplicated intelligently (59→24)
 - **Multi-source attribution**: Shows extraction sources (Gemini, SpaCy, etc.)

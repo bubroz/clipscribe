@@ -1,6 +1,6 @@
 # ClipScribe Master Test Video Table
 
-*Last Updated: 2025-07-17*
+*Last Updated: July 31, 2025*
 
 This document contains all approved test videos for ClipScribe development and testing, organized by category and testing purpose.
 
@@ -10,10 +10,10 @@ This document contains all approved test videos for ClipScribe development and t
 **Channel:** Same  
 **Topic:** Professional development/training - selection processes  
 **Testing Purpose:** **IMMEDIATE 3-VIDEO ANALYSIS** - competitive intelligence extraction, series detection, professional training content  
-**Demo Value:** Perfect for tonight's real-world test - comprehensive educational content  
+**Demo Value:** Perfect for real-world tests - comprehensive educational content  
 
 | Video | URL | Title | Notes |
-|-------|-----|-------|-------|
+|---|---|---|---|
 | Part 1 | https://www.youtube.com/watch?v=Nr7vbOSzpSk | How to Pass Tier 1 & 2 Selections Part 1/3: Difference Between Tier 1 & 2 | Foundation concepts |
 | Part 2 | https://www.youtube.com/watch?v=tjFNZlZEJLY | How to Pass Tier 1 & 2 Selections - Part 2/3: Tier 2 Selections | Advanced strategies |
 | Part 3 | https://www.youtube.com/watch?v=7r-qOjUOjbs | How To Pass Tier 1 & 2 Selections Part 3/3: Tier 1 Selections | Tactical implementation |
@@ -21,7 +21,6 @@ This document contains all approved test videos for ClipScribe development and t
 **Expected Extraction:**
 - **Entities**: Training concepts, selection criteria, methodologies, instructors
 - **Relationships**: Process flows, requirement dependencies, skill hierarchies
-- **Timeline**: Step-by-step progression through selection processes
 - **Intelligence Value**: Competitive advantage in understanding selection requirements
 
 ### Series 1: My Chemical Romance Documentary Series
@@ -30,7 +29,7 @@ This document contains all approved test videos for ClipScribe development and t
 **Testing Purpose:** Series detection, narrative flow, music industry analysis  
 
 | Video | URL | Title | Notes |
-|-------|-----|-------|-------|
+|---|---|---|---|
 | Part 1 | https://youtu.be/gxUrKV33yys?si=iYMMiwq0mdOZmnWj | The Tragic Early Days of My Chemical Romance | Early band history |
 | Part 2 | https://youtu.be/2jlsVEeZmVo?si=DIFBEdOFjIx-M7er | The Revenge of My Chemical Romance | Band evolution |
 | Part 3 | https://youtu.be/o6wtzHtfjyo?si=p_5hEh_Mjr7wDhLY | The Haunting Beauty of The Black Parade | Peak period |
@@ -42,17 +41,17 @@ This document contains all approved test videos for ClipScribe development and t
 **Testing Purpose:** Multi-part investigation, entity tracking across episodes  
 
 | Video | URL | Title | Notes |
-|-------|-----|-------|-------|
+|---|---|---|---|
 | Part 1 | https://www.youtube.com/watch?v=6ZVj1_SE4Mo&t=65s | Global Spyware Scandal: Exposing Pegasus Part One | Investigation setup |
 | Part 2 | https://www.youtube.com/watch?v=xYMWTXIkANM | Global Spyware Scandal: Exposing Pegasus Part Two | Investigation conclusions |
 
 ### Series 3: Iran-Saudi Arabia Relations
 **Channel:** FRONTLINE PBS  
 **Topic:** Geopolitics, Middle East, international relations  
-**Testing Purpose:** Historical timeline extraction, geopolitical entity relationships  
+**Testing Purpose:** Historical analysis, geopolitical entity relationships  
 
 | Video | URL | Title | Notes |
-|-------|-----|-------|-------|
+|---|---|---|---|
 | Part 1 | https://www.youtube.com/watch?v=VHcgnRl2xPM | Bitter Rivals: Iran and Saudi Arabia, Part One | Historical context |
 | Part 2 | https://www.youtube.com/watch?v=PvKoniTXWsQ | Bitter Rivals: Iran and Saudi Arabia, Part Two | Modern conflicts |
 
@@ -63,10 +62,9 @@ This document contains all approved test videos for ClipScribe development and t
 **Demo Value:** Perfect for DoD/IC analysts - SDVOSB angle  
 
 | Video | URL | Title | Notes |
-|-------|-----|-------|-------|
+|---|---|---|---|
 | Recent 1 | https://www.youtube.com/@DefenseMavericks/videos | The REAL Way to Beat Bureaucracy! | Gov BI strategies, recent content |
 | Recent 2 | https://www.youtube.com/@DefenseMavericks/videos | The Brutal Reality of Government Innovation | Market research pain points |
-| 7-month span | https://www.youtube.com/@DefenseMavericks/videos | Last 7 months of content | Timeline evolution testing |
 
 *Note: Use yt-dlp to fetch specific recent video URLs from channel*
 
@@ -78,7 +76,7 @@ This document contains all approved test videos for ClipScribe development and t
 **Testing Purpose:** Cross-channel entity resolution, topic consistency  
 
 | Video | URL | Title | Channel/Source | Notes |
-|-------|-----|-------|----------------|-------|
+|---|---|---|---|---|
 | Part 1 | https://www.youtube.com/watch?v=PcuxnqQLuAQ | Skywatcher Part I: The Journey Begins | Channel A | Documentary style |
 | Part 2 | https://www.youtube.com/watch?v=JUthXIGUsq8 | Skywatcher Part II: "Mapping The Unknown" | Channel B | Continuation |
 | Interview | https://www.youtube.com/watch?v=y_8IKKcTntQ&t=1532s | Meet The Startup Summoning UFOs: Skywatcher Interview | Channel C | Interview format |
@@ -90,7 +88,7 @@ This document contains all approved test videos for ClipScribe development and t
 **Demo Value:** Shows advanced entity extraction across consulting jargon  
 
 | Video | URL | Title | Channel/Source | Notes |
-|-------|-----|-------|----------------|-------|
+|---|---|---|---|---|
 | Forrester | Search: "Forrester AI Business Intelligence 2025" | The Future of Business Intelligence: AI in Action | @ForresterResearch | AI trends in market research |
 | PBS Tech | Search: "PBS AI Data Analysis 2025" | AI and Data Show - July 2025 Edition | PBS Technology | Entity extraction from panels |
 | CNBC Interview | Search: "CNBC AI Business Intelligence 2025" | Hidden Workers Behind AI in BI | @CNBCTelevision | Relationship chains in AI labor |
@@ -101,7 +99,7 @@ This document contains all approved test videos for ClipScribe development and t
 **Testing Purpose:** Topic diversity analysis, playlist processing, content categorization  
 
 | Playlist | URL | Description | Testing Focus |
-|----------|-----|-------------|---------------|
+|---|---|---|---|
 | Collection 1 | https://www.youtube.com/playlist?list=PLRJNAhZxtqH-5fKCVkZ3NLHQO3n4sLxd7 | Mixed topics | Topic detection |
 | Collection 2 | https://www.youtube.com/playlist?list=PLphcdvnT8lOsNABbTl8wroFTEWubzbaWM | Mixed topics | Content variety |
 | Collection 3 | https://www.youtube.com/playlist?list=PLZxP2pdh77oU5ve5Z_0iOqgf975AkhP5b | Mixed topics | Analysis depth |
@@ -112,7 +110,7 @@ This document contains all approved test videos for ClipScribe development and t
 **Testing Purpose:** Multi-speaker events, panel discussions, speaker identification  
 
 | Playlist | URL | Description | Testing Focus |
-|----------|-----|-------------|---------------|
+|---|---|---|---|
 | Panel Event 1 | https://www.youtube.com/playlist?list=PLn5MTSAqaf8pkToANgqsSSdafXNRPDBrH | Panel with guest speakers | Speaker tracking, conversation flow |
 
 ## 💼 **Business Intelligence / Market Research**
@@ -124,24 +122,24 @@ This document contains all approved test videos for ClipScribe development and t
 **Demo Value:** Perfect alignment with SDVOSB positioning for DoD/IC sales  
 
 | Playlist | URL | Description | Testing Focus |
-|----------|-----|-------------|---------------|
+|---|---|---|---|
 | GovClose Recent | https://www.youtube.com/@govclose/videos | Last 30 days of gov contracting content | BI in gov contracting |
 | SDVOSB Contracts | https://www.youtube.com/watch?v=bdk6o7CUlXY | SDVOSB Contracts (Jul 16, 2025) | Entity resolution in contracts |
 | Gov Sales | https://www.youtube.com/watch?v=QnClqEBJQmU | Why You're Not Able To Sell To The US Government | Relationship chains in sales BI |
-| Market Analysis | https://www.youtube.com/watch?v=-1riCe0dOpM | GovCon Losers Don't Know Who Wins The Game | Temporal analysis of market trends |
+| Market Analysis | https://www.youtube.com/watch?v=-1riCe0dOpM | GovCon Losers Don't Know Who Wins The Game | Market trend analysis |
 
 ## 🌍 **Geopolitics / Defense / Intelligence**
 
 ### PBS NewsHour Daily Episodes (July 2025)
 **Channel:** PBS NewsHour  
 **Topic:** Daily news coverage - geopolitics, defense, policy  
-**Testing Purpose:** Multi-topic entity extraction, timeline construction  
+**Testing Purpose:** Multi-topic entity extraction, complex relationship mapping  
 **Demo Value:** Recognized source for DoD/IC analysts, rich entity relationships  
 
 | Playlist | URL | Description | Testing Focus |
-|----------|-----|-------------|---------------|
+|---|---|---|---|
 | PBS July 2025 | https://www.youtube.com/playlist?list=PLgawtcOBBjr9w4YGiJrPD8f6MXTCIUfK9 | Full Episodes July 2025 | Geopolitical entity resolution |
-| Jul 17 Episode | https://www.youtube.com/watch?v=7sWj6D2i4eU | PBS News Hour live episode, July 17, 2025 | Timeline extraction in news |
+| Jul 17 Episode | https://www.youtube.com/watch?v=7sWj6D2i4eU | PBS News Hour live episode, July 17, 2025 | News analysis |
 | Jul 16 Episode | https://www.youtube.com/watch?v=0jeZPnNPp9M | PBS News Hour full episode, July 16, 2025 | Contradiction detection |
 
 ### White House Press Briefings
@@ -151,8 +149,8 @@ This document contains all approved test videos for ClipScribe development and t
 **Demo Value:** Critical for policy analysts, entity relationship mapping  
 
 | Playlist | URL | Description | Testing Focus |
-|----------|-----|-------------|---------------|
-| WH Briefings July | https://www.youtube.com/@WhiteHouse/videos | Recent press briefings | Intel speaker identification |
+|---|---|---|---|
+| WH Briefings July | https://www.youtube.com/@WhiteHouse/videos | Recent press briefings | Speaker identification |
 | Jul 17 Briefing | https://www.youtube.com/watch?v=f0C_znvD7E8 | White House Press Briefing - July 17, 2025 | Multi-speaker analysis |
 | Jul 7 Briefing | https://www.youtube.com/watch?v=pR_bIwOS4Ec | White House Press Briefing - July 7, 2025 | Narrative flow in policy |
 
@@ -163,7 +161,7 @@ This document contains all approved test videos for ClipScribe development and t
 **Demo Value:** Shows intelligence value of multi-source analysis  
 
 | Source | Topic | Example Videos | Testing Focus |
-|--------|-------|----------------|---------------|
+|---|---|---|---|
 | Reuters | Iran/China | Search: "Reuters Iran China 2025" | Defense intel relationships |
 | Fox News | Immigration | Search: "Fox News Immigration July 2025" | LE/DoD policy tracking |
 | CNN | Defense Policy | Search: "CNN Pentagon July 2025" | Cross-source validation |
@@ -177,19 +175,19 @@ This document contains all approved test videos for ClipScribe development and t
 **Demo Value:** High-value for fintech analysts, regulatory intelligence  
 
 | Playlist/Channel | URL | Description | Testing Focus |
-|------------------|-----|-------------|---------------|
-| InvestAnswers Daily | https://www.youtube.com/playlist?list=PLWTRLGkkf1kTTbIDdv-P6ykul7a8iUXYf | Bitcoin daily analysis | Finance trend evolution |
+|---|---|---|---|
+| InvestAnswers Daily | https://www.youtube.com/playlist?list=PLWTRLGkkf1kTTbIDdv-P6ykul7a8iUXYf | Bitcoin daily analysis | Market trend evolution |
 | Bitcoin Storm | https://www.youtube.com/watch?v=m5WR6nVISEc | Bitcoin's Perfect Storm (Jul 9, 2025) | Entity extraction in crypto |
 | CNBC Crypto Bills | https://www.youtube.com/watch?v=hj9rK35ucCc | House passes crypto bills (Jul 17, 2025) | Regulatory relationships |
 
 ### CNBC Market Wrap Series
 **Channel:** CNBC Television  
 **Topic:** Daily market analysis, tech stocks, economic indicators  
-**Testing Purpose:** Time-series analysis, daily entity tracking  
-**Demo Value:** Perfect for investment analysts, shows temporal intelligence  
+**Testing Purpose:** Daily entity tracking, market analysis  
+**Demo Value:** Perfect for investment analysts  
 
 | Series Type | URL Pattern | Description | Testing Focus |
-|-------------|-------------|-------------|---------------|
+|---|---|---|---|
 | Post Market Wrap | https://www.cnbc.com/video/2025/MM/DD/post-market-wrap-MONTH-DD-2025.html | Daily market summary | Cross-day entity tracking |
 | 5 Things to Know | https://www.cnbc.com/video/2025/MM/DD/5-things-to-know-MONTH-DD-2025.html | Daily brief format | Quick extraction test |
 | Fast Money | Search: "CNBC Fast Money July 2025" | Trading analysis show | Financial jargon extraction |
@@ -206,7 +204,7 @@ This document contains all approved test videos for ClipScribe development and t
 ### Demo Flow 2: Geopolitical Threat Assessment  
 1. **Single Video**: PBS NewsHour on China/Taiwan
 2. **Multi-Source**: Reuters + Fox + CNN on same topic
-3. **Timeline**: Track entity mentions across 30 days
+3. **Collection**: Track entity mentions across 30 days of PBS news
 
 ### Demo Flow 3: Financial Market Intelligence
 1. **Single Video**: CNBC crypto regulation news
@@ -233,28 +231,15 @@ This document contains all approved test videos for ClipScribe development and t
 *This table should be updated whenever new test videos are identified or testing requirements change. For analyst demos, prioritize recent content (< 30 days old) for maximum relevance.* 
 
 ### Quick 3-Video Series
-Video1: url1
-Video2: url2
-Video3: url3 
-
-## 🎯 **Tonight's Immediate Test (Priority)**
-
-### Quick 3-Video Analysis - Tier 1 & 2 Selections Series
-**Ready for immediate testing with ClipScribe v2.19.8**
-
 ```bash
-# Test command for tonight's analysis
-clipscribe process-collection "Tier 1 & 2 Selections Training" \
-  https://www.youtube.com/watch?v=Nr7vbOSzpSk \
-  https://www.youtube.com/watch?v=tjFNZlZEJLY \
-  https://www.youtube.com/watch?v=7r-qOjUOjbs
-
-# Or via batch script (recommended)
-poetry run python examples/pbs_fast_batch.py --urls tier12_urls.txt --limit 3
+# Test command for a quick 3-video series analysis
+poetry run clipscribe collection series \
+  "https://www.youtube.com/watch?v=Nr7vbOSzpSk" \
+  "https://www.youtube.com/watch?v=tjFNZlZEJLY" \
+  "https://www.youtube.com/watch?v=7r-qOjUOjbs"
 ```
 
 **Expected Processing Time**: <5 minutes (full parallel processing)  
 **Expected Cost**: ~$0.11 total  
 **Expected Output**: 150-300+ entities, 150-300+ relationships, complete knowledge graphs
-
---- 
+---

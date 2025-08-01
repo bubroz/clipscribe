@@ -1,6 +1,6 @@
 # ClipScribe Troubleshooting Guide
 
-*Last Updated: July 2025*
+*Last Updated: July 31, 2025*
 
 This guide helps you resolve common issues with ClipScribe.
 
@@ -12,7 +12,6 @@ This guide helps you resolve common issues with ClipScribe.
 - [Performance Issues](#performance-issues)
 - [Output Problems](#output-problems)
 - [Platform-Specific Issues](#platform-specific-issues)
-- [Timeline v2.0 Issues](#timeline-v20-issues)
 - [Getting Help](#getting-help)
 
 ## Installation Issues
@@ -48,7 +47,6 @@ poetry install --no-cache
 ## Entity & Relationship Extraction Issues (v2.19.0 Fixed)
 
 ### Poor Extraction Quality
-
 **Problem**: Only getting 0-10 generic entities like "Revenue", "This Morning" and 0-1 relationships
 
 **Cause**: Quality filters were too aggressive (removing 70% of valid entities)
@@ -75,7 +73,6 @@ poetry update clipscribe
 - Still only $0.0083 per video!
 
 ### Python Version Warning
-
 **Problem**: You see a warning like:
 ```
 The currently activated Python version 3.13.5 is not supported by the project (^3.12,<3.13).
@@ -93,7 +90,6 @@ poetry install
 ```
 
 ### Tokenizer Warning
-
 **Problem**: You see repeated warnings about sentencepiece tokenizer:
 ```
 UserWarning: The sentencepiece tokenizer that you are converting to a fast tokenizer uses the byte fallback option which is not implemented in the fast tokenizers.
@@ -103,7 +99,6 @@ UserWarning: The sentencepiece tokenizer that you are converting to a fast token
 ```bash
 poetry update
 ```
-
 The warning comes from the GLiNER model loading and doesn't affect functionality.
 
 ## API Key Problems
@@ -117,7 +112,7 @@ echo "GOOGLE_API_KEY=your_key_here" >> .env
 export GOOGLE_API_KEY="your_key_here"
 
 # Option 3: Pass via CLI
-clipscribe process "URL" --api-key "your_key_here"
+clipscribe process video "URL" --api-key "your_key_here"
 ```
 
 ### Invalid API Key
@@ -128,7 +123,6 @@ clipscribe process "URL" --api-key "your_key_here"
 ## Video Processing Errors
 
 ## 503 Socket Closed Errors
-
 ### Problem: "Premature close" or "Socket closed" errors
 
 **New in v2.19.2**: Use Vertex AI SDK for better reliability
@@ -142,7 +136,7 @@ export VERTEX_AI_PROJECT_ID=your-project-id
 poetry run python scripts/setup_vertex_ai.py
 
 # Process videos with improved reliability
-poetry run clipscribe transcribe "URL"
+poetry run clipscribe process video "URL"
 ```
 
 Benefits of Vertex AI:
@@ -160,7 +154,7 @@ This happens when:
 
 **Solution**: Use enhanced temporal intelligence processing for optimal performance
 ```bash
-clipscribe process "URL" --force-transcribe
+clipscribe process video "URL" --force-transcribe
 ```
 
 ### Download Failed
@@ -172,10 +166,10 @@ Common causes:
 **Solutions**:
 ```bash
 # Slow down requests
-clipscribe process "URL" --rate-limit 50k
+clipscribe process video "URL" --rate-limit 50k
 
 # Skip certificate check (use carefully)
-clipscribe process "URL" --no-check-certificate
+clipscribe process video "URL" --no-check-certificate
 ```
 
 ### Large Video Memory Issues
@@ -184,11 +178,10 @@ For videos over 2 hours:
 # Process in chunks (coming in v2.3)
 # For now, download and process manually:
 yt-dlp "URL" -o video.mp4
-clipscribe process video.mp4
+clipscribe process video video.mp4
 ```
 
 ### Video Not Found
-
 ```
 ERROR: Video unavailable
 ```
@@ -199,11 +192,9 @@ ERROR: Video unavailable
 - Verify the URL is correct
 
 ### Timeout Errors with Long Videos
-
 ```
 ERROR: 504 Deadline Exceeded
 ```
-
 **This happens when processing videos longer than ~15 minutes with default settings.**
 
 **Solutions:**
@@ -220,7 +211,7 @@ ERROR: 504 Deadline Exceeded
 
 **Example for processing a segment:**
 ```bash
-clipscribe transcribe "URL" --start-time 0 --end-time 1800  # First 30 minutes
+clipscribe process video "URL" --start-time 0 --end-time 1800  # First 30 minutes
 ```
 
 ## Performance Issues
@@ -234,7 +225,7 @@ Check these factors:
 **Optimizations**:
 ```bash
 # Use faster model
-clipscribe process "URL" --model flash
+clipscribe process video "URL" --use-flash
 
 # Enable caching
 export CLIPSCRIBE_CACHE=true
@@ -247,7 +238,7 @@ Monitor costs with:
 clipscribe estimate "URL"
 
 # Use enhanced temporal intelligence
-clipscribe process "URL" --mode audio
+clipscribe process video "URL" --mode audio
 
 # Set cost limit
 export COST_WARNING_THRESHOLD=1.0
@@ -260,7 +251,7 @@ If you see garbled text:
 ```bash
 # Force UTF-8 encoding
 export PYTHONIOENCODING=utf-8
-clipscribe process "URL"
+clipscribe process video "URL"
 ```
 
 ### Missing Output Files
@@ -292,64 +283,6 @@ If JSON files are corrupted:
 - Use the share URL, not the web URL
 - Some regions block access
 
-## Timeline v2.0 Issues
-
-### Timeline Extracts 0 Events
-
-**Problem**: Timeline v2.0 extracts 0 temporal events but fallback timeline works
-```
-Timeline v2.0: Extracted 0 temporal events
-Using fallback timeline: 82 events
-```
-
-**Solution**: This is due to a model mismatch issue (fixed in v2.18.15+). Update to latest version:
-```bash
-poetry update clipscribe
-```
-
-### Model Field Errors
-
-**Problem**: Errors like:
-```
-AttributeError: 'TemporalEvent' object has no attribute 'extracted_date'
-```
-
-**Cause**: Timeline v2.0 uses a new event model but some components expect the old structure.
-
-**Solution**: The system will automatically fall back to basic timeline. Full fix coming in v2.19.0.
-
-### Empty Chapter Text
-
-**Problem**: Chapters extract with 0 text length
-```
-Chapter 3: Introduction (180s-360s) - Text length: 0
-```
-
-**Cause**: Video duration estimation bug (fixed in v2.18.15).
-
-**Solution**: Update to latest version which uses real video duration instead of estimates.
-
-### Date Extraction Uses Current Date
-
-**Problem**: All events show today's date instead of historical dates
-```
-Event date: 2025-07-01 (should be 2018-03-15)
-```
-
-**Solution**: 
-1. Ensure you have the latest version (v2.18.15+)
-2. Check that the video has clear temporal references in the transcript
-3. Use `--log-level DEBUG` to see date extraction attempts
-
-### Timeline v2.0 Falls Back to Basic
-
-**Problem**: System always falls back to basic timeline
-```
-Timeline v2.0 synthesis failed, using fallback
-```
-
-**Current Status**: This is expected behavior in v2.18.15 due to model alignment issues. The fallback provides reliable results while we fix the advanced pipeline.
-
 ## Getting Help
 
 ### Debug Mode
@@ -359,14 +292,14 @@ Run with debug logging:
 export CLIPSCRIBE_LOG_LEVEL=DEBUG
 
 # Via CLI
-clipscribe process "URL" --log-level DEBUG
+clipscribe process video "URL" --log-level DEBUG
 ```
 
 ### Quick Test
 Verify installation:
 ```bash
 # Test with known-good video
-clipscribe process "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+clipscribe process video "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
 ```
 
 ### Reset Everything
@@ -389,9 +322,8 @@ poetry run pytest
    - Video URL (if not sensitive)
 
 ### Common Error Messages
-
 | Error | Cause | Solution |
-|-------|-------|----------|
+|---|---|---|
 | `TranscriptNotAvailable` | No captions | Use `--force-transcribe` |
 | `VideoUnavailable` | Private/deleted | Check URL is accessible |
 | `APIQuotaExceeded` | Hit API limits | Wait or upgrade quota |
@@ -401,7 +333,6 @@ poetry run pytest
 ## Development and Testing Best Practices
 
 ### 🚨 CRITICAL: Validation Before Deployment
-
 To prevent issues like import errors, broken functionality, or incomplete features:
 
 #### 1. **Always Test Imports First**
@@ -427,11 +358,10 @@ pkill -f streamlit
 ```
 
 #### 4. **Common Validation Patterns**
-
 **For CLI Commands:**
 ```bash
 poetry run clipscribe --help  # Should show help without errors
-poetry run clipscribe process "test_url"  # Should process successfully
+poetry run clipscribe process video "test_url"  # Should process successfully
 ```
 
 **For Python Modules:**
@@ -462,6 +392,5 @@ Remember: When in doubt, run with `--log-level DEBUG` :-)
 - **Symptom**: The application crashes with errors related to `vertexai` or Google Cloud permissions, especially during batch processing.
 - **Solution**: As of v2.19.7, the system has a **graceful fallback mechanism**. If Vertex AI processing fails for any reason (e.g., incorrect configuration, quota limits), ClipScribe will automatically log a warning and switch to the standard Gemini API to complete the job. This ensures that your processing can continue even if the Vertex AI setup is not perfect. To force the use of the standard Gemini API, you can set `USE_VERTEX_AI=False` in your `.env` file. 
 
-# Add enterprise section
 ## Enterprise Issues
-For scaling problems, check Vertex quotas 
+For scaling problems, check Vertex quotas

@@ -1,6 +1,6 @@
 # ClipScribe Development Guide
 
-*Last Updated: July 30, 2025 - v2.21.0 Pro-First Architecture*
+*Last Updated: July 31, 2025 - v2.22.2 Stable*
 
 ## Overview
 
@@ -43,29 +43,18 @@ src/clipscribe/
 │   └── cli.py
 ├── config/             # Configuration (Pydantic)
 │   └── settings.py
-├── extractors/         # Knowledge extraction (SpaCy, GLiNER, REBEL)
-│   ├── model_manager.py        # Singleton model caching
-│   ├── hybrid_extractor.py
+├── extractors/         # Knowledge extraction (Gemini-first)
 │   ├── advanced_hybrid_extractor.py
-│   └── multi_video_processor.py  # Timeline v2.0 integration
-├── timeline/           # 🚀 NEW: Timeline Intelligence v2.0 (157KB)
-│   ├── temporal_extractor_v2.py  # Core yt-dlp temporal intelligence
-│   ├── event_deduplicator.py     # Fix duplicate crisis
-│   ├── quality_filter.py         # Multi-stage quality filtering
-│   ├── chapter_segmenter.py      # Chapter-aware processing
-│   ├── cross_video_synthesizer.py # Multi-video correlation
-│   └── performance_optimizer.py   # Large collection optimization
+│   └── multi_video_processor.py
 ├── models.py           # Core data structures (Pydantic)
 ├── retrievers/         # Media retrieval and processing
 │   ├── universal_video_client.py
 │   ├── transcriber.py
-│   ├── video_retriever.py      # Timeline v2.0 integration
-│   └── video_retention_manager.py
+│   └── video_retriever.py
 └── utils/              # Shared utilities
     ├── filename.py
     ├── logging.py
-    ├── performance.py          # Performance monitoring
-    └── performance_dashboard.py # Streamlit dashboard components
+    └── performance.py
 ```
 
 ## Technology Stack
@@ -83,104 +72,32 @@ src/clipscribe/
 
 ## Contributing
 
-### Adding Timeline v2.0 Features
-1. Create a feature branch: `git checkout -b feature/timeline-v2-enhancement`
-2. Add Timeline v2.0 component in `src/clipscribe/timeline/`
-3. Add tests for Timeline v2.0 functionality in `tests/integration/`
-4. Update Timeline v2.0 documentation
-5. Ensure Timeline v2.0 integration tests pass
-6. Submit pull request with Timeline v2.0 feature description
+### Adding a Feature
+1. Create a feature branch: `git checkout -b feature/my-new-feature`
+2. Add components in the appropriate `src/clipscribe/` subdirectory.
+3. Add corresponding tests in the `tests/` directory.
+4. Update relevant documentation in `docs/`.
+5. Ensure all tests pass.
+6. Submit a pull request with a clear description of the feature.
 
 ### Code Style
 - Use **Black** for formatting
-- Add type hints for all Timeline v2.0 function signatures
-- Write Google-style docstrings for Timeline v2.0 components
-- Include Timeline v2.0 performance benchmarks
+- Add type hints for all function signatures
+- Write Google-style docstrings for all public modules and functions
 
 ### Testing Guidelines
-- Write unit tests for Timeline v2.0 components
-- Add integration tests for Timeline v2.0 workflow
-- Test Timeline v2.0 performance optimization
-- Validate Timeline v2.0 quality transformation (82→40 events)
-- Mock Timeline v2.0 external dependencies
-
-## Recent Enhancements (v2.18.16)
-
-### Timeline Intelligence v2.0 Complete Implementation
-- **Complete Foundation**: 157KB of Timeline v2.0 code with 4 core components
-- **Quality Transformation**: Proven 82→40 event transformation (144% improvement)
-- **Performance Optimization**: 3-4x speedup for large collections
-- **Mission Control Integration**: 5-tab Timeline v2.0 interface
-- **Real-World Validation**: Tested with actual broken v1.0 data
-
-### Advanced Performance Features
-- **Streaming Mode**: Memory-efficient processing for 100+ video collections
-- **Performance Optimizer**: Real-time system monitoring and optimization
-- **Cache Intelligence**: 85%+ hit rates for repeated processing
-- **Resource Management**: Configurable memory limits and batch sizing
-
-## Future Enhancements (v2.19.0+)
-
-1. **Advanced Timeline Correlation**: Enhanced cross-video temporal intelligence
-2. **Timeline API**: RESTful API for Timeline v2.0 integration
-3. **Custom Temporal Filters**: User-defined quality filtering rules
-4. **Timeline Visualization**: Interactive timeline graphs and exploration
-5. **Research Integration**: Direct integration with research tools and APIs
-6. **Timeline v3.0 Planning**: Next-generation temporal intelligence with AI reasoning
+- Write unit tests for individual components.
+- Add integration tests for end-to-end workflows.
+- Mock external dependencies like API calls.
+- Aim for 80%+ test coverage on new code.
 
 ## Security Considerations
 
-- **API Keys**: Never commit API keys to version control. Use `.env` files
-- **Timeline Data**: Timeline v2.0 data includes temporal intelligence - ensure proper access controls
-- **Performance Monitoring**: Timeline v2.0 includes system monitoring - secure dashboard access
-- **Large Collections**: Timeline v2.0 streaming mode handles large datasets - monitor resource usage
-
-## Advanced Timeline v2.0 Development
-
-ClipScribe implements Timeline Intelligence v2.0 with revolutionary temporal intelligence capabilities.
-
-### Timeline v2.0 Architecture Flow
-```
-Video Input → TemporalExtractorV2 → EventDeduplicator → 
-ContentDateExtractor → TimelineQualityFilter → ChapterSegmenter →
-CrossVideoSynthesizer → Enhanced Timeline Intelligence Output
-```
-
-### Timeline v2.0 Quality Pipeline
-1. **Enhanced Temporal Extraction**: yt-dlp temporal intelligence integration
-2. **Event Deduplication**: Eliminate 44-duplicate crisis
-3. **Content Date Extraction**: Real dates from video content (not metadata)
-4. **Quality Filtering**: Multi-stage validation and noise elimination
-5. **Chapter Segmentation**: Intelligent content boundaries
-
-### Performance Optimization (Timeline v2.0)
-- **Streaming Processing**: Memory-efficient handling of 100+ video collections
-- **Intelligent Caching**: 85%+ hit rates with Timeline v2.0 data
-- **Parallel Processing**: 3-4x speedup with optimized batch processing
-- **Resource Management**: Configurable memory limits and concurrency control
-
-### Timeline v2.0 Testing Strategy
-```python
-# Comprehensive Timeline v2.0 testing
-class TimelineV2TestSuite:
-    async def test_quality_transformation(self):
-        # Test 82→40 event transformation
-        pass
-    
-    async def test_performance_optimization(self):
-        # Test 3-4x speedup
-        pass
-    
-    async def test_cross_video_synthesis(self):
-        # Test multi-video correlation
-        pass
-```
+- **API Keys**: Never commit API keys to version control. Use `.env` files.
+- **Dependencies**: Regularly update dependencies to patch security vulnerabilities.
+- **Input Sanitization**: Ensure any user-provided input is properly sanitized.
 
 ## Scalability
-Design for thousands of concurrent users
-
-## Conclusion
-
-ClipScribe v2.18.16 represents a major breakthrough in video intelligence with Timeline Intelligence v2.0. The system provides revolutionary temporal intelligence with proven quality improvements and performance optimization. Developers working on ClipScribe should familiarize themselves with Timeline v2.0 architecture and ensure all new features integrate with the temporal intelligence system.
-
-**Timeline Intelligence v2.0**: From broken timelines to brilliant temporal intelligence! 🚀 
+- Design for thousands of concurrent users.
+- Use asynchronous processing for all I/O-bound tasks.
+- Implement intelligent caching to avoid redundant processing.

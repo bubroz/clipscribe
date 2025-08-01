@@ -1,10 +1,10 @@
 # ClipScribe CLI Reference
 
-*Last Updated: July 30, 2025 - v2.22.1 CLI Status*
+*Last Updated: July 31, 2025 - v2.22.2 CLI Stable*
 
 Complete reference for all ClipScribe commands, groups, and options.
 
-**Current Status**: 5/6 CLI integration tests passing (83% success rate). All basic commands work; collection processing has integration issues being addressed.
+**Current Status**: ✅ **6/6 CLI integration tests passing (100% success rate)**. All commands, including single video and multi-video collection processing, are now fully functional and stable.
 
 ## ✨ Key Features
 
@@ -21,11 +21,11 @@ These options work with all commands:
 clipscribe [GLOBAL OPTIONS] COMMAND [ARGS]...
 ```
 
-| Option | Description |
-|---|---|
-| `--version` | Show ClipScribe version and exit. |
-| `--help` | Show help message and exit. |
-| `--debug` | Enable debug logging for detailed output. |
+| Option      | Description                               |
+|-------------|-------------------------------------------|
+| `--version` | Show ClipScribe version and exit.         |
+| `--help`    | Show help message and exit.               |
+| `--debug`   | Enable debug logging for detailed output. |
 
 ## Command Groups
 

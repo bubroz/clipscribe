@@ -1,7 +1,7 @@
 # ClipScribe Extraction Technology
 
-*Last Updated: July 30, 2025*
-*Version: v2.21.0*
+*Last Updated: July 31, 2025*
+*Version: v2.22.2*
 
 ## Core Extraction Engine: Google's Gemini 2.5
 
@@ -18,7 +18,7 @@ ClipScribe's intelligence extraction is a **cloud-native system** that leverages
 - **Trade-off**: While still high quality, it may produce more "noise" and less refined relationships compared to the Pro model.
 - **Use Case**: Ideal for high-volume batch processing or rapid initial analysis.
 
-## Extraction Philosophy: Quality-First
+## Extraction Philosophy: Quality-First & Gemini-Native
 
 Our architecture is built on a "Trust Gemini" principle. We have moved away from a complex, multi-stage pipeline involving local models (like GLiNER and REBEL) for the primary extraction path.
 
