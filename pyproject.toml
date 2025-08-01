@@ -93,6 +93,7 @@ pdfkit = "^1.0.0"
 tenacity = "^8.2.3"
 google-cloud-aiplatform = "^1.104.0"
 beautifulsoup4 = "^4.13.4"
+structlog = "^25.4.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.10.0"

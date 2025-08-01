@@ -29,6 +29,7 @@ Options:
   --version          Show version
   --help             Show this help message
   --debug            Enable debug logging
+  --log-file         Enable logging to clipscribe.log
 
 For detailed help: clipscribe COMMAND --help""")
         sys.exit(0)
@@ -50,24 +51,24 @@ import json
 import time
 
 import click
+import structlog
 
 from ..version import __version__
+from ..config.logging_config import setup_logging
 
 # Lazy imports - only load when needed
 def _get_rich_imports():
     """Lazy import Rich components."""
     from rich.panel import Panel
     from rich.table import Table
-    from rich.logging import RichHandler
     from rich import box
     from rich.console import Console
-    return Panel, Table, RichHandler, box, Console
+    return Panel, Table, box, Console
 
 def _get_core_imports():
     """Lazy import core processing components."""
     from ..retrievers import VideoIntelligenceRetriever, UniversalVideoClient
     from ..config.settings import Settings
-    from ..utils.logging import setup_logging
     from ..utils.progress import progress_tracker
     from ..utils.performance import PerformanceMonitor
     from ..utils.batch_progress import BatchProgress
@@ -78,7 +79,6 @@ def _get_core_imports():
         'VideoIntelligenceRetriever': VideoIntelligenceRetriever,
         'UniversalVideoClient': UniversalVideoClient,
         'Settings': Settings,
-        'setup_logging': setup_logging,
         'progress_tracker': progress_tracker,
         'PerformanceMonitor': PerformanceMonitor,
         'BatchProgress': BatchProgress,
@@ -94,22 +94,9 @@ def _get_console():
     """Get console instance with lazy initialization."""
     global _console
     if _console is None:
-        Panel, Table, RichHandler, box, Console = _get_rich_imports()
+        Panel, Table, box, Console = _get_rich_imports()
         _console = Console()
     return _console
-
-def _setup_rich_logging():
-    """Setup Rich logging only when needed."""
-    Panel, Table, RichHandler, box, Console = _get_rich_imports()
-    console = _get_console()
-    
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(message)s",
-        datefmt="[%X]",
-        handlers=[RichHandler(console=console, show_path=False)]
-    )
-    return logging.getLogger(__name__)
 
 cli_perf = importlib.import_module('src.clipscribe.utils.cli_performance')
 RealTimeCostTracker = cli_perf.RealTimeCostTracker
@@ -122,14 +109,22 @@ AsyncProgressIndicator = cli_perf.AsyncProgressIndicator
     is_flag=True,
     help="Enable debug logging"
 )
+@click.option(
+    "--log-file",
+    is_flag=True,
+    help="Enable logging to clipscribe.log"
+)
 @click.pass_context
-def cli(ctx: click.Context, debug: bool) -> None:
+def cli(ctx: click.Context, debug: bool, log_file: bool) -> None:
     """ClipScribe - AI-powered video transcription and analysis."""
+    log_level = "DEBUG" if debug else "INFO"
+    setup_logging(log_level, log_to_file=log_file)
+    
+    logger = structlog.get_logger(__name__)
+    
     ctx.ensure_object(dict)
-    if debug or ctx.invoked_subcommand is not None:
-        logger = _setup_rich_logging()
+    if ctx.invoked_subcommand is not None:
         if debug:
-            logging.getLogger().setLevel(logging.DEBUG)
             logger.debug("Debug mode enabled")
         
         imports = _get_core_imports()
@@ -440,14 +435,12 @@ async def transcribe_async(
     """Async implementation for single video processing."""
     use_pro = not use_flash
     imports = _get_core_imports()
-    logger = _setup_rich_logging()
+    logger = structlog.get_logger(__name__)
     console = _get_console()
     
     model = "gemini-2.5-pro" if use_pro else "gemini-2.5-flash"
     
-    logger.info(f"Processing video: {url}")
-    logger.info(f"Output directory: {output_dir}")
-    logger.info(f"Mode: {mode}, Model: {model}")
+    logger.info("Processing video", url=url, output_dir=str(output_dir), mode=mode, model=model)
     
     if not url:
         console.print("[red]Error: URL is required[/red]")
@@ -510,7 +503,7 @@ async def transcribe_async(
             console.print("\n🎉 [bold green]Intelligence extraction complete![/bold green]")
             
     except Exception as e:
-        logger.exception("Processing failed")
+        logger.exception("Processing failed", error=e)
         console.print(f"[red]❌ Error: {e}[/red]")
         ctx.exit(1)
 
@@ -530,8 +523,8 @@ async def process_collection_async(
 ) -> None:
     use_pro = not use_flash
     imports = _get_core_imports()
-    Panel, Table, RichHandler, box, Console = _get_rich_imports()
-    logger = _setup_rich_logging()
+    Panel, Table, box, Console = _get_rich_imports()
+    logger = structlog.get_logger(__name__)
     console = _get_console()
     
     video_client = imports['UniversalVideoClient']()
@@ -554,7 +547,7 @@ async def process_collection_async(
                         console.print("❌ Collection processing cancelled")
                         ctx.exit(0)
             except Exception as e:
-                logger.warning(f"Could not expand playlist {url}: {e}")
+                logger.warning("Could not expand playlist", url=url, error=e)
     
     video_intelligences = []
     collection_output_dir = output_dir / collection_name
@@ -579,7 +572,7 @@ async def process_collection_async(
                 video_intelligences.append(result)
                 console.print(f"✅ Processed video {i}/{len(final_urls)}")
         except Exception as e:
-            logger.error(f"Failed to process video {i}: {e}")
+            logger.error("Failed to process video", video_index=i, error=e)
             console.print(f"❌ Failed to process video {i}: {e}")
     
     # Multi-video processing
@@ -605,11 +598,10 @@ async def process_collection_async(
 async def research_async(ctx: click.Context, query: str, max_results: int, period: Optional[str], sort_by: str, output_dir: Path, **kwargs):
     """Async implementation for research command."""
     imports = _get_core_imports()
-    logger = _setup_rich_logging()
+    logger = structlog.get_logger(__name__)
     console = _get_console()
     
-    console.print(f"🔍 Researching: {query}")
-    console.print(f"📊 Max results: {max_results}")
+    logger.info("Starting research", query=query, max_results=max_results)
     
     # For now, this is a placeholder that demonstrates the command works
     # Full research implementation would use web search APIs
@@ -632,20 +624,19 @@ async def research_async(ctx: click.Context, query: str, max_results: int, perio
     with open(research_file, 'w') as f:
         json.dump(research_data, f, indent=2)
     
-    console.print(f"\n✅ Research structure verified for query: {query}")
+    logger.info("Research complete", output_dir=str(research_subdir))
     console.print(f"📁 Placeholder results saved to: {research_subdir}")
-    console.print("\n🎉 Research complete!")
 
 def clean_demo(ctx: click.Context, demo_dir: Path, dry_run: bool, keep_recent: int) -> None:
     """Clean up old demo and test collection folders."""
     console = _get_console()
+    logger = structlog.get_logger(__name__)
     
     if not demo_dir.exists():
-        console.print(f"Demo directory {demo_dir} does not exist")
+        logger.warning("Demo directory not found", demo_dir=str(demo_dir))
         return
     
-    console.print(f"🧹 Cleaning demo directory: {demo_dir}")
-    console.print(f"📦 Keeping {keep_recent} recent collections per directory")
+    logger.info("Cleaning demo directory", demo_dir=str(demo_dir), keep_recent=keep_recent, dry_run=dry_run)
     
     if dry_run:
         console.print("🔍 [DRY RUN] - No files will be deleted")
@@ -663,9 +654,10 @@ def clean_demo(ctx: click.Context, demo_dir: Path, dry_run: bool, keep_recent: i
                 else:
                     import shutil
                     shutil.rmtree(old_collection)
-                    console.print(f"Deleted: {old_collection}")
+                    logger.info("Deleted old collection", path=str(old_collection))
                 deleted_count += 1
     
+    logger.info("Clean-up complete", deleted_count=deleted_count)
     if dry_run:
         console.print(f"\n📊 Would delete {deleted_count} old collections")
     else:
@@ -673,7 +665,7 @@ def clean_demo(ctx: click.Context, demo_dir: Path, dry_run: bool, keep_recent: i
 
 def _display_results(console, result):
     """Display processing results in a formatted way."""
-    Panel, Table, RichHandler, box, Console = _get_rich_imports()
+    Panel, Table, box, Console = _get_rich_imports()
     
     # Create results table
     table = Table(title="Processing Results", box=box.ROUNDED)
@@ -700,8 +692,6 @@ def _display_results(console, result):
 
 def run_cli():
     """Run the CLI application."""
-    imports = _get_core_imports()
-    imports['setup_logging']()
     cli()
 
 if __name__ == "__main__":

@@ -196,14 +196,13 @@ class GeminiFlashTranscriber:
         logger.info(f"Enhanced temporal intelligence level: {self.temporal_config['level']}")
         
         # Upload the audio file
-        uploaded_file = await genai.upload_file(audio_file, mime_type=self._get_mime_type(audio_file))
-        
-        # Wait for file to be ready
-        while uploaded_file.state.name == "PROCESSING":
+        file = genai.upload_file(audio_file, mime_type=self._get_mime_type(audio_file))
+        while file.state.name == "PROCESSING":
             await asyncio.sleep(2)
-            uploaded_file = await genai.get_file(uploaded_file.name)
-        
-        file = uploaded_file
+            file = genai.get_file(file.name)
+
+        if file.state.name == "FAILED":
+            raise ValueError(file.state.name)
         
         # Get the transcription model
         transcription_model = self.pool.get_model(TaskType.TRANSCRIPTION)
@@ -625,14 +624,13 @@ class GeminiFlashTranscriber:
         logger.info(f"Enhanced temporal intelligence level: {self.temporal_config['level']}")
         
         # Upload the video file
-        uploaded_file = await genai.upload_file(video_file, mime_type=self._get_mime_type(video_file))
-        
-        # Wait for file to be ready
-        while uploaded_file.state.name == "PROCESSING":
+        file = genai.upload_file(video_file, mime_type=self._get_mime_type(video_file))
+        while file.state.name == "PROCESSING":
             await asyncio.sleep(2)
-            uploaded_file = await genai.get_file(uploaded_file.name)
-        
-        file = uploaded_file
+            file = genai.get_file(file.name)
+
+        if file.state.name == "FAILED":
+            raise ValueError(file.state.name)
         
         # Use different model instances from pool
         video_model = self.pool.get_model(TaskType.TRANSCRIPTION)
