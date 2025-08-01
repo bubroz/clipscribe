@@ -7,6 +7,10 @@ transcription of videos from 1800+ platforms using Gemini 2.5 Pro by default.
 import sys
 import importlib
 
+# Set up logging as early as possible
+from ..config.logging_config import setup_logging
+setup_logging()
+
 # Fast path for version check - bypass Click entirely for performance
 def _check_fast_commands():
     """Handle simple commands without loading heavy frameworks."""
@@ -54,7 +58,7 @@ import click
 import structlog
 
 from ..version import __version__
-from ..config.logging_config import setup_logging
+
 
 # Lazy imports - only load when needed
 def _get_rich_imports():

@@ -811,160 +811,28 @@ class GeminiFlashTranscriber:
         """
 
     def _build_enhanced_analysis_prompt(self, transcript_text: str) -> str:
-        """Build enhanced analysis prompt with temporal intelligence AND aggressive key points extraction."""
-        return f"""
-        Analyze this transcript with enhanced temporal intelligence extraction AND comprehensive key points analysis.
-        You are an expert intelligence analyst creating a professional briefing.
-        
-        Transcript with Visual Annotations:
-        {transcript_text[:12000]}  # Increased for visual content
-        
+        """Builds a simplified prompt to prevent timeouts."""
+        return """
+        Analyze this video and extract a brief summary and up to 5 key entities.
+
         Return a JSON object with this EXACT structure:
-        {{
-            "summary": "Comprehensive 3-4 paragraph executive summary covering all main points, key players, and critical insights",
-            "key_points": [
-                {{"text": "Specific, actionable insight or key statement - intelligence briefing style", "importance": 0.9}},
-                {{"text": "Every significant fact, claim, or strategic point", "importance": 0.8}},
-                {{"text": "Key tactical information or important detail", "importance": 0.85}},
-                // Extract 30-50 key points - EVERY significant statement, fact, claim, or insight
-                // Think professional intelligence briefing: What would an analyst highlight?
-                // Include: strategic points, tactical details, key facts, important claims, critical insights
-                // Format: Direct, actionable, specific - NOT generic summaries
-            ],
-            "topics": ["main topic 1", "temporal theme", "chronological topic"],
+        {
+            "summary": "Write a one-paragraph summary.",
             "entities": [
-                // PEOPLE: Individuals, roles, titles, backgrounds, positions
-                {{"name": "Speaker Name", "type": "PERSON", "confidence": 0.95}},
-                {{"name": "The Commander", "type": "PERSON", "confidence": 0.8}},
-                {{"name": "Former Special Forces operator", "type": "PERSON", "confidence": 0.88}},  // Military backgrounds
-                {{"name": "Tier one instructor", "type": "PERSON", "confidence": 0.85}},  // Military roles
-                {{"name": "Selection cadre", "type": "PERSON", "confidence": 0.82}},  // Training personnel
-                {{"name": "Combat veteran", "type": "PERSON", "confidence": 0.84}},  // Experience descriptors
-                
-                // ORGANIZATIONS: Military units, companies, agencies (including sub-units)
-                {{"name": "Delta Force", "type": "ORGANIZATION", "confidence": 0.98}},
-                {{"name": "SEAL Team Six", "type": "ORGANIZATION", "confidence": 0.98}},
-                {{"name": "Black Side SEALs", "type": "ORGANIZATION", "confidence": 0.93}},  // Military sub-units are ORGANIZATIONS
-                {{"name": "White Side SEALs", "type": "ORGANIZATION", "confidence": 0.93}},  // NOT PRODUCTS!
-                {{"name": "Special Forces", "type": "ORGANIZATION", "confidence": 0.95}},
-                {{"name": "MARSOC Raiders", "type": "ORGANIZATION", "confidence": 0.94}},
-                
-                // LOCATIONS: Geographic areas, facilities
-                {{"name": "Fort Bragg", "type": "LOCATION", "confidence": 0.92}},
-                
-                // EVENTS: Operations, selections, incidents (include temporal events)
-                {{"name": "Tier One selection", "type": "EVENT", "confidence": 0.89}},
-                {{"name": "Combat deployment", "type": "EVENT", "confidence": 0.87}},
-                
-                // Include temporal entities (events, dates, periods)
-            ],
-            "relationships": [
-                {{"subject": "Entity A", "predicate": "temporal_action", "object": "Entity B", "confidence": 0.9}},
-                // Include temporal relationships: before, after, during, caused, led_to
-            ],
-            "dates": [
-                {{"original_text": "October 2018", "normalized_date": "2018-10-01", "precision": "month", "confidence": 0.9, "context": "Pegasus discovery"}},
-                // Extract dates from transcript and visual elements (simplified without timestamps):
-                // - Dates shown in chyrons, overlays, documents  
-                // - Dates mentioned in speech
-                // - Timeline graphics and temporal visualizations
+                {"name": "Entity Name", "type": "PERSON/ORGANIZATION/LOCATION", "confidence": 0.9}
             ]
-        }}
-        
-        KEY POINTS EXTRACTION REQUIREMENTS:
-        1. Extract 30-50 key points minimum - think intelligence briefing highlights
-        2. Every significant statement, fact, or claim gets a key point
-        3. Be specific and actionable - "Delta Force requires prior special ops experience" not "Requirements discussed"
-        4. Include tactical details, strategic insights, key facts, important claims
-        5. Professional intelligence report style - direct, precise, actionable
-        6. Importance scores: 0.9+ for critical facts, 0.8+ for important details, 0.7+ for supporting info
-        
-        ENTITY CLASSIFICATION RULES:
-        1. ORGANIZATIONS = Military units, companies, agencies, institutions, political groups
-           - Include ALL military sub-units: "Black Side SEALs", "White Side SEALs", "Tier 1 units"  
-           - Include designations: "JV SEALs", "Varsity SEALs", "White SOF", "Black SOF"
-           - Include specific units: "SEAL Team Six", "Delta Force", "24th STS"
-        2. PRODUCTS = Technology, software, equipment, weapons, vehicles, tools, systems
-           - Physical items: rifles, vehicles, aircraft, ships
-           - Software: applications, AI systems, platforms  
-           - NOT organizational designations or unit names
-        3. PEOPLE = Individuals, roles, titles, backgrounds, experience descriptors
-           - Named persons: "John Smith", "General Miller"
-           - Roles and titles: "The CEO", "Commander", "Instructor"
-           - Military backgrounds: "Former Special Forces operator", "Combat veteran"
-           - Professional descriptors: "Senior analyst", "Selection cadre", "Tier one instructor"
-           - Even unnamed functional roles: "The spokesperson", "A senior official"
-        4. LOCATIONS = Geographic areas, buildings, facilities
-        5. EVENTS = Incidents, meetings, operations, selections, exercises
-        
-        Focus on extracting comprehensive information: key facts, relationships, and important dates mentioned.
-        BE AGGRESSIVE with key points extraction - missing key information is worse than including too much detail.
+        }
         """
 
     def _build_enhanced_response_schema(self) -> Dict[str, Any]:
-        """Build enhanced response schema for temporal intelligence."""
+        """Builds a simplified response schema to match the simplified prompt."""
         return {
             "type": "OBJECT",
             "properties": {
                 "summary": {"type": "STRING"},
-                "key_points": {
-                    "type": "ARRAY",
-                    "items": {
-                        "type": "OBJECT",
-                        "properties": {
-                            "text": {"type": "STRING"},
-                            "importance": {"type": "NUMBER"}
-                        },
-                        "required": ["text", "importance"]
-                    }
-                },
-                "topics": {
-                    "type": "ARRAY",
-                    "items": {"type": "STRING"}
-                },
-                "entities": {
-                    "type": "ARRAY",
-                    "items": {
-                        "type": "OBJECT",
-                        "properties": {
-                            "name": {"type": "STRING"},
-                            "type": {"type": "STRING", "enum": ["PERSON", "ORGANIZATION", "LOCATION", "PRODUCT", "EVENT", "DATE", "PERIOD"]},
-                            "confidence": {"type": "NUMBER"},
-                            "temporal_context": {"type": "STRING"}
-                        },
-                        "required": ["name", "type", "confidence"]
-                    }
-                },
-                "relationships": {
-                    "type": "ARRAY",
-                    "items": {
-                        "type": "OBJECT",
-                        "properties": {
-                            "subject": {"type": "STRING"},
-                            "predicate": {"type": "STRING"},
-                            "object": {"type": "STRING"},
-                            "confidence": {"type": "NUMBER"},
-                            "temporal_nature": {"type": "STRING"}
-                        },
-                        "required": ["subject", "predicate", "object", "confidence"]
-                    }
-                },
-                "dates": {
-                    "type": "ARRAY",
-                    "items": {
-                        "type": "OBJECT",
-                        "properties": {
-                            "original_text": {"type": "STRING"},
-                            "normalized_date": {"type": "STRING"},
-                            "precision": {"type": "STRING", "enum": ["exact", "day", "month", "year", "approximate"]},
-                            "confidence": {"type": "NUMBER"},
-                            "context": {"type": "STRING"}
-                        },
-                        "required": ["original_text", "normalized_date", "precision", "confidence"]
-                    }
-                }
+                "entities": {"type": "ARRAY", "items": {"type": "OBJECT", "properties": {"name": {"type": "STRING"}, "type": {"type": "STRING"}, "confidence": {"type": "NUMBER"}}, "required": ["name", "type", "confidence"]}},
             },
-            "required": ["summary", "key_points", "topics", "entities", "relationships", "dates"]
+            "required": ["summary", "entities"]
         }
 
     def _build_temporal_intelligence_prompt(
