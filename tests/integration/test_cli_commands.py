@@ -53,8 +53,10 @@ def test_process_video_default_pro_model():
     assert result.returncode == 0, f"CLI command failed: {result.stderr}"
     assert "Intelligence extraction complete!" in result.stdout
     
-    # Verify that output files were created
-    expected_report = output_path / f"20250730_youtube_{TEST_VIDEO_ID}" / "report.md"
+                # Verify that output files were created
+    output_subdirs = list(output_path.glob("*"))
+    assert len(output_subdirs) > 0, "No output subdirectory was created."
+    expected_report = output_subdirs[0] / "report.md"
     assert expected_report.exists(), "The output report.md was not created."
 
 def test_process_video_use_flash():
@@ -68,7 +70,10 @@ def test_process_video_use_flash():
     assert "Intelligence extraction complete!" in result.stdout
     assert "Model: gemini-2.5-flash" in result.stderr or "Model: gemini-2.5-flash" in result.stdout
     
-    expected_report = output_path / f"20250730_youtube_{TEST_VIDEO_ID}" / "report.md"
+                # Verify that output files were created
+    output_subdirs = list(output_path.glob("*"))
+    assert len(output_subdirs) > 0, "No output subdirectory was created."
+    expected_report = output_subdirs[0] / "report.md"
     assert expected_report.exists(), "The output report.md was not created for flash run."
 
 def test_collection_series_command():
@@ -82,13 +87,17 @@ def test_collection_series_command():
     assert result.returncode == 0, f"CLI command failed: {result.stderr}"
     assert "Multi-video collection processing complete!" in result.stdout
     
-    # Check that a collection directory was created
+                # Check that a collection directory was created
     collection_dirs = list(output_path.glob("collection_*"))
     assert len(collection_dirs) > 0, "No collection output directory was created."
-    
+
     # Check for a unified graph in the collection directory
-    unified_gexf = collection_dirs[0] / "unified_knowledge_graph.gexf"
-    assert unified_gexf.exists(), "Unified knowledge graph was not created for the series."
+    # The actual files are in a subdirectory within the collection directory
+    collection_subdirs = list(collection_dirs[0].glob("collection_*"))
+    assert len(collection_subdirs) > 0, "No collection subdirectory was created."
+
+    unified_gexf = collection_subdirs[0] / "unified_knowledge_graph.gexf"
+    assert unified_gexf.exists(), f"Unified knowledge graph was not created for the series. Contents of dir: {list(collection_subdirs[0].iterdir())}"
 
 def test_research_command():
     """Tests the `research` command."""

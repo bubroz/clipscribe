@@ -643,15 +643,18 @@ class VideoIntelligenceRetriever:
         total_segments = max(1, duration // segment_length)
         words_per_segment = len(words) / total_segments
         
+        # Ensure the step for the range is at least 1
+        segment_word_count = max(1, int(words_per_segment))
+        
         segments = []
         
-        for i in range(0, len(words), int(words_per_segment)):
+        for i in range(0, len(words), segment_word_count):
             # Calculate time boundaries
             start_time = (i / len(words)) * duration
-            end_time = min(((i + words_per_segment) / len(words)) * duration, duration)
+            end_time = min(((i + segment_word_count) / len(words)) * duration, duration)
             
             # Get segment text
-            segment_words = words[i:int(i + words_per_segment)]
+            segment_words = words[i:i + segment_word_count]
             segment_text = ' '.join(segment_words)
             
             if segment_text.strip():  # Only add non-empty segments

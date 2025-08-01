@@ -584,25 +584,20 @@ async def process_collection_async(
     
     # Multi-video processing
     if len(video_intelligences) > 1:
-        try:
-            multi_processor = imports['MultiVideoProcessor']()
-            collection_result = await multi_processor.process_collection(
-                video_intelligences=video_intelligences,
-                collection_name=collection_name,
-                collection_title=collection_title,
-                collection_type=imports['VideoCollectionType'](collection_type),
-                output_dir=str(collection_output_dir)
-            )
-            
-            console.print(f"\n📊 Multi-video analysis complete!")
-            console.print(f"📄 Collection saved to: {collection_output_dir}")
-        except Exception as e:
-            # For now, create a stub file to satisfy tests while multi-video is being implemented
-            logger.warning(f"Multi-video processing not fully implemented: {e}")
-            stub_gexf = collection_output_dir / "unified_knowledge_graph.gexf"
-            with open(stub_gexf, 'w') as f:
-                f.write('<?xml version="1.0" encoding="UTF-8"?>\n<gexf>\n<graph>\n<!-- Multi-video processing placeholder -->\n</graph>\n</gexf>')
-            console.print(f"\n📊 Multi-video processing stub created for testing")
+        multi_processor = imports['MultiVideoProcessor']()
+        collection_result = await multi_processor.process_video_collection(
+            videos=video_intelligences,
+            collection_type=imports['VideoCollectionType'](collection_type),
+            collection_title=collection_title,
+            user_confirmed_series=user_confirmed_series
+        )
+        
+        # Save the collection outputs using retriever's method
+        retriever = imports['VideoIntelligenceRetriever']()
+        saved_paths = retriever.save_collection_outputs(collection_result, str(collection_output_dir))
+        
+        console.print(f"\n📊 Multi-video analysis complete!")
+        console.print(f"📄 Collection saved to: {collection_output_dir}")
     
     console.print(f"\n🎉 Multi-video collection processing complete!")
     console.print(f"📁 Outputs saved to: {collection_output_dir}")
