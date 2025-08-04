@@ -33,7 +33,6 @@ Options:
   --version          Show version
   --help             Show this help message
   --debug            Enable debug logging
-  --log-file         Enable logging to clipscribe.log
 
 For detailed help: clipscribe COMMAND --help""")
         sys.exit(0)
@@ -113,16 +112,11 @@ AsyncProgressIndicator = cli_perf.AsyncProgressIndicator
     is_flag=True,
     help="Enable debug logging"
 )
-@click.option(
-    "--log-file",
-    is_flag=True,
-    help="Enable logging to clipscribe.log"
-)
 @click.pass_context
-def cli(ctx: click.Context, debug: bool, log_file: bool) -> None:
+def cli(ctx: click.Context, debug: bool) -> None:
     """ClipScribe - AI-powered video transcription and analysis."""
     log_level = "DEBUG" if debug else "INFO"
-    setup_logging(log_level, log_to_file=log_file)
+    setup_logging(log_level)
     
     logger = structlog.get_logger(__name__)
     
