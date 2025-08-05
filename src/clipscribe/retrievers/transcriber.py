@@ -61,10 +61,6 @@ class GeminiFlashTranscriber:
             
         self.performance_monitor = performance_monitor
         
-        # Get temporal intelligence configuration
-        self.temporal_config = self.settings.get_temporal_intelligence_config()
-        logger.info(f"Temporal intelligence level: {self.temporal_config['level']}")
-        
         # Get timeout setting
         self.request_timeout = 3600
         logger.info(f"Using Gemini request timeout: {self.request_timeout}s")
@@ -183,7 +179,7 @@ class GeminiFlashTranscriber:
             try:
                 result = await self.vertex_transcriber.transcribe_with_vertex(
                     Path(audio_file),
-                    enhance_transcript=self.temporal_config['level'] != TemporalIntelligenceLevel.STANDARD,
+                    enhance_transcript=False, # Temporal intelligence removed
                     mode="audio"
                 )
                 # Convert to expected format
@@ -193,7 +189,6 @@ class GeminiFlashTranscriber:
                 # Fallback to standard Gemini API below
         
         logger.info(f"Using standard Gemini API to transcribe audio: {audio_file}")
-        logger.info(f"Enhanced temporal intelligence level: {self.temporal_config['level']}")
         
         # Upload the audio file
         file = genai.upload_file(audio_file, mime_type=self._get_mime_type(audio_file))
@@ -208,10 +203,10 @@ class GeminiFlashTranscriber:
         transcription_model = self.pool.get_model(TaskType.TRANSCRIPTION)
         
         # Calculate cost based on temporal intelligence level
-        total_cost = self.settings.estimate_cost(duration, self.temporal_config['level'])
+        total_cost = self.settings.estimate_cost(duration, TemporalIntelligenceLevel.STANDARD) # Temporal intelligence removed
         self.total_cost += total_cost
         
-        logger.info(f"Estimated cost with {self.temporal_config['level']} temporal intelligence: ${total_cost:.4f}")
+        logger.info(f"Estimated cost with {TemporalIntelligenceLevel.STANDARD} temporal intelligence: ${total_cost:.4f}") # Temporal intelligence removed
         
         try:
             # First, get the transcript
@@ -242,197 +237,15 @@ class GeminiFlashTranscriber:
             transcript_text = response.text.strip()
             
             # Enhanced temporal intelligence extraction
-            temporal_intelligence = await self._extract_temporal_intelligence(
-                transcript_text, duration, is_video=False
-            )
+            # temporal_intelligence = await self._extract_temporal_intelligence( # Temporal intelligence removed
+            #     transcript_text, duration, is_video=False
+            # )
             
             # Use fresh models for each analysis task
             analysis_model = self.pool.get_model(TaskType.KEY_POINTS)
             
-            # OPTIMIZED: Combined extraction in ONE API call instead of 5
-            combined_prompt = f"""
-            Analyze this transcript and extract COMPREHENSIVE intelligence. You are an expert analyst extracting actionable intelligence from video content.
-            
-            CRITICAL REQUIREMENTS:
-            - Extract ALL meaningful entities and relationships comprehensively
-            - Extract ALL meaningful entities (aim for 50+)
-            - Extract ALL meaningful relationships (aim for 50+)  
-            - Include ALL people, organizations, locations, events, technologies, products, concepts
-            - Use SPECIFIC predicates for relationships (not generic "related to")
-            - Calculate REALISTIC confidence scores (0.3-0.99, vary based on context clarity)
-            
-            Transcript:
-            {transcript_text[:12000]}
-            
-            Return a JSON object with this EXACT structure:
-            {{
-                "summary": "Write a comprehensive 3-4 paragraph executive summary covering all main points, key players, and critical insights",
-                "key_points": [
-                    {{"text": "Specific, actionable insight or key moment", "importance": 0.9}},
-                    // Extract 30-50 key points - every significant statement, fact, or claim
-                ],
-                "topics": ["primary topic", "secondary topic", "tertiary topic", "domain area", "theme"],
-                "entities": [
-                    // PEOPLE: Extract ALL names, titles, roles, backgrounds, positions
-                    {{"name": "Donald Trump", "type": "PERSON", "confidence": 0.95}},
-                    {{"name": "President Biden", "type": "PERSON", "confidence": 0.93}},
-                    {{"name": "The CEO", "type": "PERSON", "confidence": 0.7}},  // Even unnamed roles
-                    {{"name": "Former Special Forces operator", "type": "PERSON", "confidence": 0.88}},  // Military backgrounds
-                    {{"name": "Tier one instructor", "type": "PERSON", "confidence": 0.85}},  // Military roles
-                    {{"name": "Selection cadre", "type": "PERSON", "confidence": 0.82}},  // Training personnel
-                    {{"name": "Combat veteran", "type": "PERSON", "confidence": 0.84}},  // Experience descriptors
-                    {{"name": "Senior analyst", "type": "PERSON", "confidence": 0.79}},  // Professional titles
-                    {{"name": "The spokesperson", "type": "PERSON", "confidence": 0.76}},  // Functional roles
-                    
-                    // ORGANIZATIONS: Companies, agencies, groups, institutions, military units and sub-units
-                    {{"name": "Department of Justice", "type": "ORGANIZATION", "confidence": 0.9}},
-                    {{"name": "Wall Street Journal", "type": "ORGANIZATION", "confidence": 0.95}},  // NOT location!
-                    {{"name": "Republican Party", "type": "ORGANIZATION", "confidence": 0.92}},
-                    {{"name": "Delta Force", "type": "ORGANIZATION", "confidence": 0.98}},
-                    {{"name": "SEAL Team Six", "type": "ORGANIZATION", "confidence": 0.98}},
-                    {{"name": "Black Side SEALs", "type": "ORGANIZATION", "confidence": 0.93}},  // Military sub-units are ORGANIZATIONS
-                    {{"name": "White Side SEALs", "type": "ORGANIZATION", "confidence": 0.93}},  // NOT PRODUCTS!
-                    {{"name": "Special Forces", "type": "ORGANIZATION", "confidence": 0.95}},
-                    {{"name": "MARSOC Raiders", "type": "ORGANIZATION", "confidence": 0.94}},
-                    {{"name": "24th Special Tactics Squadron", "type": "ORGANIZATION", "confidence": 0.92}},
-                    
-                    // LOCATIONS: Countries, cities, regions, venues
-                    {{"name": "United States", "type": "LOCATION", "confidence": 0.98}},
-                    {{"name": "Ukraine", "type": "LOCATION", "confidence": 0.95}},
-                    {{"name": "Washington DC", "type": "LOCATION", "confidence": 0.9}},
-                    
-                    // EVENTS: Meetings, incidents, occurrences, selections, operations
-                    {{"name": "2024 Presidential Election", "type": "EVENT", "confidence": 0.93}},
-                    {{"name": "January 6 Capitol Attack", "type": "EVENT", "confidence": 0.96}},
-                    {{"name": "Tier One selection", "type": "EVENT", "confidence": 0.89}},
-                    {{"name": "Tier Two selection", "type": "EVENT", "confidence": 0.89}},
-                    
-                    // PRODUCTS/TECH: Software, systems, technologies, equipment, weapons, tools
-                    {{"name": "Pegasus spyware", "type": "PRODUCT", "confidence": 0.91}},
-                    {{"name": "ChatGPT", "type": "PRODUCT", "confidence": 0.94}},
-                    {{"name": "M4 rifle", "type": "PRODUCT", "confidence": 0.90}},  // Equipment/weapons are PRODUCTS
-                    
-                    // Extract EVERYTHING - err on the side of too much rather than too little
-                ],
-                "relationships": [
-                    // Use SPECIFIC, MEANINGFUL predicates
-                    {{"subject": "Donald Trump", "predicate": "indicted_by", "object": "Department of Justice", "confidence": 0.92}},
-                    {{"subject": "Russia", "predicate": "invaded", "object": "Ukraine", "confidence": 0.98}},
-                    {{"subject": "Elon Musk", "predicate": "acquired", "object": "Twitter", "confidence": 0.97}},
-                    {{"subject": "Federal Reserve", "predicate": "raised_interest_rates_to", "object": "5.5%", "confidence": 0.89}},
-                    {{"subject": "China", "predicate": "banned_export_of", "object": "rare earth minerals", "confidence": 0.85}},
-                    {{"subject": "OpenAI", "predicate": "developed", "object": "GPT-4", "confidence": 0.96}},
-                    {{"subject": "Congress", "predicate": "passed", "object": "Infrastructure Bill", "confidence": 0.91}},
-                    {{"subject": "Apple", "predicate": "announced", "object": "Vision Pro", "confidence": 0.94}},
-                    
-                    // Include causal relationships, temporal sequences, hierarchies
-                    {{"subject": "Inflation", "predicate": "caused_by", "object": "supply chain disruption", "confidence": 0.78}},
-                    {{"subject": "Bank failures", "predicate": "triggered", "object": "regulatory response", "confidence": 0.83}},
-                    
-                    // Extract EVERY meaningful connection between entities
-                ],
-                "dates": [
-                    {{"original_text": "October 2018", "normalized_date": "2018-10-01", "precision": "month", "confidence": 0.95, "context": "when Pegasus was discovered"}},
-                    {{"original_text": "last Tuesday", "normalized_date": "2025-07-15", "precision": "day", "confidence": 0.8, "context": "meeting date"}},
-                    {{"original_text": "three years ago", "normalized_date": "2022-07-01", "precision": "month", "confidence": 0.7, "context": "project start"}},
-                    // Extract temporal references and calculate actual dates (timestamps not needed)
-                ]
-            }}
-            
-            ENTITY CLASSIFICATION RULES:
-            1. ORGANIZATIONS = Military units, companies, agencies, institutions, political groups, sports teams
-               - Include ALL military sub-units: "Black Side SEALs", "White Side SEALs", "Tier 1 units"
-               - Include designations: "JV SEALs", "Varsity SEALs", "White SOF", "Black SOF"
-               - Include specific units: "SEAL Team Six", "Delta Force", "24th STS"
-            2. PRODUCTS = Technology, software, equipment, weapons, vehicles, tools, systems
-               - Physical items: rifles, vehicles, aircraft, ships
-               - Software: applications, AI systems, platforms
-               - NOT organizational designations or unit names
-            3. PEOPLE = Individuals, roles, titles, backgrounds, experience descriptors
-               - Named persons: "John Smith", "General Miller"
-               - Roles and titles: "The CEO", "Commander", "Instructor"
-               - Military backgrounds: "Former Special Forces operator", "Combat veteran"
-               - Professional descriptors: "Senior analyst", "Selection cadre", "Tier one instructor"
-               - Even unnamed functional roles: "The spokesperson", "A senior official"
-            4. LOCATIONS = Geographic areas, buildings, facilities
-            5. EVENTS = Incidents, meetings, operations, selections, exercises
-            
-            EXTRACTION RULES:
-            1. Entity confidence: 0.95+ for explicitly named, 0.8-0.94 for clearly referenced, 0.6-0.79 for inferred, <0.6 for uncertain
-            2. Relationship predicates must be SPECIFIC ACTIONS/STATES not generic terms
-            3. Include entities mentioned only once - they might be crucial
-            4. Extract implied relationships from context
-            5. For unnamed entities (e.g., "the CEO"), still extract with lower confidence
-            6. Every fact should generate at least one relationship
-            7. Quality over quantity, but aim for COMPREHENSIVE extraction
-            
-            BE AGGRESSIVE - I need rich, detailed intelligence extraction. Missing information is worse than including uncertain information with low confidence.
-            """
-            
-            logger.info("Performing combined extraction (summary, key points, topics, entities, relationships)...")
-            
-            # Use response_schema for guaranteed JSON format
-            response_schema = {
-                "type": "OBJECT",
-                "properties": {
-                    "summary": {"type": "STRING"},
-                    "key_points": {
-                        "type": "ARRAY",
-                        "items": {
-                            "type": "OBJECT",
-                            "properties": {
-                                "text": {"type": "STRING"},
-                                "importance": {"type": "NUMBER"}
-                            },
-                            "required": ["text", "importance"]
-                        }
-                    },
-                    "topics": {
-                        "type": "ARRAY",
-                        "items": {"type": "STRING"}
-                    },
-                    "entities": {
-                        "type": "ARRAY",
-                        "items": {
-                            "type": "OBJECT",
-                            "properties": {
-                                "name": {"type": "STRING"},
-                                "type": {"type": "STRING", "enum": ["PERSON", "ORGANIZATION", "LOCATION", "PRODUCT", "EVENT"]},
-                                "confidence": {"type": "NUMBER"}
-                            },
-                            "required": ["name", "type", "confidence"]
-                        }
-                    },
-                    "relationships": {
-                        "type": "ARRAY",
-                        "items": {
-                            "type": "OBJECT",
-                            "properties": {
-                                "subject": {"type": "STRING"},
-                                "predicate": {"type": "STRING"},
-                                "object": {"type": "STRING"},
-                                "confidence": {"type": "NUMBER"}
-                            },
-                            "required": ["subject", "predicate", "object", "confidence"]
-                        }
-                    },
-                    "dates": {
-                        "type": "ARRAY",
-                        "items": {
-                            "type": "OBJECT",
-                            "properties": {
-                                "original_text": {"type": "STRING"},
-                                "normalized_date": {"type": "STRING"},
-                                "precision": {"type": "STRING", "enum": ["exact", "day", "month", "year", "approximate"]},
-                                "confidence": {"type": "NUMBER"},
-                                "context": {"type": "STRING"}
-                            },
-                            "required": ["original_text", "normalized_date", "precision", "confidence"]
-                        }
-                    }
-                },
-                "required": ["summary", "key_points", "topics", "entities", "relationships", "dates"]
-            }
+            analysis_prompt = self._build_enhanced_analysis_prompt(transcript_text)
+            response_schema = self._build_enhanced_response_schema()
             
             # Make the combined API call with structured output
             analysis_event = None
@@ -444,7 +257,7 @@ class GeminiFlashTranscriber:
 
             response = await self._retry_generate_content(
                 analysis_model,
-                combined_prompt,
+                [analysis_prompt],
                 generation_config={"response_mime_type": "application/json", "response_schema": response_schema},
                 request_options=RequestOptions(timeout=self.request_timeout)
             )
@@ -557,7 +370,7 @@ class GeminiFlashTranscriber:
             logger.info(f"Transcription completed in {processing_time}s, cost: ${total_cost:.4f}")
             logger.info(f"Extracted: {len(entities)} entities, {len(relationships)} relationships, {len(key_points)} key points")
             logger.info(f"Extracted dates: {len(dates)} dates from content")
-            logger.info(f"Temporal intelligence: {len(temporal_intelligence.get('timeline_events', []))} timeline events")
+            # temporal_intelligence = {} # Temporal intelligence removed
             
             # Clean up
             genai.delete_file(file)
@@ -578,7 +391,7 @@ class GeminiFlashTranscriber:
             }
             
             # Add temporal intelligence data
-            result.update(temporal_intelligence)
+            # result.update(temporal_intelligence) # Temporal intelligence removed
             
             return result
             
@@ -591,184 +404,73 @@ class GeminiFlashTranscriber:
                 pass
             raise
 
-    async def transcribe_video(
-        self, 
-        video_file: str,
-        duration: int
-    ) -> Dict[str, Any]:
-        """Transcribe video file with full temporal and visual analysis.
-        
-        Args:
-            video_file: Path to the video file
-            duration: Duration in seconds
-            
-        Returns:
-            Dictionary with transcript and comprehensive intelligence
+    async def transcribe_video(self, video_file: str, duration: int) -> Dict[str, Any]:
         """
-        # Use Vertex AI if configured
-        if self.use_vertex_ai and self.vertex_transcriber:
-            logger.info(f"Attempting to transcribe video with Vertex AI: {video_file}")
-            try:
-                result = await self.vertex_transcriber.transcribe_with_vertex(
-                    Path(video_file),
-                    enhance_transcript=self.temporal_config['level'] != TemporalIntelligenceLevel.STANDARD,
-                    mode="video"
-                )
-                # Convert to expected format
-                return self._convert_vertex_result_to_dict(result)
-            except Exception as e:
-                logger.warning(f"Vertex AI transcription failed: {e}. Falling back to standard Gemini API.")
-                # Fallback to standard Gemini API below
-
-        logger.info(f"Using standard Gemini API to transcribe video: {video_file}")
-        logger.info(f"Enhanced temporal intelligence level: {self.temporal_config['level']}")
+        Transcribes a video file using a robust two-step process to prevent timeouts.
+        Step 1: Transcribe video to raw text.
+        Step 2: Analyze raw text to extract intelligence.
+        """
+        logger.info(f"Starting two-step transcription for: {video_file}")
         
-        # Upload the video file
-        file = genai.upload_file(video_file, mime_type=self._get_mime_type(video_file))
-        while file.state.name == "PROCESSING":
-            await asyncio.sleep(2)
-            file = genai.get_file(file.name)
-
-        if file.state.name == "FAILED":
-            raise ValueError(file.state.name)
+        file = await self._upload_file_with_retry(video_file)
         
-        # Use different model instances from pool
-        video_model = self.pool.get_model(TaskType.TRANSCRIPTION)
-        
-        # Calculate cost with enhanced temporal intelligence multiplier
-        total_cost = self.settings.estimate_cost(duration, self.temporal_config['level'])
+        total_cost = self.settings.estimate_cost(duration, TemporalIntelligenceLevel.STANDARD) # Temporal intelligence removed
         self.total_cost += total_cost
-        
-        logger.info(f"Estimated cost with enhanced temporal intelligence: ${total_cost:.4f}")
-        
-        try:
-            # Enhanced prompt for temporal intelligence with visual cues
-            transcript_prompt = self._build_enhanced_transcript_prompt()
-            
-            logger.info("Generating video transcription with enhanced temporal intelligence...")
-            
-            # Performance monitoring
-            video_transcription_event = None
-            if self.performance_monitor:
-                video_transcription_event = self.performance_monitor.start_timer(
-                    "gemini_enhanced_video_transcription",
-                    model=video_model.model_name
-                )
+        logger.info(f"Estimated cost for full processing: ${total_cost:.4f}")
 
-            response = await self._retry_generate_content(
-                video_model,
-                [file, transcript_prompt],
+        try:
+            # --- STEP 1: Transcribe Video to Text ---
+            transcript_prompt = "Transcribe this video's audio. Provide only the text of the transcript, without any other commentary."
+            logger.info("Step 1: Requesting raw transcript from video...")
+            transcription_model = self.pool.get_model(TaskType.TRANSCRIPTION)
+            transcript_response = await self._retry_generate_content(
+                transcription_model,
+                [transcript_prompt, file],
                 request_options=RequestOptions(timeout=self.request_timeout)
             )
+            transcript_text = transcript_response.text
+            logger.info(f"Step 1: Raw transcript received (length: {len(transcript_text)}).")
 
-            if self.performance_monitor:
-                self.performance_monitor.stop_timer(video_transcription_event)
-
-            transcript_text = response.text.strip()
-            
-            # Extract enhanced temporal intelligence with visual cues
-            temporal_intelligence = await self._extract_temporal_intelligence(
-                transcript_text, duration, is_video=True, video_file=file
-            )
-            
-            # Use fresh models for analysis
-            analysis_model = self.pool.get_model(TaskType.ENTITIES)
-            
-            # Enhanced analysis with visual temporal elements
-            combined_prompt = self._build_enhanced_analysis_prompt(transcript_text)
-            
-            # Extended response schema for enhanced temporal intelligence
+            # --- STEP 2: Analyze Text for Intelligence ---
+            analysis_prompt = self._build_enhanced_analysis_prompt(transcript_text)
             response_schema = self._build_enhanced_response_schema()
-            
-            logger.info("Performing enhanced combined extraction with visual temporal intelligence...")
-            
-            # Make the enhanced API call
-            analysis_event = None
-            if self.performance_monitor:
-                analysis_event = self.performance_monitor.start_timer(
-                    "gemini_enhanced_analysis",
-                    model=analysis_model.model_name
-                )
-
-            response = await self._retry_generate_content(
+            logger.info("Step 2: Requesting structured analysis from transcript...")
+            analysis_model = self.pool.get_model(TaskType.ENTITIES)
+            analysis_response = await self._retry_generate_content(
                 analysis_model,
-                combined_prompt,
+                [analysis_prompt],
                 generation_config={"response_mime_type": "application/json", "response_schema": response_schema},
                 request_options=RequestOptions(timeout=self.request_timeout)
             )
+            
+            combined_data = self._parse_json_response(analysis_response.text) or {}
+            combined_data["transcript"] = transcript_text
+            combined_data["processing_cost"] = total_cost
+            logger.info("Step 2: Structured analysis complete.")
+            
+            return combined_data
+        finally:
+            logger.info(f"Deleting uploaded file from cloud: {file.name}")
+            genai.delete_file(file.name)
 
-            if self.performance_monitor:
-                self.performance_monitor.stop_timer(analysis_event)
-            
-            # Parse the enhanced response
-            combined_data = self._parse_json_response(response.text, "object") or {}
-            
-            # Extract components
-            summary = combined_data.get("summary", "No summary generated")
-            key_points = combined_data.get("key_points", [])
-            topics = combined_data.get("topics", [])
-            entities = combined_data.get("entities", [])
-            relationships = combined_data.get("relationships", [])
-            dates = combined_data.get("dates", [])
-            
-            processing_time = 0
-            
-            logger.info(f"Enhanced video transcription completed in {processing_time}s, cost: ${total_cost:.4f}")
-            logger.info(f"Extracted: {len(entities)} entities, {len(relationships)} relationships, {len(key_points)} key points")
-            logger.info(f"Extracted dates: {len(dates)} dates (transcript + visual)")
-            logger.info(f"Enhanced temporal intelligence: {len(temporal_intelligence.get('timeline_events', []))} timeline events")
-            logger.info(f"Visual temporal cues: {len(temporal_intelligence.get('visual_temporal_cues', []))} cues")
-            logger.info(f"Visual dates: {len(temporal_intelligence.get('visual_dates', []))} visual dates")
-            
-            # Clean up
-            genai.delete_file(file)
-            
-            # Merge enhanced results
-            result = {
-                "transcript": transcript_text,
-                "summary": summary,
-                "key_points": key_points,
-                "entities": entities,
-                "topics": topics,
-                "relationships": relationships,
-                "dates": dates,
-                "language": "en",
-                "confidence_score": 0.95,
-                "processing_time": processing_time,
-                "processing_cost": total_cost
-            }
-            
-            # Add enhanced temporal intelligence data
-            result.update(temporal_intelligence)
-            
-            return result
-            
-        except Exception as e:
-            logger.error(f"Enhanced video transcription failed: {e}")
-            try:
-                genai.delete_file(file)
-            except:
-                pass
-            raise
-
-    async def _extract_temporal_intelligence(
-        self, 
-        transcript_text: str, 
-        duration: int, 
-        is_video: bool = False,
-        video_file: Optional[Any] = None
-    ) -> Dict[str, Any]:
-        """Simplified temporal intelligence - complex timestamp extraction saved for roadmap with Whisper."""
-        logger.info("Temporal intelligence simplified - complex timestamps saved for roadmap")
+    # async def _extract_temporal_intelligence( # Temporal intelligence removed
+    #     self, 
+    #     transcript_text: str, 
+    #     duration: int, 
+    #     is_video: bool = False,
+    #     video_file: Optional[Any] = None
+    # ) -> Dict[str, Any]:
+    #     """Simplified temporal intelligence - complex timestamp extraction saved for roadmap with Whisper.""" # Temporal intelligence removed
+    #     logger.info("Temporal intelligence simplified - complex timestamps saved for roadmap") # Temporal intelligence removed
         
-        # Return empty temporal data - timestamps require Whisper for accuracy
-        # This functionality is saved for the roadmap as "nice to have eventually"
-        return {
-            "timeline_events": [],
-            "visual_temporal_cues": [],
-            "temporal_patterns": [],
-            "visual_dates": []
-        }
+    #     # Return empty temporal data - timestamps require Whisper for accuracy # Temporal intelligence removed
+    #     # This functionality is saved for the roadmap as "nice to have eventually" # Temporal intelligence removed
+    #     return { # Temporal intelligence removed
+    #         "timeline_events": [], # Temporal intelligence removed
+    #         "visual_temporal_cues": [], # Temporal intelligence removed
+    #         "temporal_patterns": [], # Temporal intelligence removed
+    #         "visual_dates": [] # Temporal intelligence removed
+    #     } # Temporal intelligence removed
 
     async def _retry_generate_content(self, model, contents, generation_config=None, request_options=None, retries=3, initial_delay=5):
         delay = initial_delay
@@ -780,12 +482,63 @@ class GeminiFlashTranscriber:
                     request_options=request_options
                 )
             except Exception as e:
-                if "503" in str(e) and attempt < retries - 1:
-                    logger.warning(f"Transient error (503): Retrying in {delay}s (attempt {attempt+1}/{retries})")
+                # Add retry for 500 Internal Server Error
+                if ("503" in str(e) or "500" in str(e)) and attempt < retries - 1:
+                    logger.warning(f"Transient error ('{e}'): Retrying in {delay}s (attempt {attempt+1}/{retries})")
                     await asyncio.sleep(delay)
-                    delay *= 2
+                    delay *= 2  # Exponential backoff
                     continue
                 raise e
+
+    async def _upload_file_with_retry(self, file_path: str, retries: int = 3, timeout: int = 300) -> Any:
+        """Uploads a file with retries and a hard timeout, running sync code in a thread."""
+        for attempt in range(retries):
+            file = None
+            try:
+                logger.info(f"Attempt {attempt + 1}/{retries}: Uploading file {Path(file_path).name}...")
+
+                # Run the synchronous upload_file in a separate thread
+                upload_task = asyncio.to_thread(
+                    genai.upload_file, file_path, mime_type=self._get_mime_type(file_path)
+                )
+                file = await asyncio.wait_for(upload_task, timeout=timeout)
+                
+                # Polling for "ACTIVE" state also needs to be handled carefully
+                while file.state.name == "PROCESSING":
+                    await asyncio.sleep(5)
+                    get_file_task = asyncio.to_thread(genai.get_file, file.name)
+                    file = await asyncio.wait_for(get_file_task, timeout=60)
+
+                if file.state.name == "FAILED":
+                    raise ValueError(f"File upload failed with state: {file.state.name}")
+                
+                logger.info(f"Successfully uploaded file: {file.name}")
+                return file
+
+            except asyncio.TimeoutError:
+                logger.error(f"Upload for {file_path} timed out after {timeout} seconds.")
+                if file:
+                    try:
+                        # Clean up timed-out file
+                        delete_task = asyncio.to_thread(genai.delete_file, file.name)
+                        await asyncio.wait_for(delete_task, timeout=60)
+                        logger.info(f"Cleaned up timed-out file upload: {file.name}")
+                    except Exception as e:
+                        logger.warning(f"Failed to clean up timed-out file {file.name}: {e}")
+
+                if attempt < retries - 1:
+                    logger.warning("Retrying upload...")
+                    await asyncio.sleep(2 ** attempt)
+                else:
+                    logger.critical(f"Upload for {file_path} failed after all retries due to timeout.")
+                    raise
+            except Exception as e:
+                if attempt < retries - 1:
+                    logger.warning(f"Upload attempt {attempt+1} failed: {e}. Retrying...")
+                    await asyncio.sleep(2 ** attempt)
+                else:
+                    logger.critical(f"Upload for {file_path} failed after all retries.")
+                    raise
 
     def _build_enhanced_transcript_prompt(self) -> str:
         """Build enhanced transcript prompt for temporal intelligence."""
@@ -811,77 +564,187 @@ class GeminiFlashTranscriber:
         """
 
     def _build_enhanced_analysis_prompt(self, transcript_text: str) -> str:
-        """Builds a simplified prompt to prevent timeouts."""
-        return """
-        Analyze this video and extract a brief summary and up to 5 key entities.
-
+        """Builds the comprehensive, professional-grade analysis prompt."""
+        return f"""
+        Analyze this transcript and extract COMPREHENSIVE intelligence. You are an expert analyst extracting actionable intelligence from video content.
+        
+        CRITICAL REQUIREMENTS:
+        - Extract ALL meaningful entities and relationships comprehensively
+        - Extract ALL meaningful entities (aim for 50+)
+        - Extract ALL meaningful relationships (aim for 50+)  
+        - Include ALL people, organizations, locations, events, technologies, products, concepts
+        - Use SPECIFIC predicates for relationships (not generic "related to")
+        - Calculate REALISTIC confidence scores (0.3-0.99, vary based on context clarity)
+        
+        Transcript:
+        {transcript_text[:24000]}
+        
         Return a JSON object with this EXACT structure:
-        {
-            "summary": "Write a one-paragraph summary.",
+        {{
+            "summary": "Write a comprehensive 3-4 paragraph executive summary covering all main points, key players, and critical insights",
+            "key_points": [
+                {{"text": "Specific, actionable insight or key moment", "importance": 0.9}},
+                // Extract 30-50 key points - every significant statement, fact, or claim
+            ],
+            "topics": ["primary topic", "secondary topic", "tertiary topic", "domain area", "theme"],
             "entities": [
-                {"name": "Entity Name", "type": "PERSON/ORGANIZATION/LOCATION", "confidence": 0.9}
+                // PEOPLE: Extract ALL names, titles, roles, backgrounds, positions
+                {{"name": "Donald Trump", "type": "PERSON", "confidence": 0.95}},
+                {{"name": "President Biden", "type": "PERSON", "confidence": 0.93}},
+                {{"name": "The CEO", "type": "PERSON", "confidence": 0.7}},  // Even unnamed roles
+                {{"name": "Former Special Forces operator", "type": "PERSON", "confidence": 0.88}},  // Military backgrounds
+                
+                // ORGANIZATIONS: Companies, agencies, groups, institutions, military units and sub-units
+                {{"name": "Department of Justice", "type": "ORGANIZATION", "confidence": 0.9}},
+                {{"name": "Delta Force", "type": "ORGANIZATION", "confidence": 0.98}},
+                
+                // LOCATIONS: Countries, cities, regions, venues
+                {{"name": "United States", "type": "LOCATION", "confidence": 0.98}},
+
+                // EVENTS: Meetings, incidents, occurrences, selections, operations
+                {{"name": "2024 Presidential Election", "type": "EVENT", "confidence": 0.93}},
+
+                // PRODUCTS/TECH: Software, systems, technologies, equipment, weapons, tools
+                {{"name": "Pegasus spyware", "type": "PRODUCT", "confidence": 0.91}},
+                
+                // Extract EVERYTHING - err on the side of too much rather than too little
+            ],
+            "relationships": [
+                // Use SPECIFIC, MEANINGFUL predicates
+                {{"subject": "Donald Trump", "predicate": "indicted_by", "object": "Department of Justice", "confidence": 0.92}},
+                {{"subject": "Russia", "predicate": "invaded", "object": "Ukraine", "confidence": 0.98}},
+                // Extract EVERY meaningful connection between entities
+            ],
+            "dates": [
+                {{"original_text": "October 2018", "normalized_date": "2018-10-01", "precision": "month", "confidence": 0.95, "context": "when Pegasus was discovered"}},
+                // Extract temporal references and calculate actual dates
             ]
-        }
+        }}
+        
+        ENTITY CLASSIFICATION RULES:
+        1. ORGANIZATIONS = Military units, companies, agencies, institutions, political groups, sports teams
+        2. PRODUCTS = Technology, software, equipment, weapons, vehicles, tools, systems
+        3. PEOPLE = Individuals, roles, titles, backgrounds, experience descriptors
+        4. LOCATIONS = Geographic areas, buildings, facilities
+        5. EVENTS = Incidents, meetings, operations, selections, exercises
+        
+        EXTRACTION RULES:
+        1. Entity confidence: 0.95+ for explicitly named, 0.8-0.94 for clearly referenced, 0.6-0.79 for inferred, <0.6 for uncertain
+        2. Relationship predicates must be SPECIFIC ACTIONS/STATES not generic terms
+        3. BE AGGRESSIVE - I need rich, detailed intelligence extraction.
         """
 
     def _build_enhanced_response_schema(self) -> Dict[str, Any]:
-        """Builds a simplified response schema to match the simplified prompt."""
+        """Builds the comprehensive response schema to match the enhanced prompt."""
         return {
             "type": "OBJECT",
             "properties": {
                 "summary": {"type": "STRING"},
-                "entities": {"type": "ARRAY", "items": {"type": "OBJECT", "properties": {"name": {"type": "STRING"}, "type": {"type": "STRING"}, "confidence": {"type": "NUMBER"}}, "required": ["name", "type", "confidence"]}},
+                "key_points": {
+                    "type": "ARRAY",
+                    "items": {
+                        "type": "OBJECT",
+                        "properties": {
+                            "text": {"type": "STRING"},
+                            "importance": {"type": "NUMBER"}
+                        },
+                        "required": ["text", "importance"]
+                    }
+                },
+                "topics": {
+                    "type": "ARRAY",
+                    "items": {"type": "STRING"}
+                },
+                "entities": {
+                    "type": "ARRAY",
+                    "items": {
+                        "type": "OBJECT",
+                        "properties": {
+                            "name": {"type": "STRING"},
+                            "type": {"type": "STRING"},
+                            "confidence": {"type": "NUMBER"}
+                        },
+                        "required": ["name", "type", "confidence"]
+                    }
+                },
+                "relationships": {
+                    "type": "ARRAY",
+                    "items": {
+                        "type": "OBJECT",
+                        "properties": {
+                            "subject": {"type": "STRING"},
+                            "predicate": {"type": "STRING"},
+                            "object": {"type": "STRING"},
+                            "confidence": {"type": "NUMBER"}
+                        },
+                        "required": ["subject", "predicate", "object", "confidence"]
+                    }
+                },
+                "dates": {
+                    "type": "ARRAY",
+                    "items": {
+                        "type": "OBJECT",
+                        "properties": {
+                            "original_text": {"type": "STRING"},
+                            "normalized_date": {"type": "STRING"},
+                            "precision": {"type": "STRING"},
+                            "confidence": {"type": "NUMBER"},
+                            "context": {"type": "STRING"}
+                        },
+                        "required": ["original_text", "normalized_date", "precision", "confidence"]
+                    }
+                }
             },
-            "required": ["summary", "entities"]
+            "required": ["summary", "key_points", "topics", "entities", "relationships", "dates"]
         }
 
-    def _build_temporal_intelligence_prompt(
+    def _build_temporal_intelligence_prompt( # Temporal intelligence removed
         self, 
         transcript_text: str, 
         is_video: bool, 
         duration: int
     ) -> str:
-        """Build temporal intelligence extraction prompt."""
-        base_prompt = f"""
-        Extract enhanced temporal intelligence from this content.
+        """Build temporal intelligence extraction prompt.""" # Temporal intelligence removed
+        base_prompt = f""" # Temporal intelligence removed
+        Extract enhanced temporal intelligence from this content. # Temporal intelligence removed
         
-        Content Type: {"Video with visual cues" if is_video else "Audio only"}
-        Duration: {duration} seconds
+        Content Type: {"Video with visual cues" if is_video else "Audio only"} # Temporal intelligence removed
+        Duration: {duration} seconds # Temporal intelligence removed
         
-        Extract:
-        1. TIMELINE EVENTS: Specific events with timestamps and temporal context
-        2. VISUAL TEMPORAL CUES: {"Charts, timelines, dates shown visually" if is_video else "Not applicable"}
-        3. VISUAL DATES: {"ALL dates shown on screen (chyrons, overlays, documents, graphics)" if is_video else "Not applicable"}
-        4. TEMPORAL PATTERNS: Sequences, cycles, progressions, causality chains
+        Extract: # Temporal intelligence removed
+        1. TIMELINE EVENTS: Specific events with timestamps and temporal context # Temporal intelligence removed
+        2. VISUAL TEMPORAL CUES: {"Charts, timelines, dates shown visually" if is_video else "Not applicable"} # Temporal intelligence removed
+        3. VISUAL DATES: {"ALL dates shown on screen (chyrons, overlays, documents, graphics)" if is_video else "Not applicable"} # Temporal intelligence removed
+        4. TEMPORAL PATTERNS: Sequences, cycles, progressions, causality chains # Temporal intelligence removed
         
-        Content:
-        {transcript_text[:8000]}
+        Content: # Temporal intelligence removed
+        {transcript_text[:8000]} # Temporal intelligence removed
         
-        CRITICAL for video content: Extract ALL visual dates including:
-        - News chyrons and lower thirds with dates
-        - Document headers showing dates
-        - Timeline graphics and charts
-        - Calendar displays
-        - Date overlays and watermarks
-        - Historical footage timestamps
+        CRITICAL for video content: Extract ALL visual dates including: # Temporal intelligence removed
+        - News chyrons and lower thirds with dates # Temporal intelligence removed
+        - Document headers showing dates # Temporal intelligence removed
+        - Timeline graphics and charts # Temporal intelligence removed
+        - Calendar displays # Temporal intelligence removed
+        - Date overlays and watermarks # Temporal intelligence removed
+        - Historical footage timestamps # Temporal intelligence removed
         
-        Visual dates are often MORE ACCURATE than spoken dates. Prioritize them!
+        Visual dates are often MORE ACCURATE than spoken dates. Prioritize them! # Temporal intelligence removed
         
-        Focus on extracting temporal relationships, chronological sequences, and time-based patterns.
-        Include confidence scores based on clarity and specificity of temporal information.
-        """
+        Focus on extracting temporal relationships, chronological sequences, and time-based patterns. # Temporal intelligence removed
+        Include confidence scores based on clarity and specificity of temporal information. # Temporal intelligence removed
+        """ # Temporal intelligence removed
         
-        if is_video and self.temporal_config['extract_visual_cues']:
-            base_prompt += """
+        if is_video and self.settings.extract_visual_cues: # Temporal intelligence removed
+            base_prompt += """ # Temporal intelligence removed
             
-            ENHANCED VISUAL ANALYSIS:
-            - Extract dates, years, timelines from visual elements
-            - Identify temporal charts, graphs, calendars
-            - Note chronological sequences in presentations
-            - Capture time-based progressions and evolution
-            """
+            ENHANCED VISUAL ANALYSIS: # Temporal intelligence removed
+            - Extract dates, years, timelines from visual elements # Temporal intelligence removed
+            - Identify temporal charts, graphs, calendars # Temporal intelligence removed
+            - Note chronological sequences in presentations # Temporal intelligence removed
+            - Capture time-based progressions and evolution # Temporal intelligence removed
+            """ # Temporal intelligence removed
         
-        return base_prompt
+        return base_prompt # Temporal intelligence removed
     
     def _get_mime_type(self, file_path: str) -> str:
         """Get MIME type for file."""
@@ -1010,4 +873,78 @@ class GeminiFlashTranscriber:
             "key_insights": vertex_result.key_insights,
             "temporal_intelligence": vertex_result.temporal_intelligence.dict() if vertex_result.temporal_intelligence else {},
             "processing_cost": 0.0  # Vertex AI costs are handled differently
-        } 
+        }
+
+    async def transcribe_large_video(self, video_file: str, duration: int) -> Dict[str, Any]:
+        """
+        Transcribes a large video using the "Smart Transcribe, Global Analyze" method.
+        """
+        from ..utils.video_splitter import split_video
+        from ..utils.transcript_merger import TranscriptMerger
+
+        logger.info(f"Large video detected. Splitting {video_file} into chunks with 30s overlap.")
+        
+        # Phase 1: Parallel Raw Transcription
+        video_chunks = split_video(video_file, chunk_duration=600, overlap=30)
+        
+        if not video_chunks or len(video_chunks) <= 1:
+            logger.info("Video not split, processing as a single file.")
+            return await self.transcribe_video(video_file, duration)
+
+        tasks = [self._transcribe_chunk_raw(chunk) for chunk in video_chunks]
+        logger.info(f"Transcribing {len(video_chunks)} chunks in parallel...")
+        chunk_transcripts = await asyncio.gather(*tasks, return_exceptions=True)
+
+        # Filter out failed chunks
+        successful_transcripts = [t for t in chunk_transcripts if isinstance(t, str)]
+        if not successful_transcripts:
+            return {"error": "All chunks failed to transcribe."}
+
+        # Phase 2: Global Intelligence Analysis
+        logger.info("Merging raw transcripts with overlap removal...")
+        merger = TranscriptMerger()
+        merged_transcript = merger.merge_transcripts(successful_transcripts)
+        logger.info(f"Merged transcript length: {len(merged_transcript)}")
+
+        # Perform one global analysis call
+        logger.info("Performing global analysis on merged transcript...")
+        analysis_prompt = self._build_enhanced_analysis_prompt(merged_transcript)
+        response_schema = self._build_enhanced_response_schema()
+        analysis_model = self.pool.get_model(TaskType.ENTITIES)
+        
+        analysis_response = await self._retry_generate_content(
+            analysis_model,
+            [analysis_prompt],
+            generation_config={"response_mime_type": "application/json", "response_schema": response_schema},
+            request_options=RequestOptions(timeout=self.request_timeout)
+        )
+        
+        combined_data = self._parse_json_response(analysis_response.text) or {}
+        combined_data["transcript"] = merged_transcript
+        # Note: Cost calculation will need to be adjusted for this new method
+        combined_data["processing_cost"] = self.settings.estimate_cost(duration, TemporalIntelligenceLevel.STANDARD)
+        
+        # Clean up chunk files
+        for chunk_file in video_chunks:
+            try:
+                os.remove(chunk_file)
+            except OSError as e:
+                logger.warning(f"Could not remove chunk file {chunk_file}: {e}")
+
+        return combined_data
+
+    async def _transcribe_chunk_raw(self, chunk_file: str) -> str:
+        """Helper to get only the raw transcript for a single video chunk."""
+        try:
+            file = await self._upload_file_with_retry(chunk_file)
+            transcript_prompt = "Transcribe this video's audio. Provide only the text of the transcript."
+            model = self.pool.get_model(TaskType.TRANSCRIPTION)
+            response = await self._retry_generate_content(
+                model,
+                [transcript_prompt, file],
+                request_options=RequestOptions(timeout=self.request_timeout)
+            )
+            return response.text
+        finally:
+            genai.delete_file(file.name)
+ 

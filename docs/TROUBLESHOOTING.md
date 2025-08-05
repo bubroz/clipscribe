@@ -103,6 +103,11 @@ The warning comes from the GLiNER model loading and doesn't affect functionality
 
 ## API Key Problems
 
+### API Errors (500, 503, etc.)
+- **Symptom**: The CLI exits with an error mentioning `500 Internal Server Error`, `503 Service Unavailable`, or a `grpc` error.
+- **Cause**: These are transient (temporary) errors from the upstream Google Gemini API. They are not bugs in ClipScribe.
+- **Solution**: ClipScribe v2.23.0 and later includes automatic retry logic with exponential backoff. The application will automatically retry the request up to 3 times. If the problem persists after multiple retries, it may indicate a wider outage with the Google API. Check Google Cloud Status dashboard for more information.
+
 ### Missing Google API Key
 ```bash
 # Option 1: Set in .env file

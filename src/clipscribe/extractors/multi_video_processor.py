@@ -883,7 +883,7 @@ class MultiVideoProcessor:
             {chr(10).join(f"{f.source_node.concept_name} → {f.target_node.concept_name} ({f.flow_type})" for f in key_flows)}
             
             EVOLUTION PATTERNS:
-            {chr(10).join(p.evolution_summary for p in evolution_paths[:5])}
+            {chr(10).join(p.evolution_summary for p in evolution_paths[:5] if p.evolution_summary)}
             
             Generate insights about:
             1. How information flows through the collection

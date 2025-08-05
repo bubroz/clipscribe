@@ -1,82 +1,77 @@
-# ClipScribe Development Roadmap
+# ClipScribe Strategic Roadmap: From Tool to SaaS Platform
 
-*Last Updated: July 31, 2025*
+*Last Updated: August 4, 2025*
 
-## Strategic Overview
+## Strategic Vision: The Video Intelligence SaaS Platform
 
-Following a comprehensive test suite overhaul, ClipScribe is in a stable, production-ready state. The next phase of development focuses on reinforcing this foundation and then delivering high-value, user-centric features. Our priorities are organized into a tiered system to ensure we build a robust, professional-grade tool.
+Following a comprehensive technical and market validation, ClipScribe is pivoting from a CLI-first tool to a **web-based SaaS platform**. Our mission is to democratize video intelligence, making professional-grade analysis accessible to individual researchers, analysts, and small teams who are currently underserved by expensive enterprise solutions.
 
----
-
-## Tier 1: Foundational Stability & Trust (Immediate Priorities)
-
-This tier includes essential technical tasks that ensure the long-term health, maintainability, and trustworthiness of the application.
-
-### Priority 1: Structured Logging Implementation (`structlog`)
-- **Status**: Not Started
-- **Effort**: ~2-3 hours
-- **Justification**: Structured (JSON) logs are critical for efficient debugging and monitoring in a production environment. Adopting `structlog` will professionalize our logging, making the application easier to maintain and troubleshoot.
-- **Tasks**:
-  1. Add `structlog` and `rich` dependencies.
-  2. Create a `logging_config.py` module for configuration.
-  3. Integrate the new logger throughout the application.
-
-### Priority 2: Systematic Test Coverage Improvement
-- **Status**: Not Started
-- **Effort**: ~4-6+ hours
-- **Justification**: While all 39 of our existing tests are passing, our overall test *coverage* is still below the 80% industry standard. Uncovered code is a liability. Increasing coverage is the single most important task for ensuring long-term stability and preventing regressions.
-- **Tasks**:
-  1. Add unit tests for critical extractor and retriever components.
-  2. Increase integration test coverage for all CLI commands.
-  3. Add tests for error handling and edge cases.
+Our core competitive advantage is our ability to provide deep intelligence extraction (entities, relationships, knowledge graphs) from 1800+ platforms at a radically disruptive price point.
 
 ---
 
-## Tier 2: Core Product Value & User Experience (Next Priorities)
+## Phase 1: API-ization & Core Service Extraction (The Foundation)
+*Goal: Decouple our core logic from the CLI and build a stable, scalable, service-oriented architecture.*
 
-This tier focuses on features that directly enhance the user's experience and trust in the core functionality of ClipScribe.
-
-### Priority 3: Enhanced Cost Management
-- **Status**: Not Started
-- **Justification**: While our cost model is a key feature, the user interface for it is minimal. Enhancing cost management features will build user trust and improve the core value proposition.
+### **Priority 1: Fix Long-Video Processing (Critical Blocker)**
+- **Status**: In Progress
+- **Justification**: The `504 Deadline Exceeded` error on long videos is the single biggest blocker to a reliable API. A service cannot have hour-long timeouts.
 - **Tasks**:
-  1. Implement a `--max-cost` flag to prevent budget overruns.
-  2. Add pre-run cost estimates for all processing commands.
-  3. Improve the visibility of cost tracking in the final output.
+  1. Re-architect `transcriber.py` to use a two-step process: (1) Transcribe video to text, (2) Analyze text for intelligence.
+  2. Validate the fix with a >30 minute video from the `MASTER_TEST_VIDEO_TABLE.md`.
 
-### Priority 4: Refined CLI User Experience
+### **Priority 2: Build a Core API**
 - **Status**: Not Started
-- **Justification**: A polished CLI is a hallmark of a professional tool. Now that the CLI is fast and stable, we can focus on making it more intuitive and informative.
+- **Justification**: The API is the heart of the SaaS platform. All future development (web frontend, user accounts) will be built on top of this.
 - **Tasks**:
-  1. Improve the real-time progress bars to be more descriptive.
-  2. Ensure all output tables are consistent and easy to read.
-  3. Refine success and error messages to be clearer and more actionable.
+  1. Choose a framework (e.g., FastAPI).
+  2. Create endpoints for processing single videos and collections.
+  3. Implement API key-based authentication.
+
+### **Priority 3: Implement a Job Queuing System**
+- **Status**: Not Started
+- **Justification**: Video processing is a long-running task. A job queue is essential for handling these tasks asynchronously in the background without blocking the API or web server.
+- **Tasks**:
+  1. Choose and integrate a task queue (e.g., Celery with Redis).
+  2. Refactor the core processing logic into background workers.
+  3. Create API endpoints to submit jobs and check their status.
 
 ---
 
-## Tier 3: High-Value Feature Enhancements (Future Work)
+## Phase 2: The MVP SaaS Platform
+*Goal: Launch a minimal but functional web service to acquire our first paying customers.*
 
-This tier includes new, high-impact features that build on our stable foundation to expand ClipScribe's capabilities.
-
-### Priority 5: Visual Entity Recognition (VER)
+### **Priority 4: Develop a Basic Web Frontend**
 - **Status**: Not Started
-- **Justification**: We already pay for multimodal (video) processing. Extracting entities from on-screen text (chyrons, slides, logos) is a high-value feature that leverages our existing pipeline for a relatively low implementation cost.
 - **Tasks**:
-  1. Integrate an OCR library to extract text from video frames.
-  2. Develop logic to correlate extracted text with timestamps.
-  3. Add visually-extracted entities to the final output.
+  1. Build a simple web dashboard (e.g., using React or Vue).
+  2. Create pages for user sign-up, login, and submitting URLs for processing.
 
-### Priority 6: Output Verification
+### **Priority 5: User Authentication & Billing**
 - **Status**: Not Started
-- **Justification**: For users in research and intelligence, data integrity is paramount. An output verification feature would provide a strong guarantee of quality and completeness.
 - **Tasks**:
-  1. Implement a `--verify-output` flag.
-  2. Add checks for valid JSON, non-empty files, and cross-file consistency.
-  3. Provide a clear verification report to the user.
+  1. Implement a secure user account system.
+  2. Integrate with a payment provider (e.g., Stripe) for pay-per-use billing.
+
+### **Priority 6: Results Dashboard**
+- **Status**: Not Started
+- **Tasks**:
+  1. Create a page to display the results of a processed video.
+  2. Include options to view the summary, entities, and download the output files.
 
 ---
 
-## Contributing to Roadmap
-- See GitHub issues for detailed tasks.
-- Run tests and benchmarks to inform decisions: `poetry run pytest -v`
-- Submit PRs with clear justifications and links to roadmap items.
+## Phase 3: The "Pro" Platform (Automation & Scheduling)
+*Goal: Introduce subscription tiers with high-value automation features for recurring revenue.*
+
+### **Priority 7: Scheduled & Automated Processing**
+- **Status**: Not Started
+- **Tasks**:
+  1. Build the backend functionality for users to schedule recurring tasks (e.g., "process the latest video from this channel every day").
+  2. Create UI components for managing these schedules.
+
+### **Priority 8: Subscription Billing**
+- **Status**: Not Started
+- **Tasks**:
+  1. Integrate a subscription billing model (e.g., Stripe Subscriptions).
+  2. Define feature tiers for different subscription levels.

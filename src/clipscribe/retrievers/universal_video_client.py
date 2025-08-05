@@ -647,8 +647,35 @@ class EnhancedUniversalVideoClient:
             "newest": VideoSortOrder.uploadDate, # Alias for upload_date
             "popular": VideoSortOrder.viewCount, # Alias for view_count
         }
-        return sort_map.get(sort_by.lower(), VideoSortOrder.relevance) 
+        return sort_map.get(sort_by.lower(), VideoSortOrder.relevance)
 
+    async def get_playlist_urls(self, playlist_url: str, limit: Optional[int] = None) -> List[str]:
+        """
+        Extracts all video URLs from a given playlist URL.
+        """
+        logger.info(f"Extracting video URLs from playlist: {playlist_url}")
+        playlist = Playlist(playlist_url)
+        
+        # This seems to be a bug in the library where it sometimes needs an initial call
+        # before hasMoreVideos is correctly populated.
+        try:
+            await playlist.next()
+        except Exception:
+            # First call might fail if playlist is already loaded, that's fine.
+            pass
+
+        while playlist.hasMoreVideos:
+            logger.debug("Fetching more videos from playlist...")
+            await playlist.next()
+
+        urls = [video['link'] for video in playlist.videos]
+        
+        if limit:
+            urls = urls[:limit]
+            
+        logger.info(f"Extracted {len(urls)} video URLs from playlist.")
+        return urls
+ 
     @retry(
         stop=stop_after_attempt(5), 
         wait=wait_exponential(multiplier=2, min=4, max=60),

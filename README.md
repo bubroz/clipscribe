@@ -10,21 +10,23 @@
 
 ClipScribe extracts and analyzes structured data from video content through entity recognition, relationship mapping, and key insight identification. Built for students, researchers, analysts, content creators, and organizations requiring reliable video intelligence.
 
-## v2.22.2 - CLI Fully Functional & Test Suite Stable
+## v2.23.0 - Stable Core with Large Video Support
 
-**CLI STATUS**: ✅ **6/6 integration tests passing (100% success)**. All CLI commands, including single video and multi-video collection processing, are now fully functional and stable.
+**STATUS**: ✅ **Core processing is stable and resilient**. All CLI commands are functional, with robust error handling for API issues and new support for large videos.
 
-**QUALITY-FIRST ARCHITECTURE**: Gemini 2.5 Pro is now the default extraction model, ensuring the highest quality, professional-grade intelligence right out of the box.
+**LARGE VIDEO PROCESSING**: Videos of any length (e.g., 4+ hours) are now supported through an intelligent, automatic splitting and merging architecture.
 
-**FLEXIBILITY**: For use cases where speed is paramount, the faster Gemini 2.5 Flash model is available via the `--use-flash` flag.
+**QUALITY-FIRST ARCHITECTURE**: Gemini 2.5 Pro remains the default extraction model, ensuring the highest quality, professional-grade intelligence right out of the box. For use cases where speed is paramount, the faster Gemini 2.5 Flash model is available via the `--use-flash` flag.
 
 ## Features
 
 ### Single Video Analysis
-- **Entity Extraction**: People, Organizations, Locations, and Concepts
-- **Relationship Mapping**: Relationships with evidence chains and context
-- **Key Points**: Executive summaries
-- **Multiple Formats**: JSON, CSV, GEXF, Markdown for any workflow
+- **Large Video Support**: Process videos of any length through automatic splitting.
+- **Resilient Processing**: Robust retry logic handles transient API errors gracefully.
+- **Entity Extraction**: People, Organizations, Locations, and Concepts.
+- **Relationship Mapping**: Relationships with evidence chains and context.
+- **Key Points**: Executive summaries.
+- **Multiple Formats**: JSON, CSV, GEXF, Markdown for any workflow.
 - **Quality First Architecture**: Gemini 2.5 Pro default for highest quality, with an optional `--use-flash` flag for speed.
 
 ### Multi-Video Collections

@@ -1,57 +1,17 @@
 # src/clipscribe/config/logging_config.py
+# This file is temporarily reverted to simplify debugging.
+# The structlog implementation will be restored after the core
+# application bugs are resolved.
+
 import logging
 import sys
-import structlog
-
-_LOGGING_CONFIGURED = False
 
 def setup_logging(log_level: str = "INFO"):
     """
-    Set up structured logging for the application.
+    Set up basic logging for the application.
     """
-    global _LOGGING_CONFIGURED
-    if _LOGGING_CONFIGURED:
-        return
-
-    processors = [
-        structlog.stdlib.filter_by_level,
-        structlog.stdlib.add_logger_name,
-        structlog.stdlib.add_log_level,
-        structlog.stdlib.PositionalArgumentsFormatter(),
-        structlog.processors.TimeStamper(fmt="iso"),
-        structlog.processors.StackInfoRenderer(),
-        structlog.processors.format_exc_info,
-        structlog.processors.UnicodeDecoder(),
-    ]
-
-    structlog.configure(
-        processors=processors + [
-            structlog.stdlib.ProcessorFormatter.wrap_for_formatter,
-        ],
-        logger_factory=structlog.stdlib.LoggerFactory(),
-        wrapper_class=structlog.stdlib.BoundLogger,
-        cache_logger_on_first_use=True,
+    logging.basicConfig(
+        level=log_level.upper(),
+        stream=sys.stderr,
+        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     )
-
-    formatter = structlog.stdlib.ProcessorFormatter(
-        foreign_pre_chain=processors,
-        processors=[
-            structlog.dev.ConsoleRenderer(colors=True)
-        ],
-    )
-
-    handler = logging.StreamHandler()
-    handler.setFormatter(formatter)
-    root_logger = logging.getLogger()
-    root_logger.handlers.clear()
-    root_logger.addHandler(handler)
-    root_logger.setLevel(log_level.upper())
-
-    # Suppress noisy loggers
-    logging.getLogger("httpx").setLevel(logging.WARNING)
-    logging.getLogger("httpcore").setLevel(logging.WARNING)
-    logging.getLogger("urllib3").setLevel(logging.WARNING)
-    logging.getLogger("google.generativeai").setLevel(logging.WARNING)
-    logging.getLogger("yt_dlp").setLevel(logging.WARNING)
-    
-    _LOGGING_CONFIGURED = True

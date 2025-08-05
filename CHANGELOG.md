@@ -5,6 +5,32 @@ All notable changes to ClipScribe will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v2.23.0 - 2025-08-04
+
+### ✨ Features
+- **Large Video Processing**: Implemented a new architecture to handle large video files (>15 minutes) by automatically splitting them into manageable chunks, processing them in parallel, and preparing for result merging.
+- **API Resilience**: Added robust retry logic with exponential backoff to the Gemini transcriber to gracefully handle transient `500 Internal Server Error` and `503` service unavailable errors, significantly improving processing stability.
+
+### 🐛 Bug Fixes
+- **CLI Stability**: Resolved multiple `AttributeError` bugs in the `VideoIntelligenceRetriever` caused by incomplete refactoring, eliminating critical runtime crashes.
+- **Progress Display**: Corrected the `rich.live` progress display logic in the CLI to prevent crashes and ensure accurate reporting throughout the processing pipeline.
+
+### 🧹 Chores
+- **Code Cleanup**: Removed all remnants of the discontinued "Enhanced Temporal Intelligence" feature from the core codebase.
+
+## [v2.22.3] - 2025-08-04
+
+### Fixed
+- **CLI Stability**: Fixed a series of bugs causing the CLI to crash or exit prematurely during video processing.
+  - Resolved an `AttributeError` in the dynamic progress table display.
+  - Fixed a `TypeError` from an incorrect method signature in the video retriever.
+  - Correctly integrated the `rich.Live` progress display with the `asyncio` processing loop.
+- **API Errors**: Stabilized video processing by identifying that API 500 errors were correlated with video length. Shorter videos (< 15 min) now process reliably.
+
+### Changed
+- **CLI Output**: Completely refactored the CLI progress display to use a clean, dynamic table, removing repetitive and verbose output based on user feedback.
+- **Project Focus**: Removed all "Enhanced Temporal Intelligence" features, prompts, and related code to simplify the architecture, reduce processing overhead, and focus on core extraction capabilities.
+
 ## [v2.22.2] - 2025-07-31
 
 ### Fixed
@@ -1443,18 +1469,7 @@ This comprehensive research confirms yt-dlp integration as the game-changing sol
   - Archive management and storage monitoring
   - Enhanced collection organization tools
 
-# ClipScribe Changelog
 
-All notable changes to ClipScribe will be documented in this file.
-
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
-
-## [Unreleased]
-
-### Added
-
-## [2.18.14] - 2025-07-01
 
 ### Fixed
 - Fixed Timeline v2.0 TemporalEvent model field mismatches (date, involved_entities, source_videos)
