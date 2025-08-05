@@ -5,6 +5,17 @@ All notable changes to ClipScribe will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v2.25.0 - 2025-08-05
+
+### ✨ Features
+- **Video Retention**: Implemented a `--keep-videos` flag that allows users to archive processed videos instead of deleting them, enabling easier re-runs and debugging.
+
+### 🐛 Bug Fixes
+- **Settings Persistence**: Fixed a critical bug where CLI flags like `--keep-videos` were ignored because the `Settings` object was being re-initialized. The settings object is now correctly passed from the CLI context through the processing pipeline.
+
+### 🧹 Chores
+- **CLI Output Polish (Planned)**: The next release will include a major polish of the CLI output, including removing artifact messages, adding progress bars for downloads/uploads, and providing clearer, summarized logs for a better user experience.
+
 ## v2.24.0 - 2025-08-04
 
 ### ✨ Features
