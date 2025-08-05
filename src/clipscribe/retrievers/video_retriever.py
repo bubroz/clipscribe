@@ -48,7 +48,8 @@ class VideoIntelligenceRetriever:
         cost_tracker: Optional['CostTracker'] = None,
         use_flash: bool = False,
         live_progress: Optional[Any] = None,
-        phases: Optional[List[Dict]] = None
+        phases: Optional[List[Dict]] = None,
+        cookies_from_browser: Optional[str] = None
     ):
         """Initialize the retriever."""
         self.use_pro = not use_flash  # Invert the flag
@@ -65,6 +66,7 @@ class VideoIntelligenceRetriever:
         self.cost_tracker = cost_tracker
         self.live_progress = live_progress
         self.phases = phases
+        self.cookies_from_browser = cookies_from_browser
         
         self.use_advanced_extraction = use_advanced_extraction  # BUG FIX: Store the advanced extraction flag!
         
@@ -256,9 +258,16 @@ class VideoIntelligenceRetriever:
         
         processing_mode = await self._determine_enhanced_processing_mode(video_url)
         if processing_mode in ["video", "enhanced"]:
-            media_file, metadata = await self.video_client.download_video(video_url, output_dir=self.cache_dir)
+            media_file, metadata = await self.video_client.download_video(
+                video_url, 
+                output_dir=self.cache_dir,
+                cookies_from_browser=self.cookies_from_browser
+            )
         else:
-            media_file, metadata = await self.video_client.download_audio(video_url, output_dir=self.cache_dir)
+            media_file, metadata = await self.video_client.download_audio(
+                video_url, 
+                output_dir=self.cache_dir
+            )
         if self.phases and self.refresh_display:
             self.phases[0]["status"] = "✓ Complete"
             self.phases[0]["progress"] = "100%"

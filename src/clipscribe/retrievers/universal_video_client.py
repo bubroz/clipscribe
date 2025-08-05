@@ -415,10 +415,14 @@ class EnhancedUniversalVideoClient:
                     # Non-ffmpeg error, raise immediately
                     raise
     
-    async def get_video_info(self, video_url: str) -> VideoMetadata:
+    async def get_video_info(self, video_url: str, cookies_from_browser: Optional[str] = None) -> VideoMetadata:
         """Get video metadata from ANY supported site without downloading."""
         try:
-            with yt_dlp.YoutubeDL({'quiet': True}) as ydl:
+            opts = {'quiet': True}
+            if cookies_from_browser:
+                opts['cookiesfrombrowser'] = (cookies_from_browser,)
+
+            with yt_dlp.YoutubeDL(opts) as ydl:
                 info = ydl.extract_info(video_url, download=False)
                 
                 # Log which site this is from
@@ -527,13 +531,14 @@ class EnhancedUniversalVideoClient:
         except:
             return 0
     
-    async def download_video(self, video_url: str, output_dir: str = ".") -> tuple[str, VideoMetadata]:
+    async def download_video(self, video_url: str, output_dir: str = ".", cookies_from_browser: Optional[str] = None) -> tuple[str, VideoMetadata]:
         """
         Download full video file from any supported platform.
         
         Args:
             video_url: URL of the video
             output_dir: Directory to save the video
+            cookies_from_browser: Name of the browser to use for cookies (e.g., 'chrome')
             
         Returns:
             Tuple of (video_path, metadata)
@@ -542,7 +547,7 @@ class EnhancedUniversalVideoClient:
             raise ValueError(f"Unsupported URL: {video_url}")
         
         # Get video info first
-        metadata = await self.get_video_info(video_url)
+        metadata = await self.get_video_info(video_url, cookies_from_browser=cookies_from_browser)
         
         # Create safe filename
         safe_title = "".join(c for c in metadata.title if c.isalnum() or c in (' ', '-', '_')).rstrip()
@@ -565,6 +570,9 @@ class EnhancedUniversalVideoClient:
             'no_color': True,
             'progress_hooks': [self._progress_hook],
         }
+
+        if cookies_from_browser:
+            ydl_opts['cookiesfrombrowser'] = (cookies_from_browser,)
         
         # Add any platform-specific options
         platform = self._detect_platform(video_url)

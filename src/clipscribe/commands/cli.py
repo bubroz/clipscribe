@@ -205,6 +205,12 @@ cli.add_command(utils)
     default=False,
     help='Use Gemini 2.5 Flash for faster, lower-cost extraction (default is Pro).'
 )
+@click.option(
+    '--cookies-from-browser',
+    type=str,
+    default=None,
+    help='Browser to use for cookies (e.g., chrome, firefox) for restricted content.'
+)
 @click.pass_context
 def video_command(
     ctx: click.Context,
@@ -217,10 +223,11 @@ def video_command(
     skip_cleaning: bool,
     visualize: bool,
     performance_report: bool,
-    use_flash: bool
+    use_flash: bool,
+    cookies_from_browser: Optional[str]
 ) -> None:
     """Process a single video from a URL to extract intelligence."""
-    asyncio.run(transcribe_async(ctx, url, output_dir, mode, use_cache, enhance_transcript, clean_graph, skip_cleaning, visualize, performance_report, use_flash))
+    asyncio.run(transcribe_async(ctx, url, output_dir, mode, use_cache, enhance_transcript, clean_graph, skip_cleaning, visualize, performance_report, use_flash, cookies_from_browser))
 
 # --- Collection Group Commands ---
 
@@ -327,6 +334,12 @@ def series_command(
     help='Use Gemini 2.5 Flash for faster, lower-cost extraction (default is Pro).'
 )
 @click.option(
+    '--cookies-from-browser',
+    type=str,
+    default=None,
+    help='Browser to use for cookies (e.g., chrome, firefox) for restricted content.'
+)
+@click.option(
     '--core-only',
     is_flag=True,
     default=False,
@@ -346,6 +359,7 @@ def custom_collection_command(
     skip_confirmation: bool,
     use_flash: bool,
     core_only: bool,
+    cookies_from_browser: Optional[str],
     **kwargs
 ) -> None:
     """Process multiple videos as a unified custom collection."""
@@ -362,6 +376,7 @@ def custom_collection_command(
         skip_confirmation,
         use_flash,
         core_only,
+        cookies_from_browser,
         **kwargs
     ))
 
@@ -435,7 +450,8 @@ async def transcribe_async(
     skip_cleaning: bool,
     visualize: bool,
     performance_report: bool,
-    use_flash: bool
+    use_flash: bool,
+    cookies_from_browser: Optional[str]
 ) -> None:
     """Async implementation for single video processing."""
     use_pro = not use_flash
@@ -486,7 +502,8 @@ async def transcribe_async(
                 enhance_transcript=enhance_transcript,
                 cost_tracker=cost_tracker,
                 use_flash=use_flash,
-                phases=phases
+                phases=phases,
+                cookies_from_browser=cookies_from_browser
             )
             
             # This is a proxy to allow the retriever to trigger a refresh
@@ -549,6 +566,7 @@ async def process_collection_async(
     skip_confirmation: bool,
     use_flash: bool,
     core_only: bool,
+    cookies_from_browser: Optional[str],
     **kwargs
 ) -> None:
     use_pro = not use_flash
@@ -599,7 +617,8 @@ async def process_collection_async(
             output_dir=str(collection_output_dir),
             enhance_transcript=kwargs.get('enhance_transcript', False),
             cost_tracker=cost_tracker,
-            use_flash=use_flash
+            use_flash=use_flash,
+            cookies_from_browser=cookies_from_browser
         )
         
         try:
