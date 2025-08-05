@@ -1,7 +1,7 @@
 """
 Streaming Extractor - Process transcripts in chunks to avoid token limits.
 
-This approach processes the transcript in smaller, independent pieces :-)
+This approach processes the transcript in smaller, independent pieces 
 """
 
 import asyncio
@@ -33,7 +33,7 @@ class StreamingExtractor:
     
     Instead of sending the entire transcript repeatedly, we process it
     in smaller chunks and aggregate the results. This is perfect for
-    long videos that would otherwise hit token limits :-)
+    long videos that would otherwise hit token limits 
     """
     
     def __init__(

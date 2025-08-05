@@ -38,7 +38,10 @@ class ModelManager:
         if self._initialized:
             return
         self._initialized = True
-        logger.info("Initializing ModelManager singleton with performance monitoring")
+        logger.info(
+            "Hybrid Extractors Loaded: Local (SpaCy for entities, GLiNER for "
+            "detection, REBEL for relationships) + Gemini 2.5 Pro Refinement"
+        )
     
     def set_performance_monitor(self, monitor):
         """Set the performance monitor for tracking cache performance."""
@@ -79,7 +82,7 @@ class ModelManager:
             
             load_time = time.time() - start_time
             self._record_cache_miss(key, load_time)
-            logger.info(f"SpaCy model {model_name} loaded successfully in {load_time:.2f}s :-)")
+            logger.info(f"SpaCy model {model_name} loaded successfully in {load_time:.2f}s ")
         else:
             self._record_cache_hit(key)
         
@@ -117,7 +120,7 @@ class ModelManager:
                 
                 load_time = time.time() - start_time
                 self._record_cache_miss(key, load_time)
-                logger.info(f"GLiNER model loaded and cached successfully in {load_time:.2f}s :-)")
+                logger.info(f"GLiNER model loaded and cached successfully in {load_time:.2f}s ")
                 
             except Exception as e:
                 logger.error(f"Failed to load GLiNER model: {e}")
@@ -169,7 +172,7 @@ class ModelManager:
                 
                 load_time = time.time() - start_time
                 self._record_cache_miss(key, load_time)
-                logger.info(f"REBEL model loaded and cached successfully in {load_time:.2f}s :-)")
+                logger.info(f"REBEL model loaded and cached successfully in {load_time:.2f}s ")
                 
             except Exception as e:
                 logger.error(f"Failed to load REBEL model: {e}")

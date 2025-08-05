@@ -402,7 +402,7 @@ When errors occur:
 
 This prevents deploying broken code and saves debugging time later.
 
-Remember: When in doubt, run with `--log-level DEBUG` :-) 
+Remember: When in doubt, run with `--log-level DEBUG`  
 
 ### Vertex AI Failures
 - **Symptom**: The application crashes with errors related to `vertexai` or Google Cloud permissions, especially during batch processing.

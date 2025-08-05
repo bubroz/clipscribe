@@ -19,7 +19,7 @@ QUALITY METRICS:
 - Semantic relevance scores
 - False positive detection rates
 
-This ensures ClipScribe produces high-quality, meaningful entity extraction :-)
+This ensures ClipScribe produces high-quality, meaningful entity extraction 
 """
 
 import logging

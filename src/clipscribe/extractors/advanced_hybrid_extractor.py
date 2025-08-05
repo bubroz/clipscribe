@@ -7,7 +7,7 @@ This extractor uses:
 3. REBEL for relationships
 4. Selective LLM validation for low-confidence items
 
-This provides comprehensive intelligence extraction while maintaining cost efficiency :-)
+This provides comprehensive intelligence extraction while maintaining cost efficiency 
 """
 
 import logging
@@ -79,9 +79,6 @@ class AdvancedHybridExtractor:
         raw_gemini_entities = video_intel.processing_stats.get('gemini_entities', video_intel.entities)
         raw_gemini_relationships = video_intel.processing_stats.get('gemini_relationships', video_intel.relationships)
         
-        logger.info(f"🔧 BUG FIX: Found {len(raw_gemini_entities)} entities from Gemini (was looking in wrong place!)")
-        logger.info(f"🔧 BUG FIX: Found {len(raw_gemini_relationships)} relationships from Gemini")
-        
         # BUG FIX: Convert raw dictionaries to Entity objects
         from ..models import Entity
         gemini_entities = []
@@ -96,7 +93,7 @@ class AdvancedHybridExtractor:
             else:
                 gemini_entities.append(raw_entity)  # Already an Entity object
         
-        logger.info(f"🔧 Converted {len(gemini_entities)} raw entities to Entity objects")
+        logger.info(f"Converted {len(gemini_entities)} raw entities to Entity objects")
 
         # Light normalization and enhancement
         normalized_entities = self.entity_normalizer.normalize_entities(gemini_entities)
@@ -124,7 +121,7 @@ class AdvancedHybridExtractor:
                 else:
                     gemini_relationships.append(raw_rel)  # Already a Relationship object
             
-            logger.info(f"🔧 Converted {len(gemini_relationships)} raw relationships to Relationship objects")
+            logger.info(f"Converted {len(gemini_relationships)} raw relationships to Relationship objects")
             
             enhanced_relationships = self.relationship_evidence_extractor.extract_evidence_chains(
                 gemini_relationships,

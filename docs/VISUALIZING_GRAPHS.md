@@ -165,7 +165,7 @@ Communities: 3 clusters (Companies, Technologies, Concepts)
 3. Create presentation-ready exports
 4. Share your visualizations!
 
-Remember: Knowledge graphs reveal hidden connections in video content that would be impossible to see in raw transcripts :-)
+Remember: Knowledge graphs reveal hidden connections in video content that would be impossible to see in raw transcripts 
 
 ## Built-in Beautiful Visualizations (NEW!)
 
@@ -319,7 +319,7 @@ For videos with 100+ entities:
 - Adjust font sizes in the visualization scripts
 - Export to high-res image and view separately
 
-Remember: The built-in visualizers are much prettier than Gephi! :-)
+Remember: The built-in visualizers are much prettier than Gephi! 
 
 ## Visualizing Knowledge Graphs
 

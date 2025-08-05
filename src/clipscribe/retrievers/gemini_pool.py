@@ -1,7 +1,7 @@
 """
 Gemini Model Pool - Manage multiple Gemini instances for different tasks.
 
-This avoids token limit issues by using fresh instances for each task type :-)
+This avoids token limit issues by using fresh instances for each task type 
 """
 
 import logging
@@ -33,7 +33,7 @@ class GeminiPool:
     Manage a pool of Gemini model instances.
     
     Each task gets its own instance to avoid context pollution and token limits.
-    This is like having multiple AI assistants, each specialized for one job :-)
+    This is like having multiple AI assistants, each specialized for one job 
     """
     
     def __init__(self, model_name: str = "gemini-2.5-flash", api_key: Optional[str] = None):

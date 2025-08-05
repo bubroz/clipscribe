@@ -495,7 +495,10 @@ class GeminiFlashTranscriber:
         for attempt in range(retries):
             file = None
             try:
-                logger.info(f"Attempt {attempt + 1}/{retries}: Uploading file {Path(file_path).name}...")
+                if attempt > 0:
+                    logger.info(f"Attempt {attempt + 1}/{retries}: Uploading file {Path(file_path).name}...")
+                else:
+                    logger.info(f"Uploading file {Path(file_path).name}...")
 
                 # Run the synchronous upload_file in a separate thread
                 upload_task = asyncio.to_thread(

@@ -2,7 +2,7 @@
 Video Mode Detector - Intelligently choose between audio-only and full video processing.
 
 This module analyzes video characteristics to determine if visual content is important
-for transcription accuracy :-)
+for transcription accuracy 
 """
 
 import logging

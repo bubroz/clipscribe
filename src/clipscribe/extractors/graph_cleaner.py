@@ -1,7 +1,7 @@
 """
 Intelligent knowledge graph cleaner using Gemini.
 
-Instead of rigid rules, let's use AI to understand context and clean intelligently :-)
+Instead of rigid rules, let's use AI to understand context and clean intelligently 
 """
 
 import json
@@ -68,7 +68,7 @@ class GraphCleaner:
         
         logger.info(
             f"Graph cleaned: {len(cleaned_entities)} entities, "
-            f"{len(cleaned_relationships)} relationships :-)"
+            f"{len(cleaned_relationships)} relationships "
         )
         
         return video_intel

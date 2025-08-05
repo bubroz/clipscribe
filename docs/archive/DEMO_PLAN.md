@@ -73,4 +73,4 @@ ClipScribe is a **production-ready video intelligence platform** that extracts s
 - **vs Recorded Future**: Better temporal synthesis, SDVOSB advantage
 - **vs Otter.ai**: Adds entities/graphs, multi-platform support
 
-We're READY - this demo will crush it! :-) 
+We're READY - this demo will crush it!  

@@ -2,7 +2,7 @@
 Entity Normalizer for ClipScribe.
 
 Handles entity deduplication, normalization, and resolution across multiple extraction methods.
-Ensures clean, consistent entities for network analysis :-)
+Ensures clean, consistent entities for network analysis 
 """
 
 import logging
@@ -94,7 +94,7 @@ class EntityNormalizer:
         final_entities = self._validate_and_sort(normalized_entities)
         logger.debug(f"DEBUG: After validation: {len(final_entities)} entities")
         
-        logger.info(f"Normalized to {len(final_entities)} unique entities :-)")
+        logger.info(f"Normalized to {len(final_entities)} unique entities ")
         return final_entities
         
     def _clean_entity_names(self, entities: List[Entity]) -> List[Entity]:

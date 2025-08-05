@@ -144,4 +144,4 @@ async def monitor_and_process(urls: list[str], interval_hours: int = 24):
 
 
 if __name__ == "__main__":
-    asyncio.run(main())  # :-) 
+    asyncio.run(main())  #  

@@ -395,4 +395,4 @@ For each feature, we measure:
 3. **Cost Analysis**: Ensure features maintain cost leadership
 4. **Integration Planning**: Design Chimera-compatible formats
 
-Remember: Every feature extracts more/better data. Analysis belongs to Chimera :-) 
+Remember: Every feature extracts more/better data. Analysis belongs to Chimera  

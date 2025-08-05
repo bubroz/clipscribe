@@ -2,7 +2,7 @@
 """
 Filter and clean knowledge graphs to remove noise and improve visualization quality.
 
-This helps create cleaner, more meaningful visualizations :-)
+This helps create cleaner, more meaningful visualizations 
 """
 
 import json

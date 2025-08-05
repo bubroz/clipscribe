@@ -484,4 +484,4 @@ class TemporalResolver:
 3. Better confidence metrics
 4. More evidence for validation
 
-Remember: The goal is richer extraction, not analysis. We provide the data, Chimera provides the insights :-) 
+Remember: The goal is richer extraction, not analysis. We provide the data, Chimera provides the insights  

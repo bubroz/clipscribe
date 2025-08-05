@@ -94,7 +94,7 @@ class VideoIntelligenceRetriever:
         
         # Choose entity extractor based on advanced extraction setting
         if use_advanced_extraction:
-            logger.info("Using advanced extraction with trust_gemini mode :-)")
+            logger.info("Using advanced extraction with trust_gemini mode ")
             try:
                 from ..extractors.advanced_hybrid_extractor import AdvancedHybridExtractor
                 self.entity_extractor = AdvancedHybridExtractor()
@@ -105,13 +105,11 @@ class VideoIntelligenceRetriever:
             self.entity_extractor = None
         
         # Timeline Intelligence v2.0 Components DISCONTINUED per strategic pivot
-        logger.info("Timeline features discontinued - focusing on core intelligence extraction")
         
         # Processing statistics
         self.videos_processed = 0
         self.total_cost = 0.0
         
-        logger.info(f"v2.17.0 Enhanced Temporal Intelligence: {self.temporal_config['level']}")
         logger.info(f"Video Retention Policy: {self.settings.video_retention_policy}")
     
     async def search(
@@ -765,7 +763,7 @@ class VideoIntelligenceRetriever:
                     getattr(entity, 'mention_count', 1)
                 ])
         paths["entities_csv"] = entities_csv_path
-        logger.info(f"Saved {len(all_entities)} entities to JSON and CSV :-)")
+        logger.info(f"Saved {len(all_entities)} entities to JSON and CSV ")
 
     def _save_relationships_files(self, video: VideoIntelligence, paths: Dict[str, Path]):
         """Saves relationships.json and relationships.csv."""
@@ -819,7 +817,7 @@ class VideoIntelligenceRetriever:
                     evidence_count
                 ])
         paths["relationships_csv"] = relationships_csv_path
-        logger.info(f"Saved {len(video.relationships)} relationships to JSON and CSV :-)")
+        logger.info(f"Saved {len(video.relationships)} relationships to JSON and CSV ")
 
     def _save_knowledge_graph_files(self, video: VideoIntelligence, paths: Dict[str, Path]):
         """Saves knowledge_graph.json and knowledge_graph.gexf if they exist."""
@@ -844,7 +842,7 @@ class VideoIntelligenceRetriever:
         
         logger.info(
             f"Saved knowledge graph with {node_count} nodes "
-            f"and {edge_count} edges :-)"
+            f"and {edge_count} edges "
         )
 
         # GEXF for Gephi
@@ -854,7 +852,7 @@ class VideoIntelligenceRetriever:
             with open(gexf_path, 'w', encoding='utf-8') as f:
                 f.write(gexf_content)
             paths["gexf"] = gexf_path
-            logger.info("Saved GEXF file for Gephi visualization :-)")
+            logger.info("Saved GEXF file for Gephi visualization ")
         except Exception as e:
             logger.warning(f"Failed to generate GEXF: {e}")
 
@@ -873,7 +871,7 @@ class VideoIntelligenceRetriever:
                 source = fact.get('source', 'Fact')
                 f.write(f"{i}. [{source}] {fact['fact']}\n")
         paths["facts"] = facts_path
-        logger.info(f"Saved {len(video.key_moments)} key facts :-)")
+        logger.info(f"Saved {len(video.key_moments)} key facts ")
 
     def _save_report_file(self, video: VideoIntelligence, paths: Dict[str, Path]):
         """Generates and saves the markdown report."""
@@ -889,7 +887,7 @@ class VideoIntelligenceRetriever:
             self._write_report_file_index(f, paths)
             self._write_report_footer(f, video)
         paths["report"] = markdown_path
-        logger.info("Generated enhanced markdown report :-)")
+        logger.info("Generated enhanced markdown report ")
 
     def _write_report_header(self, f, video: VideoIntelligence):
         """Writes the header section of the markdown report."""

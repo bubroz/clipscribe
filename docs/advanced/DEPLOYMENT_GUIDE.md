@@ -249,7 +249,7 @@ gcloud alpha run services logs tail clipscribe
 3. **Week 3**: Configure custom domain
 4. **Week 4**: Enable CI/CD with Cloud Build
 
-Remember: Start simple, then scale as needed :-) 
+Remember: Start simple, then scale as needed  
 
 # Add enterprise section
 ## Enterprise Deployment

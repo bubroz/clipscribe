@@ -1,7 +1,7 @@
 """
 Batch Extractor - Process all extraction tasks in a single Gemini call.
 
-This dramatically reduces API calls and token usage by doing everything at once :-)
+This dramatically reduces API calls and token usage by doing everything at once 
 """
 
 import json
@@ -20,7 +20,7 @@ class BatchExtractor:
     Extract everything in one efficient Gemini call.
     
     Instead of 6 separate API calls, we do it all in one shot!
-    This saves tokens, time, and money :-)
+    This saves tokens, time, and money 
     """
     
     def __init__(self, model_name: str = "gemini-2.5-flash", timeout: int = 600):
