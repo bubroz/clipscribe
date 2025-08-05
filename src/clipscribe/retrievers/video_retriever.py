@@ -49,7 +49,8 @@ class VideoIntelligenceRetriever:
         use_flash: bool = False,
         live_progress: Optional[Any] = None,
         phases: Optional[List[Dict]] = None,
-        cookies_from_browser: Optional[str] = None
+        cookies_from_browser: Optional[str] = None,
+        settings: Optional[Settings] = None
     ):
         """Initialize the retriever."""
         self.use_pro = not use_flash  # Invert the flag
@@ -71,7 +72,7 @@ class VideoIntelligenceRetriever:
         self.use_advanced_extraction = use_advanced_extraction  # BUG FIX: Store the advanced extraction flag!
         
         # Get v2.17.0 settings
-        self.settings = Settings()
+        self.settings = settings or Settings()
         self.temporal_config = self.settings.get_temporal_intelligence_config()
         
         # Initialize video retention manager

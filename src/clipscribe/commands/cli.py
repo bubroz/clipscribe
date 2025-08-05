@@ -211,6 +211,12 @@ cli.add_command(utils)
     default=None,
     help='Browser to use for cookies (e.g., chrome, firefox) for restricted content.'
 )
+@click.option(
+    '--keep-videos',
+    is_flag=True,
+    default=False,
+    help='Keep downloaded video files in the archive after processing.'
+)
 @click.pass_context
 def video_command(
     ctx: click.Context,
@@ -224,9 +230,14 @@ def video_command(
     visualize: bool,
     performance_report: bool,
     use_flash: bool,
-    cookies_from_browser: Optional[str]
+    cookies_from_browser: Optional[str],
+    keep_videos: bool
 ) -> None:
     """Process a single video from a URL to extract intelligence."""
+    # Set retention policy based on the flag
+    if keep_videos:
+        ctx.obj['settings'].video_retention_policy = 'keep_processed'
+
     asyncio.run(transcribe_async(ctx, url, output_dir, mode, use_cache, enhance_transcript, clean_graph, skip_cleaning, visualize, performance_report, use_flash, cookies_from_browser))
 
 # --- Collection Group Commands ---
@@ -256,6 +267,12 @@ def video_command(
     default=False,
     help='Use Gemini 2.5 Flash for faster, lower-cost extraction (default is Pro).'
 )
+@click.option(
+    '--keep-videos',
+    is_flag=True,
+    default=False,
+    help='Keep downloaded video files in the archive after processing.'
+)
 @click.pass_context
 def series_command(
     ctx: click.Context,
@@ -263,11 +280,15 @@ def series_command(
     output_dir: Path,
     series_title: Optional[str],
     use_flash: bool,
+    keep_videos: bool,
     **kwargs
 ) -> None:
     """Process videos as a series with narrative flow analysis."""
     console = _get_console()
     console.print(f"📺 Processing video series: {len(urls)} videos")
+    
+    if keep_videos:
+        ctx.obj['settings'].video_retention_policy = 'keep_processed'
     
     asyncio.run(process_collection_async(
         ctx,
@@ -345,6 +366,12 @@ def series_command(
     default=False,
     help='Unify only entities that appear in more than one video (Core Theme Analysis).'
 )
+@click.option(
+    '--keep-videos',
+    is_flag=True,
+    default=False,
+    help='Keep downloaded video files in the archive after processing.'
+)
 @click.pass_context
 def custom_collection_command(
     ctx: click.Context,
@@ -360,9 +387,13 @@ def custom_collection_command(
     use_flash: bool,
     core_only: bool,
     cookies_from_browser: Optional[str],
+    keep_videos: bool,
     **kwargs
 ) -> None:
     """Process multiple videos as a unified custom collection."""
+    if keep_videos:
+        ctx.obj['settings'].video_retention_policy = 'keep_processed'
+        
     asyncio.run(process_collection_async(
         ctx,
         collection_name,
@@ -503,7 +534,8 @@ async def transcribe_async(
                 cost_tracker=cost_tracker,
                 use_flash=use_flash,
                 phases=phases,
-                cookies_from_browser=cookies_from_browser
+                cookies_from_browser=cookies_from_browser,
+                settings=ctx.obj['settings']
             )
             
             # This is a proxy to allow the retriever to trigger a refresh
@@ -524,7 +556,7 @@ async def transcribe_async(
             
             if result is None:
                 # The error state should already be set by the retriever
-                console.print("[red]❌ Video processing failed.[/red]")
+                console.print("[red]Video processing failed.[/red]")
                 ctx.exit(1)
             
             # Final phase: Saving
@@ -537,7 +569,7 @@ async def transcribe_async(
             live.update(make_table(), refresh=True)
 
             # Final display after live is done
-            console.print(f"\n[green]✅ Saved all formats to: {saved_files['directory']}[/green]")
+            console.print(f"\n[green]Saved all formats to: {saved_files['directory']}[/green]")
             _display_results(console, result)
             
             if performance_report:
@@ -590,12 +622,12 @@ async def process_collection_async(
                 final_urls[i:i+1] = playlist_urls
                 
                 if not skip_confirmation:
-                    console.print(f"\n📺 Found playlist with {len(playlist_urls)} videos")
+                    console.print(f"\n Found playlist with {len(playlist_urls)} videos")
                     if limit:
-                        console.print(f"⚠️  Limited to first {limit} videos")
+                        console.print(f"⚠️ Limited to first {limit} videos")
                     
                     if not click.confirm("Proceed with collection processing?"):
-                        console.print("❌ Collection processing cancelled")
+                        console.print("Collection processing cancelled")
                         ctx.exit(0)
             except Exception as e:
                 logger.warning(f"Could not expand playlist {url}: {e}")
@@ -607,7 +639,7 @@ async def process_collection_async(
     cost_tracker = RealTimeCostTracker()
 
     for i, url in enumerate(final_urls, 1):
-        console.print(f"\n🎬 Processing video {i}/{len(final_urls)}: {url}")
+        console.print(f"\nProcessing video {i}/{len(final_urls)}: {url}")
         
         retriever = imports['VideoIntelligenceRetriever'](
             use_cache=kwargs.get('use_cache', True),
@@ -618,17 +650,18 @@ async def process_collection_async(
             enhance_transcript=kwargs.get('enhance_transcript', False),
             cost_tracker=cost_tracker,
             use_flash=use_flash,
-            cookies_from_browser=cookies_from_browser
+            cookies_from_browser=cookies_from_browser,
+            settings=ctx.obj['settings']
         )
         
         try:
             result = await retriever.process_url(url)
             if result:
                 video_intelligences.append(result)
-                console.print(f"✅ Processed video {i}/{len(final_urls)}")
+                console.print(f"Processed video {i}/{len(final_urls)}")
         except Exception as e:
             logger.error(f"Failed to process video {i}: {e}")
-            console.print(f"❌ Failed to process video {i}: {e}")
+            console.print(f"Failed to process video {i}: {e}")
     
     # Multi-video processing
     if len(video_intelligences) > 1:

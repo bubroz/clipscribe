@@ -563,8 +563,8 @@ class EnhancedUniversalVideoClient:
         ydl_opts = {
             'format': 'best',  # Just use best available format
             'outtmpl': video_path[:-4] + '.%(ext)s',  # Let yt-dlp determine extension
-            'quiet': False,  # Show warnings for debugging
-            'no_warnings': False,
+            'quiet': True,
+            'no_warnings': True,
             'extract_flat': False,
             'nocheckcertificate': True,
             'no_color': True,
