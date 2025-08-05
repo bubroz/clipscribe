@@ -13,6 +13,8 @@ from pathlib import Path
 import asyncio
 import mimetypes
 
+from rich.progress import Progress, SpinnerColumn, BarColumn, TextColumn
+
 from ..config.settings import Settings, TemporalIntelligenceLevel
 from .gemini_pool import GeminiPool, TaskType
 from .vertex_ai_transcriber import VertexAITranscriber
@@ -950,4 +952,3 @@ class GeminiFlashTranscriber:
             return response.text
         finally:
             genai.delete_file(file.name)
- 
