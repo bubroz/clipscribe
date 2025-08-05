@@ -326,6 +326,12 @@ def series_command(
     default=False,
     help='Use Gemini 2.5 Flash for faster, lower-cost extraction (default is Pro).'
 )
+@click.option(
+    '--core-only',
+    is_flag=True,
+    default=False,
+    help='Unify only entities that appear in more than one video (Core Theme Analysis).'
+)
 @click.pass_context
 def custom_collection_command(
     ctx: click.Context,
@@ -339,6 +345,7 @@ def custom_collection_command(
     limit: Optional[int],
     skip_confirmation: bool,
     use_flash: bool,
+    core_only: bool,
     **kwargs
 ) -> None:
     """Process multiple videos as a unified custom collection."""
@@ -354,6 +361,7 @@ def custom_collection_command(
         limit,
         skip_confirmation,
         use_flash,
+        core_only,
         **kwargs
     ))
 
@@ -540,6 +548,7 @@ async def process_collection_async(
     limit: Optional[int],
     skip_confirmation: bool,
     use_flash: bool,
+    core_only: bool,
     **kwargs
 ) -> None:
     use_pro = not use_flash
@@ -609,7 +618,8 @@ async def process_collection_async(
             videos=video_intelligences,
             collection_type=imports['VideoCollectionType'](collection_type),
             collection_title=collection_title,
-            user_confirmed_series=user_confirmed_series
+            user_confirmed_series=user_confirmed_series,
+            core_only=core_only
         )
         
         # Save the collection outputs using retriever's method

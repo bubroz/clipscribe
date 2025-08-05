@@ -10,13 +10,15 @@
 
 ClipScribe extracts and analyzes structured data from video content through entity recognition, relationship mapping, and key insight identification. Built for students, researchers, analysts, content creators, and organizations requiring reliable video intelligence.
 
-## v2.23.0 - Stable Core with Large Video Support
+## v2.24.0 - Production Ready with Advanced Features
 
-**STATUS**: ✅ **Core processing is stable and resilient**. All CLI commands are functional, with robust error handling for API issues and new support for large videos.
+**STATUS**: ✅ **Core processing is stable and resilient**. All CLI commands are functional, with robust error handling for API issues, new support for large videos, and flexible analysis strategies.
 
 **LARGE VIDEO PROCESSING**: Videos of any length (e.g., 4+ hours) are now supported through an intelligent, automatic splitting and merging architecture.
 
-**QUALITY-FIRST ARCHITECTURE**: Gemini 2.5 Pro remains the default extraction model, ensuring the highest quality, professional-grade intelligence right out of the box. For use cases where speed is paramount, the faster Gemini 2.5 Flash model is available via the `--use-flash` flag.
+**FLEXIBLE ANALYSIS**: A new `--core-only` flag allows users to switch between comprehensive analysis (default) and core theme analysis, which focuses only on recurring entities.
+
+**AUTHENTICATION SUPPORT**: A new `--cookies-from-browser` flag allows `yt-dlp` to use browser cookies to access age-gated or login-required content.
 
 ## Features
 

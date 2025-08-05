@@ -949,7 +949,8 @@ class MultiVideoProcessor:
         videos: List[VideoIntelligence],
         collection_type: "VideoCollectionType",
         collection_title: str,
-        user_confirmed_series: bool = False
+        user_confirmed_series: bool = False,
+        core_only: bool = False
     ) -> "MultiVideoIntelligence":
         """
         Process a collection of videos to extract unified intelligence.
@@ -959,6 +960,7 @@ class MultiVideoProcessor:
             collection_type: Type of video collection
             collection_title: Title of the collection
             user_confirmed_series: Whether user confirmed this is a series
+            core_only: If True, unify only entities that appear in more than one video.
             
         Returns:
             MultiVideoIntelligence object with unified analysis
@@ -969,7 +971,7 @@ class MultiVideoProcessor:
         collection_id = f"collection_{int(time.time())}_{len(videos)}"
         
         # Step 1: Extract and unify entities across videos
-        unified_entities = await self._unify_entities_across_videos(videos)
+        unified_entities = await self._unify_entities_across_videos(videos, core_only=core_only)
         
         # Step 2: Extract cross-video relationships
         cross_video_relationships = await self._extract_cross_video_relationships(videos, unified_entities)
@@ -1025,64 +1027,61 @@ class MultiVideoProcessor:
         logger.info(f"Collection summary set to: {multi_video_result.collection_summary}")  # Debug log
         return multi_video_result
 
-    async def _unify_entities_across_videos(self, videos: List[VideoIntelligence]) -> List["CrossVideoEntity"]:
-        """Unify entities across multiple videos."""
-        logger.info("Unifying entities across videos...")
-        
-        # Collect all entities from all videos
-        all_entities = []
+    async def _unify_entities_across_videos(self, videos: List[VideoIntelligence], core_only: bool = False) -> List["CrossVideoEntity"]:
+        """
+        Unify entities across multiple videos.
+        - Default (core_only=False): Comprehensive Union strategy. Retains all unique entities.
+        - Core Theme (core_only=True): Intersection strategy. Retains only entities that appear in more than one video.
+        """
+        if core_only:
+            logger.info("Unifying entities using Core Theme Analysis (Intersection)...")
+        else:
+            logger.info("Unifying entities using Comprehensive Union...")
+
+        all_entities_with_source = []
         for video in videos:
             for entity in video.entities:
-                all_entities.append({
+                all_entities_with_source.append({
                     "entity": entity,
                     "video_id": video.metadata.video_id,
                     "video_title": video.metadata.title,
-                    "source": getattr(entity, 'source', 'unknown')
                 })
+
+        all_raw_entities = [item["entity"] for item in all_entities_with_source]
+        entity_groups = self.entity_normalizer._group_similar_entities(all_raw_entities)
         
-        # Use entity normalizer to group similar entities
-        entity_groups = self.entity_normalizer._group_similar_entities([e["entity"] for e in all_entities])
-        
-        # Create CrossVideoEntity objects
         unified_entities = []
         for group in entity_groups:
-            if len(group) > 1:  # Only create cross-video entities if entity appears in multiple videos
-                # Find the canonical entity (highest mention count in confidence-free architecture)
-                canonical_entity = max(group, key=lambda e: e.mention_count)
-                
-                # Find all videos where this entity appears
-                video_occurrences = []
-                for entity_info in all_entities:
-                    if entity_info["entity"].entity == canonical_entity.entity:
-                        video_occurrences.append({
-                            "video_id": entity_info["video_id"],
-                            "video_title": entity_info["video_title"],
-                            "mention_count": entity_info["entity"].mention_count,
-                            "source": entity_info["source"]
-                        })
-                
-                # Create CrossVideoEntity
-                from clipscribe.models import CrossVideoEntity
-                # Create aliases list
-                aliases = []
-                video_ids = []
-                for entity_info in all_entities:
-                    if entity_info["entity"].entity == canonical_entity.entity:
-                        if entity_info["entity"].entity != canonical_entity.entity:
-                            aliases.append(entity_info["entity"].entity)
-                        video_ids.append(entity_info["video_id"])
-                
-                cross_video_entity = CrossVideoEntity(
-                    name=canonical_entity.entity,
-                    type=canonical_entity.type,
-                    canonical_name=canonical_entity.entity,
-                    aliases=aliases,
-                    video_appearances=video_ids,
-                    mention_count=sum(occ["mention_count"] for occ in video_occurrences)
-                )
-                unified_entities.append(cross_video_entity)
-        
-        logger.info(f"Unified {len(unified_entities)} entities across {len(videos)} videos")
+            if not group:
+                continue
+
+            video_ids_in_group = set()
+            for entity_obj in group:
+                for source_item in all_entities_with_source:
+                    if source_item["entity"] == entity_obj:
+                        video_ids_in_group.add(source_item["video_id"])
+
+            # This is the new logic based on the core_only flag
+            if core_only and len(video_ids_in_group) <= 1:
+                continue
+
+            canonical_name = Counter(e.entity for e in group).most_common(1)[0][0]
+            canonical_entity = next((e for e in group if e.entity == canonical_name), group[0])
+            aliases = list(set(e.entity for e in group if e.entity != canonical_name))
+            total_mentions = sum(e.mention_count for e in group)
+
+            from clipscribe.models import CrossVideoEntity
+            cross_video_entity = CrossVideoEntity(
+                name=canonical_name,
+                type=canonical_entity.type,
+                canonical_name=canonical_name,
+                aliases=aliases,
+                video_appearances=list(video_ids_in_group),
+                mention_count=total_mentions,
+            )
+            unified_entities.append(cross_video_entity)
+            
+        logger.info(f"Unified to {len(unified_entities)} unique entities across {len(videos)} videos")
         return unified_entities
 
     async def _extract_cross_video_relationships(self, videos: List[VideoIntelligence], unified_entities: List["CrossVideoEntity"]) -> List["CrossVideoRelationship"]:

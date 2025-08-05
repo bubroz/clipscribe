@@ -127,6 +127,17 @@ clipscribe process video "URL" --api-key "your_key_here"
 
 ## Video Processing Errors
 
+### YouTube Authentication Errors (Age/Login Gates)
+- **Symptom**: `yt-dlp` fails with an error like `Sign in to confirm your age` or `This video may be inappropriate for some users`.
+- **Cause**: The video is age-restricted or requires a login to view.
+- **Solution**: Use the `--cookies-from-browser` flag to allow ClipScribe to securely use your browser's existing login session.
+  ```bash
+  # Example for a user logged into YouTube on Chrome
+  clipscribe process video "URL_HERE" --cookies-from-browser chrome
+
+  # Supported browsers: chrome, firefox, brave, edge, opera, safari, vivaldi
+  ```
+
 ## 503 Socket Closed Errors
 ### Problem: "Premature close" or "Socket closed" errors
 

@@ -17,4 +17,18 @@ For videos longer than 15 minutes, ClipScribe employs a sophisticated, two-phase
 1.  **Intelligent Merging**: The raw transcripts from all chunks are stitched together. A sequence matching algorithm is used to analyze the 30-second overlaps, remove duplicate sentences, and produce a single, perfectly coherent transcript of the entire video.
 2.  **Global Analysis**: A single, powerful intelligence extraction call is made to the Gemini 2.5 Pro model using the complete, merged transcript.
 
-This method provides the best of both worlds: the speed of parallel processing and the superior analytical quality that only comes from analyzing the full context of the video in a single pass. This avoids the catastrophic loss of context that would occur from analyzing each chunk in isolation. 
+This method provides the best of both worlds: the speed of parallel processing and the superior analytical quality that only comes from analyzing the full context of the video in a single pass. This avoids the catastrophic loss of context that would occur from analyzing each chunk in isolation.
+
+## Flexible Analysis Strategies
+
+ClipScribe offers two distinct strategies for multi-video unification, controlled by the `--core-only` flag:
+
+### 1. Comprehensive Union (Default)
+- **Goal**: To build a complete and exhaustive knowledge base from a collection of videos.
+- **Method**: This strategy gathers **all** unique entities from **all** processed videos. Duplicates and aliases are intelligently merged, but no entity is discarded simply because it appeared in only one video.
+- **Use Case**: Ideal for deep, exhaustive research where every piece of information, no matter how minor, could be a critical lead. This prioritizes **completeness**.
+
+### 2. Core Theme Analysis (`--core-only`)
+- **Goal**: To quickly identify the central narrative, main characters, and recurring themes of a video collection.
+- **Method**: This strategy only keeps entities that appear in **more than one** video, effectively filtering for the most important, recurring concepts.
+- **Use Case**: Perfect for getting an "executive summary" of a video series or a playlist about a single topic. This prioritizes **signal over noise**.

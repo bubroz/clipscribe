@@ -1,6 +1,6 @@
 # ClipScribe CLI Reference
 
-*Last Updated: August 4, 2025 - v2.22.3 CLI Stable*
+*Last Updated: August 4, 2025 - v2.24.0*
 
 Complete reference for all ClipScribe commands, groups, and options.
 
@@ -45,6 +45,7 @@ clipscribe process video [OPTIONS] URL
 
 **Options:**
 *All options from the previous `transcribe` command are available here, including `--output-dir`, `--mode`, `--use-flash`, etc.*
+- `--cookies-from-browser BROWSER`: Use cookies from a specified browser (e.g., chrome, firefox) to access restricted content.
 
 **Example:**
 ```bash
@@ -93,6 +94,8 @@ clipscribe collection custom [OPTIONS] COLLECTION_NAME URLS...
 
 **Options:**
 *Includes `--output-dir`, `--collection-type`, `--limit`, `--use-flash`, etc.*
+- `--core-only`: Unify only entities that appear in more than one video (Core Theme Analysis).
+- `--cookies-from-browser BROWSER`: Use cookies from a specified browser to access restricted content.
 
 **Example:**
 ```bash

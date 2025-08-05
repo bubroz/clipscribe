@@ -5,6 +5,17 @@ All notable changes to ClipScribe will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v2.24.0 - 2025-08-04
+
+### ✨ Features
+- **Flexible Unification Strategy**: Added a `--core-only` flag to the `collection custom` command. This allows users to switch between the default "Comprehensive Union" analysis (retaining all unique entities) and "Core Theme Analysis" (retaining only entities that appear in more than one video).
+- **YouTube Authentication**: Added a `--cookies-from-browser` flag to all processing commands, allowing `yt-dlp` to bypass age-gates and login walls for restricted content.
+- **Enhanced Error Handling**: The CLI now intelligently detects authentication failures from `yt-dlp` and provides a clear, actionable error message recommending the use of the new `--cookies-from-browser` flag.
+
+### 🐛 Bug Fixes
+- **Entity Unification Logic**: Fixed a critical bug in the multi-video processor that was incorrectly discarding entities that only appeared in a single video. The default behavior is now to perform a comprehensive union, preserving all unique intelligence.
+- **Asynchronous Uploads**: Corrected a fundamental `TypeError` in the parallel chunk uploader by properly running the synchronous `genai.upload_file` function in a separate thread using `asyncio.to_thread`. This resolves all freezing and timeout issues during large video processing.
+
 ## v2.23.0 - 2025-08-04
 
 ### ✨ Features
