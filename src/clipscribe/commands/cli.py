@@ -91,6 +91,7 @@ def _get_core_imports():
 
 # Initialize minimal console (no heavy imports)
 _console = None
+_model_manager_initialized = False
 
 def _get_console():
     """Get console instance with lazy initialization."""
@@ -511,26 +512,20 @@ async def transcribe_async(
         {"name": "Saving Outputs", "status": "Pending", "progress": "0%", "cost": "$0.00"},
     ]
 
-    table = Table(show_header=True, header_style="bold magenta", box=box.MINIMAL_HEAVY_HEAD)
-    table.add_column("Phase", style="cyan", no_wrap=True)
-    table.add_column("Status")
-    table.add_column("Progress", style="yellow")
-    table.add_column("Cost", style="green")
-    for phase in phases:
-        table.add_row(phase["name"], phase["status"], phase["progress"], phase["cost"])
+    def make_table():
+        table = Table(show_header=True, header_style="bold magenta", box=box.MINIMAL_HEAVY_HEAD)
+        table.add_column("Phase", style="cyan", no_wrap=True)
+        table.add_column("Status")
+        table.add_column("Progress", style="yellow")
+        table.add_column("Cost", style="green")
+        for phase in phases:
+            table.add_row(phase["name"], phase["status"], phase["progress"], phase["cost"])
+        return table
 
-    with Live(table, console=console, screen=False, auto_refresh=False) as live:
+    live = Live(make_table(), console=console, screen=True, auto_refresh=False)
+    with live:
         def refresh_display():
-            for i, phase_data in enumerate(phases):
-                table.rows[i].update(
-                    cells=[
-                        phase_data["name"],
-                        phase_data["status"],
-                        phase_data["progress"],
-                        phase_data["cost"],
-                    ]
-                )
-            live.refresh()
+            live.update(make_table(), refresh=True)
 
         try:
             retriever = imports['VideoIntelligenceRetriever'](
