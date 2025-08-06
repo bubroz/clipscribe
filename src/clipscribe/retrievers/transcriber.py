@@ -517,7 +517,7 @@ class GeminiFlashTranscriber:
                 if file.state.name == "FAILED":
                     raise ValueError(f"File upload failed with state: {file.state.name}")
                 
-                logger.info(f"Successfully uploaded file: {file.name}")
+                logger.debug(f"Successfully uploaded file: {file.name}")
                 return file
 
             except asyncio.TimeoutError:

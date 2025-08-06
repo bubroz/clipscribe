@@ -13,7 +13,6 @@ from .batch_extractor import BatchExtractor
 from .entity_normalizer import EntityNormalizer
 from .entity_quality_filter import EntityQualityFilter
 from .graph_cleaner import GraphCleaner
-from .model_manager import model_manager
 from .multi_video_processor import MultiVideoProcessor
 from .series_detector import SeriesDetector
 from .streaming_extractor import StreamingExtractor

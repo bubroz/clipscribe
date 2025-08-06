@@ -84,7 +84,7 @@ def split_video(
         ]
 
         try:
-            logger.info(f"Creating chunk {chunk_index}: {' '.join(command)}")
+            logger.debug(f"Creating chunk {chunk_index}: {' '.join(command)}")
             subprocess.run(command, check=True, capture_output=True, text=True)
             chunk_files.append(str(output_path))
         except (subprocess.CalledProcessError, FileNotFoundError) as e:
