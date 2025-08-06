@@ -511,18 +511,27 @@ async def transcribe_async(
         {"name": "Saving Outputs", "status": "Pending", "progress": "0%", "cost": "$0.00"},
     ]
 
-    def make_table():
-        table = Table(show_header=True, header_style="bold magenta", box=box.MINIMAL)
-        table.add_column("Phase", style="cyan", no_wrap=True)
-        table.add_column("Status")
-        table.add_column("Progress", style="yellow")
-        table.add_column("Cost", style="green")
-        for phase in phases:
-            table.add_row(phase["name"], phase["status"], phase["progress"], phase["cost"])
-        return table
+    table = Table(show_header=True, header_style="bold magenta", box=box.MINIMAL_HEAVY_HEAD)
+    table.add_column("Phase", style="cyan", no_wrap=True)
+    table.add_column("Status")
+    table.add_column("Progress", style="yellow")
+    table.add_column("Cost", style="green")
+    for phase in phases:
+        table.add_row(phase["name"], phase["status"], phase["progress"], phase["cost"])
 
-    live = Live(make_table(), console=console, screen=False, auto_refresh=False)
-    with live:
+    with Live(table, console=console, screen=False, auto_refresh=False) as live:
+        def refresh_display():
+            for i, phase_data in enumerate(phases):
+                table.rows[i].update(
+                    cells=[
+                        phase_data["name"],
+                        phase_data["status"],
+                        phase_data["progress"],
+                        phase_data["cost"],
+                    ]
+                )
+            live.refresh()
+
         try:
             retriever = imports['VideoIntelligenceRetriever'](
                 use_cache=use_cache,
@@ -538,10 +547,6 @@ async def transcribe_async(
                 settings=ctx.obj['settings']
             )
             
-            # This is a proxy to allow the retriever to trigger a refresh
-            def refresh_display():
-                live.update(make_table(), refresh=True)
-
             retriever.refresh_display = refresh_display
 
             if clean_graph:
@@ -555,35 +560,33 @@ async def transcribe_async(
             processing_duration = end_time - start_time
             
             if result is None:
-                # The error state should already be set by the retriever
                 console.print("[red]Video processing failed.[/red]")
                 ctx.exit(1)
             
-            # Final phase: Saving
             phases[5]["status"] = "In Progress"
             phases[5]["progress"] = "50%"
-            live.update(make_table(), refresh=True)
+            refresh_display()
+            
             saved_files = retriever.save_all_formats(result, str(output_dir))
+            
             phases[5]["status"] = "✓ Complete"
             phases[5]["progress"] = "100%"
-            live.update(make_table(), refresh=True)
-
-            # Final display after live is done
-            console.print(f"\n[green]Saved all formats to: {saved_files['directory']}[/green]")
-            _display_results(console, result)
-            
-            if performance_report:
-                # ... (performance report logic) ...
-                pass
-            
-            console.print("\n🎉 [bold green]Intelligence extraction complete![/bold green]")
+            refresh_display()
 
         except Exception as e:
             logger.error("An unhandled exception occurred in transcribe_async", exc_info=True)
             console.print(f"[bold red]FATAL ERROR:[/bold red] {e}")
-            # Ensure the final state of the table shows the failure
-            live.update(make_table(), refresh=True)
             ctx.exit(1)
+
+    # Final display after live is done
+    console.print(f"\n[green]Saved all formats to: {saved_files['directory']}[/green]")
+    _display_results(console, result)
+    
+    if performance_report:
+        # ... (performance report logic) ...
+        pass
+    
+    console.print("\n🎉 [bold green]Intelligence extraction complete![/bold green]")
 
 async def process_collection_async(
     ctx: click.Context,
