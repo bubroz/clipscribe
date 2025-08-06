@@ -26,14 +26,15 @@ class TuiManager:
     def __init__(self, console: Optional[Console] = None):
         self.console = console or Console()
         self.progress = self._create_progress_bar()
-        self.log_handler = RichHandler(show_path=False, console=self.console)
+        self.log_handler = RichHandler(show_path=False, console=self.console, markup=True)
         self.log_handler.setFormatter(logging.Formatter("%(message)s"))
         
-        # Capture logs
+        # Capture logs from the root logger
         logging.getLogger().addHandler(self.log_handler)
+        logging.getLogger().setLevel(logging.INFO)
         
         self.layout = self._create_layout()
-        self.live = Live(self.layout, screen=True, console=self.console, transient=True)
+        self.live = Live(self.layout, screen=True, console=self.console, transient=False, refresh_per_second=10)
 
     def _create_layout(self) -> Layout:
         """Creates the rich.Layout for the TUI."""
@@ -43,39 +44,26 @@ class TuiManager:
             Layout(ratio=1, name="main"),
             Layout(size=1, name="footer"),
         )
-        layout["main"].split_row(
-            Layout(name="side"), Layout(name="body", ratio=2)
-        )
-        layout["side"].split(Layout(name="progress_panel"))
+        layout["main"].split_row(Layout(name="progress_panel"), Layout(name="body", ratio=2))
         
-        # Header Panel
         header_panel = Panel(
             f"[bold cyan]CLIPSCRIBE v{__version__}[/] - AI Video Intelligence Engine",
-            box=box.HEAVY,
-            expand=True,
-            style="bold white on black"
+            box=box.HEAVY, expand=True, style="bold white on black"
         )
         layout["header"].update(header_panel)
-        
-        # Progress Panel
         layout["progress_panel"].update(self.progress)
         
-        # Log Panel
         log_panel = Panel(
-            self.log_handler.renderables,
-            title="[bold yellow]Processing Log[/]",
-            box=box.ROUNDED,
-            border_style="dim"
+            self.log_handler.renderables, title="[bold yellow]Processing Log[/]",
+            box=box.ROUNDED, border_style="dim"
         )
         layout["body"].update(log_panel)
 
-        # Footer
-        layout["footer"].update("[dim]Press Ctrl+C to exit[/]")
-
+        layout["footer"].update("[dim]Processing... Press Ctrl+C to exit[/]")
         return layout
     
     def _create_progress_bar(self) -> Progress:
-        """Creates a rich.progress.Progress instance with our custom columns."""
+        """Creates a rich.progress.Progress instance."""
         return Progress(
             SpinnerColumn(),
             TextColumn("[progress.description]{task.description}"),
@@ -94,16 +82,14 @@ class TuiManager:
         self.live.stop()
 
     def get_progress_callback(self):
-        """Returns a callback function to be used by the backend."""
-        # Create a task for the overall process
+        """Returns a callback function for the backend to report progress."""
         task_id = self.progress.add_task("Initializing...", total=100, cost=0.0)
 
         def callback(status: str, progress: int, cost: float):
-            """Updates the progress bar."""
             self.progress.update(
                 task_id,
                 description=status,
                 completed=progress,
-                cost=cost
+                fields={"cost": cost}
             )
         return callback
