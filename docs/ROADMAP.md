@@ -20,14 +20,14 @@ Our core competitive advantage is our ability to provide deep intelligence extra
   1. ~~Re-architect `transcriber.py` to use a two-step process: (1) Transcribe video to text, (2) Analyze text for intelligence.~~
   2. ~~Validate the fix with a >30 minute video from the `MASTER_TEST_VIDEO_TABLE.md`.~~
 
-### **Priority 2: Enhance CLI User Experience (Near-Term)**
-- **Status**: Not Started
-- **Justification**: The CLI is the primary interface for the tool. Improving its output clarity, reducing noise, and adding visual feedback will significantly enhance usability and professional polish.
+### **Priority 2: Implement "Deco-Futurist" TUI (In Progress)**
+- **Status**:  ইন প্রোগ্রেস
+- **Justification**: A professional, stable, and aesthetically pleasing CLI is a core feature, not an afterthought. It builds user trust and serves as an architectural prototype for the future web application.
 - **Tasks**:
-  1. **Architect a Centralized UI Manager**: Create a dedicated `CliProgressManager` to handle all `rich` progress rendering, decoupling UI from processing logic.
-  2. **Refine Log Output**: Implement clearer, summarized logs for hybrid extractor initialization. Remove artifact messages (e.g., outdated version numbers) and suppress verbose ffmpeg commands by default.
-  3. **Implement Rich Progress Bars**: Use the new manager to replace repetitive logs with a single, dynamic progress bar for downloads, chunking, and transcription.
-  4. **Standardize Output**: Ensure all user-facing messages are professional and consistently styled. Add a `--quiet` flag to minimize output.
+  1. **Architect `TuiManager`**: Create a centralized manager for the `rich.Layout` to handle all rendering.
+  2. **Create `log_panel`**: Implement a scrolling panel to capture and display logs cleanly.
+  3. **Decouple Logic**: Refactor `VideoIntelligenceRetriever` to use a simple callback system, making it UI-agnostic.
+  4. **Simplify CLI**: Refactor the main CLI command to use the `TuiManager`, drastically cleaning up the code.
 
 ### **Priority 3: Build a Core API**
 - **Status**: Not Started

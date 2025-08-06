@@ -5,6 +5,18 @@ All notable changes to ClipScribe will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v2.27.0 - 2025-08-05
+
+### ✨ Features
+- **"Deco-Futurist" TUI Architecture**: Implemented a new, sophisticated TUI (Text User Interface) using `rich.Layout` to provide a stable, professional, and aesthetically pleasing CLI experience.
+  - **Static Header & Footer**: Clean, static panels for title and status information.
+  - **Dedicated Progress Bar**: A single, stable progress bar that updates smoothly in place.
+  - **Scrolling Log Panel**: All INFO and DEBUG logs are now captured in a dedicated, scrolling panel, separating them from the main UI and creating an orderly display.
+- **Centralized UI Management**: Created a new `TuiManager` class to encapsulate all `rich` rendering logic, fully decoupling the UI from the core processing backend.
+
+### 🐛 Bug Fixes
+- **All UI Glitches Resolved**: The new architecture completely resolves previous issues with flickering displays, repeated headers, and `AttributeError` crashes.
+
 ## v2.26.0 - 2025-08-05
 
 ### ✨ Features
