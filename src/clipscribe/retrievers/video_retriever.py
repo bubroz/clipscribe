@@ -39,21 +39,19 @@ class VideoIntelligenceRetriever:
         cache_dir: Optional[str] = None,
         use_advanced_extraction: bool = True,
         domain: Optional[str] = None,
-        mode: str = "auto",  # Changed default to auto for v2.17.0
+        mode: str = "auto",
         use_cache: bool = True,
         output_dir: Optional[str] = None,
-        use_timeline_extractor: bool = False,
         enhance_transcript: bool = False,
         performance_monitor: Optional['PerformanceMonitor'] = None,
         cost_tracker: Optional['CostTracker'] = None,
         use_flash: bool = False,
-        live_progress: Optional[Any] = None,
-        phases: Optional[List[Dict]] = None,
         cookies_from_browser: Optional[str] = None,
-        settings: Optional[Settings] = None
+        settings: Optional[Settings] = None,
+        progress: Optional[CliProgressManager] = None
     ):
         """Initialize the retriever."""
-        self.use_pro = not use_flash  # Invert the flag
+        self.use_pro = not use_flash
 
         self.cache_dir = Path(cache_dir or "cache")
         self.cache_dir.mkdir(exist_ok=True)
@@ -62,51 +60,38 @@ class VideoIntelligenceRetriever:
         self.use_cache = use_cache
         self.output_dir = output_dir
         self.enhance_transcript = enhance_transcript
-        self.clean_graph = False  # Default to False, set via CLI
+        self.clean_graph = False
         self.performance_monitor = performance_monitor
         self.cost_tracker = cost_tracker
-        self.live_progress = live_progress
-        self.phases = phases
         self.cookies_from_browser = cookies_from_browser
+        self.progress = progress
         
-        self.use_advanced_extraction = use_advanced_extraction  # BUG FIX: Store the advanced extraction flag!
+        self.use_advanced_extraction = use_advanced_extraction
         
-        # Get v2.17.0 settings
         self.settings = settings or Settings()
         self.temporal_config = self.settings.get_temporal_intelligence_config()
         
-        # Initialize video retention manager
         self.retention_manager = VideoRetentionManager(self.settings)
         
-        # Initialize clients
         self.video_client = UniversalVideoClient()
         self.transcriber = GeminiFlashTranscriber(
             performance_monitor=performance_monitor,
             use_pro=self.use_pro
         )
         
-        # Initialize mode detector for auto mode (v2.17.0 enhancement)
         if mode == "auto":
             from .video_mode_detector import VideoModeDetector
             self.mode_detector = VideoModeDetector()
         else:
             self.mode_detector = None
         
-        # Choose entity extractor based on advanced extraction setting
         if use_advanced_extraction:
-            logger.info("Using advanced extraction with trust_gemini mode ")
-            try:
-                from ..extractors.advanced_hybrid_extractor import AdvancedHybridExtractor
-                self.entity_extractor = AdvancedHybridExtractor()
-            except ImportError:
-                logger.error("AdvancedHybridExtractor not found. Please check installation.")
-                self.entity_extractor = None
+            logger.info("Using advanced extraction with trust_gemini mode")
+            from ..extractors.advanced_hybrid_extractor import AdvancedHybridExtractor
+            self.entity_extractor = AdvancedHybridExtractor()
         else:
             self.entity_extractor = None
         
-        # Timeline Intelligence v2.0 Components DISCONTINUED per strategic pivot
-        
-        # Processing statistics
         self.videos_processed = 0
         self.total_cost = 0.0
         
@@ -165,187 +150,103 @@ class VideoIntelligenceRetriever:
             logger.error(f"Search failed: {e}")
             return []
     
-    async def process_url(self, video_url: str, progress_state: Optional[Dict[str, Any]] = None) -> Optional[VideoIntelligence]:
+    async def process_url(self, video_url: str) -> Optional[VideoIntelligence]:
         """
-        Process a video from ANY supported platform with v2.17.0 Enhanced Temporal Intelligence.
-        
-        Enhanced features:
-        - Enhanced temporal intelligence extraction
-        - Visual temporal cues from video content
-        - Smart video retention management
-        - Direct video-to-Gemini processing
-        
-        Supports:
-        - YouTube, Vimeo, Dailymotion
-        - Twitter/X, TikTok, Instagram
-        - BBC, CNN, TED, NBC
-        - SoundCloud, Bandcamp
-        - Twitch, Reddit
-        - And 1800+ more!
-        
-        Args:
-            video_url: URL from any supported video platform
-            progress_state: Optional progress tracking state
-            
-        Returns:
-            VideoIntelligence object with enhanced temporal intelligence or None if failed
+        Process a video from ANY supported platform.
         """
-        # Check if URL is supported
         if not self.video_client.is_supported_url(video_url):
             logger.error(f"URL not supported by yt-dlp: {video_url}")
+            if self.progress:
+                self.progress.log_error("Downloading", f"URL not supported: {video_url}")
             return None
             
-        if hasattr(self, 'progress_hook') and self.progress_hook:
-            self.progress_hook({"description": "Processing with Enhanced Temporal Intelligence..."})
-        
         try:
-            logger.info(f"Starting _process_video_enhanced for URL: {video_url}")
-            result = await self._process_video_enhanced(video_url)
-            logger.info(f"_process_video_enhanced returned: {result is not None}")
-            return result
+            return await self._process_video_enhanced(video_url)
         except Exception as e:
             logger.error(f"Exception in process_url: {e}", exc_info=True)
+            if self.progress:
+                self.progress.log_error("Processing", str(e))
             return None
-    
-    def _update_progress(self, phase_index: int, status: str, progress: Optional[str] = None, cost: Optional[float] = None):
-        """Update the live progress table in the CLI."""
-        if self.live_progress and self.phases:
-            try:
-                phase = self.phases[phase_index]
-                phase["status"] = status
-                if progress is not None:
-                    phase["progress"] = progress
-                if cost is not None:
-                    self.cost_tracker.add_cost(cost, "processing")
-                
-                # Always update cost from the central tracker
-                phase["cost"] = f"${self.cost_tracker.current_cost:.4f}"
-
-                # Rich-Live needs a new table object to render the update
-                def get_updated_table():
-                    table = Table(show_header=True, header_style="bold magenta", box=box.MINIMAL)
-                    table.add_column("Phase", style="cyan")
-                    table.add_column("Status")
-                    table.add_column("Progress", style="yellow")
-                    table.add_column("Cost", style="green")
-                    for p in self.phases:
-                        table.add_row(p["name"], p["status"], p["progress"], p["cost"])
-                    return table
-                
-                self.live_progress.update(get_updated_table())
-            except Exception as e:
-                logger.error(f"Failed to update progress: {e}")
 
     async def _process_video_enhanced(self, video_url: str) -> Optional[VideoIntelligence]:
-        """Process a single video, handling large files by splitting."""
-        # Phase 0: Downloading
-        if self.phases and self.refresh_display:
-            self.phases[0]["status"] = "In Progress"
-            self.phases[0]["progress"] = "10%"
-            self.refresh_display()
+        """Process a single video, handling all phases."""
+        current_cost = self.cost_tracker.current_cost if self.cost_tracker else 0.0
         
+        # Phase: Downloading
+        if self.progress:
+            self.progress.update_phase("Downloading", "In Progress...", cost=current_cost)
+
         cache_key = self._get_cache_key(video_url)
         if self.use_cache:
             cached_result = self._load_from_cache(cache_key)
             if cached_result:
                 logger.info(f"Using cached result for: {video_url}")
-                if self.phases and self.refresh_display:
-                    self.phases[0]["status"] = "✓ Cached"
-                    self.phases[0]["progress"] = "100%"
-                    self.refresh_display()
+                if self.progress:
+                    self.progress.complete_phase("Downloading", cost=current_cost)
                 return cached_result
         
-        processing_mode = await self._determine_enhanced_processing_mode(video_url)
-        if processing_mode in ["video", "enhanced"]:
-            media_file, metadata = await self.video_client.download_video(
-                video_url, 
-                output_dir=self.cache_dir,
-                cookies_from_browser=self.cookies_from_browser
-            )
-        else:
-            media_file, metadata = await self.video_client.download_audio(
-                video_url, 
-                output_dir=self.cache_dir
-            )
-        if self.phases and self.refresh_display:
-            self.phases[0]["status"] = "✓ Complete"
-            self.phases[0]["progress"] = "100%"
-            self.refresh_display()
+        media_file, metadata = await self.video_client.download_video(
+            video_url, 
+            output_dir=self.cache_dir,
+            cookies_from_browser=self.cookies_from_browser
+        )
+        
+        if self.progress:
+            self.progress.complete_phase("Downloading", cost=current_cost)
         
         media_path = Path(media_file)
         try:
-            # Phase 1: Transcribing
-            if self.phases and self.refresh_display:
-                self.phases[1]["status"] = "In Progress"
-                self.phases[1]["progress"] = "0%"
-                self.refresh_display()
+            # Phase: Transcribing
+            if self.progress:
+                self.progress.update_phase("Transcribing", "In Progress...", cost=current_cost)
 
-            # Check if the video is large and needs splitting
             if metadata.duration > 900:  # 15 minutes threshold
                 analysis = await self.transcriber.transcribe_large_video(media_file, metadata.duration)
             else:
-                if processing_mode in ["video", "enhanced"]:
-                    analysis = await self.transcriber.transcribe_video(media_file, metadata.duration)
-                else:
-                    analysis = await self.transcriber.transcribe_audio(media_file, metadata.duration)
+                analysis = await self.transcriber.transcribe_video(media_file, metadata.duration)
 
             if not analysis or "error" in analysis:
                 raise Exception(f"Transcription failed: {analysis.get('error', 'Unknown error')}")
 
-            self.cost_tracker.add_cost(analysis.get('processing_cost', 0.0), "transcription")
-            if self.phases and self.refresh_display:
-                self.phases[1]["status"] = "✓ Complete"
-                self.phases[1]["progress"] = "100%"
-                self.refresh_display()
+            if self.cost_tracker:
+                self.cost_tracker.add_cost(analysis.get('processing_cost', 0.0), "transcription")
+                current_cost = self.cost_tracker.current_cost
+
+            if self.progress:
+                self.progress.complete_phase("Transcribing", cost=current_cost)
 
             video_intelligence = self._create_video_intelligence_object(metadata, analysis)
 
-            # Subsequent phases...
-            # Phase 2: Extracting Intelligence
+            # Phase: Extracting Intelligence
             if self.use_advanced_extraction and self.entity_extractor:
-                if self.phases and self.refresh_display:
-                    self.phases[2]["status"] = "In Progress"
-                    self.phases[2]["progress"] = "0%"
-                    self.refresh_display()
+                if self.progress:
+                    self.progress.update_phase("Extracting Intelligence", "In Progress...", cost=current_cost)
                 video_intelligence = await self.entity_extractor.extract_all(video_intelligence, domain=self.domain)
-                if self.phases and self.refresh_display:
-                    self.phases[2]["status"] = "✓ Complete"
-                    self.phases[2]["progress"] = "100%"
-                    self.refresh_display()
+                if self.progress:
+                    self.progress.complete_phase("Extracting Intelligence", cost=current_cost)
 
-            # Phase 3: Building Knowledge Graph
+            # Phase: Building Knowledge Graph
             if video_intelligence.entities and video_intelligence.relationships:
-                if self.phases and self.refresh_display:
-                    self.phases[3]["status"] = "In Progress"
-                    self.phases[3]["progress"] = "0%"
-                    self.refresh_display()
+                if self.progress:
+                    self.progress.update_phase("Building Knowledge Graph", "In Progress...", cost=current_cost)
                 video_intelligence = self._build_knowledge_graph(video_intelligence)
-                if self.phases and self.refresh_display:
-                    self.phases[3]["status"] = "✓ Complete"
-                    self.phases[3]["progress"] = "100%"
-                    self.refresh_display()
-            else:
-                if self.phases and self.refresh_display:
-                    self.phases[3]["status"] = "✓ Skipped"
-                    self.phases[3]["progress"] = "100%"
-                    self.refresh_display()
-
-            # Phase 4: Managing Video Retention
-            if self.phases and self.refresh_display:
-                self.phases[4]["status"] = "In Progress"
-                self.phases[4]["progress"] = "0%"
-                self.refresh_display()
+                if self.progress:
+                    self.progress.complete_phase("Building Knowledge Graph", cost=current_cost)
+            
+            # Phase: Video Retention
+            if self.progress:
+                self.progress.update_phase("Video Retention", "Applying Policy...", cost=current_cost)
             retention_result = await self.retention_manager.handle_video_retention(media_path, video_intelligence)
             video_intelligence.processing_stats['retention_decision'] = retention_result
-            if self.phases and self.refresh_display:
-                self.phases[4]["status"] = "✓ Complete"
-                self.phases[4]["progress"] = "100%"
-                self.refresh_display()
+            if self.progress:
+                self.progress.complete_phase("Video Retention", cost=current_cost)
             
             self._save_to_cache(cache_key, video_intelligence)
             return video_intelligence
         finally:
-            if media_path.exists():
+            # The retention manager now handles file deletion/archiving.
+            # This ensures the original downloaded file is removed from cache if not archived.
+            if self.settings.video_retention_policy == VideoRetentionPolicy.DELETE and media_path.exists():
                 try:
                     os.remove(media_path)
                 except OSError as e:
