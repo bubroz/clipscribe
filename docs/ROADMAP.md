@@ -24,9 +24,10 @@ Our core competitive advantage is our ability to provide deep intelligence extra
 - **Status**: Not Started
 - **Justification**: The CLI is the primary interface for the tool. Improving its output clarity, reducing noise, and adding visual feedback will significantly enhance usability and professional polish.
 - **Tasks**:
-  1. **Refine Log Output**: Implement clearer, summarized logs for hybrid extractor initialization. Remove artifact messages (e.g., "BUG FIX", outdated version numbers) and suppress verbose ffmpeg commands by default.
-  2. **Implement Rich Progress Bars**: Replace repetitive upload/chunking logs with dynamic progress bars using `rich`, showing chunk progress and only logging retry attempts on failure.
-  3. **Standardize Output**: Ensure all user-facing messages are professional and consistently styled. Add a `--quiet` flag to minimize output.
+  1. **Architect a Centralized UI Manager**: Create a dedicated `CliProgressManager` to handle all `rich` progress rendering, decoupling UI from processing logic.
+  2. **Refine Log Output**: Implement clearer, summarized logs for hybrid extractor initialization. Remove artifact messages (e.g., outdated version numbers) and suppress verbose ffmpeg commands by default.
+  3. **Implement Rich Progress Bars**: Use the new manager to replace repetitive logs with a single, dynamic progress bar for downloads, chunking, and transcription.
+  4. **Standardize Output**: Ensure all user-facing messages are professional and consistently styled. Add a `--quiet` flag to minimize output.
 
 ### **Priority 3: Build a Core API**
 - **Status**: Not Started

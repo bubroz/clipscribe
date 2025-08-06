@@ -5,6 +5,18 @@ All notable changes to ClipScribe will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v2.26.0 - 2025-08-05
+
+### ✨ Features
+- **Professional CLI Display**: Overhauled the CLI's live progress display to be robust, clean, and professional.
+  - Implemented a dedicated `CliProgressManager` to centralize and manage all `rich` progress rendering.
+  - Replaced the buggy and verbose table with a single, stable `rich.progress.Progress` bar that updates in place without flickering.
+  - Decoupled UI logic from the core processing `VideoIntelligenceRetriever`, making the code cleaner and more maintainable.
+
+### 🐛 Bug Fixes
+- **CLI Crash**: Fixed a critical `AttributeError` that occurred when updating the progress display due to incorrect API usage of the `rich` library.
+- **Duplicate Logging**: Resolved an issue that caused `ModelManager` initialization logs to appear twice.
+
 ## v2.25.0 - 2025-08-05
 
 ### ✨ Features
