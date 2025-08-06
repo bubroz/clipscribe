@@ -18,6 +18,7 @@ from .video_retention_manager import VideoRetentionManager
 from ..utils.filename import create_output_filename, create_output_structure, extract_platform_from_url
 from ..config.settings import Settings, TemporalIntelligenceLevel, VideoRetentionPolicy
 from ..utils.file_utils import calculate_sha256
+from ..utils.cli_progress import CliProgressManager
 # Timeline features permanently discontinued per strategic pivot
 
 logger = logging.getLogger(__name__)
