@@ -91,7 +91,6 @@ def _get_core_imports():
 
 # Initialize minimal console (no heavy imports)
 _console = None
-_model_manager_initialized = False
 
 def _get_console():
     """Get console instance with lazy initialization."""
@@ -125,12 +124,14 @@ def cli(ctx: click.Context, debug: bool) -> None:
         if debug:
             logger.debug("Debug mode enabled")
         
-        imports = _get_core_imports()
-        ctx.obj["settings"] = imports['Settings']()
-        
-        console = _get_console()
-        console.print(f"[bold blue]ClipScribe v{__version__}[/bold blue]")
-        console.print("AI-powered video intelligence with Gemini 2.5 Pro\n")
+        # This check prevents re-initialization and duplicate logging
+        if 'settings' not in ctx.obj:
+            imports = _get_core_imports()
+            ctx.obj["settings"] = imports['Settings']()
+            
+            console = _get_console()
+            console.print(f"[bold blue]ClipScribe v{__version__}[/bold blue]")
+            console.print("AI-powered video intelligence with Gemini 2.5 Pro\n")
 
 # --- Command Groups ---
 
@@ -523,6 +524,7 @@ async def transcribe_async(
         return table
 
     live = Live(make_table(), console=console, screen=True, auto_refresh=False)
+
     with live:
         def refresh_display():
             live.update(make_table(), refresh=True)
