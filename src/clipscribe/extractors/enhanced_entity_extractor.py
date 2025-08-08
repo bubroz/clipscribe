@@ -86,7 +86,7 @@ class EnhancedEntityExtractor:
             
             # Create enhanced entity
             enhanced = EnhancedEntity(
-                entity=canonical_form,
+                name=canonical_form,
                 type=entity_type,
                 extraction_sources=sources,
                 mention_count=len(entity_group),
@@ -97,7 +97,7 @@ class EnhancedEntityExtractor:
             )
             
             enhanced_entities.append(enhanced)
-            logger.debug(f"DEBUG: Created enhanced entity: {enhanced.entity} (type: {enhanced.type})")
+            logger.debug(f"DEBUG: Created enhanced entity: {enhanced.name} (type: {enhanced.type})")
             
         logger.debug(f"DEBUG: enhance_entities returning {len(enhanced_entities)} enhanced entities")
         return enhanced_entities
@@ -258,7 +258,6 @@ class EnhancedEntityExtractor:
                     context = EntityContext(
                         text=text[start:end],
                         timestamp=timestamp,
-                        confidence=0.90,  # High confidence for direct text match
                         speaker=segment.get('speaker'),
                         visual_present=False  # Would need visual data to determine
                     )

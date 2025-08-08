@@ -68,7 +68,7 @@ def show_collection_overview(collection_path: Path, intelligence):
     # Collection summary
     collection_summary = intelligence.get('collection_summary')
     if collection_summary:
-        st.subheader("📝 Collection Summary")
+        st.subheader(" Collection Summary")
         with st.expander("View Summary", expanded=True):
             if isinstance(collection_summary, str):
                 st.write(collection_summary)
@@ -86,13 +86,13 @@ def show_collection_overview(collection_path: Path, intelligence):
     # Show key insights if they exist at top level
     key_insights = intelligence.get('key_insights', [])
     if key_insights:
-        st.subheader("💡 Key Insights")
+        st.subheader(" Key Insights")
         for insight in key_insights:
             st.markdown(f"• {insight}")
 
 def show_videos_list(intelligence):
     """Show list of videos in collection"""
-    st.subheader("📹 Videos in Collection")
+    st.subheader(" Videos in Collection")
     
     videos = intelligence.get('videos', [])
     for i, video in enumerate(videos):
@@ -123,7 +123,7 @@ def show_videos_list(intelligence):
 
 def show_cross_video_entities(intelligence):
     """Show unified entities analysis"""
-    st.subheader("👥 Unified Entities") 
+    st.subheader(" Unified Entities") 
     
     unified_entities = intelligence.get('unified_entities', [])
     if not unified_entities:
@@ -208,21 +208,21 @@ def show_knowledge_synthesis(collection_path: Path, intelligence):
         st.write(f"**Events:** {len(events)}")
         st.write(f"**Time Range:** {time_range_start} to {time_range_end}")
         
-        st.info("💡 Upgrade to Timeline Building Pipeline by reprocessing with `--enhanced-temporal`")
+        st.info(" Upgrade to Timeline Building Pipeline by reprocessing with `--enhanced-temporal`")
     
     # Information Flow Maps
     collection_id = intelligence.get('collection_id', 'unknown')
     flow_map_file = collection_path / "information_flow_map.json"
     if flow_map_file.exists():
-        st.subheader("🔄 Information Flow Maps Available")
-        st.success("✅ Information Flow Maps generated for this collection")
+        st.subheader(" Information Flow Maps Available")
+        st.success(" Information Flow Maps generated for this collection")
         
         if st.button("View Information Flows", key=f"if_{collection_id}_{abs(hash(str(collection_path)))}"):
             st.switch_page("pages/Information_Flows.py")
 
 def main():
     """Main collections page with Timeline Building Pipeline integration"""
-    st.title("📹 Collections Management")
+    st.title(" Collections Management")
     st.markdown("**Enhanced with Timeline Building Pipeline (v2.17.0)**")
     
     # Look for collections (check both backup and standard locations)
@@ -241,7 +241,7 @@ def main():
     if not collections_path:
         st.warning("No collections directory found. Process some multi-video collections first!")
         
-        st.subheader("🚀 Getting Started with Timeline Intelligence")
+        st.subheader(" Getting Started with Timeline Intelligence")
         st.markdown("""
         To create collections with enhanced temporal intelligence:
         
@@ -259,12 +259,12 @@ def main():
         ```
         
         **Timeline Building Pipeline Features:**
-        - ✅ **300% More Intelligence** for only 12-20% cost increase
-        - ✅ **Enhanced Temporal Event Extraction** from video content
-        - ✅ **Cross-Video Timeline Correlation** with intelligent synthesis
-        - ✅ **Web Research Integration** for external validation (optional)
-        - ✅ **Interactive Timeline Visualizations** in Mission Control
-        - ✅ **Timeline Export** to external tools and formats
+        -  **300% More Intelligence** for only 12-20% cost increase
+        -  **Enhanced Temporal Event Extraction** from video content
+        -  **Cross-Video Timeline Correlation** with intelligent synthesis
+        -  **Web Research Integration** for external validation (optional)
+        -  **Interactive Timeline Visualizations** in Mission Control
+        -  **Timeline Export** to external tools and formats
         """)
         return
     
@@ -354,14 +354,14 @@ def main():
         if intelligence:
             # Show collection details
             collection_id = intelligence.get('collection_id', selected_collection)
-            st.success(f"✅ Loaded collection: {collection_id}")
+            st.success(f" Loaded collection: {collection_id}")
             
             # Enhanced Tabs with Timeline Building Pipeline
             tab1, tab2, tab3, tab4, tab5 = st.tabs([
-                "📊 Overview", 
-                "📹 Videos", 
-                "👥 Entities", 
-                "🧠 Knowledge Synthesis"
+                " Overview", 
+                " Videos", 
+                " Entities", 
+                " Knowledge Synthesis"
             ])
             
             with tab1:

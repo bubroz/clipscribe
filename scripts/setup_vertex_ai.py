@@ -26,7 +26,7 @@ def create_staging_bucket():
         bucket = client.bucket(bucket_name)
         
         if bucket.exists():
-            print(f"✅ Bucket {bucket_name} already exists")
+            print(f" Bucket {bucket_name} already exists")
             return
         
         # Create bucket
@@ -40,41 +40,41 @@ def create_staging_bucket():
         bucket.add_lifecycle_rule(rule)
         bucket.patch()
         
-        print(f"✅ Created bucket {bucket_name} with 1-day lifecycle rule")
+        print(f" Created bucket {bucket_name} with 1-day lifecycle rule")
         
     except exceptions.Forbidden:
-        print(f"❌ Permission denied. Make sure you have storage.buckets.create permission")
+        print(f" Permission denied. Make sure you have storage.buckets.create permission")
         print(f"   Run: gcloud projects add-iam-policy-binding {VERTEX_AI_PROJECT_ID} \\")
         print(f"        --member=user:YOUR_EMAIL --role=roles/storage.admin")
         sys.exit(1)
     except Exception as e:
-        print(f"❌ Error creating bucket: {e}")
+        print(f" Error creating bucket: {e}")
         sys.exit(1)
 
 
 def check_vertex_ai_setup():
     """Check if Vertex AI is properly configured."""
-    print(f"🔍 Checking Vertex AI setup...")
+    print(f" Checking Vertex AI setup...")
     print(f"   Project ID: {VERTEX_AI_PROJECT_ID}")
     print(f"   Location: {VERTEX_AI_LOCATION}")
     print(f"   Staging Bucket: {VERTEX_AI_STAGING_BUCKET}")
     
     # Check if gcloud is authenticated
     if not os.getenv("GOOGLE_APPLICATION_CREDENTIALS"):
-        print("\n⚠️  GOOGLE_APPLICATION_CREDENTIALS not set")
+        print("\n  GOOGLE_APPLICATION_CREDENTIALS not set")
         print("   Run: gcloud auth application-default login")
     else:
-        print(f"\n✅ Using credentials from: {os.getenv('GOOGLE_APPLICATION_CREDENTIALS')}")
+        print(f"\n Using credentials from: {os.getenv('GOOGLE_APPLICATION_CREDENTIALS')}")
 
 
 if __name__ == "__main__":
-    print("🚀 Setting up Vertex AI for ClipScribe\n")
+    print(" Setting up Vertex AI for ClipScribe\n")
     
     check_vertex_ai_setup()
     print()
     create_staging_bucket()
     
-    print("\n✅ Vertex AI setup complete!")
-    print("\n📝 Next steps:")
+    print("\n Vertex AI setup complete!")
+    print("\n Next steps:")
     print("1. Update .env with: USE_VERTEX_AI=true")
     print("2. Run: poetry run clipscribe transcribe <video_url>") 

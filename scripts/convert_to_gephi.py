@@ -95,18 +95,18 @@ def convert_to_networkx(graph_data: dict) -> nx.DiGraph:
 def save_gexf(G: nx.DiGraph, output_path: Path):
     """Save NetworkX graph as GEXF file for Gephi."""
     nx.write_gexf(G, output_path)
-    print(f"✓ Saved GEXF file to: {output_path}")
+    print(f" Saved GEXF file to: {output_path}")
 
 
 def save_graphml(G: nx.DiGraph, output_path: Path):
     """Save NetworkX graph as GraphML file (alternative format)."""
     nx.write_graphml(G, output_path)
-    print(f"✓ Saved GraphML file to: {output_path}")
+    print(f" Saved GraphML file to: {output_path}")
 
 
 def print_stats(G: nx.DiGraph):
     """Print graph statistics."""
-    print("\n📊 Graph Statistics:")
+    print("\n Graph Statistics:")
     print(f"  • Nodes: {G.number_of_nodes()}")
     print(f"  • Edges: {G.number_of_edges()}")
     print(f"  • Density: {nx.density(G):.3f}")
@@ -117,7 +117,7 @@ def print_stats(G: nx.DiGraph):
     for node, node_type in node_types.items():
         type_counts[node_type] = type_counts.get(node_type, 0) + 1
     
-    print("\n📌 Entity Types:")
+    print("\n Entity Types:")
     for entity_type, count in sorted(type_counts.items(), key=lambda x: x[1], reverse=True):
         print(f"  • {entity_type}: {count}")
     
@@ -125,7 +125,7 @@ def print_stats(G: nx.DiGraph):
     degree_dict = dict(G.degree())
     top_nodes = sorted(degree_dict.items(), key=lambda x: x[1], reverse=True)[:5]
     
-    print("\n🔗 Most Connected Entities:")
+    print("\n Most Connected Entities:")
     for node, degree in top_nodes:
         node_type = G.nodes[node].get('type', 'unknown')
         print(f"  • {node} ({node_type}): {degree} connections")
@@ -161,19 +161,19 @@ def main():
     
     # Check input file
     if not args.input_file.exists():
-        print(f"❌ Error: File not found: {args.input_file}")
+        print(f" Error: File not found: {args.input_file}")
         sys.exit(1)
     
     # Load graph
-    print(f"📂 Loading knowledge graph from: {args.input_file}")
+    print(f" Loading knowledge graph from: {args.input_file}")
     try:
         graph_data = load_clipscribe_graph(args.input_file)
     except Exception as e:
-        print(f"❌ Error loading JSON: {e}")
+        print(f" Error loading JSON: {e}")
         sys.exit(1)
     
     # Convert to NetworkX
-    print("🔄 Converting to NetworkX format...")
+    print(" Converting to NetworkX format...")
     G = convert_to_networkx(graph_data)
     
     # Determine output path
@@ -195,8 +195,8 @@ def main():
     if args.stats:
         print_stats(G)
     
-    print("\n✅ Conversion complete!")
-    print("\n📝 Next steps:")
+    print("\n Conversion complete!")
+    print("\n Next steps:")
     print("1. Open Gephi (download from https://gephi.org)")
     print("2. File → Open → Select the .gexf file")
     print("3. In Overview tab:")

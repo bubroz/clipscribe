@@ -4,7 +4,7 @@
 
 This directory contains example scripts demonstrating various features and use cases of ClipScribe with **enhanced entity and relationship extraction**.
 
-## 🚀 v2.19.0 Extraction Quality
+##  v2.19.0 Extraction Quality
 
 **ClipScribe v2.19.0** features dramatically improved extraction:
 - **Entity Completeness**: Targets 100% extraction (16+ entities per video)
@@ -13,7 +13,7 @@ This directory contains example scripts demonstrating various features and use c
 - **Fixed Quality Filters**: No longer removes 70% of valid entities
 - **Cost Effective**: Still only $0.0083 per video
 
-## 🚀 Quick Start
+##  Quick Start
 
 The easiest way to get started:
 
@@ -21,7 +21,7 @@ The easiest way to get started:
 python examples/quick_start.py
 ```
 
-## 📚 Available Examples
+##  Available Examples
 
 ### 1. **quick_start.py** - Simple Processing
 The simplest way to process a video and extract intelligence.
@@ -84,7 +84,7 @@ Compare different extraction methods and their results.
 - Quality metrics comparison
 - Source attribution analysis
 
-### 10. **multi_video_collection_demo.py** - 🧠 Multi-Video Intelligence
+### 10. **multi_video_collection_demo.py** -  Multi-Video Intelligence
 Enhanced multi-video collection processing with entity correlation.
 
 ```bash
@@ -104,7 +104,7 @@ Example output:
 - Performance optimization metrics
 - Information flow analysis
 
-### 11. **performance_optimization_demo.py** - ⚡ NEW Timeline v2.0 Performance
+### 11. **performance_optimization_demo.py** -  NEW Timeline v2.0 Performance
 Demonstrates Timeline Intelligence v2.0 performance optimization capabilities.
 
 ```bash
@@ -118,7 +118,7 @@ Features:
 - **Resource Management**: Configurable memory limits and batch sizing
 - **Optimization Analytics**: Performance metrics and efficiency tracking
 
-## 🛠️ Prerequisites
+##  Prerequisites
 
 Before running the examples:
 
@@ -147,7 +147,7 @@ Before running the examples:
    sudo apt-get install ffmpeg
    ```
 
-## 💡 Usage Tips
+##  Usage Tips
 
 1. **Start with quick_start.py** to understand basic extraction
 2. **Try multi_video_collection_demo.py** for cross-video intelligence
@@ -155,7 +155,7 @@ Before running the examples:
 4. **Check cost_optimization.py** for cost/benefit analysis
 5. **Explore output_formats.py** for export options
 
-## 🎯 Common Patterns
+##  Common Patterns
 
 ### Process a Single Video
 ```python
@@ -198,7 +198,7 @@ result = await processor.process_collection(
 )
 ```
 
-## 📊 Performance Expectations (v2.19.0)
+##  Performance Expectations (v2.19.0)
 
 - **Speed**: 2-4 minutes to process 1 hour of video
 - **Cost**: $0.002/minute ($0.0083 per 5-minute video)
@@ -206,7 +206,7 @@ result = await processor.process_collection(
 - **Memory**: <2GB for typical usage
 - **Platforms**: 1800+ supported sites
 
-## 🚀 v2.19.0 Success Metrics
+##  v2.19.0 Success Metrics
 
 **Entity Completeness**: Targets 100% extraction (was filtering 70%)
 **Relationship Quality**: 52+ relationships with evidence chains
@@ -214,7 +214,7 @@ result = await processor.process_collection(
 **Cost Efficiency**: Still only $0.0083 per video
 **Quality Filters**: Fixed to keep valid entities
 
-## 🤝 Contributing
+##  Contributing
 
 Found a useful pattern? Feel free to contribute new examples!
 
@@ -224,7 +224,7 @@ Found a useful pattern? Feel free to contribute new examples!
 4. Update this README
 5. Submit a pull request
 
-## 📚 More Resources
+##  More Resources
 
 - [Getting Started Guide](../docs/GETTING_STARTED.md)
 - [Output Formats](../docs/OUTPUT_FORMATS.md)
@@ -234,4 +234,4 @@ Found a useful pattern? Feel free to contribute new examples!
 
 ---
 
-**ClipScribe v2.19.0**: Comprehensive video intelligence extraction! 🎯 
+**ClipScribe v2.19.0**: Comprehensive video intelligence extraction!  

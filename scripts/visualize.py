@@ -20,7 +20,7 @@ def create_3d_graph(knowledge_graph_path: str, output_path: str = None):
         import plotly.graph_objects as go
         import networkx as nx
     except ImportError:
-        print("❌ Error: Plotly and NetworkX are required for 3D visualization.")
+        print(" Error: Plotly and NetworkX are required for 3D visualization.")
         print("Please run: pip install plotly networkx")
         sys.exit(1)
 
@@ -94,7 +94,7 @@ def create_3d_graph(knowledge_graph_path: str, output_path: str = None):
         output_path = input_path.parent / "knowledge_graph_3d.html"
     
     fig.write_html(str(output_path), config={'displaylogo': False})
-    print(f"🌟 3D visualization saved to: {output_path}")
+    print(f" 3D visualization saved to: {output_path}")
 
 
 # --- 2D Visualization Logic (from visualize_knowledge_graph.py) ---
@@ -141,7 +141,7 @@ def create_2d_graph(knowledge_graph_path: str, output_path: str = None):
         output_path = input_path.parent / "knowledge_graph_interactive.html"
         
     net.save_graph(str(output_path))
-    print(f"✨ 2D Interactive graph saved to: {output_path}")
+    print(f" 2D Interactive graph saved to: {output_path}")
 
 
 # --- Main Controller ---
@@ -169,42 +169,42 @@ def main():
     
     input_path = Path(args.input)
     if not input_path.exists():
-        print(f"❌ Error: {input_path} not found")
+        print(f" Error: {input_path} not found")
         sys.exit(1)
         
     # --- Filtering Step ---
     if args.no_filter:
         filtered_path = input_path
-        print("🎯 Skipping filtering, visualizing original graph.")
+        print(" Skipping filtering, visualizing original graph.")
     else:
         filter_cmd = [sys.executable, str(Path(__file__).parent / "filter_knowledge_graph.py"), str(input_path)]
         
         if args.aggressive:
             filter_cmd.extend(["--aggressive"])
-            print("🧹 Using aggressive filtering...")
+            print(" Using aggressive filtering...")
         elif args.moderate:
             filter_cmd.extend(["--min-connections", "1", "--confidence", "0.65"])
-            print("🧹 Using moderate filtering...")
+            print(" Using moderate filtering...")
             
         if args.min_connections is not None:
             filter_cmd.extend(["--min-connections", str(args.min_connections)])
         if args.confidence is not None:
             filter_cmd.extend(["--confidence", str(args.confidence)])
             
-        print(f"📊 Filtering {input_path.name}...")
+        print(f" Filtering {input_path.name}...")
         result = subprocess.run(filter_cmd, capture_output=True, text=True)
         if result.returncode != 0:
-            print(f"❌ Filtering failed: {result.stderr}")
+            print(f" Filtering failed: {result.stderr}")
             sys.exit(1)
         print(result.stdout)
         filtered_path = input_path.parent / "knowledge_graph_filtered.json"
         
     # --- Visualization Step ---
     if args.three_d:
-        print("\n🎨 Creating 3D visualization...")
+        print("\n Creating 3D visualization...")
         create_3d_graph(str(filtered_path))
     else: # Default to 2D
-        print("\n🎨 Creating 2D visualization...")
+        print("\n Creating 2D visualization...")
         create_2d_graph(str(filtered_path))
 
 if __name__ == "__main__":

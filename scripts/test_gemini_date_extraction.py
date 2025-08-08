@@ -309,11 +309,11 @@ async def main():
         if result.get('success'):
             rate = result['success_rate']
             if rate >= 70:
-                console.print(f"[bold green]✓ Success rate: {rate:.1f}%[/bold green]")
+                console.print(f"[bold green] Success rate: {rate:.1f}%[/bold green]")
             elif rate >= 40:
-                console.print(f"[yellow]⚡ Success rate: {rate:.1f}%[/yellow]")
+                console.print(f"[yellow] Success rate: {rate:.1f}%[/yellow]")
             else:
-                console.print(f"[red]✗ Success rate: {rate:.1f}%[/red]")
+                console.print(f"[red] Success rate: {rate:.1f}%[/red]")
     
     # Generate comprehensive report
     tester.generate_report()

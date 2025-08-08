@@ -4,7 +4,7 @@
 
 Interactive web interface for managing and visualizing ClipScribe video intelligence collections with **enhanced extraction quality**.
 
-## 🚀 v2.19.0 Extraction Quality!
+##  v2.19.0 Extraction Quality!
 
 **ClipScribe Mission Control** features dramatically improved extraction:
 - **Entity Visualization**: 16+ entities per video with source tracking
@@ -13,7 +13,7 @@ Interactive web interface for managing and visualizing ClipScribe video intellig
 - **Performance Monitoring**: Real-time processing tracking
 - **Cross-Video Synthesis**: Multi-video entity correlation interface
 
-## 🚀 Quick Start
+##  Quick Start
 
 ### Launch the Interface
 ```bash
@@ -28,16 +28,16 @@ The interface will open in your browser at `http://localhost:8501`
 - Google API key configured (`GOOGLE_API_KEY` environment variable)
 - Some processed videos or collections (optional for demo)
 
-## 📱 Interface Overview
+##  Interface Overview
 
-### 🏠 Dashboard
+###  Dashboard
 The main landing page provides:
 - **Quick Stats**: Collection and video counts with processing indicators
 - **Feature Cards**: Overview of Collections, Analytics, and Information Flows
 - **Recent Activity**: Shows your 5 most recently processed videos/collections
 - **System Status**: API key configuration and cost tracking
 
-### 📹 Collections
+###  Collections
 Browse and manage multi-video collections:
 
 **Overview Tab**:
@@ -60,7 +60,7 @@ Browse and manage multi-video collections:
 - Cross-video relationship mapping
 - Information flow analysis
 
-### 🔄 Information Flows
+###  Information Flows
 Track concept evolution across videos:
 
 **Overview Tab**:
@@ -78,7 +78,7 @@ Track concept evolution across videos:
 - Introduction and development tracking
 - Cross-video concept correlation
 
-### 📊 Analytics
+###  Analytics
 Enhanced monitoring and insights:
 
 **Cost Overview Tab**:
@@ -96,39 +96,39 @@ Enhanced monitoring and insights:
 - Relationship confidence tracking
 - Knowledge graph density analysis
 
-## 💡 Key Features
+##  Key Features
 
-### 🔍 Data Integration
+###  Data Integration
 - **Automatic Detection**: Finds all processed videos and collections
 - **Enhanced JSON Loading**: Loads complete extraction data
 - **Quality Metrics**: Real-time extraction quality tracking
 - **Performance Monitoring**: Processing efficiency metrics
 
-### 🎬 Intelligence Visualization
+###  Intelligence Visualization
 - **Interactive Charts**: Entity/relationship visualization
 - **Knowledge Graphs**: Network visualization with filtering
 - **Performance Graphs**: Processing efficiency metrics
 - **Quality Analysis**: Extraction confidence distributions
 
-### 📥 Download Options
+###  Download Options
 - **Complete Exports**: All extraction data formats
 - **Research Formats**: Academic-compatible exports
 - **Performance Reports**: Processing analytics
 - **Quality Analysis**: Extraction metrics documentation
 
-### 🎨 User Experience
+###  User Experience
 - **Modern Interface**: Clean, intuitive design
 - **Interactive Elements**: Expandable sections and filters
 - **Real-time Feedback**: Processing status updates
 - **Quality Indicators**: Visual extraction quality tracking
 
-### 🔐 Security
+###  Security
 - **Local Processing**: All data stays on your system
 - **API Key Protection**: Secure credential handling
 - **Performance Monitoring**: Resource usage tracking
 - **Error Handling**: Graceful error recovery
 
-## 🛠️ Troubleshooting
+##  Troubleshooting
 
 ### "No data found"
 - Process videos first:
@@ -147,7 +147,7 @@ Enhanced monitoring and insights:
   poetry run clipscribe --version  # Should show v2.19.0+
   ```
 
-## 🚧 Future Enhancements
+##  Future Enhancements
 
 ### Advanced Visualizations
 - Interactive knowledge graph exploration
@@ -169,7 +169,7 @@ Enhanced monitoring and insights:
 - Automated report generation
 - Integration with research tools
 
-## 🎯 Best Practices
+##  Best Practices
 
 ### For Best Performance
 1. **Process in batches**: Use collection processing for multiple videos
@@ -181,7 +181,7 @@ Enhanced monitoring and insights:
 2. **Process collections**: Related videos provide better cross-video insights
 3. **Review quality**: Check extraction quality metrics regularly
 
-## 📞 Support
+##  Support
 
 For issues or questions:
 - Check documentation in `docs/`
@@ -191,4 +191,4 @@ For issues or questions:
 
 ---
 
-**ClipScribe Mission Control** - Comprehensive video intelligence visualization! 🎬🚀 
+**ClipScribe Mission Control** - Comprehensive video intelligence visualization!  

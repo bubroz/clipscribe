@@ -9,13 +9,13 @@ ClipScribe supports Google Cloud Vertex AI for enterprise-scale video processing
 
 ## When to Use Vertex AI vs Gemini API
 
-### Use Gemini API (Default) When:
+### Use Gemini API (Default) When
 - Processing < 100 videos per day
 - Want simplest setup (just an API key)
 - Cost is ~$0.0035 per video
 - Don't need enterprise features
 
-### Use Vertex AI When:
+### Use Vertex AI When
 - Processing 100+ videos per day
 - Need enterprise security/compliance
 - Want to pre-upload videos to GCS
@@ -104,8 +104,7 @@ gcs_uris = await uploader.batch_upload(videos)
 
 ```bash
 # Process pre-uploaded video
-clipscribe transcribe "gs://your-bucket/videos/video.mp4" \
-    --mode video
+clipscribe --debug process video "gs://your-bucket/videos/video.mp4"
 ```
 
 ### Programmatic Usage
@@ -154,6 +153,7 @@ result = await transcriber.transcribe_video(
 ## Best Practices
 
 ### 1. Batch Processing
+
 ```python
 # Process multiple videos efficiently
 videos = load_video_list()
@@ -167,6 +167,7 @@ for batch in chunks(videos, size=10):
 - Process in regions close to your users
 
 ### 3. Error Handling
+
 ```python
 try:
     result = await transcriber.transcribe_video(gcs_uri)
@@ -246,4 +247,4 @@ class EnterpriseVideoPipeline:
 - **ClipScribe Issues**: GitHub issues
 - **Documentation**: This guide and GCP docs
 
-Remember: Vertex AI is powerful but requires more setup. Start with Gemini API and migrate when you need scale! 🚀 
+Remember: Vertex AI is powerful but requires more setup. Start with Gemini API and migrate when you need scale!  

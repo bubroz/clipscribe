@@ -101,4 +101,4 @@ def pytest_addoption(parser):
         action="store_true",
         default=False,
         help="Run integration tests only"
-    )  # :-) 
+    )

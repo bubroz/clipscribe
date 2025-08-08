@@ -162,9 +162,9 @@ async def main():
     # Print summary
     logger.info("\n" + "="*60)
     logger.info("Pre-upload Summary:")
-    logger.info(f"✅ Successful uploads: {len(results['successful_uploads'])}")
-    logger.info(f"⏭️  Skipped (already uploaded): {len(results['skipped'])}")
-    logger.info(f"❌ Failed uploads: {len(results['failed_uploads'])}")
+    logger.info(f" Successful uploads: {len(results['successful_uploads'])}")
+    logger.info(f"⏭  Skipped (already uploaded): {len(results['skipped'])}")
+    logger.info(f" Failed uploads: {len(results['failed_uploads'])}")
     
     if results['failed_uploads']:
         logger.info("\nFailed uploads:")

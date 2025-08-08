@@ -23,7 +23,7 @@ async def demonstrate_output_formats():
     # Sample video
     video_url = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
     
-    print("📹 Processing video for format demonstration...")
+    print(" Processing video for format demonstration...")
     
     # Process with all formats
     result = await client.transcribe_video(
@@ -32,10 +32,10 @@ async def demonstrate_output_formats():
         output_formats=['txt', 'json']  # Core formats for intelligence extraction
     )
     
-    print("\n✅ Video processed! Demonstrating output formats:\n")
+    print("\n Video processed! Demonstrating output formats:\n")
     
     # 1. Plain Text (.txt)
-    print("1️⃣ Plain Text (.txt)")
+    print("1⃣ Plain Text (.txt)")
     print("-" * 40)
     print("Simple text transcript, perfect for:")
     print("  • Reading and analysis")
@@ -45,7 +45,7 @@ async def demonstrate_output_formats():
     print(result.transcript.full_text[:200] + "...\n")
     
     # 2. JSON (.json)
-    print("2️⃣ JSON (.json)")
+    print("2⃣ JSON (.json)")
     print("-" * 40)
     print("Structured data format with full metadata:")
     print("  • API integration")
@@ -79,7 +79,7 @@ async def demonstrate_output_formats():
     print(json.dumps(example_json, indent=2)[:400] + "...\n")
     
     # 3. Knowledge Graph Files
-    print("3️⃣ Knowledge Graph Formats")
+    print("3⃣ Knowledge Graph Formats")
     print("-" * 40)
     print("Extracted intelligence in graph format:")
     print("  • knowledge_graph.json - Raw graph data")
@@ -94,11 +94,11 @@ async def demonstrate_output_formats():
 async def intelligence_format_examples(result: VideoIntelligence):
     """Show intelligence extraction output formats."""
     
-    print("\n\n🧠 Intelligence Extraction Formats")
+    print("\n\n Intelligence Extraction Formats")
     print("=" * 50)
     
     # 1. Entities format
-    print("\n1️⃣ Entities JSON Format:")
+    print("\n1⃣ Entities JSON Format:")
     print("-" * 40)
     entities_example = {
         "video_url": result.metadata.url,
@@ -112,7 +112,7 @@ async def intelligence_format_examples(result: VideoIntelligence):
     print(json.dumps(entities_example, indent=2))
     
     # 2. Relationships format
-    print("\n2️⃣ Relationships JSON Format:")
+    print("\n2⃣ Relationships JSON Format:")
     print("-" * 40)
     relationships_example = {
         "relationships": [
@@ -133,7 +133,7 @@ async def intelligence_format_examples(result: VideoIntelligence):
     print(json.dumps(relationships_example, indent=2))
     
     # 3. Knowledge Graph GEXF
-    print("\n3️⃣ GEXF Format (for Gephi):")
+    print("\n3⃣ GEXF Format (for Gephi):")
     print("-" * 40)
     print("XML-based graph format that includes:")
     print("  • Node colors by entity type")
@@ -142,7 +142,7 @@ async def intelligence_format_examples(result: VideoIntelligence):
     print("  • Ready for Gephi import")
     
     # 4. Facts format
-    print("\n4️⃣ Facts Text Format:")
+    print("\n4⃣ Facts Text Format:")
     print("-" * 40)
     print("# Key Facts Extracted from Video")
     print("")
@@ -192,7 +192,7 @@ async def save_intelligence_outputs(result: VideoIntelligence, output_dir: str =
     with open(manifest_path, 'w') as f:
         json.dump(manifest, f, indent=2)
     
-    print(f"\n💾 Intelligence outputs saved to {video_dir}/")
+    print(f"\n Intelligence outputs saved to {video_dir}/")
     print(f"  • Transcript: transcript.txt")
     print(f"  • Full data: transcript.json")
     print(f"  • Manifest: manifest.json")
@@ -202,10 +202,10 @@ async def main():
     """Demonstrate all output format options."""
     
     if not os.getenv("GOOGLE_API_KEY"):
-        print("❌ Error: Please set GOOGLE_API_KEY in your .env file")
+        print(" Error: Please set GOOGLE_API_KEY in your .env file")
         return
     
-    print("📄 ClipScribe Output Formats Demo")
+    print(" ClipScribe Output Formats Demo")
     print("=" * 50)
     
     # Show all standard formats
@@ -217,7 +217,7 @@ async def main():
     # Save outputs
     await save_intelligence_outputs(result)
     
-    print("\n\n🎯 Format Selection Guide:")
+    print("\n\n Format Selection Guide:")
     print("  • TXT: General purpose, human-readable transcript")
     print("  • JSON: Full structured data with entities and relationships")
     print("  • GEXF: Knowledge graph for Gephi visualization")

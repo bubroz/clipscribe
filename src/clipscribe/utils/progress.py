@@ -128,7 +128,7 @@ class ClipScribeProgress:
         summary.add_row("Total Time", str(timedelta(seconds=int(total_time))))
         
         # Cost with emoji
-        cost_emoji = "🟢" if self.current_cost < 0.10 else "🟡" if self.current_cost < 1.00 else "🔴"
+        cost_emoji = "" if self.current_cost < 0.10 else "" if self.current_cost < 1.00 else ""
         summary.add_row("Total Cost", f"{cost_emoji} ${self.current_cost:.4f}")
         
         # Phase breakdown if available
@@ -168,15 +168,15 @@ class ClipScribeProgress:
     
     def log_success(self, message: str):
         """Log a success message."""
-        self.console.print(f"[green]✓ {message}[/green]")
+        self.console.print(f"[green] {message}[/green]")
     
     def log_warning(self, message: str):
         """Log a warning message."""
-        self.console.print(f"[yellow]⚠ {message}[/yellow]")
+        self.console.print(f"[yellow] {message}[/yellow]")
     
     def log_error(self, message: str):
         """Log an error message."""
-        self.console.print(f"[red]✗ {message}[/red]")
+        self.console.print(f"[red] {message}[/red]")
     
     def show_extraction_stats(self, entities: list, relationships: list):
         """Display extraction statistics in a nice table."""

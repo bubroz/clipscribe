@@ -103,7 +103,7 @@ def show_cost_overview(costs: List[Dict]):
         st.metric("Total Processing Time", f"{hours}h {minutes}m")
     
     # Enhanced cost trends with interactive charts
-    st.subheader("📈 Interactive Cost Analysis")
+    st.subheader(" Interactive Cost Analysis")
     
     if len(costs) > 1:
         # Prepare cost trend data
@@ -225,13 +225,13 @@ def show_cost_overview(costs: List[Dict]):
 def show_performance_metrics():
     """Show enhanced performance and system metrics with gauges and charts"""
     
-    st.subheader("⚡ Enhanced Performance Dashboard")
+    st.subheader(" Enhanced Performance Dashboard")
     
     # System info with gauges
     col1, col2 = st.columns(2)
     
     with col1:
-        st.markdown("### 💻 System Performance")
+        st.markdown("###  System Performance")
         
         # Get system metrics
         try:
@@ -285,7 +285,7 @@ def show_performance_metrics():
             st.plotly_chart(fig_memory, use_container_width=True)
             
         except ImportError:
-            st.warning("📊 Install psutil for enhanced system monitoring: `pip install psutil`")
+            st.warning(" Install psutil for enhanced system monitoring: `pip install psutil`")
             
             # Fallback system info
             import sys
@@ -319,7 +319,7 @@ def show_performance_metrics():
                 st.write("**Disk Space:** Unable to determine")
     
     with col2:
-        st.markdown("### 🔧 Model & Cache Status")
+        st.markdown("###  Model & Cache Status")
         
         # Check for key dependencies with status indicators
         dependency_status = []
@@ -327,23 +327,23 @@ def show_performance_metrics():
         try:
             import torch
             torch_version = torch.__version__
-            dependency_status.append({"name": "PyTorch", "version": torch_version, "status": "✅"})
+            dependency_status.append({"name": "PyTorch", "version": torch_version, "status": ""})
             
             # GPU status
             if torch.cuda.is_available():
                 gpu_info = "CUDA GPU Available"
-                gpu_status = "🟢"
+                gpu_status = ""
             elif hasattr(torch.backends, 'mps') and torch.backends.mps.is_available():
                 gpu_info = "Apple Metal GPU"
-                gpu_status = "🟢"
+                gpu_status = ""
             else:
                 gpu_info = "CPU Only"
-                gpu_status = "🟡"
+                gpu_status = ""
             
             dependency_status.append({"name": "GPU Support", "version": gpu_info, "status": gpu_status})
             
         except ImportError:
-            dependency_status.append({"name": "PyTorch", "version": "Not installed", "status": "⚠️"})
+            dependency_status.append({"name": "PyTorch", "version": "Not installed", "status": ""})
         
         # Check model cache sizes
         model_paths = [
@@ -359,11 +359,11 @@ def show_performance_metrics():
                 try:
                     size = sum(f.stat().st_size for f in path.rglob('*') if f.is_file())
                     size_mb = size / (1024**2)
-                    cache_data.append({"name": name, "size_mb": size_mb, "status": "✅"})
+                    cache_data.append({"name": name, "size_mb": size_mb, "status": ""})
                 except:
-                    cache_data.append({"name": name, "size_mb": 0, "status": "⚠️"})
+                    cache_data.append({"name": name, "size_mb": 0, "status": ""})
             else:
-                cache_data.append({"name": name, "size_mb": 0, "status": "❌"})
+                cache_data.append({"name": name, "size_mb": 0, "status": ""})
         
         # Cache size visualization
         if cache_data:
@@ -372,7 +372,7 @@ def show_performance_metrics():
             fig_cache = go.Figure(data=[go.Bar(
                 x=cache_df['name'],
                 y=cache_df['size_mb'],
-                marker_color=['green' if status == '✅' else 'orange' if status == '⚠️' else 'red' 
+                marker_color=['green' if status == '' else 'orange' if status == '' else 'red' 
                              for status in cache_df['status']],
                 text=[f"{size:.0f} MB" for size in cache_df['size_mb']],
                 textposition='auto'
@@ -396,7 +396,7 @@ def show_performance_metrics():
 def show_api_usage():
     """Show API usage and quota information"""
     
-    st.subheader("🔑 API Usage")
+    st.subheader(" API Usage")
     
     # API key status
     from clipscribe.config.settings import settings
@@ -404,20 +404,20 @@ def show_api_usage():
     col1, col2 = st.columns(2)
     
     with col1:
-        st.markdown("### 🔐 API Key Status")
+        st.markdown("###  API Key Status")
         
         if settings.google_api_key:
-            st.success("✅ Google API Key configured")
+            st.success(" Google API Key configured")
             
             # Mask the key for display
             key_preview = settings.google_api_key[:8] + "..." + settings.google_api_key[-4:]
             st.write(f"**Key:** {key_preview}")
         else:
-            st.error("❌ No Google API Key found")
+            st.error(" No Google API Key found")
             st.info("Set GOOGLE_API_KEY environment variable")
     
     with col2:
-        st.markdown("### 📊 Usage Estimates")
+        st.markdown("###  Usage Estimates")
         
         costs = load_collection_costs()
         if costs:
@@ -439,7 +439,7 @@ def show_api_usage():
 def show_quality_metrics():
     """Show extraction quality metrics"""
     
-    st.subheader("🎯 Quality Metrics")
+    st.subheader(" Quality Metrics")
     
     # Look for recent processing logs or manifests with quality data
     output_path = Path("output")
@@ -487,7 +487,7 @@ def show_quality_metrics():
 def show_optimization_recommendations():
     """Show optimization recommendations"""
     
-    st.subheader("💡 Optimization Recommendations")
+    st.subheader(" Optimization Recommendations")
     
     costs = load_collection_costs()
     recommendations = []
@@ -538,26 +538,26 @@ def show_optimization_recommendations():
     if recommendations:
         for rec in recommendations:
             if rec['type'] == 'warning':
-                st.warning(f"⚠️ **{rec['title']}**: {rec['message']}\n\n💡 *{rec['action']}*")
+                st.warning(f" **{rec['title']}**: {rec['message']}\n\n *{rec['action']}*")
             else:
-                st.info(f"💡 **{rec['title']}**: {rec['message']}\n\n🎯 *{rec['action']}*")
+                st.info(f" **{rec['title']}**: {rec['message']}\n\n *{rec['action']}*")
     else:
-        st.success("🎉 No optimization recommendations at this time. System looks good!")
+        st.success(" No optimization recommendations at this time. System looks good!")
 
 def main():
     """Main Analytics page"""
-    st.title("📊 Analytics")
+    st.title(" Analytics")
     
     # Load cost data
     costs = load_collection_costs()
     
     # Main tabs
     tab1, tab2, tab3, tab4, tab5 = st.tabs([
-        "💰 Cost Overview",
-        "⚡ Performance",
-        "🔑 API Usage",
-        "🎯 Quality",
-        "💡 Optimization"
+        " Cost Overview",
+        " Performance",
+        " API Usage",
+        " Quality",
+        " Optimization"
     ])
     
     with tab1:

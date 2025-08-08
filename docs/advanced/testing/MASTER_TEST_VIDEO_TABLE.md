@@ -4,7 +4,7 @@
 
 This document contains all approved test videos for ClipScribe development and testing, organized by category and testing purpose.
 
-## 📖 **Series (Same Channel + Same Topic)**
+##  **Series (Same Channel + Same Topic)**
 
 ### Series 0: Tier 1 & 2 Selections Training (PRIORITY TEST SERIES)
 **Channel:** Same  
@@ -68,7 +68,7 @@ This document contains all approved test videos for ClipScribe development and t
 
 *Note: Use yt-dlp to fetch specific recent video URLs from channel*
 
-## 🌐 **Various Channels + Same Topic**
+##  **Various Channels + Same Topic**
 
 ### Cross-Channel Series 1: Skywatcher/UFO Investigation
 **Channels:** Multiple  
@@ -93,7 +93,7 @@ This document contains all approved test videos for ClipScribe development and t
 | PBS Tech | Search: "PBS AI Data Analysis 2025" | AI and Data Show - July 2025 Edition | PBS Technology | Entity extraction from panels |
 | CNBC Interview | Search: "CNBC AI Business Intelligence 2025" | Hidden Workers Behind AI in BI | @CNBCTelevision | Relationship chains in AI labor |
 
-## 📚 **Playlist Collections (Same Channel + Various Topics)**
+##  **Playlist Collections (Same Channel + Various Topics)**
 
 ### Playlist Set 1: General Mixed Content
 **Testing Purpose:** Topic diversity analysis, playlist processing, content categorization  
@@ -113,7 +113,7 @@ This document contains all approved test videos for ClipScribe development and t
 |---|---|---|---|
 | Panel Event 1 | https://www.youtube.com/playlist?list=PLn5MTSAqaf8pkToANgqsSSdafXNRPDBrH | Panel with guest speakers | Speaker tracking, conversation flow |
 
-## 💼 **Business Intelligence / Market Research**
+##  **Business Intelligence / Market Research**
 
 ### GovClose Recent Content (Government Contracting)
 **Channel:** GovClose  
@@ -128,7 +128,7 @@ This document contains all approved test videos for ClipScribe development and t
 | Gov Sales | https://www.youtube.com/watch?v=QnClqEBJQmU | Why You're Not Able To Sell To The US Government | Relationship chains in sales BI |
 | Market Analysis | https://www.youtube.com/watch?v=-1riCe0dOpM | GovCon Losers Don't Know Who Wins The Game | Market trend analysis |
 
-## 🌍 **Geopolitics / Defense / Intelligence**
+##  **Geopolitics / Defense / Intelligence**
 
 ### PBS NewsHour Daily Episodes (July 2025)
 **Channel:** PBS NewsHour  
@@ -166,7 +166,7 @@ This document contains all approved test videos for ClipScribe development and t
 | Fox News | Immigration | Search: "Fox News Immigration July 2025" | LE/DoD policy tracking |
 | CNN | Defense Policy | Search: "CNN Pentagon July 2025" | Cross-source validation |
 
-## 💰 **Finance / Technology**
+##  **Finance / Technology**
 
 ### Crypto Market Analysis
 **Channels:** InvestAnswers, CNBC Crypto World  
@@ -194,7 +194,7 @@ This document contains all approved test videos for ClipScribe development and t
 
 *Note: Replace MM/DD/MONTH with actual dates. Use yt-dlp or web scraping for current URLs*
 
-## 🎯 **Analyst-Focused Demo Scenarios**
+##  **Analyst-Focused Demo Scenarios**
 
 ### Demo Flow 1: Government Contractor Intelligence
 1. **Single Video**: GovClose SDVOSB video - extract contract entities
@@ -217,7 +217,7 @@ This document contains all approved test videos for ClipScribe development and t
 3. **Analysis**: Think tank or expert commentary
 4. **Synthesis**: Entity/relationship contradictions
 
-## 📝 **Notes for Analyst Demos**
+##  **Notes for Analyst Demos**
 
 - **Cost Emphasis**: Always show $0.002/minute vs manual analysis
 - **SDVOSB Angle**: Mention for government contracting demos
@@ -243,3 +243,9 @@ poetry run clipscribe collection series \
 **Expected Cost**: ~$0.11 total  
 **Expected Output**: 150-300+ entities, 150-300+ relationships, complete knowledge graphs
 ---
+
+##  User-Submitted Test Videos
+
+| Video | URL | Title | Notes |
+|---|---|---|---|
+| User Video 1 | https://www.youtube.com/watch?v=V9VEvGSzzk0 | These 8 Companies You've Never Heard Of Sell Your Personal Data to the Cops  Ep. 162: Hieu | OSINT / Privacy |

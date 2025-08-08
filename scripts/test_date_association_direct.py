@@ -30,7 +30,7 @@ def run_direct_test():
     try:
         with open(TEST_FILE, 'r') as f:
             data = json.load(f)
-        console.print(f"✅ Loaded test data from [cyan]{TEST_FILE}[/cyan]")
+        console.print(f" Loaded test data from [cyan]{TEST_FILE}[/cyan]")
     except FileNotFoundError:
         console.print(f"[red]Error: Test file not found at {TEST_FILE}[/red]")
         console.print("Please run `poetry run python scripts/test_gemini_date_extraction_simple.py` first.")

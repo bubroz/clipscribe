@@ -67,7 +67,7 @@ class CliProgressManager:
         
         self.progress.update(
             self.task_id,
-            description=f"[green]{phase_name}: ✓ Complete",
+            description=f"[green]{phase_name}:  Complete",
             cost=cost
         )
 

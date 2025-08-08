@@ -24,6 +24,22 @@ from ..models import VideoMetadata
 
 logger = logging.getLogger(__name__)
 
+class YTDLLogger:
+    def debug(self, msg):
+        if 'git' in msg or 'github' in msg:
+            pass
+        else:
+            logger.debug(msg)
+
+    def info(self, msg):
+        logger.info(msg)
+
+    def warning(self, msg):
+        logger.warning(msg)
+
+    def error(self, msg):
+        logger.error(msg)
+
 
 @dataclass
 class Chapter:
@@ -91,7 +107,7 @@ class EnhancedUniversalVideoClient:
             'format_sort': ['quality', 'res', 'fps', 'hdr:12', 'codec:vp9.2', 'size', 'br', 'asr', 'proto', 'ext', 'hasaud', 'source', 'id'],
         }
         
-        # ENHANCED TEMPORAL INTELLIGENCE OPTIONS - The Game Changer! 🚀
+        # ENHANCED TEMPORAL INTELLIGENCE OPTIONS - The Game Changer! 
         self.temporal_opts = {
             **self.ydl_opts,
             # TEMPORAL INTELLIGENCE CORE FEATURES
@@ -532,85 +548,60 @@ class EnhancedUniversalVideoClient:
             return 0
     
     async def download_video(self, video_url: str, output_dir: str = ".", cookies_from_browser: Optional[str] = None) -> tuple[str, VideoMetadata]:
-        """
-        Download full video file from any supported platform.
-        
-        Args:
-            video_url: URL of the video
-            output_dir: Directory to save the video
-            cookies_from_browser: Name of the browser to use for cookies (e.g., 'chrome')
-            
-        Returns:
-            Tuple of (video_path, metadata)
-        """
-        if not self.is_supported_url(video_url):
-            raise ValueError(f"Unsupported URL: {video_url}")
-        
-        # Get video info first
-        metadata = await self.get_video_info(video_url, cookies_from_browser=cookies_from_browser)
-        
-        # Create safe filename
-        safe_title = "".join(c for c in metadata.title if c.isalnum() or c in (' ', '-', '_')).rstrip()
-        safe_title = safe_title[:100]  # Limit length
-        
-        # Video extension depends on platform, but mp4 is most common
-        video_filename = f"{safe_title}-{metadata.video_id}.mp4"
-        video_path = os.path.join(output_dir, video_filename)
-        
+        """Download full video file from any supported platform using a subprocess."""
         logger.info(f"Downloading video from: {video_url}")
         
-        # yt-dlp options for video download
-        ydl_opts = {
-            'format': 'best',  # Just use best available format
-            'outtmpl': video_path[:-4] + '.%(ext)s',  # Let yt-dlp determine extension
-            'quiet': True,
-            'no_warnings': True,
-            'extract_flat': False,
-            'nocheckcertificate': True,
-            'no_color': True,
-            'progress_hooks': [self._progress_hook],
-        }
+        # First, get metadata to create a predictable filename
+        metadata = await self.get_video_info(video_url, cookies_from_browser)
+        safe_title = "".join(c for c in metadata.title if c.isalnum() or c in (' ', '-', '_')).rstrip()
+        safe_title = safe_title[:100]
+        video_filename = f"{safe_title}-{metadata.video_id}.mp4"
+        video_path = os.path.join(output_dir, video_filename)
 
+        # Build the yt-dlp command
+        command = [
+            'yt-dlp',
+            '--quiet',
+            '--progress',
+            '-f', 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best',
+            '-o', video_path,
+            video_url
+        ]
         if cookies_from_browser:
-            ydl_opts['cookiesfrombrowser'] = (cookies_from_browser,)
-        
-        # Add any platform-specific options
-        platform = self._detect_platform(video_url)
-        logger.info(f"Using extractor: {platform}")
-        
-        if platform == "twitter":
-            ydl_opts['http_headers'] = {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
-            }
-        
-        # Download video
-        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-            info = ydl.extract_info(video_url, download=True)
-            
-        # Find the actual downloaded file
-        base_path = video_path[:-4]  # Remove .mp4 extension
-        actual_path = None
-        
-        # Check common video extensions
-        for ext in ['.mp4', '.webm', '.mkv', '.mov', '.avi', '.flv']:
-            test_path = base_path + ext
-            if os.path.exists(test_path):
-                actual_path = test_path
+            command.extend(['--cookies-from-browser', cookies_from_browser])
+
+        # Run as a subprocess
+        process = await asyncio.create_subprocess_exec(
+            *command,
+            stdout=asyncio.subprocess.PIPE,
+            stderr=asyncio.subprocess.PIPE
+        )
+
+        # Stream the output
+        while True:
+            chunk = await process.stdout.read(1024)
+            if not chunk:
                 break
-        
-        if not actual_path:
-            # If still not found, look for any file with the video ID
-            for file in os.listdir(output_dir):
-                if metadata.video_id in file:
-                    actual_path = os.path.join(output_dir, file)
+            logger.info(f"[yt-dlp] {chunk.decode(errors='ignore').strip()}")
+
+        await process.wait()
+
+        if process.returncode != 0:
+            stderr = await process.stderr.read()
+            raise Exception(f"yt-dlp failed: {stderr.decode()}")
+            
+        if not os.path.exists(video_path):
+            # yt-dlp might have used a different extension
+            base_path, _ = os.path.splitext(video_path)
+            for ext in ['.mkv', '.webm']:
+                if os.path.exists(base_path + ext):
+                    video_path = base_path + ext
                     break
-        
-        if not actual_path or not os.path.exists(actual_path):
-            raise FileNotFoundError(f"Video file not found after download")
-        
-        logger.info(f"Video downloaded: {actual_path}")
-        
-        return actual_path, metadata
+            if not os.path.exists(video_path):
+                raise FileNotFoundError(f"Video file not found after download: {video_path}")
+
+        logger.info(f"Video downloaded: {video_path}")
+        return video_path, metadata
     
     def _progress_hook(self, d):
         # This method is empty in the original code block
@@ -803,7 +794,7 @@ class EnhancedUniversalVideoClient:
 
     async def extract_temporal_metadata(self, video_url: str) -> TemporalMetadata:
         """
-        🚀 BREAKTHROUGH FEATURE: Extract comprehensive temporal metadata using yt-dlp.
+         BREAKTHROUGH FEATURE: Extract comprehensive temporal metadata using yt-dlp.
         
         This is the game-changing capability that enables Timeline Intelligence v2.0:
         - Chapter boundaries with precise timestamps
@@ -818,14 +809,14 @@ class EnhancedUniversalVideoClient:
         Returns:
             TemporalMetadata with comprehensive temporal intelligence
         """
-        logger.info(f"🚀 Extracting comprehensive temporal metadata from: {video_url}")
+        logger.info(f" Extracting comprehensive temporal metadata from: {video_url}")
         
         try:
             with yt_dlp.YoutubeDL(self.temporal_opts) as ydl:
                 # Extract ALL metadata without downloading video
                 info = ydl.extract_info(video_url, download=False)
                 
-                logger.info(f"📊 Temporal extraction successful: {info.get('extractor', 'unknown')} - {info.get('title', 'Unknown')}")
+                logger.info(f" Temporal extraction successful: {info.get('extractor', 'unknown')} - {info.get('title', 'Unknown')}")
                 
                 return TemporalMetadata(
                     chapters=self._extract_chapters(info),
@@ -837,7 +828,7 @@ class EnhancedUniversalVideoClient:
                 )
                 
         except Exception as e:
-            logger.error(f"❌ Temporal metadata extraction failed: {e}")
+            logger.error(f" Temporal metadata extraction failed: {e}")
             # Return empty temporal metadata to maintain functionality
             return TemporalMetadata(
                 chapters=[],
@@ -858,7 +849,7 @@ class EnhancedUniversalVideoClient:
             logger.debug("No chapters found in video")
             return chapters
             
-        logger.info(f"📖 Found {len(chapter_data)} chapters")
+        logger.info(f" Found {len(chapter_data)} chapters")
         
         for chapter in chapter_data:
             try:
@@ -872,7 +863,7 @@ class EnhancedUniversalVideoClient:
                 logger.warning(f"Failed to parse chapter: {e}")
                 continue
                 
-        logger.info(f"✅ Successfully extracted {len(chapters)} chapters")
+        logger.info(f" Successfully extracted {len(chapters)} chapters")
         return chapters
 
     def _extract_subtitles(self, info: Dict) -> Optional[WordLevelSubtitles]:
@@ -904,7 +895,7 @@ class EnhancedUniversalVideoClient:
             logger.debug("No subtitle data available")
             return None
             
-        logger.info(f"📝 Found subtitles in language: {language}")
+        logger.info(f" Found subtitles in language: {language}")
         
         # Extract word-level timing (this would need VTT file parsing)
         # For now, return basic structure - full implementation would parse VTT files
@@ -923,7 +914,7 @@ class EnhancedUniversalVideoClient:
             logger.debug("No SponsorBlock data available")
             return segments
             
-        logger.info(f"🚫 Found {len(sponsorblock_chapters)} SponsorBlock segments")
+        logger.info(f" Found {len(sponsorblock_chapters)} SponsorBlock segments")
         
         for segment in sponsorblock_chapters:
             try:
@@ -937,7 +928,7 @@ class EnhancedUniversalVideoClient:
                 logger.warning(f"Failed to parse SponsorBlock segment: {e}")
                 continue
                 
-        logger.info(f"✅ Successfully extracted {len(segments)} SponsorBlock segments")
+        logger.info(f" Successfully extracted {len(segments)} SponsorBlock segments")
         return segments
 
     def _extract_video_metadata(self, info: Dict) -> Dict[str, Any]:
@@ -1000,7 +991,7 @@ class EnhancedUniversalVideoClient:
                 end_time=content_end
             ))
             
-        logger.info(f"📺 Identified {len(content_sections)} content sections")
+        logger.info(f" Identified {len(content_sections)} content sections")
         return content_sections
 
 

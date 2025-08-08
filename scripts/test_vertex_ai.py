@@ -45,11 +45,11 @@ async def test_vertex_ai():
         result = await retriever.process_url(test_url)
         
         if not result:
-            logger.error("❌ No result returned from process_url")
+            logger.error(" No result returned from process_url")
             return False
         
         # Log results
-        logger.info("✅ Vertex AI processing successful!")
+        logger.info(" Vertex AI processing successful!")
         logger.info(f"Transcript length: {len(result.transcript.full_text)} characters")
         logger.info(f"Found {len(result.entities)} entities")
         logger.info(f"Found {len(result.relationships)} relationships")
@@ -75,7 +75,7 @@ async def test_vertex_ai():
         return True
         
     except Exception as e:
-        logger.error(f"❌ Vertex AI test failed: {e}")
+        logger.error(f" Vertex AI test failed: {e}")
         logger.exception("Full error traceback:")
         return False
 
@@ -83,8 +83,8 @@ async def test_vertex_ai():
 if __name__ == "__main__":
     success = asyncio.run(test_vertex_ai())
     if success:
-        print("\n✅ Vertex AI integration test passed!")
+        print("\n Vertex AI integration test passed!")
         sys.exit(0)
     else:
-        print("\n❌ Vertex AI integration test failed!")
+        print("\n Vertex AI integration test failed!")
         sys.exit(1) 

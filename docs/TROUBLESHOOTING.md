@@ -17,6 +17,7 @@ This guide helps you resolve common issues with ClipScribe.
 ## Installation Issues
 
 ### Poetry Not Found
+
 ```bash
 # Install Poetry
 curl -sSL https://install.python-poetry.org | python3 -
@@ -26,6 +27,7 @@ export PATH="$HOME/.local/bin:$PATH"
 ```
 
 ### Python Version Mismatch
+
 ```bash
 # Install Python 3.11 or 3.12
 pyenv install 3.12.0
@@ -37,6 +39,7 @@ poetry install
 ```
 
 ### Dependency Conflicts
+
 ```bash
 # Clear and reinstall
 poetry cache clear . --all
@@ -52,6 +55,7 @@ poetry install --no-cache
 **Cause**: Quality filters were too aggressive (removing 70% of valid entities)
 
 **Solution**: Update to v2.19.0+
+
 ```bash
 # Check your version
 poetry run clipscribe --version
@@ -74,7 +78,8 @@ poetry update clipscribe
 
 ### Python Version Warning
 **Problem**: You see a warning like:
-```
+
+```text
 The currently activated Python version 3.13.5 is not supported by the project (^3.12,<3.13).
 Trying to find and use a compatible version. 
 Using python3.12 (3.12.11)
@@ -83,6 +88,7 @@ Using python3.12 (3.12.11)
 **Solution**: This is normal behavior. ClipScribe requires Python 3.12+ and Poetry will automatically find and use a compatible version. No action needed.
 
 **To avoid the warning**: Use Python 3.12 explicitly:
+
 ```bash
 pyenv install 3.12.11
 pyenv local 3.12.11
@@ -91,11 +97,13 @@ poetry install
 
 ### Tokenizer Warning
 **Problem**: You see repeated warnings about sentencepiece tokenizer:
-```
+
+```text
 UserWarning: The sentencepiece tokenizer that you are converting to a fast tokenizer uses the byte fallback option which is not implemented in the fast tokenizers.
 ```
 
 **Solution**: This warning is harmless and has been suppressed in v2.10.0+. If you're still seeing it, update to the latest version:
+
 ```bash
 poetry update
 ```
@@ -109,6 +117,7 @@ The warning comes from the GLiNER model loading and doesn't affect functionality
 - **Solution**: ClipScribe v2.23.0 and later includes automatic retry logic with exponential backoff. The application will automatically retry the request up to 3 times. If the problem persists after multiple retries, it may indicate a wider outage with the Google API. Check Google Cloud Status dashboard for more information.
 
 ### Missing Google API Key
+
 ```bash
 # Option 1: Set in .env file
 echo "GOOGLE_API_KEY=your_key_here" >> .env
@@ -131,6 +140,7 @@ clipscribe process video "URL" --api-key "your_key_here"
 - **Symptom**: `yt-dlp` fails with an error like `Sign in to confirm your age` or `This video may be inappropriate for some users`.
 - **Cause**: The video is age-restricted or requires a login to view.
 - **Solution**: Use the `--cookies-from-browser` flag to allow ClipScribe to securely use your browser's existing login session.
+  
   ```bash
   # Example for a user logged into YouTube on Chrome
   clipscribe process video "URL_HERE" --cookies-from-browser chrome
@@ -308,14 +318,14 @@ Run with debug logging:
 export CLIPSCRIBE_LOG_LEVEL=DEBUG
 
 # Via CLI
-clipscribe process video "URL" --log-level DEBUG
+clipscribe --debug process video "URL"
 ```
 
 ### Quick Test
 Verify installation:
 ```bash
 # Test with known-good video
-clipscribe process video "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+clipscribe --debug process video "https://www.youtube.com/watch?v=7sWj6D2i4eU"
 ```
 
 ### Reset Everything
@@ -348,13 +358,13 @@ poetry run pytest
 
 ## Development and Testing Best Practices
 
-### 🚨 CRITICAL: Validation Before Deployment
+###  CRITICAL: Validation Before Deployment
 To prevent issues like import errors, broken functionality, or incomplete features:
 
 #### 1. **Always Test Imports First**
 ```bash
 # Before declaring any feature complete
-poetry run python -c "from module import function; print('✅ Import successful')"
+poetry run python -c "from module import function; print(' Import successful')"
 ```
 
 #### 2. **Follow Incremental Testing**
@@ -402,7 +412,7 @@ When errors occur:
 
 This prevents deploying broken code and saves debugging time later.
 
-Remember: When in doubt, run with `--log-level DEBUG`  
+Remember: When in doubt, run with `--debug`  
 
 ### Vertex AI Failures
 - **Symptom**: The application crashes with errors related to `vertexai` or Google Cloud permissions, especially during batch processing.

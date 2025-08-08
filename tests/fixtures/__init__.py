@@ -170,4 +170,4 @@ We are testing ClipScribe transcription.
 
 00:00:05.000 --> 00:00:07.000
 It works great!
-"""  # :-) 
+"""

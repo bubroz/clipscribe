@@ -245,13 +245,13 @@ def main():
     
     # Print statistics
     stats = filtered_kg['filtered_stats']
-    print(f"✨ Filtered knowledge graph saved to: {args.output}")
-    print(f"\n📊 Filtering Statistics:")
+    print(f" Filtered knowledge graph saved to: {args.output}")
+    print(f"\n Filtering Statistics:")
     print(f"  Original: {stats['original_nodes']} nodes, {stats['original_edges']} edges")
     print(f"  Filtered: {filtered_kg['node_count']} nodes, {filtered_kg['edge_count']} edges")
     print(f"  Removed: {stats['nodes_removed']} nodes, {stats['edges_removed']} edges")
     print(f"  Merged: {stats['merge_count']} duplicate nodes")
-    print(f"\n🎯 Applied filters:")
+    print(f"\n Applied filters:")
     print(f"  - Min connections: {args.min_connections}")
     print(f"  - Min confidence: {args.confidence}")
     print(f"  - Removed generic terms and predicates")

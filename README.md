@@ -10,15 +10,15 @@
 
 ClipScribe extracts and analyzes structured data from video content through entity recognition, relationship mapping, and key insight identification. Built for students, researchers, analysts, content creators, and organizations requiring reliable video intelligence.
 
-## v2.24.0 - Production Ready with Advanced Features
+## v2.28.0 - Interactive TUI and Robust Backend
 
-**STATUS**: ✅ **Core processing is stable and resilient**. All CLI commands are functional, with robust error handling for API issues, new support for large videos, and flexible analysis strategies.
+**STATUS**:  **The application is now stable, robust, and features a professional-grade interactive TUI.** All core processing logic has been hardened, and the user interface has been completely rebuilt for a modern, interactive experience.
 
-**LARGE VIDEO PROCESSING**: Videos of any length (e.g., 4+ hours) are now supported through an intelligent, automatic splitting and merging architecture.
+**INTERACTIVE TUI**: A new `textual`-based TUI provides real-time logging, progress updates, and a clean, modern interface for all processing tasks.
 
-**FLEXIBLE ANALYSIS**: A new `--core-only` flag allows users to switch between comprehensive analysis (default) and core theme analysis, which focuses only on recurring entities.
+**ROBUST BACKEND**: The entire backend has been refactored to be more resilient, with throttled concurrency to respect API rate limits, and a decoupled architecture that ensures stability.
 
-**AUTHENTICATION SUPPORT**: A new `--cookies-from-browser` flag allows `yt-dlp` to use browser cookies to access age-gated or login-required content.
+**AUTHENTICATION UTILITY**: A new `clipscribe utils check-auth` command allows users to easily verify their authentication status and diagnose configuration issues.
 
 ## Features
 

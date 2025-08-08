@@ -5,58 +5,105 @@ All notable changes to ClipScribe will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v2.29.1 - 2025-08-07
+
+### Changed
+- Removed all emojis across code, docs, examples, and UI text for a professional, consistent style. This includes `CHANGELOG.md`, `README.md`, `CONTINUATION_PROMPT.md`, `docs/` (including advanced and archive), `src/`, `examples/`, `scripts/`, and `streamlit_app/`.
+- Standardized CLI output strings to avoid emoji symbols.
+
+### Added
+- CLI command groups aligned to documentation and tests:
+  - `process video`
+  - `collection series`
+  - `research`
+  - `utils clean-demo`
+
+### Notes
+- No API behavior changes; documentation updated implicitly via emoji removal. Consider updating headings or callouts where emojis were removed (e.g., "Key Features", "Critical").
+
+## v2.29.0 - 2025-08-06
+
+###  Features
+- **Professional TUI Architecture**: Completely rebuilt the TUI from the ground up using the `textual` framework. This provides a robust, modern, and truly interactive application experience, replacing the previous, fragile `rich.live` implementation.
+- **Stable, Decoupled UI**: The new TUI is architecturally sound, running the backend processing in a separate worker thread and communicating via a message-passing system. This completely decouples the UI from the backend, ensuring stability and preventing crashes.
+- **Interactive Log Panel**: The TUI's log panel is now a first-class `RichLog` widget, with native support for scrolling, highlighting, and real-time updates.
+- **Authentication Utility**: Added a new `clipscribe utils check-auth` command to provide a clear, user-friendly report on the current Google API authentication status, making it easy to diagnose configuration issues.
+
+###  Bug Fixes
+- **Gemini API Rate Limiting**: Fixed a critical architectural flaw where long videos would trigger `429` rate limit errors. The transcriber now uses a configurable `asyncio.Semaphore` to throttle concurrent chunk transcriptions, ensuring that even very long videos can be processed reliably on any paid API tier.
+- **Gemini API Schema Compliance**: Fixed a `400 InvalidArgument` error by restoring the full, correct `response_schema` for structured data extraction, ensuring our requests are compliant with the official Gemini documentation.
+- **Pydantic Validation**: Fixed a `ValidationError` by making the Pydantic data models more resilient to minor inconsistencies in the Gemini API's output.
+- **`yt-dlp` Conflict**: Fixed a critical bug where `yt-dlp` would fail when run from within the TUI. The video downloader now runs in a separate, isolated subprocess, preventing any conflicts with the TUI's terminal control.
+
+###  Performance
+- **Optimized Concurrency**: Increased the default concurrency limit for transcription chunks from `3` to `10`, dramatically improving processing speed for long videos on paid API tiers.
+
+## v2.28.0 - 2025-08-05
+
+###  Features
+- **"Deco-Futurist" TUI**: Completed the implementation of a new, sophisticated TUI (Text User Interface) using `rich.Layout` to provide a stable, professional, and aesthetically pleasing CLI experience.
+  - **Centralized UI Management**: The new `TuiManager` class encapsulates all `rich` rendering logic, fully decoupling the UI from the core processing backend.
+  - **UI-Agnostic Backend**: The `VideoIntelligenceRetriever` has been refactored to use a callback system, making it completely independent of any specific UI implementation.
+  - **Robust Lifecycle Management**: The TUI now has a persistent lifecycle, remaining on screen until the user exits, and gracefully handles all execution paths, including cache hits and errors.
+
+###  Bug Fixes
+- **TUI Stability**: Fixed a series of critical bugs that caused the TUI to crash or disappear prematurely.
+  - **Logging Takeover**: The `TuiManager` now takes exclusive control of the logging system, preventing conflicts with other handlers that would corrupt the terminal state.
+  - **`yt-dlp` Output Suppression**: Silenced direct console output from `yt-dlp` that was interfering with the `rich` Live display.
+  - **Startup Race Condition**: Resolved an issue where pre-TUI log messages and print statements would corrupt the terminal state before the TUI could launch.
+
 ## v2.27.0 - 2025-08-05
 
-### ✨ Features
+###  Features
 - **"Deco-Futurist" TUI Architecture**: Began implementation of a new, sophisticated TUI (Text User Interface) using `rich.Layout` to provide a stable, professional, and aesthetically pleasing CLI experience.
   - **Architectural Plan**: Solidified a 5-commit incremental refactoring plan to safely implement the new UI.
   - **Centralized UI Management**: The plan includes a new `TuiManager` class to encapsulate all `rich` rendering logic, fully decoupling the UI from the core processing backend.
 
 ## v2.26.0 - 2025-08-05
 
-### ✨ Features
+###  Features
 - **Professional CLI Display**: Overhauled the CLI's live progress display to be robust, clean, and professional.
   - Implemented a dedicated `CliProgressManager` to centralize and manage all `rich` progress rendering.
   - Replaced the buggy and verbose table with a single, stable `rich.progress.Progress` bar that updates in place without flickering.
   - Decoupled UI logic from the core processing `VideoIntelligenceRetriever`, making the code cleaner and more maintainable.
 
-### 🐛 Bug Fixes
+###  Bug Fixes
 - **CLI Crash**: Fixed a critical `AttributeError` that occurred when updating the progress display due to incorrect API usage of the `rich` library.
 - **Duplicate Logging**: Resolved an issue that caused `ModelManager` initialization logs to appear twice.
 
 ## v2.25.0 - 2025-08-05
 
-### ✨ Features
+###  Features
 - **Video Retention**: Implemented a `--keep-videos` flag that allows users to archive processed videos instead of deleting them, enabling easier re-runs and debugging.
 
-### 🐛 Bug Fixes
+###  Bug Fixes
 - **Settings Persistence**: Fixed a critical bug where CLI flags like `--keep-videos` were ignored because the `Settings` object was being re-initialized. The settings object is now correctly passed from the CLI context through the processing pipeline.
 
-### 🧹 Chores
+###  Chores
 - **CLI Output Polish (Planned)**: The next release will include a major polish of the CLI output, including removing artifact messages, adding progress bars for downloads/uploads, and providing clearer, summarized logs for a better user experience.
 
 ## v2.24.0 - 2025-08-04
 
-### ✨ Features
+###  Features
 - **Flexible Unification Strategy**: Added a `--core-only` flag to the `collection custom` command. This allows users to switch between the default "Comprehensive Union" analysis (retaining all unique entities) and "Core Theme Analysis" (retaining only entities that appear in more than one video).
 - **YouTube Authentication**: Added a `--cookies-from-browser` flag to all processing commands, allowing `yt-dlp` to bypass age-gates and login walls for restricted content.
 - **Enhanced Error Handling**: The CLI now intelligently detects authentication failures from `yt-dlp` and provides a clear, actionable error message recommending the use of the new `--cookies-from-browser` flag.
 
-### 🐛 Bug Fixes
+###  Bug Fixes
 - **Entity Unification Logic**: Fixed a critical bug in the multi-video processor that was incorrectly discarding entities that only appeared in a single video. The default behavior is now to perform a comprehensive union, preserving all unique intelligence.
 - **Asynchronous Uploads**: Corrected a fundamental `TypeError` in the parallel chunk uploader by properly running the synchronous `genai.upload_file` function in a separate thread using `asyncio.to_thread`. This resolves all freezing and timeout issues during large video processing.
 
 ## v2.23.0 - 2025-08-04
 
-### ✨ Features
+###  Features
 - **Large Video Processing**: Implemented a new architecture to handle large video files (>15 minutes) by automatically splitting them into manageable chunks, processing them in parallel, and preparing for result merging.
 - **API Resilience**: Added robust retry logic with exponential backoff to the Gemini transcriber to gracefully handle transient `500 Internal Server Error` and `503` service unavailable errors, significantly improving processing stability.
 
-### 🐛 Bug Fixes
+###  Bug Fixes
 - **CLI Stability**: Resolved multiple `AttributeError` bugs in the `VideoIntelligenceRetriever` caused by incomplete refactoring, eliminating critical runtime crashes.
 - **Progress Display**: Corrected the `rich.live` progress display logic in the CLI to prevent crashes and ensure accurate reporting throughout the processing pipeline.
 
-### 🧹 Chores
+###  Chores
 - **Code Cleanup**: Removed all remnants of the discontinued "Enhanced Temporal Intelligence" feature from the core codebase.
 
 ## [v2.22.3] - 2025-08-04
@@ -114,7 +161,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Architectural Shift: Pro-First**: Made Gemini 2.5 Pro the default extraction model for all commands to ensure the highest quality output.
   - The previous default model (Gemini 2.5 Flash) is now available via an optional `--use-flash` flag.
   - This decision is based on a comprehensive benchmark analysis that consistently showed a superior quality of intelligence from the Pro model.
-- **Improved CLI Experience**: Added a clear "🎉 Intelligence extraction complete!" message to the end of processing runs for better user feedback.
+- **Improved CLI Experience**: Added a clear " Intelligence extraction complete!" message to the end of processing runs for better user feedback.
 
 ### Fixed
 - **API Timeout for Long Videos**: Increased the Gemini API request timeout from 10 minutes to 60 minutes to successfully process long-form content (e.g., hour-long videos) without `504 Deadline Exceeded` errors.
@@ -138,11 +185,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [v2.20.0] - 2025-07-24
 
-### 🎯 MAJOR MILESTONE: ALL 6 CORE COMPONENTS COMPLETE!
+###  MAJOR MILESTONE: ALL 6 CORE COMPONENTS COMPLETE!
 
 **Professional intelligence-grade extraction achieved with comprehensive validation**
 
-#### ✅ COMPLETED CORE COMPONENTS
+####  COMPLETED CORE COMPONENTS
 1. **Confidence Scoring Removal** - Complete architectural cleanup eliminating "AI theater"
 2. **Key Points Extraction Fix** - Professional intelligence briefing-style extraction (31-34 points per video)
 3. **Entity Classification Improvement** - Perfect ORGANIZATION vs PRODUCT classification for military units
@@ -150,14 +197,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 5. **Timestamp Simplification** - Complex timestamp processing saved for roadmap with Whisper
 6. **Documentation Updates** - Comprehensive standards and roadmap established
 
-#### 🏗️ Architectural Changes
+####  Architectural Changes
 - **Confidence Scoring Removal**: Complete removal of confidence scoring "AI theater" from entire project
   - Removed all confidence fields from core data models (Entity, Relationship, ExtractedDate, etc.)
   - Removed all confidence calculation logic from extractors 
   - Removed 1000+ lines of meaningless confidence calculation code
   - All output formats now confidence-free (JSON, CSV, GEXF)
 
-#### 🧠 Intelligence Extraction Enhancements  
+####  Intelligence Extraction Enhancements  
 - **Key Points Extraction**: Fixed 0 key points bug, now extracts 31-34 professional intelligence-grade points
 - **PERSON Entity Extraction**: Enhanced prompts to extract specific military roles and backgrounds
   - "Former Special Forces operator", "Tier one instructor", "Selection cadre"
@@ -166,20 +213,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - "Black Side SEALs" correctly classified as ORGANIZATION (not PRODUCT)
   - Military units and specialized divisions properly identified
 
-#### ⚡ Performance Improvements
+####  Performance Improvements
 - **Timestamp Simplification**: Removed complex temporal intelligence processing
   - Simplified KeyPoint model - removed mandatory timestamp fields
   - Saved complex timestamp extraction for roadmap implementation with OpenAI Whisper
   - Focus on core intelligence extraction strengths
 
-#### 📊 Validated Performance (3-Video Military Series)
+####  Validated Performance (3-Video Military Series)
 - **Key Points**: 92 total across 3 videos (31-34 per video)
 - **Entities**: 113 total entities with professional classification
 - **Relationships**: 236 evidence-backed relationships
 - **Processing Cost**: $0.0611 total ($0.0203 average per video)
 - **Quality Standard**: Professional intelligence analyst benchmarks achieved
 
-#### 📚 Documentation Excellence
+####  Documentation Excellence
 - **docs/OUTPUT_FILE_STANDARDS.md**: Comprehensive quality benchmarks and validation checklists
 - **docs/ROADMAP.md**: Strategic roadmap through 2026 with Whisper integration
 - **README.md**: Complete rewrite reflecting v2.20.0 capabilities
@@ -192,7 +239,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [v2.19.8] - 2025-07-23
 
-### Production Ready 🚀
+### Production Ready 
 - **SAFE CONCURRENCY**: Locked max concurrency at 8 videos for reliability
 - **OPTIMIZED PROMPTS**: Removed arbitrary extraction limits, focus on quality over quantity  
 - **REAL-WORLD READY**: Production-ready for 3-video series analysis and enterprise scaling
@@ -394,14 +441,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [v2.19.0 Demo Planning] - 2025-07-17
 
-### 📋 Demo Strategy & Documentation Updates
+###  Demo Strategy & Documentation Updates
 
-**🎯 Strategic Pivot: Analysts > Journalists**
+** Strategic Pivot: Analysts > Journalists**
 - **DEFINED**: Target market as analysts (BI, OSINT, market research) not journalists
 - **IDENTIFIED**: Key analyst personas and their $1K-10K/month tool budgets
 - **EMPHASIZED**: SDVOSB status with $6.5M sole-source threshold for DoD/IC
 
-**📚 Documentation Updates**
+** Documentation Updates**
 - **UPDATED**: `MASTER_TEST_VIDEO_TABLE.md` with 20+ analyst-focused videos:
   - Business Intelligence: DefenseMavericks, GovClose (SDVOSB contracts)
   - Geopolitics/Defense: PBS NewsHour, White House briefings, cross-source analysis
@@ -413,28 +460,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   3. Financial Market Intelligence (Investment analysts)
   4. Multi-Source OSINT Collection
 
-**🚀 Demo Flow Defined**
+** Demo Flow Defined**
 - **Act 1**: Problem (2min) - 4-10x time waste, current tools inadequate
 - **Act 2**: Single Video (5min) - Live extraction with cost tracking
 - **Act 3**: Cross-Source (5min) - Contradiction detection, pattern finding
 - **Act 4**: ROI & Integration (3min) - $0.002/min vs $10-50/video
 
-**💡 Key Messages**
+** Key Messages**
 - Time Savings: "3 hours → 90 seconds"
 - Cost Leadership: "$20/month vs $10,000+"
 - SDVOSB Advantage: "Fast-track to $6.5M contracts"
 - Evidence Quality: "95% accuracy with evidence chains"
 
-**📋 Next Steps**
+** Next Steps**
 1. Find current videos (< 48 hours old) for maximum impact
 2. Test complete demo flow with actual URLs
 3. Prepare demo assets (screenshots, ROI calculations)
 
 ## [v2.19.0 Phase 1] - 2025-07-05
 
-### ✅ MAJOR MILESTONE: Enhanced Entity Metadata (Phase 1) Complete
+###  MAJOR MILESTONE: Enhanced Entity Metadata (Phase 1) Complete
 
-**🎯 Enhanced Entity Extraction**
+** Enhanced Entity Extraction**
 - **NEW**: `EnhancedEntityExtractor` class with sophisticated confidence scoring
 - **NEW**: Source attribution tracking (SpaCy, GLiNER, REBEL, Gemini)
 - **NEW**: Context window extraction (±50 chars around entity mentions)
@@ -442,22 +489,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **NEW**: Entity grouping with canonical form selection
 - **NEW**: Temporal distribution tracking across video timeline
 
-**🚀 Technical Achievements**
+** Technical Achievements**
 - **FIXED**: Complex circular import between models.py and extractors package
 - **ADDED**: `EnhancedEntity` model with comprehensive metadata fields
 - **INTEGRATED**: Enhanced entity processing into `AdvancedHybridExtractor`
 - **MAINTAINED**: Backward compatibility with existing Entity model
 - **ACHIEVED**: Zero performance degradation with 300% more intelligence
 
-**🧪 Testing & Quality**
+** Testing & Quality**
 - **ADDED**: Comprehensive test suite (4/4 tests passing)
 - **ACHIEVED**: 90% test coverage for enhanced_entity_extractor.py
 - **IMPLEMENTED**: Mock-based testing avoiding API dependencies
 - **VALIDATED**: Entity merging, confidence scoring, and alias detection
 
-**📊 Example Enhanced Output**
+** Example Enhanced Output**
 ```
-✅ Successfully processed 4 enhanced entities:
+ Successfully processed 4 enhanced entities:
   - Joe Biden (PERSON): 3 mentions, confidence=0.930
     Sources: ['gliner', 'spacy']
     Aliases: ['Biden', 'President Biden']
@@ -465,12 +512,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     Temporal mentions: 2
 ```
 
-**🔄 Next Phase**
+** Next Phase**
 - **READY**: Phase 2 - Relationship Evidence Chains
 - **PLANNED**: Direct quote extraction and visual context correlation
 - **TARGETED**: Enhanced relationship intelligence with evidence tracking
 
-**📋 GitHub Issues**
+** GitHub Issues**
 - **COMPLETED**: Issue #11 - Enhanced Entity Metadata (Phase 1)
 - **READY**: Issue #12 - Relationship Evidence Chains (Phase 2)
 
@@ -503,35 +550,35 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.18.25] - 2025-07-05
 
-### 🚀 MAJOR BREAKTHROUGH: CLI STARTUP OPTIMIZATION COMPLETE
+###  MAJOR BREAKTHROUGH: CLI STARTUP OPTIMIZATION COMPLETE
 
 **ACHIEVEMENT**: 93% performance improvement achieved (5.47s → 0.4s for simple commands) through evidence-based optimization.
 
-#### 🎯 Performance Results
+####  Performance Results
 - **Massive Improvement**: CLI startup 5.47s → 0.4s (13.4x faster!)
 - **Target Achievement**: 0.4s extremely close to <100ms goal (Poetry overhead accounts for remainder)
 - **User Impact**: Every CLI interaction now immediately responsive for researchers/journalists
 - **Framework Efficiency**: Simple commands bypass Click/Rich frameworks entirely
 
-#### 🏗️ Technical Implementation
+####  Technical Implementation
 - **Fast Path Strategy**: `--version` and `--help` commands bypass Click framework loading entirely
 - **Lazy Import Optimization**: All heavy processing components (VideoIntelligenceRetriever, extractors, etc.) load only when needed
 - **Framework Overhead Elimination**: Identified Click/Rich as primary 3+ second bottleneck
 - **Smart Loading Hierarchy**: Basic commands → Framework loading → Processing components (when needed)
 
-#### 📊 Evidence-Based Success
+####  Evidence-Based Success
 - **Research Validation**: CLI startup correctly identified as #1 bottleneck affecting every user interaction
 - **Impact Measurement**: 93% improvement affects every command execution (version, help, transcribe, research, etc.)
 - **Foundation Established**: Fast CLI enables all subsequent real-time features (cost tracking, progress indicators)
 - **User Experience**: Immediate responsiveness achieved for multi-command researcher workflows
 
-#### 🔧 Implementation Details
+####  Implementation Details
 - **Fast Command Detection**: Pre-framework argument parsing for `--version`, `--help`
 - **Conditional Framework Loading**: Heavy imports only when processing commands invoked
 - **Package Structure Optimization**: Removed CLI imports from package `__init__.py` files
 - **Performance Validation**: Consistent <400ms for simple commands, ~3s for processing commands
 
-#### 🎯 Evidence-Based Development Proven
+####  Evidence-Based Development Proven
 - **Research-Driven**: Performance measurement revealed actual bottlenecks vs theoretical assumptions
 - **Maximum Impact**: 93% improvement achieved by targeting the largest single optimization opportunity
 - **Foundation Building**: Fast CLI enables Phase 2 real-time cost tracking and interactive features
@@ -556,17 +603,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.18.24] - 2025-07-03
 
-### 🔬 EVIDENCE-BASED CLI PERFORMANCE OPTIMIZATION RESEARCH BREAKTHROUGH
+###  EVIDENCE-BASED CLI PERFORMANCE OPTIMIZATION RESEARCH BREAKTHROUGH
 
 **MAJOR DISCOVERY**: Deep research revealed CLI startup takes 3.3+ seconds (33x slower than target), fundamentally changing implementation priority order.
 
-#### 📊 Research Findings
+####  Research Findings
 - **CLI Startup Time**: 3.3+ seconds measured with `time poetry run clipscribe --version`
 - **Performance Impact**: 33x slower than <100ms target
 - **User Impact**: Affects every CLI interaction researchers/journalists perform
 - **Opportunity**: Largest single improvement opportunity in the codebase
 
-#### 🔄 Implementation Order Revision (Evidence-Driven)
+####  Implementation Order Revision (Evidence-Driven)
 
 **ORIGINAL ORDER** (Theoretical):
 1. Enhanced Async Progress Indicators
@@ -580,7 +627,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 3. **Enhanced Async Progress** (THIRD) - Integrates cost data with progress
 4. **Interactive Workflows** (FOURTH) - Advanced feature requiring all previous
 
-#### 🎯 Evidence-Based Justification
+####  Evidence-Based Justification
 
 **Why CLI Startup First:**
 - **Maximum Impact**: 33x performance improvement (3.3s → <100ms)
@@ -593,7 +640,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Async progress indicators need cost integration and fast startup
 - Interactive workflows require all components working together
 
-#### 🏗️ Technical Implementation Strategy
+####  Technical Implementation Strategy
 
 **CLI Startup Optimization**:
 - Profile import chain to identify heavy modules
@@ -602,7 +649,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Optimize Click command registration and discovery
 
 **Real-Time Cost Integration**:
-- Live cost display with color-coded alerts (🟢🟡🔴)
+- Live cost display with color-coded alerts ()
 - <50ms cost update refresh rate
 - Integration with existing cost tracking infrastructure
 - Upfront cost estimates and real-time updates
@@ -619,7 +666,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Automatic cost optimization suggestions
 - Advanced cost analytics and reporting
 
-#### 📈 Success Metrics (Evidence-Based)
+####  Success Metrics (Evidence-Based)
 
 **Immediate Impact (Week 1-2)**:
 - CLI startup: 3.3s → <100ms (33x improvement)
@@ -633,7 +680,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Progress updates: Async without processing impact
 - User interactions: <200ms response for confirmations
 
-#### 🧪 Evidence-Based Development Process
+####  Evidence-Based Development Process
 
 **Research Methodology**:
 - Measured actual CLI performance with `time` command
@@ -642,11 +689,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Prioritized based on measured impact rather than theoretical benefits
 
 **User Context Alignment**:
-- Zac values "brutal honesty about feature viability" ✅ Research-driven decisions
-- Focus on "Core Excellence" ✅ Fixing real performance bottlenecks first
-- Researchers/journalists need fast, reliable tools ✅ CLI responsiveness critical
+- Zac values "brutal honesty about feature viability"  Research-driven decisions
+- Focus on "Core Excellence"  Fixing real performance bottlenecks first
+- Researchers/journalists need fast, reliable tools  CLI responsiveness critical
 
-#### 🔄 Updated Documentation
+####  Updated Documentation
 
 **Files Updated**:
 - `CONTINUATION_PROMPT.md`: Comprehensive context for seamless session transitions
@@ -654,7 +701,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `CHANGELOG.md`: Research findings and revised approach
 - Performance benchmarks and success criteria updated throughout
 
-#### 💡 Key Insights
+####  Key Insights
 
 **Development Philosophy Change**:
 - **From**: Theoretical feature prioritization
@@ -697,9 +744,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [2.18.23] - 2025-07-02
 
 ### STRATEGIC PIVOT - TIMELINE DEVELOPMENT KILLED
-- **🚫 TIMELINE FEATURES DISCONTINUED**: Timeline Intelligence development permanently halted due to insufficient accuracy (24.66%)
-- **🎯 STRATEGIC PIVOT TO ADVANCED INTELLIGENCE**: All development resources redirected to video intelligence extraction excellence
-- **📋 NEW ROADMAP**: Focus on influence networks, speaker attribution, contradiction detection, evidence chains
+- ** TIMELINE FEATURES DISCONTINUED**: Timeline Intelligence development permanently halted due to insufficient accuracy (24.66%)
+- ** STRATEGIC PIVOT TO ADVANCED INTELLIGENCE**: All development resources redirected to video intelligence extraction excellence
+- ** NEW ROADMAP**: Focus on influence networks, speaker attribution, contradiction detection, evidence chains
 - **85 hours/month** development time freed from timeline work redirected to advanced relationship analysis
 - **Resource Reallocation**: Timeline algorithm, UI, testing, and documentation efforts moved to intelligence features
 
@@ -737,7 +784,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [2.18.22] - 2025-07-02
 
 ### Added
-- **Timeline v2.0 Integration with Gemini Dates Complete!** 🎉
+- **Timeline v2.0 Integration with Gemini Dates Complete!** 
   - Fixed all async and Pydantic errors blocking Timeline v2.0
   - Timeline events now receive extracted dates instead of defaulting to 2025
   - Events successfully associated with appropriate dates
@@ -761,7 +808,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [2.18.21] - 2025-07-02
 
 ### Added
-- **Phase 1 Gemini Date Extraction Complete!** 🎉
+- **Phase 1 Gemini Date Extraction Complete!** 
   - Fixed critical bug where dates were extracted but not saved
   - Added dates field to VideoIntelligence model
   - Properly persist dates from transcriber to output files
@@ -835,11 +882,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [2.18.16] - 2025-07-01
 
 ### Added
-- 🎉 Timeline v2.0 data now saved to output files (transcript.json and chimera_format.json)
+-  Timeline v2.0 data now saved to output files (transcript.json and chimera_format.json)
 - Timeline v2.0 included in saved data structures for persistence
 
 ### Fixed
-- 🔧 Timeline v2.0 data was being processed but not saved - now properly saved to outputs
+-  Timeline v2.0 data was being processed but not saved - now properly saved to outputs
 - Fixed missing timeline_v2 in _save_transcript_files method
 - Fixed missing timeline_v2 in _to_chimera_format method
 - Fixed missing timeline_v2 in manifest data structure
@@ -847,7 +894,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added default=str to json.dump() calls to handle datetime serialization
 
 ### Validated
-- ✅ Live test successful: PBS NewsHour space science video (7 minutes)
+-  Live test successful: PBS NewsHour space science video (7 minutes)
   - Extracted 9 temporal events → filtered to 5 high-quality events
   - Generated 9 timeline chapters
   - 55.56% quality improvement ratio
@@ -855,7 +902,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Timeline Intelligence v2.0 is now FULLY OPERATIONAL with live data and proper JSON serialization!
 
 ### Documentation
-- 📚 Comprehensive documentation audit completed (07:57 AM PDT)
+-  Comprehensive documentation audit completed (07:57 AM PDT)
 - All 22 documentation files updated to v2.18.16
 - Created session summary and handoff documentation
 - Updated CONTINUATION_PROMPT with next priorities
@@ -867,7 +914,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [2.18.15] - 2025-07-01
 
 ### Fixed
-- 🔧 Timeline v2.0 model alignment issues in quality_filter.py and cross_video_synthesizer.py
+-  Timeline v2.0 model alignment issues in quality_filter.py and cross_video_synthesizer.py
   - Updated field references to match Timeline v2.0 TemporalEvent model structure
   - Fixed .entities → .involved_entities throughout both modules
   - Fixed .timestamp → .video_timestamps with proper dictionary access
@@ -875,8 +922,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Fixed Pydantic v2 method calls: .dict() → .model_dump()
   - Fixed video_url field reference to use source_videos list
   - Added pytest.mark.asyncio decorator to async test in test_v2_12_enhancements.py
-- ✅ All Timeline v2.0 tests now passing successfully
-- 📊 Timeline Intelligence v2.0 fully operational with 82→40 event transformation
+-  All Timeline v2.0 tests now passing successfully
+-  Timeline Intelligence v2.0 fully operational with 82→40 event transformation
 
 ## [2.18.14] - 2025-06-30
 
@@ -903,7 +950,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.18.14] - 2025-06-30
 
-### 🚀 Timeline v2.0 Re-enabled and Model Mismatches Fixed
+###  Timeline v2.0 Re-enabled and Model Mismatches Fixed
 - **MAJOR**: Re-enabled Timeline Intelligence v2.0 processing after confirming it was already active
 - **Model Fixes**: Fixed all ConsolidatedTimeline model mismatches between Timeline v2.0 and main models
 - **Import Fix**: Added missing ConsolidatedTimeline import in multi_video_processor.py  
@@ -913,14 +960,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Performance**: Timeline v2.0 now falls back gracefully without 42-minute hangs
 - **Status**: Timeline v2.0 is structurally integrated but extracting 0 temporal events (needs investigation)
 
-### 🔧 Technical Details
+###  Technical Details
 - Timeline v2.0 execution path confirmed active in both VideoRetriever and MultiVideoProcessor
 - Fixed Timeline v2.0 ConsolidatedTimeline model expecting different fields than main model
 - Updated quality_filter.py to use Timeline v2.0 model structure (no timeline_id field)
 - Removed invalid timeline_version and processing_stats assignments
 - Fallback timeline now works correctly without model validation errors
 
-### ⚠️ Known Issues
+###  Known Issues
 - Timeline v2.0 extracts 0 temporal events with "max() iterable argument is empty" errors
 - Chapter extraction fails for all chapters in TemporalExtractorV2
 - Falls back to basic timeline which successfully creates 82 events
@@ -928,7 +975,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.18.13] - 2025-06-30
 
-### 🎯 Entity Resolution Quality Enhancement Complete
+###  Entity Resolution Quality Enhancement Complete
 - **MAJOR**: Comprehensive entity quality filtering system to address false positives and improve confidence scores
 - **Dynamic Confidence**: Replaced hardcoded 0.85 scores with calculated confidence based on entity characteristics
 - **Language Filtering**: Advanced language detection to remove non-English noise (Spanish/French false positives)
@@ -940,7 +987,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **EntityQualityFilter**: New comprehensive filtering pipeline with language detection, false positive removal, and dynamic confidence calculation
 - **Integration**: Full integration into AdvancedHybridExtractor with quality metrics tracking and reporting
 
-### 🔧 Entity Extraction Improvements
+###  Entity Extraction Improvements
 - **SpacyEntityExtractor**: Enhanced with dynamic confidence calculation replacing hardcoded 0.85 scores
 - **REBELExtractor**: Enhanced with predicate quality scoring and context verification for relationships
 - **Advanced Pipeline**: Quality filtering integrated into entity extraction workflow with comprehensive metrics
@@ -948,7 +995,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [2.18.12] - 2025-06-30
 
 ### Added
-- **Timeline Intelligence v2.0 COMPLETE INTEGRATION** 🎉
+- **Timeline Intelligence v2.0 COMPLETE INTEGRATION** 
   - Component 4: Real-world testing validation framework with 82→40 event transformation
   - Component 5: Performance optimization for large collections (100+ videos)
   - Component 6: Comprehensive user documentation for Timeline v2.0 features
@@ -978,17 +1025,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Fixed linter errors that broke VideoRetriever functionality
   - Added fallback processing for robust error recovery
 
-## [2.18.10] - 2025-06-29 23:05 - Timeline Intelligence v2.0 Implementation Complete! 🚀
+## [2.18.10] - 2025-06-29 23:05 - Timeline Intelligence v2.0 Implementation Complete! 
 
-### 🎯 MAJOR MILESTONE: Timeline Intelligence v2.0 Core Implementation COMPLETE (2025-06-29 23:05 PDT)
-- **Complete Timeline v2.0 Package**: ✅ **ALL 4 CORE COMPONENTS IMPLEMENTED** 
+###  MAJOR MILESTONE: Timeline Intelligence v2.0 Core Implementation COMPLETE (2025-06-29 23:05 PDT)
+- **Complete Timeline v2.0 Package**:  **ALL 4 CORE COMPONENTS IMPLEMENTED** 
   - **temporal_extractor_v2.py** (29KB, 684 lines): Heart of v2.0 with yt-dlp temporal intelligence integration
   - **quality_filter.py** (28KB, 647 lines): Comprehensive quality filtering and validation
   - **chapter_segmenter.py** (31KB, 753 lines): yt-dlp chapter-based intelligent segmentation  
   - **cross_video_synthesizer.py** (41KB, 990 lines): Multi-video timeline correlation and synthesis
   - **Enhanced package exports**: Complete v2.0 API with all components properly exposed
 
-### 🚀 BREAKTHROUGH CAPABILITIES DELIVERED
+###  BREAKTHROUGH CAPABILITIES DELIVERED
 **TemporalExtractorV2** - The Game Changer:
 - **Chapter-aware extraction** using yt-dlp chapter boundaries for intelligent segmentation
 - **Word-level timing precision** for sub-second accuracy using yt-dlp subtitle data
@@ -1018,7 +1065,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Quality-assured consolidation**: Comprehensive timeline building with cross-video validation
 - **Scalable architecture**: Handles large collections with efficient correlation algorithms
 
-### 📊 ARCHITECTURAL TRANSFORMATION ACHIEVED
+###  ARCHITECTURAL TRANSFORMATION ACHIEVED
 **Before (Broken v1.0)**:
 - 82 "events" → 44 duplicates of same event with entity combination explosion
 - 90% wrong dates using video publish date (2023) instead of historical event dates (2018-2021)
@@ -1033,18 +1080,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - SponsorBlock content filtering eliminating non-content pollution
 - Cross-video temporal correlation for comprehensive timeline building
 
-### 🎯 IMPLEMENTATION STATUS: FOUNDATION COMPLETE
-- ✅ **Enhanced UniversalVideoClient**: yt-dlp temporal metadata extraction (v2.18.9)
-- ✅ **Timeline Package Models**: Core data structures and enums (v2.18.9)
-- ✅ **EventDeduplicator**: Fixes 44-duplicate crisis (v2.18.9)
-- ✅ **ContentDateExtractor**: Fixes wrong date crisis (v2.18.9)
-- ✅ **TemporalExtractorV2**: Core yt-dlp integration (v2.18.10)
-- ✅ **TimelineQualityFilter**: Comprehensive quality assurance (v2.18.10)
-- ✅ **ChapterSegmenter**: yt-dlp chapter intelligence (v2.18.10)
-- ✅ **CrossVideoSynthesizer**: Multi-video timeline building (v2.18.10)
-- ✅ **Package Integration**: Complete v2.0 API with proper exports (v2.18.10)
+###  IMPLEMENTATION STATUS: FOUNDATION COMPLETE
+-  **Enhanced UniversalVideoClient**: yt-dlp temporal metadata extraction (v2.18.9)
+-  **Timeline Package Models**: Core data structures and enums (v2.18.9)
+-  **EventDeduplicator**: Fixes 44-duplicate crisis (v2.18.9)
+-  **ContentDateExtractor**: Fixes wrong date crisis (v2.18.9)
+-  **TemporalExtractorV2**: Core yt-dlp integration (v2.18.10)
+-  **TimelineQualityFilter**: Comprehensive quality assurance (v2.18.10)
+-  **ChapterSegmenter**: yt-dlp chapter intelligence (v2.18.10)
+-  **CrossVideoSynthesizer**: Multi-video timeline building (v2.18.10)
+-  **Package Integration**: Complete v2.0 API with proper exports (v2.18.10)
 
-### 🚧 REMAINING INTEGRATION WORK
+###  REMAINING INTEGRATION WORK
 **Phase 5: Integration & Testing** (Next Session):
 - Integration with video processing pipeline (VideoRetriever updates)
 - Mission Control UI integration for Timeline v2.0 features
@@ -1052,7 +1099,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Performance optimization and error handling
 - Documentation updates and user guides
 
-### 💡 TECHNICAL EXCELLENCE DELIVERED
+###  TECHNICAL EXCELLENCE DELIVERED
 - **Code Quality**: 157KB total implementation with comprehensive error handling
 - **Architecture**: Modular, extensible design with clear separation of concerns
 - **Performance**: Efficient algorithms with configurable thresholds and fallbacks
@@ -1062,16 +1109,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 This represents the most significant advancement in ClipScribe's temporal intelligence capabilities, transforming broken timeline output into publication-ready temporal intelligence through breakthrough yt-dlp integration 
 
-## [2.18.9] - 2025-06-29 22:30 - Comprehensive Research & Architecture Plan Complete 🔬
+## [2.18.9] - 2025-06-29 22:30 - Comprehensive Research & Architecture Plan Complete 
 
-### 🔍 COMPREHENSIVE RESEARCH COMPLETED: 5-Point Analysis (2025-06-29 22:30 PDT)
-- **Timeline Crisis Analysis**: ✅ **VALIDATED** - 44 duplicate events, 90% wrong dates confirmed
-- **yt-dlp Capabilities Research**: 🚀 **BREAKTHROUGH** - 61 temporal intelligence features unused (95% of capabilities ignored)
-- **Codebase Impact Assessment**: ✅ **MAPPED** - Complete file modification plan and new component architecture
-- **Rules Audit**: ✅ **CURRENT** - All 17 rules up-to-date and relevant for timeline v2.0
-- **Project Cleanup Analysis**: 🧹 **REQUIRED** - 17 __pycache__ dirs, 8 misplaced docs, test files scattered
+###  COMPREHENSIVE RESEARCH COMPLETED: 5-Point Analysis (2025-06-29 22:30 PDT)
+- **Timeline Crisis Analysis**:  **VALIDATED** - 44 duplicate events, 90% wrong dates confirmed
+- **yt-dlp Capabilities Research**:  **BREAKTHROUGH** - 61 temporal intelligence features unused (95% of capabilities ignored)
+- **Codebase Impact Assessment**:  **MAPPED** - Complete file modification plan and new component architecture
+- **Rules Audit**:  **CURRENT** - All 17 rules up-to-date and relevant for timeline v2.0
+- **Project Cleanup Analysis**:  **REQUIRED** - 17 __pycache__ dirs, 8 misplaced docs, test files scattered
 
-### 🎯 GAME-CHANGING DISCOVERIES: yt-dlp Temporal Intelligence
+###  GAME-CHANGING DISCOVERIES: yt-dlp Temporal Intelligence
 **Critical Finding**: ClipScribe uses <5% of yt-dlp's temporal capabilities despite having access to:
 - **Chapter Information** (`--embed-chapters`) - Precise video segmentation with timestamps
 - **Word-Level Subtitles** (`--write-subs --embed-subs`) - Sub-second precision for every spoken word
@@ -1079,7 +1126,7 @@ This represents the most significant advancement in ClipScribe's temporal intell
 - **Rich Metadata** (`--write-info-json`) - Temporal context from descriptions/comments
 - **Section Downloads** (`--download-sections`) - Process specific time ranges only
 
-### 📐 VALIDATED TIMELINE ARCHITECTURE V2.0
+###  VALIDATED TIMELINE ARCHITECTURE V2.0
 **New Package Structure (Research-Validated)**:
 ```
 src/clipscribe/timeline/
@@ -1092,7 +1139,7 @@ src/clipscribe/timeline/
 └── cross_video_synthesizer.py    # Multi-video timeline building
 ```
 
-### 🚀 AUGMENTED IMPLEMENTATION PLAN (15-Day Roadmap)
+###  AUGMENTED IMPLEMENTATION PLAN (15-Day Roadmap)
 **Phase 1: Foundation & Cleanup** (3-4 days)
 - Clear 17 __pycache__ directories  
 - Move 8 documentation files to proper docs/ structure
@@ -1115,7 +1162,7 @@ src/clipscribe/timeline/
 - Chapter-aware timeline display
 - SponsorBlock filtering controls
 
-### 📊 EXPECTED TRANSFORMATION (Research-Validated)
+###  EXPECTED TRANSFORMATION (Research-Validated)
 **Before (Current Broken State)**:
 - 82 "events" → 44 duplicates of same event (`evt_6ZVj1_SE4Mo_0`)
 - 90% wrong dates (video publish date instead of historical dates)
@@ -1128,50 +1175,50 @@ src/clipscribe/timeline/
 - Chapter-aware event contextualization
 - SponsorBlock content filtering (no intro/outro pollution)
 
-### 📚 COMPREHENSIVE DOCUMENTATION UPDATES
+###  COMPREHENSIVE DOCUMENTATION UPDATES
 - **Enhanced**: `docs/TIMELINE_INTELLIGENCE_V2.md` with complete research findings and implementation details
 - **Updated**: `CONTINUATION_PROMPT.md` with research-validated architecture and augmented plan
 - **Validated**: All rules current and relevant for timeline v2.0 development
 
 This comprehensive research confirms yt-dlp integration as the game-changing solution that could solve 80% of timeline issues using existing infrastructure while providing precision temporal intelligence capabilities 
 
-## [2.18.8] - 2025-06-29 22:00 - Timeline Architecture Breakthrough 🚀
+## [2.18.8] - 2025-06-29 22:00 - Timeline Architecture Breakthrough 
 
-### 🎯 MAJOR BREAKTHROUGH: yt-dlp Temporal Intelligence Discovery (2025-06-29 22:00 PDT)
-- **Timeline Crisis Analysis**: ✅ **COMPLETE** - Identified fundamental architectural flaws
+###  MAJOR BREAKTHROUGH: yt-dlp Temporal Intelligence Discovery (2025-06-29 22:00 PDT)
+- **Timeline Crisis Analysis**:  **COMPLETE** - Identified fundamental architectural flaws
   - Same event duplicated 44 times due to entity combination explosion
   - 90% of events show wrong dates (video publish date instead of historical dates)
   - No actual temporal event extraction - just entity mentions with wrong timestamps
   - Timeline feature essentially unusable for its intended purpose
 
-- **yt-dlp Integration Breakthrough**: 🚀 **MAJOR DISCOVERY** - ClipScribe already uses yt-dlp but ignores powerful temporal features
+- **yt-dlp Integration Breakthrough**:  **MAJOR DISCOVERY** - ClipScribe already uses yt-dlp but ignores powerful temporal features
   - Chapter information extraction (precise timestamps + titles)
   - Word-level subtitle timing (sub-second precision)
   - SponsorBlock integration (content vs non-content filtering)
   - Section downloads (targeted time range processing)
   - Rich temporal metadata completely unused in current implementation
 
-### 📚 Comprehensive Documentation Updates
-- **Timeline Intelligence v2.0**: ✅ Created complete architecture specification
+###  Comprehensive Documentation Updates
+- **Timeline Intelligence v2.0**:  Created complete architecture specification
   - Current state analysis with specific examples of broken output
   - yt-dlp integration opportunities and benefits
   - Complete component specifications for v2.0 redesign
   - 5-phase implementation plan with yt-dlp as priority #1
   - Quality metrics and testing strategy
-- **docs/README.md**: ✅ Updated with timeline v2.0 documentation and current status
-- **CONTINUATION_PROMPT.md**: ✅ Updated with breakthrough discovery and new priorities
+- **docs/README.md**:  Updated with timeline v2.0 documentation and current status
+- **CONTINUATION_PROMPT.md**:  Updated with breakthrough discovery and new priorities
 
-### 🔄 Next Session Priority Shift
+###  Next Session Priority Shift
 - **NEW #1 Priority**: yt-dlp temporal integration (could solve 80% of timeline issues)
 - **Enhanced Strategy**: Leverage existing yt-dlp infrastructure for precision temporal intelligence
 - **Timeline v2.0**: Complete architectural redesign with sub-second precision capabilities
 
-## [2.18.7] - 2025-06-29 19:58 - Mission Control UI Fully Operational ✅
+## [2.18.7] - 2025-06-29 19:58 - Mission Control UI Fully Operational 
 
-### 🎯 MAJOR FIX: All Duplicate Element Issues Resolved (2025-06-29 19:58 PDT)
-- **Complete UI Fix**: ✅ **SUCCESS** - Mission Control UI now fully operational without any duplicate element errors
+###  MAJOR FIX: All Duplicate Element Issues Resolved (2025-06-29 19:58 PDT)
+- **Complete UI Fix**:  **SUCCESS** - Mission Control UI now fully operational without any duplicate element errors
   - Fixed all 7 buttons in Collections.py that were missing unique keys
-  - Added unique key to "🔍 Enable Web Research" button using collection_path hash
+  - Added unique key to " Enable Web Research" button using collection_path hash
   - Added unique key to "Confirm Research Validation" button with collection-specific identifier
   - Fixed all download buttons (JSON, Timeline, Summary) with selected_collection-based keys
   - Fixed "Open Folder" button with unique identifier
@@ -1179,73 +1226,73 @@ This comprehensive research confirms yt-dlp integration as the game-changing sol
   - **Context Flow**: Updated show_timeline_chart and show_timeline_analytics to accept context parameter
   - **Verified**: Mission Control loads and operates without ANY StreamlitDuplicateElementId or StreamlitDuplicateElementKey errors
 
-### ✅ UI ACCESSIBILITY FULLY RESTORED
+###  UI ACCESSIBILITY FULLY RESTORED
 - **Collections Page**: Timeline Synthesis tab now fully accessible with working charts
 - **All Features Working**: Research validation, timeline visualization, analytics, downloads all functional
 - **No Errors**: Comprehensive testing shows no duplicate element issues of any kind
 - **Multiple Tab Support**: Timeline visualizations can now render in multiple tabs without conflicts
 
-### 🎯 MISSION CONTROL STATUS: FULLY OPERATIONAL
-- **Dashboard**: ✅ Working perfectly
-- **Timeline Intelligence**: ✅ Full functionality with 82 real events
-- **Collections**: ✅ All tabs accessible including Timeline Synthesis
-- **Information Flows**: ✅ Concept evolution tracking working
-- **Analytics**: ✅ Cost and performance monitoring operational
+###  MISSION CONTROL STATUS: FULLY OPERATIONAL
+- **Dashboard**:  Working perfectly
+- **Timeline Intelligence**:  Full functionality with 82 real events
+- **Collections**:  All tabs accessible including Timeline Synthesis
+- **Information Flows**:  Concept evolution tracking working
+- **Analytics**:  Cost and performance monitoring operational
 
-### 📊 CURRENT PROJECT STATUS
+###  CURRENT PROJECT STATUS
 **All critical issues resolved!** ClipScribe v2.18.7 represents a fully functional system with:
-- ✅ Collection processing validated
-- ✅ Timeline Intelligence confirmed with real data
-- ✅ Mission Control UI fully operational
-- ✅ Enhanced temporal intelligence working (300% more intelligence for 12-20% cost)
-- ✅ Cost optimization maintained at 92% reduction
+-  Collection processing validated
+-  Timeline Intelligence confirmed with real data
+-  Mission Control UI fully operational
+-  Enhanced temporal intelligence working (300% more intelligence for 12-20% cost)
+-  Cost optimization maintained at 92% reduction
 
-## [2.18.6] - 2025-06-29 19:17 - Timeline Intelligence Real Data Validation + Mission Control UI Issues ✅⚠️
+## [2.18.6] - 2025-06-29 19:17 - Timeline Intelligence Real Data Validation + Mission Control UI Issues 
 
-### 🎯 MAJOR DISCOVERY: TIMELINE INTELLIGENCE CONFIRMED REAL DATA (2025-06-29 19:17 PDT)
-- **Timeline Intelligence Validation**: ✅ **CONFIRMED** - Timeline Intelligence is connected to actual processing pipeline, not fake data!
+###  MAJOR DISCOVERY: TIMELINE INTELLIGENCE CONFIRMED REAL DATA (2025-06-29 19:17 PDT)
+- **Timeline Intelligence Validation**:  **CONFIRMED** - Timeline Intelligence is connected to actual processing pipeline, not fake data!
   - **Real timeline events** from Pegasus investigation collection spanning 2018-2021
   - **Actual extracted dates**: "August 3, 2020", "July 2021", "2018" from content analysis
   - **Real entities**: David Haigh, Jamal Khashoggi, Pegasus, NSO Group extracted from video content
   - **Comprehensive data**: 82 timeline events, 396 cross-video entities, 28 concept nodes from actual processing
 
-### ⚠️ CRITICAL ISSUE IDENTIFIED: Mission Control UI Button Duplicate IDs
+###  CRITICAL ISSUE IDENTIFIED: Mission Control UI Button Duplicate IDs
 - **Problem**: StreamlitDuplicateElementId error preventing full Mission Control access
-  - **Location**: `streamlit_app/pages/Collections.py:222` - "🔍 Enable Web Research" button
+  - **Location**: `streamlit_app/pages/Collections.py:222` - " Enable Web Research" button
   - **Error**: `There are multiple button elements with the same auto-generated ID`
   - **Impact**: Collections page Timeline Synthesis tab crashes, blocking UI functionality
 - **Root Cause**: Missing unique `key` parameter on buttons in Collections.py
-- **Status**: ⚠️ **BLOCKING** - Prevents full Mission Control validation
+- **Status**:  **BLOCKING** - Prevents full Mission Control validation
 
-### ✅ PARTIAL FIXES APPLIED
+###  PARTIAL FIXES APPLIED
 - **Path Detection**: Updated Mission Control to find real data in `backup_output/collections/`
 - **Demo Data Removal**: Removed fake analytics and demo data from Timeline Intelligence
 - **Selectbox Keys**: Fixed duplicate selectbox and slider key errors
 - **Real Data Integration**: Timeline Intelligence now shows actual processed collection metrics
 
-### 📊 VALIDATED REAL DATA METRICS
+###  VALIDATED REAL DATA METRICS
 **From Pegasus Investigation Collection (backup_output/collections/collection_20250629_163934_2/)**
 - **Timeline Events**: 82 real events with temporal intelligence spanning 2018-2021
 - **Cross-Video Entities**: 396 unified entities resolved from 441 individual entities
 - **Information Flows**: 4 cross-video flows with 3 clusters and concept evolution
 - **File Sizes**: collection_intelligence.json (929KB), timeline.json (61KB)
 
-### 🚧 REMAINING WORK
+###  REMAINING WORK
 - **IMMEDIATE**: Fix duplicate button IDs in Collections.py (add unique `key` parameters)
 - **AUDIT**: Review all Streamlit pages for potential duplicate element IDs
 - **VALIDATION**: Complete end-to-end Mission Control UI testing
 
-### 🎯 MISSION CONTROL STATUS
-- **Dashboard**: ✅ Working - Metrics and activity display
-- **Timeline Intelligence**: ✅ Working - Real data visualization (82 events)
-- **Collections**: ⚠️ Partial - Loads but crashes on Timeline Synthesis tab
-- **Information Flows**: ✅ Working - Concept evolution tracking
-- **Analytics**: ✅ Working - Cost and performance monitoring
+###  MISSION CONTROL STATUS
+- **Dashboard**:  Working - Metrics and activity display
+- **Timeline Intelligence**:  Working - Real data visualization (82 events)
+- **Collections**:  Partial - Loads but crashes on Timeline Synthesis tab
+- **Information Flows**:  Working - Concept evolution tracking
+- **Analytics**:  Working - Cost and performance monitoring
 
-## [2.18.5] - 2025-06-29 - Collection Processing Validation Complete + Critical Production Fixes ✅
+## [2.18.5] - 2025-06-29 - Collection Processing Validation Complete + Critical Production Fixes 
 
-### 🎯 MAJOR MILESTONE: COLLECTION PROCESSING FULLY VALIDATED (2025-06-29 18:42 PDT)
-- **Collection Processing Success**: ✅ **COMPLETE** - End-to-end multi-video processing validated with comprehensive results
+###  MAJOR MILESTONE: COLLECTION PROCESSING FULLY VALIDATED (2025-06-29 18:42 PDT)
+- **Collection Processing Success**:  **COMPLETE** - End-to-end multi-video processing validated with comprehensive results
   - **Pegasus Investigation Collection**: 2-video PBS NewsHour analysis successfully processed
   - **Timeline Events**: 82 events spanning 2018-2021 with real date extraction
   - **Cross-Video Entities**: 396 unified entities (resolved from 441 individual entities)
@@ -1254,58 +1301,58 @@ This comprehensive research confirms yt-dlp integration as the game-changing sol
   - **Relationships**: 20 cross-video relationships with temporal context
   - **Total Cost**: $0.37 for comprehensive multi-video temporal intelligence analysis
 
-### 🚨 CRITICAL PRODUCTION FIXES IMPLEMENTED
-#### 1. **Infinite Timeout Loop** ✅ **RESOLVED**
+###  CRITICAL PRODUCTION FIXES IMPLEMENTED
+#### 1. **Infinite Timeout Loop**  **RESOLVED**
 - **Problem**: Multi-video processor stuck in 18+ hour retry loops due to Gemini API 504 errors
 - **Solution**: Implemented circuit breaker with failure limits and timeouts
 - **Files**: `src/clipscribe/extractors/multi_video_processor.py`
 - **Result**: Processing completes reliably without infinite loops
 
-#### 2. **Information Flow Save Bug** ✅ **RESOLVED**  
+#### 2. **Information Flow Save Bug**  **RESOLVED**  
 - **Problem**: `'InformationFlow' object has no attribute 'video_id'` AttributeError
 - **Solution**: Fixed to use `flow.source_node.video_id` instead of `flow.video_id`
 - **Files**: `src/clipscribe/retrievers/video_retriever.py`
 - **Result**: Information flow maps save successfully
 
-#### 3. **Streamlit Duplicate Keys** ✅ **RESOLVED**
+#### 3. **Streamlit Duplicate Keys**  **RESOLVED**
 - **Problem**: Multiple selectbox elements with same key causing UI crashes
 - **Solution**: Added unique keys using collection path hashes
 - **Files**: `streamlit_app/ClipScribe_Mission_Control.py`, `streamlit_app/pages/Collections.py`
 - **Result**: UI loads without duplicate key errors
 
-#### 4. **Date Extraction Optimization** ✅ **IMPLEMENTED**
+#### 4. **Date Extraction Optimization**  **IMPLEMENTED**
 - **Enhancement**: Added 30-second timeouts and retry limits for LLM date extraction
 - **Result**: More reliable temporal intelligence processing
 
-### 📊 VALIDATION RESULTS
+###  VALIDATION RESULTS
 **Enhanced Temporal Intelligence Pipeline (v2.17.0)**
 - **Cost Efficiency**: 12-20% increase for 300% more temporal intelligence
 - **Processing Success**: Single-call video processing eliminates audio extraction inefficiency
 - **Timeline Synthesis**: Cross-video temporal correlation and comprehensive timeline building
 - **Entity Resolution**: Hybrid approach with local models + LLM validation
 
-### 🎬 MISSION CONTROL UI VALIDATION
-- **Dashboard**: ✅ Metrics display, navigation working
-- **Timeline Intelligence**: ✅ Real data integration, research controls
-- **Collections**: ✅ Multi-video collection management
-- **Information Flows**: ✅ Concept evolution tracking
-- **Analytics**: ✅ Cost and performance monitoring
+###  MISSION CONTROL UI VALIDATION
+- **Dashboard**:  Metrics display, navigation working
+- **Timeline Intelligence**:  Real data integration, research controls
+- **Collections**:  Multi-video collection management
+- **Information Flows**:  Concept evolution tracking
+- **Analytics**:  Cost and performance monitoring
 
-### 📁 FILE STRUCTURE IMPROVEMENTS
+###  FILE STRUCTURE IMPROVEMENTS
 **Collections**: `output/collections/collection_YYYYMMDD_HHMMSS_N/`
 - **Key files**: collection_intelligence.json, timeline.json, information_flow_map.json, unified_knowledge_graph.gexf
 - **Individual videos**: Separate processing with knowledge_graph.gexf, transcript.json, entities.json
 - **Enhanced naming**: Converted machine-readable to human-readable collection names
 
-### 🔄 DOCUMENTATION UPDATES
+###  DOCUMENTATION UPDATES
 - **CONTINUATION_PROMPT.md**: Updated with comprehensive validation results
 - **Version files**: Updated to v2.18.5 across project
 - **Commit messages**: Conventional format with detailed descriptions
 
-## [2.18.4] - 2025-06-28 - Timeline Building Pipeline Complete + Enhanced Temporal Intelligence ✅
+## [2.18.4] - 2025-06-28 - Timeline Building Pipeline Complete + Enhanced Temporal Intelligence 
 
-### 🎯 MISSION CONTROL UI VALIDATION COMPLETE (2025-06-28 12:24 PDT)
-- **Major Validation Success**: ✅ **COMPLETE** - Mission Control UI fully validated and operational
+###  MISSION CONTROL UI VALIDATION COMPLETE (2025-06-28 12:24 PDT)
+- **Major Validation Success**:  **COMPLETE** - Mission Control UI fully validated and operational
   - **UI Accessibility**: All pages loading correctly (Dashboard, Timeline Intelligence, Information Flows, Collections, Analytics)
   - **Navigation System**: Comprehensive sidebar navigation working with proper page switching
   - **Error Handling**: Robust error handling patterns confirmed throughout UI components
@@ -1322,49 +1369,49 @@ This comprehensive research confirms yt-dlp integration as the game-changing sol
   - **Collections Page**: Full collection management interface
   - **Analytics Page**: Cost tracking and performance monitoring framework
 
-### 🧪 VALIDATION FRAMEWORK ESTABLISHED
-- **VALIDATION_CHECKLIST.md**: ✅ **CREATED** - Comprehensive validation framework with 150+ validation points
+###  VALIDATION FRAMEWORK ESTABLISHED
+- **VALIDATION_CHECKLIST.md**:  **CREATED** - Comprehensive validation framework with 150+ validation points
   - **Validation Philosophy**: Test with real data, edge cases, end-to-end user workflows
   - **Execution Plan**: 12-week phased validation approach (Core → Advanced → Production)
   - **Quality Standards**: 95% pass rate required before claiming features work
   - **Testing Categories**: Video processing, Mission Control UI, multi-video collections, output formats
-- **Validation-First Approach**: ✅ **ESTABLISHED** - No feature marked "complete" without passing validation
+- **Validation-First Approach**:  **ESTABLISHED** - No feature marked "complete" without passing validation
 - **Documentation Updates**: README.md and CONTINUATION_PROMPT.md updated to reflect validation-first approach
 
-### 🔧 Critical Bug Fixes RESOLVED
-- **Timeline Intelligence**: ✅ **FIXED** - Fundamental date extraction logic completely repaired
+###  Critical Bug Fixes RESOLVED
+- **Timeline Intelligence**:  **FIXED** - Fundamental date extraction logic completely repaired
   - **Problem**: Timeline events were using video timestamp seconds as days offset from publication date
   - **Solution**: Now uses publication date directly + preserves video timestamp for reference context
   - **Result**: Timeline now shows meaningful dates instead of nonsensical sequential dates (2025-06-03, 2025-06-04, etc.)
   - **Enhanced**: Still attempts to extract actual dates mentioned in content ("In 1984...", "Last Tuesday...")
-- **Information Flow Maps**: ✅ **FIXED** - AttributeError crashes completely resolved
+- **Information Flow Maps**:  **FIXED** - AttributeError crashes completely resolved
   - **Problem**: `'InformationFlowMap' object has no attribute 'flow_pattern_analysis'`
   - **Solution**: Access flow_map attributes directly with proper hasattr() validation
   - **Result**: Information Flow Maps UI now loads without crashes
 
-### 🎯 Mission Control Status: SIGNIFICANTLY IMPROVED
-- **Timeline Intelligence**: ✅ Now produces meaningful timeline data
-- **Information Flow Maps**: ✅ UI loads successfully without AttributeError crashes
+###  Mission Control Status: SIGNIFICANTLY IMPROVED
+- **Timeline Intelligence**:  Now produces meaningful timeline data
+- **Information Flow Maps**:  UI loads successfully without AttributeError crashes
 - **Overall Stability**: Major improvement in Mission Control reliability
 
-### 📋 Technical Implementation
+###  Technical Implementation
 - **Timeline Fix**: Replaced `video.metadata.published_at + timedelta(seconds=key_point.timestamp)` with correct logic
 - **UI Fix**: Replaced `flow_map.flow_pattern_analysis.learning_progression` with `flow_map.learning_progression`
 - **Validation**: Both fixes tested with syntax compilation validation
 - **Approach**: Simplified timeline intelligence focused on reliable extraction vs complex temporal correlation
 
-### 💡 Strategic Alignment Maintained
+###  Strategic Alignment Maintained
 - **ClipScribe Role**: Video intelligence collector/triage analyst (confirmed)
 - **Timeline Feature**: Simplified approach for reliable intelligence extraction
 - **Future Integration**: Ready for eventual Chimera integration after 100% ClipScribe stability
 
-### 🚨 REALITY CHECK IMPLEMENTED
+###  REALITY CHECK IMPLEMENTED
 - **Brutal Honesty**: Acknowledged gap between claimed features and actual validation
 - **New Standard**: All features must pass comprehensive validation before being marked complete
 - **Quality Gate**: 95% of validation checklist must pass before production claims
 - **Testing Requirement**: Real data, end-to-end workflows, documented failures
 
-### 📊 Current Validation Status
+###  Current Validation Status
 **Phase 1: Core Functionality (INITIATED)**
 - [ ] Single video processing workflows (Week 1)
 - [ ] Mission Control UI validation (Week 2)  
@@ -1375,20 +1422,20 @@ This comprehensive research confirms yt-dlp integration as the game-changing sol
 
 ## [2.18.3] - 2025-06-28 - Timeline Bug Fix & Documentation Update
 
-### 🔧 Critical Bug Fixes
+###  Critical Bug Fixes
 - **Timeline Intelligence**: Preparing to fix fundamental date extraction logic
   - Current broken implementation: `video.metadata.published_at + timedelta(seconds=key_point.timestamp)`
   - New approach: Extract key events with video timestamps + attempt actual date extraction
   - No web research required - extract dates mentioned in content with confidence levels
   - Position timeline as intelligence collector/triage for eventual Chimera integration
 
-### 📚 Documentation Updates
+###  Documentation Updates
 - **Comprehensive Documentation Review**: Updated all timeline references across project
 - **Strategic Positioning**: Clarified ClipScribe as "collector and triage analyst" vs full analysis engine
 - **Chimera Integration Context**: Added context for future integration without immediate implementation
 - **Communication Rules**: Added brutal honesty guidelines to project rules
 
-### 🎯 Strategic Clarification
+###  Strategic Clarification
 - **ClipScribe Role**: Video intelligence collector/triage → feeds structured data
 - **Chimera Role**: Deep analysis engine → processes data with 54 SAT techniques  
 - **Integration Timeline**: After ClipScribe is 100% stable as standalone tool
@@ -1396,7 +1443,7 @@ This comprehensive research confirms yt-dlp integration as the game-changing sol
 
 ## [2.18.2] - 2025-06-28 - Critical Bug Discovery
 
-### 🚨 Critical Bugs Discovered
+###  Critical Bugs Discovered
 - **Timeline Intelligence**: Fundamental logic error in date extraction
   - Timeline events are using video timestamp seconds as days offset from publication date
   - Results in meaningless sequential dates (2025-06-03, 2025-06-04, etc.) instead of actual historical dates
@@ -1409,7 +1456,7 @@ This comprehensive research confirms yt-dlp integration as the game-changing sol
   - ConceptNode, ConceptDependency, ConceptEvolutionPath, ConceptCluster all have mismatched attributes
   - Indicates UI was developed without proper validation against actual models
 
-### 🔍 Root Cause Analysis
+###  Root Cause Analysis
 - **Timeline Date Logic**: Fallback uses `video.metadata.published_at + timedelta(seconds=key_point.timestamp)`
   - This adds the video timestamp (in seconds) as DAYS to the publication date
   - Should either extract real dates from content or use a different approach entirely
@@ -1417,19 +1464,19 @@ This comprehensive research confirms yt-dlp integration as the game-changing sol
   - No integration testing performed before declaring features "complete"
   - Copy-paste development led to propagated errors across multiple pages
 
-### 📋 Testing Gaps Identified
+###  Testing Gaps Identified
 - No manual testing of UI pages with real data
 - No integration tests between models and UI
 - Features marked "complete" without basic functionality verification
 - Timeline feature may not even be applicable to many video types
 
-### 🎯 Immediate Action Required
+###  Immediate Action Required
 1. Fix timeline date extraction logic completely
 2. Update all Information Flow Maps UI code to match actual models
 3. Comprehensive manual testing of every feature
 4. Establish proper testing protocols before marking features complete
 
-### 💡 Lessons Learned
+###  Lessons Learned
 - "Complete" should mean tested and working, not just coded
 - UI development must be done against actual model definitions
 - Integration testing is critical for multi-component features
@@ -1535,7 +1582,7 @@ This comprehensive research confirms yt-dlp integration as the game-changing sol
 
 ## [2.18.14] - 2025-06-30
 
-### 🚀 Timeline v2.0 Re-enabled and Model Mismatches Fixed
+###  Timeline v2.0 Re-enabled and Model Mismatches Fixed
 - **MAJOR**: Re-enabled Timeline Intelligence v2.0 processing after confirming it was already active
 - **Model Fixes**: Fixed all ConsolidatedTimeline model mismatches between Timeline v2.0 and main models
 - **Import Fix**: Added missing ConsolidatedTimeline import in multi_video_processor.py  
@@ -1545,14 +1592,14 @@ This comprehensive research confirms yt-dlp integration as the game-changing sol
 - **Performance**: Timeline v2.0 now falls back gracefully without 42-minute hangs
 - **Status**: Timeline v2.0 is structurally integrated but extracting 0 temporal events (needs investigation)
 
-### 🔧 Technical Details
+###  Technical Details
 - Timeline v2.0 execution path confirmed active in both VideoRetriever and MultiVideoProcessor
 - Fixed Timeline v2.0 ConsolidatedTimeline model expecting different fields than main model
 - Updated quality_filter.py to use Timeline v2.0 model structure (no timeline_id field)
 - Removed invalid timeline_version and processing_stats assignments
 - Fallback timeline now works correctly without model validation errors
 
-### ⚠️ Known Issues
+###  Known Issues
 - Timeline v2.0 extracts 0 temporal events with "max() iterable argument is empty" errors
 - Chapter extraction fails for all chapters in TemporalExtractorV2
 - Falls back to basic timeline which successfully creates 82 events
@@ -1560,7 +1607,7 @@ This comprehensive research confirms yt-dlp integration as the game-changing sol
 
 ## [2.18.13] - 2025-06-30
 
-### 🎯 Entity Resolution Quality Enhancement Complete
+###  Entity Resolution Quality Enhancement Complete
 - **MAJOR**: Comprehensive entity quality filtering system to address false positives and improve confidence scores
 - **Dynamic Confidence**: Replaced hardcoded 0.85 scores with calculated confidence based on entity characteristics
 - **Language Filtering**: Advanced language detection to remove non-English noise (Spanish/French false positives)
@@ -1572,7 +1619,7 @@ This comprehensive research confirms yt-dlp integration as the game-changing sol
 - **EntityQualityFilter**: New comprehensive filtering pipeline with language detection, false positive removal, and dynamic confidence calculation
 - **Integration**: Full integration into AdvancedHybridExtractor with quality metrics tracking and reporting
 
-### 🔧 Entity Extraction Improvements
+###  Entity Extraction Improvements
 - **SpacyEntityExtractor**: Enhanced with dynamic confidence calculation replacing hardcoded 0.85 scores
 - **REBELExtractor**: Enhanced with predicate quality scoring and context verification for relationships
 - **Advanced Pipeline**: Quality filtering integrated into entity extraction workflow with comprehensive metrics
@@ -1580,7 +1627,7 @@ This comprehensive research confirms yt-dlp integration as the game-changing sol
 ## [2.18.12] - 2025-06-30
 
 ### Added
-- **Timeline Intelligence v2.0 COMPLETE INTEGRATION** 🎉
+- **Timeline Intelligence v2.0 COMPLETE INTEGRATION** 
   - Component 4: Real-world testing validation framework with 82→40 event transformation
   - Component 5: Performance optimization for large collections (100+ videos)
   - Component 6: Comprehensive user documentation for Timeline v2.0 features
@@ -1610,17 +1657,17 @@ This comprehensive research confirms yt-dlp integration as the game-changing sol
   - Fixed linter errors that broke VideoRetriever functionality
   - Added fallback processing for robust error recovery
 
-## [2.18.10] - 2025-06-29 23:05 - Timeline Intelligence v2.0 Implementation Complete! 🚀
+## [2.18.10] - 2025-06-29 23:05 - Timeline Intelligence v2.0 Implementation Complete! 
 
-### 🎯 MAJOR MILESTONE: Timeline Intelligence v2.0 Core Implementation COMPLETE (2025-06-29 23:05 PDT)
-- **Complete Timeline v2.0 Package**: ✅ **ALL 4 CORE COMPONENTS IMPLEMENTED** 
+###  MAJOR MILESTONE: Timeline Intelligence v2.0 Core Implementation COMPLETE (2025-06-29 23:05 PDT)
+- **Complete Timeline v2.0 Package**:  **ALL 4 CORE COMPONENTS IMPLEMENTED** 
   - **temporal_extractor_v2.py** (29KB, 684 lines): Heart of v2.0 with yt-dlp temporal intelligence integration
   - **quality_filter.py** (28KB, 647 lines): Comprehensive quality filtering and validation
   - **chapter_segmenter.py** (31KB, 753 lines): yt-dlp chapter-based intelligent segmentation  
   - **cross_video_synthesizer.py** (41KB, 990 lines): Multi-video timeline correlation and synthesis
   - **Enhanced package exports**: Complete v2.0 API with all components properly exposed
 
-### 🚀 BREAKTHROUGH CAPABILITIES DELIVERED
+###  BREAKTHROUGH CAPABILITIES DELIVERED
 **TemporalExtractorV2** - The Game Changer:
 - **Chapter-aware extraction** using yt-dlp chapter boundaries for intelligent segmentation
 - **Word-level timing precision** for sub-second accuracy using yt-dlp subtitle data
@@ -1650,7 +1697,7 @@ This comprehensive research confirms yt-dlp integration as the game-changing sol
 - **Quality-assured consolidation**: Comprehensive timeline building with cross-video validation
 - **Scalable architecture**: Handles large collections with efficient correlation algorithms
 
-### 📊 ARCHITECTURAL TRANSFORMATION ACHIEVED
+###  ARCHITECTURAL TRANSFORMATION ACHIEVED
 **Before (Broken v1.0)**:
 - 82 "events" → 44 duplicates of same event with entity combination explosion
 - 90% wrong dates using video publish date (2023) instead of historical event dates (2018-2021)
@@ -1665,18 +1712,18 @@ This comprehensive research confirms yt-dlp integration as the game-changing sol
 - SponsorBlock content filtering eliminating non-content pollution
 - Cross-video temporal correlation for comprehensive timeline building
 
-### 🎯 IMPLEMENTATION STATUS: FOUNDATION COMPLETE
-- ✅ **Enhanced UniversalVideoClient**: yt-dlp temporal metadata extraction (v2.18.9)
-- ✅ **Timeline Package Models**: Core data structures and enums (v2.18.9)
-- ✅ **EventDeduplicator**: Fixes 44-duplicate crisis (v2.18.9)
-- ✅ **ContentDateExtractor**: Fixes wrong date crisis (v2.18.9)
-- ✅ **TemporalExtractorV2**: Core yt-dlp integration (v2.18.10)
-- ✅ **TimelineQualityFilter**: Comprehensive quality assurance (v2.18.10)
-- ✅ **ChapterSegmenter**: yt-dlp chapter intelligence (v2.18.10)
-- ✅ **CrossVideoSynthesizer**: Multi-video timeline building (v2.18.10)
-- ✅ **Package Integration**: Complete v2.0 API with proper exports (v2.18.10)
+###  IMPLEMENTATION STATUS: FOUNDATION COMPLETE
+-  **Enhanced UniversalVideoClient**: yt-dlp temporal metadata extraction (v2.18.9)
+-  **Timeline Package Models**: Core data structures and enums (v2.18.9)
+-  **EventDeduplicator**: Fixes 44-duplicate crisis (v2.18.9)
+-  **ContentDateExtractor**: Fixes wrong date crisis (v2.18.9)
+-  **TemporalExtractorV2**: Core yt-dlp integration (v2.18.10)
+-  **TimelineQualityFilter**: Comprehensive quality assurance (v2.18.10)
+-  **ChapterSegmenter**: yt-dlp chapter intelligence (v2.18.10)
+-  **CrossVideoSynthesizer**: Multi-video timeline building (v2.18.10)
+-  **Package Integration**: Complete v2.0 API with proper exports (v2.18.10)
 
-### 🚧 REMAINING INTEGRATION WORK
+###  REMAINING INTEGRATION WORK
 **Phase 5: Integration & Testing** (Next Session):
 - Integration with video processing pipeline (VideoRetriever updates)
 - Mission Control UI integration for Timeline v2.0 features
@@ -1684,7 +1731,7 @@ This comprehensive research confirms yt-dlp integration as the game-changing sol
 - Performance optimization and error handling
 - Documentation updates and user guides
 
-### 💡 TECHNICAL EXCELLENCE DELIVERED
+###  TECHNICAL EXCELLENCE DELIVERED
 - **Code Quality**: 157KB total implementation with comprehensive error handling
 - **Architecture**: Modular, extensible design with clear separation of concerns
 - **Performance**: Efficient algorithms with configurable thresholds and fallbacks
@@ -1694,16 +1741,16 @@ This comprehensive research confirms yt-dlp integration as the game-changing sol
 
 This represents the most significant advancement in ClipScribe's temporal intelligence capabilities, transforming broken timeline output into publication-ready temporal intelligence through breakthrough yt-dlp integration 
 
-## [2.18.9] - 2025-06-29 22:30 - Comprehensive Research & Architecture Plan Complete 🔬
+## [2.18.9] - 2025-06-29 22:30 - Comprehensive Research & Architecture Plan Complete 
 
-### 🔍 COMPREHENSIVE RESEARCH COMPLETED: 5-Point Analysis (2025-06-29 22:30 PDT)
-- **Timeline Crisis Analysis**: ✅ **VALIDATED** - 44 duplicate events, 90% wrong dates confirmed
-- **yt-dlp Capabilities Research**: 🚀 **BREAKTHROUGH** - 61 temporal intelligence features unused (95% of capabilities ignored)
-- **Codebase Impact Assessment**: ✅ **MAPPED** - Complete file modification plan and new component architecture
-- **Rules Audit**: ✅ **CURRENT** - All 17 rules up-to-date and relevant for timeline v2.0
-- **Project Cleanup Analysis**: 🧹 **REQUIRED** - 17 __pycache__ dirs, 8 misplaced docs, test files scattered
+###  COMPREHENSIVE RESEARCH COMPLETED: 5-Point Analysis (2025-06-29 22:30 PDT)
+- **Timeline Crisis Analysis**:  **VALIDATED** - 44 duplicate events, 90% wrong dates confirmed
+- **yt-dlp Capabilities Research**:  **BREAKTHROUGH** - 61 temporal intelligence features unused (95% of capabilities ignored)
+- **Codebase Impact Assessment**:  **MAPPED** - Complete file modification plan and new component architecture
+- **Rules Audit**:  **CURRENT** - All 17 rules up-to-date and relevant for timeline v2.0
+- **Project Cleanup Analysis**:  **REQUIRED** - 17 __pycache__ dirs, 8 misplaced docs, test files scattered
 
-### 🎯 GAME-CHANGING DISCOVERIES: yt-dlp Temporal Intelligence
+###  GAME-CHANGING DISCOVERIES: yt-dlp Temporal Intelligence
 **Critical Finding**: ClipScribe uses <5% of yt-dlp's temporal capabilities despite having access to:
 - **Chapter Information** (`--embed-chapters`) - Precise video segmentation with timestamps
 - **Word-Level Subtitles** (`--write-subs --embed-subs`) - Sub-second precision for every spoken word
@@ -1711,7 +1758,7 @@ This represents the most significant advancement in ClipScribe's temporal intell
 - **Rich Metadata** (`--write-info-json`) - Temporal context from descriptions/comments
 - **Section Downloads** (`--download-sections`) - Process specific time ranges only
 
-### 📐 VALIDATED TIMELINE ARCHITECTURE V2.0
+###  VALIDATED TIMELINE ARCHITECTURE V2.0
 **New Package Structure (Research-Validated)**:
 ```
 src/clipscribe/timeline/
@@ -1724,7 +1771,7 @@ src/clipscribe/timeline/
 └── cross_video_synthesizer.py    # Multi-video timeline building
 ```
 
-### 🚀 AUGMENTED IMPLEMENTATION PLAN (15-Day Roadmap)
+###  AUGMENTED IMPLEMENTATION PLAN (15-Day Roadmap)
 **Phase 1: Foundation & Cleanup** (3-4 days)
 - Clear 17 __pycache__ directories  
 - Move 8 documentation files to proper docs/ structure
@@ -1747,7 +1794,7 @@ src/clipscribe/timeline/
 - Chapter-aware timeline display
 - SponsorBlock filtering controls
 
-### 📊 EXPECTED TRANSFORMATION (Research-Validated)
+###  EXPECTED TRANSFORMATION (Research-Validated)
 **Before (Current Broken State)**:
 - 82 "events" → 44 duplicates of same event (`evt_6ZVj1_SE4Mo_0`)
 - 90% wrong dates (video publish date 2023 vs actual event dates 2018-2021)
@@ -1760,50 +1807,50 @@ src/clipscribe/timeline/
 - Chapter-aware event contextualization
 - SponsorBlock content filtering (no intro/outro pollution)
 
-### 📚 COMPREHENSIVE DOCUMENTATION UPDATES
+###  COMPREHENSIVE DOCUMENTATION UPDATES
 - **Enhanced**: `docs/TIMELINE_INTELLIGENCE_V2.md` with complete research findings and implementation details
 - **Updated**: `CONTINUATION_PROMPT.md` with research-validated architecture and augmented plan
 - **Validated**: All rules current and relevant for timeline v2.0 development
 
 This comprehensive research confirms yt-dlp integration as the game-changing solution that could solve 80% of timeline issues using existing infrastructure while providing precision temporal intelligence capabilities 
 
-## [2.18.8] - 2025-06-29 22:00 - Timeline Architecture Breakthrough 🚀
+## [2.18.8] - 2025-06-29 22:00 - Timeline Architecture Breakthrough 
 
-### 🎯 MAJOR BREAKTHROUGH: yt-dlp Temporal Intelligence Discovery (2025-06-29 22:00 PDT)
-- **Timeline Crisis Analysis**: ✅ **COMPLETE** - Identified fundamental architectural flaws
+###  MAJOR BREAKTHROUGH: yt-dlp Temporal Intelligence Discovery (2025-06-29 22:00 PDT)
+- **Timeline Crisis Analysis**:  **COMPLETE** - Identified fundamental architectural flaws
   - Same event duplicated 44 times due to entity combination explosion
   - 90% of events show wrong dates (video publish date instead of historical dates)
   - No actual temporal event extraction - just entity mentions with wrong timestamps
   - Timeline feature essentially unusable for its intended purpose
 
-- **yt-dlp Integration Breakthrough**: 🚀 **MAJOR DISCOVERY** - ClipScribe already uses yt-dlp but ignores powerful temporal features
+- **yt-dlp Integration Breakthrough**:  **MAJOR DISCOVERY** - ClipScribe already uses yt-dlp but ignores powerful temporal features
   - Chapter information extraction (precise timestamps + titles)
   - Word-level subtitle timing (sub-second precision)
   - SponsorBlock integration (content vs non-content filtering)
   - Section downloads (targeted time range processing)
   - Rich temporal metadata completely unused in current implementation
 
-### 📚 Comprehensive Documentation Updates
-- **Timeline Intelligence v2.0**: ✅ Created complete architecture specification
+###  Comprehensive Documentation Updates
+- **Timeline Intelligence v2.0**:  Created complete architecture specification
   - Current state analysis with specific examples of broken output
   - yt-dlp integration opportunities and benefits
   - Complete component specifications for v2.0 redesign
   - 5-phase implementation plan with yt-dlp as priority #1
   - Quality metrics and testing strategy
-- **docs/README.md**: ✅ Updated with timeline v2.0 documentation and current status
-- **CONTINUATION_PROMPT.md**: ✅ Updated with breakthrough discovery and new priorities
+- **docs/README.md**:  Updated with timeline v2.0 documentation and current status
+- **CONTINUATION_PROMPT.md**:  Updated with breakthrough discovery and new priorities
 
-### 🔄 Next Session Priority Shift
+###  Next Session Priority Shift
 - **NEW #1 Priority**: yt-dlp temporal integration (could solve 80% of timeline issues)
 - **Enhanced Strategy**: Leverage existing yt-dlp infrastructure for precision temporal intelligence
 - **Timeline v2.0**: Complete architectural redesign with sub-second precision capabilities
 
-## [2.18.7] - 2025-06-29 19:58 - Mission Control UI Fully Operational ✅
+## [2.18.7] - 2025-06-29 19:58 - Mission Control UI Fully Operational 
 
-### 🎯 MAJOR FIX: All Duplicate Element Issues Resolved (2025-06-29 19:58 PDT)
-- **Complete UI Fix**: ✅ **SUCCESS** - Mission Control UI now fully operational without any duplicate element errors
+###  MAJOR FIX: All Duplicate Element Issues Resolved (2025-06-29 19:58 PDT)
+- **Complete UI Fix**:  **SUCCESS** - Mission Control UI now fully operational without any duplicate element errors
   - Fixed all 7 buttons in Collections.py that were missing unique keys
-  - Added unique key to "🔍 Enable Web Research" button using collection_path hash
+  - Added unique key to " Enable Web Research" button using collection_path hash
   - Added unique key to "Confirm Research Validation" button with collection-specific identifier
   - Fixed all download buttons (JSON, Timeline, Summary) with selected_collection-based keys
   - Fixed "Open Folder" button with unique identifier
@@ -1811,73 +1858,73 @@ This comprehensive research confirms yt-dlp integration as the game-changing sol
   - **Context Flow**: Updated show_timeline_chart and show_timeline_analytics to accept context parameter
   - **Verified**: Mission Control loads and operates without ANY StreamlitDuplicateElementId or StreamlitDuplicateElementKey errors
 
-### ✅ UI ACCESSIBILITY FULLY RESTORED
+###  UI ACCESSIBILITY FULLY RESTORED
 - **Collections Page**: Timeline Synthesis tab now fully accessible with working charts
 - **All Features Working**: Research validation, timeline visualization, analytics, downloads all functional
 - **No Errors**: Comprehensive testing shows no duplicate element issues of any kind
 - **Multiple Tab Support**: Timeline visualizations can now render in multiple tabs without conflicts
 
-### 🎯 MISSION CONTROL STATUS: FULLY OPERATIONAL
-- **Dashboard**: ✅ Working perfectly
-- **Timeline Intelligence**: ✅ Full functionality with 82 real events
-- **Collections**: ✅ All tabs accessible including Timeline Synthesis
-- **Information Flows**: ✅ Concept evolution tracking working
-- **Analytics**: ✅ Cost and performance monitoring operational
+###  MISSION CONTROL STATUS: FULLY OPERATIONAL
+- **Dashboard**:  Working perfectly
+- **Timeline Intelligence**:  Full functionality with 82 real events
+- **Collections**:  All tabs accessible including Timeline Synthesis
+- **Information Flows**:  Concept evolution tracking working
+- **Analytics**:  Cost and performance monitoring operational
 
-### 📊 CURRENT PROJECT STATUS
+###  CURRENT PROJECT STATUS
 **All critical issues resolved!** ClipScribe v2.18.7 represents a fully functional system with:
-- ✅ Collection processing validated
-- ✅ Timeline Intelligence confirmed with real data
-- ✅ Mission Control UI fully operational
-- ✅ Enhanced temporal intelligence working (300% more intelligence for 12-20% cost)
-- ✅ Cost optimization maintained at 92% reduction
+-  Collection processing validated
+-  Timeline Intelligence confirmed with real data
+-  Mission Control UI fully operational
+-  Enhanced temporal intelligence working (300% more intelligence for 12-20% cost)
+-  Cost optimization maintained at 92% reduction
 
-## [2.18.6] - 2025-06-29 19:17 - Timeline Intelligence Real Data Validation + Mission Control UI Issues ✅⚠️
+## [2.18.6] - 2025-06-29 19:17 - Timeline Intelligence Real Data Validation + Mission Control UI Issues 
 
-### 🎯 MAJOR DISCOVERY: TIMELINE INTELLIGENCE CONFIRMED REAL DATA (2025-06-29 19:17 PDT)
-- **Timeline Intelligence Validation**: ✅ **CONFIRMED** - Timeline Intelligence is connected to actual processing pipeline, not fake data!
+###  MAJOR DISCOVERY: TIMELINE INTELLIGENCE CONFIRMED REAL DATA (2025-06-29 19:17 PDT)
+- **Timeline Intelligence Validation**:  **CONFIRMED** - Timeline Intelligence is connected to actual processing pipeline, not fake data!
   - **Real timeline events** from Pegasus investigation collection spanning 2018-2021
   - **Actual extracted dates**: "August 3, 2020", "July 2021", "2018" from content analysis
   - **Real entities**: David Haigh, Jamal Khashoggi, Pegasus, NSO Group extracted from video content
   - **Comprehensive data**: 82 timeline events, 396 cross-video entities, 28 concept nodes from actual processing
 
-### ⚠️ CRITICAL ISSUE IDENTIFIED: Mission Control UI Button Duplicate IDs
+###  CRITICAL ISSUE IDENTIFIED: Mission Control UI Button Duplicate IDs
 - **Problem**: StreamlitDuplicateElementId error preventing full Mission Control access
-  - **Location**: `streamlit_app/pages/Collections.py:222` - "🔍 Enable Web Research" button
+  - **Location**: `streamlit_app/pages/Collections.py:222` - " Enable Web Research" button
   - **Error**: `There are multiple button elements with the same auto-generated ID`
   - **Impact**: Collections page Timeline Synthesis tab crashes, blocking UI functionality
 - **Root Cause**: Missing unique `key` parameter on buttons in Collections.py
-- **Status**: ⚠️ **BLOCKING** - Prevents full Mission Control validation
+- **Status**:  **BLOCKING** - Prevents full Mission Control validation
 
-### ✅ PARTIAL FIXES APPLIED
+###  PARTIAL FIXES APPLIED
 - **Path Detection**: Updated Mission Control to find real data in `backup_output/collections/`
 - **Demo Data Removal**: Removed fake analytics and demo data from Timeline Intelligence
 - **Selectbox Keys**: Fixed duplicate selectbox and slider key errors
 - **Real Data Integration**: Timeline Intelligence now shows actual processed collection metrics
 
-### 📊 VALIDATED REAL DATA METRICS
+###  VALIDATED REAL DATA METRICS
 **From Pegasus Investigation Collection (backup_output/collections/collection_20250629_163934_2/)**
 - **Timeline Events**: 82 real events with temporal intelligence spanning 2018-2021
 - **Cross-Video Entities**: 396 unified entities resolved from 441 individual entities
 - **Information Flows**: 4 cross-video flows with 3 clusters and concept evolution
 - **File Sizes**: collection_intelligence.json (929KB), timeline.json (61KB)
 
-### 🚧 REMAINING WORK
+###  REMAINING WORK
 - **IMMEDIATE**: Fix duplicate button IDs in Collections.py (add unique `key` parameters)
 - **AUDIT**: Review all Streamlit pages for potential duplicate element IDs
 - **VALIDATION**: Complete end-to-end Mission Control UI testing
 
-### 🎯 MISSION CONTROL STATUS
-- **Dashboard**: ✅ Working - Metrics and activity display
-- **Timeline Intelligence**: ✅ Working - Real data visualization (82 events)
-- **Collections**: ⚠️ Partial - Loads but crashes on Timeline Synthesis tab
-- **Information Flows**: ✅ Working - Concept evolution tracking
-- **Analytics**: ✅ Working - Cost and performance monitoring
+###  MISSION CONTROL STATUS
+- **Dashboard**:  Working - Metrics and activity display
+- **Timeline Intelligence**:  Working - Real data visualization (82 events)
+- **Collections**:  Partial - Loads but crashes on Timeline Synthesis tab
+- **Information Flows**:  Working - Concept evolution tracking
+- **Analytics**:  Working - Cost and performance monitoring
 
-## [2.18.5] - 2025-06-29 - Collection Processing Validation Complete + Critical Production Fixes ✅
+## [2.18.5] - 2025-06-29 - Collection Processing Validation Complete + Critical Production Fixes 
 
-### 🎯 MAJOR MILESTONE: COLLECTION PROCESSING FULLY VALIDATED (2025-06-29 18:42 PDT)
-- **Collection Processing Success**: ✅ **COMPLETE** - End-to-end multi-video processing validated with comprehensive results
+###  MAJOR MILESTONE: COLLECTION PROCESSING FULLY VALIDATED (2025-06-29 18:42 PDT)
+- **Collection Processing Success**:  **COMPLETE** - End-to-end multi-video processing validated with comprehensive results
   - **Pegasus Investigation Collection**: 2-video PBS NewsHour analysis successfully processed
   - **Timeline Events**: 82 events spanning 2018-2021 with real date extraction
   - **Cross-Video Entities**: 396 unified entities (resolved from 441 individual entities)
@@ -1886,58 +1933,58 @@ This comprehensive research confirms yt-dlp integration as the game-changing sol
   - **Relationships**: 20 cross-video relationships with temporal context
   - **Total Cost**: $0.37 for comprehensive multi-video temporal intelligence analysis
 
-### 🚨 CRITICAL PRODUCTION FIXES IMPLEMENTED
-#### 1. **Infinite Timeout Loop** ✅ **RESOLVED**
+###  CRITICAL PRODUCTION FIXES IMPLEMENTED
+#### 1. **Infinite Timeout Loop**  **RESOLVED**
 - **Problem**: Multi-video processor stuck in 18+ hour retry loops due to Gemini API 504 errors
 - **Solution**: Implemented circuit breaker with failure limits and timeouts
 - **Files**: `src/clipscribe/extractors/multi_video_processor.py`
 - **Result**: Processing completes reliably without infinite loops
 
-#### 2. **Information Flow Save Bug** ✅ **RESOLVED**  
+#### 2. **Information Flow Save Bug**  **RESOLVED**  
 - **Problem**: `'InformationFlow' object has no attribute 'video_id'` AttributeError
 - **Solution**: Fixed to use `flow.source_node.video_id` instead of `flow.video_id`
 - **Files**: `src/clipscribe/retrievers/video_retriever.py`
 - **Result**: Information flow maps save successfully
 
-#### 3. **Streamlit Duplicate Keys** ✅ **RESOLVED**
+#### 3. **Streamlit Duplicate Keys**  **RESOLVED**
 - **Problem**: Multiple selectbox elements with same key causing UI crashes
 - **Solution**: Added unique keys using collection path hashes
 - **Files**: `streamlit_app/ClipScribe_Mission_Control.py`, `streamlit_app/pages/Collections.py`
 - **Result**: UI loads without duplicate key errors
 
-#### 4. **Date Extraction Optimization** ✅ **IMPLEMENTED**
+#### 4. **Date Extraction Optimization**  **IMPLEMENTED**
 - **Enhancement**: Added 30-second timeouts and retry limits for LLM date extraction
 - **Result**: More reliable temporal intelligence processing
 
-### 📊 VALIDATION RESULTS
+###  VALIDATION RESULTS
 **Enhanced Temporal Intelligence Pipeline (v2.17.0)**
 - **Cost Efficiency**: 12-20% increase for 300% more temporal intelligence
 - **Processing Success**: Single-call video processing eliminates audio extraction inefficiency
 - **Timeline Synthesis**: Cross-video temporal correlation and comprehensive timeline building
 - **Entity Resolution**: Hybrid approach with local models + LLM validation
 
-### 🎬 MISSION CONTROL UI VALIDATION
-- **Dashboard**: ✅ Metrics display, navigation working
-- **Timeline Intelligence**: ✅ Real data integration, research controls
-- **Collections**: ✅ Multi-video collection management
-- **Information Flows**: ✅ Concept evolution tracking
-- **Analytics**: ✅ Cost and performance monitoring
+###  MISSION CONTROL UI VALIDATION
+- **Dashboard**:  Metrics display, navigation working
+- **Timeline Intelligence**:  Real data integration, research controls
+- **Collections**:  Multi-video collection management
+- **Information Flows**:  Concept evolution tracking
+- **Analytics**:  Cost and performance monitoring
 
-### 📁 FILE STRUCTURE IMPROVEMENTS
+###  FILE STRUCTURE IMPROVEMENTS
 **Collections**: `output/collections/collection_YYYYMMDD_HHMMSS_N/`
 - **Key files**: collection_intelligence.json, timeline.json, information_flow_map.json, unified_knowledge_graph.gexf
 - **Individual videos**: Separate processing with knowledge_graph.gexf, transcript.json, entities.json
 - **Enhanced naming**: Converted machine-readable to human-readable collection names
 
-### 🔄 DOCUMENTATION UPDATES
+###  DOCUMENTATION UPDATES
 - **CONTINUATION_PROMPT.md**: Updated with comprehensive validation results
 - **Version files**: Updated to v2.18.5 across project
 - **Commit messages**: Conventional format with detailed descriptions
 
-## [2.18.4] - 2025-06-28 - Timeline Building Pipeline Complete + Enhanced Temporal Intelligence ✅
+## [2.18.4] - 2025-06-28 - Timeline Building Pipeline Complete + Enhanced Temporal Intelligence 
 
-### 🎯 MISSION CONTROL UI VALIDATION COMPLETE (2025-06-28 12:24 PDT)
-- **Major Validation Success**: ✅ **COMPLETE** - Mission Control UI fully validated and operational
+###  MISSION CONTROL UI VALIDATION COMPLETE (2025-06-28 12:24 PDT)
+- **Major Validation Success**:  **COMPLETE** - Mission Control UI fully validated and operational
   - **UI Accessibility**: All pages loading correctly (Dashboard, Timeline Intelligence, Information Flows, Collections, Analytics)
   - **Navigation System**: Comprehensive sidebar navigation working with proper page switching
   - **Error Handling**: Robust error handling patterns confirmed throughout UI components
@@ -1954,49 +2001,49 @@ This comprehensive research confirms yt-dlp integration as the game-changing sol
   - **Collections Page**: Full collection management interface
   - **Analytics Page**: Cost tracking and performance monitoring framework
 
-### 🧪 VALIDATION FRAMEWORK ESTABLISHED
-- **VALIDATION_CHECKLIST.md**: ✅ **CREATED** - Comprehensive validation framework with 150+ validation points
+###  VALIDATION FRAMEWORK ESTABLISHED
+- **VALIDATION_CHECKLIST.md**:  **CREATED** - Comprehensive validation framework with 150+ validation points
   - **Validation Philosophy**: Test with real data, edge cases, end-to-end user workflows
   - **Execution Plan**: 12-week phased validation approach (Core → Advanced → Production)
   - **Quality Standards**: 95% pass rate required before claiming features work
   - **Testing Categories**: Video processing, Mission Control UI, multi-video collections, output formats
-- **Validation-First Approach**: ✅ **ESTABLISHED** - No feature marked "complete" without passing validation
+- **Validation-First Approach**:  **ESTABLISHED** - No feature marked "complete" without passing validation
 - **Documentation Updates**: README.md and CONTINUATION_PROMPT.md updated to reflect validation-first approach
 
-### 🔧 Critical Bug Fixes RESOLVED
-- **Timeline Intelligence**: ✅ **FIXED** - Fundamental date extraction logic completely repaired
+###  Critical Bug Fixes RESOLVED
+- **Timeline Intelligence**:  **FIXED** - Fundamental date extraction logic completely repaired
   - **Problem**: Timeline events were using video timestamp seconds as days offset from publication date
   - **Solution**: Now uses publication date directly + preserves video timestamp for reference context
   - **Result**: Timeline now shows meaningful dates instead of nonsensical sequential dates (2025-06-03, 2025-06-04, etc.)
   - **Enhanced**: Still attempts to extract actual dates mentioned in content ("In 1984...", "Last Tuesday...")
-- **Information Flow Maps**: ✅ **FIXED** - AttributeError crashes completely resolved
+- **Information Flow Maps**:  **FIXED** - AttributeError crashes completely resolved
   - **Problem**: `'InformationFlowMap' object has no attribute 'flow_pattern_analysis'`
   - **Solution**: Access flow_map attributes directly with proper hasattr() validation
   - **Result**: Information Flow Maps UI now loads without crashes
 
-### 🎯 Mission Control Status: SIGNIFICANTLY IMPROVED
-- **Timeline Intelligence**: ✅ Now produces meaningful timeline data
-- **Information Flow Maps**: ✅ UI loads successfully without AttributeError crashes
+###  Mission Control Status: SIGNIFICANTLY IMPROVED
+- **Timeline Intelligence**:  Now produces meaningful timeline data
+- **Information Flow Maps**:  UI loads successfully without AttributeError crashes
 - **Overall Stability**: Major improvement in Mission Control reliability
 
-### 📋 Technical Implementation
+###  Technical Implementation
 - **Timeline Fix**: Replaced `video.metadata.published_at + timedelta(seconds=key_point.timestamp)` with correct logic
 - **UI Fix**: Replaced `flow_map.flow_pattern_analysis.learning_progression` with `flow_map.learning_progression`
 - **Validation**: Both fixes tested with syntax compilation validation
 - **Approach**: Simplified timeline intelligence focused on reliable extraction vs complex temporal correlation
 
-### 💡 Strategic Alignment Maintained
+###  Strategic Alignment Maintained
 - **ClipScribe Role**: Video intelligence collector/triage analyst (confirmed)
 - **Timeline Feature**: Simplified approach for reliable intelligence extraction
 - **Future Integration**: Ready for eventual Chimera integration after 100% ClipScribe stability
 
-### 🚨 REALITY CHECK IMPLEMENTED
+###  REALITY CHECK IMPLEMENTED
 - **Brutal Honesty**: Acknowledged gap between claimed features and actual validation
 - **New Standard**: All features must pass comprehensive validation before being marked complete
 - **Quality Gate**: 95% of validation checklist must pass before production claims
 - **Testing Requirement**: Real data, end-to-end workflows, documented failures
 
-### 📊 Current Validation Status
+###  Current Validation Status
 **Phase 1: Core Functionality (INITIATED)**
 - [ ] Single video processing workflows (Week 1)
 - [ ] Mission Control UI validation (Week 2)  
@@ -2007,20 +2054,20 @@ This comprehensive research confirms yt-dlp integration as the game-changing sol
 
 ## [2.18.3] - 2025-06-28 - Timeline Bug Fix & Documentation Update
 
-### 🔧 Critical Bug Fixes
+###  Critical Bug Fixes
 - **Timeline Intelligence**: Preparing to fix fundamental date extraction logic
   - Current broken implementation: `video.metadata.published_at + timedelta(seconds=key_point.timestamp)`
   - New approach: Extract key events with video timestamps + attempt actual date extraction
   - No web research required - extract dates mentioned in content with confidence levels
   - Position timeline as intelligence collector/triage for eventual Chimera integration
 
-### 📚 Documentation Updates
+###  Documentation Updates
 - **Comprehensive Documentation Review**: Updated all timeline references across project
 - **Strategic Positioning**: Clarified ClipScribe as "collector and triage analyst" vs full analysis engine
 - **Chimera Integration Context**: Added context for future integration without immediate implementation
 - **Communication Rules**: Added brutal honesty guidelines to project rules
 
-### 🎯 Strategic Clarification
+###  Strategic Clarification
 - **ClipScribe Role**: Video intelligence collector/triage → feeds structured data
 - **Chimera Role**: Deep analysis engine → processes data with 54 SAT techniques  
 - **Integration Timeline**: After ClipScribe is 100% stable as standalone tool
@@ -2028,7 +2075,7 @@ This comprehensive research confirms yt-dlp integration as the game-changing sol
 
 ## [2.18.2] - 2025-06-28 - Critical Bug Discovery
 
-### 🚨 Critical Bugs Discovered
+###  Critical Bugs Discovered
 - **Timeline Intelligence**: Fundamental logic error in date extraction
   - Timeline events are using video timestamp seconds as days offset from publication date
   - Results in meaningless sequential dates (2025-06-03, 2025-06-04, etc.) instead of actual historical dates
@@ -2041,7 +2088,7 @@ This comprehensive research confirms yt-dlp integration as the game-changing sol
   - ConceptNode, ConceptDependency, ConceptEvolutionPath, ConceptCluster all have mismatched attributes
   - Indicates UI was developed without proper validation against actual models
 
-### 🔍 Root Cause Analysis
+###  Root Cause Analysis
 - **Timeline Date Logic**: Fallback uses `video.metadata.published_at + timedelta(seconds=key_point.timestamp)`
   - This adds the video timestamp (in seconds) as DAYS to the publication date
   - Should either extract real dates from content or use a different approach entirely
@@ -2049,19 +2096,19 @@ This comprehensive research confirms yt-dlp integration as the game-changing sol
   - No integration testing performed before declaring features "complete"
   - Copy-paste development led to propagated errors across multiple pages
 
-### 📋 Testing Gaps Identified
+###  Testing Gaps Identified
 - No manual testing of UI pages with real data
 - No integration tests between models and UI
 - Features marked "complete" without basic functionality verification
 - Timeline feature may not even be applicable to many video types
 
-### 🎯 Immediate Action Required
+###  Immediate Action Required
 1. Fix timeline date extraction logic completely
 2. Update all Information Flow Maps UI code to match actual models
 3. Comprehensive manual testing of every feature
 4. Establish proper testing protocols before marking features complete
 
-### 💡 Lessons Learned
+###  Lessons Learned
 - "Complete" should mean tested and working, not just coded
 - UI development must be done against actual model definitions
 - Integration testing is critical for multi-component features
@@ -2175,37 +2222,37 @@ This comprehensive research confirms yt-dlp integration as the game-changing sol
 
 ## [2.16.0] - 2025-06-27 - The Mission Control Update (Critical Bug Fix - Import Paths)
 
-### 🐛 Critical Bug Fix: Import Path Resolution
+###  Critical Bug Fix: Import Path Resolution
 
 **Issue**: Streamlit Mission Control experiencing session disconnections and page loading failures  
 **Root Cause**: Incorrect relative import paths in page navigation functions causing Python import errors  
 **Solution**: Implemented proper absolute import paths with streamlit_app directory path configuration  
-**Status**: ✅ **RESOLVED** - All enhanced visualizations now fully operational
+**Status**:  **RESOLVED** - All enhanced visualizations now fully operational
 
-### 🔧 Technical Details
+###  Technical Details
 - **Problem**: `from pages.Collections import main` failing due to missing path context
 - **Fix**: Added `streamlit_app_path` to `sys.path` in all show functions
 - **Impact**: All Phase 2 enhanced pages now loading successfully
 - **Testing**: Verified all imports working correctly in production environment
 
-### ✅ Operational Status
-- **Mission Control**: ✅ Fully operational with all navigation working
-- **Interactive Network Graphs**: ✅ Loading and rendering correctly
-- **Information Flow Maps**: ✅ All 5 visualization types working
-- **Advanced Analytics**: ✅ Real-time monitoring functional
-- **Processing Monitor**: ✅ Live dashboard operational
+###  Operational Status
+- **Mission Control**:  Fully operational with all navigation working
+- **Interactive Network Graphs**:  Loading and rendering correctly
+- **Information Flow Maps**:  All 5 visualization types working
+- **Advanced Analytics**:  Real-time monitoring functional
+- **Processing Monitor**:  Live dashboard operational
 
 ---
 
 ## [2.16.0] - 2025-06-27 - The Mission Control Update (Phase 2 - Enhanced Visualizations Complete)
 
-### 🎨 Phase 2 Complete: Enhanced Visualizations & Real-time Processing
+###  Phase 2 Complete: Enhanced Visualizations & Real-time Processing
 
 **Major Milestone**: All Phase 2 enhancements successfully implemented and tested. ClipScribe Mission Control now provides a comprehensive, interactive video intelligence platform with advanced visualizations and real-time monitoring capabilities.
 
-### ✨ New Features - Interactive Visualizations
+###  New Features - Interactive Visualizations
 
-#### 1. ✅ Interactive Network Graphs for Knowledge Panels (COMPLETE)
+#### 1.  Interactive Network Graphs for Knowledge Panels (COMPLETE)
 - **Plotly-powered Network Visualization**: Dynamic entity relationship networks with interactive nodes and edges
 - **Advanced Network Controls**: 
   - Multiple layout algorithms (Spring, Circular, Kamada-Kawai)
@@ -2224,7 +2271,7 @@ This comprehensive research confirms yt-dlp integration as the game-changing sol
   - Relationship distribution analysis
   - Professional graph styling with confidence indicators
 
-#### 2. ✅ Enhanced Information Flow Visualizations (COMPLETE)
+#### 2.  Enhanced Information Flow Visualizations (COMPLETE)
 - **Multi-Type Flow Visualizations**: 5 different interactive visualization types
   - **Concept Evolution Timeline**: Track concept maturity progression across videos
   - **Dependency Network**: Interactive concept prerequisite relationships
@@ -2243,7 +2290,7 @@ This comprehensive research confirms yt-dlp integration as the game-changing sol
   - Filtering by maturity level and cluster
   - Real-time data exploration
 
-#### 3. ✅ Advanced Analytics Dashboard (COMPLETE)
+#### 3.  Advanced Analytics Dashboard (COMPLETE)
 - **Interactive Cost Analysis**:
   - Cost trend visualization over time
   - Cost efficiency scatter plots with processing time bubbles
@@ -2260,7 +2307,7 @@ This comprehensive research confirms yt-dlp integration as the game-changing sol
   - Enhanced data tables with professional formatting
   - Color-coded status indicators
 
-#### 4. ✅ Real-time Processing Monitor (COMPLETE)
+#### 4.  Real-time Processing Monitor (COMPLETE)
 - **Live CLI Progress Monitoring**: Real-time command execution tracking
 - **Interactive Command Builder**:
   - Template-based command selection
@@ -2282,7 +2329,7 @@ This comprehensive research confirms yt-dlp integration as the game-changing sol
   - Monthly projection analytics
   - Cumulative cost visualization with trend analysis
 
-### 🔧 Technical Enhancements
+###  Technical Enhancements
 
 #### 1. Components Architecture
 - **Modular Component System**: Organized `streamlit_app/components/` directory
@@ -2302,7 +2349,7 @@ This comprehensive research confirms yt-dlp integration as the game-changing sol
 - **Interactive Elements**: Hover effects, tooltips, and dynamic updates
 - **Navigation Enhancement**: Phase 2 announcement banner and updated navigation
 
-### 📊 Visualization Capabilities
+###  Visualization Capabilities
 
 #### Network Analysis
 - **Entity Relationship Networks**: Interactive graphs with 20+ entities
@@ -2322,7 +2369,7 @@ This comprehensive research confirms yt-dlp integration as the game-changing sol
 - **System Monitoring**: Real-time gauge visualizations for performance metrics
 - **Predictive Analytics**: Monthly cost projections and usage patterns
 
-### 🚀 Performance & Reliability
+###  Performance & Reliability
 
 - **Optimized Rendering**: Efficient Plotly chart generation for large datasets
 - **Memory Management**: Smart data filtering to display top N entities/concepts
@@ -2330,7 +2377,7 @@ This comprehensive research confirms yt-dlp integration as the game-changing sol
 - **Real-time Updates**: Live data streaming without blocking the UI
 - **Thread Safety**: Proper concurrent processing for real-time monitoring
 
-### 💡 User Experience
+###  User Experience
 
 #### Navigation & Discovery
 - **Enhanced Navigation**: New "Real-time Processing" page in main navigation
@@ -2344,21 +2391,21 @@ This comprehensive research confirms yt-dlp integration as the game-changing sol
 - **Hover Insights**: Rich tooltips with contextual information
 - **Responsive Controls**: Intuitive sliders, selectors, and input forms
 
-### 🎯 Integration & Compatibility
+###  Integration & Compatibility
 
 - **Seamless CLI Integration**: Real-time monitoring of all ClipScribe commands
 - **Backward Compatible**: All Phase 1 features maintained and enhanced
 - **Cross-platform**: Works on macOS, Linux, and Windows
 - **Dependencies**: Plotly, NetworkX, Pandas integration with graceful fallbacks
 
-### 🔬 Quality & Testing
+###  Quality & Testing
 
 - **Import Validation**: Comprehensive testing of all visualization imports
 - **Error Handling**: Robust error recovery and user feedback
 - **Performance Testing**: Optimized for collections with 50+ entities and concepts
 - **User Interface Testing**: Verified across different data sizes and scenarios
 
-### 💭 Developer Notes
+###  Developer Notes
 
 Phase 2 represents a major evolution in ClipScribe's user interface capabilities. The addition of interactive visualizations transforms the static web interface into a dynamic, explorable platform for video intelligence analysis. 
 
@@ -2380,17 +2427,17 @@ Phase 2 successfully bridges the gap between ClipScribe's powerful CLI capabilit
 
 ## [2.16.0] - 2025-06-27 - The Mission Control Update (Phase 1 + Rules Cleanup Complete)
 
-### 🎨 Major New Feature: Streamlit Mission Control
+###  Major New Feature: Streamlit Mission Control
 
 **Interactive Web Interface**: Complete browser-based interface for managing and visualizing ClipScribe video intelligence collections.
 
-### 🧹 Major Project Maintenance: Rules System Cleanup
+###  Major Project Maintenance: Rules System Cleanup
 
 **Comprehensive Rules Reorganization**: Streamlined and consolidated the project's rule system for better maintainability and clarity.
 
-### ✨ New Features
+###  New Features
 
-#### 1. ✅ Streamlit Web Interface (Phase 1 Complete)
+#### 1.  Streamlit Web Interface (Phase 1 Complete)
 - **Main Dashboard**: Beautiful gradient interface with navigation sidebar, quick stats, and recent activity
 - **Collections Browser**: Complete multi-video collection management with tabbed interface
   - Overview: Collection metrics, summaries, and AI-generated insights
@@ -2411,7 +2458,7 @@ Phase 2 successfully bridges the gap between ClipScribe's powerful CLI capabilit
   - API usage monitoring with optimization recommendations
 - **Settings Panel**: Configuration management for API keys and processing parameters
 
-#### 2. 🔧 Advanced UI Features
+#### 2.  Advanced UI Features
 - **Data Integration**: Full integration with ClipScribe's JSON output formats
 - **Download Capabilities**: JSON and markdown exports for all analysis types
 - **Interactive Elements**: Search, filtering, sorting, expandable sections
@@ -2419,14 +2466,14 @@ Phase 2 successfully bridges the gap between ClipScribe's powerful CLI capabilit
 - **Real-time Updates**: Refresh functionality to detect new processing
 - **Security**: Masked API key display and local-only data access
 
-#### 3. 📱 User Experience Enhancements
+#### 3.  User Experience Enhancements
 - **Professional Styling**: Gradient headers, emoji indicators, metric cards
 - **Responsive Design**: Works seamlessly on desktop and tablet
 - **Progress Feedback**: Loading spinners and success messages
 - **Navigation**: Seamless page switching with proper import handling
 - **Documentation**: Comprehensive README with troubleshooting guide
 
-### 🚀 Architecture
+###  Architecture
 
 #### Directory Structure
 ```
@@ -2440,21 +2487,21 @@ streamlit_app/
 └── README.md                      # Comprehensive documentation
 ```
 
-### 🎯 Integration & Compatibility
+###  Integration & Compatibility
 
 - **Seamless CLI Integration**: Automatically detects and loads all ClipScribe outputs
 - **Backward Compatible**: Works with all existing v2.15.0 synthesis features
 - **Zero Configuration**: Automatic detection of processed videos and collections
 - **Local-First**: All data processing happens locally for maximum privacy
 
-### 📊 Performance
+###  Performance
 
 - **Efficient Loading**: Optimized JSON loading with error recovery
 - **Memory Management**: Smart data loading for large collections
 - **Fast Navigation**: Client-side filtering and sorting
 - **Responsive UI**: Smooth interactions even with large datasets
 
-### 🔬 Testing & Quality
+###  Testing & Quality
 
 - **Error Resilience**: Comprehensive error handling throughout the interface
 - **Graceful Degradation**: Fallback messages when features are unavailable
@@ -2465,7 +2512,7 @@ streamlit_app/
   - Incremental testing (imports → core → integration → full application)
   - Error diagnosis and root cause analysis protocols
 
-### 🧹 Project Rules System Cleanup
+###  Project Rules System Cleanup
 
 #### Major Reorganization (20 → 17 Rules)
 - **Eliminated Duplications**: Merged overlapping rules that had 60%+ content overlap
@@ -2488,7 +2535,7 @@ streamlit_app/
 - **Validation Focus**: Added comprehensive validation protocols and quality gates
 - **Maintainable Size**: Most rules now under 200 lines, focused on core concepts
 
-### 💡 User Experience
+###  User Experience
 
 #### Getting Started
 ```bash
@@ -2503,7 +2550,7 @@ poetry run streamlit run streamlit_app/ClipScribe_Mission_Control.py
 - **Monitor Costs**: Real-time cost tracking with optimization recommendations
 - **Export Data**: Download JSON and markdown reports for offline analysis
 
-### 🚧 Future Roadmap (Phase 2)
+###  Future Roadmap (Phase 2)
 
 **Next Priorities**:
 1. **Enhanced Visualizations**: Interactive network graphs and flow diagrams
@@ -2512,7 +2559,7 @@ poetry run streamlit run streamlit_app/ClipScribe_Mission_Control.py
 4. **Components Library**: Reusable UI components for better modularity
 5. **Export Hub**: Multi-format exports and sharing capabilities
 
-### 💭 Developer Notes
+###  Developer Notes
 
 This release represents a major milestone in ClipScribe's evolution - the transition from a pure CLI tool to a comprehensive video intelligence platform with an intuitive web interface. The Mission Control interface makes ClipScribe's powerful synthesis capabilities accessible to users who prefer visual exploration over command-line interaction.
 
@@ -2524,13 +2571,13 @@ Phase 1 focuses on providing complete access to all existing functionality throu
 
 ## [2.15.0] - 2025-06-27 - The Synthesis Complete Update
 
-### ✨ Synthesis Features Complete
+###  Synthesis Features Complete
 
 This release marks the completion of ALL major synthesis features for ClipScribe's multi-video intelligence capabilities. Both Knowledge Panels and Information Flow Maps are now production-ready with comprehensive testing and output integration.
 
-### 🎯 New Features
+###  New Features
 
-#### 1. ✅ Knowledge Panels - Entity-Centric Intelligence Synthesis (COMPLETE)
+#### 1.  Knowledge Panels - Entity-Centric Intelligence Synthesis (COMPLETE)
 - **Comprehensive Entity Profiles**: Automatically generates detailed profiles for the top 15 most significant entities across a video collection
 - **Rich Data Models**: 
   - `KnowledgePanel`: Individual entity profiles with activities, relationships, quotes, and strategic insights
@@ -2547,7 +2594,7 @@ This release marks the completion of ALL major synthesis features for ClipScribe
   - `knowledge_panels_summary.md`: Human-readable markdown summary
 - **Template Fallbacks**: Ensures functionality even without AI for robust operation
 
-#### 2. ✅ Information Flow Maps - Concept Evolution Tracking (COMPLETE) 
+#### 2.  Information Flow Maps - Concept Evolution Tracking (COMPLETE) 
 - **Concept Maturity Tracking**: 6-level maturity model (mentioned → evolved) tracks how concepts develop across videos
 - **Rich Data Models**:
   - `ConceptNode`: Individual concepts with maturity levels and context
@@ -2569,27 +2616,27 @@ This release marks the completion of ALL major synthesis features for ClipScribe
   - `concept_flows/`: Individual flow files for each video
   - `information_flow_summary.md`: Human-readable analysis with visualizations
 
-#### 3. 🔧 Output Integration Complete
+#### 3.  Output Integration Complete
 - **Enhanced Collection Outputs**: `save_collection_outputs()` now saves ALL synthesis features
 - **Structured Directory Layout**: Clean organization with dedicated folders for panels and flows
 - **Human-Readable Summaries**: Beautiful markdown reports for both Knowledge Panels and Information Flow Maps
 - **Backward Compatible**: All existing outputs preserved while adding new synthesis features
 
-### 🔬 Testing & Quality
+###  Testing & Quality
 
 - **Comprehensive Unit Tests**: Both synthesis features have extensive test coverage
 - **Async Architecture**: All synthesis methods properly implemented with async/await
 - **Template Fallbacks**: Both features work without AI for maximum reliability
 - **Production Ready**: All tests passing, ready for deployment
 
-### 📊 Performance & Cost
+###  Performance & Cost
 
 - **Minimal Cost Impact**: Both features reuse existing entity and content data
 - **Efficient Processing**: Smart filtering limits analysis to most significant entities
 - **Maintained 92% cost reduction** through intelligent model routing
 - **High ROI**: Dramatic improvement in intelligence synthesis quality
 
-### 🚀 What's Next
+###  What's Next
 
 With all synthesis features complete, v2.16.0 will focus on:
 - **Streamlit Mission Control**: Interactive UI for collection management
@@ -2597,7 +2644,7 @@ With all synthesis features complete, v2.16.0 will focus on:
 - **Interactive Visualizations**: Explore Knowledge Panels and Information Flow Maps
 - **Export Hub**: Download analyses in multiple formats
 
-### 💡 Developer Notes
+###  Developer Notes
 
 This release represents the successful completion of ClipScribe's synthesis capabilities. The combination of Knowledge Panels (entity-centric view) and Information Flow Maps (concept evolution view) provides comprehensive multi-video intelligence that surpasses traditional single-video analysis.
 
@@ -2605,7 +2652,7 @@ This release represents the successful completion of ClipScribe's synthesis capa
 
 ## [2.14.0] - 2025-06-27 - The Synthesis Update
 
-### 🎯 Major Breakthrough: REBEL Relationship Extraction Fixed
+###  Major Breakthrough: REBEL Relationship Extraction Fixed
 
 **Critical Bug Resolution**: Fixed the `'NoneType' object is not subscriptable` error that was preventing video processing from completing after successful entity and relationship extraction.
 
@@ -2616,9 +2663,9 @@ This release represents the successful completion of ClipScribe's synthesis capa
 - "United Arab Emirates | diplomatic relation | Saudi Arabia"
 - And many more meaningful relationships
 
-### ✨ New Features
+###  New Features
 
-#### 1. ✅ Enhanced Temporal Intelligence for Event Timelines (COMPLETE - 2025-06-26 23:23 PDT)
+#### 1.  Enhanced Temporal Intelligence for Event Timelines (COMPLETE - 2025-06-26 23:23 PDT)
 - **LLM-Based Date Extraction**: The timeline synthesis engine now uses an LLM to parse specific dates from video titles and key point descriptions (e.g., "last Tuesday", "in 1945").
 - **Sophisticated Fallback Logic**: Implements a robust fallback mechanism. It prioritizes dates from key point content, then from the video title, and finally defaults to the video's publication date.
 - **Structured Date Models**: Added a new `ExtractedDate` Pydantic model to store parsed dates, original text, confidence scores, and the source of the extraction.
@@ -2642,7 +2689,7 @@ This release represents the successful completion of ClipScribe's synthesis capa
 - **Consistent Directory Naming**: Fixed naming inconsistencies between file saving and reporting
 - **Enhanced CLI Integration**: Updated CLI to use centralized collection output saving
 
-### 🐛 Critical Fixes
+###  Critical Fixes
 
 #### 1. REBEL Relationship Extraction Engine
 - **Root Cause Identified**: REBEL model was generating output but parser couldn't read space-separated format
@@ -2667,7 +2714,7 @@ This release represents the successful completion of ClipScribe's synthesis capa
 - **Environment Support**: Added `CLIPSCRIBE_LOG_LEVEL=DEBUG` environment variable support
 - **Initialization**: Proper `setup_logging()` call in CLI initialization
 
-### 🔧 Technical Improvements
+###  Technical Improvements
 
 #### 1. Enhanced Error Handling
 - **Defensive Programming**: Added multiple safety checks in knowledge graph saving
@@ -2684,7 +2731,7 @@ This release represents the successful completion of ClipScribe's synthesis capa
 - **Memory Management**: Improved handling of large video collections
 - **Cost Optimization**: Maintained 92% cost reduction principles
 
-### 🎯 User Experience
+###  User Experience
 
 #### 1. Success Indicators
 - **Relationship Counts**: Clear logging of extracted relationships (e.g., "Extracted 14 unique relationships from 18 total")
@@ -2696,7 +2743,7 @@ This release represents the successful completion of ClipScribe's synthesis capa
 - **GEXF Visualization**: Enhanced Gephi-compatible files with proper styling
 - **Comprehensive Reports**: Markdown reports with relationship network analysis
 
-### 📊 Performance Metrics
+###  Performance Metrics
 
 - **Relationship Extraction**: 10-19 relationships per video (previously 0)
 - **Entity Extraction**: 250-300 entities per video with 271 LLM-validated
@@ -2704,14 +2751,14 @@ This release represents the successful completion of ClipScribe's synthesis capa
 - **Processing Cost**: Maintained ~$0.41 per video
 - **Success Rate**: 100% completion rate (previously failing on save)
 
-### 🔬 Testing & Validation
+###  Testing & Validation
 
 - **Test Content**: Validated with PBS NewsHour documentaries on Pegasus spyware
 - **Relationship Quality**: Extracting meaningful geopolitical, organizational, and temporal relationships
 - **End-to-End**: Full pipeline from video URL to knowledge graph visualization
 - **Multi-Video**: Collection processing with cross-video relationship synthesis
 
-### 💡 Development Notes
+###  Development Notes
 
 This release represents a major breakthrough in ClipScribe's relationship extraction capabilities. The REBEL model was working correctly but the parser was incompatible with its output format. The fix enables ClipScribe to extract rich, meaningful relationships that form the foundation for knowledge synthesis across video collections.
 
@@ -3150,7 +3197,7 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
 ### Added
 - **Rich Progress Indicators**: Implemented a beautiful, real-time progress tracking system in the CLI using Rich.
   - Live-updating progress bars show overall completion percentage and current processing phase (e.g., downloading, transcribing, extracting).
-  - Includes real-time cost tracking with color-coded alerts (🟢🟡🔴) to monitor API usage.
+  - Includes real-time cost tracking with color-coded alerts () to monitor API usage.
   - Displays elapsed time and a summary of phase timings upon completion.
 - **Enhanced Interactive Reports**: Significantly upgraded the generated `report.md`.
   - **Mermaid Diagrams**: Auto-generates Mermaid diagrams for knowledge graph visualization (top 20 relationships) and entity type distribution (pie chart).
@@ -3178,7 +3225,7 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
 - **Rich Progress Indicators**: Beautiful real-time progress tracking
   - Live progress bars showing overall completion percentage
   - Phase-by-phase tracking (download, transcribe, extract, etc.)
-  - Real-time cost tracking with color coding (🟢 < $0.10, 🟡 < $1.00, 🔴 > $1.00)
+  - Real-time cost tracking with color coding ( < $0.10,  < $1.00,  > $1.00)
   - Elapsed time and estimated time remaining
   - Phase timing breakdown in completion summary
   - Extraction statistics display with entity type breakdown
@@ -3207,9 +3254,9 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
     - "Quick Stats" dashboard with emoji-based bar charts.
     - Relationship type distribution table with percentage bars.
   - **Richer Formatting**:
-    - Emoji icons for entity types (e.g., 👤, 🏢, 📍).
-    - Confidence indicators for entities (🟩🟨🟥).
-    - Importance indicators for key points (🔴🟡⚪).
+    - Emoji icons for entity types (e.g., , , ).
+    - Confidence indicators for entities ().
+    - Importance indicators for key points ().
     - Detailed file index with sizes.
 
 ### Changed
@@ -3280,7 +3327,7 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
 - **Rich Progress Indicators**: Beautiful real-time progress tracking
   - Live progress bars showing overall completion percentage
   - Phase-by-phase tracking (download, transcribe, extract, etc.)
-  - Real-time cost tracking with color coding (🟢 < $0.10, 🟡 < $1.00, 🔴 > $1.00)
+  - Real-time cost tracking with color coding ( < $0.10,  < $1.00,  > $1.00)
   - Elapsed time and estimated time remaining
   - Phase timing breakdown in completion summary
   - Extraction statistics display with entity type breakdown
@@ -3309,9 +3356,9 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
     - "Quick Stats" dashboard with emoji-based bar charts.
     - Relationship type distribution table with percentage bars.
   - **Richer Formatting**:
-    - Emoji icons for entity types (e.g., 👤, 🏢, 📍).
-    - Confidence indicators for entities (🟩🟨🟥).
-    - Importance indicators for key points (🔴🟡⚪).
+    - Emoji icons for entity types (e.g., , , ).
+    - Confidence indicators for entities ().
+    - Importance indicators for key points ().
     - Detailed file index with sizes.
 
 ### Changed
@@ -3341,7 +3388,7 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
 - Collection directory naming to use IDs instead of titles
 - Output filename generation for empty extensions 
 
-### ✅ MAJOR MILESTONE: Timeline Building Pipeline COMPLETE! 🚀
+###  MAJOR MILESTONE: Timeline Building Pipeline COMPLETE! 
 
 **ARGOS v2.17.0 Enhanced Temporal Intelligence is now COMPLETE** - all 4/4 core components implemented and tested.
 
@@ -3405,37 +3452,37 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
 
 ## [2.16.0] - 2025-06-27 - The Mission Control Update (Critical Bug Fix - Import Paths)
 
-### 🐛 Critical Bug Fix: Import Path Resolution
+###  Critical Bug Fix: Import Path Resolution
 
 **Issue**: Streamlit Mission Control experiencing session disconnections and page loading failures  
 **Root Cause**: Incorrect relative import paths in page navigation functions causing Python import errors  
 **Solution**: Implemented proper absolute import paths with streamlit_app directory path configuration  
-**Status**: ✅ **RESOLVED** - All enhanced visualizations now fully operational
+**Status**:  **RESOLVED** - All enhanced visualizations now fully operational
 
-### 🔧 Technical Details
+###  Technical Details
 - **Problem**: `from pages.Collections import main` failing due to missing path context
 - **Fix**: Added `streamlit_app_path` to `sys.path` in all show functions
 - **Impact**: All Phase 2 enhanced pages now loading successfully
 - **Testing**: Verified all imports working correctly in production environment
 
-### ✅ Operational Status
-- **Mission Control**: ✅ Fully operational with all navigation working
-- **Interactive Network Graphs**: ✅ Loading and rendering correctly
-- **Information Flow Maps**: ✅ All 5 visualization types working
-- **Advanced Analytics**: ✅ Real-time monitoring functional
-- **Processing Monitor**: ✅ Live dashboard operational
+###  Operational Status
+- **Mission Control**:  Fully operational with all navigation working
+- **Interactive Network Graphs**:  Loading and rendering correctly
+- **Information Flow Maps**:  All 5 visualization types working
+- **Advanced Analytics**:  Real-time monitoring functional
+- **Processing Monitor**:  Live dashboard operational
 
 ---
 
 ## [2.16.0] - 2025-06-27 - The Mission Control Update (Phase 2 - Enhanced Visualizations Complete)
 
-### 🎨 Phase 2 Complete: Enhanced Visualizations & Real-time Processing
+###  Phase 2 Complete: Enhanced Visualizations & Real-time Processing
 
 **Major Milestone**: All Phase 2 enhancements successfully implemented and tested. ClipScribe Mission Control now provides a comprehensive, interactive video intelligence platform with advanced visualizations and real-time monitoring capabilities.
 
-### ✨ New Features - Interactive Visualizations
+###  New Features - Interactive Visualizations
 
-#### 1. ✅ Interactive Network Graphs for Knowledge Panels (COMPLETE)
+#### 1.  Interactive Network Graphs for Knowledge Panels (COMPLETE)
 - **Plotly-powered Network Visualization**: Dynamic entity relationship networks with interactive nodes and edges
 - **Advanced Network Controls**: 
   - Multiple layout algorithms (Spring, Circular, Kamada-Kawai)
@@ -3454,7 +3501,7 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
   - Relationship distribution analysis
   - Professional graph styling with confidence indicators
 
-#### 2. ✅ Enhanced Information Flow Visualizations (COMPLETE)
+#### 2.  Enhanced Information Flow Visualizations (COMPLETE)
 - **Multi-Type Flow Visualizations**: 5 different interactive visualization types
   - **Concept Evolution Timeline**: Track concept maturity progression across videos
   - **Dependency Network**: Interactive concept prerequisite relationships
@@ -3473,7 +3520,7 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
   - Filtering by maturity level and cluster
   - Real-time data exploration
 
-#### 3. ✅ Advanced Analytics Dashboard (COMPLETE)
+#### 3.  Advanced Analytics Dashboard (COMPLETE)
 - **Interactive Cost Analysis**:
   - Cost trend visualization over time
   - Cost efficiency scatter plots with processing time bubbles
@@ -3490,7 +3537,7 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
   - Enhanced data tables with professional formatting
   - Color-coded status indicators
 
-#### 4. ✅ Real-time Processing Monitor (COMPLETE)
+#### 4.  Real-time Processing Monitor (COMPLETE)
 - **Live CLI Progress Monitoring**: Real-time command execution tracking
 - **Interactive Command Builder**:
   - Template-based command selection
@@ -3512,7 +3559,7 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
   - Monthly projection analytics
   - Cumulative cost visualization with trend analysis
 
-### 🔧 Technical Enhancements
+###  Technical Enhancements
 
 #### 1. Components Architecture
 - **Modular Component System**: Organized `streamlit_app/components/` directory
@@ -3532,7 +3579,7 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
 - **Interactive Elements**: Hover effects, tooltips, and dynamic updates
 - **Navigation Enhancement**: Phase 2 announcement banner and updated navigation
 
-### 📊 Visualization Capabilities
+###  Visualization Capabilities
 
 #### Network Analysis
 - **Entity Relationship Networks**: Interactive graphs with 20+ entities
@@ -3552,7 +3599,7 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
 - **System Monitoring**: Real-time gauge visualizations for performance metrics
 - **Predictive Analytics**: Monthly cost projections and usage patterns
 
-### 🚀 Performance & Reliability
+###  Performance & Reliability
 
 - **Optimized Rendering**: Efficient Plotly chart generation for large datasets
 - **Memory Management**: Smart data filtering to display top N entities/concepts
@@ -3560,7 +3607,7 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
 - **Real-time Updates**: Live data streaming without blocking the UI
 - **Thread Safety**: Proper concurrent processing for real-time monitoring
 
-### 💡 User Experience
+###  User Experience
 
 #### Navigation & Discovery
 - **Enhanced Navigation**: New "Real-time Processing" page in main navigation
@@ -3574,21 +3621,21 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
 - **Hover Insights**: Rich tooltips with contextual information
 - **Responsive Controls**: Intuitive sliders, selectors, and input forms
 
-### 🎯 Integration & Compatibility
+###  Integration & Compatibility
 
 - **Seamless CLI Integration**: Real-time monitoring of all ClipScribe commands
 - **Backward Compatible**: All Phase 1 features maintained and enhanced
 - **Cross-platform**: Works on macOS, Linux, and Windows
 - **Dependencies**: Plotly, NetworkX, Pandas integration with graceful fallbacks
 
-### 🔬 Quality & Testing
+###  Quality & Testing
 
 - **Import Validation**: Comprehensive testing of all visualization imports
 - **Error Handling**: Robust error recovery and user feedback
 - **Performance Testing**: Optimized for collections with 50+ entities and concepts
 - **User Interface Testing**: Verified across different data sizes and scenarios
 
-### 💭 Developer Notes
+###  Developer Notes
 
 Phase 2 represents a major evolution in ClipScribe's user interface capabilities. The addition of interactive visualizations transforms the static web interface into a dynamic, explorable platform for video intelligence analysis. 
 
@@ -3610,17 +3657,17 @@ Phase 2 successfully bridges the gap between ClipScribe's powerful CLI capabilit
 
 ## [2.16.0] - 2025-06-27 - The Mission Control Update (Phase 1 + Rules Cleanup Complete)
 
-### 🎨 Major New Feature: Streamlit Mission Control
+###  Major New Feature: Streamlit Mission Control
 
 **Interactive Web Interface**: Complete browser-based interface for managing and visualizing ClipScribe video intelligence collections.
 
-### 🧹 Major Project Maintenance: Rules System Cleanup
+###  Major Project Maintenance: Rules System Cleanup
 
 **Comprehensive Rules Reorganization**: Streamlined and consolidated the project's rule system for better maintainability and clarity.
 
-### ✨ New Features
+###  New Features
 
-#### 1. ✅ Streamlit Web Interface (Phase 1 Complete)
+#### 1.  Streamlit Web Interface (Phase 1 Complete)
 - **Main Dashboard**: Beautiful gradient interface with navigation sidebar, quick stats, and recent activity
 - **Collections Browser**: Complete multi-video collection management with tabbed interface
   - Overview: Collection metrics, summaries, and AI-generated insights
@@ -3641,7 +3688,7 @@ Phase 2 successfully bridges the gap between ClipScribe's powerful CLI capabilit
   - API usage monitoring with optimization recommendations
 - **Settings Panel**: Configuration management for API keys and processing parameters
 
-#### 2. 🔧 Advanced UI Features
+#### 2.  Advanced UI Features
 - **Data Integration**: Full integration with ClipScribe's JSON output formats
 - **Download Capabilities**: JSON and markdown exports for all analysis types
 - **Interactive Elements**: Search, filtering, sorting, expandable sections
@@ -3649,14 +3696,14 @@ Phase 2 successfully bridges the gap between ClipScribe's powerful CLI capabilit
 - **Real-time Updates**: Refresh functionality to detect new processing
 - **Security**: Masked API key display and local-only data access
 
-#### 3. 📱 User Experience Enhancements
+#### 3.  User Experience Enhancements
 - **Professional Styling**: Gradient headers, emoji indicators, metric cards
 - **Responsive Design**: Works seamlessly on desktop and tablet
 - **Progress Feedback**: Loading spinners and success messages
 - **Navigation**: Seamless page switching with proper import handling
 - **Documentation**: Comprehensive README with troubleshooting guide
 
-### 🚀 Architecture
+###  Architecture
 
 #### Directory Structure
 ```
@@ -3670,21 +3717,21 @@ streamlit_app/
 └── README.md                      # Comprehensive documentation
 ```
 
-### 🎯 Integration & Compatibility
+###  Integration & Compatibility
 
 - **Seamless CLI Integration**: Automatically detects and loads all ClipScribe outputs
 - **Backward Compatible**: Works with all existing v2.15.0 synthesis features
 - **Zero Configuration**: Automatic detection of processed videos and collections
 - **Local-First**: All data processing happens locally for maximum privacy
 
-### 📊 Performance
+###  Performance
 
 - **Efficient Loading**: Optimized JSON loading with error recovery
 - **Memory Management**: Smart data loading for large collections
 - **Fast Navigation**: Client-side filtering and sorting
 - **Responsive UI**: Smooth interactions even with large datasets
 
-### 🔬 Testing & Quality
+###  Testing & Quality
 
 - **Error Resilience**: Comprehensive error handling throughout the interface
 - **Graceful Degradation**: Fallback messages when features are unavailable
@@ -3695,7 +3742,7 @@ streamlit_app/
   - Incremental testing (imports → core → integration → full application)
   - Error diagnosis and root cause analysis protocols
 
-### 🧹 Project Rules System Cleanup
+###  Project Rules System Cleanup
 
 #### Major Reorganization (20 → 17 Rules)
 - **Eliminated Duplications**: Merged overlapping rules that had 60%+ content overlap
@@ -3718,7 +3765,7 @@ streamlit_app/
 - **Validation Focus**: Added comprehensive validation protocols and quality gates
 - **Maintainable Size**: Most rules now under 200 lines, focused on core concepts
 
-### 💡 User Experience
+###  User Experience
 
 #### Getting Started
 ```bash
@@ -3733,7 +3780,7 @@ poetry run streamlit run streamlit_app/ClipScribe_Mission_Control.py
 - **Monitor Costs**: Real-time cost tracking with optimization recommendations
 - **Export Data**: Download JSON and markdown reports for offline analysis
 
-### 🚧 Future Roadmap (Phase 2)
+###  Future Roadmap (Phase 2)
 
 **Next Priorities**:
 1. **Enhanced Visualizations**: Interactive network graphs and flow diagrams
@@ -3742,7 +3789,7 @@ poetry run streamlit run streamlit_app/ClipScribe_Mission_Control.py
 4. **Components Library**: Reusable UI components for better modularity
 5. **Export Hub**: Multi-format exports and sharing capabilities
 
-### 💭 Developer Notes
+###  Developer Notes
 
 This release represents a major milestone in ClipScribe's evolution - the transition from a pure CLI tool to a comprehensive video intelligence platform with an intuitive web interface. The Mission Control interface makes ClipScribe's powerful synthesis capabilities accessible to users who prefer visual exploration over command-line interaction.
 
@@ -3754,13 +3801,13 @@ Phase 1 focuses on providing complete access to all existing functionality throu
 
 ## [2.15.0] - 2025-06-27 - The Synthesis Complete Update
 
-### ✨ Synthesis Features Complete
+###  Synthesis Features Complete
 
 This release marks the completion of ALL major synthesis features for ClipScribe's multi-video intelligence capabilities. Both Knowledge Panels and Information Flow Maps are now production-ready with comprehensive testing and output integration.
 
-### 🎯 New Features
+###  New Features
 
-#### 1. ✅ Knowledge Panels - Entity-Centric Intelligence Synthesis (COMPLETE)
+#### 1.  Knowledge Panels - Entity-Centric Intelligence Synthesis (COMPLETE)
 - **Comprehensive Entity Profiles**: Automatically generates detailed profiles for the top 15 most significant entities across a video collection
 - **Rich Data Models**: 
   - `KnowledgePanel`: Individual entity profiles with activities, relationships, quotes, and strategic insights
@@ -3777,7 +3824,7 @@ This release marks the completion of ALL major synthesis features for ClipScribe
   - `knowledge_panels_summary.md`: Human-readable markdown summary
 - **Template Fallbacks**: Ensures functionality even without AI for robust operation
 
-#### 2. ✅ Information Flow Maps - Concept Evolution Tracking (COMPLETE) 
+#### 2.  Information Flow Maps - Concept Evolution Tracking (COMPLETE) 
 - **Concept Maturity Tracking**: 6-level maturity model (mentioned → evolved) tracks how concepts develop across videos
 - **Rich Data Models**:
   - `ConceptNode`: Individual concepts with maturity levels and context
@@ -3799,27 +3846,27 @@ This release marks the completion of ALL major synthesis features for ClipScribe
   - `concept_flows/`: Individual flow files for each video
   - `information_flow_summary.md`: Human-readable analysis with visualizations
 
-#### 3. 🔧 Output Integration Complete
+#### 3.  Output Integration Complete
 - **Enhanced Collection Outputs**: `save_collection_outputs()` now saves ALL synthesis features
 - **Structured Directory Layout**: Clean organization with dedicated folders for panels and flows
 - **Human-Readable Summaries**: Beautiful markdown reports for both Knowledge Panels and Information Flow Maps
 - **Backward Compatible**: All existing outputs preserved while adding new synthesis features
 
-### 🔬 Testing & Quality
+###  Testing & Quality
 
 - **Comprehensive Unit Tests**: Both synthesis features have extensive test coverage
 - **Async Architecture**: All synthesis methods properly implemented with async/await
 - **Template Fallbacks**: Both features work without AI for maximum reliability
 - **Production Ready**: All tests passing, ready for deployment
 
-### 📊 Performance & Cost
+###  Performance & Cost
 
 - **Minimal Cost Impact**: Both features reuse existing entity and content data
 - **Efficient Processing**: Smart filtering limits analysis to most significant entities
 - **Maintained 92% cost reduction** through intelligent model routing
 - **High ROI**: Dramatic improvement in intelligence synthesis quality
 
-### 🚀 What's Next
+###  What's Next
 
 With all synthesis features complete, v2.16.0 will focus on:
 - **Streamlit Mission Control**: Interactive UI for collection management
@@ -3827,7 +3874,7 @@ With all synthesis features complete, v2.16.0 will focus on:
 - **Interactive Visualizations**: Explore Knowledge Panels and Information Flow Maps
 - **Export Hub**: Download analyses in multiple formats
 
-### 💡 Developer Notes
+###  Developer Notes
 
 This release represents the successful completion of ClipScribe's synthesis capabilities. The combination of Knowledge Panels (entity-centric view) and Information Flow Maps (concept evolution view) provides comprehensive multi-video intelligence that surpasses traditional single-video analysis.
 
@@ -3835,7 +3882,7 @@ This release represents the successful completion of ClipScribe's synthesis capa
 
 ## [2.14.0] - 2025-06-27 - The Synthesis Update
 
-### 🎯 Major Breakthrough: REBEL Relationship Extraction Fixed
+###  Major Breakthrough: REBEL Relationship Extraction Fixed
 
 **Critical Bug Resolution**: Fixed the `'NoneType' object is not subscriptable` error that was preventing video processing from completing after successful entity and relationship extraction.
 
@@ -3846,9 +3893,9 @@ This release represents the successful completion of ClipScribe's synthesis capa
 - "United Arab Emirates | diplomatic relation | Saudi Arabia"
 - And many more meaningful relationships
 
-### ✨ New Features
+###  New Features
 
-#### 1. ✅ Enhanced Temporal Intelligence for Event Timelines (COMPLETE - 2025-06-26 23:23 PDT)
+#### 1.  Enhanced Temporal Intelligence for Event Timelines (COMPLETE - 2025-06-26 23:23 PDT)
 - **LLM-Based Date Extraction**: The timeline synthesis engine now uses an LLM to parse specific dates from video titles and key point descriptions (e.g., "last Tuesday", "in 1945").
 - **Sophisticated Fallback Logic**: Implements a robust fallback mechanism. It prioritizes dates from key point content, then from the video title, and finally defaults to the video's publication date.
 - **Structured Date Models**: Added a new `ExtractedDate` Pydantic model to store parsed dates, original text, confidence scores, and the source of the extraction.
@@ -3872,7 +3919,7 @@ This release represents the successful completion of ClipScribe's synthesis capa
 - **Consistent Directory Naming**: Fixed naming inconsistencies between file saving and reporting
 - **Enhanced CLI Integration**: Updated CLI to use centralized collection output saving
 
-### 🐛 Critical Fixes
+###  Critical Fixes
 
 #### 1. REBEL Relationship Extraction Engine
 - **Root Cause Identified**: REBEL model was generating output but parser couldn't read space-separated format
@@ -3897,7 +3944,7 @@ This release represents the successful completion of ClipScribe's synthesis capa
 - **Environment Support**: Added `CLIPSCRIBE_LOG_LEVEL=DEBUG` environment variable support
 - **Initialization**: Proper `setup_logging()` call in CLI initialization
 
-### 🔧 Technical Improvements
+###  Technical Improvements
 
 #### 1. Enhanced Error Handling
 - **Defensive Programming**: Added multiple safety checks in knowledge graph saving
@@ -3914,7 +3961,7 @@ This release represents the successful completion of ClipScribe's synthesis capa
 - **Memory Management**: Improved handling of large video collections
 - **Cost Optimization**: Maintained 92% cost reduction principles
 
-### 🎯 User Experience
+###  User Experience
 
 #### 1. Success Indicators
 - **Relationship Counts**: Clear logging of extracted relationships (e.g., "Extracted 14 unique relationships from 18 total")
@@ -3926,7 +3973,7 @@ This release represents the successful completion of ClipScribe's synthesis capa
 - **GEXF Visualization**: Enhanced Gephi-compatible files with proper styling
 - **Comprehensive Reports**: Markdown reports with relationship network analysis
 
-### 📊 Performance Metrics
+###  Performance Metrics
 
 - **Relationship Extraction**: 10-19 relationships per video (previously 0)
 - **Entity Extraction**: 250-300 entities per video with 271 LLM-validated
@@ -3934,14 +3981,14 @@ This release represents the successful completion of ClipScribe's synthesis capa
 - **Processing Cost**: Maintained ~$0.41 per video
 - **Success Rate**: 100% completion rate (previously failing on save)
 
-### 🔬 Testing & Validation
+###  Testing & Validation
 
 - **Test Content**: Validated with PBS NewsHour documentaries on Pegasus spyware
 - **Relationship Quality**: Extracting meaningful geopolitical, organizational, and temporal relationships
 - **End-to-End**: Full pipeline from video URL to knowledge graph visualization
 - **Multi-Video**: Collection processing with cross-video relationship synthesis
 
-### 💡 Development Notes
+###  Development Notes
 
 This release represents a major breakthrough in ClipScribe's relationship extraction capabilities. The REBEL model was working correctly but the parser was incompatible with its output format. The fix enables ClipScribe to extract rich, meaningful relationships that form the foundation for knowledge synthesis across video collections.
 
@@ -4380,7 +4427,7 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
 ### Added
 - **Rich Progress Indicators**: Implemented a beautiful, real-time progress tracking system in the CLI using Rich.
   - Live-updating progress bars show overall completion percentage and current processing phase (e.g., downloading, transcribing, extracting).
-  - Includes real-time cost tracking with color-coded alerts (🟢🟡🔴) to monitor API usage.
+  - Includes real-time cost tracking with color-coded alerts () to monitor API usage.
   - Displays elapsed time and a summary of phase timings upon completion.
 - **Enhanced Interactive Reports**: Significantly upgraded the generated `report.md`.
   - **Mermaid Diagrams**: Auto-generates Mermaid diagrams for knowledge graph visualization (top 20 relationships) and entity type distribution (pie chart).
@@ -4408,7 +4455,7 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
 - **Rich Progress Indicators**: Beautiful real-time progress tracking
   - Live progress bars showing overall completion percentage
   - Phase-by-phase tracking (download, transcribe, extract, etc.)
-  - Real-time cost tracking with color coding (🟢 < $0.10, 🟡 < $1.00, 🔴 > $1.00)
+  - Real-time cost tracking with color coding ( < $0.10,  < $1.00,  > $1.00)
   - Elapsed time and estimated time remaining
   - Phase timing breakdown in completion summary
   - Extraction statistics display with entity type breakdown
@@ -4437,9 +4484,9 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
     - "Quick Stats" dashboard with emoji-based bar charts.
     - Relationship type distribution table with percentage bars.
   - **Richer Formatting**:
-    - Emoji icons for entity types (e.g., 👤, 🏢, 📍).
-    - Confidence indicators for entities (🟩🟨🟥).
-    - Importance indicators for key points (🔴🟡⚪).
+    - Emoji icons for entity types (e.g., , , ).
+    - Confidence indicators for entities ().
+    - Importance indicators for key points ().
     - Detailed file index with sizes.
 
 ### Changed
@@ -4510,7 +4557,7 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
 - **Rich Progress Indicators**: Beautiful real-time progress tracking
   - Live progress bars showing overall completion percentage
   - Phase-by-phase tracking (download, transcribe, extract, etc.)
-  - Real-time cost tracking with color coding (🟢 < $0.10, 🟡 < $1.00, 🔴 > $1.00)
+  - Real-time cost tracking with color coding ( < $0.10,  < $1.00,  > $1.00)
   - Elapsed time and estimated time remaining
   - Phase timing breakdown in completion summary
   - Extraction statistics display with entity type breakdown
@@ -4539,9 +4586,9 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
     - "Quick Stats" dashboard with emoji-based bar charts.
     - Relationship type distribution table with percentage bars.
   - **Richer Formatting**:
-    - Emoji icons for entity types (e.g., 👤, 🏢, 📍).
-    - Confidence indicators for entities (🟩🟨🟥).
-    - Importance indicators for key points (🔴🟡⚪).
+    - Emoji icons for entity types (e.g., , , ).
+    - Confidence indicators for entities ().
+    - Importance indicators for key points ().
     - Detailed file index with sizes.
 
 ### Changed
@@ -4571,7 +4618,7 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
 - Collection directory naming to use IDs instead of titles
 - Output filename generation for empty extensions 
 
-### ✅ MAJOR MILESTONE: Timeline Building Pipeline COMPLETE! 🚀
+###  MAJOR MILESTONE: Timeline Building Pipeline COMPLETE! 
 
 **ARGOS v2.17.0 Enhanced Temporal Intelligence is now COMPLETE** - all 4/4 core components implemented and tested.
 
@@ -4635,37 +4682,37 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
 
 ## [2.16.0] - 2025-06-27 - The Mission Control Update (Critical Bug Fix - Import Paths)
 
-### 🐛 Critical Bug Fix: Import Path Resolution
+###  Critical Bug Fix: Import Path Resolution
 
 **Issue**: Streamlit Mission Control experiencing session disconnections and page loading failures  
 **Root Cause**: Incorrect relative import paths in page navigation functions causing Python import errors  
 **Solution**: Implemented proper absolute import paths with streamlit_app directory path configuration  
-**Status**: ✅ **RESOLVED** - All enhanced visualizations now fully operational
+**Status**:  **RESOLVED** - All enhanced visualizations now fully operational
 
-### 🔧 Technical Details
+###  Technical Details
 - **Problem**: `from pages.Collections import main` failing due to missing path context
 - **Fix**: Added `streamlit_app_path` to `sys.path` in all show functions
 - **Impact**: All Phase 2 enhanced pages now loading successfully
 - **Testing**: Verified all imports working correctly in production environment
 
-### ✅ Operational Status
-- **Mission Control**: ✅ Fully operational with all navigation working
-- **Interactive Network Graphs**: ✅ Loading and rendering correctly
-- **Information Flow Maps**: ✅ All 5 visualization types working
-- **Advanced Analytics**: ✅ Real-time monitoring functional
-- **Processing Monitor**: ✅ Live dashboard operational
+###  Operational Status
+- **Mission Control**:  Fully operational with all navigation working
+- **Interactive Network Graphs**:  Loading and rendering correctly
+- **Information Flow Maps**:  All 5 visualization types working
+- **Advanced Analytics**:  Real-time monitoring functional
+- **Processing Monitor**:  Live dashboard operational
 
 ---
 
 ## [2.16.0] - 2025-06-27 - The Mission Control Update (Phase 2 - Enhanced Visualizations Complete)
 
-### 🎨 Phase 2 Complete: Enhanced Visualizations & Real-time Processing
+###  Phase 2 Complete: Enhanced Visualizations & Real-time Processing
 
 **Major Milestone**: All Phase 2 enhancements successfully implemented and tested. ClipScribe Mission Control now provides a comprehensive, interactive video intelligence platform with advanced visualizations and real-time monitoring capabilities.
 
-### ✨ New Features - Interactive Visualizations
+###  New Features - Interactive Visualizations
 
-#### 1. ✅ Interactive Network Graphs for Knowledge Panels (COMPLETE)
+#### 1.  Interactive Network Graphs for Knowledge Panels (COMPLETE)
 - **Plotly-powered Network Visualization**: Dynamic entity relationship networks with interactive nodes and edges
 - **Advanced Network Controls**: 
   - Multiple layout algorithms (Spring, Circular, Kamada-Kawai)
@@ -4684,7 +4731,7 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
   - Relationship distribution analysis
   - Professional graph styling with confidence indicators
 
-#### 2. ✅ Enhanced Information Flow Visualizations (COMPLETE)
+#### 2.  Enhanced Information Flow Visualizations (COMPLETE)
 - **Multi-Type Flow Visualizations**: 5 different interactive visualization types
   - **Concept Evolution Timeline**: Track concept maturity progression across videos
   - **Dependency Network**: Interactive concept prerequisite relationships
@@ -4703,7 +4750,7 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
   - Filtering by maturity level and cluster
   - Real-time data exploration
 
-#### 3. ✅ Advanced Analytics Dashboard (COMPLETE)
+#### 3.  Advanced Analytics Dashboard (COMPLETE)
 - **Interactive Cost Analysis**:
   - Cost trend visualization over time
   - Cost efficiency scatter plots with processing time bubbles
@@ -4720,7 +4767,7 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
   - Enhanced data tables with professional formatting
   - Color-coded status indicators
 
-#### 4. ✅ Real-time Processing Monitor (COMPLETE)
+#### 4.  Real-time Processing Monitor (COMPLETE)
 - **Live CLI Progress Monitoring**: Real-time command execution tracking
 - **Interactive Command Builder**:
   - Template-based command selection
@@ -4742,7 +4789,7 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
   - Monthly projection analytics
   - Cumulative cost visualization with trend analysis
 
-### 🔧 Technical Enhancements
+###  Technical Enhancements
 
 #### 1. Components Architecture
 - **Modular Component System**: Organized `streamlit_app/components/` directory
@@ -4762,7 +4809,7 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
 - **Interactive Elements**: Hover effects, tooltips, and dynamic updates
 - **Navigation Enhancement**: Phase 2 announcement banner and updated navigation
 
-### 📊 Visualization Capabilities
+###  Visualization Capabilities
 
 #### Network Analysis
 - **Entity Relationship Networks**: Interactive graphs with 20+ entities
@@ -4782,7 +4829,7 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
 - **System Monitoring**: Real-time gauge visualizations for performance metrics
 - **Predictive Analytics**: Monthly cost projections and usage patterns
 
-### 🚀 Performance & Reliability
+###  Performance & Reliability
 
 - **Optimized Rendering**: Efficient Plotly chart generation for large datasets
 - **Memory Management**: Smart data filtering to display top N entities/concepts
@@ -4790,7 +4837,7 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
 - **Real-time Updates**: Live data streaming without blocking the UI
 - **Thread Safety**: Proper concurrent processing for real-time monitoring
 
-### 💡 User Experience
+###  User Experience
 
 #### Navigation & Discovery
 - **Enhanced Navigation**: New "Real-time Processing" page in main navigation
@@ -4804,21 +4851,21 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
 - **Hover Insights**: Rich tooltips with contextual information
 - **Responsive Controls**: Intuitive sliders, selectors, and input forms
 
-### 🎯 Integration & Compatibility
+###  Integration & Compatibility
 
 - **Seamless CLI Integration**: Real-time monitoring of all ClipScribe commands
 - **Backward Compatible**: All Phase 1 features maintained and enhanced
 - **Cross-platform**: Works on macOS, Linux, and Windows
 - **Dependencies**: Plotly, NetworkX, Pandas integration with graceful fallbacks
 
-### 🔬 Quality & Testing
+###  Quality & Testing
 
 - **Import Validation**: Comprehensive testing of all visualization imports
 - **Error Handling**: Robust error recovery and user feedback
 - **Performance Testing**: Optimized for collections with 50+ entities and concepts
 - **User Interface Testing**: Verified across different data sizes and scenarios
 
-### 💭 Developer Notes
+###  Developer Notes
 
 Phase 2 represents a major evolution in ClipScribe's user interface capabilities. The addition of interactive visualizations transforms the static web interface into a dynamic, explorable platform for video intelligence analysis. 
 
@@ -4840,17 +4887,17 @@ Phase 2 successfully bridges the gap between ClipScribe's powerful CLI capabilit
 
 ## [2.16.0] - 2025-06-27 - The Mission Control Update (Phase 1 + Rules Cleanup Complete)
 
-### 🎨 Major New Feature: Streamlit Mission Control
+###  Major New Feature: Streamlit Mission Control
 
 **Interactive Web Interface**: Complete browser-based interface for managing and visualizing ClipScribe video intelligence collections.
 
-### 🧹 Major Project Maintenance: Rules System Cleanup
+###  Major Project Maintenance: Rules System Cleanup
 
 **Comprehensive Rules Reorganization**: Streamlined and consolidated the project's rule system for better maintainability and clarity.
 
-### ✨ New Features
+###  New Features
 
-#### 1. ✅ Streamlit Web Interface (Phase 1 Complete)
+#### 1.  Streamlit Web Interface (Phase 1 Complete)
 - **Main Dashboard**: Beautiful gradient interface with navigation sidebar, quick stats, and recent activity
 - **Collections Browser**: Complete multi-video collection management with tabbed interface
   - Overview: Collection metrics, summaries, and AI-generated insights
@@ -4871,7 +4918,7 @@ Phase 2 successfully bridges the gap between ClipScribe's powerful CLI capabilit
   - API usage monitoring with optimization recommendations
 - **Settings Panel**: Configuration management for API keys and processing parameters
 
-#### 2. 🔧 Advanced UI Features
+#### 2.  Advanced UI Features
 - **Data Integration**: Full integration with ClipScribe's JSON output formats
 - **Download Capabilities**: JSON and markdown exports for all analysis types
 - **Interactive Elements**: Search, filtering, sorting, expandable sections
@@ -4879,14 +4926,14 @@ Phase 2 successfully bridges the gap between ClipScribe's powerful CLI capabilit
 - **Real-time Updates**: Refresh functionality to detect new processing
 - **Security**: Masked API key display and local-only data access
 
-#### 3. 📱 User Experience Enhancements
+#### 3.  User Experience Enhancements
 - **Professional Styling**: Gradient headers, emoji indicators, metric cards
 - **Responsive Design**: Works seamlessly on desktop and tablet
 - **Progress Feedback**: Loading spinners and success messages
 - **Navigation**: Seamless page switching with proper import handling
 - **Documentation**: Comprehensive README with troubleshooting guide
 
-### 🚀 Architecture
+###  Architecture
 
 #### Directory Structure
 ```
@@ -4900,21 +4947,21 @@ streamlit_app/
 └── README.md                      # Comprehensive documentation
 ```
 
-### 🎯 Integration & Compatibility
+###  Integration & Compatibility
 
 - **Seamless CLI Integration**: Automatically detects and loads all ClipScribe outputs
 - **Backward Compatible**: Works with all existing v2.15.0 synthesis features
 - **Zero Configuration**: Automatic detection of processed videos and collections
 - **Local-First**: All data processing happens locally for maximum privacy
 
-### 📊 Performance
+###  Performance
 
 - **Efficient Loading**: Optimized JSON loading with error recovery
 - **Memory Management**: Smart data loading for large collections
 - **Fast Navigation**: Client-side filtering and sorting
 - **Responsive UI**: Smooth interactions even with large datasets
 
-### 🔬 Testing & Quality
+###  Testing & Quality
 
 - **Error Resilience**: Comprehensive error handling throughout the interface
 - **Graceful Degradation**: Fallback messages when features are unavailable
@@ -4925,7 +4972,7 @@ streamlit_app/
   - Incremental testing (imports → core → integration → full application)
   - Error diagnosis and root cause analysis protocols
 
-### 🧹 Project Rules System Cleanup
+###  Project Rules System Cleanup
 
 #### Major Reorganization (20 → 17 Rules)
 - **Eliminated Duplications**: Merged overlapping rules that had 60%+ content overlap
@@ -4948,7 +4995,7 @@ streamlit_app/
 - **Validation Focus**: Added comprehensive validation protocols and quality gates
 - **Maintainable Size**: Most rules now under 200 lines, focused on core concepts
 
-### 💡 User Experience
+###  User Experience
 
 #### Getting Started
 ```bash
@@ -4963,7 +5010,7 @@ poetry run streamlit run streamlit_app/ClipScribe_Mission_Control.py
 - **Monitor Costs**: Real-time cost tracking with optimization recommendations
 - **Export Data**: Download JSON and markdown reports for offline analysis
 
-### 🚧 Future Roadmap (Phase 2)
+###  Future Roadmap (Phase 2)
 
 **Next Priorities**:
 1. **Enhanced Visualizations**: Interactive network graphs and flow diagrams
@@ -4972,7 +5019,7 @@ poetry run streamlit run streamlit_app/ClipScribe_Mission_Control.py
 4. **Components Library**: Reusable UI components for better modularity
 5. **Export Hub**: Multi-format exports and sharing capabilities
 
-### 💭 Developer Notes
+###  Developer Notes
 
 This release represents a major milestone in ClipScribe's evolution - the transition from a pure CLI tool to a comprehensive video intelligence platform with an intuitive web interface. The Mission Control interface makes ClipScribe's powerful synthesis capabilities accessible to users who prefer visual exploration over command-line interaction.
 
@@ -4984,13 +5031,13 @@ Phase 1 focuses on providing complete access to all existing functionality throu
 
 ## [2.15.0] - 2025-06-27 - The Synthesis Complete Update
 
-### ✨ Synthesis Features Complete
+###  Synthesis Features Complete
 
 This release marks the completion of ALL major synthesis features for ClipScribe's multi-video intelligence capabilities. Both Knowledge Panels and Information Flow Maps are now production-ready with comprehensive testing and output integration.
 
-### 🎯 New Features
+###  New Features
 
-#### 1. ✅ Knowledge Panels - Entity-Centric Intelligence Synthesis (COMPLETE)
+#### 1.  Knowledge Panels - Entity-Centric Intelligence Synthesis (COMPLETE)
 - **Comprehensive Entity Profiles**: Automatically generates detailed profiles for the top 15 most significant entities across a video collection
 - **Rich Data Models**: 
   - `KnowledgePanel`: Individual entity profiles with activities, relationships, quotes, and strategic insights
@@ -5007,7 +5054,7 @@ This release marks the completion of ALL major synthesis features for ClipScribe
   - `knowledge_panels_summary.md`: Human-readable markdown summary
 - **Template Fallbacks**: Ensures functionality even without AI for robust operation
 
-#### 2. ✅ Information Flow Maps - Concept Evolution Tracking (COMPLETE) 
+#### 2.  Information Flow Maps - Concept Evolution Tracking (COMPLETE) 
 - **Concept Maturity Tracking**: 6-level maturity model (mentioned → evolved) tracks how concepts develop across videos
 - **Rich Data Models**:
   - `ConceptNode`: Individual concepts with maturity levels and context
@@ -5029,27 +5076,27 @@ This release marks the completion of ALL major synthesis features for ClipScribe
   - `concept_flows/`: Individual flow files for each video
   - `information_flow_summary.md`: Human-readable analysis with visualizations
 
-#### 3. 🔧 Output Integration Complete
+#### 3.  Output Integration Complete
 - **Enhanced Collection Outputs**: `save_collection_outputs()` now saves ALL synthesis features
 - **Structured Directory Layout**: Clean organization with dedicated folders for panels and flows
 - **Human-Readable Summaries**: Beautiful markdown reports for both Knowledge Panels and Information Flow Maps
 - **Backward Compatible**: All existing outputs preserved while adding new synthesis features
 
-### 🔬 Testing & Quality
+###  Testing & Quality
 
 - **Comprehensive Unit Tests**: Both synthesis features have extensive test coverage
 - **Async Architecture**: All synthesis methods properly implemented with async/await
 - **Template Fallbacks**: Both features work without AI for maximum reliability
 - **Production Ready**: All tests passing, ready for deployment
 
-### 📊 Performance & Cost
+###  Performance & Cost
 
 - **Minimal Cost Impact**: Both features reuse existing entity and content data
 - **Efficient Processing**: Smart filtering limits analysis to most significant entities
 - **Maintained 92% cost reduction** through intelligent model routing
 - **High ROI**: Dramatic improvement in intelligence synthesis quality
 
-### 🚀 What's Next
+###  What's Next
 
 With all synthesis features complete, v2.16.0 will focus on:
 - **Streamlit Mission Control**: Interactive UI for collection management
@@ -5057,7 +5104,7 @@ With all synthesis features complete, v2.16.0 will focus on:
 - **Interactive Visualizations**: Explore Knowledge Panels and Information Flow Maps
 - **Export Hub**: Download analyses in multiple formats
 
-### 💡 Developer Notes
+###  Developer Notes
 
 This release represents the successful completion of ClipScribe's synthesis capabilities. The combination of Knowledge Panels (entity-centric view) and Information Flow Maps (concept evolution view) provides comprehensive multi-video intelligence that surpasses traditional single-video analysis.
 
@@ -5065,7 +5112,7 @@ This release represents the successful completion of ClipScribe's synthesis capa
 
 ## [2.14.0] - 2025-06-27 - The Synthesis Update
 
-### 🎯 Major Breakthrough: REBEL Relationship Extraction Fixed
+###  Major Breakthrough: REBEL Relationship Extraction Fixed
 
 **Critical Bug Resolution**: Fixed the `'NoneType' object is not subscriptable` error that was preventing video processing from completing after successful entity and relationship extraction.
 
@@ -5076,9 +5123,9 @@ This release represents the successful completion of ClipScribe's synthesis capa
 - "United Arab Emirates | diplomatic relation | Saudi Arabia"
 - And many more meaningful relationships
 
-### ✨ New Features
+###  New Features
 
-#### 1. ✅ Enhanced Temporal Intelligence for Event Timelines (COMPLETE - 2025-06-26 23:23 PDT)
+#### 1.  Enhanced Temporal Intelligence for Event Timelines (COMPLETE - 2025-06-26 23:23 PDT)
 - **LLM-Based Date Extraction**: The timeline synthesis engine now uses an LLM to parse specific dates from video titles and key point descriptions (e.g., "last Tuesday", "in 1945").
 - **Sophisticated Fallback Logic**: Implements a robust fallback mechanism. It prioritizes dates from key point content, then from the video title, and finally defaults to the video's publication date.
 - **Structured Date Models**: Added a new `ExtractedDate` Pydantic model to store parsed dates, original text, confidence scores, and the source of the extraction.
@@ -5102,7 +5149,7 @@ This release represents the successful completion of ClipScribe's synthesis capa
 - **Consistent Directory Naming**: Fixed naming inconsistencies between file saving and reporting
 - **Enhanced CLI Integration**: Updated CLI to use centralized collection output saving
 
-### 🐛 Critical Fixes
+###  Critical Fixes
 
 #### 1. REBEL Relationship Extraction Engine
 - **Root Cause Identified**: REBEL model was generating output but parser couldn't read space-separated format
@@ -5127,7 +5174,7 @@ This release represents the successful completion of ClipScribe's synthesis capa
 - **Environment Support**: Added `CLIPSCRIBE_LOG_LEVEL=DEBUG` environment variable support
 - **Initialization**: Proper `setup_logging()` call in CLI initialization
 
-### 🔧 Technical Improvements
+###  Technical Improvements
 
 #### 1. Enhanced Error Handling
 - **Defensive Programming**: Added multiple safety checks in knowledge graph saving
@@ -5144,7 +5191,7 @@ This release represents the successful completion of ClipScribe's synthesis capa
 - **Memory Management**: Improved handling of large video collections
 - **Cost Optimization**: Maintained 92% cost reduction principles
 
-### 🎯 User Experience
+###  User Experience
 
 #### 1. Success Indicators
 - **Relationship Counts**: Clear logging of extracted relationships (e.g., "Extracted 14 unique relationships from 18 total")
@@ -5156,7 +5203,7 @@ This release represents the successful completion of ClipScribe's synthesis capa
 - **GEXF Visualization**: Enhanced Gephi-compatible files with proper styling
 - **Comprehensive Reports**: Markdown reports with relationship network analysis
 
-### 📊 Performance Metrics
+###  Performance Metrics
 
 - **Relationship Extraction**: 10-19 relationships per video (previously 0)
 - **Entity Extraction**: 250-300 entities per video with 271 LLM-validated
@@ -5164,14 +5211,14 @@ This release represents the successful completion of ClipScribe's synthesis capa
 - **Processing Cost**: Maintained ~$0.41 per video
 - **Success Rate**: 100% completion rate (previously failing on save)
 
-### 🔬 Testing & Validation
+###  Testing & Validation
 
 - **Test Content**: Validated with PBS NewsHour documentaries on Pegasus spyware
 - **Relationship Quality**: Extracting meaningful geopolitical, organizational, and temporal relationships
 - **End-to-End**: Full pipeline from video URL to knowledge graph visualization
 - **Multi-Video**: Collection processing with cross-video relationship synthesis
 
-### 💡 Development Notes
+###  Development Notes
 
 This release represents a major breakthrough in ClipScribe's relationship extraction capabilities. The REBEL model was working correctly but the parser was incompatible with its output format. The fix enables ClipScribe to extract rich, meaningful relationships that form the foundation for knowledge synthesis across video collections.
 
@@ -5610,7 +5657,7 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
 ### Added
 - **Rich Progress Indicators**: Implemented a beautiful, real-time progress tracking system in the CLI using Rich.
   - Live-updating progress bars show overall completion percentage and current processing phase (e.g., downloading, transcribing, extracting).
-  - Includes real-time cost tracking with color-coded alerts (🟢🟡🔴) to monitor API usage.
+  - Includes real-time cost tracking with color-coded alerts () to monitor API usage.
   - Displays elapsed time and a summary of phase timings upon completion.
 - **Enhanced Interactive Reports**: Significantly upgraded the generated `report.md`.
   - **Mermaid Diagrams**: Auto-generates Mermaid diagrams for knowledge graph visualization (top 20 relationships) and entity type distribution (pie chart).
@@ -5638,7 +5685,7 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
 - **Rich Progress Indicators**: Beautiful real-time progress tracking
   - Live progress bars showing overall completion percentage
   - Phase-by-phase tracking (download, transcribe, extract, etc.)
-  - Real-time cost tracking with color coding (🟢 < $0.10, 🟡 < $1.00, 🔴 > $1.00)
+  - Real-time cost tracking with color coding ( < $0.10,  < $1.00,  > $1.00)
   - Elapsed time and estimated time remaining
   - Phase timing breakdown in completion summary
   - Extraction statistics display with entity type breakdown
@@ -5667,9 +5714,9 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
     - "Quick Stats" dashboard with emoji-based bar charts.
     - Relationship type distribution table with percentage bars.
   - **Richer Formatting**:
-    - Emoji icons for entity types (e.g., 👤, 🏢, 📍).
-    - Confidence indicators for entities (🟩🟨🟥).
-    - Importance indicators for key points (🔴🟡⚪).
+    - Emoji icons for entity types (e.g., , , ).
+    - Confidence indicators for entities ().
+    - Importance indicators for key points ().
     - Detailed file index with sizes.
 
 ### Changed
@@ -5740,7 +5787,7 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
 - **Rich Progress Indicators**: Beautiful real-time progress tracking
   - Live progress bars showing overall completion percentage
   - Phase-by-phase tracking (download, transcribe, extract, etc.)
-  - Real-time cost tracking with color coding (🟢 < $0.10, 🟡 < $1.00, 🔴 > $1.00)
+  - Real-time cost tracking with color coding ( < $0.10,  < $1.00,  > $1.00)
   - Elapsed time and estimated time remaining
   - Phase timing breakdown in completion summary
   - Extraction statistics display with entity type breakdown
@@ -5769,9 +5816,9 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
     - "Quick Stats" dashboard with emoji-based bar charts.
     - Relationship type distribution table with percentage bars.
   - **Richer Formatting**:
-    - Emoji icons for entity types (e.g., 👤, 🏢, 📍).
-    - Confidence indicators for entities (🟩🟨🟥).
-    - Importance indicators for key points (🔴🟡⚪).
+    - Emoji icons for entity types (e.g., , , ).
+    - Confidence indicators for entities ().
+    - Importance indicators for key points ().
     - Detailed file index with sizes.
 
 ### Changed
@@ -5801,7 +5848,7 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
 - Collection directory naming to use IDs instead of titles
 - Output filename generation for empty extensions 
 
-### ✅ MAJOR MILESTONE: Timeline Building Pipeline COMPLETE! 🚀
+###  MAJOR MILESTONE: Timeline Building Pipeline COMPLETE! 
 
 **ARGOS v2.17.0 Enhanced Temporal Intelligence is now COMPLETE** - all 4/4 core components implemented and tested.
 
@@ -5865,37 +5912,37 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
 
 ## [2.16.0] - 2025-06-27 - The Mission Control Update (Critical Bug Fix - Import Paths)
 
-### 🐛 Critical Bug Fix: Import Path Resolution
+###  Critical Bug Fix: Import Path Resolution
 
 **Issue**: Streamlit Mission Control experiencing session disconnections and page loading failures  
 **Root Cause**: Incorrect relative import paths in page navigation functions causing Python import errors  
 **Solution**: Implemented proper absolute import paths with streamlit_app directory path configuration  
-**Status**: ✅ **RESOLVED** - All enhanced visualizations now fully operational
+**Status**:  **RESOLVED** - All enhanced visualizations now fully operational
 
-### 🔧 Technical Details
+###  Technical Details
 - **Problem**: `from pages.Collections import main` failing due to missing path context
 - **Fix**: Added `streamlit_app_path` to `sys.path` in all show functions
 - **Impact**: All Phase 2 enhanced pages now loading successfully
 - **Testing**: Verified all imports working correctly in production environment
 
-### ✅ Operational Status
-- **Mission Control**: ✅ Fully operational with all navigation working
-- **Interactive Network Graphs**: ✅ Loading and rendering correctly
-- **Information Flow Maps**: ✅ All 5 visualization types working
-- **Advanced Analytics**: ✅ Real-time monitoring functional
-- **Processing Monitor**: ✅ Live dashboard operational
+###  Operational Status
+- **Mission Control**:  Fully operational with all navigation working
+- **Interactive Network Graphs**:  Loading and rendering correctly
+- **Information Flow Maps**:  All 5 visualization types working
+- **Advanced Analytics**:  Real-time monitoring functional
+- **Processing Monitor**:  Live dashboard operational
 
 ---
 
 ## [2.16.0] - 2025-06-27 - The Mission Control Update (Phase 2 - Enhanced Visualizations Complete)
 
-### 🎨 Phase 2 Complete: Enhanced Visualizations & Real-time Processing
+###  Phase 2 Complete: Enhanced Visualizations & Real-time Processing
 
 **Major Milestone**: All Phase 2 enhancements successfully implemented and tested. ClipScribe Mission Control now provides a comprehensive, interactive video intelligence platform with advanced visualizations and real-time monitoring capabilities.
 
-### ✨ New Features - Interactive Visualizations
+###  New Features - Interactive Visualizations
 
-#### 1. ✅ Interactive Network Graphs for Knowledge Panels (COMPLETE)
+#### 1.  Interactive Network Graphs for Knowledge Panels (COMPLETE)
 - **Plotly-powered Network Visualization**: Dynamic entity relationship networks with interactive nodes and edges
 - **Advanced Network Controls**: 
   - Multiple layout algorithms (Spring, Circular, Kamada-Kawai)
@@ -5914,7 +5961,7 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
   - Relationship distribution analysis
   - Professional graph styling with confidence indicators
 
-#### 2. ✅ Enhanced Information Flow Visualizations (COMPLETE)
+#### 2.  Enhanced Information Flow Visualizations (COMPLETE)
 - **Multi-Type Flow Visualizations**: 5 different interactive visualization types
   - **Concept Evolution Timeline**: Track concept maturity progression across videos
   - **Dependency Network**: Interactive concept prerequisite relationships
@@ -5933,7 +5980,7 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
   - Filtering by maturity level and cluster
   - Real-time data exploration
 
-#### 3. ✅ Advanced Analytics Dashboard (COMPLETE)
+#### 3.  Advanced Analytics Dashboard (COMPLETE)
 - **Interactive Cost Analysis**:
   - Cost trend visualization over time
   - Cost efficiency scatter plots with processing time bubbles
@@ -5950,7 +5997,7 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
   - Enhanced data tables with professional formatting
   - Color-coded status indicators
 
-#### 4. ✅ Real-time Processing Monitor (COMPLETE)
+#### 4.  Real-time Processing Monitor (COMPLETE)
 - **Live CLI Progress Monitoring**: Real-time command execution tracking
 - **Interactive Command Builder**:
   - Template-based command selection
@@ -5972,7 +6019,7 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
   - Monthly projection analytics
   - Cumulative cost visualization with trend analysis
 
-### 🔧 Technical Enhancements
+###  Technical Enhancements
 
 #### 1. Components Architecture
 - **Modular Component System**: Organized `streamlit_app/components/` directory
@@ -5992,7 +6039,7 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
 - **Interactive Elements**: Hover effects, tooltips, and dynamic updates
 - **Navigation Enhancement**: Phase 2 announcement banner and updated navigation
 
-### 📊 Visualization Capabilities
+###  Visualization Capabilities
 
 #### Network Analysis
 - **Entity Relationship Networks**: Interactive graphs with 20+ entities
@@ -6012,7 +6059,7 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
 - **System Monitoring**: Real-time gauge visualizations for performance metrics
 - **Predictive Analytics**: Monthly cost projections and usage patterns
 
-### 🚀 Performance & Reliability
+###  Performance & Reliability
 
 - **Optimized Rendering**: Efficient Plotly chart generation for large datasets
 - **Memory Management**: Smart data filtering to display top N entities/concepts
@@ -6020,7 +6067,7 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
 - **Real-time Updates**: Live data streaming without blocking the UI
 - **Thread Safety**: Proper concurrent processing for real-time monitoring
 
-### 💡 User Experience
+###  User Experience
 
 #### Navigation & Discovery
 - **Enhanced Navigation**: New "Real-time Processing" page in main navigation
@@ -6034,21 +6081,21 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
 - **Hover Insights**: Rich tooltips with contextual information
 - **Responsive Controls**: Intuitive sliders, selectors, and input forms
 
-### 🎯 Integration & Compatibility
+###  Integration & Compatibility
 
 - **Seamless CLI Integration**: Real-time monitoring of all ClipScribe commands
 - **Backward Compatible**: All Phase 1 features maintained and enhanced
 - **Cross-platform**: Works on macOS, Linux, and Windows
 - **Dependencies**: Plotly, NetworkX, Pandas integration with graceful fallbacks
 
-### 🔬 Quality & Testing
+###  Quality & Testing
 
 - **Import Validation**: Comprehensive testing of all visualization imports
 - **Error Handling**: Robust error recovery and user feedback
 - **Performance Testing**: Optimized for collections with 50+ entities and concepts
 - **User Interface Testing**: Verified across different data sizes and scenarios
 
-### 💭 Developer Notes
+###  Developer Notes
 
 Phase 2 represents a major evolution in ClipScribe's user interface capabilities. The addition of interactive visualizations transforms the static web interface into a dynamic, explorable platform for video intelligence analysis. 
 
@@ -6070,17 +6117,17 @@ Phase 2 successfully bridges the gap between ClipScribe's powerful CLI capabilit
 
 ## [2.16.0] - 2025-06-27 - The Mission Control Update (Phase 1 + Rules Cleanup Complete)
 
-### 🎨 Major New Feature: Streamlit Mission Control
+###  Major New Feature: Streamlit Mission Control
 
 **Interactive Web Interface**: Complete browser-based interface for managing and visualizing ClipScribe video intelligence collections.
 
-### 🧹 Major Project Maintenance: Rules System Cleanup
+###  Major Project Maintenance: Rules System Cleanup
 
 **Comprehensive Rules Reorganization**: Streamlined and consolidated the project's rule system for better maintainability and clarity.
 
-### ✨ New Features
+###  New Features
 
-#### 1. ✅ Streamlit Web Interface (Phase 1 Complete)
+#### 1.  Streamlit Web Interface (Phase 1 Complete)
 - **Main Dashboard**: Beautiful gradient interface with navigation sidebar, quick stats, and recent activity
 - **Collections Browser**: Complete multi-video collection management with tabbed interface
   - Overview: Collection metrics, summaries, and AI-generated insights
@@ -6101,7 +6148,7 @@ Phase 2 successfully bridges the gap between ClipScribe's powerful CLI capabilit
   - API usage monitoring with optimization recommendations
 - **Settings Panel**: Configuration management for API keys and processing parameters
 
-#### 2. 🔧 Advanced UI Features
+#### 2.  Advanced UI Features
 - **Data Integration**: Full integration with ClipScribe's JSON output formats
 - **Download Capabilities**: JSON and markdown exports for all analysis types
 - **Interactive Elements**: Search, filtering, sorting, expandable sections
@@ -6109,14 +6156,14 @@ Phase 2 successfully bridges the gap between ClipScribe's powerful CLI capabilit
 - **Real-time Updates**: Refresh functionality to detect new processing
 - **Security**: Masked API key display and local-only data access
 
-#### 3. 📱 User Experience Enhancements
+#### 3.  User Experience Enhancements
 - **Professional Styling**: Gradient headers, emoji indicators, metric cards
 - **Responsive Design**: Works seamlessly on desktop and tablet
 - **Progress Feedback**: Loading spinners and success messages
 - **Navigation**: Seamless page switching with proper import handling
 - **Documentation**: Comprehensive README with troubleshooting guide
 
-### 🚀 Architecture
+###  Architecture
 
 #### Directory Structure
 ```
@@ -6130,21 +6177,21 @@ streamlit_app/
 └── README.md                      # Comprehensive documentation
 ```
 
-### 🎯 Integration & Compatibility
+###  Integration & Compatibility
 
 - **Seamless CLI Integration**: Automatically detects and loads all ClipScribe outputs
 - **Backward Compatible**: Works with all existing v2.15.0 synthesis features
 - **Zero Configuration**: Automatic detection of processed videos and collections
 - **Local-First**: All data processing happens locally for maximum privacy
 
-### 📊 Performance
+###  Performance
 
 - **Efficient Loading**: Optimized JSON loading with error recovery
 - **Memory Management**: Smart data loading for large collections
 - **Fast Navigation**: Client-side filtering and sorting
 - **Responsive UI**: Smooth interactions even with large datasets
 
-### 🔬 Testing & Quality
+###  Testing & Quality
 
 - **Error Resilience**: Comprehensive error handling throughout the interface
 - **Graceful Degradation**: Fallback messages when features are unavailable
@@ -6155,7 +6202,7 @@ streamlit_app/
   - Incremental testing (imports → core → integration → full application)
   - Error diagnosis and root cause analysis protocols
 
-### 🧹 Project Rules System Cleanup
+###  Project Rules System Cleanup
 
 #### Major Reorganization (20 → 17 Rules)
 - **Eliminated Duplications**: Merged overlapping rules that had 60%+ content overlap
@@ -6178,7 +6225,7 @@ streamlit_app/
 - **Validation Focus**: Added comprehensive validation protocols and quality gates
 - **Maintainable Size**: Most rules now under 200 lines, focused on core concepts
 
-### 💡 User Experience
+###  User Experience
 
 #### Getting Started
 ```bash
@@ -6193,7 +6240,7 @@ poetry run streamlit run streamlit_app/ClipScribe_Mission_Control.py
 - **Monitor Costs**: Real-time cost tracking with optimization recommendations
 - **Export Data**: Download JSON and markdown reports for offline analysis
 
-### 🚧 Future Roadmap (Phase 2)
+###  Future Roadmap (Phase 2)
 
 **Next Priorities**:
 1. **Enhanced Visualizations**: Interactive network graphs and flow diagrams
@@ -6202,7 +6249,7 @@ poetry run streamlit run streamlit_app/ClipScribe_Mission_Control.py
 4. **Components Library**: Reusable UI components for better modularity
 5. **Export Hub**: Multi-format exports and sharing capabilities
 
-### 💭 Developer Notes
+###  Developer Notes
 
 This release represents a major milestone in ClipScribe's evolution - the transition from a pure CLI tool to a comprehensive video intelligence platform with an intuitive web interface. The Mission Control interface makes ClipScribe's powerful synthesis capabilities accessible to users who prefer visual exploration over command-line interaction.
 
@@ -6214,13 +6261,13 @@ Phase 1 focuses on providing complete access to all existing functionality throu
 
 ## [2.15.0] - 2025-06-27 - The Synthesis Complete Update
 
-### ✨ Synthesis Features Complete
+###  Synthesis Features Complete
 
 This release marks the completion of ALL major synthesis features for ClipScribe's multi-video intelligence capabilities. Both Knowledge Panels and Information Flow Maps are now production-ready with comprehensive testing and output integration.
 
-### 🎯 New Features
+###  New Features
 
-#### 1. ✅ Knowledge Panels - Entity-Centric Intelligence Synthesis (COMPLETE)
+#### 1.  Knowledge Panels - Entity-Centric Intelligence Synthesis (COMPLETE)
 - **Comprehensive Entity Profiles**: Automatically generates detailed profiles for the top 15 most significant entities across a video collection
 - **Rich Data Models**: 
   - `KnowledgePanel`: Individual entity profiles with activities, relationships, quotes, and strategic insights
@@ -6237,7 +6284,7 @@ This release marks the completion of ALL major synthesis features for ClipScribe
   - `knowledge_panels_summary.md`: Human-readable markdown summary
 - **Template Fallbacks**: Ensures functionality even without AI for robust operation
 
-#### 2. ✅ Information Flow Maps - Concept Evolution Tracking (COMPLETE) 
+#### 2.  Information Flow Maps - Concept Evolution Tracking (COMPLETE) 
 - **Concept Maturity Tracking**: 6-level maturity model (mentioned → evolved) tracks how concepts develop across videos
 - **Rich Data Models**:
   - `ConceptNode`: Individual concepts with maturity levels and context
@@ -6259,27 +6306,27 @@ This release marks the completion of ALL major synthesis features for ClipScribe
   - `concept_flows/`: Individual flow files for each video
   - `information_flow_summary.md`: Human-readable analysis with visualizations
 
-#### 3. 🔧 Output Integration Complete
+#### 3.  Output Integration Complete
 - **Enhanced Collection Outputs**: `save_collection_outputs()` now saves ALL synthesis features
 - **Structured Directory Layout**: Clean organization with dedicated folders for panels and flows
 - **Human-Readable Summaries**: Beautiful markdown reports for both Knowledge Panels and Information Flow Maps
 - **Backward Compatible**: All existing outputs preserved while adding new synthesis features
 
-### 🔬 Testing & Quality
+###  Testing & Quality
 
 - **Comprehensive Unit Tests**: Both synthesis features have extensive test coverage
 - **Async Architecture**: All synthesis methods properly implemented with async/await
 - **Template Fallbacks**: Both features work without AI for maximum reliability
 - **Production Ready**: All tests passing, ready for deployment
 
-### 📊 Performance & Cost
+###  Performance & Cost
 
 - **Minimal Cost Impact**: Both features reuse existing entity and content data
 - **Efficient Processing**: Smart filtering limits analysis to most significant entities
 - **Maintained 92% cost reduction** through intelligent model routing
 - **High ROI**: Dramatic improvement in intelligence synthesis quality
 
-### 🚀 What's Next
+###  What's Next
 
 With all synthesis features complete, v2.16.0 will focus on:
 - **Streamlit Mission Control**: Interactive UI for collection management
@@ -6287,7 +6334,7 @@ With all synthesis features complete, v2.16.0 will focus on:
 - **Interactive Visualizations**: Explore Knowledge Panels and Information Flow Maps
 - **Export Hub**: Download analyses in multiple formats
 
-### 💡 Developer Notes
+###  Developer Notes
 
 This release represents the successful completion of ClipScribe's synthesis capabilities. The combination of Knowledge Panels (entity-centric view) and Information Flow Maps (concept evolution view) provides comprehensive multi-video intelligence that surpasses traditional single-video analysis.
 
@@ -6295,7 +6342,7 @@ This release represents the successful completion of ClipScribe's synthesis capa
 
 ## [2.14.0] - 2025-06-27 - The Synthesis Update
 
-### 🎯 Major Breakthrough: REBEL Relationship Extraction Fixed
+###  Major Breakthrough: REBEL Relationship Extraction Fixed
 
 **Critical Bug Resolution**: Fixed the `'NoneType' object is not subscriptable` error that was preventing video processing from completing after successful entity and relationship extraction.
 
@@ -6306,9 +6353,9 @@ This release represents the successful completion of ClipScribe's synthesis capa
 - "United Arab Emirates | diplomatic relation | Saudi Arabia"
 - And many more meaningful relationships
 
-### ✨ New Features
+###  New Features
 
-#### 1. ✅ Enhanced Temporal Intelligence for Event Timelines (COMPLETE - 2025-06-26 23:23 PDT)
+#### 1.  Enhanced Temporal Intelligence for Event Timelines (COMPLETE - 2025-06-26 23:23 PDT)
 - **LLM-Based Date Extraction**: The timeline synthesis engine now uses an LLM to parse specific dates from video titles and key point descriptions (e.g., "last Tuesday", "in 1945").
 - **Sophisticated Fallback Logic**: Implements a robust fallback mechanism. It prioritizes dates from key point content, then from the video title, and finally defaults to the video's publication date.
 - **Structured Date Models**: Added a new `ExtractedDate` Pydantic model to store parsed dates, original text, confidence scores, and the source of the extraction.
@@ -6332,7 +6379,7 @@ This release represents the successful completion of ClipScribe's synthesis capa
 - **Consistent Directory Naming**: Fixed naming inconsistencies between file saving and reporting
 - **Enhanced CLI Integration**: Updated CLI to use centralized collection output saving
 
-### 🐛 Critical Fixes
+###  Critical Fixes
 
 #### 1. REBEL Relationship Extraction Engine
 - **Root Cause Identified**: REBEL model was generating output but parser couldn't read space-separated format
@@ -6357,7 +6404,7 @@ This release represents the successful completion of ClipScribe's synthesis capa
 - **Environment Support**: Added `CLIPSCRIBE_LOG_LEVEL=DEBUG` environment variable support
 - **Initialization**: Proper `setup_logging()` call in CLI initialization
 
-### 🔧 Technical Improvements
+###  Technical Improvements
 
 #### 1. Enhanced Error Handling
 - **Defensive Programming**: Added multiple safety checks in knowledge graph saving
@@ -6374,7 +6421,7 @@ This release represents the successful completion of ClipScribe's synthesis capa
 - **Memory Management**: Improved handling of large video collections
 - **Cost Optimization**: Maintained 92% cost reduction principles
 
-### 🎯 User Experience
+###  User Experience
 
 #### 1. Success Indicators
 - **Relationship Counts**: Clear logging of extracted relationships (e.g., "Extracted 14 unique relationships from 18 total")
@@ -6386,7 +6433,7 @@ This release represents the successful completion of ClipScribe's synthesis capa
 - **GEXF Visualization**: Enhanced Gephi-compatible files with proper styling
 - **Comprehensive Reports**: Markdown reports with relationship network analysis
 
-### 📊 Performance Metrics
+###  Performance Metrics
 
 - **Relationship Extraction**: 10-19 relationships per video (previously 0)
 - **Entity Extraction**: 250-300 entities per video with 271 LLM-validated
@@ -6394,14 +6441,14 @@ This release represents the successful completion of ClipScribe's synthesis capa
 - **Processing Cost**: Maintained ~$0.41 per video
 - **Success Rate**: 100% completion rate (previously failing on save)
 
-### 🔬 Testing & Validation
+###  Testing & Validation
 
 - **Test Content**: Validated with PBS NewsHour documentaries on Pegasus spyware
 - **Relationship Quality**: Extracting meaningful geopolitical, organizational, and temporal relationships
 - **End-to-End**: Full pipeline from video URL to knowledge graph visualization
 - **Multi-Video**: Collection processing with cross-video relationship synthesis
 
-### 💡 Development Notes
+###  Development Notes
 
 This release represents a major breakthrough in ClipScribe's relationship extraction capabilities. The REBEL model was working correctly but the parser was incompatible with its output format. The fix enables ClipScribe to extract rich, meaningful relationships that form the foundation for knowledge synthesis across video collections.
 
@@ -6840,7 +6887,7 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
 ### Added
 - **Rich Progress Indicators**: Implemented a beautiful, real-time progress tracking system in the CLI using Rich.
   - Live-updating progress bars show overall completion percentage and current processing phase (e.g., downloading, transcribing, extracting).
-  - Includes real-time cost tracking with color-coded alerts (🟢🟡🔴) to monitor API usage.
+  - Includes real-time cost tracking with color-coded alerts () to monitor API usage.
   - Displays elapsed time and a summary of phase timings upon completion.
 - **Enhanced Interactive Reports**: Significantly upgraded the generated `report.md`.
   - **Mermaid Diagrams**: Auto-generates Mermaid diagrams for knowledge graph visualization (top 20 relationships) and entity type distribution (pie chart).
@@ -6868,7 +6915,7 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
 - **Rich Progress Indicators**: Beautiful real-time progress tracking
   - Live progress bars showing overall completion percentage
   - Phase-by-phase tracking (download, transcribe, extract, etc.)
-  - Real-time cost tracking with color coding (🟢 < $0.10, 🟡 < $1.00, 🔴 > $1.00)
+  - Real-time cost tracking with color coding ( < $0.10,  < $1.00,  > $1.00)
   - Elapsed time and estimated time remaining
   - Phase timing breakdown in completion summary
   - Extraction statistics display with entity type breakdown
@@ -6897,9 +6944,9 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
     - "Quick Stats" dashboard with emoji-based bar charts.
     - Relationship type distribution table with percentage bars.
   - **Richer Formatting**:
-    - Emoji icons for entity types (e.g., 👤, 🏢, 📍).
-    - Confidence indicators for entities (🟩🟨🟥).
-    - Importance indicators for key points (🔴🟡⚪).
+    - Emoji icons for entity types (e.g., , , ).
+    - Confidence indicators for entities ().
+    - Importance indicators for key points ().
     - Detailed file index with sizes.
 
 ### Changed
@@ -6970,7 +7017,7 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
 - **Rich Progress Indicators**: Beautiful real-time progress tracking
   - Live progress bars showing overall completion percentage
   - Phase-by-phase tracking (download, transcribe, extract, etc.)
-  - Real-time cost tracking with color coding (🟢 < $0.10, 🟡 < $1.00, 🔴 > $1.00)
+  - Real-time cost tracking with color coding ( < $0.10,  < $1.00,  > $1.00)
   - Elapsed time and estimated time remaining
   - Phase timing breakdown in completion summary
   - Extraction statistics display with entity type breakdown
@@ -6999,9 +7046,9 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
     - "Quick Stats" dashboard with emoji-based bar charts.
     - Relationship type distribution table with percentage bars.
   - **Richer Formatting**:
-    - Emoji icons for entity types (e.g., 👤, 🏢, 📍).
-    - Confidence indicators for entities (🟩🟨🟥).
-    - Importance indicators for key points (🔴🟡⚪).
+    - Emoji icons for entity types (e.g., , , ).
+    - Confidence indicators for entities ().
+    - Importance indicators for key points ().
     - Detailed file index with sizes.
 
 ### Changed
@@ -7031,7 +7078,7 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
 - Collection directory naming to use IDs instead of titles
 - Output filename generation for empty extensions 
 
-### ✅ MAJOR MILESTONE: Timeline Building Pipeline COMPLETE! 🚀
+###  MAJOR MILESTONE: Timeline Building Pipeline COMPLETE! 
 
 **ARGOS v2.17.0 Enhanced Temporal Intelligence is now COMPLETE** - all 4/4 core components implemented and tested.
 
@@ -7095,37 +7142,37 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
 
 ## [2.16.0] - 2025-06-27 - The Mission Control Update (Critical Bug Fix - Import Paths)
 
-### 🐛 Critical Bug Fix: Import Path Resolution
+###  Critical Bug Fix: Import Path Resolution
 
 **Issue**: Streamlit Mission Control experiencing session disconnections and page loading failures  
 **Root Cause**: Incorrect relative import paths in page navigation functions causing Python import errors  
 **Solution**: Implemented proper absolute import paths with streamlit_app directory path configuration  
-**Status**: ✅ **RESOLVED** - All enhanced visualizations now fully operational
+**Status**:  **RESOLVED** - All enhanced visualizations now fully operational
 
-### 🔧 Technical Details
+###  Technical Details
 - **Problem**: `from pages.Collections import main` failing due to missing path context
 - **Fix**: Added `streamlit_app_path` to `sys.path` in all show functions
 - **Impact**: All Phase 2 enhanced pages now loading successfully
 - **Testing**: Verified all imports working correctly in production environment
 
-### ✅ Operational Status
-- **Mission Control**: ✅ Fully operational with all navigation working
-- **Interactive Network Graphs**: ✅ Loading and rendering correctly
-- **Information Flow Maps**: ✅ All 5 visualization types working
-- **Advanced Analytics**: ✅ Real-time monitoring functional
-- **Processing Monitor**: ✅ Live dashboard operational
+###  Operational Status
+- **Mission Control**:  Fully operational with all navigation working
+- **Interactive Network Graphs**:  Loading and rendering correctly
+- **Information Flow Maps**:  All 5 visualization types working
+- **Advanced Analytics**:  Real-time monitoring functional
+- **Processing Monitor**:  Live dashboard operational
 
 ---
 
 ## [2.16.0] - 2025-06-27 - The Mission Control Update (Phase 2 - Enhanced Visualizations Complete)
 
-### 🎨 Phase 2 Complete: Enhanced Visualizations & Real-time Processing
+###  Phase 2 Complete: Enhanced Visualizations & Real-time Processing
 
 **Major Milestone**: All Phase 2 enhancements successfully implemented and tested. ClipScribe Mission Control now provides a comprehensive, interactive video intelligence platform with advanced visualizations and real-time monitoring capabilities.
 
-### ✨ New Features - Interactive Visualizations
+###  New Features - Interactive Visualizations
 
-#### 1. ✅ Interactive Network Graphs for Knowledge Panels (COMPLETE)
+#### 1.  Interactive Network Graphs for Knowledge Panels (COMPLETE)
 - **Plotly-powered Network Visualization**: Dynamic entity relationship networks with interactive nodes and edges
 - **Advanced Network Controls**: 
   - Multiple layout algorithms (Spring, Circular, Kamada-Kawai)
@@ -7144,7 +7191,7 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
   - Relationship distribution analysis
   - Professional graph styling with confidence indicators
 
-#### 2. ✅ Enhanced Information Flow Visualizations (COMPLETE)
+#### 2.  Enhanced Information Flow Visualizations (COMPLETE)
 - **Multi-Type Flow Visualizations**: 5 different interactive visualization types
   - **Concept Evolution Timeline**: Track concept maturity progression across videos
   - **Dependency Network**: Interactive concept prerequisite relationships
@@ -7163,7 +7210,7 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
   - Filtering by maturity level and cluster
   - Real-time data exploration
 
-#### 3. ✅ Advanced Analytics Dashboard (COMPLETE)
+#### 3.  Advanced Analytics Dashboard (COMPLETE)
 - **Interactive Cost Analysis**:
   - Cost trend visualization over time
   - Cost efficiency scatter plots with processing time bubbles
@@ -7180,7 +7227,7 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
   - Enhanced data tables with professional formatting
   - Color-coded status indicators
 
-#### 4. ✅ Real-time Processing Monitor (COMPLETE)
+#### 4.  Real-time Processing Monitor (COMPLETE)
 - **Live CLI Progress Monitoring**: Real-time command execution tracking
 - **Interactive Command Builder**:
   - Template-based command selection
@@ -7202,7 +7249,7 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
   - Monthly projection analytics
   - Cumulative cost visualization with trend analysis
 
-### 🔧 Technical Enhancements
+###  Technical Enhancements
 
 #### 1. Components Architecture
 - **Modular Component System**: Organized `streamlit_app/components/` directory
@@ -7222,7 +7269,7 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
 - **Interactive Elements**: Hover effects, tooltips, and dynamic updates
 - **Navigation Enhancement**: Phase 2 announcement banner and updated navigation
 
-### 📊 Visualization Capabilities
+###  Visualization Capabilities
 
 #### Network Analysis
 - **Entity Relationship Networks**: Interactive graphs with 20+ entities
@@ -7242,7 +7289,7 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
 - **System Monitoring**: Real-time gauge visualizations for performance metrics
 - **Predictive Analytics**: Monthly cost projections and usage patterns
 
-### 🚀 Performance & Reliability
+###  Performance & Reliability
 
 - **Optimized Rendering**: Efficient Plotly chart generation for large datasets
 - **Memory Management**: Smart data filtering to display top N entities/concepts
@@ -7250,7 +7297,7 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
 - **Real-time Updates**: Live data streaming without blocking the UI
 - **Thread Safety**: Proper concurrent processing for real-time monitoring
 
-### 💡 User Experience
+###  User Experience
 
 #### Navigation & Discovery
 - **Enhanced Navigation**: New "Real-time Processing" page in main navigation
@@ -7264,21 +7311,21 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
 - **Hover Insights**: Rich tooltips with contextual information
 - **Responsive Controls**: Intuitive sliders, selectors, and input forms
 
-### 🎯 Integration & Compatibility
+###  Integration & Compatibility
 
 - **Seamless CLI Integration**: Real-time monitoring of all ClipScribe commands
 - **Backward Compatible**: All Phase 1 features maintained and enhanced
 - **Cross-platform**: Works on macOS, Linux, and Windows
 - **Dependencies**: Plotly, NetworkX, Pandas integration with graceful fallbacks
 
-### 🔬 Quality & Testing
+###  Quality & Testing
 
 - **Import Validation**: Comprehensive testing of all visualization imports
 - **Error Handling**: Robust error recovery and user feedback
 - **Performance Testing**: Optimized for collections with 50+ entities and concepts
 - **User Interface Testing**: Verified across different data sizes and scenarios
 
-### 💭 Developer Notes
+###  Developer Notes
 
 Phase 2 represents a major evolution in ClipScribe's user interface capabilities. The addition of interactive visualizations transforms the static web interface into a dynamic, explorable platform for video intelligence analysis. 
 
@@ -7300,17 +7347,17 @@ Phase 2 successfully bridges the gap between ClipScribe's powerful CLI capabilit
 
 ## [2.16.0] - 2025-06-27 - The Mission Control Update (Phase 1 + Rules Cleanup Complete)
 
-### 🎨 Major New Feature: Streamlit Mission Control
+###  Major New Feature: Streamlit Mission Control
 
 **Interactive Web Interface**: Complete browser-based interface for managing and visualizing ClipScribe video intelligence collections.
 
-### 🧹 Major Project Maintenance: Rules System Cleanup
+###  Major Project Maintenance: Rules System Cleanup
 
 **Comprehensive Rules Reorganization**: Streamlined and consolidated the project's rule system for better maintainability and clarity.
 
-### ✨ New Features
+###  New Features
 
-#### 1. ✅ Streamlit Web Interface (Phase 1 Complete)
+#### 1.  Streamlit Web Interface (Phase 1 Complete)
 - **Main Dashboard**: Beautiful gradient interface with navigation sidebar, quick stats, and recent activity
 - **Collections Browser**: Complete multi-video collection browser with tabbed interface
   - Overview: Collection metrics, summaries, and AI-generated insights
@@ -7331,7 +7378,7 @@ Phase 2 successfully bridges the gap between ClipScribe's powerful CLI capabilit
   - API usage monitoring with optimization recommendations
 - **Settings Panel**: Configuration management for API keys and processing parameters
 
-#### 2. 🔧 Advanced UI Features
+#### 2.  Advanced UI Features
 - **Data Integration**: Full integration with ClipScribe's JSON output formats
 - **Download Capabilities**: JSON and markdown exports for all analysis types
 - **Interactive Elements**: Search, filtering, sorting, expandable sections
@@ -7339,14 +7386,14 @@ Phase 2 successfully bridges the gap between ClipScribe's powerful CLI capabilit
 - **Real-time Updates**: Refresh functionality to detect new processing
 - **Security**: Masked API key display and local-only data access
 
-#### 3. 📱 User Experience Enhancements
+#### 3.  User Experience Enhancements
 - **Professional Styling**: Gradient headers, emoji indicators, metric cards
 - **Responsive Design**: Works seamlessly on desktop and tablet
 - **Progress Feedback**: Loading spinners and success messages
 - **Navigation**: Seamless page switching with proper import handling
 - **Documentation**: Comprehensive README with troubleshooting guide
 
-### 🚀 Architecture
+###  Architecture
 
 #### Directory Structure
 ```
@@ -7360,21 +7407,21 @@ streamlit_app/
 └── README.md                      # Comprehensive documentation
 ```
 
-### 🎯 Integration & Compatibility
+###  Integration & Compatibility
 
 - **Seamless CLI Integration**: Automatically detects and loads all ClipScribe outputs
 - **Backward Compatible**: Works with all existing v2.15.0 synthesis features
 - **Zero Configuration**: Automatic detection of processed videos and collections
 - **Local-First**: All data processing happens locally for maximum privacy
 
-### 📊 Performance
+###  Performance
 
 - **Efficient Loading**: Optimized JSON loading with error recovery
 - **Memory Management**: Smart data loading for large collections
 - **Fast Navigation**: Client-side filtering and sorting
 - **Responsive UI**: Smooth interactions even with large datasets
 
-### 🔬 Testing & Quality
+###  Testing & Quality
 
 - **Error Resilience**: Comprehensive error handling throughout the interface
 - **Graceful Degradation**: Fallback messages when features are unavailable
@@ -7385,7 +7432,7 @@ streamlit_app/
   - Incremental testing (imports → core → integration → full application)
   - Error diagnosis and root cause analysis protocols
 
-### 🧹 Project Rules System Cleanup
+###  Project Rules System Cleanup
 
 #### Major Reorganization (20 → 17 Rules)
 - **Eliminated Duplications**: Merged overlapping rules that had 60%+ content overlap
@@ -7408,7 +7455,7 @@ streamlit_app/
 - **Validation Focus**: Added comprehensive validation protocols and quality gates
 - **Maintainable Size**: Most rules now under 200 lines, focused on core concepts
 
-### 💡 User Experience
+###  User Experience
 
 #### Getting Started
 ```bash
@@ -7423,7 +7470,7 @@ poetry run streamlit run streamlit_app/ClipScribe_Mission_Control.py
 - **Monitor Costs**: Real-time cost tracking with optimization recommendations
 - **Export Data**: Download JSON and markdown reports for offline analysis
 
-### 🚧 Future Roadmap (Phase 2)
+###  Future Roadmap (Phase 2)
 
 **Next Priorities**:
 1. **Enhanced Visualizations**: Interactive network graphs and flow diagrams
@@ -7432,7 +7479,7 @@ poetry run streamlit run streamlit_app/ClipScribe_Mission_Control.py
 4. **Components Library**: Reusable UI components for better modularity
 5. **Export Hub**: Multi-format exports and sharing capabilities
 
-### 💭 Developer Notes
+###  Developer Notes
 
 This release represents a major milestone in ClipScribe's evolution - the transition from a pure CLI tool to a comprehensive video intelligence platform with an intuitive web interface. The Mission Control interface makes ClipScribe's powerful synthesis capabilities accessible to users who prefer visual exploration over command-line interaction.
 
@@ -7444,13 +7491,13 @@ Phase 1 focuses on providing complete access to all existing functionality throu
 
 ## [2.15.0] - 2025-06-27 - The Synthesis Complete Update
 
-### ✨ Synthesis Features Complete
+###  Synthesis Features Complete
 
 This release marks the completion of ALL major synthesis features for ClipScribe's multi-video intelligence capabilities. Both Knowledge Panels and Information Flow Maps are now production-ready with comprehensive testing and output integration.
 
-### 🎯 New Features
+###  New Features
 
-#### 1. ✅ Knowledge Panels - Entity-Centric Intelligence Synthesis (COMPLETE)
+#### 1.  Knowledge Panels - Entity-Centric Intelligence Synthesis (COMPLETE)
 - **Comprehensive Entity Profiles**: Automatically generates detailed profiles for the top 15 most significant entities across a video collection
 - **Rich Data Models**: 
   - `KnowledgePanel`: Individual entity profiles with activities, relationships, quotes, and strategic insights
@@ -7467,7 +7514,7 @@ This release marks the completion of ALL major synthesis features for ClipScribe
   - `knowledge_panels_summary.md`: Human-readable markdown summary
 - **Template Fallbacks**: Ensures functionality even without AI for robust operation
 
-#### 2. ✅ Information Flow Maps - Concept Evolution Tracking (COMPLETE) 
+#### 2.  Information Flow Maps - Concept Evolution Tracking (COMPLETE) 
 - **Concept Maturity Tracking**: 6-level maturity model (mentioned → evolved) tracks how concepts develop across videos
 - **Rich Data Models**:
   - `ConceptNode`: Individual concepts with maturity levels and context
@@ -7489,27 +7536,27 @@ This release marks the completion of ALL major synthesis features for ClipScribe
   - `concept_flows/`: Individual flow files for each video
   - `information_flow_summary.md`: Human-readable analysis with visualizations
 
-#### 3. 🔧 Output Integration Complete
+#### 3.  Output Integration Complete
 - **Enhanced Collection Outputs**: `save_collection_outputs()` now saves ALL synthesis features
 - **Structured Directory Layout**: Clean organization with dedicated folders for panels and flows
 - **Human-Readable Summaries**: Beautiful markdown reports for both Knowledge Panels and Information Flow Maps
 - **Backward Compatible**: All existing outputs preserved while adding new synthesis features
 
-### 🔬 Testing & Quality
+###  Testing & Quality
 
 - **Comprehensive Unit Tests**: Both synthesis features have extensive test coverage
 - **Async Architecture**: All synthesis methods properly implemented with async/await
 - **Template Fallbacks**: Both features work without AI for maximum reliability
 - **Production Ready**: All tests passing, ready for deployment
 
-### 📊 Performance & Cost
+###  Performance & Cost
 
 - **Minimal Cost Impact**: Both features reuse existing entity and content data
 - **Efficient Processing**: Smart filtering limits analysis to most significant entities
 - **Maintained 92% cost reduction** through intelligent model routing
 - **High ROI**: Dramatic improvement in intelligence synthesis quality
 
-### 🚀 What's Next
+###  What's Next
 
 With all synthesis features complete, v2.16.0 will focus on:
 - **Streamlit Mission Control**: Interactive UI for collection management
@@ -7517,7 +7564,7 @@ With all synthesis features complete, v2.16.0 will focus on:
 - **Interactive Visualizations**: Explore Knowledge Panels and Information Flow Maps
 - **Export Hub**: Download analyses in multiple formats
 
-### 💡 Developer Notes
+###  Developer Notes
 
 This release represents the successful completion of ClipScribe's synthesis capabilities. The combination of Knowledge Panels (entity-centric view) and Information Flow Maps (concept evolution view) provides comprehensive multi-video intelligence that surpasses traditional single-video analysis.
 
@@ -7525,7 +7572,7 @@ This release represents the successful completion of ClipScribe's synthesis capa
 
 ## [2.14.0] - 2025-06-27 - The Synthesis Update
 
-### 🎯 Major Breakthrough: REBEL Relationship Extraction Fixed
+###  Major Breakthrough: REBEL Relationship Extraction Fixed
 
 **Critical Bug Resolution**: Fixed the `'NoneType' object is not subscriptable` error that was preventing video processing from completing after successful entity and relationship extraction.
 
@@ -7536,9 +7583,9 @@ This release represents the successful completion of ClipScribe's synthesis capa
 - "United Arab Emirates | diplomatic relation | Saudi Arabia"
 - And many more meaningful relationships
 
-### ✨ New Features
+###  New Features
 
-#### 1. ✅ Enhanced Temporal Intelligence for Event Timelines (COMPLETE - 2025-06-26 23:23 PDT)
+#### 1.  Enhanced Temporal Intelligence for Event Timelines (COMPLETE - 2025-06-26 23:23 PDT)
 - **LLM-Based Date Extraction**: The timeline synthesis engine now uses an LLM to parse specific dates from video titles and key point descriptions (e.g., "last Tuesday", "in 1945").
 - **Sophisticated Fallback Logic**: Implements a robust fallback mechanism. It prioritizes dates from key point content, then from the video title, and finally defaults to the video's publication date.
 - **Structured Date Models**: Added a new `ExtractedDate` Pydantic model to store parsed dates, original text, confidence scores, and the source of the extraction.
@@ -7562,7 +7609,7 @@ This release represents the successful completion of ClipScribe's synthesis capa
 - **Consistent Directory Naming**: Fixed naming inconsistencies between file saving and reporting
 - **Enhanced CLI Integration**: Updated CLI to use centralized collection output saving
 
-### 🐛 Critical Fixes
+###  Critical Fixes
 
 #### 1. REBEL Relationship Extraction Engine
 - **Root Cause Identified**: REBEL model was generating output but parser couldn't read space-separated format
@@ -7587,7 +7634,7 @@ This release represents the successful completion of ClipScribe's synthesis capa
 - **Environment Support**: Added `CLIPSCRIBE_LOG_LEVEL=DEBUG` environment variable support
 - **Initialization**: Proper `setup_logging()` call in CLI initialization
 
-### 🔧 Technical Improvements
+###  Technical Improvements
 
 #### 1. Enhanced Error Handling
 - **Defensive Programming**: Added multiple safety checks in knowledge graph saving
@@ -7604,7 +7651,7 @@ This release represents the successful completion of ClipScribe's synthesis capa
 - **Memory Management**: Improved handling of large video collections
 - **Cost Optimization**: Maintained 92% cost reduction principles
 
-### 🎯 User Experience
+###  User Experience
 
 #### 1. Success Indicators
 - **Relationship Counts**: Clear logging of extracted relationships (e.g., "Extracted 14 unique relationships from 18 total")
@@ -7616,7 +7663,7 @@ This release represents the successful completion of ClipScribe's synthesis capa
 - **GEXF Visualization**: Enhanced Gephi-compatible files with proper styling
 - **Comprehensive Reports**: Markdown reports with relationship network analysis
 
-### 📊 Performance Metrics
+###  Performance Metrics
 
 - **Relationship Extraction**: 10-19 relationships per video (previously 0)
 - **Entity Extraction**: 250-300 entities per video with 271 LLM-validated
@@ -7624,14 +7671,14 @@ This release represents the successful completion of ClipScribe's synthesis capa
 - **Processing Cost**: Maintained ~$0.41 per video
 - **Success Rate**: 100% completion rate (previously failing on save)
 
-### 🔬 Testing & Validation
+###  Testing & Validation
 
 - **Test Content**: Validated with PBS NewsHour documentaries on Pegasus spyware
 - **Relationship Quality**: Extracting meaningful geopolitical, organizational, and temporal relationships
 - **End-to-End**: Full pipeline from video URL to knowledge graph visualization
 - **Multi-Video**: Collection processing with cross-video relationship synthesis
 
-### 💡 Development Notes
+###  Development Notes
 
 This release represents a major breakthrough in ClipScribe's relationship extraction capabilities. The REBEL model was working correctly but the parser was incompatible with its output format. The fix enables ClipScribe to extract rich, meaningful relationships that form the foundation for knowledge synthesis across video collections.
 
@@ -8070,7 +8117,7 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
 ### Added
 - **Rich Progress Indicators**: Implemented a beautiful, real-time progress tracking system in the CLI using Rich.
   - Live-updating progress bars show overall completion percentage and current processing phase (e.g., downloading, transcribing, extracting).
-  - Includes real-time cost tracking with color-coded alerts (🟢🟡🔴) to monitor API usage.
+  - Includes real-time cost tracking with color-coded alerts () to monitor API usage.
   - Displays elapsed time and a summary of phase timings upon completion.
 - **Enhanced Interactive Reports**: Significantly upgraded the generated `report.md`.
   - **Mermaid Diagrams**: Auto-generates Mermaid diagrams for knowledge graph visualization (top 20 relationships) and entity type distribution (pie chart).
@@ -8098,7 +8145,7 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
 - **Rich Progress Indicators**: Beautiful real-time progress tracking
   - Live progress bars showing overall completion percentage
   - Phase-by-phase tracking (download, transcribe, extract, etc.)
-  - Real-time cost tracking with color coding (🟢 < $0.10, 🟡 < $1.00, 🔴 > $1.00)
+  - Real-time cost tracking with color coding ( < $0.10,  < $1.00,  > $1.00)
   - Elapsed time and estimated time remaining
   - Phase timing breakdown in completion summary
   - Extraction statistics display with entity type breakdown
@@ -8127,9 +8174,9 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
     - "Quick Stats" dashboard with emoji-based bar charts.
     - Relationship type distribution table with percentage bars.
   - **Richer Formatting**:
-    - Emoji icons for entity types (e.g., 👤, 🏢, 📍).
-    - Confidence indicators for entities (🟩🟨🟥).
-    - Importance indicators for key points (🔴🟡⚪).
+    - Emoji icons for entity types (e.g., , , ).
+    - Confidence indicators for entities ().
+    - Importance indicators for key points ().
     - Detailed file index with sizes.
 
 ### Changed
@@ -8200,7 +8247,7 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
 - **Rich Progress Indicators**: Beautiful real-time progress tracking
   - Live progress bars showing overall completion percentage
   - Phase-by-phase tracking (download, transcribe, extract, etc.)
-  - Real-time cost tracking with color coding (🟢 < $0.10, 🟡 < $1.00, 🔴 > $1.00)
+  - Real-time cost tracking with color coding ( < $0.10,  < $1.00,  > $1.00)
   - Elapsed time and estimated time remaining
   - Phase timing breakdown in completion summary
   - Extraction statistics display with entity type breakdown
@@ -8229,9 +8276,9 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
     - "Quick Stats" dashboard with emoji-based bar charts.
     - Relationship type distribution table with percentage bars.
   - **Richer Formatting**:
-    - Emoji icons for entity types (e.g., 👤, 🏢, 📍).
-    - Confidence indicators for entities (🟩🟨🟥).
-    - Importance indicators for key points (🔴🟡⚪).
+    - Emoji icons for entity types (e.g., , , ).
+    - Confidence indicators for entities ().
+    - Importance indicators for key points ().
     - Detailed file index with sizes.
 
 ### Changed
@@ -8261,7 +8308,7 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
 - Collection directory naming to use IDs instead of titles
 - Output filename generation for empty extensions 
 
-### ✅ MAJOR MILESTONE: Timeline Building Pipeline COMPLETE! 🚀
+###  MAJOR MILESTONE: Timeline Building Pipeline COMPLETE! 
 
 **ARGOS v2.17.0 Enhanced Temporal Intelligence is now COMPLETE** - all 4/4 core components implemented and tested.
 
@@ -8325,37 +8372,37 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
 
 ## [2.16.0] - 2025-06-27 - The Mission Control Update (Critical Bug Fix - Import Paths)
 
-### 🐛 Critical Bug Fix: Import Path Resolution
+###  Critical Bug Fix: Import Path Resolution
 
 **Issue**: Streamlit Mission Control experiencing session disconnections and page loading failures  
 **Root Cause**: Incorrect relative import paths in page navigation functions causing Python import errors  
 **Solution**: Implemented proper absolute import paths with streamlit_app directory path configuration  
-**Status**: ✅ **RESOLVED** - All enhanced visualizations now fully operational
+**Status**:  **RESOLVED** - All enhanced visualizations now fully operational
 
-### 🔧 Technical Details
+###  Technical Details
 - **Problem**: `from pages.Collections import main` failing due to missing path context
 - **Fix**: Added `streamlit_app_path` to `sys.path` in all show functions
 - **Impact**: All Phase 2 enhanced pages now loading successfully
 - **Testing**: Verified all imports working correctly in production environment
 
-### ✅ Operational Status
-- **Mission Control**: ✅ Fully operational with all navigation working
-- **Interactive Network Graphs**: ✅ Loading and rendering correctly
-- **Information Flow Maps**: ✅ All 5 visualization types working
-- **Advanced Analytics**: ✅ Real-time monitoring functional
-- **Processing Monitor**: ✅ Live dashboard operational
+###  Operational Status
+- **Mission Control**:  Fully operational with all navigation working
+- **Interactive Network Graphs**:  Loading and rendering correctly
+- **Information Flow Maps**:  All 5 visualization types working
+- **Advanced Analytics**:  Real-time monitoring functional
+- **Processing Monitor**:  Live dashboard operational
 
 ---
 
 ## [2.16.0] - 2025-06-27 - The Mission Control Update (Phase 2 - Enhanced Visualizations Complete)
 
-### 🎨 Phase 2 Complete: Enhanced Visualizations & Real-time Processing
+###  Phase 2 Complete: Enhanced Visualizations & Real-time Processing
 
 **Major Milestone**: All Phase 2 enhancements successfully implemented and tested. ClipScribe Mission Control now provides a comprehensive, interactive video intelligence platform with advanced visualizations and real-time monitoring capabilities.
 
-### ✨ New Features - Interactive Visualizations
+###  New Features - Interactive Visualizations
 
-#### 1. ✅ Interactive Network Graphs for Knowledge Panels (COMPLETE)
+#### 1.  Interactive Network Graphs for Knowledge Panels (COMPLETE)
 - **Plotly-powered Network Visualization**: Dynamic entity relationship networks with interactive nodes and edges
 - **Advanced Network Controls**: 
   - Multiple layout algorithms (Spring, Circular, Kamada-Kawai)
@@ -8374,7 +8421,7 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
   - Relationship distribution analysis
   - Professional graph styling with confidence indicators
 
-#### 2. ✅ Enhanced Information Flow Visualizations (COMPLETE)
+#### 2.  Enhanced Information Flow Visualizations (COMPLETE)
 - **Multi-Type Flow Visualizations**: 5 different interactive visualization types
   - **Concept Evolution Timeline**: Track concept maturity progression across videos
   - **Dependency Network**: Interactive concept prerequisite relationships
@@ -8393,7 +8440,7 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
   - Filtering by maturity level and cluster
   - Real-time data exploration
 
-#### 3. ✅ Advanced Analytics Dashboard (COMPLETE)
+#### 3.  Advanced Analytics Dashboard (COMPLETE)
 - **Interactive Cost Analysis**:
   - Cost trend visualization over time
   - Cost efficiency scatter plots with processing time bubbles
@@ -8410,7 +8457,7 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
   - Enhanced data tables with professional formatting
   - Color-coded status indicators
 
-#### 4. ✅ Real-time Processing Monitor (COMPLETE)
+#### 4.  Real-time Processing Monitor (COMPLETE)
 - **Live CLI Progress Monitoring**: Real-time command execution tracking
 - **Interactive Command Builder**:
   - Template-based command selection
@@ -8432,7 +8479,7 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
   - Monthly projection analytics
   - Cumulative cost visualization with trend analysis
 
-### 🔧 Technical Enhancements
+###  Technical Enhancements
 
 #### 1. Components Architecture
 - **Modular Component System**: Organized `streamlit_app/components/` directory
@@ -8452,7 +8499,7 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
 - **Interactive Elements**: Hover effects, tooltips, and dynamic updates
 - **Navigation Enhancement**: Phase 2 announcement banner and updated navigation
 
-### 📊 Visualization Capabilities
+###  Visualization Capabilities
 
 #### Network Analysis
 - **Entity Relationship Networks**: Interactive graphs with 20+ entities
@@ -8472,7 +8519,7 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
 - **System Monitoring**: Real-time gauge visualizations for performance metrics
 - **Predictive Analytics**: Monthly cost projections and usage patterns
 
-### 🚀 Performance & Reliability
+###  Performance & Reliability
 
 - **Optimized Rendering**: Efficient Plotly chart generation for large datasets
 - **Memory Management**: Smart data filtering to display top N entities/concepts
@@ -8480,7 +8527,7 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
 - **Real-time Updates**: Live data streaming without blocking the UI
 - **Thread Safety**: Proper concurrent processing for real-time monitoring
 
-### 💡 User Experience
+###  User Experience
 
 #### Navigation & Discovery
 - **Enhanced Navigation**: New "Real-time Processing" page in main navigation
@@ -8494,21 +8541,21 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
 - **Hover Insights**: Rich tooltips with contextual information
 - **Responsive Controls**: Intuitive sliders, selectors, and input forms
 
-### 🎯 Integration & Compatibility
+###  Integration & Compatibility
 
 - **Seamless CLI Integration**: Real-time monitoring of all ClipScribe commands
 - **Backward Compatible**: All Phase 1 features maintained and enhanced
 - **Cross-platform**: Works on macOS, Linux, and Windows
 - **Dependencies**: Plotly, NetworkX, Pandas integration with graceful fallbacks
 
-### 🔬 Quality & Testing
+###  Quality & Testing
 
 - **Import Validation**: Comprehensive testing of all visualization imports
 - **Error Handling**: Robust error recovery and user feedback
 - **Performance Testing**: Optimized for collections with 50+ entities and concepts
 - **User Interface Testing**: Verified across different data sizes and scenarios
 
-### 💭 Developer Notes
+###  Developer Notes
 
 Phase 2 represents a major evolution in ClipScribe's user interface capabilities. The addition of interactive visualizations transforms the static web interface into a dynamic, explorable platform for video intelligence analysis. 
 
@@ -8530,17 +8577,17 @@ Phase 2 successfully bridges the gap between ClipScribe's powerful CLI capabilit
 
 ## [2.16.0] - 2025-06-27 - The Mission Control Update (Phase 1 + Rules Cleanup Complete)
 
-### 🎨 Major New Feature: Streamlit Mission Control
+###  Major New Feature: Streamlit Mission Control
 
 **Interactive Web Interface**: Complete browser-based interface for managing and visualizing ClipScribe video intelligence collections.
 
-### 🧹 Major Project Maintenance: Rules System Cleanup
+###  Major Project Maintenance: Rules System Cleanup
 
 **Comprehensive Rules Reorganization**: Streamlined and consolidated the project's rule system for better maintainability and clarity.
 
-### ✨ New Features
+###  New Features
 
-#### 1. ✅ Streamlit Web Interface (Phase 1 Complete)
+#### 1.  Streamlit Web Interface (Phase 1 Complete)
 - **Main Dashboard**: Beautiful gradient interface with navigation sidebar, quick stats, and recent activity
 - **Collections Browser**: Complete multi-video collection management with tabbed interface
   - Overview: Collection metrics, summaries, and AI-generated insights
@@ -8561,7 +8608,7 @@ Phase 2 successfully bridges the gap between ClipScribe's powerful CLI capabilit
   - API usage monitoring with optimization recommendations
 - **Settings Panel**: Configuration management for API keys and processing parameters
 
-#### 2. 🔧 Advanced UI Features
+#### 2.  Advanced UI Features
 - **Data Integration**: Full integration with ClipScribe's JSON output formats
 - **Download Capabilities**: JSON and markdown exports for all analysis types
 - **Interactive Elements**: Search, filtering, sorting, expandable sections
@@ -8569,14 +8616,14 @@ Phase 2 successfully bridges the gap between ClipScribe's powerful CLI capabilit
 - **Real-time Updates**: Refresh functionality to detect new processing
 - **Security**: Masked API key display and local-only data access
 
-#### 3. 📱 User Experience Enhancements
+#### 3.  User Experience Enhancements
 - **Professional Styling**: Gradient headers, emoji indicators, metric cards
 - **Responsive Design**: Works seamlessly on desktop and tablet
 - **Progress Feedback**: Loading spinners and success messages
 - **Navigation**: Seamless page switching with proper import handling
 - **Documentation**: Comprehensive README with troubleshooting guide
 
-### 🚀 Architecture
+###  Architecture
 
 #### Directory Structure
 ```
@@ -8590,21 +8637,21 @@ streamlit_app/
 └── README.md                      # Comprehensive documentation
 ```
 
-### 🎯 Integration & Compatibility
+###  Integration & Compatibility
 
 - **Seamless CLI Integration**: Automatically detects and loads all ClipScribe outputs
 - **Backward Compatible**: Works with all existing v2.15.0 synthesis features
 - **Zero Configuration**: Automatic detection of processed videos and collections
 - **Local-First**: All data processing happens locally for maximum privacy
 
-### 📊 Performance
+###  Performance
 
 - **Efficient Loading**: Optimized JSON loading with error recovery
 - **Memory Management**: Smart data loading for large collections
 - **Fast Navigation**: Client-side filtering and sorting
 - **Responsive UI**: Smooth interactions even with large datasets
 
-### 🔬 Testing & Quality
+###  Testing & Quality
 
 - **Error Resilience**: Comprehensive error handling throughout the interface
 - **Graceful Degradation**: Fallback messages when features are unavailable
@@ -8615,7 +8662,7 @@ streamlit_app/
   - Incremental testing (imports → core → integration → full application)
   - Error diagnosis and root cause analysis protocols
 
-### 🧹 Project Rules System Cleanup
+###  Project Rules System Cleanup
 
 #### Major Reorganization (20 → 17 Rules)
 - **Eliminated Duplications**: Merged overlapping rules that had 60%+ content overlap
@@ -8638,7 +8685,7 @@ streamlit_app/
 - **Validation Focus**: Added comprehensive validation protocols and quality gates
 - **Maintainable Size**: Most rules now under 200 lines, focused on core concepts
 
-### 💡 User Experience
+###  User Experience
 
 #### Getting Started
 ```bash
@@ -8653,7 +8700,7 @@ poetry run streamlit run streamlit_app/ClipScribe_Mission_Control.py
 - **Monitor Costs**: Real-time cost tracking with optimization recommendations
 - **Export Data**: Download JSON and markdown reports for offline analysis
 
-### 🚧 Future Roadmap (Phase 2)
+###  Future Roadmap (Phase 2)
 
 **Next Priorities**:
 1. **Enhanced Visualizations**: Interactive network graphs and flow diagrams
@@ -8662,7 +8709,7 @@ poetry run streamlit run streamlit_app/ClipScribe_Mission_Control.py
 4. **Components Library**: Reusable UI components for better modularity
 5. **Export Hub**: Multi-format exports and sharing capabilities
 
-### 💭 Developer Notes
+###  Developer Notes
 
 This release represents a major milestone in ClipScribe's evolution - the transition from a pure CLI tool to a comprehensive video intelligence platform with an intuitive web interface. The Mission Control interface makes ClipScribe's powerful synthesis capabilities accessible to users who prefer visual exploration over command-line interaction.
 
@@ -8674,13 +8721,13 @@ Phase 1 focuses on providing complete access to all existing functionality throu
 
 ## [2.15.0] - 2025-06-27 - The Synthesis Complete Update
 
-### ✨ Synthesis Features Complete
+###  Synthesis Features Complete
 
 This release marks the completion of ALL major synthesis features for ClipScribe's multi-video intelligence capabilities. Both Knowledge Panels and Information Flow Maps are now production-ready with comprehensive testing and output integration.
 
-### 🎯 New Features
+###  New Features
 
-#### 1. ✅ Knowledge Panels - Entity-Centric Intelligence Synthesis (COMPLETE)
+#### 1.  Knowledge Panels - Entity-Centric Intelligence Synthesis (COMPLETE)
 - **Comprehensive Entity Profiles**: Automatically generates detailed profiles for the top 15 most significant entities across a video collection
 - **Rich Data Models**: 
   - `KnowledgePanel`: Individual entity profiles with activities, relationships, quotes, and strategic insights
@@ -8697,7 +8744,7 @@ This release marks the completion of ALL major synthesis features for ClipScribe
   - `knowledge_panels_summary.md`: Human-readable markdown summary
 - **Template Fallbacks**: Ensures functionality even without AI for robust operation
 
-#### 2. ✅ Information Flow Maps - Concept Evolution Tracking (COMPLETE) 
+#### 2.  Information Flow Maps - Concept Evolution Tracking (COMPLETE) 
 - **Concept Maturity Tracking**: 6-level maturity model (mentioned → evolved) tracks how concepts develop across videos
 - **Rich Data Models**:
   - `ConceptNode`: Individual concepts with maturity levels and context
@@ -8719,27 +8766,27 @@ This release marks the completion of ALL major synthesis features for ClipScribe
   - `concept_flows/`: Individual flow files for each video
   - `information_flow_summary.md`: Human-readable analysis with visualizations
 
-#### 3. 🔧 Output Integration Complete
+#### 3.  Output Integration Complete
 - **Enhanced Collection Outputs**: `save_collection_outputs()` now saves ALL synthesis features
 - **Structured Directory Layout**: Clean organization with dedicated folders for panels and flows
 - **Human-Readable Summaries**: Beautiful markdown reports for both Knowledge Panels and Information Flow Maps
 - **Backward Compatible**: All existing outputs preserved while adding new synthesis features
 
-### 🔬 Testing & Quality
+###  Testing & Quality
 
 - **Comprehensive Unit Tests**: Both synthesis features have extensive test coverage
 - **Async Architecture**: All synthesis methods properly implemented with async/await
 - **Template Fallbacks**: Both features work without AI for maximum reliability
 - **Production Ready**: All tests passing, ready for deployment
 
-### 📊 Performance & Cost
+###  Performance & Cost
 
 - **Minimal Cost Impact**: Both features reuse existing entity and content data
 - **Efficient Processing**: Smart filtering limits analysis to most significant entities
 - **Maintained 92% cost reduction** through intelligent model routing
 - **High ROI**: Dramatic improvement in intelligence synthesis quality
 
-### 🚀 What's Next
+###  What's Next
 
 With all synthesis features complete, v2.16.0 will focus on:
 - **Streamlit Mission Control**: Interactive UI for collection management
@@ -8747,7 +8794,7 @@ With all synthesis features complete, v2.16.0 will focus on:
 - **Interactive Visualizations**: Explore Knowledge Panels and Information Flow Maps
 - **Export Hub**: Download analyses in multiple formats
 
-### 💡 Developer Notes
+###  Developer Notes
 
 This release represents the successful completion of ClipScribe's synthesis capabilities. The combination of Knowledge Panels (entity-centric view) and Information Flow Maps (concept evolution view) provides comprehensive multi-video intelligence that surpasses traditional single-video analysis.
 
@@ -8755,7 +8802,7 @@ This release represents the successful completion of ClipScribe's synthesis capa
 
 ## [2.14.0] - 2025-06-27 - The Synthesis Update
 
-### 🎯 Major Breakthrough: REBEL Relationship Extraction Fixed
+###  Major Breakthrough: REBEL Relationship Extraction Fixed
 
 **Critical Bug Resolution**: Fixed the `'NoneType' object is not subscriptable` error that was preventing video processing from completing after successful entity and relationship extraction.
 
@@ -8766,9 +8813,9 @@ This release represents the successful completion of ClipScribe's synthesis capa
 - "United Arab Emirates | diplomatic relation | Saudi Arabia"
 - And many more meaningful relationships
 
-### ✨ New Features
+###  New Features
 
-#### 1. ✅ Enhanced Temporal Intelligence for Event Timelines (COMPLETE - 2025-06-26 23:23 PDT)
+#### 1.  Enhanced Temporal Intelligence for Event Timelines (COMPLETE - 2025-06-26 23:23 PDT)
 - **LLM-Based Date Extraction**: The timeline synthesis engine now uses an LLM to parse specific dates from video titles and key point descriptions (e.g., "last Tuesday", "in 1945").
 - **Sophisticated Fallback Logic**: Implements a robust fallback mechanism. It prioritizes dates from key point content, then from the video title, and finally defaults to the video's publication date.
 - **Structured Date Models**: Added a new `ExtractedDate` Pydantic model to store parsed dates, original text, confidence scores, and the source of the extraction.
@@ -8792,7 +8839,7 @@ This release represents the successful completion of ClipScribe's synthesis capa
 - **Consistent Directory Naming**: Fixed naming inconsistencies between file saving and reporting
 - **Enhanced CLI Integration**: Updated CLI to use centralized collection output saving
 
-### 🐛 Critical Fixes
+###  Critical Fixes
 
 #### 1. REBEL Relationship Extraction Engine
 - **Root Cause Identified**: REBEL model was generating output but parser couldn't read space-separated format
@@ -8817,7 +8864,7 @@ This release represents the successful completion of ClipScribe's synthesis capa
 - **Environment Support**: Added `CLIPSCRIBE_LOG_LEVEL=DEBUG` environment variable support
 - **Initialization**: Proper `setup_logging()` call in CLI initialization
 
-### 🔧 Technical Improvements
+###  Technical Improvements
 
 #### 1. Enhanced Error Handling
 - **Defensive Programming**: Added multiple safety checks in knowledge graph saving
@@ -8834,7 +8881,7 @@ This release represents the successful completion of ClipScribe's synthesis capa
 - **Memory Management**: Improved handling of large video collections
 - **Cost Optimization**: Maintained 92% cost reduction principles
 
-### 🎯 User Experience
+###  User Experience
 
 #### 1. Success Indicators
 - **Relationship Counts**: Clear logging of extracted relationships (e.g., "Extracted 14 unique relationships from 18 total")
@@ -8846,7 +8893,7 @@ This release represents the successful completion of ClipScribe's synthesis capa
 - **GEXF Visualization**: Enhanced Gephi-compatible files with proper styling
 - **Comprehensive Reports**: Markdown reports with relationship network analysis
 
-### 📊 Performance Metrics
+###  Performance Metrics
 
 - **Relationship Extraction**: 10-19 relationships per video (previously 0)
 - **Entity Extraction**: 250-300 entities per video with 271 LLM-validated
@@ -8854,14 +8901,14 @@ This release represents the successful completion of ClipScribe's synthesis capa
 - **Processing Cost**: Maintained ~$0.41 per video
 - **Success Rate**: 100% completion rate (previously failing on save)
 
-### 🔬 Testing & Validation
+###  Testing & Validation
 
 - **Test Content**: Validated with PBS NewsHour documentaries on Pegasus spyware
 - **Relationship Quality**: Extracting meaningful geopolitical, organizational, and temporal relationships
 - **End-to-End**: Full pipeline from video URL to knowledge graph visualization
 - **Multi-Video**: Collection processing with cross-video relationship synthesis
 
-### 💡 Development Notes
+###  Development Notes
 
 This release represents a major breakthrough in ClipScribe's relationship extraction capabilities. The REBEL model was working correctly but the parser was incompatible with its output format. The fix enables ClipScribe to extract rich, meaningful relationships that form the foundation for knowledge synthesis across video collections.
 
@@ -9300,7 +9347,7 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
 ### Added
 - **Rich Progress Indicators**: Implemented a beautiful, real-time progress tracking system in the CLI using Rich.
   - Live-updating progress bars show overall completion percentage and current processing phase (e.g., downloading, transcribing, extracting).
-  - Includes real-time cost tracking with color-coded alerts (🟢🟡🔴) to monitor API usage.
+  - Includes real-time cost tracking with color-coded alerts () to monitor API usage.
   - Displays elapsed time and a summary of phase timings upon completion.
 - **Enhanced Interactive Reports**: Significantly upgraded the generated `report.md`.
   - **Mermaid Diagrams**: Auto-generates Mermaid diagrams for knowledge graph visualization (top 20 relationships) and entity type distribution (pie chart).
@@ -9328,7 +9375,7 @@ This release represents a major breakthrough in ClipScribe's relationship extrac
 - **Rich Progress Indicators**: Beautiful real-time progress tracking
   - Live progress bars showing overall completion percentage
   - Phase-by-phase tracking (download, transcribe, extract, etc.)
-  - Real-time cost tracking with color coding (🟢 < $0.10, 🟡 < $1.00, 🔴 > $1.00)
+  - Real-time cost tracking with color coding ( < $0.10,  < $1.00,  > $1.00)
   - Elapsed time and estimated time remaining
   - Phase timing breakdown in completion summary
   - Extraction statistics display with entity type breakdown

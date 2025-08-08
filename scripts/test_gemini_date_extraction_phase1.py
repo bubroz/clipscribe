@@ -117,7 +117,7 @@ async def test_date_extraction():
                             
                             # Show sample dates
                             if dates:
-                                console.print(f"  [green]✓ Found {num_dates} transcript dates[/green]")
+                                console.print(f"  [green] Found {num_dates} transcript dates[/green]")
                                 for i, date in enumerate(dates[:3]):
                                     console.print(f"    • {date.get('original_text')} → {date.get('normalized_date')}")
                                 if num_dates > 3:
@@ -171,8 +171,8 @@ Current performance: {avg_dates:.1f} dates per video
 Improvement: {improvement:.0f}x better![/bold green]
 
 Target achievement:
-- News content (5+ dates): {"✓" if avg_dates >= 5 else "✗"}
-- Documentary (10+ dates): {"✓" if any(r.get('total', 0) >= 10 for r in results) else "✗"}
+- News content (5+ dates): {"" if avg_dates >= 5 else ""}
+- Documentary (10+ dates): {"" if any(r.get('total', 0) >= 10 for r in results) else ""}
 """,
         title="Success Summary",
         expand=False

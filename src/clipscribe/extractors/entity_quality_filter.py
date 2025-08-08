@@ -204,7 +204,7 @@ class EntityQualityFilter:
         Returns:
             Tuple of (filtered_entities, quality_metrics)
         """
-        logger.info(f"🎯 Starting entity quality enhancement for {len(entities)} entities")
+        logger.info(f" Starting entity quality enhancement for {len(entities)} entities")
         
         # Initialize metrics
         metrics = QualityMetrics(
@@ -256,10 +256,10 @@ class EntityQualityFilter:
         metrics.confidence_distribution = self._calculate_confidence_distribution(final_entities)
         metrics.language_purity_score = self._calculate_language_purity(final_entities)
         
-        logger.info(f"✅ Entity quality enhancement complete:")
-        logger.info(f"   📊 {metrics.total_input_entities} → {metrics.filtered_entities} entities")
-        logger.info(f"   🎯 Quality score: {metrics.final_quality_score:.3f}")
-        logger.info(f"   🌍 Language purity: {metrics.language_purity_score:.3f}")
+        logger.info(f" Entity quality enhancement complete:")
+        logger.info(f"    {metrics.total_input_entities} → {metrics.filtered_entities} entities")
+        logger.info(f"    Quality score: {metrics.final_quality_score:.3f}")
+        logger.info(f"    Language purity: {metrics.language_purity_score:.3f}")
         
         return final_entities, metrics
     
@@ -819,7 +819,7 @@ class EntityQualityFilter:
         Returns:
             Same list of entities (unmodified since Entity is immutable)
         """
-        logger.info(f"🏷️ Tagging {len(entities)} entities with language metadata")
+        logger.info(f" Tagging {len(entities)} entities with language metadata")
         
         # Since Entity is a Pydantic model without a properties field,
         # we can't add language tags directly. Instead, we just log
@@ -835,5 +835,5 @@ class EntityQualityFilter:
                 non_english_count += 1
                 logger.debug(f"Non-English entity detected: '{entity.entity}' ({lang_info['language']}, conf: {lang_info['confidence']:.2f})")
         
-        logger.info(f"✅ Tagged {len(entities)} entities - {non_english_count} non-English detected but not filtered")
+        logger.info(f" Tagged {len(entities)} entities - {non_english_count} non-English detected but not filtered")
         return entities 

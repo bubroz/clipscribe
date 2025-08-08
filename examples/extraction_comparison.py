@@ -31,7 +31,7 @@ async def compare_extractors():
         print(f"   - {entity.name} ({entity.type})")
     
     # What SpaCy missed
-    print("\n   ❌ SpaCy MISSED:")
+    print("\n    SpaCy MISSED:")
     print("   - 'mRNA technology' (biotech term)")
     print("   - 'RNAShield-X' (drug name)")
     print("   - 'Phase 3 trials' (clinical term)")

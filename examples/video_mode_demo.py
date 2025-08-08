@@ -60,28 +60,28 @@ async def demo_mode_comparison():
     
     scenarios = [
         {
-            "title": "🎙️ Joe Rogan Podcast",
+            "title": " Joe Rogan Podcast",
             "url": "https://youtube.com/watch?v=podcast",
             "recommendation": "Audio Mode",
             "reason": "3-hour conversation, no visual content",
             "savings": "Save $3.24 vs video mode"
         },
         {
-            "title": "💻 Python Tutorial with Live Coding",
+            "title": " Python Tutorial with Live Coding",
             "url": "https://youtube.com/watch?v=tutorial",
             "recommendation": "Video Mode",
             "reason": "Code on screen, IDE demonstration",
             "benefit": "Captures actual code snippets"
         },
         {
-            "title": "📊 Business Presentation",
+            "title": " Business Presentation",
             "url": "https://youtube.com/watch?v=presentation",
             "recommendation": "Video Mode",
             "reason": "Slides with charts and data",
             "benefit": "Extracts slide content and data"
         },
         {
-            "title": "📰 Pentagon Press Briefing",
+            "title": " Pentagon Press Briefing",
             "url": "https://youtube.com/watch?v=668oKOJ43_E",
             "recommendation": "Audio Mode",
             "reason": "Talking head, no slides",

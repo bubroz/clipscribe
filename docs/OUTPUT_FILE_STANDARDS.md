@@ -7,7 +7,7 @@
 
 This document establishes quality standards for ClipScribe output files based on comprehensive validation of professional military intelligence content. These standards ensure consistent, high-quality extraction across all video types.
 
-## 📊 Quality Benchmarks (Based on Military Series Validation)
+##  Quality Benchmarks (Based on Military Series Validation)
 
 ### Baseline Performance Standards
 - **Key Points**: 25-35 per video (intelligence briefing style)
@@ -21,9 +21,9 @@ This document establishes quality standards for ClipScribe output files based on
 - **Cost**: $0.0611 total ($0.0203 average per video)
 - **Quality**: Professional intelligence analyst standards
 
-## 📝 Key Points Standards
+##  Key Points Standards
 
-### ✅ **EXCELLENT Quality Indicators**
+###  **EXCELLENT Quality Indicators**
 - **Professional intelligence briefing style**
 - **Specific, actionable information** (not generic summaries)
 - **Direct quotes of critical facts**
@@ -31,21 +31,21 @@ This document establishes quality standards for ClipScribe output files based on
 
 #### Examples of EXCELLENT Key Points:
 ```
-✅ "The main three operational Tier 1 units discussed are SEAL Team Six, Delta Force, and the Intelligence Support Activity."
-✅ "Tier two selections are characterized by negative reinforcement and team-oriented events."
-✅ "The right fitness involves familiarity with water, as many selections include water events."
+ "The main three operational Tier 1 units discussed are SEAL Team Six, Delta Force, and the Intelligence Support Activity."
+ "Tier two selections are characterized by negative reinforcement and team-oriented events."
+ "The right fitness involves familiarity with water, as many selections include water events."
 ```
 
-### ❌ **POOR Quality Indicators**
+###  **POOR Quality Indicators**
 - Generic summaries without specifics
 - Repetitive information
 - Vague statements without context
 
 #### Examples of POOR Key Points:
 ```
-❌ "The video discusses military topics."
-❌ "Various things are mentioned."
-❌ "Selection processes are different."
+ "The video discusses military topics."
+ "Various things are mentioned."
+ "Selection processes are different."
 ```
 
 ### Required Format:
@@ -57,90 +57,90 @@ This document establishes quality standards for ClipScribe output files based on
 }
 ```
 
-## 👤 PERSON Entity Standards
+##  PERSON Entity Standards
 
-### ✅ **EXCELLENT Quality Indicators**
+###  **EXCELLENT Quality Indicators**
 - **Specific military roles and backgrounds**
 - **Professional descriptors beyond generic titles**
 - **Experience and qualification descriptors**
 
 #### Examples of EXCELLENT PERSON Entities:
 ```
-✅ "Former Special Forces operator"
-✅ "Tier one instructor"  
-✅ "Selection cadre"
-✅ "Combat veteran"
-✅ "MARSOC Raiders (personnel)"
-✅ "Forward Air Controllers"
+ "Former Special Forces operator"
+ "Tier one instructor"  
+ "Selection cadre"
+ "Combat veteran"
+ "MARSOC Raiders (personnel)"
+ "Forward Air Controllers"
 ```
 
-### ❌ **POOR Quality Indicators**
+###  **POOR Quality Indicators**
 - Only generic "Speaker" entities
 - No role-specific extraction
 - Missing military background descriptors
 
 #### Examples of POOR PERSON Entities:
 ```
-❌ "Speaker" (only entity extracted)
-❌ "Person"
-❌ "Individual"
+ "Speaker" (only entity extracted)
+ "Person"
+ "Individual"
 ```
 
-## 🏢 ORGANIZATION Entity Standards
+##  ORGANIZATION Entity Standards
 
-### ✅ **EXCELLENT Quality Indicators**
+###  **EXCELLENT Quality Indicators**
 - **Military units correctly classified as ORGANIZATION**
 - **Full unit names with proper designation**
 - **Sub-units and specialized divisions identified**
 
 #### Examples of EXCELLENT ORGANIZATION Entities:
 ```
-✅ "1st Special Forces Operational Detachment-Delta (Delta Force)"
-✅ "Naval Special Warfare Development Group (DEVGRU)"
-✅ "Air Force Special Operations Command (AFSOC)"
-✅ "Black Side SEALs" (sub-unit correctly classified)
-✅ "Marine Force Recon"
+ "1st Special Forces Operational Detachment-Delta (Delta Force)"
+ "Naval Special Warfare Development Group (DEVGRU)"
+ "Air Force Special Operations Command (AFSOC)"
+ "Black Side SEALs" (sub-unit correctly classified)
+ "Marine Force Recon"
 ```
 
-### ❌ **POOR Quality Indicators**
+###  **POOR Quality Indicators**
 - Military units classified as PRODUCT
 - Generic organization names without specificity
 - Missing specialized sub-units
 
 #### Examples of POOR ORGANIZATION Classification:
 ```
-❌ "SEAL Team Six" classified as PRODUCT (should be ORGANIZATION)
-❌ "Military" (too generic)
-❌ "Unit" (too vague)
+ "SEAL Team Six" classified as PRODUCT (should be ORGANIZATION)
+ "Military" (too generic)
+ "Unit" (too vague)
 ```
 
-## 🔗 Relationship Standards
+##  Relationship Standards
 
-### ✅ **EXCELLENT Quality Indicators**
+###  **EXCELLENT Quality Indicators**
 - **Specific, meaningful predicates** (not generic "related_to")
 - **Clear subject-predicate-object structure**
 - **Evidence chains with supporting quotes**
 
 #### Examples of EXCELLENT Relationships:
 ```
-✅ "Former Special Forces operator" → "is_role_of" → "Speaker"
-✅ "Speaker" → "served_as_cadre_for" → "Tier one selection"  
-✅ "Tier 1 units" → "modeled_after" → "British SAS"
+ "Former Special Forces operator" → "is_role_of" → "Speaker"
+ "Speaker" → "served_as_cadre_for" → "Tier one selection"  
+ "Tier 1 units" → "modeled_after" → "British SAS"
 ```
 
-### ❌ **POOR Quality Indicators**
+###  **POOR Quality Indicators**
 - Generic predicates like "related_to", "associated_with"
 - Unclear or ambiguous relationships
 - No supporting evidence
 
 #### Examples of POOR Relationships:
 ```
-❌ "Speaker" → "related_to" → "Military"
-❌ "Video" → "discusses" → "Topics"
-❌ "Things" → "connected_to" → "Other things"
+ "Speaker" → "related_to" → "Military"
+ "Video" → "discusses" → "Topics"
+ "Things" → "connected_to" → "Other things"
 ```
 
-## 📁 File Structure Standards
+##  File Structure Standards
 
 ### Required Files Per Video:
 ```
@@ -165,7 +165,7 @@ output/YYYYMMDD_platform_videoID/
 - **relationships.json**: 20-100KB
 - **knowledge_graph.gexf**: 20-100KB
 
-## 🎯 Content Type Performance Expectations
+##  Content Type Performance Expectations
 
 ### **Military/News Content** (EXCELLENT Performance Expected)
 - **Entities**: 40-50 per video
@@ -189,7 +189,7 @@ output/YYYYMMDD_platform_videoID/
 - **Key Points**: 10-20 per video
 - **Quality**: Lower due to artistic/metaphorical content
 
-## 🚨 Quality Validation Checklist
+##  Quality Validation Checklist
 
 Before approving output, verify:
 
@@ -218,7 +218,7 @@ Before approving output, verify:
 - [ ] GEXF files load in Gephi without errors
 - [ ] Report.md is human-readable with proper formatting
 
-## 💰 Cost Efficiency Standards
+##  Cost Efficiency Standards
 
 ### Target Costs (Based on v2.20.0 Performance):
 - **Short videos (3-5 min)**: $0.015-0.020
@@ -230,7 +230,7 @@ Before approving output, verify:
 - **Per entity**: ~$0.0005
 - **Per relationship**: ~$0.0003
 
-## 🔄 Continuous Improvement
+##  Continuous Improvement
 
 ### Monthly Review Process:
 1. **Sample 10 random videos** from different content types
@@ -246,7 +246,7 @@ Before approving output, verify:
 - User satisfaction scores
 - Processing cost trends
 
-## 📈 Performance Benchmarks
+##  Performance Benchmarks
 
 ### v2.20.0 Validated Benchmarks:
 - **Military Content**: 31-34 key points, 25-44 entities, 64-89 relationships

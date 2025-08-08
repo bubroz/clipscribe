@@ -23,7 +23,7 @@ except ImportError:
     PLOTLY_AVAILABLE = False
 
 from .performance import PerformanceMonitor
-from ..extractors.model_manager import model_manager
+from ..extractors.model_manager import get_model_manager
 
 
 class PerformanceDashboard:
@@ -37,15 +37,15 @@ class PerformanceDashboard:
     
     def render_dashboard(self):
         """Render the main performance dashboard."""
-        st.header("📊 ClipScribe Performance Dashboard")
+        st.header(" ClipScribe Performance Dashboard")
         st.markdown("Real-time monitoring of ClipScribe performance metrics and system health.")
         
         # Dashboard tabs
         tab1, tab2, tab3, tab4 = st.tabs([
-            "🚀 Model Cache", 
-            "📈 Batch Processing", 
-            "📋 System Health", 
-            "📊 Historical Reports"
+            " Model Cache", 
+            " Batch Processing", 
+            " System Health", 
+            " Historical Reports"
         ])
         
         with tab1:
@@ -62,9 +62,10 @@ class PerformanceDashboard:
     
     def _render_model_cache_dashboard(self):
         """Render the model cache performance dashboard."""
-        st.subheader("🚀 Model Cache Performance")
+        st.subheader(" Model Cache Performance")
         
         # Get current cache information
+        model_manager = get_model_manager()
         cache_info = model_manager.get_cache_info()
         perf_summary = model_manager.get_performance_summary()
         
@@ -105,7 +106,7 @@ class PerformanceDashboard:
         
         # Cache details
         if cache_info['cached_models']:
-            st.subheader("📋 Cached Models Details")
+            st.subheader(" Cached Models Details")
             
             model_data = []
             for model in cache_info['cached_models']:
@@ -124,7 +125,7 @@ class PerformanceDashboard:
             
             # Visualizations if Plotly is available
             if PLOTLY_AVAILABLE and len(model_data) > 0:
-                st.subheader("📊 Cache Performance Visualization")
+                st.subheader(" Cache Performance Visualization")
                 
                 # Create access count bar chart
                 fig = go.Figure(data=[
@@ -149,27 +150,27 @@ class PerformanceDashboard:
         # Performance recommendations
         recommendations = perf_summary.get('recommendations', [])
         if recommendations:
-            st.subheader("💡 Performance Recommendations")
+            st.subheader(" Performance Recommendations")
             for rec in recommendations:
                 st.info(rec)
         
         # Cache controls
-        st.subheader("🛠️ Cache Controls")
+        st.subheader(" Cache Controls")
         col1, col2 = st.columns(2)
         
         with col1:
-            if st.button("🗑️ Clear Model Cache"):
-                model_manager.clear_cache()
+            if st.button(" Clear Model Cache"):
+                get_model_manager().clear_cache()
                 st.success("Model cache cleared successfully!")
                 st.rerun()
         
         with col2:
-            if st.button("🔄 Refresh Cache Info"):
+            if st.button(" Refresh Cache Info"):
                 st.rerun()
     
     def _render_batch_processing_dashboard(self):
         """Render the batch processing performance dashboard."""
-        st.subheader("📈 Batch Processing Performance")
+        st.subheader(" Batch Processing Performance")
         
         # Check if there's a performance monitor in session state
         if 'performance_monitor' not in st.session_state or not st.session_state.performance_monitor:
@@ -221,7 +222,7 @@ class PerformanceDashboard:
         # Throughput metrics
         throughput = batch_stats.get('throughput', {})
         if throughput:
-            st.subheader("⚡ Throughput Metrics")
+            st.subheader(" Throughput Metrics")
             
             col1, col2, col3 = st.columns(3)
             
@@ -249,7 +250,7 @@ class PerformanceDashboard:
         # Performance metrics
         perf_metrics = batch_stats.get('performance_metrics', {})
         if perf_metrics:
-            st.subheader("🎯 Performance Metrics")
+            st.subheader(" Performance Metrics")
             
             col1, col2, col3 = st.columns(3)
             
@@ -276,7 +277,7 @@ class PerformanceDashboard:
         
         # Real-time progress if batch is active
         if st.session_state.get('research_in_progress', False):
-            st.subheader("🔄 Real-time Progress")
+            st.subheader(" Real-time Progress")
             
             batch_progress = st.session_state.get('batch_progress', {})
             if batch_progress:
@@ -300,13 +301,13 @@ class PerformanceDashboard:
     
     def _render_system_health_dashboard(self):
         """Render the system health monitoring dashboard."""
-        st.subheader("📋 System Health")
+        st.subheader(" System Health")
         
         # System information
         col1, col2 = st.columns(2)
         
         with col1:
-            st.subheader("🖥️ System Info")
+            st.subheader(" System Info")
             
             # Get system information
             import platform
@@ -334,7 +335,7 @@ class PerformanceDashboard:
                 st.text(f"{key}: {value}")
         
         with col2:
-            st.subheader("📊 Resource Usage")
+            st.subheader(" Resource Usage")
             
             if PSUTIL_AVAILABLE:
                 # CPU and Memory usage
@@ -386,7 +387,7 @@ class PerformanceDashboard:
                 st.info("Install psutil for detailed resource monitoring")
         
         # Environment check
-        st.subheader("🔧 Environment Check")
+        st.subheader(" Environment Check")
         
         env_checks = {
             "Google API Key": "GOOGLE_API_KEY" in st.secrets or "GOOGLE_API_KEY" in st.session_state,
@@ -397,9 +398,9 @@ class PerformanceDashboard:
         
         for check, status in env_checks.items():
             if status:
-                st.success(f"✅ {check}")
+                st.success(f" {check}")
             else:
-                st.error(f"❌ {check}")
+                st.error(f" {check}")
         
         # Disk space check
         if PSUTIL_AVAILABLE:
@@ -408,7 +409,7 @@ class PerformanceDashboard:
             disk_total_gb = disk_usage.total / (1024**3)
             disk_used_percent = (disk_usage.used / disk_usage.total) * 100
             
-            st.subheader("💾 Disk Space")
+            st.subheader(" Disk Space")
             st.metric(
                 "Available Space", 
                 f"{disk_free_gb:.1f} GB / {disk_total_gb:.1f} GB",
@@ -416,11 +417,11 @@ class PerformanceDashboard:
             )
             
             if disk_free_gb < 1:
-                st.warning("⚠️ Low disk space! Consider cleaning up output files.")
+                st.warning(" Low disk space! Consider cleaning up output files.")
     
     def _render_historical_reports_dashboard(self):
         """Render the historical performance reports dashboard."""
-        st.subheader("📊 Historical Performance Reports")
+        st.subheader(" Historical Performance Reports")
         
         # Find all performance reports
         report_files = list(self.performance_dir.glob("performance_report_*.json"))
@@ -452,12 +453,12 @@ class PerformanceDashboard:
                 st.error(f"Error loading report: {e}")
         
         # Bulk operations
-        st.subheader("🛠️ Report Management")
+        st.subheader(" Report Management")
         
         col1, col2 = st.columns(2)
         
         with col1:
-            if st.button("🗑️ Clear Old Reports"):
+            if st.button(" Clear Old Reports"):
                 # Keep only the 10 most recent reports
                 if len(report_files) > 10:
                     for report in report_files[10:]:
@@ -468,7 +469,7 @@ class PerformanceDashboard:
                     st.info("No old reports to remove")
         
         with col2:
-            if st.button("📊 Generate Summary Report"):
+            if st.button(" Generate Summary Report"):
                 summary = self._generate_summary_report(report_files[:5])  # Last 5 reports
                 st.json(summary)
     
@@ -477,13 +478,13 @@ class PerformanceDashboard:
         summary = report_data.get('summary', {})
         
         # Report header
-        st.subheader(f"📋 Report: {summary.get('session_id', 'Unknown')}")
+        st.subheader(f" Report: {summary.get('session_id', 'Unknown')}")
         st.text(f"Generated: {summary.get('timestamp', 'Unknown')}")
         
         # Model cache stats
         cache_stats = summary.get('model_cache_stats', {})
         if cache_stats:
-            st.subheader("🚀 Model Cache Performance")
+            st.subheader(" Model Cache Performance")
             
             col1, col2, col3 = st.columns(3)
             
@@ -499,7 +500,7 @@ class PerformanceDashboard:
             # Per-model performance
             cache_performance = cache_stats.get('cache_performance', {})
             if cache_performance:
-                st.subheader("📊 Per-Model Performance")
+                st.subheader(" Per-Model Performance")
                 
                 model_data = []
                 for model, perf in cache_performance.items():
@@ -517,7 +518,7 @@ class PerformanceDashboard:
         # Batch stats
         batch_stats = summary.get('batch_stats', {})
         if batch_stats:
-            st.subheader("📈 Batch Processing Stats")
+            st.subheader(" Batch Processing Stats")
             
             col1, col2, col3, col4 = st.columns(4)
             
@@ -536,12 +537,12 @@ class PerformanceDashboard:
         # Recommendations
         recommendations = summary.get('recommendations', [])
         if recommendations:
-            st.subheader("💡 Recommendations")
+            st.subheader(" Recommendations")
             for rec in recommendations:
                 st.info(rec)
         
         # Raw data expander
-        with st.expander("🔍 Raw Report Data"):
+        with st.expander(" Raw Report Data"):
             st.json(report_data)
     
     def _generate_summary_report(self, report_files: List[Path]) -> Dict[str, Any]:

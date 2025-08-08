@@ -3,7 +3,7 @@
 from __future__ import annotations
 from typing import List, Dict, Any, Optional, Union, TYPE_CHECKING
 from datetime import datetime
-from pydantic import BaseModel, Field, HttpUrl
+from pydantic import BaseModel, Field, HttpUrl, validator
 from enum import Enum
 
 class VideoChapter(BaseModel):
@@ -35,6 +35,16 @@ class KeyPoint(BaseModel):
     text: str = Field(..., description="Key point text")
     importance: float = Field(ge=0, le=1, description="Importance score 0-1")
     context: Optional[str] = Field(None, description="Surrounding context")
+    
+    @validator('importance', pre=True)
+    def normalize_importance(cls, v):
+        """
+        Normalizes the importance score. If the score is > 1, it's assumed
+        to be on a 1-10 scale and is divided by 10.
+        """
+        if isinstance(v, (int, float)) and v > 1.0:
+            return v / 10.0
+        return v
     # NOTE: timestamp field removed - complex timestamp extraction saved for roadmap with Whisper
 
 
@@ -66,16 +76,18 @@ class TemporalMention(BaseModel):
     context_type: str = Field(..., description="spoken, visual, or both")
 
 
-class EnhancedEntity(Entity):
+class EnhancedEntity(BaseModel):
     """Enhanced entity with confidence and attribution."""
 
+    name: str
+    type: str
     extraction_sources: List[str] = Field(..., description="Which methods found this")
     mention_count: int = Field(..., description="Total occurrences in video")
     context_windows: List[EntityContext] = Field(default_factory=list)
     aliases: List[str] = Field(default_factory=list)
-    canonical_form: str = Field(..., description="Normalized primary form")
-
+    canonical_form: Optional[str] = Field(None, description="Normalized primary form")
     temporal_distribution: List[TemporalMention] = Field(default_factory=list)
+    properties: Optional[Dict[str, Any]] = Field(default_factory=dict)
 
 
 class RelationshipEvidence(BaseModel):
@@ -170,6 +182,7 @@ class VideoIntelligence(BaseModel):
     processing_cost: float = Field(default=0.0, description="Total processing cost in USD")
     processing_time: float = Field(default=0.0, description="Total processing time in seconds")
     timeline_v2: Optional[Dict[str, Any]] = Field(default=None, description="Timeline Intelligence v2.0 data")
+    is_from_cache: bool = Field(default=False, description="True if this result was loaded from cache")
     # ... other fields
 
 

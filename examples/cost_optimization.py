@@ -39,7 +39,7 @@ class CostOptimizer:
     
     async def process_with_budget(self, urls: list[str], max_budget: float):
         """Process videos within a budget constraint."""
-        print(f"\n💰 Budget-aware processing (max: ${max_budget:.2f})")
+        print(f"\n Budget-aware processing (max: ${max_budget:.2f})")
         
         # Preview costs for all videos
         previews = []
@@ -60,40 +60,40 @@ class CostOptimizer:
                 selected.append(preview)
                 total_cost += preview['estimated_cost']
         
-        print(f"\n📋 Selected {len(selected)} videos within budget:")
+        print(f"\n Selected {len(selected)} videos within budget:")
         for video in selected:
             print(f"  • {video['title'][:50]}...")
             print(f"    Duration: {video['duration_minutes']:.1f} min")
             print(f"    Cost: ${video['estimated_cost']:.4f}")
         
-        print(f"\n💵 Total estimated cost: ${total_cost:.4f}")
-        print(f"💰 Remaining budget: ${max_budget - total_cost:.4f}")
+        print(f"\n Total estimated cost: ${total_cost:.4f}")
+        print(f" Remaining budget: ${max_budget - total_cost:.4f}")
         
         return selected
     
     async def chunk_long_video(self, video_url: str, max_chunk_minutes: int = 10):
         """Process long videos in chunks to manage costs."""
-        print(f"\n🔪 Chunked processing (max {max_chunk_minutes} min/chunk)")
+        print(f"\n Chunked processing (max {max_chunk_minutes} min/chunk)")
         
         # Get video info
         info = await self.client.extract_video_info(video_url)
         total_minutes = info.get('duration', 0) / 60
         
         if total_minutes <= max_chunk_minutes:
-            print(f"  ℹ️  Video is short enough ({total_minutes:.1f} min)")
+            print(f"  ℹ  Video is short enough ({total_minutes:.1f} min)")
             return
         
         # Calculate chunks
         num_chunks = int(total_minutes / max_chunk_minutes) + 1
         chunk_cost = max_chunk_minutes * self.cost_per_minute
         
-        print(f"\n📊 Chunking strategy:")
+        print(f"\n Chunking strategy:")
         print(f"  • Total duration: {total_minutes:.1f} minutes")
         print(f"  • Number of chunks: {num_chunks}")
         print(f"  • Cost per chunk: ${chunk_cost:.4f}")
         print(f"  • Total cost: ${num_chunks * chunk_cost:.4f}")
         
-        print(f"\n💡 Benefits:")
+        print(f"\n Benefits:")
         print(f"  • Process chunks separately")
         print(f"  • Stop if not relevant")
         print(f"  • Better error recovery")
@@ -102,7 +102,7 @@ class CostOptimizer:
 
 async def compare_processing_costs():
     """Compare costs for different video lengths and qualities."""
-    print("\n📊 Cost Comparison Table")
+    print("\n Cost Comparison Table")
     print("=" * 60)
     
     scenarios = [
@@ -124,7 +124,7 @@ async def compare_processing_costs():
         duration_str = f"{minutes} min" if minutes < 60 else f"{minutes/60:.1f} hrs"
         print(f"{name:<15} | {duration_str:<10} | ${cost:<9.4f} | ${per_hour:<9.2f}")
     
-    print("\n💡 Cost-saving tips:")
+    print("\n Cost-saving tips:")
     print("  • Preview video duration before processing")
     print("  • Process only relevant segments")
     print("  • Use batch processing for better rates")
@@ -135,7 +135,7 @@ async def smart_processing_demo():
     """Demonstrate smart processing strategies."""
     optimizer = CostOptimizer()
     
-    print("\n🧠 Smart Processing Strategies")
+    print("\n Smart Processing Strategies")
     print("=" * 50)
     
     # Example videos
@@ -147,7 +147,7 @@ async def smart_processing_demo():
     ]
     
     # 1. Preview costs
-    print("\n1️⃣ Cost Preview:")
+    print("\n1⃣ Cost Preview:")
     total_cost = 0
     for url in test_urls:
         preview = await optimizer.preview_cost(url)
@@ -168,19 +168,19 @@ async def main():
     """Run cost optimization demos."""
     
     if not os.getenv("GOOGLE_API_KEY"):
-        print("❌ Error: Please set GOOGLE_API_KEY in your .env file")
+        print(" Error: Please set GOOGLE_API_KEY in your .env file")
         return
     
-    print("💰 ClipScribe Cost Optimization Guide")
+    print(" ClipScribe Cost Optimization Guide")
     print("=" * 50)
-    print("\n✨ Gemini 2.5 Flash: $0.002/minute")
+    print("\n Gemini 2.5 Flash: $0.002/minute")
     print("   (92% cheaper than traditional transcription!)")
     
     # Run demos
     await compare_processing_costs()
     await smart_processing_demo()
     
-    print("\n🎯 Key Takeaways:")
+    print("\n Key Takeaways:")
     print("  • Always preview costs before processing")
     print("  • Use chunking for long videos")
     print("  • Batch process for efficiency")

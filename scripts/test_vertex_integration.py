@@ -52,7 +52,7 @@ async def test_vertex_with_main_flow():
         result = await retriever.retrieve(test_url)
         
         if result:
-            logger.info("✅ Video processing successful!")
+            logger.info(" Video processing successful!")
             logger.info(f"Title: {result.metadata.title}")
             logger.info(f"Duration: {result.metadata.duration}s")
             logger.info(f"Transcript length: {len(result.transcript.full_text)} chars")
@@ -72,11 +72,11 @@ async def test_vertex_with_main_flow():
             
             return True
         else:
-            logger.error("❌ No result returned")
+            logger.error(" No result returned")
             return False
             
     except Exception as e:
-        logger.error(f"❌ Failed: {e}")
+        logger.error(f" Failed: {e}")
         logger.exception("Full traceback:")
         return False
 
@@ -102,7 +102,7 @@ async def compare_vertex_vs_regular():
     
     logger.info("\n" + "="*60)
     logger.info("Comparison Results:")
-    logger.info(f"Vertex AI: {'✅ Success' if vertex_success else '❌ Failed'} ({vertex_time:.1f}s)")
+    logger.info(f"Vertex AI: {' Success' if vertex_success else ' Failed'} ({vertex_time:.1f}s)")
     logger.info("Regular Gemini: Skipped for this test")
 
 
@@ -114,6 +114,6 @@ if __name__ == "__main__":
     # asyncio.run(compare_vertex_vs_regular())
     
     if success:
-        print("\n✅ Vertex AI integration test successful!")
+        print("\n Vertex AI integration test successful!")
     else:
-        print("\n❌ Vertex AI integration test failed!") 
+        print("\n Vertex AI integration test failed!") 

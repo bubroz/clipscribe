@@ -54,7 +54,7 @@ async def process_batch_fast(urls: list[str], concurrent_limit: int = 20):
     else:
         concurrent_limit = min(concurrent_limit, 8)  # Large batches - stay conservative
         print(f'Large batch mode: Processing {len(urls)} videos with {concurrent_limit} concurrent')
-        print(f'⚠️  Large batch detected. Processing with safe concurrency limits.')
+        print(f'  Large batch detected. Processing with safe concurrency limits.')
     
     # Create semaphore for concurrency control
     semaphore = asyncio.Semaphore(concurrent_limit)
@@ -76,7 +76,7 @@ async def process_batch_fast(urls: list[str], concurrent_limit: int = 20):
                 video_id = url.split("v=")[-1]
                 output_dir = f"output/pbs_30day/{index:03d}_{video_id}"
                 
-                print(f"⚡ [{index}/{len(urls)}] Starting: {url}")
+                print(f" [{index}/{len(urls)}] Starting: {url}")
                 
                 # Process with all optimizations
                 result = await retriever.process_url(url)
@@ -86,11 +86,11 @@ async def process_batch_fast(urls: list[str], concurrent_limit: int = 20):
                 duration = (datetime.now() - start).total_seconds()
                 entities = len(result.entities) if result else 0
                 
-                print(f"✅ [{index}/{len(urls)}] Done in {duration:.1f}s: {entities} entities")
+                print(f" [{index}/{len(urls)}] Done in {duration:.1f}s: {entities} entities")
                 return result
                 
             except Exception as e:
-                print(f"❌ [{index}/{len(urls)}] Failed processing {url}: {str(e)}")
+                print(f" [{index}/{len(urls)}] Failed processing {url}: {str(e)}")
                 # Re-raise the exception to trigger tenacity's retry mechanism
                 raise
     
@@ -100,7 +100,7 @@ async def process_batch_fast(urls: list[str], concurrent_limit: int = 20):
         tasks.append(asyncio.create_task(process_one(url, i + 1)))
     
     # Process all concurrently
-    print(f"\n🚀 Processing {len(urls)} videos with {concurrent_limit}x concurrency...")
+    print(f"\n Processing {len(urls)} videos with {concurrent_limit}x concurrency...")
     start_time = datetime.now()
     
     results = await asyncio.gather(*tasks, return_exceptions=True)
@@ -116,7 +116,7 @@ async def process_batch_fast(urls: list[str], concurrent_limit: int = 20):
         total_relationships = sum(len(r.relationships) if hasattr(r, 'relationships') and r.relationships else 0 for r in successful)
         total_cost = sum(r.processing_cost for r in successful)
         
-        print(f"\n📊 BATCH COMPLETE!")
+        print(f"\n BATCH COMPLETE!")
         print(f"  • Time: {total_time/60:.1f} minutes ({total_time/len(urls):.1f}s per video)")
         print(f"  • Success: {len(successful)}/{len(results)} videos")
         print(f"  • Failures: {len(failures)}")
@@ -126,7 +126,7 @@ async def process_batch_fast(urls: list[str], concurrent_limit: int = 20):
         print(f"  • Speed: {len(urls)/(total_time/3600):.1f} videos/hour")
 
         # Multi-video synthesis
-        print("\n🔬 Synthesizing multi-video collection intelligence...")
+        print("\n Synthesizing multi-video collection intelligence...")
         try:
             processor = MultiVideoProcessor()
             output_dir_collection = "output/pbs_30day_collection"
@@ -136,12 +136,12 @@ async def process_batch_fast(urls: list[str], concurrent_limit: int = 20):
                 collection_title='PBS NewsHour 30-Day Batch'
             )
             retriever.save_collection_outputs(collection, output_dir=output_dir_collection)
-            print(f"✅ Collection synthesis complete! Check {output_dir_collection}")
+            print(f" Collection synthesis complete! Check {output_dir_collection}")
         except Exception as e:
-            print(f"⚠️ Warning: Multi-video synthesis failed: {e}")
+            print(f" Warning: Multi-video synthesis failed: {e}")
             print("Individual video outputs are still available in output/pbs_30day/")
     else:
-        print("\n❌ No videos processed successfully.")
+        print("\n No videos processed successfully.")
 
     if failures:
         print("\nDetailed Failures:")
@@ -155,10 +155,10 @@ async def main():
     """Demo fast batch processing."""
     
     if not os.getenv("GOOGLE_API_KEY"):
-        print("❌ Error: Please set GOOGLE_API_KEY in your .env file")
+        print(" Error: Please set GOOGLE_API_KEY in your .env file")
         return
     
-    print("⚡ PBS NewsHour Fast Batch Processor")
+    print(" PBS NewsHour Fast Batch Processor")
     print("=" * 50)
     
     args = parse_args()
@@ -167,7 +167,7 @@ async def main():
         # Load URLs from file
         with open(args.urls, 'r') as f:
             urls = [line.strip() for line in f if line.strip() and not line.startswith('#')]
-        print(f"📁 Loaded {len(urls)} URLs from {args.urls}")
+        print(f" Loaded {len(urls)} URLs from {args.urls}")
     else:
         # Load URLs from JSON file
         with open("pbs_newshour_30day_batch.json", "r") as f:
@@ -178,15 +178,15 @@ async def main():
         urls = urls[:args.limit]
 
     if args.force_concurrent:
-        print(f'🚨 FORCING CONCURRENCY TO {args.force_concurrent} - You asked for it!')
+        print(f' FORCING CONCURRENCY TO {args.force_concurrent} - You asked for it!')
         concurrent_limit = args.force_concurrent
 
-    print(f"\n📺 Found {len(urls)} PBS NewsHour episodes")
-    print(f"💰 Estimated cost: ${len(urls) * 0.035:.2f}") # Updated cost estimate for 2.5 Flash
-    print(f"⏱️  Target time: <15 minutes")
+    print(f"\n Found {len(urls)} PBS NewsHour episodes")
+    print(f" Estimated cost: ${len(urls) * 0.035:.2f}") # Updated cost estimate for 2.5 Flash
+    print(f"⏱  Target time: <15 minutes")
     
     # Update the speed options in the UI
-    print("🎯 Speed options:")
+    print(" Speed options:")
     print("  1. Standard (5 concurrent) - ~11 minutes") 
     print("  2. Fast (8 concurrent) - ~7 minutes")
     print("  3. Weekdays only (~22 videos) - filtered subset")
@@ -206,14 +206,14 @@ async def main():
         urls = urls[:3]  # Test with just 3 videos
         concurrent_limit = 3
 
-    print(f"\n🚀 Starting batch with {concurrent_limit}x concurrency...")
-    print(f"📊 Processing {len(urls)} videos")
+    print(f"\n Starting batch with {concurrent_limit}x concurrency...")
+    print(f" Processing {len(urls)} videos")
     
     # Process the batch
     await process_batch_fast(urls, concurrent_limit=concurrent_limit)
     
-    print("\n✨ Done! Check output/pbs_30day/ for individual results and output/pbs_30day_collection/ for the unified analysis.")
-    print("\n💡 Next steps:")
+    print("\n Done! Check output/pbs_30day/ for individual results and output/pbs_30day_collection/ for the unified analysis.")
+    print("\n Next steps:")
     print("  1. Explore the unified knowledge graph in Gephi.")
     print("  2. Analyze entity frequency and trends from the collection's CSV files.")
 

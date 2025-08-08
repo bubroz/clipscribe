@@ -16,7 +16,7 @@ ClipScribe can be deployed to multiple platforms. This guide covers the two reco
 |---|---|---|
 | **Setup Time** | 5 minutes | 30 minutes |
 | **Cost** | Free (1 app) | ~$15/month warm instance |
-| **Custom Domain** | ❌ | ✅ |
+| **Custom Domain** |  |  |
 | **Cold Start** | 30-60s | 0s (with warm instance) |
 | **Resource Limits** | Limited | 32GB RAM, 60min timeout |
 | **API Support** | UI only | UI + API endpoints |

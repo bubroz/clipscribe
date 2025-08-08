@@ -6,7 +6,7 @@
 
 ClipScribe is a powerful, AI-powered video intelligence tool that supports **1800+ video platforms** through yt-dlp integration. It uses Google's Gemini 2.5 Pro as its default model to ensure the highest quality intelligence extraction. A faster, lower-cost option using Gemini 2.5 Flash is available via a command-line flag.
 
-## 🚀 Enhanced Metadata Architecture (v2.19.0 Complete)
+##  Enhanced Metadata Architecture (v2.19.0 Complete)
 
 **Major Achievement**: Complete enhanced metadata implementation with:
 - **Phase 1 - Entity Confidence**: Confidence scores, source attribution, temporal distribution

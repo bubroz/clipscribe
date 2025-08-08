@@ -38,7 +38,7 @@ class EdgeCaseTestRunner:
     async def run_comprehensive_test_suite(self):
         """Run the complete edge case testing suite."""
         self.start_time = time.time()
-        logger.info("🚀 Starting Core Excellence Edge Case Testing Framework")
+        logger.info(" Starting Core Excellence Edge Case Testing Framework")
         
         # Test categories with their target metrics
         test_categories = {
@@ -82,7 +82,7 @@ class EdgeCaseTestRunner:
         
         # Run each test category
         for category_name, category_config in test_categories.items():
-            logger.info(f"🧪 Running {category_name} tests...")
+            logger.info(f" Running {category_name} tests...")
             
             try:
                 category_results = await self._run_test_category(category_name, category_config)
@@ -90,10 +90,10 @@ class EdgeCaseTestRunner:
                 
                 # Log immediate results
                 success_rate = category_results.get("overall_success_rate", 0)
-                logger.info(f"✅ {category_name}: {success_rate:.1f}% success rate")
+                logger.info(f" {category_name}: {success_rate:.1f}% success rate")
                 
             except Exception as e:
-                logger.error(f"❌ {category_name} failed: {e}")
+                logger.error(f" {category_name} failed: {e}")
                 self.test_results[category_name] = {
                     "error": str(e),
                     "success": False,
@@ -319,19 +319,19 @@ class EdgeCaseTestRunner:
         for category_name, results in self.test_results.items():
             if not isinstance(results, dict) or not results.get("success", False):
                 if category_name == "platform_variations":
-                    recommendations.append("🔧 Improve platform-specific error handling and URL validation")
+                    recommendations.append(" Improve platform-specific error handling and URL validation")
                 elif category_name == "entity_extraction":
-                    recommendations.append("🎯 Enhance entity extraction accuracy and reduce false positives")
+                    recommendations.append(" Enhance entity extraction accuracy and reduce false positives")
                 elif category_name == "relationship_mapping":
-                    recommendations.append("🔗 Fix critical relationship mapping failures")
+                    recommendations.append(" Fix critical relationship mapping failures")
                 elif category_name == "resource_management":
-                    recommendations.append("⚡ Optimize memory usage and processing performance")
+                    recommendations.append(" Optimize memory usage and processing performance")
         
         # General recommendations
         if not recommendations:
-            recommendations.append("✅ All edge case tests passed - ready for CLI performance optimization")
+            recommendations.append(" All edge case tests passed - ready for CLI performance optimization")
         else:
-            recommendations.append("🚨 Address failing tests before proceeding to Week 3-4 optimization tasks")
+            recommendations.append(" Address failing tests before proceeding to Week 3-4 optimization tasks")
         
         return recommendations
     
@@ -348,21 +348,21 @@ class EdgeCaseTestRunner:
             
             if success_rate >= 90:
                 next_steps.extend([
-                    "🚀 Begin Week 1-2 CLI Performance Optimization",
-                    "📊 Implement async progress indicators and real-time cost tracking",
-                    "🔄 Start Week 3-4 Error Recovery Enhancement development"
+                    " Begin Week 1-2 CLI Performance Optimization",
+                    " Implement async progress indicators and real-time cost tracking",
+                    " Start Week 3-4 Error Recovery Enhancement development"
                 ])
             elif success_rate >= 75:
                 next_steps.extend([
-                    "🔧 Address remaining test failures",
-                    "🧪 Re-run failed test categories",
-                    "📈 Monitor improvement in failing metrics"
+                    " Address remaining test failures",
+                    " Re-run failed test categories",
+                    " Monitor improvement in failing metrics"
                 ])
             else:
                 next_steps.extend([
-                    "🚨 Critical: Fix major infrastructure issues",
-                    "🔄 Re-run comprehensive test suite",
-                    "📋 Review Core Excellence Implementation Plan priorities"
+                    " Critical: Fix major infrastructure issues",
+                    " Re-run comprehensive test suite",
+                    " Review Core Excellence Implementation Plan priorities"
                 ])
         
         return next_steps
@@ -376,7 +376,7 @@ class EdgeCaseTestRunner:
             with open(report_path, 'w') as f:
                 json.dump(report, f, indent=2, default=str)
             
-            logger.info(f"📋 Test report saved: {report_path}")
+            logger.info(f" Test report saved: {report_path}")
             
             # Also create a summary report
             summary_path = self.output_dir / f"edge_case_summary_{timestamp}.md"
@@ -393,7 +393,7 @@ class EdgeCaseTestRunner:
         
         markdown_content = f"""# ClipScribe Edge Case Testing Report
 
-## 🎯 Core Excellence Implementation Plan - Week 1-2 Results
+##  Core Excellence Implementation Plan - Week 1-2 Results
 
 **Test Execution Summary:**
 - **Total Tests**: {execution_summary['total_tests']}
@@ -402,7 +402,7 @@ class EdgeCaseTestRunner:
 - **Pass Rate**: {execution_summary['overall_pass_rate']:.1f}%
 - **Execution Time**: {execution_summary['total_execution_time']:.1f}s
 
-## 📊 Core Excellence Targets Achievement
+##  Core Excellence Targets Achievement
 
 **Overall Achievement Rate: {achievement['achievement_rate']:.1f}%**
 
@@ -411,7 +411,7 @@ class EdgeCaseTestRunner:
 """
         
         for target_name, target_data in targets.items():
-            status = "✅ ACHIEVED" if target_data["achieved"] else "❌ NOT MET"
+            status = " ACHIEVED" if target_data["achieved"] else " NOT MET"
             description = target_data["description"]
             target_val = target_data["target"]
             actual_val = target_data["actual"]
@@ -420,13 +420,13 @@ class EdgeCaseTestRunner:
         
         markdown_content += f"""
 
-## 📋 Category Results
+##  Category Results
 
 """
         
         for category_name, results in report["category_results"].items():
             if isinstance(results, dict) and "success" in results:
-                status = "✅ PASSED" if results["success"] else "❌ FAILED"
+                status = " PASSED" if results["success"] else " FAILED"
                 success_rate = results.get("overall_success_rate", 0)
                 tests_run = results.get("tests_run", 0)
                 
@@ -434,7 +434,7 @@ class EdgeCaseTestRunner:
         
         markdown_content += f"""
 
-## 🚀 Recommendations
+##  Recommendations
 
 """
         for rec in report["recommendations"]:
@@ -442,7 +442,7 @@ class EdgeCaseTestRunner:
         
         markdown_content += f"""
 
-## 📅 Next Steps
+##  Next Steps
 
 """
         for step in report["next_steps"]:
@@ -450,9 +450,9 @@ class EdgeCaseTestRunner:
         
         markdown_content += f"""
 
-## 🎯 Readiness Assessment
+##  Readiness Assessment
 
-**Ready for Core Excellence Phase 1 Optimization**: {'✅ YES' if achievement['ready_for_optimization'] else '❌ NO'}
+**Ready for Core Excellence Phase 1 Optimization**: {' YES' if achievement['ready_for_optimization'] else ' NO'}
 
 The pipeline validation has {'PASSED' if achievement['ready_for_optimization'] else 'FAILED'} and we {'are' if achievement['ready_for_optimization'] else 'are NOT'} ready to proceed with Week 1-2 optimization tasks.
 
@@ -463,7 +463,7 @@ The pipeline validation has {'PASSED' if achievement['ready_for_optimization'] e
         try:
             with open(summary_path, 'w') as f:
                 f.write(markdown_content)
-            logger.info(f"📄 Summary report saved: {summary_path}")
+            logger.info(f" Summary report saved: {summary_path}")
         except Exception as e:
             logger.error(f"Failed to save summary: {e}")
 

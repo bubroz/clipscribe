@@ -9,7 +9,7 @@ from pathlib import Path
 def run_command(cmd: str, description: str = None):
     """Run a command and display output."""
     if description:
-        print(f"\n💡 {description}")
+        print(f"\n {description}")
     print(f"\n$ {cmd}")
     print("-" * 60)
     
@@ -21,13 +21,13 @@ def run_command(cmd: str, description: str = None):
 def main():
     """Demonstrate ClipScribe CLI usage."""
     
-    print("🚀 ClipScribe CLI Usage Guide")
+    print(" ClipScribe CLI Usage Guide")
     print("=" * 60)
     print("\nClipScribe provides a powerful command-line interface")
     print("for video transcription and analysis.")
     
     # 1. Basic Commands
-    print("\n\n📌 BASIC COMMANDS")
+    print("\n\n BASIC COMMANDS")
     print("=" * 60)
     
     run_command(
@@ -55,7 +55,7 @@ Commands:
   cost        Estimate transcription cost""")
     
     # 2. Transcription Examples
-    print("\n\n🎬 TRANSCRIPTION EXAMPLES")
+    print("\n\n TRANSCRIPTION EXAMPLES")
     print("=" * 60)
     
     run_command(
@@ -65,7 +65,7 @@ Commands:
     print("""[15:23:45] Extracting video information...
 [15:23:46] Downloading audio...
 [15:23:48] Transcribing with Gemini 2.5 Flash...
-[15:23:52] ✅ Transcription complete!
+[15:23:52]  Transcription complete!
 
 Title: Rick Astley - Never Gonna Give You Up
 Duration: 3:33 (213 seconds)
@@ -83,7 +83,7 @@ Output: ./Rick_Astley_-_Never_Gonna_Give_You_Up.txt""")
     )
     
     # 3. Output Format Options
-    print("\n\n📄 OUTPUT FORMAT OPTIONS")
+    print("\n\n OUTPUT FORMAT OPTIONS")
     print("=" * 60)
     
     run_command(
@@ -112,7 +112,7 @@ Output: ./Rick_Astley_-_Never_Gonna_Give_You_Up.txt""")
     )
     
     # 4. Advanced Options
-    print("\n\n⚙️  ADVANCED OPTIONS")
+    print("\n\n  ADVANCED OPTIONS")
     print("=" * 60)
     
     run_command(
@@ -136,7 +136,7 @@ Output: ./Rick_Astley_-_Never_Gonna_Give_You_Up.txt""")
     )
     
     # 5. Batch Processing
-    print("\n\n🚀 BATCH PROCESSING")
+    print("\n\n BATCH PROCESSING")
     print("=" * 60)
     
     run_command(
@@ -154,7 +154,7 @@ Output: ./Rick_Astley_-_Never_Gonna_Give_You_Up.txt""")
     )
     
     # 6. Cost Management
-    print("\n\n💰 COST MANAGEMENT")
+    print("\n\n COST MANAGEMENT")
     print("=" * 60)
     
     run_command(
@@ -172,7 +172,7 @@ Estimated cost: $0.2475 (123.75 minutes @ $0.002/min)""")
     )
     
     # 7. Platform Information
-    print("\n\n🌐 PLATFORM INFORMATION")
+    print("\n\n PLATFORM INFORMATION")
     print("=" * 60)
     
     run_command(
@@ -197,7 +197,7 @@ For full list: clipscribe platforms --all""")
     )
     
     # 8. Configuration
-    print("\n\n⚙️  CONFIGURATION")
+    print("\n\n  CONFIGURATION")
     print("=" * 60)
     
     run_command(
@@ -217,7 +217,7 @@ For full list: clipscribe platforms --all""")
     )
     
     # 9. Integration Examples
-    print("\n\n🔧 INTEGRATION EXAMPLES")
+    print("\n\n INTEGRATION EXAMPLES")
     print("=" * 60)
     
     print("\n# Python script integration:")
@@ -255,7 +255,7 @@ done
 """)
     
     # 10. Tips and Tricks
-    print("\n\n💡 TIPS AND TRICKS")
+    print("\n\n TIPS AND TRICKS")
     print("=" * 60)
     
     print("\n1. Process only audio from long videos:")
@@ -273,7 +273,7 @@ done
     print("\n5. Monitor costs across projects:")
     print('   clipscribe cost --report weekly')
     
-    print("\n\n🎯 Quick Reference Card:")
+    print("\n\n Quick Reference Card:")
     print("-" * 60)
     print("transcribe URL           # Basic transcription")
     print("transcribe URL -f srt    # Generate subtitles")
@@ -282,7 +282,7 @@ done
     print("config                   # Show settings")
     print("--help                   # Get help")
     
-    print("\n\n📚 For more information:")
+    print("\n\n For more information:")
     print("  • Documentation: https://github.com/yourusername/clipscribe")
     print("  • Examples: https://github.com/yourusername/clipscribe/examples")
     print("  • Issues: https://github.com/yourusername/clipscribe/issues")

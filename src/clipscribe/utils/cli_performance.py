@@ -49,9 +49,9 @@ class RealTimeCostTracker:
         self.start_time = time.time()
         self.operations = []
         self.cost_thresholds = {
-            "low": 0.10,      # 🟢 Green
-            "medium": 1.00,   # 🟡 Yellow  
-            "high": 5.00      # 🔴 Red
+            "low": 0.10,      #  Green
+            "medium": 1.00,   #  Yellow  
+            "high": 5.00      #  Red
         }
         
     def add_cost(self, amount: float, operation: str, details: Optional[str] = None):
@@ -73,11 +73,11 @@ class RealTimeCostTracker:
     def get_cost_emoji(self) -> str:
         """Get cost status emoji based on current cost."""
         if self.current_cost < self.cost_thresholds["low"]:
-            return "🟢"
+            return ""
         elif self.current_cost < self.cost_thresholds["medium"]:
-            return "🟡"
+            return ""
         else:
-            return "🔴"
+            return ""
     
     def get_cost_display(self) -> str:
         """Get formatted cost display string."""
@@ -189,7 +189,7 @@ class AsyncProgressIndicator:
     def _create_cost_table(self) -> Table:
         """Create real-time cost tracking table."""
         table = Table(
-            title="💰 Real-Time Cost Tracking",
+            title=" Real-Time Cost Tracking",
             box=box.ROUNDED,
             show_header=True,
             header_style="bold cyan",
@@ -244,9 +244,9 @@ class AsyncProgressIndicator:
             
             # Update status based on cost
             if self.cost_tracker.should_warn_user():
-                status_text = f"[yellow]⚠ High cost: {self.cost_tracker.get_cost_display()}[/yellow]"
+                status_text = f"[yellow] High cost: {self.cost_tracker.get_cost_display()}[/yellow]"
             else:
-                status_text = f"[green]✓ {description}[/green]"
+                status_text = f"[green] {description}[/green]"
             
             state["layout"]["status"].update(Panel(status_text))
         
@@ -264,7 +264,7 @@ class AsyncProgressIndicator:
         
         # Create comprehensive summary table
         summary = Table(
-            title="🎉 Processing Complete",
+            title=" Processing Complete",
             box=box.ROUNDED,
             show_header=True,
             header_style="bold cyan",
@@ -306,9 +306,9 @@ class AsyncProgressIndicator:
         state["layout"]["cost"].update(cost_table)
         # Status panel
         if self.cost_tracker.should_warn_user():
-            status_text = f"[yellow]⚠ High cost: {self.cost_tracker.get_cost_display()}[/yellow]"
+            status_text = f"[yellow] High cost: {self.cost_tracker.get_cost_display()}[/yellow]"
         else:
-            status_text = f"[green]✓ {description}[/green]"
+            status_text = f"[green] {description}[/green]"
         state["layout"]["status"].update(Panel(status_text, box=box.ROUNDED))
 
 
@@ -335,7 +335,7 @@ class InteractiveCostWorkflow:
             f"Current Total: {self.cost_tracker.get_cost_display()}\n"
             f"New Total: {self._get_estimated_emoji(estimated_cost)} ${self.cost_tracker.current_cost + estimated_cost:.4f}",
             box=box.ROUNDED,
-            title="💰 Cost Confirmation"
+            title=" Cost Confirmation"
         )
         self.console.print(cost_panel)
         
@@ -346,7 +346,7 @@ class InteractiveCostWorkflow:
         
         # Interactive confirmation
         if estimated_cost > 1.0:
-            self.console.print(f"\n[red]⚠ Warning: High cost operation (>${estimated_cost:.2f})[/red]")
+            self.console.print(f"\n[red] Warning: High cost operation (>${estimated_cost:.2f})[/red]")
             
         response = click.confirm(
             f"\nProceed with {operation_name}?",
@@ -359,11 +359,11 @@ class InteractiveCostWorkflow:
         """Get emoji for estimated total cost."""
         total_estimated = self.cost_tracker.current_cost + estimated_cost
         if total_estimated < 0.10:
-            return "🟢"
+            return ""
         elif total_estimated < 1.00:
-            return "🟡"
+            return ""
         else:
-            return "🔴"
+            return ""
     
     async def show_cost_breakdown_menu(self) -> bool:
         """Show interactive cost breakdown menu."""
@@ -372,7 +372,7 @@ class InteractiveCostWorkflow:
         breakdown = self.cost_tracker.get_cost_breakdown()
         
         table = Table(
-            title="💰 Detailed Cost Breakdown",
+            title=" Detailed Cost Breakdown",
             box=box.ROUNDED,
             show_header=True,
             header_style="bold cyan",
@@ -435,11 +435,11 @@ class CLIStartupOptimizer:
         startup_time = self.get_startup_time()
         
         if startup_time > 0.5:
-            return "💡 Tip: CLI startup is slow. Consider using `clipscribe --help` to check if modules load correctly."
+            return " Tip: CLI startup is slow. Consider using `clipscribe --help` to check if modules load correctly."
         elif startup_time > 0.2:
-            return "💡 Tip: For fastest performance, keep your terminal session open between commands."
+            return " Tip: For fastest performance, keep your terminal session open between commands."
         else:
-            return "🚀 CLI performance is excellent!"
+            return " CLI performance is excellent!"
 
 
 # Global instances for CLI performance optimization

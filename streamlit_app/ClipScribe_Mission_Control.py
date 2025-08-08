@@ -19,7 +19,7 @@ from clipscribe.config.settings import settings
 
 st.set_page_config(
     page_title="ARGOS Mission Control",
-    page_icon="🎬",
+    page_icon="",
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -66,7 +66,7 @@ def main():
     # Header
     st.markdown("""
     <div class="main-header">
-        <h1>🎬 ARGOS Mission Control</h1>
+        <h1> ARGOS Mission Control</h1>
         <p>Enhanced Temporal Intelligence Dashboard</p>
     </div>
     """, unsafe_allow_html=True)
@@ -74,31 +74,31 @@ def main():
     # v2.18.11 Timeline Intelligence v2.0 completion banner
     st.markdown("""
     <div class="completion-banner">
-        🚀 <strong>v2.18.11 Timeline Intelligence v2.0 COMPLETE!</strong> Component 3: Mission Control UI Integration finished! All 5-step processing pipeline visualization now available.
+         <strong>v2.18.11 Timeline Intelligence v2.0 COMPLETE!</strong> Component 3: Mission Control UI Integration finished! All 5-step processing pipeline visualization now available.
     </div>
     """, unsafe_allow_html=True)
 
     # Sidebar navigation
     with st.sidebar:
-        st.markdown("### 🧭 Navigation")
+        st.markdown("###  Navigation")
         
         page = st.selectbox(
             "Choose a page:",
             [
-                "🏠 Dashboard",
+                " Dashboard",
                 "⏰ Timeline Intelligence", 
-                "📹 Collections", 
-                "🔄 Information Flows",
-                "📊 Analytics",
-                "🔄 Real-time Processing",
-                "⚙️ Settings"
+                " Collections", 
+                " Information Flows",
+                " Analytics",
+                " Real-time Processing",
+                " Settings"
             ]
         )
 
         st.markdown("---")
         
         # Quick stats in sidebar
-        st.markdown("### 📈 Quick Stats")
+        st.markdown("###  Quick Stats")
         
         # Check for output directory (relative to streamlit_app)
         output_path = Path("../output")
@@ -126,47 +126,47 @@ def main():
             st.info("No processed videos found")
 
         st.markdown("---")
-        st.markdown("### 🔧 Quick Actions")
+        st.markdown("###  Quick Actions")
         
-        if st.button("🔄 Refresh Data"):
+        if st.button(" Refresh Data"):
             st.rerun()
         
-        if st.button("📁 Open Output Folder"):
+        if st.button(" Open Output Folder"):
             st.info("Output folder: `./output/`")
 
     # Main content area based on navigation
-    if page == "🏠 Dashboard":
+    if page == " Dashboard":
         show_dashboard()
     elif page == "⏰ Timeline Intelligence":
         show_timeline_intelligence()
-    elif page == "📹 Collections":
+    elif page == " Collections":
         show_collections()
-    elif page == "🔄 Information Flows":
+    elif page == " Information Flows":
         show_information_flows()
-    elif page == "📊 Analytics":
+    elif page == " Analytics":
         show_analytics()
-    elif page == "🔄 Real-time Processing":
+    elif page == " Real-time Processing":
         show_processing_monitor()
-    elif page == "⚙️ Settings":
+    elif page == " Settings":
         show_settings()
 
 def show_dashboard():
     """Display the main dashboard"""
-    st.header("🏠 Dashboard")
+    st.header(" Dashboard")
     
     # v2.18.11 completion status
-    st.markdown("### ✅ Timeline Intelligence v2.0 Status")
+    st.markdown("###  Timeline Intelligence v2.0 Status")
     
     col1, col2, col3, col4 = st.columns(4)
     
     with col1:
-        st.metric("yt-dlp Integration", "✅ COMPLETE", help="Chapter-aware extraction with sub-second precision")
+        st.metric("yt-dlp Integration", " COMPLETE", help="Chapter-aware extraction with sub-second precision")
     with col2:
-        st.metric("Event Deduplication", "✅ COMPLETE", help="Fixes 44-duplicate crisis with intelligent consolidation")  
+        st.metric("Event Deduplication", " COMPLETE", help="Fixes 44-duplicate crisis with intelligent consolidation")  
     with col3:
-        st.metric("Quality Filtering", "✅ COMPLETE", help="95%+ accurate temporal intelligence")
+        st.metric("Quality Filtering", " COMPLETE", help="95%+ accurate temporal intelligence")
     with col4:
-        st.metric("Mission Control UI", "✅ COMPLETE", help="Full Timeline v2.0 visualization and controls")
+        st.metric("Mission Control UI", " COMPLETE", help="Full Timeline v2.0 visualization and controls")
     
     st.markdown("---")
     
@@ -183,7 +183,7 @@ def show_dashboard():
     with col2:
         st.markdown("""
         <div class="metric-card">
-            <h3>📹 Collections</h3>
+            <h3> Collections</h3>
             <p>Manage multi-video collections with unified timeline analysis</p>
         </div>
         """, unsafe_allow_html=True)
@@ -191,13 +191,13 @@ def show_dashboard():
     with col3:
         st.markdown("""
         <div class="metric-card">
-            <h3>🔄 Information Flows</h3>
+            <h3> Information Flows</h3>
             <p>Concept evolution tracking across video sequences</p>
         </div>
         """, unsafe_allow_html=True)
 
     # Recent activity
-    st.subheader("🕒 Recent Activity")
+    st.subheader(" Recent Activity")
     
     output_path = Path("../output")
     if output_path.exists():
@@ -231,7 +231,7 @@ def show_dashboard():
                 # Determine if this is a collection or individual video
                 is_collection = "collections" in str(dir_path.parent)
                 
-                with st.expander(f"📁 {dir_path.name}", expanded=i == 0):
+                with st.expander(f" {dir_path.name}", expanded=i == 0):
                     # Check what files exist
                     files = list(dir_path.glob("*"))
                     st.write(f"**Files:** {len(files)}")
@@ -257,15 +257,15 @@ def show_dashboard():
                     
                     for key_file in key_files:
                         if (dir_path / key_file).exists():
-                            st.success(f"✅ {key_file}")
+                            st.success(f" {key_file}")
                         else:
-                            st.warning(f"⚠️ {key_file} (missing)")
+                            st.warning(f" {key_file} (missing)")
                     
                     # Show collection-specific info
                     if is_collection:
-                        st.info("📚 Collection - Multi-video temporal intelligence")
+                        st.info(" Collection - Multi-video temporal intelligence")
                     else:
-                        st.info("📹 Individual Video - Single video processing")
+                        st.info(" Individual Video - Single video processing")
         else:
             st.info("No processed videos found. Use the CLI to process some videos first!")
     else:
@@ -284,7 +284,7 @@ def show_timeline_intelligence():
         timeline_main()
     except ImportError as e:
         st.error(f"Error loading Timeline Intelligence page: {e}")
-        st.info("🚧 Timeline Intelligence page requires v2.17.0 Timeline Building Pipeline components.")
+        st.info(" Timeline Intelligence page requires v2.17.0 Timeline Building Pipeline components.")
 
 def show_collections():
     """Display collections management page"""
@@ -299,7 +299,7 @@ def show_collections():
         collections_main()
     except ImportError as e:
         st.error(f"Error loading Collections page: {e}")
-        st.info("🚧 Collections page coming soon! This will show all multi-video collections.")
+        st.info(" Collections page coming soon! This will show all multi-video collections.")
 
 def show_information_flows():
     """Display Information Flow Maps"""
@@ -314,7 +314,7 @@ def show_information_flows():
         if_main()
     except ImportError as e:
         st.error(f"Error loading Information Flows page: {e}")
-        st.info("🚧 Information Flow Maps viewer coming soon! This will show concept evolution.")
+        st.info(" Information Flow Maps viewer coming soon! This will show concept evolution.")
 
 def show_analytics():
     """Display analytics and metrics"""
@@ -329,7 +329,7 @@ def show_analytics():
         analytics_main()
     except ImportError as e:
         st.error(f"Error loading Analytics page: {e}")
-        st.info("🚧 Analytics page coming soon! This will show cost tracking and performance metrics.")
+        st.info(" Analytics page coming soon! This will show cost tracking and performance metrics.")
 
 def show_processing_monitor():
     """Display the Real-time Processing Monitor"""
@@ -344,10 +344,10 @@ def show_processing_monitor():
         processing_main()
     except ImportError as e:
         st.error(f"Error loading Processing Monitor: {e}")
-        st.info("🚧 Real-time Processing Monitor is a Phase 2 feature!")
+        st.info(" Real-time Processing Monitor is a Phase 2 feature!")
         
         # Fallback content
-        st.header("🔄 Real-time Processing Monitor")
+        st.header(" Real-time Processing Monitor")
         st.info("""
         This feature provides:
         - **Live CLI Progress**: Monitor ARGOS commands in real-time
@@ -355,14 +355,14 @@ def show_processing_monitor():
         - **Processing Queue**: Job history and queue management
         - **Auto-refresh**: Live updates every 5 seconds
         
-        📋 **Phase 2 Enhancement**: Interactive processing dashboard with live logs!
+         **Phase 2 Enhancement**: Interactive processing dashboard with live logs!
         """)
 
 def show_settings():
     """Display settings and configuration"""
-    st.header("⚙️ Settings")
+    st.header(" Settings")
     
-    st.subheader("🔑 API Configuration")
+    st.subheader(" API Configuration")
     
     # API Key management
     api_key = st.text_input(
@@ -373,13 +373,13 @@ def show_settings():
     )
     
     if api_key and api_key != "***":
-        st.success("✅ API key provided")
+        st.success(" API key provided")
     elif settings.google_api_key:
-        st.success("✅ API key loaded from environment")
+        st.success(" API key loaded from environment")
     else:
-        st.error("❌ No API key found. Set GOOGLE_API_KEY environment variable.")
+        st.error(" No API key found. Set GOOGLE_API_KEY environment variable.")
     
-    st.subheader("🎛️ Processing Settings")
+    st.subheader(" Processing Settings")
     
     col1, col2 = st.columns(2)
     

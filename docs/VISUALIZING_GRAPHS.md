@@ -61,11 +61,11 @@ This creates a simple matplotlib visualization showing up to 50 nodes.
 ## Understanding the Graph
 
 ### Node Types (Color Coded)
-- 🔴 **PERSON**: Red nodes (Trump, Biden, etc.)
-- 🟦 **ORGANIZATION**: Blue nodes (Pentagon, NATO, etc.)
-- 🟡 **LOCATION**: Yellow nodes (Iran, Washington, etc.)
-- 🟣 **EVENT**: Purple nodes (Summit, Election, etc.)
-- 🟢 **CONCEPT**: Green nodes (Policy, Strategy, etc.)
+-  **PERSON**: Red nodes (Trump, Biden, etc.)
+-  **ORGANIZATION**: Blue nodes (Pentagon, NATO, etc.)
+-  **LOCATION**: Yellow nodes (Iran, Washington, etc.)
+-  **EVENT**: Purple nodes (Summit, Election, etc.)
+-  **CONCEPT**: Green nodes (Policy, Strategy, etc.)
 
 ### Edge Types (Relationships)
 - **Solid lines**: High confidence relationships (>0.8)

@@ -18,10 +18,10 @@ async def main():
     
     # Check for API key
     if not os.getenv("GOOGLE_API_KEY"):
-        print("❌ Error: Please set GOOGLE_API_KEY in your .env file")
+        print(" Error: Please set GOOGLE_API_KEY in your .env file")
         return
     
-    print("🚀 ClipScribe Quick Start Example")
+    print(" ClipScribe Quick Start Example")
     print("=" * 40)
     
     # Create video retriever
@@ -30,7 +30,7 @@ async def main():
     # Video URL (works with 1800+ platforms!)
     video_url = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
     
-    print(f"\n📹 Processing: {video_url}")
+    print(f"\n Processing: {video_url}")
     
     try:
         # Process the video - it's this simple!
@@ -38,11 +38,11 @@ async def main():
         
         if result:
             # Display results
-            print(f"\n✅ Success!")
-            print(f"📝 Title: {result.metadata.title}")
-            print(f"⏱️  Duration: {result.metadata.duration}s")
-            print(f"💰 Cost: ${result.processing_cost:.4f}")
-            print(f"\n📄 Transcript preview:")
+            print(f"\n Success!")
+            print(f" Title: {result.metadata.title}")
+            print(f"⏱  Duration: {result.metadata.duration}s")
+            print(f" Cost: ${result.processing_cost:.4f}")
+            print(f"\n Transcript preview:")
             print(result.transcript.full_text[:300] + "...")
             
             # Save transcript to file with video title as filename
@@ -50,13 +50,13 @@ async def main():
             with open(output_file, "w", encoding='utf-8') as f:
                 f.write(result.transcript.full_text)
             
-            print(f"\n💾 Files saved:")
+            print(f"\n Files saved:")
             print(f"  • {output_file.name}")
         else:
-            print("❌ Failed to process video")
+            print(" Failed to process video")
         
     except Exception as e:
-        print(f"❌ Error: {e}")
+        print(f" Error: {e}")
 
 
 if __name__ == "__main__":

@@ -82,11 +82,11 @@ async def test_date_extraction():
                 console.print(f"Has 'temporal_intelligence' field: {'temporal_intelligence' in transcript_data}")
                 
                 if 'dates' in transcript_data and transcript_data['dates']:
-                    console.print(f"\n[green]✓ Found {len(transcript_data['dates'])} dates![/green]")
+                    console.print(f"\n[green] Found {len(transcript_data['dates'])} dates![/green]")
                     for i, date in enumerate(transcript_data['dates'][:5]):
                         console.print(f"  Date {i+1}: {date}")
                 else:
-                    console.print("\n[red]✗ No dates found in transcript![/red]")
+                    console.print("\n[red] No dates found in transcript![/red]")
                 
                 # Check analysis field
                 if 'analysis' in transcript_data:

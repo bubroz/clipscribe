@@ -73,12 +73,12 @@ async def collect_pbs_urls(days: int = 30) -> List[Dict]:
         
         current_date = week_end
     
-    print(f"🔍 Searching for PBS NewsHour episodes from {start_date.date()} to {end_date.date()}")
-    print(f"📋 Generated {len(queries)} search queries")
+    print(f" Searching for PBS NewsHour episodes from {start_date.date()} to {end_date.date()}")
+    print(f" Generated {len(queries)} search queries")
     
     async with aiohttp.ClientSession() as session:
         for q in queries:
-            print(f"\n🔎 Searching: {q['query']} ({q['start'].date()} to {q['end'].date()})")
+            print(f"\n Searching: {q['query']} ({q['start'].date()} to {q['end'].date()})")
             results = await search_youtube_web(session, q['query'])
             
             for result in results:
@@ -140,17 +140,17 @@ async def main():
     """
     Main function to collect URLs and create batch config.
     """
-    print("🎯 PBS NewsHour 30-Day URL Collector")
+    print(" PBS NewsHour 30-Day URL Collector")
     print("=" * 50)
     
     # Collect URLs
     urls = await collect_pbs_urls(days=30)
     
     if not urls:
-        print("❌ No URLs found. Please check your internet connection.")
+        print(" No URLs found. Please check your internet connection.")
         return
     
-    print(f"\n✅ Found {len(urls)} potential PBS NewsHour episodes")
+    print(f"\n Found {len(urls)} potential PBS NewsHour episodes")
     
     # Create batch configuration
     config = generate_batch_config(urls)
@@ -160,20 +160,20 @@ async def main():
     with open(output_path, 'w') as f:
         json.dump(config, f, indent=2)
     
-    print(f"\n💾 Saved batch configuration to: {output_path}")
-    print(f"📊 Total videos to process: {len(urls)}")
+    print(f"\n Saved batch configuration to: {output_path}")
+    print(f" Total videos to process: {len(urls)}")
     print(f"�� Estimated cost: ${config['metadata']['estimated_cost_usd']:.2f}")
-    print(f"⏱️  Estimated time: {config['metadata']['estimated_time_minutes']:.0f} minutes")
+    print(f"⏱  Estimated time: {config['metadata']['estimated_time_minutes']:.0f} minutes")
     
-    print("\n⚡ SPEED OPTIMIZATION ENABLED:")
+    print("\n SPEED OPTIMIZATION ENABLED:")
     print(f"  • Concurrent processing: 10 videos at once")
     print(f"  • Audio-only mode: 3x faster than video")
     print(f"  • Actual speed: ~{3.5:.1f} minutes per batch")
     
-    print("\n🚀 To process these videos, run:")
+    print("\n To process these videos, run:")
     print(f"   poetry run python examples/batch_processing.py {output_path}")
     
-    print("\n💡 Pro tips for even faster processing:")
+    print("\n Pro tips for even faster processing:")
     print("  • Filter to weekdays only (PBS doesn't air weekends)")
     print("  • Increase concurrent_limit to 15 if you have good bandwidth")
     print("  • Use Vertex AI for enterprise-scale processing")
@@ -184,7 +184,7 @@ async def main():
         for item in urls:
             f.write(f"{item['url']}\n")
     
-    print(f"\n📝 URLs also saved to: {urls_path}")
+    print(f"\n URLs also saved to: {urls_path}")
 
 
 if __name__ == "__main__":

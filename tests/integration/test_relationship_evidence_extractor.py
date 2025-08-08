@@ -65,7 +65,7 @@ class TestRelationshipEvidenceExtractor:
         # Create enhanced entities
         self.enhanced_entities = [
             EnhancedEntity(
-                entity="Joe Biden",
+                name="Joe Biden",
                 type="PERSON",
                 confidence=0.95,
                 extraction_sources=["spacy", "gliner"],
@@ -90,7 +90,7 @@ class TestRelationshipEvidenceExtractor:
                 ]
             ),
             EnhancedEntity(
-                entity="Russia",
+                name="Russia",
                 type="LOCATION",
                 confidence=0.90,
                 extraction_sources=["spacy"],
@@ -102,7 +102,7 @@ class TestRelationshipEvidenceExtractor:
                 temporal_distribution=[]
             ),
             EnhancedEntity(
-                entity="Vladimir Putin",
+                name="Vladimir Putin",
                 type="PERSON",
                 confidence=0.88,
                 extraction_sources=["gliner"],

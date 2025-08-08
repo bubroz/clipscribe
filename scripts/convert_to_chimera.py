@@ -105,7 +105,7 @@ def main():
         with open(chimera_path, 'w', encoding='utf-8') as f:
             json.dump(chimera_data, f, indent=2)
         
-        print(f"✅ Successfully created {chimera_path}")
+        print(f" Successfully created {chimera_path}")
         print(f"   - Title: {chimera_data['title']}")
         print(f"   - URL: {chimera_data['url']}")
         print(f"   - Content length: {len(chimera_data['content'])} chars")

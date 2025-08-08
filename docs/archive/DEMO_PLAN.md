@@ -2,7 +2,7 @@
 
 **Updated**: v2.19.0 dramatically improves extraction quality - now capturing 16+ entities and 52+ relationships per video (was 0-10 entities, 0 relationships)
 
-## 🎯 Demo Objectives
+##  Demo Objectives
 
 ## Executive Summary
 
@@ -15,9 +15,9 @@ ClipScribe is a **production-ready video intelligence platform** that extracts s
 - **Cost Leadership**: $0.002/minute vs $10-50/video for competitors
 - **Analyst Workflow Fit**: Multi-video synthesis reveals hidden patterns in minutes
 
-## 📊 Demo Progress Tracker
+##  Demo Progress Tracker
 
-### Phase 1: Core Development ✅
+### Phase 1: Core Development 
 - **Core Functionality**: 100% - Successful test of 20-video CNBC playlist with temporal analysis
 - **Documentation**: 100% - All docs updated with analyst focus and demo scripts
 - **Visuals**: 90% - Streamlit app ready; add 1-2 screenshots to deck

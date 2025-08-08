@@ -38,10 +38,6 @@ class ModelManager:
         if self._initialized:
             return
         self._initialized = True
-        logger.info(
-            "Hybrid Extractors Loaded: Local (SpaCy for entities, GLiNER for "
-            "detection, REBEL for relationships) + Gemini 2.5 Pro Refinement"
-        )
     
     def set_performance_monitor(self, monitor):
         """Set the performance monitor for tracking cache performance."""
@@ -74,6 +70,7 @@ class ModelManager:
         key = f"spacy_{model_name}"
         
         if key not in self._models:
+            logger.info("Hybrid Extractors Loaded: Local (SpaCy for entities, GLiNER for detection, REBEL for relationships) + Gemini 2.5 Pro Refinement")
             logger.info(f"Loading SpaCy model {model_name} (one-time load)...")
             start_time = time.time()
             
@@ -263,5 +260,14 @@ class ModelManager:
         return summary
 
 
-# Global instance
-model_manager = ModelManager() 
+_model_manager_instance = None
+
+def get_model_manager():
+    """Get the singleton instance of the ModelManager."""
+    global _model_manager_instance
+    if _model_manager_instance is None:
+        _model_manager_instance = ModelManager()
+    return _model_manager_instance
+
+
+ 

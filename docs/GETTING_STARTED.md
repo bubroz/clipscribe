@@ -3,13 +3,13 @@
 *Last Updated: July 31, 2025*
 *Related: [CLI Reference](mdc:CLI_REFERENCE.md) | [Output Formats](mdc:OUTPUT_FORMATS.md)*
 
-## 🎯 What's New: v2.22.2 - Pro-First Architecture & Stable CLI!
+##  What's New: v2.22.2 - Pro-First Architecture & Stable CLI!
 
 **ClipScribe v2.22.2** is a production-ready video intelligence tool:
-- **🎉 Pro by Default**: Gemini 2.5 Pro is the default for the highest quality extraction.
-- **⚡ NEW --use-flash FLAG**: Use the faster, lower-cost Gemini 2.5 Flash model when speed is your priority.
-- **✅ Stable CLI**: All commands are fully functional with a 100% test pass rate.
-- **🐛 Robustness Fixes**: Now handles hour-long videos and has a stable test suite.
+- ** Pro by Default**: Gemini 2.5 Pro is the default for the highest quality extraction.
+- ** NEW --use-flash FLAG**: Use the faster, lower-cost Gemini 2.5 Flash model when speed is your priority.
+- ** Stable CLI**: All commands are fully functional with a 100% test pass rate.
+- ** Robustness Fixes**: Now handles hour-long videos and has a stable test suite.
 
 ## Prerequisites
 
@@ -78,10 +78,10 @@ asyncio.run(analyze_video("https://youtube.com/watch?v=..."))
 
 ```bash
 # High quality (Gemini 2.5 Pro, DEFAULT)
-poetry run clipscribe process video "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+poetry run clipscribe --debug process video "https://www.youtube.com/watch?v=7sWj6D2i4eU"
 
 # Optional: Faster, standard quality (Gemini 2.5 Flash) 
-poetry run clipscribe process video "https://www.youtube.com/watch?v=dQw4w9WgXcQ" --use-flash
+poetry run clipscribe --debug process video "https://www.youtube.com/watch?v=7sWj6D2i4eU" --use-flash
 
 # With additional processing options
 poetry run clipscribe process video "https://vimeo.com/123456789" \
@@ -95,12 +95,12 @@ poetry run clipscribe process video "https://vimeo.com/123456789" \
 After processing, you'll get these verified working files:
 ```
 output/YYYYMMDD_youtube_videoID/
-├── entities.json          # ✅ 24-59 entities saved
-├── relationships.json     # ✅ 53+ relationships with evidence
-├── knowledge_graph.gexf   # ✅ 60 nodes, 53 edges for Gephi
-├── transcript.json        # ✅ Complete analysis
-├── report.md             # ✅ Human-readable report
-└── 6+ more formats...    # ✅ All working
+├── entities.json          #  24-59 entities saved
+├── relationships.json     #  53+ relationships with evidence
+├── knowledge_graph.gexf   #  60 nodes, 53 edges for Gephi
+├── transcript.json        #  Complete analysis
+├── report.md             #  Human-readable report
+└── 6+ more formats...    #  All working
 ```
 
 ### Process Multiple Videos (Collection Analysis)
@@ -157,11 +157,11 @@ poetry run streamlit run streamlit_app/ClipScribe_Mission_Control.py
 ```
 
 Access features:
-- 🎬 Video processing monitor
-- 📊 Entity and relationship visualization
-- 🔧 Collection management
-- 🎞️ Information flow analysis
-- 💾 Export and integration tools 
+-  Video processing monitor
+-  Entity and relationship visualization
+-  Collection management
+-  Information flow analysis
+-  Export and integration tools 
 
 ## Understanding Entity & Relationship Extraction
 
@@ -258,7 +258,7 @@ Full guide: [TROUBLESHOOTING.md](TROUBLESHOOTING.md)
 - **GitHub Issues**: Report bugs or request features
 - **Examples**: See `examples/` directory for working code
 
-Remember: ClipScribe now targets **100% extraction completeness**, not arbitrary numbers! 🎯 
+Remember: ClipScribe now targets **100% extraction completeness**, not arbitrary numbers!  
 
 ## Enterprise Use
 For large-scale deployment, see docs/advanced/deployment/DEPLOYMENT_GUIDE.md

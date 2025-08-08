@@ -94,7 +94,7 @@ class ProcessingMonitor:
 def show_processing_dashboard():
     """Main real-time processing dashboard"""
     
-    st.header("🔄 Real-time Processing Dashboard")
+    st.header(" Real-time Processing Dashboard")
     
     # Initialize monitor in session state
     if 'processing_monitor' not in st.session_state:
@@ -103,7 +103,7 @@ def show_processing_dashboard():
     monitor = st.session_state.processing_monitor
     
     # Command input section
-    st.subheader("🚀 Start New Processing Job")
+    st.subheader(" Start New Processing Job")
     
     col1, col2, col3 = st.columns([2, 1, 1])
     
@@ -144,13 +144,13 @@ def show_processing_dashboard():
     with col2:
         st.markdown("### Status")
         if monitor.is_monitoring:
-            st.success("🟢 Running")
-            if st.button("🛑 Stop Process"):
+            st.success(" Running")
+            if st.button(" Stop Process"):
                 monitor.stop_monitoring()
                 st.rerun()
         else:
-            st.info("⚪ Idle")
-            if st.button("▶️ Start Process"):
+            st.info(" Idle")
+            if st.button("▶ Start Process"):
                 if command.strip():
                     success = monitor.start_monitoring(command)
                     if success:
@@ -170,7 +170,7 @@ def show_processing_dashboard():
             st.rerun()
     
     # Live logs section
-    st.subheader("📜 Live Process Logs")
+    st.subheader(" Live Process Logs")
     
     # Get recent logs
     logs = monitor.get_logs()
@@ -216,14 +216,14 @@ def show_processing_dashboard():
         st.info("No logs yet. Start a process to see live output.")
     
     # Clear logs button
-    if st.button("🗑️ Clear Logs"):
+    if st.button(" Clear Logs"):
         st.session_state.processing_logs = []
         st.rerun()
 
 def show_processing_queue():
     """Show processing queue and job history"""
     
-    st.subheader("📋 Processing Queue & History")
+    st.subheader(" Processing Queue & History")
     
     # Check for recent processing jobs
     output_path = Path("output")
@@ -292,7 +292,7 @@ def show_processing_queue():
                     st.write(f"**Status:** {job['status']}")
                 
                 with col3:
-                    if st.button(f"📁 Open Folder", key=f"open_{job['name']}"):
+                    if st.button(f" Open Folder", key=f"open_{job['name']}"):
                         st.code(f"Folder: {job['path']}")
     else:
         st.info("No recent processing jobs found.")
@@ -300,7 +300,7 @@ def show_processing_queue():
 def show_cost_tracker():
     """Real-time cost tracking visualization"""
     
-    st.subheader("💰 Real-time Cost Tracking")
+    st.subheader(" Real-time Cost Tracking")
     
     # Load cost data
     output_path = Path("output")
@@ -391,9 +391,9 @@ def main():
     
     # Main tabs
     tab1, tab2, tab3 = st.tabs([
-        "🔄 Live Processing",
-        "📋 Job Queue", 
-        "💰 Cost Tracker"
+        " Live Processing",
+        " Job Queue", 
+        " Cost Tracker"
     ])
     
     with tab1:

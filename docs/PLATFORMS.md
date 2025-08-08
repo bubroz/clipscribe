@@ -1,6 +1,6 @@
 # Supported Platforms
 
-ClipScribe supports **1800+ video platforms** through yt-dlp integration. If a video platform exists on the internet, there's a good chance ClipScribe can transcribe it!
+ClipScribe supports **1800+ video platforms** through yt-dlp integration. If a video platform exists on the internet, there's a good chance ClipScribe can process it!
 
 ## Quick Check
 
@@ -8,16 +8,16 @@ To check if a specific URL is supported:
 
 ```bash
 # Using ClipScribe
-clipscribe transcribe "YOUR_URL_HERE"
+clipscribe --debug process video "YOUR_URL_HERE"
 
 # Or test directly with Python
 from clipscribe.retrievers.universal_video_client import UniversalVideoClient
 
 client = UniversalVideoClient()
 if client.is_supported_url("https://example.com/video"):
-    print("✅ Supported!")
+    print(" Supported!")
 else:
-    print("❌ Not supported")
+    print(" Not supported")
 ```
 
 ## Popular Platforms
@@ -25,6 +25,7 @@ else:
 Here are some of the most commonly used platforms:
 
 ### Social Media
+
 - **YouTube** - Including Shorts, Music, and Live streams
 - **Twitter/X** - Video tweets and Spaces recordings
 - **TikTok** - Short-form videos
@@ -34,6 +35,7 @@ Here are some of the most commonly used platforms:
 - **LinkedIn** - Native videos
 
 ### Video Hosting
+
 - **Vimeo** - Professional video hosting
 - **Dailymotion** - General video platform
 - **Wistia** - Business video hosting
@@ -42,12 +44,14 @@ Here are some of the most commonly used platforms:
 - **Gfycat** - GIF hosting
 
 ### Streaming Platforms
+
 - **Twitch** - Gaming and live streams
 - **Kick** - Live streaming
 - **Rumble** - Video platform
 - **Odysee** - Decentralized video
 
 ### News & Media
+
 - **BBC** - BBC News, iPlayer
 - **CNN** - News videos
 - **NBC** - News and shows
@@ -57,6 +61,7 @@ Here are some of the most commonly used platforms:
 - **Vice** - Documentary videos
 
 ### Educational
+
 - **TED** - TED Talks
 - **Khan Academy** - Educational videos
 - **Coursera** - Course videos
@@ -64,6 +69,7 @@ Here are some of the most commonly used platforms:
 - **Udemy** - Course previews
 
 ### Entertainment
+
 - **Netflix** - Trailers and previews
 - **Hulu** - Clips and trailers
 - **Crunchyroll** - Anime previews
@@ -71,12 +77,14 @@ Here are some of the most commonly used platforms:
 - **Adult Swim** - Shows and clips
 
 ### Music & Audio
+
 - **SoundCloud** - Music and podcasts
 - **Bandcamp** - Artist uploads
 - **Mixcloud** - DJ mixes and radio shows
 - **Audiomack** - Music streaming
 
 ### International Platforms
+
 - **Bilibili** - Chinese video platform
 - **Niconico** - Japanese video platform
 - **VK** - Russian social media videos
@@ -90,6 +98,7 @@ ClipScribe uses yt-dlp as its backend for video extraction, which provides sever
 ## Usage Examples
 
 ### Basic Usage
+
 ```python
 from clipscribe.retrievers.video_retriever import VideoIntelligenceRetriever
 
@@ -100,6 +109,7 @@ result = await retriever.process_url("https://example.com/video")
 ```
 
 ### Checking URL Support
+
 ```python
 from clipscribe.retrievers.universal_video_client import UniversalVideoClient
 
@@ -107,12 +117,13 @@ client = UniversalVideoClient()
 
 # Check if a URL is supported
 if client.is_supported_url("https://example.com/video"):
-    print("✅ This site is supported!")
+    print(" This site is supported!")
 else:
-    print("❌ This site is not supported")
+    print(" This site is not supported")
 ```
 
 ### Getting List of Supported Sites
+
 ```python
 # Get a list of all supported site names
 sites = client.get_supported_sites()
@@ -125,13 +136,16 @@ print("Some examples:", sites[:10])
 Some sites require authentication. You can provide cookies or credentials:
 
 ### Using Browser Cookies
+
 1. Install browser extension to export cookies
 2. Export cookies.txt from your browser
 3. Place in project directory
 4. yt-dlp will automatically use them
 
 ### Direct Authentication
+
 Some sites support username/password:
+
 ```python
 # Configure in yt_dlp options
 self.ydl_opts = {
@@ -144,21 +158,26 @@ self.ydl_opts = {
 ## Handling Private/Protected Content
 
 ### Password-Protected Videos
+
 Many sites support password-protected videos:
+
 - Vimeo: Add password to URL or use `videopassword` option
 - Other sites: Check yt-dlp documentation for site-specific methods
 
 ### Age-Restricted Content
+
 - YouTube: Requires cookies from logged-in session
 - Other sites: Usually requires authentication
 
 ### Geo-Restricted Content
+
 - Use VPN or proxy
 - Configure proxy in yt_dlp options
 
 ## Performance Tips
 
 1. **Keep yt-dlp Updated**: New sites are added regularly
+
    ```bash
    pip install -U yt-dlp
    ```
@@ -196,7 +215,9 @@ Many sites support password-protected videos:
    - Could be geo-restricted
 
 ### Debug Mode
+
 Enable verbose output to see what's happening:
+
 ```python
 self.ydl_opts = {
     'verbose': True,
@@ -206,14 +227,15 @@ self.ydl_opts = {
 
 ## Contributing
 
-Found a site that doesn't work? 
+Found a site that doesn't work?
+
 1. First update yt-dlp: `pip install -U yt-dlp`
 2. Check if it works directly with yt-dlp command line
 3. Report to yt-dlp project if it's a yt-dlp issue
 4. Report to us if it's a ClipScribe integration issue
 
-Remember: The power of ClipScribe comes from yt-dlp's extensive site support. As yt-dlp adds new sites, ClipScribe automatically gains support for them! 
+Remember: The power of ClipScribe comes from yt-dlp's extensive site support. As yt-dlp adds new sites, ClipScribe automatically gains support for them!
 
-# Add scaling section
 ## Enterprise Scaling
-Supports 1800+ platforms at scale with Vertex AI 
+
+Supports 1800+ platforms at scale with Vertex AI

@@ -2,11 +2,11 @@
 
 *Last Updated: July 31, 2025*
 
-## 🎯 Executive Summary
+##  Executive Summary
 
 ClipScribe's Multi-Video Intelligence system transforms video analysis from individual processing to **unified knowledge extraction** across related video collections. This architecture uses a simplified, robust pipeline that leverages the power of Gemini 2.5 Pro for entity resolution and cross-video relationship mapping.
 
-## 🏗️ System Architecture Overview
+##  System Architecture Overview
 
 ### Core Components
 ```mermaid
@@ -24,7 +24,7 @@ graph TD
 - **`CrossVideoEntity`**: Entities resolved across multiple videos with aliases
 - **`CrossVideoRelationship`**: Relationships validated across videos
 
-## 🧠 Entity Merging (AI-Powered)
+##  Entity Merging (AI-Powered)
 
 ### Cross-Video Entity Resolution Process
 1. **Collect**: All entities from all videos in a collection.
@@ -33,7 +33,7 @@ graph TD
 4. **Enhance**: Add temporal context and video appearances to each entity.
 5. **Cross-Reference**: Validate entities against multiple sources within the collection.
 
-## 📊 Output Format Strategy (Hybrid Approach)
+##  Output Format Strategy (Hybrid Approach)
 
 ### Individual Video Outputs (Preserved)
 Each video in a collection still produces its own set of output files, ensuring granular data is always accessible.
@@ -59,7 +59,7 @@ output/
         └── cross_video_insights.md            # Key findings
 ```
 
-## 🎚️ Quality & Speed Configuration
+##  Quality & Speed Configuration
 
 ClipScribe has adopted a "Quality-First" architecture.
 
@@ -67,7 +67,7 @@ ClipScribe has adopted a "Quality-First" architecture.
 - **Gemini 2.5 Pro (Default)**: Provides the highest quality, professional-grade intelligence. Used for all analysis by default.
 - **Gemini 2.5 Flash (Optional)**: A faster, lower-cost model available via the `--use-flash` flag for users who prioritize speed over maximum quality.
 
-## 🔧 Implementation Architecture
+##  Implementation Architecture
 
 ### File Structure
 ```
@@ -92,7 +92,7 @@ clipscribe collection series "https://youtube.com/watch?v=part1" "https://youtub
 clipscribe collection custom "My Research Topic" "URL1" "URL2" "URL3"
 ```
 
-## 🎯 Expected Outcomes
+##  Expected Outcomes
 
 - **90%+ entity resolution accuracy** across video parts.
 - **Unified knowledge graphs** connecting all series elements.

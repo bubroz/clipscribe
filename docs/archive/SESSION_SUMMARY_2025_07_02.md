@@ -5,7 +5,7 @@
 
 ## Major Accomplishments
 
-### 1. TimelineJS3 Export Successfully Implemented ✅ (v2.18.19)
+### 1. TimelineJS3 Export Successfully Implemented  (v2.18.19)
 - **Achievement**: Full TimelineJS3 export working with 84 events from Pegasus documentary
 - **Results**: 
   - Generated 133KB timeline_js.json file
@@ -16,7 +16,7 @@
   - Fixed key mismatch: looked for 'events' instead of 'timeline_events'
   - Fixed Timeline v2.0 data saving (temporal_events → events)
 
-### 2. Timeline v2.0 Parameter Tuning ✅ (v2.18.18)
+### 2. Timeline v2.0 Parameter Tuning  (v2.18.18)
 - **Problem**: Only extracting 0-5 events from content-rich videos
 - **Solution**: Comprehensive parameter optimization
   - Lowered quality filter thresholds (min_confidence: 0.6 → 0.5)
@@ -25,18 +25,18 @@
   - Relaxed content filtering rules
 - **Results**: Now extracting 84 high-quality events (up from 0-5!)
 
-### 3. Code Quality Improvements ✅
+### 3. Code Quality Improvements 
 - Extracted magic numbers to constants in TimelineJS formatter
 - Fixed logging consistency across the project
 - Updated all version references to v2.18.19
 
-### 4. TimelineJS Viewer Implementation ✅
+### 4. TimelineJS Viewer Implementation 
 - Created HTML viewer template (view_timeline.html)
 - Created Python server script (view_timeline.py)
 - Implemented multiple viewing options for timelines
 - Fixed CORS issues with local JSON loading
 
-### 5. Deep Research: Gemini Date Extraction 🔬
+### 5. Deep Research: Gemini Date Extraction 
 - **Critical Discovery**: We're already using Gemini multimodal (video mode) but NOT extracting dates!
 - **Current State**: 0.7% date extraction success (1 out of 135 events)
 - **Opportunity**: 70-85% success rate possible at $0 additional cost

@@ -44,7 +44,7 @@ class DateAssociationTester:
         console.print(f"Loading test data from [cyan]{self.test_file_path}[/cyan]...")
         with open(self.test_file_path, 'r') as f:
             data = json.load(f)
-        console.print("✅ Test data loaded.")
+        console.print(" Test data loaded.")
         return data
 
     async def run_test(self, window_seconds: float = 60.0) -> Dict[str, Any]:

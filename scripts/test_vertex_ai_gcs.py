@@ -72,7 +72,7 @@ async def test_vertex_ai_with_gcs():
             )
             
             if result:
-                logger.info("✅ Vertex AI processing successful!")
+                logger.info(" Vertex AI processing successful!")
                 logger.info(f"Transcript length: {len(result.get('transcript', ''))} characters")
                 logger.info(f"Found {len(result.get('entities', []))} entities")
                 logger.info(f"Found {len(result.get('relationships', []))} relationships")
@@ -95,10 +95,10 @@ async def test_vertex_ai_with_gcs():
                     logger.info(f"Timeline events: {len(temporal.get('timeline_events', []))}")
                     logger.info(f"Visual dates: {len(temporal.get('visual_dates', []))}")
             else:
-                logger.error("❌ No result returned")
+                logger.error(" No result returned")
                 
         except Exception as e:
-            logger.error(f"❌ Failed to process {video['name']}: {e}")
+            logger.error(f" Failed to process {video['name']}: {e}")
             logger.exception("Full error traceback:")
             continue
     
@@ -124,12 +124,12 @@ async def test_direct_vertex_api():
             gcs_uri=test_gcs_uri,
             mode="video"
         )
-        logger.info("✅ Video mode successful!")
+        logger.info(" Video mode successful!")
         logger.info(f"Result type: {type(result)}")
         logger.info(f"Result preview: {str(result)[:200]}...")
         
     except Exception as e:
-        logger.error(f"❌ Video mode failed: {e}")
+        logger.error(f" Video mode failed: {e}")
         logger.exception("Full error:")
         
         # Try audio mode
@@ -141,10 +141,10 @@ async def test_direct_vertex_api():
                 gcs_uri=audio_gcs_uri,
                 mode="audio"
             )
-            logger.info("✅ Audio mode successful!")
+            logger.info(" Audio mode successful!")
             
         except Exception as e2:
-            logger.error(f"❌ Audio mode also failed: {e2}")
+            logger.error(f" Audio mode also failed: {e2}")
 
 
 if __name__ == "__main__":
@@ -157,6 +157,6 @@ if __name__ == "__main__":
     asyncio.run(test_direct_vertex_api())
     
     if success:
-        print("\n✅ Vertex AI GCS test completed!")
+        print("\n Vertex AI GCS test completed!")
     else:
-        print("\n❌ Vertex AI GCS test had errors!") 
+        print("\n Vertex AI GCS test had errors!") 

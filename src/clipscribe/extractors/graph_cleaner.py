@@ -79,7 +79,7 @@ class GraphCleaner:
         entity_list = []
         for entity in entities:
             entity_list.append({
-                "name": entity.entity,
+                "name": entity.name,
                 "type": entity.type,
                 "confidence": entity.confidence
             })
@@ -171,10 +171,10 @@ Every entity might be important for understanding relationships.
         entity_names = set()
         for e in entities:
             # Handle both Entity (has .entity) and EnhancedEntity (has .entity)
-            if hasattr(e, 'entity'):
-                entity_names.add(e.entity)
-            elif hasattr(e, 'name'):
+            if hasattr(e, 'name'):
                 entity_names.add(e.name)
+            elif hasattr(e, 'entity'):
+                entity_names.add(e.entity)
         
         # Create relationship list
         rel_list = []
@@ -280,7 +280,7 @@ It's better to have too many relationships than too few.
         # Add entities as nodes
         for entity in video_intel.entities:
             # Handle both Entity (has .entity) and EnhancedEntity (has .entity)
-            entity_name = entity.entity if hasattr(entity, 'entity') else entity.name
+            entity_name = entity.name if hasattr(entity, 'name') else entity.entity
             G.add_node(
                 entity_name,
                 type=entity.type,

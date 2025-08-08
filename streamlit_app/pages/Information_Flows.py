@@ -49,7 +49,7 @@ def show_flow_overview(flow_map: InformationFlowMap):
     
     # Flow pattern analysis - FIXED: Access attributes directly on flow_map
     if hasattr(flow_map, 'learning_progression') and flow_map.learning_progression:
-        st.subheader("📊 Flow Pattern Analysis")
+        st.subheader(" Flow Pattern Analysis")
         
         with st.expander("Learning Progression", expanded=True):
             st.write(flow_map.learning_progression)
@@ -62,7 +62,7 @@ def show_flow_overview(flow_map: InformationFlowMap):
 def show_concept_explorer(flow_map: InformationFlowMap):
     """Interactive concept explorer with maturity levels"""
     
-    st.subheader("🔍 Concept Explorer")
+    st.subheader(" Concept Explorer")
     
     # Search and filters
     col1, col2, col3 = st.columns(3)
@@ -118,15 +118,15 @@ def show_concept_explorer(flow_map: InformationFlowMap):
                 
                 # Maturity level visualization
                 maturity_colors = {
-                    "mentioned": "🔘",
-                    "introduced": "🟡",
-                    "explained": "🟠", 
-                    "analyzed": "🔵",
-                    "synthesized": "🟣",
-                    "evolved": "🟢"
+                    "mentioned": "",
+                    "introduced": "",
+                    "explained": "", 
+                    "analyzed": "",
+                    "synthesized": "",
+                    "evolved": ""
                 }
                 
-                maturity_indicator = maturity_colors.get(concept.maturity_level, "⚪")
+                maturity_indicator = maturity_colors.get(concept.maturity_level, "")
                 st.markdown(f"**Status:** {maturity_indicator} {concept.maturity_level.title()}")
                 
                 if concept.context:
@@ -148,7 +148,7 @@ def show_concept_explorer(flow_map: InformationFlowMap):
 def show_evolution_paths(flow_map: InformationFlowMap):
     """Show concept evolution paths"""
     
-    st.subheader("🛤️ Concept Evolution Paths")
+    st.subheader(" Concept Evolution Paths")
     
     if not flow_map.evolution_paths:
         st.info("No evolution paths found.")
@@ -177,7 +177,7 @@ def show_evolution_paths(flow_map: InformationFlowMap):
 def show_concept_clusters(flow_map: InformationFlowMap):
     """Show concept clusters by theme"""
     
-    st.subheader("🎭 Concept Clusters")
+    st.subheader(" Concept Clusters")
     
     if not flow_map.concept_clusters:
         st.info("No concept clusters found.")
@@ -200,13 +200,13 @@ def show_concept_clusters(flow_map: InformationFlowMap):
                     concept = next((c for c in flow_map.concept_nodes if c.concept_name == concept_name), None)
                     if concept:
                         maturity_indicator = {
-                            "mentioned": "🔘",
-                            "defined": "🟡", 
-                            "explored": "🟠",
-                            "synthesized": "🟣",
-                            "criticized": "🔵",
-                            "evolved": "🟢"
-                        }.get(concept.maturity_level, "⚪")
+                            "mentioned": "",
+                            "defined": "", 
+                            "explored": "",
+                            "synthesized": "",
+                            "criticized": "",
+                            "evolved": ""
+                        }.get(concept.maturity_level, "")
                         st.write(f"• {maturity_indicator} {concept_name}")
                     else:
                         st.write(f"• {concept_name}")
@@ -234,7 +234,7 @@ def show_concept_clusters(flow_map: InformationFlowMap):
 def show_video_flows(flow_map: InformationFlowMap):
     """Show per-video information flows"""
     
-    st.subheader("📹 Video Concept Breakdown")
+    st.subheader(" Video Concept Breakdown")
     
     # Group concept nodes by video
     video_concepts = {}
@@ -259,16 +259,16 @@ def show_video_flows(flow_map: InformationFlowMap):
             with col1:
                 st.write(f"**Video:** {video_data['video_title']}")
                 
-                st.subheader("🧠 Concepts in this Video")
+                st.subheader(" Concepts in this Video")
                 for concept in video_data['concepts']:
                     maturity_indicator = {
-                        "mentioned": "🔘",
-                        "defined": "🟡",
-                        "explored": "🟠",
-                        "synthesized": "🟣",
-                        "criticized": "🔵",
-                        "evolved": "🟢"
-                    }.get(concept.maturity_level, "⚪")
+                        "mentioned": "",
+                        "defined": "",
+                        "explored": "",
+                        "synthesized": "",
+                        "criticized": "",
+                        "evolved": ""
+                    }.get(concept.maturity_level, "")
                     
                     st.write(f"• {maturity_indicator} {concept.concept_name} ({concept.maturity_level})")
                     if concept.context:
@@ -291,7 +291,7 @@ def show_video_flows(flow_map: InformationFlowMap):
 def show_flow_visualization(flow_map: InformationFlowMap):
     """Show interactive flow visualizations using Plotly"""
     
-    st.subheader("🌊 Interactive Flow Visualizations")
+    st.subheader(" Interactive Flow Visualizations")
     
     # Visualization type selector
     viz_type = st.selectbox(
@@ -320,7 +320,7 @@ def show_flow_visualization(flow_map: InformationFlowMap):
 def show_concept_timeline(flow_map: InformationFlowMap):
     """Interactive concept evolution timeline"""
     
-    st.markdown("### 📈 Concept Evolution Timeline")
+    st.markdown("###  Concept Evolution Timeline")
     
     if not flow_map.evolution_paths:
         st.info("No evolution paths available for timeline visualization.")
@@ -389,7 +389,7 @@ def show_concept_timeline(flow_map: InformationFlowMap):
 def show_dependency_network(flow_map: InformationFlowMap):
     """Interactive concept dependency network"""
     
-    st.markdown("### 🔗 Concept Dependency Network")
+    st.markdown("###  Concept Dependency Network")
     
     # Collect dependencies
     G = nx.DiGraph()
@@ -505,7 +505,7 @@ def show_dependency_network(flow_map: InformationFlowMap):
 def show_maturity_distribution(flow_map: InformationFlowMap):
     """Interactive maturity distribution charts"""
     
-    st.markdown("### 📊 Concept Maturity Distribution")
+    st.markdown("###  Concept Maturity Distribution")
     
     if not flow_map.concept_nodes:
         st.info("No concepts available for maturity analysis.")
@@ -603,7 +603,7 @@ def show_maturity_distribution(flow_map: InformationFlowMap):
 def show_video_flow_diagram(flow_map: InformationFlowMap):
     """Diagram showing concept distribution across videos"""
     
-    st.markdown("### 🌊 Video Concept Distribution")
+    st.markdown("###  Video Concept Distribution")
     
     if not flow_map.concept_nodes:
         st.info("No concept data available for diagram.")
@@ -682,7 +682,7 @@ def show_video_flow_diagram(flow_map: InformationFlowMap):
 def show_clusters_visualization(flow_map: InformationFlowMap):
     """Interactive concept clusters visualization"""
     
-    st.markdown("### 🎭 Concept Clusters Visualization")
+    st.markdown("###  Concept Clusters Visualization")
     
     if not flow_map.concept_clusters:
         st.info("No concept clusters available for visualization.")
@@ -767,7 +767,7 @@ def show_clusters_visualization(flow_map: InformationFlowMap):
 
 def main():
     """Main Information Flows page"""
-    st.title("🔄 Information Flow Maps")
+    st.title(" Information Flow Maps")
     
     # Get available collections
     collections_path = Path("output/collections")
@@ -804,16 +804,16 @@ def main():
             flow_map = load_information_flow_map(collection_path)
         
         if flow_map:
-            st.success(f"✅ Loaded flow map with {len(flow_map.concept_nodes)} concepts")
+            st.success(f" Loaded flow map with {len(flow_map.concept_nodes)} concepts")
             
             # Main tabs
             tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
-                "📊 Overview",
-                "🔍 Concept Explorer",
-                "🛤️ Evolution Paths", 
-                "🎭 Clusters",
-                "📹 Video Flows",
-                "🌊 Visualization"
+                " Overview",
+                " Concept Explorer",
+                " Evolution Paths", 
+                " Clusters",
+                " Video Flows",
+                " Visualization"
             ])
             
             with tab1:
@@ -835,12 +835,12 @@ def main():
                 show_flow_visualization(flow_map)
             
             # Download options
-            st.subheader("⬇️ Download Information Flow Map")
+            st.subheader("⬇ Download Information Flow Map")
             
             col1, col2 = st.columns(2)
             
             with col1:
-                if st.button("📄 Download JSON"):
+                if st.button(" Download JSON"):
                     json_data = flow_map.model_dump()
                     st.download_button(
                         label="Download information_flow_map.json",
@@ -853,7 +853,7 @@ def main():
                 # Check for markdown summary
                 summary_file = collection_path / "information_flow_summary.md"
                 if summary_file.exists():
-                    if st.button("📝 Download Summary"):
+                    if st.button(" Download Summary"):
                         with open(summary_file, 'r', encoding='utf-8') as f:
                             st.download_button(
                                 label="Download information_flow_summary.md",

@@ -191,14 +191,18 @@ class Settings(BaseSettings):
     # Performance Settings
     concurrent_downloads: int = Field(default=10)  # Increased for enterprise
     chunk_size: int = Field(
-        default=600,  # 10 minutes
-        description="Audio chunk size in seconds for processing"
+        default=180,  # 3 minutes (smaller chunks improve upload reliability)
+        description="Chunk size in seconds for processing (used for large videos)"
     )
     
     # Gemini API Settings
     gemini_request_timeout: int = Field(
         default=14400,  # 4 hours
         description="Timeout for Gemini API requests in seconds"
+    )
+    gemini_concurrent_requests: int = Field(
+        default=3,  # Conservative default to avoid rate limits/connection resets
+        description="Maximum number of concurrent requests to Gemini API"
     )
     
     # Logging
@@ -222,11 +226,11 @@ class Settings(BaseSettings):
     )
 
     @field_validator("google_api_key")
-    def validate_api_key(cls, v: str) -> str:
-        """Validate Google API key is set."""
-        if not v:
+    def validate_api_key(cls, v: str, values: "ValidationInfo") -> str:
+        """Validate Google API key is set, but only if not using Vertex AI."""
+        if not values.data.get("use_vertex_ai") and not v:
             raise ValueError(
-                "GOOGLE_API_KEY environment variable is required. "
+                "GOOGLE_API_KEY environment variable is required when not using Vertex AI. "
                 "Get one at: https://makersuite.google.com/app/apikey"
             )
         return v

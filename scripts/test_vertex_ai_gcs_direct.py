@@ -45,7 +45,7 @@ async def test_vertex_ai_direct():
             enhance_transcript=False
         )
         
-        logger.info("✅ Success!")
+        logger.info(" Success!")
         logger.info(f"Transcript: {result.get('transcript', {}).get('full_text', '')[:200]}...")
         logger.info(f"Entities: {len(result.get('entities', []))}")
         logger.info(f"Relationships: {len(result.get('relationships', []))}")
@@ -53,7 +53,7 @@ async def test_vertex_ai_direct():
         return True
         
     except Exception as e:
-        logger.error(f"❌ Failed: {e}")
+        logger.error(f" Failed: {e}")
         logger.exception("Full traceback:")
         
         # Try to get more details
@@ -68,6 +68,6 @@ if __name__ == "__main__":
     success = asyncio.run(test_vertex_ai_direct())
     
     if success:
-        print("\n✅ Vertex AI test successful!")
+        print("\n Vertex AI test successful!")
     else:
-        print("\n❌ Vertex AI test failed!") 
+        print("\n Vertex AI test failed!") 

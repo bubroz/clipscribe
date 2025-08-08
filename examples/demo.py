@@ -23,23 +23,23 @@ DEMO_VIDEO_URLS = [
 
 async def run_demo():
     """Run the ClipScribe demo with REAL data - TWO-PART PBS VIDEO."""
-    print("🚀 ClipScribe Demo - Two-Part PBS Video Intelligence")
+    print(" ClipScribe Demo - Two-Part PBS Video Intelligence")
     print("=" * 55)
     
     # Check for API key
     if not os.getenv("GOOGLE_API_KEY"):
-        print("❌ GOOGLE_API_KEY not found!")
-        print("\n🔑 You need a FREE Google API key to run ClipScribe:")
+        print(" GOOGLE_API_KEY not found!")
+        print("\n You need a FREE Google API key to run ClipScribe:")
         print("   1. Get FREE key: https://makersuite.google.com/app/apikey")
         print("   2. Create .env file: echo 'GOOGLE_API_KEY=your_key' > .env")
         print("   3. Run this demo again")
-        print(f"\n🎬 This demo will process TWO PBS videos:")
+        print(f"\n This demo will process TWO PBS videos:")
         for i, url in enumerate(DEMO_VIDEO_URLS, 1):
             print(f"   Part {i}: {url}")
         return
     
-    print("✅ Google API key detected!")
-    print(f"🎬 Processing TWO-PART PBS video series:")
+    print(" Google API key detected!")
+    print(f" Processing TWO-PART PBS video series:")
     for i, url in enumerate(DEMO_VIDEO_URLS, 1):
         print(f"   Part {i}: {url}")
     
@@ -47,7 +47,7 @@ async def run_demo():
     output_dir = Path("demo_output")
     output_dir.mkdir(exist_ok=True)
     
-    print("\n📹 Running ClipScribe batch processing...")
+    print("\n Running ClipScribe batch processing...")
     
     try:
         # Import ClipScribe after checking API key
@@ -60,7 +60,7 @@ async def run_demo():
         total_relationships = 0
         
         for i, url in enumerate(DEMO_VIDEO_URLS, 1):
-            print(f"\n🎬 Processing Part {i}/{len(DEMO_VIDEO_URLS)}: {url}")
+            print(f"\n Processing Part {i}/{len(DEMO_VIDEO_URLS)}: {url}")
             print("   ⏳ Downloading and transcribing...")
             print("   ⏳ Extracting entities and relationships...")
             print("   ⏳ Generating knowledge graph...")
@@ -78,22 +78,22 @@ async def run_demo():
                 entities_count = len(video_intelligence.entities)
                 relationships_count = len(getattr(video_intelligence, 'relationships', []))
                 
-                print(f"   ✅ Part {i} completed!")
-                print(f"   📊 Found {entities_count} entities")
-                print(f"   🔗 Found {relationships_count} relationships")
+                print(f"    Part {i} completed!")
+                print(f"    Found {entities_count} entities")
+                print(f"    Found {relationships_count} relationships")
                 
                 total_entities += entities_count
                 total_relationships += relationships_count
             else:
-                print(f"   ❌ Part {i} failed to process")
+                print(f"    Part {i} failed to process")
                 continue
         
-        print(f"\n🎉 All videos processed!")
-        print(f"📊 Total entities across both parts: {total_entities}")
-        print(f"🔗 Total relationships across both parts: {total_relationships}")
+        print(f"\n All videos processed!")
+        print(f" Total entities across both parts: {total_entities}")
+        print(f" Total relationships across both parts: {total_relationships}")
         
         # Run entity source analysis on the real data from both videos
-        print("\n📈 Running Entity Source Analysis on TWO-PART data...")
+        print("\n Running Entity Source Analysis on TWO-PART data...")
         
         import subprocess
         result = subprocess.run([
@@ -106,29 +106,29 @@ async def run_demo():
         ], capture_output=True, text=True, cwd=Path.cwd())
         
         if result.returncode == 0:
-            print("✅ Batch entity source analysis completed!")
-            print("📊 Interactive visualizations created for both videos!")
-            print("📈 Cross-video comparison charts generated!")
+            print(" Batch entity source analysis completed!")
+            print(" Interactive visualizations created for both videos!")
+            print(" Cross-video comparison charts generated!")
         else:
-            print(f"⚠️  Analysis output: {result.stderr}")
+            print(f"  Analysis output: {result.stderr}")
             
     except Exception as e:
-        print(f"❌ Error during processing: {e}")
-        print("💡 Make sure you have a valid Google API key and internet connection")
+        print(f" Error during processing: {e}")
+        print(" Make sure you have a valid Google API key and internet connection")
         return
     
     # Show what files were created
-    print(f"\n📁 Real demo files created:")
+    print(f"\n Real demo files created:")
     file_count = 0
     for file_path in output_dir.rglob("*"):
         if file_path.is_file() and file_count < 15:  # Limit output
-            print(f"   📄 {file_path.relative_to(output_dir)}")
+            print(f"    {file_path.relative_to(output_dir)}")
             file_count += 1
     
     if file_count >= 15:
         print("   ... and more files!")
     
-    print("\n🎯 TWO-PART REAL Demo Features Showcased:")
+    print("\n TWO-PART REAL Demo Features Showcased:")
     print("   • Batch processing of multiple videos")
     print("   • Real video transcription with Gemini (2 videos)")
     print("   • Cross-video entity extraction comparison")
@@ -139,15 +139,15 @@ async def run_demo():
     print("   • Excel reports with cross-video analysis")
     print("   • Video comparison charts and insights")
     
-    print(f"\n🔍 Next Steps:")
+    print(f"\n Next Steps:")
     print("   1. Check the REAL batch files in demo_output/")
     print("   2. Run: streamlit run app.py")
     print("   3. Upload the multi-video data to Streamlit")
     print("   4. Explore the video comparison features")
     print("   5. Try the research tab for more batch processing")
     
-    print(f"\n🎉 TWO-PART Demo complete! You now have REAL batch ClipScribe data.")
-    print(f"📺 Source videos:")
+    print(f"\n TWO-PART Demo complete! You now have REAL batch ClipScribe data.")
+    print(f" Source videos:")
     for i, url in enumerate(DEMO_VIDEO_URLS, 1):
         print(f"   Part {i}: {url}")
 
@@ -156,9 +156,9 @@ def main():
     try:
         asyncio.run(run_demo())
     except KeyboardInterrupt:
-        print("\n⏹️  Demo cancelled by user")
+        print("\n⏹  Demo cancelled by user")
     except Exception as e:
-        print(f"\n❌ Demo failed: {e}")
+        print(f"\n Demo failed: {e}")
 
 if __name__ == "__main__":
     main() 

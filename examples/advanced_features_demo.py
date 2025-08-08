@@ -36,7 +36,7 @@ async def demo_specific_video(video_url: str = "https://www.youtube.com/watch?v=
     Processes a single video URL and displays detailed extraction results.
     (Based on the original advanced_extraction_demo.py)
     """
-    console.print(f"\n[bold green]🎬 Demo: Processing a Single Video[/bold green]")
+    console.print(f"\n[bold green] Demo: Processing a Single Video[/bold green]")
     console.print(f"Video URL: {video_url}")
     console.print("-" * 80)
 
@@ -49,7 +49,7 @@ async def demo_specific_video(video_url: str = "https://www.youtube.com/watch?v=
         console.print("[red]Failed to process video.[/red]")
         return
 
-    console.print(f"\n[green]✓ Video processed successfully![/green]")
+    console.print(f"\n[green] Video processed successfully![/green]")
     console.print(f"Title: {result.metadata.title}")
 
     # Display detailed results tables and panels
@@ -80,7 +80,7 @@ async def demo_specific_video(video_url: str = "https://www.youtube.com/watch?v=
 
 async def demo_video_search(query: str = "James Webb Telescope discoveries"):
     """Searches for and processes multiple videos on a topic."""
-    console.print(f"\n[bold green]🔍 Demo: Searching for Videos[/bold green]")
+    console.print(f"\n[bold green] Demo: Searching for Videos[/bold green]")
     console.print(f"Query: '{query}'")
     console.print("-" * 80)
     
@@ -91,7 +91,7 @@ async def demo_video_search(query: str = "James Webb Telescope discoveries"):
         console.print(f"[yellow]No videos found for '{query}'.[/yellow]")
         return
 
-    console.print(f"✅ Found and processed {len(results)} videos.\n")
+    console.print(f" Found and processed {len(results)} videos.\n")
     for i, video in enumerate(results, 1):
         console.print(Panel(f"[bold]{video.metadata.title}[/bold]\n{video.summary}", title=f"Video {i} Summary"))
     
@@ -101,7 +101,7 @@ async def demo_video_search(query: str = "James Webb Telescope discoveries"):
 
 def demo_multi_platform():
     """Checks for multi-platform support."""
-    console.print(f"\n[bold green]🌐 Demo: Multi-Platform Support[/bold green]")
+    console.print(f"\n[bold green] Demo: Multi-Platform Support[/bold green]")
     console.print("ClipScribe uses yt-dlp to support over 1800+ video and audio sites.")
     console.print("Supported platforms include YouTube, X/Twitter, TikTok, Vimeo, SoundCloud, and many more.")
     console.print("\nRun `poetry run clipscribe platforms` for a list of common sites.")
@@ -109,7 +109,7 @@ def demo_multi_platform():
 
 async def demo_cost_analysis():
     """Provides a breakdown of processing costs."""
-    console.print(f"\n[bold green]💰 Demo: Cost Analysis[/bold green]")
+    console.print(f"\n[bold green] Demo: Cost Analysis[/bold green]")
     from clipscribe.retrievers.transcriber import GeminiFlashTranscriber
     transcriber = GeminiFlashTranscriber()
     

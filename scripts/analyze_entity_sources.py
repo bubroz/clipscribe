@@ -71,11 +71,11 @@ class EntitySourceAnalyzer:
                 # This is a video_intelligence.json file - convert format
                 return self._convert_video_intelligence_format(data, file_path)
             else:
-                print(f"⚠️  Unknown format in {file_path}")
+                print(f"  Unknown format in {file_path}")
                 return None
                 
         except Exception as e:
-            print(f"❌ Error loading {file_path}: {e}")
+            print(f" Error loading {file_path}: {e}")
             return None
     
     def _convert_video_intelligence_format(self, data: Dict[str, Any], file_path: Path) -> Dict[str, Any]:
@@ -173,7 +173,7 @@ class EntitySourceAnalyzer:
         all_confidences = []
         
         for file_path in video_files:
-            print(f"📹 Analyzing {file_path.parent.name}...")
+            print(f" Analyzing {file_path.parent.name}...")
             
             video_data = self.load_video_data(file_path)
             if not video_data:
@@ -253,42 +253,42 @@ class EntitySourceAnalyzer:
         if summary['total_videos'] > 0:
             success_rate = summary['successful_analyses'] / summary['total_videos']
             if success_rate < 0.9:
-                insights.append(f"⚠️  Low success rate: {success_rate:.1%} of videos analyzed successfully")
+                insights.append(f"  Low success rate: {success_rate:.1%} of videos analyzed successfully")
             else:
-                insights.append(f"✅ High success rate: {success_rate:.1%} of videos analyzed successfully")
+                insights.append(f" High success rate: {success_rate:.1%} of videos analyzed successfully")
         
         # Source diversity insight
         source_count = len(source_dist)
         if source_count >= 3:
-            insights.append(f"🔍 Good method diversity: {source_count} extraction methods active")
+            insights.append(f" Good method diversity: {source_count} extraction methods active")
         elif source_count == 2:
-            insights.append(f"⚡ Moderate method diversity: {source_count} extraction methods active")
+            insights.append(f" Moderate method diversity: {source_count} extraction methods active")
         else:
-            insights.append(f"⚠️  Low method diversity: Only {source_count} extraction method(s) active")
+            insights.append(f"  Low method diversity: Only {source_count} extraction method(s) active")
         
         # Confidence distribution insight
         total_entities = sum(conf_dist.values())
         if total_entities > 0:
             high_conf_ratio = conf_dist['high'] / total_entities
             if high_conf_ratio > 0.7:
-                insights.append(f"🎯 High confidence extractions: {high_conf_ratio:.1%} of entities")
+                insights.append(f" High confidence extractions: {high_conf_ratio:.1%} of entities")
             elif high_conf_ratio > 0.4:
-                insights.append(f"📊 Moderate confidence extractions: {high_conf_ratio:.1%} of entities")
+                insights.append(f" Moderate confidence extractions: {high_conf_ratio:.1%} of entities")
             else:
-                insights.append(f"⚠️  Low confidence extractions: {high_conf_ratio:.1%} of entities")
+                insights.append(f"  Low confidence extractions: {high_conf_ratio:.1%} of entities")
         
         # Top performing method
         if source_dist:
             top_method = max(source_dist.items(), key=lambda x: x[1])
             percentage = (top_method[1] / summary['total_entities']) * 100
-            insights.append(f"🏆 Top performing method: {top_method[0]} ({percentage:.1f}% of entities)")
+            insights.append(f" Top performing method: {top_method[0]} ({percentage:.1f}% of entities)")
         
         return insights
     
     def create_visualizations(self, analysis: Dict[str, Any], output_dir: Path) -> List[Path]:
         """Create interactive Plotly visualizations for the analysis."""
         if not PLOTLY_AVAILABLE:
-            print("⚠️  Plotly not available. Install with: pip install plotly")
+            print("  Plotly not available. Install with: pip install plotly")
             return []
         
         viz_files = []
@@ -564,9 +564,9 @@ class EntitySourceAnalyzer:
         try:
             with open(output_file, 'w', encoding='utf-8') as f:
                 json.dump(analysis, f, indent=2, default=str)
-            print(f"📊 Analysis report saved to: {output_file}")
+            print(f" Analysis report saved to: {output_file}")
         except Exception as e:
-            print(f"❌ Error saving report: {e}")
+            print(f" Error saving report: {e}")
     
     def save_csv_report(self, analysis: Dict[str, Any], output_file: Path):
         """Save analysis results to a CSV file."""
@@ -614,10 +614,10 @@ class EntitySourceAnalyzer:
             
             df = pd.DataFrame(csv_data)
             df.to_csv(output_file, index=False)
-            print(f"📈 CSV report saved to: {output_file}")
+            print(f" CSV report saved to: {output_file}")
             
         except Exception as e:
-            print(f"❌ Error saving CSV report: {e}")
+            print(f" Error saving CSV report: {e}")
     
     def save_excel_report(self, analysis: Dict[str, Any], output_file: Path):
         """Save analysis results to an Excel file with multiple sheets."""
@@ -712,11 +712,11 @@ class EntitySourceAnalyzer:
                         ])
                         type_df.to_excel(writer, sheet_name='Type Breakdown', index=False)
             
-            print(f"📊 Excel report saved to: {output_file}")
+            print(f" Excel report saved to: {output_file}")
             
         except Exception as e:
-            print(f"❌ Error saving Excel report: {e}")
-            print("💡 Make sure openpyxl is installed: pip install openpyxl")
+            print(f" Error saving Excel report: {e}")
+            print(" Make sure openpyxl is installed: pip install openpyxl")
     
     def generate_markdown_report(self, analysis: Dict[str, Any]) -> str:
         """Generate a comprehensive markdown report."""
@@ -726,7 +726,7 @@ class EntitySourceAnalyzer:
         if 'video_analyses' in analysis:
             # Batch analysis report
             summary = analysis['summary']
-            report.append("## 📊 Batch Analysis Summary\n")
+            report.append("##  Batch Analysis Summary\n")
             report.append(f"- **Total Videos**: {summary['total_videos']}")
             report.append(f"- **Successfully Analyzed**: {summary['successful_analyses']}")
             report.append(f"- **Failed Analyses**: {summary['failed_analyses']}")
@@ -735,7 +735,7 @@ class EntitySourceAnalyzer:
             # Source distribution
             source_dist = analysis['aggregated_stats']['source_distribution']
             if source_dist:
-                report.append("## 🔍 Extraction Method Performance\n")
+                report.append("##  Extraction Method Performance\n")
                 report.append("| Method | Entity Count | Percentage |\n")
                 report.append("|--------|--------------|------------|\n")
                 
@@ -747,14 +747,14 @@ class EntitySourceAnalyzer:
             
             # Quality insights
             if analysis.get('quality_insights'):
-                report.append("## 💡 Quality Insights\n")
+                report.append("##  Quality Insights\n")
                 for insight in analysis['quality_insights']:
                     report.append(f"- {insight}")
                 report.append("")
             
             # Method comparison
             if analysis.get('method_comparison'):
-                report.append("## ⚡ Method Effectiveness\n")
+                report.append("##  Method Effectiveness\n")
                 for method, stats in analysis['method_comparison'].items():
                     report.append(f"### {method}")
                     report.append(f"- **Entities**: {stats['entity_count']}")
@@ -765,13 +765,13 @@ class EntitySourceAnalyzer:
         else:
             # Single video analysis report
             video_info = analysis['video_info']
-            report.append("## 📹 Single Video Analysis\n")
+            report.append("##  Single Video Analysis\n")
             report.append(f"- **Title**: {video_info['title']}")
             report.append(f"- **Total Entities**: {video_info['total_entities']}\n")
             
             # Source breakdown
             if analysis['source_breakdown']:
-                report.append("### 🔍 Source Breakdown\n")
+                report.append("###  Source Breakdown\n")
                 for source, count in analysis['source_breakdown'].items():
                     percentage = (count / video_info['total_entities']) * 100 if video_info['total_entities'] > 0 else 0
                     report.append(f"- **{source}**: {count} entities ({percentage:.1f}%)")
@@ -779,7 +779,7 @@ class EntitySourceAnalyzer:
             
             # Quality metrics
             quality = analysis['quality_metrics']
-            report.append("### 📊 Quality Metrics\n")
+            report.append("###  Quality Metrics\n")
             report.append(f"- **Average Confidence**: {quality['avg_confidence']:.2f}")
             report.append(f"- **High Confidence Ratio**: {quality['high_confidence_ratio']:.1%}")
             report.append(f"- **Source Diversity**: {quality['source_diversity']} methods")
@@ -802,7 +802,7 @@ def main():
     args = parser.parse_args()
     
     if not args.output_dir and not args.single_video:
-        print("❌ Please specify either --output-dir or --single-video")
+        print(" Please specify either --output-dir or --single-video")
         return
     
     if args.single_video:
@@ -816,12 +816,12 @@ def main():
                 source_files.append(json_file)
         
         if not source_files:
-            print(f"❌ No entity source files found in {args.single_video}")
+            print(f" No entity source files found in {args.single_video}")
             return
         
         video_data = analyzer.load_video_data(source_files[0])
         if not video_data:
-            print("❌ Failed to load video data")
+            print(" Failed to load video data")
             return
         
         analysis = analyzer.analyze_single_video(video_data)
@@ -843,19 +843,19 @@ def main():
             md_content = analyzer.generate_markdown_report(analysis)
             with open(md_file, 'w', encoding='utf-8') as f:
                 f.write(md_content)
-            print(f"📄 Markdown report saved to: {md_file}")
+            print(f" Markdown report saved to: {md_file}")
         
         if args.create_visualizations:
             viz_files = analyzer.create_visualizations(analysis, args.single_video)
             if viz_files:
-                print(f"📊 Created {len(viz_files)} visualization files:")
+                print(f" Created {len(viz_files)} visualization files:")
                 for viz_file in viz_files:
-                    print(f"   📈 {viz_file}")
+                    print(f"    {viz_file}")
         
-        print(f"\n🎯 Analysis Complete!")
-        print(f"📊 Found {analysis['video_info']['total_entities']} entities")
-        print(f"🔍 {analysis['quality_metrics']['source_diversity']} extraction methods used")
-        print(f"📈 Average confidence: {analysis['quality_metrics']['avg_confidence']:.2f}")
+        print(f"\n Analysis Complete!")
+        print(f" Found {analysis['video_info']['total_entities']} entities")
+        print(f" {analysis['quality_metrics']['source_diversity']} extraction methods used")
+        print(f" Average confidence: {analysis['quality_metrics']['avg_confidence']:.2f}")
         
     else:
         # Batch analysis
@@ -863,10 +863,10 @@ def main():
         source_files = analyzer.find_entity_source_files()
         
         if not source_files:
-            print(f"❌ No entity source files found in {args.output_dir}")
+            print(f" No entity source files found in {args.output_dir}")
             return
         
-        print(f"🔍 Found {len(source_files)} videos to analyze...")
+        print(f" Found {len(source_files)} videos to analyze...")
         analysis = analyzer.analyze_batch(source_files)
         
         # Save results
@@ -887,23 +887,23 @@ def main():
             md_content = analyzer.generate_markdown_report(analysis)
             with open(md_file, 'w', encoding='utf-8') as f:
                 f.write(md_content)
-            print(f"📄 Markdown report saved to: {md_file}")
+            print(f" Markdown report saved to: {md_file}")
         
         if args.create_visualizations:
             viz_files = analyzer.create_visualizations(analysis, args.output_dir)
             if viz_files:
-                print(f"📊 Created {len(viz_files)} visualization files:")
+                print(f" Created {len(viz_files)} visualization files:")
                 for viz_file in viz_files:
-                    print(f"   📈 {viz_file}")
+                    print(f"    {viz_file}")
         
         # Display summary
         summary = analysis['summary']
-        print(f"\n🎯 Batch Analysis Complete!")
-        print(f"📹 Analyzed {summary['successful_analyses']}/{summary['total_videos']} videos")
-        print(f"📊 Total entities: {summary['total_entities']}")
+        print(f"\n Batch Analysis Complete!")
+        print(f" Analyzed {summary['successful_analyses']}/{summary['total_videos']} videos")
+        print(f" Total entities: {summary['total_entities']}")
         
         if analysis.get('quality_insights'):
-            print("\n💡 Key Insights:")
+            print("\n Key Insights:")
             for insight in analysis['quality_insights'][:3]:  # Show top 3 insights
                 print(f"   {insight}")
 

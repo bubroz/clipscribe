@@ -293,7 +293,7 @@ class PerformanceMonitor:
             with open(report_path, "w", encoding="utf-8") as f:
                 json.dump(report, f, indent=2, default=str)
             
-            print(f"📊 Performance report saved to: {report_path}")
+            print(f" Performance report saved to: {report_path}")
             
             # Also save a human-readable summary
             self.save_summary_report(report['summary'])
@@ -317,7 +317,7 @@ class PerformanceMonitor:
                 # Model Cache Performance
                 cache_stats = summary['model_cache_stats']
                 if cache_stats['total_hits'] + cache_stats['total_misses'] > 0:
-                    f.write("## 🚀 Model Cache Performance\n\n")
+                    f.write("##  Model Cache Performance\n\n")
                     f.write(f"- **Overall Hit Rate**: {cache_stats['hit_rate']:.1%}\n")
                     f.write(f"- **Total Cache Hits**: {cache_stats['total_hits']}\n")
                     f.write(f"- **Total Cache Misses**: {cache_stats['total_misses']}\n\n")
@@ -335,7 +335,7 @@ class PerformanceMonitor:
                 # Batch Processing Performance
                 batch_stats = summary['batch_stats']
                 if batch_stats:
-                    f.write("## 📊 Batch Processing Performance\n\n")
+                    f.write("##  Batch Processing Performance\n\n")
                     f.write(f"- **Videos Processed**: {batch_stats['videos_processed']}\n")
                     f.write(f"- **Success Rate**: {batch_stats['success_rate']:.1%}\n")
                     f.write(f"- **Total Entities**: {batch_stats['total_entities']}\n")
@@ -351,12 +351,12 @@ class PerformanceMonitor:
                 
                 # Recommendations
                 if summary['recommendations']:
-                    f.write("## 💡 Recommendations\n\n")
+                    f.write("##  Recommendations\n\n")
                     for rec in summary['recommendations']:
                         f.write(f"- {rec}\n")
                     f.write("\n")
             
-            print(f"📄 Performance summary saved to: {summary_path}")
+            print(f" Performance summary saved to: {summary_path}")
             
         except IOError as e:
             print(f"Error saving performance summary: {e}")

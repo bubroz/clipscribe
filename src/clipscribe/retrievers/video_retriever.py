@@ -2,15 +2,15 @@
 
 import asyncio
 import logging
-from typing import List, Dict, Optional, Any
+from typing import List, Dict, Optional, Any, Callable
 from datetime import datetime
 import os
 import json
 from pathlib import Path
-import networkx as nx
 import csv
 from collections import defaultdict
 
+import time
 from ..models import VideoIntelligence, VideoTranscript, KeyPoint, Entity, Topic, Relationship, MultiVideoIntelligence
 from .universal_video_client import UniversalVideoClient
 from .transcriber import GeminiFlashTranscriber
@@ -18,7 +18,8 @@ from .video_retention_manager import VideoRetentionManager
 from ..utils.filename import create_output_filename, create_output_structure, extract_platform_from_url
 from ..config.settings import Settings, TemporalIntelligenceLevel, VideoRetentionPolicy
 from ..utils.file_utils import calculate_sha256
-from ..utils.cli_progress import CliProgressManager
+from ..utils.performance import PerformanceMonitor
+
 # Timeline features permanently discontinued per strategic pivot
 
 logger = logging.getLogger(__name__)
@@ -45,11 +46,13 @@ class VideoIntelligenceRetriever:
         output_dir: Optional[str] = None,
         enhance_transcript: bool = False,
         performance_monitor: Optional['PerformanceMonitor'] = None,
-        cost_tracker: Optional['CostTracker'] = None,
         use_flash: bool = False,
         cookies_from_browser: Optional[str] = None,
         settings: Optional[Settings] = None,
-        progress: Optional[CliProgressManager] = None
+        on_phase_start: Optional[Callable[[str, str], None]] = None,
+        on_phase_complete: Optional[Callable[[str, float], None]] = None,
+        on_error: Optional[Callable[[str, str], None]] = None,
+        on_phase_log: Optional[Callable[[str, float], None]] = None
     ):
         """Initialize the retriever."""
         self.use_pro = not use_flash
@@ -63,9 +66,12 @@ class VideoIntelligenceRetriever:
         self.enhance_transcript = enhance_transcript
         self.clean_graph = False
         self.performance_monitor = performance_monitor
-        self.cost_tracker = cost_tracker
         self.cookies_from_browser = cookies_from_browser
-        self.progress = progress
+        self.on_phase_start = on_phase_start or (lambda _name, _status: None)
+        self.on_phase_complete = on_phase_complete or (lambda _name, _cost: None)
+        self.on_error = on_error or (lambda _name, _error: None)
+        self.on_phase_log = on_phase_log or (lambda _name, _duration: None)
+        self.on_phase_start = on_phase_start or (lambda _name, _status: None)
         
         self.use_advanced_extraction = use_advanced_extraction
         
@@ -157,90 +163,94 @@ class VideoIntelligenceRetriever:
         """
         if not self.video_client.is_supported_url(video_url):
             logger.error(f"URL not supported by yt-dlp: {video_url}")
-            if self.progress:
-                self.progress.log_error("Downloading", f"URL not supported: {video_url}")
+            self.on_error("Downloading", f"URL not supported: {video_url}")
             return None
             
         try:
             return await self._process_video_enhanced(video_url)
         except Exception as e:
             logger.error(f"Exception in process_url: {e}", exc_info=True)
-            if self.progress:
-                self.progress.log_error("Processing", str(e))
+            self.on_error("Processing", str(e))
             return None
 
     async def _process_video_enhanced(self, video_url: str) -> Optional[VideoIntelligence]:
         """Process a single video, handling all phases."""
-        current_cost = self.cost_tracker.current_cost if self.cost_tracker else 0.0
         
-        # Phase: Downloading
-        if self.progress:
-            self.progress.update_phase("Downloading", "In Progress...", cost=current_cost)
+        start_time = time.monotonic()
+        phase_name = "Downloading"
+        self.on_phase_start(phase_name, "In Progress...")
+        try:
+            cache_key = self._get_cache_key(video_url)
+            if self.use_cache:
+                cached_result = self._load_from_cache(cache_key)
+                if cached_result:
+                    logger.info(f"Using cached result for: {video_url}")
+                    self.on_phase_complete(phase_name, 0.0)
+                    self.on_phase_log(phase_name, time.monotonic() - start_time)
+                    return cached_result
+            
+            media_file, metadata = await self.video_client.download_video(
+                video_url, 
+                output_dir=self.cache_dir,
+                cookies_from_browser=self.cookies_from_browser
+            )
+            self.on_phase_complete(phase_name, 0.0)
+        finally:
+            self.on_phase_log(phase_name, time.monotonic() - start_time)
 
-        cache_key = self._get_cache_key(video_url)
-        if self.use_cache:
-            cached_result = self._load_from_cache(cache_key)
-            if cached_result:
-                logger.info(f"Using cached result for: {video_url}")
-                if self.progress:
-                    self.progress.complete_phase("Downloading", cost=current_cost)
-                return cached_result
-        
-        media_file, metadata = await self.video_client.download_video(
-            video_url, 
-            output_dir=self.cache_dir,
-            cookies_from_browser=self.cookies_from_browser
-        )
-        
-        if self.progress:
-            self.progress.complete_phase("Downloading", cost=current_cost)
-        
         media_path = Path(media_file)
         try:
             # Phase: Transcribing
-            if self.progress:
-                self.progress.update_phase("Transcribing", "In Progress...", cost=current_cost)
+            phase_name = "Transcribing"
+            start_time = time.monotonic()
+            self.on_phase_start(phase_name, "In Progress...")
+            try:
+                if metadata.duration > 900:  # 15 minutes threshold
+                    analysis = await self.transcriber.transcribe_large_video(media_file, metadata.duration)
+                else:
+                    analysis = await self.transcriber.transcribe_video(media_file, metadata.duration)
 
-            if metadata.duration > 900:  # 15 minutes threshold
-                analysis = await self.transcriber.transcribe_large_video(media_file, metadata.duration)
-            else:
-                analysis = await self.transcriber.transcribe_video(media_file, metadata.duration)
+                if not analysis or "error" in analysis:
+                    raise Exception(f"Transcription failed: {analysis.get('error', 'Unknown error')}")
 
-            if not analysis or "error" in analysis:
-                raise Exception(f"Transcription failed: {analysis.get('error', 'Unknown error')}")
-
-            if self.cost_tracker:
-                self.cost_tracker.add_cost(analysis.get('processing_cost', 0.0), "transcription")
-                current_cost = self.cost_tracker.current_cost
-
-            if self.progress:
-                self.progress.complete_phase("Transcribing", cost=current_cost)
+                self.on_phase_complete(phase_name, analysis.get('processing_cost', 0.0))
+            finally:
+                self.on_phase_log(phase_name, time.monotonic() - start_time)
 
             video_intelligence = self._create_video_intelligence_object(metadata, analysis)
 
             # Phase: Extracting Intelligence
             if self.use_advanced_extraction and self.entity_extractor:
-                if self.progress:
-                    self.progress.update_phase("Extracting Intelligence", "In Progress...", cost=current_cost)
-                video_intelligence = await self.entity_extractor.extract_all(video_intelligence, domain=self.domain)
-                if self.progress:
-                    self.progress.complete_phase("Extracting Intelligence", cost=current_cost)
+                phase_name = "Extracting Intelligence"
+                start_time = time.monotonic()
+                self.on_phase_start(phase_name, "In Progress...")
+                try:
+                    video_intelligence = await self.entity_extractor.extract_all(video_intelligence, domain=self.domain)
+                    self.on_phase_complete(phase_name, 0.0)
+                finally:
+                    self.on_phase_log(phase_name, time.monotonic() - start_time)
 
             # Phase: Building Knowledge Graph
             if video_intelligence.entities and video_intelligence.relationships:
-                if self.progress:
-                    self.progress.update_phase("Building Knowledge Graph", "In Progress...", cost=current_cost)
-                video_intelligence = self._build_knowledge_graph(video_intelligence)
-                if self.progress:
-                    self.progress.complete_phase("Building Knowledge Graph", cost=current_cost)
+                phase_name = "Building Knowledge Graph"
+                start_time = time.monotonic()
+                self.on_phase_start(phase_name, "In Progress...")
+                try:
+                    video_intelligence = self._build_knowledge_graph(video_intelligence)
+                    self.on_phase_complete(phase_name, 0.0)
+                finally:
+                    self.on_phase_log(phase_name, time.monotonic() - start_time)
             
             # Phase: Video Retention
-            if self.progress:
-                self.progress.update_phase("Video Retention", "Applying Policy...", cost=current_cost)
-            retention_result = await self.retention_manager.handle_video_retention(media_path, video_intelligence)
-            video_intelligence.processing_stats['retention_decision'] = retention_result
-            if self.progress:
-                self.progress.complete_phase("Video Retention", cost=current_cost)
+            phase_name = "Video Retention"
+            start_time = time.monotonic()
+            self.on_phase_start(phase_name, "Applying Policy...")
+            try:
+                retention_result = await self.retention_manager.handle_video_retention(media_path, video_intelligence)
+                video_intelligence.processing_stats['retention_decision'] = retention_result
+                self.on_phase_complete(phase_name, 0.0)
+            finally:
+                self.on_phase_log(phase_name, time.monotonic() - start_time)
             
             self._save_to_cache(cache_key, video_intelligence)
             return video_intelligence
@@ -300,9 +310,9 @@ class VideoIntelligenceRetriever:
         return "enhanced"
     
     # Keep existing methods unchanged
-    async def _process_video(self, video_url: str, progress_state: Optional[Dict[str, Any]] = None) -> Optional[VideoIntelligence]:
+    async def _process_video(self, video_url: str) -> Optional[VideoIntelligence]:
         """Legacy method - redirects to enhanced processing."""
-        return await self._process_video_enhanced(video_url, progress_state)
+        return await self._process_video_enhanced(video_url)
     
     def _get_cache_key(self, video_url: str) -> str:
         """Generate cache key from URL."""
@@ -319,7 +329,9 @@ class VideoIntelligenceRetriever:
             try:
                 with open(cache_file, 'r') as f:
                     data = json.load(f)
-                return VideoIntelligence.parse_obj(data)
+                result = VideoIntelligence.parse_obj(data)
+                result.is_from_cache = True
+                return result
             except:
                 pass
         
@@ -493,13 +505,17 @@ class VideoIntelligenceRetriever:
         self._save_report_file(video, paths)
         if include_chimera_format:
             self._save_chimera_file(video, paths)
-        # Save TimelineJS if Timeline v2.0 data exists
-        self._save_timelinejs_file(video, paths)
+
 
         self._create_manifest_file(video, paths)
 
         logger.info(f"Saved all formats to: {paths['directory']}")
         return paths
+
+    def get_saved_files(self, video: VideoIntelligence, output_dir: str = "output") -> Dict[str, Path]:
+        """Gets the expected paths for saved files without actually saving them."""
+        metadata = self._get_video_metadata_dict(video)
+        return create_output_structure(metadata, output_dir)
 
     def _get_video_metadata_dict(self, video: VideoIntelligence) -> Dict[str, Any]:
         """Extracts video metadata into a dictionary."""
@@ -546,7 +562,7 @@ class VideoIntelligenceRetriever:
                 "entities": [
                     {
                         # Handle both Entity/EnhancedEntity (has .entity) and dict format (has 'name')
-                        "entity": e.entity if hasattr(e, 'entity') else e.get('name', ''),
+                        "name": e.name if hasattr(e, 'name') else e.get('name', ''),
                         "type": e.type if hasattr(e, 'type') else e.get('type', ''),
 
                         "extraction_sources": getattr(e, 'extraction_sources', []),
@@ -633,7 +649,7 @@ class VideoIntelligenceRetriever:
             "video_title": video.metadata.title,
             "entities": [
                 {
-                    "name": e.entity,
+                    "name": e.name,
                     "type": e.type,
 
                     "source": getattr(e, 'extraction_sources', getattr(e, 'source', 'unknown')),
@@ -657,7 +673,7 @@ class VideoIntelligenceRetriever:
             writer.writerow(["name", "type", "source", "timestamp", "mention_count"])
             for entity in all_entities:
                 writer.writerow([
-                    entity.entity,
+                    entity.name,
                     entity.type,
 
                     getattr(entity, 'extraction_sources', getattr(entity, 'source', 'unknown')),
@@ -802,14 +818,14 @@ class VideoIntelligenceRetriever:
         f.write(f"**Published**: {published_date}\n")
         f.write(f"**Processed**: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n")
         cost = video.processing_cost
-        cost_emoji = "🟢" if cost < 0.10 else ("🟡" if cost < 0.50 else "🔴")
+        cost_emoji = "" if cost < 0.10 else ("" if cost < 0.50 else "")
         f.write(f"**Processing Cost**: {cost_emoji} ${cost:.4f}\n\n")
         f.write("## Executive Summary\n\n")
         f.write(f"{video.summary}\n\n")
 
     def _write_report_dashboard(self, f, video: VideoIntelligence):
         """Writes the quick stats dashboard section."""
-        f.write("## 📊 Quick Stats Dashboard\n\n")
+        f.write("##  Quick Stats Dashboard\n\n")
         f.write('<details open>\n<summary><b>Click to toggle stats</b></summary>\n\n')
         f.write("| Metric | Count | Visualization |\n")
         f.write("|--------|-------|---------------|\n")
@@ -817,14 +833,14 @@ class VideoIntelligenceRetriever:
         stats = {
             "Transcript Length": (len(video.transcript.full_text), "chars", "█", 2000),
             "Word Count": (len(video.transcript.full_text.split()), "words", "█", 500),
-            "Entities Extracted": (len(video.entities) + len(getattr(video, 'custom_entities', [])), "", "🔵", 10),
-            "Relationships Found": (len(getattr(video, 'relationships', [])), "", "🔗", 10),
-            "Key Points": (len(video.key_points), "", "📌", 3),
-            "Topics": (len(video.topics), "", "🏷️", 1)
+            "Entities Extracted": (len(video.entities) + len(getattr(video, 'custom_entities', [])), "", "", 10),
+            "Relationships Found": (len(getattr(video, 'relationships', [])), "", "", 10),
+            "Key Points": (len(video.key_points), "", "", 3),
+            "Topics": (len(video.topics), "", "", 1)
         }
         if hasattr(video, 'knowledge_graph') and video.knowledge_graph:
             stats["Graph Nodes"] = (video.knowledge_graph.get('node_count', 0), "", "⭕", 10)
-            stats["Graph Edges"] = (video.knowledge_graph.get('edge_count', 0), "", "➡️", 10)
+            stats["Graph Edges"] = (video.knowledge_graph.get('edge_count', 0), "", "", 10)
 
         for name, (count, unit, icon, scale) in stats.items():
             bar = icon * min(20, int(count / scale)) if scale > 0 else icon * min(count, 10)
@@ -834,7 +850,7 @@ class VideoIntelligenceRetriever:
 
     def _write_report_topics(self, f, video: VideoIntelligence):
         """Writes the topics section of the report."""
-        f.write("## 🏷️ Main Topics\n\n")
+        f.write("##  Main Topics\n\n")
         f.write('<details>\n<summary><b>View all topics</b></summary>\n\n')
         for i, topic in enumerate(video.topics[:15], 1):
             topic_name = topic.name if hasattr(topic, 'name') else topic
@@ -848,12 +864,20 @@ class VideoIntelligenceRetriever:
         if not hasattr(video, 'relationships') or not video.relationships:
             return
 
-        f.write("## 🕸️ Knowledge Graph Visualization\n\n")
+        f.write("##  Knowledge Graph Visualization\n\n")
         f.write('<details>\n<summary><b>Interactive relationship diagram (Mermaid)</b></summary>\n\n')
         f.write("```mermaid\ngraph TD\n    %% Top Entity Relationships\n")
 
         all_entities_for_graph = list(getattr(video, 'entities', [])) + list(getattr(video, 'custom_entities', []))
-        entity_map = {e.entity: e for e in all_entities_for_graph}
+        entity_map = {}
+        for e in all_entities_for_graph:
+            name = getattr(e, 'name', None)
+            if not name and hasattr(e, 'entity'):
+                name = getattr(e, 'entity')
+            if not name and isinstance(e, dict):
+                name = e.get('name')
+            if name:
+                entity_map[name] = e
         top_relationships = sorted(video.relationships, key=lambda r: getattr(r, 'confidence', 0), reverse=True)
 
         shown_relationships, relationships_to_render = set(), []
@@ -891,7 +915,7 @@ class VideoIntelligenceRetriever:
 
     def _write_report_entity_analysis(self, f, video: VideoIntelligence):
         """Writes the entity analysis section with Mermaid pie chart."""
-        f.write("## 🔍 Entity Analysis\n\n")
+        f.write("##  Entity Analysis\n\n")
         all_entities = list(getattr(video, 'entities', [])) + list(getattr(video, 'custom_entities', []))
         if not all_entities:
             return
@@ -910,18 +934,19 @@ class VideoIntelligenceRetriever:
             f.write(f'    "Others" : {others}\n')
         f.write("```\n\n")
 
-        type_emoji_map = {'PERSON': '👤', 'ORGANIZATION': '🏢', 'LOCATION': '📍', 'PRODUCT': '📦', 'EVENT': '📅', 'DATE': '📆', 'MONEY': '💰', 'software': '💻', 'api': '🔌', 'platform': '🌐', 'framework': '🛠️', 'model': '🤖', 'channel': '📺'}
+        type_emoji_map = {'PERSON': '', 'ORGANIZATION': '', 'LOCATION': '', 'PRODUCT': '', 'EVENT': '', 'DATE': '', 'MONEY': '', 'software': '', 'api': '', 'platform': '', 'framework': '', 'model': '', 'channel': ''}
         for entity_type in sorted(entities_by_type.keys()):
             entities = sorted(entities_by_type[entity_type], key=lambda e: getattr(e, 'confidence', 0), reverse=True)
-            type_emoji = type_emoji_map.get(entity_type, '🏷️')
+            type_emoji = type_emoji_map.get(entity_type, '')
             f.write(f"\n<details>\n<summary><b>{type_emoji} {entity_type} ({len(entities)} found)</b></summary>\n\n")
             if entities:
                 f.write("| Name | Confidence | Source |\n|------|------------|--------|\n")
                 for entity in entities[:15]:
                     conf = getattr(entity, 'confidence', 0.0)
                     source = getattr(entity, 'source', 'SpaCy')
-                    conf_bar = '🟩' if conf > 0.8 else ('🟨' if conf > 0.6 else '🟥')
-                    f.write(f"| {entity.entity} | {conf_bar} {conf:.2f} | {source} |\n")
+                    conf_bar = '' if conf > 0.8 else ('' if conf > 0.6 else '')
+                    name = getattr(entity, 'name', getattr(entity, 'entity', str(entity)))
+                    f.write(f"| {name} | {conf_bar} {conf:.2f} | {source} |\n")
                 if len(entities) > 15:
                     f.write(f"\n*... and {len(entities) - 15} more {entity_type.lower()} entities*\n")
             f.write("\n</details>\n")
@@ -931,7 +956,7 @@ class VideoIntelligenceRetriever:
         if not hasattr(video, 'relationships') or not video.relationships:
             return
 
-        f.write("\n## 🔗 Relationship Network\n\n")
+        f.write("\n##  Relationship Network\n\n")
         rel_types = {}
         for rel in video.relationships:
             rel_types[rel.predicate] = rel_types.get(rel.predicate, 0) + 1
@@ -948,24 +973,24 @@ class VideoIntelligenceRetriever:
         f.write("<details>\n<summary><b>Key relationships (top 30)</b></summary>\n\n")
         for i, rel in enumerate(sorted(video.relationships, key=lambda r: getattr(r, 'confidence', 0), reverse=True)[:30], 1):
             conf = getattr(rel, 'confidence', 0.0)
-            conf_emoji = '🟩' if conf > 0.8 else ('🟨' if conf > 0.6 else '🟥')
+            conf_emoji = '' if conf > 0.8 else ('' if conf > 0.6 else '')
             f.write(f"{i}. **{rel.subject}** *{rel.predicate}* **{rel.object}** {conf_emoji} ({conf:.2f})\n")
         f.write("\n</details>\n\n")
 
     def _write_report_key_insights(self, f, video: VideoIntelligence):
         """Writes the key insights section."""
-        f.write("## 💡 Key Insights\n\n")
+        f.write("##  Key Insights\n\n")
         f.write("<details open>\n<summary><b>Top 10 key points</b></summary>\n\n")
         top_points = sorted(video.key_points, key=lambda p: getattr(p, 'importance', 0.5), reverse=True)[:10]
         for i, point in enumerate(top_points, 1):
             importance = getattr(point, 'importance', 0.5)
-            imp_emoji = '🔴' if importance > 0.8 else ('🟡' if importance > 0.6 else '⚪')
+            imp_emoji = '' if importance > 0.8 else ('' if importance > 0.6 else '')
             f.write(f"{i}. {imp_emoji} {point.text}\n")
         f.write("\n</details>\n\n")
 
     def _write_report_file_index(self, f, paths: Dict[str, Path]):
         """Writes the generated files index."""
-        f.write("## 📁 Generated Files\n\n")
+        f.write("##  Generated Files\n\n")
         f.write("<details>\n<summary><b>Click to see all files</b></summary>\n\n")
         f.write("| File | Format | Size | Description |\n")
         f.write("|------|--------|------|-------------|\n")
@@ -997,7 +1022,7 @@ class VideoIntelligenceRetriever:
         f.write("---\n")
         version = video.processing_stats.get('version', '2.6.0') if hasattr(video, 'processing_stats') else '2.6.0'
         f.write(f"*Generated by ClipScribe v{version} on {datetime.now().strftime('%Y-%m-%d at %H:%M:%S')}*\n")
-        f.write("\n💡 **Tip**: This markdown file supports Mermaid diagrams. View it in a compatible editor for interactive diagrams.\n")
+        f.write("\n **Tip**: This markdown file supports Mermaid diagrams. View it in a compatible editor for interactive diagrams.\n")
 
     def _create_manifest_file(self, video: VideoIntelligence, paths: Dict[str, Path]):
         """Creates the manifest.json file."""
@@ -1026,8 +1051,7 @@ class VideoIntelligenceRetriever:
             "entities_csv": {"path": "entities.csv", "format": "csv", "description": "All entities in CSV format"},
             "relationships_csv": {"path": "relationships.csv", "format": "csv", "description": "All relationships in CSV format"},
             "report": {"path": "report.md", "format": "markdown", "description": "Human-readable intelligence report"},
-            "chimera": {"path": "chimera_format.json", "format": "json", "description": "Chimera-compatible format"},
-            "timeline_js": {"path": "timeline_js.json", "format": "json", "description": "TimelineJS3-compatible timeline visualization"}
+            "chimera": {"path": "chimera_format.json", "format": "json", "description": "Chimera-compatible format"}
         }
 
         for key, definition in file_definitions.items():
@@ -1056,74 +1080,6 @@ class VideoIntelligenceRetriever:
         with open(chimera_path, 'w', encoding='utf-8') as f:
             json.dump(chimera_data, f, indent=2, default=str)
         paths["chimera"] = chimera_path
-    
-    def _save_timelinejs_file(self, video: VideoIntelligence, paths: Dict[str, Path]):
-        """Saves timeline_js.json in TimelineJS3 format if Timeline v2.0 data exists."""
-        # Check if Timeline v2.0 data exists
-        if not hasattr(video, 'timeline_v2') or not video.timeline_v2:
-            logger.debug("No Timeline v2.0 data to convert to TimelineJS format")
-            return
-        try:
-            # Get timeline events from the timeline_v2 data
-            timeline_events = video.timeline_v2.get('events', [])
-            if not timeline_events:
-                logger.debug("No timeline events found in Timeline v2.0 data")
-                return
-            # Import TimelineJSFormatter from utils
-            from clipscribe.utils.timeline_js_formatter import TimelineJSFormatter
-            from clipscribe.timeline.models import ConsolidatedTimeline, TemporalEvent
-            # Convert raw events to TemporalEvent objects
-            temporal_events = []
-            for event_data in timeline_events:
-                if not isinstance(event_data, dict):
-                    continue
-                # Parse date
-                date_value = event_data.get('date', datetime.now().isoformat())
-                if isinstance(date_value, str):
-                    parsed_date = datetime.fromisoformat(date_value.replace(' ', 'T'))
-                elif isinstance(date_value, datetime):
-                    parsed_date = date_value
-                else:
-                    parsed_date = datetime.now()
-                temporal_event = TemporalEvent(
-                    event_id=event_data.get('event_id', f"event_{len(temporal_events)}"),
-                    content_hash=event_data.get('content_hash', ''),
-                    date=parsed_date,
-                    date_precision=event_data.get('date_precision', 'approximate'),
-                    date_confidence=event_data.get('date_confidence', 0.5),
-                    extracted_date_text=event_data.get('extracted_date_text', ''),
-                    date_source=event_data.get('date_source', 'unknown'),
-                    description=event_data.get('description', ''),
-                    event_type=event_data.get('event_type', 'inferred'),
-                    involved_entities=event_data.get('involved_entities', []),
-                    source_videos=[video.metadata.url],
-                    video_timestamps={video.metadata.url: event_data.get('timestamp', 0)},
-                    chapter_context=event_data.get('chapter_context'),
-                    extraction_method=event_data.get('extraction_method', 'timeline_v2'),
-                    confidence=event_data.get('confidence', 0.7),
-                    validation_status=event_data.get('validation_status', 'unverified')
-                )
-                temporal_events.append(temporal_event)
-            if not temporal_events:
-                logger.debug("No valid temporal events to convert")
-                return
-            # Create consolidated timeline
-            consolidated_timeline = ConsolidatedTimeline(
-                events=temporal_events,
-                video_sources=[video.metadata.url]
-            )
-            # Use TimelineJSFormatter to convert
-            formatter = TimelineJSFormatter()
-            timeline_js = formatter.format_timeline(consolidated_timeline, title=video.metadata.title, description=video.summary)
-            # Save to timeline_js.json
-            timeline_js_path = paths["directory"] / "timeline_js.json"
-            with open(timeline_js_path, 'w', encoding='utf-8') as f:
-                json.dump(timeline_js, f, indent=2, default=str)
-            paths["timeline_js"] = timeline_js_path
-            logger.info(f"Saved TimelineJS3 format to {timeline_js_path}")
-        except Exception as e:
-            logger.warning(f"Failed to generate TimelineJS format: {e}")
-            # Don't fail the entire process if TimelineJS export fails
     
     # Chimera-compatible interface methods
     
@@ -1298,7 +1254,7 @@ class VideoIntelligenceRetriever:
                     original_names = entity.properties['original_names']
             
             entity_info = {
-                "name": entity.entity,
+                "name": entity.name,
                 "type": entity.type,
 
                 "source": source,
@@ -1487,7 +1443,7 @@ class VideoIntelligenceRetriever:
             f.write(f"**Flow Patterns Identified:** {flow_map.total_flows}\n\n")
             
             # Collection-level analysis
-            f.write("## 📊 Flow Analysis Summary\n\n")
+            f.write("##  Flow Analysis Summary\n\n")
             f.write("### Overall Flow Pattern\n")
             f.write(f"{flow_map.flow_summary}\n\n")
             
@@ -1502,7 +1458,7 @@ class VideoIntelligenceRetriever:
             
             # Concept clusters
             if flow_map.concept_clusters:
-                f.write("## 🔄 Concept Clusters\n\n")
+                f.write("##  Concept Clusters\n\n")
                 for i, cluster in enumerate(flow_map.concept_clusters, 1):
                     f.write(f"### Cluster {i}: {cluster.cluster_name}\n")
                     f.write(f"**Theme:** {cluster.cluster_name}\n")
@@ -1511,7 +1467,7 @@ class VideoIntelligenceRetriever:
             
             # Evolution paths
             if flow_map.evolution_paths:
-                f.write("## 📈 Concept Evolution Paths\n\n")
+                f.write("##  Concept Evolution Paths\n\n")
                 # Sort by significance (number of evolution nodes and coherence)
                 sorted_paths = sorted(flow_map.evolution_paths, 
                                     key=lambda p: (len(p.evolution_nodes) * p.evolution_coherence), 
@@ -1539,7 +1495,7 @@ class VideoIntelligenceRetriever:
                     f.write(f"*... and {len(flow_map.evolution_paths) - 10} more evolution paths*\n\n")
             
             # Information flows analysis
-            f.write("## 📹 Information Flow Analysis\n\n")
+            f.write("##  Information Flow Analysis\n\n")
             
             # Group flows by source video for organization
             flows_by_video = {}
@@ -1573,18 +1529,18 @@ class VideoIntelligenceRetriever:
             
             # Information gaps
             if flow_map.information_gaps:
-                f.write("## ⚠️ Information Gaps Identified\n\n")
+                f.write("##  Information Gaps Identified\n\n")
                 for gap in flow_map.information_gaps:
                     f.write(f"- {gap}\n")
                 f.write("\n")
             
             # Footer
-            f.write("## 📁 Files Generated\n\n")
+            f.write("##  Files Generated\n\n")
             f.write("- `information_flow_map.json` - Complete structured flow data\n")
             f.write("- `concept_flows/` - Individual flow files for each video\n")
             f.write("- `information_flow_summary.md` - This human-readable summary\n\n")
             
-            f.write("## 🎯 How to Use This Analysis\n\n")
+            f.write("##  How to Use This Analysis\n\n")
             f.write("1. **Curriculum Design:** Use evolution paths to structure learning sequences\n")
             f.write("2. **Content Planning:** Identify gaps where concepts need more development\n")
             f.write("3. **Research Synthesis:** Track how ideas evolve across multiple sources\n")
@@ -1604,7 +1560,7 @@ class VideoIntelligenceRetriever:
         # Add entities as nodes
         for entity in video_intel.entities:
             # Handle both Entity and EnhancedEntity objects
-            entity_name = getattr(entity, 'entity', getattr(entity, 'name', str(entity)))
+            entity_name = getattr(entity, 'name', str(entity))
             entity_type = getattr(entity, 'type', 'unknown')
             entity_confidence = getattr(entity, 'confidence', 0.9)
             

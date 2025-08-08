@@ -68,7 +68,7 @@ class BatchProgress:
         """Marks a video task as complete and advances the overall progress."""
         task_id = self.video_tasks.get(url)
         if task_id is not None:
-            self.video_progress.update(task_id, completed=100, description="[green]✓ Done[/green]")
+            self.video_progress.update(task_id, completed=100, description="[green] Done[/green]")
         if self.overall_task is not None:
             self.overall_progress.update(self.overall_task, advance=1)
 
@@ -78,7 +78,7 @@ class BatchProgress:
         if task_id is not None:
             # Truncate reason to fit in the console
             short_reason = (reason[:50] + '...') if len(reason) > 50 else reason
-            self.video_progress.update(task_id, completed=100, description=f"[red]✗ {short_reason}[/red]")
+            self.video_progress.update(task_id, completed=100, description=f"[red] {short_reason}[/red]")
         if self.overall_task is not None:
             self.overall_progress.update(self.overall_task, advance=1)
 

@@ -26,7 +26,7 @@ from clipscribe.models import VideoCollectionType, VideoIntelligence
 async def demo_multi_video_collection():
     """Demonstrate comprehensive multi-video collection processing."""
     
-    print("🎬 ClipScribe Multi-Video Collection Demo (v2.13.0)")
+    print(" ClipScribe Multi-Video Collection Demo (v2.13.0)")
     print("=" * 60)
     
     # Example: PBS NewsHour series on climate change
@@ -41,12 +41,12 @@ async def demo_multi_video_collection():
     output_dir = Path("output/demo_collection")
     output_dir.mkdir(parents=True, exist_ok=True)
     
-    print(f"📁 Output directory: {output_dir}")
-    print(f"🎯 Processing {len(video_urls)} videos...")
+    print(f" Output directory: {output_dir}")
+    print(f" Processing {len(video_urls)} videos...")
     print()
     
     # Step 1: Process individual videos
-    print("📹 Step 1: Processing individual videos...")
+    print(" Step 1: Processing individual videos...")
     video_intelligences: List[VideoIntelligence] = []
     
     retriever = VideoIntelligenceRetriever(
@@ -66,21 +66,21 @@ async def demo_multi_video_collection():
                 individual_dir.mkdir(parents=True, exist_ok=True)
                 retriever.save_all_formats(video_result, str(individual_dir))
                 video_intelligences.append(video_result)
-                print(f"    ✅ Success: {video_result.metadata.title[:50]}...")
+                print(f"     Success: {video_result.metadata.title[:50]}...")
             else:
-                print(f"    ❌ Failed to process video {i}")
+                print(f"     Failed to process video {i}")
         except Exception as e:
-            print(f"    ❌ Error: {e}")
+            print(f"     Error: {e}")
     
     if not video_intelligences:
-        print("❌ No videos were successfully processed. Exiting.")
+        print(" No videos were successfully processed. Exiting.")
         return
     
-    print(f"✅ Successfully processed {len(video_intelligences)} videos")
+    print(f" Successfully processed {len(video_intelligences)} videos")
     print()
     
     # Step 2: Series detection
-    print("🔍 Step 2: Automatic series detection...")
+    print(" Step 2: Automatic series detection...")
     series_detector = SeriesDetector()
     detection_result = await series_detector.detect_series(video_intelligences)
     
@@ -94,7 +94,7 @@ async def demo_multi_video_collection():
     print()
     
     # Step 3: Multi-video intelligence processing
-    print("🧠 Step 3: Multi-video intelligence analysis...")
+    print(" Step 3: Multi-video intelligence analysis...")
     multi_processor = MultiVideoProcessor(use_ai_validation=True)
     
     # Determine collection type
@@ -108,7 +108,7 @@ async def demo_multi_video_collection():
             user_confirmed_series=detection_result.is_series
         )
         
-        print(f"  ✅ Collection processing complete!")
+        print(f"   Collection processing complete!")
         print(f"  Collection ID: {multi_video_result.collection_id}")
         print(f"  Unified entities: {len(multi_video_result.unified_entities)}")
         print(f"  Cross-video relationships: {len(multi_video_result.cross_video_relationships)}")
@@ -116,7 +116,7 @@ async def demo_multi_video_collection():
         print()
         
         # Step 4: Save unified outputs
-        print("💾 Step 4: Saving unified collection outputs...")
+        print(" Step 4: Saving unified collection outputs...")
         
         collection_output_dir = output_dir / "unified_collection"
         collection_output_dir.mkdir(parents=True, exist_ok=True)
@@ -124,13 +124,13 @@ async def demo_multi_video_collection():
         # Save main collection intelligence
         with open(collection_output_dir / "multi_video_intelligence.json", "w", encoding="utf-8") as f:
             json.dump(multi_video_result.dict(), f, indent=2, ensure_ascii=False, default=str)
-        print("  ✅ Saved: multi_video_intelligence.json")
+        print("   Saved: multi_video_intelligence.json")
         
         # Save unified knowledge graph
         if multi_video_result.unified_knowledge_graph:
             with open(collection_output_dir / "unified_knowledge_graph.json", "w", encoding="utf-8") as f:
                 json.dump(multi_video_result.unified_knowledge_graph, f, indent=2, ensure_ascii=False)
-            print("  ✅ Saved: unified_knowledge_graph.json")
+            print("   Saved: unified_knowledge_graph.json")
         
         # Save collection summary as markdown
         with open(collection_output_dir / "collection_summary.md", "w", encoding="utf-8") as f:
@@ -178,11 +178,11 @@ async def demo_multi_video_collection():
                     f.write(f"- **Progression:** {segment.progression_description}\n")
                     f.write(f"- **Coherence:** {segment.coherence_score:.2f}\n\n")
         
-        print("  ✅ Saved: collection_summary.md")
+        print("   Saved: collection_summary.md")
         print()
         
         # Step 5: Display results summary
-        print("📊 Step 5: Results Summary")
+        print(" Step 5: Results Summary")
         print("=" * 40)
         print(f"Collection Title: {multi_video_result.collection_title}")
         print(f"Collection Type: {multi_video_result.collection_type.value}")
@@ -194,7 +194,7 @@ async def demo_multi_video_collection():
         print()
         
         # Quality scores
-        print("🎯 Quality Metrics:")
+        print(" Quality Metrics:")
         print(f"  Entity Resolution Quality: {multi_video_result.entity_resolution_quality:.2f}/1.0")
         print(f"  Narrative Coherence: {multi_video_result.narrative_coherence:.2f}/1.0")
         print(f"  Cross-Video Relationship Strength: {multi_video_result.cross_video_relationship_strength:.2f}/1.0")
@@ -202,16 +202,16 @@ async def demo_multi_video_collection():
         
         # Sample insights
         if multi_video_result.key_insights:
-            print("💡 Sample Key Insights:")
+            print(" Sample Key Insights:")
             for i, insight in enumerate(multi_video_result.key_insights[:3], 1):
                 print(f"  {i}. {insight}")
             if len(multi_video_result.key_insights) > 3:
                 print(f"  ... and {len(multi_video_result.key_insights) - 3} more insights")
         print()
         
-        print(f"📁 All outputs saved to: {collection_output_dir}")
+        print(f" All outputs saved to: {collection_output_dir}")
         print()
-        print("🎉 Multi-video collection processing complete!")
+        print(" Multi-video collection processing complete!")
         print()
         print("Next steps:")
         print("- Review the collection_summary.md for comprehensive analysis")
@@ -219,7 +219,7 @@ async def demo_multi_video_collection():
         print("- Check individual video outputs for detailed per-video analysis")
         
     except Exception as e:
-        print(f"❌ Multi-video processing failed: {e}")
+        print(f" Multi-video processing failed: {e}")
         import traceback
         traceback.print_exc()
 
@@ -228,7 +228,7 @@ async def demo_series_comparison():
     """Demonstrate different collection types for comparison."""
     
     print("\n" + "=" * 60)
-    print("🔬 Collection Type Comparison Demo")
+    print(" Collection Type Comparison Demo")
     print("=" * 60)
     
     # This would show how different collection types affect processing
@@ -241,11 +241,11 @@ async def demo_series_comparison():
         (VideoCollectionType.CROSS_SOURCE_TOPIC, "Multi-source bias analysis")
     ]
     
-    print("📋 Available Collection Types:")
+    print(" Available Collection Types:")
     for collection_type, description in collection_types:
         print(f"  • {collection_type.value}: {description}")
     
-    print("\n💡 Pro Tip: Use the CLI commands for different collection types:")
+    print("\n Pro Tip: Use the CLI commands for different collection types:")
     print("  clipscribe process-collection URLs --collection-type series")
     print("  clipscribe process-collection URLs --collection-type topic_research")
     print("  clipscribe process-series URLs  # Optimized for series")
@@ -260,7 +260,7 @@ def main():
     # Check for API key
     import os
     if not os.getenv("GOOGLE_API_KEY"):
-        print("❌ Error: GOOGLE_API_KEY environment variable not set")
+        print(" Error: GOOGLE_API_KEY environment variable not set")
         print("Please set your API key:")
         print('echo "GOOGLE_API_KEY=your_key_here" > .env')
         return

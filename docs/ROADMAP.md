@@ -10,11 +10,25 @@ Our core competitive advantage is our ability to provide deep intelligence extra
 
 ---
 
+## Immediate Priority: Backend Documentation & Rules Cleanup
+Goal: Ensure all documentation and rules are current, accurate, non-duplicative, and aligned with v2.25.0. Remove all smiley faces across the repo.
+
+Tasks:
+- Audit and update all files in `docs/` recursively (fix versions, flags, CLI examples, costs, claims)
+- Consolidate duplicates (keep `docs/advanced/deployment/DEPLOYMENT_GUIDE.md`; remove duplicates)
+- Update root docs (`README.md`, `CHANGELOG.md`, `CONTINUATION_PROMPT.md`, `BENCHMARK_REPORT.md`)
+- Review and update all `.cursor/rules/*.mdc` for accuracy and consistency
+- Repo-wide removal of smiley faces (`:-)`, `:)`, ``, ``)
+
+Status: In Progress
+
+---
+
 ## Phase 1: API-ization & Core Service Extraction (The Foundation)
 *Goal: Decouple our core logic from the CLI and build a stable, scalable, service-oriented architecture.*
 
 ### **Priority 1: Fix Long-Video Processing (Critical Blocker)**
-- **Status**: ✅ COMPLETE
+- **Status**:  COMPLETE
 - **Justification**: The `504 Deadline Exceeded` error on long videos was the single biggest blocker to a reliable API. A service cannot have hour-long timeouts. The new "Smart Transcribe, Global Analyze" architecture resolves this.
 - **Tasks**:
   1. ~~Re-architect `transcriber.py` to use a two-step process: (1) Transcribe video to text, (2) Analyze text for intelligence.~~

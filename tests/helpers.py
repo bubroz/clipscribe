@@ -33,7 +33,7 @@ def create_mock_video_intelligence(video_id="test_vid", title="Test Video", chan
     
     entities = [
         EnhancedEntity(
-            entity="Test Entity",
+            name="Test Entity",
             type="TEST",
             mention_count=1,
             extraction_sources=["test_source"],

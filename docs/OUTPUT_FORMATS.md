@@ -4,7 +4,7 @@
 
 ClipScribe generates a comprehensive set of structured output files for each processed video, all organized within a timestamped directory. **All formats validated and working in v2.22.2**.
 
-## Directory Structure (v2.22.2 Validated ✅)
+## Directory Structure (v2.22.2 Validated )
 
 ```
 output/
@@ -12,16 +12,16 @@ output/
     ├── transcript.txt          # Plain text transcript
     ├── transcript.json         # Full structured data with all analysis
     ├── metadata.json           # Lightweight video and processing metadata
-    ├── entities.json           # ✅ 24-59 entities (FIXED: now saved properly)
-    ├── entities.csv            # ✅ Entities in CSV format for spreadsheets
-    ├── entity_sources.json     # ✅ Entity source tracking and normalization
-    ├── entity_sources.csv      # ✅ Entity sources in CSV format
-    ├── relationships.json      # ✅ 53+ relationships (FIXED: now saved properly)
-    ├── relationships.csv       # ✅ Relationships in CSV format for spreadsheets
-    ├── knowledge_graph.gexf    # ✅ Gephi-compatible (FIXED: 60 nodes, 53 edges)
-    ├── report.md               # ✅ Human-readable intelligence report
-    ├── chimera_format.json     # ✅ Integration format for external tools
-    └── manifest.json           # ✅ File index with processing metadata
+    ├── entities.json           #  24-59 entities (FIXED: now saved properly)
+    ├── entities.csv            #  Entities in CSV format for spreadsheets
+    ├── entity_sources.json     #  Entity source tracking and normalization
+    ├── entity_sources.csv      #  Entity sources in CSV format
+    ├── relationships.json      #  53+ relationships (FIXED: now saved properly)
+    ├── relationships.csv       #  Relationships in CSV format for spreadsheets
+    ├── knowledge_graph.gexf    #  Gephi-compatible (FIXED: 60 nodes, 53 edges)
+    ├── report.md               #  Human-readable intelligence report
+    ├── chimera_format.json     #  Integration format for external tools
+    └── manifest.json           #  File index with processing metadata
 ```
 
 ## Quality Control Options (v2.22.2)
@@ -40,13 +40,13 @@ output/
 
 ## Critical Fixes in v2.20.4
 
-### ✅ RESOLVED: Output Pipeline Issues
+###  RESOLVED: Output Pipeline Issues
 - **Fixed**: Entities/relationships arrays were empty in output files
 - **Fixed**: Missing knowledge_graph.gexf generation
 - **Fixed**: Advanced extraction pipeline not running
 - **Validated**: All output formats now working end-to-end
 
-### ✅ Confirmed Working Examples
+###  Confirmed Working Examples
 Based on validated news content processing:
 - **entities.json**: 24+ normalized entities
 - **relationships.json**: 53+ relationships with evidence chains
@@ -83,7 +83,7 @@ Lightweight JSON file with processing overview:
 
 ## Core Output Files
 
-### entities.json ✅ WORKING
+### entities.json  WORKING
 Contains all extracted entities with **validated working pipeline** (v2.22.2):
 - **Quality extraction**: 24-59 entities per video depending on content
 - **Proper normalization**: Raw extractions deduplicated intelligently (59→24)

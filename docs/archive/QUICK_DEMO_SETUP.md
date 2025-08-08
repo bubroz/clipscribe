@@ -3,7 +3,7 @@
 *Last Updated: July 20, 2025*  
 *Estimated Time: 2 minutes*
 
-## 🚀 One-Minute Demo
+##  One-Minute Demo
 
 ### 1. Process a News Video
 ```bash
@@ -26,7 +26,7 @@ poetry run streamlit run streamlit_app/ClipScribe_Mission_Control.py
 3. Check **Knowledge Synthesis** (52+ relationships with evidence)
 4. Download results in any format
 
-## 🎯 What You'll See
+##  What You'll See
 
 ### Extraction Quality (v2.19.0)
 - **16+ meaningful entities** (people, orgs, locations, events)
@@ -40,7 +40,7 @@ poetry run streamlit run streamlit_app/ClipScribe_Mission_Control.py
 - **Knowledge Graphs**: Visual network of all connections
 - **Cross-Video Synthesis**: Multi-video entity correlation (if processing collections)
 
-## 💡 Extended Demo Options
+##  Extended Demo Options
 
 ### Option 1: Multi-Video Collection
 ```bash
@@ -61,13 +61,13 @@ poetry run clipscribe process-collection \
   --format all
 ```
 
-## 📊 Cost Transparency
+##  Cost Transparency
 
 - **Single 5-min video**: ~$0.008
 - **30-min documentary**: ~$0.048  
 - **10-video collection**: ~$0.08-0.10
 
-## 🎬 Best Demo Content
+##  Best Demo Content
 
 1. **News/Documentary**: PBS Frontline, 60 Minutes, investigative journalism
 2. **Educational**: TED Talks, lectures, tutorials
@@ -75,7 +75,7 @@ poetry run clipscribe process-collection \
 
 Avoid: Music videos, entertainment content (poor extraction quality)
 
-## 🚧 Common Questions
+##  Common Questions
 
 **Q: Why are there 88+ nodes but only 16 entities?**  
 A: The knowledge graph includes entities, relationships, and conceptual nodes - creating a rich network.
@@ -88,4 +88,4 @@ A: Yes! Upload to any supported platform (YouTube, Vimeo, etc.) or use local fil
 
 ---
 
-**Ready to extract intelligence?** ClipScribe transforms videos into structured knowledge! 🎯 
+**Ready to extract intelligence?** ClipScribe transforms videos into structured knowledge!  

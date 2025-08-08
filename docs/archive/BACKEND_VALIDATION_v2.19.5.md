@@ -1,24 +1,34 @@
-# ClipScribe v2.19.5 Backend Validation & Deployment Plan
+# [ARCHIVED] ClipScribe v2.19.5 Backend Validation & Deployment Plan
+
+This document is archived and preserved for historical context. It reflects validation flows and commands from v2.19.5 and has been superseded by current testing and troubleshooting guides.
+
+Current references:
+
+- See `docs/advanced/testing/COMPREHENSIVE_TESTING_PLAN.md` for up-to-date test plans
+- See `docs/TROUBLESHOOTING.md` for current troubleshooting procedures
 
 *Created: 2025-07-21 00:30 PDT*
-*Status: COMPLETE - All phases validated*
+*Status: COMPLETE - All phases validated (Archived)*
 
-## 🎯 Validation Strategy
+##  Validation Strategy
 
 **Core Principle**: Ensure 100% backend functionality before any deployment
 
 ### Phase Overview
+
 1. **Phase 1**: CLI Backend Validation (2-3 hours) ← CURRENT
 2. **Phase 2**: Streamlit Testing (1 hour)
 3. **Phase 3**: Professional Deployment (When ready)
 
+
 ---
 
-## 📋 PHASE 1: BACKEND CLI VALIDATION
+##  PHASE 1: BACKEND CLI VALIDATION
 
 ### 1.1 Basic Functionality Tests ⏳ IN PROGRESS
 
-#### Test 1: Help and Version ✅ PASSED
+#### Test 1: Help and Version  PASSED
+
 ```bash
 poetry run clipscribe --help
 poetry run clipscribe --version
@@ -28,28 +38,30 @@ poetry run clipscribe --version
 - [x] No import errors
 - **Note**: Must use `poetry run` prefix
 
-#### Test 2: Single Video Processing (News) ✅ PASSED WITH ISSUES
+#### Test 2: Single Video Processing (News)  PASSED WITH ISSUES
+
 ```bash
 # With corrected environment:
-env $(cat .env.test | grep -v "^#" | xargs) poetry run clipscribe transcribe "https://www.youtube.com/watch?v=jNQXAC9IVRw" --output-dir test_output
+env $(cat .env.test | grep -v "^#" | xargs) poetry run clipscribe --debug process video "https://www.youtube.com/watch?v=jNQXAC9IVRw" --output-dir test_output
 ```
 - [x] Video downloads successfully
 - [x] Transcript extracted
 - [x] All output files created (16 files)
 - [x] Cost tracked ($0.0011 for 19s video)
 - [x] Command completes without crash
-- [❌] Entities extracted (0 found, 16+ expected)
-- [❌] Relationships found (1 found, 52+ expected)
+- [] Entities extracted (0 found, 16+ expected)
+- [] Relationships found (1 found, 52+ expected)
 
 **Issues Found & Fixed**:
-1. ✅ FIXED: USE_VERTEX_AI=true in .env - created .env.test with false
-2. ✅ FIXED: Topic parsing bug (line 359) - topics were strings not dicts
-3. ❌ CRITICAL: Entity quality filter too aggressive - removed all 6 entities as "non-English"
-4. ❌ CRITICAL: Entity count way below expectations (0 vs 16+)
+1.  FIXED: USE_VERTEX_AI=true in .env - created .env.test with false
+2.  FIXED: Topic parsing bug (line 359) - topics were strings not dicts
+3.  CRITICAL: Entity quality filter too aggressive - removed all 6 entities as "non-English"
+4.  CRITICAL: Entity count way below expectations (0 vs 16+)
 
 **Next Steps**: Fix entity quality filter before continuing tests
 
 #### Test 3: All Output Formats ⏳
+
 ```bash
 clipscribe process "https://www.youtube.com/watch?v=fkPHk5L3RhU" \
   --format json --format csv --format md --format gexf --format excel
@@ -61,6 +73,7 @@ clipscribe process "https://www.youtube.com/watch?v=fkPHk5L3RhU" \
 - [ ] Excel format works
 
 #### Test 4: Entity Extraction Modes ⏳
+
 ```bash
 clipscribe process "https://www.youtube.com/watch?v=fkPHk5L3RhU" \
   --extractor hybrid --confidence 0.4
@@ -70,6 +83,7 @@ clipscribe process "https://www.youtube.com/watch?v=fkPHk5L3RhU" \
 - [ ] Entity quality acceptable
 
 #### Test 5: Cost Tracking ⏳
+
 ```bash
 clipscribe process "https://www.youtube.com/watch?v=fkPHk5L3RhU" \
   --model gemini-2.0-flash-exp --verbose
@@ -162,24 +176,24 @@ python scripts/convert_to_gephi.py output/latest/knowledge_graph.json
 
 ---
 
-## ✅ Success Criteria
+##  Success Criteria
 
 **CLI is "100%" when:**
-1. ✅ All test commands execute without errors
-2. ✅ Output quality matches claims (16+ entities, 52+ relationships)
-3. ✅ Cost stays at $0.002-0.0035/minute
-4. ✅ All platforms work
-5. ✅ Batch processing handles 10+ videos
-6. ✅ Example scripts run successfully
-7. ✅ Error handling is graceful
-8. ✅ Memory usage reasonable
+1.  All test commands execute without errors
+2.  Output quality matches claims (16+ entities, 52+ relationships)
+3.  Cost stays at $0.002-0.0035/minute
+4.  All platforms work
+5.  Batch processing handles 10+ videos
+6.  Example scripts run successfully
+7.  Error handling is graceful
+8.  Memory usage reasonable
 
 ---
 
-## 🐛 Issues Found
+##  Issues Found
 
 ### Critical Issues
-1. **Entity Quality Filter Too Aggressive** (FIXED ✅)
+1. **Entity Quality Filter Too Aggressive** (FIXED )
    - ~~Removing all entities as "non-English" even for English content~~
    - ~~Reduces entity count from 6 → 0~~
    - File: `src/clipscribe/extractors/entity_quality_filter.py`
@@ -194,7 +208,7 @@ python scripts/convert_to_gephi.py output/latest/knowledge_graph.json
    - Need to test with longer, content-rich videos
 
 ### Minor Issues
-1. **Topic Parsing Type Error** (FIXED ✅)
+1. **Topic Parsing Type Error** (FIXED )
    - File: `src/clipscribe/retrievers/video_retriever.py:359`
    - Topics returned as strings but code expected dicts
    - Fixed by adding type checking
@@ -211,7 +225,7 @@ python scripts/convert_to_gephi.py output/latest/knowledge_graph.json
 
 ---
 
-## 📊 Test Results Log
+##  Test Results Log
 
 ### Test Session 1: 2025-07-21 00:30 PDT
 **Environment**: macOS, Python 3.12, Poetry environment
@@ -219,14 +233,14 @@ python scripts/convert_to_gephi.py output/latest/knowledge_graph.json
 
 #### Test 1.1.1: Help and Version
 - Time: 00:31 PDT
-- Result: ✅ PASSED
-- Notes: Commands available: transcribe, research, process-collection, process-series
+- Result:  PASSED
+- Notes: Commands available: process (video), collection (series/custom), research, utils
 - Version confirmed: 2.19.5
 - Must use `poetry run` prefix for all commands
 
 #### Test 1.1.2: Single Video Processing
 - Time: 00:37 PDT  
-- Result: ✅ PASSED WITH CRITICAL ISSUES
+- Result:  PASSED WITH CRITICAL ISSUES
 - Video: "Me at the zoo" (19s test video)
 - Cost: $0.0011 (within expected range)
 - Output: All 16 files generated successfully
@@ -236,7 +250,7 @@ python scripts/convert_to_gephi.py output/latest/knowledge_graph.json
 
 #### Test 1.1.2b: Single Video Processing (After Quality Filter Fix)
 - Time: 00:46 PDT
-- Result: ✅ PASSED WITH IMPROVEMENTS
+- Result:  PASSED WITH IMPROVEMENTS
 - Video: "Me at the zoo" (19s test video) 
 - Cost: $0.0035 (reasonable)
 - Output: All files generated successfully
