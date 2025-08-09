@@ -1132,6 +1132,13 @@ class VideoIntelligenceRetriever:
     def _generate_gexf_content(self, knowledge_graph: Dict[str, Any]) -> str:
         """Generate GEXF content from knowledge graph."""
         from xml.sax.saxutils import escape
+        import hashlib
+        
+        def stable_node_id(label: str) -> str:
+            h = hashlib.sha1(label.encode('utf-8')).hexdigest()
+            return f"n_{h[:12]}"
+        
+        label_to_id: Dict[str, str] = {}
         
         gexf_content = '<?xml version="1.0" encoding="UTF-8"?>\n'
         gexf_content += '<gexf xmlns="http://www.gexf.net/1.3" xmlns:viz="http://www.gexf.net/1.3/viz" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://gexf.net/1.3 http://gexf.net/1.3/gexf.xsd" version="1.3">\n'
@@ -1139,10 +1146,13 @@ class VideoIntelligenceRetriever:
         gexf_content += '    <creator>ClipScribe</creator>\n'
         gexf_content += '    <description>Knowledge graph extracted from video content</description>\n'
         gexf_content += '  </meta>\n'
-        gexf_content += '  <graph mode="static" defaultedgetype="directed">\n'
+        gexf_content += '  <graph mode="static" defaultedgetype="directed" idtype="string">\n'
         gexf_content += '    <attributes class="node">\n'
         gexf_content += '      <attribute id="0" title="Type" type="string"/>\n'
         gexf_content += '      <attribute id="1" title="Confidence" type="double"/>\n'
+        gexf_content += '      <attribute id="2" title="MentionCount" type="integer"/>\n'
+        gexf_content += '      <attribute id="3" title="Occurrences" type="integer"/>\n'
+        gexf_content += '      <attribute id="4" title="Name" type="string"/>\n'
         gexf_content += '    </attributes>\n'
         gexf_content += '    <attributes class="edge">\n'
         gexf_content += '      <attribute id="0" title="Predicate" type="string"/>\n'
@@ -1152,32 +1162,39 @@ class VideoIntelligenceRetriever:
         
         # Color map for entity types
         color_map = {
-            'PERSON': '#FF6B6B',        # Red
-            'ORGANIZATION': '#4ECDC4',   # Teal
-            'LOCATION': '#45B7D1',       # Blue
-            'EVENT': '#F7DC6F',          # Yellow
-            'CONCEPT': '#BB8FCE',        # Purple
-            'TECHNOLOGY': '#52BE80',     # Green
-            'DATE': '#F39C12',           # Orange
-            'MONEY': '#85C1E2',          # Light Blue
-            'unknown': '#95A5A6'         # Gray
+            'PERSON': (255, 107, 107),        # Red
+            'ORGANIZATION': (78, 205, 196),   # Teal
+            'LOCATION': (69, 183, 209),       # Blue
+            'EVENT': (247, 220, 111),         # Yellow
+            'CONCEPT': (187, 143, 206),       # Purple
+            'TECHNOLOGY': (82, 190, 128),     # Green
+            'DATE': (243, 156, 18),           # Orange
+            'MONEY': (133, 193, 226),         # Light Blue
+            'unknown': (149, 165, 166)        # Gray
         }
         
         # Add nodes with attributes
         for node in knowledge_graph.get('nodes', []):
-            node_id = escape(str(node['id']))
+            label = escape(str(node.get('id', 'unknown')))
+            node_id = stable_node_id(label)
+            label_to_id[label] = node_id
             node_type = node.get('type', 'unknown')
             confidence = node.get('confidence', 0.9)
+            mention_count = int(node.get('mention_count', 0)) if isinstance(node.get('mention_count', 0), (int, float)) else 0
+            occurrences = int(node.get('occurrences', 0)) if isinstance(node.get('occurrences', 0), (int, float)) else 0
             
             # Get color for node type
-            hex_color = color_map.get(node_type, color_map['unknown'])
+            r, g, b = color_map.get(node_type, color_map['unknown'])
             
-            gexf_content += f'      <node id="{node_id}" label="{node_id}">\n'
+            gexf_content += f'      <node id="{node_id}" label="{label}">\n'
             gexf_content += f'        <attvalues>\n'
             gexf_content += f'          <attvalue for="0" value="{escape(node_type)}"/>\n'
             gexf_content += f'          <attvalue for="1" value="{confidence}"/>\n'
+            gexf_content += f'          <attvalue for="2" value="{mention_count}"/>\n'
+            gexf_content += f'          <attvalue for="3" value="{occurrences}"/>\n'
+            gexf_content += f'          <attvalue for="4" value="{label}"/>\n'
             gexf_content += f'        </attvalues>\n'
-            gexf_content += f'        <viz:color hex="{hex_color}" a="1.0"/>\n'
+            gexf_content += f'        <viz:color r="{r}" g="{g}" b="{b}" a="1.0"/>\n'
             gexf_content += f'        <viz:size value="{20 + (confidence * 30)}"/>\n'
             gexf_content += f'      </node>\n'
         
@@ -1186,12 +1203,14 @@ class VideoIntelligenceRetriever:
         
         # Add edges with attributes
         for i, edge in enumerate(knowledge_graph.get('edges', [])):
-            source = escape(str(edge['source']))
-            target = escape(str(edge['target']))
+            source_label = escape(str(edge['source']))
+            target_label = escape(str(edge['target']))
+            source = label_to_id.get(source_label, stable_node_id(source_label))
+            target = label_to_id.get(target_label, stable_node_id(target_label))
             predicate = escape(str(edge.get('predicate', 'related_to')))
             confidence = edge.get('confidence', 0.9)
             
-            gexf_content += f'      <edge id="{i}" source="{source}" target="{target}" weight="{confidence}">\n'
+            gexf_content += f'      <edge id="{i}" source="{source}" target="{target}" weight="{confidence}" label="{predicate}" kind="{predicate}">\n'
             gexf_content += f'        <attvalues>\n'
             gexf_content += f'          <attvalue for="0" value="{predicate}"/>\n'
             gexf_content += f'          <attvalue for="1" value="{confidence}"/>\n'
