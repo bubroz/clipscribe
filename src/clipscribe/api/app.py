@@ -140,11 +140,14 @@ async def _enqueue_job_processing(job: Job, source: Dict[str, Any]) -> None:
             client = storage.Client()
             blob = client.bucket(bucket).blob(manifest_obj_path)
             blob.cache_control = "public, max-age=300"
-            blob.content_type = "application/json"
-            blob.upload_from_string(json.dumps(manifest_content, separators=(",", ":")))
-        except Exception:
-            # ignore write failures in dev
-            pass
+            # Explicitly pass content_type to the upload call to ensure header matches
+            blob.upload_from_string(
+                json.dumps(manifest_content, separators=(",", ":")),
+                content_type="application/json",
+            )
+        except Exception as e:
+            # Surface write failures during dev
+            print(f"[warn] failed to write manifest to gs://{bucket}/{manifest_obj_path}: {e}")
 
     job.manifest_url = f"https://storage.googleapis.com/{bucket or 'mock-bucket'}/{manifest_obj_path}"
     await asyncio.sleep(0.1)
@@ -237,22 +240,22 @@ async def list_artifacts(job_id: str, authorization: Optional[str] = Header(defa
             from google.cloud import storage  # type: ignore
 
             client = storage.Client()
-            b = client.bucket(bucket)
             prefix = f"jobs/{job_id}/"
             for blob in client.list_blobs(bucket, prefix=prefix):
-                if not blob.name or blob.name.endswith("/"):
+                name = getattr(blob, "name", "")
+                if not name or name.endswith("/"):
                     continue
-                # Generate a signed URL for download
-                url = b.blob(blob.name).generate_signed_url(version="v4", expiration=900, method="GET")
-                kind = "manifest_json" if blob.name.endswith("manifest.json") else "file"
+                url = blob.generate_signed_url(version="v4", expiration=900, method="GET")
+                kind = "manifest_json" if name.endswith("manifest.json") else "file"
+                size_bytes = int(getattr(blob, "size", 0) or 0)
                 artifacts.append({
-                    "id": os.path.basename(blob.name),
+                    "id": os.path.basename(name),
                     "kind": kind,
-                    "size_bytes": int(blob.size or 0),
+                    "size_bytes": size_bytes,
                     "url": url,
                 })
-        except Exception:
-            pass
+        except Exception as e:
+            print(f"[warn] listing artifacts failed for gs://{bucket}/jobs/{job_id}/: {e}")
     return {"job_id": job_id, "artifacts": artifacts}
 
 
