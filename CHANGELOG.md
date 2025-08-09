@@ -1,3 +1,40 @@
+## [v2.29.4] - 2025-08-09
+
+### Added
+- API v1 Milestone A scaffold (local dev):
+  - FastAPI service with endpoints: POST /v1/jobs, GET /v1/jobs/{id}, GET /v1/jobs/{id}/events (SSE), POST /v1/uploads/presign
+  - Real GCS V4 signed PUT URLs (via google-cloud-storage) with bucket configured by `GCS_BUCKET`
+  - Global headers: `X-Request-ID` on all responses; `Retry-After` on 429 per spec
+  - CORS middleware with `CORS_ALLOW_ORIGINS` and exposed `X-Request-ID`, `Retry-After`
+  - `manifest_url` now points to the real bucket path
+
+### Documentation
+- API readiness spec updated with curl examples, error taxonomy, milestones, and status (Milestone A complete)
+- OpenAPI expanded with error schemas, examples, headers, and SSE example
+- API Quickstart updated with 429 retry and presign troubleshooting tip
+
+### Notes
+- Milestone B (queue, idempotency, real state/artifacts, admission control) is next
+
+## [v2.29.3] - 2025-08-08
+
+### Added/Changed
+- Docs cleanup and alignment with v2.29.3 across key guides:
+  - TROUBLESHOOTING.md: spacing normalized; long-video guidance updated; lint-clean except intentional header style
+  - advanced/VERTEX_AI_GUIDE.md: spacing normalized; rate-limit language clarified; link fixes
+  - OUTPUT_FORMATS.md: updated header; GEXF export details (stable hashed IDs, idtype=string, node attrs, edge labels)
+  - PLATFORMS.md: added Last Updated header
+  - README.md (docs): version bumped and Last Updated added
+  - GETTING_STARTED.md: updated to v2.29.3; corrected internal links
+  - COST_ANALYSIS.md: rate limit tiers and auth paths clarified; added auth check utility
+  - advanced/EXTRACTION_TECHNOLOGY.md: clarified hybrid strategy (Gemini + targeted local models)
+  - OUTPUT_FILE_STANDARDS.md: header bumped to v2.29.3
+  - VISUALIZING_GRAPHS.md: reflects direct GEXF output and built-in visualizer usage
+  - ROADMAP.md: Last Updated and progress status refreshed
+
+### Notes
+- No code changes; documentation-only release to align with current CLI groups and features.
+
 # ClipScribe Changelog
 
 All notable changes to ClipScribe will be documented in this file.

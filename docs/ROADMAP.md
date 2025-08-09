@@ -1,6 +1,6 @@
 # ClipScribe Strategic Roadmap: From Tool to SaaS Platform
 
-*Last Updated: August 5, 2025*
+*Last Updated: August 8, 2025*
 
 ## Strategic Vision: The Video Intelligence SaaS Platform
 
@@ -11,7 +11,7 @@ Our core competitive advantage is our ability to provide deep intelligence extra
 ---
 
 ## Immediate Priority: Backend Documentation & Rules Cleanup
-Goal: Ensure all documentation and rules are current, accurate, non-duplicative, and aligned with v2.25.0. Remove all smiley faces across the repo.
+Goal: Ensure all documentation and rules are current, accurate, non-duplicative, and aligned with v2.29.3. Remove all smiley faces across the repo.
 
 Tasks:
 - Audit and update all files in `docs/` recursively (fix versions, flags, CLI examples, costs, claims)
@@ -20,7 +20,7 @@ Tasks:
 - Review and update all `.cursor/rules/*.mdc` for accuracy and consistency
 - Repo-wide removal of smiley faces (`:-)`, `:)`, ``, ``)
 
-Status: In Progress
+Status: In Progress — Completed: `docs/TROUBLESHOOTING.md`, `docs/advanced/VERTEX_AI_GUIDE.md`, `docs/OUTPUT_FORMATS.md`, `docs/PLATFORMS.md`, `docs/README.md`, `docs/GETTING_STARTED.md`, `docs/COST_ANALYSIS.md`, `docs/advanced/EXTRACTION_TECHNOLOGY.md`, `docs/OUTPUT_FILE_STANDARDS.md`. Next: finalize any remaining headers/links, brief pass on architecture docs.
 
 ---
 

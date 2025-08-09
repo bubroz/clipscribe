@@ -1,19 +1,17 @@
 # Visualizing ClipScribe Knowledge Graphs
 
-*Last Updated: June 24, 2025 at 1:40 AM PDT*
+*Last Updated: August 8, 2025*
 
-ClipScribe's v2.2 Advanced Intelligence Extraction creates rich knowledge graphs from video transcripts. This guide shows you how to visualize them using Gephi and other tools.
+ClipScribe creates rich knowledge graphs from video transcripts. This guide shows how to visualize them using Gephi and the built-in visualization scripts.
 
 ## Quick Start
 
-After transcribing a video with ClipScribe, you'll find a `knowledge_graph.json` file in the output directory. Here's how to visualize it:
+After processing a video with ClipScribe, you'll find a `knowledge_graph.gexf` (and often a `knowledge_graph.json`) in the output directory. Here's how to visualize it:
 
 ### Option 1: Gephi (Recommended for Large Graphs)
 
-1. **Convert to Gephi format**:
-```bash
-poetry run python scripts/convert_to_gephi.py output/*/knowledge_graph.json --stats
-```
+1. **Locate the GEXF file** (ClipScribe now writes GEXF directly):
+   - Example: `output/YYYYMMDD_platform_videoID/knowledge_graph.gexf`
 
 2. **Download and install Gephi**:
    - Visit https://gephi.org
@@ -48,15 +46,15 @@ poetry run python scripts/convert_to_gephi.py output/*/knowledge_graph.json --st
    - Click Refresh
    - Export as PNG/PDF/SVG
 
-### Option 2: Quick Python Viewer
+### Option 2: Built-in Python Visualizer
 
-For a quick preview without installing Gephi:
+For a quick, attractive preview without installing Gephi:
 
 ```bash
-poetry run python scripts/view_knowledge_graph.py output/*/knowledge_graph.json
+poetry run python scripts/visualize.py output/*/knowledge_graph.json
 ```
 
-This creates a simple matplotlib visualization showing up to 50 nodes.
+This generates an interactive HTML visualization (and can also render 3D). See options with `--help`.
 
 ## Understanding the Graph
 
@@ -239,9 +237,7 @@ The raw data for custom visualizations:
 }
 ```
 
-## Gephi Import (If You Must)
-
-Yes, Gephi is "kinda booty" as you said, but here's how to make it less ugly:
+## Gephi Import Tips
 
 1. **Import**: File → Open → Select `.gexf` file
 2. **Layout**: 
@@ -262,11 +258,11 @@ Yes, Gephi is "kinda booty" as you said, but here's how to make it less ugly:
 
 ## Quick Comparison
 
-| Tool | Beauty | Ease of Use | Performance | Export Options |
-|------|--------|-------------|-------------|----------------|
-| Pyvis | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ | HTML |
-| Plotly 3D | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐ | HTML, PNG |
-| Gephi | ⭐⭐ | ⭐ | ⭐⭐⭐⭐⭐ | Many formats |
+| Tool | Visual quality | Ease of use | Performance | Export options |
+|------|----------------|------------|-------------|----------------|
+| Pyvis | Excellent | Excellent | Good | HTML |
+| Plotly 3D | Excellent | Good | Fair | HTML, PNG |
+| Gephi | Fair | Basic | Excellent | Many formats |
 
 ## Creating Custom Visualizations
 
@@ -319,7 +315,7 @@ For videos with 100+ entities:
 - Adjust font sizes in the visualization scripts
 - Export to high-res image and view separately
 
-Remember: The built-in visualizers are much prettier than Gephi! 
+Note: The built-in visualizers are optimized for aesthetics and quick sharing.
 
 ## Visualizing Knowledge Graphs
 

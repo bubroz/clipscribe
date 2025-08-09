@@ -1,4 +1,6 @@
-# ClipScribe Documentation v2.19.8
+# ClipScribe Documentation v2.29.3
+
+*Last Updated: August 8, 2025*
 
 ## Overarching Goals and Stages
 
@@ -13,3 +15,9 @@ For immediate 3-video analysis:
 poetry run python examples/pbs_fast_batch.py --limit 3
 # Select option 4 (Test mode) for maximum speed
 ``` 
+
+## API Documentation
+
+- API Readiness Spec: `docs/architecture/API_V1_SERVICE_READINESS.md`
+- OpenAPI (machine-readable): `docs/architecture/openapi.yaml`
+- API Quickstart: `docs/API_QUICKSTART.md`

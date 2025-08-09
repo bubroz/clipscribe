@@ -1,15 +1,15 @@
 # Getting Started with ClipScribe
 
-*Last Updated: July 31, 2025*
-*Related: [CLI Reference](mdc:CLI_REFERENCE.md) | [Output Formats](mdc:OUTPUT_FORMATS.md)*
+*Last Updated: August 8, 2025*
+*Related: [CLI Reference](CLI_REFERENCE.md) | [Output Formats](OUTPUT_FORMATS.md)*
 
-##  What's New: v2.22.2 - Pro-First Architecture & Stable CLI!
+##  What's New: v2.29.3 — Stability, Chunked Uploads, and Clean CLI Groups
 
-**ClipScribe v2.22.2** is a production-ready video intelligence tool:
-- ** Pro by Default**: Gemini 2.5 Pro is the default for the highest quality extraction.
-- ** NEW --use-flash FLAG**: Use the faster, lower-cost Gemini 2.5 Flash model when speed is your priority.
-- ** Stable CLI**: All commands are fully functional with a 100% test pass rate.
-- ** Robustness Fixes**: Now handles hour-long videos and has a stable test suite.
+**ClipScribe v2.29.3** highlights:
+- **Pro by default, Flash available**: Gemini 2.5 Pro for complex analysis; `--use-flash` for standard/high-volume tasks.
+- **Resilience**: Chunked MP3 uploads, throttled concurrency, and configurable timeouts for long videos.
+- **Exports**: GEXF export upgraded (stable IDs, idtype, node attrs, edge labels, viz colors).
+- **CLI**: Structured command groups (`process`, `collection`, `research`, `utils`).
 
 ## Prerequisites
 
@@ -45,7 +45,7 @@ export GOOGLE_API_KEY="your-api-key-here"
 
 ```bash
 poetry run clipscribe --version
-# Should output: ClipScribe, version 2.22.2
+# Should output: ClipScribe, version 2.29.3
 
 poetry run clipscribe --help
 ```
@@ -74,7 +74,7 @@ asyncio.run(analyze_video("https://youtube.com/watch?v=..."))
 
 ## Basic Usage
 
-### Process a Single Video (NEW: Pro by Default)
+### Process a Single Video (Pro by Default)
 
 ```bash
 # High quality (Gemini 2.5 Pro, DEFAULT)
@@ -263,7 +263,4 @@ Remember: ClipScribe now targets **100% extraction completeness**, not arbitrary
 ## Enterprise Use
 For large-scale deployment, see docs/advanced/deployment/DEPLOYMENT_GUIDE.md
 
-## Add quick series example
-poetry run clipscribe collection series "https://youtube.com/watch?v=video1" "https://youtube.com/watch?v=video2"
 
-## Update version

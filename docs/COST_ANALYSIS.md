@@ -1,6 +1,6 @@
 # ClipScribe Cost Analysis
 
-*Last Updated: July 30, 2025*
+*Last Updated: August 8, 2025*
 
 ## Overview
 
@@ -27,14 +27,32 @@ The following table outlines the estimated cost per minute of video processing, 
 | 30 minutes | ~$0.60 | ~$0.105 |
 | 60 minutes | ~$1.20 | ~$0.210 |
 
-### API Pricing (as of July 2025)
+### API Pricing & Rate Limits (as of August 2025)
 
-**Gemini 2.5 Flash** (via Google AI Studio or Vertex AI):
+**Gemini 2.5 Flash** (pricing reference):
 - Input: $0.075 per 1M tokens
 - Output: $0.30 per 1M tokens
-- Free tier: 15 RPM, 1M TPM, 1500 RPD
 
-**Token Estimation Formula**:
+Rate limits (requests per minute, RPM) depend on authentication tier:
+- Free (unlinked API key): ~10 RPM
+- Tier 1 (billed project, <$250): ~2,000 RPM
+- Tier 2 (billed project, >$250): ~5,000 RPM
+- Tier 3 (billed project, >$1,000): ~10,000 RPM
+- Vertex AI (enterprise): project-based, customizable quotas
+
+Recommendation: Link your Google AI Studio API key to a billed GCP project to unlock higher quotas, or use Vertex AI for enterprise workloads.
+
+Two access paths to Gemini:
+- Google AI Studio (API key): set `GOOGLE_API_KEY`; best for individuals/rapid prototyping.
+- Vertex AI (enterprise): set `USE_VERTEX_AI=true`, `VERTEX_AI_PROJECT`, and `GOOGLE_APPLICATION_CREDENTIALS`.
+
+Auth check utility:
+```bash
+poetry run clipscribe utils check-auth
+```
+Shows which path is active and links to the correct console for quota/billing.
+
+**Token Estimation Formula** (rule-of-thumb):
 - Video: ~6K tokens per minute of content
 - Transcript + Analysis: ~1K output tokens per minute
 

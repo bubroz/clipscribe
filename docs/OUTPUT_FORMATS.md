@@ -1,10 +1,10 @@
 # ClipScribe Output Formats
 
-*Last Updated: July 31, 2025 - v2.22.2 Stable*
+*Last Updated: August 8, 2025 - v2.29.3*
 
-ClipScribe generates a comprehensive set of structured output files for each processed video, all organized within a timestamped directory. **All formats validated and working in v2.22.2**.
+ClipScribe generates a comprehensive set of structured output files for each processed video, all organized within a timestamped directory.
 
-## Directory Structure (v2.22.2 Validated )
+## Directory Structure
 
 ```
 output/
@@ -12,31 +12,25 @@ output/
     ├── transcript.txt          # Plain text transcript
     ├── transcript.json         # Full structured data with all analysis
     ├── metadata.json           # Lightweight video and processing metadata
-    ├── entities.json           #  24-59 entities (FIXED: now saved properly)
+    ├── entities.json           #  Entities with normalization and sources
     ├── entities.csv            #  Entities in CSV format for spreadsheets
     ├── entity_sources.json     #  Entity source tracking and normalization
     ├── entity_sources.csv      #  Entity sources in CSV format
-    ├── relationships.json      #  53+ relationships (FIXED: now saved properly)
+    ├── relationships.json      #  Relationships with evidence chains
     ├── relationships.csv       #  Relationships in CSV format for spreadsheets
-    ├── knowledge_graph.gexf    #  Gephi-compatible (FIXED: 60 nodes, 53 edges)
+    ├── knowledge_graph.gexf    #  Gephi-compatible (stable hashed IDs, idtype=string, node attrs, edge labels)
     ├── report.md               #  Human-readable intelligence report
     ├── chimera_format.json     #  Integration format for external tools
     └── manifest.json           #  File index with processing metadata
 ```
 
-## Quality Control Options (v2.22.2)
+## Quality Control Options
 
 ### High Quality (Default - Gemini 2.5 Pro)
-- **Cost**: ~$0.017/video (~$0.02/minute) 
-- **Entities**: 30-60 per video with superior accuracy
-- **Relationships**: 50+ per video with detailed evidence chains
-- **Processing**: Professional-grade extraction, our recommended default.
+- Professional-grade extraction and reasoning; recommended for complex analysis.
 
 ### Standard Quality (--use-flash - Gemini 2.5 Flash)
-- **Cost**: ~$0.003/video (~$0.0035/minute)
-- **Entities**: 20-30 per video with good accuracy
-- **Relationships**: 40-60 per video with basic evidence
-- **Processing**: Faster, cost-effective for high volume or when speed is a priority.
+- Faster and cost-efficient; ideal for high volume or exploratory runs.
 
 ## Critical Fixes in v2.20.4
 
@@ -83,12 +77,8 @@ Lightweight JSON file with processing overview:
 
 ## Core Output Files
 
-### entities.json  WORKING
-Contains all extracted entities with **validated working pipeline** (v2.22.2):
-- **Quality extraction**: 24-59 entities per video depending on content
-- **Proper normalization**: Raw extractions deduplicated intelligently (59→24)
-- **Multi-source attribution**: Shows extraction sources (Gemini, SpaCy, etc.)
-- **Fixed pipeline**: Entities now properly saved to final output files
+### entities.json
+Contains extracted entities with normalization and multi-source attribution (Gemini + targeted local augmentations where applicable).
 
 ```json
 {

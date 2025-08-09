@@ -1,6 +1,6 @@
 # Vertex AI Integration Guide
 
-*Last Updated: July 20, 2025*
+*Last Updated: August 08, 2025*
 *Related: [Getting Started](../GETTING_STARTED.md) | [Pre-Upload Videos](../PRE_UPLOAD_VIDEOS.md)*
 
 ## Overview
@@ -10,12 +10,14 @@ ClipScribe supports Google Cloud Vertex AI for enterprise-scale video processing
 ## When to Use Vertex AI vs Gemini API
 
 ### Use Gemini API (Default) When
+
 - Processing < 100 videos per day
 - Want simplest setup (just an API key)
 - Cost is ~$0.0035 per video
 - Don't need enterprise features
 
 ### Use Vertex AI When
+
 - Processing 100+ videos per day
 - Need enterprise security/compliance
 - Want to pre-upload videos to GCS
@@ -126,11 +128,13 @@ result = await transcriber.transcribe_video(
 ## Cost Comparison
 
 ### Gemini API Costs
+
 - **Processing**: $0.0035 per video (10 min)
 - **Setup**: None
 - **Storage**: None (direct URLs)
 
 ### Vertex AI Costs
+
 - **Processing**: ~$0.003 per video (slightly lower)
 - **Storage**: ~$0.02/GB/month (GCS)
 - **Network**: Egress charges if downloading
@@ -139,12 +143,14 @@ result = await transcriber.transcribe_video(
 ## Performance & Limits
 
 ### Gemini API
-- **Rate Limit**: 15 requests/minute
-- **Daily Limit**: 1500 requests
-- **Max Video Size**: 1GB
-- **Timeout**: 5 minutes
+
+- **Rate Limit**: See official documentation; depends on billing tier
+- **Daily Limit**: Project quota-based
+- **Max Video Size**: Managed by upstream limits
+- **Timeout**: Configurable via environment in ClipScribe
 
 ### Vertex AI
+
 - **Rate Limit**: Higher (project-based)
 - **Daily Limit**: No hard limit
 - **Max Video Size**: 2GB
@@ -162,6 +168,7 @@ for batch in chunks(videos, size=10):
 ```
 
 ### 2. Cost Optimization
+
 - Pre-upload during off-peak hours
 - Use lifecycle policies to auto-delete old videos
 - Process in regions close to your users
@@ -190,6 +197,7 @@ Switching from Gemini API to Vertex AI:
 ## Troubleshooting
 
 ### "Permission Denied"
+
 ```bash
 # Check service account permissions
 gcloud projects get-iam-policy PROJECT_ID \
@@ -198,12 +206,14 @@ gcloud projects get-iam-policy PROJECT_ID \
 ```
 
 ### "Video Not Found"
+
 ```bash
 # Verify GCS upload
 gsutil ls gs://your-bucket/videos/
 ```
 
 ### "Quota Exceeded"
+
 - Check Vertex AI quotas in Cloud Console
 - Request quota increase if needed
 - Implement rate limiting in your code
@@ -247,4 +257,4 @@ class EnterpriseVideoPipeline:
 - **ClipScribe Issues**: GitHub issues
 - **Documentation**: This guide and GCP docs
 
-Remember: Vertex AI is powerful but requires more setup. Start with Gemini API and migrate when you need scale!  
+Remember: Vertex AI is powerful but requires more setup. Start with Gemini API and migrate when you need scale!

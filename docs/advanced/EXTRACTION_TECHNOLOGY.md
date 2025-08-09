@@ -1,7 +1,7 @@
 # ClipScribe Extraction Technology
 
-*Last Updated: July 31, 2025*
-*Version: v2.22.2*
+*Last Updated: August 8, 2025*
+*Version: v2.29.3*
 
 ## Core Extraction Engine: Google's Gemini 2.5
 
@@ -18,12 +18,12 @@ ClipScribe's intelligence extraction is a **cloud-native system** that leverages
 - **Trade-off**: While still high quality, it may produce more "noise" and less refined relationships compared to the Pro model.
 - **Use Case**: Ideal for high-volume batch processing or rapid initial analysis.
 
-## Extraction Philosophy: Quality-First & Gemini-Native
+## Extraction Philosophy: Quality-First & Hybrid (Gemini + Local Models)
 
-Our architecture is built on a "Trust Gemini" principle. We have moved away from a complex, multi-stage pipeline involving local models (like GLiNER and REBEL) for the primary extraction path.
+Our architecture is built on a "Trust Gemini" principle for the primary extraction, complemented by a targeted hybrid layer using local models where they add value (SpaCy, GLiNER, REBEL) and LLM-based validation.
 
-- **Simplified Pipeline**: Video/audio is sent directly to the selected Gemini model, which performs transcription and a comprehensive first-pass intelligence extraction in a single step.
-- **No Redundancy**: We no longer re-process the transcript with multiple, redundant local models. This improves speed, reduces complexity, and ensures a single source of truth for the extracted data.
-- **Focus on Prompts**: Our development effort is focused on optimizing the prompts sent to the Gemini models to continually improve the quality and richness of the data we get back.
+- **Primary Path (Gemini)**: Video/audio is processed by the selected Gemini model, which performs transcription and a comprehensive first-pass intelligence extraction in a single step.
+- **Targeted Hybrid Augmentation**: We apply minimal, cost-aware local passes to improve recall, disambiguation, and validation when needed. This preserves speed while boosting completeness and consistency.
+- **Focus on Prompts**: We continuously optimize Gemini prompts for completeness and correctness to minimize unnecessary post-processing.
 
-We exclusively use the 2.5 generation of models to ensure we are always leveraging the latest technology. We do not use older models like 1.5.
+We exclusively use the Gemini 2.5 generation (Flash and Pro). We do not use older models like 1.5.
