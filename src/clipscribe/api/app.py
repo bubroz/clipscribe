@@ -11,6 +11,8 @@ from fastapi import FastAPI, Header, HTTPException, Response, Request
 from fastapi.responses import JSONResponse, StreamingResponse
 from pydantic import BaseModel, Field
 from fastapi.middleware.cors import CORSMiddleware
+from rq import Queue
+import redis
 
 
 class SubmitByUrl(BaseModel):
@@ -73,6 +75,16 @@ if allowed_origins:
         allow_headers=["*"],
         expose_headers=["X-Request-ID", "Retry-After"],
     )
+
+# Redis queue and counters
+redis_url = os.getenv("REDIS_URL", "redis://localhost:6379/0")
+redis_conn = None
+job_queue: Optional[Queue] = None
+try:
+    redis_conn = redis.from_url(redis_url)
+    job_queue = Queue("clipscribe", connection=redis_conn)
+except Exception:
+    pass
 
 
 @app.middleware("http")
@@ -194,8 +206,14 @@ async def create_job(
         if idempotency_key:
             idempotency_to_job[idempotency_key] = job_id
 
-    # Start background processing
+    # Start background processing and enqueue worker side-effect
     asyncio.create_task(_enqueue_job_processing(job, body))
+    try:
+        if job_queue is not None:
+            job_queue.enqueue("clipscribe.api.worker.process_job", job_id, body, job_timeout=600)
+    except Exception:
+        # ignore enqueue failures in dev
+        pass
     return job
 
 
