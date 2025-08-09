@@ -284,15 +284,30 @@ class MultiVideoProcessor:
         return min(base_score + analytical_boost, 1.0)
 
     def _extract_related_entities(self, text: str, entities: List[Entity]) -> List[str]:
-        """Find entities mentioned in the concept text."""
+        """Find entities mentioned in the concept text.
+
+        Supports both legacy Entity (entity) and EnhancedEntity (name).
+        """
+        if not text:
+            return []
         text_lower = text.lower()
-        related = []
-        
-        for entity in entities:
-            if entity.entity.lower() in text_lower:
-                related.append(entity.entity)
-        
-        return related[:5]  # Limit to top 5
+        related: List[str] = []
+
+        for ent in entities:
+            name = getattr(ent, 'entity', getattr(ent, 'name', ''))
+            if not name:
+                continue
+            if name.lower() in text_lower:
+                related.append(name)
+
+        # Deduplicate while preserving order
+        seen = set()
+        unique_related = []
+        for n in related:
+            if n not in seen:
+                seen.add(n)
+                unique_related.append(n)
+        return unique_related[:5]  # Limit to top 5
 
     def _assess_concept_sentiment(self, text: str) -> float:
         """Assess sentiment toward the concept."""
