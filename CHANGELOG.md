@@ -5,6 +5,18 @@ All notable changes to ClipScribe will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v2.29.2 - 2025-08-08
+
+### Added
+- GEXF export improvements (best practices, GEXF 1.3):
+  - Stable hashed node IDs with graph idtype="string"
+  - Node attributes: Name, MentionCount, Occurrences, Type, Confidence
+  - Edge label and kind set from predicate; edge weight remains confidence
+  - Visualization colors via viz:color r/g/b/a
+
+### Fixed
+- Multi-video collection robustness: entity unification and concept extraction now handle `EnhancedEntity.name` and legacy `Entity.entity` uniformly.
+
 ## v2.29.1 - 2025-08-07
 
 ### Changed
