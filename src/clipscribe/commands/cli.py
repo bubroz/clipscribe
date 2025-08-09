@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import Optional, List
 import asyncio
 import logging
+import os
 
 import click
 
@@ -209,3 +210,40 @@ def clean_demo(demo_dir: Path, dry_run: bool, keep_recent: int):
             click.echo(f"Failed to delete {d}: {e}")
 
     click.echo("Demo cleanup complete.")
+
+
+@utils.command("check-auth")
+def check_auth():
+    """Report active authentication method and configuration for Gemini/Vertex AI."""
+    try:
+        settings = Settings()
+    except Exception as e:
+        click.echo("Auth status: Misconfigured")
+        click.echo(f"Error: {e}")
+        click.echo("If using Google AI Studio, set GOOGLE_API_KEY. If using Vertex AI, set USE_VERTEX_AI=true and GOOGLE_APPLICATION_CREDENTIALS.")
+        return
+
+    use_vertex = getattr(settings, 'use_vertex_ai', False)
+    if use_vertex:
+        project = getattr(settings, 'VERTEX_AI_PROJECT', None) or os.environ.get('VERTEX_AI_PROJECT') or os.environ.get('VERTEX_AI_PROJECT_ID')
+        location = os.environ.get('VERTEX_AI_LOCATION', 'us-central1')
+        creds_path = os.environ.get('GOOGLE_APPLICATION_CREDENTIALS')
+        click.echo("Auth: Vertex AI mode enabled")
+        click.echo(f"Project: {project or 'not set'}")
+        click.echo(f"Location: {location}")
+        if creds_path:
+            exists = Path(creds_path).exists()
+            click.echo(f"GOOGLE_APPLICATION_CREDENTIALS: {creds_path} ({'exists' if exists else 'missing'})")
+        else:
+            click.echo("GOOGLE_APPLICATION_CREDENTIALS: not set (ADC will be used if available)")
+        click.echo("Verify quotas in Google Cloud Console > Vertex AI. Ensure service account has roles/aiplatform.user.")
+    else:
+        api_key = getattr(settings, 'google_api_key', '') or os.environ.get('GOOGLE_API_KEY', '')
+        if api_key:
+            masked = api_key[:6] + "..." if len(api_key) > 6 else "(set)"
+            click.echo("Auth: Google AI Studio API key detected")
+            click.echo(f"GOOGLE_API_KEY: {masked}")
+            click.echo("Tip: Link API key to a billed Google Cloud project in AI Studio for higher rate limits.")
+        else:
+            click.echo("Auth: Missing GOOGLE_API_KEY and Vertex AI not enabled")
+            click.echo("Set GOOGLE_API_KEY or enable USE_VERTEX_AI=true with proper credentials.")

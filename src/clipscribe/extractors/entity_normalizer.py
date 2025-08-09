@@ -72,7 +72,7 @@ class EntityNormalizer:
             return []
             
         logger.info(f"Normalizing {len(entities)} entities...")
-        logger.debug(f"DEBUG: Input entities: {[e.entity for e in entities[:10]]}...")  # Show first 10
+        logger.debug(f"DEBUG: Input entities: {[getattr(e,'entity', getattr(e,'name','')) for e in entities[:10]]}...")  # Show first 10
         
         # Step 1: Basic cleanup
         cleaned_entities = self._clean_entity_names(entities)
@@ -103,19 +103,20 @@ class EntityNormalizer:
         
         for entity in entities:
             # Skip empty or very short names
-            if not entity.entity or len(entity.entity.strip()) < 2:
+            raw_name = getattr(entity, 'entity', getattr(entity, 'name', ''))
+            if not raw_name or len(raw_name.strip()) < 2:
                 continue
                 
             # Clean the name
-            clean_name = self._clean_name(entity.entity)
+            clean_name = self._clean_name(raw_name)
             if not clean_name:
                 continue
                 
             # Create cleaned entity
             cleaned_entity = Entity(
                 entity=clean_name,
-                type=entity.type.upper(),  # Standardize type case
-                source=entity.source
+                type=getattr(entity, 'type', 'unknown').upper(),  # Standardize type case
+                source=getattr(entity, 'source', None)
             )
             cleaned.append(cleaned_entity)
             
@@ -170,12 +171,18 @@ class EntityNormalizer:
         
     def _are_same_entity(self, entity1: Entity, entity2: Entity) -> bool:
         """Determine if two entities refer to the same thing."""
+        # Support both Entity (entity) and EnhancedEntity (name)
+        name1 = getattr(entity1, 'entity', getattr(entity1, 'name', ''))
+        name2 = getattr(entity2, 'entity', getattr(entity2, 'name', ''))
+        type1 = getattr(entity1, 'type', 'unknown')
+        type2 = getattr(entity2, 'type', 'unknown')
+
         # Must be same type (with some flexibility)
-        if not self._compatible_types(entity1.type, entity2.type):
+        if not self._compatible_types(type1, type2):
             return False
             
         # Check name similarity
-        return self._similar_names(entity1.entity, entity2.entity)
+        return self._similar_names(name1, name2)
         
     def _compatible_types(self, type1: str, type2: str) -> bool:
         """Check if two entity types are compatible using hierarchical mapping."""

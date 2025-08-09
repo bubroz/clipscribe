@@ -1047,6 +1047,7 @@ class MultiVideoProcessor:
                     "video_title": video.metadata.title,
                 })
 
+        # Normalize to simple structures with names and types to handle EnhancedEntity vs Entity
         all_raw_entities = [item["entity"] for item in all_entities_with_source]
         entity_groups = self.entity_normalizer._group_similar_entities(all_raw_entities)
         
@@ -1065,15 +1066,23 @@ class MultiVideoProcessor:
             if core_only and len(video_ids_in_group) <= 1:
                 continue
 
-            canonical_name = Counter(e.entity for e in group).most_common(1)[0][0]
-            canonical_entity = next((e for e in group if e.entity == canonical_name), group[0])
-            aliases = list(set(e.entity for e in group if e.entity != canonical_name))
-            total_mentions = sum(e.mention_count for e in group)
+            # Support both .entity (Entity) and .name (EnhancedEntity)
+            def _ename(e):
+                return getattr(e, 'entity', getattr(e, 'name', ''))
+            def _etype(e):
+                return getattr(e, 'type', 'unknown')
+            def _mentions(e):
+                return getattr(e, 'mention_count', 1)
+
+            canonical_name = Counter(_ename(e) for e in group).most_common(1)[0][0]
+            canonical_entity = next((e for e in group if _ename(e) == canonical_name), group[0])
+            aliases = list(set(_ename(e) for e in group if _ename(e) != canonical_name))
+            total_mentions = sum(_mentions(e) for e in group)
 
             from clipscribe.models import CrossVideoEntity
             cross_video_entity = CrossVideoEntity(
                 name=canonical_name,
-                type=canonical_entity.type,
+                type=_etype(canonical_entity),
                 canonical_name=canonical_name,
                 aliases=aliases,
                 video_appearances=list(video_ids_in_group),
