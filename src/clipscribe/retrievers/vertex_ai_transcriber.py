@@ -158,7 +158,31 @@ class VertexAITranscriber:
             }
             
             # Generate with retry
-            response = await self._generate_with_retry(contents, generation_config)
+            try:
+                response = await self._generate_with_retry(contents, generation_config)
+            except Exception as e:
+                # Fallback: some Vertex endpoints reject gs:// URIs for file_data; inline bytes instead
+                if "invalid argument" in str(e).lower() and gcs_uri:
+                    logger.info("Vertex rejected gs:// URI; attempting inline bytes fallback")
+                    # Download bytes from GCS and resend as Part.from_data
+                    try:
+                        parts = gcs_uri.replace("gs://", "").split("/", 1)
+                        bucket_name, blob_name = parts[0], parts[1]
+                        bucket = self.storage_client.bucket(bucket_name)
+                        blob = bucket.blob(blob_name)
+                        media_bytes = blob.download_as_bytes()
+                        inline_media_part = Part.from_data(mime_type=mime_type, data=media_bytes)
+                        contents = [
+                            Content(
+                                role="user",
+                                parts=[Part.from_text(prompt), inline_media_part],
+                            )
+                        ]
+                        response = await self._generate_with_retry(contents, generation_config)
+                    except Exception:
+                        raise
+                else:
+                    raise
             
             # Parse response
             result = self._parse_response(response.text)
