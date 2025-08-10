@@ -50,8 +50,10 @@ class VertexAITranscriber:
     def __init__(self, performance_monitor: Optional[Any] = None):
         self.settings = Settings()
         self.performance_monitor = performance_monitor
-        self.project_id = self.settings.vertex_ai_project
-        self.location = self.settings.vertex_ai_location
+        self.project_id = self.settings.vertex_ai_project or VERTEX_AI_PROJECT_ID
+        self.location = self.settings.vertex_ai_location or VERTEX_AI_LOCATION
+        self.model_name = VERTEX_AI_MODEL_NAME
+        self.auto_cleanup = False
 
         # Set credentials if available in env
         if not os.getenv("GOOGLE_APPLICATION_CREDENTIALS"):

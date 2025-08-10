@@ -47,6 +47,18 @@ class Settings(BaseSettings):
     
     # Vertex AI Configuration
     use_vertex_ai: bool = Field(default=False)
+    vertex_ai_project: str = Field(
+        default=os.getenv("VERTEX_AI_PROJECT", os.getenv("VERTEX_AI_PROJECT_ID", "")),
+        description="GCP project ID for Vertex AI (env: VERTEX_AI_PROJECT)"
+    )
+    vertex_ai_location: str = Field(
+        default=os.getenv("VERTEX_AI_LOCATION", "us-central1"),
+        description="Vertex AI location/region (env: VERTEX_AI_LOCATION)"
+    )
+    vertex_ai_staging_bucket: Optional[str] = Field(
+        default=os.getenv("VERTEX_AI_STAGING_BUCKET", None),
+        description="Optional Vertex AI staging bucket (gs://...)"
+    )
     
     # AI Model Configuration
     ai_model: str = Field(
