@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Optional, Dict, Any, List
+from typing import Optional, Dict, Any, List, Set
 import os
 import json
 import time
@@ -103,6 +103,7 @@ idempotency_to_job: Dict[str, str] = {}
 fingerprint_to_job: Dict[str, str] = {}
 job_events: Dict[str, asyncio.Queue[str]] = {}
 jobs_lock = asyncio.Lock()
+processing_jobs: Set[str] = set()
 
 
 # ---- Redis helpers ----
@@ -190,9 +191,9 @@ def _fingerprint_from_body(body: Dict[str, Any]) -> str:
 
 
 async def _enqueue_job_processing(job: Job, source: Dict[str, Any]) -> None:
-    """Simulate background processing and write manifest to GCS."""
+    """Simulate background processing with checkpoints and write manifest to GCS."""
     q = job_events.setdefault(job.job_id, asyncio.Queue())
-    # Update states with small delays
+
     async def push(event: str, data: Dict[str, Any]) -> None:
         await q.put(f"event: {event}\n" + f"data: {json.dumps(data)}\n\n")
 
@@ -205,46 +206,80 @@ async def _enqueue_job_processing(job: Job, source: Dict[str, Any]) -> None:
         await push("status", {"state": state})
         await push("progress", job.progress)
 
-    await set_state("DOWNLOADING", {"current_chunk": 0, "total_chunks": 6})
-    await asyncio.sleep(0.2)
-    await set_state("ANALYZING", {"current_chunk": 3, "total_chunks": 6})
-    await asyncio.sleep(0.2)
+    async def write_manifest() -> None:
+        bucket = os.getenv("GCS_BUCKET")
+        manifest_obj_path = f"jobs/{job.job_id}/manifest.json"
+        manifest_content = {
+            "job_id": job.job_id,
+            "schema_version": job.schema_version,
+            "source": source,
+            "created_at": job.created_at,
+            "updated_at": job.updated_at,
+        }
+        if bucket:
+            try:
+                from google.cloud import storage  # type: ignore
 
-    # Write manifest to GCS
-    bucket = os.getenv("GCS_BUCKET")
-    manifest_obj_path = f"jobs/{job.job_id}/manifest.json"
-    manifest_content = {
-        "job_id": job.job_id,
-        "schema_version": job.schema_version,
-        "source": source,
-        "created_at": job.created_at,
-        "updated_at": job.updated_at,
-    }
-    if bucket:
+                client = storage.Client()
+                blob = client.bucket(bucket).blob(manifest_obj_path)
+                blob.cache_control = "public, max-age=300"
+                blob.upload_from_string(
+                    json.dumps(manifest_content, separators=(",", ":")),
+                    content_type="application/json",
+                )
+            except Exception as e:
+                print(f"[warn] failed to write manifest to gs://{bucket}/{manifest_obj_path}: {e}")
+        job.manifest_url = f"https://storage.googleapis.com/{bucket or 'mock-bucket'}/{manifest_obj_path}"
+        _save_job(job)
+
+    # Acquire processing lock (memory + Redis)
+    acquired = False
+    key = f"cs:processing:{job.job_id}"
+    try:
+        if _redis_available():
+            acquired = bool(redis_conn.set(key, "1", nx=True, ex=600))
+    except Exception:
+        acquired = False
+    if not acquired:
+        if job.job_id in processing_jobs:
+            return
+        processing_jobs.add(job.job_id)
+    try:
+        # Continue from checkpoint
+        if job.state in ("QUEUED", "DOWNLOADING"):
+            await set_state("DOWNLOADING", {"current_chunk": 0, "total_chunks": 6})
+            await asyncio.sleep(0.2)
+            await set_state("ANALYZING", {"current_chunk": 3, "total_chunks": 6})
+        elif job.state == "ANALYZING":
+            # proceed
+            pass
+        elif job.state == "WRITING_ARTIFACTS":
+            # near completion; fall through
+            pass
+        # Write manifest and finish
+        await write_manifest()
+        await asyncio.sleep(0.1)
+        await set_state("WRITING_ARTIFACTS", {"current_chunk": 6, "total_chunks": 6})
+        await push("cost", {"usd": 0.003})
+        job.state = "COMPLETED"
+        job.updated_at = _now_iso()
+        _save_job(job)
+        _r_srem("cs:active_jobs", job.job_id)
+        await push("done", {"job_id": job.job_id})
+    finally:
         try:
-            from google.cloud import storage  # type: ignore
+            if _redis_available():
+                redis_conn.delete(key)
+        except Exception:
+            pass
+        processing_jobs.discard(job.job_id)
 
-            client = storage.Client()
-            blob = client.bucket(bucket).blob(manifest_obj_path)
-            blob.cache_control = "public, max-age=300"
-            # Explicitly pass content_type to the upload call to ensure header matches
-            blob.upload_from_string(
-                json.dumps(manifest_content, separators=(",", ":")),
-                content_type="application/json",
-            )
-        except Exception as e:
-            # Surface write failures during dev
-            print(f"[warn] failed to write manifest to gs://{bucket}/{manifest_obj_path}: {e}")
 
-    job.manifest_url = f"https://storage.googleapis.com/{bucket or 'mock-bucket'}/{manifest_obj_path}"
-    await asyncio.sleep(0.1)
-    await set_state("WRITING_ARTIFACTS", {"current_chunk": 6, "total_chunks": 6})
-    await push("cost", {"usd": 0.003})
-    job.state = "COMPLETED"
-    job.updated_at = _now_iso()
-    _save_job(job)
-    _r_srem("cs:active_jobs", job.job_id)
-    await push("done", {"job_id": job.job_id})
+def _ensure_processing(job: Job, source: Dict[str, Any]) -> None:
+    if job.state in {"COMPLETED", "FAILED", "CANCELED"}:
+        return
+    # Schedule continuation if not already running
+    asyncio.create_task(_enqueue_job_processing(job, source))
 
 
 @app.post("/v1/jobs", response_model=Job, status_code=202)
@@ -293,11 +328,13 @@ async def create_job(
             if existing_id:
                 j = _load_job(existing_id)
                 if j:
+                    _ensure_processing(j, body)
                     return j
         existing_fp_id = _r_get(f"cs:fp:{fp}") or fingerprint_to_job.get(fp)
         if existing_fp_id:
             j = _load_job(existing_fp_id)
             if j:
+                _ensure_processing(j, body)
                 return j
 
         job_id = uuid.uuid4().hex
