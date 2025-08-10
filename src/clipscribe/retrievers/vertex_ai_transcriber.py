@@ -138,8 +138,16 @@ class VertexAITranscriber:
                 mime_type=mime_type
             )
             
-            # Create contents list with prompt and media
-            contents = [prompt, media_part]
+            # Create contents with proper Content/Part structure
+            contents = [
+                Content(
+                    role="user",
+                    parts=[
+                        Part.from_text(prompt),
+                        media_part,
+                    ],
+                )
+            ]
             
             # Configure generation with JSON response
             generation_config = {
