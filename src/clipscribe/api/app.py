@@ -315,6 +315,29 @@ async def create_job(
         if day_count > max_daily:
             return _error("budget_exceeded", "Daily quota exceeded", status=429, retry_after_seconds=3600)
 
+        # USD budget enforcement (scaffold: estimate per job)
+        # Use fixed estimate until real estimate is wired
+        try:
+            est_cost = float(os.getenv("DEFAULT_EST_COST_USD", "0.035"))
+        except Exception:
+            est_cost = 0.035
+        budget_key = f"cs:budget:{token_id}:{datetime.utcnow().strftime('%Y%m%d')}"
+        cur_spend_raw = _r_get(budget_key)
+        try:
+            cur_spend = float(cur_spend_raw) if cur_spend_raw is not None else 0.0
+        except Exception:
+            cur_spend = 0.0
+        max_usd = float(os.getenv("TOKEN_DAILY_BUDGET_USD", "5.0"))
+        if cur_spend + est_cost > max_usd:
+            return _error("budget_exceeded", "Daily budget exceeded", status=429, retry_after_seconds=_seconds_until_end_of_day_utc())
+        # increment spend
+        try:
+            redis_conn.incrbyfloat(budget_key, est_cost)
+            if cur_spend_raw is None:
+                redis_conn.expire(budget_key, _seconds_until_end_of_day_utc())
+        except Exception:
+            pass
+
     # Simple admission control: throttle if too many active jobs (Redis-backed)
     active_jobs = _r_scard("cs:active_jobs")
     throttle_limit = int(os.getenv("ADMISSION_ACTIVE_LIMIT", "100"))

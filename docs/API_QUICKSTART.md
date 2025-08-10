@@ -88,6 +88,12 @@ Returns `estimated_cost_usd`, `estimated_duration_seconds`, `proposed_model`, an
 - CORS allow-lists differ per environment; dev includes `https://*.repl.co`.
 - Common errors: `rate_limited (429)`, `budget_exceeded`, `invalid_input`, `forbidden_origin`.
 
+### Token Limits (Milestone B)
+- RPM: set `TOKEN_MAX_RPM` (default 60)
+- Daily requests: set `TOKEN_MAX_DAILY_REQUESTS` (default 2000)
+- Daily budget: set `TOKEN_DAILY_BUDGET_USD` (default 5.0)
+- Retry logic: on 429, use `Retry-After` header or backoff
+
 For full details see `docs/architecture/API_V1_SERVICE_READINESS.md` and the OpenAPI at `/openapi.json`.
 
 ### Example: Handle 429 with Retry-After

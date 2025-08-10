@@ -117,6 +117,12 @@ curl "$API_BASE_URL/v1/estimate?url=https://www.youtube.com/watch?v=VIDEO_ID" \
 - `API_BASE_URL`, `CORS_ALLOW_ORIGINS`, `ADMISSION_*` caps, `PUBLIC_TOKEN_ISSUER_*`, `GCS_BUCKET`, `GCS_CORS_CONFIG`, `MOCK_API`, `ENABLE_SSE`.
 - Deny-all CORS by default; distinct dev/staging/prod lists.
 
+### Token Limits & Budgets (Milestone B)
+- `TOKEN_MAX_RPM` (default 60): Per-token requests per minute limit
+- `TOKEN_MAX_DAILY_REQUESTS` (default 2000): Per-token daily request cap
+- `TOKEN_DAILY_BUDGET_USD` (default 5.0): Per-token daily USD budget cap
+- `DEFAULT_EST_COST_USD` (default 0.035): Provisional per-job cost used for budget checks until real estimate is wired
+
 ## 12) Acceptance Criteria & Test Plan
 - From a Replit app: submit URL job, receive SSE updates, fetch artifacts; presign PUT to GCS, submit `gcs_uri`, complete.
 - CORS works for dev/staging; prod locked down.
