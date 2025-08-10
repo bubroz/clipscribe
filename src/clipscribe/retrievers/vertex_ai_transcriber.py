@@ -158,10 +158,12 @@ class VertexAITranscriber:
             
             # First try a single request (no retries) so we can detect 400 and fall back quickly
             try:
+                logger.info(f"Vertex generate start (uri path). Generation config: {generation_config}")
                 response = await self._generate_once(contents, generation_config)
-            except Exception as e:
-                if "invalid argument" in str(e).lower() and gcs_uri:
-                    logger.info("Vertex rejected gs:// URI; attempting inline bytes fallback")
+            except google_exceptions.InvalidArgument as e:
+                # Explicitly catch 400 Invalid Argument and fall back to inline bytes
+                logger.info("Vertex rejected gs:// URI with InvalidArgument; attempting inline bytes fallback")
+                if gcs_uri:
                     try:
                         parts = gcs_uri.replace("gs://", "").split("/", 1)
                         bucket_name, blob_name = parts[0], parts[1]
@@ -175,12 +177,16 @@ class VertexAITranscriber:
                                 parts=[Part.from_text(prompt), inline_media_part],
                             )
                         ]
+                        logger.info("Retrying Vertex generate with inline bytes. Generation config unchanged.")
                         response = await self._generate_with_retry(contents, generation_config)
-                    except Exception:
+                    except Exception as inline_e:
+                        logger.error(f"Inline bytes fallback failed: {inline_e}")
                         raise
                 else:
-                    # For non-400 errors, use retry strategy
-                    response = await self._generate_with_retry(contents, generation_config)
+                    raise
+            except Exception:
+                # For non-400 errors, use retry strategy
+                response = await self._generate_with_retry(contents, generation_config)
             
             # Parse response
             result = self._parse_response(response.text)
