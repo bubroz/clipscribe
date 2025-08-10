@@ -168,6 +168,33 @@ def _now_iso() -> str:
     return time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
 
 
+# ---- Metrics helpers (minimal Prometheus-style counters via Redis) ----
+def _metrics_inc(name: str, amount: int = 1) -> None:
+    if _redis_available():
+        try:
+            redis_conn.incrby(f"cs:metrics:{name}", amount)
+        except Exception:
+            pass
+
+
+def _metrics_dump() -> str:
+    lines: list[str] = []
+    if _redis_available():
+        try:
+            keys = redis_conn.keys("cs:metrics:*")
+            for k in keys:
+                v = redis_conn.get(k)
+                try:
+                    val = int(v) if v is not None else 0
+                except Exception:
+                    val = 0
+                metric = k.decode("utf-8").replace("cs:metrics:", "") if isinstance(k, (bytes, bytearray)) else str(k)
+                lines.append(f"clipscribe_{metric}_total {val}")
+        except Exception:
+            pass
+    return "\n".join(lines) + "\n"
+
+
 def _token_id_from_auth(authorization: Optional[str]) -> Optional[str]:
     if not authorization:
         return None
@@ -182,6 +209,29 @@ def _seconds_until_end_of_day_utc() -> int:
     now = datetime.now(timezone.utc)
     end = (now + timedelta(days=1)).replace(hour=0, minute=0, second=0, microsecond=0)
     return int((end - now).total_seconds())
+
+
+# ---- Sliding-window RPM (Redis Sorted Set) ----
+def _rpm_allow(token_id: str, max_rpm: int, window_secs: int = 60) -> bool:
+    if not _redis_available():
+        return True
+    try:
+        key = f"cs:rpm:{token_id}"
+        now_ms = int(time.time() * 1000)
+        cutoff_ms = now_ms - (window_secs * 1000)
+        pipe = redis_conn.pipeline()
+        # remove old
+        pipe.zremrangebyscore(key, 0, cutoff_ms)
+        # add current
+        pipe.zadd(key, {str(now_ms): now_ms})
+        # count
+        pipe.zcard(key)
+        # set TTL to keep key small
+        pipe.expire(key, window_secs)
+        _, _, count, _ = pipe.execute()
+        return int(count) <= max_rpm
+    except Exception:
+        return True
 
 
 def _fingerprint_from_body(body: Dict[str, Any]) -> str:
@@ -300,13 +350,10 @@ async def create_job(
     # Per-token RPM & daily budget counters (Redis) with reservation-based budgeting
     token_id = _token_id_from_auth(authorization)
     if token_id and _redis_available():
-        # RPM
-        rpm_key = f"cs:lim:{token_id}:rpm:{int(time.time() // 60)}"
-        rpm = int(redis_conn.incr(rpm_key))
-        if rpm == 1:
-            redis_conn.expire(rpm_key, 60)
+        # RPM (sliding-window)
         max_rpm = int(os.getenv("TOKEN_MAX_RPM", "60"))
-        if rpm > max_rpm:
+        if not _rpm_allow(token_id, max_rpm, 60):
+            _metrics_inc("rpm_rejects")
             return _error("rate_limited", "Per-token RPM exceeded", status=429, retry_after_seconds=10)
         # Daily requests cap
         day_key = f"cs:lim:{token_id}:day:{datetime.utcnow().strftime('%Y%m%d')}"
@@ -315,6 +362,7 @@ async def create_job(
             redis_conn.expire(day_key, _seconds_until_end_of_day_utc())
         max_daily = int(os.getenv("TOKEN_MAX_DAILY_REQUESTS", "2000"))
         if day_count > max_daily:
+            _metrics_inc("daily_request_rejects")
             return _error("rate_limited", "Daily request quota exceeded", status=429, retry_after_seconds=3600)
 
         # USD budget reservation based on real estimate
@@ -332,12 +380,14 @@ async def create_job(
             cur_spend = 0.0
         if cur_spend + est_cost > max_usd:
             retry = _seconds_until_end_of_day_utc()
+            _metrics_inc("budget_rejects")
             return _error("budget_exceeded", "Daily budget exceeded", status=429, retry_after_seconds=retry)
         # Reserve
         try:
             new_total = redis_conn.incrbyfloat(budget_key, est_cost)
             if current is None:
                 redis_conn.expire(budget_key, _seconds_until_end_of_day_utc())
+            _metrics_inc("budget_reserves")
         except Exception:
             pass
 
@@ -502,5 +552,13 @@ def run():
         port=int(os.getenv("PORT", "8080")),
         reload=bool(os.getenv("UVICORN_RELOAD", "false").lower() == "true"),
     )
+
+
+@app.get("/metrics")
+async def metrics():
+    # Minimal text exposition for quick scraping
+    content = _metrics_dump()
+    from fastapi.responses import PlainTextResponse
+    return PlainTextResponse(content)
 
 

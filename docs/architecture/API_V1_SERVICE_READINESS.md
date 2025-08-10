@@ -168,6 +168,7 @@ curl "$API_BASE_URL/v1/estimate?url=https://www.youtube.com/watch?v=VIDEO_ID" \
 - Admission Control: `/v1/estimate` accurate; caps enforced; 429 behavior verified
 - Observability: structured logs; baseline metrics; error taxonomy present
 - Docs: OpenAPI complete; Quickstart verified from fresh environment
+ - Metrics: minimal `/metrics` endpoint exposes counters (rpm_rejects, daily_request_rejects, budget_reserves, budget_rejects)
 
 ## 13) Rollout & Backward Compatibility
 - OpenAPI changes tracked; additive first; deprecations with warnings; support N‑1 for 90 days.
