@@ -15,6 +15,7 @@ from pydantic import BaseModel, Field
 from fastapi.middleware.cors import CORSMiddleware
 from rq import Queue
 import redis
+from clipscribe.config.settings import Settings, TemporalIntelligenceLevel
 
 
 class SubmitByUrl(BaseModel):
