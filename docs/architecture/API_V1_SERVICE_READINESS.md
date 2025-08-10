@@ -149,7 +149,7 @@ curl "$API_BASE_URL/v1/estimate?url=https://www.youtube.com/watch?v=VIDEO_ID" \
     - Implemented: Redis persistence for idempotency, fingerprint dedup, active job set; admission control; per-token RPM/daily request/daily budget counters
     - Validated: URL path from table video produced `transcript.json` and `report.md` (job_id example: `2b9b06de78e946958f22bd8ff739df12`)
     - Validated: Presign V4 (200), PUT upload, and artifact listing in real bucket `clipscribe-api-uploads-20250809`
-    - Observed: GCS/Vertex path returns valid response but tiny synthetic clips may yield non-JSON wrapper (handled); for real gs:// media, path executes
+    - Observed: GCS/Vertex path may return markdown-fenced JSON; parser now strips code fences before JSON parse; tiny synthetic clips still produce minimal outputs by design
     - Pending: tighten Vertex response normalization for rare non-JSON-wrapped outputs; expand tests & docs
 
 - Milestone C: Gemini path + throttling + observability (1–2 days)

@@ -327,9 +327,12 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting or additional text."""
                 logger.error("Vertex AI returned empty response")
                 return self._create_fallback_response("Vertex AI returned empty response")
             
+            # Normalize common markdown code-fence wrappers (```json ... ```)
+            normalized = self._strip_code_fences(response_text)
+
             # Try to parse as JSON
             try:
-                data = json.loads(response_text)
+                data = json.loads(normalized)
                 logger.info(f"Parsed JSON with keys: {list(data.keys())}")
                 if "entities" in data:
                     logger.info(f"Found {len(data['entities'])} entities")
@@ -337,12 +340,12 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting or additional text."""
                         logger.info(f"First entity example: {data['entities'][0]}")
             except json.JSONDecodeError as e:
                 # If not JSON, treat as plain text transcript
-                logger.warning(f"Vertex AI response is not valid JSON: {e}")
+                logger.warning(f"Vertex AI response is not valid JSON after normalization: {e}")
                 logger.warning(f"JSON error position: {e.pos}")
-                logger.warning(f"Error around: ...{response_text[max(0, e.pos-50):min(len(response_text), e.pos+50)]}...")
+                logger.warning(f"Error around: ...{normalized[max(0, e.pos-50):min(len(normalized), e.pos+50)]}...")
                 return {
                     "transcript": {
-                        "full_text": response_text,
+                        "full_text": normalized,
                         "segments": []  # No segments for plain text
                     },
                     "entities": [],
@@ -412,6 +415,20 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting or additional text."""
         except Exception as e:
             logger.error(f"Failed to parse Vertex AI response: {e}")
             raise
+
+    def _strip_code_fences(self, text: str) -> str:
+        """Remove leading/trailing markdown code fences like ```json ... ``` if present."""
+        t = text.strip()
+        if t.startswith("```"):
+            # Strip the opening fence line
+            first_newline = t.find("\n")
+            if first_newline != -1:
+                # Drop the first line (``` or ```json)
+                t = t[first_newline+1:]
+            # Strip trailing fence if present
+            if t.endswith("```"):
+                t = t[:-3]
+        return t.strip()
     
     def _create_fallback_response(self, error_message: str) -> Dict[str, Any]:
         """Create a fallback response when parsing fails."""
