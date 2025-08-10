@@ -1,6 +1,6 @@
 # ClipScribe API v1 – Service Readiness Spec
 
-*Last Updated: 2025-08-10*
+*Last Updated: 2025-08-10 18:38 UTC*
 
 ## 1) Goals / Non‑Goals
 - **Goals**: Enable browser UIs (e.g., Replit-hosted) to submit videos, observe progress, and download artifacts without privileged secrets; deliver a stable, versioned API with cost-aware guardrails.
@@ -143,10 +143,13 @@ curl "$API_BASE_URL/v1/estimate?url=https://www.youtube.com/watch?v=VIDEO_ID" \
   - Queue/workers, idempotency keys, content fingerprinting, checkpoints
   - Artifact writer + manifest (`schema_version`), signed URLs, CDN headers
   - Polling/SSE from real state; admission control + `429` with `Retry-After`
-  - Status: IN PROGRESS (2025-08-10)
-    - Implemented: Redis+RQ queue; worker writes `report.md`; manifest.json written by API; artifacts listing with signed URLs
-    - Implemented: Redis persistence for idempotency, fingerprint dedup, active job set; coarse admission; per-token RPM and daily counters
-    - Pending: persistent checkpoints; per-token budget in USD; tests & docs polish
+  - Status: VALIDATED (2025-08-10 18:38 UTC)
+    - Implemented: Redis+RQ queue; worker writes `transcript.json` and `report.md` for URL jobs; API writes `manifest.json`; artifacts listing with signed URLs
+    - Implemented: Redis persistence for idempotency, fingerprint dedup, active job set; admission control; per-token RPM/daily request/daily budget counters
+    - Validated: URL path from table video produced `transcript.json` and `report.md` (job_id example: `2b9b06de78e946958f22bd8ff739df12`)
+    - Validated: Presign V4 (200), PUT upload, and artifact listing in real bucket `clipscribe-api-uploads-20250809`
+    - Observed: GCS/Vertex path returns valid response but tiny synthetic clips may yield non-JSON wrapper (handled); for real gs:// media, path executes
+    - Pending: tighten Vertex response normalization for rare non-JSON-wrapped outputs; expand tests & docs
 
 - Milestone C: Gemini path + throttling + observability (1–2 days)
   - Integrate retriever/transcriber with throttled concurrency and resilient retries

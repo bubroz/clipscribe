@@ -1,3 +1,19 @@
+## [v2.29.6] - 2025-08-10
+
+### Validated
+- API v1 Milestone B end-to-end for URL jobs:
+  - Real queue/worker produced `transcript.json` and `report.md` artifacts (e.g., JOB_ID `2b9b06de78e946958f22bd8ff739df12`)
+  - Artifacts listing returns signed URLs; manifest.json present in bucket `clipscribe-api-uploads-20250809`
+- Presign V4 flow validated (200) followed by successful PUT upload
+- GCS/Vertex path exercised: InvalidArgument now fast-falls back to inline bytes; tiny synthetic clips yield non-JSON-wrapped responses which are handled by plain-text fallback
+
+### Changed
+- Vertex transcriber: explicitly catch `InvalidArgument` and fallback to inline bytes; improved logging around `generate_content()`
+- API readiness spec updated with validation details and timestamp
+
+### Notes
+- Next: tighten Vertex JSON normalization for rare non-JSON-wrapped outputs; broaden tests
+
 ## [v2.29.5] - 2025-08-10
 
 ### Added

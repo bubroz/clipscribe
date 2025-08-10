@@ -1,6 +1,6 @@
-# ClipScribe Documentation v2.29.3
+# ClipScribe Documentation v2.29.6
 
-*Last Updated: August 8, 2025*
+*Last Updated: August 10, 2025*
 
 ## Overarching Goals and Stages
 

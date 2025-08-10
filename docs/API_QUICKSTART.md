@@ -1,6 +1,6 @@
 # ClipScribe API Quickstart
 
-*Last Updated: 2025-08-10*
+*Last Updated: 2025-08-10 18:38 UTC*
 
 This guide shows how to use the API v1 to submit a job, watch progress, and download artifacts from a browser-hosted frontend (e.g., Replit).
 
@@ -75,7 +75,7 @@ Tip: If `upload_url` contains `signature=mock`, the server is running without `G
 curl -H "Authorization: Bearer $TOKEN" \
   "$API_BASE_URL/v1/jobs/$JOB_ID/artifacts"
 ```
-Returns artifact metadata and signed URLs (or redirecting endpoints) for `transcript.json`, `entities.json`, `relationships.json`, `knowledge_graph.gexf`, `report.md`, and `manifest.json`.
+Returns artifact metadata and signed URLs (or redirecting endpoints) for `transcript.json`, `report.md`, and `manifest.json` (additional formats vary by configuration).
 
 ## Estimate cost (preflight)
 ```bash
