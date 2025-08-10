@@ -19,10 +19,10 @@ async def test_transcribe_video_success(transcriber):
         mock_response.text = '{"transcript": "Test transcript", "summary": "A summary"}'
         mock_retry.return_value = mock_response
 
-        with patch('clipscribe.retrievers.transcriber.genai.upload_file', new_callable=AsyncMock), \
+            with patch('clipscribe.retrievers.transcriber.genai.upload_file', new_callable=AsyncMock), \
              patch('clipscribe.retrievers.transcriber.genai.get_file', new_callable=AsyncMock), \
-             patch('clipscribe.retrievers.transcriber.genai.delete_file', new_callable=AsyncMock), \
+                 patch('clipscribe.retrievers.transcriber.genai.delete_file', new_callable=AsyncMock), \
              patch.object(transcriber, '_parse_json_response', return_value={'transcript': 'Test transcript', 'summary': 'A summary', 'key_points': [], 'entities': [], 'topics': [], 'relationships': [], 'dates': []}):
 
-            result = await transcriber.transcribe_video('test.mp4', 300)
-            assert result['transcript'] == 'Test transcript'
+                result = await transcriber.transcribe_video('test.mp4', 300)
+                assert result['transcript'] == 'Test transcript'
