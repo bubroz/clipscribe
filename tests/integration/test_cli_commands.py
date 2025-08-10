@@ -45,6 +45,10 @@ def test_cli_help():
     assert "research" in result.stdout
     assert "utils" in result.stdout
 
+def _should_run_e2e() -> bool:
+    return os.environ.get("CLIPSCRIBE_RUN_E2E", "").lower() in ("1", "true", "yes")
+
+
 def _auth_configured() -> bool:
     try:
         from clipscribe.config.settings import Settings
@@ -61,7 +65,7 @@ def _auth_configured() -> bool:
         return False
 
 
-@pytest.mark.skipif(not _auth_configured(), reason="Requires configured GOOGLE_API_KEY or Vertex creds")
+@pytest.mark.skipif(not (_should_run_e2e() and _auth_configured()), reason="Requires CLIPSCRIBE_RUN_E2E=1 and configured GOOGLE_API_KEY or Vertex creds")
 def test_process_video_default_pro_model():
     """Tests the default `process video` command which should use the Pro model."""
     output_path = OUTPUT_DIR / "process_video_default"
@@ -78,7 +82,7 @@ def test_process_video_default_pro_model():
     expected_report = output_subdirs[0] / "report.md"
     assert expected_report.exists(), "The output report.md was not created."
 
-@pytest.mark.skipif(not _auth_configured(), reason="Requires configured GOOGLE_API_KEY or Vertex creds")
+@pytest.mark.skipif(not (_should_run_e2e() and _auth_configured()), reason="Requires CLIPSCRIBE_RUN_E2E=1 and configured GOOGLE_API_KEY or Vertex creds")
 def test_process_video_use_flash():
     """Tests the `process video` command with the --use-flash flag."""
     output_path = OUTPUT_DIR / "process_video_flash"
@@ -96,7 +100,7 @@ def test_process_video_use_flash():
     expected_report = output_subdirs[0] / "report.md"
     assert expected_report.exists(), "The output report.md was not created for flash run."
 
-@pytest.mark.skipif(not _auth_configured(), reason="Requires configured GOOGLE_API_KEY or Vertex creds")
+@pytest.mark.skipif(not (_should_run_e2e() and _auth_configured()), reason="Requires CLIPSCRIBE_RUN_E2E=1 and configured GOOGLE_API_KEY or Vertex creds")
 def test_collection_series_command():
     """Tests the `collection series` command with two videos."""
     output_path = OUTPUT_DIR / "collection_series"
@@ -120,7 +124,7 @@ def test_collection_series_command():
     unified_gexf = collection_subdirs[0] / "unified_knowledge_graph.gexf"
     assert unified_gexf.exists(), f"Unified knowledge graph was not created for the series. Contents of dir: {list(collection_subdirs[0].iterdir())}"
 
-@pytest.mark.skipif(not _auth_configured(), reason="Requires configured GOOGLE_API_KEY or Vertex creds")
+@pytest.mark.skipif(not (_should_run_e2e() and _auth_configured()), reason="Requires CLIPSCRIBE_RUN_E2E=1 and configured GOOGLE_API_KEY or Vertex creds")
 def test_research_command():
     """Tests the `research` command."""
     output_path = OUTPUT_DIR / "research"
