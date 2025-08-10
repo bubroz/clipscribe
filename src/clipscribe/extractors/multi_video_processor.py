@@ -1001,7 +1001,11 @@ class MultiVideoProcessor:
         # Ensure pydantic-friendly mapping for tests that patch with Mock
         if not isinstance(information_flow_map, dict):
             try:
-                information_flow_map = information_flow_map.model_dump()  # type: ignore[attr-defined]
+                dumped = information_flow_map.model_dump()  # type: ignore[attr-defined]
+                if isinstance(dumped, dict):
+                    information_flow_map = dumped
+                else:
+                    raise TypeError("model_dump did not return dict")
             except Exception:
                 information_flow_map = {
                     "map_id": collection_id,
@@ -1061,8 +1065,12 @@ class MultiVideoProcessor:
                 "videos_processed": len(videos),
                 "entities_unified": len(unified_entities),
                 "relationships_cross_video": len(cross_video_relationships),
-                "concepts_tracked": (lambda x: (len(x) if isinstance(x, list) else 0))(getattr(information_flow_map, 'concept_nodes', [])),
-                "information_flows": (lambda x: (len(x) if isinstance(x, list) else 0))(getattr(information_flow_map, 'information_flows', [])),
+                "concepts_tracked": (lambda seq: len(seq) if isinstance(seq, list) else 0)(
+                    information_flow_map.get('concept_nodes', []) if isinstance(information_flow_map, dict) else getattr(information_flow_map, 'concept_nodes', [])
+                ),
+                "information_flows": (lambda seq: len(seq) if isinstance(seq, list) else 0)(
+                    information_flow_map.get('information_flows', []) if isinstance(information_flow_map, dict) else getattr(information_flow_map, 'information_flows', [])
+                ),
             }
         )
         

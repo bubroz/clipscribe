@@ -301,10 +301,11 @@ class GeminiFlashTranscriber:
                 request_options=RequestOptions(timeout=self.request_timeout)
             )
             
-            combined_data = self._parse_json_response(analysis_response.text) or {}
-            # If parser returned a string blob, wrap appropriately; otherwise prefer explicit key
-            if isinstance(combined_data, dict):
-                combined_data["transcript"] = transcript_text
+            parsed = self._parse_json_response(analysis_response.text) or {}
+            if isinstance(parsed, dict):
+                parsed_transcript = parsed.get("transcript")
+                combined_data = parsed
+                combined_data["transcript"] = parsed_transcript or transcript_text
             else:
                 combined_data = {"transcript": transcript_text}
             combined_data["processing_cost"] = total_cost
