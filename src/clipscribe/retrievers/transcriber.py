@@ -302,14 +302,22 @@ class GeminiFlashTranscriber:
             )
             
             combined_data = self._parse_json_response(analysis_response.text) or {}
-            combined_data["transcript"] = transcript_text
+            # If parser returned a string blob, wrap appropriately; otherwise prefer explicit key
+            if isinstance(combined_data, dict):
+                combined_data["transcript"] = transcript_text
+            else:
+                combined_data = {"transcript": transcript_text}
             combined_data["processing_cost"] = total_cost
             logger.info("Step 2: Structured analysis complete.")
             
             return combined_data
         finally:
-            logger.info(f"Deleting uploaded file from cloud: {file.name}")
-            genai.delete_file(file.name)
+            logger.info(f"Deleting uploaded file from cloud: {getattr(file, 'name', '<unknown>')}")
+            try:
+                delete_task = asyncio.to_thread(genai.delete_file, file.name)
+                await asyncio.wait_for(delete_task, timeout=60)
+            except Exception:
+                pass
 
     async def _retry_generate_content(self, model, contents, generation_config=None, request_options=None, retries=3, initial_delay=5):
         delay = initial_delay

@@ -1033,8 +1033,8 @@ class MultiVideoProcessor:
                 "videos_processed": len(videos),
                 "entities_unified": len(unified_entities),
                 "relationships_cross_video": len(cross_video_relationships),
-                "concepts_tracked": len(getattr(information_flow_map, 'concept_nodes', []) or []),
-                "information_flows": len(getattr(information_flow_map, 'information_flows', []) or []),
+                "concepts_tracked": (lambda x: (len(x) if isinstance(x, list) else 0))(getattr(information_flow_map, 'concept_nodes', [])),
+                "information_flows": (lambda x: (len(x) if isinstance(x, list) else 0))(getattr(information_flow_map, 'information_flows', [])),
             }
         )
         
