@@ -1,6 +1,6 @@
 # ClipScribe API v1 – Service Readiness Spec
 
-*Last Updated: 2025-08-09*
+*Last Updated: 2025-08-10*
 
 ## 1) Goals / Non‑Goals
 - **Goals**: Enable browser UIs (e.g., Replit-hosted) to submit videos, observe progress, and download artifacts without privileged secrets; deliver a stable, versioned API with cost-aware guardrails.

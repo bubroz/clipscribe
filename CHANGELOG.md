@@ -7,7 +7,7 @@
   - Admission control backed by Redis set size; per-token RPM and daily request counters with 429 + Retry-After
 
 ### Notes
-- Remaining for Milestone B: persistent checkpoints, per-token USD budget enforcement, tests/docs polish
+- Remaining for Milestone B: tests/docs polish
 
 ## [v2.29.4] - 2025-08-09
 

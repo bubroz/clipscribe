@@ -1,6 +1,6 @@
 # ClipScribe API Quickstart
 
-*Last Updated: 2025-08-09*
+*Last Updated: 2025-08-10*
 
 This guide shows how to use the API v1 to submit a job, watch progress, and download artifacts from a browser-hosted frontend (e.g., Replit).
 
