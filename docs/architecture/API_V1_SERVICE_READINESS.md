@@ -137,6 +137,10 @@ curl "$API_BASE_URL/v1/estimate?url=https://www.youtube.com/watch?v=VIDEO_ID" \
   - Queue/workers, idempotency keys, content fingerprinting, checkpoints
   - Artifact writer + manifest (`schema_version`), signed URLs, CDN headers
   - Polling/SSE from real state; admission control + `429` with `Retry-After`
+  - Status: IN PROGRESS (2025-08-10)
+    - Implemented: Redis+RQ queue; worker writes `report.md`; manifest.json written by API; artifacts listing with signed URLs
+    - Implemented: Redis persistence for idempotency, fingerprint dedup, active job set; coarse admission; per-token RPM and daily counters
+    - Pending: persistent checkpoints; per-token budget in USD; tests & docs polish
 
 - Milestone C: Gemini path + throttling + observability (1–2 days)
   - Integrate retriever/transcriber with throttled concurrency and resilient retries

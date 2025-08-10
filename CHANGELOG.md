@@ -1,3 +1,14 @@
+## [v2.29.5] - 2025-08-10
+
+### Added
+- API v1 Milestone B scaffold:
+  - Redis+RQ queue and worker to generate `report.md` artifact per job
+  - Redis persistence for idempotency keys, fingerprint dedup, active jobs set
+  - Admission control backed by Redis set size; per-token RPM and daily request counters with 429 + Retry-After
+
+### Notes
+- Remaining for Milestone B: persistent checkpoints, per-token USD budget enforcement, tests/docs polish
+
 ## [v2.29.4] - 2025-08-09
 
 ### Added

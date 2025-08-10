@@ -6,6 +6,8 @@ import json
 import time
 import uuid
 import asyncio
+import hashlib
+from datetime import datetime, timezone, timedelta
 
 from fastapi import FastAPI, Header, HTTPException, Response, Request
 from fastapi.responses import JSONResponse, StreamingResponse
@@ -163,6 +165,22 @@ def _now_iso() -> str:
     return time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
 
 
+def _token_id_from_auth(authorization: Optional[str]) -> Optional[str]:
+    if not authorization:
+        return None
+    parts = authorization.split()
+    if len(parts) == 2 and parts[0].lower() == "bearer":
+        tok = parts[1]
+        return hashlib.sha256(tok.encode("utf-8")).hexdigest()[:16]
+    return None
+
+
+def _seconds_until_end_of_day_utc() -> int:
+    now = datetime.now(timezone.utc)
+    end = (now + timedelta(days=1)).replace(hour=0, minute=0, second=0, microsecond=0)
+    return int((end - now).total_seconds())
+
+
 def _fingerprint_from_body(body: Dict[str, Any]) -> str:
     if "gcs_uri" in body:
         return f"gcs:{body['gcs_uri']}|opts:{json.dumps(body.get('options') or {}, sort_keys=True)}"
@@ -241,6 +259,26 @@ async def create_job(
 
     if not ("url" in body or "gcs_uri" in body):
         return _error("invalid_input", "Provide either url or gcs_uri", status=400)
+
+    # Per-token RPM & daily budget counters (Redis)
+    token_id = _token_id_from_auth(authorization)
+    if token_id and _redis_available():
+        # RPM
+        rpm_key = f"cs:lim:{token_id}:rpm:{int(time.time() // 60)}"
+        rpm = int(redis_conn.incr(rpm_key))
+        if rpm == 1:
+            redis_conn.expire(rpm_key, 60)
+        max_rpm = int(os.getenv("TOKEN_MAX_RPM", "60"))
+        if rpm > max_rpm:
+            return _error("rate_limited", "Per-token RPM exceeded", status=429, retry_after_seconds=10)
+        # Daily budget (simple request-count based proxy)
+        day_key = f"cs:lim:{token_id}:day:{datetime.utcnow().strftime('%Y%m%d')}"
+        day_count = int(redis_conn.incr(day_key))
+        if day_count == 1:
+            redis_conn.expire(day_key, _seconds_until_end_of_day_utc())
+        max_daily = int(os.getenv("TOKEN_MAX_DAILY_REQUESTS", "2000"))
+        if day_count > max_daily:
+            return _error("budget_exceeded", "Daily quota exceeded", status=429, retry_after_seconds=3600)
 
     # Simple admission control: throttle if too many active jobs (Redis-backed)
     active_jobs = _r_scard("cs:active_jobs")
