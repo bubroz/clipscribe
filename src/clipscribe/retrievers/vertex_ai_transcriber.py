@@ -154,7 +154,6 @@ class VertexAITranscriber:
                 "temperature": 0.1,
                 "top_p": 0.95,
                 "max_output_tokens": 32768,  # Increased to avoid truncation
-                "response_mime_type": "application/json",  # Request JSON response
             }
             
             # Generate with retry
