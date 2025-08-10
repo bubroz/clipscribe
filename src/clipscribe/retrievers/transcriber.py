@@ -273,8 +273,15 @@ class GeminiFlashTranscriber:
     async def transcribe_video(self, video_file: str, duration: int) -> Dict[str, Any]:
         """Transcribes a video file using a robust two-step process to prevent timeouts."""
         logger.info(f"Starting two-step transcription for: {video_file}")
-        
-        file = await self._upload_file_with_retry(video_file)
+        # Convert to audio for smaller, reliable uploads
+        temp_audio_path: Optional[str] = None
+        try:
+            temp_audio_path = await self._extract_audio_for_upload(video_file)
+        except Exception as e:
+            logger.warning(f"Audio extraction failed, uploading original video: {e}")
+
+        upload_path = temp_audio_path or video_file
+        file = await self._upload_file_with_retry(upload_path)
         
         total_cost = self.settings.estimate_cost(duration, TemporalIntelligenceLevel.STANDARD)
         self.total_cost += total_cost
@@ -319,6 +326,12 @@ class GeminiFlashTranscriber:
                 await asyncio.wait_for(delete_task, timeout=60)
             except Exception:
                 pass
+            # Clean local temp audio
+            try:
+                if temp_audio_path and os.path.exists(temp_audio_path):
+                    os.remove(temp_audio_path)
+            except Exception as e:
+                logger.warning(f"Failed to remove temp audio file {temp_audio_path}: {e}")
 
     async def _retry_generate_content(self, model, contents, generation_config=None, request_options=None, retries=3, initial_delay=5):
         delay = initial_delay
