@@ -103,6 +103,62 @@ job_events: Dict[str, asyncio.Queue[str]] = {}
 jobs_lock = asyncio.Lock()
 
 
+# ---- Redis helpers ----
+def _redis_available() -> bool:
+    return redis_conn is not None
+
+
+def _r_set(key: str, value: str, ex: Optional[int] = None) -> None:
+    if _redis_available():
+        redis_conn.set(key, value, ex=ex)
+
+
+def _r_get(key: str) -> Optional[str]:
+    if _redis_available():
+        v = redis_conn.get(key)
+        return v.decode("utf-8") if v is not None else None
+    return None
+
+
+def _r_sadd(key: str, member: str) -> None:
+    if _redis_available():
+        redis_conn.sadd(key, member)
+
+
+def _r_srem(key: str, member: str) -> None:
+    if _redis_available():
+        redis_conn.srem(key, member)
+
+
+def _r_scard(key: str) -> int:
+    if _redis_available():
+        try:
+            return int(redis_conn.scard(key))
+        except Exception:
+            return 0
+    return 0
+
+
+def _save_job(job: Job) -> None:
+    jobs_by_id[job.job_id] = job
+    if _redis_available():
+        _r_set(f"cs:job:{job.job_id}", json.dumps(job.model_dump()))
+
+
+def _load_job(job_id: str) -> Optional[Job]:
+    j = jobs_by_id.get(job_id)
+    if j:
+        return j
+    raw = _r_get(f"cs:job:{job_id}")
+    if raw:
+        try:
+            data = json.loads(raw)
+            return Job(**data)
+        except Exception:
+            return None
+    return None
+
+
 def _now_iso() -> str:
     return time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
 
@@ -127,6 +183,7 @@ async def _enqueue_job_processing(job: Job, source: Dict[str, Any]) -> None:
         job.updated_at = _now_iso()
         if progress:
             job.progress = progress
+        _save_job(job)
         await push("status", {"state": state})
         await push("progress", job.progress)
 
@@ -167,6 +224,8 @@ async def _enqueue_job_processing(job: Job, source: Dict[str, Any]) -> None:
     await push("cost", {"usd": 0.003})
     job.state = "COMPLETED"
     job.updated_at = _now_iso()
+    _save_job(job)
+    _r_srem("cs:active_jobs", job.job_id)
     await push("done", {"job_id": job.job_id})
 
 
@@ -183,28 +242,37 @@ async def create_job(
     if not ("url" in body or "gcs_uri" in body):
         return _error("invalid_input", "Provide either url or gcs_uri", status=400)
 
-    # Simple admission control: throttle if too many active jobs
-    active_jobs = sum(1 for j in jobs_by_id.values() if j.state not in {"COMPLETED", "FAILED", "CANCELED"})
+    # Simple admission control: throttle if too many active jobs (Redis-backed)
+    active_jobs = _r_scard("cs:active_jobs")
     throttle_limit = int(os.getenv("ADMISSION_ACTIVE_LIMIT", "100"))
     if active_jobs >= throttle_limit:
         return _error("rate_limited", "Too many active jobs", status=429, retry_after_seconds=10)
 
     fp = _fingerprint_from_body(body)
     async with jobs_lock:
-        if idempotency_key and idempotency_key in idempotency_to_job:
-            existing_id = idempotency_to_job[idempotency_key]
-            return jobs_by_id[existing_id]
-        if fp in fingerprint_to_job:
-            return jobs_by_id[fingerprint_to_job[fp]]
+        if idempotency_key:
+            existing_id = _r_get(f"cs:idmp:{idempotency_key}") or idempotency_to_job.get(idempotency_key)
+            if existing_id:
+                j = _load_job(existing_id)
+                if j:
+                    return j
+        existing_fp_id = _r_get(f"cs:fp:{fp}") or fingerprint_to_job.get(fp)
+        if existing_fp_id:
+            j = _load_job(existing_fp_id)
+            if j:
+                return j
 
         job_id = uuid.uuid4().hex
         bucket = os.getenv("GCS_BUCKET", "mock-bucket")
         manifest_url = f"https://storage.googleapis.com/{bucket}/jobs/{job_id}/manifest.json"
         job = Job(job_id=job_id, state="QUEUED", manifest_url=manifest_url)
-        jobs_by_id[job_id] = job
+        _save_job(job)
         fingerprint_to_job[fp] = job_id
+        _r_set(f"cs:fp:{fp}", job_id, ex=7 * 24 * 3600)
         if idempotency_key:
             idempotency_to_job[idempotency_key] = job_id
+            _r_set(f"cs:idmp:{idempotency_key}", job_id, ex=24 * 3600)
+        _r_sadd("cs:active_jobs", job_id)
 
     # Start background processing and enqueue worker side-effect
     asyncio.create_task(_enqueue_job_processing(job, body))
@@ -222,7 +290,7 @@ async def get_job(job_id: str, authorization: Optional[str] = Header(default=Non
     if not authorization:
         return _error("invalid_input", "Missing or invalid bearer token", status=401)
     # Mock status
-    job = jobs_by_id.get(job_id)
+    job = _load_job(job_id)
     if not job:
         return _error("invalid_input", "Job not found", status=404)
     return job
