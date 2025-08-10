@@ -156,14 +156,12 @@ class VertexAITranscriber:
                 "max_output_tokens": 32768,  # Increased to avoid truncation
             }
             
-            # Generate with retry
+            # First try a single request (no retries) so we can detect 400 and fall back quickly
             try:
-                response = await self._generate_with_retry(contents, generation_config)
+                response = await self._generate_once(contents, generation_config)
             except Exception as e:
-                # Fallback: some Vertex endpoints reject gs:// URIs for file_data; inline bytes instead
                 if "invalid argument" in str(e).lower() and gcs_uri:
                     logger.info("Vertex rejected gs:// URI; attempting inline bytes fallback")
-                    # Download bytes from GCS and resend as Part.from_data
                     try:
                         parts = gcs_uri.replace("gs://", "").split("/", 1)
                         bucket_name, blob_name = parts[0], parts[1]
@@ -181,7 +179,8 @@ class VertexAITranscriber:
                     except Exception:
                         raise
                 else:
-                    raise
+                    # For non-400 errors, use retry strategy
+                    response = await self._generate_with_retry(contents, generation_config)
             
             # Parse response
             result = self._parse_response(response.text)
@@ -213,6 +212,17 @@ class VertexAITranscriber:
             logger.error(f'Request contents: {contents}')
             logger.error(f'Generation config: {generation_config}')
             raise
+
+    async def _generate_once(self, contents, generation_config):
+        """Single attempt generate without retries to detect fast-fail errors."""
+        loop = asyncio.get_event_loop()
+        return await loop.run_in_executor(
+            None,
+            lambda: self.model.generate_content(
+                contents=contents,
+                generation_config=generation_config
+            )
+        )
     
     def _build_comprehensive_prompt(self, enhance_transcript: bool = False, mode: str = "video") -> str:
         """Build the comprehensive prompt for video or audio analysis."""
