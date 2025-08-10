@@ -30,6 +30,7 @@ from ..models import (
     Entity,
     Relationship
 )
+from ..config.settings import Settings
 from ..config.vertex_ai_config import (
     VERTEX_AI_PROJECT_ID,
     VERTEX_AI_LOCATION,
