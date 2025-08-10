@@ -377,7 +377,7 @@ paths:
                   estimated_cost_usd: { type: number }
                   estimated_duration_seconds: { type: number }
                   proposed_model: { type: string, enum: [ flash, pro ] }
-                  admission: { type: string, enum: [ allowed, near_cap, denied ] }
+                  admission: { type: string, enum: [ allowed, soft-blocked:rpm, blocked:budget ] }
                   reason: { type: string }
               examples:
                 allowed:
@@ -387,19 +387,19 @@ paths:
                     proposed_model: "flash"
                     admission: "allowed"
                     reason: "Within plan caps"
-                near_cap:
+                soft_blocked:
                   value:
                     estimated_cost_usd: 0.39
                     estimated_duration_seconds: 780
                     proposed_model: "flash"
-                    admission: "near_cap"
-                    reason: "Approaching daily budget; flash recommended"
-                denied:
+                    admission: "soft-blocked:rpm"
+                    reason: "Approaching RPM cap; retry soon"
+                blocked:
                   value:
                     estimated_cost_usd: 1.25
                     estimated_duration_seconds: 1800
                     proposed_model: "pro"
-                    admission: "denied"
+                    admission: "blocked:budget"
                     reason: "Daily budget exceeded"
         '400':
           description: Invalid input

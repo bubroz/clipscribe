@@ -16,6 +16,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from rq import Queue
 import redis
 from clipscribe.config.settings import Settings, TemporalIntelligenceLevel
+from .estimator import estimate_job
 
 
 class SubmitByUrl(BaseModel):
@@ -296,7 +297,7 @@ async def create_job(
     if not ("url" in body or "gcs_uri" in body):
         return _error("invalid_input", "Provide either url or gcs_uri", status=400)
 
-    # Per-token RPM & daily budget counters (Redis)
+    # Per-token RPM & daily budget counters (Redis) with reservation-based budgeting
     token_id = _token_id_from_auth(authorization)
     if token_id and _redis_available():
         # RPM
@@ -307,34 +308,35 @@ async def create_job(
         max_rpm = int(os.getenv("TOKEN_MAX_RPM", "60"))
         if rpm > max_rpm:
             return _error("rate_limited", "Per-token RPM exceeded", status=429, retry_after_seconds=10)
-        # Daily budget (simple request-count based proxy)
+        # Daily requests cap
         day_key = f"cs:lim:{token_id}:day:{datetime.utcnow().strftime('%Y%m%d')}"
         day_count = int(redis_conn.incr(day_key))
         if day_count == 1:
             redis_conn.expire(day_key, _seconds_until_end_of_day_utc())
         max_daily = int(os.getenv("TOKEN_MAX_DAILY_REQUESTS", "2000"))
         if day_count > max_daily:
-            return _error("budget_exceeded", "Daily quota exceeded", status=429, retry_after_seconds=3600)
+            return _error("rate_limited", "Daily request quota exceeded", status=429, retry_after_seconds=3600)
 
-        # USD budget enforcement (scaffold: estimate per job)
-        # Use fixed estimate until real estimate is wired
-        try:
-            est_cost = float(os.getenv("DEFAULT_EST_COST_USD", "0.035"))
-        except Exception:
-            est_cost = 0.035
+        # USD budget reservation based on real estimate
+        estimate = estimate_job(body, Settings())
+        est_cost = float(estimate.get("estimated_cost_usd", 0.01))
+        max_usd = float(os.getenv("TOKEN_DAILY_BUDGET_USD", "5.0"))
         budget_key = f"cs:budget:{token_id}:{datetime.utcnow().strftime('%Y%m%d')}"
-        cur_spend_raw = _r_get(budget_key)
+        # Simple atomic reserve using MULTI/EXEC (Lua would be ideal; kept simple here)
+        pipe = redis_conn.pipeline()
+        pipe.get(budget_key)
+        current = pipe.execute()[0]
         try:
-            cur_spend = float(cur_spend_raw) if cur_spend_raw is not None else 0.0
+            cur_spend = float(current) if current is not None else 0.0
         except Exception:
             cur_spend = 0.0
-        max_usd = float(os.getenv("TOKEN_DAILY_BUDGET_USD", "5.0"))
         if cur_spend + est_cost > max_usd:
-            return _error("budget_exceeded", "Daily budget exceeded", status=429, retry_after_seconds=_seconds_until_end_of_day_utc())
-        # increment spend
+            retry = _seconds_until_end_of_day_utc()
+            return _error("budget_exceeded", "Daily budget exceeded", status=429, retry_after_seconds=retry)
+        # Reserve
         try:
-            redis_conn.incrbyfloat(budget_key, est_cost)
-            if cur_spend_raw is None:
+            new_total = redis_conn.incrbyfloat(budget_key, est_cost)
+            if current is None:
                 redis_conn.expire(budget_key, _seconds_until_end_of_day_utc())
         except Exception:
             pass

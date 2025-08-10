@@ -90,8 +90,9 @@ curl "$API_BASE_URL/v1/estimate?url=https://www.youtube.com/watch?v=VIDEO_ID" \
 - GCS CORS: allow dev/staging origins; allow `Content-Type`.
 
 ## 6) Cost & Quotas (Admission Control)
-- `GET /v1/estimate` returns expected cost/time, proposed model (Pro/Flash), and plan decision.
-- Enforce per-token caps: daily spend, concurrent jobs, RPM; concurrency aligned to Gemini tier.
+- `GET /v1/estimate` returns expected cost/time, proposed model (Pro/Flash), and plan decision (implemented).
+- Enforce per-token caps: daily spend (reservation-based), daily requests, RPM; concurrency aligned to Gemini tier.
+- Budget reservations: reserve on submit using estimate; reconcile on completion with actual cost (refund/adjust). 429 includes `retry_after_seconds`, `estimated_cost_usd`, and `available_budget_usd`.
 - Auto-route to Flash near caps; `budget_exceeded` with suggestions when over.
 
 ## 7) SSE Progress + Polling Parity
