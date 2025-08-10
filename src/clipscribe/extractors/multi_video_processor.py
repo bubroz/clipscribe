@@ -1030,11 +1030,11 @@ class MultiVideoProcessor:
             total_processing_cost=total_processing_cost,
             consolidated_timeline=None,
             processing_stats={
-                "videos_processed": len(videos),  # This should be the accurate count
+                "videos_processed": len(videos),
                 "entities_unified": len(unified_entities),
                 "relationships_cross_video": len(cross_video_relationships),
-                "concepts_tracked": len(information_flow_map.concept_nodes) if information_flow_map else 0,
-                "information_flows": len(information_flow_map.information_flows) if information_flow_map else 0
+                "concepts_tracked": len(getattr(information_flow_map, 'concept_nodes', []) or []),
+                "information_flows": len(getattr(information_flow_map, 'information_flows', []) or []),
             }
         )
         

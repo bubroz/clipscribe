@@ -334,11 +334,16 @@ class GeminiFlashTranscriber:
                 logger.info(f"Attempt {attempt + 1}/{retries}: Uploading file {Path(file_path).name}...")
                 upload_task = asyncio.to_thread(genai.upload_file, file_path, mime_type=self._get_mime_type(file_path))
                 file = await asyncio.wait_for(upload_task, timeout=timeout)
+                # Some tests may patch upload to return awaitable; handle gracefully
+                if asyncio.iscoroutine(file):
+                    file = await file
                 
                 while file.state.name == "PROCESSING":
                     await asyncio.sleep(5)
                     get_file_task = asyncio.to_thread(genai.get_file, file.name)
                     file = await asyncio.wait_for(get_file_task, timeout=60)
+                    if asyncio.iscoroutine(file):
+                        file = await file
 
                 if file.state.name == "FAILED":
                     raise ValueError(f"File upload failed with state: {file.state.name}")

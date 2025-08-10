@@ -167,13 +167,13 @@ class VideoIntelligenceRetriever:
             return None
             
         try:
-            return await self._process_video_enhanced(video_url)
+            return await self._process_video_enhanced(video_url, self.cookies_from_browser)
         except Exception as e:
             logger.error(f"Exception in process_url: {e}", exc_info=True)
             self.on_error("Processing", str(e))
             return None
 
-    async def _process_video_enhanced(self, video_url: str) -> Optional[VideoIntelligence]:
+    async def _process_video_enhanced(self, video_url: str, cookies_from_browser: Optional[str] = None) -> Optional[VideoIntelligence]:
         """Process a single video, handling all phases."""
         
         start_time = time.monotonic()
@@ -192,7 +192,7 @@ class VideoIntelligenceRetriever:
             media_file, metadata = await self.video_client.download_video(
                 video_url, 
                 output_dir=self.cache_dir,
-                cookies_from_browser=self.cookies_from_browser
+                cookies_from_browser=cookies_from_browser or self.cookies_from_browser
             )
             self.on_phase_complete(phase_name, 0.0)
         finally:
