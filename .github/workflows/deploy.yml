@@ -39,13 +39,14 @@ jobs:
           gcloud auth configure-docker ${REGION}-docker.pkg.dev --quiet
 
       - name: Build and push image (API)
-        env:
-          IMAGE: ${REGION}-docker.pkg.dev/${{ secrets.VERTEX_AI_PROJECT }}/clipscribe/clipscribe-api:${{ github.ref_name }}
-          IMAGE_LATEST: ${REGION}-docker.pkg.dev/${{ secrets.VERTEX_AI_PROJECT }}/clipscribe/clipscribe-api:latest
-        run: |
-          docker build -t $IMAGE -t $IMAGE_LATEST -f Dockerfile.api .
-          docker push $IMAGE
-          docker push $IMAGE_LATEST
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: Dockerfile.api
+          push: true
+          tags: |
+            ${{ env.REGION }}-docker.pkg.dev/${{ secrets.VERTEX_AI_PROJECT }}/clipscribe/clipscribe-api:${{ github.ref_name }}
+            ,${{ env.REGION }}-docker.pkg.dev/${{ secrets.VERTEX_AI_PROJECT }}/clipscribe/clipscribe-api:latest
 
       - name: Deploy to Cloud Run
         env:
