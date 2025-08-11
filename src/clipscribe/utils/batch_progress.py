@@ -1,6 +1,7 @@
 """
 Advanced progress indicators for batch processing.
 """
+
 import asyncio
 from rich.console import Console
 from rich.panel import Panel
@@ -10,6 +11,7 @@ from rich.layout import Layout
 from rich.table import Table
 from rich import box
 from typing import Optional, Dict
+
 
 class BatchProgress:
     """Manages a live-updating display for concurrent batch processing."""
@@ -38,9 +40,13 @@ class BatchProgress:
             Layout(name="overall", size=3),
             Layout(name="videos"),
         )
-        layout["header"].update(Panel("[bold cyan]ClipScribe Research Mode[/bold cyan]", box=box.ROUNDED))
+        layout["header"].update(
+            Panel("[bold cyan]ClipScribe Research Mode[/bold cyan]", box=box.ROUNDED)
+        )
         layout["overall"].update(self.overall_progress)
-        layout["videos"].update(Panel(self.video_progress, title="[bold]Active Videos[/bold]", border_style="green"))
+        layout["videos"].update(
+            Panel(self.video_progress, title="[bold]Active Videos[/bold]", border_style="green")
+        )
         return layout
 
     def add_overall_task(self, total: int):
@@ -62,7 +68,9 @@ class BatchProgress:
             # We don't use the 'advance' parameter directly to avoid overshooting
             current_progress = self.video_progress._tasks[task_id].completed
             new_progress = current_progress + 25
-            self.video_progress.update(task_id, completed=min(new_progress, 99), description=description)
+            self.video_progress.update(
+                task_id, completed=min(new_progress, 99), description=description
+            )
 
     def complete_video_task(self, url: str):
         """Marks a video task as complete and advances the overall progress."""
@@ -77,8 +85,10 @@ class BatchProgress:
         task_id = self.video_tasks.get(url)
         if task_id is not None:
             # Truncate reason to fit in the console
-            short_reason = (reason[:50] + '...') if len(reason) > 50 else reason
-            self.video_progress.update(task_id, completed=100, description=f"[red] {short_reason}[/red]")
+            short_reason = (reason[:50] + "...") if len(reason) > 50 else reason
+            self.video_progress.update(
+                task_id, completed=100, description=f"[red] {short_reason}[/red]"
+            )
         if self.overall_task is not None:
             self.overall_progress.update(self.overall_task, advance=1)
 
@@ -91,4 +101,4 @@ class BatchProgress:
     async def __aexit__(self, exc_type, exc_val, exc_tb):
         """Stops the live display."""
         await asyncio.sleep(0.5)  # Give a moment to see completion
-        self.live.stop() 
+        self.live.stop()

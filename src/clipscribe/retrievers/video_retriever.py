@@ -11,11 +11,23 @@ import csv
 from collections import defaultdict
 
 import time
-from ..models import VideoIntelligence, VideoTranscript, KeyPoint, Entity, Topic, Relationship, MultiVideoIntelligence
+from ..models import (
+    VideoIntelligence,
+    VideoTranscript,
+    KeyPoint,
+    Entity,
+    Topic,
+    Relationship,
+    MultiVideoIntelligence,
+)
 from .universal_video_client import UniversalVideoClient
 from .transcriber import GeminiFlashTranscriber
 from .video_retention_manager import VideoRetentionManager
-from ..utils.filename import create_output_filename, create_output_structure, extract_platform_from_url
+from ..utils.filename import (
+    create_output_filename,
+    create_output_structure,
+    extract_platform_from_url,
+)
 from ..config.settings import Settings, TemporalIntelligenceLevel, VideoRetentionPolicy
 from ..utils.file_utils import calculate_sha256
 from ..utils.performance import PerformanceMonitor
@@ -28,16 +40,16 @@ logger = logging.getLogger(__name__)
 class VideoIntelligenceRetriever:
     """
     Main retriever class for video intelligence extraction with v2.17.0 Enhanced Temporal Intelligence.
-    
+
     Features:
     - Enhanced Temporal Intelligence extraction (300% more temporal data)
     - Video Retention System with cost optimization
     - Direct video-to-Gemini processing
     - Support for 1800+ video platforms via yt-dlp
     """
-    
+
     def __init__(
-        self, 
+        self,
         cache_dir: Optional[str] = None,
         use_advanced_extraction: bool = True,
         domain: Optional[str] = None,
@@ -45,14 +57,14 @@ class VideoIntelligenceRetriever:
         use_cache: bool = True,
         output_dir: Optional[str] = None,
         enhance_transcript: bool = False,
-        performance_monitor: Optional['PerformanceMonitor'] = None,
+        performance_monitor: Optional["PerformanceMonitor"] = None,
         use_flash: bool = False,
         cookies_from_browser: Optional[str] = None,
         settings: Optional[Settings] = None,
         on_phase_start: Optional[Callable[[str, str], None]] = None,
         on_phase_complete: Optional[Callable[[str, float], None]] = None,
         on_error: Optional[Callable[[str, str], None]] = None,
-        on_phase_log: Optional[Callable[[str, float], None]] = None
+        on_phase_log: Optional[Callable[[str, float], None]] = None,
     ):
         """Initialize the retriever."""
         self.use_pro = not use_flash
@@ -72,77 +84,70 @@ class VideoIntelligenceRetriever:
         self.on_error = on_error or (lambda _name, _error: None)
         self.on_phase_log = on_phase_log or (lambda _name, _duration: None)
         self.on_phase_start = on_phase_start or (lambda _name, _status: None)
-        
+
         self.use_advanced_extraction = use_advanced_extraction
-        
+
         self.settings = settings or Settings()
         self.temporal_config = self.settings.get_temporal_intelligence_config()
-        
+
         self.retention_manager = VideoRetentionManager(self.settings)
-        
+
         self.video_client = UniversalVideoClient()
         self.transcriber = GeminiFlashTranscriber(
-            performance_monitor=performance_monitor,
-            use_pro=self.use_pro
+            performance_monitor=performance_monitor, use_pro=self.use_pro
         )
-        
+
         if mode == "auto":
             from .video_mode_detector import VideoModeDetector
+
             self.mode_detector = VideoModeDetector()
         else:
             self.mode_detector = None
-        
+
         if use_advanced_extraction:
             logger.info("Using advanced extraction with trust_gemini mode")
             from ..extractors.advanced_hybrid_extractor import AdvancedHybridExtractor
+
             self.entity_extractor = AdvancedHybridExtractor()
         else:
             self.entity_extractor = None
-        
+
         self.videos_processed = 0
         self.total_cost = 0.0
-        
+
         logger.info(f"Video Retention Policy: {self.settings.video_retention_policy}")
-    
+
     async def search(
-        self, 
-        query: str, 
-        max_results: int = 5,
-        site: str = "youtube"
+        self, query: str, max_results: int = 5, site: str = "youtube"
     ) -> List[VideoIntelligence]:
         """
         Search for videos and analyze them with v2.17.0 Enhanced Temporal Intelligence.
-        
+
         Args:
             query: Search query
             max_results: Maximum number of videos to process
             site: Site to search (currently only 'youtube')
-            
+
         Returns:
             List of VideoIntelligence objects with enhanced temporal intelligence
         """
         try:
             logger.info(f"Searching for videos: {query}")
-            
+
             # Search for videos
             videos = await self.video_client.search_videos(
-                query=query,
-                max_results=max_results,
-                site=site
+                query=query, max_results=max_results, site=site
             )
-            
+
             if not videos:
                 logger.warning(f"No videos found for query: {query}")
                 return []
-            
+
             # Process videos in parallel with enhanced temporal intelligence
-            tasks = [
-                self._process_video_enhanced(video.url)
-                for video in videos
-            ]
-            
+            tasks = [self._process_video_enhanced(video.url) for video in videos]
+
             results = await asyncio.gather(*tasks, return_exceptions=True)
-            
+
             # Filter out errors
             intelligence_results = []
             for result in results:
@@ -150,13 +155,13 @@ class VideoIntelligenceRetriever:
                     logger.error(f"Failed to process video: {result}")
                 elif result:
                     intelligence_results.append(result)
-            
+
             return intelligence_results
-            
+
         except Exception as e:
             logger.error(f"Search failed: {e}")
             return []
-    
+
     async def process_url(self, video_url: str) -> Optional[VideoIntelligence]:
         """
         Process a video from ANY supported platform.
@@ -165,7 +170,7 @@ class VideoIntelligenceRetriever:
             logger.error(f"URL not supported by yt-dlp: {video_url}")
             self.on_error("Downloading", f"URL not supported: {video_url}")
             return None
-            
+
         try:
             return await self._process_video_enhanced(video_url, self.cookies_from_browser)
         except Exception as e:
@@ -173,9 +178,11 @@ class VideoIntelligenceRetriever:
             self.on_error("Processing", str(e))
             return None
 
-    async def _process_video_enhanced(self, video_url: str, cookies_from_browser: Optional[str] = None) -> Optional[VideoIntelligence]:
+    async def _process_video_enhanced(
+        self, video_url: str, cookies_from_browser: Optional[str] = None
+    ) -> Optional[VideoIntelligence]:
         """Process a single video, handling all phases."""
-        
+
         start_time = time.monotonic()
         phase_name = "Downloading"
         self.on_phase_start(phase_name, "In Progress...")
@@ -188,11 +195,11 @@ class VideoIntelligenceRetriever:
                     self.on_phase_complete(phase_name, 0.0)
                     self.on_phase_log(phase_name, time.monotonic() - start_time)
                     return cached_result
-            
+
             media_file, metadata = await self.video_client.download_video(
-                video_url, 
+                video_url,
                 output_dir=self.cache_dir,
-                cookies_from_browser=cookies_from_browser or self.cookies_from_browser
+                cookies_from_browser=cookies_from_browser or self.cookies_from_browser,
             )
             self.on_phase_complete(phase_name, 0.0)
         finally:
@@ -206,14 +213,20 @@ class VideoIntelligenceRetriever:
             self.on_phase_start(phase_name, "In Progress...")
             try:
                 if metadata.duration > 900:  # 15 minutes threshold
-                    analysis = await self.transcriber.transcribe_large_video(media_file, metadata.duration)
+                    analysis = await self.transcriber.transcribe_large_video(
+                        media_file, metadata.duration
+                    )
                 else:
-                    analysis = await self.transcriber.transcribe_video(media_file, metadata.duration)
+                    analysis = await self.transcriber.transcribe_video(
+                        media_file, metadata.duration
+                    )
 
                 if not analysis or "error" in analysis:
-                    raise Exception(f"Transcription failed: {analysis.get('error', 'Unknown error')}")
+                    raise Exception(
+                        f"Transcription failed: {analysis.get('error', 'Unknown error')}"
+                    )
 
-                self.on_phase_complete(phase_name, analysis.get('processing_cost', 0.0))
+                self.on_phase_complete(phase_name, analysis.get("processing_cost", 0.0))
             finally:
                 self.on_phase_log(phase_name, time.monotonic() - start_time)
 
@@ -225,7 +238,9 @@ class VideoIntelligenceRetriever:
                 start_time = time.monotonic()
                 self.on_phase_start(phase_name, "In Progress...")
                 try:
-                    video_intelligence = await self.entity_extractor.extract_all(video_intelligence, domain=self.domain)
+                    video_intelligence = await self.entity_extractor.extract_all(
+                        video_intelligence, domain=self.domain
+                    )
                     self.on_phase_complete(phase_name, 0.0)
                 finally:
                     self.on_phase_log(phase_name, time.monotonic() - start_time)
@@ -240,24 +255,29 @@ class VideoIntelligenceRetriever:
                     self.on_phase_complete(phase_name, 0.0)
                 finally:
                     self.on_phase_log(phase_name, time.monotonic() - start_time)
-            
+
             # Phase: Video Retention
             phase_name = "Video Retention"
             start_time = time.monotonic()
             self.on_phase_start(phase_name, "Applying Policy...")
             try:
-                retention_result = await self.retention_manager.handle_video_retention(media_path, video_intelligence)
-                video_intelligence.processing_stats['retention_decision'] = retention_result
+                retention_result = await self.retention_manager.handle_video_retention(
+                    media_path, video_intelligence
+                )
+                video_intelligence.processing_stats["retention_decision"] = retention_result
                 self.on_phase_complete(phase_name, 0.0)
             finally:
                 self.on_phase_log(phase_name, time.monotonic() - start_time)
-            
+
             self._save_to_cache(cache_key, video_intelligence)
             return video_intelligence
         finally:
             # The retention manager now handles file deletion/archiving.
             # This ensures the original downloaded file is removed from cache if not archived.
-            if self.settings.video_retention_policy == VideoRetentionPolicy.DELETE and media_path.exists():
+            if (
+                self.settings.video_retention_policy == VideoRetentionPolicy.DELETE
+                and media_path.exists()
+            ):
                 try:
                     os.remove(media_path)
                 except OSError as e:
@@ -266,91 +286,94 @@ class VideoIntelligenceRetriever:
     def _create_video_intelligence_object(self, metadata, analysis):
         """Helper to create the VideoIntelligence object from raw analysis."""
         transcript = VideoTranscript(
-            full_text=analysis.get('transcript', ''),
-            segments=self._generate_segments(analysis.get('transcript', ''), metadata.duration),
-            language=analysis.get('language', 'en'),
-            confidence=analysis.get('confidence_score', 0.95)
+            full_text=analysis.get("transcript", ""),
+            segments=self._generate_segments(analysis.get("transcript", ""), metadata.duration),
+            language=analysis.get("language", "en"),
+            confidence=analysis.get("confidence_score", 0.95),
         )
-        
+
         video_intelligence = VideoIntelligence(
             metadata=metadata,
             transcript=transcript,
-            summary=analysis.get('summary', ''),
-            key_points=[KeyPoint(**kp) for kp in analysis.get('key_points', [])],
+            summary=analysis.get("summary", ""),
+            key_points=[KeyPoint(**kp) for kp in analysis.get("key_points", [])],
             entities=[],
-            topics=[Topic(name=t) for t in analysis.get('topics', [])],
+            topics=[Topic(name=t) for t in analysis.get("topics", [])],
             relationships=[],
-            processing_cost=analysis.get('processing_cost', 0.0)
+            processing_cost=analysis.get("processing_cost", 0.0),
         )
-        video_intelligence.processing_stats['gemini_entities'] = analysis.get('entities', [])
-        video_intelligence.processing_stats['gemini_relationships'] = analysis.get('relationships', [])
+        video_intelligence.processing_stats["gemini_entities"] = analysis.get("entities", [])
+        video_intelligence.processing_stats["gemini_relationships"] = analysis.get(
+            "relationships", []
+        )
         return video_intelligence
-    
+
     async def _determine_enhanced_processing_mode(self, video_url: str) -> str:
         """Determine the best processing mode for v2.17.0 Enhanced Temporal Intelligence."""
-        
+
         # If mode is explicitly set, use it
         if self.mode in ["video", "audio"]:
             return self.mode
-        
+
         # For auto mode, use enhanced intelligence
         if self.mode == "auto":
             # Use temporal intelligence level to determine mode
-            if self.temporal_config['level'] == TemporalIntelligenceLevel.ENHANCED:
+            if self.temporal_config["level"] == TemporalIntelligenceLevel.ENHANCED:
                 # Enhanced mode uses video processing for visual temporal cues
                 return "enhanced"
-            elif self.temporal_config['level'] == TemporalIntelligenceLevel.MAXIMUM:
+            elif self.temporal_config["level"] == TemporalIntelligenceLevel.MAXIMUM:
                 # Maximum mode uses full video processing
                 return "video"
             else:
                 # Standard mode uses audio processing
                 return "audio"
-        
+
         # Default enhanced processing
         return "enhanced"
-    
+
     # Keep existing methods unchanged
     async def _process_video(self, video_url: str) -> Optional[VideoIntelligence]:
         """Legacy method - redirects to enhanced processing."""
         return await self._process_video_enhanced(video_url)
-    
+
     def _get_cache_key(self, video_url: str) -> str:
         """Generate cache key from URL."""
         import hashlib
+
         # Include temporal intelligence level in cache key for v2.17.0
         cache_data = f"{video_url}_{self.temporal_config['level']}"
         return hashlib.md5(cache_data.encode()).hexdigest()
-    
+
     def _load_from_cache(self, cache_key: str) -> Optional[VideoIntelligence]:
         """Load result from cache."""
         cache_file = os.path.join(self.cache_dir, f"{cache_key}.json")
-        
+
         if os.path.exists(cache_file):
             try:
-                with open(cache_file, 'r') as f:
+                with open(cache_file, "r") as f:
                     data = json.load(f)
                 result = VideoIntelligence.parse_obj(data)
                 result.is_from_cache = True
                 return result
             except:
                 pass
-        
+
         return None
-    
+
     def _save_to_cache(self, cache_key: str, result: VideoIntelligence):
         """Save result to cache."""
         cache_file = os.path.join(self.cache_dir, f"{cache_key}.json")
-        
+
         try:
-            with open(cache_file, 'w') as f:
+            with open(cache_file, "w") as f:
                 json.dump(result.dict(), f, default=str, indent=2)
         except Exception as e:
             logger.warning(f"Failed to cache result: {e}")
-    
+
     def get_stats(self) -> Dict[str, Any]:
         """Get enhanced processing statistics for v2.17.0."""
         retention_stats = self.retention_manager.get_retention_stats()
-        
+
         return {
             "videos_processed": self.videos_processed,
             "total_cost": self.total_cost,
@@ -358,118 +381,107 @@ class VideoIntelligenceRetriever:
             "cache_dir": self.cache_dir,
             "supported_sites": "1800+ (via yt-dlp)",
             # v2.17.0 Enhanced stats
-            "temporal_intelligence_level": self.temporal_config['level'],
-            "temporal_intelligence_enabled": self.temporal_config['level'] != TemporalIntelligenceLevel.STANDARD,
+            "temporal_intelligence_level": self.temporal_config["level"],
+            "temporal_intelligence_enabled": self.temporal_config["level"]
+            != TemporalIntelligenceLevel.STANDARD,
             "video_retention_policy": self.settings.video_retention_policy,
-            "retention_stats": retention_stats
+            "retention_stats": retention_stats,
         }
-    
+
     def save_transcript(
-        self, 
-        video: VideoIntelligence, 
-        output_dir: str = None,
-        formats: List[str] = ["txt"]
+        self, video: VideoIntelligence, output_dir: str = None, formats: List[str] = ["txt"]
     ) -> Dict[str, Path]:
         """
         Save transcript with meaningful filename based on video title.
-        
+
         Args:
             video: VideoIntelligence object with transcript
             output_dir: Directory to save files (default: current directory)
             formats: List of formats to save (txt, json)
-            
+
         Returns:
             Dictionary of format -> Path for saved files
         """
         saved_files = {}
-        
+
         for format_type in formats:
             if format_type == "txt":
                 # Save plain text
-                output_file = create_output_filename(
-                    video.metadata.title, 
-                    "txt", 
-                    output_dir
-                )
-                with open(output_file, 'w', encoding='utf-8') as f:
+                output_file = create_output_filename(video.metadata.title, "txt", output_dir)
+                with open(output_file, "w", encoding="utf-8") as f:
                     f.write(video.transcript.full_text)
                 saved_files["txt"] = output_file
-                
+
             elif format_type == "json":
                 # Save full JSON with metadata
-                output_file = create_output_filename(
-                    video.metadata.title, 
-                    "json", 
-                    output_dir
-                )
-                with open(output_file, 'w', encoding='utf-8') as f:
+                output_file = create_output_filename(video.metadata.title, "json", output_dir)
+                with open(output_file, "w", encoding="utf-8") as f:
                     json.dump(video.dict(), f, default=str, indent=2)
                 saved_files["json"] = output_file
-        
+
         return saved_files
-    
+
     def _generate_segments(
-        self, 
-        text: str, 
-        duration: int, 
-        segment_length: int = 30
+        self, text: str, duration: int, segment_length: int = 30
     ) -> List[Dict[str, Any]]:
         """
         Generate time-based segments from transcript.
-        
+
         Args:
             text: Full transcript text
             duration: Video duration in seconds
             segment_length: Target segment length in seconds
-            
+
         Returns:
             List of segment dictionaries with start, end, and text
         """
         if not text:
             return []
-            
+
         # Split text into words
         words = text.split()
         if not words:
             return []
-            
+
         # Calculate words per segment
         total_segments = max(1, duration // segment_length)
         words_per_segment = len(words) / total_segments
-        
+
         # Ensure the step for the range is at least 1
         segment_word_count = max(1, int(words_per_segment))
-        
+
         segments = []
-        
+
         for i in range(0, len(words), segment_word_count):
             # Calculate time boundaries
             start_time = (i / len(words)) * duration
             end_time = min(((i + segment_word_count) / len(words)) * duration, duration)
-            
+
             # Get segment text
-            segment_words = words[i:i + segment_word_count]
-            segment_text = ' '.join(segment_words)
-            
+            segment_words = words[i : i + segment_word_count]
+            segment_text = " ".join(segment_words)
+
             if segment_text.strip():  # Only add non-empty segments
-                segments.append({
-                    "start": round(start_time, 2),
-                    "end": round(end_time, 2),
-                    "text": segment_text.strip()
-                })
-        
+                segments.append(
+                    {
+                        "start": round(start_time, 2),
+                        "end": round(end_time, 2),
+                        "text": segment_text.strip(),
+                    }
+                )
+
         # Ensure last segment ends at video duration
         if segments:
             segments[-1]["end"] = duration
-        
+
         logger.info(f"Generated {len(segments)} segments from {duration}s video")
         return segments
-    
+
     def save_all_formats(
         self,
         video: VideoIntelligence,
         output_dir: str = "output",
-        include_chimera_format: bool = True
+        include_chimera_format: bool = True,
     ) -> Dict[str, Path]:
         """
         Save video data in all formats with a structured directory.
@@ -486,8 +498,10 @@ class VideoIntelligenceRetriever:
             Dictionary of file types to paths.
         """
         # Debug logging to track knowledge graph state
-        logger.debug(f"save_all_formats called with video.knowledge_graph: {hasattr(video, 'knowledge_graph')} / {getattr(video, 'knowledge_graph', None) is not None}")
-        
+        logger.debug(
+            f"save_all_formats called with video.knowledge_graph: {hasattr(video, 'knowledge_graph')} / {getattr(video, 'knowledge_graph', None) is not None}"
+        )
+
         metadata = self._get_video_metadata_dict(video)
         paths = create_output_structure(metadata, output_dir)
 
@@ -496,23 +510,26 @@ class VideoIntelligenceRetriever:
         self._save_entities_files(video, paths)
         self._save_entity_sources_file(video, paths)  # New method to track entity sources
         self._save_relationships_files(video, paths)
-        
+
         # Debug before knowledge graph save
-        logger.debug(f"About to save knowledge graph. Exists: {hasattr(video, 'knowledge_graph')}, Not None: {getattr(video, 'knowledge_graph', None) is not None}")
-        
+        logger.debug(
+            f"About to save knowledge graph. Exists: {hasattr(video, 'knowledge_graph')}, Not None: {getattr(video, 'knowledge_graph', None) is not None}"
+        )
+
         self._save_knowledge_graph_files(video, paths)
         self._save_facts_file(video, paths)
         self._save_report_file(video, paths)
         if include_chimera_format:
             self._save_chimera_file(video, paths)
 
-
         self._create_manifest_file(video, paths)
 
         logger.info(f"Saved all formats to: {paths['directory']}")
         return paths
 
-    def get_saved_files(self, video: VideoIntelligence, output_dir: str = "output") -> Dict[str, Path]:
+    def get_saved_files(
+        self, video: VideoIntelligence, output_dir: str = "output"
+    ) -> Dict[str, Path]:
         """Gets the expected paths for saved files without actually saving them."""
         metadata = self._get_video_metadata_dict(video)
         return create_output_structure(metadata, output_dir)
@@ -530,21 +547,25 @@ class VideoIntelligenceRetriever:
                 "view_count": None,
                 "description": None,
             }
-        
+
         return {
             "title": video.metadata.title,
             "url": video.metadata.url,
             "channel": video.metadata.channel,
             "duration": video.metadata.duration,
-            "published_at": video.metadata.published_at.isoformat() if video.metadata.published_at else None,
+            "published_at": (
+                video.metadata.published_at.isoformat() if video.metadata.published_at else None
+            ),
             "view_count": video.metadata.view_count,
             "description": video.metadata.description,
         }
 
-    def _save_transcript_files(self, video: VideoIntelligence, paths: Dict[str, Path], metadata: Dict[str, Any]):
+    def _save_transcript_files(
+        self, video: VideoIntelligence, paths: Dict[str, Path], metadata: Dict[str, Any]
+    ):
         """Saves transcript.txt and transcript.json."""
         # 1. Plain text
-        with open(paths["transcript_txt"], 'w', encoding='utf-8') as f:
+        with open(paths["transcript_txt"], "w", encoding="utf-8") as f:
             f.write(video.transcript.full_text)
 
         # 2. Full JSON
@@ -554,7 +575,6 @@ class VideoIntelligenceRetriever:
                 "full_text": video.transcript.full_text,
                 "segments": video.transcript.segments,
                 "language": video.transcript.language,
-
             },
             "analysis": {
                 "summary": video.summary,
@@ -562,87 +582,103 @@ class VideoIntelligenceRetriever:
                 "entities": [
                     {
                         # Handle both Entity/EnhancedEntity (has .entity) and dict format (has 'name')
-                        "name": e.name if hasattr(e, 'name') else e.get('name', ''),
-                        "type": e.type if hasattr(e, 'type') else e.get('type', ''),
-
-                        "extraction_sources": getattr(e, 'extraction_sources', []),
-                        "mention_count": getattr(e, 'mention_count', 1),
-                        "context_windows": [cw.dict() for cw in getattr(e, 'context_windows', [])] if hasattr(e, 'context_windows') else [],
-                        "aliases": getattr(e, 'aliases', [])
-                    } for e in video.entities
+                        "name": e.name if hasattr(e, "name") else e.get("name", ""),
+                        "type": e.type if hasattr(e, "type") else e.get("type", ""),
+                        "extraction_sources": getattr(e, "extraction_sources", []),
+                        "mention_count": getattr(e, "mention_count", 1),
+                        "context_windows": (
+                            [cw.dict() for cw in getattr(e, "context_windows", [])]
+                            if hasattr(e, "context_windows")
+                            else []
+                        ),
+                        "aliases": getattr(e, "aliases", []),
+                    }
+                    for e in video.entities
                 ],
-                "topics": [t.dict() if hasattr(t, 'dict') else {"name": t.name} for t in video.topics],
-                "sentiment": video.sentiment
+                "topics": [
+                    t.dict() if hasattr(t, "dict") else {"name": t.name} for t in video.topics
+                ],
+                "sentiment": video.sentiment,
             },
             "processing": {
                 "cost": video.processing_cost,
                 "time": video.processing_time,
                 "processed_at": datetime.now().isoformat(),
                 "model": "gemini-2.5-flash",
-                "extractor": "advanced_hybrid_v2.2" if hasattr(self.entity_extractor, 'extract_all') else "basic_hybrid"
-            }
+                "extractor": (
+                    "advanced_hybrid_v2.2"
+                    if hasattr(self.entity_extractor, "extract_all")
+                    else "basic_hybrid"
+                ),
+            },
         }
-        
+
         # ADD DATES FIELD (Phase 1 fix)
-        if hasattr(video, 'dates') and video.dates:
+        if hasattr(video, "dates") and video.dates:
             full_data["dates"] = video.dates
         # Also check processing_stats for dates
-        if hasattr(video, 'processing_stats') and video.processing_stats:
-            if 'dates' in video.processing_stats:
-                full_data["dates"] = video.processing_stats['dates']
-            if 'visual_dates' in video.processing_stats:
-                full_data["visual_dates"] = video.processing_stats['visual_dates']
-        if hasattr(video, 'relationships') and video.relationships:
+        if hasattr(video, "processing_stats") and video.processing_stats:
+            if "dates" in video.processing_stats:
+                full_data["dates"] = video.processing_stats["dates"]
+            if "visual_dates" in video.processing_stats:
+                full_data["visual_dates"] = video.processing_stats["visual_dates"]
+        if hasattr(video, "relationships") and video.relationships:
             full_data["relationships"] = [r.dict() for r in video.relationships]
-        if hasattr(video, 'knowledge_graph') and video.knowledge_graph:
+        if hasattr(video, "knowledge_graph") and video.knowledge_graph:
             full_data["knowledge_graph"] = video.knowledge_graph
-        if hasattr(video, 'key_moments') and video.key_moments:
+        if hasattr(video, "key_moments") and video.key_moments:
             full_data["key_facts"] = video.key_moments
-        if hasattr(video, 'processing_stats') and video.processing_stats:
+        if hasattr(video, "processing_stats") and video.processing_stats:
             full_data["extraction_stats"] = video.processing_stats
-        if hasattr(video, 'timeline_v2') and video.timeline_v2:
+        if hasattr(video, "timeline_v2") and video.timeline_v2:
             full_data["timeline_v2"] = video.timeline_v2
-        
-        with open(paths["transcript_json"], 'w', encoding='utf-8') as f:
+
+        with open(paths["transcript_json"], "w", encoding="utf-8") as f:
             json.dump(full_data, f, default=str, indent=2)
 
-    def _save_metadata_file(self, video: VideoIntelligence, paths: Dict[str, Path], metadata: Dict[str, Any]):
+    def _save_metadata_file(
+        self, video: VideoIntelligence, paths: Dict[str, Path], metadata: Dict[str, Any]
+    ):
         """Saves metadata.json."""
-        with open(paths["metadata"], 'w', encoding='utf-8') as f:
-            json.dump({
-                "video": metadata,
-                "processing": {
-                    "cost": video.processing_cost,
-                    "time": video.processing_time,
-                    "processed_at": datetime.now().isoformat(),
-                    "clipscribe_version": "2.0.0"
+        with open(paths["metadata"], "w", encoding="utf-8") as f:
+            json.dump(
+                {
+                    "video": metadata,
+                    "processing": {
+                        "cost": video.processing_cost,
+                        "time": video.processing_time,
+                        "processed_at": datetime.now().isoformat(),
+                        "clipscribe_version": "2.0.0",
+                    },
+                    "statistics": {
+                        "transcript_length": len(video.transcript.full_text),
+                        "word_count": len(video.transcript.full_text.split()),
+                        "entity_count": len(video.entities),
+                        "key_point_count": len(video.key_points),
+                        "topic_count": len(video.topics),
+                    },
                 },
-                "statistics": {
-                    "transcript_length": len(video.transcript.full_text),
-                    "word_count": len(video.transcript.full_text.split()),
-                    "entity_count": len(video.entities),
-                    "key_point_count": len(video.key_points),
-                    "topic_count": len(video.topics)
-                }
-            }, f, indent=2)
+                f,
+                indent=2,
+            )
 
     def _save_entities_files(self, video: VideoIntelligence, paths: Dict[str, Path]):
         """Saves entities.json and entities.csv."""
         # Use only the enhanced entities from the advanced extractor, NOT the initial Gemini entities
         all_entities = video.entities
-        
+
         # Log entity sources for debugging
         entity_sources = defaultdict(int)
         for e in all_entities:
-            if hasattr(e, 'extraction_sources'):
+            if hasattr(e, "extraction_sources"):
                 for source in e.extraction_sources:
                     entity_sources[source] += 1
-            elif hasattr(e, 'source'):
+            elif hasattr(e, "source"):
                 entity_sources[e.source] += 1
             else:
-                entity_sources['unknown'] += 1
+                entity_sources["unknown"] += 1
         logger.info(f"Entity sources: {dict(entity_sources)}")
-        
+
         # Entities JSON
         entities_data = {
             "video_url": video.metadata.url,
@@ -651,43 +687,44 @@ class VideoIntelligenceRetriever:
                 {
                     "name": e.name,
                     "type": e.type,
-
-                    "source": getattr(e, 'extraction_sources', getattr(e, 'source', 'unknown')),
-                    "properties": getattr(e, 'properties', None),
-                    "timestamp": getattr(e, 'timestamp', None),
-                    "mention_count": getattr(e, 'mention_count', 1),
-                    "context_windows": [cw.dict() for cw in getattr(e, 'context_windows', [])],
-                    "aliases": getattr(e, 'aliases', [])
-                } for e in all_entities
+                    "source": getattr(e, "extraction_sources", getattr(e, "source", "unknown")),
+                    "properties": getattr(e, "properties", None),
+                    "timestamp": getattr(e, "timestamp", None),
+                    "mention_count": getattr(e, "mention_count", 1),
+                    "context_windows": [cw.dict() for cw in getattr(e, "context_windows", [])],
+                    "aliases": getattr(e, "aliases", []),
+                }
+                for e in all_entities
             ],
-            "topics": [t.dict() if hasattr(t, 'dict') else {"name": t.name} for t in video.topics],
-            "key_facts": [kp.text for kp in video.key_points[:5]]
+            "topics": [t.dict() if hasattr(t, "dict") else {"name": t.name} for t in video.topics],
+            "key_facts": [kp.text for kp in video.key_points[:5]],
         }
-        with open(paths["entities"], 'w', encoding='utf-8') as f:
+        with open(paths["entities"], "w", encoding="utf-8") as f:
             json.dump(entities_data, f, indent=2)
 
         # Entities CSV
         entities_csv_path = paths["directory"] / "entities.csv"
-        with open(entities_csv_path, 'w', encoding='utf-8', newline='') as f:
+        with open(entities_csv_path, "w", encoding="utf-8", newline="") as f:
             writer = csv.writer(f)
             writer.writerow(["name", "type", "source", "timestamp", "mention_count"])
             for entity in all_entities:
-                writer.writerow([
-                    entity.name,
-                    entity.type,
-
-                    getattr(entity, 'extraction_sources', getattr(entity, 'source', 'unknown')),
-                    getattr(entity, 'timestamp', ''),
-                    getattr(entity, 'mention_count', 1)
-                ])
+                writer.writerow(
+                    [
+                        entity.name,
+                        entity.type,
+                        getattr(entity, "extraction_sources", getattr(entity, "source", "unknown")),
+                        getattr(entity, "timestamp", ""),
+                        getattr(entity, "mention_count", 1),
+                    ]
+                )
         paths["entities_csv"] = entities_csv_path
         logger.info(f"Saved {len(all_entities)} entities to JSON and CSV ")
 
     def _save_relationships_files(self, video: VideoIntelligence, paths: Dict[str, Path]):
         """Saves relationships.json and relationships.csv."""
-        if not hasattr(video, 'relationships'):
+        if not hasattr(video, "relationships"):
             video.relationships = []
-            
+
         # Relationships JSON with enhanced metadata
         relationships_path = paths["directory"] / "relationships.json"
         relationships_data = {
@@ -696,50 +733,50 @@ class VideoIntelligenceRetriever:
             "relationships": [
                 {
                     "subject": rel.subject,
-                    "predicate": rel.predicate, 
+                    "predicate": rel.predicate,
                     "object": rel.object,
-
-                    "properties": getattr(rel, 'properties', {}),
-                    "context": getattr(rel, 'context', None),
-                    "evidence_chain": getattr(rel, 'evidence_chain', []),
-                    "contradictions": getattr(rel, 'contradictions', []),
-
-                    "extraction_source": getattr(rel, 'extraction_source', 'unknown')
-                } for rel in video.relationships
+                    "properties": getattr(rel, "properties", {}),
+                    "context": getattr(rel, "context", None),
+                    "evidence_chain": getattr(rel, "evidence_chain", []),
+                    "contradictions": getattr(rel, "contradictions", []),
+                    "extraction_source": getattr(rel, "extraction_source", "unknown"),
+                }
+                for rel in video.relationships
             ],
             "total_count": len(video.relationships),
-            "relationships_with_evidence": sum(1 for rel in video.relationships if hasattr(rel, 'evidence_chain') and rel.evidence_chain),
-            "total_evidence_pieces": sum(len(getattr(rel, 'evidence_chain', [])) for rel in video.relationships)
+            "relationships_with_evidence": sum(
+                1
+                for rel in video.relationships
+                if hasattr(rel, "evidence_chain") and rel.evidence_chain
+            ),
+            "total_evidence_pieces": sum(
+                len(getattr(rel, "evidence_chain", [])) for rel in video.relationships
+            ),
         }
-        with open(relationships_path, 'w', encoding='utf-8') as f:
+        with open(relationships_path, "w", encoding="utf-8") as f:
             json.dump(relationships_data, f, default=str, indent=2)
         paths["relationships"] = relationships_path
 
         # Relationships CSV with evidence count
         relationships_csv_path = paths["directory"] / "relationships.csv"
-        with open(relationships_csv_path, 'w', encoding='utf-8', newline='') as f:
+        with open(relationships_csv_path, "w", encoding="utf-8", newline="") as f:
             writer = csv.writer(f)
             writer.writerow(["subject", "predicate", "object", "context", "evidence_count"])
             for rel in video.relationships:
                 # Safe handling of context field that might be None
-                context = getattr(rel, 'context', '') or ''
-                context_truncated = context[:100] if context else ''
-                evidence_count = len(getattr(rel, 'evidence_chain', []))
-                
-                writer.writerow([
-                    rel.subject,
-                    rel.predicate,
-                    rel.object,
+                context = getattr(rel, "context", "") or ""
+                context_truncated = context[:100] if context else ""
+                evidence_count = len(getattr(rel, "evidence_chain", []))
 
-                    context_truncated,
-                    evidence_count
-                ])
+                writer.writerow(
+                    [rel.subject, rel.predicate, rel.object, context_truncated, evidence_count]
+                )
         paths["relationships_csv"] = relationships_csv_path
         logger.info(f"Saved {len(video.relationships)} relationships to JSON and CSV ")
 
     def _save_knowledge_graph_files(self, video: VideoIntelligence, paths: Dict[str, Path]):
         """Saves knowledge_graph.json and knowledge_graph.gexf if they exist."""
-        if not hasattr(video, 'knowledge_graph') or not video.knowledge_graph:
+        if not hasattr(video, "knowledge_graph") or not video.knowledge_graph:
             logger.debug("No knowledge graph to save")
             return
 
@@ -750,24 +787,29 @@ class VideoIntelligenceRetriever:
 
         # Knowledge Graph JSON
         graph_path = paths["directory"] / "knowledge_graph.json"
-        with open(graph_path, 'w', encoding='utf-8') as f:
+        with open(graph_path, "w", encoding="utf-8") as f:
             json.dump(video.knowledge_graph, f, indent=2)
         paths["knowledge_graph"] = graph_path
-        
+
         # Safe access to knowledge graph properties
-        node_count = video.knowledge_graph.get('node_count', 0) if isinstance(video.knowledge_graph, dict) else 0
-        edge_count = video.knowledge_graph.get('edge_count', 0) if isinstance(video.knowledge_graph, dict) else 0
-        
-        logger.info(
-            f"Saved knowledge graph with {node_count} nodes "
-            f"and {edge_count} edges "
+        node_count = (
+            video.knowledge_graph.get("node_count", 0)
+            if isinstance(video.knowledge_graph, dict)
+            else 0
         )
+        edge_count = (
+            video.knowledge_graph.get("edge_count", 0)
+            if isinstance(video.knowledge_graph, dict)
+            else 0
+        )
+
+        logger.info(f"Saved knowledge graph with {node_count} nodes " f"and {edge_count} edges ")
 
         # GEXF for Gephi
         gexf_path = paths["directory"] / "knowledge_graph.gexf"
         try:
             gexf_content = self._generate_gexf_content(video.knowledge_graph)
-            with open(gexf_path, 'w', encoding='utf-8') as f:
+            with open(gexf_path, "w", encoding="utf-8") as f:
                 f.write(gexf_content)
             paths["gexf"] = gexf_path
             logger.info("Saved GEXF file for Gephi visualization ")
@@ -776,17 +818,17 @@ class VideoIntelligenceRetriever:
 
     def _save_facts_file(self, video: VideoIntelligence, paths: Dict[str, Path]):
         """Saves facts.txt if key moments exist."""
-        if not hasattr(video, 'key_moments') or not video.key_moments:
+        if not hasattr(video, "key_moments") or not video.key_moments:
             return
 
         facts_path = paths["directory"] / "facts.txt"
-        with open(facts_path, 'w', encoding='utf-8') as f:
+        with open(facts_path, "w", encoding="utf-8") as f:
             f.write("# Key Facts Extracted from Video\n\n")
             f.write(f"Video: {video.metadata.title}\n")
             f.write(f"URL: {video.metadata.url}\n")
             f.write(f"Extracted: {datetime.now().isoformat()}\n\n")
             for i, fact in enumerate(video.key_moments, 1):
-                source = fact.get('source', 'Fact')
+                source = fact.get("source", "Fact")
                 f.write(f"{i}. [{source}] {fact['fact']}\n")
         paths["facts"] = facts_path
         logger.info(f"Saved {len(video.key_moments)} key facts ")
@@ -794,7 +836,7 @@ class VideoIntelligenceRetriever:
     def _save_report_file(self, video: VideoIntelligence, paths: Dict[str, Path]):
         """Generates and saves the markdown report."""
         markdown_path = paths["directory"] / "report.md"
-        with open(markdown_path, 'w', encoding='utf-8') as f:
+        with open(markdown_path, "w", encoding="utf-8") as f:
             self._write_report_header(f, video)
             self._write_report_dashboard(f, video)
             self._write_report_topics(f, video)
@@ -814,7 +856,11 @@ class VideoIntelligenceRetriever:
         f.write(f"**Channel**: {video.metadata.channel}\n")
         minutes, seconds = divmod(int(video.metadata.duration), 60)
         f.write(f"**Duration**: {minutes}:{seconds:02d}\n")
-        published_date = video.metadata.published_at.strftime('%Y-%m-%d') if video.metadata.published_at else 'Unknown'
+        published_date = (
+            video.metadata.published_at.strftime("%Y-%m-%d")
+            if video.metadata.published_at
+            else "Unknown"
+        )
         f.write(f"**Published**: {published_date}\n")
         f.write(f"**Processed**: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n")
         cost = video.processing_cost
@@ -826,34 +872,39 @@ class VideoIntelligenceRetriever:
     def _write_report_dashboard(self, f, video: VideoIntelligence):
         """Writes the quick stats dashboard section."""
         f.write("##  Quick Stats Dashboard\n\n")
-        f.write('<details open>\n<summary><b>Click to toggle stats</b></summary>\n\n')
+        f.write("<details open>\n<summary><b>Click to toggle stats</b></summary>\n\n")
         f.write("| Metric | Count | Visualization |\n")
         f.write("|--------|-------|---------------|\n")
-        
+
         stats = {
             "Transcript Length": (len(video.transcript.full_text), "chars", "█", 2000),
             "Word Count": (len(video.transcript.full_text.split()), "words", "█", 500),
-            "Entities Extracted": (len(video.entities) + len(getattr(video, 'custom_entities', [])), "", "", 10),
-            "Relationships Found": (len(getattr(video, 'relationships', [])), "", "", 10),
+            "Entities Extracted": (
+                len(video.entities) + len(getattr(video, "custom_entities", [])),
+                "",
+                "",
+                10,
+            ),
+            "Relationships Found": (len(getattr(video, "relationships", [])), "", "", 10),
             "Key Points": (len(video.key_points), "", "", 3),
-            "Topics": (len(video.topics), "", "", 1)
+            "Topics": (len(video.topics), "", "", 1),
         }
-        if hasattr(video, 'knowledge_graph') and video.knowledge_graph:
-            stats["Graph Nodes"] = (video.knowledge_graph.get('node_count', 0), "", "⭕", 10)
-            stats["Graph Edges"] = (video.knowledge_graph.get('edge_count', 0), "", "", 10)
+        if hasattr(video, "knowledge_graph") and video.knowledge_graph:
+            stats["Graph Nodes"] = (video.knowledge_graph.get("node_count", 0), "", "⭕", 10)
+            stats["Graph Edges"] = (video.knowledge_graph.get("edge_count", 0), "", "", 10)
 
         for name, (count, unit, icon, scale) in stats.items():
             bar = icon * min(20, int(count / scale)) if scale > 0 else icon * min(count, 10)
             f.write(f"| {name} | {count:,} {unit} | {bar} |\n")
-            
+
         f.write("\n</details>\n\n")
 
     def _write_report_topics(self, f, video: VideoIntelligence):
         """Writes the topics section of the report."""
         f.write("##  Main Topics\n\n")
-        f.write('<details>\n<summary><b>View all topics</b></summary>\n\n')
+        f.write("<details>\n<summary><b>View all topics</b></summary>\n\n")
         for i, topic in enumerate(video.topics[:15], 1):
-            topic_name = topic.name if hasattr(topic, 'name') else topic
+            topic_name = topic.name if hasattr(topic, "name") else topic
             f.write(f"{i}. {topic_name}\n")
         if len(video.topics) > 15:
             f.write(f"\n*... and {len(video.topics) - 15} more topics*\n")
@@ -861,30 +912,36 @@ class VideoIntelligenceRetriever:
 
     def _write_report_knowledge_graph(self, f, video: VideoIntelligence):
         """Writes the Mermaid knowledge graph visualization."""
-        if not hasattr(video, 'relationships') or not video.relationships:
+        if not hasattr(video, "relationships") or not video.relationships:
             return
 
         f.write("##  Knowledge Graph Visualization\n\n")
-        f.write('<details>\n<summary><b>Interactive relationship diagram (Mermaid)</b></summary>\n\n')
+        f.write(
+            "<details>\n<summary><b>Interactive relationship diagram (Mermaid)</b></summary>\n\n"
+        )
         f.write("```mermaid\ngraph TD\n    %% Top Entity Relationships\n")
 
-        all_entities_for_graph = list(getattr(video, 'entities', [])) + list(getattr(video, 'custom_entities', []))
+        all_entities_for_graph = list(getattr(video, "entities", [])) + list(
+            getattr(video, "custom_entities", [])
+        )
         entity_map = {}
         for e in all_entities_for_graph:
-            name = getattr(e, 'name', None)
-            if not name and hasattr(e, 'entity'):
-                name = getattr(e, 'entity')
+            name = getattr(e, "name", None)
+            if not name and hasattr(e, "entity"):
+                name = getattr(e, "entity")
             if not name and isinstance(e, dict):
-                name = e.get('name')
+                name = e.get("name")
             if name:
                 entity_map[name] = e
-        top_relationships = sorted(video.relationships, key=lambda r: getattr(r, 'confidence', 0), reverse=True)
+        top_relationships = sorted(
+            video.relationships, key=lambda r: getattr(r, "confidence", 0), reverse=True
+        )
 
         shown_relationships, relationships_to_render = set(), []
         for rel in top_relationships:
-            subject_clean = rel.subject.replace('"', '').replace("'", "").replace(" ", "_")
-            predicate_clean = rel.predicate.replace('"', '').replace("'", "")
-            object_clean = rel.object.replace('"', '').replace("'", "").replace(" ", "_")
+            subject_clean = rel.subject.replace('"', "").replace("'", "").replace(" ", "_")
+            predicate_clean = rel.predicate.replace('"', "").replace("'", "")
+            object_clean = rel.object.replace('"', "").replace("'", "").replace(" ", "_")
             rel_key = f"{subject_clean}-{predicate_clean}-{object_clean}"
             if rel_key not in shown_relationships:
                 shown_relationships.add(rel_key)
@@ -896,12 +953,12 @@ class VideoIntelligenceRetriever:
         f.write("\n    %% Styling\n")
         styled_nodes = set()
         for rel in relationships_to_render:
-            subject_clean = rel.subject.replace('"', '').replace("'", "").replace(" ", "_")
-            object_clean = rel.object.replace('"', '').replace("'", "").replace(" ", "_")
+            subject_clean = rel.subject.replace('"', "").replace("'", "").replace(" ", "_")
+            object_clean = rel.object.replace('"', "").replace("'", "").replace(" ", "_")
             for node_name, clean_name in [(rel.subject, subject_clean), (rel.object, object_clean)]:
                 if clean_name not in styled_nodes and node_name in entity_map:
                     node_type = entity_map[node_name].type.lower()
-                    if node_type in ['person', 'organization', 'location', 'product']:
+                    if node_type in ["person", "organization", "location", "product"]:
                         f.write(f"    class {clean_name} {node_type}Class\n")
                     styled_nodes.add(clean_name)
 
@@ -910,13 +967,17 @@ class VideoIntelligenceRetriever:
         f.write("    classDef locationClass fill:#99ff99,stroke:#333,stroke-width:2px\n")
         f.write("    classDef productClass fill:#ffcc99,stroke:#333,stroke-width:2px\n")
         f.write("```\n\n")
-        f.write("*Note: This diagram shows the top 20 relationships. For the complete graph, use the GEXF file with Gephi.*\n")
+        f.write(
+            "*Note: This diagram shows the top 20 relationships. For the complete graph, use the GEXF file with Gephi.*\n"
+        )
         f.write("\n</details>\n\n")
 
     def _write_report_entity_analysis(self, f, video: VideoIntelligence):
         """Writes the entity analysis section with Mermaid pie chart."""
         f.write("##  Entity Analysis\n\n")
-        all_entities = list(getattr(video, 'entities', [])) + list(getattr(video, 'custom_entities', []))
+        all_entities = list(getattr(video, "entities", [])) + list(
+            getattr(video, "custom_entities", [])
+        )
         if not all_entities:
             return
 
@@ -934,57 +995,88 @@ class VideoIntelligenceRetriever:
             f.write(f'    "Others" : {others}\n')
         f.write("```\n\n")
 
-        type_emoji_map = {'PERSON': '', 'ORGANIZATION': '', 'LOCATION': '', 'PRODUCT': '', 'EVENT': '', 'DATE': '', 'MONEY': '', 'software': '', 'api': '', 'platform': '', 'framework': '', 'model': '', 'channel': ''}
+        type_emoji_map = {
+            "PERSON": "",
+            "ORGANIZATION": "",
+            "LOCATION": "",
+            "PRODUCT": "",
+            "EVENT": "",
+            "DATE": "",
+            "MONEY": "",
+            "software": "",
+            "api": "",
+            "platform": "",
+            "framework": "",
+            "model": "",
+            "channel": "",
+        }
         for entity_type in sorted(entities_by_type.keys()):
-            entities = sorted(entities_by_type[entity_type], key=lambda e: getattr(e, 'confidence', 0), reverse=True)
-            type_emoji = type_emoji_map.get(entity_type, '')
-            f.write(f"\n<details>\n<summary><b>{type_emoji} {entity_type} ({len(entities)} found)</b></summary>\n\n")
+            entities = sorted(
+                entities_by_type[entity_type],
+                key=lambda e: getattr(e, "confidence", 0),
+                reverse=True,
+            )
+            type_emoji = type_emoji_map.get(entity_type, "")
+            f.write(
+                f"\n<details>\n<summary><b>{type_emoji} {entity_type} ({len(entities)} found)</b></summary>\n\n"
+            )
             if entities:
                 f.write("| Name | Confidence | Source |\n|------|------------|--------|\n")
                 for entity in entities[:15]:
-                    conf = getattr(entity, 'confidence', 0.0)
-                    source = getattr(entity, 'source', 'SpaCy')
-                    conf_bar = '' if conf > 0.8 else ('' if conf > 0.6 else '')
-                    name = getattr(entity, 'name', getattr(entity, 'entity', str(entity)))
+                    conf = getattr(entity, "confidence", 0.0)
+                    source = getattr(entity, "source", "SpaCy")
+                    conf_bar = "" if conf > 0.8 else ("" if conf > 0.6 else "")
+                    name = getattr(entity, "name", getattr(entity, "entity", str(entity)))
                     f.write(f"| {name} | {conf_bar} {conf:.2f} | {source} |\n")
                 if len(entities) > 15:
-                    f.write(f"\n*... and {len(entities) - 15} more {entity_type.lower()} entities*\n")
+                    f.write(
+                        f"\n*... and {len(entities) - 15} more {entity_type.lower()} entities*\n"
+                    )
             f.write("\n</details>\n")
 
     def _write_report_relationship_network(self, f, video: VideoIntelligence):
         """Writes the relationship network analysis section."""
-        if not hasattr(video, 'relationships') or not video.relationships:
+        if not hasattr(video, "relationships") or not video.relationships:
             return
 
         f.write("\n##  Relationship Network\n\n")
         rel_types = {}
         for rel in video.relationships:
             rel_types[rel.predicate] = rel_types.get(rel.predicate, 0) + 1
-        
+
         f.write("<details>\n<summary><b>Relationship type distribution</b></summary>\n\n")
         f.write("| Predicate | Count | Percentage |\n|-----------|--------|------------|\n")
         total_rels = len(video.relationships)
         for pred, count in sorted(rel_types.items(), key=lambda x: x[1], reverse=True)[:15]:
             percentage = (count / total_rels) * 100
-            bar = '█' * int(percentage / 5)
+            bar = "█" * int(percentage / 5)
             f.write(f"| {pred} | {count} | {bar} {percentage:.1f}% |\n")
         f.write("\n</details>\n\n")
 
         f.write("<details>\n<summary><b>Key relationships (top 30)</b></summary>\n\n")
-        for i, rel in enumerate(sorted(video.relationships, key=lambda r: getattr(r, 'confidence', 0), reverse=True)[:30], 1):
-            conf = getattr(rel, 'confidence', 0.0)
-            conf_emoji = '' if conf > 0.8 else ('' if conf > 0.6 else '')
-            f.write(f"{i}. **{rel.subject}** *{rel.predicate}* **{rel.object}** {conf_emoji} ({conf:.2f})\n")
+        for i, rel in enumerate(
+            sorted(video.relationships, key=lambda r: getattr(r, "confidence", 0), reverse=True)[
+                :30
+            ],
+            1,
+        ):
+            conf = getattr(rel, "confidence", 0.0)
+            conf_emoji = "" if conf > 0.8 else ("" if conf > 0.6 else "")
+            f.write(
+                f"{i}. **{rel.subject}** *{rel.predicate}* **{rel.object}** {conf_emoji} ({conf:.2f})\n"
+            )
         f.write("\n</details>\n\n")
 
     def _write_report_key_insights(self, f, video: VideoIntelligence):
         """Writes the key insights section."""
         f.write("##  Key Insights\n\n")
         f.write("<details open>\n<summary><b>Top 10 key points</b></summary>\n\n")
-        top_points = sorted(video.key_points, key=lambda p: getattr(p, 'importance', 0.5), reverse=True)[:10]
+        top_points = sorted(
+            video.key_points, key=lambda p: getattr(p, "importance", 0.5), reverse=True
+        )[:10]
         for i, point in enumerate(top_points, 1):
-            importance = getattr(point, 'importance', 0.5)
-            imp_emoji = '' if importance > 0.8 else ('' if importance > 0.6 else '')
+            importance = getattr(point, "importance", 0.5)
+            imp_emoji = "" if importance > 0.8 else ("" if importance > 0.6 else "")
             f.write(f"{i}. {imp_emoji} {point.text}\n")
         f.write("\n</details>\n\n")
 
@@ -994,7 +1086,7 @@ class VideoIntelligenceRetriever:
         f.write("<details>\n<summary><b>Click to see all files</b></summary>\n\n")
         f.write("| File | Format | Size | Description |\n")
         f.write("|------|--------|------|-------------|\n")
-        
+
         file_info = [
             ("transcript.txt", "TXT", "Plain text transcript"),
             ("transcript.json", "JSON", "Full structured data"),
@@ -1006,9 +1098,9 @@ class VideoIntelligenceRetriever:
             ("manifest.json", "JSON", "File index with checksums"),
             ("report.md", "Markdown", "This report"),
             ("chimera_format.json", "JSON", "Chimera-compatible format"),
-            ("timeline_js.json", "JSON", "TimelineJS3 visualization data")
+            ("timeline_js.json", "JSON", "TimelineJS3 visualization data"),
         ]
-        
+
         for filename, fmt, desc in file_info:
             file_path = paths["directory"] / filename
             if file_path.exists():
@@ -1020,9 +1112,17 @@ class VideoIntelligenceRetriever:
     def _write_report_footer(self, f, video: VideoIntelligence):
         """Writes the report footer."""
         f.write("---\n")
-        version = video.processing_stats.get('version', '2.6.0') if hasattr(video, 'processing_stats') else '2.6.0'
-        f.write(f"*Generated by ClipScribe v{version} on {datetime.now().strftime('%Y-%m-%d at %H:%M:%S')}*\n")
-        f.write("\n **Tip**: This markdown file supports Mermaid diagrams. View it in a compatible editor for interactive diagrams.\n")
+        version = (
+            video.processing_stats.get("version", "2.6.0")
+            if hasattr(video, "processing_stats")
+            else "2.6.0"
+        )
+        f.write(
+            f"*Generated by ClipScribe v{version} on {datetime.now().strftime('%Y-%m-%d at %H:%M:%S')}*\n"
+        )
+        f.write(
+            "\n **Tip**: This markdown file supports Mermaid diagrams. View it in a compatible editor for interactive diagrams.\n"
+        )
 
     def _create_manifest_file(self, video: VideoIntelligence, paths: Dict[str, Path]):
         """Creates the manifest.json file."""
@@ -1032,26 +1132,52 @@ class VideoIntelligenceRetriever:
             "video": {
                 "title": video.metadata.title,
                 "url": video.metadata.url,
-                "platform": extract_platform_from_url(video.metadata.url)
+                "platform": extract_platform_from_url(video.metadata.url),
             },
-            "extraction_stats": video.processing_stats if hasattr(video, 'processing_stats') else {},
-            "timeline_v2": video.timeline_v2 if hasattr(video, 'timeline_v2') else None,
-            "files": {}
+            "extraction_stats": (
+                video.processing_stats if hasattr(video, "processing_stats") else {}
+            ),
+            "timeline_v2": video.timeline_v2 if hasattr(video, "timeline_v2") else None,
+            "files": {},
         }
-        
+
         file_definitions = {
             "transcript_txt": {"path": "transcript.txt", "format": "plain_text"},
             "transcript_json": {"path": "transcript.json", "format": "json"},
             "metadata": {"path": "metadata.json", "format": "json"},
             "entities": {"path": "entities.json", "format": "json"},
-            "relationships": {"path": "relationships.json", "format": "json", "count_attr": "relationships"},
+            "relationships": {
+                "path": "relationships.json",
+                "format": "json",
+                "count_attr": "relationships",
+            },
             "knowledge_graph": {"path": "knowledge_graph.json", "format": "json"},
-            "gexf": {"path": "knowledge_graph.gexf", "format": "gexf", "description": "Gephi-compatible graph file"},
+            "gexf": {
+                "path": "knowledge_graph.gexf",
+                "format": "gexf",
+                "description": "Gephi-compatible graph file",
+            },
             "facts": {"path": "facts.txt", "format": "plain_text", "count_attr": "key_moments"},
-            "entities_csv": {"path": "entities.csv", "format": "csv", "description": "All entities in CSV format"},
-            "relationships_csv": {"path": "relationships.csv", "format": "csv", "description": "All relationships in CSV format"},
-            "report": {"path": "report.md", "format": "markdown", "description": "Human-readable intelligence report"},
-            "chimera": {"path": "chimera_format.json", "format": "json", "description": "Chimera-compatible format"}
+            "entities_csv": {
+                "path": "entities.csv",
+                "format": "csv",
+                "description": "All entities in CSV format",
+            },
+            "relationships_csv": {
+                "path": "relationships.csv",
+                "format": "csv",
+                "description": "All relationships in CSV format",
+            },
+            "report": {
+                "path": "report.md",
+                "format": "markdown",
+                "description": "Human-readable intelligence report",
+            },
+            "chimera": {
+                "path": "chimera_format.json",
+                "format": "json",
+                "description": "Chimera-compatible format",
+            },
         }
 
         for key, definition in file_definitions.items():
@@ -1061,41 +1187,36 @@ class VideoIntelligenceRetriever:
                     "path": definition["path"],
                     "format": definition["format"],
                     "size": os.path.getsize(file_path),
-                    "sha256": calculate_sha256(file_path)
+                    "sha256": calculate_sha256(file_path),
                 }
                 if "description" in definition:
                     file_entry["description"] = definition["description"]
                 if "count_attr" in definition and hasattr(video, definition["count_attr"]):
                     file_entry["count"] = len(getattr(video, definition["count_attr"]))
-                
+
                 manifest["files"][key] = file_entry
 
-        with open(paths["manifest"], 'w', encoding='utf-8') as f:
+        with open(paths["manifest"], "w", encoding="utf-8") as f:
             json.dump(manifest, f, indent=2, default=str)
 
     def _save_chimera_file(self, video: VideoIntelligence, paths: Dict[str, Path]):
         """Saves the Chimera-compatible format file."""
         chimera_path = paths["directory"] / "chimera_format.json"
         chimera_data = self._to_chimera_format(video)
-        with open(chimera_path, 'w', encoding='utf-8') as f:
+        with open(chimera_path, "w", encoding="utf-8") as f:
             json.dump(chimera_data, f, indent=2, default=str)
         paths["chimera"] = chimera_path
-    
+
     # Chimera-compatible interface methods
-    
-    async def retrieve(
-        self,
-        query: str,
-        max_results: int = 5,
-        **kwargs
-    ) -> List[Dict[str, Any]]:
+
+    async def retrieve(self, query: str, max_results: int = 5, **kwargs) -> List[Dict[str, Any]]:
         """
         Chimera-compatible retrieve method.
-        
+
         Returns results in Chimera's expected format.
         """
         # Check if query is a URL
-        if query.startswith(('http://', 'https://')):
+        if query.startswith(("http://", "https://")):
             # Process single URL
             result = await self.process_url(query)
             if result:
@@ -1105,7 +1226,7 @@ class VideoIntelligenceRetriever:
             # Search for videos
             results = await self.search(query, max_results)
             return [self._to_chimera_format(r) for r in results]
-    
+
     def _to_chimera_format(self, video: VideoIntelligence) -> Dict[str, Any]:
         """Convert VideoIntelligence to Chimera's format."""
         return {
@@ -1118,34 +1239,41 @@ class VideoIntelligenceRetriever:
             "metadata": {
                 "channel": video.metadata.channel,
                 "duration": video.metadata.duration,
-                "published_at": video.metadata.published_at.isoformat() if video.metadata.published_at else None,
+                "published_at": (
+                    video.metadata.published_at.isoformat() if video.metadata.published_at else None
+                ),
                 "view_count": video.metadata.view_count,
                 "key_points": [kp.dict() for kp in video.key_points],
                 "entities": [e.dict() for e in video.entities],
-                "topics": [t.dict() if hasattr(t, 'dict') else {"name": t.name, "confidence": t.confidence} for t in video.topics],
+                "topics": [
+                    t.dict() if hasattr(t, "dict") else {"name": t.name, "confidence": t.confidence}
+                    for t in video.topics
+                ],
                 "sentiment": video.sentiment,
                 "processing_cost": video.processing_cost,
-                "timeline_v2": video.timeline_v2 if hasattr(video, 'timeline_v2') else None
-            }
+                "timeline_v2": video.timeline_v2 if hasattr(video, "timeline_v2") else None,
+            },
         }
-    
+
     def _generate_gexf_content(self, knowledge_graph: Dict[str, Any]) -> str:
         """Generate GEXF content from knowledge graph."""
         from xml.sax.saxutils import escape
         import hashlib
-        
+
         def stable_node_id(label: str) -> str:
-            h = hashlib.sha1(label.encode('utf-8')).hexdigest()
+            h = hashlib.sha1(label.encode("utf-8")).hexdigest()
             return f"n_{h[:12]}"
-        
+
         label_to_id: Dict[str, str] = {}
-        
+
         gexf_content = '<?xml version="1.0" encoding="UTF-8"?>\n'
         gexf_content += '<gexf xmlns="http://www.gexf.net/1.3" xmlns:viz="http://www.gexf.net/1.3/viz" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://gexf.net/1.3 http://gexf.net/1.3/gexf.xsd" version="1.3">\n'
-        gexf_content += '  <meta lastmodifieddate="' + datetime.now().strftime('%Y-%m-%d') + '">\n'
-        gexf_content += '    <creator>ClipScribe</creator>\n'
-        gexf_content += '    <description>Knowledge graph extracted from video content</description>\n'
-        gexf_content += '  </meta>\n'
+        gexf_content += '  <meta lastmodifieddate="' + datetime.now().strftime("%Y-%m-%d") + '">\n'
+        gexf_content += "    <creator>ClipScribe</creator>\n"
+        gexf_content += (
+            "    <description>Knowledge graph extracted from video content</description>\n"
+        )
+        gexf_content += "  </meta>\n"
         gexf_content += '  <graph mode="static" defaultedgetype="directed" idtype="string">\n'
         gexf_content += '    <attributes class="node">\n'
         gexf_content += '      <attribute id="0" title="Type" type="string"/>\n'
@@ -1153,147 +1281,154 @@ class VideoIntelligenceRetriever:
         gexf_content += '      <attribute id="2" title="MentionCount" type="integer"/>\n'
         gexf_content += '      <attribute id="3" title="Occurrences" type="integer"/>\n'
         gexf_content += '      <attribute id="4" title="Name" type="string"/>\n'
-        gexf_content += '    </attributes>\n'
+        gexf_content += "    </attributes>\n"
         gexf_content += '    <attributes class="edge">\n'
         gexf_content += '      <attribute id="0" title="Predicate" type="string"/>\n'
         gexf_content += '      <attribute id="1" title="Confidence" type="double"/>\n'
-        gexf_content += '    </attributes>\n'
-        gexf_content += '    <nodes>\n'
-        
+        gexf_content += "    </attributes>\n"
+        gexf_content += "    <nodes>\n"
+
         # Color map for entity types
         color_map = {
-            'PERSON': (255, 107, 107),        # Red
-            'ORGANIZATION': (78, 205, 196),   # Teal
-            'LOCATION': (69, 183, 209),       # Blue
-            'EVENT': (247, 220, 111),         # Yellow
-            'CONCEPT': (187, 143, 206),       # Purple
-            'TECHNOLOGY': (82, 190, 128),     # Green
-            'DATE': (243, 156, 18),           # Orange
-            'MONEY': (133, 193, 226),         # Light Blue
-            'unknown': (149, 165, 166)        # Gray
+            "PERSON": (255, 107, 107),  # Red
+            "ORGANIZATION": (78, 205, 196),  # Teal
+            "LOCATION": (69, 183, 209),  # Blue
+            "EVENT": (247, 220, 111),  # Yellow
+            "CONCEPT": (187, 143, 206),  # Purple
+            "TECHNOLOGY": (82, 190, 128),  # Green
+            "DATE": (243, 156, 18),  # Orange
+            "MONEY": (133, 193, 226),  # Light Blue
+            "unknown": (149, 165, 166),  # Gray
         }
-        
+
         # Add nodes with attributes
-        for node in knowledge_graph.get('nodes', []):
-            label = escape(str(node.get('id', 'unknown')))
+        for node in knowledge_graph.get("nodes", []):
+            label = escape(str(node.get("id", "unknown")))
             node_id = stable_node_id(label)
             label_to_id[label] = node_id
-            node_type = node.get('type', 'unknown')
-            confidence = node.get('confidence', 0.9)
-            mention_count = int(node.get('mention_count', 0)) if isinstance(node.get('mention_count', 0), (int, float)) else 0
-            occurrences = int(node.get('occurrences', 0)) if isinstance(node.get('occurrences', 0), (int, float)) else 0
-            
+            node_type = node.get("type", "unknown")
+            confidence = node.get("confidence", 0.9)
+            mention_count = (
+                int(node.get("mention_count", 0))
+                if isinstance(node.get("mention_count", 0), (int, float))
+                else 0
+            )
+            occurrences = (
+                int(node.get("occurrences", 0))
+                if isinstance(node.get("occurrences", 0), (int, float))
+                else 0
+            )
+
             # Get color for node type
-            r, g, b = color_map.get(node_type, color_map['unknown'])
-            
+            r, g, b = color_map.get(node_type, color_map["unknown"])
+
             gexf_content += f'      <node id="{node_id}" label="{label}">\n'
-            gexf_content += f'        <attvalues>\n'
+            gexf_content += f"        <attvalues>\n"
             gexf_content += f'          <attvalue for="0" value="{escape(node_type)}"/>\n'
             gexf_content += f'          <attvalue for="1" value="{confidence}"/>\n'
             gexf_content += f'          <attvalue for="2" value="{mention_count}"/>\n'
             gexf_content += f'          <attvalue for="3" value="{occurrences}"/>\n'
             gexf_content += f'          <attvalue for="4" value="{label}"/>\n'
-            gexf_content += f'        </attvalues>\n'
+            gexf_content += f"        </attvalues>\n"
             gexf_content += f'        <viz:color r="{r}" g="{g}" b="{b}" a="1.0"/>\n'
             gexf_content += f'        <viz:size value="{20 + (confidence * 30)}"/>\n'
-            gexf_content += f'      </node>\n'
-        
-        gexf_content += '    </nodes>\n'
-        gexf_content += '    <edges>\n'
-        
+            gexf_content += f"      </node>\n"
+
+        gexf_content += "    </nodes>\n"
+        gexf_content += "    <edges>\n"
+
         # Add edges with attributes
-        for i, edge in enumerate(knowledge_graph.get('edges', [])):
-            source_label = escape(str(edge['source']))
-            target_label = escape(str(edge['target']))
+        for i, edge in enumerate(knowledge_graph.get("edges", [])):
+            source_label = escape(str(edge["source"]))
+            target_label = escape(str(edge["target"]))
             source = label_to_id.get(source_label, stable_node_id(source_label))
             target = label_to_id.get(target_label, stable_node_id(target_label))
-            predicate = escape(str(edge.get('predicate', 'related_to')))
-            confidence = edge.get('confidence', 0.9)
-            
+            predicate = escape(str(edge.get("predicate", "related_to")))
+            confidence = edge.get("confidence", 0.9)
+
             gexf_content += f'      <edge id="{i}" source="{source}" target="{target}" weight="{confidence}" label="{predicate}" kind="{predicate}">\n'
-            gexf_content += f'        <attvalues>\n'
+            gexf_content += f"        <attvalues>\n"
             gexf_content += f'          <attvalue for="0" value="{predicate}"/>\n'
             gexf_content += f'          <attvalue for="1" value="{confidence}"/>\n'
-            gexf_content += f'        </attvalues>\n'
-            gexf_content += f'      </edge>\n'
-        
-        gexf_content += '    </edges>\n'
-        gexf_content += '  </graph>\n'
-        gexf_content += '</gexf>\n'
-        
-        return gexf_content 
+            gexf_content += f"        </attvalues>\n"
+            gexf_content += f"      </edge>\n"
+
+        gexf_content += "    </edges>\n"
+        gexf_content += "  </graph>\n"
+        gexf_content += "</gexf>\n"
+
+        return gexf_content
 
     def _save_entity_sources_file(self, video: VideoIntelligence, paths: Dict[str, Path]):
         """Save a detailed file showing which extraction method found each entity."""
         entities_with_sources = []
-        
+
         # Track entities by source (including combined sources from normalization)
         sources = {
             "SpaCy": [],
-            "GLiNER": [], 
+            "GLiNER": [],
             "REBEL": [],
             "SpaCy+GLiNER": [],
             "SpaCy+REBEL": [],
             "GLiNER+REBEL": [],
             "SpaCy+GLiNER+REBEL": [],
-            "Unknown": []
+            "Unknown": [],
         }
-        
+
         normalization_stats = {
             "total_normalized": 0,
             "entities_with_multiple_sources": 0,
-            "entities_with_aliases": 0
+            "entities_with_aliases": 0,
         }
-        
+
         for entity in video.entities:
             # Determine source from properties
             source = "Unknown"
             aliases = []
             original_names = []
-            
-            if hasattr(entity, 'properties') and entity.properties:
+
+            if hasattr(entity, "properties") and entity.properties:
                 # Check for multiple sources (from entity normalization)
-                if 'sources' in entity.properties:
-                    source_list = entity.properties['sources']
-                    source = '+'.join(sorted(source_list))
+                if "sources" in entity.properties:
+                    source_list = entity.properties["sources"]
+                    source = "+".join(sorted(source_list))
                     normalization_stats["entities_with_multiple_sources"] += 1
-                elif 'source' in entity.properties:
-                    source = entity.properties['source']
+                elif "source" in entity.properties:
+                    source = entity.properties["source"]
                 else:
-                    source = 'SpaCy'  # Default assumption
-                    
+                    source = "SpaCy"  # Default assumption
+
                 # Get aliases if available (from normalization)
-                if 'aliases' in entity.properties:
-                    aliases = entity.properties['aliases']
+                if "aliases" in entity.properties:
+                    aliases = entity.properties["aliases"]
                     if aliases:
                         normalization_stats["entities_with_aliases"] += 1
-                        
+
                 # Get original names if available
-                if 'original_names' in entity.properties:
-                    original_names = entity.properties['original_names']
-            
+                if "original_names" in entity.properties:
+                    original_names = entity.properties["original_names"]
+
             entity_info = {
                 "name": entity.name,
                 "type": entity.type,
-
                 "source": source,
-                "extraction_methods": source.split('+') if '+' in source else [source],
+                "extraction_methods": source.split("+") if "+" in source else [source],
                 "aliases": aliases,
                 "original_names": original_names,
-                "is_normalized": '+' in source or bool(aliases)
+                "is_normalized": "+" in source or bool(aliases),
             }
-            
+
             if entity_info["is_normalized"]:
                 normalization_stats["total_normalized"] += 1
-            
+
             entities_with_sources.append(entity_info)
-            
+
             # Add to appropriate source bucket
             if source in sources:
                 sources[source].append(entity_info)
             else:
                 sources["Unknown"].append(entity_info)
-        
+
         # Create comprehensive summary
         summary = {
             "total_entities": len(entities_with_sources),
@@ -1302,61 +1437,72 @@ class VideoIntelligenceRetriever:
             "by_source": {
                 source: {
                     "count": len(items),
-                    "percentage": round((len(items) / len(entities_with_sources)) * 100, 1) if entities_with_sources else 0
+                    "percentage": (
+                        round((len(items) / len(entities_with_sources)) * 100, 1)
+                        if entities_with_sources
+                        else 0
+                    ),
                 }
-                for source, items in sources.items() if items
+                for source, items in sources.items()
+                if items
             },
             "by_type": {},
             "extraction_methods": {
                 "SpaCy": "Basic Named Entity Recognition (free, local)",
-                "GLiNER": "Custom entity detection (local model)", 
+                "GLiNER": "Custom entity detection (local model)",
                 "REBEL": "Relationship extraction (local model)",
-                "Combined": "Entities found by multiple methods and normalized"
+                "Combined": "Entities found by multiple methods and normalized",
             },
-            "quality_metrics": {
-
-
-                "normalized_entities": normalization_stats["total_normalized"]
-            }
+            "quality_metrics": {"normalized_entities": normalization_stats["total_normalized"]},
         }
-        
+
         # Count by type
         for entity in video.entities:
             entity_type = entity.type
             summary["by_type"][entity_type] = summary["by_type"].get(entity_type, 0) + 1
-        
+
         # Save detailed JSON
-        output_file = paths['entity_sources_json']
-        with open(output_file, 'w', encoding='utf-8') as f:
-            json.dump({
-                "summary": summary,
-                "all_entities": entities_with_sources,
-                "by_source": {k: v for k, v in sources.items() if v}
-            }, f, indent=2, ensure_ascii=False)
-        
+        output_file = paths["entity_sources_json"]
+        with open(output_file, "w", encoding="utf-8") as f:
+            json.dump(
+                {
+                    "summary": summary,
+                    "all_entities": entities_with_sources,
+                    "by_source": {k: v for k, v in sources.items() if v},
+                },
+                f,
+                indent=2,
+                ensure_ascii=False,
+            )
+
         logger.info(f"Saved enhanced entity sources to {output_file}")
-        
+
         # Save CSV for analysis
-        csv_file = paths['entity_sources_csv']
-        with open(csv_file, 'w', encoding='utf-8', newline='') as f:
-            fieldnames = ['name', 'type', 'source', 'extraction_methods', 'aliases', 'is_normalized']
+        csv_file = paths["entity_sources_csv"]
+        with open(csv_file, "w", encoding="utf-8", newline="") as f:
+            fieldnames = [
+                "name",
+                "type",
+                "source",
+                "extraction_methods",
+                "aliases",
+                "is_normalized",
+            ]
             writer = csv.DictWriter(f, fieldnames=fieldnames)
             writer.writeheader()
-            
+
             for entity in entities_with_sources:
                 # Convert lists to strings for CSV
                 csv_entity = entity.copy()
-                csv_entity['extraction_methods'] = '|'.join(entity['extraction_methods'])
-                csv_entity['aliases'] = '|'.join(entity['aliases']) if entity['aliases'] else ''
-                del csv_entity['original_names']  # Too complex for CSV
+                csv_entity["extraction_methods"] = "|".join(entity["extraction_methods"])
+                csv_entity["aliases"] = "|".join(entity["aliases"]) if entity["aliases"] else ""
+                del csv_entity["original_names"]  # Too complex for CSV
                 writer.writerow(csv_entity)
-        
+
         logger.info(f"Saved entity sources CSV to {csv_file} with normalization info")
 
     def save_collection_outputs(
-        self,
-        collection: MultiVideoIntelligence,
-        output_dir: str = "output"
+        self, collection: MultiVideoIntelligence, output_dir: str = "output"
     ) -> Dict[str, Path]:
         """
         Saves the synthesized outputs from a multi-video collection.
@@ -1375,13 +1521,13 @@ class VideoIntelligenceRetriever:
         # Create a directory for the collection using its unique ID
         collection_path = Path(output_dir) / collection.collection_id
         collection_path.mkdir(parents=True, exist_ok=True)
-        
+
         saved_paths = {"directory": collection_path}
 
         # 1. Save the Consolidated Timeline
         if collection.consolidated_timeline:
             timeline_path = collection_path / "timeline.json"
-            with open(timeline_path, 'w', encoding='utf-8') as f:
+            with open(timeline_path, "w", encoding="utf-8") as f:
                 # Pydantic's model_dump_json is great for this
                 f.write(collection.consolidated_timeline.model_dump_json(indent=2))
             saved_paths["timeline"] = timeline_path
@@ -1389,11 +1535,11 @@ class VideoIntelligenceRetriever:
 
         # 2. Save the full collection intelligence object
         collection_intelligence_path = collection_path / "collection_intelligence.json"
-        with open(collection_intelligence_path, 'w', encoding='utf-8') as f:
+        with open(collection_intelligence_path, "w", encoding="utf-8") as f:
             f.write(collection.model_dump_json(indent=2))
         saved_paths["collection_intelligence"] = collection_intelligence_path
         logger.info(f"Saved full collection intelligence to {collection_intelligence_path}")
-        
+
         # 3. Save the Unified Knowledge Graph (if it exists)
         if collection.unified_knowledge_graph:
             # GEXF for Gephi
@@ -1401,7 +1547,7 @@ class VideoIntelligenceRetriever:
             try:
                 # We can reuse the existing GEXF generator
                 gexf_content = self._generate_gexf_content(collection.unified_knowledge_graph)
-                with open(gexf_path, 'w', encoding='utf-8') as f:
+                with open(gexf_path, "w", encoding="utf-8") as f:
                     f.write(gexf_content)
                 saved_paths["unified_gexf"] = gexf_path
                 logger.info(f"Saved unified GEXF file to {gexf_path}")
@@ -1414,25 +1560,27 @@ class VideoIntelligenceRetriever:
         if collection.information_flow_map:
             # Save complete information flow map
             flow_map_path = collection_path / "information_flow_map.json"
-            with open(flow_map_path, 'w', encoding='utf-8') as f:
+            with open(flow_map_path, "w", encoding="utf-8") as f:
                 f.write(collection.information_flow_map.model_dump_json(indent=2))
             saved_paths["information_flow_map"] = flow_map_path
             logger.info(f"Saved information flow map to {flow_map_path}")
-            
+
             # Save individual concept flows as separate files for easy access
             flows_dir = collection_path / "concept_flows"
             flows_dir.mkdir(exist_ok=True)
-            
+
             for flow in collection.information_flow_map.information_flows:
                 # Use source_node.video_id since InformationFlow doesn't have video_id directly
                 flow_filename = f"{flow.source_node.video_id}_{flow.flow_id}.json"
                 flow_path = flows_dir / flow_filename
-                with open(flow_path, 'w', encoding='utf-8') as f:
+                with open(flow_path, "w", encoding="utf-8") as f:
                     f.write(flow.model_dump_json(indent=2))
-            
+
             saved_paths["concept_flows_dir"] = flows_dir
-            logger.info(f"Saved {len(collection.information_flow_map.information_flows)} individual concept flows to {flows_dir}")
-            
+            logger.info(
+                f"Saved {len(collection.information_flow_map.information_flows)} individual concept flows to {flows_dir}"
+            )
+
             # Save a human-readable summary of information flows
             flow_summary_path = collection_path / "information_flow_summary.md"
             self._save_information_flow_summary(collection.information_flow_map, flow_summary_path)
@@ -1441,40 +1589,40 @@ class VideoIntelligenceRetriever:
         logger.info(f"All collection outputs saved to: {collection_path}")
         return saved_paths
 
-    # Knowledge panels summary method removed - functionality moved to Chimera 
+    # Knowledge panels summary method removed - functionality moved to Chimera
 
     def _save_information_flow_summary(self, flow_map, output_path: Path):
         """Generate a human-readable markdown summary of information flow maps."""
         from clipscribe.models import InformationFlowMap
-        
+
         # Calculate unique video count from concept nodes
         unique_videos = set()
         for node in flow_map.concept_nodes:
             unique_videos.add(node.video_id)
         actual_video_count = len(unique_videos)
-        
-        with open(output_path, 'w', encoding='utf-8') as f:
+
+        with open(output_path, "w", encoding="utf-8") as f:
             f.write(f"# Information Flow Map: {flow_map.collection_title}\n\n")
             f.write(f"**Collection ID:** {flow_map.collection_id}\n")
             f.write(f"**Created:** {flow_map.created_at.strftime('%Y-%m-%d %H:%M:%S')}\n")
             f.write(f"**Total Videos:** {actual_video_count}\n")  # Fixed: use actual video count
             f.write(f"**Concepts Tracked:** {flow_map.total_concepts}\n")
             f.write(f"**Flow Patterns Identified:** {flow_map.total_flows}\n\n")
-            
+
             # Collection-level analysis
             f.write("##  Flow Analysis Summary\n\n")
             f.write("### Overall Flow Pattern\n")
             f.write(f"{flow_map.flow_summary}\n\n")
-            
+
             f.write("### Learning Progression Analysis\n")
             f.write(f"{flow_map.learning_progression}\n\n")
-            
+
             if flow_map.strategic_insights:
                 f.write("### Strategic Insights\n")
                 for insight in flow_map.strategic_insights:
                     f.write(f"- {insight}\n")
                 f.write("\n")
-            
+
             # Concept clusters
             if flow_map.concept_clusters:
                 f.write("##  Concept Clusters\n\n")
@@ -1483,134 +1631,143 @@ class VideoIntelligenceRetriever:
                     f.write(f"**Theme:** {cluster.cluster_name}\n")
                     f.write(f"**Concepts:** {', '.join(cluster.core_concepts)}\n")
                     f.write(f"**Coherence Score:** {cluster.coherence_score:.2f}\n\n")
-            
+
             # Evolution paths
             if flow_map.evolution_paths:
                 f.write("##  Concept Evolution Paths\n\n")
                 # Sort by significance (number of evolution nodes and coherence)
-                sorted_paths = sorted(flow_map.evolution_paths, 
-                                    key=lambda p: (len(p.evolution_nodes) * p.evolution_coherence), 
-                                    reverse=True)
-                
+                sorted_paths = sorted(
+                    flow_map.evolution_paths,
+                    key=lambda p: (len(p.evolution_nodes) * p.evolution_coherence),
+                    reverse=True,
+                )
+
                 for i, path in enumerate(sorted_paths[:10], 1):  # Top 10 paths
                     f.write(f"### {i}. {path.concept_name}\n")
                     f.write(f"**Evolution Nodes:** {len(path.evolution_nodes)} stages\n")
                     f.write(f"**Coherence Score:** {path.evolution_coherence:.2f}\n")
                     f.write(f"**Completeness:** {path.completeness_score:.2f}\n")
                     f.write(f"**Understanding Depth:** {path.understanding_depth:.2f}\n")
-                    
+
                     # Show evolution summary
                     if path.evolution_summary:
                         f.write(f"**Summary:** {path.evolution_summary}\n")
-                    
+
                     # Show key transformations
                     if path.key_transformations:
                         f.write("**Key Transformations:**\n")
                         for transformation in path.key_transformations[:3]:
                             f.write(f"- {transformation}\n")
                     f.write("\n")
-                
+
                 if len(flow_map.evolution_paths) > 10:
-                    f.write(f"*... and {len(flow_map.evolution_paths) - 10} more evolution paths*\n\n")
-            
+                    f.write(
+                        f"*... and {len(flow_map.evolution_paths) - 10} more evolution paths*\n\n"
+                    )
+
             # Information flows analysis
             f.write("##  Information Flow Analysis\n\n")
-            
+
             # Group flows by source video for organization
             flows_by_video = {}
             for flow in flow_map.information_flows:
                 source_video = flow.source_node.video_id
                 if source_video not in flows_by_video:
                     flows_by_video[source_video] = {
-                        'title': flow.source_node.video_title,
-                        'flows': []
+                        "title": flow.source_node.video_title,
+                        "flows": [],
                     }
-                flows_by_video[source_video]['flows'].append(flow)
-            
+                flows_by_video[source_video]["flows"].append(flow)
+
             # Display flows by video
             for video_id, video_data in flows_by_video.items():
                 f.write(f"### Video: {video_data['title']}\n")
                 f.write(f"**Video ID:** {video_id}\n")
                 f.write(f"**Information Flows Originating:** {len(video_data['flows'])}\n\n")
-                
+
                 # Show key flows from this video
-                for flow in video_data['flows'][:5]:  # Show top 5 flows
-                    f.write(f"**Flow:** {flow.source_node.concept_name} → {flow.target_node.concept_name}\n")
+                for flow in video_data["flows"][:5]:  # Show top 5 flows
+                    f.write(
+                        f"**Flow:** {flow.source_node.concept_name} → {flow.target_node.concept_name}\n"
+                    )
                     f.write(f"- **Type:** {flow.flow_type}\n")
                     f.write(f"- **Quality:** {flow.flow_quality:.2f}\n")
                     f.write(f"- **Information Transferred:** {flow.information_transferred}\n")
                     f.write(f"- **Target Video:** {flow.target_node.video_title}\n\n")
-                
-                if len(video_data['flows']) > 5:
-                    f.write(f"*... and {len(video_data['flows']) - 5} more flows from this video*\n\n")
-                
+
+                if len(video_data["flows"]) > 5:
+                    f.write(
+                        f"*... and {len(video_data['flows']) - 5} more flows from this video*\n\n"
+                    )
+
                 f.write("---\n\n")
-            
+
             # Information gaps
             if flow_map.information_gaps:
                 f.write("##  Information Gaps Identified\n\n")
                 for gap in flow_map.information_gaps:
                     f.write(f"- {gap}\n")
                 f.write("\n")
-            
+
             # Footer
             f.write("##  Files Generated\n\n")
             f.write("- `information_flow_map.json` - Complete structured flow data\n")
             f.write("- `concept_flows/` - Individual flow files for each video\n")
             f.write("- `information_flow_summary.md` - This human-readable summary\n\n")
-            
+
             f.write("##  How to Use This Analysis\n\n")
-            f.write("1. **Curriculum Design:** Use evolution paths to structure learning sequences\n")
+            f.write(
+                "1. **Curriculum Design:** Use evolution paths to structure learning sequences\n"
+            )
             f.write("2. **Content Planning:** Identify gaps where concepts need more development\n")
             f.write("3. **Research Synthesis:** Track how ideas evolve across multiple sources\n")
-            f.write("4. **Knowledge Management:** Understand concept dependencies and relationships\n\n")
-            
+            f.write(
+                "4. **Knowledge Management:** Understand concept dependencies and relationships\n\n"
+            )
+
             f.write("---\n")
-            f.write(f"*Generated by ClipScribe v2.14.0 Information Flow Maps on {flow_map.created_at.strftime('%Y-%m-%d at %H:%M:%S')}*\n")
-        
-        logger.info(f"Saved information flow summary to {output_path}") 
+            f.write(
+                f"*Generated by ClipScribe v2.14.0 Information Flow Maps on {flow_map.created_at.strftime('%Y-%m-%d at %H:%M:%S')}*\n"
+            )
+
+        logger.info(f"Saved information flow summary to {output_path}")
 
     def _build_knowledge_graph(self, video_intel: VideoIntelligence) -> VideoIntelligence:
         """Build knowledge graph from entities and relationships."""
         import networkx as nx
-        
+
         G = nx.DiGraph()
-        
+
         # Add entities as nodes
         for entity in video_intel.entities:
             # Handle both Entity and EnhancedEntity objects
-            entity_name = getattr(entity, 'name', str(entity))
-            entity_type = getattr(entity, 'type', 'unknown')
-            entity_confidence = getattr(entity, 'confidence', 0.9)
-            
-            G.add_node(
-                entity_name,
-                type=entity_type,
-                confidence=entity_confidence
-            )
-        
+            entity_name = getattr(entity, "name", str(entity))
+            entity_type = getattr(entity, "type", "unknown")
+            entity_confidence = getattr(entity, "confidence", 0.9)
+
+            G.add_node(entity_name, type=entity_type, confidence=entity_confidence)
+
         # Add relationships as edges
         for rel in video_intel.relationships:
-            subject = getattr(rel, 'subject', rel.get('subject') if isinstance(rel, dict) else None)
-            obj = getattr(rel, 'object', rel.get('object') if isinstance(rel, dict) else None)
-            predicate = getattr(rel, 'predicate', rel.get('predicate') if isinstance(rel, dict) else 'related_to')
-            confidence = getattr(rel, 'confidence', rel.get('confidence', 0.9) if isinstance(rel, dict) else 0.9)
-            
+            subject = getattr(rel, "subject", rel.get("subject") if isinstance(rel, dict) else None)
+            obj = getattr(rel, "object", rel.get("object") if isinstance(rel, dict) else None)
+            predicate = getattr(
+                rel, "predicate", rel.get("predicate") if isinstance(rel, dict) else "related_to"
+            )
+            confidence = getattr(
+                rel, "confidence", rel.get("confidence", 0.9) if isinstance(rel, dict) else 0.9
+            )
+
             if subject and obj:
-                G.add_edge(
-                    subject,
-                    obj,
-                    predicate=predicate,
-                    confidence=confidence
-                )
-        
+                G.add_edge(subject, obj, predicate=predicate, confidence=confidence)
+
         # Convert to serializable format
         video_intel.knowledge_graph = {
             "nodes": [
                 {
                     "id": node,
                     "type": data.get("type", "unknown"),
-                    "confidence": data.get("confidence", 0.9)
+                    "confidence": data.get("confidence", 0.9),
                 }
                 for node, data in G.nodes(data=True)
             ],
@@ -1619,13 +1776,15 @@ class VideoIntelligenceRetriever:
                     "source": u,
                     "target": v,
                     "predicate": data.get("predicate", "related_to"),
-                    "confidence": data.get("confidence", 0.9)
+                    "confidence": data.get("confidence", 0.9),
                 }
                 for u, v, data in G.edges(data=True)
             ],
             "node_count": G.number_of_nodes(),
-            "edge_count": G.number_of_edges()
+            "edge_count": G.number_of_edges(),
         }
-        
-        logger.info(f"Built knowledge graph with {G.number_of_nodes()} nodes and {G.number_of_edges()} edges")
+
+        logger.info(
+            f"Built knowledge graph with {G.number_of_nodes()} nodes and {G.number_of_edges()} edges"
+        )
         return video_intel

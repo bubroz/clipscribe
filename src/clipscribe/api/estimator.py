@@ -64,12 +64,20 @@ def estimate_from_gcs_uri(gcs_uri: str) -> Tuple[int, Dict[str, Any]]:
         if dur_meta:
             try:
                 duration = int(float(dur_meta))
-                return max(0, duration), {"source": "gcs_metadata", "size_bytes": size_bytes, "mime_type": mime_type}
+                return max(0, duration), {
+                    "source": "gcs_metadata",
+                    "size_bytes": size_bytes,
+                    "mime_type": mime_type,
+                }
             except Exception:
                 pass
 
         duration = _secs_from_bytes_heuristic(size_bytes, mime_type)
-        return duration, {"source": "gcs_size_heuristic", "size_bytes": size_bytes, "mime_type": mime_type}
+        return duration, {
+            "source": "gcs_size_heuristic",
+            "size_bytes": size_bytes,
+            "mime_type": mime_type,
+        }
     except Exception:
         return 0, {"source": "gcs", "error": "probe_failed"}
 
@@ -100,5 +108,3 @@ def estimate_job(body: Dict[str, Any], settings: Optional[Settings] = None) -> D
         "proposed_model": proposed_model,
         "metadata": meta,
     }
-
-

@@ -21,4 +21,4 @@ Test Categories:
 """
 
 __version__ = "1.0.0"
-__author__ = "ClipScribe Core Excellence Team" 
+__author__ = "ClipScribe Core Excellence Team"

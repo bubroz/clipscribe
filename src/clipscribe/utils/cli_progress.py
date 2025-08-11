@@ -11,6 +11,7 @@ from typing import List, Dict, Optional
 from rich.progress import Progress, SpinnerColumn, BarColumn, TextColumn, TimeElapsedColumn
 from rich.console import Console
 
+
 class CliProgressManager:
     """Manages a rich.progress display for multi-phase tasks."""
 
@@ -25,12 +26,10 @@ class CliProgressManager:
             TimeElapsedColumn(),
             TextColumn("Cost: [green]${task.fields[cost]:.4f}"),
             console=self.console,
-            transient=True
+            transient=True,
         )
         self.task_id = self.progress.add_task(
-            "[cyan]Processing...",
-            total=len(self.phases),
-            cost=0.0
+            "[cyan]Processing...", total=len(self.phases), cost=0.0
         )
         self.current_phase_index = 0
 
@@ -52,9 +51,7 @@ class CliProgressManager:
 
         # Update description and cost regardless
         self.progress.update(
-            self.task_id,
-            description=f"[cyan]{phase_name}: [yellow]{status}",
-            cost=cost
+            self.task_id, description=f"[cyan]{phase_name}: [yellow]{status}", cost=cost
         )
 
     def complete_phase(self, phase_name: str, cost: float):
@@ -64,18 +61,14 @@ class CliProgressManager:
             advance_amount = (phase_index - self.current_phase_index) + 1
             self.progress.update(self.task_id, advance=advance_amount)
             self.current_phase_index = phase_index + 1
-        
-        self.progress.update(
-            self.task_id,
-            description=f"[green]{phase_name}:  Complete",
-            cost=cost
-        )
+
+        self.progress.update(self.task_id, description=f"[green]{phase_name}:  Complete", cost=cost)
 
     def log_error(self, phase_name: str, message: str):
         """Stop the progress bar and display an error message."""
         self.progress.update(
             self.task_id,
             description=f"[bold red]Error in {phase_name}: {message}",
-            completed=len(self.phases) # Mark as complete to stop spinner
+            completed=len(self.phases),  # Mark as complete to stop spinner
         )
         self.progress.stop()

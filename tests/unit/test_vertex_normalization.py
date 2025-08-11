@@ -12,4 +12,3 @@ def test_strip_code_fences():
 ```"""
     out = VertexAITranscriber._strip_code_fences(None, wrapped)  # type: ignore
     assert out.strip().startswith("{") and out.strip().endswith("}")
-

@@ -16,4 +16,3 @@ def test_estimate_job_fallback_when_unknown():
     est = estimate_job({})
     assert est["estimated_duration_seconds"] >= 60
     assert est["estimated_cost_usd"] > 0
-

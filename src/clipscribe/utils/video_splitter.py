@@ -14,14 +14,18 @@ from typing import List, Optional
 
 logger = logging.getLogger(__name__)
 
+
 def get_video_duration(file_path: str) -> Optional[float]:
     """Gets the duration of a video file in seconds using ffprobe."""
     command = [
         "ffprobe",
-        "-v", "error",
-        "-show_entries", "format=duration",
-        "-of", "default=noprint_wrappers=1:nokey=1",
-        str(file_path)
+        "-v",
+        "error",
+        "-show_entries",
+        "format=duration",
+        "-of",
+        "default=noprint_wrappers=1:nokey=1",
+        str(file_path),
     ]
     try:
         result = subprocess.run(command, capture_output=True, text=True, check=True)
@@ -30,11 +34,12 @@ def get_video_duration(file_path: str) -> Optional[float]:
         logger.error(f"Failed to get duration for {file_path}: {e}")
         return None
 
+
 def split_video(
     file_path: str,
     chunk_duration: int = 600,  # 10 minutes
     overlap: int = 30,  # 30 seconds
-    output_dir: Optional[str] = None
+    output_dir: Optional[str] = None,
 ) -> List[str]:
     """
     Splits a video file into smaller chunks with a specified overlap.
@@ -63,24 +68,30 @@ def split_video(
         chunk_output_dir = Path(output_dir)
     else:
         chunk_output_dir = source_path.parent / f"{source_path.stem}_chunks"
-    
+
     chunk_output_dir.mkdir(parents=True, exist_ok=True)
-    
+
     chunk_files = []
     start_time = 0
     chunk_index = 0
-    
+
     while start_time < duration:
-        output_path = chunk_output_dir / f"{source_path.stem}_part_{chunk_index:03d}{source_path.suffix}"
-        
+        output_path = (
+            chunk_output_dir / f"{source_path.stem}_part_{chunk_index:03d}{source_path.suffix}"
+        )
+
         command = [
             "ffmpeg",
-            "-i", str(source_path),
-            "-ss", str(start_time),
-            "-t", str(chunk_duration),
-            "-c", "copy", # Use copy to avoid re-encoding, much faster
-            "-y", # Overwrite output files
-            str(output_path)
+            "-i",
+            str(source_path),
+            "-ss",
+            str(start_time),
+            "-t",
+            str(chunk_duration),
+            "-c",
+            "copy",  # Use copy to avoid re-encoding, much faster
+            "-y",  # Overwrite output files
+            str(output_path),
         ]
 
         try:
@@ -93,7 +104,7 @@ def split_video(
                 logger.error(f"FFmpeg stderr: {e.stderr}")
             # Stop if one chunk fails
             return []
-            
+
         start_time += chunk_duration - overlap
         chunk_index += 1
 

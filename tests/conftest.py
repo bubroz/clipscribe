@@ -8,7 +8,7 @@ import shutil
 from unittest.mock import patch
 
 # Configure pytest-asyncio
-pytest_plugins = ('pytest_asyncio',)
+pytest_plugins = ("pytest_asyncio",)
 
 
 @pytest.fixture(scope="session")
@@ -22,7 +22,7 @@ def event_loop():
 @pytest.fixture(autouse=True)
 def mock_google_api_key():
     """Automatically mock Google API key for all tests."""
-    with patch.dict('os.environ', {'GOOGLE_API_KEY': 'test-api-key'}):
+    with patch.dict("os.environ", {"GOOGLE_API_KEY": "test-api-key"}):
         yield
 
 
@@ -38,12 +38,12 @@ def temp_directory():
 def mock_video_urls():
     """Common test video URLs."""
     return {
-        'youtube': 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-        'vimeo': 'https://vimeo.com/123456789',
-        'twitter': 'https://twitter.com/user/status/1234567890',
-        'tiktok': 'https://www.tiktok.com/@user/video/1234567890',
-        'dailymotion': 'https://www.dailymotion.com/video/x123456',
-        'instagram': 'https://www.instagram.com/reel/ABC123/',
+        "youtube": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+        "vimeo": "https://vimeo.com/123456789",
+        "twitter": "https://twitter.com/user/status/1234567890",
+        "tiktok": "https://www.tiktok.com/@user/video/1234567890",
+        "dailymotion": "https://www.dailymotion.com/video/x123456",
+        "instagram": "https://www.instagram.com/reel/ABC123/",
     }
 
 
@@ -67,15 +67,9 @@ def pytest_configure(config):
     config.addinivalue_line(
         "markers", "slow: marks tests as slow (deselect with '-m \"not slow\"')"
     )
-    config.addinivalue_line(
-        "markers", "integration: marks tests as integration tests"
-    )
-    config.addinivalue_line(
-        "markers", "unit: marks tests as unit tests"
-    )
-    config.addinivalue_line(
-        "markers", "requires_api: marks tests that require real API access"
-    )
+    config.addinivalue_line("markers", "integration: marks tests as integration tests")
+    config.addinivalue_line("markers", "unit: marks tests as unit tests")
+    config.addinivalue_line("markers", "requires_api: marks tests that require real API access")
 
 
 # Skip slow tests by default in CI
@@ -91,14 +85,8 @@ def pytest_collection_modifyitems(config, items):
 def pytest_addoption(parser):
     """Add custom command line options."""
     parser.addoption(
-        "--ci",
-        action="store_true",
-        default=False,
-        help="Run in CI mode (skip slow tests)"
+        "--ci", action="store_true", default=False, help="Run in CI mode (skip slow tests)"
     )
     parser.addoption(
-        "--integration",
-        action="store_true",
-        default=False,
-        help="Run integration tests only"
+        "--integration", action="store_true", default=False, help="Run integration tests only"
     )

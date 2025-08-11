@@ -16,6 +16,7 @@ from typing import Optional
 from ..retrievers import VideoIntelligenceRetriever
 from ..config.settings import Settings
 
+
 class TuiApp(App):
     """A Textual app to manage ClipScribe processing."""
 
@@ -23,23 +24,35 @@ class TuiApp(App):
 
     class LogMessage(Message):
         """A message containing a log string to be displayed."""
+
         def __init__(self, log_str: str) -> None:
             self.log_str = log_str
             super().__init__()
 
     class MetadataMessage(Message):
         """A message containing video metadata to be displayed."""
+
         def __init__(self, metadata: dict) -> None:
             self.metadata = metadata
             super().__init__()
-            
+
     class ProgressMessage(Message):
         """A message to update the progress display."""
+
         def __init__(self, update_str: str) -> None:
             self.update_str = update_str
             super().__init__()
 
-    def __init__(self, url: str, use_flash: bool, use_cache: bool, output_dir: str, mode: str, cookies_from_browser: Optional[str], debug: bool):
+    def __init__(
+        self,
+        url: str,
+        use_flash: bool,
+        use_cache: bool,
+        output_dir: str,
+        mode: str,
+        cookies_from_browser: Optional[str],
+        debug: bool,
+    ):
         super().__init__()
         self.url = url
         self.use_flash = use_flash
@@ -66,7 +79,7 @@ class TuiApp(App):
     @work(exclusive=True)
     async def process_video(self) -> None:
         """The main processing logic, run in a worker to avoid blocking the UI."""
-        
+
         def log_callback(message: str):
             self.post_message(self.LogMessage(message))
 
@@ -76,7 +89,7 @@ class TuiApp(App):
         try:
             log_callback("Initializing settings...")
             settings = Settings()
-            
+
             retriever = VideoIntelligenceRetriever(
                 use_cache=self.use_cache,
                 use_advanced_extraction=True,
@@ -85,11 +98,17 @@ class TuiApp(App):
                 use_flash=self.use_flash,
                 cookies_from_browser=self.cookies_from_browser,
                 settings=settings,
-                on_error=lambda component, error: log_callback(f"[bold red]ERROR[/bold red] [{component}]: {error}"),
-                on_phase_log=lambda name, duration: log_callback(f" {name} [dim]({duration:.2f}s)[/dim]"),
-                on_phase_start=lambda name, status: progress_callback(f"[bold]{name}[/bold]: {status}")
+                on_error=lambda component, error: log_callback(
+                    f"[bold red]ERROR[/bold red] [{component}]: {error}"
+                ),
+                on_phase_log=lambda name, duration: log_callback(
+                    f" {name} [dim]({duration:.2f}s)[/dim]"
+                ),
+                on_phase_start=lambda name, status: progress_callback(
+                    f"[bold]{name}[/bold]: {status}"
+                ),
             )
-            
+
             log_callback(f"Starting video processing for: {self.url}")
             result = await retriever.process_url(self.url)
 
@@ -100,7 +119,9 @@ class TuiApp(App):
                 log_callback(f"Outputs saved to: {saved_files['directory']}")
                 self.notify("Processing successful!", title="Status", severity="information")
             else:
-                log_callback("[bold red]Processing failed. Please check the log for details.[/bold red]")
+                log_callback(
+                    "[bold red]Processing failed. Please check the log for details.[/bold red]"
+                )
                 self.notify("Processing failed.", title="Status", severity="error")
 
         except Exception as e:
@@ -117,7 +138,7 @@ class TuiApp(App):
         metadata_panel = self.query_one("#metadata-panel", Static)
         metadata_text = f"Title: {message.metadata.get('title', 'N/A')}\nChannel: {message.metadata.get('channel', 'N/A')}"
         metadata_panel.update(metadata_text)
-        
+
     def on_progress_message(self, message: ProgressMessage) -> None:
         """Handle a progress update message from the worker."""
         progress_panel = self.query_one("#progress-panel", Static)

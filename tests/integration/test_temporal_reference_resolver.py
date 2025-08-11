@@ -29,7 +29,7 @@ def mock_video_intel():
     """Returns a mock VideoIntelligence object for testing."""
     transcript = VideoTranscript(
         full_text="Last Tuesday, Biden announced sanctions. Yesterday we saw the effects. Today markets reacted.",
-        segments=[]
+        segments=[],
     )
     metadata = VideoMetadata(
         video_id="test123",
@@ -41,7 +41,7 @@ def mock_video_intel():
         tags=[],
         description="",
         url="",
-        view_count=0
+        view_count=0,
     )
     return VideoIntelligence(
         metadata=metadata,
@@ -49,7 +49,7 @@ def mock_video_intel():
         summary="Test summary",
         key_points=[],
         entities=[],
-        topics=[]
+        topics=[],
     )
 
 
@@ -57,26 +57,54 @@ def test_resolve_yesterday(resolver):
     reference_date = datetime(2024, 1, 10)
     resolved = resolver.resolve_temporal_references(
         VideoIntelligence(
-            metadata=VideoMetadata(published_at=reference_date, video_id="1", title="t", channel="c", channel_id="ci", duration=1, tags=[], description="", url="", view_count=0),
+            metadata=VideoMetadata(
+                published_at=reference_date,
+                video_id="1",
+                title="t",
+                channel="c",
+                channel_id="ci",
+                duration=1,
+                tags=[],
+                description="",
+                url="",
+                view_count=0,
+            ),
             transcript=VideoTranscript(full_text="yesterday", segments=[]),
-            summary="s", key_points=[], entities=[], topics=[]
+            summary="s",
+            key_points=[],
+            entities=[],
+            topics=[],
         )
     )
     assert len(resolved) == 1
-    assert resolved[0].resolved_date == '2024-01-09'
+    assert resolved[0].resolved_date == "2024-01-09"
 
 
 def test_resolve_today(resolver):
     reference_date = datetime(2024, 1, 10)
     resolved = resolver.resolve_temporal_references(
         VideoIntelligence(
-            metadata=VideoMetadata(published_at=reference_date, video_id="1", title="t", channel="c", channel_id="ci", duration=1, tags=[], description="", url="", view_count=0),
+            metadata=VideoMetadata(
+                published_at=reference_date,
+                video_id="1",
+                title="t",
+                channel="c",
+                channel_id="ci",
+                duration=1,
+                tags=[],
+                description="",
+                url="",
+                view_count=0,
+            ),
             transcript=VideoTranscript(full_text="today", segments=[]),
-            summary="s", key_points=[], entities=[], topics=[]
+            summary="s",
+            key_points=[],
+            entities=[],
+            topics=[],
         )
     )
     assert len(resolved) == 1
-    assert resolved[0].resolved_date == '2024-01-10'
+    assert resolved[0].resolved_date == "2024-01-10"
 
 
 def test_resolve_last_tuesday(resolver):
@@ -84,14 +112,28 @@ def test_resolve_last_tuesday(resolver):
     reference_date = datetime(2024, 1, 10)
     resolved = resolver.resolve_temporal_references(
         VideoIntelligence(
-            metadata=VideoMetadata(published_at=reference_date, video_id="1", title="t", channel="c", channel_id="ci", duration=1, tags=[], description="", url="", view_count=0),
+            metadata=VideoMetadata(
+                published_at=reference_date,
+                video_id="1",
+                title="t",
+                channel="c",
+                channel_id="ci",
+                duration=1,
+                tags=[],
+                description="",
+                url="",
+                view_count=0,
+            ),
             transcript=VideoTranscript(full_text="last Tuesday", segments=[]),
-            summary="s", key_points=[], entities=[], topics=[]
+            summary="s",
+            key_points=[],
+            entities=[],
+            topics=[],
         )
     )
     assert len(resolved) == 1
     # Last Tuesday was the 9th
-    assert resolved[0].resolved_date == '2024-01-09'
+    assert resolved[0].resolved_date == "2024-01-09"
 
 
 def test_resolve_next_friday(resolver):
@@ -99,31 +141,45 @@ def test_resolve_next_friday(resolver):
     reference_date = datetime(2024, 1, 10)
     resolved = resolver.resolve_temporal_references(
         VideoIntelligence(
-            metadata=VideoMetadata(published_at=reference_date, video_id="1", title="t", channel="c", channel_id="ci", duration=1, tags=[], description="", url="", view_count=0),
+            metadata=VideoMetadata(
+                published_at=reference_date,
+                video_id="1",
+                title="t",
+                channel="c",
+                channel_id="ci",
+                duration=1,
+                tags=[],
+                description="",
+                url="",
+                view_count=0,
+            ),
             transcript=VideoTranscript(full_text="next Friday", segments=[]),
-            summary="s", key_points=[], entities=[], topics=[]
+            summary="s",
+            key_points=[],
+            entities=[],
+            topics=[],
         )
     )
     assert len(resolved) == 1
     # Next Friday is the 12th
-    assert resolved[0].resolved_date == '2024-01-12'
+    assert resolved[0].resolved_date == "2024-01-12"
 
 
 def test_deduplicate_references(resolver):
     references = [
         TemporalReference(
             reference_text="yesterday",
-            resolved_date='2024-01-09',
+            resolved_date="2024-01-09",
             confidence=0.9,
             resolution_method="test",
-            context="test context"
+            context="test context",
         ),
         TemporalReference(
             reference_text="yesterday",
-            resolved_date='2024-01-09',
+            resolved_date="2024-01-09",
             confidence=0.8,
             resolution_method="test",
-            context="test context"
+            context="test context",
         ),
     ]
     deduplicated = resolver._deduplicate_references(references)
@@ -132,13 +188,13 @@ def test_deduplicate_references(resolver):
 
 def test_full_integration(resolver, mock_video_intel):
     resolved_references = resolver.resolve_temporal_references(mock_video_intel)
-    
+
     assert len(resolved_references) == 3
-    
+
     # Create a map for easy assertion
     results = {ref.reference_text: ref.resolved_date for ref in resolved_references}
 
     # Wednesday is Jan 10, 2024
-    assert results['Last Tuesday'] == '2024-01-09'
-    assert results['Yesterday'] == '2024-01-09'
-    assert results['Today'] == '2024-01-10' 
+    assert results["Last Tuesday"] == "2024-01-09"
+    assert results["Yesterday"] == "2024-01-09"
+    assert results["Today"] == "2024-01-10"

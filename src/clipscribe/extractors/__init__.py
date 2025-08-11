@@ -31,4 +31,4 @@ __all__ = [
     "MultiVideoProcessor",
     "SeriesDetector",
     "StreamingExtractor",
-] 
+]

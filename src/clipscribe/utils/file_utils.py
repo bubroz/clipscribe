@@ -1,7 +1,9 @@
 """
 File system utilities for ClipScribe.
 """
+
 import hashlib
+
 
 def calculate_sha256(file_path: str) -> str:
     """
@@ -21,4 +23,4 @@ def calculate_sha256(file_path: str) -> str:
                 sha256.update(byte_block)
         return sha256.hexdigest()
     except IOError:
-        return "" 
+        return ""

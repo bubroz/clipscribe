@@ -18,6 +18,7 @@ async def _process_payload(job_id: str, payload: Dict[str, Any]) -> None:
         return
 
     from google.cloud import storage  # type: ignore
+
     client = storage.Client()
     bucket_ref = client.bucket(bucket)
 
@@ -62,7 +63,9 @@ async def _process_payload(job_id: str, payload: Dict[str, Any]) -> None:
             from clipscribe.retrievers.vertex_ai_transcriber import VertexAITranscriber
 
             vtx = VertexAITranscriber()
-            result = await vtx.transcribe_with_vertex(gcs_uri=payload["gcs_uri"], enhance_transcript=False, mode="video")
+            result = await vtx.transcribe_with_vertex(
+                gcs_uri=payload["gcs_uri"], enhance_transcript=False, mode="video"
+            )
             transcript_json = json.dumps(result, default=str, separators=(",", ":")).encode("utf-8")
             upload_bytes(f"jobs/{job_id}/transcript.json", transcript_json, "application/json")
             artifacts.append("transcript.json")
@@ -87,7 +90,9 @@ async def _process_payload(job_id: str, payload: Dict[str, Any]) -> None:
         for name in artifacts:
             manifest["artifacts"][name] = {"path": name}
         blob.cache_control = "public, max-age=300"
-        blob.upload_from_string(json.dumps(manifest, separators=(",", ":")), content_type="application/json")
+        blob.upload_from_string(
+            json.dumps(manifest, separators=(",", ":")), content_type="application/json"
+        )
 
     except Exception as e:
         # Best-effort logging to stdout (rq captures logs)
@@ -105,5 +110,3 @@ def run() -> None:
     with Connection(redis_conn):
         w = Worker([Queue("clipscribe")])
         w.work(with_scheduler=True)
-
-

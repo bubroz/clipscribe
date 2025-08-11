@@ -32,12 +32,18 @@ class SubmitByGcsUri(BaseModel):
 class Job(BaseModel):
     job_id: str
     state: str
-    progress: Dict[str, int] = Field(default_factory=lambda: {"current_chunk": 0, "total_chunks": 0})
+    progress: Dict[str, int] = Field(
+        default_factory=lambda: {"current_chunk": 0, "total_chunks": 0}
+    )
     cost_to_date_usd: float = 0.0
     schema_version: str = "1.0.0"
     manifest_url: Optional[str] = None
-    created_at: str = Field(default_factory=lambda: time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()))
-    updated_at: str = Field(default_factory=lambda: time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()))
+    created_at: str = Field(
+        default_factory=lambda: time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    )
+    updated_at: str = Field(
+        default_factory=lambda: time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    )
     error: Optional[str] = None
 
 
@@ -55,7 +61,9 @@ def _request_id() -> str:
     return uuid.uuid4().hex
 
 
-def _error(code: str, message: str, status: int = 400, retry_after_seconds: Optional[int] = None) -> JSONResponse:
+def _error(
+    code: str, message: str, status: int = 400, retry_after_seconds: Optional[int] = None
+) -> JSONResponse:
     payload = {"code": code, "message": message}
     if retry_after_seconds is not None:
         payload["retry_after_seconds"] = retry_after_seconds
@@ -188,7 +196,11 @@ def _metrics_dump() -> str:
                     val = int(v) if v is not None else 0
                 except Exception:
                     val = 0
-                metric = k.decode("utf-8").replace("cs:metrics:", "") if isinstance(k, (bytes, bytearray)) else str(k)
+                metric = (
+                    k.decode("utf-8").replace("cs:metrics:", "")
+                    if isinstance(k, (bytes, bytearray))
+                    else str(k)
+                )
                 lines.append(f"clipscribe_{metric}_total {val}")
         except Exception:
             pass
@@ -281,7 +293,9 @@ async def _enqueue_job_processing(job: Job, source: Dict[str, Any]) -> None:
                 )
             except Exception as e:
                 print(f"[warn] failed to write manifest to gs://{bucket}/{manifest_obj_path}: {e}")
-        job.manifest_url = f"https://storage.googleapis.com/{bucket or 'mock-bucket'}/{manifest_obj_path}"
+        job.manifest_url = (
+            f"https://storage.googleapis.com/{bucket or 'mock-bucket'}/{manifest_obj_path}"
+        )
         _save_job(job)
 
     # Acquire processing lock (memory + Redis)
@@ -354,7 +368,9 @@ async def create_job(
         max_rpm = int(os.getenv("TOKEN_MAX_RPM", "60"))
         if not _rpm_allow(token_id, max_rpm, 60):
             _metrics_inc("rpm_rejects")
-            return _error("rate_limited", "Per-token RPM exceeded", status=429, retry_after_seconds=10)
+            return _error(
+                "rate_limited", "Per-token RPM exceeded", status=429, retry_after_seconds=10
+            )
         # Daily requests cap
         day_key = f"cs:lim:{token_id}:day:{datetime.utcnow().strftime('%Y%m%d')}"
         day_count = int(redis_conn.incr(day_key))
@@ -363,7 +379,9 @@ async def create_job(
         max_daily = int(os.getenv("TOKEN_MAX_DAILY_REQUESTS", "2000"))
         if day_count > max_daily:
             _metrics_inc("daily_request_rejects")
-            return _error("rate_limited", "Daily request quota exceeded", status=429, retry_after_seconds=3600)
+            return _error(
+                "rate_limited", "Daily request quota exceeded", status=429, retry_after_seconds=3600
+            )
 
         # USD budget reservation based on real estimate
         estimate = estimate_job(body, Settings())
@@ -381,7 +399,9 @@ async def create_job(
         if cur_spend + est_cost > max_usd:
             retry = _seconds_until_end_of_day_utc()
             _metrics_inc("budget_rejects")
-            return _error("budget_exceeded", "Daily budget exceeded", status=429, retry_after_seconds=retry)
+            return _error(
+                "budget_exceeded", "Daily budget exceeded", status=429, retry_after_seconds=retry
+            )
         # Reserve
         try:
             new_total = redis_conn.incrbyfloat(budget_key, est_cost)
@@ -400,7 +420,9 @@ async def create_job(
     fp = _fingerprint_from_body(body)
     async with jobs_lock:
         if idempotency_key:
-            existing_id = _r_get(f"cs:idmp:{idempotency_key}") or idempotency_to_job.get(idempotency_key)
+            existing_id = _r_get(f"cs:idmp:{idempotency_key}") or idempotency_to_job.get(
+                idempotency_key
+            )
             if existing_id:
                 j = _load_job(existing_id)
                 if j:
@@ -437,7 +459,9 @@ async def create_job(
 
 
 @app.get("/v1/jobs/{job_id}", response_model=Job)
-async def get_job(job_id: str, authorization: Optional[str] = Header(default=None, alias="Authorization")):
+async def get_job(
+    job_id: str, authorization: Optional[str] = Header(default=None, alias="Authorization")
+):
     if not authorization:
         return _error("invalid_input", "Missing or invalid bearer token", status=401)
     # Mock status
@@ -448,7 +472,9 @@ async def get_job(job_id: str, authorization: Optional[str] = Header(default=Non
 
 
 @app.get("/v1/jobs/{job_id}/events")
-async def get_job_events(job_id: str, authorization: Optional[str] = Header(default=None, alias="Authorization")):
+async def get_job_events(
+    job_id: str, authorization: Optional[str] = Header(default=None, alias="Authorization")
+):
     if not authorization:
         return _error("invalid_input", "Missing or invalid bearer token", status=401)
     q = job_events.setdefault(job_id, asyncio.Queue())
@@ -457,7 +483,7 @@ async def get_job_events(job_id: str, authorization: Optional[str] = Header(defa
         # If job exists, push current state snapshot first
         job = jobs_by_id.get(job_id)
         if job:
-            yield "event: status\n" + f"data: {{\"state\":\"{job.state}\"}}\n\n"
+            yield "event: status\n" + f'data: {{"state":"{job.state}"}}\n\n'
             yield "event: progress\n" + f"data: {json.dumps(job.progress)}\n\n"
         while True:
             msg = await q.get()
@@ -467,7 +493,9 @@ async def get_job_events(job_id: str, authorization: Optional[str] = Header(defa
 
 
 @app.get("/v1/jobs/{job_id}/artifacts")
-async def list_artifacts(job_id: str, authorization: Optional[str] = Header(default=None, alias="Authorization")):
+async def list_artifacts(
+    job_id: str, authorization: Optional[str] = Header(default=None, alias="Authorization")
+):
     if not authorization:
         return _error("invalid_input", "Missing or invalid bearer token", status=401)
     bucket = os.getenv("GCS_BUCKET")
@@ -495,20 +523,26 @@ async def list_artifacts(job_id: str, authorization: Optional[str] = Header(defa
                 except Exception as sign_err:
                     # Fall back to public URL (will 403 for anonymous); still return entry for clients using creds
                     url = public_url
-                artifacts.append({
-                    "id": os.path.basename(name),
-                    "kind": kind,
-                    "size_bytes": size_bytes,
-                    "url": url,
-                    "requires_auth": requires_auth,
-                })
+                artifacts.append(
+                    {
+                        "id": os.path.basename(name),
+                        "kind": kind,
+                        "size_bytes": size_bytes,
+                        "url": url,
+                        "requires_auth": requires_auth,
+                    }
+                )
         except Exception as e:
             print(f"[warn] listing artifacts failed for gs://{bucket}/jobs/{job_id}/: {e}")
     return {"job_id": job_id, "artifacts": artifacts}
 
 
 @app.get("/v1/estimate")
-async def estimate(url: Optional[str] = None, gcs_uri: Optional[str] = None, authorization: Optional[str] = Header(default=None, alias="Authorization")):
+async def estimate(
+    url: Optional[str] = None,
+    gcs_uri: Optional[str] = None,
+    authorization: Optional[str] = Header(default=None, alias="Authorization"),
+):
     if not authorization:
         return _error("invalid_input", "Missing or invalid bearer token", status=401)
     # Simple placeholder estimate: fixed duration and cost, propose flash
@@ -522,7 +556,9 @@ async def estimate(url: Optional[str] = None, gcs_uri: Optional[str] = None, aut
 
 
 @app.post("/v1/uploads/presign", response_model=PresignResponse)
-async def presign_upload(req: PresignRequest, authorization: Optional[str] = Header(default=None, alias="Authorization")):
+async def presign_upload(
+    req: PresignRequest, authorization: Optional[str] = Header(default=None, alias="Authorization")
+):
     if not authorization:
         return _error("invalid_input", "Missing or invalid bearer token", status=401)
 
@@ -570,6 +606,5 @@ async def metrics():
     # Minimal text exposition for quick scraping
     content = _metrics_dump()
     from fastapi.responses import PlainTextResponse
+
     return PlainTextResponse(content)
-
-

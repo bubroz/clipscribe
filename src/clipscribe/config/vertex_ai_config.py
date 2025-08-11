@@ -7,7 +7,9 @@ from pathlib import Path
 # Vertex AI Configuration
 VERTEX_AI_PROJECT_ID = os.getenv("VERTEX_AI_PROJECT_ID", "prismatic-iris-429006-g6")
 VERTEX_AI_LOCATION = os.getenv("VERTEX_AI_LOCATION", "us-central1")
-VERTEX_AI_STAGING_BUCKET = os.getenv("VERTEX_AI_STAGING_BUCKET", f"gs://{VERTEX_AI_PROJECT_ID}-clipscribe-staging")
+VERTEX_AI_STAGING_BUCKET = os.getenv(
+    "VERTEX_AI_STAGING_BUCKET", f"gs://{VERTEX_AI_PROJECT_ID}-clipscribe-staging"
+)
 
 # Model Configuration
 VERTEX_AI_MODEL_NAME = "gemini-2.5-flash"  # Gemini 2.5 Flash (GA as of June 2025)
@@ -40,20 +42,21 @@ VERTEX_AI_SAFETY_SETTINGS = {
     "HARM_CATEGORY_HARASSMENT": "BLOCK_ONLY_HIGH",
 }
 
+
 def get_vertex_ai_credentials_path() -> Optional[Path]:
     """Get the path to Google Cloud credentials file."""
     creds_path = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
     if creds_path:
         return Path(creds_path)
-    
+
     # Check common locations
     default_paths = [
         Path.home() / ".config/gcloud/application_default_credentials.json",
         Path.home() / ".config/gcloud/credentials.json",
     ]
-    
+
     for path in default_paths:
         if path.exists():
             return path
-    
-    return None 
+
+    return None

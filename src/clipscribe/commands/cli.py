@@ -20,6 +20,7 @@ from ..config.settings import Settings
 from ..models import VideoCollectionType
 from ..extractors.multi_video_processor import MultiVideoProcessor
 
+
 @click.group()
 @click.version_option(version=__version__, prog_name="ClipScribe")
 @click.option("--debug", is_flag=True, help="Enable debug logging")
@@ -28,9 +29,10 @@ def cli(ctx: click.Context, debug: bool):
     """ClipScribe - AI-powered video transcription and analysis."""
     log_level = "DEBUG" if debug else "INFO"
     setup_logging(log_level)
-    
+
     ctx.ensure_object(dict)
-    ctx.obj['DEBUG'] = debug
+    ctx.obj["DEBUG"] = debug
+
 
 @cli.group()
 def process():
@@ -40,16 +42,34 @@ def process():
 @process.command("video")
 @click.argument("url")
 @click.option("--output-dir", "-o", type=click.Path(path_type=Path), default=Path("output"))
-@click.option('--mode', '-m', type=click.Choice(['audio', 'video', 'auto']), default='auto')
-@click.option('--use-cache/--no-cache', default=True)
-@click.option('--use-flash', is_flag=True, default=False)
-@click.option('--cookies-from-browser', type=str, default=None)
+@click.option("--mode", "-m", type=click.Choice(["audio", "video", "auto"]), default="auto")
+@click.option("--use-cache/--no-cache", default=True)
+@click.option("--use-flash", is_flag=True, default=False)
+@click.option("--cookies-from-browser", type=str, default=None)
 @click.pass_context
-def process_video(ctx: click.Context, url: str, output_dir: Path, mode: str, use_cache: bool, use_flash: bool, cookies_from_browser: Optional[str]):
+def process_video(
+    ctx: click.Context,
+    url: str,
+    output_dir: Path,
+    mode: str,
+    use_cache: bool,
+    use_flash: bool,
+    cookies_from_browser: Optional[str],
+):
     """Process a single video from a URL to extract intelligence."""
-    asyncio.run(run_processing_logic(url, use_flash, use_cache, str(output_dir), mode, cookies_from_browser))
+    asyncio.run(
+        run_processing_logic(url, use_flash, use_cache, str(output_dir), mode, cookies_from_browser)
+    )
 
-async def run_processing_logic(url: str, use_flash: bool, use_cache: bool, output_dir: str, mode: str, cookies_from_browser: Optional[str]):
+
+async def run_processing_logic(
+    url: str,
+    use_flash: bool,
+    use_cache: bool,
+    output_dir: str,
+    mode: str,
+    cookies_from_browser: Optional[str],
+):
     """The core processing logic, designed to be run from any context."""
     logger = logging.getLogger(__name__)
 
@@ -64,7 +84,7 @@ async def run_processing_logic(url: str, use_flash: bool, use_cache: bool, outpu
             cookies_from_browser=cookies_from_browser,
             settings=settings,
         )
-        
+
         result = await retriever.process_url(url)
 
         if result:
@@ -83,15 +103,18 @@ async def run_processing_logic(url: str, use_flash: bool, use_cache: bool, outpu
     except Exception as e:
         logger.error(f"A fatal error occurred: {e}", exc_info=True)
 
+
 def run_cli():
     """Run the CLI application."""
     cli()
+
 
 if __name__ == "__main__":
     run_cli()
 
 
 # === Collection Commands ===
+
 
 @cli.group()
 def collection():
@@ -101,10 +124,16 @@ def collection():
 @collection.command("series")
 @click.argument("urls", nargs=-1, required=True)
 @click.option("--output-dir", "-o", type=click.Path(path_type=Path), default=Path("output"))
-@click.option('--use-flash', is_flag=True, default=False)
-@click.option('--cookies-from-browser', type=str, default=None)
+@click.option("--use-flash", is_flag=True, default=False)
+@click.option("--cookies-from-browser", type=str, default=None)
 @click.pass_context
-def collection_series(ctx: click.Context, urls: List[str], output_dir: Path, use_flash: bool, cookies_from_browser: Optional[str]):
+def collection_series(
+    ctx: click.Context,
+    urls: List[str],
+    output_dir: Path,
+    use_flash: bool,
+    cookies_from_browser: Optional[str],
+):
     """Process multiple related videos as a series with narrative analysis."""
 
     async def _run():
@@ -112,7 +141,7 @@ def collection_series(ctx: click.Context, urls: List[str], output_dir: Path, use
         retriever = VideoIntelligenceRetriever(
             use_cache=True,
             use_advanced_extraction=True,
-            mode='auto',
+            mode="auto",
             output_dir=str(output_dir),
             use_flash=use_flash,
             cookies_from_browser=cookies_from_browser,
@@ -148,6 +177,7 @@ def collection_series(ctx: click.Context, urls: List[str], output_dir: Path, use
 
 # === Research Commands ===
 
+
 @cli.command()
 @click.argument("query")
 @click.option("--output-dir", "-o", type=click.Path(path_type=Path), default=Path("output"))
@@ -161,12 +191,12 @@ def research(ctx: click.Context, query: str, output_dir: Path, max_results: int)
         retriever = VideoIntelligenceRetriever(
             use_cache=True,
             use_advanced_extraction=True,
-            mode='auto',
+            mode="auto",
             output_dir=str(output_dir),
             settings=settings,
         )
 
-        results = await retriever.search(query=query, max_results=max_results, site='youtube')
+        results = await retriever.search(query=query, max_results=max_results, site="youtube")
         for r in results:
             retriever.save_all_formats(r, str(output_dir))
 
@@ -176,6 +206,7 @@ def research(ctx: click.Context, query: str, output_dir: Path, max_results: int)
 
 
 # === Utility Commands ===
+
 
 @cli.group()
 def utils():
@@ -193,7 +224,9 @@ def clean_demo(demo_dir: Path, dry_run: bool, keep_recent: int):
         return
 
     # Identify candidate subdirectories
-    subdirs = sorted([p for p in demo_dir.iterdir() if p.is_dir()], key=lambda p: p.stat().st_mtime, reverse=True)
+    subdirs = sorted(
+        [p for p in demo_dir.iterdir() if p.is_dir()], key=lambda p: p.stat().st_mtime, reverse=True
+    )
     to_delete = subdirs[keep_recent:] if keep_recent > 0 else subdirs
 
     if dry_run:
@@ -204,6 +237,7 @@ def clean_demo(demo_dir: Path, dry_run: bool, keep_recent: int):
     for d in to_delete:
         try:
             import shutil
+
             shutil.rmtree(d)
             click.echo(f"Deleted: {d}")
         except Exception as e:
@@ -220,30 +254,42 @@ def check_auth():
     except Exception as e:
         click.echo("Auth status: Misconfigured")
         click.echo(f"Error: {e}")
-        click.echo("If using Google AI Studio, set GOOGLE_API_KEY. If using Vertex AI, set USE_VERTEX_AI=true and GOOGLE_APPLICATION_CREDENTIALS.")
+        click.echo(
+            "If using Google AI Studio, set GOOGLE_API_KEY. If using Vertex AI, set USE_VERTEX_AI=true and GOOGLE_APPLICATION_CREDENTIALS."
+        )
         return
 
-    use_vertex = getattr(settings, 'use_vertex_ai', False)
+    use_vertex = getattr(settings, "use_vertex_ai", False)
     if use_vertex:
-        project = getattr(settings, 'VERTEX_AI_PROJECT', None) or os.environ.get('VERTEX_AI_PROJECT') or os.environ.get('VERTEX_AI_PROJECT_ID')
-        location = os.environ.get('VERTEX_AI_LOCATION', 'us-central1')
-        creds_path = os.environ.get('GOOGLE_APPLICATION_CREDENTIALS')
+        project = (
+            getattr(settings, "VERTEX_AI_PROJECT", None)
+            or os.environ.get("VERTEX_AI_PROJECT")
+            or os.environ.get("VERTEX_AI_PROJECT_ID")
+        )
+        location = os.environ.get("VERTEX_AI_LOCATION", "us-central1")
+        creds_path = os.environ.get("GOOGLE_APPLICATION_CREDENTIALS")
         click.echo("Auth: Vertex AI mode enabled")
         click.echo(f"Project: {project or 'not set'}")
         click.echo(f"Location: {location}")
         if creds_path:
             exists = Path(creds_path).exists()
-            click.echo(f"GOOGLE_APPLICATION_CREDENTIALS: {creds_path} ({'exists' if exists else 'missing'})")
+            click.echo(
+                f"GOOGLE_APPLICATION_CREDENTIALS: {creds_path} ({'exists' if exists else 'missing'})"
+            )
         else:
             click.echo("GOOGLE_APPLICATION_CREDENTIALS: not set (ADC will be used if available)")
-        click.echo("Verify quotas in Google Cloud Console > Vertex AI. Ensure service account has roles/aiplatform.user.")
+        click.echo(
+            "Verify quotas in Google Cloud Console > Vertex AI. Ensure service account has roles/aiplatform.user."
+        )
     else:
-        api_key = getattr(settings, 'google_api_key', '') or os.environ.get('GOOGLE_API_KEY', '')
+        api_key = getattr(settings, "google_api_key", "") or os.environ.get("GOOGLE_API_KEY", "")
         if api_key:
             masked = api_key[:6] + "..." if len(api_key) > 6 else "(set)"
             click.echo("Auth: Google AI Studio API key detected")
             click.echo(f"GOOGLE_API_KEY: {masked}")
-            click.echo("Tip: Link API key to a billed Google Cloud project in AI Studio for higher rate limits.")
+            click.echo(
+                "Tip: Link API key to a billed Google Cloud project in AI Studio for higher rate limits."
+            )
         else:
             click.echo("Auth: Missing GOOGLE_API_KEY and Vertex AI not enabled")
             click.echo("Set GOOGLE_API_KEY or enable USE_VERTEX_AI=true with proper credentials.")

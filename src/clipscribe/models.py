@@ -6,8 +6,10 @@ from datetime import datetime
 from pydantic import BaseModel, Field, HttpUrl, validator
 from enum import Enum
 
+
 class VideoChapter(BaseModel):
     """Video chapter/section with timing."""
+
     start_time: int = Field(..., description="Start time in seconds")
     end_time: int = Field(..., description="End time in seconds")
     title: str = Field(..., description="Chapter title")
@@ -16,27 +18,38 @@ class VideoChapter(BaseModel):
 
 class TranscriptSegment(BaseModel):
     """Individual transcript segment with timing information."""
+
     text: str = Field(..., description="Segment text")
     start_time: float = Field(..., description="Start time in seconds")
-    end_time: float = Field(..., description="End time in seconds") 
+    end_time: float = Field(..., description="End time in seconds")
     speaker: Optional[str] = Field(None, description="Speaker identifier")
 
 
 class TemporalIntelligence(BaseModel):
     """Enhanced temporal intelligence extracted from video content."""
-    timeline_events: List[Dict[str, Any]] = Field(default_factory=list, description="Timeline events with timestamps")
-    visual_temporal_cues: List[Dict[str, Any]] = Field(default_factory=list, description="Visual temporal cues from video")
-    visual_dates: List[Dict[str, Any]] = Field(default_factory=list, description="Dates extracted from visual content")
-    temporal_patterns: List[Dict[str, Any]] = Field(default_factory=list, description="Temporal patterns and sequences")
+
+    timeline_events: List[Dict[str, Any]] = Field(
+        default_factory=list, description="Timeline events with timestamps"
+    )
+    visual_temporal_cues: List[Dict[str, Any]] = Field(
+        default_factory=list, description="Visual temporal cues from video"
+    )
+    visual_dates: List[Dict[str, Any]] = Field(
+        default_factory=list, description="Dates extracted from visual content"
+    )
+    temporal_patterns: List[Dict[str, Any]] = Field(
+        default_factory=list, description="Temporal patterns and sequences"
+    )
 
 
 class KeyPoint(BaseModel):
     """Important point from video - timestamps removed and saved for roadmap."""
+
     text: str = Field(..., description="Key point text")
     importance: float = Field(ge=0, le=1, description="Importance score 0-1")
     context: Optional[str] = Field(None, description="Surrounding context")
-    
-    @validator('importance', pre=True)
+
+    @validator("importance", pre=True)
     def normalize_importance(cls, v):
         """
         Normalizes the importance score. If the score is > 1, it's assumed
@@ -45,6 +58,7 @@ class KeyPoint(BaseModel):
         if isinstance(v, (int, float)) and v > 1.0:
             return v / 10.0
         return v
+
     # NOTE: timestamp field removed - complex timestamp extraction saved for roadmap with Whisper
 
 
@@ -56,7 +70,7 @@ class Entity(BaseModel):
     start_char: Optional[int] = None
     end_char: Optional[int] = None
     source: Optional[str] = None
-    properties: Optional[Dict[str, Any]] = Field(default_factory=dict) # Re-add for compatibility
+    properties: Optional[Dict[str, Any]] = Field(default_factory=dict)  # Re-add for compatibility
 
 
 class EntityContext(BaseModel):
@@ -92,6 +106,7 @@ class EnhancedEntity(BaseModel):
 
 class RelationshipEvidence(BaseModel):
     """Evidence supporting a relationship - Phase 2 enhancement."""
+
     direct_quote: str = Field(..., description="Direct quote supporting the relationship")
     timestamp: str = Field(..., description="When evidence occurs (HH:MM:SS)")
     speaker: Optional[str] = Field(None, description="Who provided the evidence")
@@ -103,13 +118,16 @@ class RelationshipEvidence(BaseModel):
 
 class Relationship(BaseModel):
     """Represents a relationship between two entities."""
+
     subject: str
     predicate: str
     object: str
     source: Optional[str] = None
-    
+
     # Phase 2: Evidence Chain Support (optional for backward compatibility)
-    evidence_chain: List[RelationshipEvidence] = Field(default_factory=list, description="Supporting evidence")
+    evidence_chain: List[RelationshipEvidence] = Field(
+        default_factory=list, description="Supporting evidence"
+    )
     supporting_mentions: int = Field(default=0, description="Number of supporting mentions")
     contradictions: List[str] = Field(default_factory=list, description="Contradictory statements")
     visual_correlation: bool = Field(default=False, description="Has visual correlation")
@@ -118,15 +136,16 @@ class Relationship(BaseModel):
 
 class VideoTranscript(BaseModel):
     """Represents the transcript of a video, including text and segments."""
+
     full_text: str
     segments: List[Dict[str, Any]]
     language: Optional[str] = None
     raw_transcript: Optional[Any] = None
 
 
-
 class VideoMetadata(BaseModel):
     """YouTube video metadata."""
+
     video_id: str
     url: Optional[str] = None
     title: Optional[str] = None
@@ -149,12 +168,14 @@ class VideoMetadata(BaseModel):
 
 class Topic(BaseModel):
     """A topic identified in the video."""
+
     name: str
     confidence: float = Field(default=0.9, ge=0.0, le=1.0)
 
 
 class Segment(BaseModel):
     """A segment of the video transcript with timing."""
+
     start_time: float = Field(ge=0.0)
     end_time: float = Field(ge=0.0)
     text: str
@@ -163,6 +184,7 @@ class Segment(BaseModel):
 
 class VideoIntelligence(BaseModel):
     """Represents the complete set of intelligence extracted from a video."""
+
     metadata: VideoMetadata
     transcript: "VideoTranscript"
     entities: List[EnhancedEntity] = Field(
@@ -174,22 +196,34 @@ class VideoIntelligence(BaseModel):
     key_points: List["KeyPoint"] = Field(default_factory=list)
     topics: List[Topic] = Field(default_factory=list, description="Topics identified in the video")
     summary: str = Field(..., description="Executive summary")
-    sentiment: Optional[float] = Field(default=None, description="Overall sentiment score (-1 to 1)")
+    sentiment: Optional[float] = Field(
+        default=None, description="Overall sentiment score (-1 to 1)"
+    )
     knowledge_graph: Optional[Dict[str, Any]] = None
     dates: List[Dict[str, Any]] = Field(default_factory=list)
-    temporal_references: List[TemporalReference] = Field(default_factory=list, description="Resolved temporal references from video content")
-    processing_stats: Dict[str, Any] = Field(default_factory=dict, description="Processing statistics and metadata")
+    temporal_references: List[TemporalReference] = Field(
+        default_factory=list, description="Resolved temporal references from video content"
+    )
+    processing_stats: Dict[str, Any] = Field(
+        default_factory=dict, description="Processing statistics and metadata"
+    )
     processing_cost: float = Field(default=0.0, description="Total processing cost in USD")
     processing_time: float = Field(default=0.0, description="Total processing time in seconds")
-    timeline_v2: Optional[Dict[str, Any]] = Field(default=None, description="Timeline Intelligence v2.0 data")
-    is_from_cache: bool = Field(default=False, description="True if this result was loaded from cache")
+    timeline_v2: Optional[Dict[str, Any]] = Field(
+        default=None, description="Timeline Intelligence v2.0 data"
+    )
+    is_from_cache: bool = Field(
+        default=False, description="True if this result was loaded from cache"
+    )
     # ... other fields
 
 
 # NEW: Multi-Video Intelligence Models
 
+
 class VideoCollectionType(str, Enum):
     """Types of video collections for multi-video intelligence."""
+
     SERIES = "series"
     TOPIC_RESEARCH = "topic_research"
     CHANNEL_ANALYSIS = "channel_analysis"
@@ -200,6 +234,7 @@ class VideoCollectionType(str, Enum):
 
 class SeriesMetadata(BaseModel):
     """Metadata for video series detection and organization."""
+
     series_id: str = Field(..., description="Unique identifier for the series")
     series_title: str = Field(..., description="Human-readable series title")
     part_number: Optional[int] = Field(None, description="Part number in series")
@@ -207,56 +242,75 @@ class SeriesMetadata(BaseModel):
     series_pattern: Optional[str] = Field(None, description="Detected naming pattern")
 
 
-
 class CrossVideoEntity(BaseModel):
     """Entity that appears across multiple videos with aggregated information."""
+
     name: str
     type: str
     canonical_name: str = Field(..., description="Normalized canonical name")
     aliases: List[str] = Field(default_factory=list, description="All name variations found")
-    video_appearances: List[str] = Field(default_factory=list, description="Video IDs where entity appears")
+    video_appearances: List[str] = Field(
+        default_factory=list, description="Video IDs where entity appears"
+    )
 
     first_mentioned: Optional[datetime] = Field(None, description="First appearance timestamp")
     last_mentioned: Optional[datetime] = Field(None, description="Last appearance timestamp")
     mention_count: int = Field(default=1, description="Total mentions across all videos")
     properties: Dict[str, Any] = Field(default_factory=dict)
-    source_videos: List[Dict[str, Any]] = Field(default_factory=list, description="Per-video source info")
+    source_videos: List[Dict[str, Any]] = Field(
+        default_factory=list, description="Per-video source info"
+    )
 
 
 class CrossVideoRelationship(BaseModel):
     """Relationship that spans or is confirmed across multiple videos."""
+
     subject: str
     predicate: str
     object: str
 
-    video_sources: List[str] = Field(default_factory=list, description="Videos where relationship appears")
+    video_sources: List[str] = Field(
+        default_factory=list, description="Videos where relationship appears"
+    )
     first_mentioned: Optional[datetime] = Field(None)
     mention_count: int = Field(default=1)
-    context_examples: List[str] = Field(default_factory=list, description="Context from different videos")
+    context_examples: List[str] = Field(
+        default_factory=list, description="Context from different videos"
+    )
     properties: Dict[str, Any] = Field(default_factory=dict)
 
 
 class ExtractedDate(BaseModel):
     """Represents a date extracted from text or visual content by Gemini."""
+
     original_text: str = Field(..., description="The original text the date was extracted from")
     normalized_date: str = Field(..., description="Normalized date in ISO format (YYYY-MM-DD)")
-    precision: str = Field(..., description="Precision level: exact, day, month, year, approximate, unknown")
+    precision: str = Field(
+        ..., description="Precision level: exact, day, month, year, approximate, unknown"
+    )
 
     context: str = Field(default="", description="Context in which the date was mentioned")
     source: str = Field(..., description="Source of date: transcript, visual, or both")
-    visual_description: str = Field(default="", description="Description if date was visual (e.g., 'lower third')")
-    timestamp: float = Field(default=0.0, description="Timestamp in video when date was shown/mentioned")
-    
+    visual_description: str = Field(
+        default="", description="Description if date was visual (e.g., 'lower third')"
+    )
+    timestamp: float = Field(
+        default=0.0, description="Timestamp in video when date was shown/mentioned"
+    )
+
     # Additional fields for compatibility
-    parsed_date: Optional[datetime] = Field(None, description="Parsed datetime object (for backward compatibility)")
+    parsed_date: Optional[datetime] = Field(
+        None, description="Parsed datetime object (for backward compatibility)"
+    )
     date_source: Optional[str] = Field(None, description="Additional source info")
 
 
 class EntityActivity(BaseModel):
     """A specific activity or mention of an entity in a video."""
+
     activity_id: str = Field(..., description="Unique identifier for this activity")
     video_id: str = Field(..., description="Source video ID")
-    video_title: str = Field(..., description="Source video title") 
+    video_title: str = Field(..., description="Source video title")
     timestamp: int = Field(..., description="Timestamp in video (seconds)")
     description: str = Field(..., description="Description of the activity or mention")
     context: str = Field(..., description="Surrounding context from the video")
@@ -267,32 +321,43 @@ class EntityActivity(BaseModel):
 
 class EntityQuote(BaseModel):
     """A direct quote from or about an entity."""
+
     quote_id: str = Field(..., description="Unique identifier for this quote")
     video_id: str = Field(..., description="Source video ID")
     timestamp: int = Field(..., description="Timestamp in video (seconds)")
     quote_text: str = Field(..., description="The actual quote text")
     speaker: Optional[str] = Field(None, description="Who said the quote (if known)")
-    about_entity: bool = Field(default=False, description="True if quote is about the entity, False if by the entity")
+    about_entity: bool = Field(
+        default=False, description="True if quote is about the entity, False if by the entity"
+    )
     context: str = Field(..., description="Context surrounding the quote")
     significance: float = Field(default=0.5, description="How significant/revealing this quote is")
 
 
 class EntityRelationshipSummary(BaseModel):
     """Summary of an entity's relationship with another entity across videos."""
+
     related_entity: str = Field(..., description="Name of the related entity")
     relationship_type: str = Field(..., description="Nature of the relationship")
     relationship_strength: float = Field(default=0.5, description="Strength of relationship (0-1)")
     examples: List[str] = Field(default_factory=list, description="Examples of their interactions")
-    video_sources: List[str] = Field(default_factory=list, description="Videos where relationship appears")
-    evolution_summary: Optional[str] = Field(None, description="How relationship evolved across videos")
+    video_sources: List[str] = Field(
+        default_factory=list, description="Videos where relationship appears"
+    )
+    evolution_summary: Optional[str] = Field(
+        None, description="How relationship evolved across videos"
+    )
 
 
 class EntityAttributeEvolution(BaseModel):
     """How an entity's attributes or portrayal changed across videos."""
+
     attribute_name: str = Field(..., description="Name of the attribute (role, position, etc.)")
     initial_value: str = Field(..., description="Initial value in earliest video")
     final_value: str = Field(..., description="Final value in latest video")
-    evolution_timeline: List[Dict[str, Any]] = Field(default_factory=list, description="How it changed over time")
+    evolution_timeline: List[Dict[str, Any]] = Field(
+        default_factory=list, description="How it changed over time"
+    )
     significance: str = Field(..., description="Why this change is significant")
 
 
@@ -301,6 +366,7 @@ class EntityAttributeEvolution(BaseModel):
 
 class NarrativeSegment(BaseModel):
     """A segment of narrative flow across videos in a series."""
+
     segment_id: str
     title: str
     video_id: str
@@ -315,61 +381,81 @@ class NarrativeSegment(BaseModel):
 
 class TopicEvolution(BaseModel):
     """How a topic evolves across multiple videos."""
+
     topic_name: str
-    video_sequence: List[str] = Field(default_factory=list, description="Videos in chronological order")
+    video_sequence: List[str] = Field(
+        default_factory=list, description="Videos in chronological order"
+    )
     evolution_summary: str = Field(..., description="How the topic develops")
     key_milestones: List[Dict[str, Any]] = Field(default_factory=list)
-    sentiment_evolution: List[float] = Field(default_factory=list, description="Sentiment over time")
-    entity_changes: Dict[str, List[str]] = Field(default_factory=dict, description="How entities change")
+    sentiment_evolution: List[float] = Field(
+        default_factory=list, description="Sentiment over time"
+    )
+    entity_changes: Dict[str, List[str]] = Field(
+        default_factory=dict, description="How entities change"
+    )
 
 
 class MultiVideoIntelligence(BaseModel):
     """Intelligence extracted from multiple related videos."""
-    
+
     # Collection metadata
     collection_id: str = Field(..., description="Unique identifier for this collection")
     collection_type: VideoCollectionType
     collection_title: str = Field(..., description="Human-readable collection title")
     created_at: datetime = Field(default_factory=datetime.now)
-    
+
     # Video references
-    video_ids: List[str] = Field(default_factory=list, description="Individual video IDs in collection")
-    videos: List['VideoIntelligence'] = Field(default_factory=list, description="Full video intelligence objects")
-    
+    video_ids: List[str] = Field(
+        default_factory=list, description="Individual video IDs in collection"
+    )
+    videos: List["VideoIntelligence"] = Field(
+        default_factory=list, description="Full video intelligence objects"
+    )
+
     # Series-specific metadata (if applicable)
     series_metadata: Optional[SeriesMetadata] = None
     narrative_flow: List[NarrativeSegment] = Field(default_factory=list)
-    
+
     # Cross-video intelligence
     unified_entities: List[CrossVideoEntity] = Field(default_factory=list)
     cross_video_relationships: List[CrossVideoRelationship] = Field(default_factory=list)
     unified_topics: List[Topic] = Field(default_factory=list)
     topic_evolution: List[TopicEvolution] = Field(default_factory=list)
-    
+
     # Aggregated analysis
     collection_summary: str = Field(..., description="Summary of the entire collection")
     key_insights: List[str] = Field(default_factory=list, description="Cross-video insights")
     unified_knowledge_graph: Optional[Dict[str, Any]] = None
-    
-    information_flow_map: Optional['InformationFlowMap'] = None
-    
+
+    information_flow_map: Optional["InformationFlowMap"] = None
+
     # Processing metadata
     processing_stats: Dict[str, Any] = Field(default_factory=dict)
     total_processing_cost: float = Field(default=0.0)
     total_processing_time: float = Field(default=0.0)
-    
+
     # Quality metrics
-    entity_resolution_quality: float = Field(default=0.0, description="Quality of cross-video entity resolution")
+    entity_resolution_quality: float = Field(
+        default=0.0, description="Quality of cross-video entity resolution"
+    )
     narrative_coherence: float = Field(default=0.0, description="How coherent the narrative is")
-    information_completeness: float = Field(default=0.0, description="How complete the information is")
-    consolidated_timeline: Optional[List[Any]] = Field(default=None, description="Consolidated timeline across videos")
+    information_completeness: float = Field(
+        default=0.0, description="How complete the information is"
+    )
+    consolidated_timeline: Optional[List[Any]] = Field(
+        default=None, description="Consolidated timeline across videos"
+    )
 
 
 class SeriesDetectionResult(BaseModel):
     """Result of automatic series detection."""
+
     is_series: bool
     confidence: float
-    suggested_grouping: List[List[str]] = Field(default_factory=list, description="Suggested video groupings")
+    suggested_grouping: List[List[str]] = Field(
+        default_factory=list, description="Suggested video groupings"
+    )
     detection_method: str = Field(..., description="How the series was detected")
     series_patterns: List[str] = Field(default_factory=list, description="Detected patterns")
     user_confirmation_needed: bool = Field(default=True)
@@ -377,6 +463,7 @@ class SeriesDetectionResult(BaseModel):
 
 class VideoSimilarity(BaseModel):
     """Similarity analysis between two videos."""
+
     video1_id: str
     video2_id: str
     overall_similarity: float = Field(ge=0.0, le=1.0)
@@ -391,6 +478,7 @@ class VideoSimilarity(BaseModel):
 
 class TemporalReference(BaseModel):
     """A resolved temporal reference from video content."""
+
     reference_text: str = Field(..., description="Original temporal reference text")
     resolved_date: str = Field(..., description="Resolved date in YYYY-MM-DD format")
 
@@ -403,6 +491,7 @@ class TemporalReference(BaseModel):
 
 class ConceptMaturityLevel(str, Enum):
     """Maturity levels for concept evolution."""
+
     MENTIONED = "mentioned"
     INTRODUCED = "introduced"
     DEFINED = "defined"
@@ -416,13 +505,14 @@ class ConceptMaturityLevel(str, Enum):
 
 class ConceptNode(BaseModel):
     """A single concept or idea identified in a video."""
+
     node_id: str
     concept_name: str
     video_id: str
     video_title: str
     timestamp: int = 0
     maturity_level: str = ConceptMaturityLevel.MENTIONED
-    context: str = ''
+    context: str = ""
     explanation_depth: float = 0.0
     key_points: List[str] = Field(default_factory=list)
     related_entities: List[str] = Field(default_factory=list)
@@ -431,8 +521,10 @@ class ConceptNode(BaseModel):
     information_density: float = 0.0
     video_sequence_position: int = 0
 
+
 class InformationFlow(BaseModel):
     """The flow of information between two concept nodes."""
+
     flow_id: str
     source_node: ConceptNode
     target_node: ConceptNode
@@ -445,36 +537,52 @@ class InformationFlow(BaseModel):
     bridge_entities: List[str]
     supporting_evidence: List[str]
 
+
 class ConceptDependency(BaseModel):
     """A dependency between two concepts."""
+
     dependent_concept: str
     prerequisite_concept: str
     dependency_type: str
     strength: float
 
+
 class ConceptEvolutionPath(BaseModel):
     """The evolution of a single concept across multiple videos."""
+
     concept_name: str
     initial_maturity: str
     final_maturity: str
     progression_steps: List[Dict[str, Any]]
     key_dependencies: List[ConceptDependency]
-    evolution_nodes: List[ConceptNode] = Field(default_factory=list, description="Nodes in this evolution path")
-    evolution_coherence: float = Field(default=0.0, description="Coherence score of the evolution path")
-    completeness_score: float = Field(default=0.0, description="Completeness score of the evolution path")
+    evolution_nodes: List[ConceptNode] = Field(
+        default_factory=list, description="Nodes in this evolution path"
+    )
+    evolution_coherence: float = Field(
+        default=0.0, description="Coherence score of the evolution path"
+    )
+    completeness_score: float = Field(
+        default=0.0, description="Completeness score of the evolution path"
+    )
     understanding_depth: float = Field(default=0.0, description="Depth of understanding achieved")
     evolution_summary: Optional[str] = Field(default=None, description="Summary of the evolution")
-    key_transformations: List[str] = Field(default_factory=list, description="Key transformations in the evolution")
+    key_transformations: List[str] = Field(
+        default_factory=list, description="Key transformations in the evolution"
+    )
+
 
 class ConceptCluster(BaseModel):
     """A cluster of related concepts."""
+
     cluster_name: str
     core_concepts: List[str]
     cluster_evolution: Optional[str] = None
     coherence_score: float
 
+
 class InformationFlowMap(BaseModel):
     """A map of how information and concepts evolve across a collection."""
+
     map_id: str
     collection_id: str
     collection_title: str

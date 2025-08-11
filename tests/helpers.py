@@ -1,11 +1,7 @@
 # tests/helpers.py
 from datetime import datetime
-from clipscribe.models import (
-    VideoIntelligence, 
-    VideoMetadata, 
-    VideoTranscript, 
-    EnhancedEntity
-)
+from clipscribe.models import VideoIntelligence, VideoMetadata, VideoTranscript, EnhancedEntity
+
 
 def create_mock_video_intelligence(video_id="test_vid", title="Test Video", channel_id="test_chan"):
     """
@@ -21,16 +17,14 @@ def create_mock_video_intelligence(video_id="test_vid", title="Test Video", chan
         duration=300,
         view_count=1000,
         description="A test video description.",
-        tags=["test", "video"]
+        tags=["test", "video"],
     )
-    
+
     transcript = VideoTranscript(
         full_text="This is a test transcript.",
-        segments=[
-            {"text": "This is a test transcript.", "start": 0.0, "end": 5.0}
-        ]
+        segments=[{"text": "This is a test transcript.", "start": 0.0, "end": 5.0}],
     )
-    
+
     entities = [
         EnhancedEntity(
             name="Test Entity",
@@ -40,10 +34,10 @@ def create_mock_video_intelligence(video_id="test_vid", title="Test Video", chan
             canonical_form="Test Entity",
             context_windows=[],
             aliases=[],
-            temporal_distribution=[]
+            temporal_distribution=[],
         )
     ]
-    
+
     return VideoIntelligence(
         metadata=metadata,
         transcript=transcript,
@@ -51,5 +45,5 @@ def create_mock_video_intelligence(video_id="test_vid", title="Test Video", chan
         entities=entities,
         relationships=[],
         key_points=[],
-        topics=[]
+        topics=[],
     )

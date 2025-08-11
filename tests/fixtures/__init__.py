@@ -5,12 +5,17 @@ from datetime import datetime
 from typing import Dict, Any
 
 from clipscribe.models import (
-    VideoMetadata, VideoTranscript, VideoChapter,
-    KeyPoint, Entity, VideoIntelligence
+    VideoMetadata,
+    VideoTranscript,
+    VideoChapter,
+    KeyPoint,
+    Entity,
+    VideoIntelligence,
 )
 
 # Base directory for test fixtures
 FIXTURES_DIR = Path(__file__).parent
+
 
 def get_mock_video_metadata() -> VideoMetadata:
     """Get mock video metadata for testing."""
@@ -24,8 +29,9 @@ def get_mock_video_metadata() -> VideoMetadata:
         published_at=datetime(2024, 1, 1, 12, 0, 0),
         view_count=1000000,
         description="This is a test video for ClipScribe",
-        tags=["test", "demo", "clipscribe"]
+        tags=["test", "demo", "clipscribe"],
     )
+
 
 def get_mock_transcript() -> VideoTranscript:
     """Get mock transcript for testing."""
@@ -34,11 +40,12 @@ def get_mock_transcript() -> VideoTranscript:
         segments=[
             {"start": 0.0, "end": 2.0, "text": "Hello, this is a test video."},
             {"start": 2.0, "end": 5.0, "text": "We are testing ClipScribe transcription."},
-            {"start": 5.0, "end": 7.0, "text": "It works great!"}
+            {"start": 5.0, "end": 7.0, "text": "It works great!"},
         ],
         language="en",
-        confidence=0.95
+        confidence=0.95,
     )
+
 
 def get_mock_video_intelligence() -> VideoIntelligence:
     """Get complete mock video intelligence for testing."""
@@ -50,21 +57,21 @@ def get_mock_video_intelligence() -> VideoIntelligence:
                 start_time=0,
                 end_time=60,
                 title="Introduction",
-                summary="Introduction to the test video"
+                summary="Introduction to the test video",
             ),
             VideoChapter(
                 start_time=60,
                 end_time=180,
                 title="Main Content",
-                summary="Main content of the test"
-            )
+                summary="Main content of the test",
+            ),
         ],
         key_points=[
             KeyPoint(
                 timestamp=2,
                 text="ClipScribe is being tested",
                 importance=0.9,
-                context="Testing the transcription functionality"
+                context="Testing the transcription functionality",
             )
         ],
         summary="This is a test video demonstrating ClipScribe's transcription capabilities.",
@@ -74,15 +81,16 @@ def get_mock_video_intelligence() -> VideoIntelligence:
                 type="TECHNOLOGY",
                 properties={"description": "AI-powered video transcription tool"},
                 confidence=0.95,
-                timestamp=3
+                timestamp=3,
             )
         ],
         topics=["testing", "transcription", "AI"],
         sentiment={"positive": 0.8, "neutral": 0.2, "negative": 0.0},
         confidence_score=0.95,
         processing_cost=0.001,
-        processing_time=2.5
+        processing_time=2.5,
     )
+
 
 def get_mock_gemini_response() -> Dict[str, Any]:
     """Get mock Gemini API response for testing."""
@@ -91,9 +99,10 @@ def get_mock_gemini_response() -> Dict[str, Any]:
         "segments": [
             {"start": 0.0, "end": 2.0, "text": "Hello, this is a test video."},
             {"start": 2.0, "end": 5.0, "text": "We are testing ClipScribe transcription."},
-            {"start": 5.0, "end": 7.0, "text": "It works great!"}
-        ]
+            {"start": 5.0, "end": 7.0, "text": "It works great!"},
+        ],
     }
+
 
 def get_mock_yt_dlp_info() -> Dict[str, Any]:
     """Get mock yt-dlp info dict for testing."""
@@ -114,32 +123,34 @@ def get_mock_yt_dlp_info() -> Dict[str, Any]:
                 "ext": "m4a",
                 "acodec": "mp4a.40.2",
                 "abr": 128,
-                "url": "https://example.com/audio.m4a"
+                "url": "https://example.com/audio.m4a",
             }
-        ]
+        ],
     }
+
 
 # Audio test helpers
 def create_test_audio_file(path: Path, duration_seconds: float = 3.0) -> None:
     """Create a silent audio file for testing.
-    
+
     Note: This creates a simple WAV file with silence.
     For real tests, you might want to use pre-recorded samples.
     """
     import wave
     import array
-    
+
     sample_rate = 44100
     num_samples = int(sample_rate * duration_seconds)
-    
+
     # Create silence (zeros)
-    audio_data = array.array('h', [0] * num_samples)
-    
-    with wave.open(str(path), 'wb') as wav_file:
+    audio_data = array.array("h", [0] * num_samples)
+
+    with wave.open(str(path), "wb") as wav_file:
         wav_file.setnchannels(1)  # Mono
         wav_file.setsampwidth(2)  # 2 bytes per sample
         wav_file.setframerate(sample_rate)
         wav_file.writeframes(audio_data.tobytes())
+
 
 # Path to test assets
 TEST_AUDIO_PATH = FIXTURES_DIR / "test_audio.wav"

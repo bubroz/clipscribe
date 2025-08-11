@@ -4,6 +4,7 @@ from difflib import SequenceMatcher
 
 logger = logging.getLogger(__name__)
 
+
 class TranscriptMerger:
     """
     Intelligently merges overlapping transcript chunks into a single,
@@ -30,14 +31,14 @@ class TranscriptMerger:
 
             # Find the best overlap point
             overlap_len = self._find_best_overlap(prev_chunk, next_chunk)
-            
+
             # Append the non-overlapping part of the next chunk
             if overlap_len > 0:
                 merged_transcript += next_chunk[overlap_len:]
             else:
                 # If no overlap, just append with a space
                 merged_transcript += " " + next_chunk
-        
+
         return merged_transcript.strip()
 
     def _find_best_overlap(self, s1: str, s2: str, min_overlap: int = 20) -> int:
@@ -46,16 +47,16 @@ class TranscriptMerger:
         start of s2.
         """
         max_overlap = 0
-        
+
         # We search for an overlap in the last part of s1 and the first part of s2
         # A reasonable search window is a few hundred characters
         search_window = min(len(s1), len(s2), 400)
-        
+
         s1_end = s1[-search_window:]
         s2_start = s2[:search_window]
 
         matcher = SequenceMatcher(None, s1_end, s2_start, autojunk=False)
-        
+
         # Get the longest matching block
         match = matcher.find_longest_match(0, len(s1_end), 0, len(s2_start))
 
@@ -68,25 +69,26 @@ class TranscriptMerger:
 
         return max_overlap
 
+
 if __name__ == "__main__":
     # Example for testing
     merger = TranscriptMerger()
-    
+
     chunk1 = "This is the first part of the transcript, and it continues for a while."
     chunk2 = "continues for a while. Now we are into the second part, which has its own content."
     chunk3 = "its own content. Finally, we have reached the end of the video."
-    
+
     transcripts = [chunk1, chunk2, chunk3]
-    
+
     merged = merger.merge_transcripts(transcripts)
-    
+
     print("--- CHUNKS ---")
     for i, t in enumerate(transcripts):
         print(f"Chunk {i+1}: {t}")
-        
+
     print("\n--- MERGED ---")
     print(merged)
-    
+
     expected = "This is the first part of the transcript, and it continues for a while. Now we are into the second part, which has its own content. Finally, we have reached the end of the video."
-    
+
     print(f"\nMerge successful: {merged == expected}")

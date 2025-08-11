@@ -11,12 +11,14 @@ from ..models import VideoIntelligence, Entity
 
 logger = logging.getLogger(__name__)
 
+
 def merge_transcripts(results: List[Dict[str, Any]]) -> str:
     """Concatenates transcripts from a list of results."""
     full_transcript = ""
     for result in results:
         full_transcript += result.get("transcript", "") + "\n\n"
     return full_transcript.strip()
+
 
 def merge_entities(results: List[Dict[str, Any]], timestamp_offsets: List[float]) -> List[Entity]:
     """Merges and de-duplicates entities, adjusting timestamps."""
@@ -28,13 +30,17 @@ def merge_entities(results: List[Dict[str, Any]], timestamp_offsets: List[float]
             all_entities.append(Entity(**entity_data))
     return all_entities
 
-def merge_relationships(results: List[Dict[str, Any]], timestamp_offsets: List[float]) -> List[Dict[str, Any]]:
+
+def merge_relationships(
+    results: List[Dict[str, Any]], timestamp_offsets: List[float]
+) -> List[Dict[str, Any]]:
     """Merges relationships, adjusting timestamps."""
     # TODO: Implement relationship merging
     all_relationships = []
     for i, result in enumerate(results):
         all_relationships.extend(result.get("relationships", []))
     return all_relationships
+
 
 def synthesize_summary(results: List[Dict[str, Any]]) -> str:
     """Synthesizes a new summary from individual chunk summaries."""
@@ -45,9 +51,9 @@ def synthesize_summary(results: List[Dict[str, Any]]) -> str:
         full_summary += result.get("summary", "") + "\n\n"
     return full_summary.strip()
 
+
 def merge_results(
-    chunk_results: List[Dict[str, Any]],
-    chunk_durations: List[float]
+    chunk_results: List[Dict[str, Any]], chunk_durations: List[float]
 ) -> Dict[str, Any]:
     """
     Merges the analysis results from multiple video chunks.
@@ -73,7 +79,7 @@ def merge_results(
     merged_entities = merge_entities(chunk_results, timestamp_offsets)
     merged_relationships = merge_relationships(chunk_results, timestamp_offsets)
     merged_summary = synthesize_summary(chunk_results)
-    
+
     total_cost = sum(r.get("processing_cost", 0.0) for r in chunk_results)
 
     # Use the metadata and other info from the first chunk as the base
