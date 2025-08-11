@@ -1,7 +1,5 @@
 # ClipScribe
 
-Proprietary software. Not open source.
-
 **Video Intelligence Collection, Analysis, and Reporting**
 
 *Transform video content into structured, searchable, and reportable intelligence*
