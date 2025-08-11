@@ -23,6 +23,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Authenticate to Google Cloud (WIF)
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.WIF_PROVIDER }}
+          service_account: ${{ secrets.WIF_SERVICE_ACCOUNT_EMAIL }}
+
       - name: Set up Python 3.12
         uses: actions/setup-python@v5
         with:
@@ -47,16 +53,6 @@ jobs:
       - name: Install dependencies
         run: |
           poetry install --with dev --no-interaction --no-root
-
-      - name: Write service account key
-        shell: bash
-        env:
-          SA_JSON: ${{ secrets.VERTEX_SA_JSON }}
-        run: |
-          if [ -z "$SA_JSON" ]; then echo "Missing VERTEX_SA_JSON secret" && exit 1; fi
-          echo "$SA_JSON" > $RUNNER_TEMP/sa.json
-          echo "GOOGLE_APPLICATION_CREDENTIALS=$RUNNER_TEMP/sa.json" >> $GITHUB_ENV
-          echo "Wrote service account to $RUNNER_TEMP/sa.json"
 
       - name: Auth check (sanity)
         run: |
