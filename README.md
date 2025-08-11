@@ -2,6 +2,11 @@
 
 **Video Intelligence Collection, Analysis, and Reporting**
 
+![CI](https://img.shields.io/github/actions/workflow/status/bubroz/clipscribe/ci.yml?branch=main)
+![Python](https://img.shields.io/badge/python-3.12-blue)
+![License](https://img.shields.io/badge/license-Proprietary-red)
+![Version](https://img.shields.io/badge/version-v2.29.7-informational)
+
 *Transform video content into structured, searchable, and reportable intelligence*
 
 [Features](#features) | [Installation](#installation) | [Quick Start](#quick-start) | [Use Cases](#use-cases) | [Documentation](#documentation)

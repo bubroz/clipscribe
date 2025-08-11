@@ -22,3 +22,4 @@ poetry run python examples/pbs_fast_batch.py --limit 3
 - OpenAPI (machine-readable): `docs/architecture/openapi.yaml`
 - API Quickstart: `docs/API_QUICKSTART.md`
  - Cost Analysis: `docs/COST_ANALYSIS.md`
+- Testing Policy: E2E tests are opt-in (Vertex ADC by default; AI Studio allowed with explicit flag).
