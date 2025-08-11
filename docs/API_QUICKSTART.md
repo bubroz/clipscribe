@@ -38,6 +38,15 @@ curl -N -H "Authorization: Bearer $TOKEN" \
   "$API_BASE_URL/v1/jobs/$JOB_ID/events"
 ```
 
+### Minimal JS example
+```javascript
+const evt = new EventSource(`${API_BASE_URL}/v1/jobs/${jobId}/events`, { withCredentials: false });
+evt.onmessage = e => console.log(e.data);
+evt.addEventListener('status', e => console.log('status', e.data));
+evt.addEventListener('progress', e => console.log('progress', e.data));
+evt.onerror = () => { /* implement backoff & reconnect */ };
+```
+
 Events include `status`, `progress`, `cost`, `done`, `error`.
 
 Fallback: poll `GET /v1/jobs/{job_id}` every 2–5s.
@@ -59,6 +68,11 @@ curl -X POST "$API_BASE_URL/v1/uploads/presign" \
 curl -X PUT "$UPLOAD_URL" \
   -H "Content-Type: video/mp4" \
   --data-binary @video.mp4
+
+### Minimal JS example (upload)
+```javascript
+await fetch(uploadUrl, { method: 'PUT', headers: { 'Content-Type': 'video/mp4' }, body: fileBlob });
+```
 
 # 3) Submit a job using the returned gcs_uri
 curl -X POST "$API_BASE_URL/v1/jobs" \
