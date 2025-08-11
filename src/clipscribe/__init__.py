@@ -7,7 +7,10 @@ from .version import __version__
 
 
 # Lazy import CLI only when needed - don't import at package level
-def get_cli():
+from typing import Any
+
+
+def get_cli() -> Any:
     """Get CLI instance with lazy loading."""
     from .commands.cli import cli
 
