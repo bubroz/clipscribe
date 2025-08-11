@@ -8,10 +8,6 @@ import json
 import logging
 from typing import Dict, List, Any
 
-try:
-    from typing import Set
-except ImportError:
-    pass
 
 import google.generativeai as genai
 from google.generativeai.types import RequestOptions

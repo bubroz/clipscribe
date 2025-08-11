@@ -8,10 +8,6 @@ Ensures clean, consistent entities for network analysis
 import logging
 from typing import List, Dict, Optional
 
-try:
-    from typing import Set
-except ImportError:
-    pass
 from collections import defaultdict
 import re
 from difflib import SequenceMatcher

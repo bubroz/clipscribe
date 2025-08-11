@@ -576,9 +576,6 @@ class EntityQualityFilter:
                     # Mixed characters, be neutral
                     return 0.5
 
-        # For longer text, use the original algorithm
-        english_score = 0.0
-
         # Check for English word indicators
         english_word_count = 0
         for word in words:

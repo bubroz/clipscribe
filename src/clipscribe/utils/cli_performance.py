@@ -207,7 +207,7 @@ class AsyncProgressIndicator:
 
         # Update main progress
         if progress_percent:
-            current_progress = state["phases_completed"] * (100 / state["total_phases"])
+            _ = state["phases_completed"] * (100 / state["total_phases"])
             new_progress = min(progress_percent, 100)
             state["progress"].update(
                 state["main_task"],

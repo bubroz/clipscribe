@@ -222,7 +222,6 @@ class ModelManager:
         }
 
         # Calculate time savings
-        total_load_time = sum(self._load_times.values())
         potential_load_time = sum(
             self._load_times.get(model, 0) * (self._access_counts.get(model, 1) - 1)
             for model in self._models.keys()

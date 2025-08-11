@@ -110,7 +110,7 @@ class EdgeCaseTestRunner:
         self, category_name: str, config: Dict[str, Any]
     ) -> Dict[str, Any]:
         """Run tests for a specific category."""
-        module_name = config["module"]
+        _ = config["module"]
         target_metrics = config["target_metrics"]
 
         # Import and run the test module

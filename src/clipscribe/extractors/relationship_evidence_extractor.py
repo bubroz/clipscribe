@@ -169,7 +169,7 @@ class RelationshipEvidenceExtractor:
 
         # Get entity context windows for relationship participants
         subject_entity = entity_lookup.get(relationship.subject.lower())
-        object_entity = entity_lookup.get(relationship.object.lower())
+        _ = entity_lookup.get(relationship.object.lower())
 
         # Search transcript segments for evidence
         for segment in video_intel.transcript.segments:

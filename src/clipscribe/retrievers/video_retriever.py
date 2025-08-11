@@ -353,7 +353,7 @@ class VideoIntelligenceRetriever:
                 result = VideoIntelligence.parse_obj(data)
                 result.is_from_cache = True
                 return result
-            except:
+            except Exception:
                 pass
 
         return None

@@ -21,14 +21,8 @@ from .enhanced_entity_extractor import EnhancedEntityExtractor
 from .relationship_evidence_extractor import RelationshipEvidenceExtractor
 from .temporal_reference_resolver import TemporalReferenceResolver
 
-try:
-    import torch
-    from gliner import GLiNER
-    from transformers import pipeline
-
-    ADVANCED_EXTRACTORS_AVAILABLE = True
-except ImportError:
-    ADVANCED_EXTRACTORS_AVAILABLE = False
+# Optional advanced extractors availability flag (imports deferred elsewhere if needed)
+ADVANCED_EXTRACTORS_AVAILABLE = False
 
 logger = logging.getLogger(__name__)
 

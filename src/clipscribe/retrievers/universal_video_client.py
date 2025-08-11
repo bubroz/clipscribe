@@ -431,7 +431,7 @@ class EnhancedUniversalVideoClient:
 
                     # Find the downloaded file
                     # yt-dlp might change the filename, so we need to search
-                    title = info.get("title", "Unknown")
+                    _ = info.get("title", "Unknown")
                     video_id = info.get("id", "")
 
                     # Look for the file
@@ -497,7 +497,7 @@ class EnhancedUniversalVideoClient:
         elif upload_date:
             try:
                 published_at = datetime.strptime(upload_date, "%Y%m%d")
-            except:
+            except Exception:
                 published_at = datetime.now()
         else:
             published_at = datetime.now()

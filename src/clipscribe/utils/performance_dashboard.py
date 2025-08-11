@@ -16,8 +16,6 @@ import time
 # Optional Plotly imports for advanced visualizations
 try:
     import plotly.graph_objects as go
-    import plotly.express as px
-    from plotly.subplots import make_subplots
 
     PLOTLY_AVAILABLE = True
 except ImportError:

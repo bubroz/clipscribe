@@ -184,7 +184,7 @@ class TestRelationshipEvidenceExtractor:
         assert spoken_type == "spoken"
 
         # Test entity context evidence
-        context_type = self.extractor._determine_evidence_type("Biden supports legislation")
+        _ = self.extractor._determine_evidence_type("Biden supports legislation")
         assert spoken_type == "spoken"
 
     def test_extract_visual_context(self):
