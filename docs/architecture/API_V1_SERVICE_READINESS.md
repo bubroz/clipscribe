@@ -1,6 +1,6 @@
 # ClipScribe API v1 – Service Readiness Spec
 
-*Last Updated: 2025-08-10 18:38 UTC*
+*Last Updated: 2025-08-11 06:32 UTC*
 
 ## 1) Goals / Non‑Goals
 - **Goals**: Enable browser UIs (e.g., Replit-hosted) to submit videos, observe progress, and download artifacts without privileged secrets; deliver a stable, versioned API with cost-aware guardrails.
@@ -14,6 +14,7 @@ Canonical OpenAPI: `docs/architecture/openapi.yaml`
 - `GET /v1/jobs/{job_id}` – Status, progress, cost-to-date, manifest link, `schema_version`.
 - `GET /v1/jobs/{job_id}/events` – Server-Sent Events (SSE) stream with progress.
 - `GET /v1/jobs/{job_id}/artifacts` – List downloadable artifacts (signed URLs / redirects).
+  - Note: The server must run with ADC (`GOOGLE_APPLICATION_CREDENTIALS`) to sign private GCS objects; clients receive pre-signed URLs and a `requires_auth` hint when applicable.
 - `POST /v1/uploads/presign` – Return pre-signed GCS URL and `gcs_uri` for browser PUT.
 - `GET /v1/estimate` – Preflight cost/time estimate and admission decision.
 - `GET /openapi.json` – OpenAPI (staging only; prod configurable).

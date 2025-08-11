@@ -265,14 +265,16 @@ paths:
                   value:
                     job_id: "job_12345"
                     artifacts:
-                      - id: "a1"
-                        kind: "transcript_json"
-                        size_bytes: 124567
-                        url: "https://signed/url/transcript.json"
-                      - id: "a2"
+                      - id: "manifest.json"
+                        kind: "manifest_json"
+                        size_bytes: 205
+                        url: "https://signed/url/manifest.json"
+                        requires_auth: false
+                      - id: "knowledge_graph.gexf"
                         kind: "knowledge_graph_gexf"
                         size_bytes: 56012
                         url: "https://signed/url/knowledge_graph.gexf"
+                        requires_auth: false
         '401':
           description: Unauthorized
           headers:
@@ -421,6 +423,7 @@ components:
       type: object
       properties:
         url: { type: string, format: uri }
+        requires_auth: { type: boolean, description: "true if the URL requires client-side credentials; false if it is a pre-signed URL" }
         options:
           type: object
           additionalProperties: true

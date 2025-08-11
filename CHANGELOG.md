@@ -1,3 +1,15 @@
+## [v2.29.7] - 2025-08-11
+
+### Added
+- API `/v1/jobs/{id}/artifacts`: server-side listing now returns signed URLs for private GCS objects and includes `requires_auth` flag for clients.
+
+### Fixed
+- CLI transcriber honors `Settings.use_vertex_ai` to enable Vertex path when configured.
+
+### Validated
+- Vertex end-to-end (approved videos) and multi-video series processing both succeeded locally; artifacts present.
+- API estimate, job submit, and artifacts listing validated with ADC-enabled server.
+
 ## [v2.29.6] - 2025-08-10
 
 ### Validated

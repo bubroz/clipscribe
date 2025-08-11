@@ -1,6 +1,6 @@
 # ClipScribe API Quickstart
 
-*Last Updated: 2025-08-10 18:38 UTC*
+*Last Updated: 2025-08-11 06:32 UTC*
 
 This guide shows how to use the API v1 to submit a job, watch progress, and download artifacts from a browser-hosted frontend (e.g., Replit).
 
@@ -76,6 +76,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   "$API_BASE_URL/v1/jobs/$JOB_ID/artifacts"
 ```
 Returns artifact metadata and signed URLs (or redirecting endpoints) for `transcript.json`, `report.md`, and `manifest.json` (additional formats vary by configuration).
+Note: The API server must run with ADC (`GOOGLE_APPLICATION_CREDENTIALS`) to sign private GCS objects. Responses may include `requires_auth: false` for pre-signed URLs.
 
 ## Estimate cost (preflight)
 ```bash

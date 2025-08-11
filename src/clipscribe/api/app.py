@@ -478,18 +478,29 @@ async def list_artifacts(job_id: str, authorization: Optional[str] = Header(defa
 
             client = storage.Client()
             prefix = f"jobs/{job_id}/"
+            bucket_ref = client.bucket(bucket)
             for blob in client.list_blobs(bucket, prefix=prefix):
                 name = getattr(blob, "name", "")
                 if not name or name.endswith("/"):
                     continue
-                url = blob.generate_signed_url(version="v4", expiration=900, method="GET")
                 kind = "manifest_json" if name.endswith("manifest.json") else "file"
                 size_bytes = int(getattr(blob, "size", 0) or 0)
+                public_url = f"https://storage.googleapis.com/{bucket}/{name}"
+                url = None
+                requires_auth = True
+                try:
+                    # Prefer signed URL when service account has signing capability
+                    url = blob.generate_signed_url(version="v4", expiration=900, method="GET")
+                    requires_auth = False
+                except Exception as sign_err:
+                    # Fall back to public URL (will 403 for anonymous); still return entry for clients using creds
+                    url = public_url
                 artifacts.append({
                     "id": os.path.basename(name),
                     "kind": kind,
                     "size_bytes": size_bytes,
                     "url": url,
+                    "requires_auth": requires_auth,
                 })
         except Exception as e:
             print(f"[warn] listing artifacts failed for gs://{bucket}/jobs/{job_id}/: {e}")
