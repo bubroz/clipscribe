@@ -108,6 +108,7 @@ isort = "^5.13.2"
 pre-commit = "^3.6.0"
 matplotlib = "^3.10.3"
 pytest-mock = "^3.14.1"
+ruff = "^0.5.7"
 
 [tool.poetry.scripts]
 clipscribe = "clipscribe.commands.cli:run_cli"

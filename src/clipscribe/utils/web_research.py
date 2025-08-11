@@ -8,8 +8,8 @@ Integrates with timeline synthesis to validate events against external sources.
 import logging
 import asyncio
 import json
-from typing import List, Dict, Any, Optional, Tuple
-from datetime import datetime, timedelta
+from typing import List, Dict, Any, Optional
+from datetime import datetime
 from dataclasses import dataclass
 
 try:

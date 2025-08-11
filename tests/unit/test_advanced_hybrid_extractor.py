@@ -1,8 +1,8 @@
 # tests/unit/test_advanced_hybrid_extractor.py
 import pytest
-from unittest.mock import Mock, patch, AsyncMock
+from unittest.mock import Mock, patch
 from clipscribe.extractors.advanced_hybrid_extractor import AdvancedHybridExtractor
-from clipscribe.models import VideoIntelligence, VideoTranscript, Entity, Relationship
+from clipscribe.models import VideoIntelligence, VideoTranscript
 
 
 @pytest.fixture

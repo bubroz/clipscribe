@@ -1,12 +1,8 @@
 # tests/integration/test_full_workflow.py
 import pytest
-from unittest.mock import patch, AsyncMock, MagicMock
-from pathlib import Path
+from unittest.mock import patch, AsyncMock
 from clipscribe.retrievers.video_retriever import VideoIntelligenceRetriever
-from clipscribe.models import VideoIntelligence, VideoMetadata, VideoTranscript, EnhancedEntity
-from clipscribe.extractors.multi_video_processor import MultiVideoProcessor
-import asyncio
-from datetime import datetime
+from clipscribe.models import VideoIntelligence
 from tests.helpers import create_mock_video_intelligence
 
 TEST_VIDEO_URL = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"

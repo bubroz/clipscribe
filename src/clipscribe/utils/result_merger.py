@@ -7,7 +7,7 @@ cohesive VideoIntelligence object.
 
 from typing import List, Dict, Any
 import logging
-from ..models import VideoIntelligence, Entity
+from ..models import Entity
 
 logger = logging.getLogger(__name__)
 

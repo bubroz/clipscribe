@@ -6,7 +6,6 @@ and integration with the VideoIntelligence model.
 """
 
 import pytest
-from unittest.mock import Mock
 from datetime import datetime
 
 from clipscribe.extractors.temporal_reference_resolver import TemporalReferenceResolver

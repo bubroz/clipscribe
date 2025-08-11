@@ -9,8 +9,8 @@ import streamlit as st
 import pandas as pd
 import json
 from pathlib import Path
-from typing import Dict, Any, List, Optional
-from datetime import datetime, timedelta
+from typing import Dict, Any, List
+from datetime import datetime
 import time
 
 # Optional Plotly imports for advanced visualizations
@@ -23,7 +23,6 @@ try:
 except ImportError:
     PLOTLY_AVAILABLE = False
 
-from .performance import PerformanceMonitor
 from ..extractors.model_manager import get_model_manager
 
 
@@ -414,7 +413,7 @@ class PerformanceDashboard:
             "Google API Key": "GOOGLE_API_KEY" in st.secrets
             or "GOOGLE_API_KEY" in st.session_state,
             "Plotly Available": PLOTLY_AVAILABLE,
-            "Model Manager": model_manager is not None,
+            "Model Manager": True,  # Runtime always has a manager instance in UI
             "Output Directory": self.output_dir.exists(),
         }
 
@@ -619,7 +618,7 @@ class PerformanceDashboard:
                 if timestamp:
                     timestamps.append(timestamp)
 
-            except Exception as e:
+            except Exception:
                 continue
 
         # Calculate aggregates

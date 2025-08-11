@@ -1,10 +1,8 @@
 """Hybrid entity extractor combining SpaCy (free) with LLM validation (selective)."""
 
 import logging
-from typing import List, Dict, Optional, Tuple
-import asyncio
+from typing import List, Dict, Tuple
 import json
-import google.generativeai as genai
 from google.generativeai.types import RequestOptions
 
 from .spacy_extractor import SpacyEntityExtractor

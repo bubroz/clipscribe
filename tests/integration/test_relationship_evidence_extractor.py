@@ -6,13 +6,11 @@ and integration with the enhanced Relationship model.
 """
 
 import pytest
-from unittest.mock import Mock, patch
-from typing import List
+from unittest.mock import patch
 
 from clipscribe.extractors.relationship_evidence_extractor import RelationshipEvidenceExtractor
 from clipscribe.models import (
     Relationship,
-    RelationshipEvidence,
     VideoIntelligence,
     VideoTranscript,
     VideoMetadata,

@@ -6,7 +6,7 @@ This dramatically reduces API calls and token usage by doing everything at once
 
 import json
 import logging
-from typing import Dict, Any, List
+from typing import Dict, Any
 from datetime import datetime
 
 import google.generativeai as genai

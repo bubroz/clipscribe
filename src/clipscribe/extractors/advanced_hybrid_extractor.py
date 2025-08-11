@@ -11,23 +11,15 @@ This provides comprehensive intelligence extraction while maintaining cost effic
 """
 
 import logging
-from typing import List, Dict, Any, Optional, Tuple, Set
-import asyncio
-from collections import defaultdict
-import os
-import re
+from typing import Optional
 
-import networkx as nx
-import google.generativeai as genai
-from google.generativeai.types import RequestOptions
 
-from ..models import VideoIntelligence, Entity, Relationship, VideoTranscript, EnhancedEntity
+from ..models import VideoIntelligence, Entity
 from .entity_normalizer import EntityNormalizer
 from .entity_quality_filter import EntityQualityFilter
 from .enhanced_entity_extractor import EnhancedEntityExtractor
 from .relationship_evidence_extractor import RelationshipEvidenceExtractor
 from .temporal_reference_resolver import TemporalReferenceResolver
-from ..config.settings import Settings
 
 try:
     import torch
@@ -84,7 +76,6 @@ class AdvancedHybridExtractor:
         )
 
         # BUG FIX: Convert raw dictionaries to Entity objects
-        from ..models import Entity
 
         gemini_entities = []
         for raw_entity in raw_gemini_entities:
@@ -142,5 +133,5 @@ class AdvancedHybridExtractor:
         )
         video_intel.temporal_references = temporal_references
 
-        logger.info(f"Advanced extraction complete in TRUST_GEMINI mode.")
+        logger.info("Advanced extraction complete in TRUST_GEMINI mode.")
         return video_intel

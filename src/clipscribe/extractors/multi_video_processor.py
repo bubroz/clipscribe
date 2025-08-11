@@ -8,11 +8,8 @@ Timeline features permanently discontinued - focuses on core intelligence extrac
 """
 
 import logging
-import asyncio
-import json
-from typing import List, Dict, Any, Optional, Tuple, Set
-from datetime import datetime, timedelta
-from collections import defaultdict, Counter
+from typing import List, Dict, Any, Optional
+from collections import Counter
 import time
 
 from ..models import (
@@ -20,12 +17,8 @@ from ..models import (
     MultiVideoIntelligence,
     CrossVideoEntity,
     CrossVideoRelationship,
-    NarrativeSegment,
-    TopicEvolution,
     VideoCollectionType,
-    SeriesMetadata,
     Entity,
-    Relationship,
     Topic,
     InformationFlowMap,
     ConceptNode,

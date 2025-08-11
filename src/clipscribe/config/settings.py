@@ -5,7 +5,7 @@ Uses Pydantic BaseSettings for environment variable management and validation.
 
 import os
 from pathlib import Path
-from typing import Optional, List, Dict, Any
+from typing import Optional, List, Dict
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import Field, field_validator
 from dotenv import load_dotenv
@@ -192,9 +192,14 @@ class Settings(BaseSettings):
     ytdlp_proxy: Optional[str] = Field(default=None, description="Proxy URL for yt-dlp")
 
     @field_validator("google_api_key")
-    def validate_api_key(cls, v: str, values: "ValidationInfo") -> str:
+    def validate_api_key(cls, v: str, values) -> str:
         """Validate Google API key is set, but only if not using Vertex AI."""
-        if not values.data.get("use_vertex_ai") and not v:
+        use_vertex = False
+        try:
+            use_vertex = bool(values.data.get("use_vertex_ai"))  # type: ignore[attr-defined]
+        except Exception:
+            use_vertex = False
+        if not use_vertex and not v:
             raise ValueError(
                 "GOOGLE_API_KEY environment variable is required when not using Vertex AI. "
                 "Get one at: https://makersuite.google.com/app/apikey"

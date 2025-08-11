@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-import math
-import os
 from typing import Dict, Any, Optional, Tuple
 
 from clipscribe.config.settings import Settings

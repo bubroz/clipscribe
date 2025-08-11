@@ -2,7 +2,6 @@
 import pytest
 from unittest.mock import Mock, patch, AsyncMock
 from clipscribe.retrievers.transcriber import GeminiFlashTranscriber
-from tests.helpers import create_mock_video_intelligence
 
 
 @pytest.fixture

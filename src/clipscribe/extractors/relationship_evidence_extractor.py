@@ -7,8 +7,7 @@ providing comprehensive support for each relationship with confidence scoring.
 
 import logging
 import re
-from typing import List, Dict, Any, Optional, Tuple
-from collections import defaultdict
+from typing import List, Dict, Optional
 
 from ..models import (
     Relationship,
@@ -16,7 +15,6 @@ from ..models import (
     VideoIntelligence,
     VideoTranscript,
     EnhancedEntity,
-    EntityContext,
 )
 
 logger = logging.getLogger(__name__)

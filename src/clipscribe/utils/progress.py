@@ -8,7 +8,7 @@ for ClipScribe operations.
 import time
 from contextlib import contextmanager
 from typing import Any, Dict, Optional, Iterator
-from datetime import datetime, timedelta
+from datetime import timedelta
 
 from rich.console import Console
 from rich.progress import (
@@ -16,14 +16,11 @@ from rich.progress import (
     SpinnerColumn,
     BarColumn,
     TextColumn,
-    TimeRemainingColumn,
     TimeElapsedColumn,
     MofNCompleteColumn,
-    TaskID,
 )
 from rich.table import Table
 from rich.panel import Panel
-from rich.text import Text
 from rich import box
 
 # Global console instance

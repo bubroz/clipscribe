@@ -7,11 +7,10 @@ using explicit video publication date context for LLM processing.
 
 import logging
 import re
-from typing import List, Dict, Any, Optional
+from typing import List, Optional
 from datetime import datetime, timedelta
-from collections import defaultdict
 
-from ..models import VideoIntelligence, VideoTranscript, VideoMetadata, TemporalReference
+from ..models import VideoIntelligence, VideoMetadata, TemporalReference
 
 logger = logging.getLogger(__name__)
 

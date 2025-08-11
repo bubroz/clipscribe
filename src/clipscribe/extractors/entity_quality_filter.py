@@ -23,14 +23,12 @@ This ensures ClipScribe produces high-quality, meaningful entity extraction
 """
 
 import logging
-from typing import List, Dict, Any, Optional, Tuple, Set
+from typing import List, Dict, Any, Optional, Tuple
 import re
-from collections import defaultdict, Counter
+from collections import defaultdict
 from dataclasses import dataclass
-import asyncio
 
 from ..models import Entity, VideoIntelligence
-from ..config.settings import Settings
 
 logger = logging.getLogger(__name__)
 
@@ -445,7 +443,7 @@ class EntityQualityFilter:
         metrics.confidence_distribution = self._calculate_confidence_distribution(final_entities)
         metrics.language_purity_score = self._calculate_language_purity(final_entities)
 
-        logger.info(f" Entity quality enhancement complete:")
+        logger.info(" Entity quality enhancement complete:")
         logger.info(f"    {metrics.total_input_entities} → {metrics.filtered_entities} entities")
         logger.info(f"    Quality score: {metrics.final_quality_score:.3f}")
         logger.info(f"    Language purity: {metrics.language_purity_score:.3f}")

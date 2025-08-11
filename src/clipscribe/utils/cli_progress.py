@@ -7,7 +7,7 @@ It decouples the core application logic from the UI presentation, allowing for
 cleaner, more maintainable, and more professional-looking CLI output.
 """
 
-from typing import List, Dict, Optional
+from typing import List, Optional
 from rich.progress import Progress, SpinnerColumn, BarColumn, TextColumn, TimeElapsedColumn
 from rich.console import Console
 

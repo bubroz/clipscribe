@@ -14,14 +14,12 @@ Part of Week 1-2 Core Excellence Implementation Plan.
 """
 
 import pytest
-import asyncio
 import logging
 import json
 import time
 from typing import Dict, Any, List, Optional
 from pathlib import Path
 from datetime import datetime
-import statistics
 
 logger = logging.getLogger(__name__)
 
@@ -453,7 +451,7 @@ class EdgeCaseTestRunner:
 
             markdown_content += f"| {target_name.replace('_', ' ').title()} | {description} | {target_val} | {actual_val} | {status} |\n"
 
-        markdown_content += f"""
+        markdown_content += """
 
 ##  Category Results
 
@@ -467,7 +465,7 @@ class EdgeCaseTestRunner:
 
                 markdown_content += f"- **{category_name.replace('_', ' ').title()}**: {status} ({success_rate:.1f}% - {tests_run} tests)\n"
 
-        markdown_content += f"""
+        markdown_content += """
 
 ##  Recommendations
 
@@ -475,7 +473,7 @@ class EdgeCaseTestRunner:
         for rec in report["recommendations"]:
             markdown_content += f"- {rec}\n"
 
-        markdown_content += f"""
+        markdown_content += """
 
 ##  Next Steps
 

@@ -4,7 +4,6 @@ This module provides the command-line interface for ClipScribe, supporting
 transcription of videos from 1800+ platforms using Gemini 2.5 Pro by default.
 """
 
-import sys
 from pathlib import Path
 from typing import Optional, List
 import asyncio

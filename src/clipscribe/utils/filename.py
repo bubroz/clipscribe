@@ -1,7 +1,6 @@
 """Utility functions for filename handling."""
 
 import re
-import os
 from pathlib import Path
 from datetime import datetime
 from typing import Optional, Dict, Any
@@ -148,7 +147,7 @@ def extract_platform_from_url(url: str) -> str:
         domain = urllib.parse.urlparse(url).netloc
         domain = domain.replace("www.", "").split(".")[0]
         return domain[:20]  # Limit length
-    except:
+    except Exception:
         return "unknown"
 
 

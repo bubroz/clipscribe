@@ -3,17 +3,15 @@
 import os
 import logging
 import tempfile
-from typing import Dict, List, Optional, Any, Tuple
-from datetime import datetime
+from typing import Dict, Optional, Any
 import google.generativeai as genai
-from google.generativeai.types import RequestOptions, GenerationConfig
+from google.generativeai.types import RequestOptions
 import json
 import re
 from pathlib import Path
 import asyncio
 import mimetypes
 
-from rich.progress import Progress, SpinnerColumn, BarColumn, TextColumn
 from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
 
 from ..config.settings import Settings, TemporalIntelligenceLevel
@@ -117,7 +115,7 @@ class GeminiFlashTranscriber:
                         result = json.loads(json_portion)
                         logger.info("Successfully extracted valid JSON portion")
                         return result
-                except:
+                except Exception:
                     pass
 
                 logger.error(
@@ -305,7 +303,7 @@ class GeminiFlashTranscriber:
             logger.error(f"Transcription failed: {e}")
             try:
                 genai.delete_file(file)
-            except:
+            except Exception:
                 pass
             raise
 

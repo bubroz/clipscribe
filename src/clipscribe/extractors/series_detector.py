@@ -7,11 +7,10 @@ using title patterns, temporal analysis, and content similarity.
 
 import logging
 import re
-from typing import List, Dict, Any, Tuple, Optional
-from datetime import datetime, timedelta
+from typing import List, Dict, Any
+from datetime import datetime
 from difflib import SequenceMatcher
 from collections import defaultdict, Counter
-import asyncio
 
 from ..models import VideoIntelligence, SeriesDetectionResult, SeriesMetadata, VideoSimilarity
 

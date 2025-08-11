@@ -15,7 +15,6 @@ from ..models import (
     EnhancedEntity,
     EntityContext,
     TemporalMention,
-    VideoTranscript,
 )
 
 logger = logging.getLogger(__name__)

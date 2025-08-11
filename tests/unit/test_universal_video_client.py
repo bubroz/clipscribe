@@ -1,9 +1,8 @@
 # tests/unit/test_universal_video_client.py
 import pytest
-from unittest.mock import Mock, patch, AsyncMock, MagicMock
+from unittest.mock import patch
 from clipscribe.retrievers.universal_video_client import EnhancedUniversalVideoClient
 from clipscribe.models import VideoMetadata
-import asyncio
 import yt_dlp
 
 

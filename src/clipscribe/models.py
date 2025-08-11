@@ -1,9 +1,9 @@
 """Video Intelligence Models for Chimera Integration."""
 
 from __future__ import annotations
-from typing import List, Dict, Any, Optional, Union, TYPE_CHECKING
+from typing import List, Dict, Any, Optional
 from datetime import datetime
-from pydantic import BaseModel, Field, HttpUrl, validator
+from pydantic import BaseModel, Field, validator
 from enum import Enum
 
 

@@ -15,9 +15,7 @@ from ..models import (
     VideoIntelligence,
     VideoTranscript,
     KeyPoint,
-    Entity,
     Topic,
-    Relationship,
     MultiVideoIntelligence,
 )
 from .universal_video_client import UniversalVideoClient
@@ -1323,16 +1321,16 @@ class VideoIntelligenceRetriever:
             r, g, b = color_map.get(node_type, color_map["unknown"])
 
             gexf_content += f'      <node id="{node_id}" label="{label}">\n'
-            gexf_content += f"        <attvalues>\n"
+            gexf_content += "        <attvalues>\n"
             gexf_content += f'          <attvalue for="0" value="{escape(node_type)}"/>\n'
             gexf_content += f'          <attvalue for="1" value="{confidence}"/>\n'
             gexf_content += f'          <attvalue for="2" value="{mention_count}"/>\n'
             gexf_content += f'          <attvalue for="3" value="{occurrences}"/>\n'
             gexf_content += f'          <attvalue for="4" value="{label}"/>\n'
-            gexf_content += f"        </attvalues>\n"
+            gexf_content += "        </attvalues>\n"
             gexf_content += f'        <viz:color r="{r}" g="{g}" b="{b}" a="1.0"/>\n'
             gexf_content += f'        <viz:size value="{20 + (confidence * 30)}"/>\n'
-            gexf_content += f"      </node>\n"
+            gexf_content += "      </node>\n"
 
         gexf_content += "    </nodes>\n"
         gexf_content += "    <edges>\n"
@@ -1347,11 +1345,11 @@ class VideoIntelligenceRetriever:
             confidence = edge.get("confidence", 0.9)
 
             gexf_content += f'      <edge id="{i}" source="{source}" target="{target}" weight="{confidence}" label="{predicate}" kind="{predicate}">\n'
-            gexf_content += f"        <attvalues>\n"
+            gexf_content += "        <attvalues>\n"
             gexf_content += f'          <attvalue for="0" value="{predicate}"/>\n'
             gexf_content += f'          <attvalue for="1" value="{confidence}"/>\n'
-            gexf_content += f"        </attvalues>\n"
-            gexf_content += f"      </edge>\n"
+            gexf_content += "        </attvalues>\n"
+            gexf_content += "      </edge>\n"
 
         gexf_content += "    </edges>\n"
         gexf_content += "  </graph>\n"
@@ -1593,7 +1591,6 @@ class VideoIntelligenceRetriever:
 
     def _save_information_flow_summary(self, flow_map, output_path: Path):
         """Generate a human-readable markdown summary of information flow maps."""
-        from clipscribe.models import InformationFlowMap
 
         # Calculate unique video count from concept nodes
         unique_videos = set()

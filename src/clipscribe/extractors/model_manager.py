@@ -7,7 +7,7 @@ performance monitoring for cache hits and load times.
 """
 
 import logging
-from typing import Optional, Dict, Any
+from typing import Dict, Any
 import warnings
 import os
 import time

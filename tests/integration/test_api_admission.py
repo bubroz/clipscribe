@@ -1,5 +1,3 @@
-import os
-import json
 
 
 def test_estimate_schema_roundtrip(requests_mock=None):

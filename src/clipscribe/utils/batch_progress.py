@@ -8,7 +8,6 @@ from rich.panel import Panel
 from rich.progress import Progress, BarColumn, TextColumn, TaskID, TimeElapsedColumn
 from rich.live import Live
 from rich.layout import Layout
-from rich.table import Table
 from rich import box
 from typing import Optional, Dict
 

@@ -9,13 +9,13 @@ import asyncio
 import hashlib
 from datetime import datetime, timezone, timedelta
 
-from fastapi import FastAPI, Header, HTTPException, Response, Request
+from fastapi import FastAPI, Header, Request
 from fastapi.responses import JSONResponse, StreamingResponse
 from pydantic import BaseModel, Field
 from fastapi.middleware.cors import CORSMiddleware
 from rq import Queue
 import redis
-from clipscribe.config.settings import Settings, TemporalIntelligenceLevel
+from clipscribe.config.settings import Settings
 from .estimator import estimate_job
 
 
@@ -404,7 +404,7 @@ async def create_job(
             )
         # Reserve
         try:
-            new_total = redis_conn.incrbyfloat(budget_key, est_cost)
+            redis_conn.incrbyfloat(budget_key, est_cost)
             if current is None:
                 redis_conn.expire(budget_key, _seconds_until_end_of_day_utc())
             _metrics_inc("budget_reserves")
@@ -506,7 +506,6 @@ async def list_artifacts(
 
             client = storage.Client()
             prefix = f"jobs/{job_id}/"
-            bucket_ref = client.bucket(bucket)
             for blob in client.list_blobs(bucket, prefix=prefix):
                 name = getattr(blob, "name", "")
                 if not name or name.endswith("/"):
@@ -520,7 +519,7 @@ async def list_artifacts(
                     # Prefer signed URL when service account has signing capability
                     url = blob.generate_signed_url(version="v4", expiration=900, method="GET")
                     requires_auth = False
-                except Exception as sign_err:
+                except Exception:
                     # Fall back to public URL (will 403 for anonymous); still return entry for clients using creds
                     url = public_url
                 artifacts.append(
@@ -579,7 +578,7 @@ async def presign_upload(
             )
             gcs_uri = f"gs://{bucket}/{object_path}"
             return PresignResponse(upload_url=upload_url, gcs_uri=gcs_uri)
-        except Exception as e:
+        except Exception:
             # Fall through to mock if signing fails
             pass
 

@@ -4,14 +4,11 @@ import os
 import logging
 import tempfile
 import asyncio
-import json
-import hashlib
 from typing import List, Dict, Optional, Tuple, Any
 from datetime import datetime, timedelta
-from pathlib import Path
 from dataclasses import dataclass
 import yt_dlp
-from youtubesearchpython.__future__ import VideosSearch, Channel, Playlist, CustomSearch
+from youtubesearchpython.__future__ import Channel, Playlist, CustomSearch
 from youtubesearchpython import VideoSortOrder, playlist_from_channel_id
 from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
 
@@ -159,7 +156,7 @@ class EnhancedUniversalVideoClient:
                     sites.append(ie.IE_NAME)
 
             return sorted(list(set(sites)))
-        except:
+        except Exception:
             # Fallback to some known popular sites
             return [
                 "youtube",
@@ -211,7 +208,7 @@ class EnhancedUniversalVideoClient:
                 try:
                     ydl.extract_info(url, download=False)
                     return True
-                except:
+                except Exception:
                     return False
 
     async def search_videos(
@@ -447,7 +444,7 @@ class EnhancedUniversalVideoClient:
                             break
 
                     if not audio_file or not os.path.exists(audio_file):
-                        raise FileNotFoundError(f"Audio file not found after download")
+                        raise FileNotFoundError("Audio file not found after download")
 
                     logger.info(f"Audio downloaded: {audio_file}")
                     return audio_file, metadata
@@ -535,7 +532,7 @@ class EnhancedUniversalVideoClient:
                 return int(parts[0]) * 3600 + int(parts[1]) * 60 + int(parts[2])
             else:
                 return 0
-        except:
+        except Exception:
             return 0
 
     def _parse_published_date(self, date_str: str) -> datetime:
@@ -562,7 +559,7 @@ class EnhancedUniversalVideoClient:
 
             # Try parsing absolute date
             return datetime.strptime(date_str, "%Y-%m-%d")
-        except:
+        except Exception:
             return datetime.now()
 
     def _parse_view_count(self, views_str: str) -> int:
@@ -583,7 +580,7 @@ class EnhancedUniversalVideoClient:
                 return int(float(clean.replace("B", "")) * 1_000_000_000)
             else:
                 return int(clean)
-        except:
+        except Exception:
             return 0
 
     async def download_video(
@@ -676,7 +673,7 @@ class EnhancedUniversalVideoClient:
             with yt_dlp.YoutubeDL({"quiet": True}) as ydl:
                 info = ydl.extract_info(video_url, download=False, process=False)
                 return info.get("extractor", "generic").lower()
-        except:
+        except Exception:
             return "generic"
 
     def _get_video_sort_order(self, sort_by: str) -> str:

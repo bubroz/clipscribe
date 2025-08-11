@@ -6,32 +6,21 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# Set credentials if available in env
-if not os.getenv("GOOGLE_APPLICATION_CREDENTIALS") and os.path.exists(
-    "/Users/base/.config/gcloud/clipscribe-service-account.json"
-):
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = (
-        "/Users/base/.config/gcloud/clipscribe-service-account.json"
-    )
-
 import asyncio
 import json
 import logging
 from pathlib import Path
-from typing import Dict, Any, Optional, Tuple, List
+from typing import Dict, Any, Optional
 from datetime import datetime
 
 import vertexai
 from vertexai.generative_models import GenerativeModel, Part, Content
 from google.cloud import storage
 from google.api_core import exceptions as google_exceptions
-from google.api_core import retry
 import tenacity
 
 from ..models import (
-    VideoIntelligence,
     TranscriptSegment,
-    TemporalIntelligence,
     Entity,
     Relationship,
 )
@@ -40,9 +29,6 @@ from ..config.vertex_ai_config import (
     VERTEX_AI_PROJECT_ID,
     VERTEX_AI_LOCATION,
     VERTEX_AI_MODEL_NAME,
-    VERTEX_AI_GENERATION_CONFIG,
-    VERTEX_AI_REQUEST_CONFIG,
-    VERTEX_AI_SAFETY_SETTINGS,
     VERTEX_AI_STAGING_BUCKET,
 )
 
@@ -60,11 +46,9 @@ class VertexAITranscriber:
         self.model_name = VERTEX_AI_MODEL_NAME
         self.auto_cleanup = False
 
-        # Set credentials if available in env
+        # Log if relying on default credentials (WIF/ADC)
         if not os.getenv("GOOGLE_APPLICATION_CREDENTIALS"):
-            logger.warning(
-                "GOOGLE_APPLICATION_CREDENTIALS not set. Attempting to use default credentials"
-            )
+            logger.info("Using Application Default Credentials (WIF/ADC) for Vertex")
 
         # Initialize Vertex AI
         vertexai.init(project=self.project_id, location=self.location)
@@ -166,7 +150,7 @@ class VertexAITranscriber:
                     f"Vertex generate start (uri path). Generation config: {generation_config}"
                 )
                 response = await self._generate_once(contents, generation_config)
-            except google_exceptions.InvalidArgument as e:
+            except google_exceptions.InvalidArgument:
                 # Explicitly catch 400 Invalid Argument and fall back to inline bytes
                 logger.info(
                     "Vertex rejected gs:// URI with InvalidArgument; attempting inline bytes fallback"

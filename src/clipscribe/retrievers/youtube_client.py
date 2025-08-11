@@ -7,7 +7,6 @@ from typing import List, Dict, Optional, Tuple
 from datetime import datetime, timedelta
 import yt_dlp
 from youtubesearchpython import VideosSearch
-import json
 
 from ..models import VideoMetadata
 
@@ -149,7 +148,7 @@ class YouTubeClient:
                             break
 
                 if not os.path.exists(audio_file):
-                    raise FileNotFoundError(f"Audio file not found after download")
+                    raise FileNotFoundError("Audio file not found after download")
 
                 logger.info(f"Audio downloaded: {audio_file}")
                 return audio_file, metadata
@@ -202,7 +201,7 @@ class YouTubeClient:
                 return int(parts[0]) * 3600 + int(parts[1]) * 60 + int(parts[2])
             else:
                 return 0
-        except:
+        except Exception:
             return 0
 
     def _parse_published_date(self, date_str: str) -> datetime:
@@ -229,7 +228,7 @@ class YouTubeClient:
 
             # Try parsing absolute date
             return datetime.strptime(date_str, "%Y-%m-%d")
-        except:
+        except Exception:
             return datetime.now()
 
     def _parse_view_count(self, views_str: str) -> int:
@@ -247,5 +246,5 @@ class YouTubeClient:
                 return int(float(clean.replace("B", "")) * 1_000_000_000)
             else:
                 return int(clean)
-        except:
+        except Exception:
             return 0
