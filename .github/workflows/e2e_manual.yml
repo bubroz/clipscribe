@@ -1,0 +1,75 @@
+name: E2E (manual, Vertex)
+
+on:
+  workflow_dispatch:
+    inputs:
+      run_cli_tests:
+        description: "Run CLI E2E integration tests"
+        required: true
+        default: "true"
+
+jobs:
+  e2e-cli:
+    if: ${{ github.event.inputs.run_cli_tests == 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      USE_VERTEX_AI: "true"
+      VERTEX_AI_PROJECT: ${{ secrets.VERTEX_AI_PROJECT }}
+      VERTEX_AI_LOCATION: "us-central1"
+      CLIPSCRIBE_RUN_E2E: "1"
+      CLIPSCRIBE_RUN_E2E_ALLOW_AISTUDIO: "" # force Vertex path
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install system deps (ffmpeg)
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+
+      - name: Install Poetry
+        run: |
+          python -m pip install --upgrade pip
+          pip install poetry
+
+      - name: Cache virtualenv
+        uses: actions/cache@v4
+        with:
+          path: .venv
+          key: e2e-venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
+          restore-keys: |
+            e2e-venv-${{ runner.os }}-
+
+      - name: Install dependencies
+        run: |
+          poetry install --with dev --no-interaction --no-root
+
+      - name: Write service account key
+        shell: bash
+        env:
+          SA_JSON: ${{ secrets.VERTEX_SA_JSON }}
+        run: |
+          if [ -z "$SA_JSON" ]; then echo "Missing VERTEX_SA_JSON secret" && exit 1; fi
+          echo "$SA_JSON" > $RUNNER_TEMP/sa.json
+          echo "GOOGLE_APPLICATION_CREDENTIALS=$RUNNER_TEMP/sa.json" >> $GITHUB_ENV
+          echo "Wrote service account to $RUNNER_TEMP/sa.json"
+
+      - name: Auth check (sanity)
+        run: |
+          poetry run clipscribe utils check-auth | sed 's/AIza.\+/[REDACTED]/' || true
+
+      - name: Run CLI E2E integration tests (Vertex)
+        run: |
+          poetry run pytest -q tests/integration/test_cli_commands.py
+
+      - name: Upload test artifacts (output dir)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-output
+          path: output/**
+
