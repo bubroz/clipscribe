@@ -1,11 +1,11 @@
 # Getting Started with ClipScribe
 
-*Last Updated: August 8, 2025*
+*Last Updated: August 11, 2025*
 *Related: [CLI Reference](CLI_REFERENCE.md) | [Output Formats](OUTPUT_FORMATS.md)*
 
 ##  What's New: v2.29.3 — Stability, Chunked Uploads, and Clean CLI Groups
 
-**ClipScribe v2.29.3** highlights:
+**ClipScribe v2.29.7** highlights:
 - **Pro by default, Flash available**: Gemini 2.5 Pro for complex analysis; `--use-flash` for standard/high-volume tasks.
 - **Resilience**: Chunked MP3 uploads, throttled concurrency, and configurable timeouts for long videos.
 - **Exports**: GEXF export upgraded (stable IDs, idtype, node attrs, edge labels, viz colors).
@@ -15,7 +15,7 @@
 
 - Python 3.11+ (3.12+ for optimal performance)
 - Poetry ([install](https://python-poetry.org/docs/#installation)) for dependency management
-- Google API key ([free tier](https://makersuite.google.com/app/apikey))
+- Google API key ([free tier](https://makersuite.google.com/app/apikey)) or Vertex AI ADC (enterprise)
 - FFmpeg (`brew install ffmpeg` on macOS, `apt install ffmpeg` on Ubuntu)
 
 ## Quick Installation
@@ -45,7 +45,7 @@ export GOOGLE_API_KEY="your-api-key-here"
 
 ```bash
 poetry run clipscribe --version
-# Should output: ClipScribe, version 2.29.3
+# Should output: ClipScribe, version 2.29.7
 
 poetry run clipscribe --help
 ```

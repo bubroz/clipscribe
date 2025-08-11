@@ -1,6 +1,6 @@
 # ClipScribe Cost Analysis
 
-*Last Updated: August 8, 2025*
+*Last Updated: August 11, 2025*
 
 ## Overview
 
@@ -40,7 +40,10 @@ Rate limits (requests per minute, RPM) depend on authentication tier:
 - Tier 3 (billed project, >$1,000): ~10,000 RPM
 - Vertex AI (enterprise): project-based, customizable quotas
 
-Recommendation: Link your Google AI Studio API key to a billed GCP project to unlock higher quotas, or use Vertex AI for enterprise workloads.
+Recommendation: Link your Google AI Studio API key to a billed GCP project to unlock higher quotas, or use Vertex AI for enterprise workloads. Use the auth utility to verify path and quotas:
+```bash
+poetry run clipscribe utils check-auth
+```
 
 Two access paths to Gemini:
 - Google AI Studio (API key): set `GOOGLE_API_KEY`; best for individuals/rapid prototyping.

@@ -1,7 +1,7 @@
 # ClipScribe Output File Standards
 
-*Last Updated: August 8, 2025*
-*Version: v2.29.3*
+*Last Updated: August 11, 2025*
+*Version: v2.29.7*
 
 ## Overview
 

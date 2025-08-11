@@ -1,6 +1,6 @@
 # Supported Platforms
 
-*Last Updated: August 8, 2025*
+*Last Updated: August 11, 2025*
 
 ClipScribe supports **1800+ video platforms** through yt-dlp integration. If a video platform exists on the internet, there's a good chance ClipScribe can process it!
 

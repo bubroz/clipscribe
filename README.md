@@ -10,7 +10,7 @@
 
 ClipScribe extracts and analyzes structured data from video content through entity recognition, relationship mapping, and key insight identification. Built for students, researchers, analysts, content creators, and organizations requiring reliable video intelligence.
 
-## v2.28.0 - Interactive TUI and Robust Backend
+## v2.29.7 - API v1 readiness, signed artifacts, Vertex validation
 
 **STATUS**:  **The application is now stable, robust, and features a professional-grade interactive TUI.** All core processing logic has been hardened, and the user interface has been completely rebuilt for a modern, interactive experience.
 
@@ -54,11 +54,8 @@ cd clipscribe
 
 ### 2. Install Dependencies
 ```bash
-# Using Poetry (recommended for reproducible environments)
+# Poetry (required)
 poetry install --with dev  # Includes dev tools for testing/extending
-
-# Or using pip (for quick setup)
-pip install -e .[dev]
 ```
 
 ### 3. Configure API Access
@@ -75,7 +72,7 @@ echo "GOOGLE_APPLICATION_CREDENTIALS=/path/to/your/service-account.json" >> .env
 ### 4. Verify Installation
 ```bash
 poetry run clipscribe --version
-# Expected: ClipScribe v2.22.2
+# Expected: ClipScribe v2.29.7
 
 # Test imports for extension
 poetry run python -c "from clipscribe.retrievers.video_retriever import VideoIntelligenceRetriever; print('Imports working')"
@@ -232,12 +229,12 @@ poetry run clipscribe process video URL --mode video      # Full video processin
 # poetry run clipscribe process video URL --use-vertex-ai
 ```
 
-## Performance Benchmarks (v2.22.2 Current Status)
+## Performance Benchmarks (v2.29.7 Current Status)
 
 ### Processing Speed
 - **Single 5-min Video**: 1-2 minutes (Flash), 1.5-2.5 minutes (Pro)
 - **CLI Startup**: 0.4s (optimized with lazy loading)
-- **Working Commands**: 6/6 CLI integration tests passing (100% success rate)
+- **Working Commands**: Core CLI commands stable. End-to-end tests are opt-in and run only when explicit environment credentials are provided (Vertex ADC or AI Studio with opt-in flag) to avoid accidental live-cost runs.
 - **Test Coverage**: 44% overall (continuing to improve)
 
 ### Cost Efficiency

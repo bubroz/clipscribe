@@ -1,10 +1,10 @@
 # ClipScribe CLI Reference
 
-Last Updated: August 8, 2025 - v2.29.3
+Last Updated: August 11, 2025 - v2.29.7
 
 Complete reference for all ClipScribe commands, groups, and options.
 
-**Current Status**:  **6/6 CLI integration tests passing (100% success rate)**. All commands, including single video and multi-video collection processing, are now fully functional and stable.
+**Current Status**: Core CLI fully functional. E2E networked tests are gated and run only with explicit credentials (Vertex ADC by default; AI Studio opt-in) to prevent accidental live-cost runs.
 
 ##  Key Features
 

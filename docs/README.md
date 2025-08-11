@@ -1,6 +1,6 @@
-# ClipScribe Documentation v2.29.6
+# ClipScribe Documentation v2.29.7
 
-*Last Updated: August 10, 2025*
+*Last Updated: August 11, 2025*
 
 ## Overarching Goals and Stages
 
@@ -21,3 +21,4 @@ poetry run python examples/pbs_fast_batch.py --limit 3
 - API Readiness Spec: `docs/architecture/API_V1_SERVICE_READINESS.md`
 - OpenAPI (machine-readable): `docs/architecture/openapi.yaml`
 - API Quickstart: `docs/API_QUICKSTART.md`
+ - Cost Analysis: `docs/COST_ANALYSIS.md`
