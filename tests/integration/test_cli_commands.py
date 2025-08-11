@@ -50,15 +50,19 @@ def _should_run_e2e() -> bool:
 
 
 def _auth_configured() -> bool:
+    """Require Vertex ADC by default; allow API key only with explicit opt-in."""
     try:
         from clipscribe.config.settings import Settings
         s = Settings()
-        if getattr(s, 'google_api_key', '') and os.environ.get("GOOGLE_API_KEY", "") not in ("", "your_key_here"):
-            return True
-        if getattr(s, 'use_vertex_ai', False):
+        # Prefer Vertex ADC path
+        if getattr(s, 'use_vertex_ai', False) or os.environ.get("USE_VERTEX_AI"):
             cred = os.environ.get("GOOGLE_APPLICATION_CREDENTIALS")
             proj = os.environ.get("VERTEX_AI_PROJECT") or getattr(s, 'vertex_ai_project', None)
             if cred and Path(cred).exists() and proj:
+                return True
+        # Allow AI Studio only if explicitly opted in to avoid accidental billing/limits
+        if os.environ.get("CLIPSCRIBE_RUN_E2E_ALLOW_AISTUDIO", "").lower() in ("1", "true", "yes"):
+            if getattr(s, 'google_api_key', '') and os.environ.get("GOOGLE_API_KEY", "") not in ("", "your_key_here"):
                 return True
         return False
     except Exception:
