@@ -45,9 +45,7 @@ jobs:
           context: .
           file: Dockerfile.api
           push: true
-          tags: |
-            ${{ env.REGION }}-docker.pkg.dev/${{ secrets.VERTEX_AI_PROJECT }}/clipscribe/clipscribe-api:${{ github.ref_name }}
-            ${{ env.REGION }}-docker.pkg.dev/${{ secrets.VERTEX_AI_PROJECT }}/clipscribe/clipscribe-api:latest
+          tags: ${{ env.REGION }}-docker.pkg.dev/${{ secrets.VERTEX_AI_PROJECT }}/clipscribe/clipscribe-api:${{ github.ref_name }},${{ env.REGION }}-docker.pkg.dev/${{ secrets.VERTEX_AI_PROJECT }}/clipscribe/clipscribe-api:latest
 
       - name: Deploy to Cloud Run
         env:
