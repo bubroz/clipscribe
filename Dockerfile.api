@@ -1,0 +1,32 @@
+# ClipScribe API Dockerfile for Cloud Run
+FROM python:3.12-slim
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    ffmpeg \
+    git \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+# Copy dependency files first (build cache)
+COPY pyproject.toml poetry.lock ./
+
+# Install Poetry and project dependencies (no dev deps for runtime)
+RUN pip install --no-cache-dir poetry==1.8.3 && \
+    poetry config virtualenvs.create false && \
+    poetry install --no-interaction --no-ansi --no-dev
+
+# Copy source code
+COPY . .
+
+# Defaults
+ENV PORT=8080 \
+    PYTHONUNBUFFERED=1
+
+# Health check: minimal metrics endpoint
+HEALTHCHECK CMD curl --fail http://localhost:${PORT}/v1/metrics || exit 1
+
+# Start FastAPI app via project entrypoint
+CMD poetry run clipscribe-api
