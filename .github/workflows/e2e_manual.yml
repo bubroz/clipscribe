@@ -55,7 +55,8 @@ jobs:
 
       - name: Install dependencies
         run: |
-          poetry install --with dev --no-interaction --no-root
+          poetry install --with dev,test --no-interaction --no-root
+          poetry install --only-root --no-interaction
 
       - name: Auth check (sanity)
         run: |
