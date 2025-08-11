@@ -98,6 +98,7 @@ uvicorn = {version = "^0.30.0", extras = ["standard"]}
 google-cloud-storage = "^2.17.0"
 redis = "^5.0.7"
 rq = "^1.16.2"
+pydantic-settings = "^2.5.2"
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.10.0"

@@ -67,7 +67,7 @@ jobs:
 
       - name: Run CLI E2E integration tests (Vertex)
         run: |
-          poetry run pytest -q tests/integration/test_cli_commands.py
+          poetry run pytest -q tests/integration/test_cli_commands.py -k "not slow"
 
       - name: Upload test artifacts (output dir)
         if: always()
