@@ -37,7 +37,8 @@ class GeminiFlashTranscriber:
         """
         self.settings = Settings()
         self.api_key = api_key or self.settings.google_api_key
-        self.use_vertex_ai = False
+        # Honor global setting to route through Vertex when enabled
+        self.use_vertex_ai = bool(getattr(self.settings, "use_vertex_ai", False))
         
         model_name = "gemini-2.5-pro" if use_pro else "gemini-2.5-flash"
         logger.info(f"Using model: {model_name} (use_pro={use_pro})")
