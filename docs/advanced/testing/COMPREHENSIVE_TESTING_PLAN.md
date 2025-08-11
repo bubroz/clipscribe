@@ -1,7 +1,7 @@
 # ClipScribe Comprehensive Testing Plan
 
-*Last Updated: July 31, 2025*
-*Status: v2.22.2 - Test Suite Stable & Comprehensive*
+Last Updated: August 11, 2025
+Status: Historical snapshot. Current policy: unit/integration tests green by default; E2E networked tests are opt-in and run only with explicit credentials (Vertex ADC or AI Studio with opt-in flag).
 
 ## Executive Summary
 

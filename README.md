@@ -1,5 +1,7 @@
 # ClipScribe
 
+Proprietary software. Not open source.
+
 **Video Intelligence Collection, Analysis, and Reporting**
 
 *Transform video content into structured, searchable, and reportable intelligence*
@@ -8,7 +10,7 @@
 
 ---
 
-ClipScribe extracts and analyzes structured data from video content through entity recognition, relationship mapping, and key insight identification. Built for students, researchers, analysts, content creators, and organizations requiring reliable video intelligence.
+ClipScribe extracts and analyzes structured data from video content through entity recognition, relationship mapping, and key insight identification. Built for researchers, analysts, and organizations requiring reliable video intelligence.
 
 ## v2.29.7 - API v1 readiness, signed artifacts, Vertex validation
 
@@ -225,8 +227,7 @@ poetry run clipscribe process video URL --mode audio      # Audio-only (faster)
 poetry run clipscribe process video URL --mode video      # Full video processing
 
 # Enterprise scale
-# (Note: Vertex AI support is pending refactor to new command structure)
-# poetry run clipscribe process video URL --use-vertex-ai
+# Vertex AI is supported when configured (Settings.use_vertex_ai or environment variables).
 ```
 
 ## Performance Benchmarks (v2.29.7 Current Status)

@@ -1,0 +1,4 @@
+# Code owners for critical paths
+/src/clipscribe/api/* @bubroz
+/src/clipscribe/retrievers/* @bubroz
+/docs/* @bubroz

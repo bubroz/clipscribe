@@ -4,20 +4,18 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "clipscribe"
-version = "2.20.0"
+version = "2.29.7"
 description = "ClipScribe - AI-powered video intelligence tool for extracting knowledge from video content"
 authors = ["Zac Forristall <zforristall@gmail.com>"]
 readme = "README.md"
-license = "MIT"
+license = "Proprietary"
 repository = "https://github.com/bubroz/clipscribe"
 keywords = ["video", "intelligence", "temporal", "AI", "Gemini", "knowledge extraction", "timeline", "ARGOS"]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
-    "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.12",
-    "Programming Language :: Python :: 3.13",
 ]
 packages = [{include = "clipscribe", from = "src"}]
 

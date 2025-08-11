@@ -1,7 +1,7 @@
 # ClipScribe SaaS - API Design Document (v1)
 
-*Last Updated: August 4, 2025*
-*Status: DRAFT*
+Last Updated: August 11, 2025
+Status: DRAFT (informational). Canonical contract is in `API_V1_SERVICE_READINESS.md` and `openapi.yaml`.
 
 ## 1. Overview
 
@@ -23,7 +23,7 @@ Authentication will be handled via an API key sent in the HTTP header.
 
 Keys will be generated and managed through the user's account dashboard in the future web application.
 
-## 4. Endpoints
+## 4. Endpoints (see OpenAPI for authoritative schemas)
 
 ### POST /v1/jobs
 

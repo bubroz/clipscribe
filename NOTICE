@@ -1,0 +1,24 @@
+Third-Party Notices
+
+This product includes third-party software components distributed under their
+respective licenses. The following is a non-exhaustive list of significant
+dependencies used during development and runtime. Refer to each project's
+repository for full license texts.
+
+- fastapi (MIT)
+- uvicorn (BSD)
+- redis (MIT)
+- rq (BSD)
+- google-cloud-storage (Apache-2.0)
+- google-cloud-aiplatform (Apache-2.0)
+- google-generativeai (Apache-2.0)
+- yt-dlp (Unlicense)
+- pydantic (MIT)
+- rich (MIT)
+- networkx (BSD)
+- spacy (MIT)
+- tenacity (Apache-2.0)
+
+No modifications are distributed from these components within this repository.
+All trademarks are the property of their respective owners.
+

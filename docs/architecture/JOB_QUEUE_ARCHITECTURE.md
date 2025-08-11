@@ -1,7 +1,7 @@
 # ClipScribe SaaS - Job Queue Architecture (v1)
 
-*Last Updated: August 4, 2025*
-*Status: DRAFT*
+Last Updated: August 11, 2025
+Status: DRAFT (exploratory). Current implementation uses Redis + RQ as documented in the Readiness Spec.
 
 ## 1. Overview
 
@@ -10,7 +10,7 @@ To handle long-running video processing tasks in a scalable and reliable way, Cl
 ## 2. Technology Choices
 
 - **Broker:** **Redis**. It is lightweight, fast, and easy to manage. It's perfect for our use case.
-- **Job Queue Framework:** **Celery**. It is the industry standard for background tasks in Python. It's robust, feature-rich, and integrates seamlessly with Redis.
+- **Job Queue Framework:** **RQ** (Redis Queue). Lightweight and sufficient for our API v1 worker model. Previously evaluated Celery; Redis + RQ chosen for simplicity.
 
 ## 3. Architecture Diagram
 
