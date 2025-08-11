@@ -1,11 +1,6 @@
 """Vertex AI implementation for transcription and intelligence extraction."""
 
-# Load environment variables FIRST, before ANY Google imports
 import os
-from dotenv import load_dotenv
-
-load_dotenv()
-
 import asyncio
 import json
 import logging
@@ -13,17 +8,14 @@ from pathlib import Path
 from typing import Dict, Any, Optional
 from datetime import datetime
 
+from dotenv import load_dotenv
 import vertexai
 from vertexai.generative_models import GenerativeModel, Part, Content
 from google.cloud import storage
 from google.api_core import exceptions as google_exceptions
 import tenacity
 
-from ..models import (
-    TranscriptSegment,
-    Entity,
-    Relationship,
-)
+from ..models import TranscriptSegment, Entity, Relationship
 from ..config.settings import Settings
 from ..config.vertex_ai_config import (
     VERTEX_AI_PROJECT_ID,
@@ -31,6 +23,9 @@ from ..config.vertex_ai_config import (
     VERTEX_AI_MODEL_NAME,
     VERTEX_AI_STAGING_BUCKET,
 )
+
+# Load env from .env if present (optional)
+load_dotenv()
 
 logger = logging.getLogger(__name__)
 
