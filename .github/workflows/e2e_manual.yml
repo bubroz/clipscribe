@@ -49,14 +49,17 @@ jobs:
         uses: actions/cache@v4
         with:
           path: .venv
-          key: e2e-venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
+          key: e2e-venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}-${{ hashFiles('pyproject.toml') }}
           restore-keys: |
             e2e-venv-${{ runner.os }}-
 
+      - name: Resolve lockfile
+        run: |
+          poetry lock --no-interaction
+
       - name: Install dependencies
         run: |
-          poetry install --with dev,test --no-interaction --no-root
-          poetry install --only-root --no-interaction
+          poetry install --with dev,test --no-interaction
 
       - name: Auth check (sanity)
         run: |
