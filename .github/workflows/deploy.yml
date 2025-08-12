@@ -49,6 +49,8 @@ jobs:
           context: .
           file: Dockerfile.api
           push: true
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
           tags: |
             ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/clipscribe/clipscribe-api:${{ github.ref_name }}
             ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/clipscribe/clipscribe-api:latest
