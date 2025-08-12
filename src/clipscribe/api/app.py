@@ -11,6 +11,7 @@ from datetime import datetime, timezone, timedelta
 
 from fastapi import FastAPI, Header, Request
 from fastapi.responses import JSONResponse, StreamingResponse
+from starlette.responses import Response
 from pydantic import BaseModel, Field
 from fastapi.middleware.cors import CORSMiddleware
 from rq import Queue
@@ -87,8 +88,6 @@ if allowed_origins:
         allow_headers=["*"],
         expose_headers=["X-Request-ID", "Retry-After"],
     )
-
-from starlette.responses import Response
 
 # Redis queue and counters
 redis_url = os.getenv("REDIS_URL", "redis://localhost:6379/0")
