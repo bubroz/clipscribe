@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Optional, Dict, Any, List, Set
+from typing import Optional, Dict, Any, List, Set, Awaitable, Callable, Any as _Any
 import os
 import json
 import time
@@ -64,7 +64,7 @@ def _request_id() -> str:
 def _error(
     code: str, message: str, status: int = 400, retry_after_seconds: Optional[int] = None
 ) -> JSONResponse:
-    payload = {"code": code, "message": message}
+    payload: Dict[str, Any] = {"code": code, "message": message}
     if retry_after_seconds is not None:
         payload["retry_after_seconds"] = retry_after_seconds
     headers = {"X-Request-ID": _request_id()}
@@ -88,10 +88,12 @@ if allowed_origins:
         expose_headers=["X-Request-ID", "Retry-After"],
     )
 
+from starlette.responses import Response
+
 # Redis queue and counters
 redis_url = os.getenv("REDIS_URL", "redis://localhost:6379/0")
-redis_conn = None
-job_queue: Optional[Queue] = None
+redis_conn: _Any = None
+job_queue: _Any = None
 try:
     redis_conn = redis.from_url(redis_url)
     job_queue = Queue("clipscribe", connection=redis_conn)
@@ -100,7 +102,9 @@ except Exception:
 
 
 @app.middleware("http")
-async def add_request_id_header(request: Request, call_next):
+async def add_request_id_header(
+    request: Request, call_next: Callable[[Request], Awaitable[Response]]
+) -> Response:
     response = await call_next(request)
     if "X-Request-ID" not in response.headers:
         response.headers["X-Request-ID"] = _request_id()
@@ -129,7 +133,10 @@ def _r_set(key: str, value: str, ex: Optional[int] = None) -> None:
 def _r_get(key: str) -> Optional[str]:
     if _redis_available():
         v = redis_conn.get(key)
-        return v.decode("utf-8") if v is not None else None
+        try:
+            return v.decode("utf-8") if v is not None else None
+        except Exception:
+            return None
     return None
 
 
@@ -186,7 +193,7 @@ def _metrics_inc(name: str, amount: int = 1) -> None:
 
 
 def _metrics_dump() -> str:
-    lines: list[str] = []
+    lines: List[str] = []
     if _redis_available():
         try:
             keys = redis_conn.keys("cs:metrics:*")
@@ -354,7 +361,7 @@ async def create_job(
     body: Dict[str, Any],
     idempotency_key: Optional[str] = Header(default=None, alias="Idempotency-Key"),
     authorization: Optional[str] = Header(default=None, alias="Authorization"),
-):
+) -> JSONResponse | Job:
     if not authorization:
         return _error("invalid_input", "Missing or invalid bearer token", status=401)
 
@@ -461,7 +468,7 @@ async def create_job(
 @app.get("/v1/jobs/{job_id}", response_model=Job)
 async def get_job(
     job_id: str, authorization: Optional[str] = Header(default=None, alias="Authorization")
-):
+) -> JSONResponse | Job:
     if not authorization:
         return _error("invalid_input", "Missing or invalid bearer token", status=401)
     # Mock status
@@ -474,12 +481,12 @@ async def get_job(
 @app.get("/v1/jobs/{job_id}/events")
 async def get_job_events(
     job_id: str, authorization: Optional[str] = Header(default=None, alias="Authorization")
-):
+) -> StreamingResponse | JSONResponse:
     if not authorization:
         return _error("invalid_input", "Missing or invalid bearer token", status=401)
     q = job_events.setdefault(job_id, asyncio.Queue())
 
-    async def stream():
+    async def stream() -> Any:
         # If job exists, push current state snapshot first
         job = jobs_by_id.get(job_id)
         if job:
@@ -495,7 +502,7 @@ async def get_job_events(
 @app.get("/v1/jobs/{job_id}/artifacts")
 async def list_artifacts(
     job_id: str, authorization: Optional[str] = Header(default=None, alias="Authorization")
-):
+) -> Dict[str, Any] | JSONResponse:
     if not authorization:
         return _error("invalid_input", "Missing or invalid bearer token", status=401)
     bucket = os.getenv("GCS_BUCKET")
@@ -541,7 +548,7 @@ async def estimate(
     url: Optional[str] = None,
     gcs_uri: Optional[str] = None,
     authorization: Optional[str] = Header(default=None, alias="Authorization"),
-):
+) -> JSONResponse | Dict[str, Any]:
     if not authorization:
         return _error("invalid_input", "Missing or invalid bearer token", status=401)
     # Simple placeholder estimate: fixed duration and cost, propose flash
@@ -557,7 +564,7 @@ async def estimate(
 @app.post("/v1/uploads/presign", response_model=PresignResponse)
 async def presign_upload(
     req: PresignRequest, authorization: Optional[str] = Header(default=None, alias="Authorization")
-):
+) -> PresignResponse | JSONResponse:
     if not authorization:
         return _error("invalid_input", "Missing or invalid bearer token", status=401)
 
@@ -589,19 +596,19 @@ async def presign_upload(
     return PresignResponse(upload_url=upload_url, gcs_uri=gcs_uri)
 
 
-def run():
+def run() -> None:
     import uvicorn
 
     uvicorn.run(
         "clipscribe.api.app:app",
         host="0.0.0.0",
-        port=int(os.getenv("PORT", "8080")),
+        port=int(str(os.getenv("PORT", "8080"))),
         reload=bool(os.getenv("UVICORN_RELOAD", "false").lower() == "true"),
     )
 
 
 @app.get("/metrics")
-async def metrics():
+async def metrics() -> Response:
     # Minimal text exposition for quick scraping
     content = _metrics_dump()
     from fastapi.responses import PlainTextResponse
