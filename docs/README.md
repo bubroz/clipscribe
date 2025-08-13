@@ -21,6 +21,7 @@ poetry run python examples/pbs_fast_batch.py --limit 3
 - API Readiness Spec: `docs/architecture/API_V1_SERVICE_READINESS.md`
 - OpenAPI (machine-readable): `docs/architecture/openapi.yaml`
 - API Quickstart: `docs/API_QUICKSTART.md`
+- Replit Project Guide: `docs/REPLIT_PROJECT_GUIDE.md`
  - Cost Analysis: `docs/COST_ANALYSIS.md`
 - Testing Policy: E2E tests are opt-in (Vertex ADC by default; AI Studio allowed with explicit flag).
 - Architecture: `docs/architecture/ARCHITECTURE_DIAGRAM.md`

@@ -6,7 +6,7 @@ Mermaid Diagram (source of truth):
 
 ```mermaid
 flowchart LR
-  B["Browser UI (Replit)"] -- "PUT (signed)" --> T[("GCS tmp uploads")]
+  B["Browser UI (Replit)"] -- "PUT (signed)" --> T[("GCS uploads/")]
   B -- "POST /v1/jobs" --> A["API (FastAPI)"]
   A -- "SSE: /v1/jobs/{id}/events" --> B
   A -- "/v1/jobs/{id}/artifacts (signed URLs)" --> B

@@ -1,6 +1,6 @@
 # ClipScribe API Quickstart
 
-*Last Updated: 2025-08-11 06:32 UTC*
+*Last Updated: 2025-08-13 17:27 UTC*
 
 This guide shows how to use the API v1 to submit a job, watch progress, and download artifacts from a browser-hosted frontend (e.g., Replit).
 
@@ -82,7 +82,7 @@ curl -X POST "$API_BASE_URL/v1/jobs" \
   -d "{ \"gcs_uri\": \"$GCS_URI\" }"
 ```
 
-Tip: If `upload_url` contains `signature=mock`, the server is running without `GCS_BUCKET`/ADC or service account creds. Export `GCS_BUCKET` and (for signing) `GOOGLE_APPLICATION_CREDENTIALS` in the server terminal and restart.
+Tip: If `upload_url` contains `signature=mock`, the server is running without `GCS_BUCKET`/ADC or service account creds. Export `GCS_BUCKET` and (for signing) `GOOGLE_APPLICATION_CREDENTIALS` in the server terminal and restart. Uploaded objects now use the `uploads/` prefix by default.
 
 ## List artifacts
 ```bash
@@ -110,6 +110,12 @@ Returns `estimated_cost_usd`, `estimated_duration_seconds`, `proposed_model`, an
 - Retry logic: on 429, use `Retry-After` header or backoff
 
 For full details see `docs/architecture/API_V1_SERVICE_READINESS.md` and the OpenAPI at `/openapi.json`.
+
+## Running the API in Replit
+
+- Set `HOST=0.0.0.0` (default is `127.0.0.1` for local safety) and `PORT=8080`.
+- Set `CORS_ALLOW_ORIGINS` to your Replit domain (e.g., `https://*.repl.co`).
+- Optional: set `GCS_BUCKET` and `GOOGLE_APPLICATION_CREDENTIALS` to enable real signed URLs; otherwise a mock upload URL is returned.
 
 ### Example: Handle 429 with Retry-After
 ```bash
