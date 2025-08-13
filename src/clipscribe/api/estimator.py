@@ -25,7 +25,7 @@ def estimate_from_url(url: str) -> Tuple[int, Dict[str, Any]]:
     """
     try:
         # Lazy import to avoid imposing yt_dlp on all code paths
-        from yt_dlp import YoutubeDL  # type: ignore
+        from yt_dlp import YoutubeDL
 
         opts = {
             "quiet": True,
@@ -46,7 +46,7 @@ def estimate_from_gcs_uri(gcs_uri: str) -> Tuple[int, Dict[str, Any]]:
     Returns (duration_seconds, extra_metadata)
     """
     try:
-        from google.cloud import storage  # type: ignore
+        from google.cloud import storage
 
         path = gcs_uri.replace("gs://", "")
         bucket_name, blob_name = path.split("/", 1)
@@ -88,10 +88,10 @@ def estimate_job(body: Dict[str, Any], settings: Optional[Settings] = None) -> D
     s = settings or Settings()
     duration = 0
     meta: Dict[str, Any] = {}
-    if "url" in body:
-        duration, meta = estimate_from_url(body["url"])  # type: ignore
-    elif "gcs_uri" in body:
-        duration, meta = estimate_from_gcs_uri(body["gcs_uri"])  # type: ignore
+    if "url" in body and isinstance(body.get("url"), str):
+        duration, meta = estimate_from_url(body["url"])
+    elif "gcs_uri" in body and isinstance(body.get("gcs_uri"), str):
+        duration, meta = estimate_from_gcs_uri(body["gcs_uri"])
 
     # Fallback if unknown
     if duration <= 0:

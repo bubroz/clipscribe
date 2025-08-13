@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Optional, Dict, Any, List, Set, Awaitable, Callable
+from typing import Optional, Dict, Any, List, Set, Awaitable, Callable, Iterable, cast
 import os
 import json
 import time
@@ -16,6 +16,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from starlette.responses import Response
 from rq import Queue
 import redis
+from redis import Redis as RedisClient
 from clipscribe.config.settings import Settings
 from .estimator import estimate_job
 
@@ -92,8 +93,8 @@ if allowed_origins:
 # Redis queue and counters
 redis_url = os.getenv("REDIS_URL", "redis://localhost:6379/0")
 
-redis_conn: Any | None = None
-job_queue: Any | None = None
+redis_conn: Optional[RedisClient] = None
+job_queue: Optional[Queue] = None
 try:
     redis_conn = redis.from_url(redis_url)
     job_queue = Queue("clipscribe", connection=redis_conn)
@@ -126,37 +127,53 @@ def _redis_available() -> bool:
 
 
 def _r_set(key: str, value: str, ex: Optional[int] = None) -> None:
-    if _redis_available():
-        redis_conn.set(key, value, ex=ex)
+    conn = redis_conn
+    if conn is None:
+        return
+    conn.set(key, value, ex=ex)
 
 
 def _r_get(key: str) -> Optional[str]:
-    if _redis_available():
-        v = redis_conn.get(key)
-        try:
-            return v.decode("utf-8") if v is not None else None
-        except Exception:
-            return None
-    return None
+    conn = redis_conn
+    if conn is None:
+        return None
+    raw = cast(object, conn.get(key))
+    try:
+        if isinstance(raw, (bytes, bytearray)):
+            return bytes(raw).decode("utf-8")
+        if isinstance(raw, str):
+            return raw
+        return None
+    except Exception:
+        return None
 
 
 def _r_sadd(key: str, member: str) -> None:
-    if _redis_available():
-        redis_conn.sadd(key, member)
+    conn = redis_conn
+    if conn is None:
+        return
+    conn.sadd(key, member)
 
 
 def _r_srem(key: str, member: str) -> None:
-    if _redis_available():
-        redis_conn.srem(key, member)
+    conn = redis_conn
+    if conn is None:
+        return
+    conn.srem(key, member)
 
 
 def _r_scard(key: str) -> int:
-    if _redis_available():
-        try:
-            return int(redis_conn.scard(key))
-        except Exception:
-            return 0
-    return 0
+    conn = redis_conn
+    if conn is None:
+        return 0
+    try:
+        count_raw = cast(object, conn.scard(key))
+        if isinstance(count_raw, int):
+            return count_raw
+        # best effort cast for odd client return types
+        return int(cast(Any, count_raw))
+    except Exception:
+        return 0
 
 
 def _save_job(job: Job) -> None:
@@ -185,22 +202,32 @@ def _now_iso() -> str:
 
 # ---- Metrics helpers (minimal Prometheus-style counters via Redis) ----
 def _metrics_inc(name: str, amount: int = 1) -> None:
-    if _redis_available():
-        try:
-            redis_conn.incrby(f"cs:metrics:{name}", amount)
-        except Exception:
-            pass
+    conn = redis_conn
+    if conn is None:
+        return
+    try:
+        conn.incrby(f"cs:metrics:{name}", amount)
+    except Exception:
+        pass
 
 
 def _metrics_dump() -> str:
     lines: List[str] = []
-    if _redis_available():
+    conn = redis_conn
+    if conn is not None:
         try:
-            keys = redis_conn.keys("cs:metrics:*")
+            keys = cast(Iterable[bytes], conn.keys("cs:metrics:*"))
             for k in keys:
-                v = redis_conn.get(k)
+                v_raw = cast(object, conn.get(k))
                 try:
-                    val = int(v) if v is not None else 0
+                    if isinstance(v_raw, int):
+                        val = v_raw
+                    elif isinstance(v_raw, (bytes, bytearray)):
+                        val = int(bytes(v_raw))
+                    elif v_raw is None:
+                        val = 0
+                    else:
+                        val = int(cast(Any, v_raw))
                 except Exception:
                     val = 0
                 metric = (
@@ -232,13 +259,14 @@ def _seconds_until_end_of_day_utc() -> int:
 
 # ---- Sliding-window RPM (Redis Sorted Set) ----
 def _rpm_allow(token_id: str, max_rpm: int, window_secs: int = 60) -> bool:
-    if not _redis_available():
+    conn = redis_conn
+    if conn is None:
         return True
     try:
         key = f"cs:rpm:{token_id}"
         now_ms = int(time.time() * 1000)
         cutoff_ms = now_ms - (window_secs * 1000)
-        pipe = redis_conn.pipeline()
+        pipe = conn.pipeline()
         # remove old
         pipe.zremrangebyscore(key, 0, cutoff_ms)
         # add current
@@ -309,8 +337,9 @@ async def _enqueue_job_processing(job: Job, source: Dict[str, Any]) -> None:
     acquired = False
     key = f"cs:processing:{job.job_id}"
     try:
-        if _redis_available():
-            acquired = bool(redis_conn.set(key, "1", nx=True, ex=600))
+        conn = redis_conn
+        if conn is not None:
+            acquired = bool(conn.set(key, "1", nx=True, ex=600))
     except Exception:
         acquired = False
     if not acquired:
@@ -341,8 +370,9 @@ async def _enqueue_job_processing(job: Job, source: Dict[str, Any]) -> None:
         await push("done", {"job_id": job.job_id})
     finally:
         try:
-            if _redis_available():
-                redis_conn.delete(key)
+            conn = redis_conn
+            if conn is not None:
+                conn.delete(key)
         except Exception:
             pass
         processing_jobs.discard(job.job_id)
