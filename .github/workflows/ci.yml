@@ -42,8 +42,8 @@ jobs:
 
       - name: Install dependencies
         run: |
-          poetry install --with dev --no-interaction --no-root
-          # Extra tools that may not be in dev group or to ensure latest
+          poetry install --with dev,test --no-interaction --no-root
+          # Extra tools that may not be in dev/test groups or to ensure latest
           poetry run python -m pip install --upgrade ruff pip-audit bandit mypy
 
       - name: Lint (Black check)
@@ -71,7 +71,7 @@ jobs:
 
       - name: Dependency audit (pip-audit)
         run: |
-          poetry run pip-audit -r <(poetry export --without-hashes -f requirements.txt) || true
+          poetry run pip-audit || true
 
       - name: Upload coverage artifact
         uses: actions/upload-artifact@v4
