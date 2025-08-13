@@ -410,8 +410,8 @@ async def create_job(
             )
         # Daily requests cap
         day_key = f"cs:lim:{token_id}:day:{datetime.utcnow().strftime('%Y%m%d')}"
-        day_count = int(redis_conn.incr(day_key))
-        if day_count == 1:
+        day_count = int(cast(Any, redis_conn.incr(day_key))) if redis_conn else 0
+        if redis_conn and day_count == 1:
             redis_conn.expire(day_key, _seconds_until_end_of_day_utc())
         max_daily = int(os.getenv("TOKEN_MAX_DAILY_REQUESTS", "2000"))
         if day_count > max_daily:
@@ -426,9 +426,11 @@ async def create_job(
         max_usd = float(os.getenv("TOKEN_DAILY_BUDGET_USD", "5.0"))
         budget_key = f"cs:budget:{token_id}:{datetime.utcnow().strftime('%Y%m%d')}"
         # Simple atomic reserve using MULTI/EXEC (Lua would be ideal; kept simple here)
-        pipe = redis_conn.pipeline()
-        pipe.get(budget_key)
-        current = pipe.execute()[0]
+        pipe = redis_conn.pipeline() if redis_conn else None
+        current = None
+        if pipe is not None:
+            pipe.get(budget_key)
+            current = pipe.execute()[0]
         try:
             cur_spend = float(current) if current is not None else 0.0
         except Exception:
@@ -441,9 +443,10 @@ async def create_job(
             )
         # Reserve
         try:
-            redis_conn.incrbyfloat(budget_key, est_cost)
-            if current is None:
-                redis_conn.expire(budget_key, _seconds_until_end_of_day_utc())
+            if redis_conn is not None:
+                redis_conn.incrbyfloat(budget_key, est_cost)
+                if current is None:
+                    redis_conn.expire(budget_key, _seconds_until_end_of_day_utc())
             _metrics_inc("budget_reserves")
         except Exception:
             pass
