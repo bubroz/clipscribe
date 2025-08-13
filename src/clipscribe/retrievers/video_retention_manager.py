@@ -11,7 +11,6 @@ from typing import Dict, Optional, Any
 from pathlib import Path
 from datetime import datetime, timedelta
 import json
-import hashlib
 
 from ..config.settings import Settings, VideoRetentionPolicy
 from ..models import VideoIntelligence
@@ -87,8 +86,10 @@ class VideoRetentionManager:
             logger.error(f"Could not save retention history: {e}")
 
     def _get_video_hash(self, video_path: Path) -> str:
-        """Generate unique hash for video file."""
-        return hashlib.md5(str(video_path).encode()).hexdigest()
+        """Generate stable ID for video file path (non-security)."""
+        from ..utils.stable_id import generate_unversioned_digest
+
+        return generate_unversioned_digest(str(video_path), algo="sha256", length=24)
 
     async def handle_video_retention(
         self,

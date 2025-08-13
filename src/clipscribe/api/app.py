@@ -608,7 +608,7 @@ async def presign_upload(
 
             client = storage.Client()
             # Path: tmp/<uuid>/<filename>
-            object_path = f"tmp/{uuid.uuid4().hex}/{req.filename}"
+            object_path = f"uploads/{uuid.uuid4().hex}/{req.filename}"
             blob = client.bucket(bucket).blob(object_path)
             upload_url = blob.generate_signed_url(
                 version="v4",
@@ -624,8 +624,8 @@ async def presign_upload(
 
     # Mock fallback
     bucket = bucket or "mock-bucket"
-    upload_url = f"https://storage.googleapis.com/{bucket}/tmp/{uuid.uuid4().hex}?signature=mock"
-    gcs_uri = f"gs://{bucket}/tmp/{uuid.uuid4().hex}/{req.filename}"
+    upload_url = f"https://storage.googleapis.com/{bucket}/uploads/{uuid.uuid4().hex}?signature=mock"
+    gcs_uri = f"gs://{bucket}/uploads/{uuid.uuid4().hex}/{req.filename}"
     return PresignResponse(upload_url=upload_url, gcs_uri=gcs_uri)
 
 
@@ -634,7 +634,7 @@ def run() -> None:
 
     uvicorn.run(
         "clipscribe.api.app:app",
-        host="0.0.0.0",
+        host=os.getenv("HOST", "127.0.0.1"),
         port=int(str(os.getenv("PORT", "8080"))),
         reload=bool(os.getenv("UVICORN_RELOAD", "false").lower() == "true"),
     )

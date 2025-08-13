@@ -4,7 +4,7 @@ import re
 from pathlib import Path
 from datetime import datetime
 from typing import Optional, Dict, Any
-import hashlib
+from .stable_id import generate_unversioned_digest
 
 
 def sanitize_filename(filename: str, max_length: int = 200) -> str:
@@ -182,12 +182,10 @@ def extract_video_id_from_url(url: str) -> Optional[str]:
 
 
 def generate_short_id(text: str, length: int = 8) -> str:
-    """Generate a short ID from text using hash."""
+    """Generate a short stable ID from text using modern hashing."""
     if not text:
         text = str(datetime.now().timestamp())
-
-    hash_obj = hashlib.md5(text.encode())
-    return hash_obj.hexdigest()[:length]
+    return generate_unversioned_digest(text, algo="sha256", length=length)
 
 
 def sanitize_component(text: str, max_length: int = 20) -> str:

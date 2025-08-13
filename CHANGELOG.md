@@ -613,6 +613,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- CI: install dev+test groups, simplify pip-audit, ensure coverage artifacts upload
+- API: default host now `127.0.0.1` unless `HOST` env set; safer local default
+- API: GCS object prefix renamed from `tmp/` to `uploads/`
+- Security: replaced MD5/SHA1 usages with SHA-256-based stable IDs and versioned utility
+
+### Added
+- Utility `clipscribe.utils.stable_id` for versioned, stable ID generation
+- Tests for stable_id and cache key normalization/migration
+
 ### Added
 - Enhanced Entity & Relationship Metadata milestone begun (v2.19.0)
 - Phase 1: Enhanced Entity Metadata with confidence scores and source attribution (COMPLETE)

@@ -336,11 +336,25 @@ class VideoIntelligenceRetriever:
 
     def _get_cache_key(self, video_url: str) -> str:
         """Generate cache key from URL."""
-        import hashlib
+        from ..utils.stable_id import generate_unversioned_digest
 
-        # Include temporal intelligence level in cache key for v2.17.0
-        cache_data = f"{video_url}_{self.temporal_config['level']}"
-        return hashlib.md5(cache_data.encode()).hexdigest()
+        # Include temporal intelligence level in cache key and use versioned hashing
+        cache_data = f"{self._normalized_url(video_url)}_{self.temporal_config['level']}"
+        return generate_unversioned_digest(cache_data, algo="sha256", length=24)
+
+    def _normalized_url(self, url: str) -> str:
+        try:
+            from urllib.parse import urlparse, urlunparse, parse_qsl, urlencode
+
+            p = urlparse(url)
+            # Lowercase scheme and netloc; drop fragment
+            netloc = p.netloc.lower()
+            scheme = (p.scheme or "http").lower()
+            # Sort query params for stability
+            query = urlencode(sorted(parse_qsl(p.query)), doseq=True)
+            return urlunparse((scheme, netloc, p.path, p.params, query, ""))
+        except Exception:
+            return url
 
     def _load_from_cache(self, cache_key: str) -> Optional[VideoIntelligence]:
         """Load result from cache."""
@@ -1259,7 +1273,8 @@ class VideoIntelligenceRetriever:
         import hashlib
 
         def stable_node_id(label: str) -> str:
-            h = hashlib.sha1(label.encode("utf-8")).hexdigest()
+            # Use SHA-256 truncated for stable node IDs (12 hex chars)
+            h = hashlib.sha256(label.encode("utf-8")).hexdigest()
             return f"n_{h[:12]}"
 
         label_to_id: Dict[str, str] = {}
