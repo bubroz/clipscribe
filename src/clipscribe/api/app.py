@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Optional, Dict, Any, List, Set, Awaitable, Callable, Any as _Any
+from typing import Optional, Dict, Any, List, Set, Awaitable, Callable
 import os
 import json
 import time
@@ -11,9 +11,9 @@ from datetime import datetime, timezone, timedelta
 
 from fastapi import FastAPI, Header, Request
 from fastapi.responses import JSONResponse, StreamingResponse
-from starlette.responses import Response
 from pydantic import BaseModel, Field
 from fastapi.middleware.cors import CORSMiddleware
+from starlette.responses import Response
 from rq import Queue
 import redis
 from clipscribe.config.settings import Settings
@@ -91,8 +91,9 @@ if allowed_origins:
 
 # Redis queue and counters
 redis_url = os.getenv("REDIS_URL", "redis://localhost:6379/0")
-redis_conn: _Any = None
-job_queue: _Any = None
+
+redis_conn: Any | None = None
+job_queue: Any | None = None
 try:
     redis_conn = redis.from_url(redis_url)
     job_queue = Queue("clipscribe", connection=redis_conn)
