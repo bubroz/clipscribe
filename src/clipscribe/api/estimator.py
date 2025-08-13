@@ -46,7 +46,7 @@ def estimate_from_gcs_uri(gcs_uri: str) -> Tuple[int, Dict[str, Any]]:
     Returns (duration_seconds, extra_metadata)
     """
     try:
-        from google.cloud import storage
+        from google.cloud import storage  # type: ignore[attr-defined,misc]
 
         path = gcs_uri.replace("gs://", "")
         bucket_name, blob_name = path.split("/", 1)
