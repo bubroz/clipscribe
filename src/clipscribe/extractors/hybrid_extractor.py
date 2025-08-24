@@ -40,7 +40,7 @@ class HybridEntityExtractor:
         # Move import here to avoid circular import
         from ..retrievers.transcriber import GeminiFlashTranscriber
 
-        self.llm_validator = GeminiFlashTranscriber()
+        self.llm_validator = GeminiFlashTranscriber(use_pro=False)
         self.confidence_threshold = confidence_threshold
         self.batch_size = batch_size
 
@@ -238,9 +238,8 @@ Return a JSON array with validated entities:
             for item in validated_data:
                 if item.get("correct", True):
                     entity = Entity(
-                        name=item["name"],
+                        entity=item["name"],
                         type=item["type"],
-                        confidence=item.get("confidence", 0.9),
                         properties={"validated": True},
                     )
                     validated_entities.append(entity)
@@ -282,9 +281,8 @@ Return as JSON array:
                 entities_data = json.loads(json_match.group())
                 return [
                     Entity(
-                        name=e["name"],
+                        entity=e["name"],
                         type=e["type"],
-                        confidence=e.get("confidence", 0.8),
                         properties={"source": "llm"},
                     )
                     for e in entities_data
