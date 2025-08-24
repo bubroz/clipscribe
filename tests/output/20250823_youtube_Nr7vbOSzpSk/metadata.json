@@ -11,14 +11,14 @@
   "processing": {
     "cost": 0.025784,
     "time": 0.0,
-    "processed_at": "2025-08-23T19:45:32.241974",
+    "processed_at": "2025-08-23T21:38:48.947520",
     "clipscribe_version": "2.0.0"
   },
   "statistics": {
     "transcript_length": 5001,
-    "word_count": 914,
+    "word_count": 911,
     "entity_count": 0,
-    "key_point_count": 8,
+    "key_point_count": 7,
     "topic_count": 8
   }
 }

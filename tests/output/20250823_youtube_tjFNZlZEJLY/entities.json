@@ -4,15 +4,15 @@
   "entities": [],
   "topics": [
     {
-      "name": "Military Selection",
-      "confidence": 0.9
-    },
-    {
       "name": "Special Operations Forces (SOF)",
       "confidence": 0.9
     },
     {
-      "name": "Tier Two SOF",
+      "name": "Military Selection",
+      "confidence": 0.9
+    },
+    {
+      "name": "Tier Two Operations",
       "confidence": 0.9
     },
     {
@@ -24,23 +24,27 @@
       "confidence": 0.9
     },
     {
-      "name": "Teamwork",
+      "name": "Mental Toughness",
       "confidence": 0.9
     },
     {
-      "name": "Mental Resilience",
+      "name": "Teamwork",
       "confidence": 0.9
     },
     {
       "name": "Military Training",
       "confidence": 0.9
+    },
+    {
+      "name": "Special Forces",
+      "confidence": 0.9
     }
   ],
   "key_facts": [
-    "The three primary tips for passing Tier Two selections are: 1. Attain the right type of fitness (rucking, water competency), 2. Be a great teammate and avoid standing out for negative reasons, 3. Never quit and embrace the mental and physical misery of the course.",
-    "Tier Two selections are characterized by negative reinforcement and team-oriented events, which contrasts with Tier One selections which are more individual and lack reinforcement.",
-    "Physical fitness for Tier Two requires the ability to move heavy weights, primarily through rucking, which is described as a 'great equalizer' that can defeat even elite endurance athletes.",
-    "Teamwork is critical in Tier Two selections; candidates can be 'peered out' and removed for being prima donnas or poor teammates.",
-    "Mental resilience is paramount. Candidates must master their self-talk, stay positive, have a personal reason for being there, and take the selection one event at a time."
+    "The paramount advice for passing Tier Two selections is to never quit and to mentally embrace the designed misery of the process.",
+    "Being a great teammate is critical in Tier Two selections, as they are team-oriented events where individuals can be removed based on peer evaluations.",
+    "Tier Two selections are characterized by negative reinforcement and a focus on team events, distinguishing them from the individual-based Tier One selections.",
+    "Appropriate physical fitness for Tier Two involves more than just running; it requires water competency and, crucially, the ability to move heavy weights, primarily through rucking.",
+    "Candidates should adopt a 'gray man' approach: be reliable, punctual, and helpful without seeking the spotlight or causing drama."
   ]
 }

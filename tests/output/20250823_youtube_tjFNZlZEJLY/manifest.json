@@ -1,6 +1,6 @@
 {
   "version": "2.3",
-  "created_at": "2025-08-23T19:33:30.536027",
+  "created_at": "2025-08-23T21:38:49.122866",
   "video": {
     "title": "How to Pass Tier 1 & 2 Selections - Part 2/3: Tier 2 Selections",
     "url": "https://www.youtube.com/watch?v=tjFNZlZEJLY",
@@ -9,104 +9,120 @@
   "extraction_stats": {
     "gemini_entities": [
       {
-        "confidence": 0.99,
-        "name": "Special Forces",
-        "type": "Military Unit"
-      },
-      {
         "confidence": 1.0,
         "name": "Tier One",
-        "type": "Military Designation"
+        "type": "Military Unit Designation"
       },
       {
         "confidence": 1.0,
         "name": "Tier Two",
-        "type": "Military Designation"
+        "type": "Military Unit Designation"
       },
       {
         "confidence": 0.95,
-        "name": "white sof",
-        "type": "Military Category"
+        "name": "White SOF",
+        "type": "Military Unit Category"
       },
       {
-        "confidence": 0.99,
+        "confidence": 1.0,
         "name": "SEALs",
         "type": "Military Unit"
       },
       {
-        "confidence": 0.99,
+        "confidence": 1.0,
         "name": "MARSOC Raiders",
         "type": "Military Unit"
       },
       {
-        "confidence": 0.99,
+        "confidence": 1.0,
         "name": "Marine Force Recon",
         "type": "Military Unit"
       },
       {
-        "confidence": 0.99,
+        "confidence": 1.0,
         "name": "Rangers",
         "type": "Military Unit"
       },
       {
-        "confidence": 0.99,
+        "confidence": 1.0,
         "name": "Green Berets",
         "type": "Military Unit"
       },
       {
-        "confidence": 0.99,
+        "confidence": 1.0,
         "name": "AFSOC",
-        "type": "Military Command"
+        "type": "Military Organization"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Former special forces tier one operator",
+        "type": "Role"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Cadre",
+        "type": "Role"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Instructor",
+        "type": "Role"
       }
     ],
     "gemini_relationships": [
       {
-        "confidence": 0.95,
-        "object": "negative reinforcement",
-        "predicate": "utilize",
-        "subject": "Tier two selections"
-      },
-      {
-        "confidence": 0.95,
-        "object": "team-oriented",
-        "predicate": "are",
-        "subject": "Tier two selections"
-      },
-      {
-        "confidence": 0.9,
-        "object": "individual",
-        "predicate": "are more",
-        "subject": "Tier one selections"
+        "confidence": 1.0,
+        "object": "Former special forces tier one operator",
+        "predicate": "identifies as",
+        "subject": "Narrator"
       },
       {
         "confidence": 1.0,
-        "object": "former Special Forces Tier One operator",
-        "predicate": "is a",
-        "subject": "The speaker"
+        "object": "Tier One Selection",
+        "predicate": "was an instructor for",
+        "subject": "Narrator"
       },
       {
         "confidence": 1.0,
-        "object": "instructor for a Tier One selection",
-        "predicate": "was an",
-        "subject": "The speaker"
+        "object": "Negative Reinforcement",
+        "predicate": "is a key feature of",
+        "subject": "Tier Two Selections"
+      },
+      {
+        "confidence": 1.0,
+        "object": "Team-oriented events",
+        "predicate": "are a key feature of",
+        "subject": "Tier Two Selections"
       },
       {
         "confidence": 0.9,
-        "object": "white sof",
-        "predicate": "is covered by",
-        "subject": "Tier two selections"
+        "object": "Individual focus",
+        "predicate": "is a key feature of",
+        "subject": "Tier One Selections"
       },
       {
-        "confidence": 0.95,
-        "object": "SEALs, MARSOC Raiders, Marine Force Recon, Rangers, Green Berets, AFSOC guys",
-        "predicate": "includes",
-        "subject": "white sof"
+        "confidence": 1.0,
+        "object": "SEALs, MARSOC Raiders, Marine Force Recon, Rangers, Green Berets, AFSOC",
+        "predicate": "are examples of",
+        "subject": "White SOF"
+      },
+      {
+        "confidence": 1.0,
+        "object": "Mental Toughness",
+        "predicate": "is required to pass",
+        "subject": "Tier Two Selections"
+      },
+      {
+        "confidence": 1.0,
+        "object": "being a great teammate",
+        "predicate": "is required to pass",
+        "subject": "Tier Two Selections"
       },
       {
         "confidence": 0.9,
-        "object": "candidates",
-        "predicate": "can be removed by",
-        "subject": "peer evaluations"
+        "object": "Peer evaluations",
+        "predicate": "can lead to removal from",
+        "subject": "Tier Two Selections"
       }
     ],
     "retention_decision": {
@@ -118,7 +134,7 @@
         "storage_cost_avoided": 0.004128547009080648,
         "reprocessing_cost": 0.030685599999999997
       },
-      "timestamp": "2025-08-23T19:33:30.530980"
+      "timestamp": "2025-08-23T21:38:49.114575"
     }
   },
   "timeline_v2": null,
@@ -126,26 +142,26 @@
     "transcript_txt": {
       "path": "transcript.txt",
       "format": "plain_text",
-      "size": 5749,
-      "sha256": "cb03f095b39e69b9b5f87c52b936f11d023b131a6c5675ccb81c7e4407f8d653"
+      "size": 5717,
+      "sha256": "de6d40acd4b96cb382888db4867a62f7eeae36404d9b1c8cb47ee107ab47b5c6"
     },
     "transcript_json": {
       "path": "transcript.json",
       "format": "json",
-      "size": 21565,
-      "sha256": "d876a50db50f00d6c10b5c9e5b95df1a07af46aab097e70396ea431a084ff950"
+      "size": 21916,
+      "sha256": "ea1b407525d199592c7ed5ab49ce46bdada7acdc41fa564a553de3d5f0a44183"
     },
     "metadata": {
       "path": "metadata.json",
       "format": "json",
       "size": 3047,
-      "sha256": "ea8f9b4215faec875fb32c607f86dd3489c475b0fa3d0b6056fe34632f6cdd3c"
+      "sha256": "f410f63db8d0000ca52851f9cf5b053b6dd4ce6d8fa825cc209083e0995cc3a6"
     },
     "entities": {
       "path": "entities.json",
       "format": "json",
-      "size": 1743,
-      "sha256": "ab070f71ccd650f0ed8777ce23e2091e75e8805d755d9fa924d3cba6ae6ccd03"
+      "size": 1634,
+      "sha256": "1d1c94b334602584882dca283be7f76546e7c813d8d7ded9a5d3a9bd834e2962"
     },
     "relationships": {
       "path": "relationships.json",
@@ -156,14 +172,14 @@
     "report": {
       "path": "report.md",
       "format": "markdown",
-      "size": 1020,
-      "sha256": "353d382137edfa2c6e40621607712684a1bcb297b8f7c5e5a012b334e1cb74ac"
+      "size": 1037,
+      "sha256": "54ac8adf5f5dce93b5a67c3bd86667c8d902bb6b8716833db1272be8b8528490"
     },
     "chimera": {
       "path": "chimera_format.json",
       "format": "json",
-      "size": 9336,
-      "sha256": "30cec860ccf15aadc416b0410a25ebc2224a5b13ad17520798911316439d8043"
+      "size": 9241,
+      "sha256": "0045d94d12c10bbe8883d29c7d46b033dde4a92d87f8c2490d4b6ad4156e93f7"
     }
   }
 }

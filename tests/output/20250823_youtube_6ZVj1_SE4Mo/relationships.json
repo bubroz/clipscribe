@@ -1,0 +1,167 @@
+{
+  "video_url": "https://www.youtube.com/watch?v=6ZVj1_SE4Mo",
+  "video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+  "relationships": [
+    {
+      "subject": "NSO Group",
+      "predicate": "developed",
+      "object": "Pegasus",
+      "properties": {},
+      "context": null,
+      "evidence_chain": [
+        "direct_quote='Pegasus is designed to infect phones like iPhones or Androids, and once in the phone, it can' timestamp='00:00:00' speaker=None visual_context=None context_window=\"Pegasus Spyware is not working on any +1 US phone numbers. It's not possible. The numbers there are mostly in 10 countries and most of these governments are known to be clients of NSO Group who make P\" evidence_type='spoken'",
+        "direct_quote='Pegasus is designed to infect p' timestamp='00:00:00' speaker=None visual_context=None context_window='t of these governments are known to be clients of NSO Group who make Pegasus. Pegasus is designed to infect p' evidence_type='entity_context'"
+      ],
+      "contradictions": [
+        "Pegasus Spyware is not working on any +1 US phone numbers. It's not possible. The numbers there are mostly in 10 countries and most of these governmen..."
+      ],
+      "extraction_source": "unknown"
+    },
+    {
+      "subject": "Pegasus",
+      "predicate": "was used against",
+      "object": "journalists",
+      "properties": {},
+      "context": null,
+      "evidence_chain": [],
+      "contradictions": [],
+      "extraction_source": "unknown"
+    },
+    {
+      "subject": "Pegasus",
+      "predicate": "was used against",
+      "object": "dissidents",
+      "properties": {},
+      "context": null,
+      "evidence_chain": [],
+      "contradictions": [],
+      "extraction_source": "unknown"
+    },
+    {
+      "subject": "Jamal Khashoggi",
+      "predicate": "was fianc\u00e9e of",
+      "object": "Hatice Cengiz",
+      "properties": {},
+      "context": null,
+      "evidence_chain": [
+        "direct_quote='m hoping that Hatice, Khashoggi' timestamp='00:00:00' speaker=None visual_context=None context_window=\"this horrible murdered. I'm hoping that Hatice, Khashoggi's fiance, who we'd all gotten to know on television because she was outside the council at when he didn't reappear. I'm hoping that Hatice wil\" evidence_type='spoken'",
+        "direct_quote='d all gotten to know on television because she was outside the council at when he didn' timestamp='00:00:00' speaker=None visual_context=None context_window=\"this horrible murdered. I'm hoping that Hatice, Khashoggi's fiance, who we'd all gotten to know on television because she was outside the council at when he didn't reappear. I'm hoping that Hatice wil\" evidence_type='spoken'"
+      ],
+      "contradictions": [
+        "of the CEO of NSO group who told Getting evidence on the device of Hanan, on the device of Hatice. All of that was breaking the narrative of the CEO o..."
+      ],
+      "extraction_source": "unknown"
+    },
+    {
+      "subject": "Jamal Khashoggi",
+      "predicate": "was wife of",
+      "object": "Hanan Atar",
+      "properties": {},
+      "context": null,
+      "evidence_chain": [
+        "direct_quote='s still trying to figure out what' timestamp='00:00:00' speaker=None visual_context=None context_window=\"when she's still trying to figure out what's happening. And it just seemed like such a ballsy move to surveil the person who has become the public face of his disappearance. We learned that Jamal had \" evidence_type='spoken'",
+        "direct_quote='s life. She' timestamp='00:00:00' speaker=None visual_context=None context_window=\"when she's still trying to figure out what's happening. And it just seemed like such a ballsy move to surveil the person who has become the public face of his disappearance. We learned that Jamal had \" evidence_type='spoken'"
+      ],
+      "contradictions": [
+        "of the CEO of NSO group who told Getting evidence on the device of Hanan, on the device of Hatice. All of that was breaking the narrative of the CEO o..."
+      ],
+      "extraction_source": "unknown"
+    },
+    {
+      "subject": "NSO Group",
+      "predicate": "was client of",
+      "object": "Mexico",
+      "properties": {},
+      "context": null,
+      "evidence_chain": [
+        "direct_quote='Pegasus is designed to infect p' timestamp='00:00:00' speaker=None visual_context=None context_window='t of these governments are known to be clients of NSO Group who make Pegasus. Pegasus is designed to infect p' evidence_type='entity_context'"
+      ],
+      "contradictions": [
+        "phone numbers that they had, the quantity of phone numbers, tens of thousands. I mean, my jaw just hit the floor. There is a lot that concerned India...."
+      ],
+      "extraction_source": "unknown"
+    },
+    {
+      "subject": "Claudio Guarnieri",
+      "predicate": "is head of",
+      "object": "Amnesty International Security Lab",
+      "properties": {},
+      "context": null,
+      "evidence_chain": [
+        "direct_quote='He worked on creating a methodology, a platform that we could use during our investigation to' timestamp='00:00:00' speaker=None visual_context=None context_window=\"of who the persons of interest were to these government clients of NSO, but we couldn't know whether a phone had been hacked unless we conducted forensics on it. Claudio Guarnieri is the head of Amnes\" evidence_type='spoken'"
+      ],
+      "contradictions": [],
+      "extraction_source": "unknown"
+    },
+    {
+      "subject": "Jamal Khashoggi",
+      "predicate": "was writer for",
+      "object": "The Washington Post",
+      "properties": {},
+      "context": null,
+      "evidence_chain": [
+        "direct_quote='m hoping that Hatice, Khashoggi' timestamp='00:00:00' speaker=None visual_context=None context_window=\"this horrible murdered. I'm hoping that Hatice, Khashoggi's fiance, who we'd all gotten to know on television because she was outside the council at when he didn't reappear. I'm hoping that Hatice wil\" evidence_type='spoken'",
+        "direct_quote='d all gotten to know on television because she was outside the council at when he didn' timestamp='00:00:00' speaker=None visual_context=None context_window=\"this horrible murdered. I'm hoping that Hatice, Khashoggi's fiance, who we'd all gotten to know on television because she was outside the council at when he didn't reappear. I'm hoping that Hatice wil\" evidence_type='spoken'",
+        "direct_quote='t see anything following that. Okay. The analysis proved that the phone belonging to Jamal Khashoggi' timestamp='00:00:00' speaker=None visual_context=None context_window=\"failed attempt. And I don't see anything following that. Okay. The analysis proved that the phone belonging to Jamal Khashoggi's fiance had been infected with Pegasus. The analysis proved that the pho\" evidence_type='spoken'",
+        "direct_quote='s still trying to figure out what' timestamp='00:00:00' speaker=None visual_context=None context_window=\"when she's still trying to figure out what's happening. And it just seemed like such a ballsy move to surveil the person who has become the public face of his disappearance. We learned that Jamal had \" evidence_type='spoken'",
+        "direct_quote='s life. She' timestamp='00:00:00' speaker=None visual_context=None context_window=\"when she's still trying to figure out what's happening. And it just seemed like such a ballsy move to surveil the person who has become the public face of his disappearance. We learned that Jamal had \" evidence_type='spoken'"
+      ],
+      "contradictions": [
+        "therefore, when I first heard their accusations that... Khashoggi murder is horrible. Really horrible. And therefore, when I first heard there are acc...",
+        "of the CEO of NSO group who told Getting evidence on the device of Hanan, on the device of Hatice. All of that was breaking the narrative of the CEO o..."
+      ],
+      "extraction_source": "unknown"
+    },
+    {
+      "subject": "Pegasus",
+      "predicate": "was targeted by",
+      "object": "Hanan Atar",
+      "properties": {},
+      "context": null,
+      "evidence_chain": [],
+      "contradictions": [],
+      "extraction_source": "unknown"
+    },
+    {
+      "subject": "Pegasus",
+      "predicate": "was targeted by",
+      "object": "Hatice Cengiz",
+      "properties": {},
+      "context": null,
+      "evidence_chain": [],
+      "contradictions": [],
+      "extraction_source": "unknown"
+    },
+    {
+      "subject": "Carmen Aristegui",
+      "predicate": "investigated",
+      "object": "Enrique Pe\u00f1a Nieto",
+      "properties": {},
+      "context": null,
+      "evidence_chain": [],
+      "contradictions": [],
+      "extraction_source": "unknown"
+    },
+    {
+      "subject": "Forbidden Stories",
+      "predicate": "coordinated",
+      "object": "17 news outlets",
+      "properties": {},
+      "context": null,
+      "evidence_chain": [],
+      "contradictions": [],
+      "extraction_source": "unknown"
+    },
+    {
+      "subject": "Saudi Arabia",
+      "predicate": "is ally of",
+      "object": "United Arab Emirates",
+      "properties": {},
+      "context": null,
+      "evidence_chain": [],
+      "contradictions": [],
+      "extraction_source": "unknown"
+    }
+  ],
+  "total_count": 13
+}

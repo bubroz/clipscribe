@@ -1,0 +1,164 @@
+{
+  "video_url": "https://www.youtube.com/watch?v=xYMWTXIkANM",
+  "video_title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+  "relationships": [
+    {
+      "subject": "NSO Group",
+      "predicate": "developed",
+      "object": "Pegasus",
+      "properties": {},
+      "context": null,
+      "evidence_chain": [
+        "direct_quote='s now live. An explosive investigation from the Washington Post and a consortium of media partners. Activists, lawyers and journalists are reportedly among those de varios medios revel\u00f3 una lista de de la utilizaci\u00f3n de Pegasus en el mundo l' timestamp='00:00:00' speaker=None visual_context=None context_window=\"parti. Allez Putain Actif! 18 On est bon, 18. So the story's now live. An explosive investigation from the Washington Post and a consortium of media partners. Activists, lawyers and journalists are re\" evidence_type='document'",
+        "direct_quote='ve made a bigger deal than I would have expected against not just an Israeli company but really they' timestamp='00:00:00' speaker=None visual_context=None context_window='free for all. We even found out afterwards that the FBI considered using a version of Pegasus that could hack into US phones. But that fell apart and the Biden administration actually blacklisted NSO ' evidence_type='spoken'",
+        "direct_quote='Each time you look at how a client of NSO Group used the technology, it tells you something about' timestamp='00:00:00' speaker=None visual_context=None context_window='nother one. Each time you look at how a client of NSO Group used the technology, it tells you something about' evidence_type='entity_context'"
+      ],
+      "contradictions": [
+        "free for all. We even found out afterwards that the FBI considered using a version of Pegasus that could hack into US phones. But that fell apart and ...",
+        "tracked and apprehended using our technologies or trade secrets of the technology. It is not true that NSO Group operates Pegasus and collects informa..."
+      ],
+      "extraction_source": "unknown"
+    },
+    {
+      "subject": "Morocco",
+      "predicate": "targeted",
+      "object": "Emmanuel Macron",
+      "properties": {},
+      "context": null,
+      "evidence_chain": [
+        "direct_quote='More than 1,000 potentially targeted by Morocco' timestamp='00:00:00' speaker=None visual_context=None context_window=' numbers. More than 1,000 potentially targeted by Morocco. There were journalists, lawyers, activists, but ' evidence_type='entity_context'"
+      ],
+      "contradictions": [
+        "a go-to spy service for tyrants. When we started analyzing the list, we saw a lot of French numbers. More than 1,000 potentially targeted by Morocco. ..."
+      ],
+      "extraction_source": "unknown"
+    },
+    {
+      "subject": "Morocco",
+      "predicate": "targeted",
+      "object": "French government officials",
+      "properties": {},
+      "context": null,
+      "evidence_chain": [
+        "direct_quote='More than 1,000 potentially targeted by Morocco' timestamp='00:00:00' speaker=None visual_context=None context_window=' numbers. More than 1,000 potentially targeted by Morocco. There were journalists, lawyers, activists, but ' evidence_type='entity_context'"
+      ],
+      "contradictions": [
+        "a go-to spy service for tyrants. When we started analyzing the list, we saw a lot of French numbers. More than 1,000 potentially targeted by Morocco. ...",
+        "Moroccan dissidents on the list, even the king of Morocco himself was on the list, but we do know that NSO only sells to governments and government ag..."
+      ],
+      "extraction_source": "unknown"
+    },
+    {
+      "subject": "UAE",
+      "predicate": "targeted",
+      "object": "Princess Latifa",
+      "properties": {},
+      "context": null,
+      "evidence_chain": [
+        "direct_quote='Each time you look at how a client of NSO Group used the technology, it tells you something about that government' timestamp='00:00:00' speaker=None visual_context=None context_window='a state attacking another one. Each time you look at how a client of NSO Group used the technology, it tells you something about that government. In the UAE, Sheikh Mohammed bin Rashid Al Maktoum is P' evidence_type='spoken'",
+        "direct_quote='tells you something about that government' timestamp='00:00:00' speaker=None visual_context=None context_window='tells you something about that government. In the UAE, Sheikh Mohammed bin Rashid Al Maktoum is Prime M' evidence_type='entity_context'"
+      ],
+      "contradictions": [
+        "a state attacking another one. Each time you look at how a client of NSO Group used the technology, it tells you something about that government. In t..."
+      ],
+      "extraction_source": "unknown"
+    },
+    {
+      "subject": "UAE",
+      "predicate": "targeted",
+      "object": "David Haigh",
+      "properties": {},
+      "context": null,
+      "evidence_chain": [
+        "direct_quote='tells you something about that government' timestamp='00:00:00' speaker=None visual_context=None context_window='tells you something about that government. In the UAE, Sheikh Mohammed bin Rashid Al Maktoum is Prime M' evidence_type='entity_context'"
+      ],
+      "contradictions": [],
+      "extraction_source": "unknown"
+    },
+    {
+      "subject": "Israeli Defense Ministry",
+      "predicate": "licenses sales for",
+      "object": "NSO Group",
+      "properties": {},
+      "context": null,
+      "evidence_chain": [
+        "direct_quote='s national security interests. There' timestamp='00:00:00' speaker=None visual_context=None context_window=\"their former employees as valuable to Israel's national security interests. There's a lot of evidence to suggest that NSO Group had the the direct backing and support of BB Netanyahu's government. In \" evidence_type='spoken'",
+        "direct_quote='ve made a bigger deal than I would have expected against not just an Israeli company but really they' timestamp='00:00:00' speaker=None visual_context=None context_window='free for all. We even found out afterwards that the FBI considered using a version of Pegasus that could hack into US phones. But that fell apart and the Biden administration actually blacklisted NSO ' evidence_type='spoken'"
+      ],
+      "contradictions": [
+        "free for all. We even found out afterwards that the FBI considered using a version of Pegasus that could hack into US phones. But that fell apart and ..."
+      ],
+      "extraction_source": "unknown"
+    },
+    {
+      "subject": "BB Netanyahu",
+      "predicate": "used as diplomatic tool by",
+      "object": "Pegasus",
+      "properties": {},
+      "context": null,
+      "evidence_chain": [],
+      "contradictions": [],
+      "extraction_source": "unknown"
+    },
+    {
+      "subject": "NSO Group",
+      "predicate": "has ties to",
+      "object": "Unit 8200",
+      "properties": {},
+      "context": null,
+      "evidence_chain": [
+        "direct_quote='Each time you look at how a client of NSO Group used the technology, it tells you something about' timestamp='00:00:00' speaker=None visual_context=None context_window='nother one. Each time you look at how a client of NSO Group used the technology, it tells you something about' evidence_type='entity_context'"
+      ],
+      "contradictions": [],
+      "extraction_source": "unknown"
+    },
+    {
+      "subject": "Mexico",
+      "predicate": "targeted",
+      "object": "Cecilio Pineda",
+      "properties": {},
+      "context": null,
+      "evidence_chain": [],
+      "contradictions": [],
+      "extraction_source": "unknown"
+    },
+    {
+      "subject": "Forbidden Stories",
+      "predicate": "led investigation into",
+      "object": "NSO Group",
+      "properties": {},
+      "context": null,
+      "evidence_chain": [],
+      "contradictions": [],
+      "extraction_source": "unknown"
+    },
+    {
+      "subject": "Princess Latifa",
+      "predicate": "is daughter of",
+      "object": "Sheikh Mohammed bin Rashid Al Maktoum",
+      "properties": {},
+      "context": null,
+      "evidence_chain": [
+        "direct_quote='Each time you look at how a client of NSO Group used the technology, it tells you something about that government' timestamp='00:00:00' speaker=None visual_context=None context_window='a state attacking another one. Each time you look at how a client of NSO Group used the technology, it tells you something about that government. In the UAE, Sheikh Mohammed bin Rashid Al Maktoum is P' evidence_type='spoken'",
+        "direct_quote='founded the campaign to free the Dubai princess, Princess Latifa in 2018' timestamp='00:00:00' speaker=None visual_context=None context_window=' founded the campaign to free the Dubai princess, Princess Latifa in 2018. David Hay was actually imprisoned in Dub' evidence_type='entity_context'"
+      ],
+      "contradictions": [
+        "a state attacking another one. Each time you look at how a client of NSO Group used the technology, it tells you something about that government. In t..."
+      ],
+      "extraction_source": "unknown"
+    },
+    {
+      "subject": "Pegasus",
+      "predicate": "used against",
+      "object": "journalists, activists, lawyers",
+      "properties": {},
+      "context": null,
+      "evidence_chain": [
+        "direct_quote='s now live. An explosive investigation from the Washington Post and a consortium of media partners. Activists, lawyers and journalists are reportedly among those de varios medios revel\u00f3 una lista de de la utilizaci\u00f3n de Pegasus en el mundo l' timestamp='00:00:00' speaker=None visual_context=None context_window=\"parti. Allez Putain Actif! 18 On est bon, 18. So the story's now live. An explosive investigation from the Washington Post and a consortium of media partners. Activists, lawyers and journalists are re\" evidence_type='document'"
+      ],
+      "contradictions": [],
+      "extraction_source": "unknown"
+    }
+  ],
+  "total_count": 12
+}

@@ -1,0 +1,467 @@
+{
+  "nodes": [
+    {
+      "id": "Amnesty International Security Lab",
+      "type": "ORGANIZATION",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Amnesty International Security Lab"
+    },
+    {
+      "id": "United Arab Emirates",
+      "type": "LOCATION",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "United Arab Emirates"
+    },
+    {
+      "id": "The Washington Post",
+      "type": "ORGANIZATION",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "The Washington Post"
+    },
+    {
+      "id": "Enrique Pe\u00f1a Nieto",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Enrique Pe\u00f1a Nieto"
+    },
+    {
+      "id": "Alejandro Encinas",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Alejandro Encinas"
+    },
+    {
+      "id": "Claudio Guarnieri",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Claudio Guarnieri"
+    },
+    {
+      "id": "Forbidden Stories",
+      "type": "ORGANIZATION",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Forbidden Stories"
+    },
+    {
+      "id": "Carmen Aristegui",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Carmen Aristegui"
+    },
+    {
+      "id": "Forbidden Films",
+      "type": "ORGANIZATION",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Forbidden Films"
+    },
+    {
+      "id": "Jamal Khashoggi",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Jamal Khashoggi"
+    },
+    {
+      "id": "Laurent Richard",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Laurent Richard"
+    },
+    {
+      "id": "Craig Timberg",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Craig Timberg"
+    },
+    {
+      "id": "George Orwell",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "George Orwell"
+    },
+    {
+      "id": "Hatice Cengiz",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Hatice Cengiz"
+    },
+    {
+      "id": "Saudi Arabia",
+      "type": "LOCATION",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Saudi Arabia"
+    },
+    {
+      "id": "The Guardian",
+      "type": "ORGANIZATION",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "The Guardian"
+    },
+    {
+      "id": "Bill Marzak",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Bill Marzak"
+    },
+    {
+      "id": "Citizen Lab",
+      "type": "ORGANIZATION",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Citizen Lab"
+    },
+    {
+      "id": "Dana Priest",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Dana Priest"
+    },
+    {
+      "id": "Hanan Atar",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Hanan Atar"
+    },
+    {
+      "id": "NSO Group",
+      "type": "ORGANIZATION",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "NSO Group"
+    },
+    {
+      "id": "Istanbul",
+      "type": "LOCATION",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Istanbul"
+    },
+    {
+      "id": "Le Monde",
+      "type": "ORGANIZATION",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Le Monde"
+    },
+    {
+      "id": "WhatsApp",
+      "type": "TECHNOLOGY",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "WhatsApp"
+    },
+    {
+      "id": "Android",
+      "type": "TECHNOLOGY",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Android"
+    },
+    {
+      "id": "Pegasus",
+      "type": "TECHNOLOGY",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Pegasus"
+    },
+    {
+      "id": "Israel",
+      "type": "LOCATION",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Israel"
+    },
+    {
+      "id": "Mexico",
+      "type": "LOCATION",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Mexico"
+    },
+    {
+      "id": "Signal",
+      "type": "TECHNOLOGY",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Signal"
+    },
+    {
+      "id": "Apple",
+      "type": "ORGANIZATION",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Apple"
+    },
+    {
+      "id": "Cnn",
+      "type": "ORGANIZATION",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Cnn"
+    },
+    {
+      "id": "journalists",
+      "type": "unknown",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [],
+      "canonical_form": "journalists"
+    },
+    {
+      "id": "dissidents",
+      "type": "unknown",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [],
+      "canonical_form": "dissidents"
+    },
+    {
+      "id": "17 news outlets",
+      "type": "unknown",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [],
+      "canonical_form": "17 news outlets"
+    }
+  ],
+  "edges": [
+    {
+      "source": "Claudio Guarnieri",
+      "target": "Amnesty International Security Lab",
+      "predicate": "is head of",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "Forbidden Stories",
+      "target": "17 news outlets",
+      "predicate": "coordinated",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "Carmen Aristegui",
+      "target": "Enrique Pe\u00f1a Nieto",
+      "predicate": "investigated",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "Jamal Khashoggi",
+      "target": "Hatice Cengiz",
+      "predicate": "was fianc\u00e9e of",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "Jamal Khashoggi",
+      "target": "Hanan Atar",
+      "predicate": "was wife of",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "Jamal Khashoggi",
+      "target": "The Washington Post",
+      "predicate": "was writer for",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "Saudi Arabia",
+      "target": "United Arab Emirates",
+      "predicate": "is ally of",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "NSO Group",
+      "target": "Pegasus",
+      "predicate": "developed",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "NSO Group",
+      "target": "Mexico",
+      "predicate": "was client of",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "Pegasus",
+      "target": "journalists",
+      "predicate": "was used against",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "Pegasus",
+      "target": "dissidents",
+      "predicate": "was used against",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "Pegasus",
+      "target": "Hanan Atar",
+      "predicate": "was targeted by",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "Pegasus",
+      "target": "Hatice Cengiz",
+      "predicate": "was targeted by",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    }
+  ],
+  "node_count": 34,
+  "edge_count": 13
+}

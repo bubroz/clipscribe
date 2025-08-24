@@ -1,0 +1,32 @@
+name,type,source,timestamp,mention_count
+Amnesty International Security Lab,ORGANIZATION,['gemini'],,1
+United Arab Emirates,LOCATION,['gemini'],,1
+The Washington Post,ORGANIZATION,['gemini'],,1
+Enrique Peña Nieto,PERSON,['gemini'],,1
+Alejandro Encinas,PERSON,['gemini'],,1
+Claudio Guarnieri,PERSON,['gemini'],,1
+Forbidden Stories,ORGANIZATION,['gemini'],,1
+Carmen Aristegui,PERSON,['gemini'],,1
+Forbidden Films,ORGANIZATION,['gemini'],,1
+Jamal Khashoggi,PERSON,['gemini'],,1
+Laurent Richard,PERSON,['gemini'],,1
+Craig Timberg,PERSON,['gemini'],,1
+George Orwell,PERSON,['gemini'],,1
+Hatice Cengiz,PERSON,['gemini'],,1
+Saudi Arabia,LOCATION,['gemini'],,1
+The Guardian,ORGANIZATION,['gemini'],,1
+Bill Marzak,PERSON,['gemini'],,1
+Citizen Lab,ORGANIZATION,['gemini'],,1
+Dana Priest,PERSON,['gemini'],,1
+Hanan Atar,PERSON,['gemini'],,1
+NSO Group,ORGANIZATION,['gemini'],,1
+Istanbul,LOCATION,['gemini'],,1
+Le Monde,ORGANIZATION,['gemini'],,1
+WhatsApp,TECHNOLOGY,['gemini'],,1
+Android,TECHNOLOGY,['gemini'],,1
+Pegasus,TECHNOLOGY,['gemini'],,1
+Israel,LOCATION,['gemini'],,1
+Mexico,LOCATION,['gemini'],,1
+Signal,TECHNOLOGY,['gemini'],,1
+Apple,ORGANIZATION,['gemini'],,1
+Cnn,ORGANIZATION,['gemini'],,1

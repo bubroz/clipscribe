@@ -1,0 +1,451 @@
+{
+  "nodes": [
+    {
+      "id": "Three Cheers for Sweet Revenge",
+      "type": "CREATIVE_WORK",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Three Cheers for Sweet Revenge"
+    },
+    {
+      "id": "My Chemical Romance",
+      "type": "ORGANIZATION",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "My Chemical Romance"
+    },
+    {
+      "id": "The Downward Spiral",
+      "type": "CREATIVE_WORK",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "The Downward Spiral"
+    },
+    {
+      "id": "Avenged Sevenfold",
+      "type": "ORGANIZATION",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Avenged Sevenfold"
+    },
+    {
+      "id": "Bohemian Rhapsody",
+      "type": "CREATIVE_WORK",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Bohemian Rhapsody"
+    },
+    {
+      "id": "Famous Last Words",
+      "type": "CREATIVE_WORK",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Famous Last Words"
+    },
+    {
+      "id": "Tate murder house",
+      "type": "LOCATION",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Tate murder house"
+    },
+    {
+      "id": "Paramore Mansion",
+      "type": "LOCATION",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Paramore Mansion"
+    },
+    {
+      "id": "The Black Parade",
+      "type": "CREATIVE_WORK",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "The Black Parade"
+    },
+    {
+      "id": "Antonio Moreno",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Antonio Moreno"
+    },
+    {
+      "id": "Britney Spears",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Britney Spears"
+    },
+    {
+      "id": "Matt Pelissier",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Matt Pelissier"
+    },
+    {
+      "id": "Goo Goo Dolls",
+      "type": "ORGANIZATION",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Goo Goo Dolls"
+    },
+    {
+      "id": "Merle Haggard",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Merle Haggard"
+    },
+    {
+      "id": "Fall Out Boy",
+      "type": "ORGANIZATION",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Fall Out Boy"
+    },
+    {
+      "id": "Trent Reznor",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Trent Reznor"
+    },
+    {
+      "id": "David Bowie",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "David Bowie"
+    },
+    {
+      "id": "Rob Cavallo",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Rob Cavallo"
+    },
+    {
+      "id": "The Patient",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "The Patient"
+    },
+    {
+      "id": "Frank Iero",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Frank Iero"
+    },
+    {
+      "id": "Gerard Way",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Gerard Way"
+    },
+    {
+      "id": "Pink Floyd",
+      "type": "ORGANIZATION",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Pink Floyd"
+    },
+    {
+      "id": "Bob Bryar",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Bob Bryar"
+    },
+    {
+      "id": "Green Day",
+      "type": "ORGANIZATION",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Green Day"
+    },
+    {
+      "id": "Mikey Way",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Mikey Way"
+    },
+    {
+      "id": "Teenagers",
+      "type": "CREATIVE_WORK",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Teenagers"
+    },
+    {
+      "id": "Ray Toro",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Ray Toro"
+    },
+    {
+      "id": "The Wall",
+      "type": "CREATIVE_WORK",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "The Wall"
+    },
+    {
+      "id": "Bullets",
+      "type": "CREATIVE_WORK",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Bullets"
+    },
+    {
+      "id": "Houdini",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Houdini"
+    },
+    {
+      "id": "Queen",
+      "type": "ORGANIZATION",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Queen"
+    },
+    {
+      "id": "Sleep",
+      "type": "CREATIVE_WORK",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Sleep"
+    }
+  ],
+  "edges": [
+    {
+      "source": "My Chemical Romance",
+      "target": "The Black Parade",
+      "predicate": "DEMOED ALBUM AT",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "Goo Goo Dolls",
+      "target": "My Chemical Romance",
+      "predicate": "WAS INFLUENCED BY",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "David Bowie",
+      "target": "My Chemical Romance",
+      "predicate": "WAS INFLUENCED BY",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "Rob Cavallo",
+      "target": "The Black Parade",
+      "predicate": "PRODUCED",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "Rob Cavallo",
+      "target": "Green Day",
+      "predicate": "WORKED WITH",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "The Patient",
+      "target": "The Black Parade",
+      "predicate": "FEATURES MAIN CHARACTER",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "Frank Iero",
+      "target": "My Chemical Romance",
+      "predicate": "IS MEMBER OF",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "Gerard Way",
+      "target": "My Chemical Romance",
+      "predicate": "IS MEMBER OF",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "Pink Floyd",
+      "target": "My Chemical Romance",
+      "predicate": "WAS INFLUENCED BY",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "Bob Bryar",
+      "target": "The Black Parade",
+      "predicate": "PERFORMED DRUMS ON",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "Mikey Way",
+      "target": "My Chemical Romance",
+      "predicate": "BRIEFLY LEFT",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "Ray Toro",
+      "target": "My Chemical Romance",
+      "predicate": "IS MEMBER OF",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "Queen",
+      "target": "My Chemical Romance",
+      "predicate": "WAS INFLUENCED BY",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    }
+  ],
+  "node_count": 32,
+  "edge_count": 13
+}

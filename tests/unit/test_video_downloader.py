@@ -204,6 +204,29 @@ class TestVideoDownloader:
         # File should be deleted even without retention manager
         assert not temp_file.exists()
 
+    @pytest.mark.asyncio
+    async def test_cleanup_temp_file_error_handling(self, video_downloader, temp_directory):
+        """Test cleanup error handling when file cannot be removed."""
+        temp_file = temp_directory / "test_video.mp4"
+        temp_file.write_text("test content")
+
+        from clipscribe.config.settings import VideoRetentionPolicy
+        from clipscribe.retrievers.video_retention_manager import VideoRetentionManager
+        from unittest.mock import patch
+
+        retention_manager = VideoRetentionManager()
+
+        # Mock os.unlink to raise an exception
+        with patch('os.unlink', side_effect=OSError("Permission denied")):
+            await video_downloader.cleanup_temp_file(
+                temp_file,
+                VideoRetentionPolicy.DELETE,
+                retention_manager
+            )
+
+        # File should still exist due to the error
+        assert temp_file.exists()
+
     def test_video_client_initialization(self, video_downloader):
         """Test that video client is properly initialized."""
         assert hasattr(video_downloader, 'video_client')

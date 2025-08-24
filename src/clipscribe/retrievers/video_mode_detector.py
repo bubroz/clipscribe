@@ -239,6 +239,7 @@ class SmartVideoRetriever:
         """
         if force_mode:
             mode = force_mode
+            analysis = VideoAnalysis(recommended_mode=mode, reasoning=f"Forced {mode} mode")
         else:
             # Download small portion to analyze
             # Run detection
@@ -253,3 +254,13 @@ class SmartVideoRetriever:
         else:
             # Use current audio-only approach
             return await self._process_with_audio(url)
+
+    async def _process_with_audio(self, url: str):
+        """Process video using audio-only mode."""
+        # Placeholder implementation - would integrate with actual video processor
+        return {"mode": "audio", "url": url, "status": "processed"}
+
+    async def _process_with_video(self, url: str):
+        """Process video using full video mode."""
+        # Placeholder implementation - would integrate with actual video processor
+        return {"mode": "video", "url": url, "status": "processed"}

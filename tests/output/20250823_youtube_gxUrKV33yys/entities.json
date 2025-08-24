@@ -1,0 +1,700 @@
+{
+  "video_url": "https://www.youtube.com/watch?v=gxUrKV33yys",
+  "video_title": "The Tragic Early Days of My Chemical Romance",
+  "entities": [
+    {
+      "name": "I Brought You My Bullets, You Brought Me Your Love",
+      "type": "ALBUM",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "y are remembered as today. The brilliantly titled I Brought You My Bullets, You Brought Me Your Love. An album that still stands as their most raw and",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": " as featuring them as the cover itself. But also, I brought you my bullets, you brought me your love, would serve as the foundation of just about ever",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": " understand just what makes this band so special. I Brought You My Bullets, You Brought Me Your Love would go on to become a sleeper hit initially, bu",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Skylines and Turnstyles",
+      "type": "SONG",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "Gerard would ever write for the band. That being, Skylines and Turnstyles. And in this moment, we can't close the lids on b",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "to end your own life. And much like the lyrics of Skylines and Turnstyles, which are about Gerard's feelings after bearing ",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "My Chemical Romance",
+      "type": "BAND",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": " bro. I'm excited to uh be starting guitar today. My Chemical Romance is a band that needs very little introduction. Th",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "ass tacks and talk about the tragic early days of My Chemical Romance. Uh, we're from New Jersey. Hey, I'm Mikey, I pla",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "hat are you guys all about? What's what's up with My Chemical Romance? Partying. We're all about the party. We bring th",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "t there, we should probably lay out some context. My Chemical Romance is an ensemble band where most groups are just th",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": " we need to cover. I'm Gerard. I'm And we're from My Chemical Romance and I sing and I play the beats. The Way brothers",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "my in front of that, made it My Chemical Romance? We kind of threw the my on to kind of give it a ",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Our Lady of Sorrows",
+      "type": "SONG",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "econd track, Bring More Knives, later retitled to Our Lady of Sorrows. This song is",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "her hand, we have songs like Drowning lessons and Our Lady of Sorrows. Our Lady of Sorrows focuses heavily on building ",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Eyeball Records",
+      "type": "ORGANIZATION",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "ittle cassette that not only got the attention of Eyeball Records, but also that of Frank Iero. So, maybe before we",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "areer, they would most consistently be pursued by Eyeball Records, eventually signing with them to produce their de",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Matt Pelissier",
+      "type": "PERSON",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [],
+      "aliases": [],
+      "temporal_distribution": []
+    },
+    {
+      "name": "Jeff Rickly",
+      "type": "PERSON",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "them up, in this case, we have the unsung legend, Jeff Rickly, vocalist of the band Thursday. Thursday is anoth",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "The Rodneys",
+      "type": "BAND",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "y with a young Gerard Way, and most successfully, The Rodneys who would even put out a record in 1997. While it",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "college years. Unlike Ray's band, the Rodneys, which had a more eclectic yet traditional take t",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Frank Iero",
+      "type": "PERSON",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "e would be none other than Gerard Way, Mikey Way, Frank Iero, and Ray Toro. Four misfits born and raised in Ne",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "he attention of Eyeball Records, but also that of Frank Iero. So, maybe before we go any further, we should pr",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Gerard Way",
+      "type": "PERSON",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "ur four key players here would be none other than Gerard Way, Mikey Way, Frank Iero, and Ray Toro. Four misfit",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "ch as Nancy Drew where he would play with a young Gerard Way, and most successfully, The Rodneys who would eve",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Nancy Drew",
+      "type": "BAND",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": " writing and performing, playing in bands such as Nancy Drew where he would play with a young Gerard Way, and ",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "for a handful of bands like Nancy Drew, Gerard would take a much different path in life ",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "New Jersey",
+      "type": "LOCATION",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "early days of My Chemical Romance. Uh, we're from New Jersey. Hey, I'm Mikey, I play the bass guitar. I'm Gera",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "s. Alright, so you guys are from where'd you say? New Jersey. Alright, what are you guys all about? What's wha",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "ro, and Ray Toro. Four misfits born and raised in New Jersey who could thank their upbringing for forging them",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "e to me. Frank would spend his formative years in New Jersey's DIY punk scene, playing in a few bands and ulti",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Pency Prep",
+      "type": "BAND",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "it of Frank's upbringing was his time in the band Pency Prep. a group that write songs and play VFW halls. Lik",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "ely far removed from what we would hear from MCR, Pency prep on the other hand, actually fits the bill as a pr",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "of the most important keys in our story later on. Pency Prep's disbandment became one of the most defining mom",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Bob Bryar",
+      "type": "PERSON",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "d they would go through drummers like water, with Bob Bryar being the only one to have a decently long stint.",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Mikey Way",
+      "type": "PERSON",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "players here would be none other than Gerard Way, Mikey Way, Frank Iero, and Ray Toro. Four misfits born and ",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "n these two would be their initial paths in life. Mikey Way would opt to be much more low key with his pursui",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "the original four-piece to join would actually be Mikey Way. He's actually the one who coined the iconic name",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Hellfest",
+      "type": "EVENT",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "ys have something special that you're bringing to Hellfest? Some",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Ray Toro",
+      "type": "PERSON",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "other than Gerard Way, Mikey Way, Frank Iero, and Ray Toro. Four misfits born and raised in New Jersey who c",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "wasn't exactly an option. Ray Toro specifically was the member who would get heavily",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": ". Shortly after this, Way would set his sights on Ray Toro. And when I found out he was playing drums in a b",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Thursday",
+      "type": "BAND",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": " the relationships Frank made with the members of Thursday and Ivoball Records during this time would be som",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": " unsung legend, Jeff Rickly, vocalist of the band Thursday. Thursday is another legendary Jersey band who sa",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "9/11",
+      "type": "EVENT",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "ted to even the playing field a little bit. Yeah, 9/11 was actually the catalyst for the band forming, b",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Ohio",
+      "type": "LOCATION",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "hy so many great bands from the emo era came from Ohio.",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "d dump all your time into them. So, for most from Ohio, it would be music and playing instruments, makin",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    }
+  ],
+  "topics": [
+    {
+      "name": "My Chemical Romance",
+      "confidence": 0.9
+    },
+    {
+      "name": "Band Formation",
+      "confidence": 0.9
+    },
+    {
+      "name": "Music History",
+      "confidence": 0.9
+    },
+    {
+      "name": "Emo Music",
+      "confidence": 0.9
+    },
+    {
+      "name": "Punk Rock",
+      "confidence": 0.9
+    },
+    {
+      "name": "New Jersey Music Scene",
+      "confidence": 0.9
+    },
+    {
+      "name": "9/11 Impact on Arts",
+      "confidence": 0.9
+    }
+  ],
+  "key_facts": [
+    "The formation of My Chemical Romance was directly catalyzed by Gerard Way witnessing the September 11th attacks, which inspired him to pursue music and write the band's first song, 'Skylines and Turnstyles'.",
+    "The band's core members are Gerard Way, his brother Mikey Way, guitarist Ray Toro, and guitarist Frank Iero, with a rotating cast of drummers.",
+    "Frank Iero's previous band, Pency Prep, and his connections within the New Jersey DIY punk scene, particularly with Eyeball Records and the band Thursday, were crucial for MCR's early success.",
+    "The members' upbringing in a crime-ridden New Jersey during the '80s and '90s fostered an isolated, nerdy disposition focused on comics, fantasy, and music, which heavily influenced their artistic style.",
+    "Ray Toro, a highly skilled guitarist, had initially given up on a music career to pursue filmmaking before being convinced by Gerard Way to join the band."
+  ]
+}

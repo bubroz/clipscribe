@@ -1,0 +1,340 @@
+{
+  "version": "2.3",
+  "created_at": "2025-08-23T20:38:28.198035",
+  "video": {
+    "title": "The Revenge of My Chemical Romance",
+    "url": "https://www.youtube.com/watch?v=2jlsVEeZmVo",
+    "platform": "unknown"
+  },
+  "extraction_stats": {
+    "gemini_entities": [
+      {
+        "confidence": 1.0,
+        "name": "My Chemical Romance",
+        "type": "Band"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Gerard Way",
+        "type": "Person"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Three Cheers for Sweet Revenge",
+        "type": "Album"
+      },
+      {
+        "confidence": 0.9,
+        "name": "The Black Parade",
+        "type": "Album"
+      },
+      {
+        "confidence": 0.9,
+        "name": "Danger Days",
+        "type": "Album"
+      },
+      {
+        "confidence": 0.95,
+        "name": "Bullets",
+        "type": "Album"
+      },
+      {
+        "confidence": 0.9,
+        "name": "The Used",
+        "type": "Band"
+      },
+      {
+        "confidence": 0.9,
+        "name": "Sum 41",
+        "type": "Band"
+      },
+      {
+        "confidence": 0.9,
+        "name": "Fall Out Boy",
+        "type": "Band"
+      },
+      {
+        "confidence": 0.9,
+        "name": "Every Time I die",
+        "type": "Band"
+      },
+      {
+        "confidence": 0.9,
+        "name": "Avenged Sevenfold",
+        "type": "Band"
+      },
+      {
+        "confidence": 0.8,
+        "name": "Nirvana",
+        "type": "Band"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Reprise Records",
+        "type": "Record Label"
+      },
+      {
+        "confidence": 0.9,
+        "name": "Eyeball Records",
+        "type": "Record Label"
+      },
+      {
+        "confidence": 0.95,
+        "name": "Howard Benson",
+        "type": "Person"
+      },
+      {
+        "confidence": 0.95,
+        "name": "Mikey Way",
+        "type": "Person"
+      },
+      {
+        "confidence": 0.9,
+        "name": "Frank Iero",
+        "type": "Person"
+      },
+      {
+        "confidence": 0.9,
+        "name": "Ray Toro",
+        "type": "Person"
+      },
+      {
+        "confidence": 0.85,
+        "name": "Matt Pelissier",
+        "type": "Person"
+      },
+      {
+        "confidence": 0.85,
+        "name": "Bob Bryar",
+        "type": "Person"
+      },
+      {
+        "confidence": 0.9,
+        "name": "Bert McCracken",
+        "type": "Person"
+      },
+      {
+        "confidence": 0.95,
+        "name": "Emo",
+        "type": "Music Genre"
+      },
+      {
+        "confidence": 0.9,
+        "name": "Mall Goth",
+        "type": "Subculture"
+      },
+      {
+        "confidence": 0.9,
+        "name": "Post-Hardcore",
+        "type": "Music Genre"
+      },
+      {
+        "confidence": 0.8,
+        "name": "Metalcore",
+        "type": "Music Genre"
+      },
+      {
+        "confidence": 0.9,
+        "name": "Pop Punk",
+        "type": "Music Genre"
+      },
+      {
+        "confidence": 0.8,
+        "name": "Warped Tour",
+        "type": "Event"
+      },
+      {
+        "confidence": 0.8,
+        "name": "Japan",
+        "type": "Location"
+      },
+      {
+        "confidence": 0.9,
+        "name": "Jersey",
+        "type": "Location"
+      },
+      {
+        "confidence": 0.8,
+        "name": "straight.com",
+        "type": "Organization"
+      },
+      {
+        "confidence": 0.8,
+        "name": "Grunge",
+        "type": "Publication"
+      },
+      {
+        "confidence": 0.9,
+        "name": "Helena",
+        "type": "Song"
+      },
+      {
+        "confidence": 0.9,
+        "name": "Give 'em Hell, Kid",
+        "type": "Song"
+      },
+      {
+        "confidence": 0.85,
+        "name": "To the End",
+        "type": "Song"
+      },
+      {
+        "confidence": 0.85,
+        "name": "You Know What They Do to Guys Like Us in Prison",
+        "type": "Song"
+      },
+      {
+        "confidence": 0.9,
+        "name": "A Rose for Emily",
+        "type": "Literature"
+      },
+      {
+        "confidence": 0.9,
+        "name": "William Faulkner",
+        "type": "Person"
+      }
+    ],
+    "gemini_relationships": [
+      {
+        "confidence": 1.0,
+        "object": "My Chemical Romance",
+        "predicate": "is lead singer of",
+        "subject": "Gerard Way"
+      },
+      {
+        "confidence": 1.0,
+        "object": "Three Cheers for Sweet Revenge",
+        "predicate": "released",
+        "subject": "My Chemical Romance"
+      },
+      {
+        "confidence": 1.0,
+        "object": "Howard Benson",
+        "predicate": "was produced by",
+        "subject": "Three Cheers for Sweet Revenge"
+      },
+      {
+        "confidence": 1.0,
+        "object": "Reprise Records",
+        "predicate": "signed with",
+        "subject": "My Chemical Romance"
+      },
+      {
+        "confidence": 0.95,
+        "object": "Alcoholism",
+        "predicate": "struggled with",
+        "subject": "Gerard Way"
+      },
+      {
+        "confidence": 0.95,
+        "object": "Drug Abuse",
+        "predicate": "struggled with",
+        "subject": "Gerard Way"
+      },
+      {
+        "confidence": 0.9,
+        "object": "The Used",
+        "predicate": "toured with",
+        "subject": "My Chemical Romance"
+      },
+      {
+        "confidence": 0.9,
+        "object": "Avenged Sevenfold",
+        "predicate": "toured with",
+        "subject": "My Chemical Romance"
+      },
+      {
+        "confidence": 0.95,
+        "object": "My Chemical Romance",
+        "predicate": "is member of",
+        "subject": "Mikey Way"
+      },
+      {
+        "confidence": 0.95,
+        "object": "Three Cheers for Sweet Revenge",
+        "predicate": "influenced",
+        "subject": "The death of Gerard Way's grandmother"
+      },
+      {
+        "confidence": 0.85,
+        "object": "Gerard Way",
+        "predicate": "was friend of",
+        "subject": "Bert McCracken"
+      },
+      {
+        "confidence": 0.9,
+        "object": "Three Cheers for Sweet Revenge",
+        "predicate": "is a song on",
+        "subject": "Helena"
+      },
+      {
+        "confidence": 0.9,
+        "object": "My Chemical Romance",
+        "predicate": "was influenced by",
+        "subject": "Frank Iero"
+      }
+    ],
+    "retention_decision": {
+      "action": "deleted",
+      "video_path": "tests/cache/The Revenge of My Chemical Romance-2jlsVEeZmVo.mp4",
+      "video_hash": "32954c29d5c4967afb0d1539",
+      "reason": "Policy: Always delete source videos",
+      "cost_savings": {
+        "storage_cost_avoided": 0.033780338432639834,
+        "reprocessing_cost": 0.28265599999999996
+      },
+      "timestamp": "2025-08-23T20:38:28.133948"
+    }
+  },
+  "timeline_v2": null,
+  "files": {
+    "transcript_txt": {
+      "path": "transcript.txt",
+      "format": "plain_text",
+      "size": 43127,
+      "sha256": "ef33fad0f841aab335f2a25044ce27ec0e866085126304c4bc33b03d394c95ab"
+    },
+    "transcript_json": {
+      "path": "transcript.json",
+      "format": "json",
+      "size": 207056,
+      "sha256": "dd8245e4551332dcaf623b7a7845825bb43d65fcb6e2c8ce7de0e338ca917e44"
+    },
+    "metadata": {
+      "path": "metadata.json",
+      "format": "json",
+      "size": 1285,
+      "sha256": "085de8fc146245838f5aa164c527ef7e4c90feeb30697e26beb64a0ec07dc89a"
+    },
+    "entities": {
+      "path": "entities.json",
+      "format": "json",
+      "size": 37368,
+      "sha256": "bbd6435aabb65b5171ea61c3e2dc5940a0624d341b678b6f0c26c265ef0cfa0a"
+    },
+    "relationships": {
+      "path": "relationships.json",
+      "format": "json",
+      "size": 48570,
+      "sha256": "81c1fbed6298fe8b6ee5ed601401a9a2bee3adc7833586feee257b2e74f40b5c"
+    },
+    "knowledge_graph": {
+      "path": "knowledge_graph.json",
+      "format": "json",
+      "size": 11899,
+      "sha256": "65440ac2277008a7bbacc625ed3015a825aa57e9d6555ee7219aa564cc32aa51"
+    },
+    "report": {
+      "path": "report.md",
+      "format": "markdown",
+      "size": 1647,
+      "sha256": "5399069256674b6207b2e73cfd1cc4020f5a7bc957c6c5257c8586d660e3f92a"
+    },
+    "chimera": {
+      "path": "chimera_format.json",
+      "format": "json",
+      "size": 86635,
+      "sha256": "f4bb62677cb39e87cb17233dbbdebf1c3582e6286526c7381d8332dd36ce91ee"
+    }
+  }
+}

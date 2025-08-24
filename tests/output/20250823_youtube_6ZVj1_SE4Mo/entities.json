@@ -1,0 +1,1117 @@
+{
+  "video_url": "https://www.youtube.com/watch?v=6ZVj1_SE4Mo",
+  "video_title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+  "entities": [
+    {
+      "name": "Amnesty International Security Lab",
+      "type": "ORGANIZATION",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "forensics on it. Claudio Guarnieri is the head of Amnesty International Security Lab. He worked on creating a methodology, a platform ",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "United Arab Emirates",
+      "type": "LOCATION",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": ", Hanan had been detained and interrogated in the United Arab Emirates, which is, of course, a close ally of Saudi Arabi",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "The Washington Post",
+      "type": "ORGANIZATION",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "ic scale. De acuerdo con la pesquisa recabada por The Washington Post, The Guardian, Le Monde y otros medios. The joint",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "nd you? We decided to reach out to some partners, The Washington Post, The Guardian, and many other ones. We wanted to ",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": ". Thank you. Sorry about that. I'm Dana Priest at the Washington Post and this is uh Craig Timberg, who's joining me. H",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "the Post stands out. He was an opinion writer for the Washington Post, very gentle, soft spoken man. His voice became v",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Enrique Pe\u00f1a Nieto",
+      "type": "PERSON",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "o, relacionadas con la Casa Blanca del presidente Enrique Pe\u00f1a Nieto. Una casa en un barrio muy lujoso de la Ciudad de",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Alejandro Encinas",
+      "type": "PERSON",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "e va a terminar esto?\" Ah, caray. El que sigue es Alejandro Encinas. Es un muy importante pol\u00edtico de la izquierda. Y",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Claudio Guarnieri",
+      "type": "PERSON",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": " been hacked unless we conducted forensics on it. Claudio Guarnieri is the head of Amnesty International Security Lab",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Forbidden Stories",
+      "type": "ORGANIZATION",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "tion about Hungary, Azerbaijan and Kazakhstan. If Forbidden Stories have got data that can identify not just who the ",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "to. Hola? Hola, Carmen. Soy Laurent de Forbidden Stories. \u00bfC\u00f3mo est\u00e1s? \u00bfC\u00f3mo est\u00e1s? Qu\u00e9 gusto. Forbidden t",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "one number. This is what all the partners and the Forbidden Stories team",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Carmen Aristegui",
+      "type": "PERSON",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": " Group. One of Mexico's best known journalists is Carmen Aristegui, and she was part of our investigation. She has m",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Forbidden Films",
+      "type": "ORGANIZATION",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "issidents across the globe. In collaboration with Forbidden films, a two-part investigation. We immediately realize",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Jamal Khashoggi",
+      "type": "PERSON",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": " the Pegasus spyware might have been used against Jamal Khashoggi, who was killed in 2018 in the consulate of the S",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": " are accusations that our technology been used on Jamal Khashoggi or on his relatives, I started an immediate check",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": ". The analysis proved that the phone belonging to Jamal Khashoggi's fiance had been infected with Pegasus. The anal",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Laurent Richard",
+      "type": "PERSON",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [],
+      "aliases": [],
+      "temporal_distribution": []
+    },
+    {
+      "name": "Craig Timberg",
+      "type": "PERSON",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "Dana Priest at the Washington Post and this is uh Craig Timberg, who's joining me. Here is Carmen. Sebastian from",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "George Orwell",
+      "type": "PERSON",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": " exaggeration to say this was something that even George Orwell in 1984 couldn't imagine. It's",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Hatice Cengiz",
+      "type": "PERSON",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [],
+      "aliases": [],
+      "temporal_distribution": []
+    },
+    {
+      "name": "Saudi Arabia",
+      "type": "LOCATION",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "ab Emirates, which is, of course, a close ally of Saudi Arabia. They took",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "The Guardian",
+      "type": "ORGANIZATION",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "con la pesquisa recabada por The Washington Post, The Guardian, Le Monde y otros medios. The joint investigation",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": " reach out to some partners, The Washington Post, The Guardian, and many other ones. We wanted to tell you about",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "here for Bakerloo and Northern lines. We at the Guardian have been reporting about NSO for a long time. We",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": " me. Here is Carmen. Sebastian from. This is a in the Guardian and",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Bill Marzak",
+      "type": "PERSON",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "nload her phone, to send a copy to Claudio and to Bill Marzak at Citizen",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Citizen Lab",
+      "type": "ORGANIZATION",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "hat then directed the phone to a website known to Citizen Lab as being a Pegasus website that activates the inf",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Dana Priest",
+      "type": "PERSON",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "vestigation. Hi. Thank you. Sorry about that. I'm Dana Priest at the Washington Post and this is uh Craig Timbe",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Hanan Atar",
+      "type": "PERSON",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "arned that Jamal had a complicated personal life. Hanan Atar is probably the least known character in Jamal Ka",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "NSO Group",
+      "type": "ORGANIZATION",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": " happening out there. All of us suspected that if NSO Group was giving authoritarian and repressive regimes s",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "t of these governments are known to be clients of NSO Group who make Pegasus. Pegasus is designed to infect p",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "s these tools all over the world. And if you like NSO group was",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": " many ways, you know, the jewel in the crown. The NSO group was recently valued at 1 billion dollars. It is o",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "of the CEO of NSO group who told Getting evidence on the device of Hanan,",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "ers. Mexico was among the very first customers of NSO Group. One of Mexico's best known journalists is Carmen",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Istanbul",
+      "type": "LOCATION",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": " killed in 2018 in the consulate of the Saudis in Istanbul. The minute we found out about this list, the fir",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "e the whole story. Jamal went to the consulate in Istanbul, and then he disappeared. Senior Turkish official",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Le Monde",
+      "type": "ORGANIZATION",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "a recabada por The Washington Post, The Guardian, Le Monde y otros medios. The joint investigation by 17 new",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "WhatsApp",
+      "type": "TECHNOLOGY",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "os, even the encrypted messages sent by Signal or WhatsApp. It can even access the mic or the camera. messag",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "ice, access and records on the device, being from WhatsApp, being from uh the SMS uh that on the database th",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "r ejemplo, ten\u00edamos el cuadro de la aplicaci\u00f3n de WhatsApp, Telegram. Abajo ten\u00edamos el micr\u00f3fono, las c\u00e1mar",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Android",
+      "type": "TECHNOLOGY",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "asus is designed to infect phones like iPhones or Androids, and once in the phone, it can",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "id is I analyzed all the available data on uh two Android phones and and one laptop uh belonging to Hanan. ",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Pegasus",
+      "type": "TECHNOLOGY",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "Pegasus. Pegasus. Pegasus. Pegasus. Pegasus, which has be",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "ine, part one of Global Spyware scandal, exposing Pegasus. Our phones are not just",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "brief? La base de donn\u00e9es est vraiment explosive. Pegasus. Pegasus. Pegasus. Pegasus. This technology is so",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "Pegasus Spyware is not working on any +1 US phone numbers",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "victims. We had the data, but how do we prove the Pegasus was on the phones? And that was always going to b",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "our team would have been able to detect traces of Pegasus in a phone. It's a piece of code that look very s",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "that it shouldn't. Pegasus access and files on the device, access and record",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "lity is that against capabilities like those that Pegasus customers have, there's not much you can do from ",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "the project. For years, we heard rumors about the Pegasus spyware might have been used against Jamal Khasho",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "soon after his murder, people started asking, Was Pegasus used against Jamal? The word is that you sold Peg",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "o Jamal Khashoggi's fiance had been infected with Pegasus. The analysis proved that the phone belonging to ",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "s that uh there were two separate uh links to the Pegasus Spyware that were actually to Hanan. On",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "s that uh there were two separate uh links to the Pegasus spyware that were actually opened. That shows tha",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "hone to a website known to Citizen Lab as being a Pegasus website that activates the infection. The link to",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "ious investigation that was heavily targeted with Pegasus in 2015 and 2016. So from that date she is still ",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "able que que hagas. Que le expliques. Sabemos que Pegasus se vendi\u00f3 a la Procuradur\u00eda General de la Rep\u00fabli",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "ej\u00e9rcito, eh se vendi\u00f3 Pegasus al CISEN, al Sistema de Inteligencia, se vendi\u00f3 P",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "a cierta informaci\u00f3n. El sistema Pegasus era toda una novedad para nosotros. El procedimie",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "ir vi\u00e9ndolas. Cuando empiezas a saber qu\u00e9 cosa es Pegasus, te vas de espaldas. Quedas desnudo frente a un p",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "ing. Yes. So the the secrecy of this, it's called Pegasus. And the secrecy of it is that you don't",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "are connected to to Pegasus. We see some message accounts that um that are co",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "line. Frontline's Global Spyware scandal exposing Pegasus is available on Amazon Prime video.",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Israel",
+      "type": "LOCATION",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "really important to hold this company to account. Israel has become a world leader in this industry and ex",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "rs. It is one of the most successful companies in Israel's startup space. NSO says they sell this software",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "successful companies in Israel's startup space. NSO says they sell this software",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Mexico",
+      "type": "LOCATION",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "ere is a lot that concerned India. Some people in Mexico, information about Hungary, Azerbaijan and Kazakh",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "we saw more than 15,000 Mexican numbers. Mexico was among the very first customers of NSO Group. ",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "t all the agents and operators who are using that Mexico. Durante los a\u00f1os que fui espiada, estuvimos real",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Signal",
+      "type": "TECHNOLOGY",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": ", the photos, even the encrypted messages sent by Signal or WhatsApp. It can even access the mic or the ca",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "phone, including on Signal because they have the phone itself. And it's lega",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Apple",
+      "type": "ORGANIZATION",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": " audio, access the webcam. These kinds of things. Apple and companies",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": " might indicate what was the entry point. Oh, was Apple Music? What",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "'s that's weird. So they might have started using Apple Music to exploit it? Um, I have to do some more d",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Cnn",
+      "type": "ORGANIZATION",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "ductora de mi programa en la cadena de televisi\u00f3n CNN en M\u00e9xico. Otro colega periodista, de la revista ",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    }
+  ],
+  "topics": [
+    {
+      "name": "Pegasus spyware",
+      "confidence": 0.9
+    },
+    {
+      "name": "NSO Group",
+      "confidence": 0.9
+    },
+    {
+      "name": "cyber surveillance",
+      "confidence": 0.9
+    },
+    {
+      "name": "journalism",
+      "confidence": 0.9
+    },
+    {
+      "name": "human rights",
+      "confidence": 0.9
+    },
+    {
+      "name": "geopolitics",
+      "confidence": 0.9
+    },
+    {
+      "name": "intelligence gathering",
+      "confidence": 0.9
+    },
+    {
+      "name": "Jamal Khashoggi",
+      "confidence": 0.9
+    },
+    {
+      "name": "Mexico",
+      "confidence": 0.9
+    },
+    {
+      "name": "information security",
+      "confidence": 0.9
+    }
+  ],
+  "key_facts": [
+    "The Pegasus spyware, developed by NSO Group, is a military-grade weapon capable of infecting mobile phones and gaining complete access to all data, including encrypted messages, calls, microphone, and camera, effectively turning a phone into a 24/7 surveillance device.",
+    "A massive leak of over 50,000 phone numbers selected as potential targets for surveillance by NSO Group clients between 2016 and 2020 sparked a global investigation known as the Pegasus Project.",
+    "Forensic analysis confirmed that phones belonging to Jamal Khashoggi's fianc\u00e9e, Hatice Cengiz, and his wife, Hanan Atar, were infected with Pegasus spyware, contradicting NSO Group's denials of involvement in the Khashoggi affair.",
+    "The Pegasus Project was a collaborative effort involving over 80 journalists from 17 media organizations, including The Washington Post and The Guardian, coordinated by Forbidden Stories.",
+    "Mexico was a significant client of NSO Group, with over 15,000 numbers in the leaked data, targeting a wide range of individuals including prominent journalist Carmen Aristegui, politicians, activists, and their families."
+  ]
+}

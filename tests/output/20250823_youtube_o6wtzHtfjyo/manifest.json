@@ -1,0 +1,327 @@
+{
+  "version": "2.3",
+  "created_at": "2025-08-23T20:42:54.848817",
+  "video": {
+    "title": "The Haunting Beauty of The Black Parade | My Chemical Romance",
+    "url": "https://www.youtube.com/watch?v=o6wtzHtfjyo",
+    "platform": "unknown"
+  },
+  "extraction_stats": {
+    "gemini_entities": [
+      {
+        "confidence": 1.0,
+        "name": "My Chemical Romance",
+        "type": "ORGANIZATION"
+      },
+      {
+        "confidence": 1.0,
+        "name": "The Black Parade",
+        "type": "CREATIVE_WORK"
+      },
+      {
+        "confidence": 0.95,
+        "name": "Fall Out Boy",
+        "type": "ORGANIZATION"
+      },
+      {
+        "confidence": 0.95,
+        "name": "Avenged Sevenfold",
+        "type": "ORGANIZATION"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Three Cheers for Sweet Revenge",
+        "type": "CREATIVE_WORK"
+      },
+      {
+        "confidence": 0.9,
+        "name": "Bullets",
+        "type": "CREATIVE_WORK"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Gerard Way",
+        "type": "PERSON"
+      },
+      {
+        "confidence": 0.9,
+        "name": "Ray Toro",
+        "type": "PERSON"
+      },
+      {
+        "confidence": 1.0,
+        "name": "David Bowie",
+        "type": "PERSON"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Queen",
+        "type": "ORGANIZATION"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Pink Floyd",
+        "type": "ORGANIZATION"
+      },
+      {
+        "confidence": 0.95,
+        "name": "The Wall",
+        "type": "CREATIVE_WORK"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Teenagers",
+        "type": "CREATIVE_WORK"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Bob Bryar",
+        "type": "PERSON"
+      },
+      {
+        "confidence": 0.85,
+        "name": "Matt Pelissier",
+        "type": "PERSON"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Paramore Mansion",
+        "type": "LOCATION"
+      },
+      {
+        "confidence": 0.95,
+        "name": "Antonio Moreno",
+        "type": "PERSON"
+      },
+      {
+        "confidence": 0.9,
+        "name": "Britney Spears",
+        "type": "PERSON"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Trent Reznor",
+        "type": "PERSON"
+      },
+      {
+        "confidence": 0.95,
+        "name": "The Downward Spiral",
+        "type": "CREATIVE_WORK"
+      },
+      {
+        "confidence": 0.9,
+        "name": "Tate murder house",
+        "type": "LOCATION"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Mikey Way",
+        "type": "PERSON"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Sleep",
+        "type": "CREATIVE_WORK"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Frank Iero",
+        "type": "PERSON"
+      },
+      {
+        "confidence": 0.8,
+        "name": "Merle Haggard",
+        "type": "PERSON"
+      },
+      {
+        "confidence": 0.95,
+        "name": "famous last words",
+        "type": "CREATIVE_WORK"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Rob Cavallo",
+        "type": "PERSON"
+      },
+      {
+        "confidence": 0.95,
+        "name": "Goo Goo Dolls",
+        "type": "ORGANIZATION"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Green Day",
+        "type": "ORGANIZATION"
+      },
+      {
+        "confidence": 0.9,
+        "name": "The Patient",
+        "type": "PERSON"
+      },
+      {
+        "confidence": 0.9,
+        "name": "Bohemian Rhapsody",
+        "type": "CREATIVE_WORK"
+      },
+      {
+        "confidence": 0.9,
+        "name": "Houdini",
+        "type": "PERSON"
+      }
+    ],
+    "gemini_relationships": [
+      {
+        "confidence": 1.0,
+        "object": "The Black Parade",
+        "predicate": "RELEASED",
+        "subject": "My Chemical Romance"
+      },
+      {
+        "confidence": 1.0,
+        "object": "The Black Parade",
+        "predicate": "PRODUCED",
+        "subject": "Rob Cavallo"
+      },
+      {
+        "confidence": 1.0,
+        "object": "My Chemical Romance",
+        "predicate": "WAS INFLUENCED BY",
+        "subject": "Queen"
+      },
+      {
+        "confidence": 1.0,
+        "object": "My Chemical Romance",
+        "predicate": "WAS INFLUENCED BY",
+        "subject": "David Bowie"
+      },
+      {
+        "confidence": 0.95,
+        "object": "My Chemical Romance",
+        "predicate": "WAS INFLUENCED BY",
+        "subject": "Pink Floyd"
+      },
+      {
+        "confidence": 0.9,
+        "object": "My Chemical Romance",
+        "predicate": "WAS INFLUENCED BY",
+        "subject": "Goo Goo Dolls"
+      },
+      {
+        "confidence": 1.0,
+        "object": "The Black Parade",
+        "predicate": "DEMOED ALBUM AT",
+        "subject": "My Chemical Romance"
+      },
+      {
+        "confidence": 1.0,
+        "object": "My Chemical Romance",
+        "predicate": "IS MEMBER OF",
+        "subject": "Gerard Way"
+      },
+      {
+        "confidence": 1.0,
+        "object": "My Chemical Romance",
+        "predicate": "IS MEMBER OF",
+        "subject": "Mikey Way"
+      },
+      {
+        "confidence": 1.0,
+        "object": "My Chemical Romance",
+        "predicate": "IS MEMBER OF",
+        "subject": "Frank Iero"
+      },
+      {
+        "confidence": 0.9,
+        "object": "My Chemical Romance",
+        "predicate": "IS MEMBER OF",
+        "subject": "Ray Toro"
+      },
+      {
+        "confidence": 1.0,
+        "object": "The Black Parade",
+        "predicate": "PERFORMED DRUMS ON",
+        "subject": "Bob Bryar"
+      },
+      {
+        "confidence": 0.9,
+        "object": "Green Day",
+        "predicate": "WORKED WITH",
+        "subject": "Rob Cavallo"
+      },
+      {
+        "confidence": 0.8,
+        "object": "My Chemical Romance",
+        "predicate": "BRIEFLY LEFT",
+        "subject": "Mikey Way"
+      },
+      {
+        "confidence": 0.95,
+        "object": "The Black Parade",
+        "predicate": "FEATURES MAIN CHARACTER",
+        "subject": "The Patient"
+      }
+    ],
+    "retention_decision": {
+      "action": "deleted",
+      "video_path": "tests/cache/The Haunting Beauty of The Black Parade  My Chemical Romance-o6wtzHtfjyo.mp4",
+      "video_hash": "fa9e2b9633140ddcdedeb086",
+      "reason": "Policy: Always delete source videos",
+      "cost_savings": {
+        "storage_cost_avoided": 0.0626174420826137,
+        "reprocessing_cost": 0.35699839999999994
+      },
+      "timestamp": "2025-08-23T20:42:54.782467"
+    }
+  },
+  "timeline_v2": null,
+  "files": {
+    "transcript_txt": {
+      "path": "transcript.txt",
+      "format": "plain_text",
+      "size": 53287,
+      "sha256": "9b9601d8a1e503cb7e99fa80b792b6aa54b9172ea9c408a5e6b9d7e3b2c6753e"
+    },
+    "transcript_json": {
+      "path": "transcript.json",
+      "format": "json",
+      "size": 290943,
+      "sha256": "af0d99dcf0335f085ad5b183f6c151e8530e799242b0ed90ae5338b71acb93ba"
+    },
+    "metadata": {
+      "path": "metadata.json",
+      "format": "json",
+      "size": 1396,
+      "sha256": "b178d31899624a170dd8d3d75f69626eb2485caf61db32ff846783b5407c7a70"
+    },
+    "entities": {
+      "path": "entities.json",
+      "format": "json",
+      "size": 43381,
+      "sha256": "69664ab79acd90af7be6457b9a8d58c039c26732708124d64c13e11ce1b0e3b9"
+    },
+    "relationships": {
+      "path": "relationships.json",
+      "format": "json",
+      "size": 95054,
+      "sha256": "229fffc2da2685949e92ad7f30e62f2a8a15363d2a0065e3e723a902c3d1e44b"
+    },
+    "knowledge_graph": {
+      "path": "knowledge_graph.json",
+      "format": "json",
+      "size": 10069,
+      "sha256": "d422a63393790d4a9ba71c5edc2be9120c84dce103367046c3a5bca4c3f86b9d"
+    },
+    "report": {
+      "path": "report.md",
+      "format": "markdown",
+      "size": 1641,
+      "sha256": "de0e3c87907439a82e670eaaab11d02e4e2947b760b3c82b0236a8981a18bd26"
+    },
+    "chimera": {
+      "path": "chimera_format.json",
+      "format": "json",
+      "size": 103159,
+      "sha256": "5d70030aded940dedad16ea9780abd6beb06f5c86fe3f6541af083f37691c9cd"
+    }
+  }
+}

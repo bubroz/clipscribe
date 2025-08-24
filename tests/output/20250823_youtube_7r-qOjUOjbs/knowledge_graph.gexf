@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gexf xmlns="http://www.gexf.net/1.3" xmlns:viz="http://www.gexf.net/1.3/viz" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://gexf.net/1.3 http://gexf.net/1.3/gexf.xsd" version="1.3">
+  <meta lastmodifieddate="2025-08-23">
+    <creator>ClipScribe</creator>
+    <description>Knowledge graph extracted from video content</description>
+  </meta>
+  <graph mode="static" defaultedgetype="directed" idtype="string">
+    <attributes class="node">
+      <attribute id="0" title="Type" type="string"/>
+      <attribute id="1" title="Confidence" type="double"/>
+      <attribute id="2" title="MentionCount" type="integer"/>
+      <attribute id="3" title="Occurrences" type="integer"/>
+      <attribute id="4" title="Name" type="string"/>
+    </attributes>
+    <attributes class="edge">
+      <attribute id="0" title="Predicate" type="string"/>
+      <attribute id="1" title="Confidence" type="double"/>
+    </attributes>
+    <nodes>
+      <node id="n_720de3675712" label="Intelligence Support Activity">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="Intelligence Support Activity"/>
+        </attvalues>
+        <viz:color r="78" g="205" b="196" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_cfaa03a70ebf" label="Land Navigation">
+        <attvalues>
+          <attvalue for="0" value="SKILL"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="Land Navigation"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_e59aede82b36" label="West Virginia">
+        <attvalues>
+          <attvalue for="0" value="LOCATION"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="West Virginia"/>
+        </attvalues>
+        <viz:color r="69" g="183" b="209" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_92d109b842b0" label="British SAS">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="British SAS"/>
+        </attvalues>
+        <viz:color r="78" g="205" b="196" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_262efe668a5e" label="Delta Force">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="Delta Force"/>
+        </attvalues>
+        <viz:color r="78" g="205" b="196" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_a986e43be795" label="SEAL Team 6">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="SEAL Team 6"/>
+        </attvalues>
+        <viz:color r="78" g="205" b="196" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_8df92dc2132c" label="Tier One">
+        <attvalues>
+          <attvalue for="0" value="MILITARY CLASSIFICATION"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="Tier One"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_1f3428f98bfe" label="Tier Two">
+        <attvalues>
+          <attvalue for="0" value="MILITARY CLASSIFICATION"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="Tier Two"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_0a3f9fca0f58" label="Rucking">
+        <attvalues>
+          <attvalue for="0" value="SKILL"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="Rucking"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_7cc01db31a4d" label="Tier One units">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="Tier One units"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_3b2cf2857bf3" label="Intelligence Support Activity selection">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="Intelligence Support Activity selection"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_fe7d8c9d6985" label="Delta Force selection">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="Delta Force selection"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_3666fffd545a" label="Tier One selections">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="Tier One selections"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_06fe3b21cbbd" label="individual events">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="individual events"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_0937f3aa90ec" label="mental toughness and agility">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="mental toughness and agility"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_a5fd9d6c9c54" label="SEAL">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="SEAL"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_7c390f616f0b" label="ruck running proficiency">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="ruck running proficiency"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_80eb38900494" label="expert land navigation skills">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="expert land navigation skills"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_6f958d0bbfd4" label="the long walk">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="the long walk"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+    </nodes>
+    <edges>
+      <edge id="0" source="n_a986e43be795" target="n_a5fd9d6c9c54" weight="0.9" label="requires candidates to be a" kind="requires candidates to be a">
+        <attvalues>
+          <attvalue for="0" value="requires candidates to be a"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="1" source="n_7cc01db31a4d" target="n_92d109b842b0" weight="0.9" label="are modeled after" kind="are modeled after">
+        <attvalues>
+          <attvalue for="0" value="are modeled after"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="2" source="n_3b2cf2857bf3" target="n_fe7d8c9d6985" weight="0.9" label="is the model for" kind="is the model for">
+        <attvalues>
+          <attvalue for="0" value="is the model for"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="3" source="n_fe7d8c9d6985" target="n_6f958d0bbfd4" weight="0.9" label="is the nickname for" kind="is the nickname for">
+        <attvalues>
+          <attvalue for="0" value="is the nickname for"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="4" source="n_3666fffd545a" target="n_06fe3b21cbbd" weight="0.9" label="primarily consists of" kind="primarily consists of">
+        <attvalues>
+          <attvalue for="0" value="primarily consists of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="5" source="n_3666fffd545a" target="n_0937f3aa90ec" weight="0.9" label="evaluates" kind="evaluates">
+        <attvalues>
+          <attvalue for="0" value="evaluates"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="6" source="n_3666fffd545a" target="n_7c390f616f0b" weight="0.9" label="is required to pass" kind="is required to pass">
+        <attvalues>
+          <attvalue for="0" value="is required to pass"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="7" source="n_3666fffd545a" target="n_80eb38900494" weight="0.9" label="are required to pass" kind="are required to pass">
+        <attvalues>
+          <attvalue for="0" value="are required to pass"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+    </edges>
+  </graph>
+</gexf>

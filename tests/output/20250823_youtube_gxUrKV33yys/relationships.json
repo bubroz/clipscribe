@@ -1,0 +1,225 @@
+{
+  "video_url": "https://www.youtube.com/watch?v=gxUrKV33yys",
+  "video_title": "The Tragic Early Days of My Chemical Romance",
+  "relationships": [
+    {
+      "subject": "9/11",
+      "predicate": "was catalyzed by",
+      "object": "My Chemical Romance's formation",
+      "properties": {},
+      "context": null,
+      "evidence_chain": [],
+      "contradictions": [],
+      "extraction_source": "unknown"
+    },
+    {
+      "subject": "My Chemical Romance",
+      "predicate": "is a member of",
+      "object": "Gerard Way",
+      "properties": {},
+      "context": null,
+      "evidence_chain": [
+        "direct_quote='s a bit of a long story. So why don' timestamp='00:00:00' speaker=None visual_context=None context_window=\"commanding seas of people at just about every country he went to? Well, it's a bit of a long story. So why don't we just cut to brass tacks and talk about the tragic early days of My Chemical Romance.\" evidence_type='spoken'",
+        "direct_quote='re from New Jersey. Hey, I' timestamp='00:00:00' speaker=None visual_context=None context_window=\"commanding seas of people at just about every country he went to? Well, it's a bit of a long story. So why don't we just cut to brass tacks and talk about the tragic early days of My Chemical Romance.\" evidence_type='spoken'",
+        "direct_quote='m Gerard, I sing. I' timestamp='00:00:00' speaker=None visual_context=None context_window=\"commanding seas of people at just about every country he went to? Well, it's a bit of a long story. So why don't we just cut to brass tacks and talk about the tragic early days of My Chemical Romance.\" evidence_type='spoken'",
+        "direct_quote='m Ray. I play guitar. I' timestamp='00:00:00' speaker=None visual_context=None context_window=\"commanding seas of people at just about every country he went to? Well, it's a bit of a long story. So why don't we just cut to brass tacks and talk about the tragic early days of My Chemical Romance.\" evidence_type='spoken'",
+        "direct_quote='s doubtful the band would have struck the lightning that they did. But again, before we get into the formation, we have two more people we need to cover. I' timestamp='00:00:00' speaker=None visual_context=None context_window=\"it's doubtful the band would have struck the lightning that they did. But again, before we get into the formation, we have two more people we need to cover. I'm Gerard. I'm And we're from My Chemical \" evidence_type='spoken'",
+        "direct_quote='s actually the one who coined the iconic name for the band. And Mikey had saw this little blurb, it was either on the inside or the back cover. It said like five tales of chemical romance. He was like, wouldn' timestamp='00:00:00' speaker=None visual_context=None context_window=\"him. But after a single jam session, things would be set in stone, and Ray would join the band. The last of the original four-piece to join would actually be Mikey Way. He's actually the one who coine\" evidence_type='spoken'",
+        "direct_quote='m taking kind of racks the booze I' timestamp='00:00:00' speaker=None visual_context=None context_window=\"teen romance. Rather Gerard screaming about his addictions. The amount of pills I'm taking kind of racks the booze I'm drinking and this vanity that I'm breaking lets me live my life like this. And we\" evidence_type='spoken'",
+        "direct_quote='m breaking lets me live my life like this. And well, I find it hard to stay with the words you say, Oh baby, let me in. The song' timestamp='00:00:00' speaker=None visual_context=None context_window=\"teen romance. Rather Gerard screaming about his addictions. The amount of pills I'm taking kind of racks the booze I'm drinking and this vanity that I'm breaking lets me live my life like this. And we\" evidence_type='spoken'",
+        "direct_quote='s this very raw, intense sort of subject matter that wasn' timestamp='00:00:00' speaker=None visual_context=None context_window=\"teen romance. Rather Gerard screaming about his addictions. The amount of pills I'm taking kind of racks the booze I'm drinking and this vanity that I'm breaking lets me live my life like this. And we\" evidence_type='spoken'"
+      ],
+      "contradictions": [],
+      "extraction_source": "unknown"
+    },
+    {
+      "subject": "My Chemical Romance",
+      "predicate": "is a member of",
+      "object": "Mikey Way",
+      "properties": {},
+      "context": null,
+      "evidence_chain": [
+        "direct_quote='s a bit of a long story. So why don' timestamp='00:00:00' speaker=None visual_context=None context_window=\"commanding seas of people at just about every country he went to? Well, it's a bit of a long story. So why don't we just cut to brass tacks and talk about the tragic early days of My Chemical Romance.\" evidence_type='spoken'",
+        "direct_quote='re from New Jersey. Hey, I' timestamp='00:00:00' speaker=None visual_context=None context_window=\"commanding seas of people at just about every country he went to? Well, it's a bit of a long story. So why don't we just cut to brass tacks and talk about the tragic early days of My Chemical Romance.\" evidence_type='spoken'",
+        "direct_quote='m Gerard, I sing. I' timestamp='00:00:00' speaker=None visual_context=None context_window=\"commanding seas of people at just about every country he went to? Well, it's a bit of a long story. So why don't we just cut to brass tacks and talk about the tragic early days of My Chemical Romance.\" evidence_type='spoken'",
+        "direct_quote='m Ray. I play guitar. I' timestamp='00:00:00' speaker=None visual_context=None context_window=\"commanding seas of people at just about every country he went to? Well, it's a bit of a long story. So why don't we just cut to brass tacks and talk about the tragic early days of My Chemical Romance.\" evidence_type='spoken'",
+        "direct_quote='s doubtful the band would have struck the lightning that they did. But again, before we get into the formation, we have two more people we need to cover. I' timestamp='00:00:00' speaker=None visual_context=None context_window=\"it's doubtful the band would have struck the lightning that they did. But again, before we get into the formation, we have two more people we need to cover. I'm Gerard. I'm And we're from My Chemical \" evidence_type='spoken'",
+        "direct_quote='s actually the one who coined the iconic name for the band. And Mikey had saw this little blurb, it was either on the inside or the back cover. It said like five tales of chemical romance. He was like, wouldn' timestamp='00:00:00' speaker=None visual_context=None context_window=\"him. But after a single jam session, things would be set in stone, and Ray would join the band. The last of the original four-piece to join would actually be Mikey Way. He's actually the one who coine\" evidence_type='spoken'"
+      ],
+      "contradictions": [],
+      "extraction_source": "unknown"
+    },
+    {
+      "subject": "My Chemical Romance",
+      "predicate": "is a member of",
+      "object": "Frank Iero",
+      "properties": {},
+      "context": null,
+      "evidence_chain": [
+        "direct_quote='s a bit of a long story. So why don' timestamp='00:00:00' speaker=None visual_context=None context_window=\"commanding seas of people at just about every country he went to? Well, it's a bit of a long story. So why don't we just cut to brass tacks and talk about the tragic early days of My Chemical Romance.\" evidence_type='spoken'",
+        "direct_quote='re from New Jersey. Hey, I' timestamp='00:00:00' speaker=None visual_context=None context_window=\"commanding seas of people at just about every country he went to? Well, it's a bit of a long story. So why don't we just cut to brass tacks and talk about the tragic early days of My Chemical Romance.\" evidence_type='spoken'",
+        "direct_quote='m Gerard, I sing. I' timestamp='00:00:00' speaker=None visual_context=None context_window=\"commanding seas of people at just about every country he went to? Well, it's a bit of a long story. So why don't we just cut to brass tacks and talk about the tragic early days of My Chemical Romance.\" evidence_type='spoken'",
+        "direct_quote='m Ray. I play guitar. I' timestamp='00:00:00' speaker=None visual_context=None context_window=\"commanding seas of people at just about every country he went to? Well, it's a bit of a long story. So why don't we just cut to brass tacks and talk about the tragic early days of My Chemical Romance.\" evidence_type='spoken'"
+      ],
+      "contradictions": [],
+      "extraction_source": "unknown"
+    },
+    {
+      "subject": "My Chemical Romance",
+      "predicate": "is a member of",
+      "object": "Ray Toro",
+      "properties": {},
+      "context": null,
+      "evidence_chain": [
+        "direct_quote='s a bit of a long story. So why don' timestamp='00:00:00' speaker=None visual_context=None context_window=\"commanding seas of people at just about every country he went to? Well, it's a bit of a long story. So why don't we just cut to brass tacks and talk about the tragic early days of My Chemical Romance.\" evidence_type='spoken'",
+        "direct_quote='re from New Jersey. Hey, I' timestamp='00:00:00' speaker=None visual_context=None context_window=\"commanding seas of people at just about every country he went to? Well, it's a bit of a long story. So why don't we just cut to brass tacks and talk about the tragic early days of My Chemical Romance.\" evidence_type='spoken'",
+        "direct_quote='m Gerard, I sing. I' timestamp='00:00:00' speaker=None visual_context=None context_window=\"commanding seas of people at just about every country he went to? Well, it's a bit of a long story. So why don't we just cut to brass tacks and talk about the tragic early days of My Chemical Romance.\" evidence_type='spoken'",
+        "direct_quote='m Ray. I play guitar. I' timestamp='00:00:00' speaker=None visual_context=None context_window=\"commanding seas of people at just about every country he went to? Well, it's a bit of a long story. So why don't we just cut to brass tacks and talk about the tragic early days of My Chemical Romance.\" evidence_type='spoken'",
+        "direct_quote='s actually the one who coined the iconic name for the band. And Mikey had saw this little blurb, it was either on the inside or the back cover. It said like five tales of chemical romance. He was like, wouldn' timestamp='00:00:00' speaker=None visual_context=None context_window=\"him. But after a single jam session, things would be set in stone, and Ray would join the band. The last of the original four-piece to join would actually be Mikey Way. He's actually the one who coine\" evidence_type='spoken'"
+      ],
+      "contradictions": [],
+      "extraction_source": "unknown"
+    },
+    {
+      "subject": "Gerard Way",
+      "predicate": "is the brother of",
+      "object": "Mikey Way",
+      "properties": {},
+      "context": null,
+      "evidence_chain": [
+        "direct_quote=\"Though, to be fair to Gerard and crew, they've almost always brought some form of controversy, whether it be for being the poster children of the emo generation, posers in the eyes of metal and\" timestamp='00:00:00' speaker=None visual_context=None context_window='and the innovations they brought throughout their career, yet are also seen as the catalyst for one of the most obnoxious and awful fandoms to ever walk the earth. When I was a young boy, my father to' evidence_type='spoken'",
+        "direct_quote='s a bit of a long story. So why don' timestamp='00:00:00' speaker=None visual_context=None context_window=\"commanding seas of people at just about every country he went to? Well, it's a bit of a long story. So why don't we just cut to brass tacks and talk about the tragic early days of My Chemical Romance.\" evidence_type='spoken'",
+        "direct_quote='re from New Jersey. Hey, I' timestamp='00:00:00' speaker=None visual_context=None context_window=\"commanding seas of people at just about every country he went to? Well, it's a bit of a long story. So why don't we just cut to brass tacks and talk about the tragic early days of My Chemical Romance.\" evidence_type='spoken'",
+        "direct_quote='m Gerard, I sing. I' timestamp='00:00:00' speaker=None visual_context=None context_window=\"commanding seas of people at just about every country he went to? Well, it's a bit of a long story. So why don't we just cut to brass tacks and talk about the tragic early days of My Chemical Romance.\" evidence_type='spoken'",
+        "direct_quote='m Ray. I play guitar. I' timestamp='00:00:00' speaker=None visual_context=None context_window=\"commanding seas of people at just about every country he went to? Well, it's a bit of a long story. So why don't we just cut to brass tacks and talk about the tragic early days of My Chemical Romance.\" evidence_type='spoken'",
+        "direct_quote='s doubtful the band would have struck the lightning that they did. But again, before we get into the formation, we have two more people we need to cover. I' timestamp='00:00:00' speaker=None visual_context=None context_window=\"it's doubtful the band would have struck the lightning that they did. But again, before we get into the formation, we have two more people we need to cover. I'm Gerard. I'm And we're from My Chemical \" evidence_type='spoken'",
+        "direct_quote='s a bit of an unsung hero to the band. And while his time may be some of the shortest compared to other members, he was the first member to join Gerard and the drumming style that he brought to the table would be a very defining element of what would later end up being the band' timestamp='00:00:00' speaker=None visual_context=None context_window=\"Pelissier, who's a bit of an unsung hero to the band. And while his time may be some of the shortest compared to other members, he was the first member to join Gerard and the drumming style that he br\" evidence_type='spoken'",
+        "direct_quote='s actually the one who coined the iconic name for the band. And Mikey had saw this little blurb, it was either on the inside or the back cover. It said like five tales of chemical romance. He was like, wouldn' timestamp='00:00:00' speaker=None visual_context=None context_window=\"him. But after a single jam session, things would be set in stone, and Ray would join the band. The last of the original four-piece to join would actually be Mikey Way. He's actually the one who coine\" evidence_type='spoken'",
+        "direct_quote='s past it and peer into the future of what it will become. And literally in this case, since just about all these tracks would be reworked for Bullets. What' timestamp='00:00:00' speaker=None visual_context=None context_window=\"that all its flaws seem to almost melt away. Like you can see what's past it and peer into the future of what it will become. And literally in this case, since just about all these tracks would be rew\" evidence_type='spoken'",
+        "direct_quote='s early shows, the marketability of bullets. What' timestamp='00:00:00' speaker=None visual_context=None context_window=\"that all its flaws seem to almost melt away. Like you can see what's past it and peer into the future of what it will become. And literally in this case, since just about all these tracks would be rew\" evidence_type='spoken'",
+        "direct_quote=\"What I'm finding is Frank and Pense Prep really kind of discovered this in a way\" timestamp='00:00:00' speaker=None visual_context=None context_window=\"would recollect they were big fans of the demo. another band and they started and I became a huge fan of them. What I'm finding is Frank and Pense Prep really kind of discovered this in a way. I met F\" evidence_type='spoken'",
+        "direct_quote='I met Frank because his band gave us our first practice space' timestamp='00:00:00' speaker=None visual_context=None context_window=\"would recollect they were big fans of the demo. another band and they started and I became a huge fan of them. What I'm finding is Frank and Pense Prep really kind of discovered this in a way. I met F\" evidence_type='spoken'",
+        "direct_quote='ll shoot back holy water like cheap whiskey. They' timestamp='00:00:00' speaker=None visual_context=None context_window='at this time. And the creatively written lyrics about struggling with becoming a vampire and begging for death acts as a really great allegory for conformity. And now the nightclub sets the stage for ' evidence_type='spoken'",
+        "direct_quote='Something that would be cheesy to hear on' timestamp='00:00:00' speaker=None visual_context=None context_window='thoughts that he and his lover are perfect for one another, especially if they were to go out in a violent death. We could be perfect one last night and die like star cross lovers when we fight. And w' evidence_type='spoken'",
+        "direct_quote='re falling down, I' timestamp='00:00:00' speaker=None visual_context=None context_window=\"of blood, and as we're falling down, I'll see your eyes in this pool of blood. I'll meet your eyes. I mean this forever. The duo are shot down together in the end, painted in the red stain of their li\" evidence_type='spoken'",
+        "direct_quote='ll meet your eyes. I mean this forever. The duo are shot down together in the end, painted in the red stain of their life choices. Even in death, declaring that their love is forever. It' timestamp='00:00:00' speaker=None visual_context=None context_window=\"of blood, and as we're falling down, I'll see your eyes in this pool of blood. I'll meet your eyes. I mean this forever. The duo are shot down together in the end, painted in the red stain of their li\" evidence_type='spoken'",
+        "direct_quote='t want to bog down the quality of the content. I' timestamp='00:00:00' speaker=None visual_context=None context_window=\"like certain jokes or songs or uh edit my format, the main reason I do the things I do and I edit the way I edit and I include so many clips is because I don't want to bog down the quality of the cont\" evidence_type='spoken'",
+        "direct_quote='ll see you in the next video. Just a few more drops then I' timestamp='00:00:00' speaker=None visual_context=None context_window=\"support for the content, please consider donating to my Patreon or Coffee. But with all that being said, subscribe, follow me on Twitter, and I'll see you in the next video. Just a few more drops then\" evidence_type='spoken'"
+      ],
+      "contradictions": [
+        "lot of Golden Age post-hardcore and Midwest emo have such sad and desperate tones to them. Now, this same idea can be applied to MCR as Jersey, while ...",
+        "because I didn't I hadn't been playing guitar for I don't know, like a year and a half. I was playing drums in a crappy, not I mean, you know, just li...",
+        "would recollect they were big fans of the demo. another band and they started and I became a huge fan of them. What I'm finding is Frank and Pense Pre...",
+        "thoughts that he and his lover are perfect for one another, especially if they were to go out in a violent death. We could be perfect one last night a..."
+      ],
+      "extraction_source": "unknown"
+    },
+    {
+      "subject": "Frank Iero",
+      "predicate": "was the former band of",
+      "object": "Pency Prep",
+      "properties": {},
+      "context": null,
+      "evidence_chain": [
+        "direct_quote='s upbringing was his time in the band Pency Prep. a group that write songs and play VFW halls. Like that was my thing. Though the most important bit of Frank' timestamp='00:00:00' speaker=None visual_context=None context_window=\"virtuoso or like a, you know, like uh, spandex wearing frontman on stage. Like I I wanted to just write songs and play VFW Halls. Like that was my thing. Though the most important bit of Frank's upbri\" evidence_type='spoken'",
+        "direct_quote='s band, the Rodneys, which had a more eclectic yet traditional take to the punk sound, extremely far removed from what we would hear from MCR, Pency prep on the other hand, actually fits the bill as a proto MCR type band very well. Now, don' timestamp='00:00:00' speaker=None visual_context=None context_window=\"college years. Unlike Ray's band, the Rodneys, which had a more eclectic yet traditional take to the punk sound, extremely far removed from what we would hear from MCR, Pency prep on the other hand, a\" evidence_type='spoken'",
+        "direct_quote='s early shows, the marketability of their name, it was all but inevitable that they would be a group bidded on by many different labels and talent scouts. During the first year of the band' timestamp='00:00:00' speaker=None visual_context=None context_window=\"foundation. And with the success of the band's early shows, the marketability of their name, it was all but inevitable that they would be a group bidded on by many different labels and talent scouts. \" evidence_type='spoken'",
+        "direct_quote=\"What I'm finding is Frank and Pense Prep really kind of discovered this in a way\" timestamp='00:00:00' speaker=None visual_context=None context_window=\"would recollect they were big fans of the demo. another band and they started and I became a huge fan of them. What I'm finding is Frank and Pense Prep really kind of discovered this in a way. I met F\" evidence_type='spoken'",
+        "direct_quote='I met Frank because his band gave us our first practice space' timestamp='00:00:00' speaker=None visual_context=None context_window=\"would recollect they were big fans of the demo. another band and they started and I became a huge fan of them. What I'm finding is Frank and Pense Prep really kind of discovered this in a way. I met F\" evidence_type='spoken'"
+      ],
+      "contradictions": [
+        "college years. Unlike Ray's band, the Rodneys, which had a more eclectic yet traditional take to the punk sound, extremely far removed from what we wo...",
+        "would recollect they were big fans of the demo. another band and they started and I became a huge fan of them. What I'm finding is Frank and Pense Pre..."
+      ],
+      "extraction_source": "unknown"
+    },
+    {
+      "subject": "Ray Toro",
+      "predicate": "was the former band of",
+      "object": "The Rodneys",
+      "properties": {},
+      "context": null,
+      "evidence_chain": [
+        "direct_quote='s a bit of a long story. So why don' timestamp='00:00:00' speaker=None visual_context=None context_window=\"commanding seas of people at just about every country he went to? Well, it's a bit of a long story. So why don't we just cut to brass tacks and talk about the tragic early days of My Chemical Romance.\" evidence_type='spoken'",
+        "direct_quote='re from New Jersey. Hey, I' timestamp='00:00:00' speaker=None visual_context=None context_window=\"commanding seas of people at just about every country he went to? Well, it's a bit of a long story. So why don't we just cut to brass tacks and talk about the tragic early days of My Chemical Romance.\" evidence_type='spoken'",
+        "direct_quote='m Gerard, I sing. I' timestamp='00:00:00' speaker=None visual_context=None context_window=\"commanding seas of people at just about every country he went to? Well, it's a bit of a long story. So why don't we just cut to brass tacks and talk about the tragic early days of My Chemical Romance.\" evidence_type='spoken'",
+        "direct_quote='m Ray. I play guitar. I' timestamp='00:00:00' speaker=None visual_context=None context_window=\"commanding seas of people at just about every country he went to? Well, it's a bit of a long story. So why don't we just cut to brass tacks and talk about the tragic early days of My Chemical Romance.\" evidence_type='spoken'",
+        "direct_quote='s, he would still opt to just put music to the side not long after graduating from high school and would ultimately enroll in college to pursue filmmaking. stating that making it in a touring band was something he really didn' timestamp='00:00:00' speaker=None visual_context=None context_window=\"very juvenile and early form. But alas, the disillusionment of adulthood would hit Ray pretty hard and an early age. And despite the early and local success that he would see with the Rodney's, he wou\" evidence_type='spoken'",
+        "direct_quote='s band, the Rodneys, which had a more eclectic yet traditional take to the punk sound, extremely far removed from what we would hear from MCR, Pency prep on the other hand, actually fits the bill as a proto MCR type band very well. Now, don' timestamp='00:00:00' speaker=None visual_context=None context_window=\"college years. Unlike Ray's band, the Rodneys, which had a more eclectic yet traditional take to the punk sound, extremely far removed from what we would hear from MCR, Pency prep on the other hand, a\" evidence_type='spoken'",
+        "direct_quote='s a bit of an unsung hero to the band. And while his time may be some of the shortest compared to other members, he was the first member to join Gerard and the drumming style that he brought to the table would be a very defining element of what would later end up being the band' timestamp='00:00:00' speaker=None visual_context=None context_window=\"Pelissier, who's a bit of an unsung hero to the band. And while his time may be some of the shortest compared to other members, he was the first member to join Gerard and the drumming style that he br\" evidence_type='spoken'",
+        "direct_quote='s actually the one who coined the iconic name for the band. And Mikey had saw this little blurb, it was either on the inside or the back cover. It said like five tales of chemical romance. He was like, wouldn' timestamp='00:00:00' speaker=None visual_context=None context_window=\"him. But after a single jam session, things would be set in stone, and Ray would join the band. The last of the original four-piece to join would actually be Mikey Way. He's actually the one who coine\" evidence_type='spoken'"
+      ],
+      "contradictions": [
+        "very juvenile and early form. But alas, the disillusionment of adulthood would hit Ray pretty hard and an early age. And despite the early and local s...",
+        "college years. Unlike Ray's band, the Rodneys, which had a more eclectic yet traditional take to the punk sound, extremely far removed from what we wo..."
+      ],
+      "extraction_source": "unknown"
+    },
+    {
+      "subject": "My Chemical Romance",
+      "predicate": "signed",
+      "object": "Eyeball Records",
+      "properties": {},
+      "context": null,
+      "evidence_chain": [],
+      "contradictions": [],
+      "extraction_source": "unknown"
+    },
+    {
+      "subject": "Mikey Way",
+      "predicate": "coined the name for",
+      "object": "My Chemical Romance",
+      "properties": {},
+      "context": null,
+      "evidence_chain": [
+        "direct_quote='s a bit of a long story. So why don' timestamp='00:00:00' speaker=None visual_context=None context_window=\"commanding seas of people at just about every country he went to? Well, it's a bit of a long story. So why don't we just cut to brass tacks and talk about the tragic early days of My Chemical Romance.\" evidence_type='spoken'",
+        "direct_quote='re from New Jersey. Hey, I' timestamp='00:00:00' speaker=None visual_context=None context_window=\"commanding seas of people at just about every country he went to? Well, it's a bit of a long story. So why don't we just cut to brass tacks and talk about the tragic early days of My Chemical Romance.\" evidence_type='spoken'",
+        "direct_quote='m Gerard, I sing. I' timestamp='00:00:00' speaker=None visual_context=None context_window=\"commanding seas of people at just about every country he went to? Well, it's a bit of a long story. So why don't we just cut to brass tacks and talk about the tragic early days of My Chemical Romance.\" evidence_type='spoken'",
+        "direct_quote='m Ray. I play guitar. I' timestamp='00:00:00' speaker=None visual_context=None context_window=\"commanding seas of people at just about every country he went to? Well, it's a bit of a long story. So why don't we just cut to brass tacks and talk about the tragic early days of My Chemical Romance.\" evidence_type='spoken'",
+        "direct_quote='s doubtful the band would have struck the lightning that they did. But again, before we get into the formation, we have two more people we need to cover. I' timestamp='00:00:00' speaker=None visual_context=None context_window=\"it's doubtful the band would have struck the lightning that they did. But again, before we get into the formation, we have two more people we need to cover. I'm Gerard. I'm And we're from My Chemical \" evidence_type='spoken'",
+        "direct_quote='s actually the one who coined the iconic name for the band. And Mikey had saw this little blurb, it was either on the inside or the back cover. It said like five tales of chemical romance. He was like, wouldn' timestamp='00:00:00' speaker=None visual_context=None context_window=\"him. But after a single jam session, things would be set in stone, and Ray would join the band. The last of the original four-piece to join would actually be Mikey Way. He's actually the one who coine\" evidence_type='spoken'"
+      ],
+      "contradictions": [],
+      "extraction_source": "unknown"
+    },
+    {
+      "subject": "Matt Pelissier",
+      "predicate": "was the original drummer for",
+      "object": "My Chemical Romance",
+      "properties": {},
+      "context": null,
+      "evidence_chain": [
+        "direct_quote='s a bit of a long story. So why don' timestamp='00:00:00' speaker=None visual_context=None context_window=\"commanding seas of people at just about every country he went to? Well, it's a bit of a long story. So why don't we just cut to brass tacks and talk about the tragic early days of My Chemical Romance.\" evidence_type='spoken'",
+        "direct_quote='re from New Jersey. Hey, I' timestamp='00:00:00' speaker=None visual_context=None context_window=\"commanding seas of people at just about every country he went to? Well, it's a bit of a long story. So why don't we just cut to brass tacks and talk about the tragic early days of My Chemical Romance.\" evidence_type='spoken'",
+        "direct_quote='m Gerard, I sing. I' timestamp='00:00:00' speaker=None visual_context=None context_window=\"commanding seas of people at just about every country he went to? Well, it's a bit of a long story. So why don't we just cut to brass tacks and talk about the tragic early days of My Chemical Romance.\" evidence_type='spoken'",
+        "direct_quote='m Ray. I play guitar. I' timestamp='00:00:00' speaker=None visual_context=None context_window=\"commanding seas of people at just about every country he went to? Well, it's a bit of a long story. So why don't we just cut to brass tacks and talk about the tragic early days of My Chemical Romance.\" evidence_type='spoken'",
+        "direct_quote='m taking kind of racks the booze I' timestamp='00:00:00' speaker=None visual_context=None context_window=\"teen romance. Rather Gerard screaming about his addictions. The amount of pills I'm taking kind of racks the booze I'm drinking and this vanity that I'm breaking lets me live my life like this. And we\" evidence_type='spoken'",
+        "direct_quote='m breaking lets me live my life like this. And well, I find it hard to stay with the words you say, Oh baby, let me in. The song' timestamp='00:00:00' speaker=None visual_context=None context_window=\"teen romance. Rather Gerard screaming about his addictions. The amount of pills I'm taking kind of racks the booze I'm drinking and this vanity that I'm breaking lets me live my life like this. And we\" evidence_type='spoken'",
+        "direct_quote='s this very raw, intense sort of subject matter that wasn' timestamp='00:00:00' speaker=None visual_context=None context_window=\"teen romance. Rather Gerard screaming about his addictions. The amount of pills I'm taking kind of racks the booze I'm drinking and this vanity that I'm breaking lets me live my life like this. And we\" evidence_type='spoken'"
+      ],
+      "contradictions": [],
+      "extraction_source": "unknown"
+    },
+    {
+      "subject": "Jeff Rickly",
+      "predicate": "was produced by",
+      "object": "I Brought You My Bullets, You Brought Me Your Love",
+      "properties": {},
+      "context": null,
+      "evidence_chain": [],
+      "contradictions": [],
+      "extraction_source": "unknown"
+    },
+    {
+      "subject": "My Chemical Romance",
+      "predicate": "provided connections for",
+      "object": "Pency Prep",
+      "properties": {},
+      "context": null,
+      "evidence_chain": [],
+      "contradictions": [],
+      "extraction_source": "unknown"
+    }
+  ],
+  "total_count": 13
+}

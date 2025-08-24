@@ -1,0 +1,173 @@
+{
+  "video_url": "https://www.youtube.com/watch?v=0ESDiJdCfxY",
+  "video_title": "Danger Days |  The End of My Chemical Romance",
+  "relationships": [
+    {
+      "subject": "My Chemical Romance",
+      "predicate": "influenced",
+      "object": "David Bowie",
+      "properties": {},
+      "context": null,
+      "evidence_chain": [
+        "direct_quote='But with all that being said, I have just one la' timestamp='00:00:00' speaker=None visual_context=None context_window=\" So, despite a rocky fourth album, here's to you, my chemical romance. But with all that being said, I have just one la\" evidence_type='entity_context'"
+      ],
+      "contradictions": [],
+      "extraction_source": "unknown"
+    },
+    {
+      "subject": "Danger Days: The True Lives of the Fabulous Killjoys",
+      "predicate": "influenced",
+      "object": "Diamond Dogs",
+      "properties": {},
+      "context": null,
+      "evidence_chain": [],
+      "contradictions": [],
+      "extraction_source": "unknown"
+    },
+    {
+      "subject": "My Chemical Romance",
+      "predicate": "was shelved by",
+      "object": "Conventional Weapons",
+      "properties": {},
+      "context": null,
+      "evidence_chain": [
+        "direct_quote='But with all that being said, I have just one la' timestamp='00:00:00' speaker=None visual_context=None context_window=\" So, despite a rocky fourth album, here's to you, my chemical romance. But with all that being said, I have just one la\" evidence_type='entity_context'"
+      ],
+      "contradictions": [],
+      "extraction_source": "unknown"
+    },
+    {
+      "subject": "My Chemical Romance",
+      "predicate": "is a member of",
+      "object": "Gerard Way",
+      "properties": {},
+      "context": null,
+      "evidence_chain": [
+        "direct_quote='s like being being ready to die or something. Um, and to be able to show that is what a great artist does. After the raging success that was the Black Parade, my Chemical Romance would begin to really press their weight around. Snagging onto opening slots for fucking Bon Jovi of all artists, being one of the bigger names on Lincoln Park' timestamp='00:00:00' speaker=None visual_context=None context_window=\"a crazy thing because you know, that's like it's in a weird way, it's like being being ready to die or something. Um, and to be able to show that is what a great artist does. After the raging success \" evidence_type='spoken'",
+        "direct_quote='s going to do something to you. So after Black Parade had kind of fully went through its cycle, My Chemical Romance would take a step back and take a break. And many of the members would start to go outside of the band to fulfill their dreams and start pursuing things outside the project. The two most notable would be Gerard Way' timestamp='00:00:00' speaker=None visual_context=None context_window=\"because I mean touring for that amount of years is just, well, it's going to do something to you. So after Black Parade had kind of fully went through its cycle, My Chemical Romance would take a step \" evidence_type='spoken'",
+        "direct_quote='t even see the band going past Black Parade. To be honest, I never saw My Chemical Romance going past Black Parade. I plan things pretty far in advance. And when before we' timestamp='00:00:00' speaker=None visual_context=None context_window=\"it was time to let go and begin anew. And this feeling was more or less shared by the other members of the band. Gerard would even say later on that he didn't even see the band going past Black Parade\" evidence_type='spoken'",
+        "direct_quote='But with all that being said, I have just one la' timestamp='00:00:00' speaker=None visual_context=None context_window=\" So, despite a rocky fourth album, here's to you, my chemical romance. But with all that being said, I have just one la\" evidence_type='entity_context'"
+      ],
+      "contradictions": [
+        "because I mean touring for that amount of years is just, well, it's going to do something to you. So after Black Parade had kind of fully went through...",
+        "play in Southeast Asia, South America. and we just kept going and going and going until there was just nothing left and uh ended with MSG. Um but then...",
+        "uh one long enough that I'm not going to read the entire thing here, but I will share some important bits from it. There are many reasons my chemical ...",
+        "it was time to let go and begin anew. And this feeling was more or less shared by the other members of the band. Gerard would even say later on that h..."
+      ],
+      "extraction_source": "unknown"
+    },
+    {
+      "subject": "My Chemical Romance",
+      "predicate": "is a member of",
+      "object": "Frank Iero",
+      "properties": {},
+      "context": null,
+      "evidence_chain": [
+        "direct_quote='s going to do something to you. So after Black Parade had kind of fully went through its cycle, My Chemical Romance would take a step back and take a break. And many of the members would start to go outside of the band to fulfill their dreams and start pursuing things outside the project. The two most notable would be Gerard Way' timestamp='00:00:00' speaker=None visual_context=None context_window=\"because I mean touring for that amount of years is just, well, it's going to do something to you. So after Black Parade had kind of fully went through its cycle, My Chemical Romance would take a step \" evidence_type='spoken'",
+        "direct_quote='But with all that being said, I have just one la' timestamp='00:00:00' speaker=None visual_context=None context_window=\" So, despite a rocky fourth album, here's to you, my chemical romance. But with all that being said, I have just one la\" evidence_type='entity_context'"
+      ],
+      "contradictions": [
+        "because I mean touring for that amount of years is just, well, it's going to do something to you. So after Black Parade had kind of fully went through..."
+      ],
+      "extraction_source": "unknown"
+    },
+    {
+      "subject": "My Chemical Romance",
+      "predicate": "was a member of",
+      "object": "Bob Bryar",
+      "properties": {},
+      "context": null,
+      "evidence_chain": [
+        "direct_quote='But with all that being said, I have just one la' timestamp='00:00:00' speaker=None visual_context=None context_window=\" So, despite a rocky fourth album, here's to you, my chemical romance. But with all that being said, I have just one la\" evidence_type='entity_context'"
+      ],
+      "contradictions": [
+        "play in Southeast Asia, South America. and we just kept going and going and going until there was just nothing left and uh ended with MSG. Um but then..."
+      ],
+      "extraction_source": "unknown"
+    },
+    {
+      "subject": "Gerard Way",
+      "predicate": "was created by",
+      "object": "Umbrella Academy",
+      "properties": {},
+      "context": null,
+      "evidence_chain": [],
+      "contradictions": [
+        "was able to start that comic book career that he had dreamed of before MCR was ever even a thing. and would begin to work with Dark Horse Comics to pu..."
+      ],
+      "extraction_source": "unknown"
+    },
+    {
+      "subject": "Frank Iero",
+      "predicate": "was formed by",
+      "object": "Leathermouth",
+      "properties": {},
+      "context": null,
+      "evidence_chain": [],
+      "contradictions": [
+        "During this time period, Frank would begin the infamous side project Leathermouth. Now, I could easily do a full video on Leathermouth since there's q..."
+      ],
+      "extraction_source": "unknown"
+    },
+    {
+      "subject": "Bob Bryar",
+      "predicate": "had tensions with",
+      "object": "Mikey Way",
+      "properties": {},
+      "context": null,
+      "evidence_chain": [
+        "direct_quote='s comic expirations would result into. The rest of the band ultimately, though, would have more quiet reserved lives outside of MyChem during this period. But the important bit that' timestamp='00:00:00' speaker=None visual_context=None context_window=\"his artistry for the thousands upon thousands of MCR fans who were eager to see what Gerard's comic expirations would result into. The rest of the band ultimately, though, would have more quiet reserv\" evidence_type='spoken'",
+        "direct_quote='s still a very competent record for what it is. And even then, I I say it' timestamp='00:00:00' speaker=None visual_context=None context_window=\"release. As this would be the swan song for drummer Bob Bryar, whose performance on this thing is actually pretty fucking great, and despite the aimless nature that the album kind of carries, it's sti\" evidence_type='spoken'",
+        "direct_quote='s dog had tragically passed away, it was a bit of a point of no return where the instability would take full hold of him. Now, a more serious issue would obviously result from this, and that would be the straw that really broke the camel' timestamp='00:00:00' speaker=None visual_context=None context_window=\"of the band, but even to Frank himself. And once Bob's dog had tragically passed away, it was a bit of a point of no return where the instability would take full hold of him. Now, a more serious issue\" evidence_type='spoken'",
+        "direct_quote='ll let you do the digging on that, which is it' timestamp='00:00:00' speaker=None visual_context=None context_window=\"on. And this is actually where the hilarious lore behind the whole family breakfast meme comes from. Though, for the sake of time, I'll let you do the digging on that, which is it's it's grime, but it\" evidence_type='spoken'",
+        "direct_quote='s grime, but it' timestamp='00:00:00' speaker=None visual_context=None context_window=\"on. And this is actually where the hilarious lore behind the whole family breakfast meme comes from. Though, for the sake of time, I'll let you do the digging on that, which is it's it's grime, but it\" evidence_type='spoken'",
+        "direct_quote='So, as the recording of Danger Days was happening, Bob would be fired from the band and the two would go their separate ways' timestamp='00:00:00' speaker=None visual_context=None context_window='is without even taking into account the previously mentioned tensions and the bit of hatred that Frank felt coming from Bob towards the end anyway. So, as the recording of Danger Days was happening, B' evidence_type='spoken'"
+      ],
+      "contradictions": [],
+      "extraction_source": "unknown"
+    },
+    {
+      "subject": "Zack Snyder",
+      "predicate": "was directed by",
+      "object": "The Watchmen",
+      "properties": {},
+      "context": null,
+      "evidence_chain": [
+        "direct_quote='performing sold out arenas and sometimes just theaters, but regardless massive shows' timestamp='00:00:00' speaker=None visual_context=None context_window=\"performing sold out arenas and sometimes just theaters, but regardless massive shows. And they would even do a tie- in song for Zack Snyder's film, The Watchmen. And probably the most respectable move\" evidence_type='spoken'"
+      ],
+      "contradictions": [],
+      "extraction_source": "unknown"
+    },
+    {
+      "subject": "My Chemical Romance",
+      "predicate": "was covered by",
+      "object": "Desolation Row",
+      "properties": {},
+      "context": null,
+      "evidence_chain": [
+        "direct_quote='s one of a band who was able to maintain the spotlight that they' timestamp='00:00:00' speaker=None visual_context=None context_window='out and give up on the project. But like everything else regarding My Chemical Romance, even their initial breakup and final output eludes the standard trappings of the traditional band storyline. As ' evidence_type='spoken'",
+        "direct_quote='ve spoken about at far too much length at this point, the band had grown sick of its previous skin and went to great lengths to fully shed it. And in the case of Danger Days, this wasn' timestamp='00:00:00' speaker=None visual_context=None context_window=\"the Fabulous Killjoys. And in the long, a complete reconstruction of what My Chemical Romance was from the ground up. As we've spoken about at far too much length at this point, the band had grown sic\" evidence_type='spoken'",
+        "direct_quote='But with all that being said, I have just one la' timestamp='00:00:00' speaker=None visual_context=None context_window=\" So, despite a rocky fourth album, here's to you, my chemical romance. But with all that being said, I have just one la\" evidence_type='entity_context'"
+      ],
+      "contradictions": [
+        "out and give up on the project. But like everything else regarding My Chemical Romance, even their initial breakup and final output eludes the standar...",
+        "play in Southeast Asia, South America. and we just kept going and going and going until there was just nothing left and uh ended with MSG. Um but then...",
+        "the Fabulous Killjoys. And in the long, a complete reconstruction of what My Chemical Romance was from the ground up. As we've spoken about at far too..."
+      ],
+      "extraction_source": "unknown"
+    },
+    {
+      "subject": "Desolation Row",
+      "predicate": "originally wrote",
+      "object": "Bob Dylan",
+      "properties": {},
+      "context": null,
+      "evidence_chain": [],
+      "contradictions": [
+        "play in Southeast Asia, South America. and we just kept going and going and going until there was just nothing left and uh ended with MSG. Um but then..."
+      ],
+      "extraction_source": "unknown"
+    }
+  ],
+  "total_count": 12
+}

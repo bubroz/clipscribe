@@ -1,0 +1,310 @@
+{
+  "version": "2.3",
+  "created_at": "2025-08-23T20:52:19.485881",
+  "video": {
+    "title": "Global Spyware Scandal: Exposing Pegasus Part One (full documentary) | FRONTLINE",
+    "url": "https://www.youtube.com/watch?v=6ZVj1_SE4Mo",
+    "platform": "unknown"
+  },
+  "extraction_stats": {
+    "gemini_entities": [
+      {
+        "confidence": 1.0,
+        "name": "Pegasus",
+        "type": "Technology"
+      },
+      {
+        "confidence": 1.0,
+        "name": "NSO Group",
+        "type": "Organization"
+      },
+      {
+        "confidence": 0.95,
+        "name": "Forbidden Films",
+        "type": "Organization"
+      },
+      {
+        "confidence": 0.95,
+        "name": "Forbidden Stories",
+        "type": "Organization"
+      },
+      {
+        "confidence": 1.0,
+        "name": "The Washington Post",
+        "type": "Organization"
+      },
+      {
+        "confidence": 1.0,
+        "name": "The Guardian",
+        "type": "Organization"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Le Monde",
+        "type": "Organization"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Jamal Khashoggi",
+        "type": "Person"
+      },
+      {
+        "confidence": 0.9,
+        "name": "George Orwell",
+        "type": "Person"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Amnesty International Security Lab",
+        "type": "Organization"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Claudio Guarnieri",
+        "type": "Person"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Citizen Lab",
+        "type": "Organization"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Bill Marzak",
+        "type": "Person"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Hatice Cengiz",
+        "type": "Person"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Hanan Atar",
+        "type": "Person"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Carmen Aristegui",
+        "type": "Person"
+      },
+      {
+        "confidence": 0.9,
+        "name": "Enrique Pe\u00f1a Nieto",
+        "type": "Person"
+      },
+      {
+        "confidence": 0.95,
+        "name": "Mexico",
+        "type": "Location"
+      },
+      {
+        "confidence": 0.95,
+        "name": "Israel",
+        "type": "Location"
+      },
+      {
+        "confidence": 0.9,
+        "name": "Saudi Arabia",
+        "type": "Location"
+      },
+      {
+        "confidence": 0.9,
+        "name": "United Arab Emirates",
+        "type": "Location"
+      },
+      {
+        "confidence": 0.9,
+        "name": "Istanbul",
+        "type": "Location"
+      },
+      {
+        "confidence": 0.9,
+        "name": "Dana Priest",
+        "type": "Person"
+      },
+      {
+        "confidence": 0.8,
+        "name": "Craig Timberg",
+        "type": "Person"
+      },
+      {
+        "confidence": 0.8,
+        "name": "Laurent Richard",
+        "type": "Person"
+      },
+      {
+        "confidence": 0.8,
+        "name": "Alejandro Encinas",
+        "type": "Person"
+      },
+      {
+        "confidence": 0.9,
+        "name": "Signal",
+        "type": "Technology"
+      },
+      {
+        "confidence": 0.9,
+        "name": "WhatsApp",
+        "type": "Technology"
+      },
+      {
+        "confidence": 0.9,
+        "name": "Apple",
+        "type": "Organization"
+      },
+      {
+        "confidence": 0.9,
+        "name": "Android",
+        "type": "Technology"
+      },
+      {
+        "confidence": 0.8,
+        "name": "CNN",
+        "type": "Organization"
+      }
+    ],
+    "gemini_relationships": [
+      {
+        "confidence": 1.0,
+        "object": "Pegasus",
+        "predicate": "developed",
+        "subject": "NSO Group"
+      },
+      {
+        "confidence": 0.95,
+        "object": "journalists",
+        "predicate": "was used against",
+        "subject": "Pegasus"
+      },
+      {
+        "confidence": 0.95,
+        "object": "dissidents",
+        "predicate": "was used against",
+        "subject": "Pegasus"
+      },
+      {
+        "confidence": 1.0,
+        "object": "Hatice Cengiz",
+        "predicate": "was fianc\u00e9e of",
+        "subject": "Jamal Khashoggi"
+      },
+      {
+        "confidence": 1.0,
+        "object": "Hanan Atar",
+        "predicate": "was wife of",
+        "subject": "Jamal Khashoggi"
+      },
+      {
+        "confidence": 0.9,
+        "object": "Mexico",
+        "predicate": "was client of",
+        "subject": "NSO Group"
+      },
+      {
+        "confidence": 1.0,
+        "object": "Amnesty International Security Lab",
+        "predicate": "is head of",
+        "subject": "Claudio Guarnieri"
+      },
+      {
+        "confidence": 0.9,
+        "object": "The Washington Post",
+        "predicate": "was writer for",
+        "subject": "Jamal Khashoggi"
+      },
+      {
+        "confidence": 0.95,
+        "object": "Hanan Atar",
+        "predicate": "was targeted by",
+        "subject": "Pegasus"
+      },
+      {
+        "confidence": 0.95,
+        "object": "Hatice Cengiz",
+        "predicate": "was targeted by",
+        "subject": "Pegasus"
+      },
+      {
+        "confidence": 0.9,
+        "object": "Enrique Pe\u00f1a Nieto",
+        "predicate": "investigated",
+        "subject": "Carmen Aristegui"
+      },
+      {
+        "confidence": 0.85,
+        "object": "17 news outlets",
+        "predicate": "coordinated",
+        "subject": "Forbidden Stories"
+      },
+      {
+        "confidence": 0.9,
+        "object": "United Arab Emirates",
+        "predicate": "is ally of",
+        "subject": "Saudi Arabia"
+      }
+    ],
+    "retention_decision": {
+      "action": "deleted",
+      "video_path": "tests/cache/Global Spyware Scandal Exposing Pegasus Part One full documentary  FRONTLINE-6ZVj1_SE4Mo.mp4",
+      "video_hash": "ac6bed91689d405369042598",
+      "reason": "Policy: Always delete source videos",
+      "cost_savings": {
+        "storage_cost_avoided": 0.02208235429599881,
+        "reprocessing_cost": 0.30927599999999994
+      },
+      "timestamp": "2025-08-23T20:52:19.442283"
+    }
+  },
+  "timeline_v2": null,
+  "files": {
+    "transcript_txt": {
+      "path": "transcript.txt",
+      "format": "plain_text",
+      "size": 33141,
+      "sha256": "403581fbe2d0456ce4ba941f05310fb678da3ec146f9300d7ec4015730e9e37b"
+    },
+    "transcript_json": {
+      "path": "transcript.json",
+      "format": "json",
+      "size": 139890,
+      "sha256": "a63af126078aa417bd269ceafff4b405caf7dfc4bc1f63358658a3567721a406"
+    },
+    "metadata": {
+      "path": "metadata.json",
+      "format": "json",
+      "size": 4319,
+      "sha256": "c8ff02a5771ef053d4913a0c85a01e81d254378bc0f908f379c4ccc90bfb71e7"
+    },
+    "entities": {
+      "path": "entities.json",
+      "format": "json",
+      "size": 32666,
+      "sha256": "77b7a0f92a416f809780e13ca8ccc99e05a4731b4459540efd1232db83870543"
+    },
+    "relationships": {
+      "path": "relationships.json",
+      "format": "json",
+      "size": 9314,
+      "sha256": "c53653b384b87886b5c38348fcba536262980a1a846b8f20c6e1b7365021cdc4"
+    },
+    "knowledge_graph": {
+      "path": "knowledge_graph.json",
+      "format": "json",
+      "size": 10409,
+      "sha256": "8c04327e077a37fef650f6af049badeb511d5ff174c2b4afd14fcb9061a73fe6"
+    },
+    "report": {
+      "path": "report.md",
+      "format": "markdown",
+      "size": 1599,
+      "sha256": "26340e8edcc0630efb63fef5fa7bbc6b3e663434badeec7930e1ac9e99b177b4"
+    },
+    "chimera": {
+      "path": "chimera_format.json",
+      "format": "json",
+      "size": 72374,
+      "sha256": "65c7d53fdecbe9cefb2882918a2a1f86e91d9935ee9bd2ad5fa818f91a712bb0"
+    }
+  }
+}

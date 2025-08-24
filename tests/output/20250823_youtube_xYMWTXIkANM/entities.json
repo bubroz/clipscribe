@@ -1,0 +1,1041 @@
+{
+  "video_url": "https://www.youtube.com/watch?v=xYMWTXIkANM",
+  "video_title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+  "entities": [
+    {
+      "name": "Sheikh Mohammed bin Rashid Al Maktoum",
+      "type": "PERSON",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": " you something about that government. In the UAE, Sheikh Mohammed bin Rashid Al Maktoum is Prime Minister, Vice President, and of course ",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Israeli Defense Ministry",
+      "type": "GOVERNMENT AGENCY",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 2,
+      "context_windows": [
+        {
+          "text": " \u05d9\u05dc\u05d3\u05d9\u05dd \u05d1\u05e0\u05d9 18, \u05de\u05db\u05e9\u05d9\u05e8\u05d9\u05dd \u05d0\u05d5\u05ea\u05dd \u05de\u05d0\u05d5\u05d3 \u05de\u05d4\u05e8 \u05d5\u05de\u05d0\u05d5\u05d3 \u05dc\u05e2\u05d5\u05de\u05e7. Israel has this advantage of not only developing new tec",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "st you to blackmail you and get you to cooperate. Israeli intelligence has a strategic view of how their e",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "t required permits, effectively licenses from the Israeli Defense Ministry. I decided several years",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "their former employees as valuable to Israel's national security interests. There's a lot of e",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "ago to turn Israel into one of the five uh cyber powers of the world",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "al than I would have expected against not just an Israeli company but really they're criticizing the",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "Israeli government for allowing this to happen because i",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [
+        "Israel"
+      ],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Detained International",
+      "type": "ORGANIZATION",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "tening. It really is. My name is David Haigh from Detained International. Then we founded the campaign to free the Dubai p",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "The Washington Post",
+      "type": "ORGANIZATION",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "-for-all. De acuerdo con la pesquisa recabada por The Washington Post, The Guardian, Le Monde y otros medios. The joint",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": " Um, we've had a provisional response from NSO to the Washington Post. Um, and we will have the formal, another respons",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "story's now live. An explosive investigation from the Washington Post and a consortium of media partners. Activists, la",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Forbidden Stories",
+      "type": "ORGANIZATION",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": " we know almost the exact date by the database of Forbidden Stories.",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "to say, hey, we have forbidden stories. We are 80 reporters. We investigate your busines",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "some answers. Hello. This is Laurent Richard from Forbidden Stories. How are you doing? Yeah, I'm good. I'm Yeah, tha",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Fran\u00e7ois de Rugy",
+      "type": "PERSON",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "ui serait encore actuellement au pouvoir et c'est Fran\u00e7ois de Rugy. Donc on a contact\u00e9 Fran\u00e7ois de Rugy en lui expli",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Emmanuel Macron",
+      "type": "PERSON",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "s gens. Le num\u00e9ro de t\u00e9l\u00e9phone qui est attribu\u00e9 \u00e0 Emmanuel Macron, la premi\u00e8re \u00e9tape \u00e7a a \u00e9t\u00e9 de v\u00e9rifier que le nu",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": " lui \u00e9crire. Donc en fait, on va envoyer un SMS \u00e0 Emmanuel Macron. Monsieur le Pr\u00e9sident de la R\u00e9publique, Nous pub",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "Dont vous avez \u00e9t\u00e9 la cible. C'est parti. Et donc Emmanuel Macron ne r\u00e9pond pas directement \u00e0 ce SMS, mais une heur",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "e l\u00e0. Quelques heures apr\u00e8s avoir envoy\u00e9 ce SMS \u00e0 Emmanuel Macron, on a re\u00e7u une invitation \u00e0 se rendre \u00e0 l'\u00c9lys\u00e9e ",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "Emmanuel Macron, King Mohammed VI and Tedros Ghebreyesus ne sont ",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Forbidden Films",
+      "type": "ORGANIZATION",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "Pegasus. Pegasus. Pegasus. In collaboration with Forbidden Films, a two-part investigation. This story would be hu",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Princess Latifa",
+      "type": "PERSON",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "Here is an autocratic leader, massively powerful. Princess Latifa",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "n. He he he only cares about himself and his ego. Princess Latifa concocted this extraordinary attempted escape tha",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "emarkable that it nearly succeeded. The day after Princess Latifa went missing from Dubai, we saw her number entere",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "state in a desperate attempt to find Princess Latifa, kidnap her, and return her back to Dubai. We tri",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": " founded the campaign to free the Dubai princess, Princess Latifa in 2018. David Hay was actually imprisoned in Dub",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "that he became a human rights campaigner. Princess Latifa began to message him after her failed attempted e",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Cecilio Pineda",
+      "type": "PERSON",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "py on a journalist or to geolocate him? Sabes que Cecilio Pineda est\u00e1 tambi\u00e9n en la lista? S\u00ed? El el que el que fu",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "remito al caso de Cecilio Pineda, y de Pegasus Project lo mostr\u00f3 p\u00fablicamente, que",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "ados llegaron a un autolavado donde el periodista Cecilio Pineda esperaba que le entregaran su camioneta y le disp",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": " the phone was not findable. That was the case of Cecilio Pineda. no se puede afirmar categ\u00f3ricamente que lo que s",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "BB Netanyahu",
+      "type": "PERSON",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "O Group had the the direct backing and support of BB Netanyahu's government. In order to sell its product to gov",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "The Guardian",
+      "type": "ORGANIZATION",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "con la pesquisa recabada por The Washington Post, The Guardian, Le Monde y otros medios. The joint investigation",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Viktor Orb\u00e1n",
+      "type": "PERSON",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [],
+      "aliases": [],
+      "temporal_distribution": []
+    },
+    {
+      "name": "David Haigh",
+      "type": "PERSON",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "with Pegasus. Given how much David Haigh was working on the Latifa case, it wasn't a surpr",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": " that, it's frightening. It really is. My name is David Haigh from Detained International. Then we founded the ",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "NSO Group",
+      "type": "ORGANIZATION",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "nother one. Each time you look at how a client of NSO Group used the technology, it tells you something about",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "erests. There's a lot of evidence to suggest that NSO Group had the the direct backing and support of BB Neta",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "he publication. when you knock on the door of the NSO group",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "inside. We were giving a deadline to the NSO group and to all the state actors. And we were expectin",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": " Bye. Bye. Okay. What we got is an email from the NSO group saying that all you think is wrong. Thank you, be",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "company valued at over a billion dollars. And the NSO group and its clients, these governments, were not goin",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": " ou s\u00e9lectionn\u00e9es comme cibles par des clients de NSO Group. Yes. Ouais, on a une qui demande nomm\u00e9ment pour ",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "and the Biden administration actually blacklisted NSO Group. They've made a bigger deal than I would have exp",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "ng service to move forward with a lawsuit against NSO Group over allegedly targeting Silicon Valley has a big",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "o promise you safety and security. All we've seen NSO group is deny, deny, deny, and that's shown up entirely",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "de secrets of the technology. It is not true that NSO Group operates Pegasus and collects information about i",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Unit 8200",
+      "type": "MILITARY UNIT",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [],
+      "aliases": [],
+      "temporal_distribution": []
+    },
+    {
+      "name": "Le Monde",
+      "type": "ORGANIZATION",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "a recabada por The Washington Post, The Guardian, Le Monde y otros medios. The joint investigation by 17 new",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "h bah, aussi. Oh l\u00e0 l\u00e0, mais il y a vraiment tout le monde quoi. C'est un truc",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Hungary",
+      "type": "COUNTRY",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": " \u05d4\u05d7\u05d6\u05e7\u05d5\u05ea \u05e9\u05dc \u05d9\u05e9\u05e8\u05d0\u05dc \u05d1\u05d0\u05d9\u05d7\u05d5\u05d3 \u05d4\u05d0\u05d9\u05e8\u05d5\u05e4\u05d9. The timeline for Hungary is that the visit was in July 2017 and uh the ope",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "ve not said that we have determined recently that Hungary is or is not a secure country. You did consider i",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Morocco",
+      "type": "COUNTRY",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": " numbers. More than 1,000 potentially targeted by Morocco. There were journalists, lawyers, activists, but ",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "lement jamais acc\u00e8s. We don't know exactly who in Morocco was using Pegasus. There were",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "Moroccan dissidents on the list, even the king of Morocco himself was on the list, but we do know that NSO ",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Pegasus",
+      "type": "SPYWARE",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "Pegasus. Pegasus. Pegasus. In collaboration with Forbidde",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "ine, part two of Global Spyware scandal, exposing Pegasus. When you have your hands on a technology like th",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "brief. La base de donn\u00e9es est vraiment explosive. Pegasus. Pegasus. Pegasus. Pegasus. It's like a person ov",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": " prove that there had actually been infected with Pegasus, we needed their phones, but politicians wouldn't",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "s. We don't know exactly who in Morocco was using Pegasus. There were",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "with Pegasus. Given how much David Haigh was working on the La",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "list. Was Pegasus used in that case to spy on a journalist or to ge",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "remito al caso de Cecilio Pineda, y de Pegasus Project lo mostr\u00f3 p\u00fablicamente, que su tel\u00e9fono f",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": " you do forensics on the phone and find traces of Pegasus. But in many cases, the phone was not findable. T",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "east 37 phones had been targeted or infected with Pegasus. The more publication day was approaching, the mo",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "s medios revel\u00f3 una lista de de la utilizaci\u00f3n de Pegasus en el mundo l'Elys\u00e9e prend cette affaire avec bea",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "pas que les choses retombent dans quelques jours. Pegasus est utilis\u00e9 par des \u00e9tats pour cibler des journal",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "e had been reporters who've been doing stories on Pegasus for years. This sort of tipped the scale because ",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "rwards that the FBI considered using a version of Pegasus that could hack into US phones. But that fell apa",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "banks. And we need that for the spyware industry. Pegasus spyware is once again back in the spotlight. This",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "sition have produced evidence they were hacked by Pegasus. This scandal is being dubbed the Polish Watergat",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "echnology. It is not true that NSO Group operates Pegasus and collects information about individuals. It is",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": ". Given that UAE and Saudi Arabia have been using Pegasus software, who are legitimate actors to issue warr",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "ine. Frontline's Global Spyware Scandal: Exposing Pegasus is available on Amazon Prime Video.",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Mexico",
+      "type": "COUNTRY",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "huge job. More than 15,000 of the numbers were in Mexico and one of those numbers belonged to a journalist",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "\u00c9lys\u00e9e",
+      "type": "GOVERNMENT BUILDING",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "ures apr\u00e8s avoir envoy\u00e9 ce SMS, les services de l'\u00c9lys\u00e9e nous rappellent \u00e0 propos du SMS qui lui a",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "est toujours actif. Ouais ouais, ben l\u00e0 on va \u00e0 l'\u00c9lys\u00e9e l\u00e0. Quelques heures apr\u00e8s avoir envoy\u00e9 ce SMS \u00e0 E",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Dubai",
+      "type": "CITY",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "ister, Vice President, and of course the ruler of Dubai. Here is an autocratic leader, massively powerful",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "ime been by her account unhappy about her life in Dubai. She had been uh, incarcerated effectively by her",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": ". The day after Princess Latifa went missing from Dubai, we saw her number entered into the list. And in ",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "t, and then the princess was forcibly returned to Dubai. We don't know exactly why the attempted escape d",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "incess Latifa, kidnap her, and return her back to Dubai. We tried hard to get hold of a phone that Latifa",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "ational. Then we founded the campaign to free the Dubai princess, Princess Latifa in 2018. David Hay was ",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "ifa drew of the jail villa, Villa 96 in Jumeirah, Dubai, near the Burj Al Arab. Um and you can see here b",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Uae",
+      "type": "COUNTRY",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "tells you something about that government. In the UAE, Sheikh Mohammed bin Rashid Al Maktoum is Prime M",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "customers. Given that UAE and Saudi Arabia have been using Pegasus software",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    }
+  ],
+  "topics": [
+    {
+      "name": "Spyware",
+      "confidence": 0.9
+    },
+    {
+      "name": "Cybersecurity",
+      "confidence": 0.9
+    },
+    {
+      "name": "Government Surveillance",
+      "confidence": 0.9
+    },
+    {
+      "name": "State-sponsored Hacking",
+      "confidence": 0.9
+    },
+    {
+      "name": "NSO Group",
+      "confidence": 0.9
+    },
+    {
+      "name": "Pegasus",
+      "confidence": 0.9
+    },
+    {
+      "name": "Human Rights Abuses",
+      "confidence": 0.9
+    },
+    {
+      "name": "Investigative Journalism",
+      "confidence": 0.9
+    },
+    {
+      "name": "International Relations",
+      "confidence": 0.9
+    },
+    {
+      "name": "Diplomacy",
+      "confidence": 0.9
+    },
+    {
+      "name": "Political Espionage",
+      "confidence": 0.9
+    },
+    {
+      "name": "Israeli Intelligence",
+      "confidence": 0.9
+    }
+  ],
+  "key_facts": [
+    "NSO Group's Pegasus is a military-grade spyware that provides complete access to a target's phone, including encrypted communications, and is being misused globally.",
+    "A major international investigation by a consortium of 17 media outlets, led by Forbidden Stories, exposed a list of over 50,000 phone numbers selected as potential targets for surveillance by NSO clients.",
+    "High-profile political figures, including French President Emmanuel Macron and 14 other French ministers, were identified as potential targets of Pegasus spyware, with Morocco identified as the client state responsible.",
+    "The Israeli government, under BB Netanyahu, approved NSO's sales and used Pegasus as a diplomatic tool to foster relationships with countries like Hungary, Morocco, UAE, Bahrain, and Saudi Arabia.",
+    "The UAE government used Pegasus to target Princess Latifa, daughter of Dubai's ruler, and her associates during her failed escape attempt."
+  ]
+}

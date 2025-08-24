@@ -1,0 +1,383 @@
+{
+  "nodes": [
+    {
+      "id": "Sheikh Mohammed bin Rashid Al Maktoum",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Sheikh Mohammed bin Rashid Al Maktoum"
+    },
+    {
+      "id": "Israeli Defense Ministry",
+      "type": "GOVERNMENT AGENCY",
+      "confidence": 0.9,
+      "mention_count": 2,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Israeli Defense Ministry"
+    },
+    {
+      "id": "Detained International",
+      "type": "ORGANIZATION",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Detained International"
+    },
+    {
+      "id": "The Washington Post",
+      "type": "ORGANIZATION",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "The Washington Post"
+    },
+    {
+      "id": "Forbidden Stories",
+      "type": "ORGANIZATION",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Forbidden Stories"
+    },
+    {
+      "id": "Fran\u00e7ois de Rugy",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Fran\u00e7ois de Rugy"
+    },
+    {
+      "id": "Emmanuel Macron",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Emmanuel Macron"
+    },
+    {
+      "id": "Forbidden Films",
+      "type": "ORGANIZATION",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Forbidden Films"
+    },
+    {
+      "id": "Princess Latifa",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Princess Latifa"
+    },
+    {
+      "id": "Cecilio Pineda",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Cecilio Pineda"
+    },
+    {
+      "id": "BB Netanyahu",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "BB Netanyahu"
+    },
+    {
+      "id": "The Guardian",
+      "type": "ORGANIZATION",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "The Guardian"
+    },
+    {
+      "id": "Viktor Orb\u00e1n",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Viktor Orb\u00e1n"
+    },
+    {
+      "id": "David Haigh",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "David Haigh"
+    },
+    {
+      "id": "NSO Group",
+      "type": "ORGANIZATION",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "NSO Group"
+    },
+    {
+      "id": "Unit 8200",
+      "type": "MILITARY UNIT",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Unit 8200"
+    },
+    {
+      "id": "Le Monde",
+      "type": "ORGANIZATION",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Le Monde"
+    },
+    {
+      "id": "Hungary",
+      "type": "COUNTRY",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Hungary"
+    },
+    {
+      "id": "Morocco",
+      "type": "COUNTRY",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Morocco"
+    },
+    {
+      "id": "Pegasus",
+      "type": "SPYWARE",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Pegasus"
+    },
+    {
+      "id": "Mexico",
+      "type": "COUNTRY",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Mexico"
+    },
+    {
+      "id": "\u00c9lys\u00e9e",
+      "type": "GOVERNMENT BUILDING",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "\u00c9lys\u00e9e"
+    },
+    {
+      "id": "Dubai",
+      "type": "CITY",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Dubai"
+    },
+    {
+      "id": "Uae",
+      "type": "COUNTRY",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Uae"
+    },
+    {
+      "id": "French government officials",
+      "type": "unknown",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [],
+      "canonical_form": "French government officials"
+    },
+    {
+      "id": "UAE",
+      "type": "unknown",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [],
+      "canonical_form": "UAE"
+    },
+    {
+      "id": "journalists, activists, lawyers",
+      "type": "unknown",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [],
+      "canonical_form": "journalists, activists, lawyers"
+    }
+  ],
+  "edges": [
+    {
+      "source": "Israeli Defense Ministry",
+      "target": "NSO Group",
+      "predicate": "licenses sales for",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "Forbidden Stories",
+      "target": "NSO Group",
+      "predicate": "led investigation into",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "Princess Latifa",
+      "target": "Sheikh Mohammed bin Rashid Al Maktoum",
+      "predicate": "is daughter of",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "BB Netanyahu",
+      "target": "Pegasus",
+      "predicate": "used as diplomatic tool by",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "NSO Group",
+      "target": "Pegasus",
+      "predicate": "developed",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "NSO Group",
+      "target": "Unit 8200",
+      "predicate": "has ties to",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "Morocco",
+      "target": "Emmanuel Macron",
+      "predicate": "targeted",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "Morocco",
+      "target": "French government officials",
+      "predicate": "targeted",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "Pegasus",
+      "target": "journalists, activists, lawyers",
+      "predicate": "used against",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "Mexico",
+      "target": "Cecilio Pineda",
+      "predicate": "targeted",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "UAE",
+      "target": "Princess Latifa",
+      "predicate": "targeted",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "UAE",
+      "target": "David Haigh",
+      "predicate": "targeted",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    }
+  ],
+  "node_count": 27,
+  "edge_count": 12
+}

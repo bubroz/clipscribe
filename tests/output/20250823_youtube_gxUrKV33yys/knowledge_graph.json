@@ -1,0 +1,328 @@
+{
+  "nodes": [
+    {
+      "id": "I Brought You My Bullets, You Brought Me Your Love",
+      "type": "ALBUM",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "I Brought You My Bullets, You Brought Me Your Love"
+    },
+    {
+      "id": "Skylines and Turnstyles",
+      "type": "SONG",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Skylines and Turnstyles"
+    },
+    {
+      "id": "My Chemical Romance",
+      "type": "BAND",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "My Chemical Romance"
+    },
+    {
+      "id": "Our Lady of Sorrows",
+      "type": "SONG",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Our Lady of Sorrows"
+    },
+    {
+      "id": "Eyeball Records",
+      "type": "ORGANIZATION",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Eyeball Records"
+    },
+    {
+      "id": "Matt Pelissier",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Matt Pelissier"
+    },
+    {
+      "id": "Jeff Rickly",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Jeff Rickly"
+    },
+    {
+      "id": "The Rodneys",
+      "type": "BAND",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "The Rodneys"
+    },
+    {
+      "id": "Frank Iero",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Frank Iero"
+    },
+    {
+      "id": "Gerard Way",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Gerard Way"
+    },
+    {
+      "id": "Nancy Drew",
+      "type": "BAND",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Nancy Drew"
+    },
+    {
+      "id": "New Jersey",
+      "type": "LOCATION",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "New Jersey"
+    },
+    {
+      "id": "Pency Prep",
+      "type": "BAND",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Pency Prep"
+    },
+    {
+      "id": "Bob Bryar",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Bob Bryar"
+    },
+    {
+      "id": "Mikey Way",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Mikey Way"
+    },
+    {
+      "id": "Hellfest",
+      "type": "EVENT",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Hellfest"
+    },
+    {
+      "id": "Ray Toro",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Ray Toro"
+    },
+    {
+      "id": "Thursday",
+      "type": "BAND",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Thursday"
+    },
+    {
+      "id": "9/11",
+      "type": "EVENT",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "9/11"
+    },
+    {
+      "id": "Ohio",
+      "type": "LOCATION",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Ohio"
+    },
+    {
+      "id": "My Chemical Romance's formation",
+      "type": "unknown",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [],
+      "canonical_form": "My Chemical Romance's formation"
+    }
+  ],
+  "edges": [
+    {
+      "source": "My Chemical Romance",
+      "target": "Gerard Way",
+      "predicate": "is a member of",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "My Chemical Romance",
+      "target": "Mikey Way",
+      "predicate": "is a member of",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "My Chemical Romance",
+      "target": "Frank Iero",
+      "predicate": "is a member of",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "My Chemical Romance",
+      "target": "Ray Toro",
+      "predicate": "is a member of",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "My Chemical Romance",
+      "target": "Eyeball Records",
+      "predicate": "signed",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "My Chemical Romance",
+      "target": "Pency Prep",
+      "predicate": "provided connections for",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "Matt Pelissier",
+      "target": "My Chemical Romance",
+      "predicate": "was the original drummer for",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "Jeff Rickly",
+      "target": "I Brought You My Bullets, You Brought Me Your Love",
+      "predicate": "was produced by",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "Frank Iero",
+      "target": "Pency Prep",
+      "predicate": "was the former band of",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "Gerard Way",
+      "target": "Mikey Way",
+      "predicate": "is the brother of",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "Mikey Way",
+      "target": "My Chemical Romance",
+      "predicate": "coined the name for",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "Ray Toro",
+      "target": "The Rodneys",
+      "predicate": "was the former band of",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "9/11",
+      "target": "My Chemical Romance's formation",
+      "predicate": "was catalyzed by",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    }
+  ],
+  "node_count": 21,
+  "edge_count": 13
+}

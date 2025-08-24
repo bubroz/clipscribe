@@ -1,0 +1,299 @@
+{
+  "version": "2.3",
+  "created_at": "2025-08-23T20:48:30.567858",
+  "video": {
+    "title": "Danger Days |  The End of My Chemical Romance",
+    "url": "https://www.youtube.com/watch?v=0ESDiJdCfxY",
+    "platform": "unknown"
+  },
+  "extraction_stats": {
+    "gemini_entities": [
+      {
+        "confidence": 1.0,
+        "name": "My Chemical Romance",
+        "type": "band"
+      },
+      {
+        "confidence": 0.95,
+        "name": "David Bowie",
+        "type": "person"
+      },
+      {
+        "confidence": 0.9,
+        "name": "Ziggy Stardust",
+        "type": "persona/album"
+      },
+      {
+        "confidence": 1.0,
+        "name": "The Black Parade",
+        "type": "album"
+      },
+      {
+        "confidence": 0.9,
+        "name": "Diamond Dogs",
+        "type": "album"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Danger Days: The True Lives of the Fabulous Killjoys",
+        "type": "album"
+      },
+      {
+        "confidence": 0.9,
+        "name": "Live Nation",
+        "type": "organization"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Bon Jovi",
+        "type": "band"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Lincoln Park",
+        "type": "band"
+      },
+      {
+        "confidence": 0.95,
+        "name": "Project Revolution tour",
+        "type": "event"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Zack Snyder",
+        "type": "person"
+      },
+      {
+        "confidence": 1.0,
+        "name": "The Watchmen",
+        "type": "film"
+      },
+      {
+        "confidence": 0.9,
+        "name": "Twilight",
+        "type": "film franchise"
+      },
+      {
+        "confidence": 0.95,
+        "name": "Gerard Way",
+        "type": "person"
+      },
+      {
+        "confidence": 0.95,
+        "name": "Frank Iero",
+        "type": "person"
+      },
+      {
+        "confidence": 0.95,
+        "name": "Mikey Way",
+        "type": "person"
+      },
+      {
+        "confidence": 0.95,
+        "name": "Ray Toro",
+        "type": "person"
+      },
+      {
+        "confidence": 0.95,
+        "name": "Bob Bryar",
+        "type": "person"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Leathermouth",
+        "type": "band"
+      },
+      {
+        "confidence": 0.9,
+        "name": "George Bush",
+        "type": "person"
+      },
+      {
+        "confidence": 0.9,
+        "name": "United States Secret Service",
+        "type": "organization"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Umbrella Academy",
+        "type": "comic book series"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Dark Horse Comics",
+        "type": "organization"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Conventional Weapons",
+        "type": "album"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Desolation Row",
+        "type": "song"
+      },
+      {
+        "confidence": 0.95,
+        "name": "Bob Dylan",
+        "type": "person"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Alternative Press Magazine",
+        "type": "publication"
+      },
+      {
+        "confidence": 0.9,
+        "name": "Los Angeles",
+        "type": "location"
+      },
+      {
+        "confidence": 0.9,
+        "name": "South America",
+        "type": "location"
+      },
+      {
+        "confidence": 0.9,
+        "name": "Southeast Asia",
+        "type": "location"
+      }
+    ],
+    "gemini_relationships": [
+      {
+        "confidence": 0.95,
+        "object": "David Bowie",
+        "predicate": "influenced",
+        "subject": "My Chemical Romance"
+      },
+      {
+        "confidence": 0.9,
+        "object": "Diamond Dogs",
+        "predicate": "influenced",
+        "subject": "Danger Days: The True Lives of the Fabulous Killjoys"
+      },
+      {
+        "confidence": 1.0,
+        "object": "Conventional Weapons",
+        "predicate": "was shelved by",
+        "subject": "My Chemical Romance"
+      },
+      {
+        "confidence": 1.0,
+        "object": "Gerard Way",
+        "predicate": "is a member of",
+        "subject": "My Chemical Romance"
+      },
+      {
+        "confidence": 1.0,
+        "object": "Frank Iero",
+        "predicate": "is a member of",
+        "subject": "My Chemical Romance"
+      },
+      {
+        "confidence": 1.0,
+        "object": "Bob Bryar",
+        "predicate": "was a member of",
+        "subject": "My Chemical Romance"
+      },
+      {
+        "confidence": 1.0,
+        "object": "Umbrella Academy",
+        "predicate": "was created by",
+        "subject": "Gerard Way"
+      },
+      {
+        "confidence": 1.0,
+        "object": "Leathermouth",
+        "predicate": "was formed by",
+        "subject": "Frank Iero"
+      },
+      {
+        "confidence": 0.9,
+        "object": "Mikey Way",
+        "predicate": "had tensions with",
+        "subject": "Bob Bryar"
+      },
+      {
+        "confidence": 1.0,
+        "object": "The Watchmen",
+        "predicate": "was directed by",
+        "subject": "Zack Snyder"
+      },
+      {
+        "confidence": 1.0,
+        "object": "Desolation Row",
+        "predicate": "was covered by",
+        "subject": "My Chemical Romance"
+      },
+      {
+        "confidence": 0.9,
+        "object": "Bob Dylan",
+        "predicate": "originally wrote",
+        "subject": "Desolation Row"
+      }
+    ],
+    "retention_decision": {
+      "action": "deleted",
+      "video_path": "tests/cache/Danger Days   The End of My Chemical Romance-0ESDiJdCfxY.mp4",
+      "video_hash": "9330dbb4c7d79d91a857593c",
+      "reason": "Policy: Always delete source videos",
+      "cost_savings": {
+        "storage_cost_avoided": 0.0846438752040267,
+        "reprocessing_cost": 0.44992639999999995
+      },
+      "timestamp": "2025-08-23T20:48:30.522309"
+    }
+  },
+  "timeline_v2": null,
+  "files": {
+    "transcript_txt": {
+      "path": "transcript.txt",
+      "format": "plain_text",
+      "size": 70611,
+      "sha256": "61dd761b0e5e325a2ad7ec0ec6e9aecb0cfd3cad6557e6b6335d7a9184855781"
+    },
+    "transcript_json": {
+      "path": "transcript.json",
+      "format": "json",
+      "size": 218793,
+      "sha256": "667aa70d22322505853041e5eb3472a63c04f84f347c0c2785ce26ef00500546"
+    },
+    "metadata": {
+      "path": "metadata.json",
+      "format": "json",
+      "size": 1544,
+      "sha256": "7ce6b0a722c10193f9078206a5a92512e760deae30d3214db412914146f760ae"
+    },
+    "entities": {
+      "path": "entities.json",
+      "format": "json",
+      "size": 33094,
+      "sha256": "6993386b23f3b742e6fcb19066ae2db8e9a402c2930c267afa734023e4704e70"
+    },
+    "relationships": {
+      "path": "relationships.json",
+      "format": "json",
+      "size": 13559,
+      "sha256": "4ac1f7721a76c184ce06b8bf7a6e1ee3d259c2292969d2bca74d857431a94be7"
+    },
+    "knowledge_graph": {
+      "path": "knowledge_graph.json",
+      "format": "json",
+      "size": 9510,
+      "sha256": "bf8d4f086ff6a7d975aa7a017b65d58c3167a23942871634134992e3509422b6"
+    },
+    "report": {
+      "path": "report.md",
+      "format": "markdown",
+      "size": 1529,
+      "sha256": "cdb0e8cae0bfbaa37fb88298554fa503cfa3185c2fd6bd773950c43cc3cc8f49"
+    },
+    "chimera": {
+      "path": "chimera_format.json",
+      "format": "json",
+      "size": 109811,
+      "sha256": "7aa6e8df9e77b995785d9c6699293618874eeb4e008d7022434d3c29b9f51e64"
+    }
+  }
+}

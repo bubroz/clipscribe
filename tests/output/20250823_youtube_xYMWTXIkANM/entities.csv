@@ -1,0 +1,25 @@
+name,type,source,timestamp,mention_count
+Sheikh Mohammed bin Rashid Al Maktoum,PERSON,['gemini'],,1
+Israeli Defense Ministry,GOVERNMENT AGENCY,['gemini'],,2
+Detained International,ORGANIZATION,['gemini'],,1
+The Washington Post,ORGANIZATION,['gemini'],,1
+Forbidden Stories,ORGANIZATION,['gemini'],,1
+François de Rugy,PERSON,['gemini'],,1
+Emmanuel Macron,PERSON,['gemini'],,1
+Forbidden Films,ORGANIZATION,['gemini'],,1
+Princess Latifa,PERSON,['gemini'],,1
+Cecilio Pineda,PERSON,['gemini'],,1
+BB Netanyahu,PERSON,['gemini'],,1
+The Guardian,ORGANIZATION,['gemini'],,1
+Viktor Orbán,PERSON,['gemini'],,1
+David Haigh,PERSON,['gemini'],,1
+NSO Group,ORGANIZATION,['gemini'],,1
+Unit 8200,MILITARY UNIT,['gemini'],,1
+Le Monde,ORGANIZATION,['gemini'],,1
+Hungary,COUNTRY,['gemini'],,1
+Morocco,COUNTRY,['gemini'],,1
+Pegasus,SPYWARE,['gemini'],,1
+Mexico,COUNTRY,['gemini'],,1
+Élysée,GOVERNMENT BUILDING,['gemini'],,1
+Dubai,CITY,['gemini'],,1
+Uae,COUNTRY,['gemini'],,1

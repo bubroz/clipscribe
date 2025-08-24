@@ -1,0 +1,274 @@
+{
+  "version": "2.3",
+  "created_at": "2025-08-23T20:56:38.668381",
+  "video": {
+    "title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
+    "url": "https://www.youtube.com/watch?v=xYMWTXIkANM",
+    "platform": "unknown"
+  },
+  "extraction_stats": {
+    "gemini_entities": [
+      {
+        "confidence": 1.0,
+        "name": "Pegasus",
+        "type": "Spyware"
+      },
+      {
+        "confidence": 1.0,
+        "name": "NSO Group",
+        "type": "Organization"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Forbidden Films",
+        "type": "Organization"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Forbidden Stories",
+        "type": "Organization"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Emmanuel Macron",
+        "type": "Person"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Morocco",
+        "type": "Country"
+      },
+      {
+        "confidence": 0.95,
+        "name": "Fran\u00e7ois de Rugy",
+        "type": "Person"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Sheikh Mohammed bin Rashid Al Maktoum",
+        "type": "Person"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Princess Latifa",
+        "type": "Person"
+      },
+      {
+        "confidence": 1.0,
+        "name": "David Haigh",
+        "type": "Person"
+      },
+      {
+        "confidence": 1.0,
+        "name": "UAE",
+        "type": "Country"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Dubai",
+        "type": "City"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Unit 8200",
+        "type": "Military Unit"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Israeli Defense Ministry",
+        "type": "Government Agency"
+      },
+      {
+        "confidence": 1.0,
+        "name": "BB Netanyahu",
+        "type": "Person"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Israel",
+        "type": "Country"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Hungary",
+        "type": "Country"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Viktor Orb\u00e1n",
+        "type": "Person"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Mexico",
+        "type": "Country"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Cecilio Pineda",
+        "type": "Person"
+      },
+      {
+        "confidence": 1.0,
+        "name": "The Washington Post",
+        "type": "Organization"
+      },
+      {
+        "confidence": 1.0,
+        "name": "The Guardian",
+        "type": "Organization"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Le Monde",
+        "type": "Organization"
+      },
+      {
+        "confidence": 1.0,
+        "name": "\u00c9lys\u00e9e",
+        "type": "Government Building"
+      },
+      {
+        "confidence": 0.95,
+        "name": "Detained International",
+        "type": "Organization"
+      }
+    ],
+    "gemini_relationships": [
+      {
+        "confidence": 1.0,
+        "object": "Pegasus",
+        "predicate": "developed",
+        "subject": "NSO Group"
+      },
+      {
+        "confidence": 0.95,
+        "object": "Emmanuel Macron",
+        "predicate": "targeted",
+        "subject": "Morocco"
+      },
+      {
+        "confidence": 0.95,
+        "object": "French government officials",
+        "predicate": "targeted",
+        "subject": "Morocco"
+      },
+      {
+        "confidence": 0.9,
+        "object": "Princess Latifa",
+        "predicate": "targeted",
+        "subject": "UAE"
+      },
+      {
+        "confidence": 0.9,
+        "object": "David Haigh",
+        "predicate": "targeted",
+        "subject": "UAE"
+      },
+      {
+        "confidence": 1.0,
+        "object": "NSO Group",
+        "predicate": "licenses sales for",
+        "subject": "Israeli Defense Ministry"
+      },
+      {
+        "confidence": 0.9,
+        "object": "Pegasus",
+        "predicate": "used as diplomatic tool by",
+        "subject": "BB Netanyahu"
+      },
+      {
+        "confidence": 1.0,
+        "object": "Unit 8200",
+        "predicate": "has ties to",
+        "subject": "NSO Group"
+      },
+      {
+        "confidence": 0.85,
+        "object": "Cecilio Pineda",
+        "predicate": "targeted",
+        "subject": "Mexico"
+      },
+      {
+        "confidence": 1.0,
+        "object": "NSO Group",
+        "predicate": "led investigation into",
+        "subject": "Forbidden Stories"
+      },
+      {
+        "confidence": 1.0,
+        "object": "Sheikh Mohammed bin Rashid Al Maktoum",
+        "predicate": "is daughter of",
+        "subject": "Princess Latifa"
+      },
+      {
+        "confidence": 1.0,
+        "object": "journalists, activists, lawyers",
+        "predicate": "used against",
+        "subject": "Pegasus"
+      }
+    ],
+    "retention_decision": {
+      "action": "deleted",
+      "video_path": "tests/cache/Global Spyware Scandal Exposing Pegasus Part Two full documentary  FRONTLINE-xYMWTXIkANM.mp4",
+      "video_hash": "92c7477653749dfec2ccc56f",
+      "reason": "Policy: Always delete source videos",
+      "cost_savings": {
+        "storage_cost_avoided": 0.023411811757832766,
+        "reprocessing_cost": 0.3095664
+      },
+      "timestamp": "2025-08-23T20:56:38.625563"
+    }
+  },
+  "timeline_v2": null,
+  "files": {
+    "transcript_txt": {
+      "path": "transcript.txt",
+      "format": "plain_text",
+      "size": 36913,
+      "sha256": "a340a67f44b38417e70961f52b8273993a775a59061ea75b308f64261eef958c"
+    },
+    "transcript_json": {
+      "path": "transcript.json",
+      "format": "json",
+      "size": 169125,
+      "sha256": "fe1f53b7d2e8138927a279c0e210dd4b31f7aa1dd98114132db8939d3b6b8b7c"
+    },
+    "metadata": {
+      "path": "metadata.json",
+      "format": "json",
+      "size": 4227,
+      "sha256": "b3c3f4ce718ebb275f78cd0c4bc4c5f680e5fa6fd0f6998c8541b46f24af309a"
+    },
+    "entities": {
+      "path": "entities.json",
+      "format": "json",
+      "size": 32613,
+      "sha256": "bb0a219a277947d88666c8510f808d6ae5cba6f64e7df27f85d5c4425457d259"
+    },
+    "relationships": {
+      "path": "relationships.json",
+      "format": "json",
+      "size": 10020,
+      "sha256": "52afbb2bd5e1db7d1434cac040d22250bd20d9e0705afcc8b11aeb0dbaea429e"
+    },
+    "knowledge_graph": {
+      "path": "knowledge_graph.json",
+      "format": "json",
+      "size": 8664,
+      "sha256": "2829846d4c4d10e864f306e07371de4dcff7f50d74b926ca57beb42aefef0ab0"
+    },
+    "report": {
+      "path": "report.md",
+      "format": "markdown",
+      "size": 1524,
+      "sha256": "62fd290cd6b5b3fb6aaf36318849708495629e8f687287957630e4e23ee06ff0"
+    },
+    "chimera": {
+      "path": "chimera_format.json",
+      "format": "json",
+      "size": 87104,
+      "sha256": "3c4920811428d6f67446bec34f9a07e180f44f92071e955e06c215166c7d7b70"
+    }
+  }
+}

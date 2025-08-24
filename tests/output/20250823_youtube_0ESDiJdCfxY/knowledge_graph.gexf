@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gexf xmlns="http://www.gexf.net/1.3" xmlns:viz="http://www.gexf.net/1.3/viz" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://gexf.net/1.3 http://gexf.net/1.3/gexf.xsd" version="1.3">
+  <meta lastmodifieddate="2025-08-23">
+    <creator>ClipScribe</creator>
+    <description>Knowledge graph extracted from video content</description>
+  </meta>
+  <graph mode="static" defaultedgetype="directed" idtype="string">
+    <attributes class="node">
+      <attribute id="0" title="Type" type="string"/>
+      <attribute id="1" title="Confidence" type="double"/>
+      <attribute id="2" title="MentionCount" type="integer"/>
+      <attribute id="3" title="Occurrences" type="integer"/>
+      <attribute id="4" title="Name" type="string"/>
+    </attributes>
+    <attributes class="edge">
+      <attribute id="0" title="Predicate" type="string"/>
+      <attribute id="1" title="Confidence" type="double"/>
+    </attributes>
+    <nodes>
+      <node id="n_407f9c5e7adb" label="Danger Days: The True Lives of the Fabulous Killjoys">
+        <attvalues>
+          <attvalue for="0" value="ALBUM"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="Danger Days: The True Lives of the Fabulous Killjoys"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_506948780039" label="United States Secret Service">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="United States Secret Service"/>
+        </attvalues>
+        <viz:color r="78" g="205" b="196" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_e91a657a9923" label="Alternative Press Magazine">
+        <attvalues>
+          <attvalue for="0" value="PUBLICATION"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="Alternative Press Magazine"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_853404382274" label="Project Revolution tour">
+        <attvalues>
+          <attvalue for="0" value="EVENT"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="Project Revolution tour"/>
+        </attvalues>
+        <viz:color r="247" g="220" b="111" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_ab0dee06797f" label="Conventional Weapons">
+        <attvalues>
+          <attvalue for="0" value="ALBUM"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="Conventional Weapons"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_8735c26b9446" label="My Chemical Romance">
+        <attvalues>
+          <attvalue for="0" value="BAND"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="My Chemical Romance"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_f19f6ae98429" label="Dark Horse Comics">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="Dark Horse Comics"/>
+        </attvalues>
+        <viz:color r="78" g="205" b="196" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_80cf27f9a72f" label="The Black Parade">
+        <attvalues>
+          <attvalue for="0" value="ALBUM"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="The Black Parade"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_77c3c2b6c2ab" label="Umbrella Academy">
+        <attvalues>
+          <attvalue for="0" value="COMIC BOOK SERIES"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="Umbrella Academy"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_1c4e9a6c7f7d" label="Desolation Row">
+        <attvalues>
+          <attvalue for="0" value="SONG"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="Desolation Row"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_a73ef7e2d61c" label="Southeast Asia">
+        <attvalues>
+          <attvalue for="0" value="LOCATION"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="Southeast Asia"/>
+        </attvalues>
+        <viz:color r="69" g="183" b="209" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_a0eb41ae10e8" label="Ziggy Stardust">
+        <attvalues>
+          <attvalue for="0" value="PERSONA/ALBUM"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="Ziggy Stardust"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_ff588b410167" label="South America">
+        <attvalues>
+          <attvalue for="0" value="LOCATION"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="South America"/>
+        </attvalues>
+        <viz:color r="69" g="183" b="209" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_9fd8053ec173" label="Diamond Dogs">
+        <attvalues>
+          <attvalue for="0" value="ALBUM"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="Diamond Dogs"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_70ec58fe2ef9" label="Leathermouth">
+        <attvalues>
+          <attvalue for="0" value="BAND"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="Leathermouth"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_0bb7bfead2ae" label="Lincoln Park">
+        <attvalues>
+          <attvalue for="0" value="BAND"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="Lincoln Park"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_e74e91407317" label="The Watchmen">
+        <attvalues>
+          <attvalue for="0" value="FILM"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="The Watchmen"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_984a00102c02" label="David Bowie">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="David Bowie"/>
+        </attvalues>
+        <viz:color r="255" g="107" b="107" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_d6342cdd6fab" label="George Bush">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="George Bush"/>
+        </attvalues>
+        <viz:color r="255" g="107" b="107" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_6a296868348e" label="Live Nation">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="Live Nation"/>
+        </attvalues>
+        <viz:color r="78" g="205" b="196" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_8b6e04947230" label="Los Angeles">
+        <attvalues>
+          <attvalue for="0" value="LOCATION"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="Los Angeles"/>
+        </attvalues>
+        <viz:color r="69" g="183" b="209" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_39567939edae" label="Zack Snyder">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="Zack Snyder"/>
+        </attvalues>
+        <viz:color r="255" g="107" b="107" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_d6e808b1023e" label="Frank Iero">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="Frank Iero"/>
+        </attvalues>
+        <viz:color r="255" g="107" b="107" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_8cbfd2b77e97" label="Gerard Way">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="Gerard Way"/>
+        </attvalues>
+        <viz:color r="255" g="107" b="107" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_14c9e5bd5922" label="Bob Bryar">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="Bob Bryar"/>
+        </attvalues>
+        <viz:color r="255" g="107" b="107" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_7bf36293179e" label="Bob Dylan">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="Bob Dylan"/>
+        </attvalues>
+        <viz:color r="255" g="107" b="107" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_08d62b1c0c9f" label="Mikey Way">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="Mikey Way"/>
+        </attvalues>
+        <viz:color r="255" g="107" b="107" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_fe4c04068e35" label="Bon Jovi">
+        <attvalues>
+          <attvalue for="0" value="BAND"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="Bon Jovi"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_1d99c6c30952" label="Ray Toro">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="Ray Toro"/>
+        </attvalues>
+        <viz:color r="255" g="107" b="107" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_6ca52258a437" label="Twilight">
+        <attvalues>
+          <attvalue for="0" value="FILM FRANCHISE"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="Twilight"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+    </nodes>
+    <edges>
+      <edge id="0" source="n_407f9c5e7adb" target="n_9fd8053ec173" weight="0.9" label="influenced" kind="influenced">
+        <attvalues>
+          <attvalue for="0" value="influenced"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="1" source="n_8735c26b9446" target="n_984a00102c02" weight="0.9" label="influenced" kind="influenced">
+        <attvalues>
+          <attvalue for="0" value="influenced"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="2" source="n_8735c26b9446" target="n_ab0dee06797f" weight="0.9" label="was shelved by" kind="was shelved by">
+        <attvalues>
+          <attvalue for="0" value="was shelved by"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="3" source="n_8735c26b9446" target="n_8cbfd2b77e97" weight="0.9" label="is a member of" kind="is a member of">
+        <attvalues>
+          <attvalue for="0" value="is a member of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="4" source="n_8735c26b9446" target="n_d6e808b1023e" weight="0.9" label="is a member of" kind="is a member of">
+        <attvalues>
+          <attvalue for="0" value="is a member of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="5" source="n_8735c26b9446" target="n_14c9e5bd5922" weight="0.9" label="was a member of" kind="was a member of">
+        <attvalues>
+          <attvalue for="0" value="was a member of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="6" source="n_8735c26b9446" target="n_1c4e9a6c7f7d" weight="0.9" label="was covered by" kind="was covered by">
+        <attvalues>
+          <attvalue for="0" value="was covered by"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="7" source="n_1c4e9a6c7f7d" target="n_7bf36293179e" weight="0.9" label="originally wrote" kind="originally wrote">
+        <attvalues>
+          <attvalue for="0" value="originally wrote"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="8" source="n_39567939edae" target="n_e74e91407317" weight="0.9" label="was directed by" kind="was directed by">
+        <attvalues>
+          <attvalue for="0" value="was directed by"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="9" source="n_d6e808b1023e" target="n_70ec58fe2ef9" weight="0.9" label="was formed by" kind="was formed by">
+        <attvalues>
+          <attvalue for="0" value="was formed by"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="10" source="n_8cbfd2b77e97" target="n_77c3c2b6c2ab" weight="0.9" label="was created by" kind="was created by">
+        <attvalues>
+          <attvalue for="0" value="was created by"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="11" source="n_14c9e5bd5922" target="n_08d62b1c0c9f" weight="0.9" label="had tensions with" kind="had tensions with">
+        <attvalues>
+          <attvalue for="0" value="had tensions with"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+    </edges>
+  </graph>
+</gexf>

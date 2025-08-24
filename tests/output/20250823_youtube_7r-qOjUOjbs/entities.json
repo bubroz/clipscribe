@@ -8,7 +8,7 @@
       "confidence": 0.9
     },
     {
-      "name": "Military Selection and Assessment",
+      "name": "Military Selection",
       "confidence": 0.9
     },
     {
@@ -16,11 +16,19 @@
       "confidence": 0.9
     },
     {
-      "name": "Psychological Testing",
+      "name": "Delta Force",
       "confidence": 0.9
     },
     {
-      "name": "Physical Endurance",
+      "name": "Seal Team 6",
+      "confidence": 0.9
+    },
+    {
+      "name": "Psychological Assessment",
+      "confidence": 0.9
+    },
+    {
+      "name": "Military Training",
       "confidence": 0.9
     },
     {
@@ -28,15 +36,19 @@
       "confidence": 0.9
     },
     {
-      "name": "Mental Resilience",
+      "name": "Rucking",
+      "confidence": 0.9
+    },
+    {
+      "name": "Mental Toughness",
       "confidence": 0.9
     }
   ],
   "key_facts": [
-    "Tier one selections are fundamentally different from tier two, focusing on individual events with no positive or negative reinforcement and unknown evaluation criteria.",
-    "The primary goal of tier one selection is to assess an individual's mental independence, problem-solving ability, and leadership capacity in solo, high-stakes environments.",
-    "Three critical skills for passing are superior ruck running ability, expert-level land navigation (terrain association), and immense mental preparedness for stress and ambiguity.",
-    "Candidates are often placed in 'no-win scenarios' to evaluate their decision-making process and resilience, where being decisive is more important than the outcome.",
-    "Extreme physical preparation is mandatory, as the physical stress is immense and causes many experienced tier two operators to fail."
+    "Tier One selections primarily consist of individual events, unlike Tier Two, to assess a candidate's ability to operate alone.",
+    "The psychological approach in Tier One selection is different; there is no yelling or reinforcement, and evaluation criteria are kept secret, which psychologically challenges candidates more than overt pressure.",
+    "Tier One selection tests the ability to lead a mission or operate solo without backup, focusing on problem-solving and mental agility, not just surviving hardship.",
+    "Three critical skills for passing Tier One selection are: advanced ruck running ability, expert-level land navigation (specifically terrain association), and mental independence with strong decision-making skills.",
+    "Candidates are deliberately placed in no-win scenarios to evaluate their decisiveness and performance under extreme, ambiguous stress."
   ]
 }

@@ -3,18 +3,18 @@
 **URL**: https://www.youtube.com/watch?v=tjFNZlZEJLY
 **Channel**: The Stoic Viking
 **Duration**: 5:17
-**Processed**: 2025-08-23 19:33:30
+**Processed**: 2025-08-23 21:38:49
 
 **Processing Cost**: $0.0279
 
 ## Executive Summary
 
-A former Special Forces Tier One operator provides three key strategies for passing Tier Two selection courses (e.g., SEALs, Rangers, Green Berets). He emphasizes that candidates must: 1) achieve a specific type of fitness focused on rucking heavy weights and water competency, not just running; 2) be an exceptional, low-profile teammate, as selections are team-based and peer reviews can lead to dismissal; and 3) possess unwavering mental resilience to 'embrace the suck,' stay positive, and never quit. The speaker contrasts this with Tier One selections, which are more individual-focused.
+A former Tier One special forces operator and selection instructor provides three core tips for passing Tier Two special operations selections. He emphasizes that candidates must: 1) possess specific, functional fitness, particularly the ability to ruck heavy weights, not just run; 2) be an exceptional, low-profile teammate, as selections are team-based and often include peer reviews; and 3) develop extreme mental toughness to never quit and embrace the inherent misery of the process. The speaker contrasts Tier Two's team-oriented, negative-reinforcement model with Tier One's individual-focused approach.
 
 ## Quick Stats
 
-- **Transcript Length**: 5749 characters
+- **Transcript Length**: 5717 characters
 - **Entities Found**: 0
 - **Key Points**: 7
-- **Topics**: 8
+- **Topics**: 9
 - **Relationships**: 0

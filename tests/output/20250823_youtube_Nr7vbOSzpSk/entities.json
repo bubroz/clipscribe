@@ -4,7 +4,11 @@
   "entities": [],
   "topics": [
     {
-      "name": "US Special Operations Forces (SOF)",
+      "name": "US Special Operations",
+      "confidence": 0.9
+    },
+    {
+      "name": "Military Selection Process",
       "confidence": 0.9
     },
     {
@@ -16,11 +20,7 @@
       "confidence": 0.9
     },
     {
-      "name": "Military Selection Process",
-      "confidence": 0.9
-    },
-    {
-      "name": "Special Operations Terminology",
+      "name": "Military Terminology",
       "confidence": 0.9
     },
     {
@@ -28,7 +28,7 @@
       "confidence": 0.9
     },
     {
-      "name": "SEAL Team Six",
+      "name": "SEAL Team 6",
       "confidence": 0.9
     },
     {
@@ -37,10 +37,10 @@
     }
   ],
   "key_facts": [
-    "The primary difference between Tier 1 and Tier 2 selection processes is that Tier 2 focuses on team events with negative reinforcement (yelling), while Tier 1 uses individual events with neutral reinforcement (no feedback).",
-    "The three main operational Tier 1 units are identified as Delta Force, DEVGRU (SEAL Team Six), and the Intelligence Support Activity (ISA).",
-    "The speaker is a former Tier 1 operator who also served as an instructor for a Tier 1 selection, providing an insider's perspective on how these processes work.",
-    "Tier 1 units utilize color-based codenames for identification: Delta Force is Green, SEAL Team Six is Blue, and the ISA is Orange.",
-    "Tier 2 units, referred to as 'white SOF', include Rangers, Special Forces, MARSOC Raiders, Marine Force Recon, and most Navy SEAL teams."
+    "Tier 2 selections are characterized by yelling, negative reinforcement, and team-oriented events, whereas Tier 1 selections feature no positive or negative reinforcement and are almost entirely individual events.",
+    "The three main operational Tier 1 units are Delta Force, DEVGRU (SEAL Team 6), and the Intelligence Support Activity.",
+    "Tier 2 units, also known as 'White SOF', include Rangers, Special Forces, MARSOC Raiders, Marine Force Recon, and most Navy SEAL teams (excluding SEAL Team 6).",
+    "Tier 1 units used task force color identifiers: Green for Delta Force, Blue for SEAL Team 6, and Orange for the Intelligence Support Activity (TFO).",
+    "SEAL Team 6 is considered a 'Black SOF' or 'varsity' unit, distinct and much larger than other 'White SOF' or 'JV' SEAL teams."
   ]
 }
