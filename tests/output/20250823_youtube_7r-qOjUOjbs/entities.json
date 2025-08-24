@@ -1,18 +1,373 @@
 {
   "video_url": "https://www.youtube.com/watch?v=7r-qOjUOjbs",
   "video_title": "How To Pass Tier 1 & 2 Selections Part 3/3: Tier 1 Selections",
-  "entities": [],
+  "entities": [
+    {
+      "name": "Intelligence Support Activity",
+      "type": "ORGANIZATION",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "units, which is SEAL Team 6, Delta Force, and the Intelligence Support Activity. Also blue, green, or orange, you know, based on ",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "I'm intimately familiar with both Delta Force and Intelligence Support activity. They actually, both of them are the Intelligence",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Special Forces",
+      "type": "ORGANIZATION",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "ns. So a quick recap of my background, I'm former Special Forces and a Tier 1 operator, and I was able to be a Cad",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "West Virginia",
+      "type": "LOCATION",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "civilian tracker in the somewhere in the areas of West Virginia and do a one week land nav course, trust me, it w",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "British SAS",
+      "type": "ORGANIZATION",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "s they're all three of them are modeled after the British SAS. And then when they were created, they decided to",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Delta Force",
+      "type": "ORGANIZATION",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "e operational Tier 1 units, which is SEAL Team 6, Delta Force, and the Intelligence Support Activity. Also blue",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "e Tier 1 units, I'm intimately familiar with both Delta Force and Intelligence Support activity. They actually,",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "ckon on these Tier 1 courses, especially Delta's. Delta Force's selection is in probably the worst terrain I've",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "endation for anybody, if you're planning to go to Delta Force selection, I would go find a civilian tracker in ",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": ". And if anybody knows, there's a reason why they Delta Force is called the long walk. The third part is mental",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "SEAL Team 6",
+      "type": "ORGANIZATION",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "the main three operational Tier 1 units, which is SEAL Team 6, Delta Force, and the Intelligence Support Activi",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": ", directly modeled theirs off of Delta selection. SEAL Team 6 has a lot of similarities, but they have a few di",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "SEAL Team 6 buddies who I've served with and asked them for a",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "ns are coming from Tier 2 units. Well, especially SEAL Team 6, you have to be a SEAL, you know, even to go to S",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Tier 1",
+      "type": "MILITARY DESIGNATION",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "So this is my three-part series on how to pass Tier 1 and Tier 2 selections. Part three will cover Tier",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "they do selections. So quick caveat, of the three Tier 1 units, I'm intimately familiar with both Delta Fo",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "ate. So the biggest difference between Tier 2 and Tier 1 selections is first, Tier 1 selections, almost al",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "d to the Tier 2 selection. Most people who are in Tier 1 selections are coming from Tier 2 units. Well, es",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "ut guidance. The Tier 2 tests if you can survive. Tier 1 tests you if you can either lead a mission or run",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "o I'm going to give you three tips on how to pass Tier 1 selections. The first is rucking. And while I did",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "x to nine month to a year-long pre-train up for a Tier 1 selection just because of how stressful it can be",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "you, just having heart will not get you through a Tier 1 selection. You have to physically prepare yoursel",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": " no matter what. Trust me. So if you show up to a Tier 1 selection, physically prepared, you can ruck run ",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "st experiences of your life. There's a reason why Tier 1 operators are even looked at in the civilian worl",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Tier 2",
+      "type": "MILITARY DESIGNATION",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "is my three-part series on how to pass Tier 1 and Tier 2 selections. Part three will cover Tier 1 selectio",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "t and accurate. So the biggest difference between Tier 2 and Tier 1 selections is first, Tier 1 selections",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "psychology compared to the Tier 2 selection. Most people who are in Tier 1 selectio",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "e one of the advantages when you're going to that Tier 2 selection and you're getting yelled at and you're",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": " perform in any environment without guidance. The Tier 2 tests if you can survive. Tier 1 tests you if you",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "with people. And I've seen some pretty successful Tier 2 operators falter to this, and it really weeds out",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "irst is rucking. And while I did cover rucking in Tier 2, I'm telling you, it is so important that you hav",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "ops out of a Tier 1 selection, all of them passed Tier 2. They have heart, but their bodies broke down bec",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "es my three-part series of how to pass Tier 1 and Tier 2 selections. If you have any questions or comments",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    }
+  ],
   "topics": [
     {
-      "name": "Special Operations Forces",
+      "name": "Military Special Operations",
       "confidence": 0.9
     },
     {
-      "name": "Military Selection",
-      "confidence": 0.9
-    },
-    {
-      "name": "Tier One Units",
+      "name": "Tier 1 Selection",
       "confidence": 0.9
     },
     {
@@ -20,15 +375,19 @@
       "confidence": 0.9
     },
     {
-      "name": "Seal Team 6",
+      "name": "SEAL Team 6",
       "confidence": 0.9
     },
     {
-      "name": "Psychological Assessment",
+      "name": "Intelligence Support Activity",
       "confidence": 0.9
     },
     {
       "name": "Military Training",
+      "confidence": 0.9
+    },
+    {
+      "name": "Psychological Assessment",
       "confidence": 0.9
     },
     {
@@ -40,15 +399,15 @@
       "confidence": 0.9
     },
     {
-      "name": "Mental Toughness",
+      "name": "Physical Fitness",
       "confidence": 0.9
     }
   ],
   "key_facts": [
-    "Tier One selections primarily consist of individual events, unlike Tier Two, to assess a candidate's ability to operate alone.",
-    "The psychological approach in Tier One selection is different; there is no yelling or reinforcement, and evaluation criteria are kept secret, which psychologically challenges candidates more than overt pressure.",
-    "Tier One selection tests the ability to lead a mission or operate solo without backup, focusing on problem-solving and mental agility, not just surviving hardship.",
-    "Three critical skills for passing Tier One selection are: advanced ruck running ability, expert-level land navigation (specifically terrain association), and mental independence with strong decision-making skills.",
-    "Candidates are deliberately placed in no-win scenarios to evaluate their decisiveness and performance under extreme, ambiguous stress."
+    "Tier 1 selections test an operator's ability to think, problem-solve, and lead solo missions without guidance, often utilizing no-win scenarios.",
+    "Unlike Tier 2, Tier 1 selections are almost exclusively individual events with no positive or negative reinforcement and unknown evaluation criteria.",
+    "Proficiency in 'ruck running' is critical for passing Tier 1 selections due to the extremely high time standards for all movements.",
+    "Advanced land navigation skills, particularly terrain association, are essential, as dead reckoning is not viable in the difficult terrain used for selection courses like Delta Force's.",
+    "Mental preparedness, including decisiveness, resilience, and meticulous attention to detail, is as crucial as physical readiness."
   ]
 }

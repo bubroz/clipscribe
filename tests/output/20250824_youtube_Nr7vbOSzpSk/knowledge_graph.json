@@ -1,0 +1,490 @@
+{
+  "nodes": [
+    {
+      "id": "Intelligence Support Activity",
+      "type": "ORGANIZATION",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Intelligence Support Activity"
+    },
+    {
+      "id": "Air Force Special Operations",
+      "type": "ORGANIZATION",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Air Force Special Operations"
+    },
+    {
+      "id": "Forward Air Controls",
+      "type": "ROLE",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Forward Air Controls"
+    },
+    {
+      "id": "Marine Force Recon",
+      "type": "ORGANIZATION",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Marine Force Recon"
+    },
+    {
+      "id": "MARSOC Raiders",
+      "type": "ORGANIZATION",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "MARSOC Raiders"
+    },
+    {
+      "id": "Special Forces",
+      "type": "ORGANIZATION",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Special Forces"
+    },
+    {
+      "id": "SEAL Team Six",
+      "type": "ORGANIZATION",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "SEAL Team Six"
+    },
+    {
+      "id": "British SAS",
+      "type": "ORGANIZATION",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "British SAS"
+    },
+    {
+      "id": "Delta Force",
+      "type": "ORGANIZATION",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Delta Force"
+    },
+    {
+      "id": "Pararescue",
+      "type": "ROLE",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Pararescue"
+    },
+    {
+      "id": "Assaulter",
+      "type": "ROLE",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Assaulter"
+    },
+    {
+      "id": "Black SOF",
+      "type": "CLASSIFICATION",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Black SOF"
+    },
+    {
+      "id": "White SOF",
+      "type": "CLASSIFICATION",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "White SOF"
+    },
+    {
+      "id": "24th STS",
+      "type": "ORGANIZATION",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "24th STS"
+    },
+    {
+      "id": "Operator",
+      "type": "ROLE",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Operator"
+    },
+    {
+      "id": "Tier One",
+      "type": "CLASSIFICATION",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Tier One"
+    },
+    {
+      "id": "Tier Two",
+      "type": "CLASSIFICATION",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Tier Two"
+    },
+    {
+      "id": "Rangers",
+      "type": "ORGANIZATION",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Rangers"
+    },
+    {
+      "id": "DevGru",
+      "type": "ORGANIZATION",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "DevGru"
+    },
+    {
+      "id": "JTACs",
+      "type": "ROLE",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "JTACs"
+    },
+    {
+      "id": "SEALs",
+      "type": "ORGANIZATION",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "SEALs"
+    },
+    {
+      "id": "TACPs",
+      "type": "ROLE",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "TACPs"
+    },
+    {
+      "id": "Tfo",
+      "type": "ORGANIZATION",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Tfo"
+    },
+    {
+      "id": "Tier One Unit",
+      "type": "unknown",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [],
+      "canonical_form": "Tier One Unit"
+    },
+    {
+      "id": "Tier Two Unit",
+      "type": "unknown",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [],
+      "canonical_form": "Tier Two Unit"
+    },
+    {
+      "id": "Tier Two Units",
+      "type": "unknown",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [],
+      "canonical_form": "Tier Two Units"
+    },
+    {
+      "id": "Tier One Units",
+      "type": "unknown",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [],
+      "canonical_form": "Tier One Units"
+    },
+    {
+      "id": "Green",
+      "type": "unknown",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [],
+      "canonical_form": "Green"
+    },
+    {
+      "id": "Blue",
+      "type": "unknown",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [],
+      "canonical_form": "Blue"
+    },
+    {
+      "id": "Orange",
+      "type": "unknown",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [],
+      "canonical_form": "Orange"
+    },
+    {
+      "id": "TFO",
+      "type": "unknown",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [],
+      "canonical_form": "TFO"
+    },
+    {
+      "id": "Tier One selection",
+      "type": "unknown",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [],
+      "canonical_form": "Tier One selection"
+    },
+    {
+      "id": "individual events",
+      "type": "unknown",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [],
+      "canonical_form": "individual events"
+    },
+    {
+      "id": "Tier Two selection",
+      "type": "unknown",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [],
+      "canonical_form": "Tier Two selection"
+    },
+    {
+      "id": "team oriented events",
+      "type": "unknown",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [],
+      "canonical_form": "team oriented events"
+    },
+    {
+      "id": "Tier One elements",
+      "type": "unknown",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [],
+      "canonical_form": "Tier One elements"
+    }
+  ],
+  "edges": [
+    {
+      "source": "Intelligence Support Activity",
+      "target": "Tier One Unit",
+      "predicate": "is a",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "Intelligence Support Activity",
+      "target": "Orange",
+      "predicate": "is associated with color",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "Intelligence Support Activity",
+      "target": "TFO",
+      "predicate": "is also known as",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "MARSOC Raiders",
+      "target": "Tier Two Unit",
+      "predicate": "is a",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "Special Forces",
+      "target": "Tier Two Unit",
+      "predicate": "is a",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "SEAL Team Six",
+      "target": "Tier One Unit",
+      "predicate": "is a",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "SEAL Team Six",
+      "target": "Blue",
+      "predicate": "is associated with color",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "Delta Force",
+      "target": "Tier One Unit",
+      "predicate": "is a",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "Delta Force",
+      "target": "Green",
+      "predicate": "is associated with color",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "24th STS",
+      "target": "Tier One elements",
+      "predicate": "supports",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "Rangers",
+      "target": "Tier Two Unit",
+      "predicate": "is a",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "DevGru",
+      "target": "SEAL Team Six",
+      "predicate": "is also known as",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "Tier Two Units",
+      "target": "White SOF",
+      "predicate": "are referred to as",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "Tier One Units",
+      "target": "Black SOF",
+      "predicate": "are referred to as",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "Tier One selection",
+      "target": "individual events",
+      "predicate": "is characterized by",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "Tier Two selection",
+      "target": "team oriented events",
+      "predicate": "is characterized by",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    }
+  ],
+  "node_count": 36,
+  "edge_count": 16
+}

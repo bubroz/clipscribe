@@ -1,6 +1,6 @@
 {
   "version": "2.3",
-  "created_at": "2025-08-23T20:42:54.848817",
+  "created_at": "2025-08-23T23:19:16.568116",
   "video": {
     "title": "The Haunting Beauty of The Black Parade | My Chemical Romance",
     "url": "https://www.youtube.com/watch?v=o6wtzHtfjyo",
@@ -11,107 +11,17 @@
       {
         "confidence": 1.0,
         "name": "My Chemical Romance",
-        "type": "ORGANIZATION"
+        "type": "BAND"
       },
       {
         "confidence": 1.0,
         "name": "The Black Parade",
-        "type": "CREATIVE_WORK"
-      },
-      {
-        "confidence": 0.95,
-        "name": "Fall Out Boy",
-        "type": "ORGANIZATION"
-      },
-      {
-        "confidence": 0.95,
-        "name": "Avenged Sevenfold",
-        "type": "ORGANIZATION"
-      },
-      {
-        "confidence": 1.0,
-        "name": "Three Cheers for Sweet Revenge",
-        "type": "CREATIVE_WORK"
-      },
-      {
-        "confidence": 0.9,
-        "name": "Bullets",
-        "type": "CREATIVE_WORK"
+        "type": "ALBUM"
       },
       {
         "confidence": 1.0,
         "name": "Gerard Way",
         "type": "PERSON"
-      },
-      {
-        "confidence": 0.9,
-        "name": "Ray Toro",
-        "type": "PERSON"
-      },
-      {
-        "confidence": 1.0,
-        "name": "David Bowie",
-        "type": "PERSON"
-      },
-      {
-        "confidence": 1.0,
-        "name": "Queen",
-        "type": "ORGANIZATION"
-      },
-      {
-        "confidence": 1.0,
-        "name": "Pink Floyd",
-        "type": "ORGANIZATION"
-      },
-      {
-        "confidence": 0.95,
-        "name": "The Wall",
-        "type": "CREATIVE_WORK"
-      },
-      {
-        "confidence": 1.0,
-        "name": "Teenagers",
-        "type": "CREATIVE_WORK"
-      },
-      {
-        "confidence": 1.0,
-        "name": "Bob Bryar",
-        "type": "PERSON"
-      },
-      {
-        "confidence": 0.85,
-        "name": "Matt Pelissier",
-        "type": "PERSON"
-      },
-      {
-        "confidence": 1.0,
-        "name": "Paramore Mansion",
-        "type": "LOCATION"
-      },
-      {
-        "confidence": 0.95,
-        "name": "Antonio Moreno",
-        "type": "PERSON"
-      },
-      {
-        "confidence": 0.9,
-        "name": "Britney Spears",
-        "type": "PERSON"
-      },
-      {
-        "confidence": 1.0,
-        "name": "Trent Reznor",
-        "type": "PERSON"
-      },
-      {
-        "confidence": 0.95,
-        "name": "The Downward Spiral",
-        "type": "CREATIVE_WORK"
-      },
-      {
-        "confidence": 0.9,
-        "name": "Tate murder house",
-        "type": "LOCATION"
       },
       {
         "confidence": 1.0,
@@ -120,23 +30,18 @@
       },
       {
         "confidence": 1.0,
-        "name": "Sleep",
-        "type": "CREATIVE_WORK"
-      },
-      {
-        "confidence": 1.0,
         "name": "Frank Iero",
         "type": "PERSON"
       },
       {
-        "confidence": 0.8,
-        "name": "Merle Haggard",
+        "confidence": 1.0,
+        "name": "Ray Toro",
         "type": "PERSON"
       },
       {
-        "confidence": 0.95,
-        "name": "famous last words",
-        "type": "CREATIVE_WORK"
+        "confidence": 1.0,
+        "name": "Bob Bryar",
+        "type": "PERSON"
       },
       {
         "confidence": 1.0,
@@ -144,121 +49,193 @@
         "type": "PERSON"
       },
       {
-        "confidence": 0.95,
+        "confidence": 1.0,
+        "name": "Fall Out Boy",
+        "type": "BAND"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Avenged Sevenfold",
+        "type": "BAND"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Queen",
+        "type": "BAND"
+      },
+      {
+        "confidence": 1.0,
+        "name": "David Bowie",
+        "type": "PERSON"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Pink Floyd",
+        "type": "BAND"
+      },
+      {
+        "confidence": 1.0,
         "name": "Goo Goo Dolls",
-        "type": "ORGANIZATION"
+        "type": "BAND"
       },
       {
         "confidence": 1.0,
         "name": "Green Day",
-        "type": "ORGANIZATION"
+        "type": "BAND"
       },
       {
-        "confidence": 0.9,
+        "confidence": 1.0,
+        "name": "Paramore Mansion",
+        "type": "LOCATION"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Three Cheers for Sweet Revenge",
+        "type": "ALBUM"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Bullets",
+        "type": "ALBUM"
+      },
+      {
+        "confidence": 0.95,
         "name": "The Patient",
+        "type": "CHARACTER"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Antonio Moreno",
         "type": "PERSON"
       },
       {
-        "confidence": 0.9,
+        "confidence": 1.0,
+        "name": "Trent Reznor",
+        "type": "PERSON"
+      },
+      {
+        "confidence": 1.0,
+        "name": "The Downward Spiral",
+        "type": "ALBUM"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Welcome to the Black Parade",
+        "type": "SONG"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Famous Last Words",
+        "type": "SONG"
+      },
+      {
+        "confidence": 1.0,
         "name": "Bohemian Rhapsody",
-        "type": "CREATIVE_WORK"
+        "type": "SONG"
       },
       {
-        "confidence": 0.9,
-        "name": "Houdini",
-        "type": "PERSON"
+        "confidence": 1.0,
+        "name": "The End",
+        "type": "SONG"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Dead",
+        "type": "SONG"
+      },
+      {
+        "confidence": 1.0,
+        "name": "This Is How I Disappear",
+        "type": "SONG"
+      },
+      {
+        "confidence": 1.0,
+        "name": "The Sharpest Lives",
+        "type": "SONG"
+      },
+      {
+        "confidence": 1.0,
+        "name": "I Don't Love You",
+        "type": "SONG"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Sleep",
+        "type": "SONG"
       }
     ],
     "gemini_relationships": [
       {
         "confidence": 1.0,
         "object": "The Black Parade",
-        "predicate": "RELEASED",
+        "predicate": "released by",
         "subject": "My Chemical Romance"
       },
       {
         "confidence": 1.0,
         "object": "The Black Parade",
-        "predicate": "PRODUCED",
+        "predicate": "produced by",
         "subject": "Rob Cavallo"
       },
       {
         "confidence": 1.0,
-        "object": "My Chemical Romance",
-        "predicate": "WAS INFLUENCED BY",
-        "subject": "Queen"
-      },
-      {
-        "confidence": 1.0,
-        "object": "My Chemical Romance",
-        "predicate": "WAS INFLUENCED BY",
-        "subject": "David Bowie"
+        "object": "Paramore Mansion",
+        "predicate": "was recording location for",
+        "subject": "The Black Parade"
       },
       {
         "confidence": 0.95,
-        "object": "My Chemical Romance",
-        "predicate": "WAS INFLUENCED BY",
-        "subject": "Pink Floyd"
-      },
-      {
-        "confidence": 0.9,
-        "object": "My Chemical Romance",
-        "predicate": "WAS INFLUENCED BY",
-        "subject": "Goo Goo Dolls"
-      },
-      {
-        "confidence": 1.0,
-        "object": "The Black Parade",
-        "predicate": "DEMOED ALBUM AT",
+        "object": "Queen",
+        "predicate": "influenced",
         "subject": "My Chemical Romance"
       },
       {
-        "confidence": 1.0,
-        "object": "My Chemical Romance",
-        "predicate": "IS MEMBER OF",
+        "confidence": 0.95,
+        "object": "David Bowie",
+        "predicate": "influenced",
+        "subject": "My Chemical Romance"
+      },
+      {
+        "confidence": 0.95,
+        "object": "Pink Floyd",
+        "predicate": "influenced",
+        "subject": "My Chemical Romance"
+      },
+      {
+        "confidence": 0.9,
+        "object": "night terrors",
+        "predicate": "experienced",
         "subject": "Gerard Way"
       },
       {
-        "confidence": 1.0,
+        "confidence": 0.9,
         "object": "My Chemical Romance",
-        "predicate": "IS MEMBER OF",
+        "predicate": "temporarily left by",
         "subject": "Mikey Way"
       },
       {
         "confidence": 1.0,
-        "object": "My Chemical Romance",
-        "predicate": "IS MEMBER OF",
-        "subject": "Frank Iero"
-      },
-      {
-        "confidence": 0.9,
-        "object": "My Chemical Romance",
-        "predicate": "IS MEMBER OF",
-        "subject": "Ray Toro"
-      },
-      {
-        "confidence": 1.0,
-        "object": "The Black Parade",
-        "predicate": "PERFORMED DRUMS ON",
-        "subject": "Bob Bryar"
-      },
-      {
-        "confidence": 0.9,
-        "object": "Green Day",
-        "predicate": "WORKED WITH",
-        "subject": "Rob Cavallo"
-      },
-      {
-        "confidence": 0.8,
-        "object": "My Chemical Romance",
-        "predicate": "BRIEFLY LEFT",
-        "subject": "Mikey Way"
+        "object": "The Patient",
+        "predicate": "is main character of",
+        "subject": "The Black Parade"
       },
       {
         "confidence": 0.95,
-        "object": "The Black Parade",
-        "predicate": "FEATURES MAIN CHARACTER",
+        "object": "cancer",
+        "predicate": "is dying from",
         "subject": "The Patient"
+      },
+      {
+        "confidence": 1.0,
+        "object": "My Chemical Romance",
+        "predicate": "drummer for",
+        "subject": "Bob Bryar"
+      },
+      {
+        "confidence": 1.0,
+        "object": "Green Day",
+        "predicate": "worked with",
+        "subject": "Rob Cavallo"
       }
     ],
     "retention_decision": {
@@ -270,7 +247,7 @@
         "storage_cost_avoided": 0.0626174420826137,
         "reprocessing_cost": 0.35699839999999994
       },
-      "timestamp": "2025-08-23T20:42:54.782467"
+      "timestamp": "2025-08-23T23:19:16.499734"
     }
   },
   "timeline_v2": null,
@@ -278,50 +255,50 @@
     "transcript_txt": {
       "path": "transcript.txt",
       "format": "plain_text",
-      "size": 53287,
-      "sha256": "9b9601d8a1e503cb7e99fa80b792b6aa54b9172ea9c408a5e6b9d7e3b2c6753e"
+      "size": 53944,
+      "sha256": "03b78c0124bdb16370a9e68edc84b3a6efe6df1cf7de0791ba96c2f14f208fdf"
     },
     "transcript_json": {
       "path": "transcript.json",
       "format": "json",
-      "size": 290943,
-      "sha256": "af0d99dcf0335f085ad5b183f6c151e8530e799242b0ed90ae5338b71acb93ba"
+      "size": 283012,
+      "sha256": "29118469bd434eae49a28dbdb24e6f109178ded590707fb2500ffc2ec80eccae"
     },
     "metadata": {
       "path": "metadata.json",
       "format": "json",
       "size": 1396,
-      "sha256": "b178d31899624a170dd8d3d75f69626eb2485caf61db32ff846783b5407c7a70"
+      "sha256": "0eeb5743d2ec62909f0c77dac7463a4bd2ac87b3891b5d92240f60ab33d76019"
     },
     "entities": {
       "path": "entities.json",
       "format": "json",
-      "size": 43381,
-      "sha256": "69664ab79acd90af7be6457b9a8d58c039c26732708124d64c13e11ce1b0e3b9"
+      "size": 50010,
+      "sha256": "5d87ca58b75def66d45c404841ec83a8e39b6716d935a21dae519d85df735e89"
     },
     "relationships": {
       "path": "relationships.json",
       "format": "json",
-      "size": 95054,
-      "sha256": "229fffc2da2685949e92ad7f30e62f2a8a15363d2a0065e3e723a902c3d1e44b"
+      "size": 82561,
+      "sha256": "8e59296b3b2dca5ea8061744053b7924f51133881be35ba3f34a3a7f0ec5c492"
     },
     "knowledge_graph": {
       "path": "knowledge_graph.json",
       "format": "json",
-      "size": 10069,
-      "sha256": "d422a63393790d4a9ba71c5edc2be9120c84dce103367046c3a5bca4c3f86b9d"
+      "size": 9951,
+      "sha256": "bb8265a3f5a009b50c32a96ad8361e6354112e0e7f248b31b8633b04fd7ddba0"
     },
     "report": {
       "path": "report.md",
       "format": "markdown",
-      "size": 1641,
-      "sha256": "de0e3c87907439a82e670eaaab11d02e4e2947b760b3c82b0236a8981a18bd26"
+      "size": 1314,
+      "sha256": "d61e62e9d3b7bb4087351527bb1415675aabb43e97ee98d3c3321e7a6adc859f"
     },
     "chimera": {
       "path": "chimera_format.json",
       "format": "json",
-      "size": 103159,
-      "sha256": "5d70030aded940dedad16ea9780abd6beb06f5c86fe3f6541af083f37691c9cd"
+      "size": 110345,
+      "sha256": "64e90e33a1eb711736681ad6f604c315b4118274bfef6c0b668c0ce5dce8f169"
     }
   }
 }

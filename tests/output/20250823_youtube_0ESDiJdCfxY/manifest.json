@@ -1,6 +1,6 @@
 {
   "version": "2.3",
-  "created_at": "2025-08-23T20:48:30.567858",
+  "created_at": "2025-08-23T23:25:38.208503",
   "video": {
     "title": "Danger Days |  The End of My Chemical Romance",
     "url": "https://www.youtube.com/watch?v=0ESDiJdCfxY",
@@ -11,152 +11,172 @@
       {
         "confidence": 1.0,
         "name": "My Chemical Romance",
-        "type": "band"
-      },
-      {
-        "confidence": 0.95,
-        "name": "David Bowie",
-        "type": "person"
-      },
-      {
-        "confidence": 0.9,
-        "name": "Ziggy Stardust",
-        "type": "persona/album"
+        "type": "Band"
       },
       {
         "confidence": 1.0,
-        "name": "The Black Parade",
-        "type": "album"
+        "name": "David Bowie",
+        "type": "Person"
       },
       {
-        "confidence": 0.9,
+        "confidence": 0.95,
+        "name": "Ziggy Stardust",
+        "type": "Creative Work"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Black Parade",
+        "type": "Creative Work"
+      },
+      {
+        "confidence": 0.95,
         "name": "Diamond Dogs",
-        "type": "album"
+        "type": "Creative Work"
       },
       {
         "confidence": 1.0,
         "name": "Danger Days: The True Lives of the Fabulous Killjoys",
-        "type": "album"
+        "type": "Creative Work"
       },
       {
         "confidence": 0.9,
         "name": "Live Nation",
-        "type": "organization"
-      },
-      {
-        "confidence": 1.0,
-        "name": "Bon Jovi",
-        "type": "band"
-      },
-      {
-        "confidence": 1.0,
-        "name": "Lincoln Park",
-        "type": "band"
-      },
-      {
-        "confidence": 0.95,
-        "name": "Project Revolution tour",
-        "type": "event"
-      },
-      {
-        "confidence": 1.0,
-        "name": "Zack Snyder",
-        "type": "person"
-      },
-      {
-        "confidence": 1.0,
-        "name": "The Watchmen",
-        "type": "film"
-      },
-      {
-        "confidence": 0.9,
-        "name": "Twilight",
-        "type": "film franchise"
-      },
-      {
-        "confidence": 0.95,
-        "name": "Gerard Way",
-        "type": "person"
-      },
-      {
-        "confidence": 0.95,
-        "name": "Frank Iero",
-        "type": "person"
-      },
-      {
-        "confidence": 0.95,
-        "name": "Mikey Way",
-        "type": "person"
-      },
-      {
-        "confidence": 0.95,
-        "name": "Ray Toro",
-        "type": "person"
-      },
-      {
-        "confidence": 0.95,
-        "name": "Bob Bryar",
-        "type": "person"
-      },
-      {
-        "confidence": 1.0,
-        "name": "Leathermouth",
-        "type": "band"
-      },
-      {
-        "confidence": 0.9,
-        "name": "George Bush",
-        "type": "person"
-      },
-      {
-        "confidence": 0.9,
-        "name": "United States Secret Service",
-        "type": "organization"
-      },
-      {
-        "confidence": 1.0,
-        "name": "Umbrella Academy",
-        "type": "comic book series"
-      },
-      {
-        "confidence": 1.0,
-        "name": "Dark Horse Comics",
-        "type": "organization"
-      },
-      {
-        "confidence": 1.0,
-        "name": "Conventional Weapons",
-        "type": "album"
-      },
-      {
-        "confidence": 1.0,
-        "name": "Desolation Row",
-        "type": "song"
-      },
-      {
-        "confidence": 0.95,
-        "name": "Bob Dylan",
-        "type": "person"
-      },
-      {
-        "confidence": 1.0,
-        "name": "Alternative Press Magazine",
-        "type": "publication"
+        "type": "Organization"
       },
       {
         "confidence": 0.9,
         "name": "Los Angeles",
-        "type": "location"
+        "type": "Location"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Bon Jovi",
+        "type": "Band"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Linkin Park",
+        "type": "Band"
+      },
+      {
+        "confidence": 0.95,
+        "name": "Project Revolution tour",
+        "type": "Event"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Zack Snyder",
+        "type": "Person"
+      },
+      {
+        "confidence": 1.0,
+        "name": "The Watchmen",
+        "type": "Creative Work"
+      },
+      {
+        "confidence": 0.95,
+        "name": "Twilight",
+        "type": "Creative Work"
+      },
+      {
+        "confidence": 0.9,
+        "name": "Guitar Hero",
+        "type": "Creative Work"
+      },
+      {
+        "confidence": 0.9,
+        "name": "Rock Band",
+        "type": "Creative Work"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Gerard Way",
+        "type": "Person"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Frank Iero",
+        "type": "Person"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Mikey Way",
+        "type": "Person"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Ray Toro",
+        "type": "Person"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Leathermouth",
+        "type": "Band"
+      },
+      {
+        "confidence": 0.9,
+        "name": "George Bush",
+        "type": "Person"
+      },
+      {
+        "confidence": 1.0,
+        "name": "United States Secret Service",
+        "type": "Organization"
+      },
+      {
+        "confidence": 0.9,
+        "name": "Uganda",
+        "type": "Location"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Dark Horse Comics",
+        "type": "Organization"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Umbrella Academy",
+        "type": "Creative Work"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Bob Bryar",
+        "type": "Person"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Bob Dylan",
+        "type": "Person"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Desolation Row",
+        "type": "Creative Work"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Conventional Weapons",
+        "type": "Creative Work"
+      },
+      {
+        "confidence": 0.95,
+        "name": "Alternative Press Magazine",
+        "type": "Organization"
       },
       {
         "confidence": 0.9,
         "name": "South America",
-        "type": "location"
+        "type": "Location"
       },
       {
         "confidence": 0.9,
         "name": "Southeast Asia",
-        "type": "location"
+        "type": "Location"
+      },
+      {
+        "confidence": 0.95,
+        "name": "XO",
+        "type": "Creative Work"
       }
     ],
     "gemini_relationships": [
@@ -168,62 +188,62 @@
       },
       {
         "confidence": 0.9,
-        "object": "Diamond Dogs",
-        "predicate": "influenced",
-        "subject": "Danger Days: The True Lives of the Fabulous Killjoys"
-      },
-      {
-        "confidence": 1.0,
         "object": "Conventional Weapons",
-        "predicate": "was shelved by",
+        "predicate": "shelved",
         "subject": "My Chemical Romance"
       },
       {
-        "confidence": 1.0,
-        "object": "Gerard Way",
-        "predicate": "is a member of",
+        "confidence": 0.9,
+        "object": "Danger Days: The True Lives of the Fabulous Killjoys",
+        "predicate": "released",
         "subject": "My Chemical Romance"
       },
       {
-        "confidence": 1.0,
-        "object": "Frank Iero",
-        "predicate": "is a member of",
+        "confidence": 0.9,
+        "object": "Bon Jovi",
+        "predicate": "toured with",
         "subject": "My Chemical Romance"
       },
       {
-        "confidence": 1.0,
-        "object": "Bob Bryar",
-        "predicate": "was a member of",
+        "confidence": 0.9,
+        "object": "Linkin Park",
+        "predicate": "toured with",
         "subject": "My Chemical Romance"
       },
       {
         "confidence": 1.0,
         "object": "Umbrella Academy",
-        "predicate": "was created by",
+        "predicate": "created",
         "subject": "Gerard Way"
       },
       {
         "confidence": 1.0,
         "object": "Leathermouth",
-        "predicate": "was formed by",
+        "predicate": "formed",
         "subject": "Frank Iero"
       },
       {
-        "confidence": 0.9,
+        "confidence": 0.85,
+        "object": "The Watchmen",
+        "predicate": "contributed song to",
+        "subject": "My Chemical Romance"
+      },
+      {
+        "confidence": 0.8,
+        "object": "Twilight soundtrack",
+        "predicate": "rejected song from",
+        "subject": "My Chemical Romance"
+      },
+      {
+        "confidence": 0.8,
         "object": "Mikey Way",
-        "predicate": "had tensions with",
+        "predicate": "had tension with",
         "subject": "Bob Bryar"
       },
       {
-        "confidence": 1.0,
-        "object": "The Watchmen",
-        "predicate": "was directed by",
-        "subject": "Zack Snyder"
-      },
-      {
-        "confidence": 1.0,
+        "confidence": 0.9,
         "object": "Desolation Row",
-        "predicate": "was covered by",
+        "predicate": "covered",
         "subject": "My Chemical Romance"
       },
       {
@@ -231,6 +251,12 @@
         "object": "Bob Dylan",
         "predicate": "originally wrote",
         "subject": "Desolation Row"
+      },
+      {
+        "confidence": 0.8,
+        "object": "United States Secret Service",
+        "predicate": "was investigated by",
+        "subject": "Frank Iero"
       }
     ],
     "retention_decision": {
@@ -242,7 +268,7 @@
         "storage_cost_avoided": 0.0846438752040267,
         "reprocessing_cost": 0.44992639999999995
       },
-      "timestamp": "2025-08-23T20:48:30.522309"
+      "timestamp": "2025-08-23T23:25:38.147506"
     }
   },
   "timeline_v2": null,
@@ -250,50 +276,50 @@
     "transcript_txt": {
       "path": "transcript.txt",
       "format": "plain_text",
-      "size": 70611,
-      "sha256": "61dd761b0e5e325a2ad7ec0ec6e9aecb0cfd3cad6557e6b6335d7a9184855781"
+      "size": 70376,
+      "sha256": "64e342b891e055cfb8f6e5fc0a56f0d1661e424b057872cc2ecb3d475a302705"
     },
     "transcript_json": {
       "path": "transcript.json",
       "format": "json",
-      "size": 218793,
-      "sha256": "667aa70d22322505853041e5eb3472a63c04f84f347c0c2785ce26ef00500546"
+      "size": 241799,
+      "sha256": "79558b1de2f2851b7aea85ccd7315ffc78851bf1ef8023ad1a32692da7ac41db"
     },
     "metadata": {
       "path": "metadata.json",
       "format": "json",
       "size": 1544,
-      "sha256": "7ce6b0a722c10193f9078206a5a92512e760deae30d3214db412914146f760ae"
+      "sha256": "45463103b7cef00aa356f69068c6ffb508c21b88f463facfc65277b890725be7"
     },
     "entities": {
       "path": "entities.json",
       "format": "json",
-      "size": 33094,
-      "sha256": "6993386b23f3b742e6fcb19066ae2db8e9a402c2930c267afa734023e4704e70"
+      "size": 37565,
+      "sha256": "0be98282c439ab75ad24558361f86511d64d61f336c1aa884cb6ffef9acb68e5"
     },
     "relationships": {
       "path": "relationships.json",
       "format": "json",
-      "size": 13559,
-      "sha256": "4ac1f7721a76c184ce06b8bf7a6e1ee3d259c2292969d2bca74d857431a94be7"
+      "size": 27503,
+      "sha256": "134afa90d5f32522ed71a99bb537c3dc355b16dc3aba14eb9c7b544576372d7b"
     },
     "knowledge_graph": {
       "path": "knowledge_graph.json",
       "format": "json",
-      "size": 9510,
-      "sha256": "bf8d4f086ff6a7d975aa7a017b65d58c3167a23942871634134992e3509422b6"
+      "size": 10883,
+      "sha256": "45734ef6cf504b1724f69da8c86375ce4ade8ee38b57ab1d03955ef86fff8c68"
     },
     "report": {
       "path": "report.md",
       "format": "markdown",
-      "size": 1529,
-      "sha256": "cdb0e8cae0bfbaa37fb88298554fa503cfa3185c2fd6bd773950c43cc3cc8f49"
+      "size": 1672,
+      "sha256": "efd021ec89c44ce3662861afd936f2ae7a6b458b284d4b1e00b9a885d6d74464"
     },
     "chimera": {
       "path": "chimera_format.json",
       "format": "json",
-      "size": 109811,
-      "sha256": "7aa6e8df9e77b995785d9c6699293618874eeb4e008d7022434d3c29b9f51e64"
+      "size": 114802,
+      "sha256": "50f1d99c5111ec51494a83e1332054a24220f7ded700c38338654433b3b6fd52"
     }
   }
 }

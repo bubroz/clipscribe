@@ -1,6 +1,6 @@
 {
   "version": "2.3",
-  "created_at": "2025-08-23T21:39:10.115958",
+  "created_at": "2025-08-23T23:59:37.533521",
   "video": {
     "title": "How To Pass Tier 1 & 2 Selections Part 3/3: Tier 1 Selections",
     "url": "https://www.youtube.com/watch?v=7r-qOjUOjbs",
@@ -10,7 +10,17 @@
     "gemini_entities": [
       {
         "confidence": 1.0,
-        "name": "Seal Team 6",
+        "name": "Tier 1",
+        "type": "Military Designation"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Tier 2",
+        "type": "Military Designation"
+      },
+      {
+        "confidence": 1.0,
+        "name": "SEAL Team 6",
         "type": "Organization"
       },
       {
@@ -24,12 +34,17 @@
         "type": "Organization"
       },
       {
-        "confidence": 0.95,
+        "confidence": 1.0,
         "name": "British SAS",
         "type": "Organization"
       },
       {
-        "confidence": 0.9,
+        "confidence": 1.0,
+        "name": "Special Forces",
+        "type": "Organization"
+      },
+      {
+        "confidence": 0.95,
         "name": "West Virginia",
         "type": "Location"
       }
@@ -37,19 +52,19 @@
     "gemini_relationships": [
       {
         "confidence": 1.0,
-        "object": "Tier One unit",
+        "object": "Tier 1 unit",
         "predicate": "is a",
-        "subject": "Seal Team 6"
+        "subject": "SEAL Team 6"
       },
       {
         "confidence": 1.0,
-        "object": "Tier One unit",
+        "object": "Tier 1 unit",
         "predicate": "is a",
         "subject": "Delta Force"
       },
       {
         "confidence": 1.0,
-        "object": "Tier One unit",
+        "object": "Tier 1 unit",
         "predicate": "is a",
         "subject": "Intelligence Support Activity"
       },
@@ -57,37 +72,37 @@
         "confidence": 0.95,
         "object": "British SAS",
         "predicate": "are modeled after",
-        "subject": "Tier One units"
+        "subject": "Tier 1 units"
       },
       {
         "confidence": 0.95,
         "object": "Delta Force selection",
-        "predicate": "modeled selection off of",
+        "predicate": "modeled selection after",
         "subject": "Intelligence Support Activity"
       },
       {
         "confidence": 1.0,
         "object": "individual events",
-        "predicate": "consist of",
-        "subject": "Tier One selections"
+        "predicate": "are primarily",
+        "subject": "Tier 1 selections"
       },
       {
         "confidence": 1.0,
-        "object": "mental capacity",
-        "predicate": "evaluates",
-        "subject": "Tier One selections"
-      },
-      {
-        "confidence": 1.0,
-        "object": "problem solving skills",
-        "predicate": "evaluates",
-        "subject": "Tier One selections"
+        "object": "thinkers and problem solvers",
+        "predicate": "seeks",
+        "subject": "Tier 1 selections"
       },
       {
         "confidence": 0.9,
-        "object": "The Long Walk",
-        "predicate": "is known as",
+        "object": "West Virginia",
+        "predicate": "has terrain suitable for training for",
         "subject": "Delta Force selection"
+      },
+      {
+        "confidence": 0.95,
+        "object": "pass Tier 1 selection",
+        "predicate": "is required to",
+        "subject": "Ruck running"
       }
     ],
     "retention_decision": {
@@ -99,7 +114,7 @@
         "storage_cost_avoided": 0.007569397285580636,
         "reprocessing_cost": 0.044528000000000005
       },
-      "timestamp": "2025-08-23T21:39:10.106925"
+      "timestamp": "2025-08-23T23:59:37.505771"
     }
   },
   "timeline_v2": null,
@@ -107,44 +122,50 @@
     "transcript_txt": {
       "path": "transcript.txt",
       "format": "plain_text",
-      "size": 8947,
-      "sha256": "fad7cbf0ad4c6419977e5091962cde9f224112d1d11a253f27d3d8242d12c746"
+      "size": 8897,
+      "sha256": "5f5595a37dbb607010f8964316fe6ff5f16e8ef8a69ddfde523b5f34469c7808"
     },
     "transcript_json": {
       "path": "transcript.json",
       "format": "json",
-      "size": 27913,
-      "sha256": "67d8e5764e7981a00a1e2b2a4a79ddb1561fa04aa6dbb92b965fb74b08f7fda7"
+      "size": 81416,
+      "sha256": "65ba3f024bea1f8df20bcc63f627f363b7898cc7a7adc3efa53d4ccf93ec992a"
     },
     "metadata": {
       "path": "metadata.json",
       "format": "json",
       "size": 2558,
-      "sha256": "8cd85fa893b3f5b1fff73c286fe345e53ba801bc49447ea3cbf4d1ccdd4cef9c"
+      "sha256": "351d7fda96ac6f796e644f8aa11650024aa8aea089209a9764b86877aae7ada7"
     },
     "entities": {
       "path": "entities.json",
       "format": "json",
-      "size": 1798,
-      "sha256": "09ed949f4d9bc44519aa4d32102674db029f43bd85d5bc9bf7bae9aa027077fd"
+      "size": 13091,
+      "sha256": "9bec18846574152e29ddb9882d3acf16c1eb547dffb73f562c2e3e55ef9f6612"
     },
     "relationships": {
       "path": "relationships.json",
       "format": "json",
-      "size": 189,
-      "sha256": "936d14c7196c7bfcdcd4a57f1f290552ffe95b15011b5d4cdcc8d8d47f74d017"
+      "size": 31576,
+      "sha256": "08c70f30c985a3021d644788190393a42d54d9cd758616b9f4e3638aa39db4bb"
+    },
+    "knowledge_graph": {
+      "path": "knowledge_graph.json",
+      "format": "json",
+      "size": 5464,
+      "sha256": "554327b849208aeabe4b76222678490c24817d4e17911c770ea092b5fcaefad7"
     },
     "report": {
       "path": "report.md",
       "format": "markdown",
-      "size": 1143,
-      "sha256": "83eff9932b7062b228143a8c44d144b1f7e36f5ca7628ba6b709377dca30d878"
+      "size": 1238,
+      "sha256": "3c3dc735a63c8b779edf7759dbf202bd3407103937d68b241a58a7bf2060f269"
     },
     "chimera": {
       "path": "chimera_format.json",
       "format": "json",
-      "size": 12979,
-      "sha256": "497d22dd8202ba7cf6e000a36ad1d8a1e86934d761ea1ec9d5bec3eab3491604"
+      "size": 24996,
+      "sha256": "3d675cafce08863d07151cdd9601c64b47e5619f4c90ffb39bfc30a17f2b0820"
     }
   }
 }

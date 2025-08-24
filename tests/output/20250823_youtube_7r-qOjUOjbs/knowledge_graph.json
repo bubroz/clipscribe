@@ -12,15 +12,15 @@
       "canonical_form": "Intelligence Support Activity"
     },
     {
-      "id": "Land Navigation",
-      "type": "SKILL",
+      "id": "Special Forces",
+      "type": "ORGANIZATION",
       "confidence": 0.9,
       "mention_count": 1,
       "occurrences": 1,
       "extraction_sources": [
         "gemini"
       ],
-      "canonical_form": "Land Navigation"
+      "canonical_form": "Special Forces"
     },
     {
       "id": "West Virginia",
@@ -67,55 +67,44 @@
       "canonical_form": "SEAL Team 6"
     },
     {
-      "id": "Tier One",
-      "type": "MILITARY CLASSIFICATION",
+      "id": "Tier 1",
+      "type": "MILITARY DESIGNATION",
       "confidence": 0.9,
       "mention_count": 1,
       "occurrences": 1,
       "extraction_sources": [
         "gemini"
       ],
-      "canonical_form": "Tier One"
+      "canonical_form": "Tier 1"
     },
     {
-      "id": "Tier Two",
-      "type": "MILITARY CLASSIFICATION",
+      "id": "Tier 2",
+      "type": "MILITARY DESIGNATION",
       "confidence": 0.9,
       "mention_count": 1,
       "occurrences": 1,
       "extraction_sources": [
         "gemini"
       ],
-      "canonical_form": "Tier Two"
+      "canonical_form": "Tier 2"
     },
     {
-      "id": "Rucking",
-      "type": "SKILL",
-      "confidence": 0.9,
-      "mention_count": 1,
-      "occurrences": 1,
-      "extraction_sources": [
-        "gemini"
-      ],
-      "canonical_form": "Rucking"
-    },
-    {
-      "id": "Tier One units",
+      "id": "Tier 1 unit",
       "type": "unknown",
       "confidence": 0.9,
       "mention_count": 1,
       "occurrences": 1,
       "extraction_sources": [],
-      "canonical_form": "Tier One units"
+      "canonical_form": "Tier 1 unit"
     },
     {
-      "id": "Intelligence Support Activity selection",
+      "id": "Tier 1 units",
       "type": "unknown",
       "confidence": 0.9,
       "mention_count": 1,
       "occurrences": 1,
       "extraction_sources": [],
-      "canonical_form": "Intelligence Support Activity selection"
+      "canonical_form": "Tier 1 units"
     },
     {
       "id": "Delta Force selection",
@@ -127,13 +116,13 @@
       "canonical_form": "Delta Force selection"
     },
     {
-      "id": "Tier One selections",
+      "id": "Tier 1 selections",
       "type": "unknown",
       "confidence": 0.9,
       "mention_count": 1,
       "occurrences": 1,
       "extraction_sources": [],
-      "canonical_form": "Tier One selections"
+      "canonical_form": "Tier 1 selections"
     },
     {
       "id": "individual events",
@@ -145,109 +134,98 @@
       "canonical_form": "individual events"
     },
     {
-      "id": "mental toughness and agility",
+      "id": "thinkers and problem solvers",
       "type": "unknown",
       "confidence": 0.9,
       "mention_count": 1,
       "occurrences": 1,
       "extraction_sources": [],
-      "canonical_form": "mental toughness and agility"
+      "canonical_form": "thinkers and problem solvers"
     },
     {
-      "id": "SEAL",
+      "id": "Ruck running",
       "type": "unknown",
       "confidence": 0.9,
       "mention_count": 1,
       "occurrences": 1,
       "extraction_sources": [],
-      "canonical_form": "SEAL"
+      "canonical_form": "Ruck running"
     },
     {
-      "id": "ruck running proficiency",
+      "id": "pass Tier 1 selection",
       "type": "unknown",
       "confidence": 0.9,
       "mention_count": 1,
       "occurrences": 1,
       "extraction_sources": [],
-      "canonical_form": "ruck running proficiency"
-    },
-    {
-      "id": "expert land navigation skills",
-      "type": "unknown",
-      "confidence": 0.9,
-      "mention_count": 1,
-      "occurrences": 1,
-      "extraction_sources": [],
-      "canonical_form": "expert land navigation skills"
-    },
-    {
-      "id": "the long walk",
-      "type": "unknown",
-      "confidence": 0.9,
-      "mention_count": 1,
-      "occurrences": 1,
-      "extraction_sources": [],
-      "canonical_form": "the long walk"
+      "canonical_form": "pass Tier 1 selection"
     }
   ],
   "edges": [
     {
-      "source": "SEAL Team 6",
-      "target": "SEAL",
-      "predicate": "requires candidates to be a",
+      "source": "Intelligence Support Activity",
+      "target": "Tier 1 unit",
+      "predicate": "is a",
       "confidence": 0.9,
       "extraction_source": "gemini"
     },
     {
-      "source": "Tier One units",
+      "source": "Intelligence Support Activity",
+      "target": "Delta Force selection",
+      "predicate": "modeled selection after",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "Delta Force",
+      "target": "Tier 1 unit",
+      "predicate": "is a",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "SEAL Team 6",
+      "target": "Tier 1 unit",
+      "predicate": "is a",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "Tier 1 units",
       "target": "British SAS",
       "predicate": "are modeled after",
       "confidence": 0.9,
       "extraction_source": "gemini"
     },
     {
-      "source": "Intelligence Support Activity selection",
-      "target": "Delta Force selection",
-      "predicate": "is the model for",
-      "confidence": 0.9,
-      "extraction_source": "gemini"
-    },
-    {
       "source": "Delta Force selection",
-      "target": "the long walk",
-      "predicate": "is the nickname for",
+      "target": "West Virginia",
+      "predicate": "has terrain suitable for training for",
       "confidence": 0.9,
       "extraction_source": "gemini"
     },
     {
-      "source": "Tier One selections",
+      "source": "Tier 1 selections",
       "target": "individual events",
-      "predicate": "primarily consists of",
+      "predicate": "are primarily",
       "confidence": 0.9,
       "extraction_source": "gemini"
     },
     {
-      "source": "Tier One selections",
-      "target": "mental toughness and agility",
-      "predicate": "evaluates",
+      "source": "Tier 1 selections",
+      "target": "thinkers and problem solvers",
+      "predicate": "seeks",
       "confidence": 0.9,
       "extraction_source": "gemini"
     },
     {
-      "source": "Tier One selections",
-      "target": "ruck running proficiency",
-      "predicate": "is required to pass",
-      "confidence": 0.9,
-      "extraction_source": "gemini"
-    },
-    {
-      "source": "Tier One selections",
-      "target": "expert land navigation skills",
-      "predicate": "are required to pass",
+      "source": "Ruck running",
+      "target": "pass Tier 1 selection",
+      "predicate": "is required to",
       "confidence": 0.9,
       "extraction_source": "gemini"
     }
   ],
-  "node_count": 19,
-  "edge_count": 8
+  "node_count": 16,
+  "edge_count": 9
 }

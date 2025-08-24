@@ -1,6 +1,6 @@
 {
   "version": "2.3",
-  "created_at": "2025-08-23T20:34:23.697960",
+  "created_at": "2025-08-23T23:09:46.554932",
   "video": {
     "title": "The Tragic Early Days of My Chemical Romance",
     "url": "https://www.youtube.com/watch?v=gxUrKV33yys",
@@ -11,7 +11,7 @@
       {
         "confidence": 1.0,
         "name": "My Chemical Romance",
-        "type": "Band"
+        "type": "Organization"
       },
       {
         "confidence": 1.0,
@@ -34,7 +34,7 @@
         "type": "Person"
       },
       {
-        "confidence": 1.0,
+        "confidence": 0.95,
         "name": "Matt Pelissier",
         "type": "Person"
       },
@@ -45,28 +45,18 @@
       },
       {
         "confidence": 1.0,
+        "name": "9/11",
+        "type": "Event"
+      },
+      {
+        "confidence": 1.0,
         "name": "New Jersey",
         "type": "Location"
       },
       {
         "confidence": 1.0,
-        "name": "9/11",
-        "type": "Event"
-      },
-      {
-        "confidence": 0.9,
-        "name": "Hellfest",
-        "type": "Event"
-      },
-      {
-        "confidence": 0.9,
-        "name": "The Rodneys",
-        "type": "Band"
-      },
-      {
-        "confidence": 0.9,
-        "name": "Pency Prep",
-        "type": "Band"
+        "name": "Pencey Prep",
+        "type": "Organization"
       },
       {
         "confidence": 1.0,
@@ -74,95 +64,84 @@
         "type": "Organization"
       },
       {
-        "confidence": 0.9,
-        "name": "Thursday",
-        "type": "Band"
+        "confidence": 1.0,
+        "name": "The Rodneys",
+        "type": "Organization"
       },
       {
         "confidence": 1.0,
         "name": "I Brought You My Bullets, You Brought Me Your Love",
-        "type": "Album"
+        "type": "Work of Art"
+      },
+      {
+        "confidence": 0.9,
+        "name": "Hellfest",
+        "type": "Event"
       },
       {
         "confidence": 1.0,
-        "name": "Skylines and Turnstyles",
-        "type": "Song"
-      },
-      {
-        "confidence": 1.0,
-        "name": "Our Lady of Sorrows",
-        "type": "Song"
-      },
-      {
-        "confidence": 0.8,
         "name": "Ohio",
         "type": "Location"
       },
       {
-        "confidence": 0.9,
-        "name": "Nancy Drew",
-        "type": "Band"
+        "confidence": 1.0,
+        "name": "Attic Demos",
+        "type": "Work of Art"
       },
       {
-        "confidence": 0.95,
-        "name": "Jeff Rickly",
-        "type": "Person"
+        "confidence": 1.0,
+        "name": "Skylines and Turnstiles",
+        "type": "Work of Art"
       }
     ],
     "gemini_relationships": [
       {
         "confidence": 1.0,
-        "object": "My Chemical Romance's formation",
+        "object": "My Chemical Romance",
+        "predicate": "was founded by",
+        "subject": "Gerard Way"
+      },
+      {
+        "confidence": 1.0,
+        "object": "My Chemical Romance",
         "predicate": "was catalyzed by",
         "subject": "9/11"
       },
       {
         "confidence": 1.0,
-        "object": "Gerard Way",
-        "predicate": "is a member of",
-        "subject": "My Chemical Romance"
-      },
-      {
-        "confidence": 1.0,
         "object": "Mikey Way",
-        "predicate": "is a member of",
-        "subject": "My Chemical Romance"
-      },
-      {
-        "confidence": 1.0,
-        "object": "Frank Iero",
-        "predicate": "is a member of",
-        "subject": "My Chemical Romance"
-      },
-      {
-        "confidence": 1.0,
-        "object": "Ray Toro",
-        "predicate": "is a member of",
-        "subject": "My Chemical Romance"
-      },
-      {
-        "confidence": 1.0,
-        "object": "Mikey Way",
-        "predicate": "is the brother of",
+        "predicate": "is the sibling of",
         "subject": "Gerard Way"
       },
       {
         "confidence": 1.0,
-        "object": "Pency Prep",
-        "predicate": "was the former band of",
-        "subject": "Frank Iero"
-      },
-      {
-        "confidence": 0.9,
         "object": "The Rodneys",
-        "predicate": "was the former band of",
+        "predicate": "was a former member of",
         "subject": "Ray Toro"
       },
       {
         "confidence": 1.0,
+        "object": "Pencey Prep",
+        "predicate": "was a former member of",
+        "subject": "Frank Iero"
+      },
+      {
+        "confidence": 1.0,
+        "object": "My Chemical Romance",
+        "predicate": "signed with",
+        "subject": "Eyeball Records"
+      },
+      {
+        "confidence": 0.9,
         "object": "Eyeball Records",
-        "predicate": "signed",
-        "subject": "My Chemical Romance"
+        "predicate": "was connected to",
+        "subject": "Pencey Prep"
+      },
+      {
+        "confidence": 1.0,
+        "object": "My Chemical Romance",
+        "predicate": "was the original drummer for",
+        "subject": "Matt Pelissier"
       },
       {
         "confidence": 1.0,
@@ -171,22 +150,10 @@
         "subject": "Mikey Way"
       },
       {
-        "confidence": 0.95,
-        "object": "My Chemical Romance",
-        "predicate": "was the original drummer for",
-        "subject": "Matt Pelissier"
-      },
-      {
         "confidence": 1.0,
-        "object": "I Brought You My Bullets, You Brought Me Your Love",
-        "predicate": "was produced by",
-        "subject": "Jeff Rickly"
-      },
-      {
-        "confidence": 0.9,
-        "object": "Pency Prep",
-        "predicate": "provided connections for",
-        "subject": "My Chemical Romance"
+        "object": "Skylines and Turnstiles",
+        "predicate": "was inspired by",
+        "subject": "9/11"
       }
     ],
     "retention_decision": {
@@ -198,7 +165,7 @@
         "storage_cost_avoided": 0.025240910008549694,
         "reprocessing_cost": 0.25322880000000003
       },
-      "timestamp": "2025-08-23T20:34:23.662798"
+      "timestamp": "2025-08-23T23:09:46.514341"
     }
   },
   "timeline_v2": null,
@@ -206,50 +173,50 @@
     "transcript_txt": {
       "path": "transcript.txt",
       "format": "plain_text",
-      "size": 38614,
-      "sha256": "fbc91175745f2324346cd1b0726445843c20b84ab5cdbcd61e8a1034f4385b8c"
+      "size": 39569,
+      "sha256": "9237a419d05915ca3476b49bdea4ff820149302c70f5796bf5a278712d1c0e3f"
     },
     "transcript_json": {
       "path": "transcript.json",
       "format": "json",
-      "size": 157552,
-      "sha256": "56996f762889823827e2b9964931fe2c92865051b02bb0ae0f7d9b62c09f17cc"
+      "size": 157191,
+      "sha256": "12e2d710aa1e7d0fceca874a2cec233cb50a0f905c97e193b2c57af308420576"
     },
     "metadata": {
       "path": "metadata.json",
       "format": "json",
       "size": 1262,
-      "sha256": "fbb591b9dd149107fde8f5bb5b27fe60d4df830d5fe5afbabf4019f61617f636"
+      "sha256": "995b23f98e97eb8a0a0dcb0d5eeed8f149e7a087f817c16b29eea647133536cb"
     },
     "entities": {
       "path": "entities.json",
       "format": "json",
-      "size": 20442,
-      "sha256": "5bb6b7808aa6ce4fddfe08e7fb270a6a03ba67ec5239e4085788387345389970"
+      "size": 18891,
+      "sha256": "2eac28054bd5843339e67726e9708a2ed2323536d6f0bebc77704347c1d68147"
     },
     "relationships": {
       "path": "relationships.json",
       "format": "json",
-      "size": 32852,
-      "sha256": "9fdd18468f871e612325290d7c2ae06eb213f52222a2e0532e0a15e8a37d9d81"
+      "size": 33749,
+      "sha256": "e35afc875c537dc71d360b36c955f9f5636df04aa5e0fc9f21e061965a8509c0"
     },
     "knowledge_graph": {
       "path": "knowledge_graph.json",
       "format": "json",
-      "size": 7460,
-      "sha256": "6bc59ca75303e2413e04feabcaa8fc3977f2854960d410d36f3cfd82cf54d267"
+      "size": 5965,
+      "sha256": "a583a2aa8bc43f2f23753301e7a37c0d04b0d12c0c39a44b6e0abe99af744e35"
     },
     "report": {
       "path": "report.md",
       "format": "markdown",
-      "size": 1443,
-      "sha256": "678799178cf3318532cb0c928a00125954c4db0210cc2235c7828d2f0e7edac5"
+      "size": 1452,
+      "sha256": "ce161ec7ff6aa15e9996e0b7f5c1aaf4914113de74fdcd6855c9c597e03072d1"
     },
     "chimera": {
       "path": "chimera_format.json",
       "format": "json",
-      "size": 63290,
-      "sha256": "0dcdbbee1ff961770f4ae7da45e6e417c9510a1602237e80f63b1e14b445dc74"
+      "size": 62707,
+      "sha256": "ea4334cea16439c6e545ca209c96b8cf9ab9a611af8c8ff2dc4f64088e045d1b"
     }
   }
 }

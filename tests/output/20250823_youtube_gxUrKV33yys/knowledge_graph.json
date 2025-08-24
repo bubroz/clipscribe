@@ -2,7 +2,7 @@
   "nodes": [
     {
       "id": "I Brought You My Bullets, You Brought Me Your Love",
-      "type": "ALBUM",
+      "type": "WORK OF ART",
       "confidence": 0.9,
       "mention_count": 1,
       "occurrences": 1,
@@ -12,19 +12,19 @@
       "canonical_form": "I Brought You My Bullets, You Brought Me Your Love"
     },
     {
-      "id": "Skylines and Turnstyles",
-      "type": "SONG",
+      "id": "Skylines and Turnstiles",
+      "type": "WORK OF ART",
       "confidence": 0.9,
       "mention_count": 1,
       "occurrences": 1,
       "extraction_sources": [
         "gemini"
       ],
-      "canonical_form": "Skylines and Turnstyles"
+      "canonical_form": "Skylines and Turnstiles"
     },
     {
       "id": "My Chemical Romance",
-      "type": "BAND",
+      "type": "ORGANIZATION",
       "confidence": 0.9,
       "mention_count": 1,
       "occurrences": 1,
@@ -32,17 +32,6 @@
         "gemini"
       ],
       "canonical_form": "My Chemical Romance"
-    },
-    {
-      "id": "Our Lady of Sorrows",
-      "type": "SONG",
-      "confidence": 0.9,
-      "mention_count": 1,
-      "occurrences": 1,
-      "extraction_sources": [
-        "gemini"
-      ],
-      "canonical_form": "Our Lady of Sorrows"
     },
     {
       "id": "Eyeball Records",
@@ -67,19 +56,30 @@
       "canonical_form": "Matt Pelissier"
     },
     {
-      "id": "Jeff Rickly",
-      "type": "PERSON",
+      "id": "Attic Demos",
+      "type": "WORK OF ART",
       "confidence": 0.9,
       "mention_count": 1,
       "occurrences": 1,
       "extraction_sources": [
         "gemini"
       ],
-      "canonical_form": "Jeff Rickly"
+      "canonical_form": "Attic Demos"
+    },
+    {
+      "id": "Pencey Prep",
+      "type": "ORGANIZATION",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Pencey Prep"
     },
     {
       "id": "The Rodneys",
-      "type": "BAND",
+      "type": "ORGANIZATION",
       "confidence": 0.9,
       "mention_count": 1,
       "occurrences": 1,
@@ -111,17 +111,6 @@
       "canonical_form": "Gerard Way"
     },
     {
-      "id": "Nancy Drew",
-      "type": "BAND",
-      "confidence": 0.9,
-      "mention_count": 1,
-      "occurrences": 1,
-      "extraction_sources": [
-        "gemini"
-      ],
-      "canonical_form": "Nancy Drew"
-    },
-    {
       "id": "New Jersey",
       "type": "LOCATION",
       "confidence": 0.9,
@@ -131,17 +120,6 @@
         "gemini"
       ],
       "canonical_form": "New Jersey"
-    },
-    {
-      "id": "Pency Prep",
-      "type": "BAND",
-      "confidence": 0.9,
-      "mention_count": 1,
-      "occurrences": 1,
-      "extraction_sources": [
-        "gemini"
-      ],
-      "canonical_form": "Pency Prep"
     },
     {
       "id": "Bob Bryar",
@@ -188,17 +166,6 @@
       "canonical_form": "Ray Toro"
     },
     {
-      "id": "Thursday",
-      "type": "BAND",
-      "confidence": 0.9,
-      "mention_count": 1,
-      "occurrences": 1,
-      "extraction_sources": [
-        "gemini"
-      ],
-      "canonical_form": "Thursday"
-    },
-    {
       "id": "9/11",
       "type": "EVENT",
       "confidence": 0.9,
@@ -219,57 +186,13 @@
         "gemini"
       ],
       "canonical_form": "Ohio"
-    },
-    {
-      "id": "My Chemical Romance's formation",
-      "type": "unknown",
-      "confidence": 0.9,
-      "mention_count": 1,
-      "occurrences": 1,
-      "extraction_sources": [],
-      "canonical_form": "My Chemical Romance's formation"
     }
   ],
   "edges": [
     {
-      "source": "My Chemical Romance",
-      "target": "Gerard Way",
-      "predicate": "is a member of",
-      "confidence": 0.9,
-      "extraction_source": "gemini"
-    },
-    {
-      "source": "My Chemical Romance",
-      "target": "Mikey Way",
-      "predicate": "is a member of",
-      "confidence": 0.9,
-      "extraction_source": "gemini"
-    },
-    {
-      "source": "My Chemical Romance",
-      "target": "Frank Iero",
-      "predicate": "is a member of",
-      "confidence": 0.9,
-      "extraction_source": "gemini"
-    },
-    {
-      "source": "My Chemical Romance",
-      "target": "Ray Toro",
-      "predicate": "is a member of",
-      "confidence": 0.9,
-      "extraction_source": "gemini"
-    },
-    {
-      "source": "My Chemical Romance",
-      "target": "Eyeball Records",
-      "predicate": "signed",
-      "confidence": 0.9,
-      "extraction_source": "gemini"
-    },
-    {
-      "source": "My Chemical Romance",
-      "target": "Pency Prep",
-      "predicate": "provided connections for",
+      "source": "Eyeball Records",
+      "target": "My Chemical Romance",
+      "predicate": "signed with",
       "confidence": 0.9,
       "extraction_source": "gemini"
     },
@@ -281,23 +204,30 @@
       "extraction_source": "gemini"
     },
     {
-      "source": "Jeff Rickly",
-      "target": "I Brought You My Bullets, You Brought Me Your Love",
-      "predicate": "was produced by",
+      "source": "Pencey Prep",
+      "target": "Eyeball Records",
+      "predicate": "was connected to",
       "confidence": 0.9,
       "extraction_source": "gemini"
     },
     {
       "source": "Frank Iero",
-      "target": "Pency Prep",
-      "predicate": "was the former band of",
+      "target": "Pencey Prep",
+      "predicate": "was a former member of",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "Gerard Way",
+      "target": "My Chemical Romance",
+      "predicate": "was founded by",
       "confidence": 0.9,
       "extraction_source": "gemini"
     },
     {
       "source": "Gerard Way",
       "target": "Mikey Way",
-      "predicate": "is the brother of",
+      "predicate": "is the sibling of",
       "confidence": 0.9,
       "extraction_source": "gemini"
     },
@@ -311,18 +241,25 @@
     {
       "source": "Ray Toro",
       "target": "The Rodneys",
-      "predicate": "was the former band of",
+      "predicate": "was a former member of",
       "confidence": 0.9,
       "extraction_source": "gemini"
     },
     {
       "source": "9/11",
-      "target": "My Chemical Romance's formation",
+      "target": "My Chemical Romance",
       "predicate": "was catalyzed by",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "9/11",
+      "target": "Skylines and Turnstiles",
+      "predicate": "was inspired by",
       "confidence": 0.9,
       "extraction_source": "gemini"
     }
   ],
-  "node_count": 21,
-  "edge_count": 13
+  "node_count": 17,
+  "edge_count": 10
 }

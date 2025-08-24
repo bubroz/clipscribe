@@ -30,7 +30,7 @@
     },
     {
       "name": "Israeli Defense Ministry",
-      "type": "GOVERNMENT AGENCY",
+      "type": "ORGANIZATION",
       "source": [
         "gemini"
       ],
@@ -51,31 +51,37 @@
           "visual_present": false
         },
         {
-          "text": "t required permits, effectively licenses from the Israeli Defense Ministry. I decided several years",
+          "text": "as valuable to Israel's national security interest. There's a lot of ev",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "their former employees as valuable to Israel's national security interests. There's a lot of e",
+          "text": "t required permits, effectively licenses from the Israeli Defense Ministry. in order to sell its product to",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "ago to turn Israel into one of the five uh cyber powers of the world",
+          "text": "t required permits, effectively licenses from the Israeli Defense ministry. I decided several years ago to",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "al than I would have expected against not just an Israeli company but really they're criticizing the",
+          "text": "t required permits, effectively licenses from the Israeli Defense ministry. I decided several years ago to turn Israel into ",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "Israeli government for allowing this to happen because i",
+          "text": "al than I would have expected against not just an Israeli company, but really they're criticizing the Isra",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": " because it actually could not happen without the Israeli government's permission. You have here a go-to s",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -84,32 +90,6 @@
       "aliases": [
         "Israel"
       ],
-      "temporal_distribution": [
-        {
-          "timestamp": "00:00:00",
-          "duration": 5.0,
-          "context_type": "spoken"
-        }
-      ]
-    },
-    {
-      "name": "Detained International",
-      "type": "ORGANIZATION",
-      "source": [
-        "gemini"
-      ],
-      "properties": {},
-      "timestamp": null,
-      "mention_count": 1,
-      "context_windows": [
-        {
-          "text": "tening. It really is. My name is David Haigh from Detained International. Then we founded the campaign to free the Dubai p",
-          "timestamp": "00:00:00",
-          "speaker": null,
-          "visual_present": false
-        }
-      ],
-      "aliases": [],
       "temporal_distribution": [
         {
           "timestamp": "00:00:00",
@@ -129,19 +109,19 @@
       "mention_count": 1,
       "context_windows": [
         {
-          "text": "-for-all. De acuerdo con la pesquisa recabada por The Washington Post, The Guardian, Le Monde y otros medios. The joint",
+          "text": " for all. De acuerdo con la pesquisa recabada por The Washington Post, The Guardian, Le Monde y otros medios. The joint",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": " Um, we've had a provisional response from NSO to the Washington Post. Um, and we will have the formal, another respons",
+          "text": ". Um we've had a provisional response from NSO to the Washington Post. Um and we will have the formal another response ",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "story's now live. An explosive investigation from the Washington Post and a consortium of media partners. Activists, la",
+          "text": "tory is now live. An explosive investigation from the Washington Post and a consortium of media partners. Activists, la",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -167,19 +147,19 @@
       "mention_count": 1,
       "context_windows": [
         {
-          "text": " we know almost the exact date by the database of Forbidden Stories.",
+          "text": " we know almost the exact date by the database of Forbidden Stories, it's February 2018. So, similarities. \u05d1\u05e8\u05e9\u05d9\u05de\u05d4 \u05d4\u05d6\u05d0",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "to say, hey, we have forbidden stories. We are 80 reporters. We investigate your busines",
+          "text": "of the NSO group to say, \"Hey, we are forbidden stories, we are 80 reporters, we investigate your busines",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "some answers. Hello. This is Laurent Richard from Forbidden Stories. How are you doing? Yeah, I'm good. I'm Yeah, tha",
+          "text": "some answers. Hello. This is Laurent Richard from Forbidden Stories. How are you doing? Yeah, I'm good. I'm good. Yea",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -205,7 +185,7 @@
       "mention_count": 1,
       "context_windows": [
         {
-          "text": "ui serait encore actuellement au pouvoir et c'est Fran\u00e7ois de Rugy. Donc on a contact\u00e9 Fran\u00e7ois de Rugy en lui expli",
+          "text": "i serait encore actuellement au pouvoir, et c\u2019est Fran\u00e7ois de Rugy. Donc on a contact\u00e9 Fran\u00e7ois de Rugy en lui expli",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -231,57 +211,31 @@
       "mention_count": 1,
       "context_windows": [
         {
-          "text": "s gens. Le num\u00e9ro de t\u00e9l\u00e9phone qui est attribu\u00e9 \u00e0 Emmanuel Macron, la premi\u00e8re \u00e9tape \u00e7a a \u00e9t\u00e9 de v\u00e9rifier que le nu",
+          "text": "s gens. Le num\u00e9ro de t\u00e9l\u00e9phone qui est attribu\u00e9 \u00e0 Emmanuel Macron, la premi\u00e8re \u00e9tape, \u00e7a a \u00e9t\u00e9 de v\u00e9rifier que le n",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": " lui \u00e9crire. Donc en fait, on va envoyer un SMS \u00e0 Emmanuel Macron. Monsieur le Pr\u00e9sident de la R\u00e9publique, Nous pub",
+          "text": "lui \u00e9crire. Donc en fait, on va envoyer un SMS \u00e0 Emmanuel Macron. Monsieur le Pr\u00e9sident de la R\u00e9publique, On publi",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "Dont vous avez \u00e9t\u00e9 la cible. C'est parti. Et donc Emmanuel Macron ne r\u00e9pond pas directement \u00e0 ce SMS, mais une heur",
+          "text": "t\u00e9 la cible. Tu vois. Ouais. C'est parti. Et donc Emmanuel Macron ne r\u00e9pond pas directement \u00e0 son SMS, mais une heu",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "e l\u00e0. Quelques heures apr\u00e8s avoir envoy\u00e9 ce SMS \u00e0 Emmanuel Macron, on a re\u00e7u une invitation \u00e0 se rendre \u00e0 l'\u00c9lys\u00e9e ",
+          "text": "e l\u00e0. Quelques heures apr\u00e8s avoir envoy\u00e9 ce SMS \u00e0 Emmanuel Macron, on a re\u00e7u une invitation \u00e0 se rendre \u00e0 l'\u00c9lys\u00e9e,",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "Emmanuel Macron, King Mohammed VI and Tedros Ghebreyesus ne sont ",
-          "timestamp": "00:00:00",
-          "speaker": null,
-          "visual_present": false
-        }
-      ],
-      "aliases": [],
-      "temporal_distribution": [
-        {
-          "timestamp": "00:00:00",
-          "duration": 5.0,
-          "context_type": "spoken"
-        }
-      ]
-    },
-    {
-      "name": "Forbidden Films",
-      "type": "ORGANIZATION",
-      "source": [
-        "gemini"
-      ],
-      "properties": {},
-      "timestamp": null,
-      "mention_count": 1,
-      "context_windows": [
-        {
-          "text": "Pegasus. Pegasus. Pegasus. In collaboration with Forbidden Films, a two-part investigation. This story would be hu",
+          "text": "irm at least three names from your investigation, Emmanuel Macron, King Mohammed VI and Tedros Ghebreyesus, are not",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -307,7 +261,7 @@
       "mention_count": 1,
       "context_windows": [
         {
-          "text": "Here is an autocratic leader, massively powerful. Princess Latifa",
+          "text": "Here is an autocratic leader, massively powerful. Princess Latifa is the daughter of",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -319,25 +273,51 @@
           "visual_present": false
         },
         {
-          "text": "emarkable that it nearly succeeded. The day after Princess Latifa went missing from Dubai, we saw her number entere",
+          "text": "that it nearly succeeded. The day after Princess Latifa went missing from Dubai, we saw her number entere",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "state in a desperate attempt to find Princess Latifa, kidnap her, and return her back to Dubai. We tri",
+          "text": "attempt to find Princess Latifa, kidnap her and return her back to Dubai. We trie",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": " founded the campaign to free the Dubai princess, Princess Latifa in 2018. David Hay was actually imprisoned in Dub",
+          "text": " founded the campaign to free the Dubai Princess, Princess Latifa in 2018. David Haigh was actually imprisoned in D",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "that he became a human rights campaigner. Princess Latifa began to message him after her failed attempted e",
+          "text": "human rights campaigner. Princess Latifa began to message him after her failed attempted e",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Bibi Netanyahu",
+      "type": "PERSON",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "O Group had the the direct backing and support of Bibi Netanyahu's government. In order to sell its product to gov",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -363,51 +343,31 @@
       "mention_count": 1,
       "context_windows": [
         {
-          "text": "py on a journalist or to geolocate him? Sabes que Cecilio Pineda est\u00e1 tambi\u00e9n en la lista? S\u00ed? El el que el que fu",
+          "text": "y on a journalist or to geolocate him? \u00bfSabes que Cecilio Pineda es tambi\u00e9n en la lista? \u00bfS\u00ed? \u00bfEl que fue asesinad",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "remito al caso de Cecilio Pineda, y de Pegasus Project lo mostr\u00f3 p\u00fablicamente, que",
+          "text": "a usado Pegasus como se us\u00f3. Me remito al caso de Cecilio Pineda. y de Pegasus Project lo mostr\u00f3 p\u00fablicamente que ",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "ados llegaron a un autolavado donde el periodista Cecilio Pineda esperaba que le entregaran su camioneta y le disp",
+          "text": "ados llegaron a un autolavado donde el periodista Cecilio Pineda esperaba que le entregaran su",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": " the phone was not findable. That was the case of Cecilio Pineda. no se puede afirmar categ\u00f3ricamente que lo que s",
+          "text": "camioneta y le dispararon. No me sorprende que Cecilio Pineda estuviera en esa lista porque el tema que se esta",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
-        }
-      ],
-      "aliases": [],
-      "temporal_distribution": [
+        },
         {
-          "timestamp": "00:00:00",
-          "duration": 5.0,
-          "context_type": "spoken"
-        }
-      ]
-    },
-    {
-      "name": "BB Netanyahu",
-      "type": "PERSON",
-      "source": [
-        "gemini"
-      ],
-      "properties": {},
-      "timestamp": null,
-      "mention_count": 1,
-      "context_windows": [
-        {
-          "text": "O Group had the the direct backing and support of BB Netanyahu's government. In order to sell its product to gov",
+          "text": " the phone was not findable. That was the case of Cecilio Pineda. No se puede afirmar categ\u00f3ricamente que lo que s",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -472,7 +432,7 @@
       "mention_count": 1,
       "context_windows": [
         {
-          "text": "with Pegasus. Given how much David Haigh was working on the Latifa case, it wasn't a surpr",
+          "text": "much David Haigh was working on the Latifa case, it wasn't a surpr",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -504,31 +464,37 @@
       "mention_count": 1,
       "context_windows": [
         {
-          "text": "nother one. Each time you look at how a client of NSO Group used the technology, it tells you something about",
+          "text": "one. Each time you look at how a client of NSO Group used the technology, it tells you something about",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "erests. There's a lot of evidence to suggest that NSO Group had the the direct backing and support of BB Neta",
+          "text": "terest. There's a lot of evidence to suggest that NSO Group had the the direct backing and support of Bibi Ne",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "he publication. when you knock on the door of the NSO group",
+          "text": "of the NSO group to say, \"Hey, we are forbidden stories, we are 80",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "inside. We were giving a deadline to the NSO group and to all the state actors. And we were expectin",
+          "text": "question inside. We were giving a deadline to the NSO group and to all the state actors. And we were expectin",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": " Bye. Bye. Okay. What we got is an email from the NSO group saying that all you think is wrong. Thank you, be",
+          "text": " Bye. Bye. Okay. What we got is an email from the NSO Group saying that all you think is wrong. Thank",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "you, best regards. NSO group firmly denies false claims made in your report, w",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -540,7 +506,13 @@
           "visual_present": false
         },
         {
-          "text": " ou s\u00e9lectionn\u00e9es comme cibles par des clients de NSO Group. Yes. Ouais, on a une qui demande nomm\u00e9ment pour ",
+          "text": "have never been targets or selected as targets by NSO Group customers. En mars 2019, alors que le pr\u00e9sident M",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": " me check with everyone. A investigation into the NSO group. 10 10 That's okay. And just say, yeah, and it's ",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -558,7 +530,7 @@
           "visual_present": false
         },
         {
-          "text": "o promise you safety and security. All we've seen NSO group is deny, deny, deny, and that's shown up entirely",
+          "text": "o promise you safety and security. All we've seen NSO Group is deny, deny, deny, and that's shown up entirely",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -581,7 +553,7 @@
     },
     {
       "name": "Unit 8200",
-      "type": "MILITARY UNIT",
+      "type": "ORGANIZATION",
       "source": [
         "gemini"
       ],
@@ -609,7 +581,7 @@
           "visual_present": false
         },
         {
-          "text": "h bah, aussi. Oh l\u00e0 l\u00e0, mais il y a vraiment tout le monde quoi. C'est un truc",
+          "text": "ian. Ah ben aussi. Oh l\u00e0 l\u00e0, il y a vraiment tout le monde quoi. C\u2019est un truc de malade. La question \u00e7a va ",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -635,7 +607,13 @@
       "mention_count": 1,
       "context_windows": [
         {
-          "text": " \u05d4\u05d7\u05d6\u05e7\u05d5\u05ea \u05e9\u05dc \u05d9\u05e9\u05e8\u05d0\u05dc \u05d1\u05d0\u05d9\u05d7\u05d5\u05d3 \u05d4\u05d0\u05d9\u05e8\u05d5\u05e4\u05d9. The timeline for Hungary is that the visit was in July 2017 and uh the ope",
+          "text": " \u05d4\u05d7\u05d6\u05e7\u05d5\u05ea \u05e9\u05dc \u05d9\u05e9\u05e8\u05d0\u05dc \u05d1\u05d0\u05d9\u05d7\u05d5\u05d3 \u05d4\u05d0\u05d9\u05e8\u05d5\u05e4\u05d9. The timeline for Hungary is that the visit was in July 2017 and",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "the operation of Hungary, we know almost the exact date by the database of",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -673,13 +651,13 @@
           "visual_present": false
         },
         {
-          "text": "lement jamais acc\u00e8s. We don't know exactly who in Morocco was using Pegasus. There were",
+          "text": "lement jamais acc\u00e8s. We don't know exactly who in Morocco was using Pegasus. There were Moroccan dissidents",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "Moroccan dissidents on the list, even the king of Morocco himself was on the list, but we do know that NSO ",
+          "text": "list, even the King of Morocco himself was on the list. But we do know that NSO ",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -705,7 +683,7 @@
       "mention_count": 1,
       "context_windows": [
         {
-          "text": "Pegasus. Pegasus. Pegasus. In collaboration with Forbidde",
+          "text": "Pegasus. Pegasus. in collaboration with Forbidden films, ",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -723,31 +701,37 @@
           "visual_present": false
         },
         {
-          "text": " prove that there had actually been infected with Pegasus, we needed their phones, but politicians wouldn't",
+          "text": " prove that there had actually been infected with Pegasus, we needed their phones, but politicians wouldn\u2019t",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "s. We don't know exactly who in Morocco was using Pegasus. There were",
+          "text": "s. We don't know exactly who in Morocco was using Pegasus. There were Moroccan dissidents on the",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "with Pegasus. Given how much David Haigh was working on the La",
+          "text": "heir phones to see if they had been targeted with Pegasus. Given how",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "list. Was Pegasus used in that case to spy on a journalist or to ge",
+          "text": "sn't a surprise when we discovered that there was Pegasus activity on his phone. I was infected on the 3rd ",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "remito al caso de Cecilio Pineda, y de Pegasus Project lo mostr\u00f3 p\u00fablicamente, que su tel\u00e9fono f",
+          "text": "ered just weeks after he was put on the list. Was Pegasus used in that case to spy on a journalist or to ge",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "que se haya usado Pegasus como se us\u00f3. Me remito al caso de Cecilio Pineda.",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -765,7 +749,7 @@
           "visual_present": false
         },
         {
-          "text": "s medios revel\u00f3 una lista de de la utilizaci\u00f3n de Pegasus en el mundo l'Elys\u00e9e prend cette affaire avec bea",
+          "text": "evel\u00f3 una lista de celulares de la utilizaci\u00f3n de Pegasus en el mundo. L'\u00c9lys\u00e9e prend cette affaire avec be",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -777,7 +761,7 @@
           "visual_present": false
         },
         {
-          "text": "e had been reporters who've been doing stories on Pegasus for years. This sort of tipped the scale because ",
+          "text": "had been reporters who had been doing stories on Pegasus for years. This sort of tipped the scale because ",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -789,7 +773,7 @@
           "visual_present": false
         },
         {
-          "text": "banks. And we need that for the spyware industry. Pegasus spyware is once again back in the spotlight. This",
+          "text": "banks, and we need that for the Spyware industry. Pegasus Spyware is once again back in the spotlight. This",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -807,13 +791,13 @@
           "visual_present": false
         },
         {
-          "text": ". Given that UAE and Saudi Arabia have been using Pegasus software, who are legitimate actors to issue warr",
+          "text": "that UAE and Saudi Arabia have been using Pegasus software, who are legitimate actors to issue warr",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "ine. Frontline's Global Spyware Scandal: Exposing Pegasus is available on Amazon Prime Video.",
+          "text": "ine. Frontline's global spyware scandal, exposing Pegasus is available on Amazon Prime video.",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -839,7 +823,7 @@
       "mention_count": 1,
       "context_windows": [
         {
-          "text": "huge job. More than 15,000 of the numbers were in Mexico and one of those numbers belonged to a journalist",
+          "text": "huge job. More than 15,000 of the numbers were in Mexico. And one of those numbers belonged",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -856,7 +840,7 @@
     },
     {
       "name": "\u00c9lys\u00e9e",
-      "type": "GOVERNMENT BUILDING",
+      "type": "GOVERNMENT BODY",
       "source": [
         "gemini"
       ],
@@ -865,75 +849,19 @@
       "mention_count": 1,
       "context_windows": [
         {
-          "text": "ures apr\u00e8s avoir envoy\u00e9 ce SMS, les services de l'\u00c9lys\u00e9e nous rappellent \u00e0 propos du SMS qui lui a",
+          "text": "ures apr\u00e8s avoir envoy\u00e9 ce SMS, les services de l'\u00c9lys\u00e9e nous rappellent \u00e0 propos du SMS qui lui a \u00e9t\u00e9 env",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "est toujours actif. Ouais ouais, ben l\u00e0 on va \u00e0 l'\u00c9lys\u00e9e l\u00e0. Quelques heures apr\u00e8s avoir envoy\u00e9 ce SMS \u00e0 E",
-          "timestamp": "00:00:00",
-          "speaker": null,
-          "visual_present": false
-        }
-      ],
-      "aliases": [],
-      "temporal_distribution": [
-        {
-          "timestamp": "00:00:00",
-          "duration": 5.0,
-          "context_type": "spoken"
-        }
-      ]
-    },
-    {
-      "name": "Dubai",
-      "type": "CITY",
-      "source": [
-        "gemini"
-      ],
-      "properties": {},
-      "timestamp": null,
-      "mention_count": 1,
-      "context_windows": [
-        {
-          "text": "ister, Vice President, and of course the ruler of Dubai. Here is an autocratic leader, massively powerful",
+          "text": "st toujours actif. Ouais, ouais, bah l\u00e0 on va \u00e0 l'\u00c9lys\u00e9e l\u00e0. Quelques heures apr\u00e8s avoir envoy\u00e9 ce SMS \u00e0 E",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "ime been by her account unhappy about her life in Dubai. She had been uh, incarcerated effectively by her",
-          "timestamp": "00:00:00",
-          "speaker": null,
-          "visual_present": false
-        },
-        {
-          "text": ". The day after Princess Latifa went missing from Dubai, we saw her number entered into the list. And in ",
-          "timestamp": "00:00:00",
-          "speaker": null,
-          "visual_present": false
-        },
-        {
-          "text": "t, and then the princess was forcibly returned to Dubai. We don't know exactly why the attempted escape d",
-          "timestamp": "00:00:00",
-          "speaker": null,
-          "visual_present": false
-        },
-        {
-          "text": "incess Latifa, kidnap her, and return her back to Dubai. We tried hard to get hold of a phone that Latifa",
-          "timestamp": "00:00:00",
-          "speaker": null,
-          "visual_present": false
-        },
-        {
-          "text": "ational. Then we founded the campaign to free the Dubai princess, Princess Latifa in 2018. David Hay was ",
-          "timestamp": "00:00:00",
-          "speaker": null,
-          "visual_present": false
-        },
-        {
-          "text": "ifa drew of the jail villa, Villa 96 in Jumeirah, Dubai, near the Burj Al Arab. Um and you can see here b",
+          "text": "lares de la utilizaci\u00f3n de Pegasus en el mundo. L'\u00c9lys\u00e9e prend cette affaire avec beaucoup de s\u00e9rieux. Il",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -965,7 +893,7 @@
           "visual_present": false
         },
         {
-          "text": "customers. Given that UAE and Saudi Arabia have been using Pegasus software",
+          "text": "that UAE and Saudi Arabia have been using Pegasus software",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -983,10 +911,6 @@
   ],
   "topics": [
     {
-      "name": "Spyware",
-      "confidence": 0.9
-    },
-    {
       "name": "Cybersecurity",
       "confidence": 0.9
     },
@@ -995,19 +919,7 @@
       "confidence": 0.9
     },
     {
-      "name": "State-sponsored Hacking",
-      "confidence": 0.9
-    },
-    {
-      "name": "NSO Group",
-      "confidence": 0.9
-    },
-    {
-      "name": "Pegasus",
-      "confidence": 0.9
-    },
-    {
-      "name": "Human Rights Abuses",
+      "name": "Spyware",
       "confidence": 0.9
     },
     {
@@ -1015,27 +927,31 @@
       "confidence": 0.9
     },
     {
+      "name": "Human Rights",
+      "confidence": 0.9
+    },
+    {
       "name": "International Relations",
       "confidence": 0.9
     },
     {
-      "name": "Diplomacy",
+      "name": "Geopolitics",
       "confidence": 0.9
     },
     {
-      "name": "Political Espionage",
+      "name": "National Security",
       "confidence": 0.9
     },
     {
-      "name": "Israeli Intelligence",
+      "name": "Press Freedom",
       "confidence": 0.9
     }
   ],
   "key_facts": [
-    "NSO Group's Pegasus is a military-grade spyware that provides complete access to a target's phone, including encrypted communications, and is being misused globally.",
-    "A major international investigation by a consortium of 17 media outlets, led by Forbidden Stories, exposed a list of over 50,000 phone numbers selected as potential targets for surveillance by NSO clients.",
-    "High-profile political figures, including French President Emmanuel Macron and 14 other French ministers, were identified as potential targets of Pegasus spyware, with Morocco identified as the client state responsible.",
-    "The Israeli government, under BB Netanyahu, approved NSO's sales and used Pegasus as a diplomatic tool to foster relationships with countries like Hungary, Morocco, UAE, Bahrain, and Saudi Arabia.",
-    "The UAE government used Pegasus to target Princess Latifa, daughter of Dubai's ruler, and her associates during her failed escape attempt."
+    "An international consortium of 17 news outlets, led by Forbidden Stories, exposed the global misuse of Pegasus spyware, a military-grade weapon developed by the Israeli firm NSO Group.",
+    "The spyware targets journalists, activists, lawyers, and high-level politicians, including French President Emmanuel Macron and other government ministers.",
+    "Pegasus provides complete access to a target's phone, including encrypted messages, emails, location, and can activate the camera and microphone without the user's knowledge.",
+    "The government of Morocco was identified as the NSO client that targeted over 1,000 French numbers, including President Macron and other officials.",
+    "The UAE government used Pegasus to track Princess Latifa and her associates during her failed escape attempt from Dubai."
   ]
 }

@@ -1,38 +1,30 @@
 name,type,source,timestamp,mention_count
-You Know What They Do to Guys Like Us in Prison,SONG,['gemini'],,1
-Three Cheers for Sweet Revenge,ALBUM,['gemini'],,1
-My Chemical Romance,BAND,['gemini'],,1
-"Give 'em Hell, Kid",SONG,['gemini'],,1
-Avenged Sevenfold,BAND,['gemini'],,1
-A Rose for Emily,LITERATURE,['gemini'],,1
-Every Time I die,BAND,['gemini'],,1
-The Black Parade,ALBUM,['gemini'],,1
+"I Brought You My Bullets, You Brought Me Your Love",WORK_OF_ART,['gemini'],,1
+Three Cheers for Sweet Revenge,WORK_OF_ART,['gemini'],,1
+My Chemical Romance,ORGANIZATION,['gemini'],,1
+Avenged Sevenfold,ORGANIZATION,['gemini'],,1
+A Rose for Emily,WORK_OF_ART,['gemini'],,1
+Every Time I Die,ORGANIZATION,['gemini'],,1
+The Black Parade,WORK_OF_ART,['gemini'],,1
 William Faulkner,PERSON,['gemini'],,1
-Eyeball Records,RECORD LABEL,['gemini'],,1
-Reprise Records,RECORD LABEL,['gemini'],,1
+Eyeball Records,ORGANIZATION,['gemini'],,1
+Reprise Records,ORGANIZATION,['gemini'],,1
 Bert McCracken,PERSON,['gemini'],,1
 Matt Pelissier,PERSON,['gemini'],,1
 Howard Benson,PERSON,['gemini'],,1
-Post-Hardcore,MUSIC GENRE,['gemini'],,1
-Fall Out Boy,BAND,['gemini'],,1
-Straight.Com,ORGANIZATION,['gemini'],,1
-Danger Days,ALBUM,['gemini'],,1
+Danger Days,WORK_OF_ART,['gemini'],,1
+Fallout Boy,ORGANIZATION,['gemini'],,1
 Warped Tour,EVENT,['gemini'],,1
 Frank Iero,PERSON,['gemini'],,1
 Gerard Way,PERSON,['gemini'],,1
-To the End,SONG,['gemini'],,1
 Bob Bryar,PERSON,['gemini'],,1
-Mall Goth,SUBCULTURE,['gemini'],,1
-Metalcore,MUSIC GENRE,['gemini'],,1
+Hot Topic,ORGANIZATION,['gemini'],,1
+Mall Goth,CONCEPT,['gemini'],,1
 Mikey Way,PERSON,['gemini'],,1
-Pop Punk,MUSIC GENRE,['gemini'],,1
-Ray Toro,PERSON,['gemini'],,1
-The Used,BAND,['gemini'],,1
-Bullets,ALBUM,['gemini'],,1
-Nirvana,BAND,['gemini'],,1
-Grunge,PUBLICATION,['gemini'],,1
-Helena,SONG,['gemini'],,1
+The Used,ORGANIZATION,['gemini'],,1
+MySpace,ORGANIZATION,['gemini'],,1
+Helena,WORK_OF_ART,['gemini'],,1
 Jersey,LOCATION,['gemini'],,1
-Sum 41,BAND,['gemini'],,1
+Sum 41,ORGANIZATION,['gemini'],,1
 Japan,LOCATION,['gemini'],,1
-Emo,MUSIC GENRE,['gemini'],,1
+Emo,CONCEPT,['gemini'],,1

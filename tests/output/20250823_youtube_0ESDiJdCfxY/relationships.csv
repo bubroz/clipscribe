@@ -1,13 +1,14 @@
 subject,predicate,object,context,evidence_count
 My Chemical Romance,influenced,David Bowie,,1
-Danger Days: The True Lives of the Fabulous Killjoys,influenced,Diamond Dogs,,0
-My Chemical Romance,was shelved by,Conventional Weapons,,1
-My Chemical Romance,is a member of,Gerard Way,,4
-My Chemical Romance,is a member of,Frank Iero,,2
-My Chemical Romance,was a member of,Bob Bryar,,1
-Gerard Way,was created by,Umbrella Academy,,0
-Frank Iero,was formed by,Leathermouth,,0
-Bob Bryar,had tensions with,Mikey Way,,6
-Zack Snyder,was directed by,The Watchmen,,1
-My Chemical Romance,was covered by,Desolation Row,,3
-Desolation Row,originally wrote,Bob Dylan,,0
+My Chemical Romance,shelved,Conventional Weapons,,2
+My Chemical Romance,released,Danger Days: The True Lives of the Fabulous Killjoys,,17
+My Chemical Romance,toured with,Bon Jovi,,2
+My Chemical Romance,toured with,Linkin Park,,3
+Gerard Way,created,Umbrella Academy,,0
+Frank Iero,formed,Leathermouth,,0
+My Chemical Romance,contributed song to,The Watchmen,,17
+My Chemical Romance,rejected song from,Twilight soundtrack,,1
+Bob Bryar,had tension with,Mikey Way,,5
+My Chemical Romance,covered,Desolation Row,,3
+Desolation Row,originally wrote,Bob Dylan,,1
+Frank Iero,was investigated by,United States Secret Service,,0

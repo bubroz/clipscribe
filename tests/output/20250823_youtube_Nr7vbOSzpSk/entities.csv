@@ -1,1 +1,20 @@
 name,type,source,timestamp,mention_count
+Intelligence Support Activity,ORGANIZATION,['gemini'],,1
+Marine Force Recon,ORGANIZATION,['gemini'],,1
+MARSOC Raiders,ORGANIZATION,['gemini'],,1
+Special Forces,ORGANIZATION,['gemini'],,1
+British SAS,ORGANIZATION,['gemini'],,1
+Delta Force,ORGANIZATION,['gemini'],,1
+SEAL Team 6,ORGANIZATION,['gemini'],,1
+Air Force,ORGANIZATION,['gemini'],,1
+Black SOF,ALIAS,['gemini'],,1
+White SOF,ALIAS,['gemini'],,1
+24th STS,ORGANIZATION,['gemini'],,1
+Tier One,ORGANIZATION,['gemini'],,1
+Tier Two,ORGANIZATION,['gemini'],,1
+Rangers,ORGANIZATION,['gemini'],,1
+DevGru,ORGANIZATION,['gemini'],,1
+Afsoc,ORGANIZATION,['gemini'],,1
+JTACs,ROLE,['gemini'],,1
+SEALs,ORGANIZATION,['gemini'],,1
+Tfo,ORGANIZATION,['gemini'],,1

@@ -1,23 +1,24 @@
 name,type,source,timestamp,mention_count
-Danger Days: The True Lives of the Fabulous Killjoys,ALBUM,['gemini'],,1
+Danger Days: The True Lives of the Fabulous Killjoys,CREATIVE WORK,['gemini'],,1
 United States Secret Service,ORGANIZATION,['gemini'],,1
-Alternative Press Magazine,PUBLICATION,['gemini'],,1
+Alternative Press Magazine,ORGANIZATION,['gemini'],,1
 Project Revolution tour,EVENT,['gemini'],,1
-Conventional Weapons,ALBUM,['gemini'],,1
+Conventional Weapons,CREATIVE WORK,['gemini'],,1
 My Chemical Romance,BAND,['gemini'],,1
 Dark Horse Comics,ORGANIZATION,['gemini'],,1
-The Black Parade,ALBUM,['gemini'],,1
-Umbrella Academy,COMIC BOOK SERIES,['gemini'],,1
-Desolation Row,SONG,['gemini'],,1
+Umbrella Academy,CREATIVE WORK,['gemini'],,1
+Desolation Row,CREATIVE WORK,['gemini'],,1
 Southeast Asia,LOCATION,['gemini'],,1
-Ziggy Stardust,PERSONA/ALBUM,['gemini'],,1
+Ziggy Stardust,CREATIVE WORK,['gemini'],,1
 South America,LOCATION,['gemini'],,1
-Diamond Dogs,ALBUM,['gemini'],,1
+Black Parade,CREATIVE WORK,['gemini'],,1
+Diamond Dogs,CREATIVE WORK,['gemini'],,1
 Leathermouth,BAND,['gemini'],,1
-Lincoln Park,BAND,['gemini'],,1
-The Watchmen,FILM,['gemini'],,1
+The Watchmen,CREATIVE WORK,['gemini'],,1
 David Bowie,PERSON,['gemini'],,1
 George Bush,PERSON,['gemini'],,1
+Guitar Hero,CREATIVE WORK,['gemini'],,1
+Linkin Park,BAND,['gemini'],,1
 Live Nation,ORGANIZATION,['gemini'],,1
 Los Angeles,LOCATION,['gemini'],,1
 Zack Snyder,PERSON,['gemini'],,1
@@ -26,6 +27,9 @@ Gerard Way,PERSON,['gemini'],,1
 Bob Bryar,PERSON,['gemini'],,1
 Bob Dylan,PERSON,['gemini'],,1
 Mikey Way,PERSON,['gemini'],,1
+Rock Band,CREATIVE WORK,['gemini'],,1
 Bon Jovi,BAND,['gemini'],,1
 Ray Toro,PERSON,['gemini'],,1
-Twilight,FILM FRANCHISE,['gemini'],,1
+Twilight,CREATIVE WORK,['gemini'],,1
+Uganda,LOCATION,['gemini'],,1
+Xo,CREATIVE WORK,['gemini'],,1

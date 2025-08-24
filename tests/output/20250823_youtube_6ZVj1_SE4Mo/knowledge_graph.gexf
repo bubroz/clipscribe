@@ -17,15 +17,26 @@
       <attribute id="1" title="Confidence" type="double"/>
     </attributes>
     <nodes>
-      <node id="n_bc0fc82eb0c9" label="Amnesty International Security Lab">
+      <node id="n_57490a4a3594" label="Amnesty International's Security Lab">
         <attvalues>
           <attvalue for="0" value="ORGANIZATION"/>
           <attvalue for="1" value="0.9"/>
           <attvalue for="2" value="1"/>
           <attvalue for="3" value="1"/>
-          <attvalue for="4" value="Amnesty International Security Lab"/>
+          <attvalue for="4" value="Amnesty International's Security Lab"/>
         </attvalues>
         <viz:color r="78" g="205" b="196" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_03526153f28d" label="Teresa Aristegui Flores">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="Teresa Aristegui Flores"/>
+        </attvalues>
+        <viz:color r="255" g="107" b="107" a="1.0"/>
         <viz:size value="47.0"/>
       </node>
       <node id="n_dd64913c8b91" label="United Arab Emirates">
@@ -39,6 +50,17 @@
         <viz:color r="69" g="183" b="209" a="1.0"/>
         <viz:size value="47.0"/>
       </node>
+      <node id="n_102fa04686ca" label="Alejandro Caballero">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="Alejandro Caballero"/>
+        </attvalues>
+        <viz:color r="255" g="107" b="107" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
       <node id="n_13935f22d7d6" label="The Washington Post">
         <attvalues>
           <attvalue for="0" value="ORGANIZATION"/>
@@ -46,6 +68,17 @@
           <attvalue for="2" value="1"/>
           <attvalue for="3" value="1"/>
           <attvalue for="4" value="The Washington Post"/>
+        </attvalues>
+        <viz:color r="78" g="205" b="196" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_6feeecc5639d" label="Aristegui Noticias">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="Aristegui Noticias"/>
         </attvalues>
         <viz:color r="78" g="205" b="196" a="1.0"/>
         <viz:size value="47.0"/>
@@ -105,6 +138,17 @@
         <viz:color r="255" g="107" b="107" a="1.0"/>
         <viz:size value="47.0"/>
       </node>
+      <node id="n_445deefad9db" label="Emirate Airlines">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="Emirate Airlines"/>
+        </attvalues>
+        <viz:color r="78" g="205" b="196" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
       <node id="n_2bae46d5d196" label="Forbidden Films">
         <attvalues>
           <attvalue for="0" value="ORGANIZATION"/>
@@ -127,13 +171,13 @@
         <viz:color r="255" g="107" b="107" a="1.0"/>
         <viz:size value="47.0"/>
       </node>
-      <node id="n_ecdde3191084" label="Laurent Richard">
+      <node id="n_418215219a82" label="Sandra Nogales">
         <attvalues>
           <attvalue for="0" value="PERSON"/>
           <attvalue for="1" value="0.9"/>
           <attvalue for="2" value="1"/>
           <attvalue for="3" value="1"/>
-          <attvalue for="4" value="Laurent Richard"/>
+          <attvalue for="4" value="Sandra Nogales"/>
         </attvalues>
         <viz:color r="255" g="107" b="107" a="1.0"/>
         <viz:size value="47.0"/>
@@ -171,6 +215,28 @@
         <viz:color r="255" g="107" b="107" a="1.0"/>
         <viz:size value="47.0"/>
       </node>
+      <node id="n_74ec729ab6d6" label="Karina Maciel">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="Karina Maciel"/>
+        </attvalues>
+        <viz:color r="255" g="107" b="107" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_49dca65f362f" label="United States">
+        <attvalues>
+          <attvalue for="0" value="LOCATION"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="United States"/>
+        </attvalues>
+        <viz:color r="69" g="183" b="209" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
       <node id="n_ed9ad13611d7" label="Saudi Arabia">
         <attvalues>
           <attvalue for="0" value="LOCATION"/>
@@ -193,13 +259,13 @@
         <viz:color r="78" g="205" b="196" a="1.0"/>
         <viz:size value="47.0"/>
       </node>
-      <node id="n_99d03061d638" label="Bill Marzak">
+      <node id="n_a8e06e7282f5" label="Bill Marzac">
         <attvalues>
           <attvalue for="0" value="PERSON"/>
           <attvalue for="1" value="0.9"/>
           <attvalue for="2" value="1"/>
           <attvalue for="3" value="1"/>
-          <attvalue for="4" value="Bill Marzak"/>
+          <attvalue for="4" value="Bill Marzac"/>
         </attvalues>
         <viz:color r="255" g="107" b="107" a="1.0"/>
         <viz:size value="47.0"/>
@@ -226,6 +292,17 @@
         <viz:color r="255" g="107" b="107" a="1.0"/>
         <viz:size value="47.0"/>
       </node>
+      <node id="n_efa9150afdea" label="Azerbaijan">
+        <attvalues>
+          <attvalue for="0" value="LOCATION"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="Azerbaijan"/>
+        </attvalues>
+        <viz:color r="69" g="183" b="209" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
       <node id="n_d43a697b3e19" label="Hanan Atar">
         <attvalues>
           <attvalue for="0" value="PERSON"/>
@@ -235,6 +312,28 @@
           <attvalue for="4" value="Hanan Atar"/>
         </attvalues>
         <viz:color r="255" g="107" b="107" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_75c02b8d2f91" label="Kazakhstan">
+        <attvalues>
+          <attvalue for="0" value="LOCATION"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="Kazakhstan"/>
+        </attvalues>
+        <viz:color r="69" g="183" b="209" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_82b601a175c7" label="Frontline">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="Frontline"/>
+        </attvalues>
+        <viz:color r="78" g="205" b="196" a="1.0"/>
         <viz:size value="47.0"/>
       </node>
       <node id="n_fe292dcd3a7f" label="NSO Group">
@@ -281,15 +380,15 @@
         <viz:color r="82" g="190" b="128" a="1.0"/>
         <viz:size value="47.0"/>
       </node>
-      <node id="n_6d612a86bee4" label="Android">
+      <node id="n_504be3084f44" label="Hungary">
         <attvalues>
-          <attvalue for="0" value="TECHNOLOGY"/>
+          <attvalue for="0" value="LOCATION"/>
           <attvalue for="1" value="0.9"/>
           <attvalue for="2" value="1"/>
           <attvalue for="3" value="1"/>
-          <attvalue for="4" value="Android"/>
+          <attvalue for="4" value="Hungary"/>
         </attvalues>
-        <viz:color r="82" g="190" b="128" a="1.0"/>
+        <viz:color r="69" g="183" b="209" a="1.0"/>
         <viz:size value="47.0"/>
       </node>
       <node id="n_2023bb247b5e" label="Pegasus">
@@ -301,6 +400,28 @@
           <attvalue for="4" value="Pegasus"/>
         </attvalues>
         <viz:color r="82" g="190" b="128" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_1868ec8fd853" label="Proceso">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="Proceso"/>
+        </attvalues>
+        <viz:color r="78" g="205" b="196" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_4b07d8de31a3" label="Emilio">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="Emilio"/>
+        </attvalues>
+        <viz:color r="255" g="107" b="107" a="1.0"/>
         <viz:size value="47.0"/>
       </node>
       <node id="n_3552ac0c0324" label="Israel">
@@ -347,6 +468,28 @@
         <viz:color r="78" g="205" b="196" a="1.0"/>
         <viz:size value="47.0"/>
       </node>
+      <node id="n_d3e30cd110de" label="Cisen">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="Cisen"/>
+        </attvalues>
+        <viz:color r="78" g="205" b="196" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_abd149214539" label="India">
+        <attvalues>
+          <attvalue for="0" value="LOCATION"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="India"/>
+        </attvalues>
+        <viz:color r="69" g="183" b="209" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
       <node id="n_95103853b33a" label="Cnn">
         <attvalues>
           <attvalue for="0" value="ORGANIZATION"/>
@@ -369,105 +512,146 @@
         <viz:color r="149" g="165" b="166" a="1.0"/>
         <viz:size value="47.0"/>
       </node>
-      <node id="n_cc41953107a8" label="dissidents">
+      <node id="n_5a1563575e33" label="human rights activists">
         <attvalues>
           <attvalue for="0" value="unknown"/>
           <attvalue for="1" value="0.9"/>
           <attvalue for="2" value="1"/>
           <attvalue for="3" value="1"/>
-          <attvalue for="4" value="dissidents"/>
+          <attvalue for="4" value="human rights activists"/>
         </attvalues>
         <viz:color r="149" g="165" b="166" a="1.0"/>
         <viz:size value="47.0"/>
       </node>
-      <node id="n_9e0c0a2e206d" label="17 news outlets">
+      <node id="n_405f061bf490" label="governments">
         <attvalues>
           <attvalue for="0" value="unknown"/>
           <attvalue for="1" value="0.9"/>
           <attvalue for="2" value="1"/>
           <attvalue for="3" value="1"/>
-          <attvalue for="4" value="17 news outlets"/>
+          <attvalue for="4" value="governments"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_2b8ce7dc5a37" label="Mexican government agencies">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="Mexican government agencies"/>
         </attvalues>
         <viz:color r="149" g="165" b="166" a="1.0"/>
         <viz:size value="47.0"/>
       </node>
     </nodes>
     <edges>
-      <edge id="0" source="n_101537551cdb" target="n_bc0fc82eb0c9" weight="0.9" label="is head of" kind="is head of">
+      <edge id="0" source="n_57490a4a3594" target="n_000db1c23361" weight="0.9" label="collaborated with" kind="collaborated with">
+        <attvalues>
+          <attvalue for="0" value="collaborated with"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="1" source="n_dd64913c8b91" target="n_ed9ad13611d7" weight="0.9" label="is a close ally of" kind="is a close ally of">
+        <attvalues>
+          <attvalue for="0" value="is a close ally of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="2" source="n_13935f22d7d6" target="n_000db1c23361" weight="0.9" label="collaborated with" kind="collaborated with">
+        <attvalues>
+          <attvalue for="0" value="collaborated with"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="3" source="n_101537551cdb" target="n_57490a4a3594" weight="0.9" label="is head of" kind="is head of">
         <attvalues>
           <attvalue for="0" value="is head of"/>
           <attvalue for="1" value="0.9"/>
         </attvalues>
       </edge>
-      <edge id="1" source="n_000db1c23361" target="n_9e0c0a2e206d" weight="0.9" label="coordinated" kind="coordinated">
+      <edge id="4" source="n_68b4db6faed9" target="n_4bb653269cfb" weight="0.9" label="was investigated by" kind="was investigated by">
         <attvalues>
-          <attvalue for="0" value="coordinated"/>
+          <attvalue for="0" value="was investigated by"/>
           <attvalue for="1" value="0.9"/>
         </attvalues>
       </edge>
-      <edge id="2" source="n_68b4db6faed9" target="n_4bb653269cfb" weight="0.9" label="investigated" kind="investigated">
+      <edge id="5" source="n_3c688de07c1f" target="n_13935f22d7d6" weight="0.9" label="was an opinion writer for" kind="was an opinion writer for">
         <attvalues>
-          <attvalue for="0" value="investigated"/>
+          <attvalue for="0" value="was an opinion writer for"/>
           <attvalue for="1" value="0.9"/>
         </attvalues>
       </edge>
-      <edge id="3" source="n_3c688de07c1f" target="n_4fa0da6a8048" weight="0.9" label="was fiancée of" kind="was fiancée of">
+      <edge id="6" source="n_3c688de07c1f" target="n_4fa0da6a8048" weight="0.9" label="was fiancee of" kind="was fiancee of">
         <attvalues>
-          <attvalue for="0" value="was fiancée of"/>
+          <attvalue for="0" value="was fiancee of"/>
           <attvalue for="1" value="0.9"/>
         </attvalues>
       </edge>
-      <edge id="4" source="n_3c688de07c1f" target="n_d43a697b3e19" weight="0.9" label="was wife of" kind="was wife of">
+      <edge id="7" source="n_3c688de07c1f" target="n_d43a697b3e19" weight="0.9" label="was wife of" kind="was wife of">
         <attvalues>
           <attvalue for="0" value="was wife of"/>
           <attvalue for="1" value="0.9"/>
         </attvalues>
       </edge>
-      <edge id="5" source="n_3c688de07c1f" target="n_13935f22d7d6" weight="0.9" label="was writer for" kind="was writer for">
+      <edge id="8" source="n_5c46904f3a4f" target="n_000db1c23361" weight="0.9" label="collaborated with" kind="collaborated with">
         <attvalues>
-          <attvalue for="0" value="was writer for"/>
+          <attvalue for="0" value="collaborated with"/>
           <attvalue for="1" value="0.9"/>
         </attvalues>
       </edge>
-      <edge id="6" source="n_ed9ad13611d7" target="n_dd64913c8b91" weight="0.9" label="is ally of" kind="is ally of">
+      <edge id="9" source="n_a8e06e7282f5" target="n_38e93fcbaaf6" weight="0.9" label="conducts forensic analysis for" kind="conducts forensic analysis for">
         <attvalues>
-          <attvalue for="0" value="is ally of"/>
+          <attvalue for="0" value="conducts forensic analysis for"/>
           <attvalue for="1" value="0.9"/>
         </attvalues>
       </edge>
-      <edge id="7" source="n_fe292dcd3a7f" target="n_2023bb247b5e" weight="0.9" label="developed" kind="developed">
+      <edge id="10" source="n_fe292dcd3a7f" target="n_2023bb247b5e" weight="0.9" label="developed by" kind="developed by">
         <attvalues>
-          <attvalue for="0" value="developed"/>
+          <attvalue for="0" value="developed by"/>
           <attvalue for="1" value="0.9"/>
         </attvalues>
       </edge>
-      <edge id="8" source="n_fe292dcd3a7f" target="n_a7d355b26bda" weight="0.9" label="was client of" kind="was client of">
+      <edge id="11" source="n_fe292dcd3a7f" target="n_405f061bf490" weight="0.9" label="sells to" kind="sells to">
         <attvalues>
-          <attvalue for="0" value="was client of"/>
+          <attvalue for="0" value="sells to"/>
           <attvalue for="1" value="0.9"/>
         </attvalues>
       </edge>
-      <edge id="9" source="n_2023bb247b5e" target="n_9c82da9dd76d" weight="0.9" label="was used against" kind="was used against">
+      <edge id="12" source="n_2023bb247b5e" target="n_9c82da9dd76d" weight="0.9" label="used to monitor" kind="used to monitor">
         <attvalues>
-          <attvalue for="0" value="was used against"/>
+          <attvalue for="0" value="used to monitor"/>
           <attvalue for="1" value="0.9"/>
         </attvalues>
       </edge>
-      <edge id="10" source="n_2023bb247b5e" target="n_cc41953107a8" weight="0.9" label="was used against" kind="was used against">
+      <edge id="13" source="n_2023bb247b5e" target="n_5a1563575e33" weight="0.9" label="used to monitor" kind="used to monitor">
         <attvalues>
-          <attvalue for="0" value="was used against"/>
+          <attvalue for="0" value="used to monitor"/>
           <attvalue for="1" value="0.9"/>
         </attvalues>
       </edge>
-      <edge id="11" source="n_2023bb247b5e" target="n_d43a697b3e19" weight="0.9" label="was targeted by" kind="was targeted by">
+      <edge id="14" source="n_2023bb247b5e" target="n_4fa0da6a8048" weight="0.9" label="was targeted by" kind="was targeted by">
         <attvalues>
           <attvalue for="0" value="was targeted by"/>
           <attvalue for="1" value="0.9"/>
         </attvalues>
       </edge>
-      <edge id="12" source="n_2023bb247b5e" target="n_4fa0da6a8048" weight="0.9" label="was targeted by" kind="was targeted by">
+      <edge id="15" source="n_2023bb247b5e" target="n_d43a697b3e19" weight="0.9" label="was targeted by" kind="was targeted by">
         <attvalues>
           <attvalue for="0" value="was targeted by"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="16" source="n_2023bb247b5e" target="n_68b4db6faed9" weight="0.9" label="was targeted by" kind="was targeted by">
+        <attvalues>
+          <attvalue for="0" value="was targeted by"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="17" source="n_2023bb247b5e" target="n_2b8ce7dc5a37" weight="0.9" label="purchased" kind="purchased">
+        <attvalues>
+          <attvalue for="0" value="purchased"/>
           <attvalue for="1" value="0.9"/>
         </attvalues>
       </edge>

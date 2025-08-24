@@ -1,0 +1,245 @@
+{
+  "version": "2.3",
+  "created_at": "2025-08-24T01:08:54.927046",
+  "video": {
+    "title": "The Tragic Early Days of My Chemical Romance",
+    "url": "https://www.youtube.com/watch?v=gxUrKV33yys",
+    "platform": "unknown"
+  },
+  "extraction_stats": {
+    "gemini_entities": [
+      {
+        "confidence": 1.0,
+        "name": "My Chemical Romance",
+        "type": "ORGANIZATION"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Gerard Way",
+        "type": "PERSON"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Mikey Way",
+        "type": "PERSON"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Frank Iero",
+        "type": "PERSON"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Ray Toro",
+        "type": "PERSON"
+      },
+      {
+        "confidence": 0.9,
+        "name": "Matt Pelissier",
+        "type": "PERSON"
+      },
+      {
+        "confidence": 0.8,
+        "name": "Bob Bryar",
+        "type": "PERSON"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Pency Prep",
+        "type": "ORGANIZATION"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Eyeball Records",
+        "type": "ORGANIZATION"
+      },
+      {
+        "confidence": 0.9,
+        "name": "The Rodneys",
+        "type": "ORGANIZATION"
+      },
+      {
+        "confidence": 0.8,
+        "name": "Nancy Drew",
+        "type": "ORGANIZATION"
+      },
+      {
+        "confidence": 1.0,
+        "name": "New Jersey",
+        "type": "LOCATION"
+      },
+      {
+        "confidence": 0.9,
+        "name": "Ohio",
+        "type": "LOCATION"
+      },
+      {
+        "confidence": 1.0,
+        "name": "9/11",
+        "type": "EVENT"
+      },
+      {
+        "confidence": 0.95,
+        "name": "I Brought You My Bullets, You Brought Me Your Love",
+        "type": "WORK_OF_ART"
+      },
+      {
+        "confidence": 0.85,
+        "name": "Attic demos",
+        "type": "WORK_OF_ART"
+      },
+      {
+        "confidence": 0.8,
+        "name": "Thursday",
+        "type": "ORGANIZATION"
+      },
+      {
+        "confidence": 0.8,
+        "name": "Hellfest",
+        "type": "EVENT"
+      }
+    ],
+    "gemini_relationships": [
+      {
+        "confidence": 1.0,
+        "object": "My Chemical Romance",
+        "predicate": "was founded by",
+        "subject": "Gerard Way"
+      },
+      {
+        "confidence": 1.0,
+        "object": "My Chemical Romance",
+        "predicate": "is a member of",
+        "subject": "Gerard Way"
+      },
+      {
+        "confidence": 1.0,
+        "object": "My Chemical Romance",
+        "predicate": "is a member of",
+        "subject": "Mikey Way"
+      },
+      {
+        "confidence": 1.0,
+        "object": "My Chemical Romance",
+        "predicate": "is a member of",
+        "subject": "Frank Iero"
+      },
+      {
+        "confidence": 1.0,
+        "object": "My Chemical Romance",
+        "predicate": "is a member of",
+        "subject": "Ray Toro"
+      },
+      {
+        "confidence": 0.9,
+        "object": "My Chemical Romance",
+        "predicate": "is a former member of",
+        "subject": "Matt Pelissier"
+      },
+      {
+        "confidence": 1.0,
+        "object": "My Chemical Romance",
+        "predicate": "was catalyzed by",
+        "subject": "9/11"
+      },
+      {
+        "confidence": 1.0,
+        "object": "Pency Prep",
+        "predicate": "was a member of",
+        "subject": "Frank Iero"
+      },
+      {
+        "confidence": 1.0,
+        "object": "My Chemical Romance",
+        "predicate": "signed with",
+        "subject": "Eyeball Records"
+      },
+      {
+        "confidence": 0.9,
+        "object": "The Rodneys",
+        "predicate": "was a member of",
+        "subject": "Ray Toro"
+      },
+      {
+        "confidence": 0.9,
+        "object": "I Brought You My Bullets, You Brought Me Your Love",
+        "predicate": "was released by",
+        "subject": "My Chemical Romance"
+      },
+      {
+        "confidence": 0.9,
+        "object": "Gerard Way",
+        "predicate": "is the brother of",
+        "subject": "Mikey Way"
+      },
+      {
+        "confidence": 0.95,
+        "object": "My Chemical Romance",
+        "predicate": "was named by",
+        "subject": "Mikey Way"
+      }
+    ],
+    "retention_decision": {
+      "action": "deleted",
+      "video_path": "tests/cache/The Tragic Early Days of My Chemical Romance-gxUrKV33yys.mp4",
+      "video_hash": "f6edbbb3671376b4ebe7fd25",
+      "reason": "Policy: Always delete source videos",
+      "cost_savings": {
+        "storage_cost_avoided": 0.025240910008549694,
+        "reprocessing_cost": 0.25322880000000003
+      },
+      "timestamp": "2025-08-24T01:08:54.892369"
+    }
+  },
+  "timeline_v2": null,
+  "files": {
+    "transcript_txt": {
+      "path": "transcript.txt",
+      "format": "plain_text",
+      "size": 39058,
+      "sha256": "26752c6f4c145f8d53f894d0d8af7c7ba9f66f3fc32350b8b45a0d50de923552"
+    },
+    "transcript_json": {
+      "path": "transcript.json",
+      "format": "json",
+      "size": 168713,
+      "sha256": "0c3bcd221e6e0049d85260302e03289a8e55242d572ed18bff82b42f05f4ccae"
+    },
+    "metadata": {
+      "path": "metadata.json",
+      "format": "json",
+      "size": 1262,
+      "sha256": "c776d5006603fc997203c6d3f023be5cbebbb76deac2c1f768584fe4be2d348a"
+    },
+    "entities": {
+      "path": "entities.json",
+      "format": "json",
+      "size": 20946,
+      "sha256": "5d821a485db0a29ca325647ac1ecf38adbe843ace06e69feee726fca0f8e53ef"
+    },
+    "relationships": {
+      "path": "relationships.json",
+      "format": "json",
+      "size": 41824,
+      "sha256": "8fb559529fbc9d3d60d3b8c7ad6f1dd6103fa5f870716b29c874c2871e0d6a3b"
+    },
+    "knowledge_graph": {
+      "path": "knowledge_graph.json",
+      "format": "json",
+      "size": 6363,
+      "sha256": "a8de808a424c69bdf8d414ac23d196c7ef842f16825dab8d1c7a485c2535b749"
+    },
+    "report": {
+      "path": "report.md",
+      "format": "markdown",
+      "size": 1658,
+      "sha256": "00c5d882f382d537e6a4f4bc5fb0bcae568b598ecc82bef364ba60eaf71b2eef"
+    },
+    "chimera": {
+      "path": "chimera_format.json",
+      "format": "json",
+      "size": 64406,
+      "sha256": "ca8af13152264ef45c831e8526ef7cea0e798db3fdd1e6b67f19933086dcc355"
+    }
+  }
+}

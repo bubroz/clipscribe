@@ -1,7 +1,622 @@
 {
   "video_url": "https://www.youtube.com/watch?v=Nr7vbOSzpSk",
   "video_title": "How to Pass Tier 1 & 2 Selections Part 1/3: Difference Between Tier 1 & 2",
-  "entities": [],
+  "entities": [
+    {
+      "name": "Intelligence Support Activity",
+      "type": "ORGANIZATION",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "d not as well commonly known unit is known as the Intelligence Support Activity. And there are a couple adjacent units, uh like t",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Marine Force Recon",
+      "type": "ORGANIZATION",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "your Special Forces, your MARSOC Raiders, your uh Marine Force Recon, and your SEALs. Quick caveat with SEALs. There's",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "MARSOC Raiders",
+      "type": "ORGANIZATION",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": " which is your Rangers, your Special Forces, your MARSOC Raiders, your uh Marine Force Recon, and your SEALs. Quic",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Special Forces",
+      "type": "ORGANIZATION",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "rently. First, to cover my background, I'm former Special Forces, a tier one operator, and after I passed selectio",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "s your tier two guys, which is your Rangers, your Special Forces, your MARSOC Raiders, your uh Marine Force Recon,",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "British SAS",
+      "type": "ORGANIZATION",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "the British SAS, they have squadrons and they have troops, is you",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Delta Force",
+      "type": "ORGANIZATION",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "they have squadrons and they have troops, is your Delta Force, your um, DevGru or SEAL Team 6, and not as well ",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "hree main colors for the three Tier One units, uh Delta Force is green, SEAL Team 6 is blue, and the activity i",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "SEAL Team 6",
+      "type": "ORGANIZATION",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "meet, whether it's any SEAL team other than SEAL Team 6, are your white side SEALs, your vanilla SEALs, w",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "e troops, is your Delta Force, your um, DevGru or SEAL Team 6, and not as well commonly known unit is known as ",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "in SEAL Team 6 or Delta, are also known as assaulters. So these ",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "he three Tier One units, uh Delta Force is green, SEAL Team 6 is blue, and the activity is orange, or commonly ",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Air Force",
+      "type": "ORGANIZATION",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "nt units, uh like the 24th STS, which are is your Air Force special operations. They have your JTACs, they ha",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Black SOF",
+      "type": "ALIAS",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "oquialisms. You're going to hear white SOF versus black SOF. Your white SOF is your tier two guys, which is y",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "White SOF",
+      "type": "ALIAS",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "s cover some colloquialisms. You're going to hear white SOF versus black SOF. Your white SOF is your tier two",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "Tier Two and Tier One selections is your all your white SOF, your Tier Two, their selections are going to be ",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "24th STS",
+      "type": "ORGANIZATION",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "nd there are a couple adjacent units, uh like the 24th STS, which are is your Air Force special operations. ",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Tier One",
+      "type": "ORGANIZATION",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "is part one of a three part series of how to pass Tier One and Tier Two selections. Part one will be coverin",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": ". So, so first, how what's the difference between tier one and two? So first of all, let's cover some colloq",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "So, so that's the difference, all right? And your tier one units, all right, your three main operational tie",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": " guys are they support not only Tier Two but also Tier One elements. I've been served along JTACs in both Ti",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "ho gets to go to support Tier Two elements versus Tier One elements. So the biggest difference between Tier ",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "ve reinforcement. And I'll talk more later at the Tier One selection video of why that is. And then also alm",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "pport personnel. And then these three operational Tier One units, we also another colloquialism that is used",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "hat color? So the three main colors for the three Tier One units, uh Delta Force is green, SEAL Team 6 is bl",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": " Two selection. And then part three will be about Tier One and the differences how they do their selections ",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Tier Two",
+      "type": "ORGANIZATION",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "f a three part series of how to pass Tier One and Tier Two selections. Part one will be covering the differe",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "hite SOF versus black SOF. Your white SOF is your tier two guys, which is your Rangers, your Special Forces,",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "rarescue. So these guys are they support not only Tier Two but also Tier One elements. I've been served alon",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": " and who they determine who gets to go to support Tier Two elements versus Tier One elements. So the biggest",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "ational. Tomorrow, I will put out part two of how Tier Two selections are generally run and what",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "o know and what to do in order to help you pass a Tier Two selection. And then part three will be about Tier",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Rangers",
+      "type": "ORGANIZATION",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "ur white SOF is your tier two guys, which is your Rangers, your Special Forces, your MARSOC Raiders, your u",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "DevGru",
+      "type": "ORGANIZATION",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "d they have troops, is your Delta Force, your um, DevGru or SEAL Team 6, and not as well commonly known un",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Afsoc",
+      "type": "ORGANIZATION",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "the AFSOC guys, they're amazing, but I'm not quite complete",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "JTACs",
+      "type": "ROLE",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "your Air Force special operations. They have your JTACs, they have your TACP's, your forward air controls",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "SEALs",
+      "type": "ORGANIZATION",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "SOC Raiders, your uh Marine Force Recon, and your SEALs. Quick caveat with SEALs. There's two types of SE",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": " team other than SEAL Team 6, are your white side SEALs, your vanilla SEALs, we also commonly refer to th",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Tfo",
+      "type": "ORGANIZATION",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": " and the activity is orange, or commonly known as TFO. So, I hope this was educational. Tomorrow, I wil",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    }
+  ],
   "topics": [
     {
       "name": "US Special Operations",
@@ -12,11 +627,11 @@
       "confidence": 0.9
     },
     {
-      "name": "Tier 1 Units",
+      "name": "Tier One Units",
       "confidence": 0.9
     },
     {
-      "name": "Tier 2 Units",
+      "name": "Tier Two Units",
       "confidence": 0.9
     },
     {
@@ -32,15 +647,15 @@
       "confidence": 0.9
     },
     {
-      "name": "Intelligence Support Activity",
+      "name": "Counter-Terrorism",
       "confidence": 0.9
     }
   ],
   "key_facts": [
-    "Tier 2 selections are characterized by yelling, negative reinforcement, and team-oriented events, whereas Tier 1 selections feature no positive or negative reinforcement and are almost entirely individual events.",
-    "The three main operational Tier 1 units are Delta Force, DEVGRU (SEAL Team 6), and the Intelligence Support Activity.",
-    "Tier 2 units, also known as 'White SOF', include Rangers, Special Forces, MARSOC Raiders, Marine Force Recon, and most Navy SEAL teams (excluding SEAL Team 6).",
-    "Tier 1 units used task force color identifiers: Green for Delta Force, Blue for SEAL Team 6, and Orange for the Intelligence Support Activity (TFO).",
-    "SEAL Team 6 is considered a 'Black SOF' or 'varsity' unit, distinct and much larger than other 'White SOF' or 'JV' SEAL teams."
+    "The primary difference between Tier Two and Tier One selections is the methodology: Tier Two uses high-stress, team-based events with negative reinforcement (yelling), while Tier One uses individual events with no positive or negative feedback.",
+    "The three main operational Tier One units are Delta Force, DevGru (SEAL Team 6), and the Intelligence Support Activity (ISA).",
+    "Tier Two units, also known as 'White SOF', include Rangers, Special Forces, MARSOC Raiders, Marine Force Recon, and non-DevGru SEAL teams.",
+    "Tier One units used task force color identifiers: Delta Force (Green), SEAL Team 6 (Blue), and Intelligence Support Activity (Orange/TFO).",
+    "The speaker is a former Tier One operator who also served as a cadre/instructor for a Tier One selection, giving him an insider's perspective."
   ]
 }

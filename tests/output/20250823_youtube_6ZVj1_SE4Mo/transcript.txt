@@ -1,165 +1,190 @@
-Pegasus. Pegasus. Pegasus. Pegasus. Pegasus, which has been used to monitor and track journalists, human rights activists and dissidents across the globe. In collaboration with Forbidden films, a two-part investigation. We immediately realized that this story would be huge. NSO was established with an ambition to make the world a safer place into powerful spyware. It's a military weapon used against civilians. This is extremely serious for democracies. Used around the world. There is no control over how countries use it. And they have been using it in the worst way you could imagine.
-
-Now on Frontline, part one of Global Spyware scandal, exposing Pegasus.
-
-Our phones are not just our phones. We call them phones, but they're not phones, they're computers. And they're like extensions of our body. They're with us all of the time. And if they are turned into a surveillance device, I don't think it's an exaggeration to say this was something that even George Orwell in 1984 couldn't imagine.
-
+Pegasus. Pegasus. Pegasus. Pegasus, which has been used to monitor and track journalists, human rights activists and dissidents across the globe.
+In collaboration with Forbidden Films, a two-part investigation.
+We immediately realized that this story would be huge.
+NSO was established with the ambition to make the world a safer place.
+into powerful spyware.
+It's a military weapon used against civilians.
+This is extremely serious for democracies.
+Used around the world.
+There is no control over how countries use it.
+And they have been using it in the worst way you could imagine.
+Now on Frontline, part one of Global Spyware Scandal, Exposing Pegasus.
+Our phones are not just our phones.
+We call them phones, but they're not phones, they're computers.
+And they're like extensions of our body. They're with us all of the time.
+And if they are turned into a surveillance device, I don't think it's an exaggeration to say this was something that even George Orwell in 1984 couldn't imagine.
 It's beyond science fiction.
-
-On va se faire un brief?
-
+On va se faire un brief.
 La base de données est vraiment explosive.
-
-Pegasus. Pegasus. Pegasus. Pegasus. This technology is so far ahead of government regulation, and even of public understanding of what's happening out there.
-
+Pegasus. Pegasus. Pegasus. Pegasus.
+This technology is so far ahead of government regulation, and even of public understanding of what's happening out there.
 All of us suspected that if NSO Group was giving authoritarian and repressive regimes such a powerful instrument of surveillance, that it was pretty likely that this technology would be abused. But none of us had been able to prove it on a systemic scale.
-
-De acuerdo con la pesquisa recabada por The Washington Post, The Guardian, Le Monde y otros medios. The joint investigation by 17 news outlets… Activists, lawyers, and journalists are reportedly among those who've been targeted by the phone spy... phone numbers belonging to some big name politicians. 国家元首、皇室成员、政纲要人和部分记者的手机。 targeted by the phone numbers belonging to some big-name politicians.
-国家元首，王室成员，政商要人和部分记者的手机。
+De acuerdo con la pesquisa recabada por The Washington Post, The Guardian, Le Monde y otros medios, The joint investigation by 17 news outlets and Forbidden...
+Activists, lawyers and journalists are reportedly among those who've been targeted by the phone spyware...
+phone numbers belonging to some big name politicians.
+國家元首、皇室成員、政黨要人和部分記者的手機。 targeted by the phone spyware... phone numbers belonging to some big name politicians.
+國家元首、皇室成員、政商要人和部分記者的手機。
 The device that you have in your pocket could be a spy that is spying on your life.
-Ah, il faudrait qu'on éteigne tous nos téléphones portables et on les met tous dans la pièce à côté.
-Si vous pouvez aussi éteindre totalement vos ordinateurs.
+Et il faudrait qu'on éteigne tous nos téléphones portables et on les met tous dans la pièce à côté.
+Et si vous pouvez aussi éteindre totalement vos ordinateurs.
 parfois ça sera un peu contraignant dans les mois à venir, mais c'est un sujet extrêmement sensible.
-On a une énorme fuite, un énorme leak. Il y a des numéros, il y a pas de nom. Et donc il y a un gros travail de d'identification de, à travers ces numéros, en fait, quelles sont les personnes ciblées. La base de données est vraiment explosive parce que il y a il y a que des scandales en puissance.
-N'en parlez pas à vos, à votre premier cercle de proches, vraiment il faut, il faut absolument pas en parler, parce que on parle d'un sujet où il est question de de surveillance et de donc on est vraiment directement dans la, pas dans la gueule du loup, mais on est dans dans le collimateur et à un moment donné on sera vraiment surveillé de près, c'est certain.
-The list doesn't have any names. You have phone numbers, area country code, some timestamps as well, and it's a list that is about 50,000 phone numbers from 2016 to 2020. We can't explain where the list is coming from. We can't of course reveal who is our source. Officially, the Pegasus Spyware is not working on any +1 US phone numbers. It's not possible. The numbers there are mostly in 10 countries and most of these governments are known to be clients of NSO Group who make Pegasus.
-Pegasus is designed to infect phones like iPhones or Androids, and once in the phone, it can extract and access everything from the device: the phone books, geolocation, the messages, the photos, even the encrypted messages sent by Signal or WhatsApp. It can even access the mic or the camera. messages, the photos, even the encrypted messages sent by Signal or WhatsApp. It can even access the mic or the camera of your phone remotely.
-
-It's like a a person over your shoulder, a person who will see what you are seeing, a person who will watch what you are watching. Your emails, your encrypted communication, everything. So once you are infected, you're trapped.
-
-Hello, can you hear me?
-I can hear you, I don't see you.
-Hello. Hello Paul.
-Hello. Hi Dana.
-Hi, how are you?
-Hi Dana.
-Good and you?
-We decided to reach out to some partners, The Washington Post, The Guardian, and many other ones. We wanted to tell you about some information we have and about a new project we are starting. We had no names attached to the numbers. We needed more journalists, we needed reporters on the ground who could reach out to some victims. We need people with tech expertise.
-Uh we still have to identify numbers. Many of them actually haven't been identified yet, so we'll need your help on this.
-The moment they mentioned the numbers, the phone numbers that they had, the quantity of phone numbers, tens of thousands.
-I mean, my jaw just hit the floor.
-There is a lot that concerned India.
-Some people in Mexico, information about Hungary, Azerbaijan and Kazakhstan.
-If Forbidden Stories have got data that can identify not just who the customers of NSO are, but potentially point in the direction of who the targets are as well, this is a game changer. This could be transformative in terms of our understanding of the whole cyber surveillance industry.
-I specialize in national security reporting. So surveillance is part of my beat, so to speak.
-You could see patterns starting to emerge and you could almost like touch, okay, that might be a story. You know, here's something that's happening in Azerbaijan. That might be a story. Okay, I see what the Moroccan story might be. It's like watching a photo emerge in a dark room.
-
-We will shortly be arriving at Elephant and Castle. Change here for Bakerloo and Northern lines.
-We at the Guardian have been reporting about NSO for a long time. We thought it was really important to hold this company to account. Israel has become a world leader in this industry and exports these tools all over the world. And if you like NSO group was in many ways, you know, the jewel in the crown.
-The NSO group was recently valued at 1 billion dollars. It is one of the most successful companies in Israel's startup space. NSO says they sell this software to governments. The NSO group was recently valued at $1 billion. It is one of the most successful companies in Israel's startup space. NSO says they sell this software to governments around the world for legitimate purposes, fighting terrorism or violating local laws. Here was a company founded by three guys in 2010 that claim to have 40 countries around the world buying its technology. that made bold claims about its technology being used to solve serious crimes and help facilitate national security inquiries. This was a big deal. I can tell you on the last 10 years, we only found three cases of misuse, and we took very serious section that uh we are always taking and the serious actions meant that we shut down the system completely. We only sell it to government or to entities that we know or we want to believe that they will not misuse the tools. and this is how we check the customer, this is how we diligence them. And we have all the mechanism to make sure that they're not misusing the systems. In the middle of Paris, in the middle of this big COVID crisis, we got everyone together to plan the investigation. Hi. Thank you. Sorry about that. I'm Dana Priest at the Washington Post and this is uh Craig Timberg, who's joining me. Here is Carmen. Sebastian from. This is a in the Guardian and Stef, many of you will know writes a lot about NSO. This is the the Lamont corner. This is Martin, Christoph, and I'm Damian. Usually we see reporters at other news organizations as our rivals. We compete against them. We never want to share information with them because, you know, we want to keep our stories to ourselves. And this is just a different way of operating. This is seeing other journalists as partners. We are really one group. One group with one goal to finishing those complex stories and We worked with more than 80 journalists and we set up a publication date of July 2021 that gave us about a year to investigate the list. We will even in order to protect the source, that's clearly something that is very The main task for Earth and from all the partners was to identify the names behind the phone numbers. That was crucial. With phone numbers only, The main task for us and from all the partners was to identify the names behind the phone numbers. That was crucial. With phone numbers only, we can do nothing. The data is the beginning of the project. We need to find sources. We need to go on the field. This project is about who is spying on who in many countries, and those countries, most of them are very dangerous. We had a kaleidoscope of potential victims. We had the data, but how do we prove the Pegasus was on the phones? And that was always going to be the hardest thing about this project, which was We had data which is a very good indication of who the persons of interest were to these government clients of NSO, but we couldn't know whether a phone had been hacked unless we conducted forensics on it. Claudio Guarnieri is the head of Amnesty International Security Lab. He worked on creating a methodology, a platform that we could use during our investigation to have phones analyzed. He is a key element of that investigation. Without his expertise, nobody in our team would have been able to detect traces of Pegasus in a phone. It's a piece of code that look very similar to all the other that you're running on your phone. It's just designed to do something that it shouldn't. Pegasus access and files on the device, access and records on the device, being from WhatsApp, being from uh the SMS uh that on the database that you have on the phone or access the GPS of the device, record the audio, access the webcam. These kinds of things. Apple and companies like it try to create as many layers of complication as possible for an attacker. But the unfortunate reality is that against capabilities like those that Pegasus customers have, there's not much you can do from a digital security perspective. You can't really stop them meaningfully. You can only try to make it more complicated. At some point, we discover a very crucial information, an information that changed entirely the project. For years, we heard rumors about the Pegasus spyware might have been used against Jamal Khashoggi, who was killed in 2018 in the consulate of the Saudis. rumors about the Pegasus spyware might have been used against Jamal Kashoggi who was killed in 2018 in the consulate of the Saudis in Istanbul.
-
-The minute we found out about this list, the first thing we all did was to check for any numbers related to Jamal Khashoji or anyone we knew who was associated with him.
-
-And right away we found two numbers associated with the two women closest to him in his life.
-
-Jamal Khashogi's murder really in the history of the Post stands out.
-
-He was an opinion writer for the Washington Post, very gentle, soft spoken man.
+On a une énorme fuite, un énorme leak. Il y a des numéros, mais il y a pas de noms.
+Et donc il y a un gros travail de d'identification de, à travers ces numéros, en fait, quelles sont les personnes ciblées.
+La base de données est vraiment explosive parce que il y a il y a que des scandales en puissance.
+N'en parlez pas à vos à votre premier cercle de proches. Vraiment, il faut faut absolument pas en parler.
+Parce que on parle d'un sujet où il est question de de surveillance et de donc on est vraiment directement dans la, pas dans la gueule du loup mais on est dans dans le collimateur et à un moment donné, on sera vraiment surveillé de près, c'est certain.
+The list doesn't have any names. You have phone numbers, area country code, some time stamps as well. And it's a list that is about 50,000 phone numbers from 2016 to 2020. We can't explain where the list is coming from. We can't, of course, reveal who is the whole source. Officially, the Pegasus Spyware is not working on any +1 US phone numbers. It's not possible.
+The numbers they are mostly in 10 countries and most of these governments are known to be clients of NSO Group who make Pegasus.
+Pegasus is designed to infect phones like iPhones or Androids. And once in the phone, it can extract and access everything from the device. The phone books, geolocation, the messages, the photos, even the encrypted messages sent by Signal or WhatsApp. It can even access the mic or the camera. messages, the photos, even the encrypted messages sent by signal or WhatsApp. It can even access the mic or the camera of your phone remotely. It's like a person over your shoulder, a person who will see what you are seeing, a person who will watch what you are watching. your emails, your encrypted communication, everything. So once you are infected, you're trapped. Hello? Can you hear me? I can hear you. I don't see you. Hello. Hello, Paul. Hello. Hi, Dana. Hi. How are you? Hi, Dana. Good and you? We decided to reach out to some partners, the Washington Post, the Guardian, and many other ones. We wanted to tell you about some information we have and about a new project we are starting. We had no names attached to the numbers. We needed more journalists, we needed reporters on the ground who could reach out to some victims. We need people with tech expertise. Uh, we still have to identify numbers. Many of them actually haven't been identified yet, so we need your help on this. The moment they mentioned the numbers of phone numbers that they had, the quantity of phone numbers, tens of thousands, I mean, my jaw just hit the floor. There is a lot that concern India. Uh, some people in Mexico. information about Hungary. Azerbaijan and Kazakhstan. If forbidden stories have got data that can identify not just who the customers of NSO are, but potentially point in the direction of who the targets are as well, this is a game changer. This could be transformative in terms of our understanding of the whole cyber surveillance industry. I specialize in national security reporting. So surveillance is part of my beat, so to speak. You could see patterns starting to emerge, and you could almost like touch, okay, that might be a story. You know, here's something that's happening in Azerbaijan. That might be a story. Okay, I see what the Moroccan story might be. It's like watching a photo emerge in a dark room. We will shortly be arriving at Elephant and Castle. Change here for the Bakerloo and Northern Lines. We at the Guardian have been reporting about NSO for a long time. We thought it was really important to hold this company to account. Israel has become a world leader in this industry and exports these tools all over the world. And if you like NSO Group was in many ways, you know, the jewel in the crown. The NSO group was recently valued at $1 billion dollars. It is one of the more successful companies in Israel's startup space. NSO says they sell the software to governments. NSO group was recently valued at $1 billion. It is one of the most successful companies in Israel's startup space. NSO says they sell this software to governments around the world for legitimate purposes, fighting terrorism or violating local laws. Here was a company founded by three guys in 2010 that claimed to have 40 countries around the world buying its technology, that made bold claims about its technology being used to solve serious crimes and help facilitate national security inquiries. This was a big deal. I can tell you, on the last 10 years, we only found three cases of misuse, and we took very serious section that we are always taking. And these serious actions meant that we shut down the system completely. We only sell it to government or to entities that we know or we want to believe that they will not misuse the tools. And this is how we check the customer, this is how we diligence them. We have all the mechanism to make sure that they are not misusing the systems. in the middle of Paris, in the middle of this big Covid crisis, we got everyone together to plan the investigation. Um. Thank you. Sorry about that. I'm Dana Priest at the Washington Post and this is uh Craig Timberg who's joining me. Here is Carmen Aristegui, Sebastian Barragan from Aristegui Noticias. This is a polis in the Guardian. and Steph many of you will know writes a lot about NSO. This is uh the Lemon Corner. This is Martin, Christoph, and I'm Damian. Usually we see reporters at other news organizations as our rivals. We compete against them. We never want to share information with them because, you know, we want to keep our stories to ourselves. And this is just a different way of operating. This is seeing other journalists as partners. We are really one group. One group with one goal publishing those complex stories and we worked with more than 80 journalists and we set up a publication date of July 2021 that gave us about a year to investigate the list. even in order to protect the source that's clearly something that is very The main task for us and from all the partners was to identify the names behind the phone numbers. That was crucial. With phone numbers only, we can do nothing. The data is the beginning of the project. We need to find sources. We need to go on the field. This project is about who is spying on who in many countries, and those countries, most of them are very dangerous.
+We had a kaleidoscope of potential victims. We have the data, but how do we prove that Pegasus was on the phones? And that was always going to be the hardest thing about this project, which was we had data which was a very good indication of who the persons of interest were to these government clients of NSO, but we couldn't know whether a phone had been hacked unless we conducted forensics on it.
+Claudio Guarnieri is the head of Amnesty International's Security Lab. He worked on creating a methodology, a platform that we could use during our investigation to have phones analyzed. He's a key element of that investigation. Without his expertise, nobody in our team would have been able to detect traces of Pegasus in a phone.
+It's a piece of code that looked very similar to all the others that you have running on your phone. It's just designed to do something that it shouldn't.
+Pegasus access hidden files on the device, access hidden records on the device, being from WhatsApp, being from uh the SMS uh that on the database that you have on the phone, or access the GPS of the device, record the audio, access the webcam, these kinds of things.
+Apple and companies like it try to create as many layers of complication as possible for an attacker. But the unfortunate reality is that against capabilities like those that Pegasus customers have, there's not much you can do from a digital security perspective. You can't really stop them meaningfully. You can only try to make it more complicated.
+At some point, we discover a very crucial information, an information that changed entirely the project.
+For years, we heard rumors about the Pegasus spyware might have been used against Jamal Khashoggi, who was killed in 2018 in the consulate of the Saudis. rumors about the Pegasus spyware might have been used against Jamal Khashoggi who was killed in 2018 in a consulate of the Saudis in Istanbul.
+The minute we found out about this list, the first thing we all did was to check for any numbers related to Jamal Khashoggi or anyone we knew who was associated with him.
+And right away, we found two numbers associated with the two women closest to him in his life.
+Jamal Khashoggi's murder really in the history of the Post stands out.
+He was an opinion writer for the Washington Post. Very gentle, soft-spoken man.
 His voice became very important because he was the single most important dissident writing about the Saudi regime.
-Jamal, let me start with you. You've compared your Crown Prince to Putin, to Iran's Supreme leader. You've said he's creating, quote, an interesting form of dictatorship. How so?
+Jamal, let me start with you. You've compared your Crown Prince to Putin, to Iran's supreme leader. You've said he's creating, quote, an interesting form of dictatorship. How so?
 I still see him as a reformer, but he is gathering all power within his hand.
 As we speak today, there are Saudi intellectuals and journalists jailed.
 His murder was so cold-blooded, and we we still don't have the whole story.
-
-Jamal went to the consulate in Istanbul, and then he disappeared.
+Jamal went to the council in Istanbul and then he disappeared.
 Senior Turkish officials have reported that he is, in fact, in the building and he is still here. His close friends and family are still trying to figure out what this situation is. They're waiting on an official statement. I spoke to his fiance who was also here who told us that they came here to issue a number of documents so they could marry.
+They dispatched an assassination team that landed in a plane in the in the airport and came in cars with tools to hack him up, hack his bones and carry him out in a suitcase or suitcases.
+Pretty soon after his murder, people started asking, "Was Pegasus used against Jamal?"
+The word is that you sold Pegasus to them, and then they turned it around to get Khashoggi.
+Khashoggi murder is horrible, really horrible. And therefore, when I first heard their accusations that Khashoggi murder is horrible. Really horrible. And therefore, when I first heard there are accusations that our technology been used on Jamal Khashoggi or on his relatives, I started an immediate check about it. And I can tell you very clear, we had nothing to do with this horrible murder.
 
-They dispatched an assassination team that landed in a plane in the in the airport and came in cars with tools to hack him up, to hack his bones and carry him out in a suitcase or suitcases.
-Pretty soon after his murder, people started asking, Was Pegasus used against Jamal?
-The word is that you sold Pegasus to them, and then they turned it around to get Kashoggi.
-Khashoggi murder is horrible. Really horrible. And therefore, when I first heard their accusations that... Khashoggi murder is horrible. Really horrible. And therefore, when I first heard there are accusations that our technology been used on Jamal Khashoggi or on his relatives, I started an immediate check about it. And I can tell you very clear, we had nothing to do with this horrible murdered.
-I'm hoping that Hatice, Khashoggi's fiance, who we'd all gotten to know on television because she was outside the council at when he didn't reappear. I'm hoping that Hatice will let us do forensics on her phone to see for certain whether she was targeted and maybe if we get lucky, whether we can see what they took out of her phone.
-They kill my future. They kill my life.
-I felt inside me something changed and broke.
-Do you feel like your phone is doing anything strange?
-Do you think it could be hacked?
-We can test it, so we could do that. If if you wanted to do it, we Okay, you can do that. Okay. That would be great.
-We just need to plug your phone into our computer. Okay. So maybe we'll do that.
+I'm hoping that Hatice, Khashoggi's fiance, who we'd all gotten to know on television because she was outside the counselate when he didn't reappear. I'm hoping that Hatice will let us do forensics on her phone to see for certain whether she was targeted and maybe if we get lucky, whether we can see what they took out of her phone.
+
+They kill my future. They kill my life. I felt inside me something changed and broke.
+
+Do you feel like your phone is doing anything strange? Do you think it could be hacked? We can test it, so we could do that if if you wanted to do it. We
+Okay, you can do that.
+Okay. That would be great.
+We just need to plug your phone into our computer.
+Okay.
+So maybe we do that.
 Great.
+
 Hello?
 Claudio?
 Hi.
 It's Dana.
 Hi, how are you?
-I don't know, you tell me.
-So, I checked both the uploads. The new one seems clean. The old one, however, has some traces on the 6th of October of 2018. Seems to have been the first compromised which was followed by some additional traces on the ninth and then on the 12th. There's also an additional record in June of 2019, but that seems to be probably a failed attempt.
-And I don't see anything following that. Okay.
-The analysis proved that the phone belonging to Jamal Khashoggi's fiance had been infected with Pegasus. The analysis proved that the phone belonging to Jamal Khashoji's fiance had been infected with Pegasus.
+I don't know. You tell me.
+So, I checked both the uploads. The new one seems clean. The old one, however, has some traces on the 6th of October of 2018. Seems to have been the first compromise. which was followed by some additional traces on the 9th and then on the 12th. There's also an additional record in June of 2019, but that seems to be probably a failed attempt and I don't see anything following that.
+Okay.
+
+The analysis proved that the phone belonging to Jamal Khashoggi's fiance had been infected with Pegasus.
 Then we find out the date, which is four days after his murder when she's still trying to figure out what's happening.
 And it just seemed like such a ballsy move to surveil the person who has become the public face of his disappearance.
 We learned that Jamal had a complicated personal life.
-Hanan Atar is probably the least known character in Jamal Kashogi's life. She's actually his wife and most people have not heard of her.
+Hanan Atar is probably the least known character in Jamal Khashoggi's life. She's actually his wife and most people have not heard of her.
 He had secretly married in the United States in an Islamic ceremony.
 What I discovered is Hanan is living in hiding in the United States while she waits for her political asylum case.
 She was a flight attendant for Emirate Airlines, and so she flew all over the world and she was communicating with him on foreign phones.
-It was so happy, and they were so happy as well.
-This is in his birthday in a restaurant in Washington, and his friend Maggie behind us. The one she made the birthday party.
-This all of his friends around us.
-This last birthday in his life.
-He was careful, but he didn't realize maybe my device is much dangerous and I didn't know as well. He suspect, but he's not sure and I am not sure as well.
-She allowed me to download her phone, to send a copy to Claudio and to Bill Marzak at Citizen Lab, who also conducts forensic analysis.
-What I did is I analyzed all the available data on uh two Android phones and and one laptop uh belonging to Hanan.
-On one of the phones, uh it appears that uh there were two separate uh links to the Pegasus Spyware that were actually to Hanan. On one of the phones, uh it appears that uh there were two separate uh links to the Pegasus spyware that were actually opened. That shows that that she was Before Jamal's murder, Hanan had been detained and interrogated in the United Arab Emirates, which is, of course, a close ally of Saudi Arabia. They took me to uh office in the airport, then they took me to my house, they searched the whole house, they took my devices, my family devices, they have the password. I was in investigation for 17 hours until I got tired, I slept in the floor. What Bill discovered was when she was detained at the at the UAE Airport, somebody who took her phone then opened a browser on her phone and then typed in a URL that then directed the phone to a website known to Citizen Lab as being a Pegasus website that activates the infection. The link to Pegasus was actually typed into the web browser, character by character. They made a couple of typos actually while they were doing it, which tells me it was done manually. We have the smoking gun from Hanan's phone, which is the traces of the spyware. You know, almost certainly this spyware was installed and uh exfiltrated information from from her phone. So, she was uh in my view monitored. He was telling me what he's doing and do, what his connection, what his movement, what is his state of mind. So you were communicating with him. A lot. They tracked my husband through me long time back before they killed him. Because he was telling me only me everything. I didn't know this much they tracked him through me all the time. Mhm. Yeah. Why is this all coming in my life? They did track Jamal and killed him through me long time back. getting evidence on the device of Hanan, on the device of Hatice. All of that was breaking the narrative of the CEO of NSO group who told Getting evidence on the device of Hanan, on the device of Hatice. All of that was breaking the narrative of the CEO of NSO Group who told to the press that that spyware were never used against the Jamal or the relatives of Jamal.
+He was so happy, and they were so happy as well.
+This is in his birthday in a restaurant in Washington, and his friend Maggie behind us, the one she made the birthday party.
+This all of his friends around us. This last birthday in his life.
+He was careful, but he didn't realize maybe my device is much dangerous, and I didn't know as well. He suspect, but he's not sure, and I am not sure as well.
+She allowed me to download her phone to send a copy to Claudio and to Bill Marzac at Citizen Lab who also conducts forensic analysis.
+What I did is I analyzed all the available data on two Android phones and and one laptop belonging to Hanan. On one of the phones, uh it appears that uh there were two separate uh links to the Pegasus spyware that were actually to Hanan on one of the phones. Uh it appears that uh there were two separate uh links to the Pegasus spyware that were actually opened that shows that that she was. Before Jamal's murder, Hanan had been detained and interrogated in the United Arab Emirates, which is of course a close ally of Saudi Arabia. They took me to uh office in the airport, then they took me to my house, they searched the whole house. They take my devices, my family devices, they have the password. I was in investigation for 17 hours until I got tired, I slept in the floor. What Bill discovered was when she was detained at the at the UAE airport, somebody who took her phone then opened a browser on her phone and then typed in a URL that then directed the phone to a website known to Citizen Lab as being a Pegasus website that activates the infection. The link to Pegasus was actually typed into the web browser character by character. They made a couple of typos actually while they were doing it, which tells me it was done manually. We have the smoking gun from Hanan's phone, which is the traces of the spyware. You know, almost certainly this spyware was installed and uh exfiltrated information from from her phone. So she was uh in my view monitored. It was telling me what he's doing and what his connection, what his movement, what is his state of mind. So you were communicating with him. A lot. They tracked my husband through me long time back before they kill him. because he was telling me only me everything. I didn't know this much they track him through me all the time. Mhm. Yeah. Why is this all coming in my life? They did track Jamal and kill him through me long time back. getting evidence on the device of, on the device of Hadije, all of that was breaking the narrative of the CEO of NSO Group who told getting evidence on the device of Hanan, on the device of Hatije. All of that was breaking the narrative of the CEO of NSO Group who told to the press that that Spyware were never used against the Jamal or the relatives of Jamal.
 In the list, we saw more than 15,000 Mexican numbers.
-Mexico was among the very first customers of NSO Group.
-One of Mexico's best known journalists is Carmen Aristegui, and she was part of our investigation.
-She has maybe more followers than the president of Mexico. And we needed to understand who those phone numbers in Mexico belongs to.
+Mexico was among the very first customers of NSO group.
+One of Mexico's best-known journalist is Carmen Aristegui, and she was part of our investigation.
+She has maybe more followers than the President of Mexico.
+And uh, we needed to understand who those phone numbers in Mexico belongs to.
 Hola?
-Hola, Carmen. Soy Laurent de Forbidden Stories. ¿Cómo estás?
-¿Cómo estás? Qué gusto.
-Forbidden tuvo un universo de más de 50.000 números, pero había que saber de quién eran esos números. Se tenía que investigar uno por uno.
-Y, Carmen, hay muchos contactos de tu teléfono en nuestra lista.
-Uf. Okay.
+Hola Carmen. Soy Arthur de Forbidden Stories. ¿Cómo estás?
+¿Cómo estás? ¡Qué gusto!
+Forbidden tuvo un universo de más de 50,000 números, pero había que saber de quién eran esos números. Se tenía que investigar uno por uno.
+Y Carmen, hay muchos contactos de tu teléfono en nuestra lista.
+Uf, okay.
 Lo que lo que podemos hacer ahora es que puedes entrar los números en tu teléfono para decirme a quién pertenecen los números.
 Así lo vamos a hacer.
 Tengo un directorio nutrido y entonces ese directorio lo cruzamos con los números de Forbidden y los números de mi directorio.
-El tercero es Sandra Nogales,
-que durante muchos años fue mi asistente.
-Ah, caray.
-Tengo aquí una cosa, una sorpresa.
+El tercero es Sandra Nogales que durante muchos años fue mi asistente.
+Ah, caray. Tengo aquí una cosa, una sorpresa.
 El séptimo número corresponde a Karina Maciel.
 Karina Maciel es la productora de mi programa en la cadena de televisión CNN en México.
-Otro colega periodista,
-de la revista Proceso,
-Alejandro Caballero.
-Al cruzar, empezaron a salir nombres, nombres, nombres, nombres, nombres y nosotros decíamos, "¿hasta dónde va a terminar esto?"
+Otro colega periodista
+de la revista Proceso, Alejandro Caballero.
+Al cruzar, empezaron a salir nombres, nombres, nombres, nombres, nombres y nosotros decíamos, ah, ah, ah, hasta dónde va a terminar esto.
 Ah, caray.
-El que sigue es Alejandro Encinas.
-Es un muy importante político
+El que sigue es Alejandro Encinas,
+es un muy importante político
 de la izquierda.
-Y estaban ahí políticos, diplomáticos, abogados, periodistas, activistas, defensores de derechos humanos. izquierda y estaban ahí políticos, diplomáticos, abogados, periodistas, activistas, defensores de derechos humanos, Ay, caray. Bueno, aquí te puedo decir que está mi hermana. Aquí aparece mi hermana Teresa Aristegui Flores. Es mi hermana, pero no está relacionada con ninguna actividad pública. Yo intuyo que aquí nadie se salva. Si hicieron esto, imagínate, ya perdieron el pudor, o sea, podían haber espiado a su gato, ¿no? A su perro, al canario. Estás de acuerdo a su propia a su propia familia. We knew from a previous investigation that was heavily targeted with Pegasus in 2015 and 2016. So from that date she is still investigating the group, the biggest all the agents and operators who are using that Mexico. Durante los años que fui espiada, estuvimos realizando investigaciones periodísticas importantes para México, relacionadas con la Casa Blanca del presidente Enrique Peña Nieto. Una casa en un barrio muy lujoso de la Ciudad de México, en posesión del presidente de México, de Enrique Peña Nieto y su familia, que no podían explicar. que, desde luego, no podía haber obtenido el presidente con los ingresos que el presidente pudo haber tenido como presidente, como gobernador, o como hijo de una familia de clase media. que yo sospecho que mi teléfono está intervenido y el teléfono de mi hijo Emilio está intervenido, es cuando Emilio, un chico menor de edad, me pregunta: Oye, mamá, eh, ¿tú sabes por qué recibo estos mensajes tan extraños? Y yo le digo: Yo también estoy recibiendo mensajes extraños. Quisieras click para ver algún problema de tu visa en Estados Unidos. puede estar mal con tu visa, ¿no? Sí, pero era imposible que no hicieras click. A ver, yo veía mi visa y decía, pues vigencia tiene, tiene. Fuera de la vigencia, ¿qué problema puede tener? Pero, es algo que es inevitable que mi visa y decía, vigencia tiene, tiene. Fuera de la vigencia, qué problema puede tener. Pero sabes, es algo que es inevitable que que hagas. Que le expliques. Sabemos que Pegasus se vendió a la Procuraduría General de la República. Se vendió Pegasus al ejército, eh se vendió Pegasus al CISEN, al Sistema de Inteligencia, se vendió Pegasus a algunas instancias de carácter público. No puedo decirles mi nombre. No puedo referir con exactitud la institución en la cual me desempeñé. Y puede resultar peligroso para mí la identificación y el conocimiento de que yo tengo o tuve acceso a cierta información. El sistema Pegasus era toda una novedad para nosotros. El procedimiento era tener el número del objetivo, hacer lo que se denominaba la ingeniería social, que es búsqueda de información en fuentes abiertas del objetivo, con la finalidad de elaborar mensajes de texto que pudieran ser enviados al dispositivo móvil. Debería hacer uno o dos intentos muy precisos con información que le resultara útil al objetivo y que este pudiera dar clic. Si lográbamos el éxito que diera clic en el mensaje, eso automáticamente instalaba el software en el equipo móvil y a partir de allí ya podíamos tener acceso al teléfono, toda la información. Los resultados eran increíbles, porque una vez que se lograba instalar, infectar el dispositivo, se tenía acceso pleno al equipo móvil. Era una pantalla negra. En la parte superior izquierda teníamos la visualización principal. y en la parte del lado derecho abajo estaban, digamos, módulos o pestañas en donde se tenía cada una de las aplicaciones de las que se extraía información. Por ejemplo, teníamos el cuadro de la aplicación de WhatsApp, Telegram. Abajo teníamos el micrófono, las cámaras, la geolocalización y dependiendo de lo que nos interesara, le dábamos clic y era lo que se proyectaba en la visualización principal. A partir de la infección, cualquier información que sea eliminada, podemos verla nosotros. A partir de la infección, cualquier información que sea eliminada podemos verla en nosotros, ya sean fotos o conversaciones, pero podemos seguir viéndolas.
-
-Cuando empiezas a saber qué cosa es Pegasus, te vas de espaldas. Quedas desnudo frente a un poder que no sabes quién detenta. Eh, quedas vulnerable frente a alguien que está observándote bajo una lupa. Pueden estar contigo en la oficina, en la regadera, en la cocina, con un amigo, con una fuente, todo el tiempo.
-
-All the time during this investigation, we tried every day to identify the person behind that phone number. This is what all the partners and the Forbidden Stories team were doing most of the time.
-Basically, the consortium had access to a list, so, of of potential um targets.
-Like a list of random numbers?
-Exactly. To be sure that he was indeed infected or surveilled, we would have to run forensic analysis.
-When I heard this from you, I was a little bit, um, not sure if to talk. and I I don't know if by giving a quote to you, it will help me. I don't know because I don't trust the governments anymore. So, I did not want to put myself or my family under risk. I am I reached a stage, I realized…
-I'm sorry.
-No.
-I realized this country cannot really trust.
-If you will ask me, I am very angry.
-Of course.
-Of course.
-I saw one number in the list that belonged to a friend, a journalist in Azerbaijan.
-Her name… that belonged to a friend, a journalist in Azerbaijan. Her name is Kadia Ismailova. She is an award-winning investigative reporter and an outspoken critic of the government, renowned for her exposes of corruption at the hands of the country's president. Azerbaijan, you have a lot of oil and gas. It's a dictatorship. And the dictator's name is Ilham Aliyev. And this person and this state is extremely violent against dissidents, political opponents, journalists. I first met Khadijah Ismailova in Azerbaijan in about 2006-2007. Khadijah Ismailova relentlessly kept on exposing the wrongdoing and the corruption of the Aliev regime. She showed how, you know, they were having their hands into a big chunk of the Azerbaijani economy. She was showing how they were, you know, taking money in a covert way, how they were stealing money, basically from the people. Yada salın ki, sizin haqqınızı tələb eləyən adamlara necə zor tətbiq eləyirsiz. Hamısını yada salın. And she kept on doing what she was doing and she got arrested. She got thrown behind bars. After all this investigative reporting, Khadijah became a prime target for the government in Baku and for the Aliyevs. I don't know how to to proceed with Khadijah, because I don't want us to put Khadijah in danger. The thing that is quite difficult is how to get in touch with Khadijah uh without communicating on electronic device. This is very sensitive, right? Yeah. This is very, very sensitive, especially for her because she's basically on probation, that's going to be a risk anyway. We learned that Khadija was about to go to Turkey uh for some personal reasons. And so we set up immediately a team who went to Turkey to meet Khadija once she land in the airport. Now I'm nervous. I'm nervous too. I cannot stand still. Now I'm nervous.
-I'm nervous too.
-I cannot stand still.
-Khadija!
+Y estaban ahí políticos, diplomáticos, abogados, periodistas, activistas, defensores de derechos humanos, izquierda. Y estaban ahí políticos, diplomáticos, abogados, periodistas, activistas, defensores de derechos humanos. Ay, caray. Bueno, aquí te puedo decir que está mi hermana. Aquí aparece mi hermana Teresa Aristegui Flores. Es mi hermana, pero no está relacionada con ninguna actividad pública. Yo intuyo que aquí nadie se salva. Si hicieron esto, imagínate, ya perdieron el pudor, o sea, podían haber espiado a su gato, ¿no? Sí. A su perro, al al canario. O sea... ¿Estás de acuerdo? A su propia a su propia familia. We knew from a previous investigation that Carmen's phone was heavily targeted with Pegasus in 2015 and 2016. So from that date, she is still investigating NSO Group, the Pegasus Spyware, or the agents and operators who are using that in Mexico. Durante los años que fui espiada, estuvimos realizando investigaciones periodísticas importantes para México, relacionadas con la Casa Blanca del presidente Enrique Peña Nieto. una casa en un barrio muy lujoso de la Ciudad de México en posesión del presidente de México, de Enrique Peña Nieto y su familia, que no podían explicar, que, desde luego, no podía haber obtenido el presidente con los ingresos que el presidente pudo haber tenido como presidente, como gobernador o como hijo de una familia de clase media. que yo sospecho que mi teléfono está intervenido y el teléfono de mi hijo Emilio está intervenido, es cuando Emilio, un chico menor de edad, me pregunta: "Oye, mamá, eh, ¿tú sabes por qué recibo estos mensajes tan extraños?" Y yo le digo, "Yo también estoy recibiendo mensajes extraños." que hicieras click para ver algún problema de tu visa en Estados Unidos. Claro, claro, claro. ¿Qué puede estar mal con tu visa, no? Sí, pero era imposible que no hicieras click. A ver, yo veía mi visa y decía, pues, vigencia tiene, tiene. Fuera de la vigencia, qué problema puede tener. Pero, ¿sabes? es algo que es inevitable que... Miami, vi salir el cielo. Dos, vigencia tiene, tiene. Fuera de la vigencia, qué problema puede tener. Pero sabes, es algo que es inevitable que que hagas. que le expliques. Sabemos que Pegasus se vendió a la Procuraduría General de la República. Se vendió Pegasus al ejército, eh se vendió Pegasus al CISEN, al sistema de inteligencia. Se vendió Pegasus a algunas instancias de carácter público. No puedo decirles mi nombre. No puedo referir con exactitud la institución en la cual me desempeñé. y puede resultar peligroso para mí la identificación y el conocimiento de que yo tengo o tuve acceso a cierta información. El sistema Pegasus era toda una novedad para nosotros. El procedimiento era tener el número del objetivo, hacer lo que se denominaba la ingeniería social, que es búsqueda de información en fuentes abiertas del objetivo, con la finalidad de elaborar mensajes de texto que pudieran ser enviados al dispositivo móvil. Debería ser uno o dos intentos muy precisos con información que le resultara útil al objetivo y que este pudiera dar click. Si lográbamos el éxito, que diera click en el mensaje, eso automáticamente instalaba el software en el equipo móvil. Y a partir de allí ya podíamos tener acceso al teléfono, toda la información. Los resultados eran increíbles, porque una vez que se lograba instalar, infectar el dispositivo, se tenía acceso pleno al equipo móvil. Era una pantalla negra. En la parte superior izquierda teníamos la visualización principal y en la parte del lado derecho abajo estaban, digamos, módulos o pestañas en donde se tenía cada una de las aplicaciones de las que se extraía información. Por ejemplo, teníamos el cuadro de la aplicación de WhatsApp, Telegram. Abajo teníamos el micrófono, las cámaras, la geolocalización y dependiendo de lo que nos interesara, le dábamos clic y era lo que se proyectaba en la visualización principal. A partir de la infección, cualquier información que sea eliminada podemos verla a nosotros. A partir de la infección, cualquier información que sea eliminada podemos verla en nosotros. Ya sean fotos o conversaciones, pero podemos seguir viéndolas. Cuando empiezas a saber qué cosa es Pegasus, te vas de espaldas. Quedas desnudo frente a un poder que no sabes quién detenta. Eh, quedas eh vulnerable frente a alguien que está observándote bajo una lupa. Pueden estar contigo eh en la oficina, en la regadera, en la cocina con un amigo, con una fuente, todo el tiempo. All the time during this investigation, we tried every day to identify the person behind that phone number. This is what all the partners and the team were doing most of the time. Basically the consortium had access to a list of of potential targets. Exactly. To be sure that you was indeed infected or surveiled, we would have to run forensic analysis. When I heard this from you, I was a little bit um not sure if I should talk. And I I don't know if by giving a quotes to you, it will help me. I don't know, because I don't trust the government anymore. So, I did not want to put myself or my family under risk. I am I reached your stage. I realized Sorry. No. I realized this country cannot really trust. You will ask me I'm very angry. Of course. Of course. I saw one number in the list that belong to a friend, a journalist in Azerbaijan. Her name is Khadija Ismayilova. She's an award-winning investigative reporter and an outspoken critic of the government, renowned for her exposes of corruption at the hands of the country's president. Azerbaijan, you have a lot of oil and gas. It's a dictatorship. and the dictator's name is Ilham Aliyev. And this person and this state is extremely violent against dissidents, political opponents, journalists. I first met Khadija Ismayilova in Azerbaijan in about 2006, 2007. Khadija Ismayilova relentlessly kept on exposing the wrongdoing and the corruption of the Aliev regime. She showed how, you know, they were having their hands into a big chunk of the Azerbaijani economy. She was showing how they were, you know, taking money in a covert way, how they were stealing money basically from the people. Yada salın ki, sizin haqqınızı tələb eləyən adamlara necə zor tətbiq eləyirsiz? Hamısını yada salın. And she kept on doing what she was doing. and she got arrested. She got thrown behind bars. After all this investigative reporting, Khadija became a prime target for the government in Baku and for the Aliyevs. I don't know how to to proceed with Khadija because I don't want us to put Khadija in danger. The thing that is quite difficult is how to get in touch with Khadija, uh, without communicating on electronic device. This is very sensitive, right? Yeah. This is very, very sensitive, especially for her because she's basically on probation, that's going to be a risk anyway. We learned that Khadija was about to go to Turkey, uh, for some personal reasons. And so we set up immediately a team who went to Turkey to meet Khadija once she land in the airport. Now I'm nervous. I'm nervous too. I cannot stand still. Now I'm nervous.
+I'm nervous too. I cannot stand still.
+Atika!
+Let's go again.
+Yeah, of course.
+Just back.
+So that for every here.
+Good time.
+So we can take off window.
 We can take it off, right?
-So we have about 1,000 number from Azerbaijan. And you are among them.
-Oh. And then we also have some people who are your friends.
-Okay. And what does that program do?
-So what the program does is it basically without you knowing, um, it it it installs things on your phone. And then it allows...
+Chat for too long.
+Very sure.
+So we have about 1,000 number from Azerbaijan. And you're among them. Well. And then we also have some people who are your friends.
+Okay.
+And what does that program do?
+So what the program does is it basically without you knowing, um, it it it installs things on your phone.
+And then it allows
 Even if I didn't click on anything.
-Yes. So the the secrecy of this, it's called Pegasus. And the secrecy of it is that you don't actually see or you you don't do anything. So before you had this you had to click on something to be infected. In this case, it all happens in the background and you have no idea that you're infected. And when you're infected, it's transmitting your messages, your images, this everything that's happened on your phone, including on Signal because they have the phone itself.
+Yes. See, so the the secrecy of this, it's called Pegasus. And the secrecy of it is that you don't actually see or you you don't do anything. So, before you had this, you had to click on something to be infected. In this case, it all happens in the background and you have no idea that you're infected. And when you're infected, it's transmitting your messages, your images, this, everything that's happening on your phone, including on Signal because they have the phone itself.
 And it's legal to sell it.
 Yes. So, um, we what we know is that most likely sometimes in 2018, the government got it.
 Okay.
-And we have a lot of data from 2019. Um, and you know, that was a big year of protests. You were on a hunger strike with other people. Uh, you guys had a woman march, you were leading the march.
-It's kind of the most like in the country.
-So, one way for us to verify that you know, what exactly, you know, was done in your case would be to do forensic on your phone.
+And we have a lot of data from 2019. Um, and you know that was a big year of protest. You were on a hunger strike with other people. Uh, you guys had a woman march, you were leading the march.
+Yeah.
+It's
+kind of the most, like,
+in the country.
+So, one way for us to verify that, you know, what exactly, you know, was done in your case would be to do forensic on your phone.
 Yeah. Why not?
-Is there any way to avoid this surveillance or...?
-Yes. We will set you up with a new device, um, that you will be able to use. there any way to avoid this surveillance? Yes, we will set you up with a new device um that you will be able to use I mean It's a there always be some way you know, to to do it but there are other ways of communication. Yeah. It's like it's makes you to want to leave in the bubble. But then like, so no one can enter like in some sort of then like, living like living in the inside the condom. But then you cannot reproduce. This is her phone? Do you need any cables? No. Okay. Do you know if she still has a backup of Yes, she does. Yes. She does. Well, right now I'm trying to jailbreak the phone. Hopefully it works. So, right now, I am navigating through the phone. So, I'm looking for things that might have executed network activity that is connectable to the company, any leftovers of malicious executions. Um accounts that we know of anything essentially that tells me the history of this phone. That's interesting. It's not something I've seen before. We see processes that we know are connected to to Pegasus. We see some message accounts that um that are connected to the attacks. because this might indicate what was to Pegasus. We'll see some of my message accounts that, um, that are connected to the attacks. Cuz this might indicate what was the entry point. Oh, was Apple Music? What the [bleep]. Oh, really? That's that's weird. So they might have started using Apple Music to exploit it? Um, I have to do some more digging on this because I need to look at like what specifically these applications are. He's definitely among the ones most targeted. It's important to rectify this story, which is that these technologies are exclusively used for good purposes and for fighting evil and for fighting crime and terrorism and all that. Okay, so now Khadija is coming. Hi Claudio. Okay. Hi. So now tell me how bad it is. Okay, um, there are definitely some records uh that that indicate various points where the phone seemed to have been compromised. Mhm. So I started feeling like I played doctor in the 1300s. I'm basically kind of just keeping the death count. I'm contributing to creating a trauma here, and I can see it in many cases. Like I can see it that they are right now they're going to a dramatic moment. And I'm like that person in the room that is breaking it. There are also some more recent records from even as recent as early May of this year, so until a couple of weeks ago. Um but all in all, it seems like this probably extended between 2019 and 2020 2020 at the very least. I've been told that you will not know what exactly had been uh monitored or uh recorded. Yeah. With these kinds of kind of uh monitoring technology, at the point where they have that level of access to the device, virtually everything is possible. So, Yeah, thank you. Have a good day. Bye-bye. Bye. Bye. That's not great news. Hi. Hi. That's not great news. All night I've been thinking about what did I do with my phone? And I feel guilty. I feel guilty too for the messages I've sent. I've feel guilty for the information sources that who send me thinking that some encrypted messaging ways are secure. They did it, and they didn't know that my phone is infected. I mean, my family members are also victimized. The the sources are victimized. Everyone, I mean, people I've been working with, people who told me their private secrets are victimized. Everyone, I mean, it's not just me. I I put so many people in danger. And and I'm angry. I again, I'm angry. I'm angry with the government. I'm angry with the companies that produce all these tools and sell it to the bad guys, like Alive regime. It's it's it's really it's despicable. It's he knows. Kaina is not a terrorist. Kaina is not a criminal. She's a journalist that is taking a lot of risk to write some stories to make sure people will get access to independent information. So that was one more evidence of the global misuse of that spyware. Powerful governments manage to retain their power by seeing off threats from people who are campaigning for democracy, or holding them to account, or telling the truth. And, you know, here's a company that gave them the tool to do that. It's a military weapon used against civilians. And the civilians, they don't have any mechanism to help them in seeking justice, any mechanism to find some traces, any mechanisms to know that at least they are the target. You got a real sense that it was races any mechanisms to know that at least they are the target. You got a real sense that it was free for all. Right. There is no control over how countries use it. and they have been using it in the worst way you could imagine. Even after months of investigating, we kept discovering new things. new names from the list, politicians, heads of state, even a princess. Hello. My name is Latifa Al Maktum and I'm making this video because it could be the last video I make. Yeah. For more on this and other Frontline programs, visit our website at pbs.org/frontline. Frontline's Global Spyware scandal exposing Pegasus is available on Amazon Prime video.
+Is there any way to avoid this surveillance or
+Yes, we will set you up with a new device, um, that you will be able to use. Is there any way to avoid this surveillance? Yes, we will set you up with a new device um that you will be able to use. I mean not not a phone. There must be some way, you know, to to do it, but there are other ways of communication. Yeah. It's like It's makes you to want to leave in the bubble. but then like so no one can enter like in some sort of then like living like living in the inside the condom. But then you cannot reproduce. This is her phone? Do you need any cables? No. Okay. Do you want know if she still has a backup of Yes, she does. Yes, she does. Well, right now I'm trying to jailbreak the phone. Hopefully it works. So, right now, I am navigating through the phone. So I'm looking for things that might have executed network activity that is connectable to the company. Any leftovers of malicious executions. Um accounts that we know of anything essentially that tells me the history of this phone. That's interesting. It's not something I've seen before. We see processes that we know are connected to to Pegasus. We'll see some message accounts that um that are connected to the attacks. because this might indicate what was to Pegasus. We'll see some of my message accounts that um that are connected to the attacks. because this might indicate what was the entry point? Oh, it was Apple Music? What the Oh, really? That's weird. So they might have started using Apple music to exploit it? Um I have to do some more digging on this because I need to look at what what specifically these applications are. He's definitely among the ones most targeted. It's important to rectify this story, which is that these technologies are exclusively used for good purposes and for fighting evil and for fighting crime and terrorism and all that. Okay, so now Khadija is coming. Hi, Claudio. Hi. So now, tell me how bad it is. Okay, um, There are definitely some records uh that that indicate various points where the phone uh seemed to have been compromised. Mhm. So I started feeling like I played doctor in the 1300. end of March 2019 I'm basically kind of just keeping the death count. 28th of March I'm contributing to creating a trauma here, and I can see it in many cases. Like I can see it that they're right now they're going to a dramatic moment and I'm like that person in the room that is breaking it. There are also some more recent records from even as recent as early May of this year, so until a couple of weeks ago. Um but all in all it seems like this probably extended between 2019 and 2020 2020 at the very least. I've been told that you will not know what exactly had been uh monitored or uh recorded. Yeah. With these kinds of kind of uh monitoring technology at the point where they have that level of access to the device, virtually everything is possible. So Yeah. Thank you. Have a good day. Bye-bye. Bye. Bye. That's not great news. Hi.
+Hi.
+Hi.
+That's not great news.
+All night I've been thinking about what did I do with my phone.
+And I feel guilty.
+I feel guilty to for the messages I've sent. I've feel guilty for the information sources that who send me thinking that
+some encrypted messaging ways are secure, they did it and they didn't know that my phone is infected.
+I mean, my family members are also victimized, the the sources are victimized. Everyone, I mean, people I've been working with,
+people who told me their private secrets
+are victimized. Everyone, I mean, it's not just me. I I put so many people in danger.
+And
+and I'm angry. I again, I'm angry. I'm angry with the government, I'm angry with the companies that produce all these tools and sell it to the bad guys, like Ali's regime.
+It's it's
+it's really
+it's despicable. It's heinous.
+Kadi is not a terrorist, Kadi is not a criminal.
+She is a journalist that is taking a lot of risk to write some stories to make sure people will get access to independent information. So that was one more evidence of the global misuse of that spyware.
+Powerful governments managed to retain their power
+by seeing off threats
+from people who are campaigning for
+democracy or holding them to account, telling the truth.
+And, you know, here is a company that gave them a tool to do that.
+It's a military weapon used against civilians.
+And the civilians, they don't have any mechanism to help them in seeking justice, any mechanism to find some traces, any mechanisms to know that at least they are the target.
+You got a real sense that it was free for all.
+Right.
+There is no control over how countries use it.
+And they have been using it
+in the worst way you could imagine.
+Even after months of investigating, we kept discovering new things.
+New names from the list,
+politicians, heads of state,
+even a princess.
+Hello, my name is Latifa Al Maktoum
+and I'm making this video because it could be the last video I make.
+Yeah.
+For more on this and other Frontline programs, visit our website at pbs.org/frontline.
+Frontline's global spyware scandal exposing Pegasus is available on Amazon Prime video.

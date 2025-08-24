@@ -1,0 +1,181 @@
+{
+  "version": "2.3",
+  "created_at": "2025-08-24T01:05:32.095229",
+  "video": {
+    "title": "How To Pass Tier 1 & 2 Selections Part 3/3: Tier 1 Selections",
+    "url": "https://www.youtube.com/watch?v=7r-qOjUOjbs",
+    "platform": "unknown"
+  },
+  "extraction_stats": {
+    "gemini_entities": [
+      {
+        "confidence": 0.99,
+        "name": "Tier 1",
+        "type": "Concept"
+      },
+      {
+        "confidence": 0.99,
+        "name": "Tier 2",
+        "type": "Concept"
+      },
+      {
+        "confidence": 1.0,
+        "name": "SEAL Team 6",
+        "type": "Organization"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Delta Force",
+        "type": "Organization"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Intelligence Support Activity",
+        "type": "Organization"
+      },
+      {
+        "confidence": 1.0,
+        "name": "British SAS",
+        "type": "Organization"
+      },
+      {
+        "confidence": 0.95,
+        "name": "Land Nav",
+        "type": "Skill"
+      },
+      {
+        "confidence": 0.95,
+        "name": "Rucking",
+        "type": "Skill"
+      },
+      {
+        "confidence": 0.9,
+        "name": "The Long Walk",
+        "type": "Nickname"
+      },
+      {
+        "confidence": 1.0,
+        "name": "West Virginia",
+        "type": "Location"
+      }
+    ],
+    "gemini_relationships": [
+      {
+        "confidence": 1.0,
+        "object": "Tier 1 unit",
+        "predicate": "is a",
+        "subject": "SEAL Team 6"
+      },
+      {
+        "confidence": 1.0,
+        "object": "Tier 1 unit",
+        "predicate": "is a",
+        "subject": "Delta Force"
+      },
+      {
+        "confidence": 1.0,
+        "object": "Tier 1 unit",
+        "predicate": "is a",
+        "subject": "Intelligence Support Activity"
+      },
+      {
+        "confidence": 0.95,
+        "object": "British SAS",
+        "predicate": "modeled after",
+        "subject": "American Tier 1 units"
+      },
+      {
+        "confidence": 0.9,
+        "object": "Delta Force selection",
+        "predicate": "modeled on",
+        "subject": "Intelligence Support Activity selection"
+      },
+      {
+        "confidence": 1.0,
+        "object": "West Virginia",
+        "predicate": "is location of",
+        "subject": "Delta Force selection"
+      },
+      {
+        "confidence": 0.95,
+        "object": "Ruck running",
+        "predicate": "is required for",
+        "subject": "Tier 1 selection"
+      },
+      {
+        "confidence": 0.95,
+        "object": "Land Nav",
+        "predicate": "is required for",
+        "subject": "Tier 1 selection"
+      },
+      {
+        "confidence": 0.9,
+        "object": "The Long Walk",
+        "predicate": "is nickname for",
+        "subject": "Delta Force selection"
+      }
+    ],
+    "retention_decision": {
+      "action": "deleted",
+      "video_path": "tests/cache/How To Pass Tier 1  2 Selections Part 33 Tier 1 Selections-7r-qOjUOjbs.mp4",
+      "video_hash": "108373348cb0e4bb167fbec3",
+      "reason": "Policy: Always delete source videos",
+      "cost_savings": {
+        "storage_cost_avoided": 0.007569397285580636,
+        "reprocessing_cost": 0.044528000000000005
+      },
+      "timestamp": "2025-08-24T01:05:32.068026"
+    }
+  },
+  "timeline_v2": null,
+  "files": {
+    "transcript_txt": {
+      "path": "transcript.txt",
+      "format": "plain_text",
+      "size": 8901,
+      "sha256": "7875d867baa48f206dafc31477dc437f5e34c68cd0424901306f31e7fcee35f5"
+    },
+    "transcript_json": {
+      "path": "transcript.json",
+      "format": "json",
+      "size": 96076,
+      "sha256": "af4e15270581df755f5915a64478d9a1228763fb0ccf33b2ebd0918d1dfcb07f"
+    },
+    "metadata": {
+      "path": "metadata.json",
+      "format": "json",
+      "size": 2559,
+      "sha256": "2387ed780760e7362dd352bb5f7d41dbdbde177eef53f236bd87c99733583e0d"
+    },
+    "entities": {
+      "path": "entities.json",
+      "format": "json",
+      "size": 14739,
+      "sha256": "27baac3ae17ecc1e8d897bb3200a7e5779ba09374964bf9c959e7365fa96780b"
+    },
+    "relationships": {
+      "path": "relationships.json",
+      "format": "json",
+      "size": 42435,
+      "sha256": "0645183a44c0e78db803f5cebdf8c268f15aaded89de4b0eb923cca6f8a00e1d"
+    },
+    "knowledge_graph": {
+      "path": "knowledge_graph.json",
+      "format": "json",
+      "size": 5434,
+      "sha256": "fa979868e1a6f0c4a063dc0168576d0c08f38bc87973ad87a7eb3aabf8103ee5"
+    },
+    "report": {
+      "path": "report.md",
+      "format": "markdown",
+      "size": 1268,
+      "sha256": "907acf7576d45193930451c171436e7f92e75e22e61fdc6e326fcd4e44c4cfde"
+    },
+    "chimera": {
+      "path": "chimera_format.json",
+      "format": "json",
+      "size": 26679,
+      "sha256": "aee557210cb7dd356a45536058ded332f3763a0f2583c2840b862242c6992596"
+    }
+  }
+}

@@ -1,14 +1,11 @@
 subject,predicate,object,context,evidence_count
-9/11,was catalyzed by,My Chemical Romance's formation,,0
-My Chemical Romance,is a member of,Gerard Way,,9
-My Chemical Romance,is a member of,Mikey Way,,6
-My Chemical Romance,is a member of,Frank Iero,,4
-My Chemical Romance,is a member of,Ray Toro,,5
-Gerard Way,is the brother of,Mikey Way,,18
-Frank Iero,was the former band of,Pency Prep,,5
-Ray Toro,was the former band of,The Rodneys,,8
-My Chemical Romance,signed,Eyeball Records,,0
-Mikey Way,coined the name for,My Chemical Romance,,6
-Matt Pelissier,was the original drummer for,My Chemical Romance,,7
-Jeff Rickly,was produced by,"I Brought You My Bullets, You Brought Me Your Love",,0
-My Chemical Romance,provided connections for,Pency Prep,,0
+Gerard Way,was founded by,My Chemical Romance,,10
+9/11,was catalyzed by,My Chemical Romance,,0
+Gerard Way,is the sibling of,Mikey Way,,27
+Ray Toro,was a former member of,The Rodneys,,13
+Frank Iero,was a former member of,Pencey Prep,,7
+Eyeball Records,signed with,My Chemical Romance,,0
+Pencey Prep,was connected to,Eyeball Records,,3
+Matt Pelissier,was the original drummer for,My Chemical Romance,,4
+Mikey Way,coined the name for,My Chemical Romance,,7
+9/11,was inspired by,Skylines and Turnstiles,,0

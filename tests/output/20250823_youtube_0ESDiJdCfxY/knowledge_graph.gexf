@@ -19,7 +19,7 @@
     <nodes>
       <node id="n_407f9c5e7adb" label="Danger Days: The True Lives of the Fabulous Killjoys">
         <attvalues>
-          <attvalue for="0" value="ALBUM"/>
+          <attvalue for="0" value="CREATIVE WORK"/>
           <attvalue for="1" value="0.9"/>
           <attvalue for="2" value="1"/>
           <attvalue for="3" value="1"/>
@@ -41,13 +41,13 @@
       </node>
       <node id="n_e91a657a9923" label="Alternative Press Magazine">
         <attvalues>
-          <attvalue for="0" value="PUBLICATION"/>
+          <attvalue for="0" value="ORGANIZATION"/>
           <attvalue for="1" value="0.9"/>
           <attvalue for="2" value="1"/>
           <attvalue for="3" value="1"/>
           <attvalue for="4" value="Alternative Press Magazine"/>
         </attvalues>
-        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:color r="78" g="205" b="196" a="1.0"/>
         <viz:size value="47.0"/>
       </node>
       <node id="n_853404382274" label="Project Revolution tour">
@@ -63,7 +63,7 @@
       </node>
       <node id="n_ab0dee06797f" label="Conventional Weapons">
         <attvalues>
-          <attvalue for="0" value="ALBUM"/>
+          <attvalue for="0" value="CREATIVE WORK"/>
           <attvalue for="1" value="0.9"/>
           <attvalue for="2" value="1"/>
           <attvalue for="3" value="1"/>
@@ -94,20 +94,9 @@
         <viz:color r="78" g="205" b="196" a="1.0"/>
         <viz:size value="47.0"/>
       </node>
-      <node id="n_80cf27f9a72f" label="The Black Parade">
-        <attvalues>
-          <attvalue for="0" value="ALBUM"/>
-          <attvalue for="1" value="0.9"/>
-          <attvalue for="2" value="1"/>
-          <attvalue for="3" value="1"/>
-          <attvalue for="4" value="The Black Parade"/>
-        </attvalues>
-        <viz:color r="149" g="165" b="166" a="1.0"/>
-        <viz:size value="47.0"/>
-      </node>
       <node id="n_77c3c2b6c2ab" label="Umbrella Academy">
         <attvalues>
-          <attvalue for="0" value="COMIC BOOK SERIES"/>
+          <attvalue for="0" value="CREATIVE WORK"/>
           <attvalue for="1" value="0.9"/>
           <attvalue for="2" value="1"/>
           <attvalue for="3" value="1"/>
@@ -118,7 +107,7 @@
       </node>
       <node id="n_1c4e9a6c7f7d" label="Desolation Row">
         <attvalues>
-          <attvalue for="0" value="SONG"/>
+          <attvalue for="0" value="CREATIVE WORK"/>
           <attvalue for="1" value="0.9"/>
           <attvalue for="2" value="1"/>
           <attvalue for="3" value="1"/>
@@ -140,7 +129,7 @@
       </node>
       <node id="n_a0eb41ae10e8" label="Ziggy Stardust">
         <attvalues>
-          <attvalue for="0" value="PERSONA/ALBUM"/>
+          <attvalue for="0" value="CREATIVE WORK"/>
           <attvalue for="1" value="0.9"/>
           <attvalue for="2" value="1"/>
           <attvalue for="3" value="1"/>
@@ -160,9 +149,20 @@
         <viz:color r="69" g="183" b="209" a="1.0"/>
         <viz:size value="47.0"/>
       </node>
+      <node id="n_174b567fb7fe" label="Black Parade">
+        <attvalues>
+          <attvalue for="0" value="CREATIVE WORK"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="Black Parade"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
       <node id="n_9fd8053ec173" label="Diamond Dogs">
         <attvalues>
-          <attvalue for="0" value="ALBUM"/>
+          <attvalue for="0" value="CREATIVE WORK"/>
           <attvalue for="1" value="0.9"/>
           <attvalue for="2" value="1"/>
           <attvalue for="3" value="1"/>
@@ -182,20 +182,9 @@
         <viz:color r="149" g="165" b="166" a="1.0"/>
         <viz:size value="47.0"/>
       </node>
-      <node id="n_0bb7bfead2ae" label="Lincoln Park">
-        <attvalues>
-          <attvalue for="0" value="BAND"/>
-          <attvalue for="1" value="0.9"/>
-          <attvalue for="2" value="1"/>
-          <attvalue for="3" value="1"/>
-          <attvalue for="4" value="Lincoln Park"/>
-        </attvalues>
-        <viz:color r="149" g="165" b="166" a="1.0"/>
-        <viz:size value="47.0"/>
-      </node>
       <node id="n_e74e91407317" label="The Watchmen">
         <attvalues>
-          <attvalue for="0" value="FILM"/>
+          <attvalue for="0" value="CREATIVE WORK"/>
           <attvalue for="1" value="0.9"/>
           <attvalue for="2" value="1"/>
           <attvalue for="3" value="1"/>
@@ -224,6 +213,28 @@
           <attvalue for="4" value="George Bush"/>
         </attvalues>
         <viz:color r="255" g="107" b="107" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_02e71605c444" label="Guitar Hero">
+        <attvalues>
+          <attvalue for="0" value="CREATIVE WORK"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="Guitar Hero"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_0bafe5e4e220" label="Linkin Park">
+        <attvalues>
+          <attvalue for="0" value="BAND"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="Linkin Park"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
         <viz:size value="47.0"/>
       </node>
       <node id="n_6a296868348e" label="Live Nation">
@@ -314,6 +325,17 @@
         <viz:color r="255" g="107" b="107" a="1.0"/>
         <viz:size value="47.0"/>
       </node>
+      <node id="n_2479e371179b" label="Rock Band">
+        <attvalues>
+          <attvalue for="0" value="CREATIVE WORK"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="Rock Band"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
       <node id="n_fe4c04068e35" label="Bon Jovi">
         <attvalues>
           <attvalue for="0" value="BAND"/>
@@ -338,7 +360,7 @@
       </node>
       <node id="n_6ca52258a437" label="Twilight">
         <attvalues>
-          <attvalue for="0" value="FILM FRANCHISE"/>
+          <attvalue for="0" value="CREATIVE WORK"/>
           <attvalue for="1" value="0.9"/>
           <attvalue for="2" value="1"/>
           <attvalue for="3" value="1"/>
@@ -347,77 +369,116 @@
         <viz:color r="149" g="165" b="166" a="1.0"/>
         <viz:size value="47.0"/>
       </node>
+      <node id="n_893d538563bc" label="Uganda">
+        <attvalues>
+          <attvalue for="0" value="LOCATION"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="Uganda"/>
+        </attvalues>
+        <viz:color r="69" g="183" b="209" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_be284e0dba7c" label="Xo">
+        <attvalues>
+          <attvalue for="0" value="CREATIVE WORK"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="Xo"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_92557a5d8aa3" label="Twilight soundtrack">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="Twilight soundtrack"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
     </nodes>
     <edges>
-      <edge id="0" source="n_407f9c5e7adb" target="n_9fd8053ec173" weight="0.9" label="influenced" kind="influenced">
+      <edge id="0" source="n_8735c26b9446" target="n_984a00102c02" weight="0.9" label="influenced" kind="influenced">
         <attvalues>
           <attvalue for="0" value="influenced"/>
           <attvalue for="1" value="0.9"/>
         </attvalues>
       </edge>
-      <edge id="1" source="n_8735c26b9446" target="n_984a00102c02" weight="0.9" label="influenced" kind="influenced">
+      <edge id="1" source="n_8735c26b9446" target="n_ab0dee06797f" weight="0.9" label="shelved" kind="shelved">
         <attvalues>
-          <attvalue for="0" value="influenced"/>
+          <attvalue for="0" value="shelved"/>
           <attvalue for="1" value="0.9"/>
         </attvalues>
       </edge>
-      <edge id="2" source="n_8735c26b9446" target="n_ab0dee06797f" weight="0.9" label="was shelved by" kind="was shelved by">
+      <edge id="2" source="n_8735c26b9446" target="n_407f9c5e7adb" weight="0.9" label="released" kind="released">
         <attvalues>
-          <attvalue for="0" value="was shelved by"/>
+          <attvalue for="0" value="released"/>
           <attvalue for="1" value="0.9"/>
         </attvalues>
       </edge>
-      <edge id="3" source="n_8735c26b9446" target="n_8cbfd2b77e97" weight="0.9" label="is a member of" kind="is a member of">
+      <edge id="3" source="n_8735c26b9446" target="n_fe4c04068e35" weight="0.9" label="toured with" kind="toured with">
         <attvalues>
-          <attvalue for="0" value="is a member of"/>
+          <attvalue for="0" value="toured with"/>
           <attvalue for="1" value="0.9"/>
         </attvalues>
       </edge>
-      <edge id="4" source="n_8735c26b9446" target="n_d6e808b1023e" weight="0.9" label="is a member of" kind="is a member of">
+      <edge id="4" source="n_8735c26b9446" target="n_0bafe5e4e220" weight="0.9" label="toured with" kind="toured with">
         <attvalues>
-          <attvalue for="0" value="is a member of"/>
+          <attvalue for="0" value="toured with"/>
           <attvalue for="1" value="0.9"/>
         </attvalues>
       </edge>
-      <edge id="5" source="n_8735c26b9446" target="n_14c9e5bd5922" weight="0.9" label="was a member of" kind="was a member of">
+      <edge id="5" source="n_8735c26b9446" target="n_e74e91407317" weight="0.9" label="contributed song to" kind="contributed song to">
         <attvalues>
-          <attvalue for="0" value="was a member of"/>
+          <attvalue for="0" value="contributed song to"/>
           <attvalue for="1" value="0.9"/>
         </attvalues>
       </edge>
-      <edge id="6" source="n_8735c26b9446" target="n_1c4e9a6c7f7d" weight="0.9" label="was covered by" kind="was covered by">
+      <edge id="6" source="n_8735c26b9446" target="n_92557a5d8aa3" weight="0.9" label="rejected song from" kind="rejected song from">
         <attvalues>
-          <attvalue for="0" value="was covered by"/>
+          <attvalue for="0" value="rejected song from"/>
           <attvalue for="1" value="0.9"/>
         </attvalues>
       </edge>
-      <edge id="7" source="n_1c4e9a6c7f7d" target="n_7bf36293179e" weight="0.9" label="originally wrote" kind="originally wrote">
+      <edge id="7" source="n_8735c26b9446" target="n_1c4e9a6c7f7d" weight="0.9" label="covered" kind="covered">
+        <attvalues>
+          <attvalue for="0" value="covered"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="8" source="n_1c4e9a6c7f7d" target="n_7bf36293179e" weight="0.9" label="originally wrote" kind="originally wrote">
         <attvalues>
           <attvalue for="0" value="originally wrote"/>
           <attvalue for="1" value="0.9"/>
         </attvalues>
       </edge>
-      <edge id="8" source="n_39567939edae" target="n_e74e91407317" weight="0.9" label="was directed by" kind="was directed by">
+      <edge id="9" source="n_d6e808b1023e" target="n_70ec58fe2ef9" weight="0.9" label="formed" kind="formed">
         <attvalues>
-          <attvalue for="0" value="was directed by"/>
+          <attvalue for="0" value="formed"/>
           <attvalue for="1" value="0.9"/>
         </attvalues>
       </edge>
-      <edge id="9" source="n_d6e808b1023e" target="n_70ec58fe2ef9" weight="0.9" label="was formed by" kind="was formed by">
+      <edge id="10" source="n_d6e808b1023e" target="n_506948780039" weight="0.9" label="was investigated by" kind="was investigated by">
         <attvalues>
-          <attvalue for="0" value="was formed by"/>
+          <attvalue for="0" value="was investigated by"/>
           <attvalue for="1" value="0.9"/>
         </attvalues>
       </edge>
-      <edge id="10" source="n_8cbfd2b77e97" target="n_77c3c2b6c2ab" weight="0.9" label="was created by" kind="was created by">
+      <edge id="11" source="n_8cbfd2b77e97" target="n_77c3c2b6c2ab" weight="0.9" label="created" kind="created">
         <attvalues>
-          <attvalue for="0" value="was created by"/>
+          <attvalue for="0" value="created"/>
           <attvalue for="1" value="0.9"/>
         </attvalues>
       </edge>
-      <edge id="11" source="n_14c9e5bd5922" target="n_08d62b1c0c9f" weight="0.9" label="had tensions with" kind="had tensions with">
+      <edge id="12" source="n_14c9e5bd5922" target="n_08d62b1c0c9f" weight="0.9" label="had tension with" kind="had tension with">
         <attvalues>
-          <attvalue for="0" value="had tensions with"/>
+          <attvalue for="0" value="had tension with"/>
           <attvalue for="1" value="0.9"/>
         </attvalues>
       </edge>

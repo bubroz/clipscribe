@@ -1,6 +1,6 @@
 {
   "version": "2.3",
-  "created_at": "2025-08-23T20:38:28.198035",
+  "created_at": "2025-08-23T23:14:44.522212",
   "video": {
     "title": "The Revenge of My Chemical Romance",
     "url": "https://www.youtube.com/watch?v=2jlsVEeZmVo",
@@ -11,195 +11,161 @@
       {
         "confidence": 1.0,
         "name": "My Chemical Romance",
-        "type": "Band"
+        "type": "ORGANIZATION"
       },
       {
         "confidence": 1.0,
         "name": "Gerard Way",
-        "type": "Person"
+        "type": "PERSON"
       },
       {
         "confidence": 1.0,
         "name": "Three Cheers for Sweet Revenge",
-        "type": "Album"
+        "type": "WORK_OF_ART"
       },
       {
-        "confidence": 0.9,
+        "confidence": 1.0,
         "name": "The Black Parade",
-        "type": "Album"
-      },
-      {
-        "confidence": 0.9,
-        "name": "Danger Days",
-        "type": "Album"
+        "type": "WORK_OF_ART"
       },
       {
         "confidence": 0.95,
-        "name": "Bullets",
-        "type": "Album"
+        "name": "Danger Days",
+        "type": "WORK_OF_ART"
       },
       {
-        "confidence": 0.9,
+        "confidence": 1.0,
+        "name": "I Brought You My Bullets, You Brought Me Your Love",
+        "type": "WORK_OF_ART"
+      },
+      {
+        "confidence": 1.0,
         "name": "The Used",
-        "type": "Band"
+        "type": "ORGANIZATION"
       },
       {
-        "confidence": 0.9,
-        "name": "Sum 41",
-        "type": "Band"
+        "confidence": 1.0,
+        "name": "Fallout Boy",
+        "type": "ORGANIZATION"
       },
       {
-        "confidence": 0.9,
-        "name": "Fall Out Boy",
-        "type": "Band"
-      },
-      {
-        "confidence": 0.9,
-        "name": "Every Time I die",
-        "type": "Band"
-      },
-      {
-        "confidence": 0.9,
+        "confidence": 1.0,
         "name": "Avenged Sevenfold",
-        "type": "Band"
+        "type": "ORGANIZATION"
       },
       {
-        "confidence": 0.8,
-        "name": "Nirvana",
-        "type": "Band"
+        "confidence": 1.0,
+        "name": "Every Time I Die",
+        "type": "ORGANIZATION"
+      },
+      {
+        "confidence": 0.95,
+        "name": "Sum 41",
+        "type": "ORGANIZATION"
       },
       {
         "confidence": 1.0,
         "name": "Reprise Records",
-        "type": "Record Label"
+        "type": "ORGANIZATION"
       },
       {
-        "confidence": 0.9,
+        "confidence": 1.0,
         "name": "Eyeball Records",
-        "type": "Record Label"
+        "type": "ORGANIZATION"
       },
       {
-        "confidence": 0.95,
+        "confidence": 1.0,
         "name": "Howard Benson",
-        "type": "Person"
+        "type": "PERSON"
       },
       {
-        "confidence": 0.95,
+        "confidence": 1.0,
         "name": "Mikey Way",
-        "type": "Person"
+        "type": "PERSON"
       },
       {
-        "confidence": 0.9,
+        "confidence": 1.0,
         "name": "Frank Iero",
-        "type": "Person"
+        "type": "PERSON"
       },
       {
-        "confidence": 0.9,
-        "name": "Ray Toro",
-        "type": "Person"
-      },
-      {
-        "confidence": 0.85,
+        "confidence": 1.0,
         "name": "Matt Pelissier",
-        "type": "Person"
-      },
-      {
-        "confidence": 0.85,
-        "name": "Bob Bryar",
-        "type": "Person"
-      },
-      {
-        "confidence": 0.9,
-        "name": "Bert McCracken",
-        "type": "Person"
+        "type": "PERSON"
       },
       {
         "confidence": 0.95,
+        "name": "Bob Bryar",
+        "type": "PERSON"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Bert McCracken",
+        "type": "PERSON"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Helena",
+        "type": "WORK_OF_ART"
+      },
+      {
+        "confidence": 1.0,
+        "name": "William Faulkner",
+        "type": "PERSON"
+      },
+      {
+        "confidence": 1.0,
+        "name": "A Rose for Emily",
+        "type": "WORK_OF_ART"
+      },
+      {
+        "confidence": 0.9,
+        "name": "Warped Tour",
+        "type": "EVENT"
+      },
+      {
+        "confidence": 0.9,
+        "name": "Hot Topic",
+        "type": "ORGANIZATION"
+      },
+      {
+        "confidence": 0.95,
+        "name": "MySpace",
+        "type": "ORGANIZATION"
+      },
+      {
+        "confidence": 0.95,
+        "name": "Jersey",
+        "type": "LOCATION"
+      },
+      {
+        "confidence": 0.95,
+        "name": "Japan",
+        "type": "LOCATION"
+      },
+      {
+        "confidence": 0.9,
         "name": "Emo",
-        "type": "Music Genre"
+        "type": "CONCEPT"
       },
       {
         "confidence": 0.9,
         "name": "Mall Goth",
-        "type": "Subculture"
-      },
-      {
-        "confidence": 0.9,
-        "name": "Post-Hardcore",
-        "type": "Music Genre"
-      },
-      {
-        "confidence": 0.8,
-        "name": "Metalcore",
-        "type": "Music Genre"
-      },
-      {
-        "confidence": 0.9,
-        "name": "Pop Punk",
-        "type": "Music Genre"
-      },
-      {
-        "confidence": 0.8,
-        "name": "Warped Tour",
-        "type": "Event"
-      },
-      {
-        "confidence": 0.8,
-        "name": "Japan",
-        "type": "Location"
-      },
-      {
-        "confidence": 0.9,
-        "name": "Jersey",
-        "type": "Location"
-      },
-      {
-        "confidence": 0.8,
-        "name": "straight.com",
-        "type": "Organization"
-      },
-      {
-        "confidence": 0.8,
-        "name": "Grunge",
-        "type": "Publication"
-      },
-      {
-        "confidence": 0.9,
-        "name": "Helena",
-        "type": "Song"
-      },
-      {
-        "confidence": 0.9,
-        "name": "Give 'em Hell, Kid",
-        "type": "Song"
-      },
-      {
-        "confidence": 0.85,
-        "name": "To the End",
-        "type": "Song"
-      },
-      {
-        "confidence": 0.85,
-        "name": "You Know What They Do to Guys Like Us in Prison",
-        "type": "Song"
-      },
-      {
-        "confidence": 0.9,
-        "name": "A Rose for Emily",
-        "type": "Literature"
-      },
-      {
-        "confidence": 0.9,
-        "name": "William Faulkner",
-        "type": "Person"
+        "type": "CONCEPT"
       }
     ],
     "gemini_relationships": [
       {
         "confidence": 1.0,
         "object": "My Chemical Romance",
-        "predicate": "is lead singer of",
+        "predicate": "is frontman of",
         "subject": "Gerard Way"
+      },
+      {
+        "confidence": 1.0,
+        "object": "My Chemical Romance",
+        "predicate": "is member of",
+        "subject": "Mikey Way"
       },
       {
         "confidence": 1.0,
@@ -209,9 +175,27 @@
       },
       {
         "confidence": 1.0,
-        "object": "Howard Benson",
+        "object": "Three Cheers for Sweet Revenge",
         "predicate": "was produced by",
-        "subject": "Three Cheers for Sweet Revenge"
+        "subject": "Howard Benson"
+      },
+      {
+        "confidence": 1.0,
+        "object": "Alcoholism",
+        "predicate": "struggled with",
+        "subject": "Gerard Way"
+      },
+      {
+        "confidence": 1.0,
+        "object": "Drug abuse",
+        "predicate": "struggled with",
+        "subject": "Gerard Way"
+      },
+      {
+        "confidence": 1.0,
+        "object": "Three Cheers for Sweet Revenge",
+        "predicate": "was influenced by",
+        "subject": "The death of Gerard Way's grandmother"
       },
       {
         "confidence": 1.0,
@@ -221,57 +205,39 @@
       },
       {
         "confidence": 0.95,
-        "object": "Alcoholism",
-        "predicate": "struggled with",
-        "subject": "Gerard Way"
+        "object": "Eyeball Records",
+        "predicate": "was previously signed to",
+        "subject": "My Chemical Romance"
       },
       {
         "confidence": 0.95,
-        "object": "Drug Abuse",
-        "predicate": "struggled with",
-        "subject": "Gerard Way"
-      },
-      {
-        "confidence": 0.9,
         "object": "The Used",
         "predicate": "toured with",
         "subject": "My Chemical Romance"
       },
       {
-        "confidence": 0.9,
+        "confidence": 0.95,
         "object": "Avenged Sevenfold",
         "predicate": "toured with",
         "subject": "My Chemical Romance"
       },
       {
         "confidence": 0.95,
-        "object": "My Chemical Romance",
-        "predicate": "is member of",
-        "subject": "Mikey Way"
-      },
-      {
-        "confidence": 0.95,
-        "object": "Three Cheers for Sweet Revenge",
-        "predicate": "influenced",
-        "subject": "The death of Gerard Way's grandmother"
-      },
-      {
-        "confidence": 0.85,
-        "object": "Gerard Way",
-        "predicate": "was friend of",
-        "subject": "Bert McCracken"
+        "object": "Every Time I Die",
+        "predicate": "toured with",
+        "subject": "My Chemical Romance"
       },
       {
         "confidence": 0.9,
         "object": "Three Cheers for Sweet Revenge",
-        "predicate": "is a song on",
-        "subject": "Helena"
+        "predicate": "performed drums on",
+        "subject": "Matt Pelissier"
       },
       {
         "confidence": 0.9,
-        "object": "My Chemical Romance",
-        "predicate": "was influenced by",
-        "subject": "Frank Iero"
+        "object": "To the End",
+        "predicate": "was inspired by",
+        "subject": "A Rose for Emily"
       }
     ],
     "retention_decision": {
@@ -283,7 +249,7 @@
         "storage_cost_avoided": 0.033780338432639834,
         "reprocessing_cost": 0.28265599999999996
       },
-      "timestamp": "2025-08-23T20:38:28.133948"
+      "timestamp": "2025-08-23T23:14:44.470158"
     }
   },
   "timeline_v2": null,
@@ -291,50 +257,50 @@
     "transcript_txt": {
       "path": "transcript.txt",
       "format": "plain_text",
-      "size": 43127,
-      "sha256": "ef33fad0f841aab335f2a25044ce27ec0e866085126304c4bc33b03d394c95ab"
+      "size": 43291,
+      "sha256": "7354fce9670daa7584387750fddc295ae41204bc977c658c790c0aa0f9c26691"
     },
     "transcript_json": {
       "path": "transcript.json",
       "format": "json",
-      "size": 207056,
-      "sha256": "dd8245e4551332dcaf623b7a7845825bb43d65fcb6e2c8ce7de0e338ca917e44"
+      "size": 243457,
+      "sha256": "c57fe323a1a9e3b712893802a4dfa2a7f89ec8b071f538a85ea5d738f17b97f7"
     },
     "metadata": {
       "path": "metadata.json",
       "format": "json",
       "size": 1285,
-      "sha256": "085de8fc146245838f5aa164c527ef7e4c90feeb30697e26beb64a0ec07dc89a"
+      "sha256": "86270cce9c6cbbfc9a324e2c9a04ed517b3b597229019312d4d7b829f70b9661"
     },
     "entities": {
       "path": "entities.json",
       "format": "json",
-      "size": 37368,
-      "sha256": "bbd6435aabb65b5171ea61c3e2dc5940a0624d341b678b6f0c26c265ef0cfa0a"
+      "size": 30166,
+      "sha256": "9bd5ef10de69fedf1268284acc79b484dfd2e2715ea9f944baacbf05efcf08d8"
     },
     "relationships": {
       "path": "relationships.json",
       "format": "json",
-      "size": 48570,
-      "sha256": "81c1fbed6298fe8b6ee5ed601401a9a2bee3adc7833586feee257b2e74f40b5c"
+      "size": 86011,
+      "sha256": "e31ba64913cb5a9fbcceed3c6a6f82f0ebd946bffe4f16f34b2739ac34f29c69"
     },
     "knowledge_graph": {
       "path": "knowledge_graph.json",
       "format": "json",
-      "size": 11899,
-      "sha256": "65440ac2277008a7bbacc625ed3015a825aa57e9d6555ee7219aa564cc32aa51"
+      "size": 10543,
+      "sha256": "d9264a913e03aa8d601b7d7878b9e082698053d733aa439cb087eabfe7ca0165"
     },
     "report": {
       "path": "report.md",
       "format": "markdown",
-      "size": 1647,
-      "sha256": "5399069256674b6207b2e73cfd1cc4020f5a7bc957c6c5257c8586d660e3f92a"
+      "size": 1371,
+      "sha256": "dd315d967106b855833847adce87781ce14d9a435d0b5d5bc20d3edcbd5b4772"
     },
     "chimera": {
       "path": "chimera_format.json",
       "format": "json",
-      "size": 86635,
-      "sha256": "f4bb62677cb39e87cb17233dbbdebf1c3582e6286526c7381d8332dd36ce91ee"
+      "size": 78363,
+      "sha256": "e4f99d5367a496cd968cb37aad15dad4e7607bb384dcf64fe96ad132b0517a86"
     }
   }
 }

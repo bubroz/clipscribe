@@ -1,0 +1,235 @@
+{
+  "nodes": [
+    {
+      "id": "Intelligence Support Activity",
+      "type": "ORGANIZATION",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Intelligence Support Activity"
+    },
+    {
+      "id": "The Long Walk",
+      "type": "NICKNAME",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "The Long Walk"
+    },
+    {
+      "id": "West Virginia",
+      "type": "LOCATION",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "West Virginia"
+    },
+    {
+      "id": "British SAS",
+      "type": "ORGANIZATION",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "British SAS"
+    },
+    {
+      "id": "Delta Force",
+      "type": "ORGANIZATION",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Delta Force"
+    },
+    {
+      "id": "SEAL Team 6",
+      "type": "ORGANIZATION",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "SEAL Team 6"
+    },
+    {
+      "id": "Land Nav",
+      "type": "SKILL",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Land Nav"
+    },
+    {
+      "id": "Rucking",
+      "type": "SKILL",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Rucking"
+    },
+    {
+      "id": "Tier 1",
+      "type": "CONCEPT",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Tier 1"
+    },
+    {
+      "id": "Tier 2",
+      "type": "CONCEPT",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Tier 2"
+    },
+    {
+      "id": "Tier 1 unit",
+      "type": "unknown",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [],
+      "canonical_form": "Tier 1 unit"
+    },
+    {
+      "id": "American Tier 1 units",
+      "type": "unknown",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [],
+      "canonical_form": "American Tier 1 units"
+    },
+    {
+      "id": "Intelligence Support Activity selection",
+      "type": "unknown",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [],
+      "canonical_form": "Intelligence Support Activity selection"
+    },
+    {
+      "id": "Delta Force selection",
+      "type": "unknown",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [],
+      "canonical_form": "Delta Force selection"
+    },
+    {
+      "id": "Tier 1 selection",
+      "type": "unknown",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [],
+      "canonical_form": "Tier 1 selection"
+    },
+    {
+      "id": "Ruck running",
+      "type": "unknown",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [],
+      "canonical_form": "Ruck running"
+    }
+  ],
+  "edges": [
+    {
+      "source": "Intelligence Support Activity",
+      "target": "Tier 1 unit",
+      "predicate": "is a",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "Delta Force",
+      "target": "Tier 1 unit",
+      "predicate": "is a",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "SEAL Team 6",
+      "target": "Tier 1 unit",
+      "predicate": "is a",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "American Tier 1 units",
+      "target": "British SAS",
+      "predicate": "modeled after",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "Intelligence Support Activity selection",
+      "target": "Delta Force selection",
+      "predicate": "modeled on",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "Delta Force selection",
+      "target": "West Virginia",
+      "predicate": "is location of",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "Delta Force selection",
+      "target": "The Long Walk",
+      "predicate": "is nickname for",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "Tier 1 selection",
+      "target": "Ruck running",
+      "predicate": "is required for",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "Tier 1 selection",
+      "target": "Land Nav",
+      "predicate": "is required for",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    }
+  ],
+  "node_count": 16,
+  "edge_count": 9
+}

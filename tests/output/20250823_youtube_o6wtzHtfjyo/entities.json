@@ -4,7 +4,7 @@
   "entities": [
     {
       "name": "Three Cheers for Sweet Revenge",
-      "type": "CREATIVE_WORK",
+      "type": "ALBUM",
       "source": [
         "gemini"
       ],
@@ -16,8 +16,8 @@
       "temporal_distribution": []
     },
     {
-      "name": "My Chemical Romance",
-      "type": "ORGANIZATION",
+      "name": "Welcome to the Black Parade",
+      "type": "SONG",
       "source": [
         "gemini"
       ],
@@ -26,7 +26,101 @@
       "mention_count": 1,
       "context_windows": [
         {
-          "text": "t band. Um, but you know, make no mistake, we are My Chemical Romance still. The year is 2006. Alternative culture is a",
+          "text": " tracks that we finally meet the infamous G-note. Welcome to the Black Parade is not only one of the most famous songs from thi",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "band's talents wrapped into a single masterpiece. Welcome to the Black Parade is also the cornerstone of which the album is bui",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "sins and mistakes of his life. Welcome to the Black Parade serves as not only world building, but the first ",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "de. But that doesn't mean that they're not great. Welcome to the Black Parade and Famous Last Words are the other two videos th",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "he record in a much more condensed fashion. While Welcome to the Black Parade is not in black and white, it is color graded in ",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "was during this point where tracks like Dead! and Welcome to the Black Parade would really dominate radio waves, and people eve",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "This Is How I Disappear",
+      "type": "SONG",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "cks, showing off its sound and telling its story. This is how I disappear is a song where the patient writes a letter to a ",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": " serves as a bit of the other side of the coin to This is how I disappear where the patient finally speaks about his life o",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "sis and his internal struggle with his mortality. This is how I disappear is a song that is pleading for someone to keep hi",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "My Chemical Romance",
+      "type": "BAND",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "t band. Um, but you know, make no mistake, we are my chemical Romance still. The year is 2006. Alternative culture is a",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -44,13 +138,13 @@
           "visual_present": false
         },
         {
-          "text": "time. So. Coming off the success of three cheers, My chemical romance",
+          "text": "Three Cheers, My Chemical Romance had entered into an entire other world. No longer",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "s of Britney Spears, would be shot there as well. My Chemical Romance would end up renting part of the mansion for the ",
+          "text": "t kind of place that you would expect a band like My Chemical Romance to record. It's similar to how Trent",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -62,79 +156,79 @@
           "visual_present": false
         },
         {
-          "text": "imeless sound. this record I feel the thing about my chemical romance is that every time they make a record, they jump ",
+          "text": "imeless sound. this record I feel the thing about My Chemical Romance is that every time they make a record, they jump ",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "My Chemical Romance has a lot of inspiration, and one of the inspirat",
+          "text": "at once. But it was done so intentionally. My Chemical Romance has a lot of inspiration, and one of the inspirat",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "t band. Um, but you know, make no mistake, we are My Chemical Romance still. It's just our alter ego",
+          "text": " band. Um, but, you know, make no mistake, we are my chemical romance still. It's just our alter ego for this record. T",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "d by calling themselves the Black Parade, ra- are My Chemical Romance still. It's just our alter ego for this record. T",
+          "text": "ra we are my chemical romance still. It's just our alter ego for this record. T",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "urton vibe to it and given the large crossover of my chemical romance and Tim Burton's fan bases, I can't sit here and ",
+          "text": "rton vibe to it. and given the large crossover of my chemical Romance and Tim Burton's fan bases. I can't sit here and ",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": " Now, this catapult into the mainstream would see My Chemical Romance enter the arena rock realm of artists, as",
+          "text": " Now, this catapult into the mainstream would see My Chemical Romance enter the arena rock realm of artists, as well as",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "videos for Manson's own heart-shaped glasses. And my chemical romance is the ghost of you. Could it be that Manson isn'",
+          "text": " videos for Manson's own heart-shaped glasses and My Chemical Romance's the ghost of you. Could it be that Manson isn't",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "t shots at Frank. Uh, are you still fighting with my chemical romance? I never was fighting with them, but we did a sho",
+          "text": "t shots at Frank. Uh, are you still fighting with my Chemical romance? I",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "was like, did you write that song about my chemical romance? I'm like, no. You know, so it was something the ",
+          "text": "Everybody was like, did you write that song about My Chemical Romance? I'm like, no. you know, so",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "case seemed to happen. And around this same time, My Chemical Romance essentially left The Used in the dust, popularity",
+          "text": "omething the press tried to instigate. But to me, My Chemical Romance, it's just kind of not not something I like. I do",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": " after the beef. Ladies and gentlemen, alive from My Chemical Romance! You were the world... You were the world... Only",
+          "text": "case seemed to happen. And around this same time, My Chemical Romance essentially left The Used in the dust popularity-",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "e greater emo scene of the era. But as it stands, My Chemical Romance would still end up on top with their star only co",
+          "text": "e greater emo scene of the era. But as it stands, My Chemical Romance would still end up on",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "cap off the era, My Chemical Romance would film their live DVD The Black Parade is Dea",
+          "text": "lose to wavering. And in 2008 to cap off the era, My Chemical Romance would film their live DVD The Black Parade is dea",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -151,7 +245,7 @@
     },
     {
       "name": "The Downward Spiral",
-      "type": "CREATIVE_WORK",
+      "type": "ALBUM",
       "source": [
         "gemini"
       ],
@@ -176,8 +270,8 @@
       ]
     },
     {
-      "name": "Avenged Sevenfold",
-      "type": "ORGANIZATION",
+      "name": "The Sharpest Lives",
+      "type": "SONG",
       "source": [
         "gemini"
       ],
@@ -186,7 +280,45 @@
       "mention_count": 1,
       "context_windows": [
         {
-          "text": " music alongside bands like Fall Out Boy and even Avenged Sevenfold.",
+          "text": "the next track, The Sharpest Lives serves as a bit of the other side of the coin to ",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "r betrayal in the way of infidelity and cheating. The Sharpest Lives is one of the most direct songs",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "eone to keep his memory alive once he's gone. And the sharpest lives is telling of the",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Avenged Sevenfold",
+      "type": "BAND",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "music, alongside bands like Fall Out Boy and even Avenged Sevenfold. So the pressure",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -203,20 +335,7 @@
     },
     {
       "name": "Bohemian Rhapsody",
-      "type": "CREATIVE_WORK",
-      "source": [
-        "gemini"
-      ],
-      "properties": {},
-      "timestamp": null,
-      "mention_count": 1,
-      "context_windows": [],
-      "aliases": [],
-      "temporal_distribution": []
-    },
-    {
-      "name": "Famous Last Words",
-      "type": "CREATIVE_WORK",
+      "type": "SONG",
       "source": [
         "gemini"
       ],
@@ -225,19 +344,51 @@
       "mention_count": 1,
       "context_windows": [
         {
-          "text": "would end up coming back after he heard the track famous last words, whose lyrics were partially written about him. N",
+          "text": "emo's very own Bohemian Rhapsody. with emotional lyrics, a song structure that fee",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Famous Last Words",
+      "type": "SONG",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "would end up coming back after he heard the track Famous Last Words, whose lyrics were partially written about him. N",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "closes out our story is the open-ended conclusion Famous Last Words. The track is an explosive and uplifting song mus",
+          "text": "loses out our story is the open-ended conclusion, famous last words. The track is an explosive and uplifting song mus",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "hey're not great. Welcome to the Black Parade and famous last words are the other two videos that really focus on tel",
+          "text": " maintained lyrics that contrast with their tone. Famous Last Words is a song about hope and acceptance. Cuz I see yo",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "hey're not great. Welcome to the Black Parade and Famous Last Words are the other two videos that really focus on tel",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -259,8 +410,8 @@
       ]
     },
     {
-      "name": "Tate murder house",
-      "type": "LOCATION",
+      "name": "I Don't Love You",
+      "type": "SONG",
       "source": [
         "gemini"
       ],
@@ -269,7 +420,25 @@
       "mention_count": 1,
       "context_windows": [
         {
-          "text": "se to write and record The Downward Spiral in the Tate murder house. Was it kind of tasteless? Sure. But it fit the v",
+          "text": " he slowly accepts his fate. The following track, I don't love you, is a prime example of this. The song is written ",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "ive video for Dead as well as the music video for I don't love you were shot in black and white with more simplistic",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "eep the grim and depressing tone of their lyrics. I don't love you in particular looks like it could have come out o",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "2000s or even the 2010s. Maybe even I don't love you in particular, looks like it could have come out ",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -312,7 +481,7 @@
     },
     {
       "name": "The Black Parade",
-      "type": "CREATIVE_WORK",
+      "type": "ALBUM",
       "source": [
         "gemini"
       ],
@@ -321,55 +490,55 @@
       "mention_count": 1,
       "context_windows": [
         {
-          "text": "Um, the Black Parade is the name of our new album coming out on Octobe",
+          "text": "Um, The Black Parade is the name of our new album coming out in Octobe",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "d influential rock albums of the 2000's. Ahh yes, The Black Parade, an album that is unparalleled in its ability to ",
+          "text": "nd influential rock albums of the 2000s. Ah, yes, the Black Parade. An album that is unparalleled in its ability to ",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "into something much bigger, The Black Parade would more or less have to be a complete reinvent",
+          "text": "polished the sound into something much bigger, the Black Parade would more or less have to be a complete reinvent",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "'s influence can be heard from start to finish on The Black Parade. But another artist that would really come into h",
+          "text": "'s influence can be heard from start to finish on the Black Parade. But another artist that would really come into h",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "truments, would fit really well and really helped The Black Parade nail its sound. The album was written and demoed ",
+          "text": "nstruments, would fit really well and really help the Black Parade nail its sound. The album was written and demoed ",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "e influence was heard all over the softer side of the Black Parade, but Cavello was also famous for working with Gre",
+          "text": "e influence was heard all over the softer side of the Black Parade, but Cavallo was also famous for working with Gre",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "olish and professionalism that really allowed for the black parade to achieve its timeless sound. this record I feel",
+          "text": "olish and professionalism that really allowed for the Black Parade to achieve its timeless sound. this record I feel",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "time machine made the sixth or seventh record. Um the Black parade is an epic theatrical Orchestral. Orchestral. Big",
+          "text": "me machine, made the sixth or seventh record. Um, the Black Parade is an epic theatrical, orchestral. orchestral big",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "the album, we do need to talk about its story. As the Black parade is probably the most cohesive and disciplined rec",
+          "text": "need to talk about its story. As the Black Parade is probably the most cohesive and disciplined rec",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -387,43 +556,43 @@
           "visual_present": false
         },
         {
-          "text": "intro statement from Gerard himself. He knew that the Black Parade would be one of",
+          "text": "intro statement from Gerard himself. He knew that the Black Parade would be one of those albums that the more hardco",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "me coated in the more pop and polished sound that the Black parade is built on. From here,",
+          "text": "t we finally meet the infamous G-note. Welcome to the Black Parade is not only one of the most famous songs from thi",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "t we finally meet the infamous G note. Welcome to the Black Parade is not only one of the most famous songs from thi",
+          "text": "nts wrapped into a single masterpiece. Welcome to the Black Parade is also the cornerstone of which the album is bui",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "the Black Parade is also the cornerstone of which the album is bui",
+          "text": "sins and mistakes of his life. Welcome to the Black Parade serves as not only world building, but the first ",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": " of the sins and mistakes of his life. Welcome to the Black Parade serves as not only world building, but the first ",
+          "text": " at all! Sleep is another one of the standouts on The Black Parade and MCR's discography as a whole. It's a powerful",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "t all... Sleep is another one of the standouts on The Black Parade and MCR's discography as a whole. It's a powerful",
+          "text": "sound... out on The Black Parade and MCR's discography as a whole. It's a powerful",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": " Patience? I'm dead. Now, much like Three Cheers, the Black Parade's success was heavily predicated on the band's ma",
+          "text": " patience? I'm dead. Now, much like Three Cheers, the Black Parade's success was heavily predicated",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -441,49 +610,55 @@
           "visual_present": false
         },
         {
-          "text": "f their tours on the record by calling themselves the Black Parade, ra- are My Chemical Romance still. It's just our",
+          "text": "f their tours on the record by calling themselves the Black Parade,",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": " with how theatrical and well-made they were. And the Black Parade is no different. But in",
+          "text": "f their tours on the record by calling themselves the Black Parade rather than My Chem. Something met with mixed rec",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "t doesn't mean that they're not great. Welcome to the Black Parade and famous last words are the other two videos th",
+          "text": " with how theatrical and well-made they were. And the Black Parade is no different. But in many ways, it feels like ",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "n a much more condensed fashion. While welcome to the Black Parade is not in black and white, it is color graded in ",
+          "text": "t doesn't mean that they're not great. Welcome to the Black Parade and Famous Last Words are the other two videos th",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "fection with a knife. With a knife. I don't know. The Black Parade can easily be seen as the band's highest point. I",
+          "text": "n a much more condensed fashion. While Welcome to the Black Parade is not in black and white, it is color graded in ",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": " this point where tracks like Dead and Welcome to the Black Parade would really dominate radio waves, and",
+          "text": "he infection with a knife. A knife. I don't know. The Black Parade can easily be seen as the band's highest point. I",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": " the artists who came before them. The success of The Black Parade and cultural dominance that's still felt by it to",
+          "text": "this point where tracks like Dead! and Welcome to the Black Parade would really dominate radio waves, and people eve",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "ra, My Chemical Romance would film their live DVD The Black Parade is Dead, ending the era and cementing it as an al",
+          "text": " the artists who came before them. The success of the Black Parade and cultural dominance that's still felt by it to",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "the Black Parade and cultural dominance that's still felt by it to",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -525,47 +700,8 @@
       ]
     },
     {
-      "name": "Britney Spears",
-      "type": "PERSON",
-      "source": [
-        "gemini"
-      ],
-      "properties": {},
-      "timestamp": null,
-      "mention_count": 1,
-      "context_windows": [
-        {
-          "text": "V series and music videos, including the likes of Britney Spears, would be shot there as well. My Chemical Romance",
-          "timestamp": "00:00:00",
-          "speaker": null,
-          "visual_present": false
-        }
-      ],
-      "aliases": [],
-      "temporal_distribution": [
-        {
-          "timestamp": "00:00:00",
-          "duration": 5.0,
-          "context_type": "spoken"
-        }
-      ]
-    },
-    {
-      "name": "Matt Pelissier",
-      "type": "PERSON",
-      "source": [
-        "gemini"
-      ],
-      "properties": {},
-      "timestamp": null,
-      "mention_count": 1,
-      "context_windows": [],
-      "aliases": [],
-      "temporal_distribution": []
-    },
-    {
       "name": "Goo Goo Dolls",
-      "type": "ORGANIZATION",
+      "type": "BAND",
       "source": [
         "gemini"
       ],
@@ -574,33 +710,13 @@
       "mention_count": 1,
       "context_windows": [
         {
-          "text": "for producing. He was known for his work with the Goo Goo dolls, a band whose influence was heard all over the so",
+          "text": "for producing. He was known for his work with the Goo Goo Dolls, a band whose influence was heard all over the so",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
-        }
-      ],
-      "aliases": [],
-      "temporal_distribution": [
+        },
         {
-          "timestamp": "00:00:00",
-          "duration": 5.0,
-          "context_type": "spoken"
-        }
-      ]
-    },
-    {
-      "name": "Merle Haggard",
-      "type": "PERSON",
-      "source": [
-        "gemini"
-      ],
-      "properties": {},
-      "timestamp": null,
-      "mention_count": 1,
-      "context_windows": [
-        {
-          "text": "nd I heard later, I found out later that um, that Merle Haggard had stayed in my room when he was making a record",
+          "text": "nd it's also here where that previously mentioned Goo Goo Dolls influence really shows up. Sometimes I cry so har",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -617,7 +733,7 @@
     },
     {
       "name": "Fall Out Boy",
-      "type": "ORGANIZATION",
+      "type": "BAND",
       "source": [
         "gemini"
       ],
@@ -626,13 +742,7 @@
       "mention_count": 1,
       "context_windows": [
         {
-          "text": "ew wave of alternative music alongside bands like Fall Out Boy and even Avenged Sevenfold.",
-          "timestamp": "00:00:00",
-          "speaker": null,
-          "visual_present": false
-        },
-        {
-          "text": "Panic at the disco video or even Fall out boy video and they very much look like the mid 2000s.",
+          "text": "w wave of alternative music, alongside bands like Fall Out Boy and even Avenged Sevenfold. So the pressure",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -658,13 +768,7 @@
       "mention_count": 1,
       "context_windows": [
         {
-          "text": "record. It's similar to how Trent Reznor chose to write and record the down is the exact k",
-          "timestamp": "00:00:00",
-          "speaker": null,
-          "visual_present": false
-        },
-        {
-          "text": "out of an eclectic person like Trent Reznor. The mansion would deeply influence the direction",
+          "text": "y Chemical Romance to record. It's similar to how Trent Reznor chose to write and record The Downward Spiral in ",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -690,7 +794,7 @@
       "mention_count": 1,
       "context_windows": [
         {
-          "text": "amrock artists of the 70s and 80s. In particular, David Bowie, but most predominantly Queen. Queen, influence f",
+          "text": "m rock artists of the 70s and 80s. In particular, David Bowie, but most predominantly Queen. Queen influence fr",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -702,7 +806,7 @@
           "visual_present": false
         },
         {
-          "text": "nspiration, and one of the inspirations for me is David Bowie. My favorite Bowie song is off Ziggy, and it's fi",
+          "text": "nspiration, and one of the inspirations for me is David Bowie. My favorite Bowie song is off Ziggy, and it's Fi",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -726,13 +830,26 @@
       "properties": {},
       "timestamp": null,
       "mention_count": 1,
-      "context_windows": [],
+      "context_windows": [
+        {
+          "text": "e and the album hit its full-on production stage, Rob Cavallo would",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
       "aliases": [],
-      "temporal_distribution": []
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
     },
     {
       "name": "The Patient",
-      "type": "PERSON",
+      "type": "CHARACTER",
       "source": [
         "gemini"
       ],
@@ -741,37 +858,43 @@
       "mention_count": 1,
       "context_windows": [
         {
-          "text": "story, the patient, is experiencing some of his final moments. Refle",
+          "text": "ht as the narrator or as he's known in the story, the patient is experiencing some of his final moments. Reflec",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "d. Dead's verses are sung from the perspective of the patient's mother. A large part of this album's themes are",
+          "text": "all. When I grow up, I want to be nothing at all. The patient is mocking the entire idea of penitence or as we ",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "cludes the doctor revealing that upon inspection, the patient realistically only has two weeks left to live. No",
+          "text": "e. Dead's verses are sung from the perspective of the patient's mother. A large part of this album's themes are",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "ts story. This is how I disappear is a song where the patient writes a letter to a former lover where he lament",
+          "text": "the patient, where the chorus is from the patient's perspecti",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "side of the coin to this is how I disappear where the patient finally speaks about his life of debauchery and a",
+          "text": "ts story. This is how I disappear is a song where the patient writes a letter to a The record settles for a few",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "'t mix well with childhood trauma. Something that the patient has dealt with. And we will find out about that l",
+          "text": "side of the coin to This is how I disappear where the patient finally speaks about his life of debauchery and a",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "'t mix well with childhood trauma. Something that the patient has dealt with, and we will find out about that l",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -783,43 +906,43 @@
           "visual_present": false
         },
         {
-          "text": " Parade is. In this case, it's a manifestation of the patient's fondest childhood memory appearing here as a bi",
+          "text": " Parade is. In this case, it's a manifestation of the patient's fondest childhood",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "hat we've heard so far. The end and dead indicate the patient's diagnosis and his internal struggle with his mo",
+          "text": "g here as a bit of a grim reaper of sorts to take the patient into the next life. Story-wise, we can see it as ",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "d much of the remaining songs that follow explore the patient facing his trauma and regrets with a sense of ang",
+          "text": "d much of the remaining songs that follow explore the patient facing his trauma and regrets with a sense",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "ng the tumultuous on-and-off relationship between the patient while you can. This song, again, recontextualizes",
+          "text": "ng the tumultuous on and off relationship between the patient while you can. This song, again, recontextualizes",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "House of Wolves, which is, according to the band, the patient's glimpse into hell as he lays on his deathbed, w",
+          "text": "at relationship really was, and further revealing the patient as this morally gray at best and outright repugna",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "ndoned... Cancer is a self-explanatory song where the patient begins to accept that he's hopeless in survival. ",
+          "text": "abandoned Cancer is a self-explanatory song where the patient begins to accept that he's hopeless in survival. ",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": " bombastic song, where we learn more lore and see the patient to finally revel in his repugnance and kind of le",
+          "text": " bombastic song, where we learn more lore and see the patient to",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -831,25 +954,37 @@
           "visual_present": false
         },
         {
+          "text": "to this point. With the patient's experiences at war possibly leaving him with PT",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
           "text": "t you no matter what. That is what really defines the patient and his repugnant and disgusting past that we hea",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "at I'm sorry for what I did. The lyrics here find the patient accepting himself fully as an unsympathetic beast",
+          "text": "xt song, Sleep, which in many ways can be seen as the patient's true death in the story. ...say that I'm sorry ",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": " isn't the most savory person after all. And like the patient has led a less than savory life. If you're famili",
+          "text": "at I'm sorry for what I did. The lyrics here find the patient accepting himself fully",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "the only real similarity between the patient and Odesu with their circumstances and actions be",
+          "text": " isn't the most savory person after all. And like the patient has led a",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "you know this is the only real similarity between the patient and Odesu, with their circumstances and actions b",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -861,25 +996,19 @@
           "visual_present": false
         },
         {
-          "text": "going home. The lyrics show that the journey that the patient has gone on has in fact not left him apathetic af",
+          "text": "going home. The lyrics show that the journey that the patient has",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "in, despite all the trauma, and the unfairness of the patient's life, he can still find peace at the end of the",
+          "text": "the trauma and the unfairness of the patient's life, he can still find peace at the end of the",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "that this is the patient accepting his death and passage to the afterlife.",
-          "timestamp": "00:00:00",
-          "speaker": null,
-          "visual_present": false
-        },
-        {
-          "text": "owing the imaginative and harrowing depictions of the patient and the world that he existed in. All this was do",
+          "text": "owing the imaginative and harrowing depictions of the patient and the world that he existed in. All this was",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -918,7 +1047,7 @@
       "mention_count": 1,
       "context_windows": [
         {
-          "text": "for taking aim at MCR singer Gerard Way and his band suddenly dawned on us. Manson's girl",
+          "text": "on's true motivation for taking aim at MCR singer Gerard Way and",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -935,7 +1064,7 @@
     },
     {
       "name": "Pink Floyd",
-      "type": "ORGANIZATION",
+      "type": "BAND",
       "source": [
         "gemini"
       ],
@@ -968,26 +1097,13 @@
       "properties": {},
       "timestamp": null,
       "mention_count": 1,
-      "context_windows": [
-        {
-          "text": "as it would be the only record to feature drummer Bob Bryar, who, outside of his ability to make family break",
-          "timestamp": "00:00:00",
-          "speaker": null,
-          "visual_present": false
-        }
-      ],
+      "context_windows": [],
       "aliases": [],
-      "temporal_distribution": [
-        {
-          "timestamp": "00:00:00",
-          "duration": 5.0,
-          "context_type": "spoken"
-        }
-      ]
+      "temporal_distribution": []
     },
     {
       "name": "Green Day",
-      "type": "ORGANIZATION",
+      "type": "BAND",
       "source": [
         "gemini"
       ],
@@ -996,7 +1112,7 @@
       "mention_count": 1,
       "context_windows": [
         {
-          "text": "ade, but Cavello was also famous for working with Green Day on just about all of their standout albums, makin",
+          "text": "ade, but Cavallo was also famous for working with Green Day on just about all of their standout albums, makin",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -1025,68 +1141,6 @@
       "temporal_distribution": []
     },
     {
-      "name": "Teenagers",
-      "type": "CREATIVE_WORK",
-      "source": [
-        "gemini"
-      ],
-      "properties": {},
-      "timestamp": null,
-      "mention_count": 1,
-      "context_windows": [
-        {
-          "text": "of The Wall in their video for Teenagers. Black Parade would also be very notable as it wo",
-          "timestamp": "00:00:00",
-          "speaker": null,
-          "visual_present": false
-        },
-        {
-          "text": "go, and I still stand with my initial opinion on. Teenagers is a song that is both beloved and reviled depend",
-          "timestamp": "00:00:00",
-          "speaker": null,
-          "visual_present": false
-        },
-        {
-          "text": "he felt about his own fans at times. Teenagers is by no means a bad song. Honestly, its biggest ",
-          "timestamp": "00:00:00",
-          "speaker": null,
-          "visual_present": false
-        },
-        {
-          "text": "rsion as to what was done in the past. Aside from Teenagers, which was the final music video produced for the",
-          "timestamp": "00:00:00",
-          "speaker": null,
-          "visual_present": false
-        },
-        {
-          "text": " scheme. Compare this to the previously mentioned teenagers, which is not really trying to do any of that and",
-          "timestamp": "00:00:00",
-          "speaker": null,
-          "visual_present": false
-        },
-        {
-          "text": "teenagers very much looks like a mid 2000s music video. esp",
-          "timestamp": "00:00:00",
-          "speaker": null,
-          "visual_present": false
-        },
-        {
-          "text": "it back in the day, now get to cosplay as the emo teenagers they always wished they were. Now, this catapult ",
-          "timestamp": "00:00:00",
-          "speaker": null,
-          "visual_present": false
-        }
-      ],
-      "aliases": [],
-      "temporal_distribution": [
-        {
-          "timestamp": "00:00:00",
-          "duration": 5.0,
-          "context_type": "spoken"
-        }
-      ]
-    },
-    {
       "name": "Ray Toro",
       "type": "PERSON",
       "source": [
@@ -1097,45 +1151,7 @@
       "mention_count": 1,
       "context_windows": [
         {
-          "text": "et fresh. And this was the intention according to Ray Toro. Something that 20 or 30 years from now, parents ",
-          "timestamp": "00:00:00",
-          "speaker": null,
-          "visual_present": false
-        }
-      ],
-      "aliases": [],
-      "temporal_distribution": [
-        {
-          "timestamp": "00:00:00",
-          "duration": 5.0,
-          "context_type": "spoken"
-        }
-      ]
-    },
-    {
-      "name": "The Wall",
-      "type": "CREATIVE_WORK",
-      "source": [
-        "gemini"
-      ],
-      "properties": {},
-      "timestamp": null,
-      "mention_count": 1,
-      "context_windows": [
-        {
-          "text": "of The Wall in their video for Teenagers. Black Parade would ",
-          "timestamp": "00:00:00",
-          "speaker": null,
-          "visual_present": false
-        },
-        {
-          "text": "ings, but I just thought it was like a raccoon in the walls or something. And I heard later, I found out lat",
-          "timestamp": "00:00:00",
-          "speaker": null,
-          "visual_present": false
-        },
-        {
-          "text": "her. Unless she was trapped in the walls and I was like, it's a fucking raccoon. Yeah. Ma",
+          "text": "t fresh. And this was the intention, according to Ray Toro. Something that 20 or 30 years from now, parents ",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -1152,7 +1168,7 @@
     },
     {
       "name": "Bullets",
-      "type": "CREATIVE_WORK",
+      "type": "ALBUM",
       "source": [
         "gemini"
       ],
@@ -1161,13 +1177,13 @@
       "mention_count": 1,
       "context_windows": [
         {
-          "text": "y done. Where three chairs took what was built on bullets and refined and polished a sound",
+          "text": "y done. Where three cheers took what was built on bullets and refined and",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "least in terms of its story to the listener. Both Bullets and three Cheers were also conceived as concept r",
+          "text": "least in terms of its story to the listener. Both Bullets and Three Cheers were also conceived as concept r",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -1189,8 +1205,8 @@
       ]
     },
     {
-      "name": "Houdini",
-      "type": "PERSON",
+      "name": "The End",
+      "type": "SONG",
       "source": [
         "gemini"
       ],
@@ -1199,7 +1215,79 @@
       "mention_count": 1,
       "context_windows": [
         {
-          "text": "vily inspired by the death of the famous magician Houdini, who was known for his death defying stunts and a",
+          "text": "n't stop. Uh, we finished touring. That was to be the end really of touring that had started since the band",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "that story peel away and what you're left with at the end is a story about mortality and our own mortality.",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "t. We start ironically enough with a track titled The End. The song picks up right as the narrator or as he",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "never fell in love. Did you get what you deserve? The end of your life. And if you get to heaven, I'll be h",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "holy and bombastic drama right at the start. With the end playing into the much more theatrical and classic",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "g that brings context to what we've heard so far. The end and dead indicate the patient's diagnosis and his",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "o before the entire band and even an orchestra by the end. It really nails the feeling that this is our",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "the ending stretch of the record. And the song I shit on ",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": " its biggest sin is just being sandwiched here at the end of the record and just feeling as out of place as",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "ting and powerful conclusion where we see that in the end, despite all the pain, despite all",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "of the patient's life, he can still find peace at the end of the road. While most people take the song as b",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "e he found, I think it's safe to say that this is the end of his life, and he got what he deserved. Well I ",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "ere making a statement similar to what's heard on the end. They didn't care if people accepted it or not, o",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -1216,7 +1304,7 @@
     },
     {
       "name": "Queen",
-      "type": "ORGANIZATION",
+      "type": "BAND",
       "source": [
         "gemini"
       ],
@@ -1225,7 +1313,7 @@
       "mention_count": 1,
       "context_windows": [
         {
-          "text": "n particular, David Bowie, but most predominantly Queen. Queen, influence from the theatrical glam rock a",
+          "text": "n particular, David Bowie, but most predominantly Queen. Queen influence from the theatrical glamrock art",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -1248,7 +1336,7 @@
     },
     {
       "name": "Sleep",
-      "type": "CREATIVE_WORK",
+      "type": "SONG",
       "source": [
         "gemini"
       ],
@@ -1257,13 +1345,13 @@
       "mention_count": 1,
       "context_windows": [
         {
-          "text": "ays felt like someone was watching you. The track Sleep in particular would include a recording of Gerard",
+          "text": "like someone was watching you. The track Sleep, in particular, would include a recording of Gera",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": " also like, I'm curious like because Gerard, like Sleep came out of that too, because of his like what, n",
+          "text": " also like, I'm curious like because Gerard, like sleep came out of that too because of his like, what, n",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -1275,7 +1363,7 @@
           "visual_present": false
         },
         {
-          "text": "e out on your own. If I crash on the couch, can I sleep in my clothes? Cuz I spent the night dancing, I'm",
+          "text": "re out on your own. If I crash on the couch can I sleep in my clothes? Cause I spent the night dancing. I",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -1287,25 +1375,105 @@
           "visual_present": false
         },
         {
-          "text": " me... 'cause I don't feel bad about it at all... Sleep is another one of the standouts on The Black Para",
+          "text": "ell. Hence the chorus and title of the song being Sleep. In many",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "ell. Hence the chorus and title of the song being sleep. In many ways, it actually reminds me of one of m",
+          "text": "ccurring phrase that reminds me a lot of the song Sleep and the patient as a whole. And that would be, ev",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "ccurring phrase that reminds me a lot of the song sleep and the patient as a whole, and that would be, ev",
+          "text": "s I thought I'd never speak. Awake and unafraid. Asleep or dead. I'm not afraid to keep on living. I'm no",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Dead",
+      "type": "SONG",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": " relationships and where he's going now that he's dead. The title track, the Black Parade, references th",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "asleep or dead. I'm not afraid to keep on living, I'm no",
+          "text": "ack two with one of the band's most iconic songs, Dead. So tired and oh so squeamish. You never fell in ",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "the record that it was taking influence from, and Dead showcasing the familiar sound of the previous rec",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "s context to what we've heard so far. The end and dead indicate the patient's diagnosis and his internal",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "ental struggles. It also explains why in the song Dead, well, why his mother essentially taunted him in ",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "ht I'd never speak. Awake and unafraid. Asleep or dead. I'm not afraid to keep on living. I'm not afraid",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "conies. Okay, that's a new one. And patience? I'm dead. Now, much like Three Cheers, the Black Parade's ",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "tyle of what would come later. The live video for Dead as well as the music video for I don't love you w",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "the record rather than just fitting the tone like Dead and I",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": " wave. It was during this point where tracks like Dead! and Welcome to the Black Parade would really dom",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "nce would film their live DVD The Black Parade is dead. ending the era and cementing it as an all-time c",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -1323,14 +1491,6 @@
   ],
   "topics": [
     {
-      "name": "Music Analysis",
-      "confidence": 0.9
-    },
-    {
-      "name": "Album Production",
-      "confidence": 0.9
-    },
-    {
       "name": "My Chemical Romance",
       "confidence": 0.9
     },
@@ -1339,11 +1499,15 @@
       "confidence": 0.9
     },
     {
-      "name": "Concept Albums",
+      "name": "Concept Album",
       "confidence": 0.9
     },
     {
-      "name": "Emo Music",
+      "name": "2000s Music",
+      "confidence": 0.9
+    },
+    {
+      "name": "Emo Rock",
       "confidence": 0.9
     },
     {
@@ -1351,27 +1515,27 @@
       "confidence": 0.9
     },
     {
-      "name": "Mental Health",
+      "name": "Music Production",
+      "confidence": 0.9
+    },
+    {
+      "name": "Hauntings",
+      "confidence": 0.9
+    },
+    {
+      "name": "Paramore Mansion",
       "confidence": 0.9
     },
     {
       "name": "Songwriting",
       "confidence": 0.9
-    },
-    {
-      "name": "Paranormal Experiences",
-      "confidence": 0.9
-    },
-    {
-      "name": "Mortality",
-      "confidence": 0.9
     }
   ],
   "key_facts": [
-    "My Chemical Romance's 2006 album, The Black Parade, is a highly theatrical concept album about a character known as 'The Patient' dying of cancer and reflecting on his life and mortality.",
-    "The band adopted an alter ego, also named 'The Black Parade', for the album, marking a significant reinvention of their sound, style, and aesthetics.",
-    "The album's sound was heavily influenced by 1970s and 80s glam rock artists, particularly Queen and David Bowie, as well as the conceptual storytelling of Pink Floyd.",
-    "The album was written and demoed in the supposedly haunted Paramore Mansion, which deeply influenced its dark, atmospheric tone and led to paranormal experiences reported by band members.",
-    "The intense and stressful environment of the mansion, combined with the album's morbid themes, contributed to bassist Mikey Way suffering a mental breakdown and briefly leaving the band."
+    "The Black Parade is a concept album detailing the story of 'The Patient', a man dying of cancer who reflects on his life as death comes for him in the form of his fondest memory: a parade.",
+    "The album was released in October 2006, a period when alternative and emo culture was at its peak, and represented a significant stylistic evolution for My Chemical Romance.",
+    "The album was written and demoed in the reportedly haunted Paramore Mansion, which significantly influenced the record's dark and theatrical atmosphere.",
+    "The band adopted an alter-ego for the album, also called 'The Black Parade', to distance themselves from their previous work and fully embody the new sound.",
+    "Major musical influences for the album included theatrical glam rock artists of the 70s and 80s, particularly Queen and David Bowie, as well as Pink Floyd for conceptual elements."
   ]
 }

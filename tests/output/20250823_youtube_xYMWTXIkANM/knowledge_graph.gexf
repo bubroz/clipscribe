@@ -30,22 +30,11 @@
       </node>
       <node id="n_ad3327861db0" label="Israeli Defense Ministry">
         <attvalues>
-          <attvalue for="0" value="GOVERNMENT AGENCY"/>
+          <attvalue for="0" value="ORGANIZATION"/>
           <attvalue for="1" value="0.9"/>
           <attvalue for="2" value="2"/>
           <attvalue for="3" value="1"/>
           <attvalue for="4" value="Israeli Defense Ministry"/>
-        </attvalues>
-        <viz:color r="149" g="165" b="166" a="1.0"/>
-        <viz:size value="47.0"/>
-      </node>
-      <node id="n_5932f1d18b02" label="Detained International">
-        <attvalues>
-          <attvalue for="0" value="ORGANIZATION"/>
-          <attvalue for="1" value="0.9"/>
-          <attvalue for="2" value="1"/>
-          <attvalue for="3" value="1"/>
-          <attvalue for="4" value="Detained International"/>
         </attvalues>
         <viz:color r="78" g="205" b="196" a="1.0"/>
         <viz:size value="47.0"/>
@@ -94,17 +83,6 @@
         <viz:color r="255" g="107" b="107" a="1.0"/>
         <viz:size value="47.0"/>
       </node>
-      <node id="n_2bae46d5d196" label="Forbidden Films">
-        <attvalues>
-          <attvalue for="0" value="ORGANIZATION"/>
-          <attvalue for="1" value="0.9"/>
-          <attvalue for="2" value="1"/>
-          <attvalue for="3" value="1"/>
-          <attvalue for="4" value="Forbidden Films"/>
-        </attvalues>
-        <viz:color r="78" g="205" b="196" a="1.0"/>
-        <viz:size value="47.0"/>
-      </node>
       <node id="n_401d4a6691c1" label="Princess Latifa">
         <attvalues>
           <attvalue for="0" value="PERSON"/>
@@ -116,6 +94,17 @@
         <viz:color r="255" g="107" b="107" a="1.0"/>
         <viz:size value="47.0"/>
       </node>
+      <node id="n_428b3b4cd9af" label="Bibi Netanyahu">
+        <attvalues>
+          <attvalue for="0" value="PERSON"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="Bibi Netanyahu"/>
+        </attvalues>
+        <viz:color r="255" g="107" b="107" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
       <node id="n_9f732c43e8d1" label="Cecilio Pineda">
         <attvalues>
           <attvalue for="0" value="PERSON"/>
@@ -123,17 +112,6 @@
           <attvalue for="2" value="1"/>
           <attvalue for="3" value="1"/>
           <attvalue for="4" value="Cecilio Pineda"/>
-        </attvalues>
-        <viz:color r="255" g="107" b="107" a="1.0"/>
-        <viz:size value="47.0"/>
-      </node>
-      <node id="n_f97ff3fad1bc" label="BB Netanyahu">
-        <attvalues>
-          <attvalue for="0" value="PERSON"/>
-          <attvalue for="1" value="0.9"/>
-          <attvalue for="2" value="1"/>
-          <attvalue for="3" value="1"/>
-          <attvalue for="4" value="BB Netanyahu"/>
         </attvalues>
         <viz:color r="255" g="107" b="107" a="1.0"/>
         <viz:size value="47.0"/>
@@ -184,13 +162,13 @@
       </node>
       <node id="n_096500e01676" label="Unit 8200">
         <attvalues>
-          <attvalue for="0" value="MILITARY UNIT"/>
+          <attvalue for="0" value="ORGANIZATION"/>
           <attvalue for="1" value="0.9"/>
           <attvalue for="2" value="1"/>
           <attvalue for="3" value="1"/>
           <attvalue for="4" value="Unit 8200"/>
         </attvalues>
-        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:color r="78" g="205" b="196" a="1.0"/>
         <viz:size value="47.0"/>
       </node>
       <node id="n_eb1dfff1ac6e" label="Le Monde">
@@ -250,22 +228,11 @@
       </node>
       <node id="n_fff112e9537f" label="Élysée">
         <attvalues>
-          <attvalue for="0" value="GOVERNMENT BUILDING"/>
+          <attvalue for="0" value="GOVERNMENT BODY"/>
           <attvalue for="1" value="0.9"/>
           <attvalue for="2" value="1"/>
           <attvalue for="3" value="1"/>
           <attvalue for="4" value="Élysée"/>
-        </attvalues>
-        <viz:color r="149" g="165" b="166" a="1.0"/>
-        <viz:size value="47.0"/>
-      </node>
-      <node id="n_6c425048aa7b" label="Dubai">
-        <attvalues>
-          <attvalue for="0" value="CITY"/>
-          <attvalue for="1" value="0.9"/>
-          <attvalue for="2" value="1"/>
-          <attvalue for="3" value="1"/>
-          <attvalue for="4" value="Dubai"/>
         </attvalues>
         <viz:color r="149" g="165" b="166" a="1.0"/>
         <viz:size value="47.0"/>
@@ -303,88 +270,104 @@
         <viz:color r="149" g="165" b="166" a="1.0"/>
         <viz:size value="47.0"/>
       </node>
-      <node id="n_77936c7f2cd9" label="journalists, activists, lawyers">
+      <node id="n_3552ac0c0324" label="Israel">
         <attvalues>
           <attvalue for="0" value="unknown"/>
           <attvalue for="1" value="0.9"/>
           <attvalue for="2" value="1"/>
           <attvalue for="3" value="1"/>
-          <attvalue for="4" value="journalists, activists, lawyers"/>
+          <attvalue for="4" value="Israel"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_62f87b80ca10" label="Bibi Netanyahu's government">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="Bibi Netanyahu's government"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_405f061bf490" label="governments">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="governments"/>
         </attvalues>
         <viz:color r="149" g="165" b="166" a="1.0"/>
         <viz:size value="47.0"/>
       </node>
     </nodes>
     <edges>
-      <edge id="0" source="n_ad3327861db0" target="n_fe292dcd3a7f" weight="0.9" label="licenses sales for" kind="licenses sales for">
+      <edge id="0" source="n_000db1c23361" target="n_fe292dcd3a7f" weight="0.9" label="investigated" kind="investigated">
         <attvalues>
-          <attvalue for="0" value="licenses sales for"/>
+          <attvalue for="0" value="investigated"/>
           <attvalue for="1" value="0.9"/>
         </attvalues>
       </edge>
-      <edge id="1" source="n_000db1c23361" target="n_fe292dcd3a7f" weight="0.9" label="led investigation into" kind="led investigation into">
+      <edge id="1" source="n_bf5eb41cb3a9" target="n_2023bb247b5e" weight="0.9" label="was infected with" kind="was infected with">
         <attvalues>
-          <attvalue for="0" value="led investigation into"/>
+          <attvalue for="0" value="was infected with"/>
           <attvalue for="1" value="0.9"/>
         </attvalues>
       </edge>
-      <edge id="2" source="n_401d4a6691c1" target="n_586059ec18a5" weight="0.9" label="is daughter of" kind="is daughter of">
-        <attvalues>
-          <attvalue for="0" value="is daughter of"/>
-          <attvalue for="1" value="0.9"/>
-        </attvalues>
-      </edge>
-      <edge id="3" source="n_f97ff3fad1bc" target="n_2023bb247b5e" weight="0.9" label="used as diplomatic tool by" kind="used as diplomatic tool by">
-        <attvalues>
-          <attvalue for="0" value="used as diplomatic tool by"/>
-          <attvalue for="1" value="0.9"/>
-        </attvalues>
-      </edge>
-      <edge id="4" source="n_fe292dcd3a7f" target="n_2023bb247b5e" weight="0.9" label="developed" kind="developed">
+      <edge id="2" source="n_fe292dcd3a7f" target="n_2023bb247b5e" weight="0.9" label="developed" kind="developed">
         <attvalues>
           <attvalue for="0" value="developed"/>
           <attvalue for="1" value="0.9"/>
         </attvalues>
       </edge>
-      <edge id="5" source="n_fe292dcd3a7f" target="n_096500e01676" weight="0.9" label="has ties to" kind="has ties to">
+      <edge id="3" source="n_fe292dcd3a7f" target="n_096500e01676" weight="0.9" label="recruits from" kind="recruits from">
         <attvalues>
-          <attvalue for="0" value="has ties to"/>
+          <attvalue for="0" value="recruits from"/>
           <attvalue for="1" value="0.9"/>
         </attvalues>
       </edge>
-      <edge id="6" source="n_b675f5df5fe6" target="n_d7a1f2e377f9" weight="0.9" label="targeted" kind="targeted">
+      <edge id="4" source="n_fe292dcd3a7f" target="n_405f061bf490" weight="0.9" label="sells spyware to" kind="sells spyware to">
         <attvalues>
-          <attvalue for="0" value="targeted"/>
+          <attvalue for="0" value="sells spyware to"/>
           <attvalue for="1" value="0.9"/>
         </attvalues>
       </edge>
-      <edge id="7" source="n_b675f5df5fe6" target="n_b6a13f14cd9d" weight="0.9" label="targeted" kind="targeted">
+      <edge id="5" source="n_b675f5df5fe6" target="n_d7a1f2e377f9" weight="0.9" label="targeted with Pegasus" kind="targeted with Pegasus">
         <attvalues>
-          <attvalue for="0" value="targeted"/>
+          <attvalue for="0" value="targeted with Pegasus"/>
           <attvalue for="1" value="0.9"/>
         </attvalues>
       </edge>
-      <edge id="8" source="n_2023bb247b5e" target="n_77936c7f2cd9" weight="0.9" label="used against" kind="used against">
+      <edge id="6" source="n_b675f5df5fe6" target="n_b6a13f14cd9d" weight="0.9" label="targeted with Pegasus" kind="targeted with Pegasus">
         <attvalues>
-          <attvalue for="0" value="used against"/>
+          <attvalue for="0" value="targeted with Pegasus"/>
           <attvalue for="1" value="0.9"/>
         </attvalues>
       </edge>
-      <edge id="9" source="n_a7d355b26bda" target="n_9f732c43e8d1" weight="0.9" label="targeted" kind="targeted">
+      <edge id="7" source="n_2023bb247b5e" target="n_9f732c43e8d1" weight="0.9" label="was targeted by" kind="was targeted by">
         <attvalues>
-          <attvalue for="0" value="targeted"/>
+          <attvalue for="0" value="was targeted by"/>
           <attvalue for="1" value="0.9"/>
         </attvalues>
       </edge>
-      <edge id="10" source="n_937040cd1003" target="n_401d4a6691c1" weight="0.9" label="targeted" kind="targeted">
+      <edge id="8" source="n_937040cd1003" target="n_401d4a6691c1" weight="0.9" label="used Pegasus against" kind="used Pegasus against">
         <attvalues>
-          <attvalue for="0" value="targeted"/>
+          <attvalue for="0" value="used Pegasus against"/>
           <attvalue for="1" value="0.9"/>
         </attvalues>
       </edge>
-      <edge id="11" source="n_937040cd1003" target="n_bf5eb41cb3a9" weight="0.9" label="targeted" kind="targeted">
+      <edge id="9" source="n_3552ac0c0324" target="n_2023bb247b5e" weight="0.9" label="used as diplomatic tool" kind="used as diplomatic tool">
         <attvalues>
-          <attvalue for="0" value="targeted"/>
+          <attvalue for="0" value="used as diplomatic tool"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="10" source="n_62f87b80ca10" target="n_fe292dcd3a7f" weight="0.9" label="was supported by" kind="was supported by">
+        <attvalues>
+          <attvalue for="0" value="was supported by"/>
           <attvalue for="1" value="0.9"/>
         </attvalues>
       </edge>

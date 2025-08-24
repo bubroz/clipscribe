@@ -3,34 +3,21 @@
   "video_title": "The Revenge of My Chemical Romance",
   "entities": [
     {
-      "name": "You Know What They Do to Guys Like Us in Prison",
-      "type": "SONG",
+      "name": "I Brought You My Bullets, You Brought Me Your Love",
+      "type": "WORK_OF_ART",
       "source": [
         "gemini"
       ],
       "properties": {},
       "timestamp": null,
       "mention_count": 1,
-      "context_windows": [
-        {
-          "text": "tic masterpiece and duet between Gerard and Bert, You know what they do to guys like us in prison.",
-          "timestamp": "00:00:00",
-          "speaker": null,
-          "visual_present": false
-        }
-      ],
+      "context_windows": [],
       "aliases": [],
-      "temporal_distribution": [
-        {
-          "timestamp": "00:00:00",
-          "duration": 5.0,
-          "context_type": "spoken"
-        }
-      ]
+      "temporal_distribution": []
     },
     {
       "name": "Three Cheers for Sweet Revenge",
-      "type": "ALBUM",
+      "type": "WORK_OF_ART",
       "source": [
         "gemini"
       ],
@@ -39,19 +26,19 @@
       "mention_count": 1,
       "context_windows": [
         {
-          "text": "ne of the most influential acts of the 2000s. Pre-Three Cheers for Sweet Revenge, the majority of the",
+          "text": "ne of the most influential acts of the 2000s. Pre-Three Cheers for Sweet Revenge, the majority of the bands in the burgeoning emo ",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": " had a lot of tools at our disposal at this time. Three Cheers for Sweet Revenge, a record that stands tall even next to the band'",
+          "text": ". We had a lot of tools and I disposal this time. Three cheers for Sweet Revenge, a record that stands tall even next to the band'",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "ont. And the front's the heaviest. Thanks, Frank. Three Cheers for Sweet Revenge would be the album that put the band on the map f",
+          "text": "ause we're up front. In the front. Thanks, Frank. Three Cheers for Sweet Revenge would be the album that put the band on the map f",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -68,7 +55,7 @@
     },
     {
       "name": "My Chemical Romance",
-      "type": "BAND",
+      "type": "ORGANIZATION",
       "source": [
         "gemini"
       ],
@@ -83,25 +70,25 @@
           "visual_present": false
         },
         {
-          "text": " why don't we take a dive into the revenge era of My Chemical Romance. I'm ahead of the sound, you could drain my hand,",
+          "text": " why don't we take a dive into the Revenge era of My Chemical Romance? I'm at the",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "pecially during this early juncture. Not only was my chemical romance a haven of eclectic and captivating personalities",
+          "text": "pecially during this early juncture. Not only was My Chemical Romance",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": " By the time we hit Revenge, we had really become My Chemical Romance. When we made Revenge, it was",
+          "text": "and funding for their records. So how did how did My Chemical Romance end up on Reprise? They first from Eyeball Record",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "served as another key piece of the puzzle and how My Chemical Romance took the",
+          "text": "served as another key piece of the puzzle and how My Chemical Romance took the world by storm. Now, all of these videos",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -123,21 +110,8 @@
       ]
     },
     {
-      "name": "Give 'em Hell, Kid",
-      "type": "SONG",
-      "source": [
-        "gemini"
-      ],
-      "properties": {},
-      "timestamp": null,
-      "mention_count": 1,
-      "context_windows": [],
-      "aliases": [],
-      "temporal_distribution": []
-    },
-    {
       "name": "Avenged Sevenfold",
-      "type": "BAND",
+      "type": "ORGANIZATION",
       "source": [
         "gemini"
       ],
@@ -146,13 +120,19 @@
       "mention_count": 1,
       "context_windows": [
         {
-          "text": "ossover with the very early Metalcore stylings of Avenged Sevenfold.",
+          "text": "rs with acts like The Used, Every Time I Die, and Avenged Sevenfold. Each upcoming artists in their own right, and ea",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": " hitting. And in many ways, they mirrored that of Avenged Sevenfold, who would go with a similar approach, albeit the",
+          "text": "ossover with the very early metalcore stylings of Avenged Sevenfold. A plus that the band also indulged in the eyelin",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": " hitting. And in many ways, they mirrored that of Avenged Sevenfold, who would go with a similar approach,",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -169,7 +149,7 @@
     },
     {
       "name": "A Rose for Emily",
-      "type": "LITERATURE",
+      "type": "WORK_OF_ART",
       "source": [
         "gemini"
       ],
@@ -178,7 +158,7 @@
       "mention_count": 1,
       "context_windows": [
         {
-          "text": "re face down and bloated, snapshot with the lens. A Rose for Emily is a tale penned by William Faulkner, which tells",
+          "text": "are actually just an adaption of the short story, A Rose for Emily. This elevator only goes up to 10. He's not aroun",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -194,8 +174,8 @@
       ]
     },
     {
-      "name": "Every Time I die",
-      "type": "BAND",
+      "name": "Every Time I Die",
+      "type": "ORGANIZATION",
       "source": [
         "gemini"
       ],
@@ -204,13 +184,13 @@
       "mention_count": 1,
       "context_windows": [
         {
-          "text": "ger notoriety came tours with acts like the used, Every Time I die and a Vend 7fold. Each upcoming artists in their ",
+          "text": "ger notoriety came tours with acts like The Used, Every Time I Die, and Avenged Sevenfold. Each upcoming artists in ",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "t with the more hardcore punk side of things that every time I died well then. This all contributed to why the band ",
+          "text": "t with the more hardcore punk side of things that Every Time I Die dwelled in. This all contributed",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -227,7 +207,7 @@
     },
     {
       "name": "The Black Parade",
-      "type": "ALBUM",
+      "type": "WORK_OF_ART",
       "source": [
         "gemini"
       ],
@@ -236,7 +216,7 @@
       "mention_count": 1,
       "context_windows": [
         {
-          "text": "r most iconic. And before you screech at me about The Black Parade, in",
+          "text": "The Black Parade, in terms of public consciousness, songs like Bla",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -262,7 +242,7 @@
       "mention_count": 1,
       "context_windows": [
         {
-          "text": "th the lens. A Rose for Emily is a tale penned by William Faulkner, which tells a story of a woman who's become ment",
+          "text": "th the lens. A Rose for Emily is a tale penned by William Faulkner, which",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -279,7 +259,7 @@
     },
     {
       "name": "Eyeball Records",
-      "type": "RECORD LABEL",
+      "type": "ORGANIZATION",
       "source": [
         "gemini"
       ],
@@ -288,7 +268,19 @@
       "mention_count": 1,
       "context_windows": [
         {
-          "text": " Blinkers. Yeah, from Jersey. and we're signed to eyeball records. There was such a signing frenzy going on. There'",
+          "text": "eah, yeah, yeah, from Jersey. And we're signed to Eyeball Records. There was such a signing frenzy going on. There'",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "emical Romance end up on Reprise? They first from Eyeball Records. I think, uh, it's just the you're, you know, typ",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "on, uh, an indie label, Eyeball Records, and they had put out a record on their own. They",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -305,7 +297,7 @@
     },
     {
       "name": "Reprise Records",
-      "type": "RECORD LABEL",
+      "type": "ORGANIZATION",
       "source": [
         "gemini"
       ],
@@ -340,7 +332,7 @@
       "mention_count": 1,
       "context_windows": [
         {
-          "text": "ard, who found friends and fellow addicts such as Bert McCracken, and I think this Grunge article really sums it u",
+          "text": "ard, who found friends and fellow addicts such as Bert McCracken. And I think this grunge article really sums it u",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -408,8 +400,8 @@
       ]
     },
     {
-      "name": "Post-Hardcore",
-      "type": "MUSIC GENRE",
+      "name": "Danger Days",
+      "type": "WORK_OF_ART",
       "source": [
         "gemini"
       ],
@@ -418,13 +410,7 @@
       "mention_count": 1,
       "context_windows": [
         {
-          "text": "ing the old pop punk sound with more contemporary post-hardcore and especially pop elements. But it was MCR who w",
-          "timestamp": "00:00:00",
-          "speaker": null,
-          "visual_present": false
-        },
-        {
-          "text": "rground or were only casually into the burgeoning post-hardcore scene of the time. The record was written in a si",
+          "text": "ter heights of success with both Black Parade and Danger Days, it was their sophomore record that would make",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -440,33 +426,7 @@
       ]
     },
     {
-      "name": "Fall Out Boy",
-      "type": "BAND",
-      "source": [
-        "gemini"
-      ],
-      "properties": {},
-      "timestamp": null,
-      "mention_count": 1,
-      "context_windows": [
-        {
-          "text": " and probably most importantly, the ever-infamous Fall Out Boy who was fusing the old pop punk sound with more c",
-          "timestamp": "00:00:00",
-          "speaker": null,
-          "visual_present": false
-        }
-      ],
-      "aliases": [],
-      "temporal_distribution": [
-        {
-          "timestamp": "00:00:00",
-          "duration": 5.0,
-          "context_type": "spoken"
-        }
-      ]
-    },
-    {
-      "name": "Straight.Com",
+      "name": "Fallout Boy",
       "type": "ORGANIZATION",
       "source": [
         "gemini"
@@ -476,33 +436,7 @@
       "mention_count": 1,
       "context_windows": [
         {
-          "text": " during Warped Tour in 2004. In an interview with straight.com, the frontman described the dire situation he was",
-          "timestamp": "00:00:00",
-          "speaker": null,
-          "visual_present": false
-        }
-      ],
-      "aliases": [],
-      "temporal_distribution": [
-        {
-          "timestamp": "00:00:00",
-          "duration": 5.0,
-          "context_type": "spoken"
-        }
-      ]
-    },
-    {
-      "name": "Danger Days",
-      "type": "ALBUM",
-      "source": [
-        "gemini"
-      ],
-      "properties": {},
-      "timestamp": null,
-      "mention_count": 1,
-      "context_windows": [
-        {
-          "text": "ter heights of success with both Black Parade and Danger Days, it was their sophomore record that would make th",
+          "text": " and probably most importantly, the ever infamous Fallout Boy, who was fusing the old pop punk sound",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -526,22 +460,9 @@
       "properties": {},
       "timestamp": null,
       "mention_count": 1,
-      "context_windows": [
-        {
-          "text": "came completely dependent on the substance during Warped Tour in 2004. In an interview with straight.com, the f",
-          "timestamp": "00:00:00",
-          "speaker": null,
-          "visual_present": false
-        }
-      ],
+      "context_windows": [],
       "aliases": [],
-      "temporal_distribution": [
-        {
-          "timestamp": "00:00:00",
-          "duration": 5.0,
-          "context_type": "spoken"
-        }
-      ]
+      "temporal_distribution": []
     },
     {
       "name": "Frank Iero",
@@ -573,45 +494,13 @@
           "visual_present": false
         },
         {
-          "text": "t element we'll get to later. It's no secret that Gerard Way has had a long and storied history with drug abus",
+          "text": "t element we'll get to later. It's no secret that Gerard Way has",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": " up best. To get over his extreme social anxiety, Gerard Way turned to cocaine and alcohol until he became com",
-          "timestamp": "00:00:00",
-          "speaker": null,
-          "visual_present": false
-        }
-      ],
-      "aliases": [],
-      "temporal_distribution": [
-        {
-          "timestamp": "00:00:00",
-          "duration": 5.0,
-          "context_type": "spoken"
-        }
-      ]
-    },
-    {
-      "name": "To the End",
-      "type": "SONG",
-      "source": [
-        "gemini"
-      ],
-      "properties": {},
-      "timestamp": null,
-      "mention_count": 1,
-      "context_windows": [
-        {
-          "text": "nd of throws a story to the side because the song to the end is very loosely about the protagonist crashing he",
-          "timestamp": "00:00:00",
-          "speaker": null,
-          "visual_present": false
-        },
-        {
-          "text": "s quality, but in its tone. It's beginning to get to the end of the record. And the first song to really set t",
+          "text": "anxiety, Gerard Way turned to cocaine and alcohol until he became com",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -637,7 +526,33 @@
       "mention_count": 1,
       "context_windows": [
         {
-          "text": ". A lot of people think that this is the debut of Bob Bryar, who would",
+          "text": "Bob Bryar who would go on to be the most iconic percussioni",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Hot Topic",
+      "type": "ORGANIZATION",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "rie. The year is 2004. You unassuming walk into a Hot Topic after being lured in by its gaudy dark sign and e",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -654,7 +569,7 @@
     },
     {
       "name": "Mall Goth",
-      "type": "SUBCULTURE",
+      "type": "CONCEPT",
       "source": [
         "gemini"
       ],
@@ -663,51 +578,25 @@
       "mention_count": 1,
       "context_windows": [
         {
-          "text": "unmistakable sheen of mall goth aesthetics. This was and for many still is the ic",
+          "text": "color scheme, and that unmistakable sheen of Mall Goth aesthetics. This was, and for many, still is the ",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": " centralize much of the scattered audience of the Mall Goth and Emo scene of the early 2000s. They had soft a",
+          "text": " centralize much of the scattered audience of the Mall Goth and emo scene of the early 2000s. They had soft a",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "a cornerstone or center point of the whole Mall Goth movement. While not the cornerstone just yet, the",
+          "text": "bit of a cornerstone or center point of the whole Mall Goth movement. While not the cornerstone just yet, the",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "ould serve as the cornerstone of the mid 2000s of Mall Goth explosion, racking up more and more fans and givi",
-          "timestamp": "00:00:00",
-          "speaker": null,
-          "visual_present": false
-        }
-      ],
-      "aliases": [],
-      "temporal_distribution": [
-        {
-          "timestamp": "00:00:00",
-          "duration": 5.0,
-          "context_type": "spoken"
-        }
-      ]
-    },
-    {
-      "name": "Metalcore",
-      "type": "MUSIC GENRE",
-      "source": [
-        "gemini"
-      ],
-      "properties": {},
-      "timestamp": null,
-      "mention_count": 1,
-      "context_windows": [
-        {
-          "text": " a more comfortable crossover with the very early Metalcore stylings of Avenged Sevenfold.",
+          "text": "ould serve as the cornerstone of the mid-2000s of Mall Goth explosion, racking up more and more fans and givi",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -749,47 +638,8 @@
       ]
     },
     {
-      "name": "Pop Punk",
-      "type": "MUSIC GENRE",
-      "source": [
-        "gemini"
-      ],
-      "properties": {},
-      "timestamp": null,
-      "mention_count": 1,
-      "context_windows": [
-        {
-          "text": "had sad alt-rock types like The Used, straight up pop punk acts like Sum 41, and probably most importantly, ",
-          "timestamp": "00:00:00",
-          "speaker": null,
-          "visual_present": false
-        }
-      ],
-      "aliases": [],
-      "temporal_distribution": [
-        {
-          "timestamp": "00:00:00",
-          "duration": 5.0,
-          "context_type": "spoken"
-        }
-      ]
-    },
-    {
-      "name": "Ray Toro",
-      "type": "PERSON",
-      "source": [
-        "gemini"
-      ],
-      "properties": {},
-      "timestamp": null,
-      "mention_count": 1,
-      "context_windows": [],
-      "aliases": [],
-      "temporal_distribution": []
-    },
-    {
       "name": "The Used",
-      "type": "BAND",
+      "type": "ORGANIZATION",
       "source": [
         "gemini"
       ],
@@ -798,31 +648,25 @@
       "mention_count": 1,
       "context_windows": [
         {
-          "text": "lly their sounds. You had sad alt-rock types like The Used, straight up pop punk acts like Sum 41, and proba",
+          "text": "lly their sounds. You had sad alt rock types like the Used, straight up pop punk acts like Sum 41, and proba",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": ". With bigger notoriety came tours with acts like the used, Every Time I die and a Vend 7fold. Each upcoming",
+          "text": ". With bigger notoriety came tours with acts like The Used, Every Time I Die, and Avenged Sevenfold. Each up",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "full of heart and yet edgy lyrics and for many of the used fans, something to connect with. Yet they also ha",
+          "text": "d full of heart, yet edgy lyrics, and for many of the Used fans, something to connect with. Yet they also ha",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "the fact that some of their tour friends, such as The Used, also resided on the label and the deal that they",
-          "timestamp": "00:00:00",
-          "speaker": null,
-          "visual_present": false
-        },
-        {
-          "text": "es from bands like Underoath, from First to Last, The Used, and many others. The band would receive a docume",
+          "text": "es from bands like Underoath, From First to Last, The Used, and many others. The band would receive a docume",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -838,8 +682,8 @@
       ]
     },
     {
-      "name": "Bullets",
-      "type": "ALBUM",
+      "name": "MySpace",
+      "type": "ORGANIZATION",
       "source": [
         "gemini"
       ],
@@ -848,113 +692,13 @@
       "mention_count": 1,
       "context_windows": [
         {
-          "text": "park positive change in a post-9/11 world. 2002's Bullets wasn't exactly a breakout success that shot the b",
+          "text": "ss that did its thing. And also there's the whole MySpace",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": " music scene. It also helps that I brought you my bullets was a pretty solid record, so you know, I guess t",
-          "timestamp": "00:00:00",
-          "speaker": null,
-          "visual_present": false
-        },
-        {
-          "text": "em by this point. With the shitty distribution of bullets making MCR a bit of a cult phenomena, since it",
-          "timestamp": "00:00:00",
-          "speaker": null,
-          "visual_present": false
-        },
-        {
-          "text": "alcoholism. I mean, some of the biggest songs off bullets focused on that subject matter. So, as the band m",
-          "timestamp": "00:00:00",
-          "speaker": null,
-          "visual_present": false
-        },
-        {
-          "text": "recorded and written. Revenge is really the band. Bullets is the band trying to find itself. By the time we",
-          "timestamp": "00:00:00",
-          "speaker": null,
-          "visual_present": false
-        },
-        {
-          "text": "ners who died in a violent shootout at the end of Bullets. Only for the man in the relationship to end up i",
-          "timestamp": "00:00:00",
-          "speaker": null,
-          "visual_present": false
-        },
-        {
-          "text": "o the band, it's not nearly as loose as let's say bullets, where you had songs about Dawn of the Dead mixed",
-          "timestamp": "00:00:00",
-          "speaker": null,
-          "visual_present": false
-        },
-        {
-          "text": "it continued the fast punk rock sound of bullets, it wastes no time in showing off their newest st",
-          "timestamp": "00:00:00",
-          "speaker": null,
-          "visual_present": false
-        },
-        {
-          "text": "he band on the map for many. It took much of what Bullets did and refined it into something far greater tha",
-          "timestamp": "00:00:00",
-          "speaker": null,
-          "visual_present": false
-        },
-        {
-          "text": "is release, even Bullets would see a reissue providing new fans with even ",
-          "timestamp": "00:00:00",
-          "speaker": null,
-          "visual_present": false
-        }
-      ],
-      "aliases": [],
-      "temporal_distribution": [
-        {
-          "timestamp": "00:00:00",
-          "duration": 5.0,
-          "context_type": "spoken"
-        }
-      ]
-    },
-    {
-      "name": "Nirvana",
-      "type": "BAND",
-      "source": [
-        "gemini"
-      ],
-      "properties": {},
-      "timestamp": null,
-      "mention_count": 1,
-      "context_windows": [
-        {
-          "text": " kid who likes riding their bike and listening to Nirvana with their dad. You are now a fringe-laden",
-          "timestamp": "00:00:00",
-          "speaker": null,
-          "visual_present": false
-        }
-      ],
-      "aliases": [],
-      "temporal_distribution": [
-        {
-          "timestamp": "00:00:00",
-          "duration": 5.0,
-          "context_type": "spoken"
-        }
-      ]
-    },
-    {
-      "name": "Grunge",
-      "type": "PUBLICATION",
-      "source": [
-        "gemini"
-      ],
-      "properties": {},
-      "timestamp": null,
-      "mention_count": 1,
-      "context_windows": [
-        {
-          "text": " addicts such as Bert McCracken, and I think this Grunge article really sums it up best. To get over his e",
+          "text": "ther had average dudes, hipsters, or your average MySpace emo kids. And their more theatrical look went rea",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -971,7 +715,7 @@
     },
     {
       "name": "Helena",
-      "type": "SONG",
+      "type": "WORK_OF_ART",
       "source": [
         "gemini"
       ],
@@ -980,31 +724,25 @@
       "mention_count": 1,
       "context_windows": [
         {
-          "text": "ing and influential songs the band would produce. Helena. And while",
+          "text": "ing and influential songs the band would produce. Helena. And while it continued the fast punk rock sound ",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "the original point and story of the record. Well, Helena might have been the first song off the album, I'm",
+          "text": "the original point and story of the record. While Helena might have been the first song off the album, I'm",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": " and all the smiles that are ever ever. Just like Helena, The Ghost of You is a song that is vague enough ",
+          "text": " and all the smiles that are ever ever. Just like Helena, the Ghost of you is a song that is vague enough ",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "in getting them the attention that they deserved. Helena has a world-famous video for a reason. And the vi",
-          "timestamp": "00:00:00",
-          "speaker": null,
-          "visual_present": false
-        },
-        {
-          "text": "n what most other bands of this era had to offer. Helena was a beautiful and theatrical piece. It includes",
+          "text": "the attention that they deserved. Helena has a world-famous video for a reason. And the vi",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -1036,13 +774,13 @@
           "visual_present": false
         },
         {
-          "text": "Jersey. Like you couldn't walk down the street without a",
+          "text": "r label. Yeah. Just cuz they were... we were from Jersey. Jersey. Like you couldn't walk down the street w",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": " did just kind of look like your average group of jersey rockers. So, when they would",
+          "text": " did just kind of look like your average group of Jersey rockers. So when they would eventually rebrand th",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -1059,7 +797,7 @@
     },
     {
       "name": "Sum 41",
-      "type": "BAND",
+      "type": "ORGANIZATION",
       "source": [
         "gemini"
       ],
@@ -1068,7 +806,7 @@
       "mention_count": 1,
       "context_windows": [
         {
-          "text": "pes like The Used, straight up pop punk acts like Sum 41, and probably most importantly, the ever-infamous",
+          "text": "pes like the Used, straight up pop punk acts like Sum 41, and probably most importantly, the ever infamous",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -1094,7 +832,7 @@
       "mention_count": 1,
       "context_windows": [
         {
-          "text": "severe that it nearly killed him while touring in Japan later that year, the singer was ready to... to pl",
+          "text": "severe that it nearly killed him while touring in Japan later that year, the singer was ready to seek hel",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -1111,7 +849,7 @@
     },
     {
       "name": "Emo",
-      "type": "MUSIC GENRE",
+      "type": "CONCEPT",
       "source": [
         "gemini"
       ],
@@ -1120,19 +858,19 @@
       "mention_count": 1,
       "context_windows": [
         {
-          "text": "u're kind of weird. and in a sense, you've become emo. At least, that's the way I like to imagine most ",
+          "text": "u're kind of weird. And in a sense, you've become emo. At least, that's the way I like to imagine most ",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "s. This was and for many still is the iconic and memorable visage of the band even 20 years past. While",
+          "text": " This was, and for many, still is the iconic and memorable visage of the band even 20 years past. While",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "bands in the burgeoning emo scene were far more scattered in terms of their l",
+          "text": "enge, the majority of the bands in the burgeoning emo scene were far more scattered in terms of their l",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -1150,73 +888,67 @@
           "visual_present": false
         },
         {
-          "text": "ch of the scattered audience of the Mall Goth and Emo scene of the early 2000s. They had soft and emoti",
+          "text": "ch of the scattered audience of the Mall Goth and emo scene of the early 2000s. They had soft and emoti",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "g to dig their claws into them. You like being a demographic? Something someone can use for evil? Do yo",
+          "text": "being a demographic? Something someone can use for evil? Do yo",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "oose concept record. Continuing the story of the Demolition lovers, the lore behind this record is most",
+          "text": "oose concept record. Continuing the story of the Demolition Lovers, the lore behind this record is most",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "ething like that. But as I said before, it's far removed from the",
+          "text": "ething like that. But as I said before, it's far removed from the rest of the record, both sonically an",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "and lyrically. Barely having a connection to the Demolition Lovers story and even further away from the",
+          "text": " band's even more famous songs. Now, this was the emo kid anthem. And",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": " band's even more famous songs. Now, this was the emo kid anthem. and coincidentally, a song that delve",
+          "text": "t they launched with. I'm not okay is a pop-laden emo anthem with a chorus sung by sad emo kids and ric",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "t they launched with. I'm not okay is a pop laden emo anthem with a chorus sung by sad emo kids and ric",
+          "text": "the first song to really set this in stone is the emo cowboy song, Hang 'Em High. Following more lore f",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "stone is the emo Cowboy song Hang 'Em High. Following more lore fo",
+          "text": "lusion to the story of the past two records. The demolition lovers, or",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "lusion to the story of the past two records. The demolition lovers are Bonnie and Clyde have finally me",
+          "text": "in a rock band. And in came the iconic black-clad emo boys that defined a generation. Well, their group",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "in a rock band. And in came the iconic black clad emo boys that defined a generation. Well, their earli",
+          "text": "n their haircuts were more than just your typical emo swoop of the time, looking more influenced by 70s",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "n their haircuts were more than just your typical emo swoop of the time. Looking more influenced by 70s",
-          "timestamp": "00:00:00",
-          "speaker": null,
-          "visual_present": false
-        },
-        {
-          "text": " average dudes, hipsters, or your average Myspace emo kids. And their more theatrical look went really ",
+          "text": " average dudes, hipsters, or your average MySpace emo kids. And their more theatrical look went really ",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -1228,13 +960,19 @@
           "visual_present": false
         },
         {
+          "text": "lbeit their own unique take and their own unique demographics that they would entice with. It's somethi",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
           "text": "and especially the aesthetic and all the various demographics of people that it would connect with, ser",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
         },
         {
-          "text": "time and served as an entry point for much of the emo culture to get into the public eye to begin with.",
+          "text": "ime, and served as an entry point for much of the emo culture to get into the public eye to begin with.",
           "timestamp": "00:00:00",
           "speaker": null,
           "visual_present": false
@@ -1256,15 +994,15 @@
       "confidence": 0.9
     },
     {
-      "name": "Three Cheers for Sweet Revenge",
+      "name": "Emo Music History",
       "confidence": 0.9
     },
     {
-      "name": "Emo Scene",
+      "name": "Album Analysis",
       "confidence": 0.9
     },
     {
-      "name": "Music Industry",
+      "name": "2000s Music Scene",
       "confidence": 0.9
     },
     {
@@ -1272,19 +1010,23 @@
       "confidence": 0.9
     },
     {
-      "name": "Gerard Way",
+      "name": "Music Production",
       "confidence": 0.9
     },
     {
-      "name": "Album Production",
+      "name": "Grief and Art",
+      "confidence": 0.9
+    },
+    {
+      "name": "Band History",
       "confidence": 0.9
     }
   ],
   "key_facts": [
-    "The year 2004 and the release of 'Three Cheers for Sweet Revenge' was the most pivotal period for My Chemical Romance, defining their iconic image and sound.",
-    "Lead singer Gerard Way's severe struggles with alcoholism and drug abuse (cocaine) during this era heavily influenced the band's music and his performance.",
-    "The death of Gerard and Mikey Way's grandmother in November 2003 caused a significant thematic shift in 'Three Cheers for Sweet Revenge', turning it from a concept album into a more personal exploration of grief and loss.",
-    "My Chemical Romance signed with major label Reprise Records, which provided them with a larger budget and better distribution for their sophomore album.",
-    "The band acted as a centralizing force in the early 2000s emo and mall goth scene by blending various genres like pop punk, post-hardcore, and metal, which allowed them to appeal to diverse fanbases."
+    "2004 was a pivotal year for My Chemical Romance, largely due to their sophomore album 'Three Cheers for Sweet Revenge', which propelled them to mainstream success and defined their iconic status within the emo scene.",
+    "Frontman Gerard Way's severe struggles with alcoholism and cocaine abuse during this period were a major influence on the personal and dark themes of the 'Revenge' album.",
+    "The death of Gerard and Mikey Way's grandmother was a critical event that shifted the lyrical focus of 'Three Cheers for Sweet Revenge' from a fictional concept to a more personal exploration of grief.",
+    "The band's 'Revenge era' aesthetic, characterized by long black hair, makeup, and a red/white/black color scheme, became their most iconic and enduring public image.",
+    "Producer Howard Benson was instrumental in shaping the sound of 'Revenge', pushing the band to refine their songwriting and incorporate stronger, more accessible hooks and choruses."
   ]
 }

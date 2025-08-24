@@ -1,6 +1,144 @@
 {
   "video_url": "https://www.youtube.com/watch?v=tjFNZlZEJLY",
   "video_title": "How to Pass Tier 1 & 2 Selections - Part 2/3: Tier 2 Selections",
-  "relationships": [],
-  "total_count": 0
+  "relationships": [
+    {
+      "subject": "speaker",
+      "predicate": "is a",
+      "object": "former Special Forces Tier 1 operator",
+      "properties": {},
+      "context": null,
+      "evidence_chain": [],
+      "contradictions": [],
+      "extraction_source": "unknown"
+    },
+    {
+      "subject": "speaker",
+      "predicate": "was a",
+      "object": "cadre for a Tier 1 selection",
+      "properties": {},
+      "context": null,
+      "evidence_chain": [],
+      "contradictions": [],
+      "extraction_source": "unknown"
+    },
+    {
+      "subject": "Tier 2 selections",
+      "predicate": "is characterized by",
+      "object": "negative reinforcement",
+      "properties": {},
+      "context": null,
+      "evidence_chain": [],
+      "contradictions": [
+        "about Tier 2 selections is there is a lot of negative reinforcement. They are trying to break you down, and there's a it's a lot of team-oriented even..."
+      ],
+      "extraction_source": "unknown"
+    },
+    {
+      "subject": "Tier 2 selections",
+      "predicate": "is characterized by",
+      "object": "team-oriented events",
+      "properties": {},
+      "context": null,
+      "evidence_chain": [
+        "direct_quote='s not as important in Tier 2 selections. In Tier 1, it' timestamp='00:00:00' speaker=None visual_context=None context_window=\"behind on everybody. If you can, learn how to ruck run. It's not as important in Tier 2 selections. In Tier 1, it's a necessity. But if you're able to ruck run, which is basically you're able to run a\" evidence_type='spoken'",
+        "direct_quote='re able to ruck run, which is basically you' timestamp='00:00:00' speaker=None visual_context=None context_window=\"behind on everybody. If you can, learn how to ruck run. It's not as important in Tier 2 selections. In Tier 1, it's a necessity. But if you're able to ruck run, which is basically you're able to run a\" evidence_type='spoken'",
+        "direct_quote='re going to be able to crush it. My second tip is to be a great teammate and don' timestamp='00:00:00' speaker=None visual_context=None context_window=\"behind on everybody. If you can, learn how to ruck run. It's not as important in Tier 2 selections. In Tier 1, it's a necessity. But if you're able to ruck run, which is basically you're able to run a\" evidence_type='spoken'"
+      ],
+      "contradictions": [
+        "about Tier 2 selections is there is a lot of negative reinforcement. They are trying to break you down, and there's a it's a lot of team-oriented even...",
+        "behind on everybody. If you can, learn how to ruck run. It's not as important in Tier 2 selections. In Tier 1, it's a necessity. But if you're able to..."
+      ],
+      "extraction_source": "unknown"
+    },
+    {
+      "subject": "Tier 1 selections",
+      "predicate": "is characterized by",
+      "object": "individual events",
+      "properties": {},
+      "context": null,
+      "evidence_chain": [
+        "direct_quote='s not as important in Tier 2 selections. In Tier 1, it' timestamp='00:00:00' speaker=None visual_context=None context_window=\"behind on everybody. If you can, learn how to ruck run. It's not as important in Tier 2 selections. In Tier 1, it's a necessity. But if you're able to ruck run, which is basically you're able to run a\" evidence_type='spoken'",
+        "direct_quote='re able to ruck run, which is basically you' timestamp='00:00:00' speaker=None visual_context=None context_window=\"behind on everybody. If you can, learn how to ruck run. It's not as important in Tier 2 selections. In Tier 1, it's a necessity. But if you're able to ruck run, which is basically you're able to run a\" evidence_type='spoken'",
+        "direct_quote='re going to be able to crush it. My second tip is to be a great teammate and don' timestamp='00:00:00' speaker=None visual_context=None context_window=\"behind on everybody. If you can, learn how to ruck run. It's not as important in Tier 2 selections. In Tier 1, it's a necessity. But if you're able to ruck run, which is basically you're able to run a\" evidence_type='spoken'",
+        "direct_quote='t want superstars, they want great teammates. Almost all Tier 2 selection and organizations and are all designed around teams and how you help within the team. It isn' timestamp='00:00:00' speaker=None visual_context=None context_window=\"help your teammates without making a show of it. They don't want superstars, they want great teammates. Almost all Tier 2 selection and organizations and are all designed around teams and how you help\" evidence_type='spoken'",
+        "direct_quote='s why this is so much more important in Tier 2 is the team aspect. I have literally seen people who were amazing, probably one of the best people in selection, literally get kicked out because they were primadonnas. So don' timestamp='00:00:00' speaker=None visual_context=None context_window=\"help your teammates without making a show of it. They don't want superstars, they want great teammates. Almost all Tier 2 selection and organizations and are all designed around teams and how you help\" evidence_type='spoken'"
+      ],
+      "contradictions": [
+        "about Tier 2 selections is there is a lot of negative reinforcement. They are trying to break you down, and there's a it's a lot of team-oriented even...",
+        "behind on everybody. If you can, learn how to ruck run. It's not as important in Tier 2 selections. In Tier 1, it's a necessity. But if you're able to...",
+        "help your teammates without making a show of it. They don't want superstars, they want great teammates. Almost all Tier 2 selection and organizations ..."
+      ],
+      "extraction_source": "unknown"
+    },
+    {
+      "subject": "Tier 2",
+      "predicate": "are a type of",
+      "object": "SEALs",
+      "properties": {},
+      "context": null,
+      "evidence_chain": [
+        "direct_quote='re going to cover part two, which is how to pass Tier 2 selections. So first, reiterate my background. I' timestamp='00:00:00' speaker=None visual_context=None context_window=\"This is my second part of my three-part series on how to pass Tier 1 and Tier 2 selections. Today we're going to cover part two, which is how to pass Tier 2 selections. So first, reiterate my backgrou\" evidence_type='spoken'",
+        "direct_quote='Almost all Tier 2 selection and organizations and are all designed' timestamp='00:00:00' speaker=None visual_context=None context_window='superstars, they want great teammates. Almost all Tier 2 selection and organizations and are all designed ' evidence_type='entity_context'"
+      ],
+      "contradictions": [],
+      "extraction_source": "unknown"
+    },
+    {
+      "subject": "Tier 2",
+      "predicate": "are a type of",
+      "object": "MARSOC Raiders",
+      "properties": {},
+      "context": null,
+      "evidence_chain": [
+        "direct_quote='re going to cover part two, which is how to pass Tier 2 selections. So first, reiterate my background. I' timestamp='00:00:00' speaker=None visual_context=None context_window=\"This is my second part of my three-part series on how to pass Tier 1 and Tier 2 selections. Today we're going to cover part two, which is how to pass Tier 2 selections. So first, reiterate my backgrou\" evidence_type='spoken'",
+        "direct_quote='Almost all Tier 2 selection and organizations and are all designed' timestamp='00:00:00' speaker=None visual_context=None context_window='superstars, they want great teammates. Almost all Tier 2 selection and organizations and are all designed ' evidence_type='entity_context'"
+      ],
+      "contradictions": [],
+      "extraction_source": "unknown"
+    },
+    {
+      "subject": "Tier 2",
+      "predicate": "are a type of",
+      "object": "Rangers",
+      "properties": {},
+      "context": null,
+      "evidence_chain": [
+        "direct_quote='re going to cover part two, which is how to pass Tier 2 selections. So first, reiterate my background. I' timestamp='00:00:00' speaker=None visual_context=None context_window=\"This is my second part of my three-part series on how to pass Tier 1 and Tier 2 selections. Today we're going to cover part two, which is how to pass Tier 2 selections. So first, reiterate my backgrou\" evidence_type='spoken'",
+        "direct_quote='Almost all Tier 2 selection and organizations and are all designed' timestamp='00:00:00' speaker=None visual_context=None context_window='superstars, they want great teammates. Almost all Tier 2 selection and organizations and are all designed ' evidence_type='entity_context'"
+      ],
+      "contradictions": [],
+      "extraction_source": "unknown"
+    },
+    {
+      "subject": "Tier 2",
+      "predicate": "are a type of",
+      "object": "Green Berets",
+      "properties": {},
+      "context": null,
+      "evidence_chain": [
+        "direct_quote='re going to cover part two, which is how to pass Tier 2 selections. So first, reiterate my background. I' timestamp='00:00:00' speaker=None visual_context=None context_window=\"This is my second part of my three-part series on how to pass Tier 1 and Tier 2 selections. Today we're going to cover part two, which is how to pass Tier 2 selections. So first, reiterate my backgrou\" evidence_type='spoken'",
+        "direct_quote='Almost all Tier 2 selection and organizations and are all designed' timestamp='00:00:00' speaker=None visual_context=None context_window='superstars, they want great teammates. Almost all Tier 2 selection and organizations and are all designed ' evidence_type='entity_context'"
+      ],
+      "contradictions": [],
+      "extraction_source": "unknown"
+    },
+    {
+      "subject": "Ruck running in Tier 1",
+      "predicate": "is",
+      "object": "a necessity",
+      "properties": {},
+      "context": null,
+      "evidence_chain": [
+        "direct_quote='s not as important in Tier 2 selections. In Tier 1, it' timestamp='00:00:00' speaker=None visual_context=None context_window=\"behind on everybody. If you can, learn how to ruck run. It's not as important in Tier 2 selections. In Tier 1, it's a necessity. But if you're able to ruck run, which is basically you're able to run a\" evidence_type='spoken'",
+        "direct_quote='re able to ruck run, which is basically you' timestamp='00:00:00' speaker=None visual_context=None context_window=\"behind on everybody. If you can, learn how to ruck run. It's not as important in Tier 2 selections. In Tier 1, it's a necessity. But if you're able to ruck run, which is basically you're able to run a\" evidence_type='spoken'",
+        "direct_quote='re going to be able to crush it. My second tip is to be a great teammate and don' timestamp='00:00:00' speaker=None visual_context=None context_window=\"behind on everybody. If you can, learn how to ruck run. It's not as important in Tier 2 selections. In Tier 1, it's a necessity. But if you're able to ruck run, which is basically you're able to run a\" evidence_type='spoken'"
+      ],
+      "contradictions": [
+        "behind on everybody. If you can, learn how to ruck run. It's not as important in Tier 2 selections. In Tier 1, it's a necessity. But if you're able to..."
+      ],
+      "extraction_source": "unknown"
+    }
+  ],
+  "total_count": 10
 }

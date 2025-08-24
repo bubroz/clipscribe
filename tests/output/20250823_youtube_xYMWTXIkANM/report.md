@@ -3,26 +3,26 @@
 **URL**: https://www.youtube.com/watch?v=xYMWTXIkANM
 **Channel**: FRONTLINE PBS | Official
 **Duration**: 53:18
-**Processed**: 2025-08-23 20:56:38
+**Processed**: 2025-08-23 23:33:06
 
 **Processing Cost**: $0.2814
 
 ## Executive Summary
 
-An international journalistic investigation, 'The Pegasus Project', reveals that Pegasus, a military-grade spyware developed by the Israeli firm NSO Group, has been sold to and misused by authoritarian and democratic governments worldwide. The spyware was used to target journalists, human rights activists, lawyers, and high-profile political figures, including French President Emmanuel Macron by Morocco. The investigation highlights cases such as the tracking of Dubai's Princess Latifa during her escape attempt and the targeting of Mexican journalist Cecilio Pineda weeks before his murder. The report establishes deep connections between NSO Group and Israeli intelligence, suggesting the Israeli government under BB Netanyahu leveraged the spyware as a key diplomatic tool to advance its foreign policy interests.
+An extensive international investigation by a consortium of 17 news organizations, led by Forbidden Stories, uncovered the widespread abuse of Pegasus, a powerful spyware developed by the Israeli company NSO Group. Originally marketed for fighting terrorism, the investigation revealed it was systematically used by government clients to target journalists, human rights activists, lawyers, and high-profile political figures globally. Key findings include the targeting of French President Emmanuel Macron by Morocco, the use of the spyware by the UAE to track the escaping Princess Latifa, and the murder of a Mexican journalist, Cecilio Pineda, weeks after his number appeared on a target list. The report also highlights the Israeli government's role in promoting NSO as a tool of diplomatic leverage. Despite forensic evidence confirming infections on numerous devices, NSO Group has denied the claims.
 
 ## Quick Stats
 
-- **Transcript Length**: 33927 characters
-- **Entities Found**: 24
+- **Transcript Length**: 33975 characters
+- **Entities Found**: 21
 - **Key Points**: 10
-- **Topics**: 12
-- **Relationships**: 12
+- **Topics**: 9
+- **Relationships**: 11
 
 ## Key Entities
 
 - **Sheikh Mohammed bin Rashid Al Maktoum** (PERSON)
-- **Israeli Defense Ministry** (GOVERNMENT AGENCY)
-- **Detained International** (ORGANIZATION)
+- **Israeli Defense Ministry** (ORGANIZATION)
 - **The Washington Post** (ORGANIZATION)
 - **Forbidden Stories** (ORGANIZATION)
+- **François de Rugy** (PERSON)

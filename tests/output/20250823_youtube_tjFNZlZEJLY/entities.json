@@ -1,7 +1,324 @@
 {
   "video_url": "https://www.youtube.com/watch?v=tjFNZlZEJLY",
   "video_title": "How to Pass Tier 1 & 2 Selections - Part 2/3: Tier 2 Selections",
-  "entities": [],
+  "entities": [
+    {
+      "name": "Special Forces Tier 1 operator",
+      "type": "ROLE",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 2,
+      "context_windows": [
+        {
+          "text": "econd part of my three-part series on how to pass Tier 1 and Tier 2 selections. Today we're going to cover",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": ". So first, reiterate my background. I'm a former Special Forces Tier 1 operator and I also got to be a cadre and an instructor fo",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "are the two things that separate it the most from Tier 1 selections, because Tier 1 is more individual and",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "n. It's not as important in Tier 2 selections. In Tier 1, it's a necessity. But if you're able to ruck run",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "mmates. This is one of the only times, because in Tier 1 you don't get this, in Tier 2 selections, you'll ",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "hich is how once again how the differences of how Tier 1 selections differ and how to, my best advice for ",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [
+        "Tier 1"
+      ],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Marine Force Recon",
+      "type": "ORGANIZATION",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": " or your vanilla SEALs, your MARSOC Raiders, your Marine Force Recon, your Rangers, your Green Berets, your AFSOC guys",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "MARSOC Raiders",
+      "type": "ORGANIZATION",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": " which is your SEALs, or your vanilla SEALs, your MARSOC Raiders, your Marine Force Recon, your Rangers, your Gree",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Green Berets",
+      "type": "ORGANIZATION",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "ders, your Marine Force Recon, your Rangers, your Green Berets, your AFSOC guys. So the main thing",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Instructor",
+      "type": "ROLE",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "er 1 operator and I also got to be a cadre and an instructor for a Tier 1 selection. So we're talking about Ti",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Rangers",
+      "type": "ORGANIZATION",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "our MARSOC Raiders, your Marine Force Recon, your Rangers, your Green Berets, your AFSOC guys. So the main ",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Tier 2",
+      "type": "MILITARY UNIT TIER",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "of my three-part series on how to pass Tier 1 and Tier 2 selections. Today we're going to cover part two, ",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "about Tier 2 selections is there is a lot of negative reinforc",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": ", learn how to ruck run. It's not as important in Tier 2 selections. In Tier 1, it's a necessity. But if y",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "y times, because in Tier 1 you don't get this, in Tier 2 selections, you'll be working with, you can do wi",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        },
+        {
+          "text": "superstars, they want great teammates. Almost all Tier 2 selection and organizations and are all designed ",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Afsoc",
+      "type": "ORGANIZATION",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "orce Recon, your Rangers, your Green Berets, your AFSOC guys. So the main thing",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "Cadre",
+      "type": "ROLE",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": "ial Forces Tier 1 operator and I also got to be a cadre and an instructor for a Tier 1 selection. So we'r",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    },
+    {
+      "name": "SEALs",
+      "type": "ORGANIZATION",
+      "source": [
+        "gemini"
+      ],
+      "properties": {},
+      "timestamp": null,
+      "mention_count": 1,
+      "context_windows": [
+        {
+          "text": " selections, which cover white SOF, which is your SEALs, or your vanilla SEALs, your MARSOC Raiders, your",
+          "timestamp": "00:00:00",
+          "speaker": null,
+          "visual_present": false
+        }
+      ],
+      "aliases": [],
+      "temporal_distribution": [
+        {
+          "timestamp": "00:00:00",
+          "duration": 5.0,
+          "context_type": "spoken"
+        }
+      ]
+    }
+  ],
   "topics": [
     {
       "name": "Special Operations Forces (SOF)",
@@ -12,7 +329,15 @@
       "confidence": 0.9
     },
     {
-      "name": "Tier Two Operations",
+      "name": "Military Training",
+      "confidence": 0.9
+    },
+    {
+      "name": "Tier 2 SOF",
+      "confidence": 0.9
+    },
+    {
+      "name": "Tier 1 SOF",
       "confidence": 0.9
     },
     {
@@ -24,27 +349,19 @@
       "confidence": 0.9
     },
     {
-      "name": "Mental Toughness",
-      "confidence": 0.9
-    },
-    {
       "name": "Teamwork",
       "confidence": 0.9
     },
     {
-      "name": "Military Training",
-      "confidence": 0.9
-    },
-    {
-      "name": "Special Forces",
+      "name": "Mental Fortitude",
       "confidence": 0.9
     }
   ],
   "key_facts": [
-    "The paramount advice for passing Tier Two selections is to never quit and to mentally embrace the designed misery of the process.",
-    "Being a great teammate is critical in Tier Two selections, as they are team-oriented events where individuals can be removed based on peer evaluations.",
-    "Tier Two selections are characterized by negative reinforcement and a focus on team events, distinguishing them from the individual-based Tier One selections.",
-    "Appropriate physical fitness for Tier Two involves more than just running; it requires water competency and, crucially, the ability to move heavy weights, primarily through rucking.",
-    "Candidates should adopt a 'gray man' approach: be reliable, punctual, and helpful without seeking the spotlight or causing drama."
+    "The speaker is a former Special Forces Tier 1 operator who also served as a cadre and instructor for a Tier 1 selection process.",
+    "Tier 2 selections are fundamentally different from Tier 1, characterized by significant negative reinforcement and a strong emphasis on team-oriented events.",
+    "The first major tip for passing Tier 2 selection is to possess the correct type of fitness, specifically being comfortable in water and capable of moving heavy weights, primarily through rucking.",
+    "The second key tip is to be an excellent teammate, blend in as a 'gray man', and avoid negative attention, as peer performance is a critical evaluation factor.",
+    "The third crucial tip is to never quit, embrace the inherent misery of the process, and maintain mental fortitude through positive self-talk and a clear personal motivation."
   ]
 }

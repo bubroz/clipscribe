@@ -13,7 +13,7 @@
     },
     {
       "id": "Israeli Defense Ministry",
-      "type": "GOVERNMENT AGENCY",
+      "type": "ORGANIZATION",
       "confidence": 0.9,
       "mention_count": 2,
       "occurrences": 1,
@@ -21,17 +21,6 @@
         "gemini"
       ],
       "canonical_form": "Israeli Defense Ministry"
-    },
-    {
-      "id": "Detained International",
-      "type": "ORGANIZATION",
-      "confidence": 0.9,
-      "mention_count": 1,
-      "occurrences": 1,
-      "extraction_sources": [
-        "gemini"
-      ],
-      "canonical_form": "Detained International"
     },
     {
       "id": "The Washington Post",
@@ -78,17 +67,6 @@
       "canonical_form": "Emmanuel Macron"
     },
     {
-      "id": "Forbidden Films",
-      "type": "ORGANIZATION",
-      "confidence": 0.9,
-      "mention_count": 1,
-      "occurrences": 1,
-      "extraction_sources": [
-        "gemini"
-      ],
-      "canonical_form": "Forbidden Films"
-    },
-    {
       "id": "Princess Latifa",
       "type": "PERSON",
       "confidence": 0.9,
@@ -100,6 +78,17 @@
       "canonical_form": "Princess Latifa"
     },
     {
+      "id": "Bibi Netanyahu",
+      "type": "PERSON",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Bibi Netanyahu"
+    },
+    {
       "id": "Cecilio Pineda",
       "type": "PERSON",
       "confidence": 0.9,
@@ -109,17 +98,6 @@
         "gemini"
       ],
       "canonical_form": "Cecilio Pineda"
-    },
-    {
-      "id": "BB Netanyahu",
-      "type": "PERSON",
-      "confidence": 0.9,
-      "mention_count": 1,
-      "occurrences": 1,
-      "extraction_sources": [
-        "gemini"
-      ],
-      "canonical_form": "BB Netanyahu"
     },
     {
       "id": "The Guardian",
@@ -167,7 +145,7 @@
     },
     {
       "id": "Unit 8200",
-      "type": "MILITARY UNIT",
+      "type": "ORGANIZATION",
       "confidence": 0.9,
       "mention_count": 1,
       "occurrences": 1,
@@ -233,7 +211,7 @@
     },
     {
       "id": "\u00c9lys\u00e9e",
-      "type": "GOVERNMENT BUILDING",
+      "type": "GOVERNMENT BODY",
       "confidence": 0.9,
       "mention_count": 1,
       "occurrences": 1,
@@ -241,17 +219,6 @@
         "gemini"
       ],
       "canonical_form": "\u00c9lys\u00e9e"
-    },
-    {
-      "id": "Dubai",
-      "type": "CITY",
-      "confidence": 0.9,
-      "mention_count": 1,
-      "occurrences": 1,
-      "extraction_sources": [
-        "gemini"
-      ],
-      "canonical_form": "Dubai"
     },
     {
       "id": "Uae",
@@ -283,41 +250,45 @@
       "canonical_form": "UAE"
     },
     {
-      "id": "journalists, activists, lawyers",
+      "id": "Israel",
       "type": "unknown",
       "confidence": 0.9,
       "mention_count": 1,
       "occurrences": 1,
       "extraction_sources": [],
-      "canonical_form": "journalists, activists, lawyers"
+      "canonical_form": "Israel"
+    },
+    {
+      "id": "Bibi Netanyahu's government",
+      "type": "unknown",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [],
+      "canonical_form": "Bibi Netanyahu's government"
+    },
+    {
+      "id": "governments",
+      "type": "unknown",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [],
+      "canonical_form": "governments"
     }
   ],
   "edges": [
     {
-      "source": "Israeli Defense Ministry",
-      "target": "NSO Group",
-      "predicate": "licenses sales for",
-      "confidence": 0.9,
-      "extraction_source": "gemini"
-    },
-    {
       "source": "Forbidden Stories",
       "target": "NSO Group",
-      "predicate": "led investigation into",
+      "predicate": "investigated",
       "confidence": 0.9,
       "extraction_source": "gemini"
     },
     {
-      "source": "Princess Latifa",
-      "target": "Sheikh Mohammed bin Rashid Al Maktoum",
-      "predicate": "is daughter of",
-      "confidence": 0.9,
-      "extraction_source": "gemini"
-    },
-    {
-      "source": "BB Netanyahu",
+      "source": "David Haigh",
       "target": "Pegasus",
-      "predicate": "used as diplomatic tool by",
+      "predicate": "was infected with",
       "confidence": 0.9,
       "extraction_source": "gemini"
     },
@@ -331,53 +302,60 @@
     {
       "source": "NSO Group",
       "target": "Unit 8200",
-      "predicate": "has ties to",
+      "predicate": "recruits from",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "NSO Group",
+      "target": "governments",
+      "predicate": "sells spyware to",
       "confidence": 0.9,
       "extraction_source": "gemini"
     },
     {
       "source": "Morocco",
       "target": "Emmanuel Macron",
-      "predicate": "targeted",
+      "predicate": "targeted with Pegasus",
       "confidence": 0.9,
       "extraction_source": "gemini"
     },
     {
       "source": "Morocco",
       "target": "French government officials",
-      "predicate": "targeted",
+      "predicate": "targeted with Pegasus",
       "confidence": 0.9,
       "extraction_source": "gemini"
     },
     {
       "source": "Pegasus",
-      "target": "journalists, activists, lawyers",
-      "predicate": "used against",
-      "confidence": 0.9,
-      "extraction_source": "gemini"
-    },
-    {
-      "source": "Mexico",
       "target": "Cecilio Pineda",
-      "predicate": "targeted",
+      "predicate": "was targeted by",
       "confidence": 0.9,
       "extraction_source": "gemini"
     },
     {
       "source": "UAE",
       "target": "Princess Latifa",
-      "predicate": "targeted",
+      "predicate": "used Pegasus against",
       "confidence": 0.9,
       "extraction_source": "gemini"
     },
     {
-      "source": "UAE",
-      "target": "David Haigh",
-      "predicate": "targeted",
+      "source": "Israel",
+      "target": "Pegasus",
+      "predicate": "used as diplomatic tool",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "Bibi Netanyahu's government",
+      "target": "NSO Group",
+      "predicate": "was supported by",
       "confidence": 0.9,
       "extraction_source": "gemini"
     }
   ],
-  "node_count": 27,
-  "edge_count": 12
+  "node_count": 26,
+  "edge_count": 11
 }

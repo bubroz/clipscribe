@@ -1,6 +1,6 @@
 {
   "version": "2.3",
-  "created_at": "2025-08-23T21:38:49.122866",
+  "created_at": "2025-08-23T23:57:49.361545",
   "video": {
     "title": "How to Pass Tier 1 & 2 Selections - Part 2/3: Tier 2 Selections",
     "url": "https://www.youtube.com/watch?v=tjFNZlZEJLY",
@@ -9,120 +9,121 @@
   "extraction_stats": {
     "gemini_entities": [
       {
-        "confidence": 1.0,
-        "name": "Tier One",
-        "type": "Military Unit Designation"
+        "confidence": 0.99,
+        "name": "Tier 1",
+        "type": "Military Unit Tier"
       },
       {
-        "confidence": 1.0,
-        "name": "Tier Two",
-        "type": "Military Unit Designation"
+        "confidence": 0.99,
+        "name": "Tier 2",
+        "type": "Military Unit Tier"
       },
       {
         "confidence": 0.95,
-        "name": "White SOF",
-        "type": "Military Unit Category"
+        "name": "Special Forces Tier 1 operator",
+        "type": "Role"
+      },
+      {
+        "confidence": 0.95,
+        "name": "cadre",
+        "type": "Role"
+      },
+      {
+        "confidence": 0.95,
+        "name": "instructor",
+        "type": "Role"
       },
       {
         "confidence": 1.0,
         "name": "SEALs",
-        "type": "Military Unit"
+        "type": "Organization"
       },
       {
         "confidence": 1.0,
         "name": "MARSOC Raiders",
-        "type": "Military Unit"
+        "type": "Organization"
       },
       {
         "confidence": 1.0,
         "name": "Marine Force Recon",
-        "type": "Military Unit"
+        "type": "Organization"
       },
       {
         "confidence": 1.0,
         "name": "Rangers",
-        "type": "Military Unit"
+        "type": "Organization"
       },
       {
         "confidence": 1.0,
         "name": "Green Berets",
-        "type": "Military Unit"
+        "type": "Organization"
       },
       {
         "confidence": 1.0,
         "name": "AFSOC",
-        "type": "Military Organization"
-      },
-      {
-        "confidence": 1.0,
-        "name": "Former special forces tier one operator",
-        "type": "Role"
-      },
-      {
-        "confidence": 1.0,
-        "name": "Cadre",
-        "type": "Role"
-      },
-      {
-        "confidence": 1.0,
-        "name": "Instructor",
-        "type": "Role"
+        "type": "Organization"
       }
     ],
     "gemini_relationships": [
       {
-        "confidence": 1.0,
-        "object": "Former special forces tier one operator",
-        "predicate": "identifies as",
-        "subject": "Narrator"
+        "confidence": 0.95,
+        "object": "former Special Forces Tier 1 operator",
+        "predicate": "is a",
+        "subject": "speaker"
       },
       {
-        "confidence": 1.0,
-        "object": "Tier One Selection",
-        "predicate": "was an instructor for",
-        "subject": "Narrator"
+        "confidence": 0.95,
+        "object": "cadre for a Tier 1 selection",
+        "predicate": "was a",
+        "subject": "speaker"
       },
       {
-        "confidence": 1.0,
-        "object": "Negative Reinforcement",
-        "predicate": "is a key feature of",
-        "subject": "Tier Two Selections"
+        "confidence": 0.98,
+        "object": "negative reinforcement",
+        "predicate": "is characterized by",
+        "subject": "Tier 2 selections"
       },
       {
-        "confidence": 1.0,
-        "object": "Team-oriented events",
-        "predicate": "are a key feature of",
-        "subject": "Tier Two Selections"
-      },
-      {
-        "confidence": 0.9,
-        "object": "Individual focus",
-        "predicate": "is a key feature of",
-        "subject": "Tier One Selections"
-      },
-      {
-        "confidence": 1.0,
-        "object": "SEALs, MARSOC Raiders, Marine Force Recon, Rangers, Green Berets, AFSOC",
-        "predicate": "are examples of",
-        "subject": "White SOF"
-      },
-      {
-        "confidence": 1.0,
-        "object": "Mental Toughness",
-        "predicate": "is required to pass",
-        "subject": "Tier Two Selections"
-      },
-      {
-        "confidence": 1.0,
-        "object": "being a great teammate",
-        "predicate": "is required to pass",
-        "subject": "Tier Two Selections"
+        "confidence": 0.98,
+        "object": "team-oriented events",
+        "predicate": "is characterized by",
+        "subject": "Tier 2 selections"
       },
       {
         "confidence": 0.9,
-        "object": "Peer evaluations",
-        "predicate": "can lead to removal from",
-        "subject": "Tier Two Selections"
+        "object": "individual events",
+        "predicate": "is characterized by",
+        "subject": "Tier 1 selections"
+      },
+      {
+        "confidence": 0.99,
+        "object": "SEALs",
+        "predicate": "are a type of",
+        "subject": "Tier 2"
+      },
+      {
+        "confidence": 0.99,
+        "object": "MARSOC Raiders",
+        "predicate": "are a type of",
+        "subject": "Tier 2"
+      },
+      {
+        "confidence": 0.99,
+        "object": "Rangers",
+        "predicate": "are a type of",
+        "subject": "Tier 2"
+      },
+      {
+        "confidence": 0.99,
+        "object": "Green Berets",
+        "predicate": "are a type of",
+        "subject": "Tier 2"
+      },
+      {
+        "confidence": 0.85,
+        "object": "a necessity",
+        "predicate": "is",
+        "subject": "Ruck running in Tier 1"
       }
     ],
     "retention_decision": {
@@ -134,7 +135,7 @@
         "storage_cost_avoided": 0.004128547009080648,
         "reprocessing_cost": 0.030685599999999997
       },
-      "timestamp": "2025-08-23T21:38:49.114575"
+      "timestamp": "2025-08-23T23:57:49.337939"
     }
   },
   "timeline_v2": null,
@@ -142,44 +143,50 @@
     "transcript_txt": {
       "path": "transcript.txt",
       "format": "plain_text",
-      "size": 5717,
-      "sha256": "de6d40acd4b96cb382888db4867a62f7eeae36404d9b1c8cb47ee107ab47b5c6"
+      "size": 5715,
+      "sha256": "049a330ce64839da1fe4f07722803703f3971da08f66a568f1a21f93b81e9d3a"
     },
     "transcript_json": {
       "path": "transcript.json",
       "format": "json",
-      "size": 21916,
-      "sha256": "ea1b407525d199592c7ed5ab49ce46bdada7acdc41fa564a553de3d5f0a44183"
+      "size": 49718,
+      "sha256": "e9d54bb1f26414c09d6aeff716097393b285d97340359fbfae4263ffdaddaf5f"
     },
     "metadata": {
       "path": "metadata.json",
       "format": "json",
-      "size": 3047,
-      "sha256": "f410f63db8d0000ca52851f9cf5b053b6dd4ce6d8fa825cc209083e0995cc3a6"
+      "size": 3048,
+      "sha256": "35660deaabdc3338283d25a2ce21bb56fbb4fc608737fd3c6ebdaf5f1704640c"
     },
     "entities": {
       "path": "entities.json",
       "format": "json",
-      "size": 1634,
-      "sha256": "1d1c94b334602584882dca283be7f76546e7c813d8d7ded9a5d3a9bd834e2962"
+      "size": 10368,
+      "sha256": "0041e11adc436069b95f82cde0202ea634d5baad395ccc9c5f3cfefe42b00694"
     },
     "relationships": {
       "path": "relationships.json",
       "format": "json",
-      "size": 191,
-      "sha256": "d80662a6a1a1a1d57273812e401c86d8ec00a6903bcdf19b052ed6622376f391"
+      "size": 11392,
+      "sha256": "11ed0b3e70d7d6b3a0eec6b13f712e859c68d3cfd4a80adb73d4391dd7d43721"
+    },
+    "knowledge_graph": {
+      "path": "knowledge_graph.json",
+      "format": "json",
+      "size": 6502,
+      "sha256": "5a84544118d59952847eec841fd4f4860d8d6329833ae2e44f7bbb070db6b198"
     },
     "report": {
       "path": "report.md",
       "format": "markdown",
-      "size": 1037,
-      "sha256": "54ac8adf5f5dce93b5a67c3bd86667c8d902bb6b8716833db1272be8b8528490"
+      "size": 1162,
+      "sha256": "0e6b99d426707a93a4c62421df5e7214d48e8ac2b63818f6fcf68c2d8d578d59"
     },
     "chimera": {
       "path": "chimera_format.json",
       "format": "json",
-      "size": 9241,
-      "sha256": "0045d94d12c10bbe8883d29c7d46b033dde4a92d87f8c2490d4b6ad4156e93f7"
+      "size": 19268,
+      "sha256": "5bb16b78e3eed938098606b7045f430019882f199f05897e3b1e210c91a550d8"
     }
   }
 }

@@ -1,0 +1,17 @@
+subject,predicate,object,context,evidence_count
+Delta Force,is a,Tier One Unit,,6
+SEAL Team Six,is a,Tier One Unit,,11
+Intelligence Support Activity,is a,Tier One Unit,,9
+Rangers,is a,Tier Two Unit,,2
+Special Forces,is a,Tier Two Unit,,3
+MARSOC Raiders,is a,Tier Two Unit,,2
+DevGru,is also known as,SEAL Team Six,,0
+Tier Two Units,are referred to as,White SOF,,7
+Tier One Units,are referred to as,Black SOF,,6
+Delta Force,is associated with color,Green,,2
+SEAL Team Six,is associated with color,Blue,,2
+Intelligence Support Activity,is associated with color,Orange,,2
+Intelligence Support Activity,is also known as,TFO,,2
+Tier One selection,is characterized by,individual events,,5
+Tier Two selection,is characterized by,team oriented events,,9
+24th STS,supports,Tier One elements,,0

@@ -17,6 +17,17 @@
       <attribute id="1" title="Confidence" type="double"/>
     </attributes>
     <nodes>
+      <node id="n_89aabd5e99d8" label="Special Forces Tier 1 operator">
+        <attvalues>
+          <attvalue for="0" value="ROLE"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="2"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="Special Forces Tier 1 operator"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
       <node id="n_00c45350ad41" label="Marine Force Recon">
         <attvalues>
           <attvalue for="0" value="ORGANIZATION"/>
@@ -39,17 +50,6 @@
         <viz:color r="78" g="205" b="196" a="1.0"/>
         <viz:size value="47.0"/>
       </node>
-      <node id="n_6c81bfb18846" label="Special Forces">
-        <attvalues>
-          <attvalue for="0" value="ORGANIZATION"/>
-          <attvalue for="1" value="0.9"/>
-          <attvalue for="2" value="1"/>
-          <attvalue for="3" value="1"/>
-          <attvalue for="4" value="Special Forces"/>
-        </attvalues>
-        <viz:color r="78" g="205" b="196" a="1.0"/>
-        <viz:size value="47.0"/>
-      </node>
       <node id="n_2df0820160b9" label="Green Berets">
         <attvalues>
           <attvalue for="0" value="ORGANIZATION"/>
@@ -61,37 +61,15 @@
         <viz:color r="78" g="205" b="196" a="1.0"/>
         <viz:size value="47.0"/>
       </node>
-      <node id="n_3e769f4ac3a6" label="White Sof">
+      <node id="n_fca9b5c386b9" label="Instructor">
         <attvalues>
-          <attvalue for="0" value="CONCEPT"/>
+          <attvalue for="0" value="ROLE"/>
           <attvalue for="1" value="0.9"/>
           <attvalue for="2" value="1"/>
           <attvalue for="3" value="1"/>
-          <attvalue for="4" value="White Sof"/>
+          <attvalue for="4" value="Instructor"/>
         </attvalues>
-        <viz:color r="187" g="143" b="206" a="1.0"/>
-        <viz:size value="47.0"/>
-      </node>
-      <node id="n_1d03cdb3a65c" label="Tier one">
-        <attvalues>
-          <attvalue for="0" value="CONCEPT"/>
-          <attvalue for="1" value="0.9"/>
-          <attvalue for="2" value="1"/>
-          <attvalue for="3" value="1"/>
-          <attvalue for="4" value="Tier one"/>
-        </attvalues>
-        <viz:color r="187" g="143" b="206" a="1.0"/>
-        <viz:size value="47.0"/>
-      </node>
-      <node id="n_537dd74df6e5" label="Tier two">
-        <attvalues>
-          <attvalue for="0" value="CONCEPT"/>
-          <attvalue for="1" value="0.9"/>
-          <attvalue for="2" value="1"/>
-          <attvalue for="3" value="1"/>
-          <attvalue for="4" value="Tier two"/>
-        </attvalues>
-        <viz:color r="187" g="143" b="206" a="1.0"/>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
         <viz:size value="47.0"/>
       </node>
       <node id="n_b3b94eb4dc10" label="Rangers">
@@ -105,6 +83,17 @@
         <viz:color r="78" g="205" b="196" a="1.0"/>
         <viz:size value="47.0"/>
       </node>
+      <node id="n_aa91161f1c7b" label="Tier 2">
+        <attvalues>
+          <attvalue for="0" value="MILITARY UNIT TIER"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="Tier 2"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
       <node id="n_1d09037f658c" label="Afsoc">
         <attvalues>
           <attvalue for="0" value="ORGANIZATION"/>
@@ -114,6 +103,17 @@
           <attvalue for="4" value="Afsoc"/>
         </attvalues>
         <viz:color r="78" g="205" b="196" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_cd8131504cb6" label="Cadre">
+        <attvalues>
+          <attvalue for="0" value="ROLE"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="Cadre"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
         <viz:size value="47.0"/>
       </node>
       <node id="n_be860dcdad67" label="SEALs">
@@ -127,46 +127,46 @@
         <viz:color r="78" g="205" b="196" a="1.0"/>
         <viz:size value="47.0"/>
       </node>
-      <node id="n_4268baee45b3" label="The speaker">
+      <node id="n_291ea5ef94df" label="speaker">
         <attvalues>
           <attvalue for="0" value="unknown"/>
           <attvalue for="1" value="0.9"/>
           <attvalue for="2" value="1"/>
           <attvalue for="3" value="1"/>
-          <attvalue for="4" value="The speaker"/>
+          <attvalue for="4" value="speaker"/>
         </attvalues>
         <viz:color r="149" g="165" b="166" a="1.0"/>
         <viz:size value="47.0"/>
       </node>
-      <node id="n_c32aa9ce8502" label="Former Special Forces tier one operator">
+      <node id="n_43c285c7ecb7" label="former Special Forces Tier 1 operator">
         <attvalues>
           <attvalue for="0" value="unknown"/>
           <attvalue for="1" value="0.9"/>
           <attvalue for="2" value="1"/>
           <attvalue for="3" value="1"/>
-          <attvalue for="4" value="Former Special Forces tier one operator"/>
+          <attvalue for="4" value="former Special Forces Tier 1 operator"/>
         </attvalues>
         <viz:color r="149" g="165" b="166" a="1.0"/>
         <viz:size value="47.0"/>
       </node>
-      <node id="n_27190cb239a7" label="Instructor for a tier one selection">
+      <node id="n_fc27d5b54159" label="cadre for a Tier 1 selection">
         <attvalues>
           <attvalue for="0" value="unknown"/>
           <attvalue for="1" value="0.9"/>
           <attvalue for="2" value="1"/>
           <attvalue for="3" value="1"/>
-          <attvalue for="4" value="Instructor for a tier one selection"/>
+          <attvalue for="4" value="cadre for a Tier 1 selection"/>
         </attvalues>
         <viz:color r="149" g="165" b="166" a="1.0"/>
         <viz:size value="47.0"/>
       </node>
-      <node id="n_9609aab2c61a" label="Tier two selections">
+      <node id="n_6228d53b0210" label="Tier 2 selections">
         <attvalues>
           <attvalue for="0" value="unknown"/>
           <attvalue for="1" value="0.9"/>
           <attvalue for="2" value="1"/>
           <attvalue for="3" value="1"/>
-          <attvalue for="4" value="Tier two selections"/>
+          <attvalue for="4" value="Tier 2 selections"/>
         </attvalues>
         <viz:color r="149" g="165" b="166" a="1.0"/>
         <viz:size value="47.0"/>
@@ -193,120 +193,109 @@
         <viz:color r="149" g="165" b="166" a="1.0"/>
         <viz:size value="47.0"/>
       </node>
-      <node id="n_d8f3d682fccb" label="white sof">
+      <node id="n_cdb896332151" label="Tier 1 selections">
         <attvalues>
           <attvalue for="0" value="unknown"/>
           <attvalue for="1" value="0.9"/>
           <attvalue for="2" value="1"/>
           <attvalue for="3" value="1"/>
-          <attvalue for="4" value="white sof"/>
+          <attvalue for="4" value="Tier 1 selections"/>
         </attvalues>
         <viz:color r="149" g="165" b="166" a="1.0"/>
         <viz:size value="47.0"/>
       </node>
-      <node id="n_c33ba0350f91" label="Tier one selections">
+      <node id="n_06fe3b21cbbd" label="individual events">
         <attvalues>
           <attvalue for="0" value="unknown"/>
           <attvalue for="1" value="0.9"/>
           <attvalue for="2" value="1"/>
           <attvalue for="3" value="1"/>
-          <attvalue for="4" value="Tier one selections"/>
+          <attvalue for="4" value="individual events"/>
         </attvalues>
         <viz:color r="149" g="165" b="166" a="1.0"/>
         <viz:size value="47.0"/>
       </node>
-      <node id="n_4046d0a929f4" label="more individual">
+      <node id="n_373d31495e45" label="Ruck running in Tier 1">
         <attvalues>
           <attvalue for="0" value="unknown"/>
           <attvalue for="1" value="0.9"/>
           <attvalue for="2" value="1"/>
           <attvalue for="3" value="1"/>
-          <attvalue for="4" value="more individual"/>
+          <attvalue for="4" value="Ruck running in Tier 1"/>
         </attvalues>
         <viz:color r="149" g="165" b="166" a="1.0"/>
         <viz:size value="47.0"/>
       </node>
-      <node id="n_0137247c1107" label="Tier two selection">
+      <node id="n_cbcc75816165" label="a necessity">
         <attvalues>
           <attvalue for="0" value="unknown"/>
           <attvalue for="1" value="0.9"/>
           <attvalue for="2" value="1"/>
           <attvalue for="3" value="1"/>
-          <attvalue for="4" value="Tier two selection"/>
-        </attvalues>
-        <viz:color r="149" g="165" b="166" a="1.0"/>
-        <viz:size value="47.0"/>
-      </node>
-      <node id="n_fadff6cf8575" label="teams">
-        <attvalues>
-          <attvalue for="0" value="unknown"/>
-          <attvalue for="1" value="0.9"/>
-          <attvalue for="2" value="1"/>
-          <attvalue for="3" value="1"/>
-          <attvalue for="4" value="teams"/>
+          <attvalue for="4" value="a necessity"/>
         </attvalues>
         <viz:color r="149" g="165" b="166" a="1.0"/>
         <viz:size value="47.0"/>
       </node>
     </nodes>
     <edges>
-      <edge id="0" source="n_4268baee45b3" target="n_c32aa9ce8502" weight="0.9" label="is a" kind="is a">
+      <edge id="0" source="n_aa91161f1c7b" target="n_be860dcdad67" weight="0.9" label="are a type of" kind="are a type of">
+        <attvalues>
+          <attvalue for="0" value="are a type of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="1" source="n_aa91161f1c7b" target="n_c71b7525f216" weight="0.9" label="are a type of" kind="are a type of">
+        <attvalues>
+          <attvalue for="0" value="are a type of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="2" source="n_aa91161f1c7b" target="n_b3b94eb4dc10" weight="0.9" label="are a type of" kind="are a type of">
+        <attvalues>
+          <attvalue for="0" value="are a type of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="3" source="n_aa91161f1c7b" target="n_2df0820160b9" weight="0.9" label="are a type of" kind="are a type of">
+        <attvalues>
+          <attvalue for="0" value="are a type of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="4" source="n_291ea5ef94df" target="n_43c285c7ecb7" weight="0.9" label="is a" kind="is a">
         <attvalues>
           <attvalue for="0" value="is a"/>
           <attvalue for="1" value="0.9"/>
         </attvalues>
       </edge>
-      <edge id="1" source="n_4268baee45b3" target="n_27190cb239a7" weight="0.9" label="served as" kind="served as">
+      <edge id="5" source="n_291ea5ef94df" target="n_fc27d5b54159" weight="0.9" label="was a" kind="was a">
         <attvalues>
-          <attvalue for="0" value="served as"/>
+          <attvalue for="0" value="was a"/>
           <attvalue for="1" value="0.9"/>
         </attvalues>
       </edge>
-      <edge id="2" source="n_9609aab2c61a" target="n_0c569ca26bf6" weight="0.9" label="are characterized by" kind="are characterized by">
+      <edge id="6" source="n_6228d53b0210" target="n_0c569ca26bf6" weight="0.9" label="is characterized by" kind="is characterized by">
         <attvalues>
-          <attvalue for="0" value="are characterized by"/>
+          <attvalue for="0" value="is characterized by"/>
           <attvalue for="1" value="0.9"/>
         </attvalues>
       </edge>
-      <edge id="3" source="n_9609aab2c61a" target="n_966ac225ef83" weight="0.9" label="are characterized by" kind="are characterized by">
+      <edge id="7" source="n_6228d53b0210" target="n_966ac225ef83" weight="0.9" label="is characterized by" kind="is characterized by">
         <attvalues>
-          <attvalue for="0" value="are characterized by"/>
+          <attvalue for="0" value="is characterized by"/>
           <attvalue for="1" value="0.9"/>
         </attvalues>
       </edge>
-      <edge id="4" source="n_9609aab2c61a" target="n_d8f3d682fccb" weight="0.9" label="cover" kind="cover">
+      <edge id="8" source="n_cdb896332151" target="n_06fe3b21cbbd" weight="0.9" label="is characterized by" kind="is characterized by">
         <attvalues>
-          <attvalue for="0" value="cover"/>
+          <attvalue for="0" value="is characterized by"/>
           <attvalue for="1" value="0.9"/>
         </attvalues>
       </edge>
-      <edge id="5" source="n_d8f3d682fccb" target="n_be860dcdad67" weight="0.9" label="is a type of" kind="is a type of">
+      <edge id="9" source="n_373d31495e45" target="n_cbcc75816165" weight="0.9" label="is" kind="is">
         <attvalues>
-          <attvalue for="0" value="is a type of"/>
-          <attvalue for="1" value="0.9"/>
-        </attvalues>
-      </edge>
-      <edge id="6" source="n_d8f3d682fccb" target="n_c71b7525f216" weight="0.9" label="is a type of" kind="is a type of">
-        <attvalues>
-          <attvalue for="0" value="is a type of"/>
-          <attvalue for="1" value="0.9"/>
-        </attvalues>
-      </edge>
-      <edge id="7" source="n_d8f3d682fccb" target="n_2df0820160b9" weight="0.9" label="is a type of" kind="is a type of">
-        <attvalues>
-          <attvalue for="0" value="is a type of"/>
-          <attvalue for="1" value="0.9"/>
-        </attvalues>
-      </edge>
-      <edge id="8" source="n_c33ba0350f91" target="n_4046d0a929f4" weight="0.9" label="are" kind="are">
-        <attvalues>
-          <attvalue for="0" value="are"/>
-          <attvalue for="1" value="0.9"/>
-        </attvalues>
-      </edge>
-      <edge id="9" source="n_0137247c1107" target="n_fadff6cf8575" weight="0.9" label="are designed around" kind="are designed around">
-        <attvalues>
-          <attvalue for="0" value="are designed around"/>
+          <attvalue for="0" value="is"/>
           <attvalue for="1" value="0.9"/>
         </attvalues>
       </edge>

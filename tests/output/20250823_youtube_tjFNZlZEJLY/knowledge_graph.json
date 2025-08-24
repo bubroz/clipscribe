@@ -1,6 +1,17 @@
 {
   "nodes": [
     {
+      "id": "Special Forces Tier 1 operator",
+      "type": "ROLE",
+      "confidence": 0.9,
+      "mention_count": 2,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Special Forces Tier 1 operator"
+    },
+    {
       "id": "Marine Force Recon",
       "type": "ORGANIZATION",
       "confidence": 0.9,
@@ -23,17 +34,6 @@
       "canonical_form": "MARSOC Raiders"
     },
     {
-      "id": "Special Forces",
-      "type": "ORGANIZATION",
-      "confidence": 0.9,
-      "mention_count": 1,
-      "occurrences": 1,
-      "extraction_sources": [
-        "gemini"
-      ],
-      "canonical_form": "Special Forces"
-    },
-    {
       "id": "Green Berets",
       "type": "ORGANIZATION",
       "confidence": 0.9,
@@ -45,37 +45,15 @@
       "canonical_form": "Green Berets"
     },
     {
-      "id": "White Sof",
-      "type": "CONCEPT",
+      "id": "Instructor",
+      "type": "ROLE",
       "confidence": 0.9,
       "mention_count": 1,
       "occurrences": 1,
       "extraction_sources": [
         "gemini"
       ],
-      "canonical_form": "White Sof"
-    },
-    {
-      "id": "Tier one",
-      "type": "CONCEPT",
-      "confidence": 0.9,
-      "mention_count": 1,
-      "occurrences": 1,
-      "extraction_sources": [
-        "gemini"
-      ],
-      "canonical_form": "Tier one"
-    },
-    {
-      "id": "Tier two",
-      "type": "CONCEPT",
-      "confidence": 0.9,
-      "mention_count": 1,
-      "occurrences": 1,
-      "extraction_sources": [
-        "gemini"
-      ],
-      "canonical_form": "Tier two"
+      "canonical_form": "Instructor"
     },
     {
       "id": "Rangers",
@@ -89,6 +67,17 @@
       "canonical_form": "Rangers"
     },
     {
+      "id": "Tier 2",
+      "type": "MILITARY UNIT TIER",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Tier 2"
+    },
+    {
       "id": "Afsoc",
       "type": "ORGANIZATION",
       "confidence": 0.9,
@@ -98,6 +87,17 @@
         "gemini"
       ],
       "canonical_form": "Afsoc"
+    },
+    {
+      "id": "Cadre",
+      "type": "ROLE",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Cadre"
     },
     {
       "id": "SEALs",
@@ -111,40 +111,40 @@
       "canonical_form": "SEALs"
     },
     {
-      "id": "The speaker",
+      "id": "speaker",
       "type": "unknown",
       "confidence": 0.9,
       "mention_count": 1,
       "occurrences": 1,
       "extraction_sources": [],
-      "canonical_form": "The speaker"
+      "canonical_form": "speaker"
     },
     {
-      "id": "Former Special Forces tier one operator",
+      "id": "former Special Forces Tier 1 operator",
       "type": "unknown",
       "confidence": 0.9,
       "mention_count": 1,
       "occurrences": 1,
       "extraction_sources": [],
-      "canonical_form": "Former Special Forces tier one operator"
+      "canonical_form": "former Special Forces Tier 1 operator"
     },
     {
-      "id": "Instructor for a tier one selection",
+      "id": "cadre for a Tier 1 selection",
       "type": "unknown",
       "confidence": 0.9,
       "mention_count": 1,
       "occurrences": 1,
       "extraction_sources": [],
-      "canonical_form": "Instructor for a tier one selection"
+      "canonical_form": "cadre for a Tier 1 selection"
     },
     {
-      "id": "Tier two selections",
+      "id": "Tier 2 selections",
       "type": "unknown",
       "confidence": 0.9,
       "mention_count": 1,
       "occurrences": 1,
       "extraction_sources": [],
-      "canonical_form": "Tier two selections"
+      "canonical_form": "Tier 2 selections"
     },
     {
       "id": "negative reinforcement",
@@ -165,123 +165,114 @@
       "canonical_form": "team-oriented events"
     },
     {
-      "id": "white sof",
+      "id": "Tier 1 selections",
       "type": "unknown",
       "confidence": 0.9,
       "mention_count": 1,
       "occurrences": 1,
       "extraction_sources": [],
-      "canonical_form": "white sof"
+      "canonical_form": "Tier 1 selections"
     },
     {
-      "id": "Tier one selections",
+      "id": "individual events",
       "type": "unknown",
       "confidence": 0.9,
       "mention_count": 1,
       "occurrences": 1,
       "extraction_sources": [],
-      "canonical_form": "Tier one selections"
+      "canonical_form": "individual events"
     },
     {
-      "id": "more individual",
+      "id": "Ruck running in Tier 1",
       "type": "unknown",
       "confidence": 0.9,
       "mention_count": 1,
       "occurrences": 1,
       "extraction_sources": [],
-      "canonical_form": "more individual"
+      "canonical_form": "Ruck running in Tier 1"
     },
     {
-      "id": "Tier two selection",
+      "id": "a necessity",
       "type": "unknown",
       "confidence": 0.9,
       "mention_count": 1,
       "occurrences": 1,
       "extraction_sources": [],
-      "canonical_form": "Tier two selection"
-    },
-    {
-      "id": "teams",
-      "type": "unknown",
-      "confidence": 0.9,
-      "mention_count": 1,
-      "occurrences": 1,
-      "extraction_sources": [],
-      "canonical_form": "teams"
+      "canonical_form": "a necessity"
     }
   ],
   "edges": [
     {
-      "source": "The speaker",
-      "target": "Former Special Forces tier one operator",
+      "source": "Tier 2",
+      "target": "SEALs",
+      "predicate": "are a type of",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "Tier 2",
+      "target": "MARSOC Raiders",
+      "predicate": "are a type of",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "Tier 2",
+      "target": "Rangers",
+      "predicate": "are a type of",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "Tier 2",
+      "target": "Green Berets",
+      "predicate": "are a type of",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "speaker",
+      "target": "former Special Forces Tier 1 operator",
       "predicate": "is a",
       "confidence": 0.9,
       "extraction_source": "gemini"
     },
     {
-      "source": "The speaker",
-      "target": "Instructor for a tier one selection",
-      "predicate": "served as",
+      "source": "speaker",
+      "target": "cadre for a Tier 1 selection",
+      "predicate": "was a",
       "confidence": 0.9,
       "extraction_source": "gemini"
     },
     {
-      "source": "Tier two selections",
+      "source": "Tier 2 selections",
       "target": "negative reinforcement",
-      "predicate": "are characterized by",
+      "predicate": "is characterized by",
       "confidence": 0.9,
       "extraction_source": "gemini"
     },
     {
-      "source": "Tier two selections",
+      "source": "Tier 2 selections",
       "target": "team-oriented events",
-      "predicate": "are characterized by",
+      "predicate": "is characterized by",
       "confidence": 0.9,
       "extraction_source": "gemini"
     },
     {
-      "source": "Tier two selections",
-      "target": "white sof",
-      "predicate": "cover",
+      "source": "Tier 1 selections",
+      "target": "individual events",
+      "predicate": "is characterized by",
       "confidence": 0.9,
       "extraction_source": "gemini"
     },
     {
-      "source": "white sof",
-      "target": "SEALs",
-      "predicate": "is a type of",
-      "confidence": 0.9,
-      "extraction_source": "gemini"
-    },
-    {
-      "source": "white sof",
-      "target": "MARSOC Raiders",
-      "predicate": "is a type of",
-      "confidence": 0.9,
-      "extraction_source": "gemini"
-    },
-    {
-      "source": "white sof",
-      "target": "Green Berets",
-      "predicate": "is a type of",
-      "confidence": 0.9,
-      "extraction_source": "gemini"
-    },
-    {
-      "source": "Tier one selections",
-      "target": "more individual",
-      "predicate": "are",
-      "confidence": 0.9,
-      "extraction_source": "gemini"
-    },
-    {
-      "source": "Tier two selection",
-      "target": "teams",
-      "predicate": "are designed around",
+      "source": "Ruck running in Tier 1",
+      "target": "a necessity",
+      "predicate": "is",
       "confidence": 0.9,
       "extraction_source": "gemini"
     }
   ],
-  "node_count": 21,
+  "node_count": 20,
   "edge_count": 10
 }

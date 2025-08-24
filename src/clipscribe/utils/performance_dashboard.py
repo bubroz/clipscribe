@@ -21,9 +21,6 @@ try:
 except ImportError:
     PLOTLY_AVAILABLE = False
 
-from ..extractors.model_manager import get_model_manager
-
-
 class PerformanceDashboard:
     """Interactive performance dashboard for ClipScribe."""
 
@@ -60,6 +57,7 @@ class PerformanceDashboard:
         st.subheader(" Model Cache Performance")
 
         # Get current cache information
+        from ..extractors.model_manager import get_model_manager
         model_manager = get_model_manager()
         cache_info = model_manager.get_cache_info()
         perf_summary = model_manager.get_performance_summary()
@@ -159,6 +157,7 @@ class PerformanceDashboard:
 
         with col1:
             if st.button(" Clear Model Cache"):
+                from ..extractors.model_manager import get_model_manager
                 get_model_manager().clear_cache()
                 st.success("Model cache cleared successfully!")
                 st.rerun()

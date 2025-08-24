@@ -17,20 +17,20 @@
       <attribute id="1" title="Confidence" type="double"/>
     </attributes>
     <nodes>
-      <node id="n_9720186618db" label="You Know What They Do to Guys Like Us in Prison">
+      <node id="n_a1e437b2786c" label="I Brought You My Bullets, You Brought Me Your Love">
         <attvalues>
-          <attvalue for="0" value="SONG"/>
+          <attvalue for="0" value="WORK_OF_ART"/>
           <attvalue for="1" value="0.9"/>
           <attvalue for="2" value="1"/>
           <attvalue for="3" value="1"/>
-          <attvalue for="4" value="You Know What They Do to Guys Like Us in Prison"/>
+          <attvalue for="4" value="I Brought You My Bullets, You Brought Me Your Love"/>
         </attvalues>
         <viz:color r="149" g="165" b="166" a="1.0"/>
         <viz:size value="47.0"/>
       </node>
       <node id="n_9a14c69d42a4" label="Three Cheers for Sweet Revenge">
         <attvalues>
-          <attvalue for="0" value="ALBUM"/>
+          <attvalue for="0" value="WORK_OF_ART"/>
           <attvalue for="1" value="0.9"/>
           <attvalue for="2" value="1"/>
           <attvalue for="3" value="1"/>
@@ -41,40 +41,29 @@
       </node>
       <node id="n_8735c26b9446" label="My Chemical Romance">
         <attvalues>
-          <attvalue for="0" value="BAND"/>
+          <attvalue for="0" value="ORGANIZATION"/>
           <attvalue for="1" value="0.9"/>
           <attvalue for="2" value="1"/>
           <attvalue for="3" value="1"/>
           <attvalue for="4" value="My Chemical Romance"/>
         </attvalues>
-        <viz:color r="149" g="165" b="166" a="1.0"/>
-        <viz:size value="47.0"/>
-      </node>
-      <node id="n_521db078feb2" label="Give 'em Hell, Kid">
-        <attvalues>
-          <attvalue for="0" value="SONG"/>
-          <attvalue for="1" value="0.9"/>
-          <attvalue for="2" value="1"/>
-          <attvalue for="3" value="1"/>
-          <attvalue for="4" value="Give 'em Hell, Kid"/>
-        </attvalues>
-        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:color r="78" g="205" b="196" a="1.0"/>
         <viz:size value="47.0"/>
       </node>
       <node id="n_22dc7f1355c3" label="Avenged Sevenfold">
         <attvalues>
-          <attvalue for="0" value="BAND"/>
+          <attvalue for="0" value="ORGANIZATION"/>
           <attvalue for="1" value="0.9"/>
           <attvalue for="2" value="1"/>
           <attvalue for="3" value="1"/>
           <attvalue for="4" value="Avenged Sevenfold"/>
         </attvalues>
-        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:color r="78" g="205" b="196" a="1.0"/>
         <viz:size value="47.0"/>
       </node>
       <node id="n_59ed935da67c" label="A Rose for Emily">
         <attvalues>
-          <attvalue for="0" value="LITERATURE"/>
+          <attvalue for="0" value="WORK_OF_ART"/>
           <attvalue for="1" value="0.9"/>
           <attvalue for="2" value="1"/>
           <attvalue for="3" value="1"/>
@@ -83,20 +72,20 @@
         <viz:color r="149" g="165" b="166" a="1.0"/>
         <viz:size value="47.0"/>
       </node>
-      <node id="n_cfa3bb6ab8a9" label="Every Time I die">
+      <node id="n_145d9b2cdf55" label="Every Time I Die">
         <attvalues>
-          <attvalue for="0" value="BAND"/>
+          <attvalue for="0" value="ORGANIZATION"/>
           <attvalue for="1" value="0.9"/>
           <attvalue for="2" value="1"/>
           <attvalue for="3" value="1"/>
-          <attvalue for="4" value="Every Time I die"/>
+          <attvalue for="4" value="Every Time I Die"/>
         </attvalues>
-        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:color r="78" g="205" b="196" a="1.0"/>
         <viz:size value="47.0"/>
       </node>
       <node id="n_80cf27f9a72f" label="The Black Parade">
         <attvalues>
-          <attvalue for="0" value="ALBUM"/>
+          <attvalue for="0" value="WORK_OF_ART"/>
           <attvalue for="1" value="0.9"/>
           <attvalue for="2" value="1"/>
           <attvalue for="3" value="1"/>
@@ -118,24 +107,24 @@
       </node>
       <node id="n_53694f76da62" label="Eyeball Records">
         <attvalues>
-          <attvalue for="0" value="RECORD LABEL"/>
+          <attvalue for="0" value="ORGANIZATION"/>
           <attvalue for="1" value="0.9"/>
           <attvalue for="2" value="1"/>
           <attvalue for="3" value="1"/>
           <attvalue for="4" value="Eyeball Records"/>
         </attvalues>
-        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:color r="78" g="205" b="196" a="1.0"/>
         <viz:size value="47.0"/>
       </node>
       <node id="n_18a9a632535a" label="Reprise Records">
         <attvalues>
-          <attvalue for="0" value="RECORD LABEL"/>
+          <attvalue for="0" value="ORGANIZATION"/>
           <attvalue for="1" value="0.9"/>
           <attvalue for="2" value="1"/>
           <attvalue for="3" value="1"/>
           <attvalue for="4" value="Reprise Records"/>
         </attvalues>
-        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:color r="78" g="205" b="196" a="1.0"/>
         <viz:size value="47.0"/>
       </node>
       <node id="n_a3eab62007e0" label="Bert McCracken">
@@ -171,48 +160,26 @@
         <viz:color r="255" g="107" b="107" a="1.0"/>
         <viz:size value="47.0"/>
       </node>
-      <node id="n_cdec3807f7fb" label="Post-Hardcore">
-        <attvalues>
-          <attvalue for="0" value="MUSIC GENRE"/>
-          <attvalue for="1" value="0.9"/>
-          <attvalue for="2" value="1"/>
-          <attvalue for="3" value="1"/>
-          <attvalue for="4" value="Post-Hardcore"/>
-        </attvalues>
-        <viz:color r="149" g="165" b="166" a="1.0"/>
-        <viz:size value="47.0"/>
-      </node>
-      <node id="n_b7080c582102" label="Fall Out Boy">
-        <attvalues>
-          <attvalue for="0" value="BAND"/>
-          <attvalue for="1" value="0.9"/>
-          <attvalue for="2" value="1"/>
-          <attvalue for="3" value="1"/>
-          <attvalue for="4" value="Fall Out Boy"/>
-        </attvalues>
-        <viz:color r="149" g="165" b="166" a="1.0"/>
-        <viz:size value="47.0"/>
-      </node>
-      <node id="n_f44f275d607d" label="Straight.Com">
-        <attvalues>
-          <attvalue for="0" value="ORGANIZATION"/>
-          <attvalue for="1" value="0.9"/>
-          <attvalue for="2" value="1"/>
-          <attvalue for="3" value="1"/>
-          <attvalue for="4" value="Straight.Com"/>
-        </attvalues>
-        <viz:color r="78" g="205" b="196" a="1.0"/>
-        <viz:size value="47.0"/>
-      </node>
       <node id="n_3582e0d47814" label="Danger Days">
         <attvalues>
-          <attvalue for="0" value="ALBUM"/>
+          <attvalue for="0" value="WORK_OF_ART"/>
           <attvalue for="1" value="0.9"/>
           <attvalue for="2" value="1"/>
           <attvalue for="3" value="1"/>
           <attvalue for="4" value="Danger Days"/>
         </attvalues>
         <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
+      <node id="n_13a77d85a52c" label="Fallout Boy">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="Fallout Boy"/>
+        </attvalues>
+        <viz:color r="78" g="205" b="196" a="1.0"/>
         <viz:size value="47.0"/>
       </node>
       <node id="n_dfd338b575a9" label="Warped Tour">
@@ -248,17 +215,6 @@
         <viz:color r="255" g="107" b="107" a="1.0"/>
         <viz:size value="47.0"/>
       </node>
-      <node id="n_62b3499565dc" label="To the End">
-        <attvalues>
-          <attvalue for="0" value="SONG"/>
-          <attvalue for="1" value="0.9"/>
-          <attvalue for="2" value="1"/>
-          <attvalue for="3" value="1"/>
-          <attvalue for="4" value="To the End"/>
-        </attvalues>
-        <viz:color r="149" g="165" b="166" a="1.0"/>
-        <viz:size value="47.0"/>
-      </node>
       <node id="n_14c9e5bd5922" label="Bob Bryar">
         <attvalues>
           <attvalue for="0" value="PERSON"/>
@@ -270,26 +226,26 @@
         <viz:color r="255" g="107" b="107" a="1.0"/>
         <viz:size value="47.0"/>
       </node>
+      <node id="n_d3e06b1ff951" label="Hot Topic">
+        <attvalues>
+          <attvalue for="0" value="ORGANIZATION"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="Hot Topic"/>
+        </attvalues>
+        <viz:color r="78" g="205" b="196" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
       <node id="n_d3de8136081a" label="Mall Goth">
         <attvalues>
-          <attvalue for="0" value="SUBCULTURE"/>
+          <attvalue for="0" value="CONCEPT"/>
           <attvalue for="1" value="0.9"/>
           <attvalue for="2" value="1"/>
           <attvalue for="3" value="1"/>
           <attvalue for="4" value="Mall Goth"/>
         </attvalues>
-        <viz:color r="149" g="165" b="166" a="1.0"/>
-        <viz:size value="47.0"/>
-      </node>
-      <node id="n_6af7d812091c" label="Metalcore">
-        <attvalues>
-          <attvalue for="0" value="MUSIC GENRE"/>
-          <attvalue for="1" value="0.9"/>
-          <attvalue for="2" value="1"/>
-          <attvalue for="3" value="1"/>
-          <attvalue for="4" value="Metalcore"/>
-        </attvalues>
-        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:color r="187" g="143" b="206" a="1.0"/>
         <viz:size value="47.0"/>
       </node>
       <node id="n_08d62b1c0c9f" label="Mikey Way">
@@ -303,75 +259,31 @@
         <viz:color r="255" g="107" b="107" a="1.0"/>
         <viz:size value="47.0"/>
       </node>
-      <node id="n_bb12e67da12f" label="Pop Punk">
-        <attvalues>
-          <attvalue for="0" value="MUSIC GENRE"/>
-          <attvalue for="1" value="0.9"/>
-          <attvalue for="2" value="1"/>
-          <attvalue for="3" value="1"/>
-          <attvalue for="4" value="Pop Punk"/>
-        </attvalues>
-        <viz:color r="149" g="165" b="166" a="1.0"/>
-        <viz:size value="47.0"/>
-      </node>
-      <node id="n_1d99c6c30952" label="Ray Toro">
-        <attvalues>
-          <attvalue for="0" value="PERSON"/>
-          <attvalue for="1" value="0.9"/>
-          <attvalue for="2" value="1"/>
-          <attvalue for="3" value="1"/>
-          <attvalue for="4" value="Ray Toro"/>
-        </attvalues>
-        <viz:color r="255" g="107" b="107" a="1.0"/>
-        <viz:size value="47.0"/>
-      </node>
       <node id="n_562f4332c26b" label="The Used">
         <attvalues>
-          <attvalue for="0" value="BAND"/>
+          <attvalue for="0" value="ORGANIZATION"/>
           <attvalue for="1" value="0.9"/>
           <attvalue for="2" value="1"/>
           <attvalue for="3" value="1"/>
           <attvalue for="4" value="The Used"/>
         </attvalues>
-        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:color r="78" g="205" b="196" a="1.0"/>
         <viz:size value="47.0"/>
       </node>
-      <node id="n_20c579c3da98" label="Bullets">
+      <node id="n_4f618c70787b" label="MySpace">
         <attvalues>
-          <attvalue for="0" value="ALBUM"/>
+          <attvalue for="0" value="ORGANIZATION"/>
           <attvalue for="1" value="0.9"/>
           <attvalue for="2" value="1"/>
           <attvalue for="3" value="1"/>
-          <attvalue for="4" value="Bullets"/>
+          <attvalue for="4" value="MySpace"/>
         </attvalues>
-        <viz:color r="149" g="165" b="166" a="1.0"/>
-        <viz:size value="47.0"/>
-      </node>
-      <node id="n_34bff991d8ee" label="Nirvana">
-        <attvalues>
-          <attvalue for="0" value="BAND"/>
-          <attvalue for="1" value="0.9"/>
-          <attvalue for="2" value="1"/>
-          <attvalue for="3" value="1"/>
-          <attvalue for="4" value="Nirvana"/>
-        </attvalues>
-        <viz:color r="149" g="165" b="166" a="1.0"/>
-        <viz:size value="47.0"/>
-      </node>
-      <node id="n_7b69978cfd24" label="Grunge">
-        <attvalues>
-          <attvalue for="0" value="PUBLICATION"/>
-          <attvalue for="1" value="0.9"/>
-          <attvalue for="2" value="1"/>
-          <attvalue for="3" value="1"/>
-          <attvalue for="4" value="Grunge"/>
-        </attvalues>
-        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:color r="78" g="205" b="196" a="1.0"/>
         <viz:size value="47.0"/>
       </node>
       <node id="n_be991096d386" label="Helena">
         <attvalues>
-          <attvalue for="0" value="SONG"/>
+          <attvalue for="0" value="WORK_OF_ART"/>
           <attvalue for="1" value="0.9"/>
           <attvalue for="2" value="1"/>
           <attvalue for="3" value="1"/>
@@ -393,13 +305,13 @@
       </node>
       <node id="n_391b8ee430b0" label="Sum 41">
         <attvalues>
-          <attvalue for="0" value="BAND"/>
+          <attvalue for="0" value="ORGANIZATION"/>
           <attvalue for="1" value="0.9"/>
           <attvalue for="2" value="1"/>
           <attvalue for="3" value="1"/>
           <attvalue for="4" value="Sum 41"/>
         </attvalues>
-        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:color r="78" g="205" b="196" a="1.0"/>
         <viz:size value="47.0"/>
       </node>
       <node id="n_647294383b2c" label="Japan">
@@ -415,13 +327,13 @@
       </node>
       <node id="n_497d3ec1a2cd" label="Emo">
         <attvalues>
-          <attvalue for="0" value="MUSIC GENRE"/>
+          <attvalue for="0" value="CONCEPT"/>
           <attvalue for="1" value="0.9"/>
           <attvalue for="2" value="1"/>
           <attvalue for="3" value="1"/>
           <attvalue for="4" value="Emo"/>
         </attvalues>
-        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:color r="187" g="143" b="206" a="1.0"/>
         <viz:size value="47.0"/>
       </node>
       <node id="n_d64b9b2a750d" label="Alcoholism">
@@ -435,13 +347,13 @@
         <viz:color r="149" g="165" b="166" a="1.0"/>
         <viz:size value="47.0"/>
       </node>
-      <node id="n_6de998df8ecc" label="Drug Abuse">
+      <node id="n_06d6c090b083" label="Drug abuse">
         <attvalues>
           <attvalue for="0" value="unknown"/>
           <attvalue for="1" value="0.9"/>
           <attvalue for="2" value="1"/>
           <attvalue for="3" value="1"/>
-          <attvalue for="4" value="Drug Abuse"/>
+          <attvalue for="4" value="Drug abuse"/>
         </attvalues>
         <viz:color r="149" g="165" b="166" a="1.0"/>
         <viz:size value="47.0"/>
@@ -457,23 +369,34 @@
         <viz:color r="149" g="165" b="166" a="1.0"/>
         <viz:size value="47.0"/>
       </node>
+      <node id="n_62b3499565dc" label="To the End">
+        <attvalues>
+          <attvalue for="0" value="unknown"/>
+          <attvalue for="1" value="0.9"/>
+          <attvalue for="2" value="1"/>
+          <attvalue for="3" value="1"/>
+          <attvalue for="4" value="To the End"/>
+        </attvalues>
+        <viz:color r="149" g="165" b="166" a="1.0"/>
+        <viz:size value="47.0"/>
+      </node>
     </nodes>
     <edges>
-      <edge id="0" source="n_9a14c69d42a4" target="n_cd31f7066767" weight="0.9" label="was produced by" kind="was produced by">
-        <attvalues>
-          <attvalue for="0" value="was produced by"/>
-          <attvalue for="1" value="0.9"/>
-        </attvalues>
-      </edge>
-      <edge id="1" source="n_8735c26b9446" target="n_9a14c69d42a4" weight="0.9" label="released" kind="released">
+      <edge id="0" source="n_8735c26b9446" target="n_9a14c69d42a4" weight="0.9" label="released" kind="released">
         <attvalues>
           <attvalue for="0" value="released"/>
           <attvalue for="1" value="0.9"/>
         </attvalues>
       </edge>
-      <edge id="2" source="n_8735c26b9446" target="n_18a9a632535a" weight="0.9" label="signed with" kind="signed with">
+      <edge id="1" source="n_8735c26b9446" target="n_18a9a632535a" weight="0.9" label="signed with" kind="signed with">
         <attvalues>
           <attvalue for="0" value="signed with"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="2" source="n_8735c26b9446" target="n_53694f76da62" weight="0.9" label="was previously signed to" kind="was previously signed to">
+        <attvalues>
+          <attvalue for="0" value="was previously signed to"/>
           <attvalue for="1" value="0.9"/>
         </attvalues>
       </edge>
@@ -489,51 +412,57 @@
           <attvalue for="1" value="0.9"/>
         </attvalues>
       </edge>
-      <edge id="5" source="n_a3eab62007e0" target="n_8cbfd2b77e97" weight="0.9" label="was friend of" kind="was friend of">
+      <edge id="5" source="n_8735c26b9446" target="n_145d9b2cdf55" weight="0.9" label="toured with" kind="toured with">
         <attvalues>
-          <attvalue for="0" value="was friend of"/>
+          <attvalue for="0" value="toured with"/>
           <attvalue for="1" value="0.9"/>
         </attvalues>
       </edge>
-      <edge id="6" source="n_d6e808b1023e" target="n_8735c26b9446" weight="0.9" label="was influenced by" kind="was influenced by">
+      <edge id="6" source="n_59ed935da67c" target="n_62b3499565dc" weight="0.9" label="was inspired by" kind="was inspired by">
         <attvalues>
-          <attvalue for="0" value="was influenced by"/>
+          <attvalue for="0" value="was inspired by"/>
           <attvalue for="1" value="0.9"/>
         </attvalues>
       </edge>
-      <edge id="7" source="n_8cbfd2b77e97" target="n_8735c26b9446" weight="0.9" label="is lead singer of" kind="is lead singer of">
+      <edge id="7" source="n_014af1228ae0" target="n_9a14c69d42a4" weight="0.9" label="performed drums on" kind="performed drums on">
         <attvalues>
-          <attvalue for="0" value="is lead singer of"/>
+          <attvalue for="0" value="performed drums on"/>
           <attvalue for="1" value="0.9"/>
         </attvalues>
       </edge>
-      <edge id="8" source="n_8cbfd2b77e97" target="n_d64b9b2a750d" weight="0.9" label="struggled with" kind="struggled with">
+      <edge id="8" source="n_cd31f7066767" target="n_9a14c69d42a4" weight="0.9" label="was produced by" kind="was produced by">
+        <attvalues>
+          <attvalue for="0" value="was produced by"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="9" source="n_8cbfd2b77e97" target="n_8735c26b9446" weight="0.9" label="is frontman of" kind="is frontman of">
+        <attvalues>
+          <attvalue for="0" value="is frontman of"/>
+          <attvalue for="1" value="0.9"/>
+        </attvalues>
+      </edge>
+      <edge id="10" source="n_8cbfd2b77e97" target="n_d64b9b2a750d" weight="0.9" label="struggled with" kind="struggled with">
         <attvalues>
           <attvalue for="0" value="struggled with"/>
           <attvalue for="1" value="0.9"/>
         </attvalues>
       </edge>
-      <edge id="9" source="n_8cbfd2b77e97" target="n_6de998df8ecc" weight="0.9" label="struggled with" kind="struggled with">
+      <edge id="11" source="n_8cbfd2b77e97" target="n_06d6c090b083" weight="0.9" label="struggled with" kind="struggled with">
         <attvalues>
           <attvalue for="0" value="struggled with"/>
           <attvalue for="1" value="0.9"/>
         </attvalues>
       </edge>
-      <edge id="10" source="n_08d62b1c0c9f" target="n_8735c26b9446" weight="0.9" label="is member of" kind="is member of">
+      <edge id="12" source="n_08d62b1c0c9f" target="n_8735c26b9446" weight="0.9" label="is member of" kind="is member of">
         <attvalues>
           <attvalue for="0" value="is member of"/>
           <attvalue for="1" value="0.9"/>
         </attvalues>
       </edge>
-      <edge id="11" source="n_be991096d386" target="n_9a14c69d42a4" weight="0.9" label="is a song on" kind="is a song on">
+      <edge id="13" source="n_4b90e23c139f" target="n_9a14c69d42a4" weight="0.9" label="was influenced by" kind="was influenced by">
         <attvalues>
-          <attvalue for="0" value="is a song on"/>
-          <attvalue for="1" value="0.9"/>
-        </attvalues>
-      </edge>
-      <edge id="12" source="n_4b90e23c139f" target="n_9a14c69d42a4" weight="0.9" label="influenced" kind="influenced">
-        <attvalues>
-          <attvalue for="0" value="influenced"/>
+          <attvalue for="0" value="was influenced by"/>
           <attvalue for="1" value="0.9"/>
         </attvalues>
       </edge>

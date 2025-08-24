@@ -1,14 +1,15 @@
 subject,predicate,object,context,evidence_count
-Gerard Way,is lead singer of,My Chemical Romance,,2
-My Chemical Romance,released,Three Cheers for Sweet Revenge,,5
-Three Cheers for Sweet Revenge,was produced by,Howard Benson,,1
-My Chemical Romance,signed with,Reprise Records,,0
-Gerard Way,struggled with,Alcoholism,,2
-Gerard Way,struggled with,Drug Abuse,,3
-My Chemical Romance,toured with,The Used,,5
-My Chemical Romance,toured with,Avenged Sevenfold,,0
+Gerard Way,is frontman of,My Chemical Romance,,2
 Mikey Way,is member of,My Chemical Romance,,2
-The death of Gerard Way's grandmother,influenced,Three Cheers for Sweet Revenge,,72
-Bert McCracken,was friend of,Gerard Way,,1
-Helena,is a song on,Three Cheers for Sweet Revenge,,1
-Frank Iero,was influenced by,My Chemical Romance,,0
+My Chemical Romance,released,Three Cheers for Sweet Revenge,,6
+Howard Benson,was produced by,Three Cheers for Sweet Revenge,,3
+Gerard Way,struggled with,Alcoholism,,1
+Gerard Way,struggled with,Drug abuse,,2
+The death of Gerard Way's grandmother,was influenced by,Three Cheers for Sweet Revenge,,72
+My Chemical Romance,signed with,Reprise Records,,1
+My Chemical Romance,was previously signed to,Eyeball Records,,1
+My Chemical Romance,toured with,The Used,,6
+My Chemical Romance,toured with,Avenged Sevenfold,,1
+My Chemical Romance,toured with,Every Time I Die,,2
+Matt Pelissier,performed drums on,Three Cheers for Sweet Revenge,,4
+A Rose for Emily,was inspired by,To the End,,67

@@ -2,7 +2,7 @@
   "nodes": [
     {
       "id": "Danger Days: The True Lives of the Fabulous Killjoys",
-      "type": "ALBUM",
+      "type": "CREATIVE WORK",
       "confidence": 0.9,
       "mention_count": 1,
       "occurrences": 1,
@@ -24,7 +24,7 @@
     },
     {
       "id": "Alternative Press Magazine",
-      "type": "PUBLICATION",
+      "type": "ORGANIZATION",
       "confidence": 0.9,
       "mention_count": 1,
       "occurrences": 1,
@@ -46,7 +46,7 @@
     },
     {
       "id": "Conventional Weapons",
-      "type": "ALBUM",
+      "type": "CREATIVE WORK",
       "confidence": 0.9,
       "mention_count": 1,
       "occurrences": 1,
@@ -78,19 +78,8 @@
       "canonical_form": "Dark Horse Comics"
     },
     {
-      "id": "The Black Parade",
-      "type": "ALBUM",
-      "confidence": 0.9,
-      "mention_count": 1,
-      "occurrences": 1,
-      "extraction_sources": [
-        "gemini"
-      ],
-      "canonical_form": "The Black Parade"
-    },
-    {
       "id": "Umbrella Academy",
-      "type": "COMIC BOOK SERIES",
+      "type": "CREATIVE WORK",
       "confidence": 0.9,
       "mention_count": 1,
       "occurrences": 1,
@@ -101,7 +90,7 @@
     },
     {
       "id": "Desolation Row",
-      "type": "SONG",
+      "type": "CREATIVE WORK",
       "confidence": 0.9,
       "mention_count": 1,
       "occurrences": 1,
@@ -123,7 +112,7 @@
     },
     {
       "id": "Ziggy Stardust",
-      "type": "PERSONA/ALBUM",
+      "type": "CREATIVE WORK",
       "confidence": 0.9,
       "mention_count": 1,
       "occurrences": 1,
@@ -144,8 +133,19 @@
       "canonical_form": "South America"
     },
     {
+      "id": "Black Parade",
+      "type": "CREATIVE WORK",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Black Parade"
+    },
+    {
       "id": "Diamond Dogs",
-      "type": "ALBUM",
+      "type": "CREATIVE WORK",
       "confidence": 0.9,
       "mention_count": 1,
       "occurrences": 1,
@@ -166,19 +166,8 @@
       "canonical_form": "Leathermouth"
     },
     {
-      "id": "Lincoln Park",
-      "type": "BAND",
-      "confidence": 0.9,
-      "mention_count": 1,
-      "occurrences": 1,
-      "extraction_sources": [
-        "gemini"
-      ],
-      "canonical_form": "Lincoln Park"
-    },
-    {
       "id": "The Watchmen",
-      "type": "FILM",
+      "type": "CREATIVE WORK",
       "confidence": 0.9,
       "mention_count": 1,
       "occurrences": 1,
@@ -208,6 +197,28 @@
         "gemini"
       ],
       "canonical_form": "George Bush"
+    },
+    {
+      "id": "Guitar Hero",
+      "type": "CREATIVE WORK",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Guitar Hero"
+    },
+    {
+      "id": "Linkin Park",
+      "type": "BAND",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Linkin Park"
     },
     {
       "id": "Live Nation",
@@ -298,6 +309,17 @@
       "canonical_form": "Mikey Way"
     },
     {
+      "id": "Rock Band",
+      "type": "CREATIVE WORK",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Rock Band"
+    },
+    {
       "id": "Bon Jovi",
       "type": "BAND",
       "confidence": 0.9,
@@ -321,7 +343,7 @@
     },
     {
       "id": "Twilight",
-      "type": "FILM FRANCHISE",
+      "type": "CREATIVE WORK",
       "confidence": 0.9,
       "mention_count": 1,
       "occurrences": 1,
@@ -329,16 +351,40 @@
         "gemini"
       ],
       "canonical_form": "Twilight"
+    },
+    {
+      "id": "Uganda",
+      "type": "LOCATION",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Uganda"
+    },
+    {
+      "id": "Xo",
+      "type": "CREATIVE WORK",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [
+        "gemini"
+      ],
+      "canonical_form": "Xo"
+    },
+    {
+      "id": "Twilight soundtrack",
+      "type": "unknown",
+      "confidence": 0.9,
+      "mention_count": 1,
+      "occurrences": 1,
+      "extraction_sources": [],
+      "canonical_form": "Twilight soundtrack"
     }
   ],
   "edges": [
-    {
-      "source": "Danger Days: The True Lives of the Fabulous Killjoys",
-      "target": "Diamond Dogs",
-      "predicate": "influenced",
-      "confidence": 0.9,
-      "extraction_source": "gemini"
-    },
     {
       "source": "My Chemical Romance",
       "target": "David Bowie",
@@ -349,35 +395,49 @@
     {
       "source": "My Chemical Romance",
       "target": "Conventional Weapons",
-      "predicate": "was shelved by",
+      "predicate": "shelved",
       "confidence": 0.9,
       "extraction_source": "gemini"
     },
     {
       "source": "My Chemical Romance",
-      "target": "Gerard Way",
-      "predicate": "is a member of",
+      "target": "Danger Days: The True Lives of the Fabulous Killjoys",
+      "predicate": "released",
       "confidence": 0.9,
       "extraction_source": "gemini"
     },
     {
       "source": "My Chemical Romance",
-      "target": "Frank Iero",
-      "predicate": "is a member of",
+      "target": "Bon Jovi",
+      "predicate": "toured with",
       "confidence": 0.9,
       "extraction_source": "gemini"
     },
     {
       "source": "My Chemical Romance",
-      "target": "Bob Bryar",
-      "predicate": "was a member of",
+      "target": "Linkin Park",
+      "predicate": "toured with",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "My Chemical Romance",
+      "target": "The Watchmen",
+      "predicate": "contributed song to",
+      "confidence": 0.9,
+      "extraction_source": "gemini"
+    },
+    {
+      "source": "My Chemical Romance",
+      "target": "Twilight soundtrack",
+      "predicate": "rejected song from",
       "confidence": 0.9,
       "extraction_source": "gemini"
     },
     {
       "source": "My Chemical Romance",
       "target": "Desolation Row",
-      "predicate": "was covered by",
+      "predicate": "covered",
       "confidence": 0.9,
       "extraction_source": "gemini"
     },
@@ -389,34 +449,34 @@
       "extraction_source": "gemini"
     },
     {
-      "source": "Zack Snyder",
-      "target": "The Watchmen",
-      "predicate": "was directed by",
+      "source": "Frank Iero",
+      "target": "Leathermouth",
+      "predicate": "formed",
       "confidence": 0.9,
       "extraction_source": "gemini"
     },
     {
       "source": "Frank Iero",
-      "target": "Leathermouth",
-      "predicate": "was formed by",
+      "target": "United States Secret Service",
+      "predicate": "was investigated by",
       "confidence": 0.9,
       "extraction_source": "gemini"
     },
     {
       "source": "Gerard Way",
       "target": "Umbrella Academy",
-      "predicate": "was created by",
+      "predicate": "created",
       "confidence": 0.9,
       "extraction_source": "gemini"
     },
     {
       "source": "Bob Bryar",
       "target": "Mikey Way",
-      "predicate": "had tensions with",
+      "predicate": "had tension with",
       "confidence": 0.9,
       "extraction_source": "gemini"
     }
   ],
-  "node_count": 30,
-  "edge_count": 12
+  "node_count": 35,
+  "edge_count": 13
 }

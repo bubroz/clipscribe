@@ -1047,6 +1047,9 @@ class EntityQualityFilter:
         Returns:
             Same list of entities (unmodified since Entity is immutable)
         """
+        if entities is None:
+            return None
+
         logger.info(f" Tagging {len(entities)} entities with language metadata")
 
         # Since Entity is a Pydantic model without a properties field,

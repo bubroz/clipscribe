@@ -1,6 +1,6 @@
 {
   "version": "2.3",
-  "created_at": "2025-08-23T20:56:38.668381",
+  "created_at": "2025-08-23T23:33:06.888907",
   "video": {
     "title": "Global Spyware Scandal: Exposing Pegasus Part Two (full documentary) | FRONTLINE",
     "url": "https://www.youtube.com/watch?v=xYMWTXIkANM",
@@ -9,134 +9,119 @@
   "extraction_stats": {
     "gemini_entities": [
       {
-        "confidence": 1.0,
+        "confidence": 0.99,
         "name": "Pegasus",
         "type": "Spyware"
       },
       {
-        "confidence": 1.0,
+        "confidence": 0.99,
         "name": "NSO Group",
         "type": "Organization"
       },
       {
-        "confidence": 1.0,
-        "name": "Forbidden Films",
-        "type": "Organization"
-      },
-      {
-        "confidence": 1.0,
+        "confidence": 0.95,
         "name": "Forbidden Stories",
         "type": "Organization"
       },
       {
-        "confidence": 1.0,
+        "confidence": 0.95,
         "name": "Emmanuel Macron",
         "type": "Person"
       },
       {
-        "confidence": 1.0,
+        "confidence": 0.9,
         "name": "Morocco",
         "type": "Country"
       },
       {
-        "confidence": 0.95,
+        "confidence": 0.9,
         "name": "Fran\u00e7ois de Rugy",
         "type": "Person"
       },
       {
-        "confidence": 1.0,
-        "name": "Sheikh Mohammed bin Rashid Al Maktoum",
-        "type": "Person"
-      },
-      {
-        "confidence": 1.0,
+        "confidence": 0.95,
         "name": "Princess Latifa",
         "type": "Person"
       },
       {
-        "confidence": 1.0,
-        "name": "David Haigh",
+        "confidence": 0.95,
+        "name": "Sheikh Mohammed bin Rashid Al Maktoum",
         "type": "Person"
       },
       {
-        "confidence": 1.0,
+        "confidence": 0.95,
         "name": "UAE",
         "type": "Country"
       },
       {
-        "confidence": 1.0,
-        "name": "Dubai",
-        "type": "City"
-      },
-      {
-        "confidence": 1.0,
-        "name": "Unit 8200",
-        "type": "Military Unit"
-      },
-      {
-        "confidence": 1.0,
-        "name": "Israeli Defense Ministry",
-        "type": "Government Agency"
-      },
-      {
-        "confidence": 1.0,
-        "name": "BB Netanyahu",
+        "confidence": 0.9,
+        "name": "David Haigh",
         "type": "Person"
       },
       {
-        "confidence": 1.0,
+        "confidence": 0.95,
         "name": "Israel",
         "type": "Country"
       },
       {
-        "confidence": 1.0,
-        "name": "Hungary",
-        "type": "Country"
-      },
-      {
-        "confidence": 1.0,
-        "name": "Viktor Orb\u00e1n",
+        "confidence": 0.9,
+        "name": "Bibi Netanyahu",
         "type": "Person"
       },
       {
-        "confidence": 1.0,
-        "name": "Mexico",
-        "type": "Country"
+        "confidence": 0.9,
+        "name": "Unit 8200",
+        "type": "Organization"
       },
       {
-        "confidence": 1.0,
+        "confidence": 0.95,
         "name": "Cecilio Pineda",
         "type": "Person"
       },
       {
-        "confidence": 1.0,
+        "confidence": 0.9,
+        "name": "Mexico",
+        "type": "Country"
+      },
+      {
+        "confidence": 0.85,
+        "name": "Hungary",
+        "type": "Country"
+      },
+      {
+        "confidence": 0.85,
+        "name": "Viktor Orb\u00e1n",
+        "type": "Person"
+      },
+      {
+        "confidence": 0.9,
         "name": "The Washington Post",
         "type": "Organization"
       },
       {
-        "confidence": 1.0,
+        "confidence": 0.9,
         "name": "The Guardian",
         "type": "Organization"
       },
       {
-        "confidence": 1.0,
+        "confidence": 0.9,
         "name": "Le Monde",
         "type": "Organization"
       },
       {
-        "confidence": 1.0,
-        "name": "\u00c9lys\u00e9e",
-        "type": "Government Building"
+        "confidence": 0.9,
+        "name": "Israeli Defense Ministry",
+        "type": "Organization"
       },
       {
-        "confidence": 0.95,
-        "name": "Detained International",
-        "type": "Organization"
+        "confidence": 0.8,
+        "name": "\u00c9lys\u00e9e",
+        "type": "Government Body"
       }
     ],
     "gemini_relationships": [
       {
-        "confidence": 1.0,
+        "confidence": 0.99,
         "object": "Pegasus",
         "predicate": "developed",
         "subject": "NSO Group"
@@ -144,68 +129,62 @@
       {
         "confidence": 0.95,
         "object": "Emmanuel Macron",
-        "predicate": "targeted",
+        "predicate": "targeted with Pegasus",
+        "subject": "Morocco"
+      },
+      {
+        "confidence": 0.9,
+        "object": "French government officials",
+        "predicate": "targeted with Pegasus",
         "subject": "Morocco"
       },
       {
         "confidence": 0.95,
-        "object": "French government officials",
-        "predicate": "targeted",
-        "subject": "Morocco"
-      },
-      {
-        "confidence": 0.9,
         "object": "Princess Latifa",
-        "predicate": "targeted",
+        "predicate": "used Pegasus against",
         "subject": "UAE"
-      },
-      {
-        "confidence": 0.9,
-        "object": "David Haigh",
-        "predicate": "targeted",
-        "subject": "UAE"
-      },
-      {
-        "confidence": 1.0,
-        "object": "NSO Group",
-        "predicate": "licenses sales for",
-        "subject": "Israeli Defense Ministry"
       },
       {
         "confidence": 0.9,
         "object": "Pegasus",
-        "predicate": "used as diplomatic tool by",
-        "subject": "BB Netanyahu"
+        "predicate": "was infected with",
+        "subject": "David Haigh"
       },
       {
-        "confidence": 1.0,
-        "object": "Unit 8200",
-        "predicate": "has ties to",
-        "subject": "NSO Group"
-      },
-      {
-        "confidence": 0.85,
-        "object": "Cecilio Pineda",
-        "predicate": "targeted",
-        "subject": "Mexico"
-      },
-      {
-        "confidence": 1.0,
+        "confidence": 0.9,
         "object": "NSO Group",
-        "predicate": "led investigation into",
+        "predicate": "investigated",
         "subject": "Forbidden Stories"
       },
       {
-        "confidence": 1.0,
-        "object": "Sheikh Mohammed bin Rashid Al Maktoum",
-        "predicate": "is daughter of",
-        "subject": "Princess Latifa"
+        "confidence": 0.85,
+        "object": "Pegasus",
+        "predicate": "used as diplomatic tool",
+        "subject": "Israel"
       },
       {
-        "confidence": 1.0,
-        "object": "journalists, activists, lawyers",
-        "predicate": "used against",
+        "confidence": 0.85,
+        "object": "NSO Group",
+        "predicate": "was supported by",
+        "subject": "Bibi Netanyahu's government"
+      },
+      {
+        "confidence": 0.8,
+        "object": "Unit 8200",
+        "predicate": "recruits from",
+        "subject": "NSO Group"
+      },
+      {
+        "confidence": 0.9,
+        "object": "Cecilio Pineda",
+        "predicate": "was targeted by",
         "subject": "Pegasus"
+      },
+      {
+        "confidence": 0.95,
+        "object": "governments",
+        "predicate": "sells spyware to",
+        "subject": "NSO Group"
       }
     ],
     "retention_decision": {
@@ -217,7 +196,7 @@
         "storage_cost_avoided": 0.023411811757832766,
         "reprocessing_cost": 0.3095664
       },
-      "timestamp": "2025-08-23T20:56:38.625563"
+      "timestamp": "2025-08-23T23:33:06.849489"
     }
   },
   "timeline_v2": null,
@@ -225,50 +204,50 @@
     "transcript_txt": {
       "path": "transcript.txt",
       "format": "plain_text",
-      "size": 36913,
-      "sha256": "a340a67f44b38417e70961f52b8273993a775a59061ea75b308f64261eef958c"
+      "size": 36949,
+      "sha256": "b180f44300cf635da37bf08207d3b09cc21046fbf436cd98f9d86ca3a514f55a"
     },
     "transcript_json": {
       "path": "transcript.json",
       "format": "json",
-      "size": 169125,
-      "sha256": "fe1f53b7d2e8138927a279c0e210dd4b31f7aa1dd98114132db8939d3b6b8b7c"
+      "size": 169288,
+      "sha256": "ba3791c687efc8e749ffb623a415315f56db90f97d7c17093b45666cf41b8309"
     },
     "metadata": {
       "path": "metadata.json",
       "format": "json",
-      "size": 4227,
-      "sha256": "b3c3f4ce718ebb275f78cd0c4bc4c5f680e5fa6fd0f6998c8541b46f24af309a"
+      "size": 4226,
+      "sha256": "eb81fb99613ca7192663deb1a1687168b8a67d10af7831ab5679cbdbfdff948b"
     },
     "entities": {
       "path": "entities.json",
       "format": "json",
-      "size": 32613,
-      "sha256": "bb0a219a277947d88666c8510f808d6ae5cba6f64e7df27f85d5c4425457d259"
+      "size": 30766,
+      "sha256": "20cb4edc3cb86dfbc8addf6fe1047201e67ee4694063ca4b7d6955dcafe02f90"
     },
     "relationships": {
       "path": "relationships.json",
       "format": "json",
-      "size": 10020,
-      "sha256": "52afbb2bd5e1db7d1434cac040d22250bd20d9e0705afcc8b11aeb0dbaea429e"
+      "size": 12336,
+      "sha256": "9560b16959501ed6b7345258c962583ebe954565ce9a3aff18d6a17cb4d7e313"
     },
     "knowledge_graph": {
       "path": "knowledge_graph.json",
       "format": "json",
-      "size": 8664,
-      "sha256": "2829846d4c4d10e864f306e07371de4dcff7f50d74b926ca57beb42aefef0ab0"
+      "size": 8159,
+      "sha256": "1ddf6c29e7a4e221a7588ca36f0fcae8af6e887b4733c4d47951237d8b086532"
     },
     "report": {
       "path": "report.md",
       "format": "markdown",
-      "size": 1524,
-      "sha256": "62fd290cd6b5b3fb6aaf36318849708495629e8f687287957630e4e23ee06ff0"
+      "size": 1593,
+      "sha256": "a738501bd7df53b902b04950fd9ac6783812da1b851a57380cb9254f922d2864"
     },
     "chimera": {
       "path": "chimera_format.json",
       "format": "json",
-      "size": 87104,
-      "sha256": "3c4920811428d6f67446bec34f9a07e180f44f92071e955e06c215166c7d7b70"
+      "size": 84875,
+      "sha256": "5a1b26759723bdc50d26e49c7b9cbf884b7bbe4ff04496d83da009dbc181f81e"
     }
   }
 }

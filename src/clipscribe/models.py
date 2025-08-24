@@ -67,10 +67,24 @@ class Entity(BaseModel):
 
     entity: str
     type: str
+    confidence: float = Field(default=0.5, ge=0.0, le=1.0, description="Confidence score 0-1")
+    name: Optional[str] = Field(None, description="Display name (alias for entity)")
+    context: Optional[str] = Field(None, description="Context where entity was found")
     start_char: Optional[int] = None
     end_char: Optional[int] = None
     source: Optional[str] = None
     properties: Optional[Dict[str, Any]] = Field(default_factory=dict)  # Re-add for compatibility
+
+    def __init__(self, **data):
+        # Handle backward compatibility: if name is provided but entity is not, use name as entity
+        if "name" in data and "entity" not in data:
+            data["entity"] = data["name"]
+        super().__init__(**data)
+
+    @property
+    def display_name(self) -> str:
+        """Get the display name, preferring name over entity."""
+        return self.name or self.entity
 
 
 class EntityContext(BaseModel):

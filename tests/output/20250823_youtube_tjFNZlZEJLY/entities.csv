@@ -1,1 +1,11 @@
 name,type,source,timestamp,mention_count
+Special Forces Tier 1 operator,ROLE,['gemini'],,2
+Marine Force Recon,ORGANIZATION,['gemini'],,1
+MARSOC Raiders,ORGANIZATION,['gemini'],,1
+Green Berets,ORGANIZATION,['gemini'],,1
+Instructor,ROLE,['gemini'],,1
+Rangers,ORGANIZATION,['gemini'],,1
+Tier 2,MILITARY UNIT TIER,['gemini'],,1
+Afsoc,ORGANIZATION,['gemini'],,1
+Cadre,ROLE,['gemini'],,1
+SEALs,ORGANIZATION,['gemini'],,1
