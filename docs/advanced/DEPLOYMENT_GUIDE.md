@@ -1,1 +1,0 @@
-This file is deprecated. Please see the canonical deployment guide at `docs/advanced/deployment/DEPLOYMENT_GUIDE.md`.

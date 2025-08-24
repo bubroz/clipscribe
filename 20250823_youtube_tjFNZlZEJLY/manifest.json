@@ -1,0 +1,182 @@
+{
+  "version": "2.3",
+  "created_at": "2025-08-23T19:35:23.351250",
+  "video": {
+    "title": "How to Pass Tier 1 & 2 Selections - Part 2/3: Tier 2 Selections",
+    "url": "https://www.youtube.com/watch?v=tjFNZlZEJLY",
+    "platform": "unknown"
+  },
+  "extraction_stats": {
+    "gemini_entities": [
+      {
+        "confidence": 0.95,
+        "name": "Tier One",
+        "type": "ORGANIZATION"
+      },
+      {
+        "confidence": 0.95,
+        "name": "Tier Two",
+        "type": "ORGANIZATION"
+      },
+      {
+        "confidence": 0.9,
+        "name": "White SOF",
+        "type": "ORGANIZATION"
+      },
+      {
+        "confidence": 0.95,
+        "name": "SEALs",
+        "type": "ORGANIZATION"
+      },
+      {
+        "confidence": 0.95,
+        "name": "MARSOC Raiders",
+        "type": "ORGANIZATION"
+      },
+      {
+        "confidence": 0.95,
+        "name": "Marine Force Recon",
+        "type": "ORGANIZATION"
+      },
+      {
+        "confidence": 0.95,
+        "name": "Rangers",
+        "type": "ORGANIZATION"
+      },
+      {
+        "confidence": 0.95,
+        "name": "Green Berets",
+        "type": "ORGANIZATION"
+      },
+      {
+        "confidence": 0.95,
+        "name": "AFSOC",
+        "type": "ORGANIZATION"
+      }
+    ],
+    "gemini_relationships": [
+      {
+        "confidence": 0.95,
+        "object": "negative reinforcement",
+        "predicate": "is characterized by",
+        "subject": "Tier Two selections"
+      },
+      {
+        "confidence": 0.95,
+        "object": "team-oriented events",
+        "predicate": "is characterized by",
+        "subject": "Tier Two selections"
+      },
+      {
+        "confidence": 0.9,
+        "object": "individual performance",
+        "predicate": "focuses on",
+        "subject": "Tier One selections"
+      },
+      {
+        "confidence": 0.9,
+        "object": "former special forces tier one operator",
+        "predicate": "is a",
+        "subject": "The speaker"
+      },
+      {
+        "confidence": 0.9,
+        "object": "instructor for a tier one selection",
+        "predicate": "was an",
+        "subject": "The speaker"
+      },
+      {
+        "confidence": 0.95,
+        "object": "White SOF",
+        "predicate": "is a type of",
+        "subject": "SEALs"
+      },
+      {
+        "confidence": 0.95,
+        "object": "White SOF",
+        "predicate": "is a type of",
+        "subject": "MARSOC Raiders"
+      },
+      {
+        "confidence": 0.95,
+        "object": "White SOF",
+        "predicate": "is a type of",
+        "subject": "Rangers"
+      },
+      {
+        "confidence": 0.95,
+        "object": "White SOF",
+        "predicate": "is a type of",
+        "subject": "Green Berets"
+      },
+      {
+        "confidence": 0.95,
+        "object": "passing Tier Two selections",
+        "predicate": "is essential for",
+        "subject": "Teamwork"
+      },
+      {
+        "confidence": 0.95,
+        "object": "passing Tier Two selections",
+        "predicate": "is essential for",
+        "subject": "Mental resilience"
+      }
+    ],
+    "retention_decision": {
+      "action": "deleted",
+      "video_path": "tests/cache/How to Pass Tier 1  2 Selections - Part 23 Tier 2 Selections-tjFNZlZEJLY.mp4",
+      "video_hash": "1cd3ac4cae600f013c53e416",
+      "reason": "Policy: Always delete source videos",
+      "cost_savings": {
+        "storage_cost_avoided": 0.004128547009080648,
+        "reprocessing_cost": 0.030685599999999997
+      },
+      "timestamp": "2025-08-23T19:35:23.346622"
+    }
+  },
+  "timeline_v2": null,
+  "files": {
+    "transcript_txt": {
+      "path": "transcript.txt",
+      "format": "plain_text",
+      "size": 5736,
+      "sha256": "a94bf405ee3c4ec8c07a53c4e32d874eec55180087a083a4b826cec5c3ef7099"
+    },
+    "transcript_json": {
+      "path": "transcript.json",
+      "format": "json",
+      "size": 21323,
+      "sha256": "9c18a122d09886d69cde51ff59cd61a2fccf3e4d2dee19e988254737964b7672"
+    },
+    "metadata": {
+      "path": "metadata.json",
+      "format": "json",
+      "size": 3047,
+      "sha256": "f6aaa8267a3f6b23d6a131cfc9e4bed256ed27abeb3c31d217d79edf00a2de08"
+    },
+    "entities": {
+      "path": "entities.json",
+      "format": "json",
+      "size": 1521,
+      "sha256": "5d6c95153442d5106c6689dcfd3a40c2a48e1c27a396710422d6db461e559649"
+    },
+    "relationships": {
+      "path": "relationships.json",
+      "format": "json",
+      "size": 191,
+      "sha256": "d80662a6a1a1a1d57273812e401c86d8ec00a6903bcdf19b052ed6622376f391"
+    },
+    "report": {
+      "path": "report.md",
+      "format": "markdown",
+      "size": 975,
+      "sha256": "cb9cd03a9c308ccaa906208773596d5d5944e35aacedd8e8dd38660cb371e061"
+    },
+    "chimera": {
+      "path": "chimera_format.json",
+      "format": "json",
+      "size": 8801,
+      "sha256": "ea3fa041883abfc2e4a3fcbba66ce042b19176a2a3d42a3da1270fc48ad75cea"
+    }
+  }
+}

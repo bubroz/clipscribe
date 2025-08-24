@@ -1,6 +1,6 @@
 # ClipScribe Output Formats
 
-*Last Updated: August 11, 2025 - v2.29.7*
+*Last Updated: August 11, 2025 - v2.30.0*
 
 ClipScribe generates a comprehensive set of structured output files for each processed video, all organized within a timestamped directory.
 

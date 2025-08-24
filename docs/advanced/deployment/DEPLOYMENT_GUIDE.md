@@ -1,7 +1,7 @@
 # ClipScribe Deployment Guide
 
-*Last Updated: August 8, 2025*  
-*Version: v2.29.3*
+*Last Updated: August 23, 2025*  
+*Version: v2.30.0*
 
 ## Overview
 
@@ -56,15 +56,15 @@ ClipScribe can be deployed to multiple platforms. This guide covers the two reco
 
 ### Initial Setup
 
-1. **Enable Required APIs**
-   ```bash
-   gcloud services enable cloudbuild.googleapis.com run.googleapis.com containerregistry.googleapis.com
-   ```
+1.  **Enable Required APIs**
+    ```bash
+    gcloud services enable cloudbuild.googleapis.com run.googleapis.com containerregistry.googleapis.com
+    ```
 
-2. **Set Default Project**
-   ```bash
-   gcloud config set project YOUR_PROJECT_ID
-   ```
+2.  **Set Default Project**
+    ```bash
+    gcloud config set project YOUR_PROJECT_ID
+    ```
 
 ### Deployment
 
@@ -86,9 +86,39 @@ gcloud run deploy clipscribe \
 Use the `cloudbuild.yaml` file in the repository to set up a Cloud Build trigger for automatic deployments on pushes to the main branch.
 
 ### Custom Domain Setup
-1. **Verify Domain Ownership**: `gcloud domains verify YOUR_DOMAIN.COM`
-2. **Map Domain to Cloud Run**: `gcloud run domain-mappings create --service clipscribe --domain clipscribe.yourdomain.com`
-3. **Update DNS Records** in your domain registrar.
+1.  **Verify Domain Ownership**: `gcloud domains verify YOUR_DOMAIN.COM`
+2.  **Map Domain to Cloud Run**: `gcloud run domain-mappings create --service clipscribe --domain clipscribe.yourdomain.com`
+3.  **Update DNS Records** in your domain registrar.
+
+## Option 3: Replit (API Hosting)
+
+### Prerequisites
+- Replit account
+- Repository pushed to a connected GitHub account
+
+### Environment Setup
+
+In the Replit dashboard, set the following secrets:
+- `HOST=0.0.0.0`  (Required for Replit's external access)
+- `PORT=8080`
+- `CORS_ALLOW_ORIGINS=https://*.repl.co`
+- Optional for GCS uploads: `GCS_BUCKET`, `GOOGLE_APPLICATION_CREDENTIALS`
+
+### Start the API
+
+Configure your Replit `Run` command or use the shell:
+```bash
+poetry install --with dev,test --no-interaction --no-root
+poetry run python -c "from clipscribe.api.app import run; run()"
+```
+Replit will expose the service at a public URL.
+
+### API Usage Flow
+
+1.  **Submit Job**: `POST /v1/jobs` with `{ "url": "..." }`
+2.  **Listen for Progress (SSE)**: `GET /v1/jobs/{job_id}/events`
+3.  **List Artifacts**: `GET /v1/jobs/{job_id}/artifacts`
+4.  **Optional Upload**: Use `/v1/uploads/presign` for direct GCS uploads.
 
 ## Security Best Practices
 
@@ -100,3 +130,4 @@ Use the `cloudbuild.yaml` file in the repository to set up a Cloud Build trigger
 
 - **Streamlit Cloud**: Basic logs are available in the dashboard.
 - **Cloud Run**: Use `gcloud logging read` or `gcloud alpha run services logs tail clipscribe` to view logs. Metrics are available in the Google Cloud Console.
+- **Replit**: Logs are available in the Replit console.

@@ -16,6 +16,9 @@ import time
 warnings.filterwarnings("ignore", message=".*sentencepiece tokenizer.*")
 os.environ["TOKENIZERS_PARALLELISM"] = "false"  # Prevent tokenizer warnings
 
+# Import optional dependency manager
+from ..utils.optional_deps import optional_deps, OptionalDependencyError
+
 logger = logging.getLogger(__name__)
 
 
@@ -76,13 +79,16 @@ class ModelManager:
             logger.info(f"Loading SpaCy model {model_name} (one-time load)...")
             start_time = time.time()
 
-            import spacy
+            try:
+                spacy = optional_deps.require_dependency("spacy", "SpaCy entity extraction")
+                self._models[key] = spacy.load(model_name)
 
-            self._models[key] = spacy.load(model_name)
-
-            load_time = time.time() - start_time
-            self._record_cache_miss(key, load_time)
-            logger.info(f"SpaCy model {model_name} loaded successfully in {load_time:.2f}s ")
+                load_time = time.time() - start_time
+                self._record_cache_miss(key, load_time)
+                logger.info(f"SpaCy model {model_name} loaded successfully in {load_time:.2f}s ")
+            except OptionalDependencyError as e:
+                logger.warning(f"SpaCy not available: {e}. Using fallback extraction.")
+                raise e
         else:
             self._record_cache_hit(key)
 
@@ -97,8 +103,8 @@ class ModelManager:
             start_time = time.time()
 
             try:
-                import torch
-                from gliner import GLiNER
+                torch = optional_deps.require_dependency("torch", "GLiNER model inference")
+                gliner = optional_deps.require_dependency("gliner", "GLiNER entity extraction")
 
                 # Determine device
                 if device == "auto":
@@ -112,7 +118,7 @@ class ModelManager:
                 # Suppress warnings during model loading
                 with warnings.catch_warnings():
                     warnings.simplefilter("ignore")
-                    model = GLiNER.from_pretrained(model_name)
+                    model = gliner.GLiNER.from_pretrained(model_name)
                     if device != "cpu":
                         model = model.to(device)
 
@@ -122,6 +128,9 @@ class ModelManager:
                 self._record_cache_miss(key, load_time)
                 logger.info(f"GLiNER model loaded and cached successfully in {load_time:.2f}s ")
 
+            except OptionalDependencyError as e:
+                logger.warning(f"GLiNER dependencies not available: {e}. Using fallback extraction.")
+                raise e
             except Exception as e:
                 logger.error(f"Failed to load GLiNER model: {e}")
                 raise
@@ -139,8 +148,8 @@ class ModelManager:
             start_time = time.time()
 
             try:
-                import torch
-                from transformers import pipeline
+                torch = optional_deps.require_dependency("torch", "REBEL model inference")
+                transformers = optional_deps.require_dependency("transformers", "REBEL relationship extraction")
 
                 # Determine device
                 if device == "auto":
@@ -160,7 +169,7 @@ class ModelManager:
                 # Suppress warnings during model loading
                 with warnings.catch_warnings():
                     warnings.simplefilter("ignore")
-                    triplet_extractor = pipeline(
+                    triplet_extractor = transformers.pipeline(
                         "text2text-generation",
                         model=model_name,
                         tokenizer=model_name,
@@ -174,6 +183,9 @@ class ModelManager:
                 self._record_cache_miss(key, load_time)
                 logger.info(f"REBEL model loaded and cached successfully in {load_time:.2f}s ")
 
+            except OptionalDependencyError as e:
+                logger.warning(f"REBEL dependencies not available: {e}. Using fallback extraction.")
+                raise e
             except Exception as e:
                 logger.error(f"Failed to load REBEL model: {e}")
                 raise

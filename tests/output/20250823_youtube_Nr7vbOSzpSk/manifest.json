@@ -1,0 +1,267 @@
+{
+  "version": "2.3",
+  "created_at": "2025-08-23T19:45:32.243546",
+  "video": {
+    "title": "How to Pass Tier 1 & 2 Selections Part 1/3: Difference Between Tier 1 & 2",
+    "url": "https://www.youtube.com/watch?v=Nr7vbOSzpSk",
+    "platform": "unknown"
+  },
+  "extraction_stats": {
+    "gemini_entities": [
+      {
+        "confidence": 1.0,
+        "name": "Special Forces",
+        "type": "Organization"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Tier 1",
+        "type": "Unit Category"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Tier 2",
+        "type": "Unit Category"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Rangers",
+        "type": "Organization"
+      },
+      {
+        "confidence": 1.0,
+        "name": "MARSOC Raiders",
+        "type": "Organization"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Marine Force Recon",
+        "type": "Organization"
+      },
+      {
+        "confidence": 1.0,
+        "name": "SEALs",
+        "type": "Organization"
+      },
+      {
+        "confidence": 1.0,
+        "name": "SEAL Team Six",
+        "type": "Organization"
+      },
+      {
+        "confidence": 1.0,
+        "name": "DEVGRU",
+        "type": "Organization"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Delta Force",
+        "type": "Organization"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Intelligence Support Activity",
+        "type": "Organization"
+      },
+      {
+        "confidence": 1.0,
+        "name": "British SAS",
+        "type": "Organization"
+      },
+      {
+        "confidence": 1.0,
+        "name": "24th STS",
+        "type": "Organization"
+      },
+      {
+        "confidence": 1.0,
+        "name": "AFSOC",
+        "type": "Organization"
+      },
+      {
+        "confidence": 0.95,
+        "name": "White SOF",
+        "type": "Unit Category"
+      },
+      {
+        "confidence": 0.95,
+        "name": "Black SOF",
+        "type": "Unit Category"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Operator",
+        "type": "Role"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Assaulter",
+        "type": "Role"
+      },
+      {
+        "confidence": 0.9,
+        "name": "JTAC",
+        "type": "Role"
+      },
+      {
+        "confidence": 0.95,
+        "name": "TFO",
+        "type": "Organization"
+      }
+    ],
+    "gemini_relationships": [
+      {
+        "confidence": 1.0,
+        "object": "White SOF",
+        "predicate": "is a colloquialism for",
+        "subject": "Tier 2"
+      },
+      {
+        "confidence": 1.0,
+        "object": "Black SOF",
+        "predicate": "is a colloquialism for",
+        "subject": "Tier 1"
+      },
+      {
+        "confidence": 1.0,
+        "object": "Tier 2 unit",
+        "predicate": "is a",
+        "subject": "Rangers"
+      },
+      {
+        "confidence": 1.0,
+        "object": "Tier 2 unit",
+        "predicate": "is a",
+        "subject": "Special Forces"
+      },
+      {
+        "confidence": 1.0,
+        "object": "Tier 1 unit",
+        "predicate": "is a",
+        "subject": "Delta Force"
+      },
+      {
+        "confidence": 1.0,
+        "object": "Tier 1 unit",
+        "predicate": "is a",
+        "subject": "SEAL Team Six"
+      },
+      {
+        "confidence": 1.0,
+        "object": "DEVGRU",
+        "predicate": "is also known as",
+        "subject": "SEAL Team Six"
+      },
+      {
+        "confidence": 1.0,
+        "object": "Tier 1 unit",
+        "predicate": "is a",
+        "subject": "Intelligence Support Activity"
+      },
+      {
+        "confidence": 1.0,
+        "object": "British SAS",
+        "predicate": "are modeled after",
+        "subject": "Tier 1 units"
+      },
+      {
+        "confidence": 1.0,
+        "object": "Tier 1",
+        "predicate": "supports",
+        "subject": "24th STS"
+      },
+      {
+        "confidence": 1.0,
+        "object": "Tier 2",
+        "predicate": "supports",
+        "subject": "24th STS"
+      },
+      {
+        "confidence": 1.0,
+        "object": "Green",
+        "predicate": "has task force color",
+        "subject": "Delta Force"
+      },
+      {
+        "confidence": 1.0,
+        "object": "Blue",
+        "predicate": "has task force color",
+        "subject": "SEAL Team Six"
+      },
+      {
+        "confidence": 1.0,
+        "object": "Orange",
+        "predicate": "has task force color",
+        "subject": "Intelligence Support Activity"
+      },
+      {
+        "confidence": 0.9,
+        "object": "TFO",
+        "predicate": "is a colloquialism for",
+        "subject": "Intelligence Support Activity"
+      },
+      {
+        "confidence": 1.0,
+        "object": "individual-based",
+        "predicate": "are primarily",
+        "subject": "Tier 1 selections"
+      },
+      {
+        "confidence": 1.0,
+        "object": "team-oriented",
+        "predicate": "are primarily",
+        "subject": "Tier 2 selections"
+      }
+    ],
+    "retention_decision": {
+      "action": "not_found",
+      "video_path": "tests/cache/How to Pass Tier 1  2 Selections Part 13 Difference Between Tier 1  2-Nr7vbOSzpSk.mp4",
+      "reason": "Video file not found"
+    }
+  },
+  "timeline_v2": null,
+  "files": {
+    "transcript_txt": {
+      "path": "transcript.txt",
+      "format": "plain_text",
+      "size": 5001,
+      "sha256": "e46920e61d238bc62b86044119921f4dbb1245a4d2a19c42df66b9dfa94c69c2"
+    },
+    "transcript_json": {
+      "path": "transcript.json",
+      "format": "json",
+      "size": 22107,
+      "sha256": "30fd34505ed06fc011de6b41ca361807c3f7ed337de7e5c5115787933c311b57"
+    },
+    "metadata": {
+      "path": "metadata.json",
+      "format": "json",
+      "size": 3301,
+      "sha256": "147f5c1ab47b23b9eb8ce9a51739c41256d39eb3c99d689f6dafae6d3a7e917b"
+    },
+    "entities": {
+      "path": "entities.json",
+      "format": "json",
+      "size": 1650,
+      "sha256": "d4ad39187f736c483229f662c5d6df13709e9ace1c4cd9bfaa357d5c254f8600"
+    },
+    "relationships": {
+      "path": "relationships.json",
+      "format": "json",
+      "size": 201,
+      "sha256": "bc053a9c8861d8334748afd2072e6b4b7747d938cf040c1530c8c095d8c201f2"
+    },
+    "report": {
+      "path": "report.md",
+      "format": "markdown",
+      "size": 876,
+      "sha256": "be3a73d7654093b8334c93c02e6f31bd82dd00d83d8932d4f6c6b6a4b2985ecc"
+    },
+    "chimera": {
+      "path": "chimera_format.json",
+      "format": "json",
+      "size": 8477,
+      "sha256": "104d4a2f61e96700b883c8286efa1d6a76d54766fd66c3ca6be62a58c11309cf"
+    }
+  }
+}

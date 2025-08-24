@@ -1,0 +1,169 @@
+{
+  "version": "2.3",
+  "created_at": "2025-08-23T19:33:30.536027",
+  "video": {
+    "title": "How to Pass Tier 1 & 2 Selections - Part 2/3: Tier 2 Selections",
+    "url": "https://www.youtube.com/watch?v=tjFNZlZEJLY",
+    "platform": "unknown"
+  },
+  "extraction_stats": {
+    "gemini_entities": [
+      {
+        "confidence": 0.99,
+        "name": "Special Forces",
+        "type": "Military Unit"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Tier One",
+        "type": "Military Designation"
+      },
+      {
+        "confidence": 1.0,
+        "name": "Tier Two",
+        "type": "Military Designation"
+      },
+      {
+        "confidence": 0.95,
+        "name": "white sof",
+        "type": "Military Category"
+      },
+      {
+        "confidence": 0.99,
+        "name": "SEALs",
+        "type": "Military Unit"
+      },
+      {
+        "confidence": 0.99,
+        "name": "MARSOC Raiders",
+        "type": "Military Unit"
+      },
+      {
+        "confidence": 0.99,
+        "name": "Marine Force Recon",
+        "type": "Military Unit"
+      },
+      {
+        "confidence": 0.99,
+        "name": "Rangers",
+        "type": "Military Unit"
+      },
+      {
+        "confidence": 0.99,
+        "name": "Green Berets",
+        "type": "Military Unit"
+      },
+      {
+        "confidence": 0.99,
+        "name": "AFSOC",
+        "type": "Military Command"
+      }
+    ],
+    "gemini_relationships": [
+      {
+        "confidence": 0.95,
+        "object": "negative reinforcement",
+        "predicate": "utilize",
+        "subject": "Tier two selections"
+      },
+      {
+        "confidence": 0.95,
+        "object": "team-oriented",
+        "predicate": "are",
+        "subject": "Tier two selections"
+      },
+      {
+        "confidence": 0.9,
+        "object": "individual",
+        "predicate": "are more",
+        "subject": "Tier one selections"
+      },
+      {
+        "confidence": 1.0,
+        "object": "former Special Forces Tier One operator",
+        "predicate": "is a",
+        "subject": "The speaker"
+      },
+      {
+        "confidence": 1.0,
+        "object": "instructor for a Tier One selection",
+        "predicate": "was an",
+        "subject": "The speaker"
+      },
+      {
+        "confidence": 0.9,
+        "object": "white sof",
+        "predicate": "is covered by",
+        "subject": "Tier two selections"
+      },
+      {
+        "confidence": 0.95,
+        "object": "SEALs, MARSOC Raiders, Marine Force Recon, Rangers, Green Berets, AFSOC guys",
+        "predicate": "includes",
+        "subject": "white sof"
+      },
+      {
+        "confidence": 0.9,
+        "object": "candidates",
+        "predicate": "can be removed by",
+        "subject": "peer evaluations"
+      }
+    ],
+    "retention_decision": {
+      "action": "deleted",
+      "video_path": "tests/cache/How to Pass Tier 1  2 Selections - Part 23 Tier 2 Selections-tjFNZlZEJLY.mp4",
+      "video_hash": "1cd3ac4cae600f013c53e416",
+      "reason": "Policy: Always delete source videos",
+      "cost_savings": {
+        "storage_cost_avoided": 0.004128547009080648,
+        "reprocessing_cost": 0.030685599999999997
+      },
+      "timestamp": "2025-08-23T19:33:30.530980"
+    }
+  },
+  "timeline_v2": null,
+  "files": {
+    "transcript_txt": {
+      "path": "transcript.txt",
+      "format": "plain_text",
+      "size": 5749,
+      "sha256": "cb03f095b39e69b9b5f87c52b936f11d023b131a6c5675ccb81c7e4407f8d653"
+    },
+    "transcript_json": {
+      "path": "transcript.json",
+      "format": "json",
+      "size": 21565,
+      "sha256": "d876a50db50f00d6c10b5c9e5b95df1a07af46aab097e70396ea431a084ff950"
+    },
+    "metadata": {
+      "path": "metadata.json",
+      "format": "json",
+      "size": 3047,
+      "sha256": "ea8f9b4215faec875fb32c607f86dd3489c475b0fa3d0b6056fe34632f6cdd3c"
+    },
+    "entities": {
+      "path": "entities.json",
+      "format": "json",
+      "size": 1743,
+      "sha256": "ab070f71ccd650f0ed8777ce23e2091e75e8805d755d9fa924d3cba6ae6ccd03"
+    },
+    "relationships": {
+      "path": "relationships.json",
+      "format": "json",
+      "size": 191,
+      "sha256": "d80662a6a1a1a1d57273812e401c86d8ec00a6903bcdf19b052ed6622376f391"
+    },
+    "report": {
+      "path": "report.md",
+      "format": "markdown",
+      "size": 1020,
+      "sha256": "353d382137edfa2c6e40621607712684a1bcb297b8f7c5e5a012b334e1cb74ac"
+    },
+    "chimera": {
+      "path": "chimera_format.json",
+      "format": "json",
+      "size": 9336,
+      "sha256": "30cec860ccf15aadc416b0410a25ebc2224a5b13ad17520798911316439d8043"
+    }
+  }
+}

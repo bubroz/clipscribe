@@ -130,7 +130,7 @@ class Settings(BaseSettings):
         default=0.8, ge=0.0, le=1.0, description="Minimum confidence for timeline event correlation"
     )
     max_timeline_events_per_video: int = Field(
-        default=50, description="Maximum temporal events to extract per video"
+        default=50, description="DEPRECATED: Maximum temporal events to extract per video"
     )
     enable_timeline_date_extraction: bool = Field(
         default=True, description="Enable LLM-based date extraction from content"
@@ -138,13 +138,42 @@ class Settings(BaseSettings):
 
     # === ENHANCED COST MANAGEMENT ===
 
+    # Cost Calculation Settings
+    # Based on official Google AI pricing for Gemini 2.5 models as of August 2025
+    # Source: https://ai.google.dev/gemini-api/docs/pricing
+    # Note: These are for the audio processing pipeline, not the more expensive video tokenization.
+    gemini_flash_audio_input_cost_per_million_tokens: float = Field(
+        default=1.00,
+        description="Cost for 1M input tokens for Gemini 2.5 Flash (audio).",
+    )
+    gemini_flash_audio_output_cost_per_million_tokens: float = Field(
+        default=2.50,
+        description="Cost for 1M output tokens for Gemini 2.5 Flash (audio).",
+    )
+    gemini_pro_audio_input_cost_per_million_tokens: float = Field(
+        default=1.25,
+        description="Cost for 1M input tokens for Gemini 2.5 Pro (via audio pipeline).",
+    )
+    gemini_pro_audio_output_cost_per_million_tokens: float = Field(
+        default=10.00,
+        description="Cost for 1M output tokens for Gemini 2.5 Pro (via audio pipeline).",
+    )
+    # Based on https://ai.google.dev/gemini-api/docs/tokens
+    audio_tokens_per_second: int = Field(
+        default=32, description="Estimated number of tokens per second of audio."
+    )
+    output_to_input_token_ratio: float = Field(
+        default=0.15,
+        description="Estimated ratio of output tokens relative to input tokens.",
+    )
+
     # Cost Tracking & Optimization
     enable_cost_tracking: bool = Field(default=True, description="Track AI API costs")
     cost_warning_threshold: float = Field(
         default=1.0, description="Warn when single operation exceeds this cost (USD)"
     )
     enhanced_temporal_cost_multiplier: float = Field(
-        default=1.15, description="Cost multiplier for enhanced temporal intelligence (1.12-1.20)"
+        default=1.0, description="DEPRECATED: Cost multiplier for enhanced temporal intelligence (1.12-1.20)"
     )
     daily_cost_limit: Optional[float] = Field(
         default=None, description="Daily spending limit in USD (None = no limit)"
@@ -270,41 +299,43 @@ class Settings(BaseSettings):
 
     def estimate_cost(
         self,
-        audio_duration_seconds: int,
-        temporal_intelligence_level: Optional[TemporalIntelligenceLevel] = None,
+        duration_seconds: int,
+        is_pro_model: bool = False,
     ) -> float:
-        """Estimate transcription cost based on audio duration and temporal intelligence level.
-
-        Gemini 2.5 Flash pricing (as of 2025):
-        - Audio input: $0.0001875 per 1,000 tokens
-        - Video input: $0.001875 per 1,000 tokens (10x audio)
-        - ~25 tokens per second of audio
-        - Enhanced temporal intelligence adds 12-20% cost
         """
-        level = temporal_intelligence_level or self.temporal_intelligence_level
+        Estimate transcription cost based on audio duration and model tier.
+        This calculation is based on the audio processing pipeline, which is more
+        cost-effective than direct video tokenization for transcription tasks.
+        Args:
+            duration_seconds: The duration of the audio/video in seconds.
+            is_pro_model: True if using Gemini Pro, False for Gemini Flash.
+        Returns:
+            The estimated cost in USD.
+        """
+        if duration_seconds <= 0:
+            return 0.0
 
-        # Base estimation
-        input_tokens = audio_duration_seconds * 25  # ~25 tokens per second
-        output_tokens = input_tokens * 0.15  # Output is typically 15% of input
+        input_tokens = duration_seconds * self.audio_tokens_per_second
+        output_tokens = input_tokens * self.output_to_input_token_ratio
 
-        # Determine if we're using video processing for enhanced temporal intelligence
-        if level == TemporalIntelligenceLevel.ENHANCED:
-            # Enhanced uses video processing for visual temporal cues
-            input_cost = (input_tokens / 1000) * 0.001875  # Video rate
-            cost_multiplier = self.enhanced_temporal_cost_multiplier
-        elif level == TemporalIntelligenceLevel.MAXIMUM:
-            # Maximum uses video processing with higher analysis
-            input_cost = (input_tokens / 1000) * 0.001875  # Video rate
-            cost_multiplier = self.enhanced_temporal_cost_multiplier * 1.2
-        else:
-            # Standard uses audio processing
-            input_cost = (input_tokens / 1000) * 0.0001875  # Audio rate
-            cost_multiplier = 1.0
+        if is_pro_model:
+            input_cost_per_million = self.gemini_pro_audio_input_cost_per_million_tokens
+            output_cost_per_million = (
+                self.gemini_pro_audio_output_cost_per_million_tokens
+            )
+        else:  # Flash model
+            input_cost_per_million = (
+                self.gemini_flash_audio_input_cost_per_million_tokens
+            )
+            output_cost_per_million = (
+                self.gemini_flash_audio_output_cost_per_million_tokens
+            )
 
-        output_cost = (output_tokens / 1000) * 0.00075
-        base_cost = input_cost + output_cost
+        input_cost = (input_tokens / 1_000_000) * input_cost_per_million
+        output_cost = (output_tokens / 1_000_000) * output_cost_per_million
 
-        return base_cost * cost_multiplier
+        total_cost = input_cost + output_cost
+        return total_cost
 
     def estimate_retention_cost(
         self, video_path: Path, processing_result: Optional[Dict] = None
@@ -324,7 +355,7 @@ class Settings(BaseSettings):
             # Rough estimation - 1GB ≈ 15 minutes for typical video
             duration = file_size_gb * 15 * 60
 
-        reprocessing_cost = self.estimate_cost(duration)
+        reprocessing_cost = self.estimate_cost(duration, is_pro_model=False)
 
         return {
             "storage_monthly": monthly_storage_cost,
@@ -384,7 +415,7 @@ except Exception as e:
         timeline_confidence_threshold = 0.8
         max_timeline_events_per_video = 50
         enable_timeline_date_extraction = True
-        enhanced_temporal_cost_multiplier = 1.15
+        enhanced_temporal_cost_multiplier = 1.0
         daily_cost_limit = None
         monthly_cost_limit = None
         cost_tracking_granularity = "operation"
@@ -402,52 +433,27 @@ except Exception as e:
                 },
             }
 
-        def get_temporal_intelligence_config(self):
-            return {
-                "level": self.temporal_intelligence_level,
-                "extract_visual_cues": self.extract_visual_temporal_cues,
-                "extract_audio_cues": self.extract_audio_temporal_cues,
-                "confidence_threshold": self.temporal_intelligence_confidence_threshold,
-                "cross_video_correlation": self.enable_cross_video_temporal_correlation,
-                "cost_multiplier": self.enhanced_temporal_cost_multiplier,
-            }
+        def estimate_cost(self, duration_seconds: int, is_pro_model: bool = False):
+            if duration_seconds <= 0:
+                return 0.0
 
-        def get_video_retention_config(self):
-            return {
-                "policy": self.video_retention_policy,
-                "archive_directory": self.video_archive_directory,
-                "cost_threshold": self.retention_cost_threshold,
-                "cost_optimization": self.enable_retention_cost_optimization,
-                "max_archive_size_gb": self.max_archive_size_gb,
-            }
+            audio_tokens_per_second = 32
+            output_to_input_token_ratio = 0.15
 
-        def get_timeline_config(self):
-            return {
-                "enable_synthesis": self.enable_timeline_synthesis,
-                "correlation_window_hours": self.timeline_correlation_window_hours,
-                "confidence_threshold": self.timeline_confidence_threshold,
-                "max_events_per_video": self.max_timeline_events_per_video,
-                "enable_date_extraction": self.enable_timeline_date_extraction,
-            }
+            input_tokens = duration_seconds * audio_tokens_per_second
+            output_tokens = input_tokens * output_to_input_token_ratio
 
-        def estimate_cost(self, audio_duration_seconds: int, temporal_intelligence_level=None):
-            level = temporal_intelligence_level or self.temporal_intelligence_level
-            input_tokens = audio_duration_seconds * 25
-            output_tokens = input_tokens * 0.15
+            if is_pro_model:
+                input_cost_per_million = 1.25
+                output_cost_per_million = 10.00
+            else:  # Flash model
+                input_cost_per_million = 1.00
+                output_cost_per_million = 2.50
 
-            if level == TemporalIntelligenceLevel.ENHANCED:
-                input_cost = (input_tokens / 1000) * 0.001875
-                cost_multiplier = self.enhanced_temporal_cost_multiplier
-            elif level == TemporalIntelligenceLevel.MAXIMUM:
-                input_cost = (input_tokens / 1000) * 0.001875
-                cost_multiplier = self.enhanced_temporal_cost_multiplier * 1.2
-            else:
-                input_cost = (input_tokens / 1000) * 0.0001875
-                cost_multiplier = 1.0
+            input_cost = (input_tokens / 1_000_000) * input_cost_per_million
+            output_cost = (output_tokens / 1_000_000) * output_cost_per_million
 
-            output_cost = (output_tokens / 1000) * 0.00075
-            base_cost = input_cost + output_cost
-            return base_cost * cost_multiplier
+            return input_cost + output_cost
 
         def estimate_retention_cost(self, video_path, processing_result=None):
             return {

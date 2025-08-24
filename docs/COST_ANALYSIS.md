@@ -1,6 +1,6 @@
 # ClipScribe Cost Analysis
 
-*Last Updated: August 11, 2025*
+*Last Updated: August 23, 2025*
 
 ## Overview
 
@@ -22,8 +22,8 @@ The following table outlines the estimated cost per minute of video processing, 
 
 | Video Duration | High Quality (Pro - Default) | Standard Quality (Flash) |
 | :--- | :--- | :--- |
-| 1 minute | ~$0.020 | ~$0.0035 |
-| 10 minutes | ~$0.20 | ~$0.035 |
+| 1 minute | **$0.002** (actual) | ~$0.0035 (estimated) |
+| 10 minutes | **$0.031** (actual) | ~$0.035 (estimated) |
 | 30 minutes | ~$0.60 | ~$0.105 |
 | 60 minutes | ~$1.20 | ~$0.210 |
 

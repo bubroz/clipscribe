@@ -3,6 +3,24 @@ from datetime import datetime
 from clipscribe.models import VideoIntelligence, VideoMetadata, VideoTranscript, EnhancedEntity
 
 
+def create_mock_video_metadata(video_id="test_vid", title="Test Video", channel_id="test_chan"):
+    """
+    Creates a valid VideoMetadata object for testing.
+    """
+    return VideoMetadata(
+        video_id=video_id,
+        url=f"https://www.youtube.com/watch?v={video_id}",
+        title=title,
+        channel="Test Channel",
+        channel_id=channel_id,
+        published_at=datetime.now(),
+        duration=300,
+        view_count=1000,
+        description="A test video description.",
+        tags=["test", "video"],
+    )
+
+
 def create_mock_video_intelligence(video_id="test_vid", title="Test Video", channel_id="test_chan"):
     """
     Creates a valid VideoIntelligence object with all required fields for testing.

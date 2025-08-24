@@ -1,0 +1,42 @@
+{
+  "video_url": "https://www.youtube.com/watch?v=7r-qOjUOjbs",
+  "video_title": "How To Pass Tier 1 & 2 Selections Part 3/3: Tier 1 Selections",
+  "entities": [],
+  "topics": [
+    {
+      "name": "Special Operations Forces",
+      "confidence": 0.9
+    },
+    {
+      "name": "Military Selection and Assessment",
+      "confidence": 0.9
+    },
+    {
+      "name": "Tier One Units",
+      "confidence": 0.9
+    },
+    {
+      "name": "Psychological Testing",
+      "confidence": 0.9
+    },
+    {
+      "name": "Physical Endurance",
+      "confidence": 0.9
+    },
+    {
+      "name": "Land Navigation",
+      "confidence": 0.9
+    },
+    {
+      "name": "Mental Resilience",
+      "confidence": 0.9
+    }
+  ],
+  "key_facts": [
+    "Tier one selections are fundamentally different from tier two, focusing on individual events with no positive or negative reinforcement and unknown evaluation criteria.",
+    "The primary goal of tier one selection is to assess an individual's mental independence, problem-solving ability, and leadership capacity in solo, high-stakes environments.",
+    "Three critical skills for passing are superior ruck running ability, expert-level land navigation (terrain association), and immense mental preparedness for stress and ambiguity.",
+    "Candidates are often placed in 'no-win scenarios' to evaluate their decision-making process and resilience, where being decisive is more important than the outcome.",
+    "Extreme physical preparation is mandatory, as the physical stress is immense and causes many experienced tier two operators to fail."
+  ]
+}

@@ -61,7 +61,7 @@ class AdvancedHybridExtractor:
             return video_intel
 
         # Use entities and relationships directly from Gemini
-        # BUG FIX: Get from processing_stats where they're actually stored
+        # Get from processing_stats where they're actually stored
         raw_gemini_entities = video_intel.processing_stats.get(
             "gemini_entities", video_intel.entities
         )

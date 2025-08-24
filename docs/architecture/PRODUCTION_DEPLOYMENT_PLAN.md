@@ -1,6 +1,6 @@
 # ClipScribe – Production Deployment Plan (API + Replit UI)
 
-Last Updated: 2025-08-11
+Last Updated: 2025-08-23
 Status: Authoritative checklist for prod readiness
 
 ## 1) Goals
@@ -93,7 +93,7 @@ Status: Authoritative checklist for prod readiness
 - [ ] Set API CORS and bucket CORS
 - [ ] Map domain; verify TLS
 - [ ] Add Replit secrets; run UI smoke test
-- [ ] Draft v2.29.7 release; tag and deploy
+- [ ] Draft v2.30.0 release; tag and deploy
 - [ ] Post‑deploy validation: SSE stream, artifacts listing, rate limits, budget caps
 
 ## 16) Appendices

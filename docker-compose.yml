@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  # CLI-only version (smallest, ~500MB)
+  clipscribe-cli:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: cli
+    volumes:
+      - ./output:/app/output
+      - ./logs:/app/logs
+    environment:
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+    stdin_open: true
+    tty: true
+    command: ["clipscribe", "--help"]
+
+  # API server version (~800MB with Redis)
+  clipscribe-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./output:/app/output
+      - ./logs:/app/logs
+      - redis_data:/data
+    environment:
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+      - REDIS_URL=redis://redis:6379
+      - GCS_BUCKET=${GCS_BUCKET}
+    depends_on:
+      - redis
+    command: ["uvicorn", "clipscribe.api.app:app", "--host", "0.0.0.0", "--port", "8000"]
+
+  # Web interface version (full, ~3GB+)
+  clipscribe-web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: web
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./output:/app/output
+      - ./logs:/app/logs
+    environment:
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+      - PORT=8080
+    command: ["streamlit", "run", "streamlit_app/ClipScribe_Mission_Control.py", "--server.port=8080", "--server.address=0.0.0.0"]
+
+  # Redis for API queue
+  redis:
+    image: redis:7-alpine
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+
+volumes:
+  redis_data:

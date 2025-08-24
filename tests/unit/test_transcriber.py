@@ -38,5 +38,5 @@ async def test_transcribe_video_success(transcriber):
             ),
         ):
 
-            result = await transcriber.transcribe_video("test.mp4", 300)
+            result = await transcriber.transcribe_video("test.mp4", None, 300)
             assert result["transcript"] == "Test transcript"

@@ -1,6 +1,6 @@
 # ClipScribe Troubleshooting Guide
 
-*Last Updated: August 08, 2025*
+*Last Updated: August 23, 2025*
 
 This guide helps you resolve common issues with ClipScribe.
 
@@ -133,8 +133,8 @@ echo "GOOGLE_API_KEY=your_key_here" >> .env
 # Option 2: Export in shell
 export GOOGLE_API_KEY="your_key_here"
 
-# Option 3: Pass via CLI
-clipscribe process video "URL" --api-key "your_key_here"
+# Option 3: Pass via CLI (Note: not a recommended pattern)
+# clipscribe process video "URL" --api-key "your_key_here" # This option is not available
 ```
 
 ### Invalid API Key
@@ -150,19 +150,19 @@ clipscribe process video "URL" --api-key "your_key_here"
 - **Symptom**: `yt-dlp` fails with an error like `Sign in to confirm your age` or `This video may be inappropriate for some users`.
 - **Cause**: The video is age-restricted or requires a login to view.
 - **Solution**: Use the `--cookies-from-browser` flag to allow ClipScribe to securely use your browser's existing login session.
-  
-  ```bash
-  # Example for a user logged into YouTube on Chrome
-  clipscribe process video "URL_HERE" --cookies-from-browser chrome
 
-  # Supported browsers: chrome, firefox, brave, edge, opera, safari, vivaldi
-  ```
+```bash
+# Example for a user logged into YouTube on Chrome
+clipscribe process video "URL_HERE" --cookies-from-browser chrome
+
+# Supported browsers: chrome, firefox, brave, edge, opera, safari, vivaldi
+```
 
 ## 503 Socket Closed Errors
 
 ### Problem: "Premature close" or "Socket closed" errors
 
-**New in v2.19.2**: Use Vertex AI SDK for better reliability
+**New in v2.19.2**: Use Vertex AI SDK for better reliability.
 
 ```bash
 # Enable Vertex AI mode
@@ -192,10 +192,11 @@ This happens when:
 2. Video is age-restricted
 3. Video is private/deleted
 
-**Solution**: Use enhanced temporal intelligence processing for optimal performance
+**Solution**: Use enhanced temporal intelligence processing for optimal performance.
 
 ```bash
-clipscribe process video "URL" --force-transcribe
+# This option is not available, transcription is automatic
+# clipscribe process video "URL" --force-transcribe
 ```
 
 ### Download Failed
@@ -209,11 +210,9 @@ Common causes:
 **Solutions**:
 
 ```bash
-# Slow down requests
-clipscribe process video "URL" --rate-limit 50k
-
-# Skip certificate check (use carefully)
-clipscribe process video "URL" --no-check-certificate
+# These options are not available
+# clipscribe process video "URL" --rate-limit 50k
+# clipscribe process video "URL" --no-check-certificate
 ```
 
 ### Large Video Memory Issues
@@ -249,22 +248,22 @@ ERROR: 504 Deadline Exceeded
 
 **Solutions:**
 
-1. Set the `GEMINI_REQUEST_TIMEOUT` environment variable:
+1.  Set the `GEMINI_REQUEST_TIMEOUT` environment variable:
 
-   ```bash
-   # In your .env file
-   GEMINI_REQUEST_TIMEOUT=14400  # 4 hours
-   ```
+    ```bash
+    # In your .env file
+    GEMINI_REQUEST_TIMEOUT=14400  # 4 hours
+    ```
 
-2. For very long videos, consider:
-   - Using `--start-time` and `--end-time` to process segments
-   - Using enhanced temporal intelligence for optimal processing
-   - Breaking into smaller chunks
+2.  For very long videos, consider:
+    - Using `--start-time` and `--end-time` to process segments (not yet implemented)
+    - Breaking into smaller chunks locally before processing
 
-**Example for processing a segment:**
+**Example for processing a segment (future feature):**
 
 ```bash
-clipscribe process video "URL" --start-time 0 --end-time 1800  # First 30 minutes
+# Not yet implemented
+# clipscribe process video "URL" --start-time 0 --end-time 1800  # First 30 minutes
 ```
 
 ## Performance Issues
@@ -282,9 +281,6 @@ Check these factors:
 ```bash
 # Use faster model
 clipscribe process video "URL" --use-flash
-
-# Enable caching
-export CLIPSCRIBE_CACHE=true
 ```
 
 ### High API Costs
@@ -292,10 +288,10 @@ export CLIPSCRIBE_CACHE=true
 Monitor costs with:
 
 ```bash
-# Check estimated cost before processing
-clipscribe estimate "URL"
+# The estimate command is not yet available.
+# clipscribe estimate "URL"
 
-# Use enhanced temporal intelligence
+# Use audio-only mode for cost savings
 clipscribe process video "URL" --mode audio
 
 # Set cost limit
@@ -328,7 +324,7 @@ If JSON files are corrupted:
 
 - Check for incomplete processing (Ctrl+C)
 - Look for `.tmp` files in output directory
-- Re-run with `--force` to overwrite
+- Re-run with `--force` to overwrite (not yet implemented)
 
 ## Platform-Specific Issues
 
@@ -359,6 +355,7 @@ Run with debug logging:
 ```bash
 # Via environment
 export CLIPSCRIBE_LOG_LEVEL=DEBUG
+clipscribe process video "URL"
 
 # Via CLI
 clipscribe --debug process video "URL"
@@ -387,22 +384,22 @@ poetry run pytest
 
 ### Report Issues
 
-1. Check existing issues: [GitHub Issues](https://github.com/bubroz/clipscribe/issues)
-2. Include:
-   - ClipScribe version (`clipscribe --version`)
-   - Python version (`python --version`)
-   - Full error message
-   - Debug log output
-   - Video URL (if not sensitive)
+1.  Check existing issues: [GitHub Issues](https://github.com/bubroz/clipscribe/issues)
+2.  Include:
+    - ClipScribe version (`clipscribe --version`)
+    - Python version (`python --version`)
+    - Full error message
+    - Debug log output
+    - Video URL (if not sensitive)
 
 ### Common Error Messages
 
 | Error | Cause | Solution |
 |---|---|---|
-| `TranscriptNotAvailable` | No captions | Use `--force-transcribe` |
+| `TranscriptNotAvailable` | No captions | Transcription is automatic |
 | `VideoUnavailable` | Private/deleted | Check URL is accessible |
 | `APIQuotaExceeded` | Hit API limits | Wait or upgrade quota |
-| `ModelNotFound` | Models not downloaded | Run `clipscribe download-models` |
+| `ModelNotFound` | Models not downloaded | Not applicable |
 | `PermissionError` | Can't write output | Check directory permissions |
 
 ## Development and Testing Best Practices
@@ -415,7 +412,7 @@ To prevent issues like import errors, broken functionality, or incomplete featur
 
 ```bash
 # Before declaring any feature complete
-poetry run python -c "from module import function; print(' Import successful')"
+poetry run python -c "from path.to.module import YourClass; print('Import successful')"
 ```
 
 #### 2. **Follow Incremental Testing**
@@ -430,8 +427,8 @@ poetry run python -c "from module import function; print(' Import successful')"
 
 ```bash
 # Example for Streamlit apps
-poetry run python -c "import streamlit as st; from src.module import component"
-poetry run streamlit run app.py --server.port 8501 &
+poetry run python -c "import streamlit as st; from src.clipscribe.tui.app import main"
+poetry run streamlit run src/clipscribe/tui/app.py --server.port 8501 &
 curl -s -o /dev/null -w "%{http_code}" http://localhost:8501  # Should return 200
 pkill -f streamlit
 ```
@@ -442,19 +439,20 @@ pkill -f streamlit
 
 ```bash
 poetry run clipscribe --help  # Should show help without errors
-poetry run clipscribe process video "test_url"  # Should process successfully
+poetry run clipscribe process video "https://www.youtube.com/watch?v=7sWj6D2i4eU" # Test URL
 ```
 
 **For Python Modules:**
 
 ```bash
-poetry run python -c "from clipscribe.config import settings; print(settings.google_api_key[:8])"
+poetry run python -c "from clipscribe.config import settings; print(settings.google_api_key[:8] if settings.google_api_key else 'Not Set')"
 ```
 
 **For Web Interfaces:**
 
 ```bash
-poetry run streamlit run app.py &
+poetry run streamlit run src/clipscribe/tui/app.py &
+sleep 5 # Give it time to start
 curl -s -o /dev/null -w "%{http_code}" http://localhost:8501
 pkill -f streamlit
 ```
@@ -471,7 +469,7 @@ When errors occur:
 
 This prevents deploying broken code and saves debugging time later.
 
-Remember: When in doubt, run with `--debug`
+Remember: When in doubt, run with `--debug`.
 
 ### Vertex AI Failures
 
@@ -480,4 +478,4 @@ Remember: When in doubt, run with `--debug`
 
 ## Enterprise Issues
 
-For scaling problems, check Vertex quotas
+For scaling problems, check Vertex quotas.

@@ -40,6 +40,7 @@ class GeminiFlashTranscriber:
         """
         self.settings = Settings()
         self.api_key = api_key or self.settings.google_api_key
+        self.use_pro = use_pro  # Store the use_pro flag
         # Honor global setting to route through Vertex when enabled
         self.use_vertex_ai = bool(getattr(self.settings, "use_vertex_ai", False))
 
@@ -148,10 +149,10 @@ class GeminiFlashTranscriber:
             raise ValueError(file.state.name)
 
         transcription_model = self.pool.get_model(TaskType.TRANSCRIPTION)
-        total_cost = self.settings.estimate_cost(duration, TemporalIntelligenceLevel.STANDARD)
+        total_cost = self.settings.estimate_cost(duration, is_pro_model=self.use_pro)
         self.total_cost += total_cost
         logger.info(
-            f"Estimated cost with {TemporalIntelligenceLevel.STANDARD} temporal intelligence: ${total_cost:.4f}"
+            f"Estimated cost for transcription and analysis: ${total_cost:.4f}"
         )
 
         try:
@@ -307,7 +308,7 @@ class GeminiFlashTranscriber:
                 pass
             raise
 
-    async def transcribe_video(self, video_file: str, duration: int) -> Dict[str, Any]:
+    async def transcribe_video(self, video_file: str, metadata: Any, duration: int) -> Dict[str, Any]:
         """Transcribes a video file using a robust two-step process to prevent timeouts."""
         logger.info(f"Starting two-step transcription for: {video_file}")
         # Convert to audio for smaller, reliable uploads
@@ -320,7 +321,7 @@ class GeminiFlashTranscriber:
         upload_path = temp_audio_path or video_file
         file = await self._upload_file_with_retry(upload_path)
 
-        total_cost = self.settings.estimate_cost(duration, TemporalIntelligenceLevel.STANDARD)
+        total_cost = self.settings.estimate_cost(duration, is_pro_model=self.use_pro)
         self.total_cost += total_cost
         logger.info(f"Estimated cost for full processing: ${total_cost:.4f}")
 
@@ -359,6 +360,7 @@ class GeminiFlashTranscriber:
                 combined_data = {"transcript": transcript_text}
             combined_data["processing_cost"] = total_cost
             logger.info("Step 2: Structured analysis complete.")
+            logger.info(f"Extracted {len(combined_data.get('entities', []))} entities, {len(combined_data.get('relationships', []))} relationships, {len(combined_data.get('topics', []))} topics")
 
             return combined_data
         finally:
@@ -561,7 +563,7 @@ class GeminiFlashTranscriber:
             return {"transcript": vertex_result.get("transcript", {}).get("full_text", "")}
         return {"transcript": vertex_result.transcript_text}
 
-    async def transcribe_large_video(self, video_file: str, duration: int) -> Dict[str, Any]:
+    async def transcribe_large_video(self, video_file: str, metadata: Any, duration: int) -> Dict[str, Any]:
         """
         Transcribes a large video using the "Smart Transcribe, Global Analyze" method with concurrency limiting.
         This is a professional-grade implementation that respects API rate limits and handles transient errors gracefully.
@@ -622,7 +624,7 @@ class GeminiFlashTranscriber:
         combined_data = self._parse_json_response(analysis_response.text) or {}
         combined_data["transcript"] = merged_transcript
         combined_data["processing_cost"] = self.settings.estimate_cost(
-            duration, TemporalIntelligenceLevel.STANDARD
+            duration, is_pro_model=self.use_pro
         )
 
         for chunk_file in video_chunks:

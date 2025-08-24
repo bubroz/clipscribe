@@ -11,19 +11,19 @@ from unittest.mock import patch
 pytest_plugins = ("pytest_asyncio",)
 
 
-@pytest.fixture(scope="session")
-def event_loop():
-    """Create an instance of the default event loop for the test session."""
-    loop = asyncio.get_event_loop_policy().new_event_loop()
-    yield loop
-    loop.close()
+# Removed custom event_loop fixture to avoid conflicts with pytest-asyncio
+# pytest-asyncio will handle event loop creation automatically
 
 
 @pytest.fixture(autouse=True)
-def mock_google_api_key():
-    """Automatically mock Google API key for all tests."""
-    with patch.dict("os.environ", {"GOOGLE_API_KEY": "test-api-key"}):
+def mock_google_api_key(request):
+    """Automatically mock Google API key for all tests except performance tests."""
+    # Skip mocking for performance tests - they need real API keys
+    if "performance" in request.keywords:
         yield
+    else:
+        with patch.dict("os.environ", {"GOOGLE_API_KEY": "test-api-key"}):
+            yield
 
 
 @pytest.fixture
@@ -69,6 +69,7 @@ def pytest_configure(config):
     )
     config.addinivalue_line("markers", "integration: marks tests as integration tests")
     config.addinivalue_line("markers", "unit: marks tests as unit tests")
+    config.addinivalue_line("markers", "performance: marks tests as performance tests")
     config.addinivalue_line("markers", "requires_api: marks tests that require real API access")
 
 
