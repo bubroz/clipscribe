@@ -1138,6 +1138,9 @@ class MultiVideoProcessor:
         Returns:
             MultiVideoIntelligence object with unified analysis
         """
+        if not videos:
+            raise ValueError("At least one video required for processing")
+
         logger.info(f"Processing video collection: {len(videos)} videos")
 
         # Generate collection ID

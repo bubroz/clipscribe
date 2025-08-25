@@ -80,8 +80,8 @@ class VideoDownloader:
             except OSError as e:
                 logger.warning(f"Could not remove temp file {media_path}: {e}")
 
-    def search_videos(
+    async def search_videos(
         self, query: str, max_results: int = 5, site: str = "youtube"
     ) -> list:
         """Search for videos (delegated to universal client)."""
-        return self.video_client.search_videos(query, max_results, site)
+        return await self.video_client.search_videos(query, max_results, site)

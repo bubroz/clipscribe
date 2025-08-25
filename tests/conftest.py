@@ -5,7 +5,7 @@ import asyncio
 from pathlib import Path
 import tempfile
 import shutil
-from unittest.mock import patch
+from unittest.mock import patch, MagicMock, AsyncMock
 
 # Configure pytest-asyncio
 pytest_plugins = ("pytest_asyncio",)
@@ -35,6 +35,14 @@ def temp_directory():
 
 
 @pytest.fixture
+def temp_output_dir(tmp_path):
+    """Create a temporary output directory for tests."""
+    output_dir = tmp_path / "test_output"
+    output_dir.mkdir(exist_ok=True)
+    return output_dir
+
+
+@pytest.fixture
 def mock_video_urls():
     """Common test video URLs."""
     return {
@@ -45,6 +53,45 @@ def mock_video_urls():
         "dailymotion": "https://www.dailymotion.com/video/x123456",
         "instagram": "https://www.instagram.com/reel/ABC123/",
     }
+
+
+@pytest.fixture(autouse=True)
+def mock_subprocess_and_external_deps():
+    """Mock subprocess calls and external dependencies for all tests."""
+    with patch('subprocess.run') as mock_subprocess, \
+         patch('google.generativeai.configure') as mock_genai_configure, \
+         patch('google.generativeai.GenerativeModel') as mock_genai_model, \
+         patch('google.generativeai.upload_file') as mock_upload_file, \
+         patch('google.generativeai.delete_file') as mock_delete_file, \
+         patch('subprocess.Popen') as mock_popen, \
+         patch('os.system') as mock_system:
+
+        # Mock subprocess for CLI commands
+        mock_subprocess.return_value = MagicMock(
+            returncode=0,
+            stdout="Command executed successfully",
+            stderr="",
+            check=False
+        )
+
+        # Mock Popen for yt-dlp and other subprocess calls
+        mock_popen.return_value = MagicMock(
+            communicate=MagicMock(return_value=(b"mock output", b"")),
+            returncode=0,
+            stdout=b"mock stdout",
+            stderr=b""
+        )
+
+        # Mock os.system calls
+        mock_system.return_value = 0
+
+        # Mock Gemini API calls
+        mock_genai_model.return_value = MagicMock()
+        mock_genai_model.return_value.generate_content_async = AsyncMock()
+        mock_genai_model.return_value.generate_content_async.return_value = MagicMock()
+        mock_genai_model.return_value.generate_content_async.return_value.text = '{"summary": "Mock response", "key_points": [], "entities": [], "topics": [], "relationships": [], "dates": []}'
+
+        yield
 
 
 @pytest.fixture

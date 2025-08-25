@@ -63,7 +63,7 @@ class EnhancedEntityExtractor:
             )
 
             # Extract source information
-            sources = list({e.source for e in entity_group if hasattr(e, "source")})
+            sources = [e.source for e in entity_group if hasattr(e, "source") and e.source is not None]
             if not sources:
                 sources = ["Gemini"]  # Default source
 
@@ -223,10 +223,14 @@ class EnhancedEntityExtractor:
         return max(scores, key=scores.get)
 
     def _extract_context_windows(
-        self, canonical_form: str, entity_group: List[Entity], transcript_segments: List[Dict]
+        self, canonical_form: str, entity_group: List[Entity], transcript_segments: Optional[List[Dict]]
     ) -> List[EntityContext]:
         """Extract context windows for entity mentions."""
         context_windows = []
+
+        # Handle None transcript segments
+        if not transcript_segments:
+            return context_windows
 
         # Get all variations of the entity
         variations = {canonical_form}

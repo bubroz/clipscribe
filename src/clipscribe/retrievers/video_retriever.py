@@ -88,9 +88,7 @@ class VideoIntelligenceRetriever:
             logger.info(f"Searching for videos: {query}")
 
             # Search for videos using the downloader
-            videos = await asyncio.get_event_loop().run_in_executor(
-                None, self.processor.downloader.search_videos, query, max_results, site
-            )
+            videos = await self.processor.downloader.search_videos(query, max_results, site)
 
             if not videos:
                 logger.warning(f"No videos found for query: {query}")

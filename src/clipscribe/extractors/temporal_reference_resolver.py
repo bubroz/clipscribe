@@ -382,6 +382,9 @@ class TemporalReferenceResolver:
         elif "days ago" in reference_text:
             return self._resolve_days_ago(match, reference_date, context, transcript_text)
 
+        elif "in" in reference_text and "days" in reference_text:
+            return self._resolve_in_days(match, reference_date, context, transcript_text)
+
         elif "last week" in reference_text:
             resolved_date = reference_date - timedelta(weeks=1)
             return TemporalReference(
@@ -494,6 +497,28 @@ class TemporalReferenceResolver:
             resolved_date=resolved_date.strftime("%Y-%m-%d"),
             confidence=0.90,
             resolution_method=f"{days_back}_days_ago_from_{reference_date.date()}",
+            context=context,
+            original_context=transcript_text[max(0, match.start() - 50) : match.end() + 50],
+        )
+
+    def _resolve_in_days(
+        self, match: re.Match, reference_date: datetime, context: str, transcript_text: str
+    ) -> Optional[TemporalReference]:
+        """Resolve 'in 5 days' style references."""
+
+        # Extract number of days
+        days_match = re.search(r"(\d+)", match.group(0))
+        if not days_match:
+            return None
+
+        days_forward = int(days_match.group(1))
+        resolved_date = reference_date + timedelta(days=days_forward)
+
+        return TemporalReference(
+            reference_text=match.group(0),
+            resolved_date=resolved_date.strftime("%Y-%m-%d"),
+            confidence=0.90,
+            resolution_method=f"in_{days_forward}_days_from_{reference_date.date()}",
             context=context,
             original_context=transcript_text[max(0, match.start() - 50) : match.end() + 50],
         )

@@ -3,7 +3,7 @@
 from __future__ import annotations
 from typing import List, Dict, Any, Optional
 from datetime import datetime
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, Field, field_validator
 from enum import Enum
 
 
@@ -49,7 +49,8 @@ class KeyPoint(BaseModel):
     importance: float = Field(ge=0, le=1, description="Importance score 0-1")
     context: Optional[str] = Field(None, description="Surrounding context")
 
-    @validator("importance", pre=True)
+    @field_validator("importance", mode="before")
+    @classmethod
     def normalize_importance(cls, v):
         """
         Normalizes the importance score. If the score is > 1, it's assumed

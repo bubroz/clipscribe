@@ -135,23 +135,20 @@ class TestVideoDownloader:
         # File should still exist due to retention policy
         assert temp_file.exists()
 
-    def test_search_videos(self, video_downloader):
+    @pytest.mark.asyncio
+    async def test_search_videos(self, video_downloader):
         """Test video search functionality."""
         mock_results = [
             {"url": "https://www.youtube.com/watch?v=1", "title": "Video 1"},
             {"url": "https://www.youtube.com/watch?v=2", "title": "Video 2"}
         ]
 
-        # Mock the async search_videos method
-        async def mock_search_videos(query, max_results, site):
-            return mock_results
+        with patch.object(video_downloader.video_client, 'search_videos', new_callable=AsyncMock) as mock_search:
+            mock_search.return_value = mock_results
 
-        with patch.object(video_downloader.video_client, 'search_videos', side_effect=mock_search_videos) as mock_search:
-            results = video_downloader.search_videos("test query", max_results=2, site="youtube")
+            results = await video_downloader.search_videos("test query", max_results=2, site="youtube")
 
-            # The search_videos method returns a coroutine (this is a bug in the original code)
-            # but for testing purposes, we'll check that the coroutine was created
-            assert hasattr(results, '__await__')  # It's a coroutine
+            assert results == mock_results
             mock_search.assert_called_once_with("test query", 2, "youtube")
 
     @pytest.mark.asyncio

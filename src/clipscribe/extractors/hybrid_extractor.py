@@ -108,7 +108,7 @@ class HybridEntityExtractor:
         seen = set()
         final_entities = []
         for entity in all_entities:
-            key = (entity.name.lower(), entity.type)
+            key = (entity.entity.lower(), entity.type)
             if key not in seen:
                 seen.add(key)
                 final_entities.append(entity)
@@ -172,10 +172,10 @@ class HybridEntityExtractor:
 
         entities_json = [
             {
-                "name": ent.name,
+                "name": ent.entity,
                 "type": ent.type,
                 "confidence": conf,
-                "context": self._get_entity_context(ent.name, context),
+                "context": self._get_entity_context(ent.entity, context),
             }
             for ent, conf in entities
         ]

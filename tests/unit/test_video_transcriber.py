@@ -290,3 +290,13 @@ class TestVideoTranscriber:
         transcriber = VideoTranscriber(use_pro=True, performance_monitor=mock_monitor)
 
         assert transcriber.performance_monitor == mock_monitor
+
+    @pytest.mark.asyncio
+    async def test_transcribe_video_analysis_error(self, video_transcriber, mock_video_metadata):
+        """Test transcribe_video with analysis error."""
+        with patch.object(video_transcriber.transcriber, 'transcribe_video', new_callable=AsyncMock) as mock_transcribe:
+            # Mock analysis with error
+            mock_transcribe.return_value = {"error": "API temporarily unavailable"}
+
+            with pytest.raises(Exception, match="Transcription failed: API temporarily unavailable"):
+                await video_transcriber.transcribe_video("test_video.mp4", mock_video_metadata, 300)

@@ -174,10 +174,12 @@ class TestModelManagerSpacy:
         mock_deps.require_dependency.assert_called_with("spacy", "SpaCy entity extraction")
 
         # Verify logging
-        assert mock_logger.info.call_count == 2
+        assert mock_logger.info.call_count == 4
         mock_logger.info.assert_any_call(
             "Hybrid Extractors Loaded: Local (SpaCy for entities, GLiNER for detection, REBEL for relationships) + Gemini 2.5 Pro Refinement"
         )
+        mock_logger.info.assert_any_call("Loading SpaCy model en_core_web_sm (one-time load)...")
+        mock_logger.info.assert_any_call("Cache miss for spacy_en_core_web_sm - loaded in 2.50s")
         mock_logger.info.assert_any_call("SpaCy model en_core_web_sm loaded successfully in 2.50s ")
 
         # Verify performance tracking
@@ -289,11 +291,12 @@ class TestModelManagerGliner:
 
         mock_gliner = MagicMock()
         mock_model = MagicMock()
+        mock_model.to.return_value = mock_model  # Make .to() return the same object
         mock_gliner.GLiNER.from_pretrained.return_value = mock_model
 
         mock_deps.require_dependency.side_effect = [mock_torch, mock_gliner]
 
-        with patch('time.time', side_effect=[1000.0, 1003.0, 1005.0, 1007.0]):
+        with patch('time.time', side_effect=[1000.0, 1003.0, 1005.0, 1007.0, 1010.0, 1012.0]):
             result = manager.get_gliner_model("test/model", "auto")
 
         # Should use CUDA
@@ -312,11 +315,12 @@ class TestModelManagerGliner:
 
         mock_gliner = MagicMock()
         mock_model = MagicMock()
+        mock_model.to.return_value = mock_model  # Make .to() return the same object
         mock_gliner.GLiNER.from_pretrained.return_value = mock_model
 
         mock_deps.require_dependency.side_effect = [mock_torch, mock_gliner]
 
-        with patch('time.time', side_effect=[1000.0, 1004.0, 1006.0, 1008.0]):
+        with patch('time.time', side_effect=[1000.0, 1004.0, 1006.0, 1008.0, 1010.0, 1012.0]):
             result = manager.get_gliner_model("test/model", "auto")
 
         # Should use MPS
@@ -407,7 +411,7 @@ class TestModelManagerRebel:
 
         mock_deps.require_dependency.side_effect = [mock_torch, mock_transformers]
 
-        with patch('time.time', side_effect=[1000.0, 1002.0, 1004.0, 1006.0]):
+        with patch('time.time', side_effect=[1000.0, 1002.0, 1004.0, 1006.0, 1008.0, 1010.0]):
             result = manager.get_rebel_model("test/model", "auto")
 
         # Verify pipeline creation with CUDA device
@@ -560,16 +564,16 @@ class TestModelManagerPerformanceSummary:
         # Setup mock data
         manager._models = {"spacy_model": "spacy_data", "gliner_model": "gliner_data"}
         manager._load_times = {"spacy_model": 2.5, "gliner_model": 5.0}
-        manager._access_counts = {"spacy_model": 5, "gliner_model": 8}  # 3 hits, 1 miss, 6 hits, 1 miss
+        manager._access_counts = {"spacy_model": 5, "gliner_model": 8}  # 4 hits, 1 miss, 7 hits, 1 miss
 
         summary = manager.get_performance_summary()
 
-        # Check cache efficiency - 9 hits out of 13 accesses
-        expected_hit_rate = 9/13
+        # Check cache efficiency - 11 hits out of 13 accesses
+        expected_hit_rate = 11/13
         assert abs(summary["cache_efficiency"]["hit_rate"] - expected_hit_rate) < 0.001
         assert summary["cache_efficiency"]["total_models_loaded"] == 2
         assert summary["cache_efficiency"]["total_accesses"] == 13
-        assert summary["cache_efficiency"]["estimated_time_saved"] == 17.5  # (2.5*3) + (5.0*6)
+        assert summary["cache_efficiency"]["estimated_time_saved"] == 45.0  # (2.5*4) + (5.0*7)
 
         # Check model details
         assert len(summary["model_details"]) == 2
@@ -577,12 +581,12 @@ class TestModelManagerPerformanceSummary:
         spacy_detail = next(d for d in summary["model_details"] if d["model"] == "spacy_model")
         assert spacy_detail["load_time"] == 2.5
         assert spacy_detail["access_count"] == 5
-        assert spacy_detail["time_saved"] == 7.5  # 2.5 * 3 hits
+        assert spacy_detail["time_saved"] == 10.0  # 2.5 * 4 hits
 
         gliner_detail = next(d for d in summary["model_details"] if d["model"] == "gliner_model")
         assert gliner_detail["load_time"] == 5.0
         assert gliner_detail["access_count"] == 8
-        assert gliner_detail["time_saved"] == 30.0  # 5.0 * 6 hits
+        assert gliner_detail["time_saved"] == 35.0  # 5.0 * 7 hits
 
         # Should have recommendations
         assert len(summary["recommendations"]) > 0

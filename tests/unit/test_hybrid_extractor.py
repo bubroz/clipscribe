@@ -2,6 +2,7 @@
 import pytest
 import asyncio
 import json
+from datetime import datetime
 from unittest.mock import patch, AsyncMock, MagicMock, Mock
 from typing import List, Tuple
 
@@ -29,7 +30,7 @@ def mock_video_metadata():
         title="Test Video",
         channel="Test Channel",
         channel_id="test_channel",
-        published_at=None,
+        published_at=datetime(2024, 1, 15, 14, 30, 0),
         duration=300,
         view_count=1000,
         description="Test description",

@@ -653,7 +653,7 @@ class EnhancedUniversalVideoClient:
         # Common platform patterns
         patterns = {
             "youtube": ["youtube.com", "youtu.be"],
-            "twitter": ["twitter.com", "x.com"],
+            "twitter": ["twitter.com"],
             "tiktok": ["tiktok.com"],
             "vimeo": ["vimeo.com"],
             "facebook": ["facebook.com", "fb.com"],
@@ -661,6 +661,7 @@ class EnhancedUniversalVideoClient:
             "twitch": ["twitch.tv"],
             "reddit": ["reddit.com"],
             "dailymotion": ["dailymotion.com"],
+            "x": ["x.com"],  # X (formerly Twitter)
         }
 
         # Check URL against patterns
@@ -790,7 +791,7 @@ class EnhancedUniversalVideoClient:
 
     def is_playlist_url(self, url: str) -> bool:
         """Check if URL is a playlist URL."""
-        return "playlist?list=" in url or "/playlist/" in url
+        return "playlist?list=" in url
 
     @retry(
         stop=stop_after_attempt(5),
@@ -1015,30 +1016,40 @@ class EnhancedUniversalVideoClient:
         if not duration:
             return content_sections
 
-        # Start with full video as content
-        content_start = 0
-        content_end = duration
-
-        # Remove non-content sections based on SponsorBlock
+        # Get all non-content segments and sort by start time
         sponsorblock_segments = self._extract_sponsorblock(info)
+        non_content_segments = [s for s in sponsorblock_segments
+                               if s.category in ["sponsor", "intro", "outro", "selfpromo", "interaction"]]
+        non_content_segments.sort(key=lambda s: s.start_time)
 
-        for segment in sponsorblock_segments:
-            if segment.category in ["sponsor", "intro", "outro", "selfpromo", "interaction"]:
-                # This is non-content, split around it
-                if segment.start_time > content_start:
-                    content_sections.append(
-                        VideoSegment(
-                            category="content",
-                            start_time=content_start,
-                            end_time=segment.start_time,
-                        )
-                    )
-                content_start = segment.end_time
-
-        # Add final content section
-        if content_start < content_end:
+        if not non_content_segments:
+            # No non-content segments, entire video is content
             content_sections.append(
-                VideoSegment(category="content", start_time=content_start, end_time=content_end)
+                VideoSegment(category="content", start_time=0, end_time=duration)
+            )
+            return content_sections
+
+        # Build content sections around non-content segments
+        current_time = 0
+
+        for segment in non_content_segments:
+            # Add content section before this non-content segment
+            if segment.start_time > current_time:
+                content_sections.append(
+                    VideoSegment(
+                        category="content",
+                        start_time=current_time,
+                        end_time=segment.start_time,
+                    )
+                )
+
+            # Move current_time past this non-content segment
+            current_time = max(current_time, segment.end_time)
+
+        # Add final content section if there's time left
+        if current_time < duration:
+            content_sections.append(
+                VideoSegment(category="content", start_time=current_time, end_time=duration)
             )
 
         logger.info(f" Identified {len(content_sections)} content sections")
