@@ -44,10 +44,15 @@ class GeminiFlashTranscriber:
         # Honor global setting to route through Vertex when enabled
         self.use_vertex_ai = bool(getattr(self.settings, "use_vertex_ai", False))
 
+        # Validate API key when not using Vertex AI
+        if not self.use_vertex_ai and not self.api_key:
+            raise ValueError("Google API key is required when not using Vertex AI")
+
         model_name = "gemini-2.5-pro" if use_pro else "gemini-2.5-flash"
         logger.info(f"Using model: {model_name} (use_pro={use_pro})")
 
-        self.pool = GeminiPool(api_key=self.api_key, model_name=model_name)
+        if not self.use_vertex_ai:
+            self.pool = GeminiPool(api_key=self.api_key, model_name=model_name)
 
         if self.use_vertex_ai:
             logger.info("Using Vertex AI for video processing")
@@ -81,9 +86,14 @@ class GeminiFlashTranscriber:
         if json_end < len(raw_text):
             raw_text = raw_text[:json_end]
 
+        # Fix trailing commas in arrays and objects
+        raw_text = re.sub(r'(\w+|"|]|\})\s*,\s*([}\]])', r'\1\2', raw_text)
+        raw_text = re.sub(r',\s*,', ',', raw_text)  # Remove double commas
+        raw_text = re.sub(r',\s*([}\]])', r'\1', raw_text)  # Remove trailing commas
+
+        # Fix missing commas between elements
         raw_text = re.sub(r'(["\]\}])\s*\n\s*"', r'\1,\n"', raw_text)
         raw_text = re.sub(r'(["\]\}0-9])\s+"', r'\1,"', raw_text)
-        raw_text = re.sub(r",\s*([}\]])", r"\1", raw_text)
         raw_text = re.sub(r'"\s*\n\s*\]', r'"\n]', raw_text)
 
         return raw_text

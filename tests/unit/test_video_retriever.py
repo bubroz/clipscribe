@@ -1,7 +1,9 @@
 # tests/unit/test_video_retriever.py
 import pytest
+import json
 from unittest.mock import patch, AsyncMock, MagicMock, mock_open
 from clipscribe.retrievers.video_retriever import VideoIntelligenceRetriever
+from clipscribe.models import VideoTranscript, VideoMetadata
 from tests.helpers import create_mock_video_intelligence, create_mock_video_metadata
 
 
@@ -158,8 +160,11 @@ def test_initialization_with_custom_settings():
             use_flash=True
         )
 
-        assert retriever.domain == "test.com"
-        assert retriever.mode == "custom"
+        # Check that the parameters were passed correctly to the processor
+        mock_processor_class.assert_called_once()
+        call_args = mock_processor_class.call_args
+        assert call_args[1]['domain'] == "test.com"  # domain passed to processor
+        assert call_args[1]['mode'] == "custom"  # mode passed to processor
         assert retriever.use_pro is False  # use_flash=True should set use_pro=False
 
 
@@ -209,7 +214,7 @@ def test_save_to_cache():
 
     with patch('os.makedirs'), \
          patch('builtins.open', new_callable=mock_open) as mock_file, \
-         patch('json.dump') as mock_json:
+         patch('clipscribe.retrievers.video_retriever.json.dump') as mock_json:
 
         retriever._save_to_cache("test_key", mock_video)
 
@@ -224,29 +229,33 @@ def test_create_video_intelligence_object():
     retriever.processor.transcriber = MagicMock()
     retriever.processor.transcriber._generate_segments = MagicMock(return_value=[])
 
-    mock_metadata = MagicMock()
-    mock_metadata.title = "Test Video"
-    mock_metadata.url = "https://example.com/video"
-    mock_metadata.duration = 300
+    # Mock the transcriber's create_transcript_object method to avoid import issues
+    with patch.object(retriever.processor.transcriber, 'create_transcript_object') as mock_create:
+        mock_create.return_value = VideoTranscript(full_text="Test transcript", segments=[])
 
-    mock_analysis = {
-        "summary": "Test summary",
-        "key_points": [{"content": "Point 1"}],
-        "topics": ["Topic 1"],
-        "entities": [{"name": "Entity 1"}],
-        "relationships": [{"source": "A", "target": "B"}],
-        "transcript": "Test transcript",
-        "language": "en",
-        "confidence_score": 0.95
-    }
+        mock_metadata = MagicMock()
+        mock_metadata.title = "Test Video"
+        mock_metadata.url = "https://example.com/video"
+        mock_metadata.duration = 300
 
-    result = retriever._create_video_intelligence_object(mock_metadata, mock_analysis)
+        mock_analysis = {
+            "summary": "Test summary",
+            "key_points": [{"content": "Point 1"}],
+            "topics": ["Topic 1"],
+            "entities": [{"name": "Entity 1"}],
+            "relationships": [{"source": "A", "target": "B"}],
+            "transcript": "Test transcript",
+            "language": "en",
+            "confidence_score": 0.95
+        }
 
-    assert result is not None
-    assert result.metadata == mock_metadata
-    assert result.summary == "Test summary"
-    assert len(result.key_points) == 1
-    assert len(result.topics) == 1
+        result = retriever._create_video_intelligence_object(mock_metadata, mock_analysis)
+
+        assert result is not None
+        assert result.metadata == mock_metadata
+        assert result.summary == "Test summary"
+        assert len(result.key_points) == 1
+        assert len(result.topics) == 1
 
 
 def test_determine_enhanced_processing_mode():

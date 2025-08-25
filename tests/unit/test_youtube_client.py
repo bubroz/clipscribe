@@ -185,7 +185,9 @@ class TestYouTubeClient:
             mock_ydl_instance = MagicMock()
             mock_ydl_instance.extract_info.return_value = mock_info
             mock_ydl_instance.download.return_value = 0
-            mock_ydl_class.return_value = mock_ydl_instance
+            # Mock the context manager behavior
+            mock_ydl_class.return_value.__enter__.return_value = mock_ydl_instance
+            mock_ydl_class.return_value.__exit__.return_value = None
 
             with patch('tempfile.mkdtemp', return_value='/tmp/test'), \
                  patch('tempfile.NamedTemporaryFile') as mock_temp_file, \
@@ -213,7 +215,9 @@ class TestYouTubeClient:
         with patch('clipscribe.retrievers.youtube_client.yt_dlp.YoutubeDL') as mock_ydl_class:
             mock_ydl_instance = MagicMock()
             mock_ydl_instance.extract_info.side_effect = Exception("Download failed")
-            mock_ydl_class.return_value = mock_ydl_instance
+            # Mock the context manager behavior
+            mock_ydl_class.return_value.__enter__.return_value = mock_ydl_instance
+            mock_ydl_class.return_value.__exit__.return_value = None
 
             with patch('tempfile.mkdtemp', return_value='/tmp/test'), \
                  patch('tempfile.NamedTemporaryFile'):
@@ -255,7 +259,9 @@ class TestYouTubeClient:
 
             mock_ydl_instance = MagicMock()
             mock_ydl_instance.extract_info.return_value = mock_video_info
-            mock_ydl_class.return_value = mock_ydl_instance
+            # Mock the context manager behavior
+            mock_ydl_class.return_value.__enter__.return_value = mock_ydl_instance
+            mock_ydl_class.return_value.__exit__.return_value = None
 
             result = await youtube_client.get_video_info("https://www.youtube.com/watch?v=test123")
 
@@ -273,7 +279,9 @@ class TestYouTubeClient:
         with patch('clipscribe.retrievers.youtube_client.yt_dlp.YoutubeDL') as mock_ydl_class:
             mock_ydl_instance = MagicMock()
             mock_ydl_instance.extract_info.side_effect = Exception("Video not found")
-            mock_ydl_class.return_value = mock_ydl_instance
+            # Mock the context manager behavior
+            mock_ydl_class.return_value.__enter__.return_value = mock_ydl_instance
+            mock_ydl_class.return_value.__exit__.return_value = None
 
             with pytest.raises(Exception, match="Video not found"):
                 await youtube_client.get_video_info("https://www.youtube.com/watch?v=invalid")

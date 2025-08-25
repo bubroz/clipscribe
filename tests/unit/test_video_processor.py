@@ -7,6 +7,8 @@ from clipscribe.retrievers.video_processor import VideoProcessor
 from clipscribe.models import VideoIntelligence, VideoMetadata, VideoTranscript
 from clipscribe.config.settings import VideoRetentionPolicy
 from datetime import datetime
+import sys
+from unittest.mock import mock_open
 
 
 @pytest.fixture
@@ -621,3 +623,440 @@ class TestVideoProcessor:
             # Verify final stats
             final_stats = video_processor.get_stats()
             assert final_stats["videos_processed"] == 3
+
+    def test_is_supported_url_basic(self, video_processor):
+        """Test basic URL support checking."""
+        with patch.object(video_processor.downloader, 'is_supported_url') as mock_check:
+            mock_check.return_value = True
+            result = video_processor.is_supported_url("https://youtube.com/watch?v=test")
+            assert result is True
+
+    def test_is_supported_url_unsupported(self, video_processor):
+        """Test unsupported URL handling."""
+        with patch.object(video_processor.downloader, 'is_supported_url') as mock_check:
+            mock_check.return_value = False
+            result = video_processor.is_supported_url("https://unsupported.com/video")
+            assert result is False
+
+    def test_save_transcript_basic(self, video_processor, mock_video_metadata):
+        """Test basic transcript saving functionality."""
+        transcript = VideoTranscript(full_text="Test content", segments=[])
+        video_intel = VideoIntelligence(
+            metadata=mock_video_metadata,
+            summary="Test summary",
+            transcript=transcript,
+            entities=[],
+            relationships=[],
+            topics=[],
+            temporal_references=[],
+            key_points=[],
+            processing_cost=0.0,
+            processing_stats={}
+        )
+
+        with patch.object(video_processor.output_formatter, 'save_transcript') as mock_save:
+            mock_save.return_value = {"txt": Path("output/transcript.txt")}
+            result = video_processor.save_transcript(video_intel, "output")
+            assert result is not None
+            mock_save.assert_called_once()
+
+    def test_save_all_formats_basic(self, video_processor, mock_video_metadata):
+        """Test basic save all formats functionality."""
+        video_intel = VideoIntelligence(
+            metadata=mock_video_metadata,
+            summary="Test summary",
+            transcript=VideoTranscript(full_text="Test", segments=[]),
+            entities=[],
+            relationships=[],
+            topics=[],
+            temporal_references=[],
+            key_points=[],
+            processing_cost=0.0,
+            processing_stats={}
+        )
+
+        with patch.object(video_processor.output_formatter, 'save_all_formats') as mock_save:
+            mock_save.return_value = ["output.json", "output.csv"]
+            result = video_processor.save_all_formats(video_intel, "output")
+            assert result == ["output.json", "output.csv"]
+            mock_save.assert_called_once_with(video_intel, "output", include_chimera_format=True)
+
+    def test_get_stats_empty(self):
+        """Test get_stats with no processing done."""
+        processor = VideoProcessor()
+        stats = processor.get_stats()
+        assert stats["videos_processed"] == 0
+        assert stats["total_cost"] == 0.0
+
+    def test_get_stats_after_processing(self, video_processor, mock_video_metadata):
+        """Test get_stats after processing videos."""
+        # Manually set stats to simulate processing
+        video_processor.videos_processed = 2
+        video_processor.total_cost = 1.5
+
+        stats = video_processor.get_stats()
+        assert stats["videos_processed"] == 2
+        assert stats["total_cost"] == 1.5
+
+    def test_init_minimal_config(self):
+        """Test initialization with minimal configuration."""
+        processor = VideoProcessor()
+        assert processor.domain is None
+        assert processor.mode == "auto"
+        assert processor.use_cache is True
+        assert processor.videos_processed == 0
+        assert processor.total_cost == 0.0
+
+    def test_init_with_custom_settings(self):
+        """Test initialization with custom settings."""
+        custom_settings = MagicMock()
+        processor = VideoProcessor(settings=custom_settings, domain="youtube.com", mode="fast")
+        assert processor.domain == "youtube.com"
+        assert processor.mode == "fast"
+        assert processor.settings == custom_settings
+
+
+class TestVideoProcessorErrorHandling:
+    """Test error handling and edge cases in VideoProcessor."""
+
+    def test_init_advanced_extractor_import_error(self):
+        """Test initialization when AdvancedHybridExtractor import fails."""
+        # Mock the import failure for the specific module
+        import_error = ImportError("No module named 'clipscribe.extractors.advanced_hybrid_extractor'")
+        with patch('builtins.__import__', side_effect=import_error):
+            with patch('clipscribe.retrievers.video_processor.__import__', side_effect=import_error):
+                # Mock the entire module to None to simulate import failure
+                with patch.dict('sys.modules', {'clipscribe.extractors.advanced_hybrid_extractor': None}):
+                    processor = VideoProcessor(use_advanced_extraction=True)
+                    # Should gracefully handle the import error
+                    assert processor.entity_extractor is None
+
+    @pytest.mark.asyncio
+    async def test_process_url_general_exception_handling(self, video_processor):
+        """Test general exception handling in process_url."""
+        with patch.object(video_processor, 'is_supported_url', return_value=True):
+            with patch.object(video_processor, '_process_video_pipeline', side_effect=Exception("General error")):
+                with patch.object(video_processor, 'on_error') as mock_on_error:
+                    result = await video_processor.process_url("https://example.com/video")
+
+                    assert result is None
+                    mock_on_error.assert_called_once_with("Processing", "General error")
+
+    @pytest.mark.asyncio
+    async def test_process_video_pipeline_entity_extraction_failure(self, video_processor, mock_video_metadata, mock_transcription_analysis):
+        """Test entity extraction failure handling in pipeline."""
+        with patch.object(video_processor.downloader, 'download_video') as mock_download, \
+             patch.object(video_processor.transcriber, 'transcribe_video') as mock_transcribe, \
+             patch.object(video_processor, 'entity_extractor') as mock_extractor, \
+             patch.object(video_processor.kg_builder, 'build_knowledge_graph') as mock_kg, \
+             patch.object(video_processor.output_formatter, 'save_all_formats') as mock_save, \
+             patch.object(video_processor.retention_manager, 'handle_video_retention') as mock_retention, \
+             patch('pathlib.Path.exists', return_value=True):
+
+            # Setup mocks
+            mock_download.return_value = (mock_video_metadata, "test_media.mp4")
+            mock_transcribe.return_value = mock_transcription_analysis
+            # Mock the entity extractor to raise an exception
+            mock_extractor.extract_entities.side_effect = Exception("Entity extraction failed")
+            # Create proper VideoTranscript object for the result
+            transcript_obj = VideoTranscript(full_text="Test transcript", segments=[])
+            mock_kg.return_value = VideoIntelligence(
+                metadata=mock_video_metadata,
+                transcript=transcript_obj,
+                entities=[],
+                relationships=[],
+                topics=[],
+                temporal_references=[],
+                key_points=[],
+                processing_cost=0.0,
+                processing_stats={"duration": 10.0}
+            )
+            mock_save.return_value = ["output.json"]
+            mock_retention.return_value = "deleted"
+
+            result = await video_processor._process_video_pipeline("https://example.com/video")
+
+            # Should return result despite entity extraction failure
+            assert result is not None
+            assert isinstance(result, VideoIntelligence)
+            assert result.metadata.video_id == "test_123"
+
+    @pytest.mark.asyncio
+    async def test_process_video_pipeline_knowledge_graph_failure(self, video_processor, mock_video_metadata, mock_transcription_analysis):
+        """Test knowledge graph building failure handling."""
+        with patch.object(video_processor.downloader, 'download_video') as mock_download, \
+             patch.object(video_processor.transcriber, 'transcribe_video') as mock_transcribe, \
+             patch.object(video_processor, 'entity_extractor') as mock_extractor, \
+             patch.object(video_processor.kg_builder, 'build_knowledge_graph') as mock_kg, \
+             patch.object(video_processor.output_formatter, 'save_all_formats') as mock_save, \
+             patch.object(video_processor.retention_manager, 'handle_video_retention') as mock_retention, \
+             patch('pathlib.Path.exists', return_value=True):
+
+            # Setup mocks - create VideoIntelligence with entities to trigger KG building
+            mock_download.return_value = (mock_video_metadata, "test_media.mp4")
+            mock_transcribe.return_value = mock_transcription_analysis
+            transcript_obj = VideoTranscript(full_text="Test transcript", segments=[])
+            # Create initial VideoIntelligence with entities to trigger KG building
+            initial_vi = VideoIntelligence(
+                metadata=mock_video_metadata,
+                transcript=transcript_obj,
+                entities=[{"name": "Test Entity", "type": "PERSON"}],  # Add entities to trigger KG
+                relationships=[],
+                topics=[],
+                temporal_references=[],
+                key_points=[],
+                processing_cost=0.0,
+                processing_stats={"duration": 10.0}
+            )
+            mock_extractor.extract_entities.return_value = initial_vi.entities
+            # Mock kg builder to raise exception
+            mock_kg.side_effect = Exception("Knowledge graph building failed")
+            mock_save.return_value = ["output.json"]
+            mock_retention.return_value = "deleted"
+
+            result = await video_processor._process_video_pipeline("https://example.com/video")
+
+            # Should return result despite KG building failure
+            assert result is not None
+            assert isinstance(result, VideoIntelligence)
+
+    @pytest.mark.asyncio
+    async def test_process_video_pipeline_video_retention_failure(self, video_processor, mock_video_metadata, mock_transcription_analysis):
+        """Test video retention failure handling."""
+        with patch.object(video_processor.downloader, 'download_video') as mock_download, \
+             patch.object(video_processor.transcriber, 'transcribe_video') as mock_transcribe, \
+             patch.object(video_processor, 'entity_extractor') as mock_extractor, \
+             patch.object(video_processor.kg_builder, 'build_knowledge_graph') as mock_kg, \
+             patch.object(video_processor.output_formatter, 'save_all_formats') as mock_save, \
+             patch.object(video_processor.retention_manager, 'handle_video_retention') as mock_retention, \
+             patch('pathlib.Path.exists', return_value=True):
+
+            # Setup mocks
+            mock_download.return_value = (mock_video_metadata, "test_media.mp4")
+            mock_transcribe.return_value = mock_transcription_analysis
+            mock_extractor.extract_entities.return_value = []
+            transcript_obj = VideoTranscript(full_text="Test transcript", segments=[])
+            mock_kg.return_value = VideoIntelligence(
+                metadata=mock_video_metadata,
+                transcript=transcript_obj,
+                entities=[],
+                relationships=[],
+                topics=[],
+                temporal_references=[],
+                key_points=[],
+                processing_cost=0.0,
+                processing_stats={"duration": 10.0}
+            )
+            mock_save.return_value = ["output.json"]
+            mock_retention.side_effect = Exception("Video retention failed")
+
+            result = await video_processor._process_video_pipeline("https://example.com/video")
+
+            # Should return result despite retention failure
+            assert result is not None
+            assert isinstance(result, VideoIntelligence)
+
+    @pytest.mark.asyncio
+    async def test_process_video_pipeline_save_results_failure(self, video_processor, mock_video_metadata, mock_transcription_analysis):
+        """Test save results failure handling."""
+        with patch.object(video_processor.downloader, 'download_video') as mock_download, \
+             patch.object(video_processor.transcriber, 'transcribe_video') as mock_transcribe, \
+             patch.object(video_processor, 'entity_extractor') as mock_extractor, \
+             patch.object(video_processor.kg_builder, 'build_knowledge_graph') as mock_kg, \
+             patch.object(video_processor.output_formatter, 'save_all_formats') as mock_save, \
+             patch.object(video_processor.retention_manager, 'handle_video_retention') as mock_retention, \
+             patch('pathlib.Path.exists', return_value=True):
+
+            # Setup mocks
+            mock_download.return_value = (mock_video_metadata, "test_media.mp4")
+            mock_transcribe.return_value = mock_transcription_analysis
+            mock_extractor.extract_entities.return_value = []
+            transcript_obj = VideoTranscript(full_text="Test transcript", segments=[])
+            mock_kg.return_value = VideoIntelligence(
+                metadata=mock_video_metadata,
+                transcript=transcript_obj,
+                entities=[],
+                relationships=[],
+                topics=[],
+                temporal_references=[],
+                key_points=[],
+                processing_cost=0.0,
+                processing_stats={"duration": 10.0}
+            )
+            mock_save.side_effect = Exception("Save results failed")
+            mock_retention.return_value = "deleted"
+
+            result = await video_processor._process_video_pipeline("https://example.com/video")
+
+            # Should return result despite save failure
+            assert result is not None
+            assert isinstance(result, VideoIntelligence)
+
+    @pytest.mark.asyncio
+    async def test_process_video_pipeline_with_none_transcript(self, video_processor, mock_video_metadata):
+        """Test pipeline handling when transcript is None."""
+        with patch.object(video_processor.downloader, 'download_video') as mock_download, \
+             patch.object(video_processor.transcriber, 'transcribe_video') as mock_transcribe, \
+             patch.object(video_processor.transcriber, 'create_transcript_object') as mock_create_transcript, \
+             patch.object(video_processor, 'entity_extractor') as mock_extractor, \
+             patch.object(video_processor.kg_builder, 'build_knowledge_graph') as mock_kg, \
+             patch.object(video_processor.output_formatter, 'save_all_formats') as mock_save, \
+             patch.object(video_processor.retention_manager, 'handle_video_retention') as mock_retention, \
+             patch('pathlib.Path.exists', return_value=True):
+
+            # Setup mocks with None transcript
+            mock_download.return_value = (mock_video_metadata, "test_media.mp4")
+            mock_transcribe.return_value = None  # Simulate failed transcription
+            # Mock the transcript object creation to return a valid transcript
+            transcript_obj = VideoTranscript(full_text="", segments=[])
+            mock_create_transcript.return_value = transcript_obj
+            mock_extractor.extract_entities.return_value = []
+            mock_kg.return_value = VideoIntelligence(
+                metadata=mock_video_metadata,
+                transcript=transcript_obj,
+                entities=[],
+                relationships=[],
+                topics=[],
+                temporal_references=[],
+                key_points=[],
+                processing_cost=0.0,
+                processing_stats={"duration": 10.0}
+            )
+            mock_save.return_value = ["output.json"]
+            mock_retention.return_value = "deleted"
+
+            result = await video_processor._process_video_pipeline("https://example.com/video")
+
+            # Should handle None transcript gracefully (transcript object is still created)
+            assert result is not None
+            assert isinstance(result, VideoIntelligence)
+
+    @pytest.mark.asyncio
+    async def test_process_video_pipeline_with_none_entities(self, video_processor, mock_video_metadata, mock_transcription_analysis):
+        """Test pipeline handling when entities is None."""
+        with patch.object(video_processor.downloader, 'download_video') as mock_download, \
+             patch.object(video_processor.transcriber, 'transcribe_video') as mock_transcribe, \
+             patch.object(video_processor, 'entity_extractor') as mock_extractor, \
+             patch.object(video_processor.kg_builder, 'build_knowledge_graph') as mock_kg, \
+             patch.object(video_processor.output_formatter, 'save_all_formats') as mock_save, \
+             patch.object(video_processor.retention_manager, 'handle_video_retention') as mock_retention, \
+             patch('pathlib.Path.exists', return_value=True):
+
+            # Setup mocks with None entities
+            mock_download.return_value = (mock_video_metadata, "test_media.mp4")
+            mock_transcribe.return_value = mock_transcription_analysis
+            mock_extractor.extract_entities.return_value = None  # Simulate None entities
+            mock_kg.return_value = VideoIntelligence(
+                metadata=mock_video_metadata,
+                transcript=mock_transcribe.return_value.transcript,
+                entities=None,  # None entities
+                relationships=[],
+                topics=[],
+                temporal_references=[],
+                key_points=[],
+                processing_cost=0.0,
+                processing_stats={"duration": 10.0}
+            )
+            mock_save.return_value = ["output.json"]
+            mock_retention.return_value = "deleted"
+
+            result = await video_processor._process_video_pipeline("https://example.com/video")
+
+            # Should handle None entities gracefully
+            assert result is not None
+            assert isinstance(result, VideoIntelligence)
+
+    @pytest.mark.asyncio
+    async def test_is_supported_url_delegation(self, video_processor):
+        """Test URL support check delegation."""
+        with patch.object(video_processor.downloader, 'is_supported_url') as mock_is_supported:
+            mock_is_supported.return_value = True
+
+            result = video_processor.is_supported_url("https://example.com/video")
+
+            assert result is True
+            mock_is_supported.assert_called_once_with("https://example.com/video")
+
+    def test_create_video_intelligence_with_minimal_data(self, video_processor, mock_video_metadata):
+        """Test video intelligence creation with minimal data."""
+        # Create minimal analysis dict
+        analysis = {
+            "summary": "Test summary",
+            "key_points": [],
+            "topics": []
+        }
+
+        transcript_obj = VideoTranscript(full_text="", segments=[])
+        result = video_processor._create_video_intelligence(
+            metadata=mock_video_metadata,
+            analysis=analysis,
+            transcript=transcript_obj
+        )
+
+        assert isinstance(result, VideoIntelligence)
+        assert result.metadata == mock_video_metadata
+        assert result.transcript == transcript_obj
+        assert result.entities == []
+        assert result.processing_cost == 0.0
+        assert "duration" in result.processing_stats
+
+    def test_save_transcript_file_path_handling(self, video_processor, mock_video_metadata):
+        """Test save_transcript with file path handling."""
+        with patch.object(video_processor.output_formatter, 'save_transcript') as mock_save:
+            mock_save.return_value = {"txt": Path("test_output/transcript.txt")}
+
+            video_intel = VideoIntelligence(
+                metadata=mock_video_metadata,
+                summary="Test summary",  # Required field
+                transcript=VideoTranscript(full_text="Test transcript", segments=[]),
+                entities=[],
+                relationships=[],
+                topics=[],
+                temporal_references=[],
+                key_points=[],
+                processing_cost=0.0,
+                processing_stats={}
+            )
+
+            result = video_processor.save_transcript(video_intel, "test_output_dir")
+
+            assert result is not None
+            mock_save.assert_called_once_with(video_intel, "test_output_dir", ["txt"])
+
+    def test_save_all_formats_delegation(self, video_processor, mock_video_metadata):
+        """Test save_all_formats delegation."""
+        mock_video_intel = VideoIntelligence(
+            metadata=mock_video_metadata,
+            summary="Test summary",  # Required field
+            transcript=VideoTranscript(full_text="Test", segments=[]),
+            entities=[],
+            relationships=[],
+            topics=[],
+            temporal_references=[],
+            key_points=[],
+            processing_cost=0.0,
+            processing_stats={}
+        )
+
+        with patch.object(video_processor.output_formatter, 'save_all_formats') as mock_save:
+            mock_save.return_value = ["test.json"]
+
+            result = video_processor.save_all_formats(mock_video_intel, "test_output")
+
+            assert result == ["test.json"]
+            mock_save.assert_called_once_with(
+                mock_video_intel,
+                "test_output",
+                include_chimera_format=True
+            )
+
+    def test_get_stats_initial_values(self):
+        """Test get_stats returns correct initial values."""
+        processor = VideoProcessor()
+
+        stats = processor.get_stats()
+
+        assert stats["videos_processed"] == 0
+        assert stats["total_cost"] == 0.0
+        assert "videos_processed" in stats
+        assert "total_cost" in stats

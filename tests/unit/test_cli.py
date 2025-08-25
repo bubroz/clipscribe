@@ -426,6 +426,26 @@ class TestUtilsCommands:
         assert result.exit_code == 0
         assert "Nothing to clean" in result.output
 
+    def test_clean_demo_command_with_deletion_error(self, cli_runner):
+        """Test clean demo command when deletion fails."""
+        with cli_runner.isolated_filesystem():
+            # Create the output directory and a demo subdirectory inside it
+            import os
+            output_dir = "output"
+            demo_dir = os.path.join(output_dir, "20250101_demo")
+            os.makedirs(demo_dir)
+            with open(os.path.join(demo_dir, "test.txt"), "w") as f:
+                f.write("test")
+
+            # Mock shutil.rmtree to raise an exception
+            with patch('shutil.rmtree', side_effect=OSError("Permission denied")):
+                result = cli_runner.invoke(cli, ["utils", "clean-demo"])
+
+                assert result.exit_code == 0
+                assert "Failed to delete" in result.output
+                assert "Permission denied" in result.output
+                assert "Demo cleanup complete" in result.output
+
 
 class TestCheckAuthCommand:
     """Test the check-auth command."""
@@ -510,6 +530,29 @@ class TestCommandGroups:
         assert result.exit_code == 0
         assert "Process single media" in result.output
         assert "video" in result.output
+
+    @patch('os.environ.get')
+    @patch('clipscribe.commands.cli.Settings')
+    def test_check_auth_vertex_ai_no_credentials_file(self, mock_settings_class, mock_env_get, cli_runner):
+        """Test check-auth command with Vertex AI but no credentials file set."""
+        # Mock settings for Vertex AI mode
+        mock_settings = MagicMock()
+        mock_settings.use_vertex_ai = True
+        mock_settings.VERTEX_AI_PROJECT = "test-project"
+        mock_settings_class.return_value = mock_settings
+
+        mock_env_get.side_effect = lambda key, default=None: {
+            "VERTEX_AI_LOCATION": "us-central1"
+            # Deliberately omit GOOGLE_APPLICATION_CREDENTIALS
+        }.get(key, default)
+
+        result = cli_runner.invoke(cli, ["utils", "check-auth"])
+
+        assert result.exit_code == 0
+        assert "Auth: Vertex AI mode enabled" in result.output
+        assert "test-project" in result.output
+        assert "us-central1" in result.output
+        assert "GOOGLE_APPLICATION_CREDENTIALS: not set" in result.output
 
     def test_collection_group_help(self, cli_runner):
         """Test collection command group help."""

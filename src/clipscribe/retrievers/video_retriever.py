@@ -5,7 +5,7 @@ import logging
 from typing import List, Dict, Optional, Any, Callable, Union
 from pathlib import Path
 
-from ..models import VideoIntelligence, MultiVideoIntelligence
+from ..models import VideoIntelligence, MultiVideoIntelligence, VideoTranscript, KeyPoint, Topic
 from .video_processor import VideoProcessor
 from ..config.settings import Settings, TemporalIntelligenceLevel, VideoRetentionPolicy
 from ..utils.performance import PerformanceMonitor
