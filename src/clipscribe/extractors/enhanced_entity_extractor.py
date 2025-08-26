@@ -111,6 +111,12 @@ class EnhancedEntityExtractor:
         # First pass: group exact matches
         for entity in entities:
             logger.debug(f"DEBUG: Processing entity: {entity}")
+
+            # Skip entities with empty or None names
+            if not entity.entity or not entity.entity.strip():
+                logger.debug(f"DEBUG: Skipping empty/None entity")
+                continue
+
             canonical = self._get_canonical_form(entity.entity)
             logger.debug(f"DEBUG: Entity '{entity.entity}' -> canonical '{canonical}'")
             groups[canonical].append(entity)
@@ -181,43 +187,99 @@ class EnhancedEntityExtractor:
 
     def _are_abbreviations(self, text1: str, text2: str) -> bool:
         """Check if one text is an abbreviation of the other."""
-        # Simple acronym check
-        if len(text1) < len(text2):
-            short, long = text1, text2
-        else:
-            short, long = text2, text1
+        # Convert to lowercase for comparison
+        t1_lower = text1.lower()
+        t2_lower = text2.lower()
 
-        # Check if short is acronym of long
-        if short.isupper() and len(short) >= 2:
-            words = long.split()
-            if len(words) == len(short):
-                acronym = "".join(w[0].upper() for w in words if w)
-                if acronym == short:
+        # Check common abbreviation mappings (exact matches only)
+        common_abbrevs = {
+            "us": "united states",
+            "usa": "united states",
+            "uk": "united kingdom",
+            "eu": "european union",
+            "un": "united nations",
+            "fbi": "federal bureau of investigation",
+            "cia": "central intelligence agency",
+            "nsa": "national security agency",
+        }
+
+        # Check if one is abbreviation of the other (exact matches, directional)
+        # Only check if first parameter is the long form and second is the short form
+        if len(text1) > len(text2):
+            # First param is longer, check if second is abbreviation of first
+            for short, long in common_abbrevs.items():
+                if (t1_lower == long and t2_lower == short):
                     return True
+
+        # Check if short is acronym of long (very restrictive for proper acronyms)
+        # Only check if first parameter is the long form (directional)
+        if len(text1) > len(text2):
+            long, short = text1, text2  # Note: swapped assignment
+        else:
+            return False  # Don't check if first param is shorter
+
+        # Only check acronyms for uppercase abbreviations that are likely organizational acronyms
+        if short.isupper() and len(short) >= 2 and len(short) <= 5:
+            words = long.split()
+            # Must have same number of words as acronym letters
+            if len(words) == len(short):
+                # Check if acronym matches word initials
+                acronym = "".join(w[0].upper() for w in words if w and len(w) > 0)
+                if acronym == short:
+                    # Additional checks for proper acronyms:
+                    # 1. Words should be meaningful (length > 2)
+                    # 2. Should not be personal names (common first names)
+                    # 3. Should not be common single-letter abbreviations
+                    common_first_names = {"john", "jane", "mike", "sarah", "david", "mary", "bob", "alice"}
+                    common_single_abbrs = {"ai", "io", "it"}  # Common but not organizational
+
+                    if (all(len(word) > 2 for word in words) and
+                        not any(word.lower() in common_first_names for word in words) and
+                        short.lower() not in common_single_abbrs):
+                        return True
 
         return False
 
     def _select_best_canonical(self, candidates: List[str], entities: List[Entity]) -> str:
         """Select the best canonical form from candidates."""
         # Prefer the most complete form (usually longest)
-        # But also consider frequency
+        # But also consider frequency and confidence
 
         frequency = defaultdict(int)
+        total_confidence = defaultdict(float)
+
         for entity in entities:
-            canonical = self._get_canonical_form(entity.entity)
-            frequency[canonical] += 1
+            # For canonical selection, use the original entity name, not normalized
+            entity_name = entity.entity
+            frequency[entity_name] += 1
+            # Use confidence if available, default to 1.0
+            confidence = getattr(entity, 'confidence', 1.0)
+            total_confidence[entity_name] += confidence
 
         # Score candidates
         scores = {}
         for candidate in candidates:
             # Length score (prefer complete names)
-            length_score = len(candidate.split())
+            words = candidate.split()
+            length_score = len(words)
+
+            # Bonus for having titles (President, Dr., etc.)
+            title_bonus = 0
+            if any(word.lower() in ['president', 'dr.', 'prof.', 'sen.', 'rep.', 'gov.', 'general', 'admiral', 'colonel', 'captain'] for word in words):
+                title_bonus = 1
 
             # Frequency score
             freq_score = frequency.get(candidate, 0)
 
-            # Combined score
-            scores[candidate] = length_score * 2 + freq_score
+            # Confidence score (average confidence)
+            if freq_score > 0:
+                avg_confidence = total_confidence.get(candidate, 0.0) / freq_score
+                confidence_score = avg_confidence * 2  # Reduce confidence weight
+            else:
+                confidence_score = 0
+
+            # Combined score: length most important, then titles, then frequency, then confidence
+            scores[candidate] = length_score * 4 + title_bonus * 2 + freq_score * 1 + confidence_score
 
         # Return highest scoring candidate
         return max(scores, key=scores.get)
@@ -335,7 +397,7 @@ class AliasNormalizer:
         normalized = entity_text
         title_patterns = [
             r"^(President|Dr\.|Mr\.|Mrs\.|Ms\.|Prof\.)\s+",
-            r"^(CEO|CTO|CFO|COO) of\s+",
+            r"^(CEO|CTO|CFO|COO)\s+",  # Fixed: removed "of" requirement
             r"^(Former|Ex-)\s+",
         ]
 

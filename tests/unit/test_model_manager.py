@@ -724,3 +724,465 @@ class TestModelManagerIntegration:
 
             # Load time should still be 2.0 (from first load)
             assert manager._load_times["spacy_en_core_web_sm"] == 2.0
+
+
+class TestModelManagerErrorHandling:
+    """Test ModelManager error handling edge cases."""
+
+    @patch('clipscribe.extractors.model_manager.optional_deps')
+    def test_get_gliner_model_generic_exception(self, mock_deps, reset_model_manager):
+        """Test GLiNER model loading with generic exception."""
+        manager = ModelManager()
+
+        # Setup mocks
+        mock_torch = MagicMock()
+        mock_torch.cuda.is_available.return_value = False
+        mock_torch.backends.mps.is_available.return_value = False
+
+        mock_gliner = MagicMock()
+        mock_gliner.GLiNER.from_pretrained.side_effect = Exception("CUDA out of memory")
+
+        mock_deps.require_dependency.side_effect = [mock_torch, mock_gliner]
+
+        with pytest.raises(Exception, match="CUDA out of memory"):
+            manager.get_gliner_model("test/model", "cpu")
+
+        # Model should not be cached
+        assert len(manager._models) == 0
+
+    @patch('clipscribe.extractors.model_manager.optional_deps')
+    def test_get_rebel_model_generic_exception(self, mock_deps, reset_model_manager):
+        """Test REBEL model loading with generic exception."""
+        manager = ModelManager()
+
+        # Setup mocks
+        mock_torch = MagicMock()
+        mock_transformers = MagicMock()
+        mock_transformers.pipeline.side_effect = Exception("Network connection failed")
+
+        mock_deps.require_dependency.side_effect = [mock_torch, mock_transformers]
+
+        with pytest.raises(Exception, match="Network connection failed"):
+            manager.get_rebel_model("test/model", "cpu")
+
+        # Model should not be cached
+        assert len(manager._models) == 0
+
+    @patch('clipscribe.extractors.model_manager.optional_deps')
+    def test_get_spacy_model_with_warnings_suppression(self, mock_deps, reset_model_manager):
+        """Test SpaCy model loading with warnings suppression."""
+        manager = ModelManager()
+
+        # Setup mocks
+        mock_spacy = MagicMock()
+        mock_model = MagicMock()
+        mock_spacy.load.return_value = mock_model
+
+        mock_deps.require_dependency.return_value = mock_spacy
+
+        with patch('time.time', side_effect=[1000.0, 1002.0]), \
+             patch('clipscribe.extractors.model_manager.logger') as mock_logger, \
+             patch('clipscribe.extractors.model_manager.warnings.catch_warnings') as mock_catch_warnings:
+
+            mock_warning_context = MagicMock()
+            mock_catch_warnings.return_value.__enter__ = mock_warning_context
+            mock_catch_warnings.return_value.__exit__ = MagicMock()
+
+            result = manager.get_spacy_model("en_core_web_sm")
+
+            # Verify warnings were suppressed
+            mock_catch_warnings.assert_called_once()
+            mock_warning_context.simplefilter.assert_called_with("ignore")
+
+            # Verify model was loaded successfully
+            assert result is mock_model
+
+    @patch('clipscribe.extractors.model_manager.optional_deps')
+    def test_get_rebel_model_with_warnings_suppression(self, mock_deps, reset_model_manager):
+        """Test REBEL model loading with warnings suppression."""
+        manager = ModelManager()
+
+        # Setup mocks
+        mock_torch = MagicMock()
+        mock_transformers = MagicMock()
+        mock_pipeline = MagicMock()
+        mock_transformers.pipeline.return_value = mock_pipeline
+
+        mock_deps.require_dependency.side_effect = [mock_torch, mock_transformers]
+
+        with patch('time.time', side_effect=[1000.0, 1002.0]), \
+             patch('clipscribe.extractors.model_manager.logger') as mock_logger, \
+             patch('clipscribe.extractors.model_manager.warnings.catch_warnings') as mock_catch_warnings:
+
+            mock_warning_context = MagicMock()
+            mock_catch_warnings.return_value.__enter__ = mock_warning_context
+            mock_catch_warnings.return_value.__exit__ = MagicMock()
+
+            result = manager.get_rebel_model("test/model", "cpu")
+
+            # Verify warnings were suppressed
+            mock_catch_warnings.assert_called_once()
+            mock_warning_context.simplefilter.assert_called_with("ignore")
+
+            # Verify model was loaded successfully
+            assert result is mock_pipeline
+
+
+class TestModelManagerDeviceDetection:
+    """Test ModelManager device detection variations."""
+
+    @patch('clipscribe.extractors.model_manager.optional_deps')
+    def test_get_gliner_model_device_detection_fallback_order(self, mock_deps, reset_model_manager):
+        """Test GLiNER device detection fallback order: CUDA -> MPS -> CPU."""
+        manager = ModelManager()
+
+        # Setup mocks - CUDA available, MPS not available
+        mock_torch = MagicMock()
+        mock_torch.cuda.is_available.return_value = True
+        mock_torch.backends.mps.is_available.return_value = False
+
+        mock_gliner = MagicMock()
+        mock_model = MagicMock()
+        mock_model.to.return_value = mock_model
+        mock_gliner.GLiNER.from_pretrained.return_value = mock_model
+
+        mock_deps.require_dependency.side_effect = [mock_torch, mock_gliner]
+
+        with patch('time.time', side_effect=[1000.0, 1002.0, 1004.0, 1006.0]):
+            result = manager.get_gliner_model("test/model", "auto")
+
+        # Should use CUDA (first available)
+        mock_torch.cuda.is_available.assert_called_once()
+        mock_torch.backends.mps.is_available.assert_called_once()
+        mock_model.to.assert_called_with("cuda")
+        assert result == (mock_model, "cuda")
+
+    @patch('clipscribe.extractors.model_manager.optional_deps')
+    def test_get_rebel_model_device_conversion_cuda(self, mock_deps, reset_model_manager):
+        """Test REBEL device conversion for CUDA."""
+        manager = ModelManager()
+
+        # Setup mocks
+        mock_torch = MagicMock()
+        mock_transformers = MagicMock()
+        mock_pipeline = MagicMock()
+        mock_transformers.pipeline.return_value = mock_pipeline
+
+        mock_deps.require_dependency.side_effect = [mock_torch, mock_transformers]
+
+        with patch('time.time', side_effect=[1000.0, 1002.0, 1004.0, 1006.0]):
+            result = manager.get_rebel_model("test/model", "cuda")
+
+        # Should convert "cuda" to device=0
+        mock_transformers.pipeline.assert_called_with(
+            "text2text-generation",
+            model="test/model",
+            tokenizer="test/model",
+            device=0,  # CUDA device index
+            max_length=256,
+        )
+
+    @patch('clipscribe.extractors.model_manager.optional_deps')
+    def test_get_rebel_model_device_conversion_cpu(self, mock_deps, reset_model_manager):
+        """Test REBEL device conversion for CPU."""
+        manager = ModelManager()
+
+        # Setup mocks
+        mock_torch = MagicMock()
+        mock_transformers = MagicMock()
+        mock_pipeline = MagicMock()
+        mock_transformers.pipeline.return_value = mock_pipeline
+
+        mock_deps.require_dependency.side_effect = [mock_torch, mock_transformers]
+
+        with patch('time.time', side_effect=[1000.0, 1002.0, 1004.0, 1006.0]):
+            result = manager.get_rebel_model("test/model", "cpu")
+
+        # Should convert "cpu" to device=-1
+        mock_transformers.pipeline.assert_called_with(
+            "text2text-generation",
+            model="test/model",
+            tokenizer="test/model",
+            device=-1,  # CPU device index
+            max_length=256,
+        )
+
+    @patch('clipscribe.extractors.model_manager.optional_deps')
+    def test_get_rebel_model_device_mps_passthrough(self, mock_deps, reset_model_manager):
+        """Test REBEL MPS device passthrough."""
+        manager = ModelManager()
+
+        # Setup mocks
+        mock_torch = MagicMock()
+        mock_transformers = MagicMock()
+        mock_pipeline = MagicMock()
+        mock_transformers.pipeline.return_value = mock_pipeline
+
+        mock_deps.require_dependency.side_effect = [mock_torch, mock_transformers]
+
+        with patch('time.time', side_effect=[1000.0, 1002.0, 1004.0, 1006.0]):
+            result = manager.get_rebel_model("test/model", "mps")
+
+        # Should pass "mps" through as-is
+        mock_transformers.pipeline.assert_called_with(
+            "text2text-generation",
+            model="test/model",
+            tokenizer="test/model",
+            device="mps",  # MPS passed through
+            max_length=256,
+        )
+
+
+class TestModelManagerPerformanceMonitorIntegration:
+    """Test ModelManager performance monitor integration."""
+
+    def test_performance_monitor_cache_hit_with_detailed_tracking(self, reset_model_manager):
+        """Test detailed performance tracking on cache hit."""
+        manager = ModelManager()
+        mock_monitor = MagicMock()
+
+        manager.set_performance_monitor(mock_monitor)
+
+        # Setup some initial data
+        manager._load_times["test_model"] = 3.5
+        manager._access_counts["test_model"] = 5
+
+        # Record cache hit
+        manager._record_cache_hit("test_model")
+
+        # Verify monitor was called with correct load time
+        mock_monitor.record_model_cache_hit.assert_called_with("test_model", 3.5)
+
+        # Verify access count was incremented
+        assert manager._access_counts["test_model"] == 6
+
+    def test_performance_monitor_cache_miss_with_detailed_tracking(self, reset_model_manager):
+        """Test detailed performance tracking on cache miss."""
+        manager = ModelManager()
+        mock_monitor = MagicMock()
+
+        manager.set_performance_monitor(mock_monitor)
+
+        # Record cache miss
+        with patch('time.time', side_effect=[1000.0, 1003.0]):
+            manager._record_cache_miss("test_model", 3.0)
+
+        # Verify monitor was called
+        mock_monitor.record_model_cache_miss.assert_called_with("test_model", 3.0)
+
+        # Verify tracking data was updated
+        assert manager._load_times["test_model"] == 3.0
+        assert manager._access_counts["test_model"] == 1
+
+    def test_performance_monitor_multiple_operations(self, reset_model_manager):
+        """Test performance monitor with multiple cache operations."""
+        manager = ModelManager()
+        mock_monitor = MagicMock()
+
+        manager.set_performance_monitor(mock_monitor)
+
+        # Multiple cache operations
+        with patch('time.time', side_effect=[1000.0, 1002.0, 1004.0, 1006.0]):
+            manager._record_cache_miss("model1", 2.0)  # First miss
+            manager._record_cache_hit("model1")        # First hit
+            manager._record_cache_miss("model2", 4.0)  # Second miss
+            manager._record_cache_hit("model1")        # Second hit
+
+        # Verify monitor calls
+        assert mock_monitor.record_model_cache_miss.call_count == 2
+        assert mock_monitor.record_model_cache_hit.call_count == 2
+
+        # Verify final state
+        assert manager._access_counts["model1"] == 3  # 1 miss + 2 hits
+        assert manager._access_counts["model2"] == 1  # 1 miss
+
+
+class TestModelManagerCacheEdgeCases:
+    """Test ModelManager cache edge cases."""
+
+    def test_cache_key_uniqueness_across_model_types(self, reset_model_manager):
+        """Test that cache keys are unique across different model types."""
+        manager = ModelManager()
+
+        # Simulate different model types with same base name
+        manager._models["spacy_test"] = "spacy_data"
+        manager._models["gliner_test"] = "gliner_data"
+        manager._models["rebel_test"] = "rebel_data"
+
+        # Verify all are cached separately
+        assert len(manager._models) == 3
+        assert manager._models["spacy_test"] == "spacy_data"
+        assert manager._models["gliner_test"] == "gliner_data"
+        assert manager._models["rebel_test"] == "rebel_data"
+
+    def test_get_cache_info_with_mixed_access_patterns(self, reset_model_manager):
+        """Test cache info with mixed access patterns."""
+        manager = ModelManager()
+
+        # Setup complex access patterns
+        manager._models = {
+            "model1": "data1",  # Frequently accessed
+            "model2": "data2",  # Rarely accessed
+            "model3": "data3",  # Never accessed after load
+        }
+        manager._load_times = {
+            "model1": 1.0,
+            "model2": 2.0,
+            "model3": 3.0,
+        }
+        manager._access_counts = {
+            "model1": 100,  # 99 hits
+            "model2": 3,    # 2 hits
+            "model3": 1,    # 0 hits
+        }
+
+        info = manager.get_cache_info()
+
+        # Calculate expected values
+        expected_total_accesses = 104  # 100 + 3 + 1
+        expected_cache_hits = 101     # (99) + (2) + (0)
+        expected_hit_rate = 101 / 104
+
+        assert info["total_accesses"] == expected_total_accesses
+        assert info["cache_hits"] == expected_cache_hits
+        assert abs(info["hit_rate"] - expected_hit_rate) < 0.001
+
+    def test_performance_summary_with_no_load_times(self, reset_model_manager):
+        """Test performance summary when some models have no load times."""
+        manager = ModelManager()
+
+        # Setup scenario where access counts exist but no load times
+        manager._models = {"model1": "data1"}
+        manager._access_counts = {"model1": 5}
+        # No load_times entry
+
+        summary = manager.get_performance_summary()
+
+        # Should handle missing load times gracefully
+        model_detail = summary["model_details"][0]
+        assert model_detail["load_time"] == 0  # Default value
+        assert model_detail["time_saved"] == 0  # Can't calculate without load time
+
+    def test_clear_cache_with_performance_monitor(self, reset_model_manager):
+        """Test cache clearing with performance monitor attached."""
+        manager = ModelManager()
+        mock_monitor = MagicMock()
+
+        manager.set_performance_monitor(mock_monitor)
+
+        # Setup some data
+        manager._models = {"model1": "data1"}
+        manager._load_times = {"model1": 2.0}
+        manager._access_counts = {"model1": 5}
+
+        manager.clear_cache()
+
+        # Verify all data cleared
+        assert len(manager._models) == 0
+        assert len(manager._load_times) == 0
+        assert len(manager._access_counts) == 0
+
+        # Monitor should still be attached
+        assert manager._performance_monitor is mock_monitor
+
+
+class TestModelManagerInitializationEdgeCases:
+    """Test ModelManager initialization edge cases."""
+
+    def test_initialization_flag_prevents_reinit(self, reset_model_manager):
+        """Test that _initialized flag prevents re-initialization."""
+        manager = ModelManager()
+
+        # Manually set initialization flag
+        manager._initialized = True
+        original_id = id(manager._models)
+
+        # Create another instance (should return same object due to singleton)
+        manager2 = ModelManager()
+        assert manager is manager2
+
+        # _models should not be reset
+        assert id(manager._models) == original_id
+
+    def test_get_model_manager_singleton_consistency(self, reset_model_manager):
+        """Test that get_model_manager always returns the same instance."""
+        manager1 = get_model_manager()
+        manager2 = get_model_manager()
+
+        assert manager1 is manager2
+        assert isinstance(manager1, ModelManager)
+
+        # Verify they share the same underlying data
+        manager1._models["test"] = "test_data"
+        assert manager2._models["test"] == "test_data"
+
+
+class TestModelManagerLogging:
+    """Test ModelManager logging functionality."""
+
+    def test_spacy_model_logging_detailed_messages(self, reset_model_manager):
+        """Test detailed logging messages for SpaCy model loading."""
+        manager = ModelManager()
+
+        with patch('clipscribe.extractors.model_manager.optional_deps') as mock_deps, \
+             patch('time.time', side_effect=[1000.0, 1002.0]), \
+             patch('clipscribe.extractors.model_manager.logger') as mock_logger:
+
+            mock_spacy = MagicMock()
+            mock_model = MagicMock()
+            mock_spacy.load.return_value = mock_model
+            mock_deps.require_dependency.return_value = mock_spacy
+
+            manager.get_spacy_model("en_core_web_sm")
+
+            # Verify detailed logging
+            expected_calls = [
+                call("Hybrid Extractors Loaded: Local (SpaCy for entities, GLiNER for detection, REBEL for relationships) + Gemini 2.5 Pro Refinement"),
+                call("Loading SpaCy model en_core_web_sm (one-time load)..."),
+                call("Cache miss for spacy_en_core_web_sm - loaded in 2.00s"),
+                call("SpaCy model en_core_web_sm loaded successfully in 2.00s ")
+            ]
+            mock_logger.info.assert_has_calls(expected_calls)
+
+    def test_gliner_model_logging_with_device_info(self, reset_model_manager):
+        """Test GLiNER model logging includes device information."""
+        manager = ModelManager()
+
+        with patch('clipscribe.extractors.model_manager.optional_deps') as mock_deps, \
+             patch('time.time', side_effect=[1000.0, 1003.0]), \
+             patch('clipscribe.extractors.model_manager.logger') as mock_logger:
+
+            mock_torch = MagicMock()
+            mock_torch.cuda.is_available.return_value = False
+            mock_torch.backends.mps.is_available.return_value = False
+
+            mock_gliner = MagicMock()
+            mock_model = MagicMock()
+            mock_gliner.GLiNER.from_pretrained.return_value = mock_model
+
+            mock_deps.require_dependency.side_effect = [mock_torch, mock_gliner]
+
+            manager.get_gliner_model("test/model", "cpu")
+
+            # Verify device is included in logging
+            mock_logger.info.assert_any_call("GLiNER model loaded and cached successfully in 3.00s ")
+
+    def test_rebel_model_logging_with_device_info(self, reset_model_manager):
+        """Test REBEL model logging includes device information."""
+        manager = ModelManager()
+
+        with patch('clipscribe.extractors.model_manager.optional_deps') as mock_deps, \
+             patch('time.time', side_effect=[1000.0, 1004.0]), \
+             patch('clipscribe.extractors.model_manager.logger') as mock_logger:
+
+            mock_torch = MagicMock()
+            mock_transformers = MagicMock()
+            mock_pipeline = MagicMock()
+            mock_transformers.pipeline.return_value = mock_pipeline
+
+            mock_deps.require_dependency.side_effect = [mock_torch, mock_transformers]
+
+            manager.get_rebel_model("test/model", "cpu")
+
+            # Verify device is included in logging
+            mock_logger.info.assert_any_call("REBEL model loaded and cached successfully in 4.00s ")
