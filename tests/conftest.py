@@ -66,13 +66,44 @@ def mock_subprocess_and_external_deps():
          patch('subprocess.Popen') as mock_popen, \
          patch('os.system') as mock_system:
 
-        # Mock subprocess for CLI commands
-        mock_subprocess.return_value = MagicMock(
-            returncode=0,
-            stdout="Command executed successfully",
-            stderr="",
-            check=False
-        )
+        # Mock subprocess for CLI commands with smart responses
+        def mock_subprocess_run(cmd, **kwargs):
+            # Check if this is a clipscribe help command
+            if len(cmd) >= 3 and cmd[0] == "poetry" and cmd[1] == "run" and cmd[2] == "clipscribe":
+                if "--help" in cmd:
+                    # Return realistic CLI help output
+                    return MagicMock(
+                        returncode=0,
+                        stdout="Usage: clipscribe [OPTIONS] COMMAND [ARGS]...\n\n  Video intelligence extraction and analysis.\n\nOptions:\n  --help  Show this message and exit.\n\nCommands:\n  process     Process videos from URLs\n  collection  Process collections of videos\n  research    Research and analyze topics\n  utils       Utility commands\n",
+                        stderr="",
+                        check=False
+                    )
+                elif len(cmd) >= 4 and cmd[3] == "process":
+                    # Return realistic error for invalid URL
+                    return MagicMock(
+                        returncode=1,
+                        stdout="",
+                        stderr="ERROR: URL not supported by yt-dlp\n",
+                        check=False
+                    )
+                else:
+                    # Default success response
+                    return MagicMock(
+                        returncode=0,
+                        stdout="Command executed successfully",
+                        stderr="",
+                        check=False
+                    )
+            else:
+                # Non-clipscribe commands
+                return MagicMock(
+                    returncode=0,
+                    stdout="Command executed successfully",
+                    stderr="",
+                    check=False
+                )
+
+        mock_subprocess.side_effect = mock_subprocess_run
 
         # Mock Popen for yt-dlp and other subprocess calls
         mock_popen.return_value = MagicMock(

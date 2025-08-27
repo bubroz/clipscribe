@@ -166,16 +166,17 @@ class TestEndToEndWorkflow:
             use_cache=False,
             output_dir=str(temp_output_dir),
             enhance_transcript=True,
-            use_pro=True
+            use_flash=False  # This internally sets use_pro=True
         )
 
         # Mock all the external dependencies
-        with patch.object(retriever.processor.downloader, 'download_video', new_callable=AsyncMock) as mock_download, \
+        with patch.object(retriever.processor, 'is_supported_url', return_value=True), \
+             patch.object(retriever.processor.downloader, 'download_video', new_callable=AsyncMock) as mock_download, \
              patch.object(retriever.processor.transcriber, 'transcribe_video', new_callable=AsyncMock) as mock_transcribe, \
              patch.object(retriever.processor.kg_builder, 'build_knowledge_graph') as mock_build_kg, \
              patch.object(retriever.processor.output_formatter, 'save_all_formats') as mock_save:
 
-            mock_download.return_value = (comprehensive_video_metadata, str(temp_output_dir / "e2e_video.mp4"))
+            mock_download.return_value = (str(temp_output_dir / "e2e_video.mp4"), comprehensive_video_metadata)
             mock_transcribe.return_value = comprehensive_transcription_analysis
             mock_build_kg.return_value = create_mock_video_intelligence()
             mock_save.return_value = {
@@ -248,7 +249,8 @@ class TestEndToEndWorkflow:
             )
         ]
 
-        with patch.object(retriever.processor.downloader, 'search_videos', return_value=search_results), \
+        with patch.object(retriever.processor, 'is_supported_url', return_value=True), \
+             patch.object(retriever.processor.downloader, 'search_videos', return_value=search_results), \
              patch.object(retriever.processor, 'process_url', new_callable=AsyncMock) as mock_process:
 
             mock_process.return_value = create_mock_video_intelligence()

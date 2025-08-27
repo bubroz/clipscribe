@@ -385,7 +385,7 @@ def _ensure_processing(job: Job, source: Dict[str, Any]) -> None:
     asyncio.create_task(_enqueue_job_processing(job, source))
 
 
-@app.post("/v1/jobs", response_model=Job, status_code=202)
+@app.post("/v1/jobs", response_model=None, status_code=202)
 async def create_job(
     req: Request,
     body: Dict[str, Any],
@@ -498,7 +498,7 @@ async def create_job(
     return job
 
 
-@app.get("/v1/jobs/{job_id}", response_model=Job)
+@app.get("/v1/jobs/{job_id}", response_model=None)
 async def get_job(
     job_id: str, authorization: Optional[str] = Header(default=None, alias="Authorization")
 ) -> JSONResponse | Job:
@@ -511,10 +511,10 @@ async def get_job(
     return job
 
 
-@app.get("/v1/jobs/{job_id}/events")
+@app.get("/v1/jobs/{job_id}/events", response_model=None)
 async def get_job_events(
     job_id: str, authorization: Optional[str] = Header(default=None, alias="Authorization")
-) -> StreamingResponse | JSONResponse:
+):
     if not authorization:
         return _error("invalid_input", "Missing or invalid bearer token", status=401)
     q = job_events.setdefault(job_id, asyncio.Queue())
@@ -532,10 +532,10 @@ async def get_job_events(
     return StreamingResponse(stream(), media_type="text/event-stream")
 
 
-@app.get("/v1/jobs/{job_id}/artifacts")
+@app.get("/v1/jobs/{job_id}/artifacts", response_model=None)
 async def list_artifacts(
     job_id: str, authorization: Optional[str] = Header(default=None, alias="Authorization")
-) -> Dict[str, Any] | JSONResponse:
+):
     if not authorization:
         return _error("invalid_input", "Missing or invalid bearer token", status=401)
     bucket = os.getenv("GCS_BUCKET")
@@ -576,7 +576,7 @@ async def list_artifacts(
     return {"job_id": job_id, "artifacts": artifacts}
 
 
-@app.get("/v1/estimate")
+@app.get("/v1/estimate", response_model=None)
 async def estimate(
     url: Optional[str] = None,
     gcs_uri: Optional[str] = None,
@@ -594,7 +594,7 @@ async def estimate(
     }
 
 
-@app.post("/v1/uploads/presign", response_model=PresignResponse)
+@app.post("/v1/uploads/presign", response_model=None)
 async def presign_upload(
     req: PresignRequest, authorization: Optional[str] = Header(default=None, alias="Authorization")
 ) -> PresignResponse | JSONResponse:

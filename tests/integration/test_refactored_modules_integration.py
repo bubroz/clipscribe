@@ -77,18 +77,18 @@ class TestRefactoredModulesIntegration:
             mode="auto",
             use_cache=False,  # Disable cache for testing
             output_dir=str(temp_output_dir),
-            enhance_transcript=True,
-            use_pro=True
+            enhance_transcript=True
         )
 
-        with patch.object(processor.downloader, 'download_video', new_callable=AsyncMock) as mock_download, \
+        with patch.object(processor, 'is_supported_url', return_value=True), \
+             patch.object(processor.downloader, 'download_video', new_callable=AsyncMock) as mock_download, \
              patch.object(processor.transcriber, 'transcribe_video', new_callable=AsyncMock) as mock_transcribe, \
              patch.object(processor.kg_builder, 'build_knowledge_graph') as mock_build_kg, \
              patch.object(processor.output_formatter, 'save_all_formats') as mock_save:
 
-            mock_download.return_value = (mock_video_metadata, str(temp_output_dir / "test_video.mp4"))
+            mock_download.return_value = (str(temp_output_dir / "test_video.mp4"), mock_video_metadata)
             mock_transcribe.return_value = mock_transcription_analysis
-            mock_build_kg.return_value = create_mock_video_intelligence()
+            mock_build_kg.return_value = create_mock_video_intelligence(processing_cost=0.25)
             mock_save.return_value = {
                 "transcript_txt": temp_output_dir / "transcript.txt",
                 "transcript_json": temp_output_dir / "transcript.json",
@@ -121,15 +121,16 @@ class TestRefactoredModulesIntegration:
             use_cache=False,
             output_dir=str(temp_output_dir),
             enhance_transcript=True,
-            use_pro=True
+            use_flash=False  # This internally sets use_pro=True
         )
 
-        with patch.object(retriever.processor.downloader, 'download_video', new_callable=AsyncMock) as mock_download, \
+        with patch.object(retriever.processor, 'is_supported_url', return_value=True), \
+             patch.object(retriever.processor.downloader, 'download_video', new_callable=AsyncMock) as mock_download, \
              patch.object(retriever.processor.transcriber, 'transcribe_video', new_callable=AsyncMock) as mock_transcribe, \
              patch.object(retriever.processor.kg_builder, 'build_knowledge_graph') as mock_build_kg, \
              patch.object(retriever.processor.output_formatter, 'save_all_formats') as mock_save:
 
-            mock_download.return_value = (mock_video_metadata, str(temp_output_dir / "test_video.mp4"))
+            mock_download.return_value = (str(temp_output_dir / "test_video.mp4"), mock_video_metadata)
             mock_transcribe.return_value = mock_transcription_analysis
             mock_build_kg.return_value = create_mock_video_intelligence()
             mock_save.return_value = {"test": Path("test.json")}
@@ -160,12 +161,13 @@ class TestRefactoredModulesIntegration:
 
         async def mock_process_single(url):
             """Mock processing for a single video."""
-            with patch.object(processor.downloader, 'download_video', new_callable=AsyncMock) as mock_download, \
+            with patch.object(processor, 'is_supported_url', return_value=True), \
+                 patch.object(processor.downloader, 'download_video', new_callable=AsyncMock) as mock_download, \
                  patch.object(processor.transcriber, 'transcribe_video', new_callable=AsyncMock) as mock_transcribe, \
                  patch.object(processor.kg_builder, 'build_knowledge_graph') as mock_build_kg, \
                  patch.object(processor.output_formatter, 'save_all_formats') as mock_save:
 
-                mock_download.return_value = (mock_video_metadata, str(temp_output_dir / f"test_video_{url.split('=')[-1]}.mp4"))
+                mock_download.return_value = (str(temp_output_dir / f"test_video_{url.split('=')[-1]}.mp4"), mock_video_metadata)
                 mock_transcribe.return_value = mock_transcription_analysis
                 mock_build_kg.return_value = create_mock_video_intelligence()
                 mock_save.return_value = {"test": Path("test.json")}
@@ -203,12 +205,13 @@ class TestRefactoredModulesIntegration:
         )
 
         # Test with download failure
-        with patch.object(processor.downloader, 'download_video', side_effect=Exception("Network error")):
+        with patch.object(processor, 'is_supported_url', return_value=True), \
+             patch.object(processor.downloader, 'download_video', side_effect=Exception("Network error")):
             result = asyncio.run(processor.process_url("https://www.youtube.com/watch?v=error_test"))
             assert result is None
 
         # Test with transcription failure after successful download
-        mock_metadata = VideoMetadata(
+        error_metadata = VideoMetadata(
             video_id="error_test",
             url="https://www.youtube.com/watch?v=error_test",
             title="Error Test",
@@ -221,21 +224,36 @@ class TestRefactoredModulesIntegration:
             tags=["test"]
         )
 
-        with patch.object(processor.downloader, 'download_video', new_callable=AsyncMock) as mock_download, \
+        with patch.object(processor, 'is_supported_url', return_value=True), \
+             patch.object(processor.downloader, 'download_video', new_callable=AsyncMock) as mock_download, \
              patch.object(processor.transcriber, 'transcribe_video', side_effect=Exception("API error")):
 
-            mock_download.return_value = (mock_metadata, str(temp_output_dir / "error_video.mp4"))
+            mock_download.return_value = (str(temp_output_dir / "error_video.mp4"), error_metadata)
 
             result = asyncio.run(processor.process_url("https://www.youtube.com/watch?v=error_test"))
             assert result is None
 
         # System should remain functional for subsequent requests
-        with patch.object(processor.downloader, 'download_video', new_callable=AsyncMock) as mock_download, \
+        recovery_metadata = VideoMetadata(
+            video_id="recovery_test",
+            url="https://www.youtube.com/watch?v=recovery_test",
+            title="Recovery Test",
+            channel="Test Channel",
+            channel_id="test_channel",
+            published_at=datetime.now(),
+            duration=300,
+            view_count=1000,
+            description="Recovery test video",
+            tags=["test"]
+        )
+
+        with patch.object(processor, 'is_supported_url', return_value=True), \
+             patch.object(processor.downloader, 'download_video', new_callable=AsyncMock) as mock_download, \
              patch.object(processor.transcriber, 'transcribe_video', new_callable=AsyncMock) as mock_transcribe, \
              patch.object(processor.kg_builder, 'build_knowledge_graph') as mock_build_kg, \
              patch.object(processor.output_formatter, 'save_all_formats') as mock_save:
 
-            mock_download.return_value = (mock_metadata, str(temp_output_dir / "recovery_video.mp4"))
+            mock_download.return_value = (str(temp_output_dir / "recovery_video.mp4"), recovery_metadata)
             mock_transcribe.return_value = {"transcript": "Recovery test", "language": "en"}
             mock_build_kg.return_value = create_mock_video_intelligence()
             mock_save.return_value = {"test": Path("test.json")}
@@ -322,18 +340,19 @@ class TestRefactoredModulesIntegration:
         temp_video = temp_output_dir / "temp_video.mp4"
         temp_video.write_text("test video content")
 
-        with patch.object(processor.downloader, 'download_video', new_callable=AsyncMock) as mock_download, \
+        with patch.object(processor, 'is_supported_url', return_value=True), \
+             patch.object(processor.downloader, 'download_video', new_callable=AsyncMock) as mock_download, \
              patch.object(processor.transcriber, 'transcribe_video', new_callable=AsyncMock) as mock_transcribe, \
              patch.object(processor.kg_builder, 'build_knowledge_graph') as mock_build_kg, \
              patch.object(processor.output_formatter, 'save_all_formats') as mock_save:
 
-            mock_download.return_value = (mock_video_metadata, str(temp_video))
+            mock_download.return_value = (str(temp_video), mock_video_metadata)
             mock_transcribe.return_value = mock_transcription_analysis
             mock_build_kg.return_value = create_mock_video_intelligence()
             mock_save.return_value = {"test": Path("test.json")}
 
             # Process with NONE retention policy
-            processor.settings.video_retention_policy = VideoRetentionPolicy.NONE
+            processor.settings.video_retention_policy = VideoRetentionPolicy.DELETE
 
             result = await processor.process_url("https://www.youtube.com/watch?v=retention_test")
 
@@ -355,14 +374,15 @@ class TestRefactoredModulesIntegration:
         assert initial_stats["videos_processed"] == 0
         assert initial_stats["total_cost"] == 0.0
 
-        with patch.object(processor.downloader, 'download_video', new_callable=AsyncMock) as mock_download, \
+        with patch.object(processor, 'is_supported_url', return_value=True), \
+             patch.object(processor.downloader, 'download_video', new_callable=AsyncMock) as mock_download, \
              patch.object(processor.transcriber, 'transcribe_video', new_callable=AsyncMock) as mock_transcribe, \
              patch.object(processor.kg_builder, 'build_knowledge_graph') as mock_build_kg, \
              patch.object(processor.output_formatter, 'save_all_formats') as mock_save:
 
-            mock_download.return_value = (mock_video_metadata, str(temp_output_dir / "stats_video.mp4"))
+            mock_download.return_value = (str(temp_output_dir / "stats_video.mp4"), mock_video_metadata)
             mock_transcribe.return_value = mock_transcription_analysis
-            mock_build_kg.return_value = create_mock_video_intelligence()
+            mock_build_kg.return_value = create_mock_video_intelligence(processing_cost=0.25)
             mock_save.return_value = {"test": Path("test.json")}
 
             # Process multiple videos
@@ -413,12 +433,13 @@ class TestRefactoredModulesIntegration:
             output_dir=str(temp_output_dir)
         )
 
-        with patch.object(processor.downloader, 'download_video', new_callable=AsyncMock) as mock_download, \
+        with patch.object(processor, 'is_supported_url', return_value=True), \
+             patch.object(processor.downloader, 'download_video', new_callable=AsyncMock) as mock_download, \
              patch.object(processor.transcriber, 'transcribe_video', new_callable=AsyncMock) as mock_transcribe, \
              patch.object(processor.kg_builder, 'build_knowledge_graph') as mock_build_kg, \
              patch.object(processor.output_formatter, 'save_all_formats') as mock_save:
 
-            mock_download.return_value = (mock_video_metadata, str(temp_output_dir / "api_test.mp4"))
+            mock_download.return_value = (str(temp_output_dir / "api_test.mp4"), mock_video_metadata)
             mock_transcribe.return_value = mock_transcription_analysis
             mock_build_kg.return_value = create_mock_video_intelligence()
             mock_save.return_value = {"test": Path("test.json")}

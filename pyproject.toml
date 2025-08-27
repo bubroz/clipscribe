@@ -177,6 +177,7 @@ ruff = "^0.5.7"
 clipscribe = "clipscribe.commands.cli:run_cli"
 clipscribe-api = "clipscribe.api.app:run"
 clipscribe-worker = "clipscribe.api.worker:run"
+clipscribe-validate = "scripts.validate_production:main"
 
 [tool.poetry.extras]
 # Optional dependency groups for different use cases
@@ -185,7 +186,7 @@ viz = ["plotly", "pdfkit"]
 enterprise = ["google-cloud-aiplatform", "google-cloud-storage"]
 api = ["fastapi", "uvicorn", "redis", "rq"]
 tui = ["textual"]
-web = ["streamlit"]
+web = ["fastapi", "uvicorn", "redis", "rq", "streamlit"]
 all = ["spacy", "transformers", "torch", "gliner", "plotly", "pdfkit", "google-cloud-aiplatform", "google-cloud-storage", "fastapi", "uvicorn", "redis", "rq", "textual", "streamlit"]
 
 [tool.poetry.group.test]

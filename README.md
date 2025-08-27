@@ -5,30 +5,33 @@
 ![CI](https://img.shields.io/github/actions/workflow/status/bubroz/clipscribe/ci.yml?branch=main)
 ![Python](https://img.shields.io/badge/python-3.12-blue)
 ![License](https://img.shields.io/badge/license-Proprietary-red)
-![Version](https://img.shields.io/badge/version-v2.43.0-informational)
+![Version](https://img.shields.io/badge/version-v2.44.0-informational)
+![Status](https://img.shields.io/badge/status-live-success)
 
 *Transform video content into structured, searchable, and reportable intelligence*
 
-[Features](#features) | [Installation](#installation) | [Quick Start](#quick-start) | [Use Cases](#use-cases) | [Documentation](#documentation)
+[Live Demo](#live-demo) | [Features](#features) | [Installation](#installation) | [Quick Start](#quick-start) | [Documentation](#documentation)
 
 ---
 
 ClipScribe extracts and analyzes structured data from video content through entity recognition, relationship mapping, and key insight identification. Built for researchers, analysts, and organizations requiring reliable video intelligence.
 
-## v2.43.0 - Enterprise-Grade Video Intelligence System
+## Live Demo (NEW)
 
-**🎉 COVERAGE EXPANSION MISSION ACCOMPLISHED**: 4/4 Critical Modules Successfully Expanded Beyond Target! Enterprise readiness achieved with systematic coverage expansion. Ready for integration testing and staging deployment.
+The ClipScribe API and web interface are now live on Google Cloud Run:
+
+- **🚀 API Service:** [https://clipscribe-api-16459511304.us-central1.run.app](https://clipscribe-api-16459511304.us-central1.run.app)
+- **🌐 Web Service:** [https://clipscribe-web-16459511304.us-central1.run.app](https://clipscribe-web-16459511304.us-central1.run.app)
+
+## v2.44.0 - Production Deployment Achieved
+
+**🎉 PRODUCTION DEPLOYMENT SUCCESS**: Successfully deployed the API and web services to Google Cloud Run with a stable, automated pipeline.
 
 **🎯 KEY ACHIEVEMENTS**:
-- **Model Manager**: 99% coverage (152/152 lines) with comprehensive ML model management
-- **Enhanced Entity Extractor**: 99% coverage (148/149 lines) with advanced entity processing
-- **Entity Normalizer**: 90% coverage (165/184 lines) with data normalization
-- **Transcriber**: 83% coverage (272/327 lines) with core transcription infrastructure
-- **CLI Commands**: 99% coverage with enterprise-ready user interface
-- **Video Processor**: 93% coverage with complete pipeline validation
-- **Universal Video Client**: 83% coverage with multi-platform support
-- **YouTube Client**: 84% coverage with complete API integration
-- **Models**: 99% coverage with proper Pydantic validation
+- **Live Services**: API and web front end are now live and serving traffic.
+- **Dockerfile Refactor**: Overhauled the `Dockerfile` for smaller, faster, and more reliable builds.
+- **Critical Bug Fixes**: Resolved all deployment-blocking issues, including dependency conflicts and configuration errors.
+- **Stable CI/CD**: Established a reliable build and deployment pipeline using Google Cloud Build.
 
 **🔧 PRODUCTION CAPABILITIES**:
 - Complete video intelligence extraction and analysis
@@ -128,22 +131,17 @@ ClipScribe uses an intelligent optional dependency system to minimize installati
 
 ### Docker Deployment (NEW)
 
-ClipScribe includes optimized multi-stage Docker builds for different use cases:
+ClipScribe includes an optimized multi-stage `Dockerfile` for production deployments:
 
 ```bash
-# Build CLI version (smallest, ~500MB)
-docker build --target cli -t clipscribe-cli .
-
-# Build API server (~800MB)
+# Build the API server image
 docker build --target api -t clipscribe-api .
 
-# Build web interface (full, ~3GB)
+# Build the web interface image
 docker build --target web -t clipscribe-web .
 
-# Or use docker-compose for easy deployment
-docker-compose up clipscribe-cli  # CLI version
-docker-compose up clipscribe-api redis  # API with Redis
-docker-compose up clipscribe-web  # Web interface
+# For local development, you can use docker-compose
+docker-compose up --build
 ```
 
 ### 3. Configure API Access
@@ -160,7 +158,7 @@ echo "GOOGLE_APPLICATION_CREDENTIALS=/path/to/your/service-account.json" >> .env
 ### 4. Verify Installation
 ```bash
 poetry run clipscribe --version
-# Expected: ClipScribe v2.30.0
+# Expected: ClipScribe v2.44.0
 
 # Test imports for extension
 poetry run python -c "from clipscribe.retrievers.video_retriever import VideoIntelligenceRetriever; print('Imports working')"
@@ -316,7 +314,7 @@ poetry run clipscribe process video URL --mode video      # Full video processin
 # Vertex AI is supported when configured (Settings.use_vertex_ai or environment variables).
 ```
 
-## Performance Benchmarks (v2.43.0 Current Status)
+## Performance Benchmarks (v2.44.0 Current Status)
 
 ### Processing Speed
 - **Single 5-min Video**: 1-2 minutes (Flash), 1.5-2.5 minutes (Pro)
@@ -362,11 +360,11 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ---
 
-**ClipScribe v2.43.0 - Enterprise-Grade Video Intelligence with Comprehensive Test Coverage**
+**ClipScribe v2.44.0 - Live on Google Cloud Run**
 
 *Gemini 2.5 Pro is the default for the best results, with an optional `--use-flash` flag for speed.*
 
-**Current Status**: Enterprise-ready with 83-99% coverage on critical infrastructure. Ready for integration testing and staging deployment.
+**Current Status**: API and web services are live and operational. The system is ready for production use.
 
 ## Contributing & Extending
 

@@ -1,7 +1,8 @@
 version: '3.8'
 
+# Production-ready docker-compose with resource limits and health checks
 services:
-  # CLI-only version (smallest, ~500MB)
+  # CLI-only version (smallest, ~400MB)
   clipscribe-cli:
     build:
       context: .
@@ -12,11 +13,27 @@ services:
       - ./logs:/app/logs
     environment:
       - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+      - CLIPSCRIBE_LOG_LEVEL=INFO
     stdin_open: true
     tty: true
+    # Resource limits for CLI
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.5'
+        reservations:
+          memory: 256M
+          cpus: '0.25'
+    healthcheck:
+      test: ["CMD", "test", "-w", "/app/output"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
     command: ["clipscribe", "--help"]
+    restart: unless-stopped
 
-  # API server version (~800MB with Redis)
+  # API server version (~600MB with Redis and Supervisor)
   clipscribe-api:
     build:
       context: .
@@ -28,15 +45,36 @@ services:
       - ./output:/app/output
       - ./logs:/app/logs
       - redis_data:/data
+      - ./docker/supervisord.conf:/etc/supervisor/supervisord.conf:ro
     environment:
       - GOOGLE_API_KEY=${GOOGLE_API_KEY}
       - REDIS_URL=redis://redis:6379
       - GCS_BUCKET=${GCS_BUCKET}
+      - WORKER_TIMEOUT=3600
+      - MAX_WORKERS=4
+      - PYTHONUNBUFFERED=1
+      - CLIPSCRIBE_LOG_LEVEL=INFO
     depends_on:
-      - redis
-    command: ["uvicorn", "clipscribe.api.app:app", "--host", "0.0.0.0", "--port", "8000"]
+      redis:
+        condition: service_healthy
+    # Resource limits for API
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+          cpus: '1.0'
+        reservations:
+          memory: 512M
+          cpus: '0.5'
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "--max-time", "5", "http://localhost:8000/docs"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    restart: unless-stopped
 
-  # Web interface version (full, ~3GB+)
+  # Web interface version (optimized, ~1.2GB)
   clipscribe-web:
     build:
       context: .
@@ -47,18 +85,82 @@ services:
     volumes:
       - ./output:/app/output
       - ./logs:/app/logs
+      - streamlit_cache:/app/.streamlit
     environment:
       - GOOGLE_API_KEY=${GOOGLE_API_KEY}
       - PORT=8080
-    command: ["streamlit", "run", "streamlit_app/ClipScribe_Mission_Control.py", "--server.port=8080", "--server.address=0.0.0.0"]
+      - PYTHONUNBUFFERED=1
+      - CLIPSCRIBE_LOG_LEVEL=INFO
+    # Resource limits for web interface
+    deploy:
+      resources:
+        limits:
+          memory: 1.5G
+          cpus: '1.0'
+        reservations:
+          memory: 1G
+          cpus: '0.5'
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "--max-time", "5", "http://localhost:8080/_stcore/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    restart: unless-stopped
 
-  # Redis for API queue
+  # Redis for API queue with persistence and security
   redis:
     image: redis:7-alpine
     volumes:
       - redis_data:/data
+      - ./docker/redis.conf:/etc/redis/redis.conf:ro
     ports:
       - "6379:6379"
+    environment:
+      - REDIS_MAXMEMORY=256mb
+      - REDIS_MAXMEMORY_POLICY=allkeys-lru
+    command: ["redis-server", "--protected-mode", "no", "--maxmemory", "256mb", "--maxmemory-policy", "allkeys-lru"]
+    # Resource limits for Redis
+    deploy:
+      resources:
+        limits:
+          memory: 300M
+          cpus: '0.25'
+        reservations:
+          memory: 150M
+          cpus: '0.1'
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+    restart: unless-stopped
+
+  # Nginx reverse proxy for production deployment
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./docker/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/ssl/certs:ro
+    depends_on:
+      - clipscribe-api
+      - clipscribe-web
+    # Resource limits for nginx
+    deploy:
+      resources:
+        limits:
+          memory: 100M
+          cpus: '0.25'
+        reservations:
+          memory: 50M
+          cpus: '0.1'
+    restart: unless-stopped
 
 volumes:
   redis_data:
+    driver: local
+  streamlit_cache:
+    driver: local

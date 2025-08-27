@@ -1,133 +1,102 @@
 # ClipScribe Deployment Guide
 
-*Last Updated: August 23, 2025*  
-*Version: v2.30.0*
+*Last Updated: 2025-08-26*
+*Version: v2.44.0*
 
 ## Overview
 
-ClipScribe can be deployed to multiple platforms. This guide covers the two recommended options:
+ClipScribe is designed for a scalable, multi-service deployment on **Google Cloud Run**. This guide provides the definitive instructions for deploying the API and web services using the automated `cloudbuild.yaml` pipeline.
 
-1. **Streamlit Cloud** - Quick & free for testing and demos.
-2. **Google Cloud Run** - Professional & scalable for production.
+## Architecture
 
-## Deployment Options Comparison
+The production environment consists of two core services:
 
-| Feature | Streamlit Cloud | Google Cloud Run |
-|---|---|---|
-| **Setup Time** | 5 minutes | 30 minutes |
-| **Cost** | Free (1 app) | ~$15/month warm instance |
-| **Custom Domain** |  |  |
-| **Cold Start** | 30-60s | 0s (with warm instance) |
-| **Resource Limits** | Limited | 32GB RAM, 60min timeout |
-| **API Support** | UI only | UI + API endpoints |
-| **Best For** | Testing, demos | Production, professional use |
+1.  **`clipscribe-api`**: A FastAPI application that handles all video processing, analysis, and data storage.
+2.  **`clipscribe-web`**: A lightweight static web server that provides the user interface.
 
-## Option 1: Streamlit Cloud (Quick Start)
+These services are deployed as separate containers but are designed to work together.
+
+## Automated Deployment with Cloud Build
+
+The recommended and most reliable way to deploy ClipScribe is by using the `cloudbuild.yaml` file included in the repository. This file automates the entire build and deployment process.
 
 ### Prerequisites
-- GitHub account
-- Streamlit Cloud account (free)
-- Repository pushed to GitHub
+
+- A Google Cloud Project with billing enabled.
+- The `gcloud` CLI installed and authenticated.
+- The following APIs enabled in your Google Cloud project:
+  - Cloud Build API (`cloudbuild.googleapis.com`)
+  - Cloud Run API (`run.googleapis.com`)
+  - Artifact Registry API (`artifactregistry.googleapis.com`) or Container Registry API (`containerregistry.googleapis.com`)
 
 ### Deployment Steps
 
-1. **Connect Repository**
-   - Go to [share.streamlit.io](https://share.streamlit.io)
-   - Click "New app"
-   - Connect your GitHub account and select your ClipScribe repository.
+1.  **Configure your Project ID**:
+    Open the `cloudbuild.yaml` file and replace `$PROJECT_ID` with your actual Google Cloud project ID if you are not using command line substitution.
 
-2. **Configure App**
-   - Main file: `streamlit_app/ClipScribe_Mission_Control.py`
-   - Python version: 3.12
-   - Add secrets in the Streamlit Cloud dashboard:
-     ```toml
-     GOOGLE_API_KEY = "your-api-key-here"
-     ```
+2.  **Submit the Build**:
+    From the root of the project directory, run the following command:
 
-3. **Deploy**
-   - Click "Deploy" and wait 2-5 minutes.
-   - Your app will be live at: `https://[your-app-name].streamlit.app`
-
-## Option 2: Google Cloud Run (Professional)
-
-### Prerequisites
-- Google Cloud Project with billing enabled
-- gcloud CLI and Docker installed
-
-### Initial Setup
-
-1.  **Enable Required APIs**
     ```bash
-    gcloud services enable cloudbuild.googleapis.com run.googleapis.com containerregistry.googleapis.com
+    gcloud builds submit --config cloudbuild.yaml
     ```
 
-2.  **Set Default Project**
+    This command will:
+    - Build the `api` and `web` container images using the multi-stage `Dockerfile`.
+    - Push the images to your project's Container Registry.
+    - Deploy both services to Google Cloud Run.
+
+3.  **Verify the Deployment**:
+    After the build completes, you can verify that the services are running with the following command:
+
     ```bash
-    gcloud config set project YOUR_PROJECT_ID
+    gcloud run services list --region=us-central1
     ```
 
-### Deployment
+    You will see the URLs for your live `clipscribe-api` and `clipscribe-web` services.
+
+## Custom Domain with Cloudflare
+
+Once your services are deployed, you can map them to a custom domain using Cloudflare.
+
+### 1. Add Custom Domain to Cloud Run
+
+For each service (`clipscribe-api` and `clipscribe-web`), you need to map a custom domain:
 
 ```bash
-# Deploy from source
-gcloud run deploy clipscribe \
-  --source . \
-  --region us-central1 \
-  --allow-unauthenticated \
-  --memory 4Gi \
-  --cpu 2 \
-  --timeout 3600 \
-  --max-instances 10 \
-  --min-instances 1 \
-  --set-env-vars GOOGLE_API_KEY=$GOOGLE_API_KEY
+# For the API service
+gcloud run domain-mappings create --service clipscribe-api --domain api.yourdomain.com --region us-central1
+
+# For the web service
+gcloud run domain-mappings create --service clipscribe-web --domain yourdomain.com --region us-central1
 ```
 
-### Automated Deployment (CI/CD)
-Use the `cloudbuild.yaml` file in the repository to set up a Cloud Build trigger for automatic deployments on pushes to the main branch.
+### 2. Update DNS in Cloudflare
 
-### Custom Domain Setup
-1.  **Verify Domain Ownership**: `gcloud domains verify YOUR_DOMAIN.COM`
-2.  **Map Domain to Cloud Run**: `gcloud run domain-mappings create --service clipscribe --domain clipscribe.yourdomain.com`
-3.  **Update DNS Records** in your domain registrar.
+After running the commands above, Google Cloud will provide you with DNS records (usually a CNAME record). You will need to add these records to your domain's DNS settings in your Cloudflare dashboard.
 
-## Option 3: Replit (API Hosting)
+- Log in to your Cloudflare account.
+- Select your domain.
+- Go to the "DNS" section.
+- Add the `CNAME` records provided by Google Cloud.
 
-### Prerequisites
-- Replit account
-- Repository pushed to a connected GitHub account
+### 3. SSL and Propagation
 
-### Environment Setup
+- **SSL Certificate**: Google Cloud will automatically provision a free SSL certificate for your custom domain. This process can take up to 15 minutes.
+- **DNS Propagation**: It may take some time for the DNS changes to propagate.
 
-In the Replit dashboard, set the following secrets:
-- `HOST=0.0.0.0`  (Required for Replit's external access)
-- `PORT=8080`
-- `CORS_ALLOW_ORIGINS=https://*.repl.co`
-- Optional for GCS uploads: `GCS_BUCKET`, `GOOGLE_APPLICATION_CREDENTIALS`
-
-### Start the API
-
-Configure your Replit `Run` command or use the shell:
-```bash
-poetry install --with dev,test --no-interaction --no-root
-poetry run python -c "from clipscribe.api.app import run; run()"
-```
-Replit will expose the service at a public URL.
-
-### API Usage Flow
-
-1.  **Submit Job**: `POST /v1/jobs` with `{ "url": "..." }`
-2.  **Listen for Progress (SSE)**: `GET /v1/jobs/{job_id}/events`
-3.  **List Artifacts**: `GET /v1/jobs/{job_id}/artifacts`
-4.  **Optional Upload**: Use `/v1/uploads/presign` for direct GCS uploads.
+Once the process is complete, your services will be available at your custom domain.
 
 ## Security Best Practices
 
-- **Never commit secrets**: Use environment variables or platform secret managers.
-- **Restrict access**: For Cloud Run, use `--no-allow-unauthenticated` and add specific users via IAM roles.
-- **Rotate keys**: Regularly rotate your API keys.
+- **Never commit secrets**: Use environment variables or a secret manager for your `GOOGLE_API_KEY`. The `cloudbuild.yaml` is currently configured with a placeholder; for a production setup, you should use Google Secret Manager.
+- **Restrict Access**: For internal services, use `--no-allow-unauthenticated` and configure IAM for access control.
 
 ## Monitoring & Logs
 
-- **Streamlit Cloud**: Basic logs are available in the dashboard.
-- **Cloud Run**: Use `gcloud logging read` or `gcloud alpha run services logs tail clipscribe` to view logs. Metrics are available in the Google Cloud Console.
-- **Replit**: Logs are available in the Replit console.
+- Use the Google Cloud Console to monitor the performance of your Cloud Run services.
+- View logs with the following `gcloud` command:
+
+  ```bash
+  gcloud logging read "resource.type=cloud_run_revision AND resource.labels.service_name=clipscribe-api" --limit=50
+  ```

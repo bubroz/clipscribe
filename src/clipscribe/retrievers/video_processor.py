@@ -90,6 +90,7 @@ class VideoProcessor:
         self.on_phase_complete = on_phase_complete or (lambda _name, _cost: None)
         self.on_error = on_error or (lambda _name, _error: None)
         self.on_phase_log = on_phase_log or (lambda _name, _duration: None)
+        self.use_advanced_extraction = use_advanced_extraction
 
         # Stats
         self.videos_processed = 0
@@ -288,3 +289,11 @@ class VideoProcessor:
             "video_retention_policy": self.settings.video_retention_policy,
             "retention_stats": retention_stats,
         }
+
+    def _call_callback(self, callback, *args, **kwargs):
+        """Helper method to safely call callback functions."""
+        if callback:
+            try:
+                callback(*args, **kwargs)
+            except Exception as e:
+                logger.warning(f"Callback execution failed: {e}")

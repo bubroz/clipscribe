@@ -21,7 +21,7 @@ def create_mock_video_metadata(video_id="test_vid", title="Test Video", channel_
     )
 
 
-def create_mock_video_intelligence(video_id="test_vid", title="Test Video", channel_id="test_chan"):
+def create_mock_video_intelligence(video_id="test_vid", title="Test Video", channel_id="test_chan", processing_cost=0.0):
     """
     Creates a valid VideoIntelligence object with all required fields for testing.
     """
@@ -64,4 +64,5 @@ def create_mock_video_intelligence(video_id="test_vid", title="Test Video", chan
         relationships=[],
         key_points=[],
         topics=[],
+        processing_cost=processing_cost,
     )
