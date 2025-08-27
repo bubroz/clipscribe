@@ -1,29 +1,18 @@
 # ClipScribe CLI Reference
 
-Last Updated: August 25, 2025 - v2.43.0
+*Last Updated: 2025-08-26 - v2.44.0*
 
 Complete reference for all ClipScribe commands, groups, and options.
 
-**Current Status**: Enterprise-ready CLI with 99% coverage and comprehensive validation. All core functionality tested with enterprise-grade reliability.
+**Current Status**: Enterprise-ready CLI with 99% coverage and comprehensive validation. The API and web services are now live on Google Cloud Run.
 
 ## Installation Options
 
-ClipScribe supports flexible installation with optional dependency groups:
-
 ```bash
-# Core installation (~500MB)
-poetry install --with dev
+# Core installation
+poetry install
 
-# Add ML features (spaCy, transformers, torch)
-poetry install -E ml --with dev
-
-# Add enterprise features (GCP services)
-poetry install -E enterprise --with dev
-
-# Add API server (FastAPI, Redis)
-poetry install -E api --with dev
-
-# Install everything
+# For development, including all optional dependencies
 poetry install --extras all --with dev
 ```
 
@@ -79,10 +68,10 @@ clipscribe process video [OPTIONS] URL
 
 ```bash
 # Process a video with default (high-quality) settings
-poetry run clipscribe --debug process video "https://www.youtube.com/watch?v=VIDEO_ID"
+poetry run clipscribe process video "https://www.youtube.com/watch?v=VIDEO_ID"
 
 # Process with faster, standard quality
-poetry run clipscribe --debug process video "https://www.youtube.com/watch?v=VIDEO_ID" --use-flash
+poetry run clipscribe process video "https://www.youtube.com/watch?v=VIDEO_ID" --use-flash
 ```
 
 ---
@@ -111,7 +100,7 @@ clipscribe collection series [OPTIONS] URLS...
 
 ```bash
 # Process a two-part documentary series
-poetry run clipscribe --debug collection series "URL_PART_1" "URL_PART_2"
+poetry run clipscribe collection series "URL_PART_1" "URL_PART_2"
 ```
 
 #### `collection custom`
@@ -138,7 +127,7 @@ clipscribe collection custom [OPTIONS] COLLECTION_NAME URLS...
 
 ```bash
 # Analyze three videos about a specific topic
-poetry run clipscribe --debug collection custom "Market Research Q3" "URL1" "URL2" "URL3"
+poetry run clipscribe collection custom "Market Research Q3" "URL1" "URL2" "URL3"
 ```
 
 ---
@@ -163,7 +152,7 @@ clipscribe research [OPTIONS] QUERY
 
 ```bash
 # Research the latest 5 videos on a topic
-poetry run clipscribe --debug research "AI in biotechnology" --max-results 5
+poetry run clipscribe research "AI in biotechnology" --max-results 5
 ```
 
 ---
@@ -188,5 +177,17 @@ clipscribe utils clean-demo [OPTIONS]
 
 ```bash
 # See what would be deleted without actually deleting it
-poetry run clipscribe --debug utils clean-demo --dry-run
+poetry run clipscribe utils clean-demo --dry-run
 ```
+
+#### `utils check-auth`
+
+Verify your API key or Vertex AI authentication.
+
+```bash
+clipscribe utils check-auth
+```
+
+## Web Interface
+
+A static web interface is available for interacting with the deployed API. See the [Deployment Guide](advanced/deployment/DEPLOYMENT_GUIDE.md) for details.

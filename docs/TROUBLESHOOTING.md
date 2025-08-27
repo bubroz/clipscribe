@@ -1,6 +1,6 @@
 # ClipScribe Troubleshooting Guide
 
-*Last Updated: August 23, 2025*
+*Last Updated: 2025-08-26*
 
 This guide helps you resolve common issues with ClipScribe.
 
@@ -9,10 +9,7 @@ This guide helps you resolve common issues with ClipScribe.
 - [Installation Issues](#installation-issues)
 - [API Key Problems](#api-key-problems)
 - [Video Processing Errors](#video-processing-errors)
-- [503 Socket Closed Errors](#503-socket-closed-errors)
 - [Performance Issues](#performance-issues)
-- [Output Problems](#output-problems)
-- [Platform-Specific Issues](#platform-specific-issues)
 - [Getting Help](#getting-help)
 
 ## Installation Issues
@@ -48,100 +45,33 @@ rm -rf poetry.lock
 poetry install --no-cache
 ```
 
-## Entity & Relationship Extraction Issues (v2.19.0 Fixed)
-
-### Poor Extraction Quality
-
-**Problem**: Only getting 0-10 generic entities like "Revenue", "This Morning" and 0-1 relationships
-
-**Cause**: Quality filters were too aggressive (removing 70% of valid entities)
-
-**Solution**: Update to v2.19.0+
-
-```bash
-# Check your version
-poetry run clipscribe --version
-
-# Update if needed
-poetry update clipscribe
-```
-
-**What v2.19.0 Fixed**:
-
-- Language filter was removing common English words (de, la, en, etc.)
-- Confidence threshold was too high (0.6), now 0.4
-- Gemini's 50+ relationships were extracted but ignored (bug)
-- False positive detection was too aggressive
-
-**Expected Results After Fix**:
-
-- 16+ meaningful entities (people, orgs, locations)
-- 52+ relationships with evidence chains
-- 88+ node knowledge graphs
-- Still only $0.0083 per video!
-
-### Python Version Warning
-
-**Problem**: You see a warning like:
-
-```text
-The currently activated Python version 3.13.5 is not supported by the project (^3.12,<3.13).
-Trying to find and use a compatible version.
-Using python3.12 (3.12.11)
-```
-
-**Solution**: This is normal behavior. ClipScribe requires Python 3.12+ and Poetry will automatically find and use a compatible version. No action needed.
-
-**To avoid the warning**: Use Python 3.12 explicitly:
-
-```bash
-pyenv install 3.12.11
-pyenv local 3.12.11
-poetry install
-```
-
-### Tokenizer Warning
-
-**Problem**: You see repeated warnings about sentencepiece tokenizer:
-
-```text
-UserWarning: The sentencepiece tokenizer that you are converting to a fast tokenizer uses the byte fallback option which is not implemented in the fast tokenizers.
-```
-
-**Solution**: This warning is harmless and has been suppressed in v2.10.0+. If you're still seeing it, update to the latest version:
-
-```bash
-poetry update
-```
-
-The warning comes from the GLiNER model loading and doesn't affect functionality.
-
 ## API Key Problems
-
-### API Errors (500, 503, etc.)
-
-- **Symptom**: The CLI exits with an error mentioning `500 Internal Server Error`, `503 Service Unavailable`, or a `grpc` error.
-- **Cause**: These are transient (temporary) errors from the upstream Google Gemini API. They are not bugs in ClipScribe.
-- **Solution**: ClipScribe v2.23.0 and later includes automatic retry logic with exponential backoff. The application will automatically retry the request up to 3 times. If the problem persists after multiple retries, it may indicate a wider outage with the Google API. Check Google Cloud Status dashboard for more information.
 
 ### Missing Google API Key
 
 ```bash
-# Option 1: Set in .env file
+# Option 1: Set in .env file (recommended)
 echo "GOOGLE_API_KEY=your_key_here" >> .env
 
 # Option 2: Export in shell
 export GOOGLE_API_KEY="your_key_here"
-
-# Option 3: Pass via CLI (Note: not a recommended pattern)
-# clipscribe process video "URL" --api-key "your_key_here" # This option is not available
 ```
 
 ### Invalid API Key
 
-- Ensure key starts with "AIza"
-- Check key has Gemini API enabled in Google Cloud Console
-- Verify billing is enabled for the project
+- Ensure your key starts with "AIza".
+- Check that the Gemini API is enabled in your Google Cloud Console.
+- Verify that billing is enabled for the associated project.
+- Use the `check-auth` utility to verify your setup:
+  ```bash
+  poetry run clipscribe utils check-auth
+  ```
+
+### API Errors (500, 503, etc.)
+
+- **Symptom**: The CLI exits with an error mentioning `500 Internal Server Error` or `503 Service Unavailable`.
+- **Cause**: These are typically transient errors from the Google Gemini API.
+- **Solution**: ClipScribe includes automatic retry logic. If the problem persists, check the Google Cloud Status dashboard.
 
 ## Video Processing Errors
 
@@ -158,46 +88,13 @@ clipscribe process video "URL_HERE" --cookies-from-browser chrome
 # Supported browsers: chrome, firefox, brave, edge, opera, safari, vivaldi
 ```
 
-## 503 Socket Closed Errors
+### Video Not Found or Unavailable
 
-### Problem: "Premature close" or "Socket closed" errors
-
-**New in v2.19.2**: Use Vertex AI SDK for better reliability.
-
-```bash
-# Enable Vertex AI mode
-export USE_VERTEX_AI=true
-export VERTEX_AI_PROJECT_ID=your-project-id
-
-# Set up GCS bucket (one-time)
-poetry run python scripts/setup_vertex_ai.py
-
-# Process videos with improved reliability
-poetry run clipscribe process video "URL"
-```
-
-Benefits of Vertex AI:
-
-- Enterprise-grade infrastructure
-- Automatic retry logic
-- Better error handling
-- Same pricing as Google AI SDK
-- Minimal GCS storage costs (auto-cleanup)
-
-### "No Transcript Available"
-
-This happens when:
-
-1. Video has no captions
-2. Video is age-restricted
-3. Video is private/deleted
-
-**Solution**: Use enhanced temporal intelligence processing for optimal performance.
-
-```bash
-# This option is not available, transcription is automatic
-# clipscribe process video "URL" --force-transcribe
-```
+- **Symptom**: `yt-dlp` returns an error like `Video unavailable`.
+- **Cause**: The video may be private, deleted, or geographically restricted.
+- **Solution**:
+  - Verify the URL is correct and accessible in your browser.
+  - For restricted content, use the `--cookies-from-browser` option.
 
 ### Download Failed
 
@@ -225,18 +122,6 @@ For videos over 2 hours:
 yt-dlp "URL" -o video.mp4
 clipscribe process video video.mp4
 ```
-
-### Video Not Found
-
-```text
-ERROR: Video unavailable
-```
-
-**Solutions:**
-
-- Check if the video is private or age-restricted
-- Try using cookies file for authentication
-- Verify the URL is correct
 
 ### Timeout Errors with Long Videos
 
@@ -350,36 +235,23 @@ If JSON files are corrupted:
 
 ### Debug Mode
 
-Run with debug logging:
+Run with debug logging for more detailed output:
 
 ```bash
-# Via environment
+# Via environment variable
 export CLIPSCRIBE_LOG_LEVEL=DEBUG
 clipscribe process video "URL"
 
-# Via CLI
+# Via CLI flag
 clipscribe --debug process video "URL"
 ```
 
 ### Quick Test
 
-Verify installation:
+Verify your installation with a known-good video:
 
 ```bash
-# Test with known-good video
-clipscribe --debug process video "https://www.youtube.com/watch?v=7sWj6D2i4eU"
-```
-
-### Reset Everything
-
-Nuclear option:
-
-```bash
-# Full reset
-rm -rf ~/.cache/clipscribe
-rm -rf .venv poetry.lock
-poetry install
-poetry run pytest
+clipscribe process video "https://www.youtube.com/watch?v=7sWj6D2i4eU"
 ```
 
 ### Report Issues

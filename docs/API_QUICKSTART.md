@@ -1,14 +1,13 @@
 # ClipScribe API Quickstart
 
-*Last Updated: 2025-08-13 17:27 UTC*
+*Last Updated: 2025-08-26*
 
-This guide shows how to use the API v1 to submit a job, watch progress, and download artifacts from a browser-hosted frontend (e.g., Replit).
+This guide shows how to use the API v1 to submit a job, watch progress, and download artifacts.
 
-## Base URLs
-- Staging: `https://api.staging.clipscribe.com`
-- Production: `https://api.clipscribe.com`
+## Base URL
+- Production: `https://clipscribe-api-16459511304.us-central1.run.app`
 
-OpenAPI (staging): `GET /openapi.json`
+OpenAPI: `GET /openapi.json`
 
 ## Auth
 Use a browser-safe public API token (scope: `submit`, `status`, `artifacts`). Do not embed privileged secrets in the frontend.
@@ -109,28 +108,4 @@ Returns `estimated_cost_usd`, `estimated_duration_seconds`, `proposed_model`, an
 - Daily budget: set `TOKEN_DAILY_BUDGET_USD` (default 5.0)
 - Retry logic: on 429, use `Retry-After` header or backoff
 
-For full details see `docs/architecture/API_V1_SERVICE_READINESS.md` and the OpenAPI at `/openapi.json`.
-
-## Running the API in Replit
-
-- Set `HOST=0.0.0.0` (default is `127.0.0.1` for local safety) and `PORT=8080`.
-- Set `CORS_ALLOW_ORIGINS` to your Replit domain (e.g., `https://*.repl.co`).
-- Optional: set `GCS_BUCKET` and `GOOGLE_APPLICATION_CREDENTIALS` to enable real signed URLs; otherwise a mock upload URL is returned.
-
-### Example: Handle 429 with Retry-After
-```bash
-resp=$(curl -s -D - -o /tmp/body.json \
-  -H "Authorization: Bearer $TOKEN" \
-  "$API_BASE_URL/v1/jobs/$JOB_ID")
-
-status=$(echo "$resp" | head -n1 | awk '{print $2}')
-retry_after=$(echo "$resp" | awk -F': ' 'BEGIN{IGNORECASE=1} /^Retry-After:/ {print $2}' | tr -d '\r')
-
-if [ "$status" = "429" ] && [ -n "$retry_after" ]; then
-  echo "Rate limited. Sleeping $retry_after seconds..."
-  sleep "$retry_after"
-  curl -H "Authorization: Bearer $TOKEN" "$API_BASE_URL/v1/jobs/$JOB_ID" | jq .
-else
-  cat /tmp/body.json | jq .
-fi
-```
+For full details see `docs/architecture/API_DESIGN.md` and the OpenAPI at `/openapi.json`.

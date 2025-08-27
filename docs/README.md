@@ -1,27 +1,19 @@
-# ClipScribe Documentation v2.29.7
+# ClipScribe Documentation
 
-*Last Updated: August 23, 2025*
+*Last Updated: 2025-08-26*
 
-## Overarching Goals and Stages
+This directory contains all user and technical documentation for ClipScribe v2.44.0.
 
-**Stage 1**: Quick series analysis (3 videos in <5 minutes) for competitive intelligence
-**Stage 2**: Enterprise scale (thousands of users, 1000+ videos) with Kubernetes deployment
-**Focus**: Intelligence extraction excellence with safe concurrency limits
+## Key Documents
 
-## Quick Start for Real Use
+- **[Getting Started](GETTING_STARTED.md)**: Your first stop for installation and basic usage.
+- **[CLI Reference](CLI_REFERENCE.md)**: A complete guide to all command-line options.
+- **[Deployment Guide](advanced/deployment/DEPLOYMENT_GUIDE.md)**: Instructions for deploying to production on Google Cloud Run.
+- **[API Quickstart](API_QUICKSTART.md)**: How to use the deployed API.
+- **[Troubleshooting](TROUBLESHOOTING.md)**: Solutions to common problems.
 
-For immediate 3-video analysis:
-```bash
-poetry run python examples/pbs_fast_batch.py --limit 3
-# Select option 4 (Test mode) for maximum speed
-``` 
+## Technical Documentation
 
-## API Documentation
-
-- API Readiness Spec: `docs/architecture/API_V1_SERVICE_READINESS.md`
-- OpenAPI (machine-readable): `docs/architecture/openapi.yaml`
-- API Quickstart: `docs/API_QUICKSTART.md`
-- Replit Project Guide: `docs/REPLIT_PROJECT_GUIDE.md`
- - Cost Analysis: `docs/COST_ANALYSIS.md`
-- Testing Policy: E2E tests are opt-in (Vertex ADC by default; AI Studio allowed with explicit flag).
-- Architecture: `docs/architecture/ARCHITECTURE_DIAGRAM.md`
+- **[Architecture](architecture/ARCHITECTURE_DIAGRAM.md)**: An overview of the system architecture.
+- **[Extraction Technology](EXTRACTION_TECHNOLOGY.md)**: A deep dive into the models and methods used for intelligence extraction.
+- **[Cost Analysis](COST_ANALYSIS.md)**: A breakdown of the costs associated with running ClipScribe.
