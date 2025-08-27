@@ -1,44 +1,19 @@
 # ClipScribe Development Guide
 
-*Last Updated: August 25, 2025 - v2.43.0*
+*Last Updated: 2025-08-26 - v2.44.0*
 
 ## Overview
 
-ClipScribe is a powerful, AI-powered video intelligence tool that supports **1800+ video platforms** through yt-dlp integration. It uses Google's Gemini 2.5 Pro as its default model to ensure the highest quality intelligence extraction. A faster, lower-cost option using Gemini 2.5 Flash is available via a command-line flag.
-
-##  Enhanced Metadata Architecture (v2.19.0 Complete)
-
-**Major Achievement**: Complete enhanced metadata implementation with:
-- **Phase 1 - Entity Confidence**: Confidence scores, source attribution, temporal distribution
-- **Phase 2 - Relationship Evidence**: Direct quotes, visual correlation, contradiction detection  
-- **Phase 3 - Temporal Resolution**: Intelligent parsing of relative dates ("yesterday", "last week")
-- **95%+ Test Coverage**: Comprehensive testing across all three phases
-- **Zero Performance Impact**: Enhanced intelligence without speed degradation
-
-### Enhanced Extraction Package Structure
-```
-src/clipscribe/extractors/
-├── enhanced_entity_extractor.py    # Phase 1: Entity confidence & metadata
-├── relationship_evidence_extractor.py # Phase 2: Evidence chains
-├── temporal_reference_resolver.py  # Phase 3: Temporal resolution
-├── advanced_hybrid_extractor.py    # Orchestrates all phases
-├── entity_normalizer.py           # Cross-video entity resolution
-├── entity_quality_filter.py       # Quality validation
-└── __init__.py                    # Package exports
-```
-
-## Key Features
-
-- **Universal Platform Support**: Works with YouTube, Twitter/X, TikTok, Instagram, Vimeo, and 1800+ other sites.
-- **Pro-First Quality**: Uses Gemini 2.5 Pro by default for the highest quality entity and relationship extraction.
-- **Cost Flexibility**: Provides an optional `--use-flash` flag for faster, lower-cost processing.
-- **Multi-Video Analysis**: Sophisticated tools for analyzing entire series or collections of videos.
-- **Multiple Output Formats**: Generates over 10 formats, including JSON, CSV, and GEXF for knowledge graphs.
+ClipScribe is a powerful, AI-powered video intelligence tool that supports **1800+ video platforms** and is now deployed as a scalable, multi-service application on Google Cloud Run. It uses Google's Gemini 2.5 Pro as its default model to ensure the highest quality intelligence extraction, with an optional, faster Gemini 2.5 Flash model available.
 
 ## Architecture
 
+The project is structured as a service-oriented application with a clear separation of concerns. The core logic is contained within the `src/clipscribe` directory, with a professional CLI, a FastAPI-based API, and a static web front end.
+
 ```
 src/clipscribe/
+├── api/                # FastAPI application
+│   └── app.py
 ├── commands/           # CLI implementation (Click)
 │   └── cli.py
 ├── config/             # Configuration (Pydantic)
@@ -52,23 +27,20 @@ src/clipscribe/
 │   ├── transcriber.py
 │   └── video_retriever.py
 └── utils/              # Shared utilities
-    ├── filename.py
-    ├── logging.py
-    └── performance.py
 ```
 
 ## Technology Stack
 
-- **Python 3.11+**: Modern Python features (3.12+ recommended)
-- **Poetry**: Exclusive dependency management
-- **Click**: For building the command-line interface
-- **Rich**: For beautiful and informative CLI output
-- **Gemini 2.5 Pro**: The default AI model for the highest quality intelligence extraction.
-- **Gemini 2.5 Flash**: An optional, faster model for use cases where speed is prioritized over quality.
+- **Python 3.12+**: Modern Python features.
+- **Poetry**: Exclusive dependency management.
+- **Click**: For building the command-line interface.
+- **FastAPI**: For the production API service.
+- **Uvicorn**: For the ASGI server.
+- **Redis & RQ**: For the job queuing system.
+- **Gemini 2.5 Pro/Flash**: For AI-powered intelligence extraction.
 - **Pydantic v2**: For data validation and settings management.
 - **Async/Await**: For high-performance, concurrent I/O operations.
 - **NetworkX**: For building knowledge graphs.
-- **Streamlit**: For the Mission Control web interface.
 
 ## Contributing
 

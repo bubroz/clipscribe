@@ -1,12 +1,12 @@
 # ClipScribe Architecture (High-Level)
 
-Last Updated: August 11, 2025
+*Last Updated: 2025-08-26*
 
 Mermaid Diagram (source of truth):
 
 ```mermaid
 flowchart LR
-  B["Browser UI (Replit)"] -- "PUT (signed)" --> T[("GCS uploads/")]
+  B["Web UI (Static)"] -- "PUT (signed)" --> T[("GCS uploads/")]
   B -- "POST /v1/jobs" --> A["API (FastAPI)"]
   A -- "SSE: /v1/jobs/{id}/events" --> B
   A -- "/v1/jobs/{id}/artifacts (signed URLs)" --> B
@@ -23,8 +23,8 @@ flowchart LR
   A -. "estimate/admission: RPM, daily req, budget" .-> RC[("Redis counters+budget")]
 ```
 
-- Browser uploads via presigned GCS URL
-- API (FastAPI): job submission, SSE progress, artifacts (signed URLs)
-- Redis + RQ: queue/worker for processing
-- GCS: artifact storage; API signs URLs
-- Gemini 2.5 Pro/Flash; Vertex AI optional path
+- Web UI uploads via presigned GCS URL.
+- API (FastAPI): job submission, SSE progress, artifacts (signed URLs).
+- Redis + RQ: queue/worker for processing.
+- GCS: artifact storage; API signs URLs.
+- Gemini 2.5 Pro/Flash; Vertex AI optional path.

@@ -1,6 +1,6 @@
 # Pre-Upload Videos to Google Cloud Storage
 
-*Last Updated: July 20, 2025*
+*Last Updated: 2025-08-26*
 
 This guide explains how to pre-upload videos to Google Cloud Storage (GCS) for faster Vertex AI processing and to avoid upload timeouts.
 

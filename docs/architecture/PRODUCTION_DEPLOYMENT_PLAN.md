@@ -1,101 +1,49 @@
-# ClipScribe – Production Deployment Plan (API + Replit UI)
+# ClipScribe Production Architecture
 
-Last Updated: 2025-08-23
-Status: Authoritative checklist for prod readiness
+*Last Updated: 2025-08-26*
+*Version: v2.44.0*
 
-## 1) Goals
-- Public API on custom domain with signed artifact URLs
-- Replit-hosted frontend (browser-only) calling API with a public token
-- Zero long‑lived keys in CI (WIF) and safe, repeatable deploys
+## Overview
 
-## 2) Environments
-- dev (local) – localhost:8081
-- staging – Cloud Run, protected; CORS allows Replit staging
-- prod – Cloud Run + custom domain; strict CORS and tokens
+This document provides a high-level overview of the ClipScribe production architecture as deployed on Google Cloud Run. The system is designed as a scalable, multi-service application to provide robust video intelligence processing.
 
-## 3) Authentication (Workload Identity Federation)
-- Create Workload Identity Pool/Provider trusting GitHub OIDC (repo/branch bound)
-- Service Account (SA): `clipscribe-ci@PROJECT.iam.gserviceaccount.com`
-- IAM:
-  - SA grants to GitHub principal: `roles/iam.workloadIdentityUser`, `roles/iam.serviceAccountTokenCreator`
-  - SA runtime roles: `roles/aiplatform.user`, `roles/storage.objectAdmin` (or finer bucket‑level roles)
-- GitHub Actions: `google-github-actions/auth@v2` to mint short‑lived ADC (no JSON key)
+## Core Services
 
-## 4) Cloud resources
-- GCS buckets: uploads (tmp) and artifacts (private); lifecycle rules for tmp
-- Cloud Run service: `clipscribe-api` (min 1 instance if low-latency desired)
-- Redis: managed (e.g., Memorystore) or self-managed (staging/local only)
+The production environment consists of two main services:
 
-## 5) CORS
-- API CORS allowlist per env: dev (`https://*.repl.co`), staging, prod (final domain(s))
-- GCS bucket CORS: allow `PUT` and `Content-Type` header for presigned uploads
+1.  **`clipscribe-api`**: A FastAPI application that serves as the core of the platform. It handles all video processing, AI-powered analysis, job queuing, and data storage.
+2.  **`clipscribe-web`**: A lightweight, static web server that provides the user interface for interacting with the API.
 
-## 6) Tokens & admission control
-- Public API token (scopes: submit, status, artifacts); rotateable via env/secret
-- Per‑token RPM, daily request, and daily budget enforcement (already implemented)
+These services are deployed as separate, containerized applications on Google Cloud Run, which allows them to be scaled and managed independently.
 
-## 7) CI/CD workflows (GitHub Actions)
-- ci.yml: lint (black/ruff), type (mypy), tests (unit/integration), security (bandit/pip‑audit), coverage
-- e2e_manual.yml: workflow_dispatch → WIF → Vertex E2E + upload artifacts
-- deploy.yml (to add): on tag push → build container → deploy to Cloud Run via WIF
+## Technology Stack
 
-## 8) Build & deploy (Cloud Run)
-- Container build (Dockerfile) → Artifact Registry → Cloud Run deploy
-- Env vars:
-  - `GCS_BUCKET`, `CORS_ALLOW_ORIGINS`
-  - `USE_VERTEX_AI=true`, `VERTEX_AI_PROJECT`, `VERTEX_AI_LOCATION`
-  - Policy caps: `TOKEN_MAX_RPM`, `TOKEN_MAX_DAILY_REQUESTS`, `TOKEN_DAILY_BUDGET_USD`
-  - Logging level, output dir etc.
-- Health check: `/metrics` basic exposure; add readiness if desired
+-   **Cloud Platform**: Google Cloud Run
+-   **Backend**: Python 3.12 with FastAPI and Uvicorn
+-   **Job Queuing**: Redis and RQ for asynchronous job processing
+-   **AI Models**: Google's Gemini 2.5 Pro and Flash models
+-   **Build & Deploy**: Docker with multi-stage builds and Google Cloud Build for CI/CD
 
-## 9) Domain & TLS
-- Reserve domain (e.g., api.yourdomain.com)
-- Map domain to Cloud Run; verify DNS & TLS auto‑managed by Cloud Run
-- Update CORS allowlists to final domain(s)
+## Deployment & CI/CD
 
-## 10) Replit UI integration
-- Secrets in Replit: `API_BASE_URL`, `PUBLIC_TOKEN`
-- Flows:
-  - URL Job: POST /v1/jobs → open SSE → list `/artifacts` → download signed URLs
-  - Upload Job: `/uploads/presign` → browser PUT (Content‑Type required) → `/v1/jobs { gcs_uri }`
-- Client policies: honor Retry‑After on 429; jittered backoff; SSE reconnect
+The entire build and deployment process is automated via the `cloudbuild.yaml` file in the root of the repository. This pipeline handles:
 
-## 11) Observability
-- Logs: structured with request IDs
-- Metrics: minimal counters (rpm, daily rejects, budget reserves/rejects)
-- Future: uptime checks, error rate alerts, p95 duration dashboards
+1.  **Building** the Docker images for both the `api` and `web` services.
+2.  **Pushing** the images to Google Container Registry.
+3.  **Deploying** the new versions to Google Cloud Run.
 
-## 12) Security hardening
-- Private buckets; signed URLs only; short expiry
-- No long-lived keys (WIF in CI/CD)
-- PROD tokens limited scope; rotateable
-- Branch protections; secret scanning
+This allows for consistent, repeatable, and reliable deployments.
 
-## 13) Acceptance criteria
-- Replit UI can:
-  - Submit URL jobs; see SSE progress; list and download artifacts
-  - Upload local file via presign flow; see end‑to‑end completion
-- API enforces caps; 429 honor Retry‑After
-- Artifacts endpoint returns valid signed URLs; public GET to bucket is denied
-- Deploy on tag publishes new API to Cloud Run within 10 minutes
+## Custom Domain & DNS
 
-## 14) Rollback strategy
-- Keep N-1 tagged image in Artifact Registry
-- `gcloud run services update --image <prev>` to revert
-- Tokens & budgets stay in Redis; no schema migration required
+The services are configured to be accessible via a custom domain, with DNS managed by Cloudflare.
 
-## 15) Task checklist
-- [ ] Create WIF pool/provider in GCP (GitHub OIDC)
-- [ ] Create `clipscribe-ci` SA; grant WIF and token creator; assign Vertex/Storage roles
-- [ ] Convert e2e_manual.yml to WIF auth (remove JSON secret usage)
-- [ ] Add deploy.yml (WIF) to build & deploy to Cloud Run on tag
-- [ ] Configure Cloud Run env vars; connect Redis
-- [ ] Set API CORS and bucket CORS
-- [ ] Map domain; verify TLS
-- [ ] Add Replit secrets; run UI smoke test
-- [ ] Draft v2.30.0 release; tag and deploy
-- [ ] Post‑deploy validation: SSE stream, artifacts listing, rate limits, budget caps
+-   **API**: `api.yourdomain.com`
+-   **Web**: `yourdomain.com`
 
-## 16) Appendices
-- Example gcloud commands for WIF (see discussion notes)
-- Example curl/JS snippets (see API Quickstart)
+Google Cloud Run automatically handles SSL certificate provisioning and renewal for these custom domains.
+
+## Security
+
+-   **Secrets Management**: The `GOOGLE_API_KEY` is passed to the Cloud Run service as an environment variable. For a more secure setup, it is recommended to use a secret manager like Google Secret Manager.
+-   **Service Permissions**: The services are configured to be publicly accessible, but this can be restricted using IAM roles in a more secure environment.

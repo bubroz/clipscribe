@@ -1,6 +1,6 @@
 # Vertex AI Integration Guide
 
-*Last Updated: August 08, 2025*
+*Last Updated: 2025-08-26*
 *Related: [Getting Started](../GETTING_STARTED.md) | [Pre-Upload Videos](../PRE_UPLOAD_VIDEOS.md)*
 
 ## Overview
