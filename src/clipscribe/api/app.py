@@ -318,62 +318,56 @@ def _fingerprint_from_body(body: Dict[str, Any]) -> str:
 
 
 async def _enqueue_job_processing(job: Job, source: Dict[str, Any]) -> None:
-    """Enqueue job to Redis RQ for actual processing."""
+    """Send job to worker service via HTTP."""
     try:
-        # Ensure job_queue is available
-        if job_queue is None:
-            logger.error(f"No job queue available for job {job.job_id}")
-            job.state = "FAILED"
-            job.error = "No worker queue available"
-            job.updated_at = _now_iso()
-            _save_job(job)
-            return
+        # Get worker URL from environment
+        worker_url = os.getenv("WORKER_URL", "https://clipscribe-worker-16459511304.us-central1.run.app")
         
         # Prepare payload for worker
         payload = {
             "job_id": job.job_id,
-            "source": source,
-            "created_at": job.created_at,
+            "url": source.get("url"),
+            "gcs_uri": source.get("gcs_uri"),
             "options": source.get("options", {})
         }
         
-        # Determine queue based on estimated duration
-        queue_name = "clipscribe"  # Default queue
+        logger.info(f"Sending job {job.job_id} to worker service")
         
-        # If we have video metadata, route to appropriate queue
-        if "url" in source:
-            # In future, we could fetch metadata here to determine video length
-            # For now, use default queue
-            pass
+        # Call worker via HTTP in background
+        # For now, we'll just mark it as processing and let the worker update status
+        job.state = "PROCESSING"
+        job.updated_at = _now_iso()
+        _save_job(job)
         
-        # Enqueue to Redis RQ
-        logger.info(f"Enqueuing job {job.job_id} to queue '{queue_name}'")
-        
-        # Use RQ to enqueue the job
-        from rq import Queue
-        q = Queue(queue_name, connection=redis_conn)
-        
-        # Enqueue with retry configuration
-        rq_job = q.enqueue(
-            "clipscribe.api.worker._process_payload",
-            job.job_id,
-            payload,
-            job_timeout="2h",  # 2 hour timeout for long videos
-            result_ttl=86400,   # Keep results for 24 hours
-            failure_ttl=604800, # Keep failures for 7 days
-            retry=None  # Retry handled by our retry_manager
-        )
-        
-        # Store RQ job ID for tracking
-        if redis_conn:
-            redis_conn.hset(f"cs:job:{job.job_id}", "rq_job_id", rq_job.id)
-        
-        logger.info(f"Job {job.job_id} enqueued successfully with RQ ID: {rq_job.id}")
+        # Make HTTP request to worker
+        import httpx
+        async with httpx.AsyncClient() as client:
+            try:
+                response = await client.post(
+                    f"{worker_url}/process-job",
+                    json={"job_id": job.job_id, "payload": payload},
+                    timeout=30.0,
+                    headers={
+                        "Authorization": f"Bearer {os.getenv('WORKER_AUTH_TOKEN', 'internal-worker-token')}"
+                    }
+                )
+                if response.status_code != 202:
+                    logger.error(f"Worker returned {response.status_code}: {response.text}")
+                    job.state = "FAILED"
+                    job.error = f"Worker error: {response.status_code}"
+                    job.updated_at = _now_iso()
+                    _save_job(job)
+            except Exception as e:
+                logger.error(f"Failed to contact worker: {e}")
+                job.state = "FAILED"
+                job.error = f"Worker communication failed: {str(e)}"
+                job.updated_at = _now_iso()
+                _save_job(job)
         
     except Exception as e:
-        logger.error(f"Failed to enqueue job {job.job_id}: {e}")
+        logger.error(f"Failed to process job {job.job_id}: {e}")
         job.state = "FAILED"
-        job.error = f"Failed to enqueue: {str(e)}"
+        job.error = f"Failed to process: {str(e)}"
         job.updated_at = _now_iso()
         _save_job(job)
         _r_srem("cs:active_jobs", job.job_id)

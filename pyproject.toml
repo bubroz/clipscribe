@@ -156,6 +156,7 @@ fastapi = {version = "^0.115.0", optional = true}
 uvicorn = {version = "^0.30.0", extras = ["standard"], optional = true}
 redis = {version = "^5.0.7", optional = true}
 rq = {version = "^1.16.2", optional = true}
+httpx = {version = "^0.25.0", optional = true}
 
 # Optional TUI dependencies - install with `poetry install -E tui`
 textual = {version = "^5.2.0", optional = true}
@@ -184,7 +185,7 @@ clipscribe-validate = "scripts.validate_production:main"
 ml = ["spacy", "transformers", "torch", "gliner"]
 viz = ["plotly", "pdfkit"]
 enterprise = ["google-cloud-aiplatform", "google-cloud-storage"]
-api = ["fastapi", "uvicorn", "redis", "rq"]
+api = ["fastapi", "uvicorn", "redis", "rq", "httpx"]
 tui = ["textual"]
 web = ["fastapi", "uvicorn", "redis", "rq", "streamlit"]
 all = ["spacy", "transformers", "torch", "gliner", "plotly", "pdfkit", "google-cloud-aiplatform", "google-cloud-storage", "fastapi", "uvicorn", "redis", "rq", "textual", "streamlit"]
