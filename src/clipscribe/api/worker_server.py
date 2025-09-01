@@ -157,41 +157,62 @@ async def health_check():
         }
 
 @app.post("/process-job")
-async def process_job(job_id: str, background_tasks: BackgroundTasks):
+async def process_job(request: dict, background_tasks: BackgroundTasks):
     """
-    Process a specific job from the queue.
-    Called by Cloud Tasks for long-running jobs.
+    Process a job from Cloud Tasks.
+    
+    Expected payload:
+    {
+        "job_id": "...",
+        "payload": {
+            "url": "...",
+            "options": {}
+        }
+    }
     """
     try:
-        logger.info(f"Processing job: {job_id}")
-
-        # Get job payload from Redis
+        # Extract job info from Cloud Tasks payload
+        job_id = request.get("job_id")
+        payload = request.get("payload", {})
+        
+        if not job_id:
+            raise HTTPException(status_code=400, detail="Missing job_id")
+        
+        logger.info(f"Received job from Cloud Tasks: {job_id}")
+        
+        # Update job status in Redis
         conn = get_redis_conn()
         job_key = f"cs:job:{job_id}"
-        payload_str = conn.get(job_key)
-
-        if not payload_str:
-            raise HTTPException(status_code=404, detail="Job not found")
-
-        payload = json.loads(payload_str.decode())
-
-        # Update job status to processing
-        conn.hset(job_key, mapping={
-            "state": "PROCESSING",
-            "updated_at": datetime.utcnow().isoformat()
-        })
-
+        
+        # Check if job exists
+        if not conn.exists(job_key):
+            # Create job entry if it doesn't exist
+            conn.hset(job_key, mapping={
+                "job_id": job_id,
+                "state": "PROCESSING",
+                "created_at": datetime.utcnow().isoformat(),
+                "updated_at": datetime.utcnow().isoformat()
+            })
+        else:
+            # Update existing job
+            conn.hset(job_key, mapping={
+                "state": "PROCESSING",
+                "updated_at": datetime.utcnow().isoformat()
+            })
+        
         # Process in background
         background_tasks.add_task(process_job_background, job_id, payload)
-
+        
+        # Return 200 OK for Cloud Tasks
         return {
             "status": "processing_started",
             "job_id": job_id,
             "timestamp": datetime.utcnow().isoformat()
         }
-
+    
     except Exception as e:
         logger.error(f"Failed to start job processing: {e}")
+        # Return 500 to trigger Cloud Tasks retry
         raise HTTPException(status_code=500, detail=str(e))
 
 async def process_job_background(job_id: str, payload: Dict[str, Any]):

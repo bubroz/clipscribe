@@ -63,7 +63,7 @@ FROM base as api
 
 # Explicitly install API dependencies using pip to ensure they are available
 USER root
-RUN pip install --no-cache-dir fastapi uvicorn[standard] redis rq pydantic-settings google-cloud-storage httpx
+RUN pip install --no-cache-dir fastapi uvicorn[standard] redis rq pydantic-settings google-cloud-storage google-cloud-tasks httpx
 
 # Create required directories with proper permissions
 RUN mkdir -p /app/output /app/logs /app/output/video_archive && \
@@ -115,7 +115,7 @@ FROM base as worker
 
 # Explicitly install worker dependencies using pip
 USER root
-RUN pip install --no-cache-dir fastapi uvicorn[standard] redis rq pydantic-settings google-cloud-storage httpx google-cloud-tasks
+RUN pip install --no-cache-dir fastapi uvicorn[standard] redis rq pydantic-settings google-cloud-storage google-cloud-tasks httpx google-cloud-tasks
 
 # Create required directories with proper permissions
 RUN mkdir -p /app/temp /app/logs /app/output && \

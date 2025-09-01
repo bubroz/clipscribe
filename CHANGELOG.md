@@ -1,3 +1,37 @@
+## [2.45.0] - 2025-09-01
+
+### Added
+- **Google Cloud Tasks Integration**: Replaced direct HTTP calls with proper queue system
+  - Automatic retry with exponential backoff
+  - Guaranteed delivery and at-least-once processing
+  - Separate queues for short (<45min) and long (>45min) videos
+  - Queue monitoring endpoints at `/v1/monitoring/task-queues`
+- **Hybrid Worker Architecture**: Intelligent routing based on video duration
+  - Cloud Run for short videos (cost-effective, auto-scaling)
+  - Compute Engine VM for long videos (dedicated resources)
+- **Compute Engine Setup Script**: Automated VM deployment for long video processing
+- **Real Job Processing**: Removed fake completion, jobs now actually process
+- **Proper Token Validation**: API validates tokens against Redis/environment
+
+### Changed
+- API now uses Cloud Tasks for job queueing instead of direct HTTP calls
+- Worker accepts Cloud Tasks HTTP payload format
+- Updated `_enqueue_job_processing` to use `TaskQueueManager`
+- Modified worker `/process-job` endpoint to handle Cloud Tasks requests
+- Added `google-cloud-tasks` to dependencies
+
+### Fixed
+- **Critical Security Issue**: API was accepting any bearer token
+- **Fake Job Completion**: Jobs were instantly marked complete without processing
+- **Architecture Mismatch**: API was trying to use Redis RQ with HTTP-based worker
+- **Missing Dependencies**: Added `httpx` and `google-cloud-tasks` to API
+- **Settings Dependency**: Removed unnecessary Settings import from API
+
+### Infrastructure
+- Created `task_queue.py` for Cloud Tasks management
+- Added queue creation, monitoring, and management utilities
+- Proper error handling for Cloud Tasks failures
+
 ## [2.44.1] - 2025-09-01
 
 ### Added

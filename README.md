@@ -5,7 +5,7 @@
 ![CI](https://img.shields.io/github/actions/workflow/status/bubroz/clipscribe/ci.yml?branch=main)
 ![Python](https://img.shields.io/badge/python-3.12-blue)
 ![License](https://img.shields.io/badge/license-Proprietary-red)
-![Version](https://img.shields.io/badge/version-v2.44.0-informational)
+![Version](https://img.shields.io/badge/version-v2.45.0-informational)
 ![Status](https://img.shields.io/badge/status-private%20alpha-yellow)
 
 *Transform video content into structured, searchable, and reportable intelligence*
@@ -24,9 +24,9 @@ ClipScribe is currently in private alpha testing. The service is not yet availab
 - **Beta Timeline**: Private alpha (Month 1-2) → Closed beta (Month 3-4) → Public launch (Month 6)
 - **Early Access**: Contact zforristall@gmail.com for beta access consideration
 
-## v2.44.0 - Infrastructure Ready for Beta
+## v2.45.0 - Production Architecture Complete
 
-**🚧 PRIVATE ALPHA DEPLOYMENT**: Successfully deployed API and web services to Google Cloud Run, worker service in development.
+**🚧 PRIVATE ALPHA DEPLOYMENT**: Full infrastructure deployed with Google Cloud Tasks queue system and hybrid worker architecture.
 
 **🎯 KEY ACHIEVEMENTS**:
 - **Infrastructure Deployed**: API and web services are deployed but access-restricted
@@ -159,7 +159,7 @@ echo "GOOGLE_APPLICATION_CREDENTIALS=/path/to/your/service-account.json" >> .env
 ### 4. Verify Installation
 ```bash
 poetry run clipscribe --version
-# Expected: ClipScribe v2.44.0
+# Expected: ClipScribe v2.45.0
 
 # Test imports for extension
 poetry run python -c "from clipscribe.retrievers.video_retriever import VideoIntelligenceRetriever; print('Imports working')"
@@ -315,7 +315,7 @@ poetry run clipscribe process video URL --mode video      # Full video processin
 # Vertex AI is supported when configured (Settings.use_vertex_ai or environment variables).
 ```
 
-## Performance Benchmarks (v2.44.0 Current Status)
+## Performance Benchmarks (v2.45.0 Current Status)
 
 ### Processing Speed
 - **Single 5-min Video**: 1-2 minutes (Flash), 1.5-2.5 minutes (Pro)
@@ -388,7 +388,7 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ---
 
-**ClipScribe v2.44.0 - Private Alpha**
+**ClipScribe v2.45.0 - Private Alpha**
 
 *Gemini 2.5 Pro is the default for the best results, with an optional `--use-flash` flag for speed.*
 

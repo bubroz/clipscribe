@@ -318,10 +318,9 @@ def _fingerprint_from_body(body: Dict[str, Any]) -> str:
 
 
 async def _enqueue_job_processing(job: Job, source: Dict[str, Any]) -> None:
-    """Send job to worker service via HTTP."""
+    """Enqueue job to Cloud Tasks for processing."""
     try:
-        # Get worker URL from environment
-        worker_url = os.getenv("WORKER_URL", "https://clipscribe-worker-16459511304.us-central1.run.app")
+        from .task_queue import get_task_queue_manager
         
         # Prepare payload for worker
         payload = {
@@ -331,43 +330,47 @@ async def _enqueue_job_processing(job: Job, source: Dict[str, Any]) -> None:
             "options": source.get("options", {})
         }
         
-        logger.info(f"Sending job {job.job_id} to worker service")
-        
-        # Call worker via HTTP in background
-        # For now, we'll just mark it as processing and let the worker update status
-        job.state = "PROCESSING"
-        job.updated_at = _now_iso()
-        _save_job(job)
-        
-        # Make HTTP request to worker
-        import httpx
-        async with httpx.AsyncClient() as client:
+        # Estimate duration for queue routing
+        estimated_duration = 0
+        if "url" in source:
             try:
-                response = await client.post(
-                    f"{worker_url}/process-job",
-                    json={"job_id": job.job_id, "payload": payload},
-                    timeout=30.0,
-                    headers={
-                        "Authorization": f"Bearer {os.getenv('WORKER_AUTH_TOKEN', 'internal-worker-token')}"
-                    }
-                )
-                if response.status_code != 202:
-                    logger.error(f"Worker returned {response.status_code}: {response.text}")
-                    job.state = "FAILED"
-                    job.error = f"Worker error: {response.status_code}"
-                    job.updated_at = _now_iso()
-                    _save_job(job)
-            except Exception as e:
-                logger.error(f"Failed to contact worker: {e}")
-                job.state = "FAILED"
-                job.error = f"Worker communication failed: {str(e)}"
-                job.updated_at = _now_iso()
-                _save_job(job)
+                from .estimator import estimate_from_url
+                estimated_duration, _ = estimate_from_url(source["url"])
+            except Exception:
+                estimated_duration = 600  # Default 10 minutes
+        
+        logger.info(f"Enqueuing job {job.job_id} (estimated {estimated_duration}s)")
+        
+        # Enqueue to Cloud Tasks
+        task_manager = get_task_queue_manager()
+        task_name = await asyncio.to_thread(
+            task_manager.enqueue_job,
+            job.job_id,
+            payload,
+            estimated_duration
+        )
+        
+        if task_name:
+            # Update job state
+            job.state = "QUEUED"
+            job.updated_at = _now_iso()
+            if redis_conn:
+                redis_conn.hset(f"cs:job:{job.job_id}", "task_name", task_name)
+            _save_job(job)
+            logger.info(f"Job {job.job_id} enqueued successfully: {task_name}")
+        else:
+            # Failed to enqueue
+            job.state = "FAILED"
+            job.error = "Failed to enqueue to Cloud Tasks"
+            job.updated_at = _now_iso()
+            _save_job(job)
+            _r_srem("cs:active_jobs", job.job_id)
+            logger.error(f"Failed to enqueue job {job.job_id}")
         
     except Exception as e:
         logger.error(f"Failed to process job {job.job_id}: {e}")
         job.state = "FAILED"
-        job.error = f"Failed to process: {str(e)}"
+        job.error = f"Failed to enqueue: {str(e)}"
         job.updated_at = _now_iso()
         _save_job(job)
         _r_srem("cs:active_jobs", job.job_id)
@@ -885,3 +888,16 @@ async def get_dead_letter_queue(limit: int = 20):
             "dead_letters": [],
             "total_count": 0
         }
+
+@app.get("/v1/monitoring/task-queues")
+async def get_task_queue_status():
+    """Get Cloud Tasks queue statistics."""
+    try:
+        from .task_queue import get_task_queue_manager
+        task_manager = get_task_queue_manager()
+        stats = await asyncio.to_thread(task_manager.get_queue_stats)
+        return stats
+    except Exception as e:
+        logger = logging.getLogger(__name__)
+        logger.error(f"Failed to get task queue stats: {e}")
+        return {"error": str(e)}

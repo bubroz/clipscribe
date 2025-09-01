@@ -1,6 +1,6 @@
 # ClipScribe API Quickstart
 
-*Last Updated: 2025-09-01*
+*Last Updated: 2025-09-01*\n*Version: v2.45.0*
 
 This guide shows how to use the API v1 to submit a job, watch progress, and download artifacts.
 
@@ -111,3 +111,38 @@ Returns `estimated_cost_usd`, `estimated_duration_seconds`, `proposed_model`, an
 - Retry logic: on 429, use `Retry-After` header or backoff
 
 For full details see `docs/architecture/API_DESIGN.md` and the OpenAPI at `/openapi.json`.
+
+## Monitoring Endpoints (NEW v2.45.0)
+
+### Cloud Tasks Queue Status
+Monitor the Google Cloud Tasks queues for job processing:
+```bash
+curl "$API_BASE_URL/v1/monitoring/task-queues" \
+  -H "Authorization: Bearer $TOKEN"
+```
+Returns queue statistics including:
+- Queue state (RUNNING, PAUSED)
+- Task counts per queue
+- Rate limits and concurrent dispatch settings
+
+### System Metrics
+Get comprehensive system and application metrics:
+```bash
+curl "$API_BASE_URL/v1/monitoring/metrics" \
+  -H "Authorization: Bearer $TOKEN"
+```
+Returns metrics in Prometheus format including:
+- System resources (CPU, memory, disk)
+- Application metrics (queue lengths, active jobs)
+- Worker status and processing rates
+
+### Dead Letter Queue
+View jobs that have failed all retry attempts:
+```bash
+curl "$API_BASE_URL/v1/monitoring/dead-letter-queue?limit=20" \
+  -H "Authorization: Bearer $TOKEN"
+```
+Returns:
+- Failed job details
+- Error messages
+- Retry attempt history
