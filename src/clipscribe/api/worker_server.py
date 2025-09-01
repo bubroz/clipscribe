@@ -184,21 +184,25 @@ async def process_job(request: dict, background_tasks: BackgroundTasks):
         conn = get_redis_conn()
         job_key = f"cs:job:{job_id}"
         
-        # Check if job exists
-        if not conn.exists(job_key):
-            # Create job entry if it doesn't exist
-            conn.hset(job_key, mapping={
+        # Check if job exists and update it
+        job_data_str = conn.get(job_key)
+        if job_data_str:
+            # Parse existing job
+            import json
+            job_data = json.loads(job_data_str)
+            job_data["state"] = "PROCESSING"
+            job_data["updated_at"] = datetime.utcnow().isoformat() + "Z"
+            # Save back as JSON string
+            conn.set(job_key, json.dumps(job_data))
+        else:
+            # Create new job entry
+            job_data = {
                 "job_id": job_id,
                 "state": "PROCESSING",
-                "created_at": datetime.utcnow().isoformat(),
-                "updated_at": datetime.utcnow().isoformat()
-            })
-        else:
-            # Update existing job
-            conn.hset(job_key, mapping={
-                "state": "PROCESSING",
-                "updated_at": datetime.utcnow().isoformat()
-            })
+                "created_at": datetime.utcnow().isoformat() + "Z",
+                "updated_at": datetime.utcnow().isoformat() + "Z"
+            }
+            conn.set(job_key, json.dumps(job_data))
         
         # Process in background
         background_tasks.add_task(process_job_background, job_id, payload)
@@ -217,6 +221,7 @@ async def process_job(request: dict, background_tasks: BackgroundTasks):
 
 async def process_job_background(job_id: str, payload: Dict[str, Any]):
     """Process job in background and update status."""
+    import json
     conn = get_redis_conn()
     job_key = f"cs:job:{job_id}"
 
@@ -227,11 +232,13 @@ async def process_job_background(job_id: str, payload: Dict[str, Any]):
         await _process_payload(job_id, payload)
 
         # Update job status to completed
-        conn.hset(job_key, mapping={
-            "state": "COMPLETED",
-            "updated_at": datetime.utcnow().isoformat(),
-            "completed_at": datetime.utcnow().isoformat()
-        })
+        job_data_str = conn.get(job_key)
+        if job_data_str:
+            job_data = json.loads(job_data_str)
+            job_data["state"] = "COMPLETED"
+            job_data["updated_at"] = datetime.utcnow().isoformat() + "Z"
+            job_data["completed_at"] = datetime.utcnow().isoformat() + "Z"
+            conn.set(job_key, json.dumps(job_data))
 
         logger.info(f"Successfully completed job: {job_id}")
 
@@ -239,12 +246,14 @@ async def process_job_background(job_id: str, payload: Dict[str, Any]):
         logger.error(f"Job processing failed for {job_id}: {e}")
 
         # Update job status to failed
-        conn.hset(job_key, mapping={
-            "state": "FAILED",
-            "error": str(e),
-            "updated_at": datetime.utcnow().isoformat(),
-            "failed_at": datetime.utcnow().isoformat()
-        })
+        job_data_str = conn.get(job_key)
+        if job_data_str:
+            job_data = json.loads(job_data_str)
+            job_data["state"] = "FAILED"
+            job_data["error"] = str(e)
+            job_data["updated_at"] = datetime.utcnow().isoformat() + "Z"
+            job_data["failed_at"] = datetime.utcnow().isoformat() + "Z"
+            conn.set(job_key, json.dumps(job_data))
 
 @app.get("/queue-status")
 async def get_queue_status():

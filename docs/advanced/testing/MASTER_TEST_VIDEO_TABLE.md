@@ -270,3 +270,25 @@ poetry run clipscribe collection series \
 - Policy relationship mapping (government, tech companies, NGOs)
 - Temporal analysis (policy evolution over time)
 - Cross-reference validation (mentions of documents, reports, cases)
+
+## 🛡️ **The Stoic Viking** (Personal Interest + Series Detection)
+
+**Channel:** The Stoic Viking  
+**URL:** https://www.youtube.com/@TheStoicViking/videos  
+**Topics:** Leadership, resilience, military mindset, personal development, warrior philosophy  
+**Testing Purpose:** Series detection from titles, philosophical concept extraction, narrative analysis  
+**Demo Value:** Rich for leadership/training entity extraction, personal development insights
+
+|| Sample Content | Description | Testing Focus |
+|---|---|---|
+|| Series videos | Multiple series based on titles | Series detection algorithms |
+|| Leadership content | Military/warrior mindset | Concept relationship mapping |
+|| Philosophy videos | Stoic principles applied | Abstract entity extraction |
+|| Personal stories | Experience-based lessons | Narrative flow analysis |
+
+*Note: The Stoic Viking content is particularly valuable for:*
+- Leadership concept extraction (principles, strategies, mindsets)
+- Series detection from video titles (Part 1/2/3 patterns)
+- Personal development entity chains (challenges → lessons → growth)
+- Military/tactical philosophy relationships
+- Temporal narrative analysis (story progression)
