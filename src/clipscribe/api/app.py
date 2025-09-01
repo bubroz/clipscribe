@@ -243,7 +243,33 @@ def _metrics_dump() -> str:
     return "\n".join(lines) + "\n"
 
 
+def _validate_token(authorization: Optional[str]) -> Optional[str]:
+    """Validate bearer token and return token ID if valid."""
+    if not authorization:
+        return None
+    parts = authorization.split()
+    if len(parts) != 2 or parts[0].lower() != "bearer":
+        return None
+    
+    token = parts[1]
+    
+    # Check if token exists in Redis
+    conn = redis_conn
+    if conn:
+        token_key = f"cs:token:{token}"
+        if conn.exists(token_key):
+            # Token is valid, return its ID
+            return hashlib.sha256(token.encode("utf-8")).hexdigest()[:16]
+    
+    # For development/testing, accept specific tokens from environment
+    valid_tokens = os.getenv("VALID_TOKENS", "").split(",")
+    if token in valid_tokens and valid_tokens != ['']:
+        return hashlib.sha256(token.encode("utf-8")).hexdigest()[:16]
+    
+    return None
+
 def _token_id_from_auth(authorization: Optional[str]) -> Optional[str]:
+    """Extract token ID from authorization header (for backwards compatibility)."""
     if not authorization:
         return None
     parts = authorization.split()
@@ -292,99 +318,73 @@ def _fingerprint_from_body(body: Dict[str, Any]) -> str:
 
 
 async def _enqueue_job_processing(job: Job, source: Dict[str, Any]) -> None:
-    """Simulate background processing with checkpoints and write manifest to GCS."""
-    q = job_events.setdefault(job.job_id, asyncio.Queue())
-
-    async def push(event: str, data: Dict[str, Any]) -> None:
-        await q.put(f"event: {event}\n" + f"data: {json.dumps(data)}\n\n")
-
-    async def set_state(state: str, progress: Optional[Dict[str, int]] = None) -> None:
-        job.state = state
-        job.updated_at = _now_iso()
-        if progress:
-            job.progress = progress
-        _save_job(job)
-        await push("status", {"state": state})
-        await push("progress", job.progress)
-
-    async def write_manifest() -> None:
-        bucket = os.getenv("GCS_BUCKET")
-        manifest_obj_path = f"jobs/{job.job_id}/manifest.json"
-        manifest_content = {
+    """Enqueue job to Redis RQ for actual processing."""
+    try:
+        # Ensure job_queue is available
+        if job_queue is None:
+            logger.error(f"No job queue available for job {job.job_id}")
+            job.state = "FAILED"
+            job.error = "No worker queue available"
+            job.updated_at = _now_iso()
+            _save_job(job)
+            return
+        
+        # Prepare payload for worker
+        payload = {
             "job_id": job.job_id,
-            "schema_version": job.schema_version,
             "source": source,
             "created_at": job.created_at,
-            "updated_at": job.updated_at,
+            "options": source.get("options", {})
         }
-        if bucket:
-            try:
-                from google.cloud import storage  # type: ignore
-
-                client = storage.Client()
-                blob = client.bucket(bucket).blob(manifest_obj_path)
-                blob.cache_control = "public, max-age=300"
-                blob.upload_from_string(
-                    json.dumps(manifest_content, separators=(",", ":")),
-                    content_type="application/json",
-                )
-            except Exception as e:
-                print(f"[warn] failed to write manifest to gs://{bucket}/{manifest_obj_path}: {e}")
-        job.manifest_url = (
-            f"https://storage.googleapis.com/{bucket or 'mock-bucket'}/{manifest_obj_path}"
+        
+        # Determine queue based on estimated duration
+        queue_name = "clipscribe"  # Default queue
+        
+        # If we have video metadata, route to appropriate queue
+        if "url" in source:
+            # In future, we could fetch metadata here to determine video length
+            # For now, use default queue
+            pass
+        
+        # Enqueue to Redis RQ
+        logger.info(f"Enqueuing job {job.job_id} to queue '{queue_name}'")
+        
+        # Use RQ to enqueue the job
+        from rq import Queue
+        q = Queue(queue_name, connection=redis_conn)
+        
+        # Enqueue with retry configuration
+        rq_job = q.enqueue(
+            "clipscribe.api.worker._process_payload",
+            job.job_id,
+            payload,
+            job_timeout="2h",  # 2 hour timeout for long videos
+            result_ttl=86400,   # Keep results for 24 hours
+            failure_ttl=604800, # Keep failures for 7 days
+            retry=None  # Retry handled by our retry_manager
         )
-        _save_job(job)
-
-    # Acquire processing lock (memory + Redis)
-    acquired = False
-    key = f"cs:processing:{job.job_id}"
-    try:
-        conn = redis_conn
-        if conn is not None:
-            acquired = bool(conn.set(key, "1", nx=True, ex=600))
-    except Exception:
-        acquired = False
-    if not acquired:
-        if job.job_id in processing_jobs:
-            return
-        processing_jobs.add(job.job_id)
-    try:
-        # Continue from checkpoint
-        if job.state in ("QUEUED", "DOWNLOADING"):
-            await set_state("DOWNLOADING", {"current_chunk": 0, "total_chunks": 6})
-            await asyncio.sleep(0.2)
-            await set_state("ANALYZING", {"current_chunk": 3, "total_chunks": 6})
-        elif job.state == "ANALYZING":
-            # proceed
-            pass
-        elif job.state == "WRITING_ARTIFACTS":
-            # near completion; fall through
-            pass
-        # Write manifest and finish
-        await write_manifest()
-        await asyncio.sleep(0.1)
-        await set_state("WRITING_ARTIFACTS", {"current_chunk": 6, "total_chunks": 6})
-        await push("cost", {"usd": 0.003})
-        job.state = "COMPLETED"
+        
+        # Store RQ job ID for tracking
+        if redis_conn:
+            redis_conn.hset(f"cs:job:{job.job_id}", "rq_job_id", rq_job.id)
+        
+        logger.info(f"Job {job.job_id} enqueued successfully with RQ ID: {rq_job.id}")
+        
+    except Exception as e:
+        logger.error(f"Failed to enqueue job {job.job_id}: {e}")
+        job.state = "FAILED"
+        job.error = f"Failed to enqueue: {str(e)}"
         job.updated_at = _now_iso()
         _save_job(job)
         _r_srem("cs:active_jobs", job.job_id)
-        await push("done", {"job_id": job.job_id})
-    finally:
-        try:
-            conn = redis_conn
-            if conn is not None:
-                conn.delete(key)
-        except Exception:
-            pass
-        processing_jobs.discard(job.job_id)
 
 
 def _ensure_processing(job: Job, source: Dict[str, Any]) -> None:
     if job.state in {"COMPLETED", "FAILED", "CANCELED"}:
         return
-    # Schedule continuation if not already running
-    asyncio.create_task(_enqueue_job_processing(job, source))
+    # Only enqueue if job is still in QUEUED state
+    if job.state == "QUEUED":
+        asyncio.create_task(_enqueue_job_processing(job, source))
 
 
 @app.post("/v1/admin/pause")
@@ -407,6 +407,44 @@ async def resume_api(authorization: Optional[str] = Header(default=None, alias="
         conn.delete("cs:api:paused")
     return {"status": "API processing is now resumed."}
 
+@app.post("/v1/admin/tokens")
+async def create_token(
+    authorization: Optional[str] = Header(default=None, alias="Authorization"),
+    body: Dict[str, Any] = {}
+):
+    """Create a new beta access token."""
+    # In production, this should require admin authentication
+    if not authorization or "admin" not in authorization.lower():
+        return _error("unauthorized", "Admin access required", status=401)
+    
+    import secrets
+    
+    # Generate token
+    tier = body.get("tier", "beta")
+    email = body.get("email", "")
+    token = f"{tier[:3]}_{secrets.token_urlsafe(16)}"
+    
+    # Store in Redis
+    if redis_conn:
+        token_key = f"cs:token:{token}"
+        redis_conn.hset(token_key, mapping={
+            "email": email,
+            "tier": tier,
+            "created": _now_iso(),
+            "monthly_limit": 50,  # Beta limit
+            "videos_used": 0,
+            "status": "active"
+        })
+        # Token expires in 30 days for beta
+        redis_conn.expire(token_key, 30 * 24 * 3600)
+    
+    return {
+        "token": token,
+        "tier": tier,
+        "email": email,
+        "expires_in_days": 30
+    }
+
 
 @app.post("/v1/jobs", response_model=None, status_code=202)
 async def create_job(
@@ -415,7 +453,9 @@ async def create_job(
     idempotency_key: Optional[str] = Header(default=None, alias="Idempotency-Key"),
     authorization: Optional[str] = Header(default=None, alias="Authorization"),
 ) -> JSONResponse | Job:
-    if not authorization:
+    # Validate token
+    token_id = _validate_token(authorization)
+    if not token_id:
         return _error("invalid_input", "Missing or invalid bearer token", status=401)
 
     # Check if the API is paused
@@ -426,7 +466,7 @@ async def create_job(
         return _error("invalid_input", "Provide either url or gcs_uri", status=400)
 
     # Per-token RPM & daily budget counters (Redis) with reservation-based budgeting
-    token_id = _token_id_from_auth(authorization)
+    # token_id already validated above
     if token_id and _redis_available():
         # RPM (sliding-window)
         max_rpm = int(os.getenv("TOKEN_MAX_RPM", "60"))
@@ -514,14 +554,8 @@ async def create_job(
             _r_set(f"cs:idmp:{idempotency_key}", job_id, ex=24 * 3600)
         _r_sadd("cs:active_jobs", job_id)
 
-    # Start background processing and enqueue worker side-effect
+    # Enqueue job for processing
     asyncio.create_task(_enqueue_job_processing(job, body))
-    try:
-        if job_queue is not None:
-            job_queue.enqueue("clipscribe.api.worker.process_job", job_id, body, job_timeout=600)
-    except Exception:
-        # ignore enqueue failures in dev
-        pass
     return job
 
 
