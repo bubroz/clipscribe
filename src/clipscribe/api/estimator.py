@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Dict, Any, Optional, Tuple
 
-from clipscribe.config.settings import Settings
+# from clipscribe.config.settings import Settings  # Avoid dependency on GOOGLE_API_KEY
 
 
 def _secs_from_bytes_heuristic(size_bytes: int, mime_type: Optional[str]) -> int:
@@ -80,12 +80,11 @@ def estimate_from_gcs_uri(gcs_uri: str) -> Tuple[int, Dict[str, Any]]:
         return 0, {"source": "gcs", "error": "probe_failed"}
 
 
-def estimate_job(body: Dict[str, Any], settings: Optional[Settings] = None) -> Dict[str, Any]:
+def estimate_job(body: Dict[str, Any], settings: Optional[Any] = None) -> Dict[str, Any]:
     """High-level estimate for a job request body.
 
     Returns dict with: estimated_duration_seconds, estimated_cost_usd, proposed_model, metadata
     """
-    s = settings or Settings()
     duration = 0
     meta: Dict[str, Any] = {}
     if "url" in body and isinstance(body.get("url"), str):
@@ -98,7 +97,8 @@ def estimate_job(body: Dict[str, Any], settings: Optional[Settings] = None) -> D
         duration = 60  # assume 1 minute to avoid zero
         meta.setdefault("fallback", True)
 
-    est_cost = s.estimate_cost(duration)
+    # Simple cost estimation: $0.0000125/second for Gemini Flash audio
+    est_cost = duration * 0.0000125
     proposed_model = "flash"
     return {
         "estimated_duration_seconds": duration,

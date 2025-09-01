@@ -17,7 +17,7 @@ from starlette.responses import Response
 from rq import Queue
 import redis
 from redis import Redis as RedisClient
-from clipscribe.config.settings import Settings
+# from clipscribe.config.settings import Settings  # Not needed for API
 from .estimator import estimate_job
 from .monitoring import get_metrics_collector, get_alert_manager, get_health_checker, setup_default_alerts
 from .retry_manager import get_retry_manager
@@ -488,7 +488,7 @@ async def create_job(
             )
 
         # USD budget reservation based on real estimate
-        estimate = estimate_job(body, Settings())
+        estimate = estimate_job(body, None)  # Settings not needed for estimation
         est_cost = float(estimate.get("estimated_cost_usd", 0.01))
         max_usd = float(os.getenv("TOKEN_DAILY_BUDGET_USD", "5.0"))
         budget_key = f"cs:budget:{token_id}:{datetime.utcnow().strftime('%Y%m%d')}"
