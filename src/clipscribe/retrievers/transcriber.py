@@ -218,8 +218,10 @@ class GeminiFlashTranscriber:
             relationships = combined_data.get("relationships", [])
             dates = combined_data.get("dates", [])
 
-            if len(entities) < 15 or len(relationships) < 10:
-                logger.info("Performing second pass for enhanced entity/relationship extraction...")
+            # Only do second pass if explicitly requested or if we got ZERO entities
+            # Don't force arbitrary minimums - extract what's actually there
+            if len(entities) == 0 and len(transcript_text) > 100:
+                logger.info("No entities found in first pass, attempting second extraction...")
 
                 second_pass_prompt = f"""
                 SECOND PASS - Extract additional meaningful entities and relationships.

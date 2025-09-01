@@ -115,8 +115,18 @@ FROM base as worker
 
 # Explicitly install worker dependencies using pip
 USER root
-RUN pip install --no-cache-dir fastapi uvicorn[standard] redis rq pydantic-settings google-cloud-storage google-cloud-tasks httpx yt-dlp \
-    google-generativeai pillow moviepy
+# Install all worker dependencies that ClipScribe actually uses
+RUN pip install --no-cache-dir \
+    fastapi uvicorn[standard] redis rq \
+    pydantic pydantic-settings \
+    google-cloud-storage google-cloud-tasks httpx \
+    google-generativeai \
+    yt-dlp youtube-search-python \
+    pillow moviepy \
+    aiohttp beautifulsoup4 \
+    tenacity structlog \
+    networkx \
+    python-dotenv
 
 # Create required directories with proper permissions
 RUN mkdir -p /app/temp /app/logs /app/output && \
