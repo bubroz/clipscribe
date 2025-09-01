@@ -1,3 +1,50 @@
+## [2.44.1] - 2025-09-01
+
+### Added
+- Comprehensive retry logic with exponential backoff and circuit breaker (`retry_manager.py`)
+- Full monitoring system with metrics, alerts, and health checks (`monitoring.py`)
+- Monitoring endpoints for API and worker services
+- Dead Letter Queue (DLQ) implementation for failed jobs
+- System and application metrics collection
+- Comprehensive beta testing strategy in all PRDs
+- Token-based authentication system design for beta users
+- Education-focused pricing tiers ($39 Student, $79 Researcher, $199 Analyst)
+- Pay-per-video pricing options ($0.99-$14.99 based on duration)
+- Phased deployment timeline (private alpha → closed beta → public launch)
+- Emergency cost control mechanisms in API
+- Beta phase cost projections showing path to profitability
+
+### Changed
+- Updated all documentation to reflect private alpha status
+- Removed misleading "production live" claims from docs
+- Enhanced worker with retry and monitoring integration
+- Improved error classification and handling
+- Updated Worker Deployment PRD to v1.1 with 6-month beta approach
+- Updated Cost Analysis PRD to v1.2 with refined pricing strategy
+- Revised Phase 1 to include Compute Engine VM for long videos (hybrid from day one)
+- Modified deployment timeline to include legal/business setup
+- Updated CONTINUATION_PROMPT.md with current implementation status
+
+### Security
+- Identified need for ToS, Privacy Policy, and legal framework before public launch
+- Planned business entity (LLC) formation in Month 5
+- Added compliance considerations for different user segments
+
+## [v2.44.0] - 2025-08-26
+
+### Fixed
+- API deployment issues - all endpoints now working correctly
+- Redis connectivity - VPC connector properly configured
+- CORS configuration - web UI can communicate with API
+- Permission errors in Docker containers
+- Missing google-cloud-storage package in API image
+
+### Added
+- Emergency pause/resume endpoints for cost control
+- Monochrome professional web UI design
+- Custom domain configuration (clipscribe.ai)
+- VPC connector for Redis access
+
 ## [v2.43.0] - 2025-08-25
 
 ### Major Achievements

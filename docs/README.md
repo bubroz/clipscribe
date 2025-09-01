@@ -1,8 +1,8 @@
 # ClipScribe Documentation
 
-*Last Updated: 2025-08-26*
+*Last Updated: 2025-09-01*
 
-This directory contains all user and technical documentation for ClipScribe v2.44.0.
+This directory contains all user and technical documentation for ClipScribe v2.44.1 (Private Alpha).
 
 ## Key Documents
 

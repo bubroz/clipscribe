@@ -6,163 +6,129 @@
     <title>ClipScribe - Video Intelligence Extraction</title>
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
             margin: 0;
-            padding: 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
+            padding: 40px;
+            background-color: #f7f7f7;
+            color: #333;
+            line-height: 1.6;
         }
         .container {
-            max-width: 1200px;
+            max-width: 800px;
             margin: 0 auto;
-            padding: 20px;
         }
         .header {
             text-align: center;
-            color: white;
             margin-bottom: 40px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 20px;
         }
         .header h1 {
-            font-size: 3em;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            font-size: 2.5em;
+            margin: 0;
+            font-weight: 600;
         }
         .header p {
-            font-size: 1.2em;
-            opacity: 0.9;
+            font-size: 1.1em;
+            color: #666;
         }
         .card {
-            background: white;
-            border-radius: 10px;
+            background: #fff;
+            border-radius: 8px;
             padding: 30px;
-            margin: 20px 0;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border: 1px solid #eee;
+        }
+        h2 {
+            margin-top: 0;
+            font-size: 1.5em;
+            font-weight: 600;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
         }
         .status-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: 1fr 1fr;
             gap: 20px;
-            margin: 30px 0;
         }
         .status-item {
-            background: #f8f9fa;
-            border-radius: 8px;
             padding: 20px;
-            text-align: center;
+            border: 1px solid #eee;
+            border-radius: 6px;
+            background-color: #fafafa;
         }
         .status-item h3 {
             margin: 0 0 10px 0;
-            color: #333;
+            font-size: 1.1em;
+            display: flex;
+            align-items: center;
         }
         .status-dot {
             display: inline-block;
-            width: 12px;
-            height: 12px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
-            margin-right: 8px;
+            margin-right: 10px;
+            background-color: #ccc;
         }
-        .status-dot.healthy {
-            background: #28a745;
-            box-shadow: 0 0 10px rgba(40, 167, 69, 0.4);
-        }
-        .status-dot.unhealthy {
-            background: #dc3545;
-            box-shadow: 0 0 10px rgba(220, 53, 69, 0.4);
-        }
+        .status-dot.healthy { background-color: #28a745; }
+        .status-dot.unhealthy { background-color: #dc3545; }
+        #api-status-text, #web-status-text { font-size: 0.9em; color: #555; }
         .btn {
             display: inline-block;
-            padding: 12px 24px;
-            background: #667eea;
-            color: white;
+            padding: 10px 20px;
+            background: #333;
+            color: #fff;
             text-decoration: none;
-            border-radius: 6px;
-            margin: 10px 5px;
-            transition: all 0.3s ease;
+            border-radius: 5px;
+            margin-right: 10px;
+            transition: background-color 0.2s ease;
             border: none;
             cursor: pointer;
+            font-size: 1em;
         }
-        .btn:hover {
-            background: #5a67d8;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        .btn:hover { background-color: #555; }
+        .btn.secondary { background-color: #6c757d; }
+        .btn.secondary:hover { background-color: #5a6268; }
+        .video-form input {
+            width: calc(100% - 24px);
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            font-size: 1em;
         }
-        .btn.secondary {
-            background: #6c757d;
+        .video-form button {
+            width: 100%;
+            padding: 12px;
         }
-        .btn.secondary:hover {
-            background: #5a6268;
-        }
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin: 30px 0;
-        }
-        .feature {
-            text-align: center;
+        .result, .loading {
+            border: 1px solid #eee;
+            border-radius: 6px;
             padding: 20px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 8px;
-            color: white;
-        }
-        .feature h3 {
-            margin: 0 0 10px 0;
+            margin-top: 20px;
+            background-color: #fafafa;
+            display: none;
         }
         .footer {
             text-align: center;
-            color: rgba(255,255,255,0.7);
-            margin-top: 40px;
-            padding: 20px;
-        }
-        .video-form {
-            background: #f8f9fa;
-            border-radius: 8px;
-            padding: 20px;
-            margin: 20px 0;
-        }
-        .video-form input {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            margin: 10px 0;
-            font-size: 16px;
-        }
-        .video-form button {
-            background: #28a745;
-            color: white;
-            padding: 12px 24px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        .video-form button:hover {
-            background: #218838;
-        }
-        .result {
-            background: #e9ecef;
-            border-radius: 8px;
-            padding: 20px;
-            margin: 20px 0;
-            display: none;
-        }
-        .loading {
-            text-align: center;
-            padding: 20px;
-            display: none;
+            color: #999;
+            margin-top: 50px;
+            font-size: 0.9em;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>🎬 ClipScribe</h1>
-            <p>Extract knowledge and intelligence from video content</p>
+            <h1>ClipScribe</h1>
+            <p>Video Intelligence Extraction Platform</p>
         </div>
 
         <div class="card">
-            <h2>🚀 Service Status</h2>
+            <h2>Service Status</h2>
             <div class="status-grid">
                 <div class="status-item">
                     <h3><span class="status-dot healthy" id="web-status"></span>Web Interface</h3>
@@ -173,180 +139,86 @@
                     <p id="api-status-text">Checking...</p>
                 </div>
             </div>
-            <div style="text-align: center; margin-top: 20px;">
-                <a href="https://clipscribe-api-16459511304.us-central1.run.app/docs" class="btn" target="_blank">📖 API Documentation</a>
-                <button class="btn secondary" onclick="checkHealth()">🔄 Refresh Status</button>
+            <div style="margin-top: 20px;">
+                <a href="https://api.clipscribe.ai/docs" class="btn" target="_blank">API Documentation</a>
+                <button class="btn secondary" onclick="checkAPIStatus()">Refresh Status</button>
             </div>
         </div>
 
         <div class="card">
-            <h2>🎯 Process Video</h2>
+            <h2>Process a Video</h2>
             <div class="video-form">
-                <input type="url" id="video-url" placeholder="Enter YouTube URL or video link..." required>
-                <button onclick="processVideo()">🚀 Process Video</button>
+                <input type="url" id="video-url" placeholder="Enter a video URL..." required>
+                <button class="btn" onclick="processVideo()">Process Video</button>
             </div>
             <div class="loading" id="loading">
-                <h3>Processing video... Please wait ⏳</h3>
-                <p>This may take a few minutes depending on video length.</p>
+                <p>Processing video... This may take a few minutes.</p>
             </div>
             <div class="result" id="result"></div>
-        </div>
-
-        <div class="card">
-            <h2>✨ Key Features</h2>
-            <div class="features">
-                <div class="feature">
-                    <h3>🎯 Entity Extraction</h3>
-                    <p>Extract 16+ entity types with confidence scores</p>
-                </div>
-                <div class="feature">
-                    <h3>🔗 Knowledge Graphs</h3>
-                    <p>Build relationship networks from video content</p>
-                </div>
-                <div class="feature">
-                    <h3>🌐 Multi-Platform</h3>
-                    <p>Support for 1800+ video platforms</p>
-                </div>
-                <div class="feature">
-                    <h3>⚡ High Performance</h3>
-                    <p>Concurrent processing with cost optimization</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="card">
-            <h2>🛠️ Usage Instructions</h2>
-            <div style="text-align: left; max-width: 600px; margin: 0 auto;">
-                <h3>How to use ClipScribe:</h3>
-                <ol>
-                    <li><strong>Enter Video URL:</strong> Paste a YouTube URL or any supported video platform URL</li>
-                    <li><strong>Click Process:</strong> Hit the "Process Video" button to start analysis</li>
-                    <li><strong>Wait for Results:</strong> Processing typically takes 2-5 minutes depending on video length</li>
-                    <li><strong>Review Output:</strong> Get detailed entity extraction, relationships, and insights</li>
-                </ol>
-                <h3>Supported Platforms:</h3>
-                <p>YouTube, Twitter/X, TikTok, Vimeo, and 1800+ other video platforms</p>
-            </div>
         </div>
     </div>
 
     <div class="footer">
-        <p>&copy; 2025 ClipScribe - Video Intelligence Extraction Platform</p>
+        <p>&copy; 2025 ClipScribe</p>
     </div>
 
     <script>
-        const API_BASE_URL = 'https://clipscribe-api-16459511304.us-central1.run.app';
+        const API_BASE_URL = 'https://api.clipscribe.ai';
 
         async function checkAPIStatus() {
+            const statusDot = document.getElementById('api-status');
+            const statusText = document.getElementById('api-status-text');
+            
+            statusDot.classList.remove('healthy', 'unhealthy');
+            statusText.textContent = 'Checking...';
+
             try {
-                const response = await fetch(`${API_BASE_URL}/`);
+                const response = await fetch(`${API_BASE_URL}/docs`);
                 if (response.ok) {
-                    document.getElementById('api-status').classList.add('healthy');
-                    document.getElementById('api-status-text').textContent = 'Healthy';
+                    statusDot.classList.add('healthy');
+                    statusText.textContent = 'Healthy';
                     return true;
                 } else {
                     throw new Error(`HTTP ${response.status}`);
                 }
             } catch (error) {
-                document.getElementById('api-status').classList.add('unhealthy');
-                document.getElementById('api-status-text').textContent = `Error: ${error.message}`;
+                statusDot.classList.add('unhealthy');
+                statusText.textContent = `Error: Failed to fetch`;
                 return false;
             }
-        }
-
-        function checkHealth() {
-            document.getElementById('api-status').classList.remove('healthy', 'unhealthy');
-            document.getElementById('api-status-text').textContent = 'Checking...';
-            checkAPIStatus();
         }
 
         async function processVideo() {
             const url = document.getElementById('video-url').value.trim();
             if (!url) {
-                alert('Please enter a video URL');
+                alert('Please enter a video URL.');
                 return;
             }
 
-            // Show loading
             document.getElementById('loading').style.display = 'block';
             document.getElementById('result').style.display = 'none';
 
             try {
-                // Check API status first
                 const apiHealthy = await checkAPIStatus();
                 if (!apiHealthy) {
-                    throw new Error('API service is not available. Please try again later.');
+                    throw new Error('API service is not available.');
                 }
 
-                // Process video
-                const response = await fetch(`${API_BASE_URL}/process`, {
+                const response = await fetch(`${API_BASE_URL}/v1/jobs`, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
+                    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer your-token' },
                     body: JSON.stringify({ url: url })
                 });
 
                 if (!response.ok) {
                     const errorData = await response.json().catch(() => ({}));
-                    throw new Error(errorData.detail || `HTTP ${response.status}: ${response.statusText}`);
+                    throw new Error(errorData.message || `HTTP ${response.status}`);
                 }
 
                 const data = await response.json();
-                const jobId = data.job_id;
-
-                // Poll for results
-                let attempts = 0;
-                const maxAttempts = 120; // 10 minutes max
-                const pollInterval = 5000; // 5 seconds
-
-                const pollResults = async () => {
-                    attempts++;
-                    try {
-                        const statusResponse = await fetch(`${API_BASE_URL}/status/${jobId}`);
-                        if (!statusResponse.ok) {
-                            throw new Error(`Status check failed: ${statusResponse.status}`);
-                        }
-
-                        const statusData = await statusResponse.json();
-
-                        if (statusData.status === 'completed') {
-                            // Get final results
-                            const resultResponse = await fetch(`${API_BASE_URL}/result/${jobId}`);
-                            if (resultResponse.ok) {
-                                const resultData = await resultResponse.json();
-                                displayResults(resultData);
-                            } else {
-                                throw new Error('Failed to get results');
-                            }
-                            return;
-                        } else if (statusData.status === 'failed') {
-                            throw new Error(statusData.error || 'Processing failed');
-                        } else if (statusData.status === 'processing') {
-                            // Continue polling
-                            if (attempts < maxAttempts) {
-                                setTimeout(pollResults, pollInterval);
-                            } else {
-                                throw new Error('Processing timed out after 10 minutes');
-                            }
-                        } else {
-                            throw new Error(`Unknown status: ${statusData.status}`);
-                        }
-                    } catch (error) {
-                        console.error('Polling error:', error);
-                        if (attempts < maxAttempts) {
-                            setTimeout(pollResults, pollInterval);
-                        } else {
-                            throw error;
-                        }
-                    }
-                };
-
-                // Start polling
-                setTimeout(pollResults, pollInterval);
+                displayResults(data);
 
             } catch (error) {
-                console.error('Processing error:', error);
                 displayError(error.message);
             } finally {
                 document.getElementById('loading').style.display = 'none';
@@ -356,57 +228,26 @@
         function displayResults(data) {
             const resultDiv = document.getElementById('result');
             resultDiv.style.display = 'block';
-
-            let html = '<h3>🎉 Processing Complete!</h3>';
-
-            if (data.entities && data.entities.length > 0) {
-                html += `<p><strong>📊 Found ${data.entities.length} entities:</strong></p>`;
-                html += '<ul>';
-                data.entities.slice(0, 10).forEach(entity => {
-                    html += `<li><strong>${entity.name}</strong> (${entity.type}) - ${(entity.confidence * 100).toFixed(1)}% confidence</li>`;
-                });
-                if (data.entities.length > 10) {
-                    html += `<li>... and ${data.entities.length - 10} more entities</li>`;
-                }
-                html += '</ul>';
-            }
-
-            if (data.relationships && data.relationships.length > 0) {
-                html += `<p><strong>🔗 Found ${data.relationships.length} relationships:</strong></p>`;
-                html += '<ul>';
-                data.relationships.slice(0, 5).forEach(rel => {
-                    html += `<li>${rel.source} → ${rel.target} (${rel.type})</li>`;
-                });
-                if (data.relationships.length > 5) {
-                    html += `<li>... and ${data.relationships.length - 5} more relationships</li>`;
-                }
-                html += '</ul>';
-            }
-
-            if (data.processing_cost) {
-                html += `<p><strong>💰 Processing Cost:</strong> $${data.processing_cost.toFixed(4)}</p>`;
-            }
-
-            html += '<p><a href="https://clipscribe-api-16459511304.us-central1.run.app/docs" target="_blank" class="btn">📖 View Full API Documentation</a></p>';
-
-            resultDiv.innerHTML = html;
+            resultDiv.innerHTML = `
+                <h3>Processing Job Submitted</h3>
+                <p><strong>Job ID:</strong> ${data.job_id}</p>
+                <p><strong>Status:</strong> ${data.state}</p>
+                <p>You can now monitor the job progress via the API.</p>
+            `;
         }
 
         function displayError(message) {
             const resultDiv = document.getElementById('result');
             resultDiv.style.display = 'block';
             resultDiv.innerHTML = `
-                <h3>❌ Processing Failed</h3>
-                <p><strong>Error:</strong> ${message}</p>
-                <p>Please check your video URL and try again. If the problem persists, contact support.</p>
+                <h3>Error</h3>
+                <p>${message}</p>
             `;
         }
 
-        // Check API status on page load
+        // Initial status check
         checkAPIStatus();
-
-        // Refresh status every 30 seconds
-        setInterval(checkAPIStatus, 30000);
+        setInterval(checkAPIStatus, 30000); // Refresh every 30 seconds
     </script>
 </body>
 </html>

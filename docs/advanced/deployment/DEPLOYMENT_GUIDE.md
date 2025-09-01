@@ -1,20 +1,50 @@
 # ClipScribe Deployment Guide
 
-*Last Updated: 2025-08-26*
+*Last Updated: 2025-08-31*
 *Version: v2.44.0*
+*Status: Beta Deployment Strategy*
 
 ## Overview
 
-ClipScribe is designed for a scalable, multi-service deployment on **Google Cloud Run**. This guide provides the definitive instructions for deploying the API and web services using the automated `cloudbuild.yaml` pipeline.
+ClipScribe is designed for a scalable, multi-service deployment on **Google Cloud Run**. This guide provides instructions for deploying ClipScribe in beta/production environments.
+
+**⚠️ IMPORTANT**: ClipScribe is currently in private alpha. This deployment guide is for beta testers and the development team only.
+
+## Beta Deployment Timeline
+
+### Phase 1: Infrastructure (Month 1)
+- Deploy API and Web services ✅
+- Deploy Worker service (Cloud Run + Compute Engine) ⏳
+- Implement monitoring and alerting
+- Add cost controls and emergency stops
+
+### Phase 2: Alpha Testing (Month 2)
+- Deploy token authentication system
+- Onboard 5-10 alpha testers
+- Manual monitoring and support
+- Gather feedback and iterate
+
+### Phase 3: Beta Testing (Month 3-4)
+- Scale to 20-50 beta users
+- Implement usage tracking
+- Add automated monitoring
+- Prepare for payments
+
+### Phase 4: Production (Month 5-6)
+- Enable Stripe integration
+- Launch marketing website
+- Open public access
+- Scale infrastructure
 
 ## Architecture
 
-The production environment consists of two core services:
+The production environment consists of three core services:
 
-1.  **`clipscribe-api`**: A FastAPI application that handles all video processing, analysis, and data storage.
-2.  **`clipscribe-web`**: A lightweight static web server that provides the user interface.
+1.  **`clipscribe-api`**: A FastAPI application that handles job queueing and API endpoints
+2.  **`clipscribe-web`**: A lightweight static web server that provides the user interface
+3.  **`clipscribe-worker`**: A hybrid worker service (Cloud Run + Compute Engine) that processes videos
 
-These services are deployed as separate containers but are designed to work together.
+These services are deployed as separate containers but work together through Redis and Cloud Tasks.
 
 ## Automated Deployment with Cloud Build
 

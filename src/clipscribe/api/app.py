@@ -9,7 +9,7 @@ import asyncio
 import hashlib
 from datetime import datetime, timezone, timedelta
 
-from fastapi import FastAPI, Header, Request
+from fastapi import FastAPI, Header, Request, HTTPException
 from fastapi.responses import JSONResponse, StreamingResponse
 from pydantic import BaseModel, Field
 from fastapi.middleware.cors import CORSMiddleware
@@ -19,6 +19,8 @@ import redis
 from redis import Redis as RedisClient
 from clipscribe.config.settings import Settings
 from .estimator import estimate_job
+from .monitoring import get_metrics_collector, get_alert_manager, get_health_checker, setup_default_alerts
+from .retry_manager import get_retry_manager
 
 
 class SubmitByUrl(BaseModel):
@@ -385,6 +387,27 @@ def _ensure_processing(job: Job, source: Dict[str, Any]) -> None:
     asyncio.create_task(_enqueue_job_processing(job, source))
 
 
+@app.post("/v1/admin/pause")
+async def pause_api(authorization: Optional[str] = Header(default=None, alias="Authorization")):
+    # In a real application, you would protect this with a secure admin key
+    if not authorization:
+        return _error("unauthorized", "Missing or invalid admin token", status=401)
+
+    _r_set("cs:api:paused", "1", ex=3600)  # Pauses for 1 hour
+    return {"status": "API processing is now paused for one hour."}
+
+@app.post("/v1/admin/resume")
+async def resume_api(authorization: Optional[str] = Header(default=None, alias="Authorization")):
+    # In a real application, you would protect this with a secure admin key
+    if not authorization:
+        return _error("unauthorized", "Missing or invalid admin token", status=401)
+    
+    conn = redis_conn
+    if conn:
+        conn.delete("cs:api:paused")
+    return {"status": "API processing is now resumed."}
+
+
 @app.post("/v1/jobs", response_model=None, status_code=202)
 async def create_job(
     req: Request,
@@ -394,6 +417,10 @@ async def create_job(
 ) -> JSONResponse | Job:
     if not authorization:
         return _error("invalid_input", "Missing or invalid bearer token", status=401)
+
+    # Check if the API is paused
+    if _r_get("cs:api:paused") == "1":
+        return _error("service_unavailable", "The API is temporarily paused for maintenance.", status=503, retry_after_seconds=300)
 
     if not ("url" in body or "gcs_uri" in body):
         return _error("invalid_input", "Provide either url or gcs_uri", status=400)
@@ -532,6 +559,13 @@ async def get_job_events(
     return StreamingResponse(stream(), media_type="text/event-stream")
 
 
+@app.get("/v1/status", response_model=None)
+async def get_status(authorization: Optional[str] = Header(default=None, alias="Authorization")):
+    if not authorization:
+        return _error("invalid_input", "Missing or invalid bearer token", status=401)
+    return {"status": "healthy"}
+
+
 @app.get("/v1/jobs/{job_id}/artifacts", response_model=None)
 async def list_artifacts(
     job_id: str, authorization: Optional[str] = Header(default=None, alias="Authorization")
@@ -647,3 +681,179 @@ async def metrics() -> Response:
     from fastapi.responses import PlainTextResponse
 
     return PlainTextResponse(content)
+
+
+# ---- Monitoring Endpoints ----
+@app.get("/v1/health")
+async def health_check():
+    """Comprehensive health check for the API service."""
+    try:
+        # Check Redis connectivity
+        if redis_conn:
+            redis_conn.ping()
+
+        # Check GCS access if configured
+        gcs_status = "not_configured"
+        bucket = os.getenv("GCS_BUCKET")
+        if bucket:
+            try:
+                from google.cloud import storage
+                client = storage.Client()
+                client.bucket(bucket).reload()
+                gcs_status = "healthy"
+            except Exception:
+                gcs_status = "unhealthy"
+
+        # Check queue availability
+        queue_status = "healthy" if job_queue else "not_configured"
+
+        return {
+            "status": "healthy",
+            "timestamp": datetime.utcnow().isoformat(),
+            "redis": True if redis_conn else False,
+            "gcs": gcs_status,
+            "queue": queue_status,
+            "version": "1.0.0"
+        }
+
+    except Exception as e:
+        logger = logging.getLogger(__name__)
+        logger.error(f"Health check failed: {e}")
+        return {
+            "status": "unhealthy",
+            "timestamp": datetime.utcnow().isoformat(),
+            "error": str(e)
+        }
+
+
+@app.get("/v1/monitoring/metrics")
+async def get_monitoring_metrics():
+    """Get comprehensive monitoring metrics."""
+    try:
+        metrics_collector = get_metrics_collector(redis_conn)
+        alert_manager = get_alert_manager(redis_conn)
+
+        # Collect current metrics
+        metrics_collector.collect_system_metrics()
+        metrics_collector.collect_application_metrics(redis_conn)
+
+        # Get active alerts
+        alerts = alert_manager.get_active_alerts()
+
+        return {
+            "timestamp": datetime.utcnow().isoformat(),
+            "system_metrics": {
+                "cpu_usage_percent": metrics_collector.get_metric("cpu_usage_percent"),
+                "memory_usage_percent": metrics_collector.get_metric("memory_usage_percent"),
+                "disk_usage_percent": metrics_collector.get_metric("disk_usage_percent")
+            },
+            "application_metrics": {
+                "active_jobs": _r_scard("cs:active_jobs"),
+                "queue_backlog": _r_scard("cs:queue:short") + _r_scard("cs:queue:long")
+            },
+            "alerts": {
+                "active_count": len(alerts),
+                "critical_count": len([a for a in alerts if a.get('severity') == 'critical']),
+                "active_alerts": alerts[:10]  # Limit to 10 most recent
+            }
+        }
+
+    except Exception as e:
+        logger = logging.getLogger(__name__)
+        logger.error(f"Failed to get monitoring metrics: {e}")
+        return {
+            "timestamp": datetime.utcnow().isoformat(),
+            "error": str(e)
+        }
+
+
+@app.get("/v1/monitoring/alerts")
+async def get_alerts():
+    """Get current active alerts."""
+    try:
+        alert_manager = get_alert_manager(redis_conn)
+        alerts = alert_manager.get_active_alerts()
+
+        return {
+            "timestamp": datetime.utcnow().isoformat(),
+            "active_alerts": alerts,
+            "total_count": len(alerts),
+            "critical_count": len([a for a in alerts if a.get('severity') == 'critical'])
+        }
+
+    except Exception as e:
+        logger = logging.getLogger(__name__)
+        logger.error(f"Failed to get alerts: {e}")
+        return {
+            "timestamp": datetime.utcnow().isoformat(),
+            "error": str(e),
+            "active_alerts": [],
+            "total_count": 0
+        }
+
+
+@app.get("/v1/monitoring/queue-status")
+async def get_queue_status():
+    """Get detailed queue status for monitoring."""
+    try:
+        short_queue_len = _r_scard("cs:queue:short")
+        long_queue_len = _r_scard("cs:queue:long")
+        active_jobs = _r_scard("cs:active_jobs")
+
+        # Get job states distribution
+        job_states = {}
+        if redis_conn:
+            try:
+                pattern = "cs:job:*"
+                for key in redis_conn.scan_iter(pattern):
+                    state = redis_conn.hget(key, "state")
+                    if state:
+                        state_str = state.decode()
+                        job_states[state_str] = job_states.get(state_str, 0) + 1
+            except:
+                pass
+
+        return {
+            "timestamp": datetime.utcnow().isoformat(),
+            "queues": {
+                "short": short_queue_len,
+                "long": long_queue_len,
+                "total": short_queue_len + long_queue_len
+            },
+            "active_jobs": active_jobs,
+            "job_states": job_states,
+            "redis_available": True
+        }
+
+    except Exception as e:
+        logger = logging.getLogger(__name__)
+        logger.error(f"Failed to get queue status: {e}")
+        return {
+            "timestamp": datetime.utcnow().isoformat(),
+            "error": str(e),
+            "redis_available": False
+        }
+
+
+@app.get("/v1/monitoring/dead-letter-queue")
+async def get_dead_letter_queue(limit: int = 20):
+    """Get contents of dead letter queue."""
+    try:
+        retry_manager = get_retry_manager(redis_conn)
+        dead_letters = retry_manager.get_dead_letter_queue(limit)
+
+        return {
+            "timestamp": datetime.utcnow().isoformat(),
+            "dead_letters": dead_letters,
+            "total_count": len(dead_letters)
+        }
+
+    except Exception as e:
+        logger = logging.getLogger(__name__)
+        logger.error(f"Failed to get dead letter queue: {e}")
+        return {
+            "timestamp": datetime.utcnow().isoformat(),
+            "error": str(e),
+            "dead_letters": [],
+            "total_count": 0
+        }

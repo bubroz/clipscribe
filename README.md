@@ -6,32 +6,33 @@
 ![Python](https://img.shields.io/badge/python-3.12-blue)
 ![License](https://img.shields.io/badge/license-Proprietary-red)
 ![Version](https://img.shields.io/badge/version-v2.44.0-informational)
-![Status](https://img.shields.io/badge/status-live-success)
+![Status](https://img.shields.io/badge/status-private%20alpha-yellow)
 
 *Transform video content into structured, searchable, and reportable intelligence*
 
-[Live Demo](#live-demo) | [Features](#features) | [Installation](#installation) | [Quick Start](#quick-start) | [Documentation](#documentation)
+[Features](#features) | [Installation](#installation) | [Quick Start](#quick-start) | [Documentation](#documentation) | [Beta Access](#beta-access)
 
 ---
 
 ClipScribe extracts and analyzes structured data from video content through entity recognition, relationship mapping, and key insight identification. Built for researchers, analysts, and organizations requiring reliable video intelligence.
 
-## Live Demo (NEW)
+## ⚠️ Current Status: Private Alpha
 
-The ClipScribe API and web interface are now live on Google Cloud Run:
+ClipScribe is currently in private alpha testing. The service is not yet available for public use.
 
-- **🚀 API Service:** [https://clipscribe-api-16459511304.us-central1.run.app](https://clipscribe-api-16459511304.us-central1.run.app)
-- **🌐 Web Service:** [https://clipscribe-web-16459511304.us-central1.run.app](https://clipscribe-web-16459511304.us-central1.run.app)
+- **Worker Service**: Under development
+- **Beta Timeline**: Private alpha (Month 1-2) → Closed beta (Month 3-4) → Public launch (Month 6)
+- **Early Access**: Contact zforristall@gmail.com for beta access consideration
 
-## v2.44.0 - Production Deployment Achieved
+## v2.44.0 - Infrastructure Ready for Beta
 
-**🎉 PRODUCTION DEPLOYMENT SUCCESS**: Successfully deployed the API and web services to Google Cloud Run with a stable, automated pipeline.
+**🚧 PRIVATE ALPHA DEPLOYMENT**: Successfully deployed API and web services to Google Cloud Run, worker service in development.
 
 **🎯 KEY ACHIEVEMENTS**:
-- **Live Services**: API and web front end are now live and serving traffic.
-- **Dockerfile Refactor**: Overhauled the `Dockerfile` for smaller, faster, and more reliable builds.
-- **Critical Bug Fixes**: Resolved all deployment-blocking issues, including dependency conflicts and configuration errors.
-- **Stable CI/CD**: Established a reliable build and deployment pipeline using Google Cloud Build.
+- **Infrastructure Deployed**: API and web services are deployed but access-restricted
+- **Worker Development**: Hybrid Cloud Run + Compute Engine architecture in progress
+- **Monitoring & Retry**: Comprehensive error handling and monitoring systems implemented
+- **Cost Controls**: Emergency stop mechanisms and budget limits in place
 
 **🔧 PRODUCTION CAPABILITIES**:
 - Complete video intelligence extraction and analysis
@@ -354,17 +355,44 @@ poetry run clipscribe process video URL --mode video      # Full video processin
 - **Storage**: ~50-200KB per video for complete output files
 - **Memory**: 4GB+ recommended for multi-video collections
 
+## Beta Access
+
+ClipScribe is following a phased release strategy:
+
+### Private Alpha (Current Phase)
+- Limited to 5-10 trusted testers
+- Direct invitation only
+- Focus on core functionality validation
+
+### Closed Beta (Coming Soon)
+- 20-50 selected users
+- Application-based access
+- Token-based authentication
+- Free usage with feedback requirements
+
+### Planned Pricing (Post-Launch)
+- Student/Educator: $39/month (40 videos, <90 min each)
+- Researcher: $79/month (100 videos, <2 hours each)
+- Analyst: $199/month (200 videos, <3 hours each)
+- Enterprise: $999/month (1000 videos, unlimited length)
+- Pay-per-video: $0.99-$14.99 based on length
+
+To request beta access, email zforristall@gmail.com with:
+- Your use case and research interests
+- Expected video processing volume
+- Preferred video platforms
+
 ## License
 
 MIT License - see [LICENSE](LICENSE) file for details.
 
 ---
 
-**ClipScribe v2.44.0 - Live on Google Cloud Run**
+**ClipScribe v2.44.0 - Private Alpha**
 
 *Gemini 2.5 Pro is the default for the best results, with an optional `--use-flash` flag for speed.*
 
-**Current Status**: API and web services are live and operational. The system is ready for production use.
+**Current Status**: Infrastructure deployed, worker service under development. Not yet available for public use.
 
 ## Contributing & Extending
 

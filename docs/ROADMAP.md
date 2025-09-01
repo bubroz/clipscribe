@@ -1,22 +1,22 @@
 # ClipScribe Strategic Roadmap: From Tool to SaaS Platform
 
-*Last Updated: 2025-08-26*
+*Last Updated: 2025-09-01*
 
 ## Strategic Vision: The Video Intelligence SaaS Platform
 
-Following a successful production deployment to Google Cloud Run, ClipScribe is now positioned to evolve from a CLI-first tool to a **web-based SaaS platform**. Our mission is to democratize video intelligence, making professional-grade analysis accessible to individual researchers, analysts, and small teams.
+ClipScribe is evolving from a CLI-first tool to a **web-based SaaS platform**. Our mission is to democratize video intelligence, making professional-grade analysis accessible to individual researchers, analysts, and small teams.
 
-Our core competitive advantage is our ability to provide deep intelligence extraction at a radically disruptive price point, now proven in a scalable, cloud-native environment.
+Our core competitive advantage is our ability to provide deep intelligence extraction at a radically disruptive price point, with a clear path to scalable deployment.
 
 ---
 
-## Current Status: Production Deployment Live
+## Current Status: Private Alpha
 
-**🎉 PRODUCTION DEPLOYMENT SUCCESS**: ClipScribe v2.44.0 is now live on Google Cloud Run.
+**⚠️ PRIVATE ALPHA**: ClipScribe v2.44.0 is deployed to Google Cloud Run but NOT publicly available.
 
-- **Live Services**: The API and web front end are operational and serving traffic.
-- **Stable CI/CD Pipeline**: Automated builds and deployments are reliable.
-- **Enterprise-Ready Foundation**: The core application is built on a robust, well-tested, and scalable architecture.
+- **Infrastructure Ready**: API and web services are deployed but access-restricted
+- **Worker Service**: In development with hybrid Cloud Run + Compute Engine architecture
+- **Beta Timeline**: Private alpha (Month 1-2) → Closed beta (Month 3-4) → Public launch (Month 6+)
 
 ---
 

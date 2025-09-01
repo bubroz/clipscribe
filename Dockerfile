@@ -63,9 +63,17 @@ FROM base as api
 
 # Explicitly install API dependencies using pip to ensure they are available
 USER root
-RUN pip install --no-cache-dir fastapi uvicorn[standard] redis rq pydantic-settings
+RUN pip install --no-cache-dir fastapi uvicorn[standard] redis rq pydantic-settings google-cloud-storage
+
+# Create required directories with proper permissions
+RUN mkdir -p /app/output /app/logs /app/output/video_archive && \
+    chown -R clipscribe:clipscribe /app
+
 COPY --chown=clipscribe:clipscribe src ./src
 USER clipscribe
+
+# Set working directory
+WORKDIR /app
 
 # Expose the API port
 EXPOSE 8000
@@ -75,7 +83,7 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
     CMD curl --fail http://localhost:8000/docs || exit 1
 
 # Command to run the API server
-CMD ["uvicorn", "clipscribe.api.app:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "src.clipscribe.api.app:app", "--host", "0.0.0.0", "--port", "8000"]
 
 
 # --- Web Stage ---
@@ -83,9 +91,13 @@ FROM base as web
 
 # Copy the application source code and static files
 USER root
+RUN mkdir -p /app/static_web && chown -R clipscribe:clipscribe /app
 COPY --chown=clipscribe:clipscribe src ./src
 COPY --chown=clipscribe:clipscribe static_web ./static_web
 USER clipscribe
+
+# Set working directory
+WORKDIR /app
 
 # Expose the web server port
 EXPOSE 8080
@@ -96,6 +108,34 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
 
 # Command to run the web server
 CMD ["python3", "-m", "http.server", "8080", "--directory", "/app/static_web"]
+
+
+# --- Worker Stage ---
+FROM base as worker
+
+# Explicitly install worker dependencies using pip
+USER root
+RUN pip install --no-cache-dir fastapi uvicorn[standard] redis rq pydantic-settings google-cloud-storage google-cloud-tasks
+
+# Create required directories with proper permissions
+RUN mkdir -p /app/temp /app/logs /app/output && \
+    chown -R clipscribe:clipscribe /app
+
+COPY --chown=clipscribe:clipscribe src ./src
+USER clipscribe
+
+# Set working directory
+WORKDIR /app
+
+# Expose the worker port
+EXPOSE 8080
+
+# Health check for the worker
+HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
+    CMD curl --fail http://localhost:8080/health || exit 1
+
+# Command to run the worker server
+CMD ["uvicorn", "src.clipscribe.api.worker_server:app", "--host", "0.0.0.0", "--port", "8080"]
 
 
 # --- CLI Stage (for local development/testing) ---

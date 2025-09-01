@@ -1,11 +1,13 @@
 # ClipScribe API Quickstart
 
-*Last Updated: 2025-08-26*
+*Last Updated: 2025-09-01*
 
 This guide shows how to use the API v1 to submit a job, watch progress, and download artifacts.
 
+**⚠️ PRIVATE ALPHA**: The API is currently restricted to authorized beta testers only. Contact zforristall@gmail.com for access.
+
 ## Base URL
-- Production: `https://clipscribe-api-16459511304.us-central1.run.app`
+- Private Alpha: `https://clipscribe-api-16459511304.us-central1.run.app` (token required)
 
 OpenAPI: `GET /openapi.json`
 

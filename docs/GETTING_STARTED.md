@@ -3,14 +3,14 @@
 *Last Updated: 2025-08-26*
 *Related: [CLI Reference](CLI_REFERENCE.md) | [Output Formats](OUTPUT_FORMATS.md)*
 
-## What's New: v2.44.0 — Production Deployment Live!
+## What's New: v2.44.0 — Private Alpha Release
 
-**ClipScribe v2.44.0** is now live on Google Cloud Run with a stable, automated deployment pipeline.
+**ClipScribe v2.44.0** is deployed to Google Cloud Run in private alpha testing mode.
 
-- **🚀 Live Services**: API and web front end are now live and serving traffic.
-- **🔧 Stable Build Pipeline**: A robust multi-stage `Dockerfile` provides reliable and efficient builds.
-- **🐛 Core Functionality is Solid**: All critical bugs that were blocking deployment have been resolved.
-- **✅ Enterprise-Ready**: Comprehensive test coverage and a stable production environment.
+- **🔒 Private Alpha**: Services are deployed but access is restricted to alpha testers only
+- **🔧 Infrastructure Ready**: API, web UI, and worker services configured for beta testing
+- **📦 Optimized Architecture**: Hybrid Cloud Run + Compute Engine for cost-effective processing
+- **⏳ Beta Timeline**: Public launch planned for Month 6+ after thorough testing
 
 ## Prerequisites
 

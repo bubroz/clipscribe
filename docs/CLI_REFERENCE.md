@@ -1,10 +1,10 @@
 # ClipScribe CLI Reference
 
-*Last Updated: 2025-08-26 - v2.44.0*
+*Last Updated: 2025-09-01 - v2.44.0*
 
 Complete reference for all ClipScribe commands, groups, and options.
 
-**Current Status**: Enterprise-ready CLI with 99% coverage and comprehensive validation. The API and web services are now live on Google Cloud Run.
+**Current Status**: Enterprise-ready CLI with 99% coverage and comprehensive validation. The system is in private alpha testing - not yet available for public use.
 
 ## Installation Options
 
