@@ -544,7 +544,7 @@ async def create_job(
                 return j
 
         job_id = uuid.uuid4().hex
-        bucket = os.getenv("GCS_BUCKET", "mock-bucket")
+        bucket = os.getenv("GCS_BUCKET", "mock-bucket").strip()  # Remove any whitespace/newlines
         manifest_url = f"https://storage.googleapis.com/{bucket}/jobs/{job_id}/manifest.json"
         job = Job(job_id=job_id, state="QUEUED", manifest_url=manifest_url)
         _save_job(job)

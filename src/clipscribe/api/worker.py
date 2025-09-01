@@ -30,7 +30,7 @@ async def _process_payload(job_id: str, payload: Dict[str, Any]) -> None:
     try:
         logger.info(f"Starting job processing: {job_id}")
 
-        bucket = os.getenv("GCS_BUCKET")
+        bucket = os.getenv("GCS_BUCKET", "").strip()  # Remove any whitespace/newlines
         if not bucket:
             raise ValueError("GCS_BUCKET not configured")
 
