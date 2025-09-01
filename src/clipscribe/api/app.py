@@ -7,12 +7,15 @@ import time
 import uuid
 import asyncio
 import hashlib
+import logging
 from datetime import datetime, timezone, timedelta
 
 from fastapi import FastAPI, Header, Request, HTTPException
 from fastapi.responses import JSONResponse, StreamingResponse
 from pydantic import BaseModel, Field
 from fastapi.middleware.cors import CORSMiddleware
+
+logger = logging.getLogger(__name__)
 from starlette.responses import Response
 from rq import Queue
 import redis
