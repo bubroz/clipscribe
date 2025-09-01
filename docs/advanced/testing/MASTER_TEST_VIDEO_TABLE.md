@@ -249,3 +249,24 @@ poetry run clipscribe collection series \
 | Video | URL | Title | Notes |
 |---|---|---|---|
 | User Video 1 | https://www.youtube.com/watch?v=V9VEvGSzzk0 | These 8 Companies You've Never Heard Of Sell Your Personal Data to the Cops  Ep. 162: Hieu | OSINT / Privacy |
+
+## 🎯 **Mike Benz Cyber** (Rich Source for Testing)
+
+**Channel:** Mike Benz Cyber Official  
+**URL:** https://www.youtube.com/@MikeBenzCyberOfficial/videos  
+**Topics:** Cybersecurity, surveillance, censorship, tech policy, geopolitics  
+**Testing Purpose:** Complex entity extraction, technical/policy relationships, varied formats  
+**Demo Value:** Excellent for IC/DoD analysts - cutting-edge tech policy analysis
+
+| Sample Videos | Description | Testing Focus |
+|---|---|---|
+| Recent uploads | Check channel for latest | Varied length (5min - 2hr+) |
+| Policy analysis | Deep dives on tech censorship | Complex entity chains |
+| Interview format | Various guest appearances | Multi-speaker extraction |
+| Short clips | Quick explainers | Rapid extraction test |
+
+*Note: Mike Benz content is particularly rich for:*
+- Technical entity extraction (platforms, protocols, organizations)
+- Policy relationship mapping (government, tech companies, NGOs)
+- Temporal analysis (policy evolution over time)
+- Cross-reference validation (mentions of documents, reports, cases)

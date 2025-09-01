@@ -358,7 +358,8 @@ async def _enqueue_job_processing(job: Job, source: Dict[str, Any]) -> None:
             job.state = "QUEUED"
             job.updated_at = _now_iso()
             if redis_conn:
-                redis_conn.hset(f"cs:job:{job.job_id}", "task_name", task_name)
+                # Store task name in a separate key to avoid type conflicts
+                redis_conn.set(f"cs:job:{job.job_id}:task_name", task_name)
             _save_job(job)
             logger.info(f"Job {job.job_id} enqueued successfully: {task_name}")
         else:
