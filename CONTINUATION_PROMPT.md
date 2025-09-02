@@ -1,46 +1,54 @@
 # ClipScribe AI Assistant Continuation Prompt
 
-## Current State (2025-09-01 14:50 PDT)
+## Current State (2025-09-01 17:53 PDT)
 
 ### Latest Version: v2.45.0
-- **✅ Production Architecture**: Google Cloud Tasks queue system with hybrid worker deployment
-- **✅ Security Fixed**: Proper token validation and real job processing implemented
-- **✅ Worker Infrastructure**: Cloud Run for short videos, Compute Engine for long videos
-- **📋 Documentation**: All docs updated to v2.45.0 with architecture changes
+- **✅ Production Architecture**: Google Cloud Tasks queue system deployed
+- **✅ Dependencies Fixed**: All worker dependencies installed (yt-dlp, etc.)
+- **❌ CRITICAL ISSUE**: Cloud Run timeouts preventing video processing
+- **📋 Testing PRDs**: Comprehensive testing framework documented
 
 ### Recent Changes
-- **v2.45.0** (2025-09-01): Implemented Google Cloud Tasks with proper queue architecture
-- **Security Fix** (2025-09-01): Fixed critical issue where API accepted any bearer token
-- **v2.44.1** (2025-09-01): Implemented retry logic and comprehensive monitoring systems
-- **Documentation** (2025-09-01): Updated all docs to reflect production architecture
+- **v2.45.0** (2025-09-01): Cloud Tasks integration, fixed all dependencies
+- **Testing PRDs** (2025-09-01): Created TEST_VALIDATION_PRD and MODEL_COMPARISON_PRD
+- **Roadmap Update** (2025-09-01): Prioritized testing phase before commercialization
+- **Critical Finding** (2025-09-01): Cloud Run Services timeout after ~80 seconds
 
-### What's Working Well
-- **✅ API Service**: Live with proper token validation and Cloud Tasks integration
-- **✅ Web Interface**: Live at `clipscribe.ai` with valid beta token configured
-- **✅ Queue System**: Google Cloud Tasks with automatic retry and guaranteed delivery
-- **✅ Worker Architecture**: Hybrid Cloud Run + Compute Engine with intelligent routing
-- **✅ Cost Controls**: Emergency pause mechanism and queue-based rate limiting
+### Critical Issues
+- **🚨 Worker Timeout**: Cloud Run killing workers before video processing completes
+- **🚨 Model Decision**: Need to test Flash vs Pro to determine pricing strategy
+- **🚨 No Caching**: Re-downloading videos for each test wastes time/bandwidth
 
-### Next Steps
-- **🚀 Create Cloud Tasks Queues**: Run queue creation commands for short/long video queues
-- **🔧 Deploy Worker Update**: Deploy v2.45.0 with Cloud Tasks integration
-- **🧪 Test End-to-End**: Verify complete job processing flow works
-- **📜 Legal Framework**: Create ToS, Privacy Policy, compliance docs before beta
-- **💳 Payment Integration**: Configure Stripe for subscription management (Month 5+)
+### Immediate Next Steps
+1. **Convert to Cloud Run Jobs**: 24-hour timeout vs 60-minute (REQUIRED)
+2. **Implement Caching**: Store downloaded videos locally
+3. **Add Model Selection**: Enable Flash/Pro comparison
+4. **Run Baseline Tests**: 50+ videos across all categories
+5. **Make Model Decision**: Based on quality vs cost analysis
 
-### **CURRENT STATUS & PRIORITIES** 🗺️
+### **TESTING CONTEXT** 🧪
 
-#### **🎯 IMMEDIATE PRIORITIES (Next 2 Weeks)**
-1. **Deploy Worker Service**: Implement hybrid worker with monitoring
-2. **Implement Retry Logic**: Add failure handling from PRD
-3. **Add Cost Monitoring**: Ensure we stay within $100/month budget
-4. **Create Token System**: Implement beta token management
+#### **Key Discoveries**
+- **Cloud Run Services**: Timeout after ~80 seconds (not 60 minutes!)
+- **CPU Throttling**: Background tasks get near-zero CPU after HTTP response
+- **Cost Reality**: Gemini 2.5 Pro is 5-6x more expensive than Flash
+- **No Arbitrary Minimums**: Removed hardcoded entity/relationship minimums
 
-#### **📅 BETA ROADMAP**
-- **Month 1**: Infrastructure deployment, safety mechanisms
-- **Month 2**: Private alpha with 5-10 trusted users
-- **Month 3-4**: Closed beta with 20-50 users
-- **Month 5-6**: Legal setup, payment integration, public launch prep
+#### **Testing Framework (docs/testing/)**
+- **TEST_VALIDATION_PRD.md**: Comprehensive quality metrics and validation methodology
+- **MODEL_COMPARISON_PRD.md**: Flash vs Pro evaluation framework
+- **MASTER_TEST_VIDEO_TABLE.md**: 200+ curated test videos across categories
+
+#### **Model Pricing Reality**
+```
+Gemini 2.5 Flash: $0.002/min (audio), $0.0035/min (video)
+Gemini 2.5 Pro: $0.01/min (audio), $0.02/min (video)
+```
+
+#### **Architecture Decision Required**
+1. **Cloud Run Jobs** (Recommended): 24-hour timeout, no throttling
+2. **Compute Engine VM**: No timeout, but always-on cost
+3. **Hybrid Approach**: Jobs for processing, Services for API
 
 ### **📊 VERIFIED MODULE STATUS OVERVIEW**
 Based on targeted testing (Unit tests: 63%, Integration: 19%):
