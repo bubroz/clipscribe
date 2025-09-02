@@ -508,6 +508,10 @@ class GeminiFlashTranscriber:
         5.  **Extraction Scope**: Extract ALL relevant entities, topics, relationships, and key points. Be exhaustive.
         6.  **Date Normalization**: All dates MUST be normalized to `YYYY-MM-DD` format where possible.
         7.  **Summary**: Provide a concise, executive-level summary of the content.
+        8.  **Evidence & Quotes**: For EVERY entity and relationship, include:
+            - **evidence**: A brief explanation of why this entity/relationship was identified
+            - **quotes**: Array of 1-3 direct quotes from the transcript that support this finding
+        9.  **Source Attribution**: Always provide direct transcript evidence for your extractions.
 
         **Transcript for Analysis:**
         ```
@@ -542,6 +546,11 @@ class GeminiFlashTranscriber:
                             "name": {"type": "STRING"},
                             "type": {"type": "STRING"},
                             "confidence": {"type": "NUMBER"},
+                            "evidence": {"type": "STRING"},
+                            "quotes": {
+                                "type": "ARRAY",
+                                "items": {"type": "STRING"}
+                            },
                         },
                         "required": ["name", "type", "confidence"],
                     },
@@ -555,6 +564,11 @@ class GeminiFlashTranscriber:
                             "predicate": {"type": "STRING"},
                             "object": {"type": "STRING"},
                             "confidence": {"type": "NUMBER"},
+                            "evidence": {"type": "STRING"},
+                            "quotes": {
+                                "type": "ARRAY",
+                                "items": {"type": "STRING"}
+                            },
                         },
                         "required": ["subject", "predicate", "object", "confidence"],
                     },

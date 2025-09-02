@@ -1,8 +1,8 @@
 # ClipScribe AI Assistant Continuation Prompt
 
-## Current State (2025-09-01 20:57 PST)
+## Current State (2025-09-01 19:30 PST)
 
-### Latest Version: v2.46.1
+### Latest Version: v2.46.0
 - **✅ Cloud Run Jobs**: Converted from Services to Jobs - 24hr timeout, no CPU throttling
 - **✅ Video Caching**: Implemented local cache to avoid re-downloading videos
 - **✅ Model Selection**: Flash/Pro comparison enabled via API parameter

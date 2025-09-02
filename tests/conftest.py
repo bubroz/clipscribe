@@ -26,6 +26,13 @@ def mock_google_api_key(request):
             yield
 
 
+@pytest.fixture(autouse=True)
+def mock_api_authentication():
+    """Mock API authentication for tests."""
+    with patch.dict("os.environ", {"VALID_TOKENS": "test-token"}):
+        yield
+
+
 @pytest.fixture
 def temp_directory():
     """Create a temporary directory that's automatically cleaned up."""
@@ -64,7 +71,9 @@ def mock_subprocess_and_external_deps():
          patch('google.generativeai.upload_file') as mock_upload_file, \
          patch('google.generativeai.delete_file') as mock_delete_file, \
          patch('subprocess.Popen') as mock_popen, \
-         patch('os.system') as mock_system:
+         patch('os.system') as mock_system, \
+         patch.dict('sys.modules', {'google.cloud': MagicMock(), 'google.cloud.tasks_v2': MagicMock()}), \
+         patch('clipscribe.api.task_queue.get_task_queue_manager') as mock_task_manager:
 
         # Mock subprocess for CLI commands with smart responses
         def mock_subprocess_run(cmd, **kwargs):
@@ -118,6 +127,11 @@ def mock_subprocess_and_external_deps():
 
         # Mock Gemini API calls
         mock_genai_model.return_value = MagicMock()
+
+        # Mock task queue manager
+        mock_task_manager_instance = MagicMock()
+        mock_task_manager_instance.enqueue_job.return_value = ("test-task-name", "test-task-path")
+        mock_task_manager.return_value = mock_task_manager_instance
         mock_genai_model.return_value.generate_content_async = AsyncMock()
         mock_genai_model.return_value.generate_content_async.return_value = MagicMock()
         mock_genai_model.return_value.generate_content_async.return_value.text = '{"summary": "Mock response", "key_points": [], "entities": [], "topics": [], "relationships": [], "dates": []}'

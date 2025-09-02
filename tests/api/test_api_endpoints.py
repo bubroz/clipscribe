@@ -32,10 +32,18 @@ class TestAPIEndpoints:
         self.client = TestClient(app)
 
         # Mock Redis connection
-        with patch('clipscribe.api.app.redis') as mock_redis:
+        with patch('clipscribe.api.app.redis') as mock_redis, \
+             patch('clipscribe.api.app.redis_conn', MagicMock()) as mock_redis_conn:
             mock_conn = MagicMock()
+            mock_conn.incr.return_value = 1
+            mock_conn.get.return_value = None
+            mock_conn.exists.return_value = True
+            mock_conn.pipeline.return_value = MagicMock()
+            mock_conn.pipeline.return_value.execute.return_value = [None]
+            mock_conn.pipeline.return_value.get.return_value = None
             mock_redis.from_url.return_value = mock_conn
             self.mock_redis = mock_conn
+            self.mock_redis_conn = mock_conn  # Use the same mock for both
 
     def teardown_method(self):
         """Clean up after tests."""

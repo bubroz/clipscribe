@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "clipscribe"
-version = "2.46.1"
+version = "2.45.0"
 description = "ClipScribe - AI-powered video intelligence tool for extracting knowledge from video content"
 authors = ["Zac Forristall <zforristall@gmail.com>"]
 readme = "README.md"
