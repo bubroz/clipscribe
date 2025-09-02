@@ -34,15 +34,43 @@ Our core competitive advantage is our ability to provide deep intelligence extra
 
 ---
 
-## Phase 2: User Experience & Commercialization (Current Focus)
+## Phase 2: Quality Validation & Model Optimization (Current Focus - September 2025)
 
-*Goal: Build on our stable backend to create a polished, user-facing product and prepare for commercialization.*
+*Goal: Establish quality baselines, optimize model selection, and validate production readiness.*
 
-### **Priority 1: Custom Domain & Professional Hosting** (IN PROGRESS)
-- **Status**: Active Development
+### **Priority 1: Infrastructure Fixes** (IMMEDIATE)
+- **Status**: Critical - Blocking all testing
 - **Tasks**:
-  1.  **Configure Custom Domain**: Map the deployed services to `api.clipscribe.app` and `clipscribe.app` using Cloudflare.
-  2.  **Set Up Production Monitoring**: Implement basic monitoring and alerting for the live services.
+  1. **Convert to Cloud Run Jobs**: Fix timeout issues for video processing
+  2. **Implement Caching Layer**: Avoid re-downloading videos during testing
+  3. **Add Model Selection**: Enable Flash/Pro comparison testing
+
+### **Priority 2: Comprehensive Testing Framework** (Week 1-2)
+- **Status**: Not Started
+- **Tasks**:
+  1. **Baseline Testing**: Process 50+ videos across all categories
+  2. **Model Comparison**: Side-by-side Flash vs Pro evaluation
+  3. **Quality Metrics**: Establish F1 scores, precision, recall
+  4. **Cost Analysis**: Validate actual per-minute costs
+  5. **Performance Benchmarks**: Document processing times and limits
+
+### **Priority 3: Model Strategy Decision** (Week 2)
+- **Status**: Not Started
+- **Tasks**:
+  1. **Analyze Test Results**: Quantify quality vs cost trade-offs
+  2. **Define Model Strategy**: Flash-only, Pro-only, or Hybrid
+  3. **Update Pricing Model**: Based on actual costs and value
+  4. **Document Limitations**: Known edge cases and failures
+
+## Phase 3: User Experience & Commercialization (After Testing)
+
+*Goal: Build on our validated backend to create a polished, user-facing product.*
+
+### **Priority 4: Custom Domain & Professional Hosting**
+- **Status**: Ready after testing
+- **Tasks**:
+  1. **Configure Custom Domain**: Map services to `api.clipscribe.app` and `clipscribe.app`
+  2. **Set Up Production Monitoring**: Implement monitoring based on test findings
 
 ### **Priority 2: User Authentication & Billing**
 - **Status**: Not Started
@@ -59,7 +87,7 @@ Our core competitive advantage is our ability to provide deep intelligence extra
 
 ---
 
-## Phase 3: "Pro" Platform (Automation & Scheduling)
+## Phase 4: "Pro" Platform (Automation & Scheduling)
 
 *Goal: Introduce subscription tiers with high-value automation features for recurring revenue.*
 
