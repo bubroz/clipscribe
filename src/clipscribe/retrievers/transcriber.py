@@ -51,8 +51,16 @@ class GeminiFlashTranscriber:
         model_name = "gemini-2.5-pro" if use_pro else "gemini-2.5-flash"
         logger.info(f"Using model: {model_name} (use_pro={use_pro})")
 
+        # No safety filtering for professional-grade data collection
+        self.safety_settings = [
+            {"category": "HARM_CATEGORY_HARASSMENT", "threshold": "BLOCK_NONE"},
+            {"category": "HARM_CATEGORY_HATE_SPEECH", "threshold": "BLOCK_NONE"},
+            {"category": "HARM_CATEGORY_SEXUALLY_EXPLICIT", "threshold": "BLOCK_NONE"},
+            {"category": "HARM_CATEGORY_DANGEROUS_CONTENT", "threshold": "BLOCK_NONE"}
+        ]
+        
         if not self.use_vertex_ai:
-            self.pool = GeminiPool(api_key=self.api_key, model_name=model_name)
+            self.pool = GeminiPool(api_key=self.api_key, model_name=model_name, safety_settings=self.safety_settings)
 
         if self.use_vertex_ai:
             logger.info("Using Vertex AI for video processing")
@@ -202,6 +210,8 @@ class GeminiFlashTranscriber:
                 generation_config={
                     "response_mime_type": "application/json",
                     "response_schema": response_schema,
+                    "max_output_tokens": 8192,
+                    "temperature": 0.1
                 },
                 request_options=RequestOptions(timeout=self.request_timeout),
             )
@@ -237,7 +247,7 @@ class GeminiFlashTranscriber:
                 - CONCEPTS/PRODUCTS: Technologies, systems, policies, laws
                 
                 Transcript:
-                {transcript_text[:12000]}
+                {transcript_text}
                 
                 Already found entities: {[e['name'] for e in entities][:30]}
                 
@@ -267,7 +277,11 @@ class GeminiFlashTranscriber:
                 response = await self._retry_generate_content(
                     second_model,
                     second_pass_prompt,
-                    generation_config={"response_mime_type": "application/json"},
+                    generation_config={
+                        "response_mime_type": "application/json",
+                        "max_output_tokens": 8192,
+                        "temperature": 0.3
+                    },
                     request_options=RequestOptions(timeout=self.request_timeout),
                 )
 
@@ -359,6 +373,8 @@ class GeminiFlashTranscriber:
                 generation_config={
                     "response_mime_type": "application/json",
                     "response_schema": response_schema,
+                    "max_output_tokens": 8192,
+                    "temperature": 0.1
                 },
                 request_options=RequestOptions(timeout=self.request_timeout),
             )
@@ -493,9 +509,9 @@ class GeminiFlashTranscriber:
         6.  **Date Normalization**: All dates MUST be normalized to `YYYY-MM-DD` format where possible.
         7.  **Summary**: Provide a concise, executive-level summary of the content.
 
-        **Transcript for Analysis (first 24,000 characters):**
+        **Transcript for Analysis:**
         ```
-        {transcript_text[:24000]}
+        {transcript_text}
         ```
         """
         return prompt

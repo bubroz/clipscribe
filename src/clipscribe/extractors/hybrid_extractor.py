@@ -262,7 +262,7 @@ Return a JSON array with validated entities:
 - Concepts (CONCEPT)
 - Products (PRODUCT)
 
-Text: {text[:3000]}...
+Text: {text}
 
 Return as JSON array:
 [{{"name": "Entity Name", "type": "TYPE", "confidence": 0.9}}]

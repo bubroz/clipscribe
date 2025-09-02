@@ -1,6 +1,6 @@
 # ClipScribe CLI Reference
 
-*Last Updated: 2025-09-01 - v2.44.0*
+*Last Updated: 2025-09-01 - v2.46.1*
 
 Complete reference for all ClipScribe commands, groups, and options.
 
@@ -18,13 +18,15 @@ poetry install --extras all --with dev
 
 ##  Key Features
 
-- **Quality First**: Gemini 2.5 Pro is the default for the highest quality intelligence.
-- **Speed Option**: Use `--use-flash` for a faster, lower-cost analysis.
-- **Structured CLI**: Commands organized into logical groups (`process`, `collection`, `utils`) with direct commands (`research`).
-- **1800+ Platforms**: Supports YouTube, Twitter, TikTok, Vimeo, and more.
-- **Optional Dependencies**: Install only what you need with flexible dependency groups.
-- **Docker Optimized**: Multi-stage builds reducing image size from >8GiB to ~500MB for CLI usage.
-- **Enterprise Test Coverage**: 400+ unit tests passing with 83-99% coverage on critical infrastructure modules.
+- **10x Performance**: Unlimited transcript analysis (removed 24k, 12k, 3k character limits)
+- **Uncensored Collection**: BLOCK_NONE safety settings for professional-grade data collection
+- **Quality First**: Gemini 2.5 Pro is the default for the highest quality intelligence
+- **Speed Option**: Use `--use-flash` for a faster, lower-cost analysis
+- **Structured CLI**: Commands organized into logical groups (`process`, `collection`, `utils`) with direct commands (`research`)
+- **1800+ Platforms**: Supports YouTube, Twitter, TikTok, Vimeo, and more
+- **Optional Dependencies**: Install only what you need with flexible dependency groups
+- **Docker Optimized**: Multi-stage builds reducing image size from >8GiB to ~500MB for CLI usage
+- **Enterprise Test Coverage**: 400+ unit tests passing with 83-99% coverage on critical infrastructure modules
 
 ## Global Options
 

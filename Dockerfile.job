@@ -1,0 +1,48 @@
+# Cloud Run Job Worker Dockerfile
+# Optimized for long-running video processing tasks
+
+FROM python:3.12-slim
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    ffmpeg \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create non-root user
+RUN useradd -m -u 1000 clipscribe && \
+    mkdir -p /app /cache /tmp/clipscribe_cache && \
+    chown -R clipscribe:clipscribe /app /cache /tmp/clipscribe_cache
+
+WORKDIR /app
+
+# Copy requirements first for better caching
+COPY pyproject.toml poetry.lock ./
+
+# Install Python dependencies
+RUN pip install --no-cache-dir poetry && \
+    poetry config virtualenvs.create false && \
+    poetry install --no-dev --no-interaction --no-ansi
+
+# Install yt-dlp separately (often updated)
+RUN pip install --no-cache-dir yt-dlp
+
+# Copy application code
+COPY --chown=clipscribe:clipscribe src ./src
+
+# Switch to non-root user
+USER clipscribe
+
+# Set environment variables
+ENV PYTHONUNBUFFERED=1 \
+    VIDEO_CACHE_DIR=/cache \
+    CACHE_MAX_SIZE_GB=50 \
+    CACHE_MAX_AGE_DAYS=7
+
+# Health check (for monitoring)
+HEALTHCHECK --interval=60s --timeout=10s --start-period=30s --retries=3 \
+    CMD python -c "import sys; sys.exit(0)"
+
+# Run the job worker
+ENTRYPOINT ["python", "-m", "src.clipscribe.api.job_worker"]
+CMD ["--job-source", "task"]

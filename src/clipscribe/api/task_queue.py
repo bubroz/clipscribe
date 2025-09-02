@@ -3,6 +3,8 @@ Google Cloud Tasks integration for ClipScribe job queueing.
 
 This module provides a robust queueing system using Google Cloud Tasks,
 which handles retries, backoff, and delivery guarantees automatically.
+
+Updated to support Cloud Run Jobs instead of Services for better timeout handling.
 """
 
 import os
@@ -12,12 +14,13 @@ from typing import Dict, Any, Optional
 from datetime import datetime, timedelta
 
 from google.cloud import tasks_v2
+from google.cloud import run_v2
 from google.protobuf import timestamp_pb2, duration_pb2
 
 logger = logging.getLogger(__name__)
 
 class TaskQueueManager:
-    """Manages job queueing with Google Cloud Tasks."""
+    """Manages job queueing with Google Cloud Tasks and Cloud Run Jobs."""
     
     def __init__(self):
         self.project = os.getenv("GOOGLE_CLOUD_PROJECT", "prismatic-iris-429006-g6")
@@ -27,11 +30,17 @@ class TaskQueueManager:
         self.worker_url = os.getenv("WORKER_URL", "https://clipscribe-worker-16459511304.us-central1.run.app")
         self.vm_worker_url = os.getenv("VM_WORKER_URL", "")  # For future Compute Engine worker
         
+        # Cloud Run Job names
+        self.flash_job_name = os.getenv("FLASH_JOB_NAME", "clipscribe-worker-flash")
+        self.pro_job_name = os.getenv("PRO_JOB_NAME", "clipscribe-worker-pro")
+        
         try:
             self.client = tasks_v2.CloudTasksClient()
+            self.jobs_client = run_v2.JobsClient()
         except Exception as e:
-            logger.error(f"Failed to initialize Cloud Tasks client: {e}")
+            logger.error(f"Failed to initialize clients: {e}")
             self.client = None
+            self.jobs_client = None
     
     def create_queue_if_not_exists(self, queue_name: str) -> bool:
         """Create a Cloud Tasks queue if it doesn't exist."""
@@ -70,25 +79,95 @@ class TaskQueueManager:
                 logger.error(f"Failed to create queue {queue_name}: {e}")
                 return False
     
+    def trigger_cloud_run_job(
+        self,
+        job_id: str,
+        payload: Dict[str, Any],
+        use_pro_model: bool = False
+    ) -> Optional[str]:
+        """
+        Trigger a Cloud Run Job to process the video.
+        
+        Args:
+            job_id: Unique job identifier
+            payload: Job payload data
+            use_pro_model: Whether to use Pro model (True) or Flash (False)
+            
+        Returns:
+            Execution name if successful, None otherwise
+        """
+        if not self.jobs_client:
+            logger.error("Cloud Run Jobs client not initialized")
+            return None
+        
+        try:
+            # Select the appropriate job
+            job_name = self.pro_job_name if use_pro_model else self.flash_job_name
+            
+            # Full job resource name
+            job_resource = f"projects/{self.project}/locations/{self.location}/jobs/{job_name}"
+            
+            # Create execution request with environment overrides
+            request = run_v2.RunJobRequest(
+                name=job_resource,
+                overrides=run_v2.RunJobRequest.Overrides(
+                    container_overrides=[
+                        run_v2.RunJobRequest.Overrides.ContainerOverride(
+                            env=[
+                                run_v2.EnvVar(name="JOB_ID", value=job_id),
+                                run_v2.EnvVar(name="JOB_PAYLOAD", value=json.dumps(payload)),
+                                run_v2.EnvVar(name="JOB_SOURCE", value="task"),
+                            ],
+                            args=["--job-source", "task"],
+                        )
+                    ],
+                ),
+            )
+            
+            # Execute the job
+            operation = self.jobs_client.run_job(request=request)
+            
+            # Get execution name from operation
+            execution_name = operation.name
+            
+            logger.info(f"Triggered Cloud Run Job execution: {execution_name}")
+            logger.info(f"Job: {job_name}, Model: {'Pro' if use_pro_model else 'Flash'}")
+            
+            return execution_name
+            
+        except Exception as e:
+            logger.error(f"Failed to trigger Cloud Run Job: {e}")
+            return None
+    
     def enqueue_job(
         self,
         job_id: str,
         payload: Dict[str, Any],
         estimated_duration: int = 0,
-        delay_seconds: int = 0
+        delay_seconds: int = 0,
+        use_pro_model: bool = False
     ) -> Optional[str]:
         """
-        Enqueue a job to the appropriate Cloud Tasks queue.
+        Enqueue a job to the appropriate Cloud Tasks queue or trigger Cloud Run Job.
         
         Args:
             job_id: Unique job identifier
             payload: Job payload data
             estimated_duration: Estimated video duration in seconds
             delay_seconds: Delay before processing (for rate limiting)
+            use_pro_model: Whether to use Pro model (True) or Flash (False)
             
         Returns:
-            Task name if successful, None otherwise
+            Task name or execution name if successful, None otherwise
         """
+        # Check if we should use Cloud Run Jobs (preferred for long videos)
+        use_cloud_run_jobs = os.getenv("USE_CLOUD_RUN_JOBS", "true").lower() == "true"
+        
+        if use_cloud_run_jobs:
+            # Use Cloud Run Jobs for better timeout handling
+            return self.trigger_cloud_run_job(job_id, payload, use_pro_model)
+        
+        # Fallback to HTTP tasks (legacy mode)
         if not self.client:
             logger.error("Cloud Tasks client not initialized")
             return None

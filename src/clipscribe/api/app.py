@@ -333,6 +333,10 @@ async def _enqueue_job_processing(job: Job, source: Dict[str, Any]) -> None:
             "options": source.get("options", {})
         }
         
+        # Extract model preference from options
+        options = source.get("options", {})
+        use_pro_model = options.get("model") == "pro" or options.get("use_pro_model", False)
+        
         # Estimate duration for queue routing
         estimated_duration = 0
         if "url" in source:
@@ -342,15 +346,17 @@ async def _enqueue_job_processing(job: Job, source: Dict[str, Any]) -> None:
             except Exception:
                 estimated_duration = 600  # Default 10 minutes
         
-        logger.info(f"Enqueuing job {job.job_id} (estimated {estimated_duration}s)")
+        logger.info(f"Enqueuing job {job.job_id} (estimated {estimated_duration}s, model: {'pro' if use_pro_model else 'flash'})")
         
-        # Enqueue to Cloud Tasks
+        # Enqueue to Cloud Tasks or trigger Cloud Run Job
         task_manager = get_task_queue_manager()
         task_name = await asyncio.to_thread(
             task_manager.enqueue_job,
             job.job_id,
             payload,
-            estimated_duration
+            estimated_duration,
+            delay_seconds=0,
+            use_pro_model=use_pro_model
         )
         
         if task_name:

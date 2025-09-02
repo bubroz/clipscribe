@@ -37,10 +37,11 @@ class GeminiPool:
     This is like having multiple AI assistants, each specialized for one job
     """
 
-    def __init__(self, model_name: str = "gemini-2.5-flash", api_key: Optional[str] = None):
+    def __init__(self, model_name: str = "gemini-2.5-flash", api_key: Optional[str] = None, safety_settings: Optional[list] = None):
         """Initialize the Gemini pool."""
         self.model_name = model_name
         self.api_key = api_key
+        self.safety_settings = safety_settings
         self._models: Dict[TaskType, genai.GenerativeModel] = {}
 
         # Configure API key once
@@ -58,7 +59,13 @@ class GeminiPool:
         """
         if task_type not in self._models:
             logger.info(f"Creating new Gemini instance for {task_type.value}")
-            self._models[task_type] = genai.GenerativeModel(self.model_name)
+            if self.safety_settings:
+                self._models[task_type] = genai.GenerativeModel(
+                    self.model_name,
+                    safety_settings=self.safety_settings
+                )
+            else:
+                self._models[task_type] = genai.GenerativeModel(self.model_name)
 
         return self._models[task_type]
 
@@ -71,7 +78,13 @@ class GeminiPool:
         if task_type in self._models:
             logger.info(f"Clearing context for {task_type.value}")
             # Create a fresh instance
-            self._models[task_type] = genai.GenerativeModel(self.model_name)
+            if self.safety_settings:
+                self._models[task_type] = genai.GenerativeModel(
+                    self.model_name,
+                    safety_settings=self.safety_settings
+                )
+            else:
+                self._models[task_type] = genai.GenerativeModel(self.model_name)
 
     def clear_all_contexts(self):
         """Clear all model contexts by recreating all instances."""

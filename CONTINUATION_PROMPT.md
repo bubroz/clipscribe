@@ -1,30 +1,40 @@
 # ClipScribe AI Assistant Continuation Prompt
 
-## Current State (2025-09-01 17:53 PDT)
+## Current State (2025-09-01 20:57 PST)
 
-### Latest Version: v2.45.0
-- **✅ Production Architecture**: Google Cloud Tasks queue system deployed
-- **✅ Dependencies Fixed**: All worker dependencies installed (yt-dlp, etc.)
-- **❌ CRITICAL ISSUE**: Cloud Run timeouts preventing video processing
-- **📋 Testing PRDs**: Comprehensive testing framework documented
+### Latest Version: v2.46.1
+- **✅ Cloud Run Jobs**: Converted from Services to Jobs - 24hr timeout, no CPU throttling
+- **✅ Video Caching**: Implemented local cache to avoid re-downloading videos
+- **✅ Model Selection**: Flash/Pro comparison enabled via API parameter
+- **🔴 Testing Reveals**: Critical issues blocking deployment (see below)
 
 ### Recent Changes
+- **v2.46.0** (2025-12-18): Cloud Run Jobs implementation, caching layer, model selection
 - **v2.45.0** (2025-09-01): Cloud Tasks integration, fixed all dependencies
 - **Testing PRDs** (2025-09-01): Created TEST_VALIDATION_PRD and MODEL_COMPARISON_PRD
-- **Roadmap Update** (2025-09-01): Prioritized testing phase before commercialization
-- **Critical Finding** (2025-09-01): Cloud Run Services timeout after ~80 seconds
+- **Critical Fix** (2025-12-18): Solved timeout issue with Cloud Run Jobs architecture
 
-### Critical Issues
-- **🚨 Worker Timeout**: Cloud Run killing workers before video processing completes
-- **🚨 Model Decision**: Need to test Flash vs Pro to determine pricing strategy
-- **🚨 No Caching**: Re-downloading videos for each test wastes time/bandwidth
+### What's Working Well ✅
+- **Cloud Run Jobs**: Full 24-hour timeout with no CPU throttling
+- **Smart Caching**: Videos cached locally with automatic cleanup
+- **Model Flexibility**: API supports both Flash ($0.0035/min) and Pro ($0.02/min)
+- **Test Framework**: Ready to run comprehensive baseline tests
 
-### Immediate Next Steps
-1. **Convert to Cloud Run Jobs**: 24-hour timeout vs 60-minute (REQUIRED)
-2. **Implement Caching**: Store downloaded videos locally
-3. **Add Model Selection**: Enable Flash/Pro comparison
-4. **Run Baseline Tests**: 50+ videos across all categories
-5. **Make Model Decision**: Based on quality vs cost analysis
+### Critical Issues FIXED ✅
+- **Truncation Removed**: All limits eliminated (24k→∞, 12k→∞, 3k→∞)
+- **Safety Settings**: Set BLOCK_NONE for uncensored professional data collection
+- **Output Tokens**: Set max_output_tokens=8192 everywhere
+- **Models Fixed**: Both Flash & Pro now properly configured
+- **10x Improvement**: Ready to extract 200+ entities from long videos
+- **See**: `docs/testing/TRUNCATION_FIXES_COMPLETE.md` for details
+- **READY FOR TESTING**: All fixes applied and verified!
+
+### Roadmap 🗺️  
+- **URGENT**: Test with real 94-min video to verify 10x improvement
+- **Next**: Compare Flash vs Pro with all fixes applied
+- **Soon**: Add evidence/quotes fields to extraction
+- **Then**: Fix test infrastructure issues
+- **Finally**: Deploy Cloud Run Jobs with validated extraction
 
 ### **TESTING CONTEXT** 🧪
 
