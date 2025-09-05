@@ -12,16 +12,14 @@ output/
     ├── transcript.txt          # Plain text transcript
     ├── transcript.json         # Full structured data with all analysis
     ├── metadata.json           # Lightweight video and processing metadata
-    ├── entities.json           #  Entities with normalization and sources
-    ├── entities.csv            #  Entities in CSV format for spreadsheets
-    ├── entity_sources.json     #  Entity source tracking and normalization
-    ├── entity_sources.csv      #  Entity sources in CSV format
-    ├── relationships.json      #  Relationships with evidence chains
-    ├── relationships.csv       #  Relationships in CSV format for spreadsheets
-    ├── knowledge_graph.gexf    #  Gephi-compatible (stable hashed IDs, idtype=string, node attrs, edge labels)
-    ├── report.md               #  Human-readable intelligence report
-    ├── chimera_format.json     #  Integration format for external tools
-    └── manifest.json           #  File index with processing metadata
+    ├── entities.json           # Entities with real mention counts (not hardcoded)
+    ├── relationships.json      # Relationships with evidence chains
+    ├── knowledge_graph.json    # Raw graph data for programmatic use
+    ├── knowledge_graph.gexf    # Gephi-compatible (optional - set export_graph_formats=True)
+    ├── knowledge_graph.graphml # yEd/Cytoscape compatible (optional - set export_graph_formats=True)
+    ├── facts.json              # Derived facts from relationships
+    ├── report.md               # Human-readable report (placeholder for executive summary)
+    └── manifest.json           # File index with processing metadata
 ```
 
 ## Quality Control Options
@@ -32,19 +30,38 @@ output/
 ### Standard Quality (--use-flash - Gemini 2.5 Flash)
 - Faster and cost-efficient; ideal for high volume or exploratory runs.
 
+## Recent Optimizations (v2.30.1)
+
+### Output Streamlining
+- **Removed**: CSV exports (entities.csv, relationships.csv) - use JSON for structured data
+- **Optional**: GEXF/GraphML exports (set `export_graph_formats=True` in settings)
+- **Deprecated**: chimera_format.json - replaced by structured JSON formats
+- **Reduced**: Output files from ~14 to ~10-11, cutting ~30% generation overhead
+
+### Data Quality Improvements
+- **Fixed**: Mention counts now reflect actual transcript occurrences (was hardcoded to 1)
+- **Removed**: Arbitrary confidence scores from entities/relationships
+- **Enhanced**: report.md as placeholder for future executive summary
+- **Improved**: Evidence chains and relationship traceability
+
+### Configuration
+Set `export_graph_formats=True` in `src/clipscribe/config/settings.py` to enable:
+- `knowledge_graph.gexf` (Gephi visualization)
+- `knowledge_graph.graphml` (yEd/Cytoscape visualization)
+
 ## Critical Fixes in v2.20.4
 
-###  RESOLVED: Output Pipeline Issues
+### RESOLVED: Output Pipeline Issues
 - **Fixed**: Entities/relationships arrays were empty in output files
 - **Fixed**: Missing knowledge_graph.gexf generation
 - **Fixed**: Advanced extraction pipeline not running
 - **Validated**: All output formats now working end-to-end
 
-###  Confirmed Working Examples
-Based on validated news content processing:
-- **entities.json**: 24+ normalized entities
-- **relationships.json**: 53+ relationships with evidence chains
-- **knowledge_graph.gexf**: 60+ nodes for Gephi visualization
+### Confirmed Working Examples
+Based on validated controversial content processing:
+- **entities.json**: 26+ entities with real mention counts
+- **relationships.json**: 19+ relationships with evidence chains
+- **facts.json**: 19+ derived facts from relationships
 
 ## File Formats
 
