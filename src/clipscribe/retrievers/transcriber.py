@@ -17,6 +17,7 @@ from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_excep
 from ..config.settings import Settings, TemporalIntelligenceLevel
 from .gemini_pool import GeminiPool, TaskType
 from .vertex_ai_transcriber import VertexAITranscriber
+from .voxtral_transcriber import VoxtralTranscriber
 
 logger = logging.getLogger(__name__)
 
@@ -29,6 +30,7 @@ class GeminiFlashTranscriber:
         api_key: Optional[str] = None,
         performance_monitor: Optional[Any] = None,
         use_pro: bool = False,
+        use_voxtral: bool = False,
     ):
         """
         Initialize transcriber with API key and enhanced temporal intelligence.
@@ -37,10 +39,13 @@ class GeminiFlashTranscriber:
             api_key: Google API key (optional, uses env var if not provided)
             performance_monitor: Performance monitoring instance
             use_pro: Use Gemini 2.5 Pro for highest quality (higher cost)
+            use_voxtral: Use Voxtral for uncensored transcription
         """
         self.settings = Settings()
         self.api_key = api_key or self.settings.google_api_key
         self.use_pro = use_pro  # Store the use_pro flag
+        # Default to Voxtral for transcription (no censorship, cheaper, more accurate)
+        self.use_voxtral = use_voxtral if use_voxtral is not None else bool(os.getenv("USE_VOXTRAL", "true").lower() == "true")
         # Honor global setting to route through Vertex when enabled
         self.use_vertex_ai = bool(getattr(self.settings, "use_vertex_ai", False))
 
@@ -62,6 +67,18 @@ class GeminiFlashTranscriber:
         if not self.use_vertex_ai:
             self.pool = GeminiPool(api_key=self.api_key, model_name=model_name, safety_settings=self.safety_settings)
 
+        # Initialize Voxtral transcriber if configured
+        self.voxtral_transcriber = None
+        if self.use_voxtral:
+            try:
+                self.voxtral_transcriber = VoxtralTranscriber(
+                    model="voxtral-mini-2507"  # Purpose-built transcription model, proven fastest
+                )
+                logger.info("Voxtral transcriber initialized for uncensored transcription")
+            except Exception as e:
+                logger.warning(f"Failed to initialize Voxtral: {e}")
+                self.use_voxtral = False
+        
         if self.use_vertex_ai:
             logger.info("Using Vertex AI for video processing")
             self.vertex_transcriber = VertexAITranscriber()
@@ -144,6 +161,17 @@ class GeminiFlashTranscriber:
 
     async def transcribe_audio(self, audio_file: str, duration: int) -> Dict[str, Any]:
         """Transcribe audio file with enhanced temporal intelligence."""
+        # Phase 1: Try Voxtral if configured (no content filters)
+        if self.use_voxtral and self.voxtral_transcriber:
+            logger.info(f"Using Voxtral for uncensored transcription: {audio_file}")
+            try:
+                result = await self.voxtral_transcriber.transcribe_with_fallback(
+                    audio_file, gemini_transcriber=None  # Direct Voxtral, no fallback
+                )
+                return result
+            except Exception as e:
+                logger.warning(f"Voxtral transcription failed: {e}. Falling back to Gemini.")
+        
         if self.use_vertex_ai and self.vertex_transcriber:
             logger.info(f"Attempting to transcribe audio with Vertex AI: {audio_file}")
             try:
@@ -186,11 +214,51 @@ class GeminiFlashTranscriber:
             response = await self._retry_generate_content(
                 transcription_model,
                 [file, transcript_prompt],
+                generation_config={
+                    "max_output_tokens": 8192,
+                    "temperature": 0.1
+                },
                 request_options=RequestOptions(timeout=self.request_timeout),
             )
 
             if self.performance_monitor:
                 self.performance_monitor.stop_timer(transcription_event)
+
+            # Check for safety block and fall back to Voxtral if needed
+            if hasattr(response, 'candidates') and response.candidates:
+                candidate = response.candidates[0]
+                if hasattr(candidate, 'finish_reason') and candidate.finish_reason == 2:
+                    logger.warning("Gemini blocked content due to safety filters, attempting Voxtral fallback")
+                    if self.voxtral_transcriber:
+                        try:
+                            voxtral_result = await self.voxtral_transcriber.transcribe_audio(audio_file)
+                            logger.info("Voxtral transcription successful after Gemini block")
+                            return {
+                                "transcript": voxtral_result.text,
+                                "language": voxtral_result.language,
+                                "processing_cost": voxtral_result.cost,
+                                "model": f"voxtral/{voxtral_result.model}",
+                                "fallback_reason": "gemini_safety_block"
+                            }
+                        except Exception as e:
+                            logger.error(f"Voxtral fallback failed: {e}")
+                    else:
+                        # Initialize Voxtral on-demand if not already initialized
+                        try:
+                            from .voxtral_transcriber import VoxtralTranscriber
+                            self.voxtral_transcriber = VoxtralTranscriber(model="voxtral-small")
+                            voxtral_result = await self.voxtral_transcriber.transcribe_audio(audio_file)
+                            logger.info("Voxtral transcription successful after on-demand initialization")
+                            return {
+                                "transcript": voxtral_result.text,
+                                "language": voxtral_result.language,
+                                "processing_cost": voxtral_result.cost,
+                                "model": f"voxtral/{voxtral_result.model}",
+                                "fallback_reason": "gemini_safety_block"
+                            }
+                        except Exception as e:
+                            logger.error(f"Failed to initialize Voxtral on-demand: {e}")
+                            raise ValueError("Content blocked by safety filters and Voxtral fallback unavailable")
 
             transcript_text = response.text.strip()
 
@@ -358,6 +426,10 @@ class GeminiFlashTranscriber:
             transcript_response = await self._retry_generate_content(
                 transcription_model,
                 [transcript_prompt, file],
+                generation_config={
+                    "max_output_tokens": 8192,
+                    "temperature": 0.1
+                },
                 request_options=RequestOptions(timeout=self.request_timeout),
             )
             transcript_text = transcript_response.text
@@ -492,12 +564,12 @@ class GeminiFlashTranscriber:
 
     def _build_enhanced_analysis_prompt(self, transcript_text: str) -> str:
         """
-        Builds a robust prompt for comprehensive intelligence extraction, with specific instructions
+        Builds a robust prompt for comprehensive content analysis, with specific instructions
         to prevent data validation errors.
         """
         prompt = f"""
-        **ROLE: Expert Intelligence Analyst**
-        **TASK: Analyze the following transcript to extract a comprehensive intelligence package.**
+        **ROLE: Content Analysis Specialist**
+        **TASK: Analyze the following transcript to extract comprehensive content information.**
         **OUTPUT FORMAT: JSON ONLY, strictly adhering to the provided schema.**
 
         **CRITICAL INSTRUCTIONS:**
@@ -505,12 +577,12 @@ class GeminiFlashTranscriber:
         2.  **entities.confidence**: This MUST be a float between 0.0 and 1.0.
         3.  **relationships.confidence**: This MUST be a float between 0.0 and 1.0.
         4.  **dates.confidence**: This MUST be a float between 0.0 and 1.0.
-        5.  **Extraction Scope**: Extract ALL relevant entities, topics, relationships, and key points. Be exhaustive.
+        5.  **Extraction Scope**: Extract ALL relevant entities, topics, relationships, and key points. Be comprehensive.
         6.  **Date Normalization**: All dates MUST be normalized to `YYYY-MM-DD` format where possible.
-        7.  **Summary**: Provide a concise, executive-level summary of the content.
-        8.  **Evidence & Quotes**: For EVERY entity and relationship, include:
+        7.  **Summary**: Provide a concise summary of the content.
+        8.  **Evidence & Quotes**: For important entities and relationships, include:
             - **evidence**: A brief explanation of why this entity/relationship was identified
-            - **quotes**: Array of 1-3 direct quotes from the transcript that support this finding
+            - **quotes**: Array of 1-2 direct quotes from the transcript that support this finding
         9.  **Source Attribution**: Always provide direct transcript evidence for your extractions.
 
         **Transcript for Analysis:**
@@ -704,6 +776,10 @@ class GeminiFlashTranscriber:
                 response = await self._retry_generate_content(
                     model,
                     [transcript_prompt, file],
+                    generation_config={
+                        "max_output_tokens": 8192,
+                        "temperature": 0.1
+                    },
                     request_options=RequestOptions(timeout=self.request_timeout),
                 )
                 return response.text

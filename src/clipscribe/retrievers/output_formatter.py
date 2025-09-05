@@ -346,25 +346,63 @@ class OutputFormatter:
             paths["knowledge_graph_gexf"] = gexf_path
         except Exception as e:
             logger.warning(f"Could not generate GEXF file: {e}")
+        
+        # Knowledge Graph GraphML (for yEd, Cytoscape, etc.)
+        try:
+            from ..retrievers.knowledge_graph_builder import KnowledgeGraphBuilder
+            kg_builder = KnowledgeGraphBuilder()
+            graphml_content = kg_builder.generate_graphml_content(video.knowledge_graph)
+            
+            graphml_path = paths["directory"] / "knowledge_graph.graphml"
+            with open(graphml_path, "w", encoding="utf-8") as f:
+                f.write(graphml_content)
+            paths["knowledge_graph_graphml"] = graphml_path
+        except Exception as e:
+            logger.warning(f"Could not generate GraphML file: {e}")
 
         node_count = video.knowledge_graph.get("node_count", 0)
         edge_count = video.knowledge_graph.get("edge_count", 0)
         logger.info(f"Saved knowledge graph with {node_count} nodes and {edge_count} edges")
 
     def _save_facts_file(self, video: VideoIntelligence, paths: Dict[str, Path]):
-        """Saves facts.txt if key moments exist."""
-        if not hasattr(video, "key_moments") or not video.key_moments:
-            return
-
-        facts_path = paths["directory"] / "facts.txt"
+        """Saves facts.json with extracted facts from relationships and key points."""
+        facts = []
+        
+        # Generate facts from relationships
+        if hasattr(video, "relationships") and video.relationships:
+            for rel in video.relationships:
+                if rel.subject and rel.object:  # Only include complete relationships
+                    fact = {
+                        "fact": f"{rel.subject} {rel.predicate} {rel.object}",
+                        "type": "relationship",
+                        "confidence": getattr(rel, "confidence", 0.8),
+                        "evidence": rel.properties.get("evidence", "") if hasattr(rel, "properties") else "",
+                        "source": getattr(rel, "source", "grok_analysis")
+                    }
+                    facts.append(fact)
+        
+        # Add facts from key points if available
+        if hasattr(video, "key_points") and video.key_points:
+            for kp in video.key_points:
+                fact = {
+                    "fact": kp.text if hasattr(kp, "text") else str(kp),
+                    "type": "key_point",
+                    "confidence": getattr(kp, "confidence", 0.7),
+                    "timestamp": getattr(kp, "timestamp", 0),
+                    "source": "analysis"
+                }
+                facts.append(fact)
+        
+        # Save facts as JSON
+        facts_path = paths["directory"] / "facts.json"
         with open(facts_path, "w", encoding="utf-8") as f:
-            f.write("# Key Facts Extracted from Video\n\n")
-            f.write(f"Video: {video.metadata.title}\n")
-            f.write(f"URL: {video.metadata.url}\n")
-            f.write(f"Extracted: {datetime.now().isoformat()}\n\n")
-            for i, fact in enumerate(video.key_moments, 1):
-                source = fact.get("source", "Fact")
-                f.write(f"{i}. [{source}] {fact['fact']}\n")
+            json.dump({
+                "video_url": video.metadata.url,
+                "video_title": video.metadata.title,
+                "extraction_date": datetime.now().isoformat(),
+                "fact_count": len(facts),
+                "facts": facts
+            }, f, indent=2, default=str)
         paths["facts"] = facts_path
 
     def _save_report_file(self, video: VideoIntelligence, paths: Dict[str, Path]):

@@ -113,7 +113,58 @@ class KnowledgeGraphBuilder:
         logger.info(
             f"Built knowledge graph with {G.number_of_nodes()} nodes and {G.number_of_edges()} edges"
         )
+        
+        # Store the NetworkX graph for potential GraphML export
+        video_intel._nx_graph = G
+        
         return video_intel
+
+    def generate_graphml_content(self, knowledge_graph: Dict[str, Any]) -> str:
+        """
+        Generate GraphML content from knowledge graph.
+        
+        GraphML is an XML-based format for graphs, supported by many tools including
+        yEd, Cytoscape, and NetworkX.
+        
+        Args:
+            knowledge_graph: Knowledge graph dictionary
+            
+        Returns:
+            GraphML XML string
+        """
+        import io
+        
+        # Reconstruct NetworkX graph from the knowledge graph data
+        G = nx.DiGraph()
+        
+        # Add nodes with attributes
+        for node in knowledge_graph.get("nodes", []):
+            G.add_node(
+                node["id"],
+                type=node.get("type", "unknown"),
+                confidence=node.get("confidence", 0.9),
+                mention_count=node.get("mention_count", 1),
+                occurrences=node.get("occurrences", 1),
+                canonical_form=node.get("canonical_form", node["id"])
+            )
+        
+        # Add edges with attributes
+        for edge in knowledge_graph.get("edges", []):
+            G.add_edge(
+                edge["source"],
+                edge["target"],
+                predicate=edge.get("predicate", "related_to"),
+                confidence=edge.get("confidence", 0.9),
+                extraction_source=edge.get("extraction_source", "unknown")
+            )
+        
+        # Generate GraphML string
+        graphml_bytes = io.BytesIO()
+        nx.write_graphml(G, graphml_bytes, encoding='utf-8', prettyprint=True)
+        
+        # Convert bytes to string
+        graphml_bytes.seek(0)
+        return graphml_bytes.read().decode('utf-8')
 
     def generate_gexf_content(self, knowledge_graph: Dict[str, Any]) -> str:
         """

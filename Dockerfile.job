@@ -17,18 +17,18 @@ RUN useradd -m -u 1000 clipscribe && \
 WORKDIR /app
 
 # Copy requirements first for better caching
-COPY pyproject.toml poetry.lock ./
+COPY pyproject.toml poetry.lock README.md ./
 
 # Install Python dependencies
 RUN pip install --no-cache-dir poetry && \
     poetry config virtualenvs.create false && \
-    poetry install --no-dev --no-interaction --no-ansi
+    poetry install --no-root --only main --no-interaction --no-ansi
 
 # Install yt-dlp separately (often updated)
 RUN pip install --no-cache-dir yt-dlp
 
 # Copy application code
-COPY --chown=clipscribe:clipscribe src ./src
+COPY --chown=clipscribe:clipscribe src /app/src
 
 # Switch to non-root user
 USER clipscribe

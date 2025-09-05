@@ -2,9 +2,36 @@
 # This deploys the worker as a Cloud Run Job instead of a Service
 
 steps:
+  # Create service account if it doesn't exist
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    id: 'create-service-account'
+    entrypoint: 'gcloud'
+    args:
+      - 'iam'
+      - 'service-accounts'
+      - 'create'
+      - 'clipscribe-worker'
+      - '--display-name=ClipScribe Worker Service Account'
+      - '--description=Service account for ClipScribe Cloud Run Jobs'
+      - '--project=${PROJECT_ID}'
+
+  # Setup IAM permissions for service account
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    id: 'setup-iam'
+    waitFor: ['create-service-account']
+    entrypoint: 'gcloud'
+    args:
+      - 'iam'
+      - 'service-accounts'
+      - 'add-iam-policy-binding'
+      - 'clipscribe-worker@${PROJECT_ID}.iam.gserviceaccount.com'
+      - '--member=serviceAccount:clipscribe-worker@${PROJECT_ID}.iam.gserviceaccount.com'
+      - '--role=roles/iam.serviceAccountUser'
+
   # Build the job worker image
   - name: 'gcr.io/cloud-builders/docker'
     id: 'build-job-worker'
+    waitFor: ['setup-iam']
     args:
       - 'build'
       - '-t'
@@ -45,7 +72,7 @@ steps:
       - '--image=gcr.io/$PROJECT_ID/clipscribe-job-worker:${_VERSION}'
       - '--region=${_REGION}'
       - '--parallelism=1'
-      - '--task-count=1'
+
       - '--max-retries=2'
       - '--task-timeout=86400'  # 24 hours
       - '--memory=4Gi'
@@ -55,7 +82,7 @@ steps:
       - '--service-account=clipscribe-worker@$PROJECT_ID.iam.gserviceaccount.com'
       - '--vpc-connector=projects/$PROJECT_ID/locations/${_REGION}/connectors/clipscribe-connector'
       - '--vpc-egress=all-traffic'
-    onError: 'CONTINUE'  # Continue if job already exists
+
 
   # Update Flash Job if it already exists
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
@@ -70,7 +97,7 @@ steps:
       - '--image=gcr.io/$PROJECT_ID/clipscribe-job-worker:${_VERSION}'
       - '--region=${_REGION}'
       - '--parallelism=1'
-      - '--task-count=1'
+
       - '--max-retries=2'
       - '--task-timeout=86400'
       - '--memory=4Gi'
@@ -91,7 +118,7 @@ steps:
       - '--image=gcr.io/$PROJECT_ID/clipscribe-job-worker:${_VERSION}'
       - '--region=${_REGION}'
       - '--parallelism=1'
-      - '--task-count=1'
+
       - '--max-retries=2'
       - '--task-timeout=86400'
       - '--memory=8Gi'
@@ -101,7 +128,7 @@ steps:
       - '--service-account=clipscribe-worker@$PROJECT_ID.iam.gserviceaccount.com'
       - '--vpc-connector=projects/$PROJECT_ID/locations/${_REGION}/connectors/clipscribe-connector'
       - '--vpc-egress=all-traffic'
-    onError: 'CONTINUE'
+
 
   # Update Pro Job if it already exists
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
@@ -116,7 +143,7 @@ steps:
       - '--image=gcr.io/$PROJECT_ID/clipscribe-job-worker:${_VERSION}'
       - '--region=${_REGION}'
       - '--parallelism=1'
-      - '--task-count=1'
+
       - '--max-retries=2'
       - '--task-timeout=86400'
       - '--memory=8Gi'

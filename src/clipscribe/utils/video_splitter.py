@@ -36,8 +36,8 @@ def get_video_duration(file_path: str) -> Optional[float]:
 
 def split_video(
     file_path: str,
-    chunk_duration: int = 600,  # 10 minutes
-    overlap: int = 30,  # 30 seconds
+    chunk_duration: int = 840,  # 14 minutes - optimal for Voxtral's 15-min limit
+    overlap: int = 60,  # 60 seconds - better context preservation
     output_dir: Optional[str] = None,
 ) -> List[str]:
     """

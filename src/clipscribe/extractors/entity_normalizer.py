@@ -6,7 +6,7 @@ Ensures clean, consistent entities for network analysis
 """
 
 import logging
-from typing import List, Dict, Optional
+from typing import List, Dict, Optional, Any
 
 from collections import defaultdict
 import re
@@ -37,6 +37,15 @@ class EntityNormalizer:
             similarity_threshold: Minimum similarity to consider entities the same
         """
         self.similarity_threshold = similarity_threshold
+
+        # Common name variations and aliases
+        self.known_aliases = {
+            "United States": ["US", "USA", "U.S.", "U.S.A.", "America"],
+            "United Kingdom": ["UK", "Britain", "Great Britain", "England"],
+            "European Union": ["EU", "E.U."],
+            "World Health Organization": ["WHO"],
+            "United Nations": ["UN", "U.N."],
+        }
 
         # Common title patterns for people
         self.person_titles = {
@@ -883,6 +892,19 @@ class EntityNormalizer:
 
         return dict(aliases)
 
+    def _normalize_entity_name(self, name: str) -> str:
+        """Normalize entity name to canonical form."""
+        if not name:
+            return ""
+
+        # Handle known aliases first
+        for canonical, aliases in self.known_aliases.items():
+            if name in aliases or name.lower() in [a.lower() for a in aliases]:
+                return canonical
+
+        # Remove extra whitespace
+        return " ".join(name.split())
+
     def create_entity_lookup(self, entities: List[Entity]) -> Dict[str, str]:
         """Create a lookup table from any name variant to canonical name."""
         lookup = {}
@@ -898,3 +920,332 @@ class EntityNormalizer:
                 lookup[alias.lower()] = canonical
 
         return lookup
+
+    def normalize_entities_across_videos(
+        self,
+        video_entities: Dict[str, List[Entity]]
+    ) -> Dict[str, Any]:
+        """
+        PHASE 2: Normalize entities across multiple videos with cross-video linking.
+
+        This extends the single-video normalization to handle:
+        - Cross-video entity deduplication
+        - Entity relationship strengthening across videos
+        - Source attribution tracking
+        - Confidence boosting for entities appearing in multiple videos
+
+        Args:
+            video_entities: Dict mapping video IDs to their entity lists
+
+        Returns:
+            Dict with comprehensive cross-video normalization results
+        """
+        logger.info(f"PHASE 2: Cross-video entity normalization for {len(video_entities)} videos")
+
+        # Step 1: Normalize entities within each video first
+        video_normalized = {}
+        all_entities = []
+
+        for video_id, entities in video_entities.items():
+            normalized = self.normalize_entities(entities)
+            video_normalized[video_id] = normalized
+
+            # Add video ID to each entity for tracking
+            for entity in normalized:
+                # Create enhanced entity with video source tracking
+                enhanced_entity = Entity(
+                    entity=entity.entity,
+                    type=entity.type,
+                    confidence=getattr(entity, 'confidence', 0.5),
+                    properties={"source_video": video_id}  # Use properties field to store metadata
+                )
+                all_entities.append(enhanced_entity)
+
+        logger.info(f"Total entities across all videos: {len(all_entities)}")
+
+        # Step 2: Cross-video deduplication
+        cross_video_normalized = self._cross_video_deduplication(all_entities, video_entities)
+
+        # Step 3: Build entity relationship networks
+        entity_networks = self._build_entity_relationship_networks(
+            cross_video_normalized['normalized_entities'],
+            video_entities
+        )
+
+        # Step 4: Calculate cross-video confidence boosts
+        confidence_boosted = self._apply_cross_video_confidence_boost(
+            cross_video_normalized['normalized_entities']
+        )
+
+        # Step 5: Generate cross-video insights
+        insights = self._generate_cross_video_insights(
+            confidence_boosted,
+            entity_networks,
+            video_entities
+        )
+
+        result = {
+            'video_normalized': video_normalized,  # Per-video results
+            'cross_video_normalized': cross_video_normalized,  # Cross-video deduplication
+            'entity_networks': entity_networks,  # Relationship networks
+            'confidence_boosted_entities': confidence_boosted,  # Boosted confidence entities
+            'insights': insights,  # Cross-video insights
+            'statistics': self._calculate_cross_video_statistics(
+                video_entities,
+                cross_video_normalized,
+                confidence_boosted
+            )
+        }
+
+        logger.info(f"PHASE 2: Cross-video normalization complete")
+        logger.info(f"  - Input videos: {len(video_entities)}")
+        logger.info(f"  - Total entities: {len(all_entities)}")
+        logger.info(f"  - Cross-video entities: {len(confidence_boosted)}")
+        logger.info(f"  - Entity networks: {len(entity_networks)}")
+
+        return result
+
+    def _cross_video_deduplication(self, all_entities: List[Entity], original_video_entities: Dict[str, List[Entity]]) -> Dict[str, Any]:
+        """Perform cross-video entity deduplication."""
+        logger.info("Performing cross-video entity deduplication...")
+
+        # Group entities by their normalized name
+        entity_groups = defaultdict(list)
+
+        for entity in all_entities:
+            # Get the normalized form of this entity
+            normalized_name = self._normalize_entity_name(entity.entity)
+            entity_groups[normalized_name].append(entity)
+
+        # Merge entities within each group
+        merged_entities = []
+        deduplication_stats = {
+            'total_groups': len(entity_groups),
+            'merged_entities': 0,
+            'cross_video_entities': 0
+        }
+
+        for normalized_name, group_entities in entity_groups.items():
+            if len(group_entities) == 1:
+                # Single entity, no merging needed
+                merged_entities.append(group_entities[0])
+            else:
+                # Multiple entities with same normalized name
+                merged = self._merge_cross_video_entity_group(group_entities)
+                merged_entities.append(merged)
+                deduplication_stats['merged_entities'] += 1
+
+                # Check if this entity appears in multiple videos
+                source_videos = set()
+                for entity in group_entities:
+                    if hasattr(entity, 'properties') and entity.properties and 'source_video' in entity.properties:
+                        source_videos.add(entity.properties['source_video'])
+                    elif hasattr(entity, 'properties') and entity.properties and 'source_videos' in entity.properties:
+                        source_videos.update(entity.properties['source_videos'])
+
+                if len(source_videos) > 1:
+                    deduplication_stats['cross_video_entities'] += 1
+
+        return {
+            'normalized_entities': merged_entities,
+            'deduplication_stats': deduplication_stats,
+            'entity_groups': dict(entity_groups)
+        }
+
+    def _merge_cross_video_entity_group(self, entities: List[Entity]) -> Entity:
+        """Merge a group of entities from different videos."""
+        if not entities:
+            return None
+
+        # Use the first entity as base
+        base_entity = entities[0]
+
+        # Collect all source videos
+        source_videos = set()
+        all_confidences = []
+
+        for entity in entities:
+            # Check for source video in properties field (Pydantic compatible)
+            if hasattr(entity, 'properties') and entity.properties and 'source_video' in entity.properties:
+                source_videos.add(entity.properties['source_video'])
+            confidence = getattr(entity, 'confidence', 0.5)
+            all_confidences.append(confidence)
+
+        # Calculate boosted confidence for cross-video entities
+        avg_confidence = sum(all_confidences) / len(all_confidences)
+        cross_video_boost = min(0.2, (len(source_videos) - 1) * 0.1)  # 10% boost per additional video
+        boosted_confidence = min(1.0, avg_confidence + cross_video_boost)
+
+        # Create merged entity with cross-video metadata in properties
+        merged_properties = base_entity.properties.copy() if base_entity.properties else {}
+        merged_properties.update({
+            'source_videos': list(source_videos),
+            'mention_count': len(entities),
+            'cross_video_boost': cross_video_boost
+        })
+
+        merged = Entity(
+            entity=base_entity.entity,
+            type=base_entity.type,
+            confidence=boosted_confidence,
+            properties=merged_properties
+        )
+
+        return merged
+
+    def _build_entity_relationship_networks(
+        self,
+        entities: List[Entity],
+        original_video_entities: Dict[str, List[Entity]]
+    ) -> Dict[str, Any]:
+        """Build networks of entity relationships across videos."""
+        logger.info("Building entity relationship networks...")
+
+        networks = {
+            'entity_connections': defaultdict(list),
+            'video_entity_clusters': defaultdict(list),
+            'relationship_strengths': {}
+        }
+
+        # Group entities by video for cluster analysis
+        for video_id, video_entity_list in original_video_entities.items():
+            video_entity_names = {getattr(e, 'entity', getattr(e, 'name', '')) for e in video_entity_list}
+            networks['video_entity_clusters'][video_id] = list(video_entity_names)
+
+        # Find entities that appear in multiple videos
+        entity_video_map = defaultdict(set)
+        for video_id, entities_list in original_video_entities.items():
+            for entity in entities:
+                entity_name = getattr(entity, 'entity', getattr(entity, 'name', ''))
+                if hasattr(entity, '_source_videos') and video_id in entity._source_videos:
+                    entity_video_map[entity_name].add(video_id)
+
+        # Build connection network
+        for entity_name, video_set in entity_video_map.items():
+            if len(video_set) > 1:
+                networks['entity_connections'][entity_name] = list(video_set)
+
+                # Calculate relationship strength
+                strength = len(video_set) / len(original_video_entities)
+                networks['relationship_strengths'][entity_name] = strength
+
+        return networks
+
+    def _apply_cross_video_confidence_boost(self, entities: List[Entity]) -> List[Entity]:
+        """Apply confidence boosts for entities appearing in multiple videos."""
+        logger.info("Applying cross-video confidence boosts...")
+
+        boosted_entities = []
+
+        for entity in entities:
+            if hasattr(entity, '_cross_video_boost'):
+                # Boost already applied during merging
+                boosted_entities.append(entity)
+            else:
+                # Single-video entity, apply smaller boost for being well-formed
+                confidence = getattr(entity, 'confidence', 0.5)
+                well_formed_boost = 0.05 if len(entity.entity.split()) > 1 else 0.0
+                entity.confidence = min(1.0, confidence + well_formed_boost)
+                boosted_entities.append(entity)
+
+        return boosted_entities
+
+    def _generate_cross_video_insights(
+        self,
+        entities: List[Entity],
+        networks: Dict[str, Any],
+        original_video_entities: Dict[str, List[Entity]]
+    ) -> Dict[str, Any]:
+        """Generate insights from cross-video entity analysis."""
+        insights = {
+            'cross_video_entities': [],
+            'video_similarity_scores': {},
+            'entity_importance_ranking': [],
+            'relationship_clusters': []
+        }
+
+        # Find entities that appear in multiple videos
+        for entity in entities:
+            if hasattr(entity, '_source_videos') and len(entity._source_videos) > 1:
+                insights['cross_video_entities'].append({
+                    'entity': entity.entity,
+                    'type': entity.type,
+                    'videos': entity._source_videos,
+                    'mention_count': getattr(entity, '_mention_count', 1),
+                    'confidence': entity.confidence
+                })
+
+        # Calculate video similarity based on shared entities
+        video_ids = list(original_video_entities.keys())
+        for i, video1 in enumerate(video_ids):
+            for video2 in video_ids[i+1:]:
+                shared_entities = set(networks['video_entity_clusters'][video1]) & \
+                                set(networks['video_entity_clusters'][video2])
+
+                if shared_entities:
+                    similarity = len(shared_entities) / max(
+                        len(networks['video_entity_clusters'][video1]),
+                        len(networks['video_entity_clusters'][video2])
+                    )
+                    key = f"{video1}_{video2}"
+                    insights['video_similarity_scores'][key] = similarity
+
+        # Rank entities by importance (mentions + cross-video presence)
+        entity_scores = []
+        for entity in entities:
+            score = getattr(entity, '_mention_count', 1)
+            if hasattr(entity, '_source_videos'):
+                score *= (1 + len(entity._source_videos) * 0.5)  # Bonus for cross-video presence
+
+            entity_scores.append((score, entity))
+
+        entity_scores.sort(key=lambda x: x[0], reverse=True)
+        insights['entity_importance_ranking'] = [
+            {
+                'entity': entity.entity,
+                'type': entity.type,
+                'importance_score': score,
+                'videos': getattr(entity, '_source_videos', [])
+            }
+            for score, entity in entity_scores[:20]  # Top 20
+        ]
+
+        return insights
+
+    def _calculate_cross_video_statistics(
+        self,
+        original_video_entities: Dict[str, List[Entity]],
+        cross_video_normalized: Dict[str, Any],
+        confidence_boosted: List[Entity]
+    ) -> Dict[str, Any]:
+        """Calculate comprehensive statistics for cross-video analysis."""
+        stats = {
+            'input_videos': len(original_video_entities),
+            'total_input_entities': sum(len(entities) for entities in original_video_entities.values()),
+            'cross_video_normalized_entities': len(cross_video_normalized['normalized_entities']),
+            'confidence_boosted_entities': len(confidence_boosted),
+            'deduplication_stats': cross_video_normalized.get('deduplication_stats', {}),
+        }
+
+        # Calculate deduplication efficiency
+        if stats['total_input_entities'] > 0:
+            stats['deduplication_ratio'] = stats['cross_video_normalized_entities'] / stats['total_input_entities']
+
+        # Count entities by video presence
+        single_video_entities = 0
+        multi_video_entities = 0
+
+        for entity in confidence_boosted:
+            if hasattr(entity, '_source_videos'):
+                if len(entity._source_videos) > 1:
+                    multi_video_entities += 1
+                else:
+                    single_video_entities += 1
+            else:
+                single_video_entities += 1
+
+        stats['single_video_entities'] = single_video_entities
+        stats['multi_video_entities'] = multi_video_entities
+        stats['cross_video_coverage'] = multi_video_entities / max(1, len(confidence_boosted))
+
+        return stats

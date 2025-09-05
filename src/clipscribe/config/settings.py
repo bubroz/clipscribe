@@ -45,6 +45,9 @@ class Settings(BaseSettings):
     google_api_key: str = Field(
         default=os.getenv("GOOGLE_API_KEY", ""), description="Google API key for Gemini 2.5 Flash"
     )
+    xai_api_key: str = Field(
+        default=os.getenv("XAI_API_KEY", ""), description="xAI API key for Grok models"
+    )
 
     # Vertex AI Configuration
     use_vertex_ai: bool = Field(default=False)
