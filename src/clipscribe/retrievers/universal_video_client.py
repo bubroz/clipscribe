@@ -75,7 +75,7 @@ class TemporalMetadata:
     content_sections: List[VideoSegment]
 
 
-class EnhancedUniversalVideoClient:
+class UniversalVideoClient:
     """Universal Video Client with comprehensive temporal intelligence extraction."""
 
     def __init__(self):
@@ -101,7 +101,20 @@ class EnhancedUniversalVideoClient:
             "ignoreerrors": False,
             "logtostderr": False,
             "socket_timeout": 30,
-            "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+            "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
+            "http_headers": {
+                "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+                "Accept-Language": "en-US,en;q=0.9",
+                "Accept-Encoding": "gzip, deflate, br",
+                "DNT": "1",
+                "Connection": "keep-alive",
+                "Upgrade-Insecure-Requests": "1",
+                "Sec-Fetch-Dest": "document",
+                "Sec-Fetch-Mode": "navigate",
+                "Sec-Fetch-Site": "none",
+                "Sec-Fetch-User": "?1",
+                "Cache-Control": "max-age=0",
+            },
             "sponsorblock_mark": "all",
             "format_sort": [
                 "quality",
@@ -196,12 +209,27 @@ class EnhancedUniversalVideoClient:
         - Music: SoundCloud, Bandcamp, Mixcloud
         - And 1800+ more!
         """
+        # First try without cookies
         with yt_dlp.YoutubeDL({"quiet": True, "no_warnings": True}) as ydl:
             try:
                 # Try to extract basic info without downloading
                 ydl.extract_info(url, download=False, process=False)
                 return True
-            except yt_dlp.utils.DownloadError:
+            except yt_dlp.utils.DownloadError as e:
+                error_str = str(e).lower()
+                # Check if it's a bot detection error
+                if "bot" in error_str or "sign in" in error_str or "cookies" in error_str:
+                    if "youtube.com" in url or "youtu.be" in url:
+                        try:
+                            with yt_dlp.YoutubeDL({
+                                "quiet": True,
+                                "no_warnings": True,
+                                "cookiesfrombrowser": ("chrome",)
+                            }) as ydl_cookies:
+                                ydl_cookies.extract_info(url, download=False, process=False)
+                                return True
+                        except Exception:
+                            return False
                 return False
             except Exception:
                 # For some sites, we might need to try with process=True
@@ -209,6 +237,18 @@ class EnhancedUniversalVideoClient:
                     ydl.extract_info(url, download=False)
                     return True
                 except Exception:
+                    # If initial attempts fail, try with browser cookies for YouTube
+                    if "youtube.com" in url or "youtu.be" in url:
+                        try:
+                            with yt_dlp.YoutubeDL({
+                                "quiet": True,
+                                "no_warnings": True,
+                                "cookiesfrombrowser": ("chrome",)
+                            }) as ydl_cookies:
+                                ydl_cookies.extract_info(url, download=False, process=False)
+                                return True
+                        except Exception:
+                            return False
                     return False
 
     async def search_videos(
@@ -415,7 +455,16 @@ class EnhancedUniversalVideoClient:
                     f"Downloading audio from: {video_url} (attempt {attempt + 1}/{max_retries})"
                 )
 
-                with yt_dlp.YoutubeDL(opts) as ydl:
+                # On retry attempts, try with browser cookies for YouTube
+                if attempt > 0 and "youtube.com" in video_url:
+                    logger.info("Retrying with browser cookies for YouTube...")
+                    opts_with_cookies = opts.copy()
+                    opts_with_cookies["cookiesfrombrowser"] = ("chrome",)
+                    ydl_opts = opts_with_cookies
+                else:
+                    ydl_opts = opts
+
+                with yt_dlp.YoutubeDL(ydl_opts) as ydl:
                     # Extract video info first
                     info = ydl.extract_info(video_url, download=False)
 
@@ -452,9 +501,14 @@ class EnhancedUniversalVideoClient:
             except Exception as e:
                 logger.error(f"Audio download failed (attempt {attempt + 1}/{max_retries}): {e}")
 
-                # Check if it's an ffmpeg error
-                if "ffmpeg" in str(e).lower() and attempt < max_retries - 1:
-                    logger.info(f"Retrying in {retry_delay} seconds due to ffmpeg error...")
+                error_str = str(e).lower()
+                # Check if it's a retryable error (ffmpeg, network, or bot detection)
+                retryable_errors = ["ffmpeg", "network", "bot", "sign in", "cookies", "extract", "player response"]
+
+                is_retryable = any(keyword in error_str for keyword in retryable_errors)
+
+                if is_retryable and attempt < max_retries - 1:
+                    logger.info(f"Retrying in {retry_delay} seconds due to retryable error...")
                     await asyncio.sleep(retry_delay)
                     retry_delay *= 2  # Exponential backoff
                     continue
@@ -462,7 +516,7 @@ class EnhancedUniversalVideoClient:
                     # Last attempt failed
                     raise
                 else:
-                    # Non-ffmpeg error, raise immediately
+                    # Non-retryable error, raise immediately
                     raise
 
     async def get_video_info(
@@ -1056,5 +1110,4 @@ class EnhancedUniversalVideoClient:
         return content_sections
 
 
-# Backward compatibility alias
-UniversalVideoClient = EnhancedUniversalVideoClient
+# Class renamed to UniversalVideoClient

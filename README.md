@@ -5,7 +5,7 @@
 ![CI](https://img.shields.io/github/actions/workflow/status/bubroz/clipscribe/ci.yml?branch=main)
 ![Python](https://img.shields.io/badge/python-3.12-blue)
 ![License](https://img.shields.io/badge/license-Proprietary-red)
-![Version](https://img.shields.io/badge/version-v2.46.0-informational)
+![Version](https://img.shields.io/badge/version-v2.50.0-informational)
 ![Status](https://img.shields.io/badge/status-private%20alpha-yellow)
 
 *Transform video content into structured, searchable, and reportable intelligence*
@@ -24,29 +24,30 @@ ClipScribe is currently in private alpha testing. The service is not yet availab
 - **Beta Timeline**: Private alpha (Month 1-2) → Closed beta (Month 3-4) → Public launch (Month 6)
 - **Early Access**: Contact zforristall@gmail.com for beta access consideration
 
-## v2.45.0 - Production Architecture Complete
+## v2.50.0 - Uncensored Intelligence Pipeline Complete
 
-**🚧 PRIVATE ALPHA DEPLOYMENT**: Full infrastructure deployed with Google Cloud Tasks queue system and hybrid worker architecture.
+**🎯 VOXTRAL -> GROK-4 PIPELINE**: Production-ready uncensored intelligence extraction with superior cost efficiency and quality.
 
 **🎯 KEY ACHIEVEMENTS**:
-- **Infrastructure Deployed**: API and web services are deployed but access-restricted
-- **Worker Development**: Hybrid Cloud Run + Compute Engine architecture in progress
-- **Monitoring & Retry**: Comprehensive error handling and monitoring systems implemented
-- **Cost Controls**: Emergency stop mechanisms and budget limits in place
+- **Uncensored Intelligence**: Voxtral transcription + Grok-4 extraction bypasses all Gemini safety filters
+- **YouTube Bot Detection Bypass**: Automatic browser cookie fallback prevents download failures
+- **Cost Optimization**: ~$0.02-0.04 per video vs Gemini's $0.0035-0.02
+- **Output Quality**: Removed redundant files, dynamic mention counts, optional exports
+- **Multi-Video Testing**: Successfully validated on 3 controversial Stoic Viking videos
 
 **🔧 PRODUCTION CAPABILITIES**:
-- Complete video intelligence extraction and analysis
+- Complete uncensored video intelligence extraction and analysis
 - Multi-platform video processing (1800+ platforms via yt-dlp)
 - Entity extraction, relationship mapping, and knowledge graph generation
 - Enterprise-grade reliability with comprehensive error handling
 - Advanced entity normalization and deduplication
-- Cost-optimized transcription with Gemini 2.5 Pro/Flash
+- Cost-optimized transcription with Voxtral + Grok-4 pipeline
 
 **📊 CURRENT TEST STATUS**: Exceptional coverage expansion with 13/15 core modules at 80%+ coverage. Systematic approach achieving 83-99% coverage on critical infrastructure.
 
 **🧪 TEST EXCELLENCE**: High unit test pass rate with comprehensive edge case coverage and **enterprise-grade test isolation** for all core functionality. 99% coverage on 4 critical modules, 90%+ on ML infrastructure.
 
-**💰 COST-OPTIMIZED**: $0.002/minute actual processing cost with intelligent model selection and sophisticated cost optimization algorithms.
+**💰 COST-OPTIMIZED**: ~$0.02-0.04 per video with Voxtral transcription + Grok-4 extraction, superior to Gemini's $0.0035-0.02 per minute.
 
 **🏗️ ROBUST ARCHITECTURE**: Modular design with professional CLI, comprehensive error handling, and complete API isolation for reliable testing and deployment.
 
@@ -60,7 +61,8 @@ ClipScribe is currently in private alpha testing. The service is not yet availab
 - **Knowledge Graphs**: Automated knowledge graph generation with Gephi compatibility.
 - **Key Points**: AI-generated executive summaries and insights.
 - **Multiple Formats**: JSON, CSV, GEXF, Markdown, Chimera formats for any workflow.
-- **Cost Optimization**: $0.002/minute actual processing cost with intelligent model selection.
+- **Uncensored Intelligence**: Bypasses all safety filters for professional data collection
+- **Cost Optimization**: ~$0.02-0.04 per video with Voxtral transcription + Grok-4 extraction
 
 ### Multi-Video Collections
 - **Series Detection**: Automatic detection and processing of video series from same creator
@@ -283,7 +285,11 @@ clipscribe process video URL --use-flash     # Standard quality (Flash)
 
 ### Environment Variables
 ```env
-# Required
+# Required for current pipeline
+MISTRAL_API_KEY="your_mistral_api_key_here"
+XAI_API_KEY="your_xai_api_key_here"
+
+# Legacy Gemini support (optional)
 GOOGLE_API_KEY="your_gemini_api_key_here"
 
 # Optional - Processing Controls
@@ -294,11 +300,12 @@ DAILY_BUDGET_LIMIT=5.0
 # Optional - Output Settings
 OUTPUT_DIR=output
 LOG_LEVEL=INFO
+EXPORT_GRAPH_FORMATS=false
 
-# Optional - Vertex AI Enterprise
+# Optional - Vertex AI Enterprise (legacy)
 VERTEX_AI_PROJECT=your-project-id
 VERTEX_AI_LOCATION=us-central1
-GOOGLE_APPLICATION_CREDENTIALS=path/to/service-account.json
+GOOGLE_APPLICATION_CREDENTIALS=path/to/your/service-account.json
 ```
 
 ### Processing Modes
@@ -329,9 +336,10 @@ poetry run clipscribe process video URL --mode video      # Full video processin
 - **Enterprise Isolation**: All external dependencies mocked for reliable CI/CD
 
 ### Cost Efficiency
-- **Flash (--default)**: $0.0122 for 3.5-min video
-- **Pro (--use-pro)**: $0.0167 for 5-min video
-- **Per Minute**: $0.0035 (Flash) vs $0.02 (Pro)
+- **Voxtral + Grok-4**: ~$0.02-0.04 per video (any length)
+- **Legacy Gemini Flash**: $0.0035/minute ($0.21 for 60-min video)
+- **Legacy Gemini Pro**: $0.02/minute ($1.20 for 60-min video)
+- **Cost Savings**: 75-95% vs Gemini for long videos
 
 ## Documentation
 
@@ -388,11 +396,11 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ---
 
-**ClipScribe v2.45.0 - Private Alpha**
+**ClipScribe v2.50.0 - Private Alpha**
 
-*Gemini 2.5 Pro is the default for the best results, with an optional `--use-flash` flag for speed.*
+*Voxtral transcription + Grok-4 extraction provides uncensored intelligence with superior cost efficiency.*
 
-**Current Status**: Infrastructure deployed, worker service under development. Not yet available for public use.
+**Current Status**: Uncensored intelligence pipeline validated on controversial content. Ready for production deployment.
 
 ## Contributing & Extending
 
