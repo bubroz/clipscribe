@@ -1,6 +1,6 @@
 # ClipScribe Output Formats
 
-*Last Updated: August 11, 2025 - v2.30.0*
+*Last Updated: September 4, 2025 - v2.50.0*
 
 ClipScribe generates a comprehensive set of structured output files for each processed video, all organized within a timestamped directory.
 
@@ -22,15 +22,21 @@ output/
     └── manifest.json           # File index with processing metadata
 ```
 
-## Quality Control Options
+## Current Pipeline: Voxtral -> Grok-4
 
-### High Quality (Default - Gemini 2.5 Pro)
-- Professional-grade extraction and reasoning; recommended for complex analysis.
+### Uncensored Intelligence (Default)
+- **Transcription**: Voxtral (Mistral) - Superior WER and cost efficiency
+- **Intelligence Extraction**: Grok-4 (xAI) - Bypasses all Gemini safety filters
+- **Cost**: ~$0.02-0.04 per video (any length)
+- **Quality**: Professional-grade extraction for sensitive content analysis
 
-### Standard Quality (--use-flash - Gemini 2.5 Flash)
-- Faster and cost-efficient; ideal for high volume or exploratory runs.
+### Legacy Gemini Pipeline (Available)
+- **Transcription**: Gemini multimodal (variable quality)
+- **Intelligence Extraction**: Gemini 2.5 Pro/Flash
+- **Cost**: $0.0035-0.02 per minute
+- **Limitations**: Safety filters may censor sensitive content
 
-## Recent Optimizations (v2.30.1)
+## Optimizations (v2.50.0)
 
 ### Output Streamlining
 - **Removed**: CSV exports (entities.csv, relationships.csv) - use JSON for structured data

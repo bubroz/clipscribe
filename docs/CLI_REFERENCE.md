@@ -1,6 +1,6 @@
 # ClipScribe CLI Reference
 
-*Last Updated: 2025-09-01 - v2.44.0*
+*Last Updated: 2025-09-04 - v2.50.0*
 
 Complete reference for all ClipScribe commands, groups, and options.
 
@@ -18,8 +18,9 @@ poetry install --extras all --with dev
 
 ##  Key Features
 
-- **Quality First**: Gemini 2.5 Pro is the default for the highest quality intelligence.
-- **Speed Option**: Use `--use-flash` for a faster, lower-cost analysis.
+- **Uncensored Intelligence**: Voxtral transcription + Grok-4 extraction bypasses all safety filters.
+- **Cost Optimized**: ~$0.02-0.04 per video vs Gemini's $0.0035-0.02 per minute.
+- **Bot Detection Bypass**: Automatic cookie fallback prevents YouTube download failures.
 - **Structured CLI**: Commands organized into logical groups (`process`, `collection`, `utils`) with direct commands (`research`).
 - **1800+ Platforms**: Supports YouTube, Twitter, TikTok, Vimeo, and more.
 - **Optional Dependencies**: Install only what you need with flexible dependency groups.
