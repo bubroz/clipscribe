@@ -1,3 +1,43 @@
+## [2.51.0] - 2025-09-04
+
+### Added
+- **VideoIntelligenceRetrieverV2**: Complete replacement for Gemini-based retriever
+  - Properly integrates HybridProcessor (Voxtral + Grok-4)
+  - Eliminates all Gemini dependencies from main pipeline
+  - Maintains backward compatibility with CLI interface
+- **CoreData Model**: Pydantic-based single source of truth
+  - Consolidates entities, relationships, metadata, and transcripts
+  - Automatic validation with type checking
+  - Generates derived outputs (facts, knowledge graph) on demand
+  - Reduces file count from 14+ to 5 core files
+- **OutputValidator**: Comprehensive validation system
+  - Catches truncations, empty fields, and inconsistencies
+  - Validates JSON structure and cross-file consistency
+  - Automatic fixes for common issues (mention counts, confidence scores)
+  - Generates validation reports with errors, warnings, and suggestions
+
+### Changed
+- CLI now uses VideoIntelligenceRetrieverV2 instead of old VideoIntelligenceRetriever
+- Output structure consolidated to 5 core files (core.json, transcript.txt, metadata.json, knowledge_graph.json, report.md)
+- All data models now use Pydantic for validation and type safety
+- Confidence scores normalized to float 0.0-1.0 across all outputs
+- Timestamps standardized to ISO 8601 format
+- Entity types normalized to uppercase
+
+### Fixed
+- Eliminated Gemini from main processing pipeline (was still being used despite Voxtral integration)
+- Fixed transcript truncation issues with streaming support
+- Fixed hardcoded confidence scores with dynamic calculation
+- Fixed mention count discrepancies with regex-based counting
+- Fixed evidence preservation across all extraction types
+- Removed redundant files (entities.csv, relationships.csv, facts.json, manifest.json, chimera_format.json)
+
+### Technical Details
+- Moved core_data.py to proper location in src/clipscribe/
+- Created validators/ directory for output validation
+- Updated all imports to use new V2 retriever
+- Comprehensive test coverage for new components
+
 ## [2.50.0] - 2025-09-04
 
 ### Added

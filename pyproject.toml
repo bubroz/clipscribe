@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "clipscribe"
-version = "2.45.0"
+version = "2.51.0"
 description = "ClipScribe - AI-powered video intelligence tool for extracting knowledge from video content"
 authors = ["Zac Forristall <zforristall@gmail.com>"]
 readme = "README.md"
@@ -127,7 +127,7 @@ google-generativeai = "^0.8.2"
 pydantic = "^2.8.2"
 rich = "^13.8.0"
 networkx = "^3.3"
-yt-dlp = "^2025.1.15"
+yt-dlp = "^2025.8.27"
 youtube-search-python = "^1.6.6"
 aiohttp = "^3.10.5"
 python-dotenv = "^1.0.1"

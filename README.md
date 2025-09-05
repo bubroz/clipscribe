@@ -5,7 +5,7 @@
 ![CI](https://img.shields.io/github/actions/workflow/status/bubroz/clipscribe/ci.yml?branch=main)
 ![Python](https://img.shields.io/badge/python-3.12-blue)
 ![License](https://img.shields.io/badge/license-Proprietary-red)
-![Version](https://img.shields.io/badge/version-v2.50.0-informational)
+![Version](https://img.shields.io/badge/version-v2.51.0-informational)
 ![Status](https://img.shields.io/badge/status-private%20alpha-yellow)
 
 *Transform video content into structured, searchable, and reportable intelligence*
@@ -24,16 +24,16 @@ ClipScribe is currently in private alpha testing. The service is not yet availab
 - **Beta Timeline**: Private alpha (Month 1-2) → Closed beta (Month 3-4) → Public launch (Month 6)
 - **Early Access**: Contact zforristall@gmail.com for beta access consideration
 
-## v2.50.0 - Uncensored Intelligence Pipeline Complete
+## v2.51.0 - Pipeline Refactor & Output Consolidation
 
-**🎯 VOXTRAL -> GROK-4 PIPELINE**: Production-ready uncensored intelligence extraction with superior cost efficiency and quality.
+**🚀 MAJOR REFACTOR**: Complete replacement of Gemini pipeline with integrated Voxtral-Grok system, plus comprehensive output consolidation.
 
 **🎯 KEY ACHIEVEMENTS**:
-- **Uncensored Intelligence**: Voxtral transcription + Grok-4 extraction bypasses all Gemini safety filters
-- **YouTube Bot Detection Bypass**: Automatic browser cookie fallback prevents download failures
-- **Cost Optimization**: ~$0.02-0.04 per video vs Gemini's $0.0035-0.02
-- **Output Quality**: Removed redundant files, dynamic mention counts, optional exports
-- **Multi-Video Testing**: Successfully validated on 3 controversial Stoic Viking videos
+- **Pipeline Integration**: Replaced VideoProcessor with HybridProcessor, eliminating all Gemini dependencies
+- **Output Consolidation**: Reduced from 14+ files to 5 core files with CoreData model
+- **Pydantic Validation**: All outputs validated with type-safe models and automatic fixes
+- **Output Validator**: Catches truncations, inconsistencies, and quality issues automatically
+- **V2 Retriever**: New VideoIntelligenceRetrieverV2 properly routes to Voxtral-Grok pipeline
 
 **🔧 PRODUCTION CAPABILITIES**:
 - Complete uncensored video intelligence extraction and analysis

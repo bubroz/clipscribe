@@ -1,116 +1,268 @@
-# ClipScribe Output Formats
+# Output Formats
 
-*Last Updated: September 4, 2025 - v2.50.0*
+*Last Updated: September 5, 2025*
+*Related: [CLI Reference](CLI_REFERENCE.md) | [Visualizing Graphs](VISUALIZING_GRAPHS.md)*
 
-ClipScribe generates a comprehensive set of structured output files for each processed video, all organized within a timestamped directory.
+ClipScribe generates structured output files containing transcripts, entities, relationships, and knowledge graphs extracted from video content.
 
-## Directory Structure
+## Table of Contents
+- [Output Directory Structure](#output-directory-structure)
+- [Core Output Files](#core-output-files)
+- [Optional Graph Formats](#optional-graph-formats)
+- [Legacy Format Migration](#legacy-format-migration)
+
+## Output Directory Structure
 
 ```
 output/
-└── YYYYMMDD_platform_videoId/
-    ├── transcript.txt          # Plain text transcript
-    ├── transcript.json         # Full structured data with all analysis
-    ├── metadata.json           # Lightweight video and processing metadata
-    ├── entities.json           # Entities with real mention counts (not hardcoded)
-    ├── relationships.json      # Relationships with evidence chains
-    ├── knowledge_graph.json    # Raw graph data for programmatic use
-    ├── knowledge_graph.gexf    # Gephi-compatible (optional - set export_graph_formats=True)
-    ├── knowledge_graph.graphml # yEd/Cytoscape compatible (optional - set export_graph_formats=True)
-    ├── facts.json              # Derived facts from relationships
-    ├── report.md               # Human-readable report (placeholder for executive summary)
-    └── manifest.json           # File index with processing metadata
+├── YYYYMMDD_platform_videoId/     # Individual video outputs
+│   ├── core.json                   # Single source of truth (all data)
+│   ├── transcript.txt              # Plain text transcript
+│   ├── metadata.json               # Video and processing metadata
+│   ├── knowledge_graph.json        # Graph structure for visualization
+│   └── report.md                   # Human-readable summary
+│
+├── collections/                    # Multi-video collections
+│   └── YYYYMMDD_collection_name/
+│       ├── series_analysis.json
+│       └── individual_videos/
+│
+└── video_archive/                  # Archived videos (retention policy)
+    └── retention_log.json
 ```
-
-## Current Pipeline: Voxtral -> Grok-4
-
-### Uncensored Intelligence (Default)
-- **Transcription**: Voxtral (Mistral) - Superior WER and cost efficiency
-- **Intelligence Extraction**: Grok-4 (xAI) - Bypasses all Gemini safety filters
-- **Cost**: ~$0.02-0.04 per video (any length)
-- **Quality**: Professional-grade extraction for sensitive content analysis
-
-### Legacy Gemini Pipeline (Available)
-- **Transcription**: Gemini multimodal (variable quality)
-- **Intelligence Extraction**: Gemini 2.5 Pro/Flash
-- **Cost**: $0.0035-0.02 per minute
-- **Limitations**: Safety filters may censor sensitive content
-
-## Optimizations (v2.50.0)
-
-### Output Streamlining
-- **Removed**: CSV exports (entities.csv, relationships.csv) - use JSON for structured data
-- **Optional**: GEXF/GraphML exports (set `export_graph_formats=True` in settings)
-- **Deprecated**: chimera_format.json - replaced by structured JSON formats
-- **Reduced**: Output files from ~14 to ~10-11, cutting ~30% generation overhead
-
-### Data Quality Improvements
-- **Fixed**: Mention counts now reflect actual transcript occurrences (was hardcoded to 1)
-- **Removed**: Arbitrary confidence scores from entities/relationships
-- **Enhanced**: report.md as placeholder for future executive summary
-- **Improved**: Evidence chains and relationship traceability
-
-### Configuration
-Set `export_graph_formats=True` in `src/clipscribe/config/settings.py` to enable:
-- `knowledge_graph.gexf` (Gephi visualization)
-- `knowledge_graph.graphml` (yEd/Cytoscape visualization)
-
-## Critical Fixes in v2.20.4
-
-### RESOLVED: Output Pipeline Issues
-- **Fixed**: Entities/relationships arrays were empty in output files
-- **Fixed**: Missing knowledge_graph.gexf generation
-- **Fixed**: Advanced extraction pipeline not running
-- **Validated**: All output formats now working end-to-end
-
-### Confirmed Working Examples
-Based on validated controversial content processing:
-- **entities.json**: 26+ entities with real mention counts
-- **relationships.json**: 19+ relationships with evidence chains
-- **facts.json**: 19+ derived facts from relationships
-
-## File Formats
-
-### transcript.txt
-A simple plain text file containing the full transcript. Ideal for quick reading or ingestion into other systems.
-
-### transcript.json
-The most comprehensive single-file output. Contains:
-- Full transcript with segments and metadata
-- Complete video information (title, URL, duration, platform)
-- All analysis results: summary, key points, topics, entities, relationships
-- Processing details: cost, model used, quality level selected
-
-### metadata.json
-Lightweight JSON file with processing overview:
-- Basic video info (title, channel, duration, platform)
-- Processing details (cost, time, model used: Flash vs Pro)
-- Statistics (entity count, relationship count, confidence metrics)
-
-## File Details
-
-### 1. `transcript.txt` - Raw Transcript
-- Plain text with optional timestamps
-- Example: "[00:01] Speaker: Hello world"
-- Parse with: `with open('transcript.txt') as f: text = f.read()`
-
-### 2. `transcript.json` - Complete Intelligence
-- Schema: {'transcript': str, 'entities': List[Dict], 'relationships': List[Dict], ...}
-- Example Access: `import json; data = json.load(open('transcript.json')); len(data['entities'])`
 
 ## Core Output Files
 
-### entities.json
-Contains extracted entities with normalization and multi-source attribution (Gemini + targeted local augmentations where applicable).
+### 1. core.json (Primary Data File)
+**Single source of truth containing all extracted data**
 
 ```json
 {
-  "video_url": "https://www.youtube.com/watch?v=...",
-  "video_title": "Video Title",
+  "video_metadata": {
+    "url": "https://youtube.com/watch?v=...",
+    "title": "Video Title",
+    "channel": "Channel Name",
+    "duration": 172.0,
+    "platform": "youtube",
+    "published_at": "2025-08-15T12:43:42+00:00",
+    "view_count": 1591
+  },
+  "processing_info": {
+    "model": "voxtral-grok",
+    "cost": 0.0234,
+    "processing_time": 45.2,
+    "timestamp": "2025-09-05T10:30:00",
+    "pipeline_version": "v2.51.0"
+  },
+  "transcript_segments": [
+    {
+      "text": "Segment text...",
+      "start_time": 0.0,
+      "end_time": 30.0,
+      "speaker": null
+    }
+  ],
   "entities": [
+    {
+      "name": "Entity Name",
+      "type": "PERSON",
+      "confidence": 0.95,
+      "mention_count": 3,
+      "aliases": [],
+      "canonical_form": "Entity Name",
+      "evidence": [
+        {
+          "quote": "Direct quote mentioning entity",
+          "timestamp": 15.5,
+          "source": "grok-4",
+          "confidence": 0.9
+        }
+      ],
+      "extraction_sources": ["grok-4"],
+      "temporal_distribution": []
+    }
+  ],
+  "relationships": [
+    {
+      "subject": "Entity A",
+      "predicate": "relates to",
+      "object": "Entity B",
+      "confidence": 0.85,
+      "evidence": [
+        {
+          "quote": "Supporting quote",
+          "timestamp": 45.0,
+          "source": "grok-4",
+          "confidence": 0.85
+        }
+      ],
+      "extraction_source": "grok-4",
+      "contradictions": []
+    }
+  ],
+  "topics": ["Topic 1", "Topic 2"],
+  "key_points": ["Key insight 1", "Key insight 2"],
+  "summary": "Brief summary of video content"
+}
 ```
 
-## For Data Scientists
-- Load graphs: `import networkx as nx; g = nx.read_gexf('knowledge_graph.gexf')`
-- Analyze entities: Use pandas for CSV: `import pandas as pd; df = pd.read_csv('entities.csv')`
-- Custom Scripts: See examples/structured_output_demo.py
+### 2. transcript.txt
+**Plain text transcript for easy reading and searching**
+
+```text
+This is the full transcript text extracted from the video.
+It contains all spoken content without timestamps or formatting.
+```
+
+### 3. metadata.json
+**Lightweight metadata for quick reference**
+
+```json
+{
+  "url": "https://youtube.com/watch?v=...",
+  "title": "Video Title",
+  "channel": "Channel Name",
+  "duration": 172,
+  "platform": "youtube",
+  "published_at": "2025-08-15T12:43:42+00:00",
+  "view_count": 1591,
+  "model": "voxtral-grok",
+  "cost": 0.0234,
+  "processing_time": 45.2,
+  "timestamp": "2025-09-05T10:30:00",
+  "pipeline_version": "v2.51.0",
+  "entity_count": 25,
+  "relationship_count": 18
+}
+```
+
+### 4. knowledge_graph.json
+**Graph structure for visualization tools**
+
+```json
+{
+  "nodes": [
+    {
+      "id": "Entity Name",
+      "label": "Entity Name",
+      "type": "PERSON",
+      "confidence": 0.95,
+      "mention_count": 3
+    }
+  ],
+  "edges": [
+    {
+      "source": "Entity A",
+      "target": "Entity B",
+      "predicate": "relates to",
+      "confidence": 0.85
+    }
+  ]
+}
+```
+
+### 5. report.md
+**Human-readable markdown report**
+
+```markdown
+# Video Intelligence Report: Video Title
+
+**URL**: https://youtube.com/watch?v=...
+**Channel**: Channel Name
+**Duration**: 172s
+**Processed**: 2025-09-05 10:30:00
+**Cost**: $0.0234
+
+## Summary
+Brief summary of the video content...
+
+## Key Entities (25)
+- **Entity 1** (PERSON): 5 mentions
+- **Entity 2** (ORGANIZATION): 3 mentions
+
+## Key Relationships (18)
+- Entity A relates to Entity B
+- Entity C works with Entity D
+
+## Key Points
+- Important insight 1
+- Important insight 2
+```
+
+## Optional Graph Formats
+
+Enable with environment variable: `EXPORT_GRAPH_FORMATS=true`
+
+### GEXF Format (Gephi)
+**knowledge_graph.gexf** - For import into Gephi network visualization tool
+
+### GraphML Format (yEd, Cytoscape)
+**knowledge_graph.graphml** - For import into yEd or Cytoscape
+
+## Legacy Format Migration
+
+### Files No Longer Generated (v2.51.0+)
+- `entities.json` - Merged into core.json
+- `relationships.json` - Merged into core.json
+- `entities.csv` - Removed (redundant)
+- `relationships.csv` - Removed (redundant)
+- `facts.json` - Derived from relationships in core.json
+- `manifest.json` - Merged into core.json
+- `chimera_format.json` - Removed (unused)
+- `transcript.json` - Redundant with core.json
+
+### Migration Path
+To migrate from legacy outputs:
+```python
+from clipscribe.core_data import CoreData
+
+# Load legacy files into new format
+core_data = CoreData.from_legacy_files("output/old_video_dir/")
+
+# Save in new consolidated format
+core_data.save("output/new_video_dir/")
+```
+
+## Data Quality Features
+
+### Validation
+- **Pydantic Models**: Type-safe validation for all data
+- **Confidence Scores**: Normalized 0.0-1.0 floats
+- **Timestamps**: ISO 8601 format
+- **Entity Types**: Uppercase normalization
+
+### Automatic Fixes
+- Dynamic mention counting via regex
+- Evidence preservation with quotes and timestamps
+- Relationship fact generation
+- Confidence score adjustment based on evidence
+
+### Output Validator
+Run validation on any output directory:
+```python
+from clipscribe.validators.output_validator import OutputValidator
+
+validator = OutputValidator()
+report = validator.validate_directory("output/video_dir/")
+fixes = validator.fix_common_issues("output/video_dir/")
+```
+
+## Configuration
+
+### Environment Variables
+```bash
+# Optional graph exports
+EXPORT_GRAPH_FORMATS=true  # Enable GEXF/GraphML generation
+
+# Output directory
+OUTPUT_DIR=output  # Default output location
+```
+
+### Settings
+```python
+from clipscribe.config.settings import Settings
+
+settings = Settings()
+settings.export_graph_formats = True  # Enable optional formats
+settings.output_dir = "custom_output"  # Custom output location
+```

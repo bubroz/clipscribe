@@ -1,6 +1,6 @@
 # ClipScribe CLI Reference
 
-*Last Updated: 2025-09-04 - v2.50.0*
+*Last Updated: 2025-09-05 - v2.51.0*
 
 Complete reference for all ClipScribe commands, groups, and options.
 
@@ -18,13 +18,13 @@ poetry install --extras all --with dev
 
 ##  Key Features
 
+- **Integrated Pipeline**: VideoIntelligenceRetrieverV2 with HybridProcessor (no more Gemini).
+- **Consolidated Outputs**: 5 core files with Pydantic validation (reduced from 14+).
+- **Output Validation**: Automatic detection and fixing of quality issues.
 - **Uncensored Intelligence**: Voxtral transcription + Grok-4 extraction bypasses all safety filters.
-- **Cost Optimized**: ~$0.02-0.04 per video vs Gemini's $0.0035-0.02 per minute.
+- **Cost Optimized**: ~$0.02-0.04 per video with superior quality.
 - **Bot Detection Bypass**: Automatic cookie fallback prevents YouTube download failures.
-- **Structured CLI**: Commands organized into logical groups (`process`, `collection`, `utils`) with direct commands (`research`).
 - **1800+ Platforms**: Supports YouTube, Twitter, TikTok, Vimeo, and more.
-- **Optional Dependencies**: Install only what you need with flexible dependency groups.
-- **Docker Optimized**: Multi-stage builds reducing image size from >8GiB to ~500MB for CLI usage.
 - **Enterprise Test Coverage**: 400+ unit tests passing with 83-99% coverage on critical infrastructure modules.
 
 ## Global Options

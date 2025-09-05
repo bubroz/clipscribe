@@ -6655,4 +6655,4 @@ web = ["fastapi", "redis", "rq", "streamlit", "uvicorn"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.11"
-content-hash = "e2f8b51ab4a8fd9001a8474bcb91ccf8f7bf37a301c75dac4f4c94bd05ffbe61"
+content-hash = "c37c48ab474a74f2296d2394711e3c25a29777555c682aecc5e66595511ec8f8"

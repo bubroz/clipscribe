@@ -1,7 +1,8 @@
 """ClipScribe CLI - AI-powered video transcription and analysis tool.
 
 This module provides the command-line interface for ClipScribe, supporting
-transcription of videos from 1800+ platforms using Gemini 2.5 Pro by default.
+transcription of videos from 1800+ platforms using the Voxtral-Grok pipeline
+for uncensored intelligence extraction.
 """
 
 from pathlib import Path
@@ -14,7 +15,7 @@ import click
 
 from ..version import __version__
 from ..config.logging_config import setup_logging
-from ..retrievers import VideoIntelligenceRetriever
+from ..retrievers.video_retriever_v2 import VideoIntelligenceRetrieverV2 as VideoIntelligenceRetriever
 from ..config.settings import Settings
 from ..models import VideoCollectionType
 from ..extractors.multi_video_processor import MultiVideoProcessor
