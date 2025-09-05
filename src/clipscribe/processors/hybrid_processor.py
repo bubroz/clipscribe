@@ -386,12 +386,13 @@ class HybridProcessor:
                         name=e,
                         type="UNKNOWN",
                         extraction_sources=["grok_analysis"],
-                        mention_count=1,
+                        mention_count=1,  # Will be updated with actual count
                         context_windows=[],
                         aliases=[],
                         canonical_form=e,
                         temporal_distribution=[],
-                        properties={"confidence": 0.7}
+                        properties={"evidence": e.get("evidence", []),
+                                   "quotes": e.get("quotes", [])}
                     ))
                 else:
                     # Full entity dict
@@ -399,16 +400,18 @@ class HybridProcessor:
                         name=e.get("name", ""),
                         type=e.get("type", "UNKNOWN"),
                         extraction_sources=["grok_analysis"],
-                        mention_count=1,
+                        mention_count=1,  # Will be updated with actual count
                         context_windows=[],
                         aliases=[],
                         canonical_form=e.get("name", ""),
                         temporal_distribution=[],
-                        properties={"confidence": e.get("confidence", 0.5), 
-                                   "evidence": e.get("evidence", []),
+                        properties={"evidence": e.get("evidence", []),
                                    "quotes": e.get("quotes", [])}
                     ))
-            
+
+            # Count actual mentions in transcript
+            entities = self._count_entity_mentions(entities, transcript_text)
+
             relationships = []
             for r in result.get("relationships", []):
                 # Create evidence chain from Grok's evidence
@@ -468,7 +471,7 @@ class HybridProcessor:
                 "confidence": 0.9,  # High confidence with full context
                 "cost": cost
             }
-            
+
         except Exception as e:
             logger.error(f"Grok intelligence extraction failed: {e}")
             # Fallback to empty results
@@ -481,6 +484,18 @@ class HybridProcessor:
                 "confidence": 0,
                 "cost": 0
             }
+
+    def _count_entity_mentions(self, entities: List[EnhancedEntity], transcript_text: str) -> List[EnhancedEntity]:
+        """Count actual mentions of entities in the transcript text."""
+        import re
+
+        for entity in entities:
+            # Use word boundaries and case-insensitive matching
+            pattern = r'\b' + re.escape(entity.name) + r'\b'
+            matches = re.findall(pattern, transcript_text, re.IGNORECASE)
+            entity.mention_count = len(matches)
+
+        return entities
 
 
 class SeamlessTranscriptAnalyzer:

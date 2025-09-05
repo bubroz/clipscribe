@@ -8,6 +8,7 @@ from typing import Dict, Any, List, Optional
 from datetime import datetime
 
 from ..models import VideoIntelligence, MultiVideoIntelligence
+from ..config.settings import Settings
 from ..utils.filename import create_output_filename, create_output_structure
 from ..utils.file_utils import calculate_sha256
 
@@ -87,8 +88,9 @@ class OutputFormatter:
         self._save_facts_file(video, paths)
         self._save_report_file(video, paths)
 
-        if include_chimera_format:
-            self._save_chimera_file(video, paths)
+# Chimera format deprecated - use structured JSON formats instead
+# if include_chimera_format:
+#     self._save_chimera_file(video, paths)
 
         self._create_manifest_file(video, paths)
 
@@ -233,7 +235,7 @@ class OutputFormatter:
             )
 
     def _save_entities_files(self, video: VideoIntelligence, paths: Dict[str, Path]):
-        """Saves entities.json and entities.csv."""
+        """Saves entities.json."""
         all_entities = video.entities
 
         # Entities JSON
@@ -261,23 +263,8 @@ class OutputFormatter:
         with open(paths["entities"], "w", encoding="utf-8") as f:
             json.dump(entities_data, f, indent=2)
 
-        # Entities CSV
-        entities_csv_path = paths["directory"] / "entities.csv"
-        with open(entities_csv_path, "w", encoding="utf-8", newline="") as f:
-            writer = csv.writer(f)
-            writer.writerow(["name", "type", "source", "timestamp", "mention_count"])
-            for entity in all_entities:
-                writer.writerow([
-                    entity.name,
-                    entity.type,
-                    getattr(entity, "extraction_sources", getattr(entity, "source", "unknown")),
-                    getattr(entity, "timestamp", ""),
-                    getattr(entity, "mention_count", 1),
-                ])
-        paths["entities_csv"] = entities_csv_path
-
     def _save_relationships_files(self, video: VideoIntelligence, paths: Dict[str, Path]):
-        """Saves relationships.json and relationships.csv."""
+        """Saves relationships.json."""
         if not hasattr(video, "relationships"):
             video.relationships = []
 
@@ -306,20 +293,6 @@ class OutputFormatter:
             json.dump(relationships_data, f, default=str, indent=2)
         paths["relationships"] = relationships_path
 
-        # Relationships CSV
-        relationships_csv_path = paths["directory"] / "relationships.csv"
-        with open(relationships_csv_path, "w", encoding="utf-8", newline="") as f:
-            writer = csv.writer(f)
-            writer.writerow(["subject", "predicate", "object", "context", "evidence_count"])
-            for rel in video.relationships:
-                context = getattr(rel, "context", "") or ""
-                context_truncated = context[:100] if context else ""
-                evidence_count = len(getattr(rel, "evidence_chain", []))
-                writer.writerow([
-                    rel.subject, rel.predicate, rel.object, context_truncated, evidence_count
-                ])
-        paths["relationships_csv"] = relationships_csv_path
-
     def _save_knowledge_graph_files(self, video: VideoIntelligence, paths: Dict[str, Path]):
         """Saves knowledge_graph.json and knowledge_graph.gexf if they exist."""
         if not hasattr(video, "knowledge_graph") or not video.knowledge_graph:
@@ -334,31 +307,36 @@ class OutputFormatter:
             json.dump(video.knowledge_graph, f, indent=2)
         paths["knowledge_graph"] = graph_path
 
-        # Knowledge Graph GEXF (for Gephi visualization)
-        try:
-            from ..retrievers.knowledge_graph_builder import KnowledgeGraphBuilder
-            kg_builder = KnowledgeGraphBuilder()
-            gexf_content = kg_builder.generate_gexf_content(video.knowledge_graph)
+        settings = Settings()
 
-            gexf_path = paths["directory"] / "knowledge_graph.gexf"
-            with open(gexf_path, "w", encoding="utf-8") as f:
-                f.write(gexf_content)
-            paths["knowledge_graph_gexf"] = gexf_path
-        except Exception as e:
-            logger.warning(f"Could not generate GEXF file: {e}")
-        
-        # Knowledge Graph GraphML (for yEd, Cytoscape, etc.)
-        try:
-            from ..retrievers.knowledge_graph_builder import KnowledgeGraphBuilder
-            kg_builder = KnowledgeGraphBuilder()
-            graphml_content = kg_builder.generate_graphml_content(video.knowledge_graph)
-            
-            graphml_path = paths["directory"] / "knowledge_graph.graphml"
-            with open(graphml_path, "w", encoding="utf-8") as f:
-                f.write(graphml_content)
-            paths["knowledge_graph_graphml"] = graphml_path
-        except Exception as e:
-            logger.warning(f"Could not generate GraphML file: {e}")
+        if settings.export_graph_formats:
+            # Knowledge Graph GEXF (for Gephi visualization)
+            try:
+                from ..retrievers.knowledge_graph_builder import KnowledgeGraphBuilder
+                kg_builder = KnowledgeGraphBuilder()
+                gexf_content = kg_builder.generate_gexf_content(video.knowledge_graph)
+
+                gexf_path = paths["directory"] / "knowledge_graph.gexf"
+                with open(gexf_path, "w", encoding="utf-8") as f:
+                    f.write(gexf_content)
+                paths["knowledge_graph_gexf"] = gexf_path
+            except Exception as e:
+                logger.warning(f"Could not generate GEXF file: {e}")
+
+            # Knowledge Graph GraphML (for yEd, Cytoscape, etc.)
+            try:
+                from ..retrievers.knowledge_graph_builder import KnowledgeGraphBuilder
+                kg_builder = KnowledgeGraphBuilder()
+                graphml_content = kg_builder.generate_graphml_content(video.knowledge_graph)
+
+                graphml_path = paths["directory"] / "knowledge_graph.graphml"
+                with open(graphml_path, "w", encoding="utf-8") as f:
+                    f.write(graphml_content)
+                paths["knowledge_graph_graphml"] = graphml_path
+            except Exception as e:
+                logger.warning(f"Could not generate GraphML file: {e}")
+        else:
+            logger.info("Graph format exports disabled (export_graph_formats=False)")
 
         node_count = video.knowledge_graph.get("node_count", 0)
         edge_count = video.knowledge_graph.get("edge_count", 0)
@@ -406,7 +384,7 @@ class OutputFormatter:
         paths["facts"] = facts_path
 
     def _save_report_file(self, video: VideoIntelligence, paths: Dict[str, Path]):
-        """Generates and saves the markdown report."""
+        """Generates and saves the markdown report (placeholder for future executive summary)."""
         markdown_path = paths["directory"] / "report.md"
         with open(markdown_path, "w", encoding="utf-8") as f:
             f.write(f"# Video Intelligence Report: {video.metadata.title}\n\n")
@@ -416,8 +394,13 @@ class OutputFormatter:
             f.write(f"**Duration**: {minutes}:{seconds:02d}\n")
             f.write(f"**Processed**: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n")
             f.write(f"**Processing Cost**: ${video.processing_cost:.4f}\n\n")
-            f.write("## Executive Summary\n\n")
-            f.write(f"{video.summary}\n\n")
+            f.write("## Executive Summary (TBD)\n\n")
+            f.write("This is a placeholder for the full executive summary. Future enhancements will include:\n")
+            f.write("- Detailed analysis summary\n")
+            f.write("- Key insights and findings\n")
+            f.write("- Risk assessments\n")
+            f.write("- Actionable recommendations\n")
+            f.write("- Visual data representations\n\n")
 
             # Add basic stats
             f.write("## Quick Stats\n\n")

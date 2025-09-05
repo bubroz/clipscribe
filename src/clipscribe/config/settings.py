@@ -216,6 +216,7 @@ class Settings(BaseSettings):
     # Logging
     log_level: str = Field(default="INFO", description="Logging level")
     log_dir: Path = Field(default=Path("logs"), description="Directory for log files")
+    export_graph_formats: bool = Field(default=False, description="Export GEXF and GraphML formats for visualization")
 
     # yt-dlp Settings
     ytdlp_cookies_file: Optional[Path] = Field(

@@ -109,9 +109,9 @@ class EnhancedEntity(BaseModel):
     """Enhanced entity with confidence and attribution."""
 
     name: str
-    type: str
-    extraction_sources: List[str] = Field(..., description="Which methods found this")
-    mention_count: int = Field(..., description="Total occurrences in video")
+    type: str = "UNKNOWN"
+    extraction_sources: List[str] = Field(default_factory=list)
+    mention_count: int = 1
     context_windows: List[EntityContext] = Field(default_factory=list)
     aliases: List[str] = Field(default_factory=list)
     canonical_form: Optional[str] = Field(None, description="Normalized primary form")
