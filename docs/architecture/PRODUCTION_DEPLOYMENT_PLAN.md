@@ -1,7 +1,7 @@
 # ClipScribe Production Architecture
 
 *Last Updated: 2025-08-26*
-*Version: v2.44.0*
+*Version: v2.51.0*
 
 ## Overview
 

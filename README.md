@@ -396,7 +396,7 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ---
 
-**ClipScribe v2.50.0 - Private Alpha**
+**ClipScribe v2.51.0 - Private Alpha**
 
 *Voxtral transcription + Grok-4 extraction provides uncensored intelligence with superior cost efficiency.*
 

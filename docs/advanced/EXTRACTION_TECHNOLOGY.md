@@ -1,6 +1,6 @@
 # ClipScribe Extraction Technology
 
-*Last Updated: August 8, 2025*
+*Last Updated: 2025-08-08*
 *Version: v2.29.3*
 
 ## Core Extraction Engine: Google's Gemini 2.5
