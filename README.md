@@ -150,12 +150,11 @@ docker-compose up --build
 ### 3. Configure API Access
 ```bash
 # Create .env file (git-ignored)
-echo "GOOGLE_API_KEY=your_actual_key_here" > .env
+echo "MISTRAL_API_KEY=your_mistral_api_key_here" > .env
+echo "XAI_API_KEY=your_xai_api_key_here" >> .env
 
-# For Vertex AI (optional, for scale)
-echo "VERTEX_AI_PROJECT=your-project-id" >> .env
-echo "VERTEX_AI_LOCATION=us-central1" >> .env
-echo "GOOGLE_APPLICATION_CREDENTIALS=/path/to/your/service-account.json" >> .env
+# Legacy support (optional, for comparison)
+echo "GOOGLE_API_KEY=your_gemini_api_key_here" >> .env
 ```
 
 ### 4. Verify Installation
@@ -171,11 +170,8 @@ poetry run python -c "from clipscribe.retrievers.video_retriever import VideoInt
 
 ### Single Video Analysis
 ```bash
-# High quality processing (Gemini 2.5 Pro, DEFAULT)
+# Process video with Voxtral transcription + Grok-4 intelligence extraction
 poetry run clipscribe process video "https://www.youtube.com/watch?v=VIDEO_ID"
-
-# Optional: Faster, standard quality processing (Gemini 2.5 Flash)
-poetry run clipscribe process video "https://www.youtube.com/watch?v=VIDEO_ID" --use-flash
 
 # Results saved to: output/YYYYMMDD_youtube_VIDEO_ID/
 ```
@@ -191,17 +187,14 @@ poetry run clipscribe collection series "URL1" "URL2" "URL3"
 ### Python API
 ```python
 import asyncio
-from clipscribe.retrievers.video_retriever import VideoIntelligenceRetriever
+from clipscribe.retrievers.video_retriever_v2 import VideoIntelligenceRetrieverV2
 
 async def analyze_video():
-    # High quality (Pro model, DEFAULT)
-    retriever = VideoIntelligenceRetriever()
-    
-    # Or standard quality (Flash model)
-    retriever = VideoIntelligenceRetriever(use_pro=False)
-    
+    # Voxtral transcription + Grok-4 intelligence extraction
+    retriever = VideoIntelligenceRetrieverV2()
+
     result = await retriever.process_url("https://youtube.com/watch?v=...")
-    
+
     if result:
         print(f"Title: {result.metadata.title}")
         print(f"Key Points: {len(result.key_points)}")
@@ -241,24 +234,18 @@ output/collections/collection_TIMESTAMP_N/
 └── individual_videos/             # Per-video detailed outputs
 ```
 
-## Quality vs Cost Options (NEW in v2.21.0)
+## Quality vs Cost Options (v2.51.0)
 
-### High Quality (Default)
-- **Model**: Gemini 2.5 Pro
-- **Cost**: approx $0.017/video (~$0.02/minute)
-- **Quality**: Superior entity and relationship extraction for professional intelligence work.
-- **Use Case**: Critical analysis, academic research, professional intelligence.
-
-### Standard Quality (--use-flash)
-- **Model**: Gemini 2.5 Flash  
-- **Cost**: approx $0.003/video (~$0.0035/minute)
-- **Quality**: Good entity and relationship extraction, approximately 15-30% faster.
-- **Use Case**: High-volume processing, budget-conscious applications, or when speed is the priority.
+### Current Pipeline (Default)
+- **Transcription**: Voxtral (Mistral)
+- **Intelligence**: Grok-4 (xAI)
+- **Cost**: ~$0.02-0.04 per video
+- **Quality**: Uncensored intelligence extraction with superior WER and context preservation
+- **Use Case**: Professional intelligence, research, content analysis
 
 ```bash
-# Choose your quality level
-clipscribe process video URL               # High quality (Pro, Default)
-clipscribe process video URL --use-flash     # Standard quality (Flash)
+# Process with Voxtral + Grok-4 pipeline
+clipscribe process video URL
 ```
 
 ## Use Cases
@@ -289,7 +276,7 @@ clipscribe process video URL --use-flash     # Standard quality (Flash)
 MISTRAL_API_KEY="your_mistral_api_key_here"
 XAI_API_KEY="your_xai_api_key_here"
 
-# Legacy Gemini support (optional)
+# Optional - Legacy support for comparison
 GOOGLE_API_KEY="your_gemini_api_key_here"
 
 # Optional - Processing Controls
@@ -301,31 +288,22 @@ DAILY_BUDGET_LIMIT=5.0
 OUTPUT_DIR=output
 LOG_LEVEL=INFO
 EXPORT_GRAPH_FORMATS=false
-
-# Optional - Vertex AI Enterprise (legacy)
-VERTEX_AI_PROJECT=your-project-id
-VERTEX_AI_LOCATION=us-central1
-GOOGLE_APPLICATION_CREDENTIALS=path/to/your/service-account.json
 ```
 
 ### Processing Modes
 ```bash
-# Quality options (NEW)
-poetry run clipscribe process video URL                   # High quality (Pro, Default)
-poetry run clipscribe process video URL --use-flash         # Standard quality (Flash)
+# Current pipeline (Voxtral + Grok-4)
+poetry run clipscribe process video URL                   # Standard processing
 
 # Media processing modes
 poetry run clipscribe process video URL --mode audio      # Audio-only (faster)
 poetry run clipscribe process video URL --mode video      # Full video processing
-
-# Enterprise scale
-# Vertex AI is supported when configured (Settings.use_vertex_ai or environment variables).
 ```
 
-## Performance Benchmarks (v2.45.0 Current Status)
+## Performance Benchmarks (v2.51.0 Current Status)
 
 ### Processing Speed
-- **Single 5-min Video**: 1-2 minutes (Flash), 1.5-2.5 minutes (Pro)
+- **Single 5-min Video**: 1-2 minutes (Voxtral + Grok-4)
 - **CLI Startup**: 0.4s (optimized with lazy loading)
 - **Working Commands**: Core CLI commands stable with enterprise-grade validation
 - **Test Coverage**: 83-99% coverage on critical infrastructure modules, 13/15 core modules at 80%+
@@ -337,9 +315,8 @@ poetry run clipscribe process video URL --mode video      # Full video processin
 
 ### Cost Efficiency
 - **Voxtral + Grok-4**: ~$0.02-0.04 per video (any length)
-- **Legacy Gemini Flash**: $0.0035/minute ($0.21 for 60-min video)
-- **Legacy Gemini Pro**: $0.02/minute ($1.20 for 60-min video)
-- **Cost Savings**: 75-95% vs Gemini for long videos
+- **Uncensored Processing**: No content restrictions or safety filters
+- **Superior WER**: Better transcription accuracy than Gemini alternatives
 
 ## Documentation
 
@@ -358,7 +335,7 @@ poetry run clipscribe process video URL --mode video      # Full video processin
 ## Requirements
 
 - **Python**: 3.12 recommended
-- **API Access**: Google API key with Gemini access enabled
+- **API Access**: Mistral API key + xAI API key for Voxtral + Grok-4 pipeline
 - **System**: FFmpeg installed for video/audio processing
 - **Storage**: ~50-200KB per video for complete output files
 - **Memory**: 4GB+ recommended for multi-video collections
@@ -416,7 +393,7 @@ class CustomExtractor(HybridExtractor):
         return super().extract_entities(text) + [{'type': 'CUSTOM', 'text': 'My Entity'}]
 
 # Use in pipeline
-retriever = VideoIntelligenceRetriever(extractor=CustomExtractor())
+retriever = VideoIntelligenceRetrieverV2(extractor=CustomExtractor())
 ```
 
 ### Running Tests
