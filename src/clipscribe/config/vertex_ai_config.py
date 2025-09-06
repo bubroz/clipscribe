@@ -12,8 +12,7 @@ VERTEX_AI_STAGING_BUCKET = os.getenv(
 )
 
 # Model Configuration
-VERTEX_AI_MODEL_NAME = "gemini-2.5-flash"  # Gemini 2.5 Flash (GA as of June 2025)
-VERTEX_AI_MODEL_NAME_PRO = "gemini-2.5-pro"  # Gemini 2.5 Pro for collection synthesis
+# Gemini model constants removed - using Voxtral-Grok pipeline
 VERTEX_AI_MODEL_TIMEOUT = 14400  # 4 hours for long videos
 
 # Request Configuration

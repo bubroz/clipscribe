@@ -1,6 +1,6 @@
 # ClipScribe Development Guide
 
-*Last Updated: 2025-08-26 - v2.44.0*
+*Last Updated: 2025-08-26 - v2.51.0*
 
 ## Overview
 

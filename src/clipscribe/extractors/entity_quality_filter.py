@@ -1037,7 +1037,7 @@ class EntityQualityFilter:
         """
         Tag entities with language metadata instead of filtering.
 
-        This is the NEW approach for trust_gemini mode - we tag entities
+        This is the NEW approach for quality filtering - we tag entities
         with language information but don't remove them. Users can decide
         what to do with non-English entities.
 

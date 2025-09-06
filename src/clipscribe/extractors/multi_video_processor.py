@@ -67,10 +67,10 @@ class MultiVideoProcessor:
             try:
                 import google.generativeai as genai
 
-                genai.configure(api_key=self.settings.google_api_key)
-                self.ai_model = genai.GenerativeModel(
-                    "gemini-2.5-pro"
-                )  # 2.5 Pro for sophisticated analysis
+                # Gemini removed - AI validation moved to HybridProcessor
+                # genai.configure(api_key=self.settings.google_api_key)
+                # self.ai_model = genai.GenerativeModel("gemini-2.5-pro")
+                self.ai_model = None
             except Exception as e:
                 logger.warning(f"AI validation unavailable: {e}")
                 self.use_ai_validation = False

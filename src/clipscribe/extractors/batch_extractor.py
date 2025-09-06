@@ -1,5 +1,5 @@
 """
-Batch Extractor - Process all extraction tasks in a single Gemini call.
+Batch Extractor - Gemini removed, functionality moved to HybridProcessor.
 
 This dramatically reduces API calls and token usage by doing everything at once 
 """
@@ -17,18 +17,18 @@ logger = logging.getLogger(__name__)
 
 class BatchExtractor:
     """
-    Extract everything in one efficient Gemini call.
+    Extract everything - Gemini removed, functionality deprecated.
 
     Instead of 6 separate API calls, we do it all in one shot!
     This saves tokens, time, and money
     """
 
-    def __init__(self, model_name: str = "gemini-2.5-flash", timeout: int = 600):
+    def __init__(self, model_name: str = "deprecated", timeout: int = 600):
         """Initialize the batch extractor."""
         self.model_name = model_name
         self.timeout = timeout
 
-        # Configure Gemini
+        # Gemini configuration removed
         genai.configure(api_key=None)  # Uses GOOGLE_API_KEY env var
         self.model = genai.GenerativeModel(model_name)
 

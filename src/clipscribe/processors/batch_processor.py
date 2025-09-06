@@ -25,7 +25,7 @@ from typing import Dict, List, Optional, Any, Tuple
 from concurrent.futures import ThreadPoolExecutor
 from enum import Enum
 
-from ..retrievers.transcriber import GeminiFlashTranscriber
+# Gemini removed - using Voxtral-Grok pipeline
 from ..retrievers.universal_video_client import UniversalVideoClient
 from ..utils.logging import setup_logging
 logger = logging.getLogger(__name__)
@@ -156,7 +156,8 @@ class BatchProcessor:
         self.output_dir.mkdir(parents=True, exist_ok=True)
 
         # Initialize components
-        self.transcriber = GeminiFlashTranscriber()
+        # Transcriber removed - using Voxtral-Grok pipeline
+        self.transcriber = None
         self.video_client = UniversalVideoClient()
 
         # Job management

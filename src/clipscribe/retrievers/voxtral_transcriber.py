@@ -2,7 +2,7 @@
 Voxtral transcription service integration.
 
 This module provides transcription using Mistral's Voxtral models,
-offering uncensored, high-accuracy transcription at 70% lower cost than Gemini.
+offering uncensored, high-accuracy transcription for professional data collection.
 """
 
 import os
@@ -306,39 +306,20 @@ class VoxtralTranscriber:
     async def transcribe_with_fallback(
         self,
         audio_path: str,
-        gemini_transcriber: Optional[Any] = None,
     ) -> Dict[str, Any]:
         """
-        Smart fallback transcription strategy.
-        
-        Try Gemini first for non-sensitive content, fall back to Voxtral if blocked.
-        
+        Direct Voxtral transcription.
+
         Args:
             audio_path: Path to audio file
-            gemini_transcriber: Optional Gemini transcriber instance
-            
+
         Returns:
             Transcription result dictionary
         """
-        # Phase 1: Try Gemini first if available
-        if gemini_transcriber:
-            try:
-                logger.info("Attempting Gemini transcription first...")
-                result = await gemini_transcriber.transcribe_audio(audio_path)
-                
-                # Check for safety block
-                if hasattr(result, "finish_reason") and result.finish_reason != 2:
-                    logger.info("Gemini transcription successful")
-                    return result
-                else:
-                    logger.warning("Gemini blocked content, falling back to Voxtral")
-            except Exception as e:
-                logger.warning(f"Gemini failed: {e}, falling back to Voxtral")
-        
-        # Phase 2: Use Voxtral for blocked or failed content
+        # Direct Voxtral transcription
         logger.info("Using Voxtral for uncensored transcription")
         voxtral_result = await self.transcribe_audio(audio_path)
-        
+
         # Convert to format compatible with existing code
         return {
             "transcript": voxtral_result.text,

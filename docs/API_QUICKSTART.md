@@ -1,6 +1,6 @@
 # ClipScribe API Quickstart
 
-*Last Updated: 2025-09-01*\n*Version: v2.45.0*
+*Last Updated: 2025-09-05*\n*Version: v2.51.0*
 
 This guide shows how to use the API v1 to submit a job, watch progress, and download artifacts.
 
@@ -112,7 +112,7 @@ Returns `estimated_cost_usd`, `estimated_duration_seconds`, `proposed_model`, an
 
 For full details see `docs/architecture/API_DESIGN.md` and the OpenAPI at `/openapi.json`.
 
-## Monitoring Endpoints (NEW v2.45.0)
+## Monitoring Endpoints (NEW v2.51.0)
 
 ### Cloud Tasks Queue Status
 Monitor the Google Cloud Tasks queues for job processing:

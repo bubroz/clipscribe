@@ -52,7 +52,7 @@ class WebResearchIntegrator:
         Initialize web research integrator.
 
         Args:
-            api_key: Google API key for Gemini research
+            api_key: Legacy Google API key - Gemini removed
             enable_research: Whether to enable web research (can disable for testing)
         """
         self.enable_research = enable_research and GEMINI_AVAILABLE
@@ -62,8 +62,8 @@ class WebResearchIntegrator:
         if self.enable_research and api_key:
             try:
                 genai.configure(api_key=api_key)
-                self.research_model = genai.GenerativeModel("gemini-2.5-flash")
-                logger.info("Web research integration enabled with Gemini 2.5 Flash")
+                # self.research_model = genai.GenerativeModel("gemini-2.5-flash")  # Gemini removed
+                logger.info("Web research integration - Gemini removed, functionality deprecated")
             except Exception as e:
                 logger.warning(f"Failed to initialize research model: {e}")
                 self.enable_research = False
@@ -116,7 +116,7 @@ class WebResearchIntegrator:
         research_query = self._create_research_query(event_descriptions, collection_context)
 
         try:
-            # Use Gemini to research and validate events
+            # Web research removed - Gemini deprecated
             prompt = self._build_validation_prompt(events, collection_context, research_query)
 
             response = await self.research_model.generate_content_async(

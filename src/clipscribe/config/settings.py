@@ -43,7 +43,7 @@ class Settings(BaseSettings):
 
     # API Keys
     google_api_key: str = Field(
-        default=os.getenv("GOOGLE_API_KEY", ""), description="Google API key for Gemini 2.5 Flash"
+        default=os.getenv("GOOGLE_API_KEY", ""), description="Legacy Google API key (not used in main pipeline)"
     )
     xai_api_key: str = Field(
         default=os.getenv("XAI_API_KEY", ""), description="xAI API key for Grok models"
@@ -66,7 +66,7 @@ class Settings(BaseSettings):
 
     # AI Model Configuration
     ai_model: str = Field(
-        default="google_genai:gemini-2.5-flash", description="Default AI model for transcription"
+        default="voxtral-grok", description="Default AI model pipeline for transcription and extraction"
     )
     temperature: float = Field(default=0.3, ge=0.0, le=1.0, description="AI model temperature")
 
@@ -142,26 +142,7 @@ class Settings(BaseSettings):
     # === ENHANCED COST MANAGEMENT ===
 
     # Cost Calculation Settings
-    # Based on official Google AI pricing for Gemini 2.5 models as of August 2025
-    # Source: https://ai.google.dev/gemini-api/docs/pricing
-    # Note: These are for the audio processing pipeline, not the more expensive video tokenization.
-    gemini_flash_audio_input_cost_per_million_tokens: float = Field(
-        default=1.00,
-        description="Cost for 1M input tokens for Gemini 2.5 Flash (audio).",
-    )
-    gemini_flash_audio_output_cost_per_million_tokens: float = Field(
-        default=2.50,
-        description="Cost for 1M output tokens for Gemini 2.5 Flash (audio).",
-    )
-    gemini_pro_audio_input_cost_per_million_tokens: float = Field(
-        default=1.25,
-        description="Cost for 1M input tokens for Gemini 2.5 Pro (via audio pipeline).",
-    )
-    gemini_pro_audio_output_cost_per_million_tokens: float = Field(
-        default=10.00,
-        description="Cost for 1M output tokens for Gemini 2.5 Pro (via audio pipeline).",
-    )
-    # Based on https://ai.google.dev/gemini-api/docs/tokens
+    # Cost calculation settings (legacy references preserved for documentation)
     audio_tokens_per_second: int = Field(
         default=32, description="Estimated number of tokens per second of audio."
     )
@@ -204,14 +185,7 @@ class Settings(BaseSettings):
         description="Chunk size in seconds for processing (used for large videos)",
     )
 
-    # Gemini API Settings
-    gemini_request_timeout: int = Field(
-        default=14400, description="Timeout for Gemini API requests in seconds"  # 4 hours
-    )
-    gemini_concurrent_requests: int = Field(
-        default=3,  # Conservative default to avoid rate limits/connection resets
-        description="Maximum number of concurrent requests to Gemini API",
-    )
+    # API Configuration
 
     # Logging
     log_level: str = Field(default="INFO", description="Logging level")
@@ -256,19 +230,7 @@ class Settings(BaseSettings):
                 raise ValueError(f"Invalid output format: {format}")
         return v
 
-    def get_gemini_config(self) -> dict:
-        """Get Gemini-specific configuration."""
-        return {
-            "api_key": self.google_api_key,
-            "model": self.ai_model,
-            "temperature": self.temperature,
-            "safety_settings": {
-                "HARM_CATEGORY_HARASSMENT": "BLOCK_MEDIUM_AND_ABOVE",
-                "HARM_CATEGORY_HATE_SPEECH": "BLOCK_MEDIUM_AND_ABOVE",
-                "HARM_CATEGORY_SEXUALLY_EXPLICIT": "BLOCK_MEDIUM_AND_ABOVE",
-                "HARM_CATEGORY_DANGEROUS_CONTENT": "BLOCK_MEDIUM_AND_ABOVE",
-            },
-        }
+    # Legacy config method removed - using unified settings
 
     def get_temporal_intelligence_config(self) -> dict:
         """Get temporal intelligence-specific configuration."""
@@ -312,7 +274,7 @@ class Settings(BaseSettings):
         cost-effective than direct video tokenization for transcription tasks.
         Args:
             duration_seconds: The duration of the audio/video in seconds.
-            is_pro_model: True if using Gemini Pro, False for Gemini Flash.
+            is_pro_model: True if using Pro model, False for Flash model.
         Returns:
             The estimated cost in USD.
         """
@@ -322,18 +284,13 @@ class Settings(BaseSettings):
         input_tokens = duration_seconds * self.audio_tokens_per_second
         output_tokens = input_tokens * self.output_to_input_token_ratio
 
+        # Cost calculation for current pipeline
         if is_pro_model:
-            input_cost_per_million = self.gemini_pro_audio_input_cost_per_million_tokens
-            output_cost_per_million = (
-                self.gemini_pro_audio_output_cost_per_million_tokens
-            )
+            input_cost_per_million = 1.25  # Pro model input cost
+            output_cost_per_million = 10.00  # Pro model output cost
         else:  # Flash model
-            input_cost_per_million = (
-                self.gemini_flash_audio_input_cost_per_million_tokens
-            )
-            output_cost_per_million = (
-                self.gemini_flash_audio_output_cost_per_million_tokens
-            )
+            input_cost_per_million = 1.00  # Flash model input cost
+            output_cost_per_million = 2.50  # Flash model output cost
 
         input_cost = (input_tokens / 1_000_000) * input_cost_per_million
         output_cost = (output_tokens / 1_000_000) * output_cost_per_million
@@ -385,7 +342,7 @@ except Exception as e:
     # Create a minimal settings object for UI purposes
     class FallbackSettings:
         google_api_key = ""
-        ai_model = "google_genai:gemini-2.5-flash"
+        ai_model = "voxtral-grok"
         temperature = 0.3
         output_dir = Path("output")
         default_language = "en"
@@ -395,7 +352,7 @@ except Exception as e:
         default_output_formats = ["txt"]
         concurrent_downloads = 10
         chunk_size = 600
-        gemini_request_timeout = 14400
+        request_timeout = 14400
         enable_cost_tracking = True
         cost_warning_threshold = 1.0
         log_level = "INFO"
@@ -424,18 +381,6 @@ except Exception as e:
         monthly_cost_limit = None
         cost_tracking_granularity = "operation"
 
-        def get_gemini_config(self):
-            return {
-                "api_key": self.google_api_key,
-                "model": self.ai_model,
-                "temperature": self.temperature,
-                "safety_settings": {
-                    "HARM_CATEGORY_HARASSMENT": "BLOCK_MEDIUM_AND_ABOVE",
-                    "HARM_CATEGORY_HATE_SPEECH": "BLOCK_MEDIUM_AND_ABOVE",
-                    "HARM_CATEGORY_SEXUALLY_EXPLICIT": "BLOCK_MEDIUM_AND_ABOVE",
-                    "HARM_CATEGORY_DANGEROUS_CONTENT": "BLOCK_MEDIUM_AND_ABOVE",
-                },
-            }
 
         def estimate_cost(self, duration_seconds: int, is_pro_model: bool = False):
             if duration_seconds <= 0:

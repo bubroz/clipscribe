@@ -74,7 +74,7 @@ class ModelManager:
 
         if key not in self._models:
             logger.info(
-                "Hybrid Extractors Loaded: Local (SpaCy for entities, GLiNER for detection, REBEL for relationships) + Gemini 2.5 Pro Refinement"
+                "Hybrid Extractors Loaded: Local (SpaCy for entities, GLiNER for detection, REBEL for relationships) + Grok-4 Refinement"
             )
             logger.info(f"Loading SpaCy model {model_name} (one-time load)...")
             start_time = time.time()

@@ -296,7 +296,7 @@ class CrossVideoRelationship(BaseModel):
 
 
 class ExtractedDate(BaseModel):
-    """Represents a date extracted from text or visual content by Gemini."""
+    """Represents a date extracted from text or visual content."""
 
     original_text: str = Field(..., description="The original text the date was extracted from")
     normalized_date: str = Field(..., description="Normalized date in ISO format (YYYY-MM-DD)")

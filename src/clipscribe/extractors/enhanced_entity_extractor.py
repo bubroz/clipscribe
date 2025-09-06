@@ -65,7 +65,7 @@ class EnhancedEntityExtractor:
             # Extract source information
             sources = [e.source for e in entity_group if hasattr(e, "source") and e.source is not None]
             if not sources:
-                sources = ["Gemini"]  # Default source
+                sources = ["hybrid_processor"]  # Default source
 
             # Get context windows if transcript provided
             context_windows = []

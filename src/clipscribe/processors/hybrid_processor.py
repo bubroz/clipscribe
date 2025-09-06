@@ -510,7 +510,7 @@ class SeamlessTranscriptAnalyzer:
         metadata: Optional[Dict] = None
     ) -> str:
         """
-        Prepare transcript with optimal formatting for Gemini analysis.
+        Prepare transcript with optimal formatting for Grok analysis.
         
         Args:
             transcript: Raw transcript text
@@ -518,7 +518,7 @@ class SeamlessTranscriptAnalyzer:
             metadata: Optional video metadata
             
         Returns:
-            Formatted transcript optimized for Gemini
+            Formatted transcript optimized for Grok
         """
         # Add timestamp markers if segments available
         if segments and len(segments) > 0:
@@ -536,14 +536,14 @@ class SeamlessTranscriptAnalyzer:
     @staticmethod
     def validate_transition(
         voxtral_result: Dict[str, Any],
-        gemini_input: str
+        formatted_input: str
     ) -> bool:
         """
         Validate that transcript transition preserves content.
         
         Args:
             voxtral_result: Original Voxtral result
-            gemini_input: Formatted input for Gemini
+            formatted_input: Formatted input for Grok
             
         Returns:
             True if transition is valid
@@ -551,12 +551,12 @@ class SeamlessTranscriptAnalyzer:
         # Check text preservation
         voxtral_text = voxtral_result.get("text", "").strip()
         
-        # Remove timestamps from gemini_input for comparison
+        # Remove timestamps from formatted_input for comparison
         import re
-        gemini_text = re.sub(r'\[\d+\.\d+s\]\s*', '', gemini_input).strip()
+        formatted_text = re.sub(r'\[\d+\.\d+s\]\s*', '', formatted_input).strip()
         
         # Basic validation - at least 90% of content preserved
-        if len(gemini_text) < len(voxtral_text) * 0.9:
+        if len(formatted_text) < len(voxtral_text) * 0.9:
             logger.warning("Transcript transition may have lost content")
             return False
         

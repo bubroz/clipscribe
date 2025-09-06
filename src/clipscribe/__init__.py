@@ -1,6 +1,6 @@
 """ClipScribe - AI-powered video transcription and analysis tool.
 
-Built with Gemini 2.5 Flash for fast, accurate transcription of videos from 1800+ platforms.
+Built with Voxtral-Grok pipeline for uncensored, accurate transcription of videos from 1800+ platforms.
 """
 
 from .version import __version__

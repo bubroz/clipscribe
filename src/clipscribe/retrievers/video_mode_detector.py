@@ -249,7 +249,7 @@ class SmartVideoRetriever:
         logger.info(f"Using {mode} mode: {analysis.reasoning}")
 
         if mode == "video":
-            # Use Gemini's video API
+            # Use video processing pipeline
             return await self._process_with_video(url)
         else:
             # Use current audio-only approach

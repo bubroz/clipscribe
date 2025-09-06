@@ -39,7 +39,7 @@ class StreamingExtractor:
 
     def __init__(
         self,
-        model_name: str = "gemini-2.5-flash",
+        model_name: str = "deprecated",
         chunk_duration: int = 300,  # 5 minutes per chunk
         max_concurrent: int = 3,  # Process 3 chunks at once
     ):
@@ -48,9 +48,10 @@ class StreamingExtractor:
         self.chunk_duration = chunk_duration
         self.max_concurrent = max_concurrent
 
-        # Configure Gemini
-        genai.configure(api_key=None)
-        self.model = genai.GenerativeModel(model_name)
+        # Gemini configuration removed - functionality deprecated
+        # genai.configure(api_key=None)
+        # self.model = genai.GenerativeModel(model_name)
+        self.model = None
 
     async def extract_from_segments(
         self, segments: List[Dict[str, Any]], total_duration: int

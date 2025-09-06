@@ -38,15 +38,14 @@ class HybridEntityExtractor:
         """
         self.spacy_extractor = SpacyEntityExtractor()
         # Move import here to avoid circular import
-        from ..retrievers.transcriber import GeminiFlashTranscriber
-
-        self.llm_validator = GeminiFlashTranscriber(use_pro=False)
+        # Gemini removed - using Voxtral-Grok pipeline
+        self.llm_validator = None  # Validator removed
         self.confidence_threshold = confidence_threshold
         self.batch_size = batch_size
 
         # Get timeout from settings
         settings = Settings()
-        self.request_timeout = settings.gemini_request_timeout
+        # self.request_timeout = settings.gemini_request_timeout  # Gemini removed
 
         # Cost tracking
         self.enable_cost_tracking = enable_cost_tracking
@@ -138,8 +137,9 @@ class HybridEntityExtractor:
             prompt = self._create_validation_prompt(batch, full_text)
 
             try:
-                # Use Gemini for validation
-                response = await self.llm_validator.model.generate_content_async(
+                # LLM validation removed - using Voxtral-Grok pipeline
+                # LLM validation removed - using Voxtral-Grok pipeline
+                # response = await self.llm_validator.model.generate_content_async(
                     prompt, request_options=RequestOptions(timeout=self.request_timeout)
                 )
 
@@ -149,7 +149,7 @@ class HybridEntityExtractor:
 
                 # Track costs
                 if self.enable_cost_tracking:
-                    # Approximate cost (Gemini Flash: $0.25/1M input, $0.50/1M output)
+                    # Cost tracking removed - Gemini pricing deprecated
                     input_tokens = len(prompt) / 4  # Rough estimate
                     output_tokens = len(response.text) / 4
                     cost = (input_tokens * 0.25 + output_tokens * 0.50) / 1_000_000
@@ -269,7 +269,8 @@ Return as JSON array:
 """
 
         try:
-            response = await self.llm_validator.model.generate_content_async(
+            # LLM validation removed - using Voxtral-Grok pipeline
+            # response = await self.llm_validator.model.generate_content_async(
                 prompt, request_options=RequestOptions(timeout=self.request_timeout)
             )
 

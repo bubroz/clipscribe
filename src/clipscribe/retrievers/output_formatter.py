@@ -174,7 +174,7 @@ class OutputFormatter:
                 "cost": video.processing_cost,
                 "time": video.processing_time,
                 "processed_at": datetime.now().isoformat(),
-                "model": "gemini-2.5-flash",
+                "model": "voxtral-grok",
                 "extractor": (
                     "advanced_hybrid_v2.2"
                     if hasattr(video, "entity_extractor")

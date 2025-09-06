@@ -117,7 +117,7 @@ class TranscriptionResult:
 
 class BackendType(Enum):
     """Supported transcription backends."""
-    GEMINI = "gemini"
+    # GEMINI = "gemini"  # Removed - using Voxtral-Grok
     VERTEX = "vertex"
     GROK = "grok"
     MOCK = "mock"
@@ -277,7 +277,7 @@ class ParameterMapper:
                 "audio_path": "audio_file",
                 "video_file": "media_file",
                 "duration": "duration",
-                # Gemini transcribe_audio doesn't accept metadata
+                # Legacy Gemini reference - removed
                 "language": "language_code"
             },
             BackendType.VERTEX: {
@@ -359,10 +359,7 @@ class ParameterMapper:
 
                 mapped_params[new_key] = value
             elif backend_type == BackendType.GEMINI and key == "metadata":
-                # For Gemini, extract duration from metadata if present
-                if isinstance(value, dict) and "duration" in value:
-                    mapped_params["duration"] = value["duration"]
-                # Filter out metadata for Gemini transcribe_audio (it doesn't accept it)
+                # Legacy Gemini handling - backend removed
                 continue
             elif key in ["backend_preference", "force_backend"]:
                 # Filter out API control parameters - these shouldn't go to backends
@@ -501,7 +498,7 @@ class UnifiedErrorHandler:
     def _load_error_mappings(self) -> Dict[str, str]:
         """Map backend-specific errors to unified types."""
         return {
-            # Gemini errors
+            # Legacy Gemini error handling
             "InvalidArgument": "INVALID_PARAMETERS",
             "ResourceExhausted": "RATE_LIMIT_EXCEEDED",
             "PermissionDenied": "AUTHENTICATION_FAILED",
@@ -745,22 +742,9 @@ class UnifiedTranscriberAPI:
 
     def _register_default_backends(self) -> None:
         """Register default transcription backends."""
-        from ..retrievers.transcriber import GeminiFlashTranscriber
-        from ..retrievers.vertex_ai_transcriber import VertexAITranscriber
-        from ..retrievers.grok_transcriber import GrokTranscriber
-
-        # Register Gemini backend
-        gemini_config = BackendConfig(
-            backend_type=BackendType.GEMINI,
-            name="Gemini Flash",
-            class_path="clipscribe.retrievers.transcriber.GeminiFlashTranscriber",
-            parameters={}
-        )
-        self.registry.register_backend(
-            BackendType.GEMINI,
-            GeminiFlashTranscriber,
-            gemini_config
-        )
+        # Gemini removed - using Voxtral-Grok pipeline
+        # API backends deprecated - use main CLI with VideoIntelligenceRetrieverV2
+        logger.warning("Unified Transcriber API deprecated - use main CLI pipeline")
 
         # Register Vertex backend
         vertex_config = BackendConfig(
@@ -968,7 +952,7 @@ class UnifiedTranscriberAPI:
             'content filter',
             'harmful',
             'inappropriate',
-            'finish_reason: 2',  # Gemini safety block code
+            'finish_reason: 2',  # Legacy Gemini safety block
             'content_policy',
             'safety_settings'
         ]
@@ -999,8 +983,8 @@ class UnifiedTranscriberAPI:
             if BackendType.GROK in self.registry.list_available_backends():
                 return BackendType.GROK
 
-        # Default to Gemini
-        return BackendType.GEMINI
+        # Default to Voxtral (Gemini removed)
+        return BackendType.VERTEX  # Fallback to Vertex since Gemini is removed
 
     def _is_sensitive_content(self, params: Dict[str, Any]) -> bool:
         """

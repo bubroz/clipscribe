@@ -3,9 +3,9 @@
 *Last Updated: 2025-08-26*
 *Related: [CLI Reference](CLI_REFERENCE.md) | [Output Formats](OUTPUT_FORMATS.md)*
 
-## What's New: v2.44.0 — Private Alpha Release
+## What's New: v2.51.0 — Private Alpha Release
 
-**ClipScribe v2.44.0** is deployed to Google Cloud Run in private alpha testing mode.
+**ClipScribe v2.51.0** is deployed to Google Cloud Run in private alpha testing mode.
 
 - **🔒 Private Alpha**: Services are deployed but access is restricted to alpha testers only
 - **🔧 Infrastructure Ready**: API, web UI, and worker services configured for beta testing

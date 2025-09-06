@@ -455,11 +455,31 @@ class UniversalVideoClient:
                     f"Downloading audio from: {video_url} (attempt {attempt + 1}/{max_retries})"
                 )
 
-                # On retry attempts, try with browser cookies for YouTube
-                if attempt > 0 and "youtube.com" in video_url:
-                    logger.info("Retrying with browser cookies for YouTube...")
+                # For YouTube, try multiple fallback strategies
+                if "youtube.com" in video_url or "youtu.be" in video_url:
+                    logger.info("YouTube detected - trying multiple strategies...")
+
+                    # Strategy 1: Browser cookies + mweb client (most reliable)
                     opts_with_cookies = opts.copy()
-                    opts_with_cookies["cookiesfrombrowser"] = ("chrome",)
+                    chrome_profile_path = os.path.expanduser("~/Library/Application Support/Google/Chrome")
+                    opts_with_cookies["cookiesfrombrowser"] = ("chrome", chrome_profile_path)
+
+                    if "extractor_args" not in opts_with_cookies:
+                        opts_with_cookies["extractor_args"] = {}
+                    if "youtube" not in opts_with_cookies["extractor_args"]:
+                        opts_with_cookies["extractor_args"]["youtube"] = []
+                    opts_with_cookies["extractor_args"]["youtube"].append("player_client=mweb")
+
+                    # Add additional headers to mimic real browser
+                    opts_with_cookies["http_headers"] = {
+                        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+                        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+                        "Accept-Language": "en-us,en;q=0.5",
+                        "Accept-Encoding": "gzip,deflate",
+                        "Connection": "keep-alive",
+                        "Upgrade-Insecure-Requests": "1",
+                    }
+
                     ydl_opts = opts_with_cookies
                 else:
                     ydl_opts = opts

@@ -66,10 +66,10 @@ async def _process_payload(job_id: str, payload: Dict[str, Any]) -> None:
 
         # Record processing start
         metrics.record_metric("job_processing_started", 1, {"job_id": job_id})
-        # Case 1: Direct URL processing via yt-dlp + Gemini
+        # Case 1: Direct URL processing via yt-dlp + Voxtral-Grok
         if "url" in payload:
             from clipscribe.retrievers.universal_video_client import EnhancedUniversalVideoClient
-            from clipscribe.retrievers.transcriber import GeminiFlashTranscriber
+            # Gemini removed - using Voxtral-Grok pipeline
 
             # Download video with retry
             async def download_video():
@@ -89,7 +89,8 @@ async def _process_payload(job_id: str, payload: Dict[str, Any]) -> None:
 
             # Transcribe with retry
             async def transcribe_video():
-                transcriber = GeminiFlashTranscriber(use_pro=False)
+                # API worker deprecated - use main CLI pipeline
+                raise NotImplementedError("API worker deprecated - use main CLI pipeline")
                 analysis = await transcriber.transcribe_audio(audio_path, duration)
                 return analysis
 

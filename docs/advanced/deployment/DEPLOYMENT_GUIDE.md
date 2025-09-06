@@ -1,7 +1,7 @@
 # ClipScribe Deployment Guide
 
 *Last Updated: 2025-08-31*
-*Version: v2.44.0*
+*Version: v2.51.0*
 *Status: Beta Deployment Strategy*
 
 ## Overview

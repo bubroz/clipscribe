@@ -1,5 +1,5 @@
 """
-Intelligent knowledge graph cleaner using Gemini.
+Knowledge graph cleaner - Gemini removed, functionality moved to HybridProcessor.
 
 Instead of rigid rules, let's use AI to understand context and clean intelligently 
 """
@@ -19,24 +19,25 @@ logger = logging.getLogger(__name__)
 
 
 class GraphCleaner:
-    """Clean knowledge graphs intelligently using Gemini."""
+    """Clean knowledge graphs - Gemini removed, functionality deprecated."""
 
-    def __init__(self, model_name: str = "gemini-2.5-flash"):
+    def __init__(self, model_name: str = "deprecated"):
         """Initialize the graph cleaner."""
         self.model_name = model_name
         self.settings = Settings()
-        self.request_timeout = self.settings.gemini_request_timeout
+        # self.request_timeout = self.settings.gemini_request_timeout  # Gemini removed
 
-        # Configure Gemini
-        genai.configure(api_key=None)  # Uses GOOGLE_API_KEY env var
-        self.model = genai.GenerativeModel(model_name)
+        # Gemini configuration removed
+        # genai.configure(api_key=None)  # Uses GOOGLE_API_KEY env var
+        # self.model = genai.GenerativeModel(model_name)
+        self.model = None
 
     async def clean_knowledge_graph(self, video_intel: VideoIntelligence) -> VideoIntelligence:
         """Clean the knowledge graph by reviewing entities and relationships."""
         if not video_intel.knowledge_graph:
             return video_intel
 
-        logger.info("Cleaning knowledge graph with Gemini...")
+        logger.info("Knowledge graph cleaning - Gemini removed, functionality deprecated")
 
         # Get video context
         video_context = (

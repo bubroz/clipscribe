@@ -19,7 +19,7 @@ from .filename import (
     create_output_structure,
 )
 from .file_utils import calculate_sha256
-from .web_research import WebResearchIntegrator
+# from .web_research import WebResearchIntegrator  # Removed - uses Gemini
 
 __all__ = [
     "setup_logging",
@@ -36,5 +36,5 @@ __all__ = [
     "create_structured_filename",
     "create_output_structure",
     "calculate_sha256",
-    "WebResearchIntegrator",
+    # "WebResearchIntegrator",  # Removed - uses Gemini
 ]

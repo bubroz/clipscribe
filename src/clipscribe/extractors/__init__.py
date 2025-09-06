@@ -2,8 +2,8 @@
 This module initializes the extractors package.
 """
 
-# Modern, Gemini-first extractors
-from .advanced_hybrid_extractor import AdvancedHybridExtractor
+# Legacy extractors (deprecated - use HybridProcessor)
+# from .advanced_hybrid_extractor import AdvancedHybridExtractor  # Deprecated - uses Gemini
 from .enhanced_entity_extractor import EnhancedEntityExtractor
 from .relationship_evidence_extractor import RelationshipEvidenceExtractor
 from .temporal_reference_resolver import TemporalReferenceResolver
@@ -19,7 +19,7 @@ from .streaming_extractor import StreamingExtractor
 
 
 __all__ = [
-    "AdvancedHybridExtractor",
+    # "AdvancedHybridExtractor",  # Deprecated - uses Gemini
     "EnhancedEntityExtractor",
     "RelationshipEvidenceExtractor",
     "TemporalReferenceResolver",

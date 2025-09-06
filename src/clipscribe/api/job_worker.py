@@ -123,7 +123,7 @@ class CloudRunJobWorker:
         
         # Model selection
         self.use_pro_model = os.getenv("USE_PRO_MODEL", "false").lower() == "true"
-        self.model_name = "gemini-2.5-pro" if self.use_pro_model else "gemini-2.5-flash"
+        # self.model_name = "gemini-2.5-pro" if self.use_pro_model else "gemini-2.5-flash"  # Gemini removed
         
         # Initialize connections
         self.redis_conn = redis.from_url(self.redis_url)
@@ -252,10 +252,10 @@ class CloudRunJobWorker:
         metadata: Dict[str, Any]
     ) -> Dict[str, Any]:
         """Process video with selected model."""
-        from clipscribe.retrievers.transcriber import GeminiFlashTranscriber
+        # Gemini removed - using Voxtral-Grok pipeline
         
-        # Initialize transcriber with model selection
-        transcriber = GeminiFlashTranscriber(use_pro=self.use_pro_model)
+        # API worker deprecated - use main CLI with VideoIntelligenceRetrieverV2
+        raise NotImplementedError("API worker deprecated - use main CLI pipeline")
         
         # Process video
         analysis = await transcriber.transcribe_audio(
@@ -345,10 +345,10 @@ class CloudRunJobWorker:
         duration_minutes = duration_seconds / 60
         
         if self.use_pro_model:
-            # Gemini 2.5 Pro: $0.02/minute for video
+            # Legacy Gemini pricing - removed
             return round(duration_minutes * 0.02, 4)
         else:
-            # Gemini 2.5 Flash: $0.0035/minute for video
+            # Legacy Gemini pricing - removed
             return round(duration_minutes * 0.0035, 4)
     
     def get_cached_metadata(self, url: str) -> Dict[str, Any]:
@@ -447,7 +447,7 @@ async def main():
     parser.add_argument(
         "--use-pro",
         action="store_true",
-        help="Use Gemini 2.5 Pro instead of Flash"
+        help="Legacy Gemini option - removed"
     )
     
     args = parser.parse_args()

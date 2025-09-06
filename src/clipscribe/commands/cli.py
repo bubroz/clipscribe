@@ -93,7 +93,7 @@ async def run_processing_logic(
             saved_files = retriever.save_all_formats(result, output_dir)
             logger.info(f"Outputs saved to: {saved_files['directory']}")
             # Explicit model line for tests
-            model_str = "gemini-2.5-flash" if use_flash else "gemini-2.5-pro"
+            model_str = "voxtral-mini-2507 + grok-4-0709"
             print(f"Model: {model_str}")
             print("Intelligence extraction complete!")
 
@@ -248,14 +248,14 @@ def clean_demo(demo_dir: Path, dry_run: bool, keep_recent: int):
 
 @utils.command("check-auth")
 def check_auth():
-    """Report active authentication method and configuration for Gemini/Vertex AI."""
+    """Report active authentication method and configuration."""
     try:
         settings = Settings()
     except Exception as e:
         click.echo("Auth status: Misconfigured")
         click.echo(f"Error: {e}")
         click.echo(
-            "If using Google AI Studio, set GOOGLE_API_KEY. If using Vertex AI, set USE_VERTEX_AI=true and GOOGLE_APPLICATION_CREDENTIALS."
+            "Configure MISTRAL_API_KEY for Voxtral transcription and XAI_API_KEY for Grok-4 intelligence extraction."
         )
         return
 
@@ -282,17 +282,25 @@ def check_auth():
             "Verify quotas in Google Cloud Console > Vertex AI. Ensure service account has roles/aiplatform.user."
         )
     else:
-        api_key = getattr(settings, "google_api_key", "") or os.environ.get("GOOGLE_API_KEY", "")
-        if api_key:
-            masked = api_key[:6] + "..." if len(api_key) > 6 else "(set)"
-            click.echo("Auth: Google AI Studio API key detected")
-            click.echo(f"GOOGLE_API_KEY: {masked}")
-            click.echo(
-                "Tip: Link API key to a billed Google Cloud project in AI Studio for higher rate limits."
-            )
+        # Check Voxtral API key
+        mistral_key = os.environ.get("MISTRAL_API_KEY", "")
+        if mistral_key:
+            masked = mistral_key[:6] + "..." if len(mistral_key) > 6 else "(set)"
+            click.echo("Auth: Mistral API key detected")
+            click.echo(f"MISTRAL_API_KEY: {masked}")
         else:
-            click.echo("Auth: Missing GOOGLE_API_KEY and Vertex AI not enabled")
-            click.echo("Set GOOGLE_API_KEY or enable USE_VERTEX_AI=true with proper credentials.")
+            click.echo("Auth: Missing MISTRAL_API_KEY")
+            click.echo("Set MISTRAL_API_KEY for Voxtral transcription.")
+
+        # Check xAI API key
+        xai_key = os.environ.get("XAI_API_KEY", "")
+        if xai_key:
+            masked = xai_key[:6] + "..." if len(xai_key) > 6 else "(set)"
+            click.echo("Auth: xAI API key detected")
+            click.echo(f"XAI_API_KEY: {masked}")
+        else:
+            click.echo("Auth: Missing XAI_API_KEY")
+            click.echo("Set XAI_API_KEY for Grok-4 intelligence extraction.")
 
 
 @cli.command()

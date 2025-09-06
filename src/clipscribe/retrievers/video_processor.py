@@ -8,7 +8,6 @@ from pathlib import Path
 
 from ..models import VideoIntelligence
 from .video_downloader import VideoDownloader
-from .video_transcriber import VideoTranscriber
 from .knowledge_graph_builder import KnowledgeGraphBuilder
 from .output_formatter import OutputFormatter
 from .video_retention_manager import VideoRetentionManager
@@ -54,11 +53,8 @@ class VideoProcessor:
             cookies_from_browser=cookies_from_browser
         )
 
-        self.transcriber = VideoTranscriber(
-            use_pro=use_pro,
-            performance_monitor=performance_monitor,
-            api_key=api_key
-        )
+        # Transcriber removed - main pipeline uses HybridProcessor
+        self.transcriber = None
 
         self.kg_builder = KnowledgeGraphBuilder()
 
@@ -66,13 +62,9 @@ class VideoProcessor:
 
         # Entity extractor (conditional)
         self.entity_extractor = None
+        # Advanced extraction removed - main pipeline uses HybridProcessor
         if use_advanced_extraction:
-            try:
-                from ..extractors.advanced_hybrid_extractor import AdvancedHybridExtractor
-                self.entity_extractor = AdvancedHybridExtractor()
-                logger.info("Using advanced entity extraction")
-            except ImportError:
-                logger.warning("AdvancedHybridExtractor not available, using basic extraction")
+            logger.warning("Advanced extraction deprecated - using HybridProcessor in main pipeline")
 
         # Retention manager
         self.retention_manager = VideoRetentionManager(self.settings)
@@ -144,38 +136,23 @@ class VideoProcessor:
         self.on_phase_start("Transcribing", "In Progress...")
         phase_start = time.monotonic()
 
-        try:
-            analysis = await self.transcriber.transcribe_video(
-                media_file, metadata, metadata.duration
-            )
-            transcription_cost = self.transcriber.get_transcription_cost(analysis)
-            self.on_phase_complete("Transcribing", transcription_cost)
-        except Exception as e:
-            logger.error(f"Transcription failed: {e}")
-            self.on_error("Transcribing", str(e))
-            return None
-        finally:
-            self.on_phase_log("Transcribing", time.monotonic() - phase_start)
+        # Transcription removed - main pipeline uses HybridProcessor
+        logger.warning("VideoProcessor transcription is deprecated - use HybridProcessor")
+        analysis = {"transcript": "Deprecated", "language": "en", "confidence_score": 0.0}
+        transcription_cost = 0.0
+        self.on_phase_complete("Transcribing", transcription_cost)
 
-        # Create initial VideoIntelligence object
-        transcript = self.transcriber.create_transcript_object(analysis, metadata.duration)
+        # Create placeholder transcript
+        transcript = type('Transcript', (), {
+            'full_text': analysis.get("transcript", ""),
+            'segments': [],
+            'language': analysis.get("language", "en"),
+            'confidence': analysis.get("confidence_score", 0.0)
+        })()
         video_intelligence = self._create_video_intelligence(metadata, analysis, transcript)
 
-        # Phase 3: Extract entities (if available)
-        if self.entity_extractor:
-            self.on_phase_start("Extracting Intelligence", "In Progress...")
-            phase_start = time.monotonic()
-
-            try:
-                video_intelligence = await self.entity_extractor.extract_all(
-                    video_intelligence, domain=self.domain
-                )
-                self.on_phase_complete("Extracting Intelligence", 0.0)
-            except Exception as e:
-                logger.warning(f"Entity extraction failed: {e}")
-                # Continue without entity extraction
-            finally:
-                self.on_phase_log("Extracting Intelligence", time.monotonic() - phase_start)
+        # Phase 3: Entity extraction removed - handled by HybridProcessor
+        logger.info("Entity extraction moved to HybridProcessor in main pipeline")
 
         # Phase 4: Build knowledge graph
         if video_intelligence.entities:
@@ -250,12 +227,10 @@ class VideoProcessor:
             entities=[],  # Will be populated by entity extractor
             topics=[Topic(name=t) for t in analysis.get("topics", [])],
             relationships=[],  # Will be populated by entity extractor
-            processing_cost=self.transcriber.get_transcription_cost(analysis),
+            processing_cost=transcription_cost,
         )
 
-        # Store entities in processing_stats so AdvancedHybridExtractor can find them
-        video_intelligence.processing_stats["gemini_entities"] = analysis.get("entities", [])
-        video_intelligence.processing_stats["gemini_relationships"] = analysis.get("relationships", [])
+        # Processing stats - transcriber removed, using HybridProcessor
 
         return video_intelligence
 
