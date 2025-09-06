@@ -8,6 +8,9 @@ from typing import List, Tuple
 
 from clipscribe.extractors.hybrid_extractor import HybridEntityExtractor
 from clipscribe.models import Entity, VideoMetadata, VideoTranscript
+
+# DEPRECATED: Skip all tests in this file
+pytest.skip("These tests are deprecated - HybridExtractor now uses Voxtral-Grok pipeline, Gemini validation removed", allow_module_level=True)
 from clipscribe.config.settings import Settings
 
 

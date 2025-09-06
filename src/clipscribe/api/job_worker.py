@@ -121,19 +121,18 @@ class CloudRunJobWorker:
         self.project_id = os.getenv("GOOGLE_CLOUD_PROJECT", "prismatic-iris-429006-g6")
         self.location = os.getenv("TASK_QUEUE_LOCATION", "us-central1")
         
-        # Model selection
-        self.use_pro_model = os.getenv("USE_PRO_MODEL", "false").lower() == "true"
-        # self.model_name = "gemini-2.5-pro" if self.use_pro_model else "gemini-2.5-flash"  # Gemini removed
-        
+        # Model selection - Voxtral + Grok pipeline
+        self.model_name = "voxtral-grok-pipeline"
+
         # Initialize connections
         self.redis_conn = redis.from_url(self.redis_url)
         self.storage_client = storage.Client()
         self.bucket = self.storage_client.bucket(self.gcs_bucket)
         self.tasks_client = tasks_v2.CloudTasksClient()
-        
+
         # Initialize cache
         self.cache = VideoCache()
-        
+
         logger.info(f"Worker initialized with model: {self.model_name}")
     
     async def process_job(self, job_id: str, payload: Dict[str, Any]) -> Dict[str, Any]:
@@ -247,28 +246,30 @@ class CloudRunJobWorker:
             raise
     
     async def process_video(
-        self, 
-        video_path: Path, 
+        self,
+        video_path: Path,
         metadata: Dict[str, Any]
     ) -> Dict[str, Any]:
-        """Process video with selected model."""
-        # Gemini removed - using Voxtral-Grok pipeline
-        
-        # API worker deprecated - use main CLI with VideoIntelligenceRetrieverV2
-        raise NotImplementedError("API worker deprecated - use main CLI pipeline")
-        
-        # Process video
-        analysis = await transcriber.transcribe_audio(
-            str(video_path),
-            metadata.get("duration", 0)
-        )
-        
-        # Add metadata
-        analysis["metadata"] = metadata
-        analysis["model_used"] = self.model_name
-        analysis["processing_timestamp"] = datetime.utcnow().isoformat()
-        
-        return analysis
+        """Process video with Voxtral-Grok pipeline."""
+        from clipscribe.retrievers.video_retriever_v2 import VideoIntelligenceRetrieverV2
+
+        # Use the main CLI pipeline
+        retriever = VideoIntelligenceRetrieverV2()
+        result = await retriever.process_url(metadata.get("url", ""))
+
+        if result:
+            # Convert to expected format
+            analysis = {
+                "transcript": result.transcript.raw_text if hasattr(result.transcript, 'raw_text') else str(result.transcript),
+                "entities": [entity.dict() if hasattr(entity, 'dict') else entity for entity in (result.entities or [])],
+                "relationships": [rel.dict() if hasattr(rel, 'dict') else rel for rel in (result.relationships or [])],
+                "metadata": metadata,
+                "model_used": self.model_name,
+                "processing_timestamp": datetime.utcnow().isoformat()
+            }
+            return analysis
+        else:
+            raise ValueError("Failed to process video with Voxtral-Grok pipeline")
     
     async def upload_results(
         self, 
@@ -341,15 +342,16 @@ class CloudRunJobWorker:
         self.redis_conn.expire(job_key, 7 * 24 * 60 * 60)
     
     def calculate_cost(self, duration_seconds: int) -> float:
-        """Calculate processing cost based on duration and model."""
+        """Calculate processing cost based on Voxtral + Grok pricing."""
         duration_minutes = duration_seconds / 60
-        
-        if self.use_pro_model:
-            # Legacy Gemini pricing - removed
-            return round(duration_minutes * 0.02, 4)
-        else:
-            # Legacy Gemini pricing - removed
-            return round(duration_minutes * 0.0035, 4)
+
+        # Voxtral + Grok pricing
+        # Voxtral: ~$0.015 per video + $0.002 per minute
+        # Grok: ~$0.008 per video + $0.001 per minute
+        base_cost = 0.023  # Base cost for both services
+        per_minute_cost = 0.003  # Combined per-minute cost
+
+        return round(base_cost + (duration_minutes * per_minute_cost), 4)
     
     def get_cached_metadata(self, url: str) -> Dict[str, Any]:
         """Get cached metadata for URL."""
@@ -447,7 +449,7 @@ async def main():
     parser.add_argument(
         "--use-pro",
         action="store_true",
-        help="Legacy Gemini option - removed"
+        help="Legacy option - no longer used (Voxtral-Grok pipeline)"
     )
     
     args = parser.parse_args()

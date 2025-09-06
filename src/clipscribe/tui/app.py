@@ -115,7 +115,7 @@ class TuiApp(App):
             if result:
                 self.post_message(self.MetadataMessage(result.metadata.dict()))
                 log_callback("Saving output files...")
-                saved_files = retriever.save_all_formats(result, self.output_dir)
+                saved_files = await retriever.save_all_formats(result, self.output_dir)
                 log_callback(f"Outputs saved to: {saved_files['directory']}")
                 self.notify("Processing successful!", title="Status", severity="information")
             else:

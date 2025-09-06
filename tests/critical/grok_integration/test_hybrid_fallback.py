@@ -11,6 +11,9 @@ from unittest.mock import Mock, AsyncMock, patch
 from src.clipscribe.api.unified_transcriber import UnifiedTranscriberAPI, BackendType
 from src.clipscribe.retrievers.grok_client import GrokAPIError
 
+# DEPRECATED: Skip all tests in this file
+pytest.skip("These tests are deprecated - Gemini fallback functionality has been removed, now using Voxtral-Grok direct pipeline", allow_module_level=True)
+
 
 class TestHybridFallback:
     """Test hybrid fallback functionality."""

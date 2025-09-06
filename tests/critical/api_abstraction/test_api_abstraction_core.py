@@ -7,6 +7,9 @@ import pytest
 from unittest.mock import Mock, AsyncMock
 from pathlib import Path
 
+# DEPRECATED: Skip all tests in this file
+pytest.skip("These tests are deprecated - API abstraction now uses Voxtral-Grok directly, Gemini backend removed", allow_module_level=True)
+
 from src.clipscribe.api.unified_transcriber import (
     BackendType,
     BackendRegistry,

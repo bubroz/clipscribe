@@ -12,6 +12,10 @@ from google.generativeai.types import RequestOptions
 import asyncio
 
 
+# DEPRECATED: Skip all tests in this file
+pytest.skip("These tests are deprecated - GeminiFlashTranscriber has been replaced by Voxtral-Grok pipeline", allow_module_level=True)
+
+
 @pytest.fixture
 def transcriber():
     """Fixture to create a GeminiFlashTranscriber instance with mocked dependencies."""

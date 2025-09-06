@@ -90,7 +90,7 @@ async def run_processing_logic(
         if result:
             logger.info(f"Title: {result.metadata.title}")
             logger.info(f"Channel: {result.metadata.channel}")
-            saved_files = retriever.save_all_formats(result, output_dir)
+            saved_files = await retriever.save_all_formats(result, output_dir)
             logger.info(f"Outputs saved to: {saved_files['directory']}")
             # Explicit model line for tests
             model_str = "voxtral-mini-2507 + grok-4-0709"
@@ -198,7 +198,7 @@ def research(ctx: click.Context, query: str, output_dir: Path, max_results: int)
 
         results = await retriever.search(query=query, max_results=max_results, site="youtube")
         for r in results:
-            retriever.save_all_formats(r, str(output_dir))
+            await retriever.save_all_formats(r, str(output_dir))
 
         print("Research complete!")
 

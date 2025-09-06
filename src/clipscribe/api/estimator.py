@@ -97,9 +97,9 @@ def estimate_job(body: Dict[str, Any], settings: Optional[Any] = None) -> Dict[s
         duration = 60  # assume 1 minute to avoid zero
         meta.setdefault("fallback", True)
 
-    # Simple cost estimation: $0.0000125/second for Gemini Flash audio
-    est_cost = duration * 0.0000125
-    proposed_model = "flash"
+    # Voxtral + Grok cost estimation: ~$0.023 base + $0.003/minute
+    est_cost = 0.023 + (duration / 60) * 0.003
+    proposed_model = "voxtral-grok"
     return {
         "estimated_duration_seconds": duration,
         "estimated_cost_usd": round(est_cost, 6),

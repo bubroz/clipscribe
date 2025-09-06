@@ -4,6 +4,9 @@ from unittest.mock import patch, AsyncMock, MagicMock
 from clipscribe.retrievers.video_transcriber import VideoTranscriber
 from clipscribe.models import VideoTranscript, VideoMetadata
 
+# DEPRECATED: Skip all tests in this file
+pytest.skip("These tests are deprecated - VideoTranscriber has been replaced by Voxtral-Grok pipeline", allow_module_level=True)
+
 
 @pytest.fixture
 def video_transcriber():

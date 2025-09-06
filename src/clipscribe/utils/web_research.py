@@ -12,13 +12,10 @@ from typing import List, Dict, Any, Optional
 from datetime import datetime
 from dataclasses import dataclass
 
-try:
-    import google.generativeai as genai
-    from google.generativeai.types import RequestOptions
-
-    GEMINI_AVAILABLE = True
-except ImportError:
-    GEMINI_AVAILABLE = False
+# Gemini imports removed - functionality deprecated
+genai = None
+RequestOptions = None
+GEMINI_AVAILABLE = False  # Always False - Gemini removed
 
 logger = logging.getLogger(__name__)
 

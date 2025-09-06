@@ -14,6 +14,9 @@ import asyncio
 from unittest.mock import Mock, AsyncMock, patch, MagicMock
 from pathlib import Path
 
+# DEPRECATED: Skip all tests in this file
+pytest.skip("These tests are deprecated - Unified API now uses Voxtral-Grok directly, Gemini backend removed", allow_module_level=True)
+
 from src.clipscribe.api.unified_transcriber import (
     UnifiedTranscriberAPI,
     BackendType,

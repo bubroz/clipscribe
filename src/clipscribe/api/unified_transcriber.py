@@ -273,13 +273,6 @@ class ParameterMapper:
     def _load_parameter_mappings(self) -> Dict[BackendType, Dict[str, str]]:
         """Load parameter name mappings for each backend."""
         return {
-            BackendType.GEMINI: {
-                "audio_path": "audio_file",
-                "video_file": "media_file",
-                "duration": "duration",
-                # Legacy Gemini reference - removed
-                "language": "language_code"
-            },
             BackendType.VERTEX: {
                 "file_path": "gcs_uri",
                 "audio_path": "video_path",

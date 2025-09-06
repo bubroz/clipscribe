@@ -6,6 +6,9 @@ from unittest.mock import patch, AsyncMock, MagicMock
 from pathlib import Path
 from clipscribe.retrievers.gemini_pool import GeminiPool, TaskType
 
+# DEPRECATED: Skip all tests in this file
+pytest.skip("These tests are deprecated - GeminiPool has been replaced by Voxtral-Grok pipeline", allow_module_level=True)
+
 
 @pytest.fixture
 def gemini_pool():

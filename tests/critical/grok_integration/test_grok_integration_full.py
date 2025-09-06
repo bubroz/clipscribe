@@ -124,18 +124,12 @@ class TestGrokFullIntegration:
         assert result.relationships[0].subject == "AI"
         assert result.processing_cost > 0
 
-    @patch('src.clipscribe.retrievers.transcriber.GeminiFlashTranscriber')
     @patch('src.clipscribe.retrievers.grok_transcriber.GrokTranscriber')
-    async def test_unified_api_grok_fallback(self, mock_grok_class, mock_gemini_class):
-        """Test unified API with Grok fallback for sensitive content."""
+    async def test_unified_api_grok_direct(self, mock_grok_class):
+        """Test unified API with Grok for sensitive content."""
         api = UnifiedTranscriberAPI()
 
-        # Mock Gemini failure with safety filter
-        mock_gemini = Mock()
-        mock_gemini.transcribe_video.side_effect = Exception("finish_reason: 2 - Safety filter blocked content")
-        mock_gemini_class.return_value = mock_gemini
-
-        # Mock Grok success
+        # Mock Grok success for sensitive content
         mock_grok = Mock()
         mock_grok_result = Mock()
         mock_grok_result.transcript = Mock(full_text="Grok processed sensitive intelligence content")

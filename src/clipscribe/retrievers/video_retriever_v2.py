@@ -383,6 +383,6 @@ class VideoIntelligenceRetrieverV2:
             logger.error(f"Failed to save collection outputs: {e}")
             return {}
 
-    def save_all_formats(self, result: VideoIntelligence, output_dir: str) -> Dict[str, Any]:
+    async def save_all_formats(self, result: VideoIntelligence, output_dir: str) -> Dict[str, Any]:
         """Legacy compatibility method."""
-        return asyncio.run(self._save_outputs(result))
+        return await self._save_outputs(result)

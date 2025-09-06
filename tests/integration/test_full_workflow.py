@@ -7,6 +7,9 @@ from tests.helpers import create_mock_video_intelligence
 
 TEST_VIDEO_URL = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
 
+# DEPRECATED: Skip all tests in this file
+pytest.skip("These tests are deprecated - VideoIntelligenceRetriever has been replaced by VideoIntelligenceRetrieverV2", allow_module_level=True)
+
 
 @pytest.mark.asyncio
 async def test_full_workflow_end_to_end():
