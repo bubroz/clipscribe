@@ -612,11 +612,92 @@ class UniversalVideoClient:
                     retry_delay *= 2  # Exponential backoff
                     continue
                 elif attempt == max_retries - 1:
-                    # Last attempt failed
-                    raise
+                    # Last curl-cffi attempt failed - try Playwright fallback
+                    logger.warning(f"curl-cffi failed after {max_retries} attempts, attempting Playwright fallback...")
+                    
+                    try:
+                        return await self._download_with_playwright_fallback(video_url, output_dir, platform)
+                    except Exception as playwright_error:
+                        logger.error(f"Playwright fallback also failed: {playwright_error}")
+                        # Re-raise the original error
+                        raise
                 else:
                     # Non-retryable error, raise immediately
                     raise
+
+    async def _download_with_playwright_fallback(
+        self, video_url: str, output_dir: str, platform: str
+    ) -> Tuple[str, VideoMetadata]:
+        """
+        Fallback to Playwright when curl-cffi fails.
+        
+        This method:
+        1. Uses Playwright to load the page and extract cookies
+        2. Passes those cookies to yt-dlp
+        3. yt-dlp downloads with authenticated session
+        
+        Args:
+            video_url: Video URL
+            output_dir: Output directory
+            platform: Platform name for rate limiting
+            
+        Returns:
+            Tuple of (audio_file_path, video_metadata)
+        """
+        try:
+            from .playwright_downloader import PlaywrightDownloader
+        except ImportError:
+            logger.error("Playwright not installed. Cannot use fallback. Run: poetry add playwright")
+            raise
+        
+        logger.info("🎭 Playwright fallback activated - using browser automation")
+        
+        async with PlaywrightDownloader() as pw:
+            # Extract cookies using Playwright
+            cookies_file, pw_metadata = await pw.download_with_playwright_cookies(video_url, output_dir)
+            
+            # Now use yt-dlp with those cookies
+            opts = self.ydl_opts.copy()
+            opts["outtmpl"] = os.path.join(output_dir, "%(title)s-%(id)s.%(ext)s")
+            opts["cookiefile"] = cookies_file
+            
+            logger.info("Playwright cookies extracted, attempting yt-dlp download with authenticated session...")
+            
+            with yt_dlp.YoutubeDL(opts) as ydl:
+                # Extract info with cookies
+                info = ydl.extract_info(video_url, download=False)
+                
+                # Create metadata
+                metadata = self._create_metadata_from_info(info)
+                
+                # Download with cookies
+                ydl.download([video_url])
+                
+                # Find the downloaded file
+                video_id = info.get("id", "")
+                audio_file = None
+                for filename in os.listdir(output_dir):
+                    if video_id in filename and filename.endswith(
+                        (".mp3", ".m4a", ".opus", ".webm")
+                    ):
+                        audio_file = os.path.join(output_dir, filename)
+                        break
+                
+                if not audio_file or not os.path.exists(audio_file):
+                    raise FileNotFoundError("Audio file not found after Playwright fallback download")
+                
+                logger.info(f"✅ Playwright fallback successful: {audio_file}")
+                
+                # Record successful request
+                self.rate_limiter.record_request(platform, success=True)
+                
+                # Clean up cookies file
+                try:
+                    os.remove(cookies_file)
+                except Exception:
+                    pass
+                
+                return audio_file, metadata
 
     async def get_video_info(
         self, video_url: str, cookies_from_browser: Optional[str] = None
