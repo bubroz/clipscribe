@@ -385,4 +385,4 @@ class VideoIntelligenceRetrieverV2:
 
     async def save_all_formats(self, result: VideoIntelligence, output_dir: str) -> Dict[str, Any]:
         """Legacy compatibility method."""
-        return await self._save_outputs(result)
+        return self._save_outputs(result)

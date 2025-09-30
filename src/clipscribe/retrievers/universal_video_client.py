@@ -78,8 +78,17 @@ class TemporalMetadata:
 class UniversalVideoClient:
     """Universal Video Client with comprehensive temporal intelligence extraction."""
 
-    def __init__(self):
-        """Initialize with enhanced temporal metadata extraction capabilities."""
+    def __init__(self, use_impersonation: bool = True, impersonate_target: str = "Chrome-131:Macos-14"):
+        """
+        Initialize with enhanced temporal metadata extraction capabilities.
+        
+        Args:
+            use_impersonation: Enable curl-cffi browser impersonation to bypass bot detection (default: True)
+            impersonate_target: Browser to impersonate (default: Chrome-131:Macos-14)
+        """
+        self.use_impersonation = use_impersonation
+        self.impersonate_target = impersonate_target
+        
         # Standard options for basic functionality
         self.ydl_opts = {
             "format": "bestaudio/best",
@@ -132,6 +141,40 @@ class UniversalVideoClient:
                 "id",
             ],
         }
+        
+        # Add curl-cffi impersonation to bypass bot detection
+        # This solves YouTube SABR, Vimeo TLS fingerprinting, and other modern bot detection
+        if self.use_impersonation:
+            from yt_dlp.networking.impersonate import ImpersonateTarget
+            # Parse target string (e.g., "Chrome-131:Macos-14")
+            # ImpersonateTarget signature: (client, version, os, os_version)
+            # CRITICAL: All values must be lowercase to match curl-cffi's supported targets
+            if ":" in self.impersonate_target:
+                client_full, os_full = self.impersonate_target.split(":", 1)
+                # Split client and version (e.g., "Chrome-131" -> "chrome", "131")
+                if "-" in client_full:
+                    client, version = client_full.rsplit("-", 1)
+                    client = client.lower()  # MUST be lowercase for curl-cffi
+                else:
+                    client, version = client_full.lower(), None
+                # Split os and os_version (e.g., "Macos-14" -> "macos", "14")
+                if "-" in os_full:
+                    os, os_version = os_full.rsplit("-", 1)
+                    os = os.lower()  # MUST be lowercase for curl-cffi
+                else:
+                    os, os_version = os_full.lower(), None
+                logger.debug(f"Parsed impersonation target: client={client}, version={version}, os={os}, os_version={os_version}")
+                impersonate_target = ImpersonateTarget(client, version, os, os_version)
+                logger.debug(f"Created ImpersonateTarget object: {impersonate_target}")
+                self.ydl_opts["impersonate"] = impersonate_target
+            else:
+                # No OS specified, parse just client-version
+                if "-" in self.impersonate_target:
+                    client, version = self.impersonate_target.rsplit("-", 1)
+                    self.ydl_opts["impersonate"] = ImpersonateTarget(client.lower(), version, None, None)
+                else:
+                    self.ydl_opts["impersonate"] = ImpersonateTarget(self.impersonate_target.lower(), None, None, None)
+            logger.info(f"Enabled browser impersonation: {self.impersonate_target}")
 
         # ENHANCED TEMPORAL INTELLIGENCE OPTIONS - The Game Changer!
         self.temporal_opts = {
@@ -454,35 +497,10 @@ class UniversalVideoClient:
                 logger.info(
                     f"Downloading audio from: {video_url} (attempt {attempt + 1}/{max_retries})"
                 )
-
-                # For YouTube, try multiple fallback strategies
-                if "youtube.com" in video_url or "youtu.be" in video_url:
-                    logger.info("YouTube detected - trying multiple strategies...")
-
-                    # Strategy 1: Browser cookies + mweb client (most reliable)
-                    opts_with_cookies = opts.copy()
-                    chrome_profile_path = os.path.expanduser("~/Library/Application Support/Google/Chrome")
-                    opts_with_cookies["cookiesfrombrowser"] = ("chrome", chrome_profile_path)
-
-                    if "extractor_args" not in opts_with_cookies:
-                        opts_with_cookies["extractor_args"] = {}
-                    if "youtube" not in opts_with_cookies["extractor_args"]:
-                        opts_with_cookies["extractor_args"]["youtube"] = []
-                    opts_with_cookies["extractor_args"]["youtube"].append("player_client=mweb")
-
-                    # Add additional headers to mimic real browser
-                    opts_with_cookies["http_headers"] = {
-                        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-                        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-                        "Accept-Language": "en-us,en;q=0.5",
-                        "Accept-Encoding": "gzip,deflate",
-                        "Connection": "keep-alive",
-                        "Upgrade-Insecure-Requests": "1",
-                    }
-
-                    ydl_opts = opts_with_cookies
-                else:
-                    ydl_opts = opts
+                
+                # curl-cffi impersonation (if enabled) handles bot detection automatically
+                # No need for platform-specific workarounds anymore!
+                ydl_opts = opts
 
                 with yt_dlp.YoutubeDL(ydl_opts) as ydl:
                     # Extract video info first
@@ -519,7 +537,10 @@ class UniversalVideoClient:
                     return audio_file, metadata
 
             except Exception as e:
+                import traceback
+                error_trace = traceback.format_exc()
                 logger.error(f"Audio download failed (attempt {attempt + 1}/{max_retries}): {e}")
+                logger.debug(f"Full error trace: {error_trace}")
 
                 error_str = str(e).lower()
                 # Check if it's a retryable error (ffmpeg, network, or bot detection)

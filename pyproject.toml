@@ -165,6 +165,7 @@ textual = {version = "^5.2.0", optional = true}
 # Optional web interface - install with `poetry install -E web`
 streamlit = {version = "^1.33.0", optional = true}
 google-cloud-run = "^0.10.19"
+curl-cffi = "^0.13.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.10.0"
