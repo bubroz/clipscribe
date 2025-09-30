@@ -90,3 +90,4 @@ structured_output/
 *~
 
 # Docker/deployment files already handled in .dockerignore
+secrets/
