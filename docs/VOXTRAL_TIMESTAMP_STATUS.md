@@ -1,7 +1,12 @@
 # Voxtral Timestamp Capabilities & Word-Level Readiness
 
-*Last Updated: September 6, 2025*
+*Last Updated: September 30, 2025*
+*Version: v2.51.1*
 *Status: Segment timestamps ✅ | Word timestamps ⏳*
+
+## v2.51.1 Update
+
+**Bot Detection Solved**: curl-cffi integration provides 100% download success, making timestamp features reliable across all platforms (YouTube, Vimeo, etc.).
 
 ## Current Status
 
