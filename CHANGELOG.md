@@ -4,6 +4,8 @@
 
 Complete overhaul of download reliability and platform compliance with dual-layer protection and intelligent rate limiting.
 
+**END-TO-END VALIDATED**: Successfully processed real YouTube video with 11 entities, 11 relationships extracted.
+
 ### Added
 - **Simple Rate Limiter**: Conservative, zero-configuration rate limiting for ToS compliance
   - Default: 1 request every 10 seconds per platform
@@ -57,6 +59,14 @@ Complete overhaul of download reliability and platform compliance with dual-laye
   - Conservative 10-second delays between requests
   - Daily caps prevent mass scraping detection
   - Per-platform tracking avoids cross-platform rate limit issues
+
+- **Grok API Stability**: Fixed intermittent timeout issues
+  - Added 3-attempt retry with exponential backoff (1s, 2s, 4s)
+  - Better timeout configuration: separate connect (60s) and read (300s) timeouts
+  - Disabled HTTP connection keep-alive to prevent stale connection reuse
+  - Catches specific exceptions: RemoteProtocolError, ReadTimeout, ConnectTimeout
+  - Fixes "Server disconnected without sending a response" errors
+  - Previously returned empty results (0 entities), now retries until success
 
 ### Technical Details
 - **Dependencies**: Added Playwright ^1.55.0 (dev dependency)
