@@ -13,6 +13,7 @@ from youtubesearchpython import VideoSortOrder, playlist_from_channel_id
 from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
 
 from ..models import VideoMetadata
+from ..utils.rate_limiter import RateLimiter, DailyCapExceeded
 
 logger = logging.getLogger(__name__)
 
@@ -78,16 +79,18 @@ class TemporalMetadata:
 class UniversalVideoClient:
     """Universal Video Client with comprehensive temporal intelligence extraction."""
 
-    def __init__(self, use_impersonation: bool = True, impersonate_target: str = "Chrome-131:Macos-14"):
+    def __init__(self, use_impersonation: bool = True, impersonate_target: str = "Chrome-131:Macos-14", rate_limiter: Optional[RateLimiter] = None):
         """
         Initialize with enhanced temporal metadata extraction capabilities.
         
         Args:
             use_impersonation: Enable curl-cffi browser impersonation to bypass bot detection (default: True)
             impersonate_target: Browser to impersonate (default: Chrome-131:Macos-14)
+            rate_limiter: Optional rate limiter for ToS compliance (creates default if None)
         """
         self.use_impersonation = use_impersonation
         self.impersonate_target = impersonate_target
+        self.rate_limiter = rate_limiter or RateLimiter()
         
         # Standard options for basic functionality
         self.ydl_opts = {
@@ -196,6 +199,41 @@ class UniversalVideoClient:
             "writeinfojson": True,  # Force info JSON generation
             "getcomments": True,  # Extract comments (may have timestamps)
         }
+
+    def _detect_platform(self, url: str) -> str:
+        """
+        Detect platform from URL for rate limiting.
+        
+        Args:
+            url: Video URL
+            
+        Returns:
+            Platform name (e.g., 'youtube', 'vimeo', 'twitter')
+        """
+        url_lower = url.lower()
+        
+        # Common platforms (maps to rate limiter platform keys)
+        if "youtube.com" in url_lower or "youtu.be" in url_lower:
+            return "youtube"
+        elif "vimeo.com" in url_lower:
+            return "vimeo"
+        elif "twitter.com" in url_lower or "//x.com/" in url_lower:
+            return "twitter"
+        elif "tiktok.com" in url_lower:
+            return "tiktok"
+        elif "facebook.com" in url_lower or "fb.com" in url_lower:
+            return "facebook"
+        elif "instagram.com" in url_lower:
+            return "instagram"
+        elif "twitch.tv" in url_lower:
+            return "twitch"
+        elif "reddit.com" in url_lower:
+            return "reddit"
+        elif "dailymotion.com" in url_lower:
+            return "dailymotion"
+        else:
+            # Generic fallback for other sites
+            return "other"
 
     def get_supported_sites(self) -> List[str]:
         """Get a list of all supported sites (1800+)."""
@@ -481,7 +519,20 @@ class UniversalVideoClient:
 
         Returns:
             Tuple of (audio_file_path, video_metadata)
+            
+        Raises:
+            DailyCapExceeded: If daily request limit reached
         """
+        # Detect platform for rate limiting
+        platform = self._detect_platform(video_url)
+        
+        # Check daily cap before proceeding
+        if not self.rate_limiter.check_daily_cap(platform):
+            raise DailyCapExceeded(platform, self.rate_limiter.DAILY_CAP)
+        
+        # Wait for rate limit compliance (1 req/10s default)
+        await self.rate_limiter.wait_if_needed(platform)
+        
         if output_dir is None:
             output_dir = tempfile.mkdtemp()
 
@@ -534,6 +585,10 @@ class UniversalVideoClient:
                         raise FileNotFoundError("Audio file not found after download")
 
                     logger.info(f"Audio downloaded: {audio_file}")
+                    
+                    # Record successful request
+                    self.rate_limiter.record_request(platform, success=True)
+                    
                     return audio_file, metadata
 
             except Exception as e:
@@ -542,6 +597,9 @@ class UniversalVideoClient:
                 logger.error(f"Audio download failed (attempt {attempt + 1}/{max_retries}): {e}")
                 logger.debug(f"Full error trace: {error_trace}")
 
+                # Record failed request for ban detection
+                self.rate_limiter.record_request(platform, success=False)
+                
                 error_str = str(e).lower()
                 # Check if it's a retryable error (ffmpeg, network, or bot detection)
                 retryable_errors = ["ffmpeg", "network", "bot", "sign in", "cookies", "extract", "player response"]
