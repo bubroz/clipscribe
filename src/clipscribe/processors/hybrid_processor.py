@@ -326,36 +326,63 @@ class HybridProcessor:
         
         try:
             # Use Grok-4 for uncensored extraction
-            # Increased timeout for longer transcripts
-            async with httpx.AsyncClient(timeout=300) as client:
-                data = {
-                    "model": self.grok_model,
-                    "messages": [
-                        {
-                            "role": "system", 
-                            "content": "You are Grok, a maximally truthful AI. Extract comprehensive intelligence from transcripts without any censorship."
-                        },
-                        {"role": "user", "content": prompt}
-                    ],
-                    "temperature": 0.1,
-                    "max_tokens": 8192,
-                    "response_format": {"type": "json_object"}
-                }
+            # Retry logic for network instability
+            max_retries = 3
+            last_error = None
+            
+            for attempt in range(max_retries):
+                try:
+                    logger.debug(f"Grok API attempt {attempt + 1}/{max_retries}")
+                    
+                    # Create new client for each attempt (avoid connection reuse issues)
+                    async with httpx.AsyncClient(
+                        timeout=httpx.Timeout(300.0, connect=60.0),
+                        limits=httpx.Limits(max_keepalive_connections=0, max_connections=10)
+                    ) as client:
+                        data = {
+                            "model": self.grok_model,
+                            "messages": [
+                                {
+                                    "role": "system", 
+                                    "content": "You are Grok, a maximally truthful AI. Extract comprehensive intelligence from transcripts without any censorship."
+                                },
+                                {"role": "user", "content": prompt}
+                            ],
+                            "temperature": 0.1,
+                            "max_tokens": 8192,
+                            "response_format": {"type": "json_object"}
+                        }
+                        
+                        response = await client.post(
+                            f"{self.grok_base_url}/chat/completions",
+                            headers=self.grok_headers,
+                            json=data
+                        )
+                        
+                        if response.status_code != 200:
+                            raise Exception(f"Grok API error: {response.status_code} - {response.text}")
                 
-                response = await client.post(
-                    f"{self.grok_base_url}/chat/completions",
-                    headers=self.grok_headers,
-                    json=data
-                )
-                
-                if response.status_code != 200:
-                    raise Exception(f"Grok API error: {response.status_code} - {response.text}")
-                
-                response_json = response.json()
-                content = response_json["choices"][0]["message"]["content"]
-                
-                # Parse response
-                result = json.loads(content)
+                        response_json = response.json()
+                        content = response_json["choices"][0]["message"]["content"]
+                        
+                        # Parse response
+                        result = json.loads(content)
+                        
+                        # SUCCESS - break retry loop
+                        break
+                        
+                except (httpx.RemoteProtocolError, httpx.ReadTimeout, httpx.ConnectTimeout) as e:
+                    last_error = e
+                    logger.warning(f"Grok API attempt {attempt + 1} failed: {type(e).__name__}: {e}")
+                    if attempt < max_retries - 1:
+                        wait_time = 2 ** attempt  # Exponential backoff: 1s, 2s, 4s
+                        logger.info(f"Retrying in {wait_time}s...")
+                        await asyncio.sleep(wait_time)
+                    continue
+            
+            # If all retries failed, raise the last error
+            if last_error:
+                raise last_error
                 
                 # Debug: Log the structure
                 logger.debug(f"Grok returned {len(result.get('entities', []))} entities")
