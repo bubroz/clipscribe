@@ -1,6 +1,7 @@
 # ClipScribe API Quickstart
 
-*Last Updated: 2025-09-05*\n*Version: v2.51.0*
+*Last Updated: 2025-09-30*
+*Version: v2.51.1*
 
 This guide shows how to use the API v1 to submit a job, watch progress, and download artifacts.
 

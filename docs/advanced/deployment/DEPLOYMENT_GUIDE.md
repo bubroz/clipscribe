@@ -1,7 +1,7 @@
 # ClipScribe Deployment Guide
 
-*Last Updated: 2025-08-31*
-*Version: v2.51.0*
+*Last Updated: 2025-09-30*
+*Version: v2.51.1*
 *Status: Beta Deployment Strategy*
 
 ## Overview
@@ -9,6 +9,8 @@
 ClipScribe is designed for a scalable, multi-service deployment on **Google Cloud Run**. This guide provides instructions for deploying ClipScribe in beta/production environments.
 
 **⚠️ IMPORTANT**: ClipScribe is currently in private alpha. This deployment guide is for beta testers and the development team only.
+
+**✨ NEW in v2.51.1**: curl-cffi browser impersonation for bot detection bypass is now included. Ensure your deployment environment supports curl-cffi dependencies (see requirements below).
 
 ## Beta Deployment Timeline
 
@@ -58,6 +60,10 @@ The recommended and most reliable way to deploy ClipScribe is by using the `clou
   - Cloud Build API (`cloudbuild.googleapis.com`)
   - Cloud Run API (`run.googleapis.com`)
   - Artifact Registry API (`artifactregistry.googleapis.com`) or Container Registry API (`containerregistry.googleapis.com`)
+- **curl-cffi dependencies** (v2.51.1+):
+  - `curl-cffi` 0.13.0+ installed via Poetry
+  - `yt-dlp` 2025.09.26+ with ImpersonateTarget support
+  - System dependencies: `libcurl` with HTTP/3 support (included in most modern Docker base images)
 
 ### Deployment Steps
 

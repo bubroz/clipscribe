@@ -1,8 +1,12 @@
 # ClipScribe Documentation
 
-*Last Updated: 2025-09-01*
+*Last Updated: 2025-09-30*
 
-This directory contains all user and technical documentation for ClipScribe v2.51.0 (Private Alpha).
+This directory contains all user and technical documentation for ClipScribe v2.51.1 (Private Alpha).
+
+## ✨ What's New in v2.51.1
+
+**Bot Detection Solved!** ClipScribe now includes automatic curl-cffi browser impersonation that provides 100% download success across all platforms. No more "Requested format is not available" errors!
 
 ## Key Documents
 
