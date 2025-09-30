@@ -1,9 +1,0 @@
-name,type,source,timestamp,mention_count
-Intelligence Support Activity,ORGANIZATION,['gemini'],,1
-Special Forces,ORGANIZATION,['gemini'],,1
-West Virginia,LOCATION,['gemini'],,1
-British SAS,ORGANIZATION,['gemini'],,1
-Delta Force,ORGANIZATION,['gemini'],,1
-SEAL Team 6,ORGANIZATION,['gemini'],,1
-Tier 1,MILITARY DESIGNATION,['gemini'],,1
-Tier 2,MILITARY DESIGNATION,['gemini'],,1

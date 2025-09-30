@@ -23,6 +23,28 @@ pbs_newshour_30day_batch.json
 pbs_newshour_30day_urls.txt
 tier12_urls.txt
 tests/edge_cases/reports/
+tests/cache/
+tests/output/
+
+# Temporary analysis/consultation docs
+BASELINE_VALIDATION_RESULTS.md
+EXTERNAL_CONSULTATION_BRIEF.md
+IMPLEMENTATION_RESEARCH.md
+REFERENCE_FILES_FOR_CONSULTANT.md
+YOUTUBE_BOT_DETECTION_PROBLEM_STATEMENT.md
+*_VALIDATION_RESULTS.md
+*_CONSULTATION_*.md
+
+# Temporary JSON response files
+obama_response.json
+direct_upload_*.json
+success_Method_*.json
+*_gcs_info.json
+
+# Test scripts in root (should be in tests/ or scripts/)
+test_*.py
+!tests/**/test_*.py
+!scripts/**/test_*.py
 
 # Python
 .pytest_cache/
@@ -35,7 +57,9 @@ __pycache__/
 .Python
 *.egg-info/
 .coverage
+coverage.xml
 htmlcov/
+MagicMock/
 
 # OS files
 .DS_Store
