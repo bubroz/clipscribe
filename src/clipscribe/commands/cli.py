@@ -74,6 +74,7 @@ async def run_processing_logic(
     mode: str,
     cookies_from_browser: Optional[str],
     with_x_draft: bool = False,
+    force: bool = False,
 ):
     """The core processing logic, designed to be run from any context."""
     logger = logging.getLogger(__name__)
