@@ -46,6 +46,8 @@ def process():
 @click.option("--use-cache/--no-cache", default=True)
 @click.option("--use-flash", is_flag=True, default=False)
 @click.option("--cookies-from-browser", type=str, default=None)
+@click.option("--with-x-draft", is_flag=True, default=False, help="Generate X (Twitter) content draft")
+@click.option("--force", is_flag=True, default=False, help="Force reprocess even if already completed")
 @click.pass_context
 def process_video(
     ctx: click.Context,
@@ -55,10 +57,12 @@ def process_video(
     use_cache: bool,
     use_flash: bool,
     cookies_from_browser: Optional[str],
+    with_x_draft: bool,
+    force: bool,
 ):
     """Process a single video from a URL to extract intelligence."""
     asyncio.run(
-        run_processing_logic(url, use_flash, use_cache, str(output_dir), mode, cookies_from_browser)
+        run_processing_logic(url, use_flash, use_cache, str(output_dir), mode, cookies_from_browser, with_x_draft, force)
     )
 
 
@@ -69,6 +73,7 @@ async def run_processing_logic(
     output_dir: str,
     mode: str,
     cookies_from_browser: Optional[str],
+    with_x_draft: bool = False,
 ):
     """The core processing logic, designed to be run from any context."""
     logger = logging.getLogger(__name__)
@@ -85,13 +90,21 @@ async def run_processing_logic(
             settings=settings,
         )
 
-        result = await retriever.process_url(url)
+        result = await retriever.process_url(url, force_reprocess=force)
 
         if result:
             logger.info(f"Title: {result.metadata.title}")
             logger.info(f"Channel: {result.metadata.channel}")
             saved_files = await retriever.save_all_formats(result, output_dir)
             logger.info(f"Outputs saved to: {saved_files['directory']}")
+            
+            # Generate X draft if requested
+            if with_x_draft:
+                from pathlib import Path
+                x_draft = await retriever.generate_x_content(result, Path(saved_files['directory']))
+                if x_draft:
+                    logger.info(f"📱 X draft ready: {x_draft['directory']}")
+            
             # Explicit model line for tests
             model_str = "voxtral-mini-2507 + grok-4-0709"
             print(f"Model: {model_str}")

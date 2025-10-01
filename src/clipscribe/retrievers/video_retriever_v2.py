@@ -16,6 +16,7 @@ from ..processors.hybrid_processor import HybridProcessor
 from ..retrievers.universal_video_client import UniversalVideoClient
 from ..retrievers.output_formatter import OutputFormatter
 from ..retrievers.knowledge_graph_builder import KnowledgeGraphBuilder
+from ..exporters.x_exporter import XContentGenerator
 from ..config.settings import Settings
 from ..utils.logging import setup_logging
 from ..utils.processing_tracker import ProcessingTracker
@@ -71,6 +72,9 @@ class VideoIntelligenceRetrieverV2:
         
         # Processing tracker for deduplication
         self.tracker = ProcessingTracker()
+        
+        # X content generator (optional)
+        self.x_generator = XContentGenerator()
         
         logger.info("VideoIntelligenceRetrieverV2 initialized with Voxtral-Grok pipeline")
     
@@ -432,3 +436,46 @@ class VideoIntelligenceRetrieverV2:
     async def save_all_formats(self, result: VideoIntelligence, output_dir: str) -> Dict[str, Any]:
         """Legacy compatibility method."""
         return self._save_outputs(result)
+
+    async def generate_x_content(
+        self, 
+        result: VideoIntelligence, 
+        output_dir: Path
+    ) -> Optional[Dict[str, Any]]:
+        """
+        Generate X-ready content (tweet draft + thumbnail).
+        
+        Args:
+            result: Processing result with entities/relationships
+            output_dir: Where to save X draft
+            
+        Returns:
+            Dict with paths to tweet.txt and thumbnail.jpg
+        """
+        try:
+            logger.info("Generating X content draft...")
+            
+            # Generate sticky summary
+            summary = await self.x_generator.generate_sticky_summary(
+                title=result.metadata.title,
+                entities=result.entities,
+                relationships=result.relationships
+            )
+            
+            # Find thumbnail in output directory
+            thumbnail = self.x_generator.find_thumbnail(output_dir)
+            
+            # Save X draft
+            draft_files = self.x_generator.save_x_draft(
+                summary=summary,
+                video_url=result.metadata.url,
+                thumbnail_path=thumbnail,
+                output_dir=output_dir
+            )
+            
+            logger.info(f"✅ X draft ready: {draft_files['directory']}")
+            return draft_files
+            
+        except Exception as e:
+            logger.warning(f"X content generation failed: {e}")
+            return None

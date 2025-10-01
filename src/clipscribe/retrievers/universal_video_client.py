@@ -103,6 +103,7 @@ class UniversalVideoClient:
                 }
             ],
             "outtmpl": "%(title)s-%(id)s.%(ext)s",
+            "writethumbnail": True,  # Download thumbnail for X posts
             "quiet": True,
             "no_warnings": True,
             "extract_flat": False,
