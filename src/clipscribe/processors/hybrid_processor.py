@@ -635,8 +635,26 @@ Extract entities and relationships. Return JSON:
         relationships: list
     ) -> str:
         """Generate 100-200 word executive summary."""
-        entity_names = [e.get('name', '') for e in entities[:10]]
-        rel_texts = [f"{r.get('subject')} {r.get('predicate')} {r.get('object')}" for r in relationships[:5]]
+        # Handle both dict and Pydantic objects
+        entity_names = []
+        for e in entities[:10]:
+            name = e.get('name') if isinstance(e, dict) else getattr(e, 'name', '')
+            if name:
+                entity_names.append(name)
+        
+        rel_texts = []
+        for r in relationships[:5]:
+            if isinstance(r, dict):
+                subj = r.get('subject', '')
+                pred = r.get('predicate', '')
+                obj = r.get('object', '')
+            else:
+                subj = getattr(r, 'subject', '')
+                pred = getattr(r, 'predicate', '')
+                obj = getattr(r, 'object', '')
+            
+            if subj and pred and obj:
+                rel_texts.append(f"{subj} {pred} {obj}")
         
         prompt = f"""Create a 100-200 word executive summary:
 
