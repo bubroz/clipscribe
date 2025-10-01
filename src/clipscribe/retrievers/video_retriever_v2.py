@@ -18,6 +18,7 @@ from ..retrievers.output_formatter import OutputFormatter
 from ..retrievers.knowledge_graph_builder import KnowledgeGraphBuilder
 from ..config.settings import Settings
 from ..utils.logging import setup_logging
+from ..utils.processing_tracker import ProcessingTracker
 
 logger = logging.getLogger(__name__)
 
@@ -68,18 +69,36 @@ class VideoIntelligenceRetrieverV2:
         self.output_formatter = OutputFormatter()
         self.kg_builder = KnowledgeGraphBuilder()
         
+        # Processing tracker for deduplication
+        self.tracker = ProcessingTracker()
+        
         logger.info("VideoIntelligenceRetrieverV2 initialized with Voxtral-Grok pipeline")
     
-    async def process_url(self, video_url: str) -> Optional[VideoIntelligence]:
+    async def process_url(self, video_url: str, force_reprocess: bool = False) -> Optional[VideoIntelligence]:
         """
         Process a video URL with the uncensored pipeline.
         
         Args:
             video_url: URL of the video to process
+            force_reprocess: If True, process even if already completed
             
         Returns:
             VideoIntelligence object or None if failed
         """
+        # Extract video ID for tracking
+        video_id = self._extract_video_id(video_url)
+        
+        # Check if already processed
+        if not force_reprocess and video_id and self.tracker.is_processed(video_id):
+            output_location = self.tracker.get_output_location(video_id)
+            logger.info(f"✓ Video {video_id} already processed. Output: {output_location}")
+            logger.info("  Use --force to reprocess. Skipping...")
+            return None  # Could load from output_location if needed
+        
+        # Mark as processing
+        if video_id:
+            self.tracker.mark_processing(video_id, video_url, status="downloading")
+        
         start_time = time.time()
         
         try:
@@ -129,11 +148,30 @@ class VideoIntelligenceRetrieverV2:
             logger.info(f"   Time: {processing_time:.1f}s")
             logger.info(f"   Output: {saved_files.get('directory')}")
             
+            # Mark as completed in tracker
+            if video_id:
+                self.tracker.mark_completed(
+                    video_id,
+                    output_dir=str(saved_files.get('directory')),
+                    metadata={
+                        'title': result.metadata.title,
+                        'cost': processing_cost,
+                        'processing_time': processing_time,
+                        'entity_count': len(result.entities),
+                        'relationship_count': len(result.relationships)
+                    }
+                )
+            
             return result
             
         except Exception as e:
             logger.error(f"Processing failed: {e}", exc_info=True)
             self.on_error("Processing", str(e))
+            
+            # Mark as failed in tracker
+            if video_id:
+                self.tracker.mark_failed(video_id, str(e))
+            
             return None
     
     async def _download_video(self, video_url: str) -> tuple[Optional[Path], Optional[VideoMetadata]]:
@@ -168,6 +206,14 @@ class VideoIntelligenceRetrieverV2:
             logger.error(f"Download failed: {e}")
             self.on_error("Downloading", str(e))
             return None, None
+    
+    def _extract_video_id(self, url: str) -> Optional[str]:
+        """Extract YouTube video ID from URL."""
+        if 'watch?v=' in url:
+            return url.split('watch?v=')[1].split('&')[0]
+        elif 'youtu.be/' in url:
+            return url.split('youtu.be/')[1].split('?')[0]
+        return None
     
     def _calculate_cost(self, duration: float) -> float:
         """

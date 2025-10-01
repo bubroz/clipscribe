@@ -704,3 +704,22 @@ def normalize_batch_entities(batch_id, output_dir, cross_video):
             raise click.Abort()
 
     asyncio.run(_run())
+
+
+
+@cli.command("stats")
+def show_stats():
+    """Show processing statistics."""
+    from ..utils.processing_tracker import ProcessingTracker
+    
+    tracker = ProcessingTracker()
+    stats = tracker.get_stats()
+    
+    click.echo(f"
+📊 Processing Statistics
+")
+    click.echo(f"Total: {stats[\"total_tracked\"]}")
+    click.echo(f"  ✅ Completed: {stats[\"completed\"]}")
+    click.echo(f"  ❌ Failed: {stats[\"failed\"]}")
+    click.echo(f"Success rate: {stats[\"success_rate\"]}")
+
