@@ -278,6 +278,11 @@ class HybridProcessor:
         """
         logger.info(f"Extracting intelligence with {self.grok_model} from Voxtral transcript")
         
+        # Check if chunking needed (Grok times out at ~2500+ chars)
+        if len(transcript_text) > 2500:
+            logger.info(f"Long transcript ({len(transcript_text)} chars), using chunked extraction")
+            return await self._extract_intelligence_chunked(transcript_text, metadata)
+        
         # Build comprehensive prompt with full context
         prompt = f"""
         Analyze this complete transcript from a video titled "{metadata.get('title', 'Unknown')}"
@@ -588,3 +593,123 @@ class SeamlessTranscriptAnalyzer:
             return False
         
         return True
+
+    async def _extract_intelligence_chunked(
+        self,
+        transcript_text: str,
+        metadata: Dict[str, Any]
+    ) -> Dict[str, Any]:
+        """
+        Extract intelligence from long transcript using chunking.
+        
+        Splits transcript into ~2000 char chunks with overlap,
+        processes each, then merges results.
+        """
+        # Split into chunks
+        chunks = self._split_into_chunks(transcript_text, max_chars=2000, overlap=200)
+        logger.info(f"Split transcript into {len(chunks)} chunks for Grok processing")
+        
+        all_entities = []
+        all_relationships = []
+        
+        # Process each chunk
+        for i, chunk in enumerate(chunks):
+            logger.info(f"Processing chunk {i+1}/{len(chunks)}")
+            
+            # Extract from this chunk
+            result = await self._extract_from_chunk(chunk, metadata, i+1, len(chunks))
+            
+            all_entities.extend(result.get('entities', []))
+            all_relationships.extend(result.get('relationships', []))
+        
+        # Deduplicate entities by name
+        unique_entities = {}
+        for entity in all_entities:
+            name = entity.get('name', '')
+            if name and name not in unique_entities:
+                unique_entities[name] = entity
+        
+        logger.info(f"Merged {len(all_entities)} entities into {len(unique_entities)} unique")
+        
+        return {
+            'entities': list(unique_entities.values()),
+            'relationships': all_relationships,  # Keep all relationships
+            'topics': [],
+            'key_moments': [],
+            'sentiment': {},
+            'confidence': 0.85,  # Slightly lower for chunked
+            'cost': len(chunks) * 0.02  # Estimate
+        }
+    
+    def _split_into_chunks(self, text: str, max_chars: int, overlap: int) -> List[str]:
+        """Split text into overlapping chunks."""
+        if len(text) <= max_chars:
+            return [text]
+        
+        chunks = []
+        start = 0
+        
+        while start < len(text):
+            end = start + max_chars
+            chunk = text[start:end]
+            chunks.append(chunk)
+            start = end - overlap  # Overlap for context
+        
+        return chunks
+    
+    async def _extract_from_chunk(
+        self,
+        chunk_text: str,
+        metadata: Dict[str, Any],
+        chunk_num: int,
+        total_chunks: int
+    ) -> Dict[str, Any]:
+        """Extract intelligence from a single chunk."""
+        
+        prompt = f"""
+        Analyze this section (chunk {chunk_num}/{total_chunks}) from "{metadata.get('title', 'Unknown')}":
+        
+        {chunk_text}
+        
+        Extract:
+        1. ENTITIES: All people, organizations, concepts mentioned
+        2. RELATIONSHIPS: Connections between entities
+        
+        Return JSON:
+        {{
+          "entities": [{{"name": "...", "type": "...", "confidence": 0.9}}],
+          "relationships": [{{"subject": "entity1", "predicate": "relation", "object": "entity2", "confidence": 0.9}}]
+        }}
+        """
+        
+        try:
+            async with httpx.AsyncClient(
+                timeout=httpx.Timeout(120.0, connect=30.0),
+                limits=httpx.Limits(max_keepalive_connections=0)
+            ) as client:
+                data = {
+                    "model": self.grok_model,
+                    "messages": [
+                        {"role": "system", "content": "Extract entities and relationships from text."},
+                        {"role": "user", "content": prompt}
+                    ],
+                    "temperature": 0.1,
+                    "max_tokens": 2048,
+                    "response_format": {"type": "json_object"}
+                }
+                
+                response = await client.post(
+                    f"{self.grok_base_url}/chat/completions",
+                    headers=self.grok_headers,
+                    json=data
+                )
+                
+                if response.status_code == 200:
+                    result = response.json()
+                    content = result["choices"][0]["message"]["content"]
+                    return json.loads(content)
+        
+        except Exception as e:
+            logger.warning(f"Chunk {chunk_num} extraction failed: {e}")
+        
+        return {'entities': [], 'relationships': []}
