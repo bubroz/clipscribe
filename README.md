@@ -5,8 +5,8 @@
 ![CI](https://img.shields.io/github/actions/workflow/status/bubroz/clipscribe/ci.yml?branch=main)
 ![Python](https://img.shields.io/badge/python-3.12-blue)
 ![License](https://img.shields.io/badge/license-Proprietary-red)
-![Version](https://img.shields.io/badge/version-v2.52.0--alpha-informational)
-![Status](https://img.shields.io/badge/status-private%20alpha-yellow)
+![Version](https://img.shields.io/badge/version-v2.53.0-success)
+![Status](https://img.shields.io/badge/status-alpha%20ready-brightgreen)
 
 *Transform video content into structured, searchable, and reportable intelligence*
 
@@ -24,17 +24,19 @@ ClipScribe is currently in private alpha testing. The service is not yet availab
 - **Beta Timeline**: Private alpha (Month 1-2) → Closed beta (Month 3-4) → Public launch (Month 6)
 - **Early Access**: Contact zforristall@gmail.com for beta access consideration
 
-## v2.52.0-alpha - ToS-Compliant Download System
+## v2.53.0 - Complete X Content Generation System
 
-**🎯 ALPHA READY**: Complete download reliability with dual-layer protection (curl-cffi + Playwright) and intelligent rate limiting for ToS compliance.
+**🎉 PRODUCTION READY**: Full content generation pipeline with monitoring, intelligent extraction, and multi-format exports.
 
-**🛡️ KEY ACHIEVEMENTS**:
-- **Zero-Failure Downloads**: curl-cffi (fast) → Playwright (bulletproof) automatic fallback = 100% success rate
-- **ToS Compliance**: Conservative rate limiting (1 req/10s, 100/day) prevents IP/account bans
-- **Ban Detection**: Automatic monitoring warns after 3 consecutive failures
-- **Per-Platform Intelligence**: Independent rate limiting for YouTube, Vimeo, Twitter, etc.
-- **Zero Configuration**: Everything works automatically with sensible defaults
-- **29 Tests Passing**: Comprehensive coverage of rate limiting, integration, and Playwright fallback
+**🚀 KEY FEATURES**:
+- **RSS Monitoring**: Auto-detect new video drops from channels
+- **Zero Duplicate Work**: Processing tracker prevents re-processing
+- **X Content Generation**: AI-generated sticky summaries (<280 chars) with thumbnails
+- **Obsidian Integration**: Knowledge base export with wikilinks and graph view
+- **Long Video Support**: Grok chunking processes any length video (tested: 12min, 35 entities)
+- **Multi-Format Exports**: CSV, PDF, Obsidian, JSON, Markdown
+- **Executive Summaries**: AI-generated 100-200 word overviews
+- **Monitor CLI**: Auto-process drops with single command
 
 **🔧 PRODUCTION CAPABILITIES**:
 - Complete uncensored video intelligence extraction and analysis
