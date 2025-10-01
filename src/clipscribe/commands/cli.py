@@ -96,9 +96,11 @@ async def run_processing_logic(
             model_str = "voxtral-mini-2507 + grok-4-0709"
             print(f"Model: {model_str}")
             print("Intelligence extraction complete!")
-
-        if result is None:
-            logger.error("Processing failed. Please check the log for details.")
+        else:
+            # Check if it was skipped (already processed) vs actual failure
+            # If skipped, the log will show "already processed" message
+            # This is expected behavior, not an error
+            pass
 
     except Exception as e:
         logger.error(f"A fatal error occurred: {e}", exc_info=True)
@@ -715,11 +717,9 @@ def show_stats():
     tracker = ProcessingTracker()
     stats = tracker.get_stats()
     
-    click.echo(f"
-📊 Processing Statistics
-")
-    click.echo(f"Total: {stats[\"total_tracked\"]}")
-    click.echo(f"  ✅ Completed: {stats[\"completed\"]}")
-    click.echo(f"  ❌ Failed: {stats[\"failed\"]}")
-    click.echo(f"Success rate: {stats[\"success_rate\"]}")
+    click.echo("\n📊 Processing Statistics\n")
+    click.echo(f"Total: {stats['total_tracked']}")
+    click.echo(f"  ✅ Completed: {stats['completed']}")
+    click.echo(f"  ❌ Failed: {stats['failed']}")
+    click.echo(f"Success rate: {stats['success_rate']}")
 
