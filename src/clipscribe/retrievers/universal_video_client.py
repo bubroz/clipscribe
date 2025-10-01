@@ -587,6 +587,14 @@ class UniversalVideoClient:
 
                     logger.info(f"Audio downloaded: {audio_file}")
                     
+                    # Also look for thumbnail (for X posts)
+                    thumbnail_file = None
+                    for filename in os.listdir(output_dir):
+                        if video_id in filename and filename.lower().endswith(('.jpg', '.jpeg', '.png', '.webp')):
+                            thumbnail_file = os.path.join(output_dir, filename)
+                            logger.debug(f"Thumbnail found: {thumbnail_file}")
+                            break
+                    
                     # Record successful request
                     self.rate_limiter.record_request(platform, success=True)
                     
