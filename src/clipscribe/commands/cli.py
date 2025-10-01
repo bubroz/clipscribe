@@ -102,7 +102,11 @@ async def run_processing_logic(
             # Generate X draft if requested
             if with_x_draft:
                 from pathlib import Path
-                x_draft = await retriever.generate_x_content(result, Path(saved_files['directory']))
+                x_draft = await retriever.generate_x_content(
+                    result, 
+                    Path(saved_files['directory']),
+                    temp_thumbnail=retriever._last_thumbnail
+                )
                 if x_draft:
                     logger.info(f"📱 X draft ready: {x_draft['directory']}")
             

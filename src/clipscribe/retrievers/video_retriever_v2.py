@@ -76,6 +76,9 @@ class VideoIntelligenceRetrieverV2:
         # X content generator (optional)
         self.x_generator = XContentGenerator()
         
+        # Store thumbnail path from last download (for X drafts)
+        self._last_thumbnail = None
+        
         logger.info("VideoIntelligenceRetrieverV2 initialized with Voxtral-Grok pipeline")
     
     async def process_url(self, video_url: str, force_reprocess: bool = False) -> Optional[VideoIntelligence]:
@@ -104,13 +107,18 @@ class VideoIntelligenceRetrieverV2:
             self.tracker.mark_processing(video_id, video_url, status="downloading")
         
         start_time = time.time()
+        temp_thumbnail = None  # Store thumbnail from temp dir
         
         try:
             # Phase 1: Download
             self.on_phase_start("Downloading", "Fetching video...")
-            audio_path, metadata = await self._download_video(video_url)
+            audio_path, metadata, temp_thumbnail = await self._download_video(video_url)
             if not audio_path:
                 return None
+            
+            # Store thumbnail for later X draft generation
+            self._last_thumbnail = temp_thumbnail
+            
             self.on_phase_complete("Downloading", 0.0)
             
             # Phase 2: Process with HybridProcessor (Voxtral + Grok)
@@ -178,17 +186,30 @@ class VideoIntelligenceRetrieverV2:
             
             return None
     
-    async def _download_video(self, video_url: str) -> tuple[Optional[Path], Optional[VideoMetadata]]:
-        """Download video and extract metadata."""
+    async def _download_video(self, video_url: str) -> tuple[Optional[Path], Optional[VideoMetadata], Optional[Path]]:
+        """Download video and extract metadata. Returns (audio_path, metadata, thumbnail_path)."""
         try:
             # Check if URL is supported
             if not self.video_client.is_supported_url(video_url):
                 logger.error(f"URL not supported: {video_url}")
                 self.on_error("Downloading", "URL not supported")
-                return None, None
+                return None, None, None
             
-            # Download audio
+            # Download audio (downloads to temp with thumbnail)
             audio_path, metadata = await self.video_client.download_audio(video_url)
+            
+            # Find and save thumbnail location for later copying
+            temp_dir = Path(audio_path).parent
+            video_id = self._extract_video_id(video_url)
+            temp_thumbnail = None
+            
+            if video_id and temp_dir.exists():
+                for ext in ['.jpg', '.jpeg', '.png', '.webp']:
+                    thumbnails = list(temp_dir.glob(f'*{video_id}*{ext}'))
+                    if thumbnails:
+                        temp_thumbnail = thumbnails[0]
+                        logger.info(f"Found thumbnail: {temp_thumbnail.name}")
+                        break
             
             # Convert to VideoMetadata if needed
             if not isinstance(metadata, VideoMetadata):
@@ -204,12 +225,12 @@ class VideoIntelligenceRetrieverV2:
                     thumbnail_url=metadata.get('thumbnail')
                 )
             
-            return Path(audio_path), metadata
+            return Path(audio_path), metadata, temp_thumbnail
             
         except Exception as e:
             logger.error(f"Download failed: {e}")
             self.on_error("Downloading", str(e))
-            return None, None
+            return None, None, None
     
     def _extract_video_id(self, url: str) -> Optional[str]:
         """Extract YouTube video ID from URL."""
@@ -440,7 +461,8 @@ class VideoIntelligenceRetrieverV2:
     async def generate_x_content(
         self, 
         result: VideoIntelligence, 
-        output_dir: Path
+        output_dir: Path,
+        temp_thumbnail: Optional[Path] = None
     ) -> Optional[Dict[str, Any]]:
         """
         Generate X-ready content (tweet draft + thumbnail).
@@ -448,6 +470,7 @@ class VideoIntelligenceRetrieverV2:
         Args:
             result: Processing result with entities/relationships
             output_dir: Where to save X draft
+            temp_thumbnail: Optional path to thumbnail in temp directory
             
         Returns:
             Dict with paths to tweet.txt and thumbnail.jpg
@@ -462,14 +485,19 @@ class VideoIntelligenceRetrieverV2:
                 relationships=result.relationships
             )
             
-            # Find thumbnail in output directory
-            thumbnail = self.x_generator.find_thumbnail(output_dir)
+            # Copy thumbnail from temp to output if provided
+            thumbnail_in_output = None
+            if temp_thumbnail and temp_thumbnail.exists():
+                import shutil
+                thumbnail_in_output = output_dir / temp_thumbnail.name
+                shutil.copy(temp_thumbnail, thumbnail_in_output)
+                logger.info(f"Copied thumbnail to output: {thumbnail_in_output}")
             
             # Save X draft
             draft_files = self.x_generator.save_x_draft(
                 summary=summary,
                 video_url=result.metadata.url,
-                thumbnail_path=thumbnail,
+                thumbnail_path=str(thumbnail_in_output) if thumbnail_in_output else None,
                 output_dir=output_dir
             )
             
