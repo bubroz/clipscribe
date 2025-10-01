@@ -737,3 +737,108 @@ def show_stats():
     click.echo(f"  ❌ Failed: {stats['failed']}")
     click.echo(f"Success rate: {stats['success_rate']}")
 
+
+
+@cli.command("monitor")
+@click.option("--channels", required=True, help="Comma-separated channel IDs (UC...)")
+@click.option("--interval", default=600, help="Check interval in seconds (default: 600 = 10min)")
+@click.option("--with-x-draft", is_flag=True, default=False, help="Generate X drafts for new videos")
+@click.option("--with-obsidian", type=click.Path(), default=None, help="Export to Obsidian vault path")
+@click.option("--output-dir", default="output/monitored", help="Output directory for processed videos")
+def monitor_channels(channels: str, interval: int, with_x_draft: bool, with_obsidian: str, output_dir: str):
+    """
+    Monitor YouTube channels for new video drops and auto-process them.
+    
+    Examples:
+        # Monitor single channel
+        clipscribe monitor --channels UCg5EWI7X2cyS98C8hQwDCcw
+        
+        # Monitor multiple channels with X drafts
+        clipscribe monitor --channels UC123,UC456 --with-x-draft
+        
+        # Monitor with Obsidian export
+        clipscribe monitor --channels UC123 --with-obsidian ~/Documents/Vault
+    """
+    asyncio.run(_run_monitor(channels, interval, with_x_draft, with_obsidian, output_dir))
+
+
+async def _run_monitor(
+    channels: str,
+    interval: int,
+    with_x_draft: bool,
+    with_obsidian: Optional[str],
+    output_dir: str
+):
+    """Run the monitoring loop."""
+    from ..monitors.channel_monitor import ChannelMonitor
+    from ..retrievers.video_retriever_v2 import VideoIntelligenceRetrieverV2
+    from ..exporters.obsidian_exporter import ObsidianExporter
+    from pathlib import Path
+    
+    # Parse channel IDs
+    channel_ids = [c.strip() for c in channels.split(',')]
+    
+    click.echo(f"\n🔍 ClipScribe Channel Monitor\n")
+    click.echo(f"Monitoring {len(channel_ids)} channels:")
+    for cid in channel_ids:
+        click.echo(f"  - {cid}")
+    click.echo(f"\nCheck interval: {interval}s ({interval//60}min)")
+    click.echo(f"X drafts: {'✅ Enabled' if with_x_draft else '❌ Disabled'}")
+    click.echo(f"Obsidian export: {'✅ ' + with_obsidian if with_obsidian else '❌ Disabled'}")
+    click.echo(f"Output: {output_dir}/")
+    click.echo(f"\nPress Ctrl+C to stop\n")
+    
+    # Initialize
+    monitor = ChannelMonitor(channel_ids)
+    retriever = VideoIntelligenceRetrieverV2(output_dir=output_dir)
+    obsidian = ObsidianExporter(Path(with_obsidian)) if with_obsidian else None
+    
+    # Callback for new videos
+    async def process_new_video(video_info: dict):
+        click.echo(f"\n🆕 New video detected!")
+        click.echo(f"   Title: {video_info['title']}")
+        click.echo(f"   Channel: {video_info['channel']}")
+        click.echo(f"   URL: {video_info['url']}")
+        click.echo(f"\n   Processing...")
+        
+        try:
+            # Process video
+            result = await retriever.process_url(video_info['url'])
+            
+            if result:
+                click.echo(f"   ✅ Complete: {len(result.entities)} entities, {len(result.relationships)} relationships")
+                
+                # Generate X draft if requested
+                if with_x_draft:
+                    output_path = Path(retriever.output_dir) / f"20251001_youtube_{video_info['video_id']}"  # Approximate
+                    x_draft = await retriever.generate_x_content(result, output_path)
+                    if x_draft:
+                        click.echo(f"   📱 X draft: {x_draft['directory']}")
+                
+                # Export to Obsidian if requested
+                if obsidian:
+                    obsidian.export_video(
+                        title=result.metadata.title,
+                        url=result.metadata.url,
+                        channel=result.metadata.channel,
+                        duration=result.metadata.duration,
+                        entities=result.entities,
+                        relationships=result.relationships,
+                        transcript=result.transcript.full_text,
+                        metadata={'cost': result.processing_cost}
+                    )
+                    click.echo(f"   📓 Obsidian: {with_obsidian}")
+            else:
+                click.echo(f"   ❌ Processing failed or skipped")
+                
+        except Exception as e:
+            click.echo(f"   ❌ Error: {e}")
+    
+    # Run monitor loop
+    try:
+        await monitor.monitor_loop(interval=interval, on_new_video=process_new_video)
+    except KeyboardInterrupt:
+        click.echo(f"\n\n✋ Monitoring stopped by user")
+        stats = monitor.tracker.get_stats() if hasattr(monitor, 'tracker') else None
+        if stats:
+            click.echo(f"\nProcessed: {stats.get('completed', 0)} videos")
