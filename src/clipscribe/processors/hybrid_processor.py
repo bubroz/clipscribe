@@ -99,6 +99,13 @@ class HybridProcessor:
             metadata
         )
         
+        # Step 2.5: Generate executive summary
+        executive_summary = await self._generate_summary(
+            transcript_result["text"],
+            intelligence.get("entities", []),
+            intelligence.get("relationships", [])
+        )
+        
         # Step 3: Combine into VideoIntelligence
         processing_time = time.time() - start_time
         
@@ -128,7 +135,7 @@ class HybridProcessor:
             relationships=intelligence.get("relationships", []),
             topics=[Topic(name=t if isinstance(t, str) else t.get("name", ""), confidence=t.get("relevance", 0.8) if isinstance(t, dict) else 0.8) for t in intelligence.get("topics", []) if (t if isinstance(t, str) else t.get("name", ""))],
             key_points=[],  # Using key_points instead of key_moments
-            summary=intelligence.get("summary", "Hybrid transcription and analysis complete."),
+            summary=executive_summary,
             sentiment=intelligence.get("overall_sentiment", 0.0),
             processing_time=processing_time,
             processing_cost=transcript_result["cost"] + intelligence.get("cost", 0),
@@ -684,3 +691,66 @@ class SeamlessTranscriptAnalyzer:
         
         return True
 
+
+    async def _generate_summary(
+        self,
+        transcript: str,
+        entities: list,
+        relationships: list
+    ) -> str:
+        """Generate 100-200 word executive summary."""
+        
+        # Extract entity names
+        entity_names = [e.get('name', '') for e in entities[:10]]
+        
+        # Extract key relationships
+        rel_texts = [
+            f"{r.get('subject')} {r.get('predicate')} {r.get('object')}"
+            for r in relationships[:5]
+        ]
+        
+        prompt = f"""Create a 100-200 word executive summary:
+
+Transcript preview: {transcript[:1000]}
+Key entities: {', '.join(entity_names)}
+Key relationships: {'; '.join(rel_texts)}
+
+Format:
+- Overview (what this is about)
+- Key entities and their roles
+- Main relationships/connections
+- Implications or significance
+
+Tone: Informative, objective, professional
+Length: 100-200 words
+"""
+        
+        try:
+            async with httpx.AsyncClient(timeout=30) as client:
+                data = {
+                    "model": self.grok_model,
+                    "messages": [
+                        {"role": "system", "content": "Create concise executive summaries."},
+                        {"role": "user", "content": prompt}
+                    ],
+                    "temperature": 0.3,
+                    "max_tokens": 300
+                }
+                
+                response = await client.post(
+                    f"{self.grok_base_url}/chat/completions",
+                    headers=self.grok_headers,
+                    json=data
+                )
+                
+                if response.status_code == 200:
+                    result = response.json()
+                    summary = result["choices"][0]["message"]["content"].strip()
+                    logger.info(f"Generated executive summary: {len(summary)} chars")
+                    return summary
+        
+        except Exception as e:
+            logger.warning(f"Summary generation failed: {e}")
+        
+        # Fallback
+        return f"Analysis of video content covering {len(entities)} key entities and {len(relationships)} relationships."
