@@ -232,19 +232,17 @@ class GCSUploader:
             # Upload HTML
             blob_html = self.bucket.blob(f"drafts/{draft_id}/index.html")
             blob_html.upload_from_string(html, content_type="text/html")
-            blob_html.make_public()
+            # Public via bucket IAM policy (uniform access)
             
             # Upload thumbnail if exists
             if thumbnail_path and thumbnail_path.exists():
                 blob_thumb = self.bucket.blob(f"drafts/{draft_id}/thumbnail.jpg")
                 blob_thumb.upload_from_filename(str(thumbnail_path))
-                blob_thumb.make_public()
             
             # Upload video if exists
             if video_path and video_path.exists():
                 blob_video = self.bucket.blob(f"drafts/{draft_id}/video.mp4")
                 blob_video.upload_from_filename(str(video_path))
-                blob_video.make_public()
             
             # Return public URL
             draft_url = blob_html.public_url
