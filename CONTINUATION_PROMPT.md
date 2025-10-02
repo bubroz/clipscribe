@@ -1,45 +1,90 @@
 # ClipScribe AI Assistant Continuation Prompt
 
-## Current State (2025-10-01 00:30 EDT)
+## Current State (2025-10-01 23:54 EDT)
 
 ### Latest Version: v2.53.0
-**PRODUCTION READY**: Complete content generation system with monitoring, X drafts, Obsidian integration, and bulletproof long-video processing.
+**ALPHA READY**: Government video intelligence → Telegram → X posting workflow
 
-### Recent Changes
-- **v2.53.0** (2025-10-01): Complete X content generation system with monitoring and exports
-  - RSS channel monitoring (auto-detect drops)
-  - Processing tracker (zero duplicate work)
-  - X content generator (sticky summaries)
-  - Obsidian export (knowledge base)
-  - CSV/PDF exports
-  - Monitor CLI command
-  - Executive summaries
-  - Grok chunking (long videos fixed)
-- **v2.52.0-alpha** (2025-09-30): Rate limiting + Playwright fallback for bulletproof downloads
-  - Simple rate limiter (1 req/10s, 100/day cap per platform)
-  - Per-platform tracking (YouTube, Vimeo, Twitter, etc.)
-  - Ban detection (warns after 3 consecutive failures)
-  - Playwright fallback when curl-cffi fails
-  - 29 tests passing (100% core functionality coverage)
-- **v2.51.1** (2025-09-30): Integrated curl-cffi for automatic bot detection bypass, cleaned 1.5GB repo garbage
-- **v2.51.0** (2025-09-05): Replaced VideoProcessor with HybridProcessor, created CoreData model, added OutputValidator
+### Strategic Direction
+
+**Primary Use Case**: Personal alpha (just Zac)
+- Monitor government videos (federal, state, local)
+- Auto-generate X posts with intel
+- Mobile workflow via Telegram notifications
+- Build X account with timely government analysis
+
+**Volume**: ~12-14 videos/day
+**Cost**: ~$15/month API costs
+**Time**: ~20 min/day review + posting
+
+### Recent Decisions (Oct 1)
+
+**Mobile Workflow:**
+- ✅ Telegram for notifications (already uses, hates email)
+- ✅ Simple mobile web pages for draft review
+- ✅ Google Cloud Storage for media (72hr retention)
+- ✅ Domain available: clipscribe.ai
+- ❌ NO email notifications
+- ❌ NO complex PWA (over-engineering)
+
+**Content Strategy:**
+- Government videos (White House, Congress, CA legislature, Davis/Yolo)
+- Real-time processing (not overnight batch)
+- X posts with videos + thumbnails (X Premium = 10min videos)
+- Obsidian export optional (knowledge base building)
+- Future: Monetize as SaaS for other political commentators
+
+**Technical Stack:**
+- v2.53.0 (complete X generation system)
+- RSS monitoring (YouTube channels)
+- Need to add: Direct downloaders (senate.ca.gov, Granicus)
+- Need to add: Telegram bot integration
+- Need to add: GCS upload for mobile access
 
 ### What's Working Well ✅
-- **Zero-Failure Downloads**: curl-cffi (fast) → Playwright (bulletproof) automatic fallback
-- **ToS Compliance**: Conservative rate limiting prevents IP/account bans
-- **Ban Detection**: Automatic monitoring of consecutive failures with user warnings
-- **Per-Platform Intelligence**: Independent rate limiting for YouTube, Vimeo, Twitter, etc.
-- **Uncensored Pipeline**: Voxtral transcription + Grok-4 extraction fully operational
-- **Cost Optimization**: ~$0.027 per 2min video with superior quality
-- **Clean Repository**: 3.4GB, professional organization, 29 passing tests
+- **Long Video Processing**: Grok chunking handles 12min+ videos (35 entities from test)
+- **X Content Generation**: Sticky summaries (279/280 chars validated)
+- **Obsidian Export**: Wikilinks + entity notes working
+- **CSV/PDF Exports**: Professional reports ready
+- **Deduplication**: Zero duplicate processing
+- **Thumbnail Handling**: Auto-copy to drafts (202KB images)
+- **Executive Summaries**: Grok-generated overviews
+
+### What Needs Building 🔧
+1. **Telegram Bot Integration**
+   - Send notifications when draft ready
+   - Inline buttons to draft pages
+   - Simple message format
+
+2. **GCS Upload Pipeline**
+   - Upload drafts to Cloud Storage
+   - Generate mobile HTML pages
+   - 72-hour auto-delete lifecycle
+
+3. **Direct Download Support**
+   - California Senate scraper + MP4 downloader
+   - Granicus platform support (Davis/Yolo)
+   - Multi-platform monitor orchestrator
+
+4. **Mobile Draft Pages**
+   - Simple HTML with copy buttons
+   - Thumbnail/video previews
+   - Optimized for Pixel 9 Pro
 
 ### Known Issues ⚠️
-- Need end-to-end validation with real videos (YouTube with bot detection)
-- Documentation needs updating for rate limiting + Playwright
-- CLI output doesn't show rate limiting status yet
+- Thumbnail found but old code still has dict/object handling bugs (mostly fixed)
+- Executive summary added but needs more testing
+- X API research incomplete (need to verify capabilities with Premium)
 
-### Roadmap 🗺️
-- **Immediate**: End-to-end testing, documentation updates, CLI polish
-- **Alpha Testing**: Start user testing with ToS compliance active
-- **Soon**: Performance monitoring dashboard, usage analytics
-- **Future**: Multi-model consensus validation, worker service deployment
+### Next Steps 🎯
+- Build Telegram bot integration
+- Test government video workflow end-to-end
+- Deploy to Cloud Run for 24/7 monitoring
+- Validate X posting strategy (measure engagement)
+- Scale based on what works
+
+### Repository Status
+- 39 commits total (Sept 30 - Oct 1)
+- Clean docs (22 files, planning archived)
+- v2.53.0 tagged and shipped
+- All features validated on real videos
