@@ -77,8 +77,7 @@ Tap below to review:"""
             
             # Create inline button
             keyboard = [[
-                InlineKeyboardButton("📱 Review Draft", url=draft_url),
-                InlineKeyboardButton("❌ Skip", callback_data=f"skip_{draft_url}")
+                InlineKeyboardButton("📱 Review Draft", url=draft_url)
             ]]
             reply_markup = InlineKeyboardMarkup(keyboard)
             
