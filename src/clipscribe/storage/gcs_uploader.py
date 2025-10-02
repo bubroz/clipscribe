@@ -187,7 +187,8 @@ class GCSUploader:
         self.bucket_name = bucket_name
         
         try:
-            self.client = storage.Client()
+            # Use Application Default Credentials (ADC)
+            self.client = storage.Client(project="prismatic-iris-429006-g6")
             self.bucket = self.client.bucket(bucket_name)
             
             # Set 72-hour lifecycle rule
