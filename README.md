@@ -16,13 +16,14 @@
 
 ClipScribe extracts and analyzes structured data from video content through entity recognition, relationship mapping, and key insight identification. Built for researchers, analysts, and organizations requiring reliable video intelligence.
 
-## ⚠️ Current Status: Private Alpha
+## ⚠️ Current Status: Personal Alpha
 
-ClipScribe is currently in private alpha testing. The service is not yet available for public use.
+ClipScribe is in active use for government video intelligence and X (Twitter) content generation.
 
-- **Worker Service**: Under development
-- **Beta Timeline**: Private alpha (Month 1-2) → Closed beta (Month 3-4) → Public launch (Month 6)
-- **Early Access**: Contact zforristall@gmail.com for beta access consideration
+- **Primary Use**: Monitor government videos (federal, state, local) → Auto-generate X posts
+- **Status**: Working system, being validated with real-world usage
+- **Future**: Will expand to SaaS product for political commentators and analysts
+- **Contact**: zforristall@gmail.com
 
 ## v2.53.0 - Complete X Content Generation System
 
@@ -253,23 +254,24 @@ clipscribe process video URL
 
 ## Use Cases
 
-### Research & Analysis
-- **Competitive Intelligence**: Extract information from competitor content
-- **Market Research**: Extract insights from industry presentations 
-- **Academic Research**: Process lecture series with unified concept tracking
-- **News Analysis**: Track entity relationships across multi-source coverage
+### Government Intelligence (Primary Focus)
+- **Real-Time Policy Analysis**: Monitor White House, Congress, state legislatures
+- **X Content Generation**: Auto-generate engaging posts from government videos
+- **Committee Hearing Intel**: Extract entities, relationships, key quotes from hearings
+- **Local Government Tracking**: Monitor city councils, county boards (Davis, Yolo)
+- **Comparative Analysis**: Track how different officials/bodies discuss same topics
 
-### Professional Intelligence
-- **Military/Defense**: Automate video content analysis with high-quality entity extraction
-- **Policy Research**: Analyze hours of government content in minutes.
-- **Financial Intelligence**: Extract insights from earnings calls and analysis
-- **Technology Research**: Track product evolution with relationship mapping
+### Content Creation & Social Media
+- **X Account Growth**: Timely government intel posts with entity analysis
+- **Thread Generation**: Multi-tweet threads from long hearings
+- **Knowledge Base Building**: Obsidian vault of government activity over time
+- **Engagement Optimization**: Test which topics/formats perform best
 
-### Content Management
-- **Video Libraries**: Index and search collections with structured entities
-- **Knowledge Management**: Extract actionable intelligence from video assets
-- **Training Materials**: Process educational content with concept flow mapping
-- **Documentation**: Convert video content into searchable knowledge bases
+### Professional Intelligence (Future)
+- **Policy Research**: Automated analysis of government proceedings
+- **Lobbying Intelligence**: Track who mentions what entities
+- **Investigative Journalism**: Find connections across multiple hearings/briefings
+- **Data Licensing**: Sell government intelligence database to researchers/journalists
 
 ## Configuration
 

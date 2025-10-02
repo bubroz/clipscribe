@@ -32,69 +32,73 @@
 
 ## 🎯 IMMEDIATE (This Week)
 
-### Alpha Testing
-- [ ] Recruit 3-5 alpha testers
-- [ ] Create alpha tester guide
-- [ ] Set up feedback collection
-- [ ] Monitor for issues
+### Personal Alpha (Just Zac)
+- [x] Thumbnail auto-copy working (validated with 202KB images)
+- [x] Executive summaries (Grok-generated)
+- [x] Alpha testing guide created
+- [x] Quick reference card created
+- [x] Docs cleaned (22 files, archived planning docs)
+- [x] Strategic direction defined (government video → X)
 
-### Polish
-- [ ] Thumbnail auto-copy fix (minor)
-- [ ] Better CLI progress indicators
-- [ ] Error message improvements
-- [ ] X draft preview in CLI output
+### Telegram Integration (Next Priority)
+- [ ] Telegram bot setup (notifications)
+- [ ] GCS upload pipeline (draft hosting)
+- [ ] Mobile HTML pages (draft preview)
+- [ ] End-to-end test (government video → Telegram → X post)
 
-### Documentation
-- [ ] Update README with v2.53.0 features
-- [ ] Create user guide for monitor command
-- [ ] Document CSV/PDF export usage
-- [ ] Add Obsidian integration guide
+### Direct Source Support
+- [ ] California Senate scraper + MP4 downloader
+- [ ] Granicus platform support (Davis/Yolo)
+- [ ] Multi-platform monitor orchestrator
+- [ ] Test with real government sources
 
 ---
 
 ## 📋 SHORT TERM (This Month)
 
-### Features
-- [ ] Telegram bot (SMS/chat interface)
-- [ ] GraphML export (additional graph format)
-- [ ] Topic timeline testing (if >80% accurate)
-- [ ] Batch processing UI improvements
+### Government Video → X Workflow
+- [ ] Monitor White House YouTube channel
+- [ ] Monitor C-SPAN YouTube channels
+- [ ] Monitor Davis City YouTube channel
+- [ ] Test workflow: Video drop → Telegram → Draft → X post
+- [ ] Measure X engagement (which content performs)
+- [ ] Optimize based on engagement data
 
 ### Infrastructure
-- [ ] Usage analytics dashboard
-- [ ] Cost tracking per user/session
-- [ ] Error monitoring (Sentry?)
-- [ ] Performance metrics
+- [ ] Deploy monitoring to Cloud Run (24/7 operation)
+- [ ] GCS bucket with 72-hour lifecycle (video retention)
+- [ ] Telegram bot running persistently
+- [ ] Cost tracking per video/platform
 
-### Quality
-- [ ] Test with 30+ minute videos
-- [ ] Test with 10+ monitored channels
-- [ ] Validate X draft quality across content types
-- [ ] Obsidian graph view testing
+### Quality Validation
+- [ ] Test 30-minute government videos (committee hearings)
+- [ ] Validate chunking works on real sessions
+- [ ] Test X Premium video upload (10min limit)
+- [ ] Measure X post engagement metrics
 
 ---
 
-## 🚀 MEDIUM TERM (Next 3 Months)
+## 🚀 MEDIUM TERM (If X Strategy Works)
 
-### Beta Preparation
-- [ ] Multi-user support
+### Monetization (SaaS Product)
+- [ ] Multi-user Telegram bot
 - [ ] User authentication
-- [ ] API endpoints (RESTful)
-- [ ] Web dashboard
-- [ ] Tiered access control
+- [ ] Stripe billing integration
+- [ ] Usage quotas per tier
+- [ ] Dashboard for user stats
 
-### Advanced Features
-- [ ] Speaker diarization
-- [ ] Multi-language UI
-- [ ] Google Workspace integration
-- [ ] Notion database export
-- [ ] TimelineJS visualization
+### Advanced Features (Based on Demand)
+- [ ] Auto-posting to X (OAuth integration)
+- [ ] Engagement analytics (track post performance)
+- [ ] Smart filtering (skip routine content)
+- [ ] Priority queuing (important videos first)
+- [ ] Thread generation (multi-tweet posts)
 
-### Scaling
-- [ ] Worker service deployment (Cloud Run + Compute Engine)
-- [ ] Spot VM integration (30-50% cost savings)
-- [ ] Redis caching layer
-- [ ] BigQuery data warehouse (for harvesting)
+### Scaling (If Volume Increases)
+- [ ] Worker service deployment (Cloud Run)
+- [ ] Redis caching (entity deduplication)
+- [ ] BigQuery warehouse (data licensing product)
+- [ ] X API integration (auto-posting)
 
 ---
 
@@ -123,37 +127,40 @@
 ## 🐛 KNOWN ISSUES
 
 ### Minor
-- [ ] Thumbnail not auto-copied to output dir (downloads to temp)
-- [ ] XAI_API_KEY warning on standalone exporter test (cosmetic)
+- [x] Thumbnail auto-copy - FIXED (copies to output, includes in X drafts)
+- [x] Executive summary - FIXED (Grok-generated, handles dict/object)
+- [ ] XAI_API_KEY warning (cosmetic, doesn't affect functionality)
 
-### Won't Fix (By Design)
-- Monitor state files in home directory (intentional)
-- Rate limiting delays (required for ToS)
-- 10s between requests (conservative on purpose)
+### By Design (Not Issues)
+- Rate limiting: 10s between requests per platform (ToS compliance)
+- State files in home directory (persistence across restarts)
+- Temp file cleanup (videos deleted after processing)
 
 ---
 
 ## 📊 Success Metrics
 
-### Current
-- ✅ 36 tests passing (100% core features)
-- ✅ 100% download success rate
-- ✅ 100% deduplication (zero duplicate work)
-- ✅ Long videos working (tested 12min, chunked)
-- ✅ X drafts: <280 chars, engaging
+### Current (v2.53.0)
+- ✅ 36 tests passing
+- ✅ 100% download success (curl-cffi + Playwright)
+- ✅ Long videos working (12min, 35 entities with chunking)
+- ✅ X drafts validated (279/280 chars, sticky summaries)
+- ✅ Thumbnail + video working (202KB images)
+- ✅ Obsidian export (35 entity notes + wikilinks)
 - ✅ Cost: $0.027-0.033 per video
 
-### Targets (Alpha)
-- [ ] 5-10 active alpha users
-- [ ] 95%+ user satisfaction
-- [ ] <5% error rate
-- [ ] Clear value proposition validated
+### Personal Alpha Targets (Next 2 Weeks)
+- [ ] Process 50+ government videos
+- [ ] Post 20+ X posts
+- [ ] Measure engagement (likes, replies, retweets)
+- [ ] Validate workflow (Telegram → review → post)
+- [ ] Cost tracking (stay under $50/month)
 
-### Targets (Beta)
-- [ ] 20-50 active users
-- [ ] $500+ MRR
-- [ ] <2% churn rate
-- [ ] 3+ integration options working
+### Product Targets (If Validated)
+- [ ] 5-10 paying users ($29-79/month each)
+- [ ] $200+ MRR
+- [ ] 90%+ retention
+- [ ] Mobile workflow working smoothly
 
 ---
 
