@@ -20,6 +20,8 @@ from ..exporters.x_exporter import XContentGenerator
 from ..config.settings import Settings
 from ..utils.logging import setup_logging
 from ..utils.processing_tracker import ProcessingTracker
+from ..notifications.telegram_notifier import TelegramNotifier
+from ..storage.gcs_uploader import GCSUploader
 
 logger = logging.getLogger(__name__)
 
@@ -78,6 +80,12 @@ class VideoIntelligenceRetrieverV2:
         
         # Store thumbnail path from last download (for X drafts)
         self._last_thumbnail = None
+        
+        # Telegram notifier (optional)
+        self.telegram = TelegramNotifier()
+        
+        # GCS uploader (optional)
+        self.gcs = GCSUploader()
         
         logger.info("VideoIntelligenceRetrieverV2 initialized with Voxtral-Grok pipeline")
     
@@ -502,6 +510,31 @@ class VideoIntelligenceRetrieverV2:
             )
             
             logger.info(f"✅ X draft ready: {draft_files['directory']}")
+            
+            # Upload to GCS and notify via Telegram
+            tweet_text = Path(draft_files['tweet_file']).read_text()
+            
+            # Upload to GCS
+            draft_url = await self.gcs.upload_draft(
+                draft_id=f"{result.metadata.video_id}_{int(time.time())}",
+                tweet_text=tweet_text,
+                video_title=result.metadata.title,
+                entity_count=len(result.entities),
+                relationship_count=len(result.relationships),
+                thumbnail_path=thumbnail_in_output,
+                video_path=None  # TODO: Pass actual video path
+            )
+            
+            # Send Telegram notification
+            if draft_url:
+                await self.telegram.notify_draft_ready(
+                    title=result.metadata.title,
+                    entity_count=len(result.entities),
+                    relationship_count=len(result.relationships),
+                    char_count=len(tweet_text),
+                    draft_url=draft_url
+                )
+            
             return draft_files
             
         except Exception as e:
