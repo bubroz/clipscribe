@@ -85,39 +85,44 @@ class XContentGenerator:
                 rel_texts.append(f"{subj} {pred} {obj}")
         
         # Build prompt for Grok
-        prompt = f"""Create a STICKY X post about this video.
+        prompt = f"""Write a KILLER X post that stops people mid-scroll.
 
-Title: {title}
-Key Entities: {', '.join(entity_names[:5])}
-Key Relationships: {'; '.join(rel_texts[:3])}
+VIDEO: {title}
+ENTITIES: {', '.join(entity_names[:5])}
+RELATIONSHIPS: {'; '.join(rel_texts[:2])}
 
-STICKY = Makes people STOP scrolling and ENGAGE
+YOUR MISSION: Make this IMPOSSIBLE to ignore.
 
-Structure (REQUIRED):
-1. HOOK (15-25 words): Provocative question OR surprising fact
-   - "Ever wonder who actually controls [topic]?"
-   - "While you weren't looking, [entity] just [surprising action]"
-   - "[Shocking statistic/fact about entities]"
+FORMULA:
+1. PUNCH THEM (10-20 words):
+   - Shocking fact they didn't know
+   - Question that makes them think "wait, what?"
+   - Contradiction that seems impossible
    
-2. INTEL (20-30 words): Core facts with 3-5 entities
-   - Name key players
-   - State key relationships
-   - Use active voice
+2. GIVE CONTEXT (15-25 words):
+   - Who's involved (name 3-4 key entities)
+   - What happened (1-2 key relationships)
+   - Why it matters (stakes/implications)
    
-3. ENGAGEMENT (10-15 words): Question that demands a reply
-   - "What happens next?"
-   - "Who benefits from this?"
-   - "What are the real implications?"
+3. HOOK THEM (8-12 words):
+   - Question they MUST answer
+   - Cliffhanger that demands a reply
+   - "What do you think?" is BORING - be specific
 
-CRITICAL RULES:
-- MAXIMUM {max_length} characters total
-- End on COMPLETE sentence (no mid-sentence cuts)
+EXAMPLES OF PUNCHES:
+- "While everyone was distracted by [X], [entity] quietly [shocking action]."
+- "[Entity] just announced something that changes everything."
+- "Three things about [topic] that nobody's talking about:"
+
+RULES:
+- {max_length} characters MAX
+- Complete sentences ONLY (no cuts mid-sentence)
+- NO generic questions ("What are your thoughts?")
 - NO hashtags
-- NO jargon (simple, direct language)
-- Objective facts only (no hype, no opinion)
-- Make it IMPOSSIBLE to scroll past
+- NO buzzwords or jargon
+- Read like a human wrote it, not AI
 
-Return ONLY the tweet text. Complete sentences only.
+Write ONE tweet. Nothing else. Make it fucking engaging.
 """
         
         try:
@@ -298,6 +303,53 @@ async def test_x_generator():
     print(summary)
     
     # Save draft
+
+    def _truncate_smart(self, text: str, max_length: int) -> str:
+        """Truncate intelligently at sentence boundaries."""
+        if len(text) <= max_length:
+            return text
+        
+        search_text = text[:max_length]
+        
+        # Try sentence endings
+        for ending in ['. ', '? ', '! ']:
+            last_pos = search_text.rfind(ending)
+            if last_pos > max_length * 0.7:
+                return text[:last_pos + 1].strip()
+        
+        # Word boundary
+        last_space = search_text.rfind(' ')
+        if last_space > 0:
+            return text[:last_space] + '...'
+        
+        return text[:max_length-3] + '...'
+
+
+async def test_x_generator():
+    """Test X content generation."""
+    from ..models import VideoIntelligence, VideoMetadata, EnhancedEntity, Relationship
+    
+    entities = [
+        {'name': 'The Stoic Viking', 'type': 'PERSON'},
+        {'name': 'Barbell Apparel', 'type': 'ORGANIZATION'},
+        {'name': 'Valhalla VFT', 'type': 'PERSON'}
+    ]
+    
+    relationships = [
+        {'subject': 'The Stoic Viking', 'predicate': 'partners with', 'object': 'Barbell Apparel'}
+    ]
+    
+    generator = XContentGenerator()
+    
+    summary = await generator.generate_sticky_summary(
+        "Partnering with Barbell Apparel",
+        entities,
+        relationships
+    )
+    
+    print(f"Generated summary ({len(summary)} chars):")
+    print(summary)
+    
     draft_files = generator.save_x_draft(
         summary,
         "https://youtube.com/watch?v=test",
@@ -312,31 +364,3 @@ async def test_x_generator():
 if __name__ == "__main__":
     import asyncio
     asyncio.run(test_x_generator())
-
-
-    def _truncate_smart(self, text: str, max_length: int) -> str:
-        """
-        Truncate text intelligently at sentence boundaries.
-        
-        Avoids mid-sentence cuts that look unprofessional.
-        """
-        if len(text) <= max_length:
-            return text
-        
-        # Find last sentence ending before max_length
-        search_text = text[:max_length]
-        
-        # Try sentence endings (period, question, exclamation)
-        for ending in ['. ', '? ', '! ']:
-            last_pos = search_text.rfind(ending)
-            # Only use if it's at least 70% of max length (avoid cutting too early)
-            if last_pos > max_length * 0.7:
-                return text[:last_pos + 1].strip()
-        
-        # No sentence boundary found - try to end on word
-        last_space = search_text.rfind(' ')
-        if last_space > 0:
-            return text[:last_space] + '...'
-        
-        # Last resort: hard cut
-        return text[:max_length-3] + '...'

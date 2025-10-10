@@ -76,7 +76,7 @@ def generate_draft_page(
             font-size: 14px;
             margin-bottom: 12px;
         }}
-        button {{
+        button, a.download-btn {{
             background: #1d9bf0;
             color: #fff;
             border: none;
@@ -87,8 +87,11 @@ def generate_draft_page(
             cursor: pointer;
             width: 100%;
             margin-bottom: 12px;
+            display: block;
+            text-align: center;
+            text-decoration: none;
         }}
-        button:active {{
+        button:active, a.download-btn:active {{
             background: #1a8cd8;
         }}
         .media-section {{
@@ -134,14 +137,20 @@ def generate_draft_page(
         <div class="media-section">
             <div class="media-item">
                 <h3>🖼️ Thumbnail</h3>
-                <img src="{thumbnail_filename}" alt="Thumbnail">
-                <button onclick="window.open('{thumbnail_filename}', '_blank')">⬇️ Download Thumbnail</button>
+                <img src="{thumbnail_filename}" alt="Thumbnail" id="thumbnail">
+                <a href="{thumbnail_filename}" download="thumbnail.jpg" class="download-btn">
+                    ⬇️ Download Thumbnail
+                </a>
+                <button onclick="shareImage()">📤 Share to X</button>
             </div>
             
             <div class="media-item">
                 <h3>🎥 Video</h3>
-                <video src="{video_filename}" controls></video>
-                <button onclick="window.open('{video_filename}', '_blank')">⬇️ Download Video</button>
+                <video src="{video_filename}" controls id="video"></video>
+                <a href="{video_filename}" download="video.mp4" class="download-btn">
+                    ⬇️ Download Video
+                </a>
+                <button onclick="shareVideo()">📤 Share Video</button>
             </div>
         </div>
         
@@ -158,6 +167,40 @@ def generate_draft_page(
                 success.style.display = 'block';
                 setTimeout(() => success.style.display = 'none', 2000);
             }});
+        }}
+        
+        async function shareImage() {{
+            try {{
+                const response = await fetch('{thumbnail_filename}');
+                const blob = await response.blob();
+                const file = new File([blob], 'thumbnail.jpg', {{ type: 'image/jpeg' }});
+                
+                if (navigator.share) {{
+                    await navigator.share({{
+                        files: [file]
+                    }});
+                }}
+            }} catch (err) {{
+                // Fallback: download
+                window.location.href = '{thumbnail_filename}';
+            }}
+        }}
+        
+        async function shareVideo() {{
+            try {{
+                const response = await fetch('{video_filename}');
+                const blob = await response.blob();
+                const file = new File([blob], 'video.mp4', {{ type: 'video/mp4' }});
+                
+                if (navigator.share) {{
+                    await navigator.share({{
+                        files: [file]
+                    }});
+                }}
+            }} catch (err) {{
+                // Fallback: download
+                window.location.href = '{video_filename}';
+            }}
         }}
     </script>
 </body>
