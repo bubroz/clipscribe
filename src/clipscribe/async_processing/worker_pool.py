@@ -6,7 +6,7 @@ Manages multiple workers processing videos from the queue.
 
 import asyncio
 import logging
-from typing import Optional, Callable, List
+from typing import Optional, Callable, List, Any, Dict
 from pathlib import Path
 
 from .video_queue import AsyncVideoQueue, VideoTask
