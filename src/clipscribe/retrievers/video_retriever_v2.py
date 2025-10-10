@@ -540,8 +540,8 @@ class VideoIntelligenceRetrieverV2:
                 tweet_styles=tweet_styles,
                 video_title=result.metadata.title,
                 video_url=result.metadata.url,
-                entity_count=len(result.entities),
-                relationship_count=len(result.relationships),
+                entities=result.entities,
+                relationships=result.relationships,
                 thumbnail_path=thumbnail_in_output,
                 video_path=self._last_video
             )

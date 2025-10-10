@@ -92,6 +92,7 @@ class VoxtralTranscriber:
         audio_path: str,
         language: Optional[str] = None,
         prompt: Optional[str] = None,
+        video_metadata: Optional[dict] = None,
     ) -> VoxtralTranscriptionResult:
         """
         Transcribe audio file using Voxtral.
@@ -107,6 +108,25 @@ class VoxtralTranscriber:
         audio_path = Path(audio_path)
         if not audio_path.exists():
             raise FileNotFoundError(f"Audio file not found: {audio_path}")
+        
+        # Build context prompt from video metadata
+        if video_metadata and not prompt:
+            channel = video_metadata.get('channel', '')
+            title = video_metadata.get('title', '')
+            description = video_metadata.get('description', '')
+            
+            context_parts = []
+            if channel:
+                context_parts.append(f"Channel: {channel}")
+            if title:
+                context_parts.append(f"Video: {title}")
+            if description:
+                # Use first 200 chars of description
+                context_parts.append(f"About: {description[:200]}")
+            
+            if context_parts:
+                prompt = ". ".join(context_parts) + "."
+                logger.info(f"Using context prompt for better accuracy: {prompt[:100]}...")
         
         # Get audio duration for cost calculation
         duration = await self._get_audio_duration(audio_path)

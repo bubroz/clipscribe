@@ -19,8 +19,8 @@ def generate_draft_page(
     tweet_styles: dict,
     video_title: str,
     video_url: str,
-    entity_count: int,
-    relationship_count: int,
+    entities: list,
+    relationships: list,
     thumbnail_filename: str = "thumbnail.jpg",
     video_filename: str = "video.mp4"
 ) -> str:
@@ -126,13 +126,27 @@ def generate_draft_page(
     <div class="container">
         <h1>{video_title}</h1>
         <div class="stats">
-            📊 {entity_count} entities • {relationship_count} relationships
+            📊 {len(entities)} entities • {len(relationships)} relationships
         </div>
         
         <div class="tweet-box">
             <h3>Executive Summary</h3>
             <div style="line-height: 1.6; margin-bottom: 20px;">
-                {executive_summary[:1000]}
+                {executive_summary[:1000].replace('###', '').replace('**', '').replace('####', '')}
+            </div>
+        </div>
+        
+        <div class="tweet-box">
+            <h3>📊 Key Entities</h3>
+            <div style="font-size: 14px; line-height: 1.8;">
+                {''.join([f'<div>• {e.get("name") if isinstance(e, dict) else getattr(e, "name", "")} <span style="color: #71767b;">({e.get("type") if isinstance(e, dict) else getattr(e, "type", "")})</span></div>' for e in entities[:15]])}
+            </div>
+        </div>
+        
+        <div class="tweet-box">
+            <h3>🔗 Key Relationships</h3>
+            <div style="font-size: 14px; line-height: 1.8;">
+                {''.join([f'<div>• {r.get("subject") if isinstance(r, dict) else getattr(r, "subject", "")} → {r.get("predicate") if isinstance(r, dict) else getattr(r, "predicate", "")} → {r.get("object") if isinstance(r, dict) else getattr(r, "object", "")}</div>' for r in relationships[:10]])}
             </div>
         </div>
         
@@ -143,8 +157,11 @@ def generate_draft_page(
             <div style="color: #71767b; font-size: 14px; margin-bottom: 8px;">📊 The Analyst</div>
             <div id="tweet-analyst" style="margin-bottom: 12px;">{tweet_styles.get('analyst', 'Generating...')}</div>
             <div class="char-count">{len(tweet_styles.get('analyst', ''))} / 280 characters</div>
-            <button onclick="shareTweet('analyst', false)">📱 Share + Link</button>
-            <button onclick="shareTweet('analyst', true)">🎥 Share + Video</button>
+            <div style="margin-bottom: 8px;">
+                <input type="checkbox" id="video-analyst" style="margin-right: 8px;">
+                <label for="video-analyst" style="color: #71767b; font-size: 14px;">Include video</label>
+            </div>
+            <button onclick="shareTweet('analyst')">📱 Share</button>
         </div>
         
         <!-- Style 2: The Alarm -->
@@ -152,8 +169,11 @@ def generate_draft_page(
             <div style="color: #71767b; font-size: 14px; margin-bottom: 8px;">⚡ The Alarm</div>
             <div id="tweet-alarm" style="margin-bottom: 12px;">{tweet_styles.get('alarm', 'Generating...')}</div>
             <div class="char-count">{len(tweet_styles.get('alarm', ''))} / 280 characters</div>
-            <button onclick="shareTweet('alarm', false)">📱 Share + Link</button>
-            <button onclick="shareTweet('alarm', true)">🎥 Share + Video</button>
+            <div style="margin-bottom: 8px;">
+                <input type="checkbox" id="video-alarm" style="margin-right: 8px;">
+                <label for="video-alarm" style="color: #71767b; font-size: 14px;">Include video</label>
+            </div>
+            <button onclick="shareTweet('alarm')">📱 Share</button>
         </div>
         
         <!-- Style 3: The Educator -->
@@ -161,8 +181,11 @@ def generate_draft_page(
             <div style="color: #71767b; font-size: 14px; margin-bottom: 8px;">📚 The Educator</div>
             <div id="tweet-educator" style="margin-bottom: 12px;">{tweet_styles.get('educator', 'Generating...')}</div>
             <div class="char-count">{len(tweet_styles.get('educator', ''))} / 280 characters</div>
-            <button onclick="shareTweet('educator', false)">📱 Share + Link</button>
-            <button onclick="shareTweet('educator', true)">🎥 Share + Video</button>
+            <div style="margin-bottom: 8px;">
+                <input type="checkbox" id="video-educator" style="margin-right: 8px;">
+                <label for="video-educator" style="color: #71767b; font-size: 14px;">Include video</label>
+            </div>
+            <button onclick="shareTweet('educator')">📱 Share</button>
         </div>
         
         <div class="media-section">
@@ -193,9 +216,10 @@ def generate_draft_page(
     <script>
         const videoUrl = "{video_url}";  // YouTube URL
         
-        async function shareTweet(style, withVideo) {{
+        async function shareTweet(style) {{
             const tweetText = document.getElementById('tweet-' + style).innerText;
             const fullText = tweetText + '\\n\\n' + videoUrl;
+            const includeVideo = document.getElementById('video-' + style).checked;
             
             try {{
                 if (navigator.share) {{
@@ -203,7 +227,7 @@ def generate_draft_page(
                         text: fullText
                     }};
                     
-                    if (withVideo) {{
+                    if (includeVideo) {{
                         // Share with video
                         const videoBlob = await fetch('{video_filename}').then(r => r.blob());
                         const videoFile = new File([videoBlob], 'video.mp4', {{ type: 'video/mp4' }});
@@ -314,8 +338,8 @@ class GCSUploader:
         tweet_styles: dict,
         video_title: str,
         video_url: str,
-        entity_count: int,
-        relationship_count: int,
+        entities: list,
+        relationships: list,
         thumbnail_path: Optional[Path],
         video_path: Optional[Path]
     ) -> Optional[str]:
@@ -338,8 +362,8 @@ class GCSUploader:
                 tweet_styles=tweet_styles,
                 video_title=video_title,
                 video_url=video_url,
-                entity_count=entity_count,
-                relationship_count=relationship_count
+                entities=entities,
+                relationships=relationships
             )
             logger.debug(f"Generated HTML page: {len(html)} chars")
             

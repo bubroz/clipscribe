@@ -187,9 +187,12 @@ class HybridProcessor:
         
         # Check if chunking is needed
         if duration <= 840:  # Under 14 minutes
-            # Direct transcription
+            # Direct transcription with context
             logger.info(f"Direct Voxtral transcription for {duration}s video")
-            result = await self.voxtral.transcribe_audio(audio_path)
+            result = await self.voxtral.transcribe_audio(
+                audio_path,
+                video_metadata=metadata  # Pass metadata for context
+            )
             
             return {
                 "text": result.text,
