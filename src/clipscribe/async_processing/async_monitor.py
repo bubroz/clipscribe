@@ -6,7 +6,7 @@ Coordinates monitor, queue, and worker pool.
 
 import asyncio
 import logging
-from typing import List, Optional
+from typing import List, Optional, Dict, Any
 from pathlib import Path
 
 from .video_queue import AsyncVideoQueue
