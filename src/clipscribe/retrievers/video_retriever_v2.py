@@ -17,6 +17,7 @@ from ..retrievers.universal_video_client import UniversalVideoClient
 from ..retrievers.output_formatter import OutputFormatter
 from ..retrievers.knowledge_graph_builder import KnowledgeGraphBuilder
 from ..exporters.x_exporter import XContentGenerator
+from ..exporters.tweet_styles import TweetStyleGenerator
 from ..config.settings import Settings
 from ..utils.logging import setup_logging
 from ..utils.processing_tracker import ProcessingTracker
@@ -75,8 +76,9 @@ class VideoIntelligenceRetrieverV2:
         # Processing tracker for deduplication
         self.tracker = ProcessingTracker()
         
-        # X content generator (optional)
+        # X content generators
         self.x_generator = XContentGenerator()
+        self.style_generator = TweetStyleGenerator()
         
         # Store thumbnail and video from last download (for X drafts)
         self._last_thumbnail = None
@@ -522,18 +524,26 @@ class VideoIntelligenceRetrieverV2:
             
             logger.info(f"✅ X draft ready: {draft_files['directory']}")
             
-            # Upload to GCS and notify via Telegram
-            tweet_text = Path(draft_files['tweet_file']).read_text()
+            # Generate all 3 tweet styles
+            logger.info("Generating 3 tweet styles...")
+            tweet_styles = await self.style_generator.generate_all_styles(
+                title=result.metadata.title,
+                summary=result.summary,
+                entities=result.entities,
+                relationships=result.relationships
+            )
             
-            # Upload to GCS
+            # Upload to GCS with all styles
             draft_url = await self.gcs.upload_draft(
                 draft_id=f"{result.metadata.video_id}_{int(time.time())}",
-                tweet_text=tweet_text,
+                executive_summary=result.summary,
+                tweet_styles=tweet_styles,
                 video_title=result.metadata.title,
+                video_url=result.metadata.url,
                 entity_count=len(result.entities),
                 relationship_count=len(result.relationships),
                 thumbnail_path=thumbnail_in_output,
-                video_path=self._last_video  # Full video for X posting
+                video_path=self._last_video
             )
             
             # Send Telegram notification

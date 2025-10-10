@@ -15,7 +15,8 @@ logger = logging.getLogger(__name__)
 
 
 def generate_draft_page(
-    tweet_text: str,
+    executive_summary: str,
+    tweet_styles: dict,
     video_title: str,
     entity_count: int,
     relationship_count: int,
@@ -128,10 +129,39 @@ def generate_draft_page(
         </div>
         
         <div class="tweet-box">
-            <div id="tweet-text">{tweet_text}</div>
-            <div class="char-count">{len(tweet_text)} / 280 characters</div>
-            <button onclick="copyText()">📋 Copy Tweet Text</button>
-            <div id="copy-success" class="success">✅ Copied to clipboard!</div>
+            <h3>Executive Summary</h3>
+            <div style="line-height: 1.6; margin-bottom: 20px;">
+                {executive_summary[:1000]}
+            </div>
+        </div>
+        
+        <h2 style="margin-top: 30px; margin-bottom: 16px;">Pick Your Style:</h2>
+        
+        <!-- Style 1: The Analyst -->
+        <div class="tweet-box">
+            <div style="color: #71767b; font-size: 14px; margin-bottom: 8px;">📊 The Analyst</div>
+            <div id="tweet-analyst" style="margin-bottom: 12px;">{tweet_styles.get('analyst', 'Generating...')}</div>
+            <div class="char-count">{len(tweet_styles.get('analyst', ''))} / 280 characters</div>
+            <button onclick="shareTweet('analyst', false)">📱 Share + Link</button>
+            <button onclick="shareTweet('analyst', true)">🎥 Share + Video</button>
+        </div>
+        
+        <!-- Style 2: The Alarm -->
+        <div class="tweet-box">
+            <div style="color: #71767b; font-size: 14px; margin-bottom: 8px;">⚡ The Alarm</div>
+            <div id="tweet-alarm" style="margin-bottom: 12px;">{tweet_styles.get('alarm', 'Generating...')}</div>
+            <div class="char-count">{len(tweet_styles.get('alarm', ''))} / 280 characters</div>
+            <button onclick="shareTweet('alarm', false)">📱 Share + Link</button>
+            <button onclick="shareTweet('alarm', true)">🎥 Share + Video</button>
+        </div>
+        
+        <!-- Style 3: The Educator -->
+        <div class="tweet-box">
+            <div style="color: #71767b; font-size: 14px; margin-bottom: 8px;">📚 The Educator</div>
+            <div id="tweet-educator" style="margin-bottom: 12px;">{tweet_styles.get('educator', 'Generating...')}</div>
+            <div class="char-count">{len(tweet_styles.get('educator', ''))} / 280 characters</div>
+            <button onclick="shareTweet('educator', false)">📱 Share + Link</button>
+            <button onclick="shareTweet('educator', true)">🎥 Share + Video</button>
         </div>
         
         <div class="media-section">
@@ -160,13 +190,42 @@ def generate_draft_page(
     </div>
     
     <script>
-        function copyText() {{
-            const text = document.getElementById('tweet-text').innerText;
-            navigator.clipboard.writeText(text).then(() => {{
-                const success = document.getElementById('copy-success');
-                success.style.display = 'block';
-                setTimeout(() => success.style.display = 'none', 2000);
-            }});
+        const videoUrl = "{video_url}";  // YouTube URL
+        
+        async function shareTweet(style, withVideo) {{
+            const tweetText = document.getElementById('tweet-' + style).innerText;
+            const fullText = tweetText + '\\n\\n' + videoUrl;
+            
+            try {{
+                if (navigator.share) {{
+                    const shareData = {{
+                        text: fullText
+                    }};
+                    
+                    if (withVideo) {{
+                        // Share with video
+                        const videoBlob = await fetch('{video_filename}').then(r => r.blob());
+                        const videoFile = new File([videoBlob], 'video.mp4', {{ type: 'video/mp4' }});
+                        shareData.files = [videoFile];
+                    }} else {{
+                        // Share with thumbnail
+                        const thumbBlob = await fetch('{thumbnail_filename}').then(r => r.blob());
+                        const thumbFile = new File([thumbBlob], 'thumbnail.jpg', {{ type: 'image/jpeg' }});
+                        shareData.files = [thumbFile];
+                    }}
+                    
+                    await navigator.share(shareData);
+                }} else {{
+                    // Fallback: copy text
+                    navigator.clipboard.writeText(fullText);
+                    alert('Text copied! Open X app to paste and attach media.');
+                }}
+            }} catch (err) {{
+                console.error('Share failed:', err);
+                // Fallback
+                navigator.clipboard.writeText(fullText);
+                alert('Text copied! Open X app to paste.');
+            }}
         }}
         
         async function shareImage() {{
@@ -250,8 +309,10 @@ class GCSUploader:
     async def upload_draft(
         self,
         draft_id: str,
-        tweet_text: str,
+        executive_summary: str,
+        tweet_styles: dict,
         video_title: str,
+        video_url: str,
         entity_count: int,
         relationship_count: int,
         thumbnail_path: Optional[Path],
@@ -272,11 +333,14 @@ class GCSUploader:
             
             # Generate HTML page
             html = generate_draft_page(
-                tweet_text=tweet_text,
+                executive_summary=executive_summary,
+                tweet_styles=tweet_styles,
                 video_title=video_title,
                 entity_count=entity_count,
                 relationship_count=relationship_count
             )
+            # Inject video URL into HTML
+            html = html.replace('{video_url}', video_url)
             logger.debug(f"Generated HTML page: {len(html)} chars")
             
             # Upload HTML
