@@ -548,11 +548,14 @@ class VideoIntelligenceRetrieverV2:
             
             # Send Telegram notification
             if draft_url:
+                # Use the first style's length for notification
+                first_style_length = len(tweet_styles.get('analyst', ''))
+                
                 await self.telegram.notify_draft_ready(
                     title=result.metadata.title,
                     entity_count=len(result.entities),
                     relationship_count=len(result.relationships),
-                    char_count=len(tweet_text),
+                    char_count=first_style_length,
                     draft_url=draft_url
                 )
             
