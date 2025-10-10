@@ -221,6 +221,8 @@ class GCSUploader:
             return None
         
         try:
+            logger.info(f"Starting GCS upload for draft: {draft_id}")
+            
             # Generate HTML page
             html = generate_draft_page(
                 tweet_text=tweet_text,
@@ -228,30 +230,36 @@ class GCSUploader:
                 entity_count=entity_count,
                 relationship_count=relationship_count
             )
+            logger.debug(f"Generated HTML page: {len(html)} chars")
             
             # Upload HTML
             blob_html = self.bucket.blob(f"drafts/{draft_id}/index.html")
+            logger.info(f"Uploading HTML to: {blob_html.name}")
             blob_html.upload_from_string(html, content_type="text/html")
-            # Public via bucket IAM policy (uniform access)
+            logger.info(f"HTML uploaded successfully")
             
             # Upload thumbnail if exists
             if thumbnail_path and thumbnail_path.exists():
                 blob_thumb = self.bucket.blob(f"drafts/{draft_id}/thumbnail.jpg")
+                logger.info(f"Uploading thumbnail: {thumbnail_path}")
                 blob_thumb.upload_from_filename(str(thumbnail_path))
+                logger.info(f"Thumbnail uploaded successfully")
             
             # Upload video if exists
             if video_path and video_path.exists():
                 blob_video = self.bucket.blob(f"drafts/{draft_id}/video.mp4")
+                logger.info(f"Uploading video: {video_path}")
                 blob_video.upload_from_filename(str(video_path))
+                logger.info(f"Video uploaded successfully")
             
             # Return public URL
             draft_url = blob_html.public_url
-            logger.info(f"Uploaded draft to GCS: {draft_url}")
+            logger.info(f"All files uploaded. Draft URL: {draft_url}")
             
             return draft_url
             
         except Exception as e:
-            logger.error(f"Failed to upload draft to GCS: {e}")
+            logger.error(f"Failed to upload draft to GCS: {e}", exc_info=True)
             return None
 
 
