@@ -18,6 +18,7 @@ def generate_draft_page(
     executive_summary: str,
     tweet_styles: dict,
     video_title: str,
+    video_url: str,
     entity_count: int,
     relationship_count: int,
     thumbnail_filename: str = "thumbnail.jpg",
@@ -336,11 +337,10 @@ class GCSUploader:
                 executive_summary=executive_summary,
                 tweet_styles=tweet_styles,
                 video_title=video_title,
+                video_url=video_url,
                 entity_count=entity_count,
                 relationship_count=relationship_count
             )
-            # Inject video URL into HTML
-            html = html.replace('{video_url}', video_url)
             logger.debug(f"Generated HTML page: {len(html)} chars")
             
             # Upload HTML
