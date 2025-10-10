@@ -78,8 +78,9 @@ class VideoIntelligenceRetrieverV2:
         # X content generator (optional)
         self.x_generator = XContentGenerator()
         
-        # Store thumbnail path from last download (for X drafts)
+        # Store thumbnail and video from last download (for X drafts)
         self._last_thumbnail = None
+        self._last_video = None
         
         # Telegram notifier (optional)
         self.telegram = TelegramNotifier()
@@ -116,16 +117,18 @@ class VideoIntelligenceRetrieverV2:
         
         start_time = time.time()
         temp_thumbnail = None  # Store thumbnail from temp dir
+        temp_video = None  # Store full video for X posting
         
         try:
             # Phase 1: Download
             self.on_phase_start("Downloading", "Fetching video...")
-            audio_path, metadata, temp_thumbnail = await self._download_video(video_url)
+            audio_path, metadata, temp_thumbnail, temp_video = await self._download_video(video_url)
             if not audio_path:
                 return None
             
-            # Store thumbnail for later X draft generation
+            # Store thumbnail and video for later X draft generation
             self._last_thumbnail = temp_thumbnail
+            self._last_video = temp_video
             
             self.on_phase_complete("Downloading", 0.0)
             
@@ -203,21 +206,29 @@ class VideoIntelligenceRetrieverV2:
                 self.on_error("Downloading", "URL not supported")
                 return None, None, None
             
-            # Download audio (downloads to temp with thumbnail)
+            # Download audio (for transcription)
             audio_path, metadata = await self.video_client.download_audio(video_url)
             
-            # Find and save thumbnail location for later copying
+            # Find thumbnail and video file in temp
             temp_dir = Path(audio_path).parent
             video_id = self._extract_video_id(video_url)
             temp_thumbnail = None
+            temp_video = None
             
             if video_id and temp_dir.exists():
+                # Find thumbnail
                 for ext in ['.jpg', '.jpeg', '.png', '.webp']:
                     thumbnails = list(temp_dir.glob(f'*{video_id}*{ext}'))
                     if thumbnails:
                         temp_thumbnail = thumbnails[0]
                         logger.info(f"Found thumbnail: {temp_thumbnail.name}")
                         break
+                
+                # Download full video for X posting (parallel with processing)
+                logger.info("Downloading full video for X posting...")
+                temp_video = await self.video_client.download_video_file(video_url, str(temp_dir))
+                if temp_video:
+                    temp_video = Path(temp_video)
             
             # Convert to VideoMetadata if needed
             if not isinstance(metadata, VideoMetadata):
@@ -233,12 +244,12 @@ class VideoIntelligenceRetrieverV2:
                     thumbnail_url=metadata.get('thumbnail')
                 )
             
-            return Path(audio_path), metadata, temp_thumbnail
+            return Path(audio_path), metadata, temp_thumbnail, temp_video
             
         except Exception as e:
             logger.error(f"Download failed: {e}")
             self.on_error("Downloading", str(e))
-            return None, None, None
+            return None, None, None, None
     
     def _extract_video_id(self, url: str) -> Optional[str]:
         """Extract YouTube video ID from URL."""
@@ -522,7 +533,7 @@ class VideoIntelligenceRetrieverV2:
                 entity_count=len(result.entities),
                 relationship_count=len(result.relationships),
                 thumbnail_path=thumbnail_in_output,
-                video_path=None  # TODO: Pass actual video path
+                video_path=self._last_video  # Full video for X posting
             )
             
             # Send Telegram notification

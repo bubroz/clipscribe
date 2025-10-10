@@ -1300,3 +1300,71 @@ class UniversalVideoClient:
 
 
 # Class renamed to UniversalVideoClient
+
+    async def download_video_file(
+        self,
+        video_url: str,
+        output_dir: Optional[str] = None
+    ) -> Optional[str]:
+        """
+        Download full video file (not just audio).
+        
+        For X posting with video.
+        Returns path to video file.
+        """
+        if output_dir is None:
+            output_dir = tempfile.mkdtemp()
+        
+        platform = self._detect_platform(video_url)
+        
+        # Check rate limit
+        if not self.rate_limiter.check_daily_cap(platform):
+            raise DailyCapExceeded(platform, self.rate_limiter.DAILY_CAP)
+        
+        await self.rate_limiter.wait_if_needed(platform)
+        
+        # Video download options
+        video_opts = {
+            "format": "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best",
+            "outtmpl": os.path.join(output_dir, "%(title)s-%(id)s.%(ext)s"),
+            "quiet": True,
+            "no_warnings": True,
+        }
+        
+        # Add impersonation if enabled
+        if self.use_impersonation:
+            from yt_dlp.networking.impersonate import ImpersonateTarget
+            client_full, os_full = self.impersonate_target.split(":", 1)
+            client, version = client_full.rsplit("-", 1)
+            os_name, os_version = os_full.rsplit("-", 1)
+            
+            target = ImpersonateTarget(
+                client=client.lower(),
+                version=version,
+                os=os_name.lower(),
+                os_version=os_version
+            )
+            video_opts["impersonate"] = target
+        
+        try:
+            with yt_dlp.YoutubeDL(video_opts) as ydl:
+                info = ydl.extract_info(video_url, download=False)
+                video_id = info.get("id", "")
+                
+                # Download video
+                ydl.download([video_url])
+                
+                # Find downloaded video
+                for filename in os.listdir(output_dir):
+                    if video_id in filename and filename.endswith((".mp4", ".webm", ".mkv")):
+                        video_file = os.path.join(output_dir, filename)
+                        logger.info(f"Video file downloaded: {video_file}")
+                        self.rate_limiter.record_request(platform, success=True)
+                        return video_file
+                
+                raise FileNotFoundError("Video file not found after download")
+                
+        except Exception as e:
+            logger.error(f"Video download failed: {e}")
+            self.rate_limiter.record_request(platform, success=False)
+            return None

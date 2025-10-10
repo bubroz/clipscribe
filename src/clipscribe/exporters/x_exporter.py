@@ -85,29 +85,39 @@ class XContentGenerator:
                 rel_texts.append(f"{subj} {pred} {obj}")
         
         # Build prompt for Grok
-        prompt = f"""
-Create a sticky X (Twitter) post from this video intelligence.
+        prompt = f"""Create a STICKY X post about this video.
 
-Video Title: {title}
-Key Entities: {', '.join(entity_names)}
-Key Relationships: {'; '.join(rel_texts)}
+Title: {title}
+Key Entities: {', '.join(entity_names[:5])}
+Key Relationships: {'; '.join(rel_texts[:3])}
 
-Requirements (CRITICAL):
-- Objective and informative (facts, not hype)
-- Engaging hook (interesting fact or provocative question)
-- Mention 3-5 key entities naturally
-- Include 1-2 key relationships
-- End with implication or question for engagement
-- MAXIMUM {max_length} characters (leave room for URL)
-- NO hashtags whatsoever
-- Neutral, professional tone
-- Make it "sticky" (people want to click/engage)
+STICKY = Makes people STOP scrolling and ENGAGE
 
-Format examples:
-- "[Name] [action]. Joins: [entities]. [Key detail]. [Question]?"
-- "[Fact about entities]. [Relationship]. [Implication]—what's next?"
+Structure (REQUIRED):
+1. HOOK (15-25 words): Provocative question OR surprising fact
+   - "Ever wonder who actually controls [topic]?"
+   - "While you weren't looking, [entity] just [surprising action]"
+   - "[Shocking statistic/fact about entities]"
+   
+2. INTEL (20-30 words): Core facts with 3-5 entities
+   - Name key players
+   - State key relationships
+   - Use active voice
+   
+3. ENGAGEMENT (10-15 words): Question that demands a reply
+   - "What happens next?"
+   - "Who benefits from this?"
+   - "What are the real implications?"
 
-Return ONLY the tweet text. Nothing else. No quotes, no explanation.
+CRITICAL RULES:
+- MAXIMUM {max_length} characters total
+- End on COMPLETE sentence (no mid-sentence cuts)
+- NO hashtags
+- NO jargon (simple, direct language)
+- Objective facts only (no hype, no opinion)
+- Make it IMPOSSIBLE to scroll past
+
+Return ONLY the tweet text. Complete sentences only.
 """
         
         try:
@@ -141,10 +151,10 @@ Return ONLY the tweet text. Nothing else. No quotes, no explanation.
                 # Remove quotes if Grok added them
                 summary = summary.strip('"').strip("'")
                 
-                # Enforce length limit
+                # Enforce length limit with smart truncation
                 if len(summary) > max_length:
-                    logger.warning(f"Summary too long ({len(summary)} chars), truncating")
-                    summary = summary[:max_length-3] + "..."
+                    logger.warning(f"Summary too long ({len(summary)} chars), smart truncating")
+                    summary = self._truncate_smart(summary, max_length)
                 
                 logger.info(f"Generated sticky summary: {len(summary)} chars")
                 return summary
@@ -303,3 +313,30 @@ if __name__ == "__main__":
     import asyncio
     asyncio.run(test_x_generator())
 
+
+    def _truncate_smart(self, text: str, max_length: int) -> str:
+        """
+        Truncate text intelligently at sentence boundaries.
+        
+        Avoids mid-sentence cuts that look unprofessional.
+        """
+        if len(text) <= max_length:
+            return text
+        
+        # Find last sentence ending before max_length
+        search_text = text[:max_length]
+        
+        # Try sentence endings (period, question, exclamation)
+        for ending in ['. ', '? ', '! ']:
+            last_pos = search_text.rfind(ending)
+            # Only use if it's at least 70% of max length (avoid cutting too early)
+            if last_pos > max_length * 0.7:
+                return text[:last_pos + 1].strip()
+        
+        # No sentence boundary found - try to end on word
+        last_space = search_text.rfind(' ')
+        if last_space > 0:
+            return text[:last_space] + '...'
+        
+        # Last resort: hard cut
+        return text[:max_length-3] + '...'
