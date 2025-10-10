@@ -846,3 +846,51 @@ async def _run_monitor(
         stats = monitor.tracker.get_stats() if hasattr(monitor, 'tracker') else None
         if stats:
             click.echo(f"\nProcessed: {stats.get('completed', 0)} videos")
+
+
+@cli.command("monitor-async")
+@click.option("--channels", required=True, help="Comma-separated channel IDs (UC...)")
+@click.option("--interval", default=60, help="Check interval in seconds (default: 60)")
+@click.option("--workers", default=10, help="Number of concurrent workers (default: 10)")
+@click.option("--output-dir", default="output/monitored", help="Output directory")
+def monitor_async(channels: str, interval: int, workers: int, output_dir: str):
+    """
+    Monitor channels with async 10-worker architecture (FAST).
+    
+    Examples:
+        # Monitor with 10 workers
+        clipscribe monitor-async --channels UCg5EWI7X2cyS98C8hQwDCcw
+        
+        # Custom worker count
+        clipscribe monitor-async --channels UC123 --workers 20
+    """
+    asyncio.run(_run_async_monitor(channels, interval, workers, output_dir))
+
+
+async def _run_async_monitor(channels: str, interval: int, workers: int, output_dir: str):
+    """Run async monitor orchestrator."""
+    from ..async_processing.async_monitor import AsyncMonitorOrchestrator
+    
+    # Parse channel IDs
+    channel_ids = [c.strip() for c in channels.split(',')]
+    
+    click.echo(f"\n🚀 ClipScribe Async Monitor (10-Worker Architecture)\n")
+    click.echo(f"Monitoring {len(channel_ids)} channels:")
+    for cid in channel_ids:
+        click.echo(f"  - {cid}")
+    click.echo(f"\nWorkers: {workers} concurrent")
+    click.echo(f"Check interval: {interval}s")
+    click.echo(f"Output: {output_dir}/")
+    click.echo(f"\n⚡ Non-blocking processing enabled")
+    click.echo(f"📱 Telegram notifications: ON")
+    click.echo(f"\nPress Ctrl+C to stop\n")
+    
+    # Create orchestrator
+    orchestrator = AsyncMonitorOrchestrator(
+        channel_ids=channel_ids,
+        max_workers=workers,
+        output_dir=output_dir
+    )
+    
+    # Start orchestrator
+    await orchestrator.start(check_interval=interval)
