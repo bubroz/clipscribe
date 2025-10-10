@@ -139,18 +139,18 @@ def generate_draft_page(
                 <h3>🖼️ Thumbnail</h3>
                 <img src="{thumbnail_filename}" alt="Thumbnail" id="thumbnail">
                 <a href="{thumbnail_filename}" download="thumbnail.jpg" class="download-btn">
-                    ⬇️ Download Thumbnail
+                    ⬇️ Download
                 </a>
-                <button onclick="shareImage()">📤 Share to X</button>
+                <button onclick="shareImage()">📤 Share</button>
             </div>
             
             <div class="media-item">
                 <h3>🎥 Video</h3>
                 <video src="{video_filename}" controls id="video"></video>
                 <a href="{video_filename}" download="video.mp4" class="download-btn">
-                    ⬇️ Download Video
+                    ⬇️ Download
                 </a>
-                <button onclick="shareVideo()">📤 Share Video</button>
+                <button onclick="shareVideo()">📤 Share</button>
             </div>
         </div>
         
@@ -188,17 +188,21 @@ def generate_draft_page(
         
         async function shareVideo() {{
             try {{
-                const response = await fetch('{video_filename}');
-                const blob = await response.blob();
-                const file = new File([blob], 'video.mp4', {{ type: 'video/mp4' }});
-                
+                // For large videos, just open in new tab for download
+                // Fetching entire video in browser can timeout
                 if (navigator.share) {{
+                    // Share just the URL for videos (too large to fetch)
                     await navigator.share({{
-                        files: [file]
+                        title: '{video_title}',
+                        url: window.location.href
                     }});
+                }} else {{
+                    // Fallback: direct download link
+                    window.location.href = '{video_filename}';
                 }}
             }} catch (err) {{
-                // Fallback: download
+                console.error('Share failed:', err);
+                // Force download
                 window.location.href = '{video_filename}';
             }}
         }}

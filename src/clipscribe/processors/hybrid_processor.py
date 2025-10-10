@@ -285,10 +285,10 @@ class HybridProcessor:
         """
         logger.info(f"Extracting intelligence with {self.grok_model} from Voxtral transcript")
         
-        # Check if chunking needed (Grok times out at ~2500+ chars)
-        if len(transcript_text) > 2500:
-            logger.info(f"Long transcript ({len(transcript_text)} chars), using chunked extraction")
-            return await self._extract_intelligence_chunked(transcript_text, metadata)
+        # ALWAYS use chunking (main extraction prompt times out even on short videos)
+        # Chunking is more reliable with simpler per-chunk prompts
+        logger.info(f"Using chunked extraction ({len(transcript_text)} chars)")
+        return await self._extract_intelligence_chunked(transcript_text, metadata)
         
         # Build comprehensive prompt with full context
         prompt = f"""

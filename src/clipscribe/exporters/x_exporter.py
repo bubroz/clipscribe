@@ -274,36 +274,6 @@ Write ONE tweet. Nothing else. Make it fucking engaging.
         
         return None
 
-
-async def test_x_generator():
-    """Test X content generation."""
-    from ..models import VideoIntelligence, VideoMetadata, EnhancedEntity, Relationship
-    
-    # Mock data
-    entities = [
-        {'name': 'The Stoic Viking', 'type': 'PERSON'},
-        {'name': 'Barbell Apparel', 'type': 'ORGANIZATION'},
-        {'name': 'Valhalla VFT', 'type': 'PERSON'}
-    ]
-    
-    relationships = [
-        {'subject': 'The Stoic Viking', 'predicate': 'partners with', 'object': 'Barbell Apparel'}
-    ]
-    
-    generator = XContentGenerator()
-    
-    # Generate summary
-    summary = await generator.generate_sticky_summary(
-        "Partnering with Barbell Apparel",
-        entities,
-        relationships
-    )
-    
-    print(f"Generated summary ({len(summary)} chars):")
-    print(summary)
-    
-    # Save draft
-
     def _truncate_smart(self, text: str, max_length: int) -> str:
         """Truncate intelligently at sentence boundaries."""
         if len(text) <= max_length:
@@ -311,13 +281,11 @@ async def test_x_generator():
         
         search_text = text[:max_length]
         
-        # Try sentence endings
         for ending in ['. ', '? ', '! ']:
             last_pos = search_text.rfind(ending)
             if last_pos > max_length * 0.7:
                 return text[:last_pos + 1].strip()
         
-        # Word boundary
         last_space = search_text.rfind(' ')
         if last_space > 0:
             return text[:last_space] + '...'
