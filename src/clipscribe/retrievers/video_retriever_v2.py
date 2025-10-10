@@ -353,8 +353,11 @@ class VideoIntelligenceRetrieverV2:
         
         # Generate output directory name
         from datetime import datetime
-        timestamp = datetime.now().strftime("%Y%m%d")
-        video_id = result.metadata.url.split('/')[-1].split('?')[0]
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")  # Include time for uniqueness
+        
+        # Extract video ID properly
+        video_id = result.metadata.video_id if hasattr(result.metadata, 'video_id') and result.metadata.video_id else self._extract_video_id(result.metadata.url) or "unknown"
+        
         platform_name = getattr(result.metadata, 'platform', 'youtube')
         output_subdir = self.output_dir / f"{timestamp}_{platform_name}_{video_id}"
         

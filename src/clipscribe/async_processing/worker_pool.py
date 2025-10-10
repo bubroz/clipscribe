@@ -143,11 +143,21 @@ class VideoWorkerPool:
             result = await retriever.process_url(video_info['url'])
             
             if result:
-                # Generate X draft (includes 3 styles)
+                # Generate X draft (includes 3 styles, Telegram, GCS)
                 logger.info(f"{worker_name} generating X draft...")
-                # X draft generation happens inside process_url if --with-x-draft
-                # For async workers, we need to call it manually
-                # This will be handled by the orchestrator
+                
+                # Get output directory from saved files
+                output_path = Path(self.output_dir) / f"async_output_{video_info['video_id']}"
+                
+                # Generate X draft with Telegram + GCS
+                x_draft = await retriever.generate_x_content(
+                    result,
+                    output_path,
+                    temp_thumbnail=retriever._last_thumbnail
+                )
+                
+                if x_draft:
+                    logger.info(f"{worker_name} X draft ready: {x_draft.get('directory', 'unknown')}")
                 
                 return result
             
