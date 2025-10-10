@@ -138,16 +138,16 @@ class VideoWorkerPool:
             # Create retriever instance for this worker
             retriever = VideoIntelligenceRetrieverV2(output_dir=self.output_dir)
             
-            # Process video
+            # Process video (force reprocess in async mode to avoid deduplication blocking)
             logger.info(f"{worker_name} downloading: {video_info['title']}")
-            result = await retriever.process_url(video_info['url'])
+            result = await retriever.process_url(video_info['url'], force_reprocess=True)
             
             if result:
                 # Generate X draft (includes 3 styles, Telegram, GCS)
                 logger.info(f"{worker_name} generating X draft...")
                 
-                # Get output directory from saved files
-                output_path = Path(self.output_dir) / f"async_output_{video_info['video_id']}"
+                # Use the actual output directory where files were saved
+                output_path = Path(result._output_directory) if hasattr(result, '_output_directory') else Path(self.output_dir) / f"{video_info['video_id']}"
                 
                 # Generate X draft with Telegram + GCS
                 x_draft = await retriever.generate_x_content(

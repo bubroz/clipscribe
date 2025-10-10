@@ -380,12 +380,22 @@ class GCSUploader:
                 blob_thumb.upload_from_filename(str(thumbnail_path))
                 logger.info(f"Thumbnail uploaded successfully")
             
-            # Upload video if exists
+            # Upload video if exists (with retry, graceful failure)
             if video_path and video_path.exists():
                 blob_video = self.bucket.blob(f"drafts/{draft_id}/video.mp4")
                 logger.info(f"Uploading video: {video_path}")
-                blob_video.upload_from_filename(str(video_path))
-                logger.info(f"Video uploaded successfully")
+                
+                # Retry video upload (it's large and can timeout)
+                for attempt in range(3):
+                    try:
+                        blob_video.upload_from_filename(str(video_path), timeout=300)
+                        logger.info(f"Video uploaded successfully")
+                        break
+                    except Exception as e:
+                        logger.warning(f"Video upload attempt {attempt + 1}/3 failed: {e}")
+                        if attempt == 2:
+                            logger.error(f"Video upload failed after 3 attempts, continuing without video")
+                            # Continue anyway - page will work without video
             
             # Return public URL
             draft_url = blob_html.public_url

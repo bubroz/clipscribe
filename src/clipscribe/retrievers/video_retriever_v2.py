@@ -168,6 +168,9 @@ class VideoIntelligenceRetrieverV2:
             saved_files = self._save_outputs(result)
             self.on_phase_complete("Saving", 0.0)
             
+            # Store output directory for X draft generation
+            result._output_directory = str(saved_files.get('directory'))
+            
             logger.info(f"✅ Processing complete: {result.metadata.title}")
             logger.info(f"   Cost: ${processing_cost:.4f}")
             logger.info(f"   Time: {processing_time:.1f}s")
