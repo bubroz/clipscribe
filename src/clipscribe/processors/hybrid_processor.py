@@ -588,11 +588,28 @@ class HybridProcessor:
         total_chunks: int
     ) -> Dict[str, Any]:
         """Extract intelligence from a single chunk."""
-        prompt = f"""Analyze chunk {chunk_num}/{total_chunks} from "{metadata.get('title')}":
+        
+        # Build context from metadata
+        context_lines = [f"Video: {metadata.get('title', 'Unknown')}"]
+        if metadata.get('channel'):
+            context_lines.append(f"Channel/Speaker: {metadata.get('channel')}")
+        if metadata.get('description'):
+            context_lines.append(f"Context: {metadata.get('description', '')[:200]}")
+        
+        context = "\n".join(context_lines)
+        
+        prompt = f"""Analyze this transcript (chunk {chunk_num}/{total_chunks}):
 
+CONTEXT:
+{context}
+
+TRANSCRIPT:
 {chunk_text}
 
-Extract entities and relationships. Return JSON:
+Extract all entities and relationships.
+Pay attention to the channel/speaker name for correct spelling.
+
+Return JSON:
 {{"entities": [{{"name": "...", "type": "...", "confidence": 0.9}}], "relationships": [{{"subject": "...", "predicate": "...", "object": "...", "confidence": 0.9}}]}}
 """
         
