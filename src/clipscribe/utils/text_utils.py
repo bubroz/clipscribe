@@ -27,47 +27,55 @@ class HTMLTextExtractor(HTMLParser):
 
 def strip_markdown(text: str) -> str:
     """
-    Strip markdown formatting to get clean plain text.
+    Strip markdown formatting but preserve paragraph structure.
     
-    Uses markdown-it-py to parse markdown → HTML → plain text.
-    This handles ALL markdown syntax correctly:
-    - Headers (###, ##, #)
-    - Bold/italic (**, __, *, _)
-    - Links [text](url)
-    - Code blocks and inline code
-    - Lists (bullets, numbered)
-    - Blockquotes
-    - Horizontal rules
+    Uses regex to remove markdown syntax while keeping readability.
+    Preserves: paragraph breaks, line breaks, list structure.
+    Removes: ###, **, __, *, links, code blocks.
     
     Args:
         text: Markdown-formatted text
         
     Returns:
-        Plain text with all markdown formatting removed
+        Plain text with markdown removed but structure preserved
     """
     if not text:
         return ""
     
-    # Parse markdown to HTML
-    md = MarkdownIt()
-    html = md.render(text)
+    # Remove code blocks (```)
+    text = re.sub(r'```.*?```', '', text, flags=re.DOTALL)
     
-    # Extract plain text from HTML
-    extractor = HTMLTextExtractor()
-    extractor.feed(html)
-    plain_text = extractor.get_text()
+    # Remove headers but keep content with spacing (### Header → Header\n\n)
+    text = re.sub(r'^#{1,6}\s+(.+)$', r'\1\n', text, flags=re.MULTILINE)
     
-    # Post-processing: Remove any remaining markdown artifacts
-    # (catches broken/unclosed markdown that parser left)
-    plain_text = re.sub(r'\*\*', '', plain_text)  # Remove orphaned **
-    plain_text = re.sub(r'__', '', plain_text)     # Remove orphaned __
-    plain_text = re.sub(r'#{1,6}\s*', '', plain_text)  # Remove orphaned headers
+    # Remove bold/italic but keep content
+    text = re.sub(r'\*\*(.+?)\*\*', r'\1', text)  # **bold**
+    text = re.sub(r'__(.+?)__', r'\1', text)      # __bold__
+    text = re.sub(r'(?<!\*)\*(?!\*)(.+?)\*', r'\1', text)  # *italic*
+    text = re.sub(r'(?<!_)_(?!_)(.+?)_', r'\1', text)      # _italic_
     
-    # Clean up excessive whitespace
-    plain_text = re.sub(r'\n{3,}', '\n\n', plain_text)  # Max 2 newlines
-    plain_text = re.sub(r' {2,}', ' ', plain_text)       # Max 1 space
+    # Remove links but keep text [text](url) → text
+    text = re.sub(r'\[([^\]]+)\]\([^\)]+\)', r'\1', text)
     
-    return plain_text.strip()
+    # Remove inline code (`code` → code)
+    text = re.sub(r'`([^`]+)`', r'\1', text)
+    
+    # Remove list markers but keep content (- item → item)
+    text = re.sub(r'^\s*[\-\*\+]\s+', '', text, flags=re.MULTILINE)
+    
+    # Remove horizontal rules
+    text = re.sub(r'^[\-\*_]{3,}\s*$', '', text, flags=re.MULTILINE)
+    
+    # Remove orphaned markdown artifacts
+    text = re.sub(r'\*\*', '', text)
+    text = re.sub(r'__', '', text)
+    
+    # Clean up whitespace BUT preserve paragraph structure
+    text = re.sub(r'\n{3,}', '\n\n', text)  # Max 2 newlines (keeps paragraphs)
+    text = re.sub(r'[ \t]{2,}', ' ', text)  # Multiple spaces → one
+    text = re.sub(r' +\n', '\n', text)      # Remove trailing spaces
+    
+    return text.strip()
 
 
 def truncate_at_sentence(text: str, max_length: int, min_percentage: float = 0.7) -> str:

@@ -132,8 +132,8 @@ def generate_draft_page(
         
         <div class="tweet-box">
             <h3>Executive Summary</h3>
-            <div style="line-height: 1.6; margin-bottom: 20px; white-space: pre-wrap;">
-                {clean_for_display(executive_summary, max_length=2000)}
+            <div style="line-height: 1.8; margin-bottom: 20px; white-space: pre-wrap;">
+                {clean_for_display(executive_summary, max_length=3000)}
             </div>
         </div>
         
