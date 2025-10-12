@@ -179,8 +179,8 @@ Write tweet. 270 chars max. Complete sentences. NO hashtags. NO jargon.
         except Exception as e:
             logger.warning(f"Style generation failed: {e}")
         
-        # Fallback
-        return f"{title[:200]}..."
+        # Fallback - return empty (caller will handle)
+        return ""
     
     def _truncate_smart(self, text: str, max_length: int) -> str:
         """Truncate at sentence boundaries."""

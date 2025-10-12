@@ -623,14 +623,23 @@ Return JSON:
                     "response_format": {"type": "json_object"}
                 }
                 
-                response = await client.post(f"{self.grok_base_url}/chat/completions", headers=self.grok_headers, json=data)
-                
-                if response.status_code == 200:
-                    result = response.json()
-                    content = result["choices"][0]["message"]["content"]
-                    return json.loads(content)
+                # Retry chunk extraction (Grok can have 502/connection issues)
+                for attempt in range(3):
+                    try:
+                        response = await client.post(f"{self.grok_base_url}/chat/completions", headers=self.grok_headers, json=data)
+                        
+                        if response.status_code == 200:
+                            result = response.json()
+                            content = result["choices"][0]["message"]["content"]
+                            return json.loads(content)
+                        else:
+                            logger.warning(f"Chunk {chunk_num} attempt {attempt + 1}/3: HTTP {response.status_code}")
+                    except Exception as e:
+                        logger.warning(f"Chunk {chunk_num} attempt {attempt + 1}/3 failed: {e}")
+                        if attempt < 2:
+                            await asyncio.sleep(5)  # Wait before retry
         except Exception as e:
-            logger.warning(f"Chunk {chunk_num} extraction failed: {e}")
+            logger.warning(f"Chunk {chunk_num} extraction failed after retries: {e}")
         
         return {'entities': [], 'relationships': []}
     

@@ -367,18 +367,32 @@ class GCSUploader:
             )
             logger.debug(f"Generated HTML page: {len(html)} chars")
             
-            # Upload HTML
+            # Upload HTML (with retry)
             blob_html = self.bucket.blob(f"drafts/{draft_id}/index.html")
             logger.info(f"Uploading HTML to: {blob_html.name}")
-            blob_html.upload_from_string(html, content_type="text/html")
-            logger.info(f"HTML uploaded successfully")
+            for attempt in range(3):
+                try:
+                    blob_html.upload_from_string(html, content_type="text/html", timeout=120)
+                    logger.info(f"HTML uploaded successfully")
+                    break
+                except Exception as e:
+                    logger.warning(f"HTML upload attempt {attempt + 1}/3 failed: {e}")
+                    if attempt == 2:
+                        raise  # Critical - page needs HTML
             
-            # Upload thumbnail if exists
+            # Upload thumbnail if exists (with retry)
             if thumbnail_path and thumbnail_path.exists():
                 blob_thumb = self.bucket.blob(f"drafts/{draft_id}/thumbnail.jpg")
                 logger.info(f"Uploading thumbnail: {thumbnail_path}")
-                blob_thumb.upload_from_filename(str(thumbnail_path))
-                logger.info(f"Thumbnail uploaded successfully")
+                for attempt in range(3):
+                    try:
+                        blob_thumb.upload_from_filename(str(thumbnail_path), timeout=120)
+                        logger.info(f"Thumbnail uploaded successfully")
+                        break
+                    except Exception as e:
+                        logger.warning(f"Thumbnail upload attempt {attempt + 1}/3 failed: {e}")
+                        if attempt == 2:
+                            logger.error(f"Thumbnail upload failed after 3 attempts, continuing without thumbnail")
             
             # Upload video if exists (with retry, graceful failure)
             if video_path and video_path.exists():
