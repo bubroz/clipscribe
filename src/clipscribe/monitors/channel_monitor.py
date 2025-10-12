@@ -126,6 +126,7 @@ class ChannelMonitor:
             return []
         
         new_videos = []
+        shorts_count = 0
         
         for entry in feed.entries:
             # Extract video ID from entry
@@ -137,12 +138,37 @@ class ChannelMonitor:
                 if 'watch?v=' in link:
                     video_id = link.split('watch?v=')[1].split('&')[0]
             
-            # Check if we've seen this video
-            if video_id and video_id not in self.seen_videos:
+            # Skip if already seen
+            if not video_id or video_id in self.seen_videos:
+                continue
+            
+            # Filter out YouTube Shorts (multiple criteria)
+            title = entry.get('title', '')
+            description = entry.get('summary', '')
+            link = entry.get('link', '')
+            
+            is_short = False
+            
+            # Check 1: URL pattern (most reliable)
+            if '/shorts/' in link:
+                logger.debug(f"Skipping Short (URL pattern): {title}")
+                is_short = True
+            
+            # Check 2: Title contains #shorts or #short
+            elif '#shorts' in title.lower() or '#short' in title.lower():
+                logger.debug(f"Skipping Short (hashtag in title): {title}")
+                is_short = True
+            
+            # Check 3: Description contains #shorts
+            elif '#shorts' in description.lower():
+                logger.debug(f"Skipping Short (hashtag in description): {title}")
+                is_short = True
+            
+            if not is_short:
                 new_videos.append({
                     'video_id': video_id,
                     'url': entry.get('link', f'https://youtube.com/watch?v={video_id}'),
-                    'title': entry.get('title', 'Unknown'),
+                    'title': title,
                     'published': entry.get('published', ''),
                     'channel': feed.feed.get('title', 'Unknown Channel'),
                     'channel_id': channel_id,
@@ -151,9 +177,16 @@ class ChannelMonitor:
                 
                 # Mark as seen
                 self.seen_videos.add(video_id)
+            else:
+                # Still mark shorts as seen so we don't keep checking them
+                self.seen_videos.add(video_id)
+                shorts_count += 1
         
         if new_videos:
             logger.info(f"Found {len(new_videos)} new videos on {feed.feed.get('title', channel_id)}")
+        
+        if shorts_count > 0:
+            logger.info(f"Filtered out {shorts_count} Shorts (only processing full videos)")
         
         return new_videos
     

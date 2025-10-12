@@ -249,6 +249,12 @@ class VideoIntelligenceRetrieverV2:
                     thumbnail_url=metadata.get('thumbnail')
                 )
             
+            # Filter out Shorts by duration (≤60 seconds)
+            if metadata.duration and metadata.duration <= 60:
+                logger.warning(f"Skipping Short (duration={metadata.duration}s): {metadata.title}")
+                self.on_error("Downloading", f"Video is a Short ({metadata.duration}s)")
+                return None, None, None, None
+            
             return Path(audio_path), metadata, temp_thumbnail, temp_video
             
         except Exception as e:
