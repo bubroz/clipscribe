@@ -34,14 +34,6 @@ def generate_draft_page(
     - Clean, fast interface
     """
     
-    # Create safe download filenames from video title
-    import re
-    safe_title = re.sub(r'[^\w\s-]', '', video_title)[:50]  # Remove special chars, limit length
-    safe_title = re.sub(r'[-\s]+', '_', safe_title).strip('_')  # Spaces to underscores
-    
-    thumbnail_download_name = f"{safe_title}_thumbnail.jpg"
-    video_download_name = f"{safe_title}.mp4"
-    
     html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -365,15 +357,27 @@ class GCSUploader:
         try:
             logger.info(f"Starting GCS upload for draft: {draft_id}")
             
-            # Generate HTML page
+            # Create safe download filenames from video title
+            import re
+            safe_title = re.sub(r'[^\w\s-]', '', video_title)[:50]
+            safe_title = re.sub(r'[-\s]+', '_', safe_title).strip('_')
+            
+            # Generate HTML page with custom download names
             html = generate_draft_page(
                 executive_summary=executive_summary,
                 tweet_styles=tweet_styles,
                 video_title=video_title,
                 video_url=video_url,
                 entities=entities,
-                relationships=relationships
+                relationships=relationships,
+                thumbnail_filename="thumbnail.jpg",
+                video_filename="video.mp4"
             )
+            
+            # Replace download attributes with descriptive names
+            html = html.replace('download="thumbnail.jpg"', f'download="{safe_title}_thumbnail.jpg"')
+            html = html.replace('download="video.mp4"', f'download="{safe_title}.mp4"')
+            
             logger.debug(f"Generated HTML page: {len(html)} chars")
             
             # Upload HTML (with retry)
