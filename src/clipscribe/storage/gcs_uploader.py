@@ -23,7 +23,9 @@ def generate_draft_page(
     entities: list,
     relationships: list,
     thumbnail_filename: str = "thumbnail.jpg",
-    video_filename: str = "video.mp4"
+    video_filename: str = "video.mp4",
+    thumbnail_download_name: str = "thumbnail.jpg",
+    video_download_name: str = "video.mp4"
 ) -> str:
     """
     Generate mobile-optimized HTML page for draft review.
@@ -362,7 +364,10 @@ class GCSUploader:
             safe_title = re.sub(r'[^\w\s-]', '', video_title)[:50]
             safe_title = re.sub(r'[-\s]+', '_', safe_title).strip('_')
             
-            # Generate HTML page with custom download names
+            thumbnail_download_name = f"{safe_title}_thumbnail.jpg"
+            video_download_name = f"{safe_title}.mp4"
+            
+            # Generate HTML page with descriptive download names
             html = generate_draft_page(
                 executive_summary=executive_summary,
                 tweet_styles=tweet_styles,
@@ -371,12 +376,10 @@ class GCSUploader:
                 entities=entities,
                 relationships=relationships,
                 thumbnail_filename="thumbnail.jpg",
-                video_filename="video.mp4"
+                video_filename="video.mp4",
+                thumbnail_download_name=thumbnail_download_name,
+                video_download_name=video_download_name
             )
-            
-            # Replace download attributes with descriptive names
-            html = html.replace('download="thumbnail.jpg"', f'download="{safe_title}_thumbnail.jpg"')
-            html = html.replace('download="video.mp4"', f'download="{safe_title}.mp4"')
             
             logger.debug(f"Generated HTML page: {len(html)} chars")
             
