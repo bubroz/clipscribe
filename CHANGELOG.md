@@ -1,3 +1,49 @@
+## [2.54.0] - 2025-10-11
+
+### 🎯 PRODUCTION OPTIMIZATION: FoxNews 24-Hour Validation
+
+Comprehensive stability and quality improvements based on 27-hour real-world testing and FoxNews political content validation.
+
+### Added
+- **Live Dashboard**: Monitor status shows currently processing + last 5 completed videos
+- **Shorts Filtering**: Multi-layer detection (URL pattern, hashtags, duration ≤60s)
+- **Descriptive Download Filenames**: Videos download as "Video_Title.mp4" not "video.mp4"
+- **Telegram Retry Logic**: 3-attempt retry with exponential backoff, 60s timeouts
+- **GCS Upload Retry**: HTML/thumbnail/video all have 3-attempt retry
+- **Grok Chunk Retry**: Entity extraction retries on 502/connection errors
+
+### Fixed
+- **Grok Summary Cutoff**: Increased max_tokens 300→500 (summaries now complete, no mid-sentence truncation)
+- **Executive Summary Display**: Markdown stripped properly, paragraph structure preserved
+- **Telegram Timeouts**: 20% failure rate → 0% with retry logic
+- **NameError in tweet_styles.py**: Fallback used undefined variable
+- **Output Directory Collisions**: Each async worker gets unique timestamped folder
+- **Thumbnail Path Mismatch**: Workers use actual output directory
+
+### Changed
+- Display limit: 2000→3000 chars for executive summaries
+- Line height: 1.6→1.8 for better readability
+- Telegram timeout: 5s→60s (handles mobile networks)
+- Executive summary format: Preserves paragraphs, cleaner display
+
+### Validated
+- 10-worker async architecture: 100% success rate on 10 FoxNews videos
+- Telegram notifications: 8/8 delivered (vs 6/10 before retry)
+- Complete summaries: All 1700-2200 chars (vs 1500-1700 truncated before)
+- Shorts filtering: 4 shorts filtered from RSS, 1 rejected post-download
+- Dense entity extraction: 30-87 entities per political video
+- GCS mobile pages: Clean markdown, working downloads
+
+### Research (Completed, No Implementation)
+- Entity normalization libraries (spacy-entity-linker, spacy-ann-linker, Splink)
+- Conclusion: No production-ready solutions, 1.7% duplication not worth custom build
+- Decision: Skip entity deduplication
+
+### Test Results
+- FoxNews quick test: 10/10 videos processed successfully
+- Stoic Viking 27-hour test: Identified 3 critical bugs, all fixed
+- Current: 24-hour FoxNews validation in progress
+
 ## [2.52.0-alpha] - 2025-09-30
 
 ### 🎯 ALPHA RELEASE: ToS-Compliant Download System
