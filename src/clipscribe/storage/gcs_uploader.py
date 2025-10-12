@@ -34,6 +34,14 @@ def generate_draft_page(
     - Clean, fast interface
     """
     
+    # Create safe download filenames from video title
+    import re
+    safe_title = re.sub(r'[^\w\s-]', '', video_title)[:50]  # Remove special chars, limit length
+    safe_title = re.sub(r'[-\s]+', '_', safe_title).strip('_')  # Spaces to underscores
+    
+    thumbnail_download_name = f"{safe_title}_thumbnail.jpg"
+    video_download_name = f"{safe_title}.mp4"
+    
     html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -193,7 +201,7 @@ def generate_draft_page(
             <div class="media-item">
                 <h3>🖼️ Thumbnail</h3>
                 <img src="{thumbnail_filename}" alt="Thumbnail" id="thumbnail">
-                <a href="{thumbnail_filename}" download="thumbnail.jpg" class="download-btn">
+                <a href="{thumbnail_filename}" download="{thumbnail_download_name}" class="download-btn">
                     ⬇️ Download
                 </a>
                 <button onclick="shareImage()">📤 Share</button>
@@ -202,7 +210,7 @@ def generate_draft_page(
             <div class="media-item">
                 <h3>🎥 Video</h3>
                 <video src="{video_filename}" controls id="video"></video>
-                <a href="{video_filename}" download="video.mp4" class="download-btn">
+                <a href="{video_filename}" download="{video_download_name}" class="download-btn">
                     ⬇️ Download
                 </a>
                 <button onclick="shareVideo()">📤 Share</button>
@@ -231,12 +239,12 @@ def generate_draft_page(
                     if (includeVideo) {{
                         // Share with video
                         const videoBlob = await fetch('{video_filename}').then(r => r.blob());
-                        const videoFile = new File([videoBlob], 'video.mp4', {{ type: 'video/mp4' }});
+                        const videoFile = new File([videoBlob], '{video_download_name}', {{ type: 'video/mp4' }});
                         shareData.files = [videoFile];
                     }} else {{
                         // Share with thumbnail
                         const thumbBlob = await fetch('{thumbnail_filename}').then(r => r.blob());
-                        const thumbFile = new File([thumbBlob], 'thumbnail.jpg', {{ type: 'image/jpeg' }});
+                        const thumbFile = new File([thumbBlob], '{thumbnail_download_name}', {{ type: 'image/jpeg' }});
                         shareData.files = [thumbFile];
                     }}
                     
@@ -258,7 +266,7 @@ def generate_draft_page(
             try {{
                 const response = await fetch('{thumbnail_filename}');
                 const blob = await response.blob();
-                const file = new File([blob], 'thumbnail.jpg', {{ type: 'image/jpeg' }});
+                const file = new File([blob], '{thumbnail_download_name}', {{ type: 'image/jpeg' }});
                 
                 if (navigator.share) {{
                     await navigator.share({{
