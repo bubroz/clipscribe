@@ -83,14 +83,30 @@ class AsyncMonitorOrchestrator:
                         await self.video_queue.enqueue(video, priority=0)
                         logger.info(f"🆕 Queued: {video['title']}")
                     
-                    # Log status
+                    # Log status with dashboard
                     status = self.get_status()
-                    logger.info(
+                    dashboard = self.worker_pool.get_dashboard_info()
+                    
+                    status_line = (
                         f"📊 Status: queue={status['queue_size']}, "
                         f"processing={status['processing']}, "
                         f"completed={status['completed']}, "
                         f"failed={status['failed']}"
                     )
+                    
+                    # Add currently processing
+                    if dashboard['currently_processing']:
+                        processing_titles = ', '.join(dashboard['currently_processing'][:3])
+                        if len(dashboard['currently_processing']) > 3:
+                            processing_titles += f" +{len(dashboard['currently_processing']) - 3} more"
+                        status_line += f"\n   🎬 Processing: {processing_titles}"
+                    
+                    # Add recent completions
+                    if dashboard['recent_completions']:
+                        recent_titles = ', '.join(list(dashboard['recent_completions'])[-5:])
+                        status_line += f"\n   ✅ Recent (last 5): {recent_titles}"
+                    
+                    logger.info(status_line)
                     
                     # Wait for next check
                     await asyncio.sleep(check_interval)

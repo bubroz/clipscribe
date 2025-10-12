@@ -47,6 +47,11 @@ class VideoWorkerPool:
         # Semaphore to limit concurrency
         self.semaphore = asyncio.Semaphore(max_workers)
         
+        # Track recently completed videos (for dashboard)
+        from collections import deque
+        self.recent_completions = deque(maxlen=20)  # Last 20 videos
+        self.currently_processing = []  # Currently processing titles
+        
         logger.info(f"VideoWorkerPool initialized: {max_workers} workers")
     
     async def start(self, video_queue: AsyncVideoQueue):
@@ -98,6 +103,10 @@ class VideoWorkerPool:
                 
                 logger.info(f"{worker_name} processing: {video_info['title']}")
                 
+                # Track currently processing
+                title_short = video_info['title'][:50]
+                self.currently_processing.append(title_short)
+                
                 # Mark as processing
                 self.video_queue.mark_processing(video_id, task)
                 
@@ -105,8 +114,14 @@ class VideoWorkerPool:
                 async with self.semaphore:
                     result = await self._process_video(worker_name, task)
                     
+                    # Remove from currently processing
+                    if title_short in self.currently_processing:
+                        self.currently_processing.remove(title_short)
+                    
                     if result:
                         self.video_queue.mark_completed(video_id, result)
+                        # Add to recent completions
+                        self.recent_completions.append(title_short)
                         logger.info(f"{worker_name} ✅ Completed: {video_info['title']}")
                     else:
                         self.video_queue.mark_failed(video_id, Exception("Processing failed"))
@@ -164,4 +179,16 @@ class VideoWorkerPool:
         except Exception as e:
             logger.error(f"{worker_name} processing failed: {e}")
             return None
+    
+    def get_dashboard_info(self) -> Dict[str, Any]:
+        """
+        Get current processing status for dashboard display.
+        
+        Returns:
+            Dict with currently_processing and recent_completions
+        """
+        return {
+            'currently_processing': list(self.currently_processing),
+            'recent_completions': list(self.recent_completions)
+        }
 
