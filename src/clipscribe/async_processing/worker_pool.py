@@ -94,7 +94,15 @@ class VideoWorkerPool:
         """
         logger.info(f"{worker_name} started")
         
+        videos_processed = 0
+        max_videos_per_worker = 100  # Restart after 100 videos to prevent memory buildup from yt-dlp
+        
         while self.running:
+            # Check if worker should restart (memory leak prevention)
+            if videos_processed >= max_videos_per_worker:
+                logger.info(f"{worker_name} processed {videos_processed} videos, restarting for memory cleanup...")
+                break  # Worker task ends, will be recreated by pool
+            
             try:
                 # Get next video task from queue
                 task = await self.video_queue.dequeue()
@@ -122,6 +130,7 @@ class VideoWorkerPool:
                         self.video_queue.mark_completed(video_id, result)
                         # Add to recent completions
                         self.recent_completions.append(title_short)
+                        videos_processed += 1  # Track for restart threshold
                         logger.info(f"{worker_name} ✅ Completed: {video_info['title']}")
                     else:
                         self.video_queue.mark_failed(video_id, Exception("Processing failed"))
