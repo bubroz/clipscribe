@@ -9,6 +9,7 @@ import logging
 import os
 from typing import Optional
 from telegram import Bot, InlineKeyboardButton, InlineKeyboardMarkup
+from telegram.error import TimedOut, NetworkError, RetryAfter
 import asyncio
 
 logger = logging.getLogger(__name__)
@@ -51,6 +52,9 @@ class TelegramNotifier:
         """
         Send notification when X draft is ready.
         
+        Implements 3-attempt retry with exponential backoff for reliability.
+        Handles transient network errors, timeouts, and rate limits.
+        
         Args:
             title: Video title
             entity_count: Number of entities extracted
@@ -62,9 +66,8 @@ class TelegramNotifier:
             logger.debug("Telegram notifications disabled, skipping")
             return
         
-        try:
-            # Format message
-            message = f"""🎬 New X draft ready
+        # Format message once
+        message = f"""🎬 New X draft ready
 
 {title}
 
@@ -74,24 +77,54 @@ class TelegramNotifier:
 • {char_count} character tweet
 
 Tap below to review:"""
-            
-            # Create inline button
-            keyboard = [[
-                InlineKeyboardButton("📱 Review Draft", url=draft_url)
-            ]]
-            reply_markup = InlineKeyboardMarkup(keyboard)
-            
-            # Send message
-            await self.bot.send_message(
-                chat_id=self.chat_id,
-                text=message,
-                reply_markup=reply_markup
-            )
-            
-            logger.info(f"Sent Telegram notification for: {title}")
-            
-        except Exception as e:
-            logger.error(f"Failed to send Telegram notification: {e}")
+        
+        # Create inline button
+        keyboard = [[
+            InlineKeyboardButton("📱 Review Draft", url=draft_url)
+        ]]
+        reply_markup = InlineKeyboardMarkup(keyboard)
+        
+        # Retry with exponential backoff
+        for attempt in range(3):
+            try:
+                await self.bot.send_message(
+                    chat_id=self.chat_id,
+                    text=message,
+                    reply_markup=reply_markup,
+                    read_timeout=60,     # Increased from default 5s
+                    write_timeout=60,    # Increased from default 5s
+                    connect_timeout=30,  # Increased from default 5s
+                    pool_timeout=30      # Connection pool timeout
+                )
+                
+                logger.info(f"Sent Telegram notification for: {title}")
+                return  # Success - exit
+                
+            except (TimedOut, NetworkError) as e:
+                # Transient network errors - retry
+                wait_time = 2 ** attempt  # 1s, 2s, 4s
+                logger.warning(f"Telegram attempt {attempt + 1}/3 failed: {e}")
+                
+                if attempt < 2:  # Don't sleep on final attempt
+                    logger.info(f"Retrying in {wait_time}s...")
+                    await asyncio.sleep(wait_time)
+                else:
+                    logger.error(f"Telegram notification failed after 3 attempts: {e}")
+                    
+            except RetryAfter as e:
+                # Rate limit hit - respect the retry_after value
+                wait_time = e.retry_after if hasattr(e, 'retry_after') else 30
+                logger.warning(f"Telegram rate limited, waiting {wait_time}s")
+                
+                if attempt < 2:
+                    await asyncio.sleep(wait_time)
+                else:
+                    logger.error(f"Rate limited after 3 attempts")
+                    
+            except Exception as e:
+                # Permanent error (bad request, forbidden, etc.) - don't retry
+                logger.error(f"Telegram notification permanent error: {e}")
+                break  # Exit retry loop on permanent errors
     
     async def notify_processing_started(self, title: str):
         """Quick notification when processing starts."""

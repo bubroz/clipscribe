@@ -9,6 +9,7 @@ import logging
 from pathlib import Path
 from typing import Dict, Optional
 from google.cloud import storage
+from ..utils.text_utils import clean_for_display
 from datetime import timedelta
 
 logger = logging.getLogger(__name__)
@@ -131,8 +132,8 @@ def generate_draft_page(
         
         <div class="tweet-box">
             <h3>Executive Summary</h3>
-            <div style="line-height: 1.6; margin-bottom: 20px;">
-                {executive_summary[:1000].replace('###', '').replace('**', '').replace('####', '')}
+            <div style="line-height: 1.6; margin-bottom: 20px; white-space: pre-wrap;">
+                {clean_for_display(executive_summary, max_length=2000)}
             </div>
         </div>
         
