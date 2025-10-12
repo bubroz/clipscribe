@@ -202,17 +202,29 @@ class VideoIntelligenceRetrieverV2:
             
             return None
     
-    async def _download_video(self, video_url: str) -> tuple[Optional[Path], Optional[VideoMetadata], Optional[Path]]:
-        """Download video and extract metadata. Returns (audio_path, metadata, thumbnail_path)."""
+    async def _download_video(self, video_url: str) -> tuple[Optional[Path], Optional[VideoMetadata], Optional[Path], Optional[Path]]:
+        """Download video and extract metadata. Returns (audio_path, metadata, thumbnail_path, video_path)."""
         try:
             # Check if URL is supported
             if not self.video_client.is_supported_url(video_url):
                 logger.error(f"URL not supported: {video_url}")
                 self.on_error("Downloading", "URL not supported")
-                return None, None, None
+                return None, None, None, None
             
             # Download audio (for transcription)
-            audio_path, metadata = await self.video_client.download_audio(video_url)
+            try:
+                audio_path, metadata = await self.video_client.download_audio(video_url)
+            except Exception as download_error:
+                # Check if it's a premiere/upcoming video
+                error_msg = str(download_error)
+                if 'Premieres in' in error_msg or 'live event will begin in' in error_msg:
+                    logger.warning(f"Video is upcoming premiere/livestream: {video_url}")
+                    logger.info("Will be available after premiere - skipping for now")
+                    self.on_error("Downloading", "Video not yet available (premiere/livestream)")
+                    return None, None, None, None
+                else:
+                    # Real download error - re-raise
+                    raise
             
             # Find thumbnail and video file in temp
             temp_dir = Path(audio_path).parent
