@@ -710,7 +710,7 @@ Length: 100-200 words
                         {"role": "user", "content": prompt}
                     ],
                     "temperature": 0.3,
-                    "max_tokens": 300
+                    "max_tokens": 500  # Increased from 300 - was cutting off summaries mid-sentence
                 }
                 
                 response = await client.post(
