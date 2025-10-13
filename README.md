@@ -10,14 +10,14 @@ Video intelligence for government monitoring. Built for tracking political conte
 
 ## What It Does
 
-Extracts intelligence from government videos. Transcribes speeches, identifies entities (politicians, agencies), maps relationships, generates structured reports.
+Extracts intelligence from videos. Transcribes, identifies entities, maps relationships, and generates structured reports.
 
 **Primary output**: Intelligence records (JSON, transcripts, knowledge graphs)  
 **Optional feature**: X/Twitter draft generation (one use case among many)
 
-**Real workflow**: Monitor government channels → Process new videos → Get intelligence files → Use however you want (X posts, research, archiving, etc.)
+**Real workflow**: Monitor channels → Process new videos → Get intelligence files → Use however you want (X posts, research, archiving, etc.)
 
-Built for real-time political intelligence collection, not academic research.
+Built for real-time intelligence collection.
 
 ---
 
