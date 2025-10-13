@@ -1,24 +1,24 @@
 # ClipScribe
 
-Extract intelligence from political videos. Transcribe speeches, identify who said what, map the connections.
+Extract intelligence from videos. Transcribe, identify entities, map relationships.
 
-**v2.54.0** - Personal alpha, actively used for government monitoring  
-**Stack**: Voxtral + Grok-4 (uncensored throughout)
+**v2.54.0** - Personal alpha, actively used  
+**Stack**: Voxtral + Grok-4 (uncensored)
 
 ---
 
 ## What This Does
 
-Takes a government video (press briefing, hearing, speech), pulls out:
+Takes a video, pulls out:
 - Complete transcript
-- Every entity mentioned (politicians, agencies, policies)
+- Every entity mentioned (people, organizations, topics)
 - Who said what about whom (with direct quotes)
 - Executive summary
 - Knowledge graph
 
 Saves it all as JSON + readable reports. Optionally generates X post drafts if you want to share it.
 
-Built because I needed to monitor government videos for my X account. Turns out pulling entities and relationships is useful for a lot more than just tweets.
+Built for monitoring video content. Turns out structured intelligence extraction is useful for more than just social media.
 
 ## Quick Start
 
@@ -66,7 +66,7 @@ The intelligence files are the valuable part. X stuff is optional.
 - YouTube monitoring via RSS
 - 10 concurrent workers (processes 10 videos at once)
 - Shorts automatically filtered
-- Dense entity extraction (30-87 per political video)
+- Dense entity extraction (30-87 per video)
 - Telegram notifications (100% delivery with retry)
 - Complete summaries (no cutoffs)
 - 3 tweet styles that actually sound different
@@ -92,9 +92,9 @@ Cost averages $0.03-0.06 per video depending on length and entity density.
 
 ## Status
 
-Personal alpha. One user. Built it for my government video → X workflow, now using it daily.
+Personal alpha. One user. Built for video monitoring workflow, using daily.
 
-Validated on FoxNews content. Works reliably. Has some rough edges (memory leak workaround, Grok flakiness) but functional.
+Validated on news content. Works reliably. Has some rough edges (memory leak workaround, Grok flakiness) but functional.
 
 Not taking other users. Might never be a product. Might stay a personal tool. We'll see.
 
