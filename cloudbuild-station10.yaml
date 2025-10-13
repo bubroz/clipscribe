@@ -1,11 +1,11 @@
 steps:
   # Build Docker image
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-f', 'Dockerfile.station10', '-t', 'gcr.io/$PROJECT_ID/station10-bot:$SHORT_SHA', '.']
+    args: ['build', '-f', 'Dockerfile.station10', '-t', 'gcr.io/$PROJECT_ID/station10-bot:latest', '.']
   
   # Push to Container Registry
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'gcr.io/$PROJECT_ID/station10-bot:$SHORT_SHA']
+    args: ['push', 'gcr.io/$PROJECT_ID/station10-bot:latest']
   
   # Deploy to Cloud Run
   - name: 'gcr.io/cloud-builders/gcloud'
@@ -13,7 +13,7 @@ steps:
       - 'run'
       - 'deploy'
       - 'station10-bot'
-      - '--image=gcr.io/$PROJECT_ID/station10-bot:$SHORT_SHA'
+      - '--image=gcr.io/$PROJECT_ID/station10-bot:latest'
       - '--region=us-central1'
       - '--platform=managed'
       - '--allow-unauthenticated'
