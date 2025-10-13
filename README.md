@@ -10,11 +10,14 @@ Video intelligence for government monitoring. Built for tracking political conte
 
 ## What It Does
 
-Monitors YouTube channels for new videos, transcribes them, extracts entities and relationships, then generates X/Twitter drafts. Built specifically for government video analysis.
+Extracts intelligence from government videos. Transcribes speeches, identifies entities (politicians, agencies), maps relationships, generates structured reports.
 
-**Real use case**: Monitor FoxNews/C-SPAN/local government → Get Telegram notification → Review mobile page → Post to X.
+**Primary output**: Intelligence records (JSON, transcripts, knowledge graphs)  
+**Optional feature**: X/Twitter draft generation (one use case among many)
 
-**Not a research tool**. Not for academics. Built for real-time political intelligence and social media content.
+**Real workflow**: Monitor government channels → Process new videos → Get intelligence files → Use however you want (X posts, research, archiving, etc.)
+
+Built for real-time political intelligence collection, not academic research.
 
 ---
 
@@ -43,18 +46,23 @@ poetry run clipscribe monitor-async --channels UCxxx --interval 300 --workers 10
 
 ## What You Get
 
-For each video:
-- Full transcript (Voxtral - uncensored)
-- Entities extracted (politicians, agencies, policies)
-- Relationships mapped (who said what about whom)
-- Executive summary (wire service style)
-- 3 tweet drafts (Analyst, Alarm, Educator styles)
-- Mobile page for review (GCS hosted)
-- Telegram notification when ready
+**Intelligence files** (always):
+- `core.json` - All entities, relationships, full summary
+- `transcript.txt` - Complete transcript
+- `knowledge_graph.json` - Entity/relationship graph
+- `report.md` - Formatted intelligence report
+- `metadata.json` - Video metadata
+
+**Optional** (with `--with-x-draft`):
+- `x_draft/` - 3 tweet styles + thumbnail
+- Mobile GCS page for review
+- Telegram notification
+
+**The core value is the intelligence extraction.** X drafts are just one way to use it.
 
 **Cost**: $0.03-0.06 per video  
 **Time**: 3-5 minutes per video  
-**Quality**: Dense extraction (30-87 entities per political video)
+**Quality**: 30-87 entities per political video
 
 ---
 
