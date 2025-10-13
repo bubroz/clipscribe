@@ -134,7 +134,13 @@ def generate_draft_page(
         
         <div class="tweet-box">
             <h3>Executive Summary</h3>
-            <div style="line-height: 1.8; margin-bottom: 20px; white-space: pre-wrap;">
+            <div id="summary-preview" style="line-height: 1.8; margin-bottom: 12px; white-space: pre-wrap;">
+                {clean_for_display(executive_summary, max_length=500)}...
+            </div>
+            <button onclick="toggleSummary()" id="summary-toggle" style="background: #2f3336; color: #1d9bf0; border: 1px solid #1d9bf0; border-radius: 16px; padding: 8px 16px; font-size: 14px; cursor: pointer; width: auto;">
+                Read Full Summary ↓
+            </button>
+            <div id="summary-full" style="display: none; line-height: 1.8; margin-top: 12px; white-space: pre-wrap;">
                 {clean_for_display(executive_summary, max_length=3000)}
             </div>
         </div>
@@ -291,6 +297,24 @@ def generate_draft_page(
                 console.error('Share failed:', err);
                 // Force download
                 window.location.href = '{video_filename}';
+            }}
+        }}
+        
+        function toggleSummary() {{
+            const preview = document.getElementById('summary-preview');
+            const full = document.getElementById('summary-full');
+            const button = document.getElementById('summary-toggle');
+            
+            if (full.style.display === 'none') {{
+                // Expand
+                preview.style.display = 'none';
+                full.style.display = 'block';
+                button.textContent = 'Show Less ↑';
+            }} else {{
+                // Collapse
+                preview.style.display = 'block';
+                full.style.display = 'none';
+                button.textContent = 'Read Full Summary ↓';
             }}
         }}
     </script>
