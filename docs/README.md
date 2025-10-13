@@ -1,23 +1,21 @@
 # ClipScribe Documentation
 
-*Last Updated: 2025-09-30*
+**Last Updated**: October 12, 2025
 
-This directory contains all user and technical documentation for ClipScribe v2.51.1 (Private Alpha).
+## Essential Documentation
 
-## ✨ What's New in v2.51.1
+- [Quick Reference](QUICK_REFERENCE.md) - Common commands
+- [CLI Reference](CLI_REFERENCE.md) - Complete command reference (needs update)
+- [Async Monitor Architecture](ASYNC_MONITOR_ARCHITECTURE.md) - 10-worker system
 
-**Bot Detection Solved!** ClipScribe now includes automatic curl-cffi browser impersonation that provides 100% download success across all platforms. No more "Requested format is not available" errors!
+## Archived Documentation
 
-## Key Documents
+See `archive/` directory for historical documentation.
 
-- **[Getting Started](GETTING_STARTED.md)**: Your first stop for installation and basic usage.
-- **[CLI Reference](CLI_REFERENCE.md)**: A complete guide to all command-line options.
-- **[Deployment Guide](advanced/deployment/DEPLOYMENT_GUIDE.md)**: Instructions for deploying to production on Google Cloud Run.
-- **[API Quickstart](API_QUICKSTART.md)**: How to use the deployed API.
-- **[Troubleshooting](TROUBLESHOOTING.md)**: Solutions to common problems.
+## Up-to-Date Status
 
-## Technical Documentation
+For current project status, see:
+- [`../STATUS.md`](../STATUS.md) - Current state and validation results
+- [`../README.md`](../README.md) - Main project README
+- [`../CHANGELOG.md`](../CHANGELOG.md) - Version history
 
-- **[Architecture](architecture/ARCHITECTURE_DIAGRAM.md)**: An overview of the system architecture.
-- **[Extraction Technology](EXTRACTION_TECHNOLOGY.md)**: A deep dive into the models and methods used for intelligence extraction.
-- **[Cost Analysis](COST_ANALYSIS.md)**: A breakdown of the costs associated with running ClipScribe.

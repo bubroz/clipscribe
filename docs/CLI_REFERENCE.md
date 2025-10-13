@@ -1,6 +1,6 @@
 # ClipScribe CLI Reference
 
-*Last Updated: 2025-09-30 - v2.51.1*
+*Last Updated: 2025-10-12 - v2.54.0*
 
 Complete reference for all ClipScribe commands, groups, and options.
 
