@@ -11,15 +11,15 @@ RUN apt-get update && apt-get install -y \
 # Install Poetry
 RUN pip install poetry
 
-# Copy dependency files
-COPY pyproject.toml poetry.lock ./
+# Copy all files first
+COPY . .
 
 # Install Python dependencies
 RUN poetry config virtualenvs.create false \
-    && poetry install --no-interaction --no-ansi
+    && poetry install --no-interaction --no-ansi --no-root
 
-# Copy application
-COPY . .
+# Install the project
+RUN poetry install --no-interaction --no-ansi --only-root
 
 # Run Station10 bot
 CMD ["python", "-m", "src.clipscribe.bot.station10_bot"]
