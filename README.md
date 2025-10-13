@@ -1,151 +1,102 @@
 # ClipScribe
 
-Video intelligence for government monitoring. Built for tracking political content and generating X posts.
+Extract intelligence from political videos. Transcribe speeches, identify who said what, map the connections.
 
-**Version**: 2.54.0 (Oct 2025)  
-**Status**: Personal alpha - in active use  
-**Stack**: Voxtral transcription + Grok-4 intelligence extraction
-
----
-
-## What It Does
-
-Extracts intelligence from videos. Transcribes, identifies entities, maps relationships, and generates structured reports.
-
-**Primary output**: Intelligence records (JSON, transcripts, knowledge graphs)  
-**Optional feature**: X/Twitter draft generation (one use case among many)
-
-**Real workflow**: Monitor channels → Process new videos → Get intelligence files → Use however you want (X posts, research, archiving, etc.)
-
-Built for real-time intelligence collection.
+**v2.54.0** - Personal alpha, actively used for government monitoring  
+**Stack**: Voxtral + Grok-4 (uncensored throughout)
 
 ---
+
+## What This Does
+
+Takes a government video (press briefing, hearing, speech), pulls out:
+- Complete transcript
+- Every entity mentioned (politicians, agencies, policies)
+- Who said what about whom (with direct quotes)
+- Executive summary
+- Knowledge graph
+
+Saves it all as JSON + readable reports. Optionally generates X post drafts if you want to share it.
+
+Built because I needed to monitor government videos for my X account. Turns out pulling entities and relationships is useful for a lot more than just tweets.
 
 ## Quick Start
 
 ```bash
-# Install
 git clone https://github.com/bubroz/clipscribe.git
 cd clipscribe
 poetry install
 
-# Set up API keys in .env
+# Add to .env:
 VOXTRAL_API_KEY=your_key
 XAI_API_KEY=your_key
-TELEGRAM_BOT_TOKEN=your_token
-TELEGRAM_CHAT_ID=your_id
+```
 
-# Process one video
+Process a video:
+```bash
 poetry run clipscribe process video "https://youtube.com/watch?v=..."
+```
 
-# Monitor a channel (10 workers, checks every 5 min)
+Monitor a channel:
+```bash
 poetry run clipscribe monitor-async --channels UCxxx --interval 300 --workers 10
 ```
 
----
+That's it. Everything else is in `docs/CLI_REFERENCE.md`.
 
-## What You Get
+## Output Files
 
-**Intelligence files** (always):
-- `core.json` - All entities, relationships, full summary
-- `transcript.txt` - Complete transcript
-- `knowledge_graph.json` - Entity/relationship graph
-- `report.md` - Formatted intelligence report
-- `metadata.json` - Video metadata
+Each video generates:
+- `core.json` - Entities, relationships, complete summary
+- `transcript.txt` - Full transcript
+- `knowledge_graph.json` - Graph data
+- `report.md` - Readable intelligence report
+- `metadata.json` - Video info
 
-**Optional** (with `--with-x-draft`):
-- `x_draft/` - 3 tweet styles + thumbnail
-- Mobile GCS page for review
+Run with `--with-x-draft` to also get:
+- `x_draft/` folder with 3 tweet styles
+- Mobile preview page (GCS)
 - Telegram notification
 
-**The core value is the intelligence extraction.** X drafts are just one way to use it.
+The intelligence files are the valuable part. X stuff is optional.
 
-**Cost**: $0.03-0.06 per video  
-**Time**: 3-5 minutes per video  
-**Quality**: 30-87 entities per political video
+## Current State
 
----
+**What works** (tested Oct 2025):
+- YouTube monitoring via RSS
+- 10 concurrent workers (processes 10 videos at once)
+- Shorts automatically filtered
+- Dense entity extraction (30-87 per political video)
+- Telegram notifications (100% delivery with retry)
+- Complete summaries (no cutoffs)
+- 3 tweet styles that actually sound different
 
-## Current Capabilities (Tested Oct 2025)
+**What doesn't**:
+- Only YouTube (no direct scrapers for senate.gov, granicus, etc)
+- Entity deduplication is basic (Biden vs Joe Biden = separate entities)
+- Grok API flakes out sometimes (~10% of chunks fail, retries fix most)
+- Memory leak workaround (workers restart every 100 videos to prevent crash)
 
-**What actually works**:
-- YouTube RSS monitoring (auto-detects new uploads)
-- Shorts filtering (skips <60 second videos)
-- 10-worker async processing (10 videos at once)
-- Telegram notifications with retry (100% delivery)
-- GCS mobile pages with collapsible summaries
-- Complete transcription (no censorship)
-- Dense entity extraction (government-focused)
-- 3 tweet style generation
-- Worker auto-restart (prevents memory corruption after 100 videos)
+**Test results**: FoxNews monitoring ran 8 videos, 8/8 successful, no crashes. It works.
 
-**What doesn't work**:
-- Only YouTube (no direct government site scrapers yet)
-- No entity canonicalization (Biden vs Joe Biden = separate)
-- Grok API occasionally flaky (~10% chunk failures, retries work)
+## Tech Details
 
----
+- **Transcription**: Voxtral-mini-2507 (Mistral API, $0.002/min, uncensored)
+- **Extraction**: Grok-4 (xAI, uncensored, good at entities)
+- **Architecture**: Python 3.12 asyncio, 10-worker pool
+- **Downloads**: yt-dlp with curl-cffi impersonation
+- **Storage**: GCS for mobile pages (optional)
+- **Notifications**: Telegram (optional)
 
-## Tech Stack
-
-- **Transcription**: Voxtral-mini-2507 (Mistral, uncensored)
-- **Intelligence**: Grok-4 (xAI, uncensored)
-- **Infrastructure**: Python 3.12, asyncio, 10-worker pool
-- **Storage**: Google Cloud Storage (72hr retention)
-- **Notifications**: Telegram Bot API
-- **Downloads**: yt-dlp with browser impersonation
-
----
-
-## Files
-
-Each video creates:
-- `core.json` - Entities, relationships, full summary
-- `transcript.txt` - Complete transcript
-- `knowledge_graph.json` - Graph data
-- `report.md` - Formatted intelligence report  
-- `x_draft/` - Tweet options and thumbnail
-
----
-
-## Use Case
-
-You're monitoring government videos. A new video drops. ClipScribe:
-1. Downloads and transcribes it (Voxtral)
-2. Extracts entities and relationships (Grok)
-3. Generates 3 tweet style options
-4. Uploads to GCS with mobile-optimized page
-5. Sends you Telegram notification
-
-You tap the notification, see the summary and tweets, pick one, post it. Takes 30 seconds.
-
-That's it. Built for speed and government content.
-
----
-
-## Installation
-
-Requires:
-- Python 3.12
-- Poetry
-- API keys (Voxtral, xAI, optional Telegram)
-- Google Cloud credentials (for GCS uploads)
-
-See `docs/CLI_REFERENCE.md` for command details.
-
----
+Cost averages $0.03-0.06 per video depending on length and entity density.
 
 ## Status
 
-**Currently**: Personal alpha. One user (me). Monitoring government channels for X content.
+Personal alpha. One user. Built it for my government video → X workflow, now using it daily.
 
-**Tested**: FoxNews monitoring - 8/8 videos processed successfully, no crashes, all features working.
+Validated on FoxNews content. Works reliably. Has some rough edges (memory leak workaround, Grok flakiness) but functional.
 
-**Not production** yet. Memory corruption workaround in place (workers restart every 100 videos). Grok API flaky. But it works.
-
-**Future**: Maybe SaaS for political commentators. Maybe not. Depends on if this workflow actually works long-term.
-
----
+Not taking other users. Might never be a product. Might stay a personal tool. We'll see.
 
 ## Contact
 
@@ -153,8 +104,6 @@ Zac Forristall
 zforristall@gmail.com  
 Amateur
 
-Private repo. Not taking users yet.
-
 ---
 
-**Last Updated**: October 12, 2025
+**Last updated**: October 12, 2025
