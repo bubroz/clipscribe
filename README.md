@@ -143,7 +143,7 @@ See `docs/CLI_REFERENCE.md` for command details.
 
 Zac Forristall  
 zforristall@gmail.com  
-Former NSA analyst, current clipscribe builder
+Amateur
 
 Private repo. Not taking users yet.
 
