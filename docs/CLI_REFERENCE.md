@@ -2,194 +2,103 @@
 
 *Last Updated: 2025-10-12 - v2.54.0*
 
-Complete reference for all ClipScribe commands, groups, and options.
-
-**Current Status**: Enterprise-ready CLI with 99% coverage and comprehensive validation. The system is in private alpha testing - not yet available for public use.
-
-## Installation Options
+## Quick Start
 
 ```bash
-# Core installation
-poetry install
+# Process single video
+clipscribe process video "https://youtube.com/watch?v=..."
 
-# For development, including all optional dependencies
-poetry install --extras all --with dev
+# Monitor channel (async, 10 workers)
+clipscribe monitor-async --channels UCxxx --interval 300 --workers 10
+
+# Check stats
+clipscribe stats
 ```
 
-##  Key Features
+## Core Commands
 
-- **Bot Detection Solved**: curl-cffi browser impersonation provides 100% download success rate (v2.51.1).
-- **Zero Configuration**: TLS/JA3/HTTP2 fingerprinting works automatically for all platforms.
-- **Integrated Pipeline**: VideoIntelligenceRetrieverV2 with HybridProcessor (Voxtral + Grok-4).
-- **Consolidated Outputs**: 5 core files with Pydantic validation (reduced from 14+).
-- **Output Validation**: Automatic detection and fixing of quality issues.
-- **Uncensored Intelligence**: Voxtral transcription + Grok-4 extraction bypasses all safety filters.
-- **Cost Optimized**: ~$0.02-0.04 per video with superior quality.
-- **1800+ Platforms**: Supports YouTube, Twitter, TikTok, Vimeo, and more.
-- **Enterprise Test Coverage**: 400+ unit tests passing with 83-99% coverage on critical infrastructure modules.
-
-## Global Options
-
-These options work with all commands:
+### `process video`
+Process a single video with full intelligence extraction.
 
 ```bash
-clipscribe [GLOBAL OPTIONS] COMMAND [ARGS]...
+clipscribe process video <URL> [OPTIONS]
+
+Options:
+  --output-dir PATH      Output directory
+  --with-x-draft        Generate X/Twitter content draft
+  --force               Reprocess even if already done
 ```
 
-| Option      | Description                               |
-|-------------|-------------------------------------------|
-| `--version` | Show ClipScribe version and exit.         |
-| `--help`    | Show help message and exit.               |
-| `--debug`   | Enable debug logging for detailed output. |
-
-## Command Groups
-
-### `process` - Process Single Media Files
-
-Commands for processing a single video or media file.
-
-#### `process video`
-
-Process a single video from a URL to extract intelligence.
+### `monitor-async`
+Monitor YouTube channels with 10-worker async architecture.
 
 ```bash
-clipscribe process video [OPTIONS] URL
+clipscribe monitor-async --channels <CHANNEL_IDS> [OPTIONS]
+
+Options:
+  --channels TEXT       Comma-separated channel IDs (required)
+  --interval INTEGER    Check interval in seconds (default: 60)
+  --workers INTEGER     Concurrent workers (default: 10)
+  --output-dir PATH     Output directory
 ```
 
-**Arguments:**
+**Features**:
+- Concurrent processing (10 videos at once)
+- Auto-detect new uploads via RSS
+- Shorts filtering (multi-layer)
+- Telegram notifications
+- GCS mobile pages
+- Crash-resistant (worker restart after 100 videos)
 
-- `URL` (required) - The URL of the video to process.
-
-**Options:**
-
-*All options from the previous command set are available here, including `--output-dir`, `--mode`, `--use-flash`, etc.*
-
-- `--cookies-from-browser BROWSER`: Use cookies from a specified browser (e.g., chrome, firefox) to access restricted content.
-
-**Example:**
+### `stats`
+Show processing statistics and recent videos.
 
 ```bash
-# Process a video with default (high-quality) settings
-poetry run clipscribe process video "https://www.youtube.com/watch?v=VIDEO_ID"
-
-# Process with faster, standard quality
-poetry run clipscribe process video "https://www.youtube.com/watch?v=VIDEO_ID" --use-flash
+clipscribe stats
 ```
 
----
-
-### `collection` - Analyze Video Collections
-
-Commands for processing multiple videos as a unified collection.
-
-#### `collection series`
-
-Process multiple related videos as a series with narrative flow analysis.
+### `batch-process`
+Process multiple videos with comprehensive analysis.
 
 ```bash
-clipscribe collection series [OPTIONS] URLS...
+clipscribe batch-process --urls urls.txt
 ```
 
-**Arguments:**
+## Output Files
 
-- `URLS...` (required) - A list of video URLs in series order.
+Each processed video creates:
+- `core.json` - Entities, relationships, summary
+- `knowledge_graph.json` - Graph data
+- `transcript.txt` - Full transcript
+- `report.md` - Formatted report
+- `metadata.json` - Video metadata
+- `x_draft/` - X/Twitter content (if `--with-x-draft`)
 
-**Options:**
-
-*Includes `--output-dir`, `--series-title`, `--use-flash`, etc.*
-
-**Example:**
+## Environment Variables
 
 ```bash
-# Process a two-part documentary series
-poetry run clipscribe collection series "URL_PART_1" "URL_PART_2"
+# Required for X content generation
+XAI_API_KEY=your_xai_api_key
+
+# Required for transcription
+VOXTRAL_API_KEY=your_voxtral_key
+
+# Optional: Telegram notifications
+TELEGRAM_BOT_TOKEN=your_bot_token
+TELEGRAM_CHAT_ID=your_chat_id
+
+# Optional: GCS uploads
+GOOGLE_APPLICATION_CREDENTIALS=/path/to/service-account.json
 ```
 
-#### `collection custom`
+## Current Stack (v2.54.0)
 
-Process a custom collection of videos from various sources.
+- **Transcription**: Voxtral (uncensored, $0.002/min)
+- **Intelligence**: Grok-4 (uncensored, dense extraction)
+- **Tweet Generation**: 3 styles (Analyst, Alarm, Educator)
+- **Architecture**: 10-worker async (processes 10 videos concurrently)
+- **Reliability**: Comprehensive retry logic (Telegram, GCS, Grok)
 
-```bash
-clipscribe collection custom [OPTIONS] COLLECTION_NAME URLS...
-```
+## Support
 
-**Arguments:**
-
-- `COLLECTION_NAME` (required) - A name for your custom collection.
-- `URLS...` (required) - A list of video or playlist URLs.
-
-**Options:**
-
-*Includes `--output-dir`, `--collection-type`, `--limit`, `--use-flash`, etc.*
-
-- `--core-only`: Unify only entities that appear in more than one video (Core Theme Analysis).
-- `--cookies-from-browser BROWSER`: Use cookies from a specified browser to access restricted content.
-
-**Example:**
-
-```bash
-# Analyze three videos about a specific topic
-poetry run clipscribe collection custom "Market Research Q3" "URL1" "URL2" "URL3"
-```
-
----
-
-### `research` - Research by Topic
-
-Search for and analyze multiple videos on a given topic.
-
-```bash
-clipscribe research [OPTIONS] QUERY
-```
-
-**Arguments:**
-
-- `QUERY` (required) - The search term or a YouTube channel URL.
-
-**Options:**
-
-*Includes `--max-results`, `--period`, `--sort-by`, etc.*
-
-**Example:**
-
-```bash
-# Research the latest 5 videos on a topic
-poetry run clipscribe research "AI in biotechnology" --max-results 5
-```
-
----
-
-### `utils` - Utility Commands
-
-Commands for project maintenance and utilities.
-
-#### `utils clean-demo`
-
-Clean up old demo and test collection folders.
-
-```bash
-clipscribe utils clean-demo [OPTIONS]
-```
-
-**Options:**
-
-*Includes `--demo-dir`, `--dry-run`, `--keep-recent`.*
-
-**Example:**
-
-```bash
-# See what would be deleted without actually deleting it
-poetry run clipscribe utils clean-demo --dry-run
-```
-
-#### `utils check-auth`
-
-Verify your API key or Vertex AI authentication.
-
-```bash
-clipscribe utils check-auth
-```
-
-## Web Interface
-
-A static web interface is available for interacting with the deployed API. See the [Deployment Guide](advanced/deployment/DEPLOYMENT_GUIDE.md) for details.
+See [STATUS.md](../STATUS.md) for current capabilities and known issues.
