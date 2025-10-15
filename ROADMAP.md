@@ -1,328 +1,428 @@
-# ClipScribe Roadmap - Canonical Version
+# ClipScribe → Station10.media SaaS Product Roadmap
 
 **Last Updated**: October 15, 2025  
-**Current Version**: v2.54.1  
-**Status**: Private alpha, actively used
+**Current Version**: v2.54.2  
+**Product**: Hosted video intelligence SaaS  
+**Target Launch**: February 10, 2026 (16 weeks)
 
 ---
 
 ## Vision Statement
 
-**ClipScribe extracts objective intelligence from video content through transcription, entity identification, and relationship mapping.**
+**Station10.media: Turn any video into structured intelligence in minutes.**
 
-Built for journalists, researchers, and intelligence analysts who need to process video content at scale with zero censorship and professional-grade accuracy.
+Extract speakers, entities, relationships, and auto-generated clips from any video. Built for journalists, researchers, and intelligence analysts who need professional-grade accuracy without censorship.
 
----
-
-## Core Principles
-
-1. **Uncensored Intelligence**: No content filtering or safety blocks
-2. **Cost-First Design**: Optimize for $0.03-0.05 per video
-3. **Batch-Ready**: Process 10-100 videos efficiently
-4. **Export Flexibility**: Multiple formats for different workflows
-5. **Professional Quality**: 95%+ accuracy on transcription
+**Differentiation:**
+- Auto-clip generation with AI recommendations
+- Speaker identification (who said what)
+- Uncensored processing (medical, legal, controversial)
+- Multi-tier accuracy (standard vs premium)
+- $0.50-1.50/video (vs competitors at $2-5/video)
 
 ---
 
-## Current State (v2.54.1)
+## Core Product Strategy
 
-### ✅ What Works
-- **Voxtral + Grok-4 Pipeline**: Uncensored transcription and extraction
-- **1800+ Platform Support**: YouTube, Twitter, TikTok, Vimeo, etc.
-- **Entity Extraction**: Dense extraction with confidence scores and evidence quotes
-- **Knowledge Graphs**: Relationship mapping with timestamps
-- **Multiple Output Formats**: JSON, CSV, Markdown, GEXF
-- **Cost Efficiency**: $0.03/video average
+### Dual-Mode Architecture (SaaS Economics)
 
-### 🔧 Recent Additions
-- SQLite database for searchable entity archive
-- Enhanced error handling and categorization
-- Database reprocessing support
-- Hybrid processor as default pipeline
+#### Standard Tier ($0.75/video)
+```
+Cost: $0.05/video
+Margin: $0.70 (93%)
 
-### ⚠️ Known Limitations
-- YouTube URLs blocked from datacenter IPs (VPS)
-- No web interface yet (CLI only)
-- No batch processing (one video at a time)
-- Manual workflow for multiple videos
+Pipeline:
+- Voxtral transcription (95% accurate, fast, cheap)
+- pyannote speaker diarization (identifies speakers)
+- Grok speaker identification (context-based naming)
+- Grok entity extraction (with speaker attribution)
+- Grok clip recommendations (3 objectives)
+- ffmpeg auto-clip generation
 
----
-
-## Phase 1: Production Readiness (NOW - Nov 2025)
-
-**Goal**: Make ClipScribe production-ready for daily journalism use
-
-### 1.1 Batch Processing (Priority #1)
-**Timeline**: 2 weeks  
-**Impact**: Process 10-50 videos in one command
-
-**Features**:
-```bash
-# Batch from file
-clipscribe batch urls.txt --output-dir results/
-
-# Batch from clipboard
-clipscribe batch --clipboard
-
-# Monitor progress
-clipscribe batch status --job-id abc123
+Processing time: 4-5 minutes
+Use case: News, interviews, general content
 ```
 
-**Implementation**:
-- Async processing with worker pool
-- Progress tracking and resumable jobs
-- Error recovery and retry logic
+#### Premium Tier ($1.50/video)
+```
+Cost: $0.30/video (WhisperX on Cloud Run GPU)
+Margin: $1.20 (80%)
+
+Pipeline:
+- WhisperX transcription (97-99% accurate, built-in diarization)
+- Grok speaker identification
+- Grok entity extraction
+- Grok clip recommendations
+- ffmpeg auto-clip generation
+
+Processing time: 5-6 minutes
+Use case: Medical, legal, technical, intelligence
+```
+
+---
+
+## 16-Week Development Plan
+
+### **Weeks 1-4: Core Intelligence Engine**
+
+**Deliverable**: Voxtral + WhisperX + speakers + entities working in CLI
+
+#### Week 1: Transcription Foundation
+- Install WhisperX, test on medical/legal samples
+- Benchmark: Voxtral vs WhisperX accuracy
+- Build dual-mode transcriber class
+- Auto-detection logic (content type → mode selection)
+- **Validation**: Confirm WhisperX actually better for technical content
+
+#### Week 2: Speaker Diarization
+- Integrate pyannote.audio
+- Align speaker segments with transcript
+- Format output with speaker timestamps
+- Test on multi-speaker content (debates, panels)
+- **Validation**: 95%+ speaker segment accuracy
+
+#### Week 3: Speaker Identification
+- Grok speaker identification from context
+- Confidence scoring (only ID when confident)
+- Manual override system
+- Test accuracy on known speakers
+- **Validation**: 85%+ accuracy when Grok attempts ID
+
+#### Week 4: Entity Extraction with Speakers
+- Grok entity extraction with speaker attribution
+- Evidence quotes with speaker labels
+- Relationship extraction
+- **Validation**: Speaker-entity linkage adds value
+
+**CLI at Week 4:**
+```bash
+clipscribe process video "url" --quality auto
+# Output: Transcript with speakers, entities by speaker, relationships
+```
+
+---
+
+### **Weeks 5-8: Clip Intelligence & Batch**
+
+**Deliverable**: Clip recommendations, auto-generation, batch processing
+
+#### Week 5: Intelligent Clip Recommendations
+- Grok multi-objective optimization (newsworthy + viral + dense)
+- Custom prompt support
+- Score each clip (3 dimensions)
+- Metadata for social media captions
+- **Validation**: Would you share these clips?
+
+#### Week 6: Auto-Clip Generation
+- ffmpeg frame-accurate clipping
+- Metadata sidecar files (.json)
+- Interactive approval workflow (CLI)
+- Batch clip generation
+- **Validation**: Clip quality acceptable for production use
+
+#### Week 7: Entity Search Database
+- Database integration (videos, entities, speakers, relationships)
+- Search queries (cross-video)
+- Speaker-attributed search
+- Cost tracking and stats
+- **Validation**: Search finds what you expect
+
+#### Week 8: Batch Processing Backend
+- Job queue (Cloud Tasks + Pub/Sub)
+- Parallel processing (Cloud Run Jobs)
+- Progress tracking (Redis)
 - Cost estimation before processing
+- **Validation**: Can process 25 videos reliably
 
-### 1.2 Entity Search Database (Priority #2)
-**Timeline**: 1 week  
-**Impact**: Search across all processed videos
-
-**Features**:
+**CLI at Week 8:**
 ```bash
-# Search entities
-clipscribe search "Raytheon" --output csv
-
-# Find relationships
-clipscribe search-relations "Trump" "Ukraine"
-
-# List all videos
-clipscribe library --recent 20
-
-# Stats
-clipscribe stats --period 30days
-```
-
-**Implementation**:
-- Integrate existing SQLite schema
-- CLI commands for search and browse
-- Export search results
-- Cost tracking and reporting
-
-### 1.3 VPS Worker Architecture (Priority #3)
-**Timeline**: 1 week  
-**Impact**: 24/7 background processing
-
-**Architecture**:
-```
-Local CLI          VPS Worker
-   ↓                  ↓
-Download videos → Upload to R2 → VPS processes
-   ↓                              ↓
-                               Store results
-   ↓                              ↓
-Fetch results  ← R2 storage  ← Complete
-```
-
-**Features**:
-- Submit jobs to VPS from local CLI
-- VPS runs 24/7 processing queue
-- R2 storage for videos and results
-- Email/webhook notifications when complete
-
-**Benefits**:
-- Your laptop doesn't need to stay on
-- Residential IP for downloads (local)
-- VPS for compute (datacenter is fine)
-- Process overnight batches
-
----
-
-## Phase 2: Intelligence Enhancement (Dec 2025 - Jan 2026)
-
-**Goal**: 50% improvement in extraction quality and usefulness
-
-### 2.1 Timeline Intelligence
-**Features**:
-- Extract dates and temporal markers from transcript
-- Build chronological event sequences
-- TimelineJS export for visual timelines
-- "When was X mentioned?" queries
-
-### 2.2 Advanced Entity Normalization
-**Features**:
-- Cross-video entity deduplication
-- "Joe Biden" = "Biden" = "President Biden"
-- Entity linking across videos
-- Authority scores based on mention frequency
-
-### 2.3 Enhanced Outputs
-**Formats**:
-- TimelineJS3 (chronological visualization)
-- Sigma.js (interactive graphs)
-- PowerBI templates (business intelligence)
-- Obsidian markdown (knowledge management)
-
----
-
-## Phase 3: Web Interface (Feb 2026 - Mar 2026)
-
-**Goal**: Modern web UI for browsing and analysis
-
-### 3.1 Core Web Dashboard
-**Features**:
-- Upload videos (drag & drop, unlimited size)
-- Browse processed videos (grid/list view)
-- Advanced search with filters
-- Video playback with entity overlays
-- Export reports (PDF, CSV)
-
-### 3.2 Interactive Visualization
-**Features**:
-- Graph explorer (nodes = entities, edges = relationships)
-- Timeline view (chronological events)
-- Entity detail pages (all mentions across videos)
-- Relationship explorer (how entities connect)
-
-### 3.3 API Layer
-**Endpoints**:
-```
-POST /api/process       # Submit video
-GET  /api/status/:id    # Check progress
-GET  /api/video/:id     # Get results
-GET  /api/search        # Search entities
-GET  /api/stats         # Usage stats
+clipscribe batch submit urls.txt --auto-clip --quality auto
+clipscribe batch status abc123
+clipscribe search "Raytheon" --speaker "Biden"
 ```
 
 ---
 
-## Phase 4: Collaboration Features (Apr 2026 - Jun 2026)
+### **Weeks 9-12: Web Interface (MVP)**
 
-**Goal**: Team-based intelligence sharing (for Station10 Media)
+**Deliverable**: Working web app customers can use
 
-### 4.1 Multi-User Support
-**Features**:
-- User authentication (email/password)
-- Per-user budgets and tracking
-- Shared knowledge graph (opt-in)
-- Private video libraries
+#### Week 9: Frontend Foundation
+- Next.js + TailwindCSS setup
+- Landing page (demo video, pricing)
+- Upload interface (file drag-drop, URL paste)
+- FastAPI backend (API for frontend)
+- **Deliverable**: Can upload videos via web
 
-### 4.2 Collections & Sharing
-**Features**:
-- Create collections (group videos by topic)
-- Share collections with team members
-- Collaborative annotations
-- Export collection reports
+#### Week 10: Processing UI
+- Processing status page (WebSocket live updates)
+- Progress visualization
+- Speaker detection status
+- Error handling UI
+- **Deliverable**: Live progress in web
 
-### 4.3 Advanced Search
-**Features**:
-- Full-text search across transcripts
-- Filter by date, user, cost, entity count
-- Saved searches
-- Search alerts ("notify me when X is mentioned")
+#### Week 11: Results Viewer
+- Transcript viewer (speaker highlighting, interactive)
+- Entity cards (filterable by speaker)
+- Relationship graph (interactive vis)
+- Clip recommendations (with scores)
+- Select clips → generate → download
+- **Deliverable**: Full results exploration
 
----
-
-## Phase 5: Enterprise Features (Jul 2026+)
-
-**Goal**: Scale to large organizations
-
-### 5.1 Plugin Architecture
-- Custom extractors
-- Output format plugins
-- Integration hooks (Slack, Teams, etc.)
-
-### 5.2 Advanced Analytics
-- Trend analysis across video corpus
-- Entity co-occurrence patterns
-- Sentiment tracking over time
-- Influence mapping
+#### Week 12: Account System
+- Email magic link signup (no passwords yet)
+- User dashboard
+- Video library (grid view)
+- Usage tracking (videos processed)
+- **Deliverable**: Users can create accounts
 
 ---
 
-## Non-Goals (What We Won't Build)
+### **Weeks 13-14: Billing & Production**
 
-❌ **Social media posting** - ClipScribe is intelligence extraction, not distribution  
-❌ **Video editing** - Extract data, don't create videos  
-❌ **Real-time streaming** - Batch processing focus  
-❌ **AI chat interface** - Structured data extraction, not conversation  
-❌ **Mobile apps** - Web interface is sufficient  
+**Deliverable**: Can charge customers
 
----
+#### Week 13: Stripe Integration
+- Payment methods
+- Pay-per-video ($0.75 standard, $1.50 premium)
+- Subscription tiers ($30/mo for 50 videos)
+- Credits system
+- Billing history
+- **Deliverable**: Revenue-generating
 
-## Success Metrics
-
-### Phase 1 (Production Readiness)
-- Process 50+ videos in single batch
-- <5% failure rate
-- Search 1000+ videos in <1 second
-- VPS processes videos 24/7 unattended
-
-### Phase 2 (Intelligence)
-- 95%+ entity extraction accuracy
-- Timeline extraction from 80% of videos
-- Cross-video entity linking working
-
-### Phase 3 (Web Interface)
-- Upload videos >10GB
-- Interactive graph exploration
-- <2 second page load times
-
-### Phase 4 (Collaboration)
-- 3-10 users actively collaborating
-- Shared knowledge graph across team
-- Per-user cost tracking accurate
+#### Week 14: Production Polish
+- Error handling (user-friendly messages)
+- Email notifications (SendGrid)
+- Results sharing (public links)
+- Help documentation
+- Support email setup
+- **Deliverable**: Production-ready
 
 ---
 
-## Technology Stack
+### **Weeks 15-16: Beta & Launch**
 
-### Core Pipeline
-- **Transcription**: Voxtral (Mistral, uncensored)
-- **Intelligence**: Grok-4 (xAI, uncensored)
-- **Video Download**: yt-dlp + curl-cffi
-- **Processing**: Python 3.12 + Poetry
+**Deliverable**: Publicly launched
 
-### Infrastructure (Current)
-- **Local Development**: macOS
-- **VPS**: Linux (for batch workers)
-- **Storage**: Local files + future R2/S3
-- **Database**: SQLite (local), future PostgreSQL (multi-user)
+#### Week 15: Private Beta
+- 10 beta testers
+- Free processing (feedback only)
+- Bug fixes
+- UX refinements
+- Collect testimonials
+- **Deliverable**: Product validated
 
-### Infrastructure (Future)
-- **Web Framework**: FastAPI or Django
-- **Frontend**: React or Vue.js
-- **Deployment**: Docker + Cloud Run
-- **Storage**: Cloudflare R2
-
----
-
-## Decision Log
-
-### October 2025: Telegram Bot Exploration
-**Decision**: Explored Telegram bot for Station10 Media  
-**Result**: Valuable learnings (hybrid processor, database schema, VPS setup)  
-**Action**: Salvaged core components, returned to CLI-first roadmap  
-**Rationale**: Web interface + batch processing better serves journalism workflow  
-
-### September 2025: Voxtral + Grok-4 Integration
-**Decision**: Replace Gemini with Voxtral + Grok-4  
-**Result**: 70% cost reduction, zero censorship, 1.8% WER  
-**Action**: Made hybrid processor the default  
-**Rationale**: Professional intelligence work requires uncensored pipeline  
+#### Week 16: Public Launch
+- Legal docs (ToS, Privacy Policy)
+- Demo videos (3 use cases)
+- X launch thread
+- Product Hunt launch
+- Press outreach
+- **Deliverable**: PUBLIC
 
 ---
 
-## Current Focus (October 2025)
+## Technical Architecture (SaaS-Optimized)
 
-**Next 2 Weeks**:
-1. Implement batch processing CLI
-2. Integrate entity search database
-3. Design VPS worker architecture
+### Local Development (You, M3 Max)
+```
+Use: WhisperX for everything
+Why: Free GPU, best quality, test all features
+Code: Full-featured with all advanced capabilities
+```
 
-**Next Month**:
-1. Deploy VPS batch worker
-2. Test with 50-video batch
-3. Begin timeline intelligence extraction
+### Production (Customers, Cloud Run)
+```
+Standard Tier (95% of customers):
+  - Voxtral API transcription
+  - pyannote CPU diarization
+  - Grok speaker ID + entities + clips
+  - Cost: $0.05, Price: $0.75, Margin: $0.70
 
-**Next Quarter**:
-1. Timeline intelligence (Phase 2.1)
-2. Advanced entity normalization (Phase 2.2)
-3. Plan web interface architecture (Phase 3)
+Premium Tier (5% of customers):
+  - WhisperX on Cloud Run GPU
+  - Built-in diarization
+  - Grok speaker ID + entities + clips
+  - Cost: $0.30, Price: $1.50, Margin: $1.20
+```
+
+### Database (Multi-User from Day 1)
+```sql
+-- PostgreSQL on Cloud SQL
+users (id, email, credits, subscription_tier)
+videos (id, user_id, video_id, status, cost, quality_tier)
+entities (video_id, name, type, speaker, confidence)
+relationships (video_id, source, target, speaker)
+clips (video_id, clip_id, start, end, scores, gcs_path)
+```
 
 ---
 
-**This is the single source of truth for ClipScribe development.**
+## Cost Projections
 
-All other roadmap documents are archived in `archive/` for historical reference.
+### Pre-Launch (16 weeks)
+```
+Infrastructure: $40/mo × 4 = $160
+Testing videos: $0.05 × 500 = $25
+Development time: Your time (no cost calculated)
+───────────────────────────────────────
+Total: ~$185
+```
 
+### Post-Launch (Months 1-6)
+
+**Conservative (50 videos/month):**
+```
+Revenue: 50 × $0.75 = $37.50/mo
+Costs:
+  - Infrastructure: $40/mo
+  - Processing: 50 × $0.05 = $2.50/mo
+  - Total: $42.50/mo
+Loss: -$5/mo (acceptable, early stage)
+```
+
+**Target (200 videos/month):**
+```
+Revenue: 200 × $0.75 = $150/mo
+Costs:
+  - Infrastructure: $40/mo
+  - Processing: 200 × $0.05 = $10/mo
+  - Total: $50/mo
+Profit: $100/mo (break-even achieved)
+```
+
+**Growth (1000 videos/month):**
+```
+Revenue: 1000 × $0.75 = $750/mo
+Costs:
+  - Infrastructure: $40/mo (scales minimally)
+  - Processing: 1000 × $0.05 = $50/mo
+  - Total: $90/mo
+Profit: $660/mo (sustainable)
+```
+
+**Break-even: ~150 videos/month**
+
+---
+
+## Pricing Strategy
+
+### Launch Pricing (Competitive)
+```
+Free Tier:
+  - 3 videos free (no credit card)
+  - Full features enabled
+  - Hook: Let them see the power
+
+Standard:
+  - $0.75/video (pay-as-go)
+  - OR $25/month (50 videos = $0.50 each)
+  - Voxtral + pyannote + all features
+
+Premium:
+  - $1.50/video (pay-as-go)
+  - OR $50/month (50 videos = $1.00 each)
+  - WhisperX + all features
+  - "Medical/Legal Grade Accuracy"
+
+Enterprise:
+  - Custom pricing
+  - API access
+  - Dedicated support
+  - White-label options
+```
+
+### Competitor Comparison
+```
+Rev.ai: $0.25/minute = $1.25 per 5-min video
+  You: $0.75 (40% cheaper)
+
+AssemblyAI: $0.37 per 5-min video
+  You: $0.75 (2x more, but with clips + speaker ID)
+
+Descript: $12/mo for 10 hours
+  You: $25/mo for 50 videos (~4 hours)
+  
+Your edge: Auto-clips + speaker ID (they don't have this)
+```
+
+---
+
+## MVP Feature Set (What Must Work for Launch)
+
+### Core Features (Must Have)
+1. ✅ Upload video (file or URL)
+2. ✅ Transcription (Voxtral standard, WhisperX premium)
+3. ✅ Speaker diarization (pyannote)
+4. ✅ Speaker identification (Grok, 85%+ when confident)
+5. ✅ Entity extraction (with speaker attribution)
+6. ✅ Clip recommendations (Grok multi-objective)
+7. ✅ Auto-generate clips (ffmpeg)
+8. ✅ Download clips + full results
+9. ✅ User signup + billing (Stripe)
+10. ✅ Video library (see all your videos)
+
+### Can Wait for v2 (Nice to Have)
+- ⏳ Batch processing (upload 25 videos at once)
+- ⏳ Search across videos (entity search)
+- ⏳ Timeline visualization
+- ⏳ Interactive graph explorer
+- ⏳ Team collaboration
+- ⏳ API access
+
+---
+
+## Development Workflow (Week 1 Starts Now)
+
+### Your Setup
+```bash
+# Local development on M3 Max
+poetry install
+poetry add whisperx pyannote.audio
+
+# Use WhisperX for all local testing
+clipscribe process video "medical-video" --quality accurate
+# Tests full pipeline locally, validates features
+
+# When features proven, adapt for Cloud Run with Voxtral
+```
+
+### Repository Structure
+```
+clipscribe/                      # Private repo
+├── src/clipscribe/              # Core engine
+│   ├── transcribers/
+│   │   ├── voxtral_transcriber.py    # For SaaS standard tier
+│   │   └── whisperx_transcriber.py   # For local dev + premium
+│   ├── processors/
+│   │   └── saas_processor.py         # Unified processor (uses both)
+│   ├── intelligence/
+│   │   ├── speaker_identifier.py     # Grok speaker ID
+│   │   ├── clip_recommender.py       # Grok clip recs
+│   │   └── entity_extractor.py       # Grok entities
+│   └── database/                     # Multi-user DB
+│
+├── web/                         # Next.js frontend
+│   ├── pages/
+│   ├── components/
+│   └── public/
+│
+├── api/                         # FastAPI backend
+│   ├── app.py
+│   ├── auth.py
+│   ├── billing.py
+│   └── worker.py
+│
+└── deploy/                      # Cloud Run configs
+    ├── Dockerfile.api
+    ├── Dockerfile.worker
+    └── cloudbuild.yaml
+```
+
+---
+
+## Next Immediate Actions
+
+<function_calls>
+<invoke name="run_terminal_cmd">
+<parameter name="command">git add SAAS_PRODUCT_ROADMAP.md ROADMAP.md PHASE_1_DETAILED_PLAN.md
