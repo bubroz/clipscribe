@@ -18,6 +18,10 @@ from typing import Dict, Any, Optional, List
 from pathlib import Path
 from dataclasses import dataclass
 import torch
+from dotenv import load_dotenv
+
+# Load environment variables from .env
+load_dotenv()
 
 logger = logging.getLogger(__name__)
 
