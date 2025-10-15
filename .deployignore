@@ -1,0 +1,97 @@
+# CRITICAL: Secrets and credentials
+.env
+.env.production
+secrets/
+service-account.json
+
+# Large cached data (2GB!)
+cache/
+
+# Git repository (1GB!)
+.git/
+.github/
+
+# Build outputs and logs (38MB)
+output/
+logs/
+htmlcov/
+MagicMock/
+
+# Python caches and bytecode
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+.coverage
+coverage.xml
+
+# IDE and editor files
+.cursor/
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Video cache
+.video_cache/
+
+# Media files (shouldn't be in deployment)
+*.mp4
+*.mp3
+*.avi
+*.mov
+*.mkv
+*.webm
+
+# Test files in root
+test_*.py
+test_*.log
+
+# Temporary research/planning docs (not needed on server)
+STATION10_*.md
+NEXT_SESSION_*.md
+STATUS.md
+*_ANALYSIS.md
+*_RESEARCH.md
+*_DECISIONS.md
+*_BUILD_PLAN.md
+
+# Demo/dev directories
+demo/
+structured_output/
+streamlit_app/
+static_web/
+
+# Docker-specific (not needed for direct Poetry deployment)
+docker/
+docker-compose.yml
+Dockerfile*
+cloudbuild*.yaml
+
+# Test output
+tests/output/
+tests/cache/
+scripts/output/
+scripts/logs/
+
+# Backup files
+*.backup
+*.bak
+
+# Archive directories
+archive/
+
+# Temporary JSON files
+obama_response.json
+direct_upload_*.json
+success_Method_*.json
+*_gcs_info.json
