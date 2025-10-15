@@ -3,7 +3,7 @@
 ## Current State (2025-10-15 PDT)
 
 ### Latest Version: v2.54.2
-**CLEANUP COMPLETE**: Telegram exploration cleanup done, ready for Phase 1.3 (Cloud Run batch processing)
+**PRODUCT PIVOT**: Building station10.media as hosted SaaS product (16-week timeline to Feb 2026 launch)
 
 ### What Actually Works (Validated Oct 11, 2025)
 
@@ -132,28 +132,36 @@
 - Some integration tests need updating for v2 retriever imports
 - Cloud Run Jobs exist but configured for old RSS monitoring (need repurposing)
 
-### Roadmap
+### SaaS Product Roadmap (16 Weeks)
 
-**Immediate (Oct 15-31) - Phase 1.1**: Batch Processing
-- CLI batch submit/status/fetch commands
-- Local download + GCS upload workflow
-- Cloud Run Job batch processor
+**Weeks 1-4 (Oct 15 - Nov 12)**: Core Intelligence Engine
+- Dual-mode transcription (Voxtral standard, WhisperX premium)
+- Speaker diarization (pyannote)
+- Speaker identification (Grok-based, 85%+ accuracy)
+- Entity extraction with speaker attribution
 
-**Near-Term (Nov 1-15) - Phase 1.2**: Entity Search
-- CLI search commands
-- Cross-video entity queries
-- Cost tracking and stats
+**Weeks 5-8 (Nov 12 - Dec 10)**: Clip Intelligence & Batch
+- Intelligent clip recommendations (newsworthy + viral + dense)
+- Auto-clip generation (ffmpeg)
+- Entity search database (multi-user)
+- Batch processing backend
 
-**Near-Term (Nov 15-30) - Phase 1.3**: Cloud Run + Google Chat
-- Adapt existing Cloud Run Jobs for batch
-- Cloud Pub/Sub notifications
-- Google Chat webhook integration
-- Gmail API for email records
+**Weeks 9-12 (Dec 10 - Jan 7)**: Web Interface MVP
+- Next.js frontend (upload, process, results)
+- FastAPI backend (API for frontend)
+- Live processing status (WebSocket)
+- Interactive results viewer (transcript, entities, clips)
+- Account system (email magic link)
 
-**Future (Dec 2025+) - Phase 2-3**:
-- Timeline intelligence
-- Web dashboard
-- Advanced visualizations
+**Weeks 13-14 (Jan 7-21)**: Billing & Production
+- Stripe integration ($0.75 standard, $1.50 premium)
+- Subscription tiers ($30/mo for 50 videos)
+- Production polish and error handling
+
+**Weeks 15-16 (Jan 21 - Feb 10)**: Beta & Launch
+- Private beta (10 testers)
+- Public launch on X
+- Product Hunt launch
 
 ### Repository Status
 - Version: v2.54.2
