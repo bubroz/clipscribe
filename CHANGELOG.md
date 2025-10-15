@@ -1,6 +1,41 @@
+## [2.54.2] - 2025-10-15
+
+### 🧹 CLEANUP & REALIGNMENT: Back to Roadmap
+
+Major cleanup after Telegram bot exploration. Returned to core ClipScribe vision.
+
+### Removed
+- **Telegram Bot**: Removed entire bot implementation (off-roadmap exploration)
+- **VPS Deployment Files**: Removed deployment scripts, configs, systemd service
+- **Multi-User Database**: Simplified to single-user (removed users table)
+- **Dependencies**: Removed python-telegram-bot, boto3 (unused)
+- **Station10 Files**: Archived 6 exploration documents, removed from root
+
+### Added
+- **Error Handler Utility**: Extracted error categorization from bot to core utilities
+- **Single-User Database**: Simplified schema (videos, entities, relationships)
+- **Relationship Tracking**: Added relationships table for cross-video search
+- **Cleanup Documentation**: CLEANUP_PLAN.md with comprehensive checklist
+
+### Changed
+- **Database Schema**: Removed multi-user complexity, added confidence scores
+- **Archive Organization**: Organized into telegram_exploration_oct_2025/ and roadmaps/
+- **Documentation**: Single ROADMAP.md as canonical source
+- **STATUS.md**: Archived (outdated RSS monitoring notes)
+
+### Repository Cleanup
+- Removed empty bot/ directory
+- Cleaned up root directory (8 files removed/archived)
+- Archived old roadmaps for historical reference
+- Clean working tree achieved
+
+**Impact**: Repository realigned with original vision. Ready for Phase 1 implementation (batch processing, entity search, Cloud Run integration).
+
+---
+
 ## [2.54.1] - 2025-10-14
 
-### 🤖 STATION10 BOT: Error Handling & Database Improvements
+### 🤖 STATION10 BOT: Error Handling & Database Improvements (Archived)
 
 Critical fixes for Station10 Telegram bot reliability and user experience.
 

@@ -2,7 +2,7 @@
 
 Extract intelligence from videos. Transcribe, identify entities, map relationships.
 
-**v2.54.1** - Personal alpha, actively used  
+**v2.54.2** - Personal alpha, actively used  
 **Stack**: Voxtral + Grok-4 (uncensored)
 
 ---

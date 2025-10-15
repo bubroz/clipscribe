@@ -1,9 +1,9 @@
 # ClipScribe AI Assistant Continuation Prompt
 
-## Current State (2025-10-14 20:30 PDT)
+## Current State (2025-10-15 PDT)
 
-### Latest Version: v2.54.1
-**STATION10 BOT**: Error handling & database improvements deployed to VPS
+### Latest Version: v2.54.2
+**CLEANUP COMPLETE**: Telegram exploration cleanup done, ready for Phase 1.3 (Cloud Run batch processing)
 
 ### What Actually Works (Validated Oct 11, 2025)
 
@@ -31,7 +31,31 @@
 
 ### Recent Changes
 
-#### v2.54.1 - Oct 14, 2025: Station10 Bot Reliability
+#### v2.54.2 - Oct 15, 2025: Cleanup & Realignment
+
+**Cleanup Completed**:
+- Removed Telegram bot code (off-roadmap exploration)
+- Simplified database to single-user (videos, entities, relationships)
+- Extracted error handling to core utilities
+- Removed VPS deployment files and configs
+- Archived all exploration documentation
+- Cleaned up dependencies (removed Telegram, boto3)
+
+**Repository Organization**:
+- Single source of truth: ROADMAP.md
+- Archives organized: telegram_exploration_oct_2025/, roadmaps/
+- Clean root directory (only essential project files)
+- Clean working tree, all tests reviewed
+
+**Salvaged Components**:
+- Voxtral + Grok-4 hybrid processor (GOLD - keep)
+- Entity search database (simplified, integrated)
+- Error categorization system (core utilities)
+- Database reprocessing patterns
+
+**Next**: Phase 1.3 - Cloud Run batch processing with Google Chat notifications
+
+#### v2.54.1 - Oct 14, 2025: Station10 Bot Reliability (Archived)
 
 **Database Improvements**:
 - Fixed duplicate constraint errors when reprocessing videos
@@ -72,29 +96,6 @@
 - Data analysis: Only 1.7% duplication in FoxNews test
 - **Decision**: SKIP - not worth engineering effort for minimal impact
 
-### Station10 Bot Status (Oct 14, 2025)
-
-**Deployed to VPS** ✅
-- Running on station10.local VPS
-- Telegram webhook configured
-- Voxtral + Grok-4 hybrid pipeline
-- $0.03/video processing cost
-- ~2x realtime processing speed (5min video in ~2min)
-
-**Validated Features**:
-- Video file uploads via Telegram (≤1.5GB)
-- URL processing (/process command)
-- Database tracking (videos, entities, costs)
-- Multi-user support with budget limits
-- Entity search across all processed videos
-- Complete error handling with categorization
-
-**Test Results**:
-- 38 entities, 54 relationships extracted
-- 1727-char executive summaries
-- Knowledge graph generation working
-- Database reprocessing: no constraint errors
-
 ### What's NOT Working / Not Built
 
 **Entity Canonicalization**: NOT IMPLEMENTED
@@ -108,40 +109,55 @@
 - Waiting for new videos to demonstrate
 - Will appear in next status update after videos complete
 
-**Direct Source Support**: NOT BUILT
-- No california.gov scrapers
-- No Granicus support
-- Only YouTube RSS monitoring works
+**Batch Processing**: NOT BUILT YET (Phase 1.1)
+- Single video processing only
+- No batch job submission
+- Manual workflow for multiple videos
+
+**Web Interface**: NOT BUILT YET (Phase 3)
+- CLI only currently
+- No visual dashboard
+- No interactive graph explorer
+
+**Entity Search**: DATABASE READY, CLI NOT BUILT (Phase 1.2)
+- Database schema exists
+- No CLI search commands yet
+- Can query database directly
 
 ### Known Issues
 
-**None Critical** - All previous database and error handling issues resolved in v2.54.1
+**None Critical**
 
-**Future Enhancements** (not blocking):
-- Large file uploads via R2 signed URLs (>1.5GB) - currently shows "not implemented" message
-- Entity canonicalization (1.7% duplication - cosmetic only)
+**Minor**: 
+- Some integration tests need updating for v2 retriever imports
+- Cloud Run Jobs exist but configured for old RSS monitoring (need repurposing)
 
 ### Roadmap
 
-**Immediate (Oct 14-15)**:
-- Test Station10 bot with diverse video types (YouTube, local files, different durations)
-- Validate error handling with known failure cases
-- Monitor VPS resource usage and performance
+**Immediate (Oct 15-31) - Phase 1.1**: Batch Processing
+- CLI batch submit/status/fetch commands
+- Local download + GCS upload workflow
+- Cloud Run Job batch processor
 
-**Near-Term (Oct 15-20)**:
-- Implement R2 signed URL uploads for large files (>1.5GB)
-- Add GCS integration for Station10 bot outputs
-- Enhance entity search with filters (date, user, video)
+**Near-Term (Nov 1-15) - Phase 1.2**: Entity Search
+- CLI search commands
+- Cross-video entity queries
+- Cost tracking and stats
 
-**Future (Phase 2)**:
-- Entity canonicalization (if proven necessary)
-- Direct source scrapers (california.gov, Granicus)
-- Cloud deployment scaling
-- Multi-region support
+**Near-Term (Nov 15-30) - Phase 1.3**: Cloud Run + Google Chat
+- Adapt existing Cloud Run Jobs for batch
+- Cloud Pub/Sub notifications
+- Google Chat webhook integration
+- Gmail API for email records
+
+**Future (Dec 2025+) - Phase 2-3**:
+- Timeline intelligence
+- Web dashboard
+- Advanced visualizations
 
 ### Repository Status
-- Version: v2.54.1
-- Branch: main
-- Local changes: Ready to commit
-- VPS: station10.local running latest code
-- Next: Test diverse video types to validate robustness
+- Version: v2.54.2
+- Branch: main  
+- Working tree: CLEAN ✅
+- Cleanup: COMPLETE ✅
+- Next: Begin Phase 1.1 implementation
