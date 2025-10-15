@@ -111,11 +111,18 @@ class WhisperXTranscriber:
                 logger.warning("Get token at: https://huggingface.co/settings/tokens")
             else:
                 try:
-                    self.diarize_model = whisperx.DiarizationPipeline(
-                        use_auth_token=hf_token,
-                        device=device
+                    # Use pyannote.audio directly (WhisperX removed DiarizationPipeline from API)
+                    from pyannote.audio import Pipeline
+                    
+                    self.diarize_model = Pipeline.from_pretrained(
+                        "pyannote/speaker-diarization-3.1",
+                        use_auth_token=hf_token
                     )
-                    logger.info("Speaker diarization enabled")
+                    # Move to same device
+                    if device == "cuda":
+                        self.diarize_model.to(torch.device("cuda"))
+                    
+                    logger.info("Speaker diarization enabled (pyannote.audio)")
                 except Exception as e:
                     logger.error(f"Failed to load diarization model: {e}")
                     logger.warning("Continuing without speaker diarization")
@@ -211,9 +218,20 @@ class WhisperXTranscriber:
         if self.diarize_model:
             logger.info("Step 3/4: Identifying speakers...")
             try:
-                diarize_segments = self.diarize_model(audio_path)
+                # Run pyannote diarization
+                diarization = self.diarize_model(audio_path)
                 
-                # Step 4: Assign speakers to words
+                # Convert pyannote format to whisperx format
+                from pyannote.core import Segment
+                diarize_segments = []
+                for turn, _, speaker in diarization.itertracks(yield_label=True):
+                    diarize_segments.append({
+                        "start": turn.start,
+                        "end": turn.end,
+                        "speaker": speaker
+                    })
+                
+                # Step 4: Assign speakers to words/segments
                 logger.info("Step 4/4: Assigning speakers to transcript...")
                 result = whisperx.assign_word_speakers(diarize_segments, result)
                 
