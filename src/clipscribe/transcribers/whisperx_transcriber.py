@@ -64,16 +64,18 @@ class WhisperXTranscriber:
         import whisperx
         
         # Auto-detect device
+        # Note: WhisperX (faster-whisper) doesn't support MPS yet
+        # https://github.com/m-bain/whisperX/issues/XXX
         if device is None:
-            if torch.backends.mps.is_available():
-                device = "mps"  # Apple Silicon
-                logger.info("Detected Apple Silicon - using MPS backend")
-            elif torch.cuda.is_available():
+            if torch.cuda.is_available():
                 device = "cuda"  # NVIDIA GPU
                 logger.info("Detected NVIDIA GPU - using CUDA backend")
             else:
                 device = "cpu"
-                logger.warning("No GPU detected - using CPU (will be slow)")
+                if torch.backends.mps.is_available():
+                    logger.info("Apple Silicon detected - using CPU (MPS not yet supported by faster-whisper)")
+                else:
+                    logger.info("Using CPU backend")
         
         self.device = device
         self.model_name = model_name
@@ -85,7 +87,7 @@ class WhisperXTranscriber:
         self.model = whisperx.load_model(
             model_name,
             device=device,
-            compute_type=compute_type if device != "mps" else "float32",  # MPS doesn't support float16
+            compute_type=compute_type if device == "cuda" else "int8",  # CPU: use int8 quantization for speed
             download_root=str(Path.home() / ".cache" / "whisperx")
         )
         
