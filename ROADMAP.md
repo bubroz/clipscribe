@@ -29,8 +29,8 @@ Built for journalists, researchers, and intelligence analysts who need to proces
 ### ✅ What Works
 - **Voxtral + Grok-4 Pipeline**: Uncensored transcription and extraction
 - **1800+ Platform Support**: YouTube, Twitter, TikTok, Vimeo, etc.
-- **Entity Extraction**: 30-87 entities per video with confidence scores
-- **Knowledge Graphs**: Relationships with evidence quotes
+- **Entity Extraction**: Dense extraction with confidence scores and evidence quotes
+- **Knowledge Graphs**: Relationship mapping with timestamps
 - **Multiple Output Formats**: JSON, CSV, Markdown, GEXF
 - **Cost Efficiency**: $0.03/video average
 
@@ -84,7 +84,7 @@ clipscribe batch status --job-id abc123
 clipscribe search "Raytheon" --output csv
 
 # Find relationships
-clipscribe search-relations "Biden" "Ukraine"
+clipscribe search-relations "Trump" "Ukraine"
 
 # List all videos
 clipscribe library --recent 20
