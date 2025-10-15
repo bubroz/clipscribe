@@ -1,3 +1,33 @@
+## [2.54.1] - 2025-10-14
+
+### 🤖 STATION10 BOT: Error Handling & Database Improvements
+
+Critical fixes for Station10 Telegram bot reliability and user experience.
+
+### Fixed
+- **Database Duplicate Constraint**: Video reprocessing now updates existing records instead of failing with UNIQUE constraint error
+- **Entity Reprocessing**: Clears old entities when video is reprocessed, preventing duplicate/stale data
+- **Telegram Error Notifications**: Comprehensive error categorization with actionable user messages
+  - Network errors, video access issues, API authentication, rate limits
+  - Processing failures, format errors, database errors, resource limits
+  - Each error includes error ID for support tracking
+  - User-friendly messages with specific recovery steps
+
+### Changed
+- **Database Operations**: `INSERT OR REPLACE` for videos enables seamless reprocessing
+- **Cost Tracking**: Each reprocessing tracked separately for accurate accounting
+- **Error Messages**: Categorized with emoji indicators and contextual help
+
+### Technical Details
+- Error categorization system with 10+ specific error types
+- Error IDs generated for support correlation with logs
+- Database schema preserves video update timestamps
+- Logging enhanced with error IDs for debugging
+
+**Impact**: Station10 bot can now handle repeated video submissions gracefully and provides clear, actionable error feedback to users.
+
+---
+
 ## [2.54.0] - 2025-10-11
 
 ### 🎯 PRODUCTION OPTIMIZATION: FoxNews 24-Hour Validation

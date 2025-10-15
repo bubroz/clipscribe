@@ -1,9 +1,9 @@
 # ClipScribe AI Assistant Continuation Prompt
 
-## Current State (2025-10-11 22:58 PDT)
+## Current State (2025-10-14 20:30 PDT)
 
-### Latest Version: v2.54.0
-**PRODUCTION VALIDATION**: 24-hour FoxNews monitoring test in progress
+### Latest Version: v2.54.1
+**STATION10 BOT**: Error handling & database improvements deployed to VPS
 
 ### What Actually Works (Validated Oct 11, 2025)
 
@@ -29,7 +29,29 @@
 - Executive summaries: Complete, no mid-sentence cutoffs (fixed max_tokens 300→500)
 - Markdown display: Clean paragraphs, no artifacts
 
-### Recent Fixes (Oct 10-11, 2025)
+### Recent Changes
+
+#### v2.54.1 - Oct 14, 2025: Station10 Bot Reliability
+
+**Database Improvements**:
+- Fixed duplicate constraint errors when reprocessing videos
+- Uses `INSERT OR REPLACE` to update existing videos
+- Entity tables cleared and refreshed on reprocessing
+- Cost tracking preserves all reprocessing events
+
+**Enhanced Error Notifications**:
+- 10+ error categories with specific user guidance
+- Network errors, video access issues, API auth, rate limits
+- Processing failures, format errors, database issues
+- Error IDs for support correlation with logs
+- User-friendly messages with recovery steps
+
+**Validation**:
+- Tested video reprocessing: updates cleanly, no constraint errors
+- Error categorization covers common failure modes
+- All processing errors now provide actionable feedback
+
+#### v2.54.0 - Oct 10-11, 2025: Production Optimization
 
 **Critical Stability** (from 27-hour Stoic Viking test):
 - Fixed NameError in tweet styles fallback
@@ -50,21 +72,28 @@
 - Data analysis: Only 1.7% duplication in FoxNews test
 - **Decision**: SKIP - not worth engineering effort for minimal impact
 
-### Current Test (In Progress)
+### Station10 Bot Status (Oct 14, 2025)
 
-**24-Hour FoxNews Production Validation**:
-- Channel: UCXIJgqnII2ZOINSWNOGFThA (Fox News)
-- Start: Oct 11, 2025 22:45 PM PDT
-- Workers: 10 concurrent
-- Interval: 5 minutes
-- Status: Running cleanly, no crashes
+**Deployed to VPS** ✅
+- Running on station10.local VPS
+- Telegram webhook configured
+- Voxtral + Grok-4 hybrid pipeline
+- $0.03/video processing cost
+- ~2x realtime processing speed (5min video in ~2min)
 
-**First 10 videos processed** (22:17-22:33):
-- 10/10 complete (100% success rate)
-- 8/8 Telegram notifications sent (2 timeouts in previous test, 0 with retry)
-- All summaries complete (1700-2200 chars)
-- All GCS uploads successful
-- Shorts correctly filtered (4 filtered, 1 rejected post-download)
+**Validated Features**:
+- Video file uploads via Telegram (≤1.5GB)
+- URL processing (/process command)
+- Database tracking (videos, entities, costs)
+- Multi-user support with budget limits
+- Entity search across all processed videos
+- Complete error handling with categorization
+
+**Test Results**:
+- 38 entities, 54 relationships extracted
+- 1727-char executive summaries
+- Knowledge graph generation working
+- Database reprocessing: no constraint errors
 
 ### What's NOT Working / Not Built
 
@@ -86,29 +115,33 @@
 
 ### Known Issues
 
-**Minor**:
-- Some Grok summaries incomplete (Grok occasionally gets cut off - rare)
-- Telegram occasional timeouts (2/10 in testing - now has retry)
+**None Critical** - All previous database and error handling issues resolved in v2.54.1
 
-**Not Issues**:
-- Entity duplication (1.7% - cosmetic, not blocking)
-- Download speeds (working as designed)
+**Future Enhancements** (not blocking):
+- Large file uploads via R2 signed URLs (>1.5GB) - currently shows "not implemented" message
+- Entity canonicalization (1.7% duplication - cosmetic only)
 
 ### Roadmap
 
-**Next (After 24hr validation)**:
-- Analyze 24hr test results (stability, cost, volume)
-- Document production-ready status
-- OR identify issues and fix
+**Immediate (Oct 14-15)**:
+- Test Station10 bot with diverse video types (YouTube, local files, different durations)
+- Validate error handling with known failure cases
+- Monitor VPS resource usage and performance
+
+**Near-Term (Oct 15-20)**:
+- Implement R2 signed URL uploads for large files (>1.5GB)
+- Add GCS integration for Station10 bot outputs
+- Enhance entity search with filters (date, user, video)
 
 **Future (Phase 2)**:
 - Entity canonicalization (if proven necessary)
 - Direct source scrapers (california.gov, Granicus)
-- Cloud deployment (Cloud Run for 24/7)
-- Domain setup (clipscribe.ai)
+- Cloud deployment scaling
+- Multi-region support
 
 ### Repository Status
-- 120 commits total (72 commits today - Oct 11)
-- All code pushed to main
-- 24-hour production test running
-- Version bump to 2.54.0 pending test results
+- Version: v2.54.1
+- Branch: main
+- Local changes: Ready to commit
+- VPS: station10.local running latest code
+- Next: Test diverse video types to validate robustness
