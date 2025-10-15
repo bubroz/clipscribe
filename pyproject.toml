@@ -170,6 +170,7 @@ feedparser = "^6.0.12"
 reportlab = "^4.4.4"
 pandas = "^2.3.3"
 python-telegram-bot = "^22.5"
+boto3 = "^1.40.51"
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.10.0"

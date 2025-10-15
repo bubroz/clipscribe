@@ -291,8 +291,14 @@ class UniversalVideoClient:
         - Music: SoundCloud, Bandcamp, Mixcloud
         - And 1800+ more!
         """
-        # First try without cookies
-        with yt_dlp.YoutubeDL({"quiet": True, "no_warnings": True}) as ydl:
+        # Use impersonation settings for validation (same as download)
+        validation_opts = {"quiet": True, "no_warnings": True}
+        
+        # Add impersonation if enabled (critical for YouTube)
+        if self.use_impersonation and self.ydl_opts.get("impersonate"):
+            validation_opts["impersonate"] = self.ydl_opts["impersonate"]
+        
+        with yt_dlp.YoutubeDL(validation_opts) as ydl:
             try:
                 # Try to extract basic info without downloading
                 ydl.extract_info(url, download=False, process=False)

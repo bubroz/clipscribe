@@ -200,17 +200,13 @@ class Settings(BaseSettings):
 
     @field_validator("google_api_key")
     def validate_api_key(cls, v: str, values) -> str:
-        """Validate Google API key is set, but only if not using Vertex AI."""
-        use_vertex = False
-        try:
-            use_vertex = bool(values.data.get("use_vertex_ai"))  # type: ignore[attr-defined]
-        except Exception:
-            use_vertex = False
-        if not use_vertex and not v:
-            raise ValueError(
-                "GOOGLE_API_KEY environment variable is required when not using Vertex AI. "
-                "Get one at: https://makersuite.google.com/app/apikey"
-            )
+        """
+        Validate Google API key (optional - not used in Voxtral-Grok pipeline).
+        
+        Legacy validator - kept for backward compatibility but no longer enforced
+        since we use Voxtral + Grok-4 instead of Gemini.
+        """
+        # No longer required - Voxtral + Grok pipeline doesn't use Gemini
         return v
 
     @field_validator("output_dir", "log_dir", "video_archive_directory", mode="before")

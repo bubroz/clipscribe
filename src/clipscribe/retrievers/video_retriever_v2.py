@@ -92,17 +92,125 @@ class VideoIntelligenceRetrieverV2:
         
         logger.info("VideoIntelligenceRetrieverV2 initialized with Voxtral-Grok pipeline")
     
+    async def process_local_file(self, file_path: str, filename: Optional[str] = None) -> Optional[VideoIntelligence]:
+        """
+        Process a local video/audio file (for direct uploads).
+        
+        Args:
+            file_path: Path to local video/audio file
+            filename: Original filename (for metadata)
+            
+        Returns:
+            VideoIntelligence object or None if failed
+        """
+        file_path = Path(file_path)
+        if not file_path.exists():
+            logger.error(f"File not found: {file_path}")
+            return None
+        
+        start_time = time.time()
+        
+        try:
+            # Create minimal metadata for local file
+            from datetime import datetime
+            import subprocess
+            import tempfile
+            
+            metadata = VideoMetadata(
+                url=f"local_upload:{file_path.name}",
+                title=filename or file_path.stem,
+                channel="Local Upload",
+                channel_id="upload",
+                published_at=datetime.now(),
+                duration=0,  # Will be detected by processor
+                video_id=file_path.stem[:11]  # Use filename as video_id
+            )
+            
+            # Extract audio from video if it's a video file
+            audio_path = file_path
+            if file_path.suffix.lower() in ['.mp4', '.mov', '.avi', '.mkv', '.webm', '.flv']:
+                logger.info(f"Extracting audio from video file: {file_path.name}")
+                
+                # Create temp audio file
+                temp_audio = Path(tempfile.mkdtemp()) / f"{file_path.stem}.mp3"
+                
+                # Extract audio with ffmpeg
+                cmd = [
+                    'ffmpeg', '-i', str(file_path),
+                    '-vn',  # No video
+                    '-acodec', 'libmp3lame',
+                    '-q:a', '2',  # Good quality
+                    '-y',  # Overwrite
+                    str(temp_audio)
+                ]
+                
+                process = await asyncio.create_subprocess_exec(
+                    *cmd,
+                    stdout=asyncio.subprocess.PIPE,
+                    stderr=asyncio.subprocess.PIPE
+                )
+                
+                stdout, stderr = await process.communicate()
+                
+                if process.returncode != 0:
+                    logger.error(f"ffmpeg failed: {stderr.decode()}")
+                    raise Exception(f"Audio extraction failed: {stderr.decode()[:200]}")
+                
+                audio_path = temp_audio
+                logger.info(f"✓ Audio extracted to: {temp_audio}")
+            
+            # Phase 1: Process with HybridProcessor (Voxtral + Grok)
+            self.on_phase_start("Processing", "Transcribing uploaded file...")
+            result = await self.processor.process_video(
+                str(audio_path),
+                metadata.__dict__ if hasattr(metadata, '__dict__') else metadata
+            )
+            
+            # Calculate cost
+            processing_time = time.time() - start_time
+            processing_cost = 0.03  # Flat rate for uploads (no duration metadata yet)
+            self.on_phase_complete("Processing", processing_cost)
+            
+            # Update processing info
+            result.processing_cost = processing_cost
+            result.processing_time = processing_time
+            
+            # Phase 2: Save outputs
+            self.on_phase_start("Saving", "Writing output files...")
+            saved_files = self._save_outputs(result)
+            self.on_phase_complete("Saving", 0.0)
+            
+            # Store output directory
+            result._output_directory = str(saved_files.get('directory'))
+            
+            logger.info(f"✅ Local file processing complete: {filename or file_path.name}")
+            logger.info(f"   Cost: ${processing_cost:.4f}")
+            logger.info(f"   Time: {processing_time:.1f}s")
+            logger.info(f"   Output: {saved_files.get('directory')}")
+            
+            return result
+            
+        except Exception as e:
+            logger.error(f"Local file processing failed: {e}", exc_info=True)
+            self.on_error("Processing", str(e))
+            return None
+    
     async def process_url(self, video_url: str, force_reprocess: bool = False) -> Optional[VideoIntelligence]:
         """
         Process a video URL with the uncensored pipeline.
         
         Args:
-            video_url: URL of the video to process
+            video_url: URL of the video to process (or local file path for uploads)
             force_reprocess: If True, process even if already completed
             
         Returns:
             VideoIntelligence object or None if failed
         """
+        # Detect if this is a local file path instead of URL
+        if video_url.startswith('/') or video_url.startswith('./') or Path(video_url).exists():
+            logger.info(f"Detected local file path, using process_local_file(): {video_url}")
+            return await self.process_local_file(video_url, filename=Path(video_url).name)
+        
         # Extract video ID for tracking
         video_id = self._extract_video_id(video_url)
         
@@ -205,11 +313,9 @@ class VideoIntelligenceRetrieverV2:
     async def _download_video(self, video_url: str) -> tuple[Optional[Path], Optional[VideoMetadata], Optional[Path], Optional[Path]]:
         """Download video and extract metadata. Returns (audio_path, metadata, thumbnail_path, video_path)."""
         try:
-            # Check if URL is supported
-            if not self.video_client.is_supported_url(video_url):
-                logger.error(f"URL not supported: {video_url}")
-                self.on_error("Downloading", "URL not supported")
-                return None, None, None, None
+            # Skip URL validation check - let download attempt with fallbacks handle it
+            # The download_audio method has curl-cffi impersonation + Playwright fallback
+            # which is more reliable than the validation check
             
             # Download audio (for transcription)
             try:

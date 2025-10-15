@@ -633,7 +633,9 @@ Return JSON:
                             content = result["choices"][0]["message"]["content"]
                             return json.loads(content)
                         else:
+                            error_body = response.text
                             logger.warning(f"Chunk {chunk_num} attempt {attempt + 1}/3: HTTP {response.status_code}")
+                            logger.warning(f"Error response: {error_body[:500]}")
                     except Exception as e:
                         logger.warning(f"Chunk {chunk_num} attempt {attempt + 1}/3 failed: {e}")
                         if attempt < 2:

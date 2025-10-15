@@ -9,7 +9,8 @@ from .logging import setup_logging
 from .progress import ClipScribeProgress, progress_tracker, console
 from .batch_progress import BatchProgress
 from .performance import PerformanceMonitor
-from .performance_dashboard import PerformanceDashboard
+# Lazy-load PerformanceDashboard (requires streamlit - dev dependency)
+# from .performance_dashboard import PerformanceDashboard
 from .filename import (
     create_output_filename,
     sanitize_filename,
@@ -28,7 +29,7 @@ __all__ = [
     "console",
     "BatchProgress",
     "PerformanceMonitor",
-    "PerformanceDashboard",
+    # "PerformanceDashboard",  # Dev-only (requires streamlit)
     "create_output_filename",
     "sanitize_filename",
     "extract_platform_from_url",
