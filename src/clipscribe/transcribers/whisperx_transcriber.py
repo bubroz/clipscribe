@@ -221,19 +221,47 @@ class WhisperXTranscriber:
                 # Run pyannote diarization
                 diarization = self.diarize_model(audio_path)
                 
-                # Convert pyannote format to whisperx format
-                from pyannote.core import Segment
-                diarize_segments = []
+                # Convert pyannote format to dict format whisperx expects
+                diarize_dict = {}
                 for turn, _, speaker in diarization.itertracks(yield_label=True):
-                    diarize_segments.append({
+                    if speaker not in diarize_dict:
+                        diarize_dict[speaker] = []
+                    diarize_dict[speaker].append({
                         "start": turn.start,
-                        "end": turn.end,
-                        "speaker": speaker
+                        "end": turn.end
                     })
                 
-                # Step 4: Assign speakers to words/segments
+                # Step 4: Assign speakers to segments
                 logger.info("Step 4/4: Assigning speakers to transcript...")
-                result = whisperx.assign_word_speakers(diarize_segments, result)
+                
+                # Manual assignment since whisperx.assign_word_speakers has format issues
+                for segment in result["segments"]:
+                    seg_start = segment["start"]
+                    seg_end = segment["end"]
+                    seg_mid = (seg_start + seg_end) / 2
+                    
+                    # Find which speaker is talking at segment midpoint
+                    for speaker, turns in diarize_dict.items():
+                        for turn in turns:
+                            if turn["start"] <= seg_mid <= turn["end"]:
+                                segment["speaker"] = speaker
+                                break
+                        if "speaker" in segment:
+                            break
+                
+                # Also assign to words if present
+                if "words" in result.get("word_segments", result):
+                    word_list = result.get("word_segments", result).get("words", [])
+                    for word in word_list:
+                        if "start" in word and "end" in word:
+                            word_mid = (word["start"] + word["end"]) / 2
+                            for speaker, turns in diarize_dict.items():
+                                for turn in turns:
+                                    if turn["start"] <= word_mid <= turn["end"]:
+                                        word["speaker"] = speaker
+                                        break
+                                if "speaker" in word:
+                                    break
                 
                 # Extract speaker information
                 speakers_found = set()
