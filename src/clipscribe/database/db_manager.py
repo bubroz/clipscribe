@@ -70,22 +70,26 @@ class Station10Database:
     def add_video(self, video_id: str, url: str, title: str, user_id: int, 
                   cost: float, entity_count: int, relationship_count: int,
                   output_path: str, **kwargs) -> int:
-        """Record processed video."""
+        """
+        Record processed video. If video_id exists, updates the record.
+        Always tracks cost as a new entry for accurate cost accounting.
+        """
         cursor = self.conn.execute("""
-            INSERT INTO videos (video_id, url, title, processed_by_user_id, 
+            INSERT OR REPLACE INTO videos (video_id, url, title, processed_by_user_id, 
                               processing_cost, entity_count, relationship_count, output_path,
-                              channel, duration)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                              channel, duration, processed_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
         """, (video_id, url, title, user_id, cost, entity_count, relationship_count, 
               output_path, kwargs.get('channel'), kwargs.get('duration')))
         
-        # Track cost
+        # Track cost (each reprocessing is tracked separately)
         self.conn.execute(
             "INSERT INTO costs (user_id, video_id, cost) VALUES (?, ?, ?)",
             (user_id, video_id, cost)
         )
         
         self.conn.commit()
+        logger.info(f"Video recorded: {video_id} ({entity_count} entities, ${cost:.4f})")
         return cursor.lastrowid
     
     def get_recent_videos(self, limit: int = 10) -> List[Dict]:
@@ -103,7 +107,14 @@ class Station10Database:
     # ENTITY SEARCH
     
     def add_entities(self, video_id: str, entities: List[Dict]):
-        """Add entities for a video."""
+        """
+        Add entities for a video. If video is reprocessed, 
+        clears old entities and adds new ones.
+        """
+        # Clear existing entities for this video (handles reprocessing)
+        self.conn.execute("DELETE FROM entities WHERE video_id = ?", (video_id,))
+        
+        # Add new entities
         for entity in entities:
             self.conn.execute("""
                 INSERT INTO entities (video_id, name, entity_type, mention_count)
@@ -112,6 +123,7 @@ class Station10Database:
                   entity.get('mention_count', 1)))
         
         self.conn.commit()
+        logger.debug(f"Added {len(entities)} entities for video: {video_id}")
     
     def search_entities(self, query: str, limit: int = 20) -> List[Dict]:
         """Search entities by name."""
