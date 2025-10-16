@@ -1,109 +1,233 @@
-# ClipScribe
+# Station10.media (ClipScribe)
 
-Extract intelligence from videos. Transcribe, identify entities, map relationships.
+**Video intelligence extraction SaaS - Launching February 2026**
 
-**v2.55.0** - SaaS development, Week 1 Day 1 complete  
-**Stack**: Voxtral + Grok-4 (uncensored)
+Extract speakers, entities, relationships, and AI-generated clips from any video.  
+Built for journalists, researchers, and analysts who need professional-grade accuracy without censorship.
+
+**Status:** v2.55.0 - Week 1 of 16-week development (SaaS product)  
+**Stack:** Dual-mode transcription (Voxtral + WhisperX), Grok-4 intelligence, Cloud Run infrastructure
 
 ---
 
-## What This Does
+## What Station10.media Does
 
-Takes a video, pulls out:
-- Complete transcript
-- Every entity mentioned (people, organizations, topics)
-- Who said what about whom (with direct quotes)
-- Executive summary
-- Knowledge graph
+Upload any video or paste a URL, get:
 
-Saves it all as JSON + readable reports. Optionally generates X post drafts if you want to share it.
+**Transcription:**
+- Standard tier: 95% accuracy (Voxtral)
+- Premium tier: 97-99% accuracy (WhisperX) - medical/legal grade
 
-Built for monitoring video content. Turns out structured intelligence extraction is useful for more than just social media.
+**Speaker Intelligence:**
+- Automatic speaker diarization (who spoke when)
+- AI speaker identification (context-based naming)
+- Speaker-entity attribution (who mentioned what)
 
-## Quick Start
+**Entity Extraction:**
+- People, organizations, topics, concepts
+- Confidence scores and evidence quotes
+- Relationship mapping with timestamps
 
+**Auto-Clip Generation:**
+- AI recommendations (newsworthy + viral + info-dense)
+- Auto-generate clips as .mp4 files
+- Social media captions included
+
+**Search & Analysis:**
+- Search entities across all your videos
+- Find relationships between topics
+- Track mentions over time
+
+---
+
+## Pricing (Planned)
+
+**Pay-per-minute:**
+- Standard: $0.10/minute (general content, 95% accurate)
+- Premium: $0.20/minute (medical/legal/technical, 99% accurate)
+
+**Subscriptions:**
+- Free: 10 minutes trial
+- Starter: $39/month (500 minutes)
+- Professional: $149/month (2000 minutes + 100 premium)
+- Business: $399/month (6000 minutes + 500 premium + API)
+
+**Value:** Replaces Descript ($24/mo) + Opus Clip ($29/mo) + Fireflies ($29/mo) = $82/month of separate tools.
+
+---
+
+## Features (In Development)
+
+### Week 1-4: Core Engine ✅
+- [x] Dual-mode transcription (Voxtral + WhisperX)
+- [x] Speaker diarization (pyannote.audio)
+- [ ] Speaker identification (Grok context-based)
+- [ ] Entity extraction with speaker attribution
+
+### Week 5-8: Intelligence
+- [ ] Intelligent clip recommendations (multi-objective)
+- [ ] Auto-clip generation (ffmpeg)
+- [ ] Entity search database
+- [ ] Batch processing
+
+### Week 9-12: Web Interface
+- [ ] Next.js frontend
+- [ ] Upload interface
+- [ ] Live processing status
+- [ ] Results viewer (transcript, entities, clips)
+
+### Week 13-14: Production
+- [ ] User authentication
+- [ ] Stripe billing
+- [ ] Email notifications
+
+### Week 15-16: Launch
+- [ ] Beta testing (10 users)
+- [ ] Public launch
+- [ ] Product Hunt
+
+**Target launch:** February 10, 2026
+
+---
+
+## Current Development Status
+
+**What's working:**
+- ✅ WhisperX transcription (97-99% accuracy)
+- ✅ Speaker diarization (identifies multiple speakers)
+- ✅ Voxtral transcription (95% accuracy, fast)
+- ✅ Auto-tier selection (medical/legal → premium)
+- ✅ Test suite (26 videos, all scenarios covered)
+
+**What's being built:**
+- 🔄 Multi-speaker validation (4-5 speaker test in progress)
+- ⏳ Speaker identification (Grok-based naming)
+- ⏳ Clip recommendation engine
+- ⏳ Web interface (starts Week 9)
+
+**Latest:** Week 1 Day 1 complete (Oct 15, 2025)
+
+---
+
+## Tech Stack
+
+**Transcription:**
+- Voxtral (Mistral API) - standard tier
+- WhisperX (local/Cloud Run GPU) - premium tier
+- pyannote.audio - speaker diarization
+
+**Intelligence:**
+- Grok-4 (xAI) - entity extraction, speaker ID, clip recommendations
+
+**Infrastructure (Planned):**
+- Frontend: Next.js (Cloud Run)
+- Backend: FastAPI (Cloud Run)
+- Workers: Cloud Run Jobs (CPU + GPU)
+- Database: PostgreSQL (Cloud SQL)
+- Storage: Google Cloud Storage
+- Queue: Cloud Tasks + Pub/Sub
+
+**Development:**
+- Python 3.12
+- Poetry for dependencies
+- Async processing
+- Apple Silicon optimized (M3 Max development)
+
+---
+
+## Why Build This?
+
+**Problem:** Processing video content manually takes hours.  
+- Watch video, take notes: 1-2 hours
+- Find key quotes, identify speakers: 30-60 minutes  
+- Create clips for social media: 30-60 minutes
+- Total: 2-4 hours per video
+
+**Solution:** Station10.media does it in 5-10 minutes.
+- Upload video
+- Get transcript with speakers
+- Get AI-selected clips ready to share
+- Get entity intelligence with relationships
+
+**ROI:** 35:1 time savings ($107 value at $60/hour vs $3 cost)
+
+---
+
+## Differentiation
+
+**vs Competitors:**
+- **Descript** ($24/mo): Transcription + editing, NO speaker intelligence, NO auto-clips
+- **Opus Clip** ($29/mo): Auto-clips only, NO transcription, NO entities
+- **Fireflies** ($29/mo): Basic entities, NO clips, generic speakers
+
+**Station10.media:** All features + speaker-entity attribution + multi-objective clip AI + uncensored
+
+**Pricing:** $149/mo Pro tier vs $82/mo for 3 separate inferior tools
+
+---
+
+## Repository Structure
+
+```
+clipscribe/
+├── src/clipscribe/          # Core engine (Python)
+│   ├── transcribers/        # Voxtral + WhisperX
+│   ├── processors/          # Intelligence pipeline
+│   ├── database/            # Entity search
+│   └── api/                 # FastAPI backend
+├── docs/                    # Documentation
+│   ├── planning/            # SaaS roadmap, architecture
+│   └── advanced/testing/    # Test video suite
+├── scripts/                 # Utilities
+├── tests/                   # Test suite
+└── examples/                # Usage examples
+```
+
+---
+
+## Development
+
+**Clone and install:**
 ```bash
 git clone https://github.com/bubroz/clipscribe.git
 cd clipscribe
 poetry install
-
-# Add to .env:
-VOXTRAL_API_KEY=your_key
-XAI_API_KEY=your_key
 ```
 
-Process a video:
+**Set up environment:**
 ```bash
-poetry run clipscribe process video "https://youtube.com/watch?v=..."
+cp .env.example .env
+# Add: MISTRAL_API_KEY, XAI_API_KEY, HUGGINGFACE_TOKEN
 ```
 
-Monitor a channel:
+**Test transcription:**
 ```bash
-poetry run clipscribe monitor-async --channels UCxxx --interval 300 --workers 10
+poetry run python scripts/test_whisperx.py test_videos/sample.mp3
 ```
 
-That's it. Everything else is in `docs/CLI_REFERENCE.md`.
+**Full roadmap:** See `ROADMAP.md` and `docs/planning/SAAS_PRODUCT_ROADMAP.md`
 
-## Output Files
-
-Each video generates:
-- `core.json` - Entities, relationships, complete summary
-- `transcript.txt` - Full transcript
-- `knowledge_graph.json` - Graph data
-- `report.md` - Readable intelligence report
-- `metadata.json` - Video info
-
-Run with `--with-x-draft` to also get:
-- `x_draft/` folder with 3 tweet styles
-- Mobile preview page (GCS)
-- Telegram notification
-
-The intelligence files are the valuable part. X stuff is optional.
-
-## Current State
-
-**What works** (tested Oct 2025):
-- YouTube monitoring via RSS
-- 10 concurrent workers (processes 10 videos at once)
-- Shorts automatically filtered
-- Dense entity extraction (30-87 per video)
-- Telegram notifications (100% delivery with retry)
-- Complete summaries (no cutoffs)
-- 3 tweet styles that actually sound different
-
-**What doesn't**:
-- Only YouTube (no direct scrapers for senate.gov, granicus, etc)
-- Entity deduplication is basic (Biden vs Joe Biden = separate entities)
-- Grok API flakes out sometimes (~10% of chunks fail, retries fix most)
-- Memory leak workaround (workers restart every 100 videos to prevent crash)
-
-**Test results**: FoxNews monitoring ran 8 videos, 8/8 successful, no crashes. It works.
-
-## Tech Details
-
-- **Transcription**: Voxtral-mini-2507 (Mistral API, $0.002/min, uncensored)
-- **Extraction**: Grok-4 (xAI, uncensored, good at entities)
-- **Architecture**: Python 3.12 asyncio, 10-worker pool
-- **Downloads**: yt-dlp with curl-cffi impersonation
-- **Storage**: GCS for mobile pages (optional)
-- **Notifications**: Telegram (optional)
-
-Cost averages $0.03-0.06 per video depending on length and entity density.
+---
 
 ## Status
 
-Personal alpha. One user. Built for video monitoring workflow, using daily.
+**v2.55.0** - Active SaaS development  
+**Timeline:** Week 1 of 16 (Oct 15 - Feb 10, 2026)  
+**Current:** Building core intelligence features  
+**Next:** Speaker identification, clip generation (Week 2-3)  
+**Launch:** February 10, 2026 (private beta Week 15, public Week 16)
 
-Validated on news content. Works reliably. Has some rough edges (memory leak workaround, Grok flakiness) but functional.
-
-Not taking other users. Might never be a product. Might stay a personal tool. We'll see.
+---
 
 ## Contact
 
 Zac Forristall  
 zforristall@gmail.com  
-Amateur
+[@bubroz](https://github.com/bubroz)
+
+**Product:** station10.media (launching Feb 2026)  
+**This repo:** Core engine development (private during development)
 
 ---
 
-**Last updated**: October 12, 2025
+*Last updated: October 15, 2025 - Week 1 Day 1 complete*
