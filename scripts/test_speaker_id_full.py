@@ -15,6 +15,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
 from clipscribe.transcribers.voxtral_transcriber import VoxtralTranscriber
+from clipscribe.utils.voxtral_chunker import VoxtralChunker
 from clipscribe.intelligence.speaker_identifier import SpeakerIdentifier
 
 
@@ -22,7 +23,7 @@ async def test_full_pipeline(audio_file: str, video_metadata: dict):
     """
     Full test: Transcribe → Diarize → Identify speakers
     
-    This is the REAL test using actual transcription.
+    This is the REAL test using actual transcription with chunking for large files.
     """
     
     print(f"\n{'='*80}")
@@ -34,11 +35,36 @@ async def test_full_pipeline(audio_file: str, video_metadata: dict):
         print(f"ERROR: File not found: {audio_file}")
         return
     
-    # Step 1: Transcribe with Voxtral (fast)
-    print("Step 1: Transcribing with Voxtral...")
-    transcriber = VoxtralTranscriber()
-    result = await transcriber.transcribe_with_fallback(str(audio_path))
-    transcript = result['transcript']
+    # Step 1: Transcribe with Voxtral (with chunking for large files)
+    print("Step 1: Transcribing with Voxtral (auto-chunking for large files)...")
+    
+    chunker = VoxtralChunker()
+    chunks = await chunker.split_audio(str(audio_path))
+    print(f"  Split into {len(chunks)} chunks")
+    
+    if len(chunks) == 1:
+        # Small file, transcribe directly
+        transcriber = VoxtralTranscriber()
+        result = await transcriber.transcribe_audio(str(audio_path))
+        transcript = result.text
+    else:
+        # Large file, transcribe chunks and merge
+        transcriber = VoxtralTranscriber()
+        chunk_results = []
+        
+        for i, chunk in enumerate(chunks, 1):
+            print(f"  Transcribing chunk {i}/{len(chunks)}...")
+            result = await transcriber.transcribe_audio(chunk['path'])
+            chunk_results.append({
+                "transcript": {"text": result.text},
+                "start_time": chunk['start_time'],
+                "cost": result.cost
+            })
+        
+        # Merge chunks
+        merged = chunker.merge_chunk_transcripts(chunk_results)
+        transcript = merged['text']
+    
     print(f"  ✓ Transcribed: {len(transcript)} chars")
     
     # Step 2: Diarize speakers with pyannote
