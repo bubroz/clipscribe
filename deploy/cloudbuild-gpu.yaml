@@ -24,12 +24,13 @@ steps:
       - 'push'
       - 'gcr.io/${PROJECT_ID}/station10-gpu-worker:${_VERSION}'
 
-  # Deploy as Cloud Run Job with GPU
+  # Deploy as Cloud Run Job with GPU (using beta for GPU support)
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     id: 'deploy-gpu-job'
     waitFor: ['push-gpu-worker']
     entrypoint: 'gcloud'
     args:
+      - 'beta'
       - 'run'
       - 'jobs'
       - 'create'
@@ -54,7 +55,7 @@ steps:
     args:
       - '-c'
       - |
-        gcloud run jobs update station10-gpu-worker \
+        gcloud beta run jobs update station10-gpu-worker \
           --image=gcr.io/${PROJECT_ID}/station10-gpu-worker:${_VERSION} \
           --region=${_REGION} \
           || echo "Job doesn't exist yet, skipping update"
