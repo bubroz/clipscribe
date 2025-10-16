@@ -13,11 +13,14 @@ echo "Vertex AI GPU Worker Deployment & Test"
 echo "========================================"
 echo ""
 
-# Step 1: Build Docker image (same as Cloud Run)
-echo "Step 1: Building Docker image..."
+# Step 1: Build Docker image
+echo "Step 1: Building Docker image with GPU support..."
+echo "This will take 15-20 minutes (first time only)..."
+echo ""
+
 gcloud builds submit \
     --tag gcr.io/$PROJECT_ID/station10-gpu-worker:latest \
-    -f Dockerfile.gpu \
+    --dockerfile Dockerfile.gpu \
     .
 
 echo "✓ Image built and pushed"
