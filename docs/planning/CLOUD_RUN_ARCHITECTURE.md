@@ -222,14 +222,16 @@ parallelism: 10 (10 concurrent videos)
 
 ### Worker - Premium Tier (GPU)
 
+**UPDATE (Oct 16):** Cloud Run Jobs don't support GPU. Using Vertex AI instead.
+
 ```yaml
+# Vertex AI Custom Job (replaces Cloud Run GPU Job)
 job: station10-worker-premium
 region: us-central1
-memory: 16Gi
-cpu: 4
-gpu: nvidia-tesla-t4 (1 GPU)
+machine: n1-standard-4
+accelerator: nvidia-l4 (1 GPU)
 timeout: 1800s (30 min max)
-parallelism: 5 (5 concurrent on GPU)
+container: gcr.io/PROJECT/whisperx-gpu-worker
 ```
 
 ---

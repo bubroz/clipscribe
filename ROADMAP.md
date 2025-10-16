@@ -67,12 +67,14 @@ Use case: Medical, legal, technical, intelligence
 
 ### **Week 1: Infrastructure Validation (FIRST)**
 
-**Day 1-2: Deploy & Validate Cloud Run GPU**
-- Create GPU Dockerfile (WhisperX + pyannote)
-- Deploy to Cloud Run with NVIDIA T4
+**Day 1-2: Deploy & Validate Vertex AI GPU** (Pivot from Cloud Run after 3 failed attempts)
+- Create Vertex AI custom job (WhisperX + pyannote)
+- Deploy to Vertex AI with NVIDIA L4
 - Process test video end-to-end
 - Measure: Speed, cost, multi-speaker accuracy
 - **DECISION GATE:** If GPU doesn't work/too expensive → pivot strategy immediately
+
+**Cloud Run Status:** Jobs don't support GPU (zonal redundancy issues). Using Vertex AI instead.
 
 **Day 3-5: Build features (ONLY if GPU validated)**
 - Speaker identification (Grok)

@@ -136,8 +136,9 @@
 
 **Week 1 (Oct 15-22)**: INFRASTRUCTURE VALIDATION FIRST
 - Day 1: WhisperX + SpeakerID built locally ✅
-- Day 2-3: Deploy to Cloud Run GPU, validate works
-- DECISION GATE: If GPU validation fails, pivot immediately
+- Day 2: Cloud Run GPU failed (3 attempts, Jobs don't support GPU)
+- Day 2-3: PIVOT → Vertex AI GPU validation
+- DECISION GATE: If Vertex AI GPU validation fails, pivot immediately
 - Day 4-5: Continue features only if GPU proven
 
 **Weeks 2-4 (Oct 22 - Nov 12)**: Core Intelligence Engine (After GPU Validated)
