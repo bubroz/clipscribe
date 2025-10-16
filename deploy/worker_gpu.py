@@ -126,9 +126,10 @@ class CloudRunGPUWorker:
         total_time = time.time() - start_time
         
         # GPU cost calculation
-        # T4 GPU on Cloud Run: ~$0.35/hour = $0.00583/minute
+        # L4 GPU on Cloud Run: ~$0.40/hour = $0.00667/minute
+        # (L4 is 1.5x faster than T4, so net cheaper despite higher hourly cost)
         gpu_minutes = process_time / 60
-        gpu_cost = gpu_minutes * 0.00583
+        gpu_cost = gpu_minutes * 0.00667
         
         metrics = {
             "success": True,
