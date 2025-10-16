@@ -37,7 +37,7 @@ steps:
       - '--image=gcr.io/${PROJECT_ID}/station10-gpu-worker:${_VERSION}'
       - '--region=${_REGION}'
       - '--gpu=1'
-      - '--gpu-type=nvidia-tesla-t4'
+      - '--gpu-type=nvidia-l4'
       - '--memory=16Gi'
       - '--cpu=4'
       - '--task-timeout=30m'
