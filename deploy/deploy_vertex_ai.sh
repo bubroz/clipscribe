@@ -18,33 +18,7 @@ echo "Step 1: Building Docker image with GPU support..."
 echo "This will take 15-20 minutes (first time only)..."
 echo ""
 
-# Use docker builder directly with -f flag
-gcloud builds submit \
-    --tag gcr.io/$PROJECT_ID/station10-gpu-worker:latest \
-    --machine-type=E2_HIGHCPU_8 \
-    --timeout=30m \
-    . \
-    --gcs-log-dir=gs://$PROJECT_ID\_cloudbuild/logs \
-    2>&1 | tee /tmp/build.log &
-
-# Wait for docker builder step (uses default cloudbuild.yaml which we'll create)
-# Actually, simpler: just use docker in Cloud Build
-cat > /tmp/cloudbuild_gpu.yaml << 'EOF'
-steps:
-  - name: 'gcr.io/cloud-builders/docker'
-    args:
-      - 'build'
-      - '-f'
-      - 'Dockerfile.gpu'
-      - '-t'
-      - 'gcr.io/$PROJECT_ID/station10-gpu-worker:latest'
-      - '.'
-    timeout: 1200s
-images:
-  - 'gcr.io/$PROJECT_ID/station10-gpu-worker:latest'
-EOF
-
-gcloud builds submit --config=/tmp/cloudbuild_gpu.yaml
+gcloud builds submit --config=deploy/cloudbuild-gpu-simple.yaml
 
 echo "✓ Image built and pushed"
 echo ""
