@@ -1,0 +1,59 @@
+# Cloud Run GPU Worker for Station10.media
+# WhisperX Premium Tier Processing with NVIDIA T4
+
+FROM nvidia/cuda:12.1.0-cudnn8-runtime-ubuntu22.04
+
+# Prevent interactive prompts
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install Python 3.12 and dependencies
+RUN apt-get update && apt-get install -y \
+    python3.12 \
+    python3.12-dev \
+    python3-pip \
+    ffmpeg \
+    git \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set Python 3.12 as default
+RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.12 1 \
+    && update-alternatives --install /usr/bin/python python /usr/bin/python3.12 1
+
+# Upgrade pip
+RUN python3 -m pip install --upgrade pip setuptools wheel
+
+# Install PyTorch with CUDA support
+RUN pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+
+# Install WhisperX and dependencies
+RUN pip3 install whisperx pyannote.audio
+
+# Install Google Cloud libraries
+RUN pip3 install google-cloud-storage google-cloud-logging
+
+# Install other dependencies
+RUN pip3 install httpx python-dotenv
+
+# Create app directory
+WORKDIR /app
+
+# Copy transcriber code
+COPY src/clipscribe/transcribers/ /app/transcribers/
+COPY src/clipscribe/intelligence/ /app/intelligence/
+COPY src/clipscribe/utils/error_handler.py /app/utils/
+
+# Copy worker script
+COPY deploy/worker_gpu.py /app/worker.py
+
+# Set environment variables
+ENV PYTHONUNBUFFERED=1
+ENV CUDA_VISIBLE_DEVICES=0
+
+# Health check
+HEALTHCHECK --interval=60s --timeout=10s --start-period=120s --retries=3 \
+    CMD python3 -c "import torch; assert torch.cuda.is_available()" || exit 1
+
+# Entry point
+CMD ["python3", "worker.py"]
+
