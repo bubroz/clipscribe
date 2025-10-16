@@ -6,19 +6,23 @@ FROM nvidia/cuda:12.1.0-cudnn8-runtime-ubuntu22.04
 # Prevent interactive prompts
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Install Python 3.12 and dependencies
+# Install Python 3.11 and dependencies (3.12 not in Ubuntu 22.04)
 RUN apt-get update && apt-get install -y \
-    python3.12 \
-    python3.12-dev \
+    software-properties-common \
+    && add-apt-repository ppa:deadsnakes/ppa -y \
+    && apt-get update \
+    && apt-get install -y \
+    python3.11 \
+    python3.11-dev \
     python3-pip \
     ffmpeg \
     git \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
-# Set Python 3.12 as default
-RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.12 1 \
-    && update-alternatives --install /usr/bin/python python /usr/bin/python3.12 1
+# Set Python 3.11 as default
+RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.11 1 \
+    && update-alternatives --install /usr/bin/python python /usr/bin/python3.11 1
 
 # Upgrade pip
 RUN python3 -m pip install --upgrade pip setuptools wheel
