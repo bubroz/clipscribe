@@ -17,6 +17,11 @@ logs/
 .env*
 !.env.example
 cache/
+test_videos/
+htmlcov/
+.coverage
+*_whisperx_results.*
+*_test_output.txt
 
 # Test and temporary files
 pbs_newshour_30day_batch.json
