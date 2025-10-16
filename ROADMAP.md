@@ -63,7 +63,25 @@ Use case: Medical, legal, technical, intelligence
 
 ## 16-Week Development Plan
 
-### **Weeks 1-4: Core Intelligence Engine**
+**CRITICAL: Week 1 starts with infrastructure validation (Cloud Run GPU deployment)**
+
+### **Week 1: Infrastructure Validation (FIRST)**
+
+**Day 1-2: Deploy & Validate Cloud Run GPU**
+- Create GPU Dockerfile (WhisperX + pyannote)
+- Deploy to Cloud Run with NVIDIA T4
+- Process test video end-to-end
+- Measure: Speed, cost, multi-speaker accuracy
+- **DECISION GATE:** If GPU doesn't work/too expensive → pivot strategy immediately
+
+**Day 3-5: Build features (ONLY if GPU validated)**
+- Speaker identification (Grok)
+- Entity extraction with speakers
+- Integrate into pipeline
+
+**Rationale:** Validate infrastructure BEFORE building features on it. De-risk early.
+
+### **Weeks 2-4: Core Intelligence Engine** (After GPU Validated)
 
 **Deliverable**: Voxtral + WhisperX + speakers + entities working in CLI
 

@@ -134,9 +134,15 @@
 
 ### SaaS Product Roadmap (16 Weeks)
 
-**Weeks 1-4 (Oct 15 - Nov 12)**: Core Intelligence Engine
+**Week 1 (Oct 15-22)**: INFRASTRUCTURE VALIDATION FIRST
+- Day 1: WhisperX + SpeakerID built locally ✅
+- Day 2-3: Deploy to Cloud Run GPU, validate works
+- DECISION GATE: If GPU validation fails, pivot immediately
+- Day 4-5: Continue features only if GPU proven
+
+**Weeks 2-4 (Oct 22 - Nov 12)**: Core Intelligence Engine (After GPU Validated)
 - Dual-mode transcription (Voxtral standard, WhisperX premium)
-- Speaker diarization (pyannote)
+- Speaker diarization (pyannote on GPU)
 - Speaker identification (Grok-based, 85%+ accuracy)
 - Entity extraction with speaker attribution
 
