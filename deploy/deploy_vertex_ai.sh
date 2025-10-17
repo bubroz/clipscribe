@@ -54,7 +54,7 @@ poetry run python deploy/submit_vertex_ai_job.py \
     --output gs://$GCS_BUCKET/test/vertex_results/ \
     --project $PROJECT_ID \
     --region $REGION \
-    --gpu NVIDIA_L4
+    --gpu NVIDIA_TESLA_T4
 
 echo ""
 echo "========================================"
