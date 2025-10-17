@@ -38,7 +38,7 @@ echo "Step 3: Submitting job to Vertex AI with L4 GPU..."
 echo "This should take ~7-10 minutes to process 71-minute video"
 echo ""
 
-python3 deploy/submit_vertex_ai_job.py \
+poetry run python deploy/submit_vertex_ai_job.py \
     --video gs://$GCS_BUCKET/test/mtg_interview.mp3 \
     --output gs://$GCS_BUCKET/test/vertex_results/ \
     --project $PROJECT_ID \

@@ -181,6 +181,7 @@ matplotlib = "^3.10.3"
 pytest-mock = "^3.14.1"
 ruff = "^0.5.7"
 playwright = "^1.55.0"
+google-cloud-aiplatform = "^1.121.0"
 
 [tool.poetry.scripts]
 clipscribe = "clipscribe.commands.cli:run_cli"
