@@ -53,7 +53,7 @@ def submit_gpu_job(
         worker_pool_specs=[
             {
                 "machine_spec": {
-                    "machine_type": "n1-standard-4",
+                    "machine_type": "g2-standard-4",  # L4 requires G2 machine type
                     "accelerator_type": gpu_type,
                     "accelerator_count": 1,
                 },
