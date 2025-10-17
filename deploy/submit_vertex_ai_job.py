@@ -10,7 +10,11 @@ Usage:
 
 import argparse
 import time
+import logging
 from google.cloud import aiplatform
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 
 def submit_gpu_job(
@@ -33,8 +37,15 @@ def submit_gpu_job(
         wait: Wait for completion
     """
     
-    # Initialize Vertex AI
-    aiplatform.init(project=project_id, location=location)
+    # Initialize Vertex AI with staging bucket
+    staging_bucket = f"gs://{project_id}-clipscribe"
+    aiplatform.init(
+        project=project_id, 
+        location=location,
+        staging_bucket=staging_bucket
+    )
+    
+    logger.info(f"Vertex AI initialized with staging bucket: {staging_bucket}")
     
     # Create custom job
     job = aiplatform.CustomJob(
