@@ -104,7 +104,7 @@ if __name__ == "__main__":
     parser.add_argument("--output", required=True, help="GCS path for output")
     parser.add_argument("--project", default="prismatic-iris-429006-g6")
     parser.add_argument("--region", default="us-central1")
-    parser.add_argument("--gpu", default="NVIDIA_L4", choices=["NVIDIA_L4", "NVIDIA_TESLA_A100"])
+    parser.add_argument("--gpu", default="NVIDIA_TESLA_T4", choices=["NVIDIA_L4", "NVIDIA_TESLA_T4", "NVIDIA_TESLA_A100"])
     parser.add_argument("--no-wait", action="store_true", help="Don't wait for completion")
     
     args = parser.parse_args()
