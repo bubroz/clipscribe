@@ -13,15 +13,26 @@ echo "Vertex AI GPU Worker Deployment & Test"
 echo "========================================"
 echo ""
 
-# Step 1: Build Docker image
-echo "Step 1: Building Docker image with GPU support..."
-echo "This will take 15-20 minutes (first time only)..."
+# Step 1: Check if image exists, build if needed
+echo "Step 1: Checking Docker image..."
 echo ""
 
-gcloud builds submit --config=deploy/cloudbuild-gpu-simple.yaml
+IMAGE_EXISTS=$(gcloud container images describe gcr.io/$PROJECT_ID/station10-gpu-worker:latest 2>/dev/null && echo "yes" || echo "no")
 
-echo "✓ Image built and pushed"
-echo ""
+if [ "$IMAGE_EXISTS" = "yes" ]; then
+    echo "✓ Docker image already exists (skipping 20-minute rebuild)"
+    echo "  To force rebuild: gcloud builds submit --config=deploy/cloudbuild-gpu-simple.yaml"
+    echo ""
+else
+    echo "Building Docker image with GPU support..."
+    echo "This will take 15-20 minutes..."
+    echo ""
+    
+    gcloud builds submit --config=deploy/cloudbuild-gpu-simple.yaml
+    
+    echo "✓ Image built and pushed"
+    echo ""
+fi
 
 # Step 2: Upload test video
 echo "Step 2: Uploading test video to GCS..."
