@@ -23,7 +23,8 @@ def submit_gpu_job(
     video_gcs_path: str,
     output_gcs_path: str,
     gpu_type: str = "NVIDIA_L4",
-    wait: bool = True
+    wait: bool = True,
+    timeout_minutes: int = 30
 ):
     """
     Submit WhisperX processing job to Vertex AI with GPU.
@@ -35,6 +36,7 @@ def submit_gpu_job(
         output_gcs_path: Output GCS path
         gpu_type: GPU type (NVIDIA_L4, NVIDIA_A100_80GB)
         wait: Wait for completion
+        timeout_minutes: Maximum job runtime in minutes (default: 30)
     """
     
     # Initialize Vertex AI with staging bucket
@@ -47,7 +49,8 @@ def submit_gpu_job(
     
     logger.info(f"Vertex AI initialized with staging bucket: {staging_bucket}")
     
-    # Create custom job
+    # Create custom job with timeout protection
+    timeout_seconds = timeout_minutes * 60
     job = aiplatform.CustomJob(
         display_name=f"station10-whisperx-{int(time.time())}",
         worker_pool_specs=[
@@ -69,12 +72,15 @@ def submit_gpu_job(
                 },
             }
         ],
+        # Automatic job termination after timeout
+        timeout=f"{timeout_seconds}s",
     )
     
     print(f"Submitting job to Vertex AI...")
     print(f"  Project: {project_id}")
     print(f"  Region: {location}")
     print(f"  GPU: {gpu_type}")
+    print(f"  Timeout: {timeout_minutes} minutes (auto-terminate)")
     print(f"  Input: {video_gcs_path}")
     print(f"  Output: {output_gcs_path}")
     print()
@@ -105,6 +111,7 @@ if __name__ == "__main__":
     parser.add_argument("--project", default="prismatic-iris-429006-g6")
     parser.add_argument("--region", default="us-central1")
     parser.add_argument("--gpu", default="NVIDIA_TESLA_T4", choices=["NVIDIA_L4", "NVIDIA_TESLA_T4", "NVIDIA_TESLA_A100"])
+    parser.add_argument("--timeout", type=int, default=30, help="Job timeout in minutes (default: 30)")
     parser.add_argument("--no-wait", action="store_true", help="Don't wait for completion")
     
     args = parser.parse_args()
@@ -115,6 +122,7 @@ if __name__ == "__main__":
         video_gcs_path=args.video,
         output_gcs_path=args.output,
         gpu_type=args.gpu,
-        wait=not args.no_wait
+        wait=not args.no_wait,
+        timeout_minutes=args.timeout
     )
 
