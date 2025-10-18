@@ -17,20 +17,18 @@ echo ""
 echo "Step 1: Checking Docker image..."
 echo ""
 
-IMAGE_EXISTS=$(gcloud container images describe gcr.io/$PROJECT_ID/station10-gpu-worker:latest 2>/dev/null && echo "yes" || echo "no")
-
-if [ "$IMAGE_EXISTS" = "yes" ]; then
+if gcloud container images describe gcr.io/$PROJECT_ID/station10-gpu-worker:latest >/dev/null 2>&1; then
     echo "✓ Docker image already exists (skipping 20-minute rebuild)"
     echo "  To force rebuild: gcloud builds submit --config=deploy/cloudbuild-gpu-simple.yaml"
     echo ""
 else
-    echo "Building Docker image with GPU support..."
+    echo "Docker image not found. Building with GPU support..."
     echo "This will take 15-20 minutes..."
     echo ""
     
     gcloud builds submit --config=deploy/cloudbuild-gpu-simple.yaml
     
-    echo "✓ Image built and pushed"
+    echo "✓ Image built and pushed to gcr.io/$PROJECT_ID/station10-gpu-worker:latest"
     echo ""
 fi
 

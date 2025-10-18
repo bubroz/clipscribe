@@ -73,7 +73,7 @@ def submit_gpu_job(
             }
         ],
         # Automatic job termination after timeout
-        timeout=f"{timeout_seconds}s",
+        scheduling={"timeout": f"{timeout_seconds}s"},
     )
     
     print(f"Submitting job to Vertex AI...")
