@@ -36,8 +36,14 @@ RUN pip3 install whisperx pyannote.audio
 # Install Google Cloud libraries
 RUN pip3 install google-cloud-storage google-cloud-logging
 
-# Install other dependencies
-RUN pip3 install httpx python-dotenv
+# Install ClipScribe dependencies (for transcribers module)
+RUN pip3 install \
+    tenacity \
+    pydantic \
+    pydantic-settings \
+    httpx \
+    python-dotenv \
+    google-generativeai
 
 # Create app directory
 WORKDIR /app
