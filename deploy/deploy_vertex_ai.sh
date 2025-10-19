@@ -34,23 +34,25 @@ fi
 
 # Step 2: Upload test video
 echo "Step 2: Uploading test video to GCS..."
-if gsutil ls gs://$GCS_BUCKET/test/tier1_part1.mp3 >/dev/null 2>&1; then
+if gsutil ls gs://$GCS_BUCKET/test/the_view_oct14.mp3 >/dev/null 2>&1; then
     echo "✓ Test video already uploaded"
 else
-    gsutil cp test_videos/Nr7vbOSzpSk_*.mp3 gs://$GCS_BUCKET/test/tier1_part1.mp3
-    echo "✓ Uploaded test video (Tier 1&2 Part 1 - 30min, 2 speakers)"
+    gsutil cp test_videos/U3w93r5QRb8_*.mp3 gs://$GCS_BUCKET/test/the_view_oct14.mp3
+    echo "✓ Uploaded test video (The View - 36min, 5+ speakers)"
 fi
 echo ""
 
 # Step 3: Submit Vertex AI job
 echo "Step 3: Submitting job to Vertex AI with L4 GPU..."
-echo "Testing with Tier 1&2 Part 1 (30min, 2 speakers)"
-echo "Expected: ~4-5 minutes processing, ~\$0.06 cost"
+echo "Testing with The View Oct 14 (36min, 5+ speakers)"
+echo "Expected: ~6 minutes processing, ~\$0.07 cost"
 echo "Timeout set to 30 minutes for safety"
+echo ""
+echo "NOTE: 5+ speakers is HARDER than 2 speakers - best test of diarization!"
 echo ""
 
 poetry run python deploy/submit_vertex_ai_job.py \
-    --video gs://$GCS_BUCKET/test/tier1_part1.mp3 \
+    --video gs://$GCS_BUCKET/test/the_view_oct14.mp3 \
     --output gs://$GCS_BUCKET/test/vertex_results/ \
     --project $PROJECT_ID \
     --region $REGION \

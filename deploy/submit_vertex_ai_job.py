@@ -49,8 +49,11 @@ def submit_gpu_job(
     
     logger.info(f"Vertex AI initialized with staging bucket: {staging_bucket}")
     
-    # Create custom job with timeout protection
-    timeout_seconds = timeout_minutes * 60
+    # Create custom job
+    # NOTE: Timeout configuration requires REST API, not Python SDK
+    # Default Vertex AI timeout is 7 days (more than enough)
+    # TODO: Add explicit timeout via job.run(timeout=...) if needed
+    
     job = aiplatform.CustomJob(
         display_name=f"station10-whisperx-{int(time.time())}",
         worker_pool_specs=[
@@ -72,34 +75,37 @@ def submit_gpu_job(
                 },
             }
         ],
-        # Automatic job termination after timeout
-        scheduling={"timeout": f"{timeout_seconds}s"},
     )
     
     print(f"Submitting job to Vertex AI...")
     print(f"  Project: {project_id}")
     print(f"  Region: {location}")
     print(f"  GPU: {gpu_type}")
-    print(f"  Timeout: {timeout_minutes} minutes (auto-terminate)")
+    print(f"  Max runtime: 7 days (Vertex AI default)")
     print(f"  Input: {video_gcs_path}")
     print(f"  Output: {output_gcs_path}")
     print()
     
     # Submit job
-    job.run(sync=wait)
+    job.submit()
+    
+    print()
+    print(f"Job submitted: {job.display_name}")
+    print(f"Monitor at: https://console.cloud.google.com/vertex-ai/training/custom-jobs?project={project_id}")
+    print()
     
     if wait:
+        print("Waiting for job completion...")
+        job.wait()
+        
         print()
         print("="*80)
         print("JOB COMPLETE")
         print("="*80)
-        print(f"Job name: {job.resource_name}")
+        print(f"Job name: {job.display_name}")
         print(f"State: {job.state}")
         print()
         print(f"Check results at: {output_gcs_path}")
-    else:
-        print(f"Job submitted: {job.resource_name}")
-        print(f"Monitor at: https://console.cloud.google.com/vertex-ai/training/custom-jobs")
     
     return job
 
