@@ -60,44 +60,54 @@ Validate GPU-accelerated audio transcription with WhisperX on Vertex AI to enabl
 
 | GPU Type | Region | Quota | Status | Cost/Hour |
 |----------|--------|-------|--------|-----------|
-| T4 | us-central1 | Available | ✅ TESTING NOW | $0.35 |
-| L4 | us-central1 | 0 (requested 2) | ⏳ PENDING APPROVAL | $0.70 |
+| T4 | us-central1 | Available | ⚠️ SKIP (too slow/expensive) | $0.35 |
+| L4 | us-central1 | **2** | ✅ **APPROVED!** | $0.70 |
 | L4 | southamerica-east1 | 0 (requested 2) | ⏳ PENDING APPROVAL | $0.70 |
 
-**L4 Quota Request:**
-- Submitted: October 18, 2025
-- Justification: Real-time audio transcription workload
-- Expected approval: 1-3 business days
-- Backup plan: Use T4 if L4 rejected
+**L4 Quota Approval:**
+- ✅ Submitted: October 18, 2025 01:08 AM
+- ✅ Approved: October 18, 2025 01:12 AM (**4 minutes!**)
+- ✅ Quota: 2 GPUs in us-central1
+- **Status:** READY TO TEST
 
-### Current Test (IN PROGRESS)
+### Current Test (READY TO RUN)
 
-**Test Video:** MTG Interview (71 minutes, 2 speakers)  
-**GPU:** NVIDIA Tesla T4  
+**Test Video:** Tier 1&2 Part 1 (30 minutes, 2 speakers)  
+**GPU:** NVIDIA L4 (**quota approved!**)  
 **Expected:**
-- Processing time: <15 minutes (T4 is slower than L4)
-- Cost: <$0.20
+- Processing time: ~4-5 minutes (2x realtime)
+- Cost: ~$0.06
 - Speakers detected: 2
 - Output: VTT, JSON, speaker-labeled transcript
 
-**Running in external terminal** (started ~08:00 UTC)
+**Why 30min instead of 71min:**
+- Faster iteration (5min vs 15min processing)
+- Cheaper validation ($0.06 vs $0.17)
+- Still validates 2-speaker diarization
+- Can test 71min video after initial validation passes
 
 ---
 
 ## 📊 **Validation Criteria**
 
-### T4 Performance (TESTING)
-- [ ] Processes 71min audio in <15 min
-- [ ] Costs <$0.20 per job
+### L4 Initial Test (30min video - READY TO RUN)
+- [ ] Processes 30min audio in <10 min (2x realtime target)
+- [ ] Costs <$0.10
 - [ ] Detects 2 speakers correctly
 - [ ] Produces valid VTT output
 - [ ] Speaker labels are accurate
 
-### L4 Performance (BLOCKED - NO QUOTA)
-- [ ] Processes 71min audio in <10 min
-- [ ] Costs <$0.35 per job
+### L4 Full Test (71min video - AFTER INITIAL PASSES)
+- [ ] Processes 71min audio in <15 min
+- [ ] Costs <$0.20
 - [ ] Detects 2 speakers correctly
-- [ ] 2x faster than T4 at 2x cost (same $/second)
+- [ ] Maintains quality on longer content
+
+### T4 Performance (CANCELLED - NOT ECONOMICAL)
+- ❌ T4 is 7x more expensive per job ($0.82 vs $0.12)
+- ❌ T4 is 10x slower (140min vs 15min)
+- ❌ Not viable for production
+- ✅ Skip T4 testing entirely, use L4
 
 ### Cost Monitoring (READY TO DEPLOY)
 - [x] Timeout protection implemented
@@ -108,46 +118,55 @@ Validate GPU-accelerated audio transcription with WhisperX on Vertex AI to enabl
 
 ---
 
-## 🎯 **Decision Tree (Next 24 Hours)**
+## 🎯 **Decision Tree (Next 30 Minutes)**
 
 ```
-T4 Test Result?
-├─ SUCCESS (<15 min, <$0.20, 2 speakers) 
-│  ├─ L4 quota approved? 
-│  │  ├─ YES → Test L4, compare performance, pick best
-│  │  └─ NO → Ship with T4, request L4 again
-│  └─ Deploy cost alerts
-│     Run 5 more test videos
-│     Document T4 performance metrics
+L4 Test (30min video):
+├─ SUCCESS (<10 min, <$0.10, 2 speakers)
+│  ├─ Deploy cost alerts immediately
+│  ├─ Test 71min video on L4
+│  ├─ Document actual L4 performance
+│  ├─ Process 5 more test videos from master table
+│  └─ ✅ PROCEED WITH WEEK 1-16 PLAN
+│     Ship Premium tier at $0.02/min
+│     90% margin confirmed
 │
 └─ FAILURE (too slow, too expensive, bad quality)
-   ├─ Wait for L4 quota
-   │  └─ If rejected → Pivot to Voxtral-only (no GPU tier)
-   └─ Investigate failure mode
-      Document why GPU approach failed
+   ├─ Diagnose specific issue:
+   │  ├─ Speed problem? → Check GPU utilization
+   │  ├─ Cost problem? → Verify billing data
+   │  └─ Quality problem? → Review WhisperX config
+   ├─ Try 71min video anyway (might be model loading overhead)
+   └─ If still fails → Pivot to Voxtral-only (no GPU tier)
 ```
+
+**Key Change:** L4 approval eliminates T4 entirely. Single path forward.
 
 ---
 
-## 💰 **Cost Projections**
+## 💰 **Cost Projections (L4 APPROVED)**
 
 ### Development Phase (Weeks 1-4)
 - **Docker builds:** $2-5 (20 builds × $0.10-0.25)
-- **GPU testing:** $10-20 (50-100 test jobs × $0.20)
-- **Failed jobs:** $5-10 (buffer for errors)
-- **Total:** $17-35/month
+- **GPU testing:** $5-10 (50-100 test jobs × $0.06-0.12)
+- **Failed jobs:** $3-5 (buffer for errors)
+- **Total:** $10-20/month (cheaper with L4!)
 
-### Production Phase (Months 4-6)
+### Production Phase (Months 4-6) - **ECONOMICS NOW VIABLE**
 - **Assumptions:** 
   - 100 jobs/day average
   - 30 min average audio length
-  - $0.20 per job (T4) or $0.35 per job (L4)
-- **T4 Cost:** $600/month (100 jobs/day × $0.20 × 30 days)
-- **L4 Cost:** $1,050/month (100 jobs/day × $0.35 × 30 days)
+  - L4 processing: ~5 min per 30min video
+- **L4 Processing Cost:** $0.06 per 30min job
+- **Monthly L4 Cost:** $180/month (100 jobs/day × $0.06 × 30 days)
 - **Revenue:** $1,800/month (100 jobs/day × 30min × $0.02/min × 30 days)
-- **Margin:** 67% (T4) or 42% (L4)
+- **Margin:** **90%** ✅ (Was 42% with old estimate)
 
-**Note:** These are ESTIMATES. Actual costs depend on validation results.
+**CRITICAL INSIGHT:** L4 is NOT more expensive than T4 per job!
+- T4: $0.35/hr × 2 hours (0.5x realtime) = $0.70 per 30min video
+- L4: $0.70/hr × 0.083 hours (2x realtime) = $0.06 per 30min video
+
+**L4 is 12x cheaper than T4 for the same video!**
 
 ---
 
