@@ -34,25 +34,28 @@ fi
 
 # Step 2: Upload test video
 echo "Step 2: Uploading test video to GCS..."
-if gsutil ls gs://$GCS_BUCKET/test/mtg_interview.mp3 >/dev/null 2>&1; then
+if gsutil ls gs://$GCS_BUCKET/test/tier1_part1.mp3 >/dev/null 2>&1; then
     echo "✓ Test video already uploaded"
 else
-    gsutil cp test_videos/wlONOh_iUXY_*.mp3 gs://$GCS_BUCKET/test/mtg_interview.mp3
-    echo "✓ Uploaded test video"
+    gsutil cp test_videos/Nr7vbOSzpSk_*.mp3 gs://$GCS_BUCKET/test/tier1_part1.mp3
+    echo "✓ Uploaded test video (Tier 1&2 Part 1 - 30min, 2 speakers)"
 fi
 echo ""
 
 # Step 3: Submit Vertex AI job
 echo "Step 3: Submitting job to Vertex AI with L4 GPU..."
-echo "This should take ~7-10 minutes to process 71-minute video"
+echo "Testing with Tier 1&2 Part 1 (30min, 2 speakers)"
+echo "Expected: ~4-5 minutes processing, ~\$0.06 cost"
+echo "Timeout set to 30 minutes for safety"
 echo ""
 
 poetry run python deploy/submit_vertex_ai_job.py \
-    --video gs://$GCS_BUCKET/test/mtg_interview.mp3 \
+    --video gs://$GCS_BUCKET/test/tier1_part1.mp3 \
     --output gs://$GCS_BUCKET/test/vertex_results/ \
     --project $PROJECT_ID \
     --region $REGION \
-    --gpu NVIDIA_TESLA_T4
+    --gpu NVIDIA_L4 \
+    --timeout 30
 
 echo ""
 echo "========================================"
@@ -99,17 +102,18 @@ if [ -f test_results_vertex/results.json ]; then
     echo "Speakers found: $SPEAKERS"
     echo ""
     
-    # Check pass/fail
-    if (( $(echo "$PROC_MIN < 15" | bc -l) )) && (( $(echo "$GPU_COST < 0.15" | bc -l) )) && (( SPEAKERS >= 2 )); then
+    # Check pass/fail (30min video on L4)
+    if (( $(echo "$PROC_MIN < 10" | bc -l) )) && (( $(echo "$GPU_COST < 0.10" | bc -l) )) && (( SPEAKERS >= 2 )); then
         echo "✓✓✓ VALIDATION PASSED ✓✓✓"
         echo ""
-        echo "Vertex AI GPU infrastructure works!"
-        echo "Continue with Week 1-16 development."
+        echo "L4 GPU infrastructure validated successfully!"
+        echo "Next: Test with 71min video, then deploy cost alerts"
+        echo "Continue with Week 1-16 development plan."
     else
         echo "✗✗✗ VALIDATION FAILED ✗✗✗"
         echo ""
         echo "GPU approach doesn't meet requirements."
-        echo "Consider Voxtral-only strategy."
+        echo "Details: Processing=$PROC_MIN min (target: <10), Cost=\$$GPU_COST (target: <\$0.10), Speakers=$SPEAKERS (target: >=2)"
     fi
 else
     echo "✗ Results not found. Check Vertex AI console for errors."
