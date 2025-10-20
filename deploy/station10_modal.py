@@ -36,6 +36,11 @@ image = (
     .entrypoint([])  # Remove verbose CUDA logging
     .apt_install("git", "ffmpeg")  # git required for whisperx install, ffmpeg for audio
     .pip_install(
+        # Install build tools from PyPI first (torch index doesn't have them)
+        "wheel",
+        "setuptools",
+    )
+    .pip_install(
         # torch 2.0.0 ecosystem (STABLE, cuDNN compatible)
         # Modal's validated stack from official blog post
         "torch==2.0.0",
