@@ -638,6 +638,11 @@ If attribution is correct, don't include it.
                 print(f"✓ Final speakers: {speakers_found}")
                 if cleanup_stats.get('speakers_merged', 0) > 0:
                     print(f"  (merged {cleanup_stats['speakers_merged']} minor speakers)")
+                
+                # GEMINI QUALITY PASS: Verify speaker attribution
+                print("Applying Gemini quality verification...")
+                result["segments"] = self._gemini_speaker_verification(audio_path, result["segments"])
+                print("✓ Gemini verification complete")
             except Exception as e:
                 print(f"⚠ Diarization failed: {e}")
         
