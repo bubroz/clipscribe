@@ -235,12 +235,13 @@ class Station10Transcriber:
         tiny_speakers = [s for s, count in speaker_counts_final.items() 
                         if (count / len(cleaned)) < 0.01 and s not in major_set]
         
-        for i, seg in enumerate(cleaned):
+        for seg in cleaned:
             if seg.get('speaker') in tiny_speakers:
                 # Assign to nearest major speaker by temporal proximity
                 # (same logic as step 3)
-                before = cleaned[i-1].get('speaker') if i > 0 else None
-                after = cleaned[i+1].get('speaker') if i < len(cleaned)-1 else None
+                idx = cleaned.index(seg)
+                before = cleaned[idx-1].get('speaker') if idx > 0 else None
+                after = cleaned[idx+1].get('speaker') if idx < len(cleaned)-1 else None
                 
                 if before in major_set:
                     seg['speaker'] = before
