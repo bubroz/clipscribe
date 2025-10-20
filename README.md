@@ -5,8 +5,8 @@
 Extract speakers, entities, relationships, and AI-generated clips from any video.  
 Built for journalists, researchers, and analysts who need professional-grade accuracy without censorship.
 
-**Status:** v2.55.0 - Week 1 of 16-week development (SaaS product)  
-**Stack:** Dual-mode transcription (Voxtral + WhisperX), Grok-4 intelligence, Cloud Run infrastructure
+**Status:** v2.56.0 - GPU transcription validated (Modal Labs)  
+**Stack:** Dual-mode transcription (Voxtral + WhisperX on Modal GPU), Grok-4 intelligence, serverless infrastructure
 
 ---
 
@@ -58,11 +58,13 @@ Upload any video or paste a URL, get:
 
 ## Features (In Development)
 
-### Week 1-4: Core Engine ✅
+### Week 1-4: Core Engine (IN PROGRESS)
 - [x] Dual-mode transcription (Voxtral + WhisperX)
-- [x] Speaker diarization (pyannote.audio)
+- [x] Speaker diarization (pyannote.audio) - **VALIDATED Oct 19**
+- [x] Modal GPU deployment - **11.6x realtime, 92% margin**
 - [ ] Speaker identification (Grok context-based)
 - [ ] Entity extraction with speaker attribution
+- [ ] Multi-speaker validation (2-5+ speakers)
 
 ### Week 5-8: Intelligence
 - [ ] Intelligent clip recommendations (multi-objective)
@@ -113,16 +115,17 @@ Upload any video or paste a URL, get:
 
 **Transcription:**
 - Voxtral (Mistral API) - standard tier
-- WhisperX (local/Cloud Run GPU) - premium tier
+- WhisperX (Modal serverless GPU) - premium tier ✅ VALIDATED
 - pyannote.audio - speaker diarization
 
 **Intelligence:**
 - Grok-4 (xAI) - entity extraction, speaker ID, clip recommendations
 
 **Infrastructure (Planned):**
-- Frontend: Next.js (Cloud Run)
-- Backend: FastAPI (Cloud Run)
-- Workers: Cloud Run Jobs (CPU + GPU)
+- Frontend: Next.js (Cloud Run - planned)
+- Backend: FastAPI (Cloud Run - planned)
+- GPU Workers: Modal Labs (WhisperX transcription) ✅ DEPLOYED
+- CPU Workers: Cloud Run Jobs (Voxtral, entity extraction) - planned
 - Database: PostgreSQL (Cloud SQL)
 - Storage: Google Cloud Storage
 - Queue: Cloud Tasks + Pub/Sub

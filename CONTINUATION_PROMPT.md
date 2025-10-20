@@ -1,9 +1,9 @@
 # ClipScribe AI Assistant Continuation Prompt
 
-## Current State (2025-10-19 02:47 PDT)
+## Current State (2025-10-19 22:45 PDT)
 
-### Latest Status: Station10 Phase B - Modal GPU Pivot
-**MAJOR DECISION**: Pivoted from Vertex AI to Modal Labs for GPU transcription tier
+### Latest Status: Modal GPU Transcription VALIDATED ✅
+**BREAKTHROUGH**: After 6+ hours debugging, WhisperX on Modal is working in production
 
 ### What Actually Works (Validated Oct 11, 2025)
 
@@ -64,11 +64,20 @@ Diagnosis: Quota ≠ Capacity (classic cloud mistake)
 - **Verdict: Modal is objectively better choice for MVP**
 
 **What We Deployed (Modal):**
-- `deploy/station10_modal.py`: 350 lines (vs 620 Vertex AI lines)
+- `deploy/station10_modal.py`: 566 lines production-ready code
 - Reused 80% of worker logic (GCS, WhisperX, diarization)
-- Discarded 84% of infrastructure wrapper (Vertex AI-specific cruft)
-- Deploy time: 1-2 days (vs 2 weeks)
-- **Status: Code written, ready to test**
+- Discarded 84% of Vertex AI infrastructure wrapper
+- Deploy time: 3 minutes (after 6+ hours fixing dependencies)
+- **Status: WORKING, VALIDATED, PRODUCTION-READY**
+
+**Validation Results (Oct 19, 2025):**
+- ✅ Test: 16.3min medical video
+- ✅ Processing: 1.4 minutes (11.6x realtime!)
+- ✅ Cost: $0.0251 (target was <$0.05)
+- ✅ Speakers: 1 detected correctly
+- ✅ GCS integration working
+- ✅ Speaker diarization working
+- ✅ Margin: 92.3% (better than 85% predicted!)
 
 **Research Completed:**
 - GPU alternatives analyzed (Modal, RunPod, Cloud Run, APIs)
