@@ -35,8 +35,14 @@ image = (
     )
     .entrypoint([])  # Remove verbose CUDA logging
     .apt_install(
+        # Core build tools
+        "build-essential",  # gcc, g++, make - required for compiling C extensions (PyAV)
         "git",              # Required for pip install from GitHub
+        
+        # Audio processing
         "ffmpeg",           # Required by WhisperX for audio processing
+        
+        # PyAV build dependencies
         "pkg-config",       # Required for building PyAV
         "libavformat-dev",  # FFmpeg development headers (for PyAV compilation)
         "libavcodec-dev",   # These provide .pc files that pkg-config needs
