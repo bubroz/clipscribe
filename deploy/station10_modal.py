@@ -498,7 +498,18 @@ class Station10Transcriber:
             try:
                 diarize_segments = self.diarize_model(audio)
                 result = whisperx.assign_word_speakers(diarize_segments, result)
+                
+                speakers_found_raw = len(set(seg.get("speaker") for seg in result["segments"]))
+                print(f"✓ Raw speakers: {speakers_found_raw}")
+                
+                # Apply quality cleanup
+                print("Applying speaker quality cleanup...")
+                result["segments"], cleanup_stats = self._improve_speaker_quality(result["segments"])
+                
                 speakers_found = len(set(seg.get("speaker") for seg in result["segments"]))
+                print(f"✓ Final speakers: {speakers_found}")
+                if cleanup_stats.get('speakers_merged', 0) > 0:
+                    print(f"  (merged {cleanup_stats['speakers_merged']} minor speakers)")
             except Exception as e:
                 print(f"⚠ Diarization failed: {e}")
         
