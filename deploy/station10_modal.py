@@ -35,9 +35,16 @@ image = (
     )
     .entrypoint([])  # Remove verbose CUDA logging
     .apt_install(
-        "git",           # Required for pip install from GitHub
-        "ffmpeg",        # Required by WhisperX for audio processing
-        "pkg-config",    # Required for building PyAV (faster-whisper dependency)
+        "git",              # Required for pip install from GitHub
+        "ffmpeg",           # Required by WhisperX for audio processing
+        "pkg-config",       # Required for building PyAV
+        "libavformat-dev",  # FFmpeg development headers (for PyAV compilation)
+        "libavcodec-dev",   # These provide .pc files that pkg-config needs
+        "libavdevice-dev",
+        "libavutil-dev",
+        "libavfilter-dev",
+        "libswscale-dev",
+        "libswresample-dev",
     )
     .pip_install(
         # Install build tools from PyPI first (torch index doesn't have them)
