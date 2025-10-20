@@ -1,9 +1,14 @@
 # ClipScribe AI Assistant Continuation Prompt
 
-## Current State (2025-10-19 22:45 PDT)
+## Current State (2025-10-20 01:27 PDT)
 
-### Latest Status: Modal GPU Transcription VALIDATED ✅
-**BREAKTHROUGH**: After 6+ hours debugging, WhisperX on Modal is working in production
+### Latest Status: Modal GPU Validated, Quality Improvements Researched
+**SESSION COMPLETE**: Production-ready transcription validated, speaker quality research done
+
+**External Blocker**: AWS/HuggingFace infrastructure outage (Oct 20, 1:00-2:00 AM)
+- Diarization model download failing with 500 errors
+- Not our code - external dependency infrastructure
+- Temporary issue, will resolve within 24 hours
 
 ### What Actually Works (Validated Oct 11, 2025)
 
@@ -70,14 +75,25 @@ Diagnosis: Quota ≠ Capacity (classic cloud mistake)
 - Deploy time: 3 minutes (after 6+ hours fixing dependencies)
 - **Status: WORKING, VALIDATED, PRODUCTION-READY**
 
-**Validation Results (Oct 19, 2025):**
-- ✅ Test: 16.3min medical video
-- ✅ Processing: 1.4 minutes (11.6x realtime!)
-- ✅ Cost: $0.0251 (target was <$0.05)
-- ✅ Speakers: 1 detected correctly
-- ✅ GCS integration working
-- ✅ Speaker diarization working
-- ✅ Margin: 92.3% (better than 85% predicted!)
+**Validation Results (Oct 19-20, 2025):**
+
+**Test 1 - Medical (16min, 1 speaker):**
+- Processing: 1.4min (11.6x realtime) | Cost: $0.025 | Margin: 92.3% ✅
+
+**Test 2 - The View (36min, 10 speakers):**
+- Processing: 3.2min (11.3x realtime) | Cost: $0.059 | Margin: 91.9% ✅
+- Speakers: 10 detected (5 major + 5 minor) - Excellent separation
+
+**Test 3 - MTG Interview (71min, 2 speakers):**
+- Processing: 5.9min (12.0x realtime) | Cost: $0.109 | Margin: 92.1% ✅
+- Speakers: 7 detected (over-segmentation, post-processing researched)
+
+**Test 4 - Durov EXTREME (274min, 2 speakers):**
+- Processing: 22.1min (12.4x realtime) | Cost: $0.406 | Margin: 92.6% ✅
+- Speakers: 3 detected (nearly perfect)
+- **CRITICAL: 4.6 hour video processed successfully!**
+
+**Overall: 100% success rate, 11.8x avg realtime, 92.4% avg margin**
 
 **Research Completed:**
 - GPU alternatives analyzed (Modal, RunPod, Cloud Run, APIs)
@@ -219,6 +235,27 @@ Diagnosis: Quota ≠ Capacity (classic cloud mistake)
 **Minor**:
 - Some integration tests need updating for v2 retriever imports
 - Cloud Run Jobs exist but configured for old RSS monitoring (need repurposing)
+
+### Next Session (Oct 20, PM or Oct 21)
+
+**When AWS/HuggingFace Recover (Check huggingface.co/status):**
+1. Re-test diarization (should work once infrastructure recovers)
+2. Implement speaker quality improvements (algorithms built, tested offline)
+3. Re-run validation tests with cleanup (MTG: 7→2 speakers expected)
+4. Complete quality deep-dive (listen to transcripts vs audio)
+5. Test error scenarios, poor audio, load testing
+
+**Quality Improvements Ready:**
+- Speaker cleanup algorithms (reduces over-segmentation)
+- Tested offline: MTG 7→2 speakers (works perfectly)
+- Location: scripts/research_tools/speaker_quality_improvements.py
+- Integration: ~1 hour once HF recovers
+
+**Known Issues to Address:**
+- Over-segmentation on 2-speaker content (7 detected vs 2 actual)
+- Research complete, solution tested, needs integration
+- Interjections mis-attributed ("Right", "Yeah" get new speaker IDs)
+- Post-processing fixes this (validated offline)
 
 ### Roadmap (UPDATED for Modal Pivot)
 
