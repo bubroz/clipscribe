@@ -145,6 +145,7 @@ class Station10Transcriber:
         )
         
         # Load diarization pipeline (official WhisperX API)
+        # CRITICAL: Cache model in /models to avoid HuggingFace infrastructure issues
         hf_token = os.getenv("HF_TOKEN")
         print(f"DEBUG: HF_TOKEN present: {bool(hf_token)}")
         
@@ -158,6 +159,13 @@ class Station10Transcriber:
                 print("Loading diarization model with HF token...")
                 from whisperx.diarize import DiarizationPipeline
                 
+                # CACHE MODEL: Download to /models (Modal Volume) instead of temp
+                # This prevents re-downloading from HuggingFace on every cold start
+                # Fixes: HuggingFace CAS server 500 errors
+                import os
+                os.environ['HF_HOME'] = '/models/huggingface'
+                os.environ['HUGGINGFACE_HUB_CACHE'] = '/models/huggingface/hub'
+                
                 self.diarize_model = DiarizationPipeline(
                     use_auth_token=hf_token,
                     device=self.device
@@ -167,8 +175,12 @@ class Station10Transcriber:
                 import traceback
                 print(f"ERROR: Diarization model failed to load!")
                 print(f"Exception: {e}")
-                print(f"Traceback: {traceback.format_exc()}")
-                print("Will transcribe without speaker labels")
+                print(f"Traceback (last 10 lines):")
+                tb_lines = traceback.format_exc().split('\n')
+                for line in tb_lines[-10:]:
+                    print(f"  {line}")
+                print("Will transcribe WITHOUT speaker labels")
+                print("(This is usually due to HuggingFace infrastructure issues)")
                 self.diarize_model = None
         
         print("✓ WhisperX models loaded successfully")
