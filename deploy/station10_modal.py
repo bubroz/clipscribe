@@ -381,7 +381,7 @@ class Station10Transcriber:
         # Upload metadata
         metadata_blob = output_bucket_obj.blob(f"{output_prefix}/metadata.json")
         metadata_blob.upload_from_string(json.dumps({
-            "language": result["language"],
+            "language": result.get("language", "en"),  # WhisperX may not return language in result
             "speakers": speakers_found,
             "duration_minutes": audio_duration / 60,
             "processing_minutes": processing_time / 60,
