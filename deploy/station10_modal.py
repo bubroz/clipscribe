@@ -27,6 +27,7 @@ app = modal.App("station10-transcription")
 # Container image with WhisperX, pyannote.audio, and dependencies
 image = (
     modal.Image.debian_slim(python_version="3.11")
+    .apt_install("ffmpeg")  # Required by WhisperX for audio processing
     .pip_install(
         # WhisperX and audio processing
         "whisperx",
@@ -102,21 +103,27 @@ class Station10Transcriber:
         )
         
         # Load diarization pipeline
-        hf_token = os.getenv("HF_TOKEN")  # Modal's standard HF token key
+        # Note: WhisperX 3.x changed the diarization API
+        hf_token = os.getenv("HF_TOKEN")
         if not hf_token:
-            print("WARNING: No HF_TOKEN found. Diarization may fail.")
-            print("Create secret 'huggingface' with key 'HF_TOKEN' in Modal UI")
-        
-        try:
-            self.diarize_model = whisperx.DiarizationPipeline(
-                use_auth_token=hf_token,
-                device=self.device
-            )
-            print("✓ Models loaded successfully")
-        except Exception as e:
-            print(f"WARNING: Diarization model failed to load: {e}")
-            print("Will transcribe without speaker labels")
+            print("WARNING: No HF_TOKEN found. Diarization will be skipped.")
             self.diarize_model = None
+        else:
+            try:
+                # WhisperX 3.x uses pyannote.audio directly
+                from pyannote.audio import Pipeline
+                
+                self.diarize_model = Pipeline.from_pretrained(
+                    "pyannote/speaker-diarization-3.1",
+                    use_auth_token=hf_token
+                ).to(self.device)
+                print("✓ Diarization model loaded successfully")
+            except Exception as e:
+                print(f"WARNING: Diarization model failed to load: {e}")
+                print("Will transcribe without speaker labels")
+                self.diarize_model = None
+        
+        print("✓ WhisperX models loaded successfully")
     
     @modal.method()
     def transcribe(self, audio_url: str) -> dict:
@@ -195,13 +202,31 @@ class Station10Transcriber:
             diarize_start = time.time()
             
             try:
-                diarize_segments = self.diarize_model(audio)
-                result = whisperx.assign_word_speakers(diarize_segments, result)
+                # WhisperX 3.x diarization approach
+                from pyannote.core import Segment
+                import torch
+                
+                # Convert audio to tensor for pyannote
+                audio_tensor = torch.from_numpy(audio).float().unsqueeze(0)
+                
+                # Run diarization
+                diarization = self.diarize_model({"waveform": audio_tensor, "sample_rate": 16000})
+                
+                # Assign speakers to segments
+                for segment, track, speaker in diarization.itertracks(yield_label=True):
+                    for result_seg in result["segments"]:
+                        # Match diarization to transcript segments
+                        seg_start = result_seg.get("start", 0)
+                        seg_end = result_seg.get("end", 0)
+                        
+                        if segment.start <= seg_start < segment.end or segment.start < seg_end <= segment.end:
+                            result_seg["speaker"] = speaker
                 
                 # Count unique speakers
                 speakers_found = len(set(
                     seg.get("speaker", "UNKNOWN") 
                     for seg in result["segments"]
+                    if "speaker" in seg
                 ))
                 
                 diarize_time = time.time() - diarize_start
