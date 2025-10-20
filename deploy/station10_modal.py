@@ -420,6 +420,35 @@ def api_transcribe():
 # LOCAL TESTING
 # ==============================================================================
 
+@app.function()
+def test_gcs_transcription(gcs_path: str = "gs://prismatic-iris-429006-g6-clipscribe/public/medical.mp3"):
+    """
+    Simple GCS test function.
+    
+    Usage:
+        modal run deploy/station10_modal.py::test_gcs_transcription
+    """
+    transcriber = Station10Transcriber()
+    
+    result = transcriber.transcribe_from_gcs.remote(
+        gcs_input=gcs_path,
+        gcs_output="gs://prismatic-iris-429006-g6-clipscribe/test/modal_results/"
+    )
+    
+    print()
+    print("="*80)
+    print("TEST COMPLETE")
+    print("="*80)
+    print(f"Status: {result.get('status')}")
+    print(f"Speakers: {result.get('speakers')}")
+    print(f"Duration: {result.get('duration_minutes', 0):.1f} min")
+    print(f"Processing: {result.get('processing_minutes', 0):.1f} min")
+    print(f"Cost: ${result.get('cost', 0):.4f}")
+    print(f"Output: {result.get('gcs_output')}")
+    print("="*80)
+    
+    return result
+
 @app.local_entrypoint()
 def test(audio_url: str = None):
     """
