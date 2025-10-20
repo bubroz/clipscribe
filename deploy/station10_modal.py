@@ -34,7 +34,11 @@ image = (
         add_python="3.11"
     )
     .entrypoint([])  # Remove verbose CUDA logging
-    .apt_install("git", "ffmpeg")  # git required for whisperx install, ffmpeg for audio
+    .apt_install(
+        "git",           # Required for pip install from GitHub
+        "ffmpeg",        # Required by WhisperX for audio processing
+        "pkg-config",    # Required for building PyAV (faster-whisper dependency)
+    )
     .pip_install(
         # Install build tools from PyPI first (torch index doesn't have them)
         "wheel",
