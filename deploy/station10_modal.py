@@ -24,9 +24,15 @@ from pathlib import Path
 
 app = modal.App("station10-transcription")
 
-# Container image with WhisperX, pyannote.audio, and dependencies
+# Container image with proper CUDA/cuDNN from NVIDIA official image
+# This ensures cuDNN compatibility between torch and pyannote.audio
+# See: https://modal.com/docs/guide/cuda#for-more-complex-setups-use-an-officially-supported-cuda-image
 image = (
-    modal.Image.debian_slim(python_version="3.11")
+    modal.Image.from_registry(
+        "nvidia/cuda:12.8.1-cudnn9-runtime-ubuntu22.04",
+        add_python="3.11"
+    )
+    .entrypoint([])  # Remove verbose CUDA logging
     .apt_install("ffmpeg")  # Required by WhisperX for audio processing
     .pip_install(
         # WhisperX and audio processing
