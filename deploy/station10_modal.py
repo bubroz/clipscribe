@@ -146,11 +146,16 @@ class Station10Transcriber:
         
         # Load diarization pipeline (official WhisperX API)
         hf_token = os.getenv("HF_TOKEN")
+        print(f"DEBUG: HF_TOKEN present: {bool(hf_token)}")
+        
         if not hf_token:
-            print("WARNING: No HF_TOKEN found. Diarization will be skipped.")
+            print("ERROR: No HF_TOKEN found in environment!")
+            print("Diarization will be SKIPPED.")
+            print("Check Modal secrets: https://modal.com/secrets")
             self.diarize_model = None
         else:
             try:
+                print("Loading diarization model with HF token...")
                 from whisperx.diarize import DiarizationPipeline
                 
                 self.diarize_model = DiarizationPipeline(
@@ -159,7 +164,10 @@ class Station10Transcriber:
                 )
                 print("✓ Diarization model loaded successfully")
             except Exception as e:
-                print(f"WARNING: Diarization model failed to load: {e}")
+                import traceback
+                print(f"ERROR: Diarization model failed to load!")
+                print(f"Exception: {e}")
+                print(f"Traceback: {traceback.format_exc()}")
                 print("Will transcribe without speaker labels")
                 self.diarize_model = None
         
