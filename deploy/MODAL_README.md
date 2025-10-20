@@ -27,17 +27,23 @@ modal setup
 
 **Secret 1: HuggingFace (for pyannote.audio)**
 ```
-Name: huggingface
-Key: HUGGINGFACE_TOKEN
+Click "New Secret"
+Template: Select "HuggingFace" 
+Name: huggingface-secret
+Key: HF_TOKEN
 Value: hf_xxxxxxxxxxxx (get from https://huggingface.co/settings/tokens)
 ```
 
 **Secret 2: GCS Credentials**
 ```
-Name: gcs-credentials
-Key: GOOGLE_APPLICATION_CREDENTIALS
-Value: (paste your service account JSON content from secrets/service-account.json)
+Click "New Secret"
+Template: Select "Google Cloud"
+Name: googlecloud-secret
+Key: SERVICE_ACCOUNT_JSON
+Value: (paste entire JSON from secrets/service-account.json as one line)
 ```
+
+**Important:** Paste the entire service account JSON as the value, Modal will parse it.
 
 ### **3. Deploy:**
 ```bash

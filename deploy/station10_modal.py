@@ -58,8 +58,8 @@ model_cache = modal.Volume.from_name("station10-models", create_if_missing=True)
     gpu="A10G",  # Good balance of cost ($1.10/hr) and performance (6x realtime)
     timeout=3600,  # 1 hour max (supports videos up to 6 hours at 6x realtime)
     secrets=[
-        modal.Secret.from_name("huggingface"),  # For pyannote.audio models
-        modal.Secret.from_name("gcs-credentials")  # For GCS access
+        modal.Secret.from_name("huggingface-secret"),  # For pyannote.audio models
+        modal.Secret.from_name("googlecloud-secret")  # For GCS access
     ],
     volumes={"/models": model_cache}  # Cache models to avoid re-downloading
 )
@@ -102,9 +102,10 @@ class Station10Transcriber:
         )
         
         # Load diarization pipeline
-        hf_token = os.getenv("HUGGINGFACE_TOKEN") or os.getenv("HF_TOKEN")
+        hf_token = os.getenv("HF_TOKEN")  # Modal's standard HF token key
         if not hf_token:
-            print("WARNING: No HuggingFace token found. Diarization may fail.")
+            print("WARNING: No HF_TOKEN found. Diarization may fail.")
+            print("Create secret 'huggingface-secret' with key 'HF_TOKEN' in Modal UI")
         
         try:
             self.diarize_model = whisperx.DiarizationPipeline(
@@ -256,9 +257,16 @@ class Station10Transcriber:
             Same as transcribe() with additional gcs_output_path
         """
         import whisperx
+        import json
         from google.cloud import storage
+        from google.oauth2 import service_account
         
         print(f"Processing from GCS: {gcs_input}")
+        
+        # Initialize GCS client with service account from secret
+        service_account_info = json.loads(os.environ["SERVICE_ACCOUNT_JSON"])
+        credentials = service_account.Credentials.from_service_account_info(service_account_info)
+        client = storage.Client(credentials=credentials)
         
         start_time = time.time()
         
@@ -272,7 +280,6 @@ class Station10Transcriber:
         # Download from GCS
         print(f"Downloading from gs://{input_bucket}/{input_blob}")
         
-        client = storage.Client()
         bucket = client.bucket(input_bucket)
         blob = bucket.blob(input_blob)
         
@@ -351,8 +358,8 @@ class Station10Transcriber:
 
 @app.function(
     secrets=[
-        modal.Secret.from_name("huggingface"),
-        modal.Secret.from_name("gcs-credentials")
+        modal.Secret.from_name("huggingface-secret"),
+        modal.Secret.from_name("googlecloud-secret")
     ]
 )
 @modal.web_endpoint(method="POST")
