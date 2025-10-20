@@ -67,6 +67,10 @@ image = (
         index_url="https://download.pytorch.org/whl/cu118",  # CUDA 11.8 wheels for torch 2.0
     )
     .pip_install(
+        # CRITICAL: Pin numpy<2.0 to prevent upgrades during this install
+        # Without this, dependencies will upgrade numpy to 2.x which breaks pyannote.audio
+        "numpy<2.0",
+        
         # WhisperX v3.2.0 (Modal's validated version, NOT latest 3.7.4)
         # This version is designed for torch 2.0.x ecosystem
         "git+https://github.com/m-bain/whisperx.git@v3.2.0",
