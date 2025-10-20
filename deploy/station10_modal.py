@@ -162,7 +162,6 @@ class Station10Transcriber:
                 # CACHE MODEL: Download to /models (Modal Volume) instead of temp
                 # This prevents re-downloading from HuggingFace on every cold start
                 # Fixes: HuggingFace CAS server 500 errors
-                import os
                 os.environ['HF_HOME'] = '/models/huggingface'
                 os.environ['HUGGINGFACE_HUB_CACHE'] = '/models/huggingface/hub'
                 
