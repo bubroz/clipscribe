@@ -29,7 +29,7 @@ app = modal.App("station10-transcription")
 # See: https://modal.com/docs/guide/cuda#for-more-complex-setups-use-an-officially-supported-cuda-image
 image = (
     modal.Image.from_registry(
-        "nvidia/cuda:12.8.1-cudnn9-runtime-ubuntu22.04",
+        "nvidia/cuda:12.8.0-cudnn-runtime-ubuntu22.04",  # Latest 12.8 with cuDNN
         add_python="3.11"
     )
     .entrypoint([])  # Remove verbose CUDA logging
