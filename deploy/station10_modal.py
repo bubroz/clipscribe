@@ -105,7 +105,8 @@ model_cache = modal.Volume.from_name("station10-models", create_if_missing=True)
     timeout=3600,  # 1 hour max (supports videos up to 6 hours at 6x realtime)
     secrets=[
         modal.Secret.from_name("huggingface"),  # For pyannote.audio models
-        modal.Secret.from_name("googlecloud-secret")  # For GCS access
+        modal.Secret.from_name("googlecloud-secret"),  # For GCS access
+        modal.Secret.from_name("google-api-key")  # For Gemini speaker verification
     ],
     volumes={"/models": model_cache}  # Cache models to avoid re-downloading
 )
