@@ -5,7 +5,7 @@
 Extract speakers, entities, relationships, and AI-generated clips from any video.  
 Built for journalists, researchers, and analysts who need professional-grade accuracy without censorship.
 
-**Status:** v2.56.0 - GPU transcription validated (Modal Labs)  
+**Status:** v2.57.0 - GPU transcription validated (Modal Labs) - Oct 20, 2025  
 **Stack:** Dual-mode transcription (Voxtral + WhisperX on Modal GPU), Grok-4 intelligence, serverless infrastructure
 
 ---
@@ -64,7 +64,8 @@ Upload any video or paste a URL, get:
 - [x] Modal GPU deployment - **11.6x realtime, 92% margin**
 - [ ] Speaker identification (Grok context-based)
 - [ ] Entity extraction with speaker attribution
-- [ ] Multi-speaker validation (2-5+ speakers)
+- [x] Multi-speaker validation (1, 3, 7, 10 speakers tested) - **Oct 19-20**
+- [ ] Quality improvements (speaker cleanup integration) - **Next session**
 
 ### Week 5-8: Intelligence
 - [ ] Intelligent clip recommendations (multi-objective)
