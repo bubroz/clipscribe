@@ -1,242 +1,257 @@
-# Technical Debt & Status Tracking
+# Technical Status & Gaps
 
-**Last Updated:** October 18, 2025  
-**Current Phase:** Vertex AI GPU Validation (Week 1)
+**Last Updated:** October 19, 2025  
+**Current Phase:** Modal GPU Production Validation
 
 ---
 
 ## ✅ **What Actually Works (Production-Ready)**
 
-### 1. Job Timeout Safety
-- **Status:** ✅ IMPLEMENTED
-- **File:** `deploy/submit_vertex_ai_job.py`
-- **Details:** 
-  - Automatic job termination after 30 minutes (configurable)
-  - Prevents runaway costs from bugs
-  - CLI argument: `--timeout MINUTES`
-- **Cost Protection:** Caps single job cost at ~$0.35 (L4) or ~$0.20 (T4)
+### 1. Modal GPU Transcription Infrastructure
+- **Status:** ✅ VALIDATED (Oct 19, 2025)
+- **Files:** `deploy/station10_modal.py` (566 lines)
+- **Performance:**
+  - 11.6x realtime processing on A10G GPU
+  - $0.0251 per 16min video
+  - 92.3% margin at $0.02/min pricing
+- **Features:**
+  - WhisperX large-v3 transcription
+  - pyannote.audio speaker diarization
+  - GCS integration (download + upload)
+  - HTTP URL support
+  - Batch processing capability
+- **Validated:** 1-speaker medical video (16.3 minutes)
 
-### 2. Cost Monitoring Scripts
-- **Status:** ✅ IMPLEMENTED (not deployed yet)
-- **File:** `deploy/setup_cost_alerts.py`
-- **Details:**
-  - Budget alerts at $50/$100/$150 thresholds
-  - Cloud Monitoring alert for >$10/hour spend
-  - Requires one-time setup with billing account
-- **Next Step:** Run setup script once GPU quota is approved
+### 2. Voxtral Standard Transcription
+- **Status:** ✅ PRODUCTION (In use since Aug 2025)
+- **Cost:** ~$0.05 per 30min video
+- **Accuracy:** 95% on general content
+- **Use Case:** Standard tier, high volume
 
-### 3. GPU Job Submission
-- **Status:** ✅ WORKING (T4 validated, L4 pending quota)
-- **File:** `deploy/submit_vertex_ai_job.py`
-- **Details:**
-  - Supports T4, L4, A100 GPUs
-  - Automatic machine type selection (G2 for L4, N1 for T4/A100)
-  - GCS integration for input/output
-  - Staging bucket configuration
+### 3. GCS Storage & File Management
+- **Status:** ✅ WORKING
+- **Capabilities:**
+  - Upload with retry logic
+  - Download with authentication
+  - Public/private access control
 
 ---
 
-## 🚧 **What Doesn't Exist Yet (Honest Gaps)**
+## 🚧 **What Needs Validation (Untested)**
 
-### 1. Real-Time Cost Tracking
-- **Status:** ❌ NOT IMPLEMENTED
-- **What's Missing:** 
-  - Live cost dashboard during job execution
-  - Per-job cost attribution
-  - Daily/weekly spend summaries
-- **Impact:** Can't see costs until billing data arrives (24-48 hour delay)
-- **Priority:** Medium (Week 2-3)
+### 1. Multi-Speaker Diarization
+- **Status:** ⚠️ UNTESTED
+- **Validated:** 1 speaker only
+- **Need to Test:**
+  - 2 speakers (MTG Interview - 71min)
+  - 5+ speakers (The View - 36min)
+  - Chaotic multi-speaker (panel shows)
+- **Priority:** CRITICAL (blocks premium tier launch)
+- **Timeline:** Test this weekend
 
-### 2. Automatic Job Failure Recovery
-- **Status:** ❌ NOT IMPLEMENTED
+### 2. Long Video Processing
+- **Status:** ⚠️ UNTESTED
+- **Validated:** 16 minutes only
+- **Need to Test:**
+  - 30-60 minutes
+  - 60-90 minutes
+  - 2-4 hours (chunking may be required)
+- **Priority:** HIGH (customer demand exists)
+- **Timeline:** Test next week
+
+### 3. Error Handling & Retry Logic
+- **Status:** ⚠️ MINIMAL
+- **What Exists:** Basic try/catch in code
 - **What's Missing:**
-  - Retry logic for transient failures
-  - Automatic fallback to cheaper GPU on quota errors
-  - Dead letter queue for failed jobs
-- **Impact:** Manual intervention required for failures
-- **Priority:** High (Week 2)
+  - Automatic retry on transient failures
+  - Graceful degradation
+  - Error categorization
+  - User-friendly error messages
+- **Priority:** HIGH (production requirement)
+- **Timeline:** Week 2-3
 
-### 3. Rate Limiting
-- **Status:** ❌ NOT IMPLEMENTED
+### 4. API Production Readiness
+- **Status:** ⚠️ DEPLOYED BUT UNTESTED
+- **Endpoint:** `https://zforristall--station10-transcription-api-transcribe.modal.run`
 - **What's Missing:**
-  - Concurrent job limits (prevent quota exhaustion)
-  - Queue management for burst requests
-  - Smart scheduling (off-peak pricing)
-- **Impact:** Could hit quota limits with batch processing
-- **Priority:** Medium (Week 3-4)
+  - Load testing
+  - Rate limiting
+  - Authentication
+  - Error responses
+- **Priority:** MEDIUM (needed for integration)
+- **Timeline:** Week 2
 
-### 4. Performance Metrics Collection
-- **Status:** ❌ NOT IMPLEMENTED
+---
+
+## ❌ **What Doesn't Exist (Planned Features)**
+
+### 1. Speaker Identification (Names)
+- **Status:** ❌ NOT BUILT
+- **What It Does:** "Speaker 1" → "Joe Rogan"
+- **Approach:** Grok context-based identification
+- **Complexity:** HIGH (AI quality unknown)
+- **Priority:** MEDIUM (nice-to-have, not critical)
+- **Timeline:** Week 3-4 (if validated as useful)
+
+### 2. Entity Extraction with Speaker Attribution
+- **Status:** ❌ NOT BUILT
+- **What It Does:** Track who mentioned which entities
+- **Dependencies:** Speaker ID working
+- **Priority:** MEDIUM
+- **Timeline:** Week 4-5
+
+### 3. Auto-Clip Generation
+- **Status:** ❌ NOT BUILT
+- **What It Does:** Generate shareable clips from key moments
+- **Complexity:** MEDIUM (ffmpeg + timestamp alignment)
+- **Priority:** HIGH (customer value)
+- **Timeline:** Week 5-6
+
+### 4. Web Upload Interface
+- **Status:** ❌ NOT BUILT
 - **What's Missing:**
-  - Processing time per minute of audio
-  - Cost per minute tracking
-  - GPU utilization monitoring
-  - Diarization accuracy metrics
-- **Impact:** Can't optimize without data
-- **Priority:** High (Week 1-2)
+  - Upload page
+  - Processing status
+  - Results viewer
+  - User authentication
+- **Priority:** CRITICAL (can't launch without it)
+- **Timeline:** Week 2-4
 
-### 5. Multi-Region Failover
-- **Status:** ❌ NOT IMPLEMENTED
-- **What's Missing:**
-  - Automatic region switching on quota errors
-  - Load balancing across regions
-  - Region-specific pricing optimization
-- **Impact:** Single point of failure (us-central1)
-- **Priority:** Low (Week 8+)
-
-### 6. Output Validation
-- **Status:** ❌ NOT IMPLEMENTED
-- **What's Missing:**
-  - Automatic quality checks on transcripts
-  - Speaker count validation
-  - Timestamp accuracy verification
-  - Failed job detection
-- **Impact:** Bad results might go unnoticed
-- **Priority:** High (Week 2)
+### 5. Payment Processing
+- **Status:** ❌ NOT BUILT
+- **What's Needed:**
+  - Stripe integration
+  - Usage tracking
+  - Invoice generation
+- **Priority:** CRITICAL (can't charge without it)
+- **Timeline:** Week 3-4
 
 ---
 
-## 🔧 **Known Issues & Workarounds**
+## 🎯 **Critical Path to Launch**
 
-### Issue 1: Docker Image Rebuild Inefficiency
-- **Problem:** `deploy/deploy_vertex_ai.sh` rebuilds Docker image every time (~20 min)
-- **Root Cause:** `IMAGE_EXISTS` check not working correctly
-- **Current Workaround:** Comment out build step after first successful build
-- **Proper Fix:** Debug `gcloud container images describe` logic
-- **Priority:** Medium (saves $0.50 and 20 min per deploy)
+### **Must Have (Blocking Launch):**
+1. ✅ GPU transcription working ← **DONE**
+2. ⚠️ Multi-speaker validation ← **TEST THIS WEEKEND**
+3. ❌ Web upload interface ← **4-6 weeks**
+4. ❌ Payment processing ← **1-2 weeks**
+5. ⚠️ Error handling ← **2-3 weeks**
 
-### Issue 2: L4 GPU Quota Limit
-- **Problem:** Zero quota for `custom_model_training_nvidia_l4_gpus` in us-central1
-- **Root Cause:** New project without spending history
-- **Current Workaround:** Using T4 GPUs (slower, but available)
-- **Proper Fix:** Quota increase request pending approval
-- **Priority:** HIGH (blocks performance validation)
+### **Should Have (Quality):**
+1. ⚠️ Long video support (60-90min)
+2. ❌ Speaker identification
+3. ❌ Batch processing UI
+4. ❌ Email notifications
 
-### Issue 3: No Test Video Repository
-- **Problem:** Using production MTG interview (71 min) for all testing
-- **Root Cause:** No curated test dataset with known-good results
-- **Current Workaround:** Single test video
-- **Proper Fix:** Create test suite with 5-10 videos (5min, 30min, 90min, multi-speaker, noisy audio)
-- **Priority:** Medium (Week 2)
-
-### Issue 4: Hard-Coded Project ID
-- **Problem:** Project ID scattered across multiple files
-- **Root Cause:** Quick prototyping without configuration management
-- **Current Workaround:** Find/replace before running scripts
-- **Proper Fix:** Environment variables or central config file
-- **Priority:** Low (not blocking, just annoying)
+### **Nice to Have (Competitive):**
+1. ❌ Auto-clip generation
+2. ❌ Entity extraction
+3. ❌ Search database
+4. ❌ API for developers
 
 ---
 
-## 📊 **Validation Status**
+## 📊 **Realistic Timeline Assessment**
 
-### GPU Performance (PENDING)
-- [ ] T4 GPU: Processing 71min audio in <15 min? (IN PROGRESS)
-- [ ] T4 GPU: Cost <$0.20 per job? (UNKNOWN)
-- [ ] T4 GPU: 2 speakers detected? (UNKNOWN)
-- [ ] L4 GPU: Processing 71min audio in <10 min? (BLOCKED - no quota)
-- [ ] L4 GPU: Cost <$0.35 per job? (BLOCKED - no quota)
+### **Minimum Viable Product:**
+- Multi-speaker validation: 1 day
+- Web upload page: 2-3 weeks
+- Payment integration: 1 week
+- Basic error handling: 1 week
+- **Total: 4-6 weeks to launchable MVP**
 
-### Cost Monitoring (READY TO DEPLOY)
-- [x] Job timeout script written
-- [x] Cost alert script written
-- [ ] Budget alerts deployed to GCP (requires billing account ID)
-- [ ] Monitoring alert deployed to GCP
-- [ ] Email/SMS notification channels configured
+### **Beta Quality:**
+- Everything above +
+- Long video support: 1 week
+- Speaker identification: 2-3 weeks
+- Polish and testing: 2 weeks
+- **Total: 8-12 weeks to solid beta**
 
-### Documentation (IN PROGRESS)
-- [x] Technical debt documented (this file)
-- [ ] STATION10_PHASE_B_SETUP.md updated with honest status
-- [ ] Deployment runbook created
-- [ ] Troubleshooting guide created
-
----
-
-## 💰 **Actual vs Claimed Features (Quota Request)**
-
-### What We Claimed in L4 Quota Request:
-> "We have implemented automatic job termination, rate limiting, and cost alerts"
-
-### What We Actually Have:
-- ✅ **Automatic job termination:** YES (timeout parameter)
-- ❌ **Rate limiting:** NO (not implemented yet)
-- ⚠️  **Cost alerts:** YES (script written, not deployed)
-
-### How to Make This True:
-1. Deploy cost alerts: `python deploy/setup_cost_alerts.py --project prismatic-iris-429006-g6`
-2. Implement rate limiting: Week 2 task (semaphore-based queue)
-3. Update quota request description if needed
+### **V1.0 Full Product:**
+- Everything above +
+- Auto-clip generation: 3-4 weeks
+- Entity extraction: 2-3 weeks
+- Search database: 2-3 weeks
+- **Total: 16-20 weeks to complete v1.0**
 
 ---
 
-## 🚀 **Next 24 Hours (Unblock Progress)**
+## 🚨 **Known Issues (Honest Assessment)**
 
-### Critical Path:
-1. ✅ **Job timeout safety** - COMPLETE
-2. ✅ **Cost monitoring scripts** - COMPLETE
-3. 🚧 **T4 validation** - IN PROGRESS (running now)
-4. ⏳ **L4 quota approval** - WAITING (submitted request)
+### **1. Dependency Complexity**
+- **Issue:** Took 6+ hours to debug PyAV compilation, cuDNN compatibility, NumPy versions
+- **Impact:** Future Modal updates might break things
+- **Mitigation:** Pin all versions, document working configuration
+- **Risk Level:** MEDIUM
 
-### If T4 Validation Succeeds:
-- Deploy cost alerts to GCP
-- Process 5 more test videos on T4
-- Document actual T4 performance metrics
-- Decision: Can we ship with T4 only? Or wait for L4?
+### **2. Modal Vendor Lock-In**
+- **Issue:** 566 lines of Modal-specific code
+- **Impact:** Hard to migrate to RunPod/other platforms
+- **Mitigation:** Economics work, no need to migrate
+- **Risk Level:** LOW (acceptable trade-off)
 
-### If T4 Validation Fails:
-- Diagnose failure mode (cost? speed? quality?)
-- Pivot to Voxtral-only (no GPU tier)
-- Update roadmap to remove Premium tier
+### **3. Unvalidated Multi-Speaker**
+- **Issue:** Only tested 1-speaker scenarios
+- **Impact:** Premium tier value prop depends on multi-speaker
+- **Mitigation:** Test immediately before claiming it works
+- **Risk Level:** HIGH (could be a blocker)
 
----
-
-## 📋 **Definition of "Production-Ready"**
-
-Before claiming Station10 Phase B is production-ready, we need:
-
-1. **Cost Safety:**
-   - [x] Job timeouts implemented
-   - [ ] Budget alerts deployed
-   - [ ] Rate limiting working
-   - [ ] Per-job cost tracking
-
-2. **Reliability:**
-   - [ ] Automatic retry logic
-   - [ ] Output validation
-   - [ ] Multi-region failover
-   - [ ] Dead letter queue
-
-3. **Observability:**
-   - [ ] Performance metrics dashboard
-   - [ ] Cost tracking dashboard
-   - [ ] Error rate monitoring
-   - [ ] Quality score tracking
-
-4. **Documentation:**
-   - [ ] Deployment runbook
-   - [ ] Troubleshooting guide
-   - [ ] API documentation
-   - [ ] Cost calculator
-
-**Current Status:** 1/16 items complete (6%)  
-**Realistic Timeline:** 3-4 weeks to production-ready
+### **4. No Production Monitoring**
+- **Issue:** No logging, metrics, alerting
+- **Impact:** Can't debug production issues
+- **Mitigation:** Add CloudWatch/Datadog before launch
+- **Risk Level:** MEDIUM
 
 ---
 
-## 🎯 **Honest Assessment**
+## 💡 **Smart Decisions We Made**
 
-**What we have:** A working prototype that can submit GPU jobs with basic cost protection.
+### **1. Chose Modal Over Vertex AI**
+- **Decision:** Pivot after 2 weeks of Vertex AI development
+- **Rationale:** Capacity unavailable, wrong tool for job
+- **Result:** Working system in 1 day (after debugging)
+- **Validation:** CORRECT CHOICE
 
-**What we don't have:** Production-grade reliability, monitoring, or cost control.
+### **2. Used Modal's Validated Stack**
+- **Decision:** torch 2.0.0 + WhisperX v3.2.0 (not latest)
+- **Rationale:** Official Modal documentation, production-tested
+- **Result:** Worked after fixing dependencies
+- **Validation:** CORRECT CHOICE
 
-**What we need to build:** Everything in the "🚧 What Doesn't Exist Yet" section.
+### **3. Didn't Skip Diarization**
+- **Decision:** Debug for 6+ hours instead of disabling feature
+- **Rationale:** Speaker labels are core value prop
+- **Result:** Working speaker diarization
+- **Validation:** CORRECT CHOICE (hard right over easy wrong)
 
-**Time to production:** 3-4 weeks if we execute perfectly, 6-8 weeks realistically.
+---
 
-**Biggest risks:**
-1. L4 quota never approved → T4 performance insufficient → no GPU tier
-2. Costs higher than predicted → economics don't work
-3. Quality issues with WhisperX → user trust problem
+## 🎯 **What We Need to Ship (Honest Priority)**
 
-**Next decision point:** T4 validation results (within 30 minutes)
+### **This Weekend:**
+1. Test multi-speaker (The View, MTG Interview)
+2. Test longer videos (60-90 min)
+3. Test API endpoint
+4. **Goal:** Confidence infrastructure handles real scenarios
 
+### **Next 2 Weeks:**
+1. Build simple web upload page (no auth)
+2. Deploy to Vercel/Netlify
+3. Let 10-20 people test it
+4. **Goal:** Validate people find it useful
+
+### **Next 4 Weeks:**
+1. Add Stripe payment
+2. Add user authentication
+3. Polish results viewer
+4. **Goal:** First paying customer
+
+### **Next 8-12 Weeks:**
+1. Add speaker identification
+2. Add auto-clips
+3. Add batch processing
+4. **Goal:** $1k-5k MRR
+
+---
+
+**Bottom Line:** We have working infrastructure (92% margin, 11.6x realtime). Now we need to validate multi-speaker, build the UI, and find customers.
