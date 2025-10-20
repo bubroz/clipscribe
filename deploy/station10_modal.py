@@ -36,7 +36,8 @@ image = (
     .entrypoint([])  # Remove verbose CUDA logging
     .apt_install(
         # Core build tools
-        "build-essential",  # gcc, g++, make - required for compiling C extensions (PyAV)
+        "build-essential",  # gcc, g++, make - required for compiling C extensions
+        "clang",            # PyAV specifically uses clang compiler
         "git",              # Required for pip install from GitHub
         
         # Audio processing
