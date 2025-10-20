@@ -58,7 +58,7 @@ model_cache = modal.Volume.from_name("station10-models", create_if_missing=True)
     gpu="A10G",  # Good balance of cost ($1.10/hr) and performance (6x realtime)
     timeout=3600,  # 1 hour max (supports videos up to 6 hours at 6x realtime)
     secrets=[
-        modal.Secret.from_name("huggingface-secret"),  # For pyannote.audio models
+        modal.Secret.from_name("huggingface"),  # For pyannote.audio models
         modal.Secret.from_name("googlecloud-secret")  # For GCS access
     ],
     volumes={"/models": model_cache}  # Cache models to avoid re-downloading
@@ -105,7 +105,7 @@ class Station10Transcriber:
         hf_token = os.getenv("HF_TOKEN")  # Modal's standard HF token key
         if not hf_token:
             print("WARNING: No HF_TOKEN found. Diarization may fail.")
-            print("Create secret 'huggingface-secret' with key 'HF_TOKEN' in Modal UI")
+            print("Create secret 'huggingface' with key 'HF_TOKEN' in Modal UI")
         
         try:
             self.diarize_model = whisperx.DiarizationPipeline(
@@ -358,7 +358,7 @@ class Station10Transcriber:
 
 @app.function(
     secrets=[
-        modal.Secret.from_name("huggingface-secret"),
+        modal.Secret.from_name("huggingface"),
         modal.Secret.from_name("googlecloud-secret")
     ]
 )
