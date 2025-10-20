@@ -170,6 +170,7 @@ feedparser = "^6.0.12"
 reportlab = "^4.4.4"
 pandas = "^2.2.3"
 whisperx = {version = "^3.7.0", python = ">=3.11,<3.14"}
+modal = "^1.2.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.10.0"
