@@ -24,22 +24,31 @@ from pathlib import Path
 
 app = modal.App("station10-transcription")
 
-# Container image with proper CUDA/cuDNN from NVIDIA official image
-# This ensures cuDNN compatibility between torch and pyannote.audio
-# See: https://modal.com/docs/guide/cuda#for-more-complex-setups-use-an-officially-supported-cuda-image
+# Container image using Modal's VALIDATED working configuration
+# Source: https://modal.com/blog/how-to-run-whisperx-on-modal (Official Modal example)
+# This exact stack is production-tested and solves cuDNN compatibility issues
+# KEY: torch 2.0.0 + WhisperX v3.2.0 = STABLE (torch 2.8.0 + WhisperX 3.7.4 = cuDNN hell)
 image = (
     modal.Image.from_registry(
-        "nvidia/cuda:12.6.0-cudnn-runtime-ubuntu22.04",  # CUDA 12.6 with cuDNN 9
+        "nvidia/cuda:12.4.0-devel-ubuntu22.04",  # Modal's validated CUDA version
         add_python="3.11"
     )
     .entrypoint([])  # Remove verbose CUDA logging
-    .apt_install("ffmpeg")  # Required by WhisperX for audio processing
+    .apt_install("git", "ffmpeg")  # git required for whisperx install, ffmpeg for audio
     .pip_install(
-        # WhisperX and audio processing
-        "whisperx",
-        "pyannote.audio",
-        "torch==2.8.0",
-        "torchaudio==2.8.0",
+        # torch 2.0.0 ecosystem (STABLE, cuDNN compatible)
+        # Modal's validated stack from official blog post
+        "torch==2.0.0",
+        "torchaudio==2.0.0",
+        "numpy<2.0",  # Required for torch 2.0 compatibility
+        index_url="https://download.pytorch.org/whl/cu118",  # CUDA 11.8 wheels for torch 2.0
+    )
+    .pip_install(
+        # WhisperX v3.2.0 (Modal's validated version, NOT latest 3.7.4)
+        # This version is designed for torch 2.0.x ecosystem
+        "git+https://github.com/m-bain/whisperx.git@v3.2.0",
+        "ffmpeg-python",
+        "ctranslate2==4.4.0",  # Required for WhisperX, specific version
         
         # Audio utilities
         "librosa==0.10.2",
