@@ -102,21 +102,19 @@ class Station10Transcriber:
             download_root="/models/whisperx"
         )
         
-        # Load diarization pipeline
-        # Note: WhisperX 3.x changed the diarization API
+        # Load diarization pipeline (official WhisperX API)
         hf_token = os.getenv("HF_TOKEN")
         if not hf_token:
             print("WARNING: No HF_TOKEN found. Diarization will be skipped.")
             self.diarize_model = None
         else:
             try:
-                # WhisperX 3.x uses pyannote.audio directly
-                from pyannote.audio import Pipeline
+                from whisperx.diarize import DiarizationPipeline
                 
-                self.diarize_model = Pipeline.from_pretrained(
-                    "pyannote/speaker-diarization-3.1",
-                    use_auth_token=hf_token
-                ).to(self.device)
+                self.diarize_model = DiarizationPipeline(
+                    use_auth_token=hf_token,
+                    device=self.device
+                )
                 print("✓ Diarization model loaded successfully")
             except Exception as e:
                 print(f"WARNING: Diarization model failed to load: {e}")
@@ -195,32 +193,18 @@ class Station10Transcriber:
         align_time = time.time() - align_start
         print(f"✓ Aligned in {align_time:.1f}s")
         
-        # Speaker diarization
+        # Speaker diarization (official WhisperX API)
         speakers_found = 0
         if self.diarize_model:
             print("Running speaker diarization...")
             diarize_start = time.time()
             
             try:
-                # WhisperX 3.x diarization approach
-                from pyannote.core import Segment
-                import torch
+                # Run diarization (returns pyannote Annotation object)
+                diarize_segments = self.diarize_model(audio)
                 
-                # Convert audio to tensor for pyannote
-                audio_tensor = torch.from_numpy(audio).float().unsqueeze(0)
-                
-                # Run diarization
-                diarization = self.diarize_model({"waveform": audio_tensor, "sample_rate": 16000})
-                
-                # Assign speakers to segments
-                for segment, track, speaker in diarization.itertracks(yield_label=True):
-                    for result_seg in result["segments"]:
-                        # Match diarization to transcript segments
-                        seg_start = result_seg.get("start", 0)
-                        seg_end = result_seg.get("end", 0)
-                        
-                        if segment.start <= seg_start < segment.end or segment.start < seg_end <= segment.end:
-                            result_seg["speaker"] = speaker
+                # Assign speakers to words/segments (official WhisperX function)
+                result = whisperx.assign_word_speakers(diarize_segments, result)
                 
                 # Count unique speakers
                 speakers_found = len(set(
