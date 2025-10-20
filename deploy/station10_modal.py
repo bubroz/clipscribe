@@ -165,96 +165,6 @@ class Station10Transcriber:
         
         print("✓ WhisperX models loaded successfully")
     
-    def _improve_speaker_quality(self, segments: list) -> list:
-        """
-        Post-process speaker diarization to improve quality.
-        
-        Fixes:
-        1. Merges ultra-short segments (<0.5s) - likely artifacts
-        2. Merges short interjections (<2s, <5 words) to nearest major speaker
-        3. Eliminates tiny speakers (<1% of content)
-        
-        Research: Based on pyannote.audio GitHub issue #1579
-        Recommendation: "You would have to post process the output yourself"
-        """
-        if not segments:
-            return segments
-        
-        # Step 1: Identify major speakers (>10% of segments)
-        total = len(segments)
-        speaker_counts = {}
-        for seg in segments:
-            s = seg.get('speaker', 'UNKNOWN')
-            speaker_counts[s] = speaker_counts.get(s, 0) + 1
-        
-        major_speakers = [s for s, count in speaker_counts.items() 
-                         if (count / total) > 0.10]
-        major_set = set(major_speakers)
-        
-        # Step 2: Merge ultra-short segments (<0.5s) into neighbors
-        cleaned = []
-        for i, seg in enumerate(segments):
-            duration = seg.get('end', 0) - seg.get('start', 0)
-            
-            if duration < 0.5 and cleaned:
-                # Merge into previous segment
-                cleaned[-1]['end'] = seg.get('end', cleaned[-1]['end'])
-                cleaned[-1]['text'] += ' ' + seg.get('text', '')
-            else:
-                cleaned.append(seg.copy())
-        
-        # Step 3: Merge short interjections (<2s, <5 words) to major speakers
-        for i, seg in enumerate(cleaned):
-            duration = seg.get('end', 0) - seg.get('start', 0)
-            word_count = len(seg.get('text', '').split())
-            current_speaker = seg.get('speaker', 'UNKNOWN')
-            
-            if duration < 2.0 and word_count <= 5 and current_speaker not in major_set:
-                # Find nearest major speaker
-                before = cleaned[i-1].get('speaker') if i > 0 else None
-                after = cleaned[i+1].get('speaker') if i < len(cleaned)-1 else None
-                
-                # Sandwiched between same major speaker
-                if before == after and before in major_set:
-                    seg['speaker'] = before
-                    seg['cleaned'] = 'interjection_merge'
-                # Assign to nearest major speaker
-                elif before in major_set:
-                    seg['speaker'] = before
-                    seg['cleaned'] = 'before_merge'
-                elif after in major_set:
-                    seg['speaker'] = after
-                    seg['cleaned'] = 'after_merge'
-        
-        # Step 4: Eliminate tiny speakers (<1% of segments)
-        speaker_counts_final = {}
-        for seg in cleaned:
-            s = seg.get('speaker')
-            speaker_counts_final[s] = speaker_counts_final.get(s, 0) + 1
-        
-        tiny_speakers = [s for s, count in speaker_counts_final.items() 
-                        if (count / len(cleaned)) < 0.01 and s not in major_set]
-        
-        for seg in cleaned:
-            if seg.get('speaker') in tiny_speakers:
-                # Assign to nearest major speaker by temporal proximity
-                # (same logic as step 3)
-                idx = cleaned.index(seg)
-                before = cleaned[idx-1].get('speaker') if idx > 0 else None
-                after = cleaned[idx+1].get('speaker') if idx < len(cleaned)-1 else None
-                
-                if before in major_set:
-                    seg['speaker'] = before
-                    seg['cleaned'] = 'tiny_speaker_cleanup'
-                elif after in major_set:
-                    seg['speaker'] = after
-                    seg['cleaned'] = 'tiny_speaker_cleanup'
-                elif major_set:
-                    seg['speaker'] = list(major_set)[0]
-                    seg['cleaned'] = 'default_assignment'
-        
-        return cleaned
-    
     @modal.method()
     def transcribe(self, audio_url: str) -> dict:
         """
@@ -339,7 +249,7 @@ class Station10Transcriber:
                 result = whisperx.assign_word_speakers(diarize_segments, result)
                 
                 # Count unique speakers
-                speakers_found_raw = len(set(
+                speakers_found = len(set(
                     seg.get("speaker", "UNKNOWN") 
                     for seg in result["segments"]
                     if "speaker" in seg
@@ -347,21 +257,7 @@ class Station10Transcriber:
                 
                 diarize_time = time.time() - diarize_start
                 print(f"✓ Diarization complete in {diarize_time:.1f}s")
-                print(f"✓ Raw speakers: {speakers_found_raw}")
-                
-                # POST-PROCESSING: Improve speaker quality
-                print("Cleaning speaker attribution...")
-                result["segments"] = self._improve_speaker_quality(result["segments"])
-                
-                speakers_found = len(set(
-                    seg.get("speaker", "UNKNOWN") 
-                    for seg in result["segments"]
-                    if "speaker" in seg
-                ))
-                
-                print(f"✓ Final speakers: {speakers_found}")
-                if speakers_found < speakers_found_raw:
-                    print(f"  (cleaned {speakers_found_raw - speakers_found} minor/artifact speakers)")
+                print(f"✓ Found {speakers_found} speakers")
             except Exception as e:
                 print(f"⚠ Diarization failed: {e}")
                 print("Continuing without speaker labels")
