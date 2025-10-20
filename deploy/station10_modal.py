@@ -175,12 +175,28 @@ class Station10Transcriber:
                 import traceback
                 print(f"ERROR: Diarization model failed to load!")
                 print(f"Exception: {e}")
-                print(f"Traceback (last 10 lines):")
-                tb_lines = traceback.format_exc().split('\n')
-                for line in tb_lines[-10:]:
-                    print(f"  {line}")
-                print("Will transcribe WITHOUT speaker labels")
-                print("(This is usually due to HuggingFace infrastructure issues)")
+                
+                # Check if it's HuggingFace infrastructure issue
+                error_str = str(e)
+                if "500" in error_str and "xethub.hf.co" in error_str:
+                    print("")
+                    print("⚠️  EXTERNAL DEPENDENCY FAILURE:")
+                    print("   HuggingFace CAS server is returning 500 errors")
+                    print("   This is a temporary infrastructure issue on their side")
+                    print("   Models are cached for future runs once HF recovers")
+                    print("")
+                    print("GRACEFUL DEGRADATION:")
+                    print("   ✅ Transcription will continue (WhisperX working)")
+                    print("   ❌ Speaker labels temporarily unavailable")
+                    print("   🔄 Will retry automatically on next run")
+                else:
+                    print(f"Traceback (last 10 lines):")
+                    tb_lines = traceback.format_exc().split('\n')
+                    for line in tb_lines[-10:]:
+                        print(f"  {line}")
+                
+                print("")
+                print("Continuing with transcription-only mode...")
                 self.diarize_model = None
         
         print("✓ WhisperX models loaded successfully")
