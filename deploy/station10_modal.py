@@ -84,6 +84,9 @@ image = (
         # Google Cloud integration
         "google-cloud-storage",
         
+        # Gemini for quality verification
+        "google-generativeai",
+        
         # HTTP client
         "httpx",
     )
