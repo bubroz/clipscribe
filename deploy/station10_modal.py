@@ -362,52 +362,58 @@ class Station10Transcriber:
         modal.Secret.from_name("googlecloud-secret")
     ]
 )
-@modal.web_endpoint(method="POST")
-def api_transcribe(request: dict) -> dict:
-    """
-    Production API endpoint for Station10 transcription.
+@modal.asgi_app()
+def api_transcribe():
+    from fastapi import FastAPI, HTTPException
+    from pydantic import BaseModel
     
-    Usage:
-        POST https://YOUR_WORKSPACE--station10-transcription-api-transcribe.modal.run
-        {
-            "audio_url": "https://example.com/podcast.mp3",
-            "output_path": "gs://bucket/results/" (optional, for GCS output)
-        }
+    web_app = FastAPI()
     
-    Returns:
-        {
-            "status": "success",
-            "transcript": [...],
-            "speakers": 2,
-            "cost": 0.11,
-            ...
-        }
-    """
-    audio_url = request.get("audio_url")
-    output_path = request.get("output_path")
+    class TranscribeRequest(BaseModel):
+        audio_url: str
+        output_path: str = None
     
-    if not audio_url:
-        return {"status": "error", "error": "Missing audio_url parameter"}
-    
-    try:
-        transcriber = Station10Transcriber()
+    @web_app.post("/transcribe")
+    def transcribe_endpoint(request: TranscribeRequest) -> dict:
+        """
+        Production API endpoint for Station10 transcription.
         
-        # If GCS output specified, use GCS integration
-        if output_path and output_path.startswith("gs://"):
-            if audio_url.startswith("gs://"):
-                result = transcriber.transcribe_from_gcs.remote(audio_url, output_path)
+        Usage:
+            POST https://YOUR_WORKSPACE--station10-transcription-api-transcribe.modal.run/transcribe
+            {
+                "audio_url": "https://example.com/podcast.mp3",
+                "output_path": "gs://bucket/results/" (optional, for GCS output)
+            }
+        
+        Returns:
+            {
+                "status": "success",
+                "transcript": [...],
+                "speakers": 2,
+                "cost": 0.11,
+                ...
+            }
+        """
+        try:
+            transcriber = Station10Transcriber()
+            
+            # If GCS output specified, use GCS integration
+            if request.output_path and request.output_path.startswith("gs://"):
+                if request.audio_url.startswith("gs://"):
+                    result = transcriber.transcribe_from_gcs.remote(request.audio_url, request.output_path)
+                else:
+                    # HTTP URL with GCS output - transcribe and return
+                    result = transcriber.transcribe.remote(request.audio_url)
             else:
-                # Download to GCS first, then process
-                # (for simplicity, just transcribe and return)
-                result = transcriber.transcribe.remote(audio_url)
-        else:
-            # Standard transcription
-            result = transcriber.transcribe.remote(audio_url)
+                # Standard transcription
+                result = transcriber.transcribe.remote(request.audio_url)
+            
+            return {"status": "success", **result}
         
-        return {"status": "success", **result}
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=str(e))
     
-    except Exception as e:
-        return {"status": "error", "error": str(e)}
+    return web_app
 
 
 # ==============================================================================
