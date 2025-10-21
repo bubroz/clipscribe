@@ -9,9 +9,11 @@ import asyncio
 import sys
 from pathlib import Path
 
-# Add src to path
-sys.path.insert(0, str(Path(__file__).parent.parent.parent / "src"))
+# Add project root to path so we can import scripts.validation
+project_root = Path(__file__).parent.parent.parent
+sys.path.insert(0, str(project_root))
 
+# Now we can import
 from scripts.validation.annomi_validator import AnnoMIValidator
 
 
