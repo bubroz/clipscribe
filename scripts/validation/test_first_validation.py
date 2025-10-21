@@ -94,7 +94,20 @@ async def main():
             
         else:
             print(f"❌ Validation failed: {result.get('status')}")
-            print(json.dumps(result, indent=2))
+            # Convert numpy types to native Python for JSON
+            import numpy as np
+            def convert_types(obj):
+                if isinstance(obj, dict):
+                    return {k: convert_types(v) for k, v in obj.items()}
+                elif isinstance(obj, list):
+                    return [convert_types(v) for v in obj]
+                elif isinstance(obj, (np.integer, np.int64)):
+                    return int(obj)
+                elif isinstance(obj, (np.floating, np.float64)):
+                    return float(obj)
+                return obj
+            
+            print(json.dumps(convert_types(result), indent=2))
         
     except Exception as e:
         print(f"\n❌ ERROR: {e}")

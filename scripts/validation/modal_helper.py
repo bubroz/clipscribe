@@ -77,19 +77,43 @@ async def process_youtube_with_modal(video_url: str, gcs_bucket: str = "clipscri
         gcs_url = f"gs://{gcs_bucket}/{gcs_path}"
         print(f"    ✓ Uploaded: {gcs_url}")
         
-        # Step 3: Call Modal transcription
+        # Step 3: Call Modal transcription via CLI (more reliable than Python API)
         print(f"    Processing with Modal (WhisperX + Gemini)...")
         
         try:
-            # Get Modal class instance
-            Station10Transcriber = modal.Cls.lookup("station10-transcription", "Station10Transcriber")
+            # Create temp Python script to call Modal
+            script = f'''
+import modal
+
+Station10Transcriber = modal.Cls.lookup("station10-transcription", "Station10Transcriber")
+
+result = Station10Transcriber().transcribe_from_gcs.remote(
+    gcs_input="{gcs_url}",
+    gcs_output="gs://{gcs_bucket}/validation/results/"
+)
+
+import json
+print(json.dumps(result))
+'''
             
-            # Call Modal method
-            with Station10Transcriber() as transcriber:
-                result_dict = transcriber.transcribe_from_gcs.remote(
-                    gcs_input=gcs_url,
-                    gcs_output=f"gs://{gcs_bucket}/validation/results/"
-                )
+            script_path = Path(tmpdir) / "call_modal.py"
+            script_path.write_text(script)
+            
+            # Run via modal CLI
+            import subprocess
+            result = subprocess.run(
+                ["poetry", "run", "python", str(script_path)],
+                capture_output=True,
+                text=True,
+                cwd=project_root if 'project_root' in locals() else Path.cwd()
+            )
+            
+            if result.returncode != 0:
+                print(f"    ❌ Modal CLI failed: {result.stderr[:300]}")
+                return None
+            
+            # Parse JSON output
+            result_dict = json.loads(result.stdout.strip().split('\n')[-1])
             
             print(f"    ✓ Modal processing complete")
             print(f"      Speakers: {result_dict.get('speakers')}")
