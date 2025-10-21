@@ -253,6 +253,27 @@ class Station10Transcriber:
         
         print(f"  Major speakers: {len(major_speakers)} (>{threshold*100:.0f}%)")
         
+        # Step 0: NEW - Merge duplicate/similar text across speakers
+        from difflib import SequenceMatcher
+        
+        duplicate_merges = 0
+        for i in range(len(segments) - 1):
+            curr = segments[i]
+            next_seg = segments[i+1]
+            
+            if curr.get('speaker') != next_seg.get('speaker'):
+                text1 = curr.get('text', '').lower().strip()
+                text2 = next_seg.get('text', '').lower().strip()
+                
+                if text1 and text2 and len(text1) > 10:  # Only for substantial text
+                    similarity = SequenceMatcher(None, text1, text2).ratio()
+                    if similarity > 0.8:  # 80% similar = same utterance
+                        next_seg['speaker'] = curr['speaker']
+                        duplicate_merges += 1
+        
+        if duplicate_merges > 0:
+            print(f"  Merged {duplicate_merges} duplicate text segments")
+        
         # Step 2: Merge ultra-short (<0.5s)
         cleaned = []
         for seg in segments:
