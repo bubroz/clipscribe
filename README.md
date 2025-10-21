@@ -5,8 +5,9 @@
 Extract speakers, entities, relationships, and AI-generated clips from any video.  
 Built for journalists, researchers, and analysts who need professional-grade accuracy without censorship.
 
-**Status:** v2.57.0 - GPU transcription validated (Modal Labs) - Oct 20, 2025  
-**Stack:** Dual-mode transcription (Voxtral + WhisperX on Modal GPU), Grok-4 intelligence, serverless infrastructure
+**Status:** v2.58.0 - Comprehensive validation suite planned - Oct 21, 2025  
+**Stack:** Dual-mode transcription (Voxtral + WhisperX on Modal GPU), Grok-4 intelligence, serverless infrastructure  
+**Validation:** Academic-grade benchmarking in progress (678 hours, 8 datasets, English + Mandarin)
 
 ---
 
@@ -53,6 +54,24 @@ Upload any video or paste a URL, get:
 - Business: $399/month (6000 minutes + 500 premium + API)
 
 **Value:** Replaces Descript ($24/mo) + Opus Clip ($29/mo) + Fireflies ($29/mo) = $82/month of separate tools.
+
+---
+
+## Quality Validation (In Progress)
+
+**Academic-Grade Benchmarking:**
+- **678 hours** professional ground truth data
+- **8 datasets:** AnnoMI, CHiME-6, AMI, ICSI, AISHELL-4/5, AliMeeting, MAGICDATA
+- **Languages:** English, Mandarin, + multilingual support
+- **Metrics:** WER, DER, speaker attribution accuracy
+- **Timeline:** 9-week comprehensive validation (Oct-Dec 2025)
+
+**Targets:**
+- WER (clean): <15% | WER (far-field): <60% | DER: <20%
+- Benchmark: Beat CHiME-6 baseline (77.9% → <60%)
+- Publication: Interspeech 2026 submission planned
+
+**See:** `VALIDATION_MASTER_PLAN.md` for complete details
 
 ---
 
