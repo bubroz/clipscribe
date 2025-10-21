@@ -93,15 +93,16 @@ class AnnoMIValidator:
         
         return segments
     
-    async def validate_conversation(self, transcript_id: int) -> Dict:
+    async def validate_conversation(self, transcript_id: int, use_modal: bool = True) -> Dict:
         """
         Validate one conversation.
         
         Args:
             transcript_id: AnnoMI transcript ID
+            use_modal: Use Modal GPU transcription (WhisperX + Gemini)
             
         Returns:
-            Validation results dict
+            Validation results dict with WER, speaker accuracy, etc.
         """
         print(f"\nValidating conversation #{transcript_id}...")
         
@@ -115,22 +116,152 @@ class AnnoMIValidator:
         
         # Get ground truth
         gt_segments = self.get_ground_truth_segments(transcript_id)
+        gt_text = ' '.join(seg['text'] for seg in gt_segments)
         print(f"  Ground truth: {len(gt_segments)} segments, 2 speakers")
         
-        # TODO: Process with ClipScribe
-        # client = UniversalVideoClient()
-        # result = await client.process_url(video_url)
+        if use_modal:
+            # Process with Modal GPU (WhisperX + Gemini)
+            print(f"  Processing with Modal (WhisperX + Gemini)...")
+            clipscribe_result = await self._process_with_modal(video_url)
+        else:
+            # Process with local ClipScribe (future)
+            print(f"  Processing with local ClipScribe...")
+            clipscribe_result = None  # TODO: implement local processing
         
-        # For now, return placeholder
+        if not clipscribe_result:
+            return {
+                'transcript_id': transcript_id,
+                'status': 'processing_failed'
+            }
+        
+        # Calculate metrics
+        from .metrics import calculate_wer, calculate_speaker_accuracy, normalize_text
+        
+        # Extract ClipScribe segments and transcript
+        cs_segments = clipscribe_result.get('segments', [])
+        cs_text = ' '.join(seg.get('text', '') for seg in cs_segments)
+        
+        # Calculate WER
+        wer_score = calculate_wer(
+            normalize_text(cs_text),
+            normalize_text(gt_text)
+        )
+        
+        # Map ClipScribe speakers to ground truth
+        # AnnoMI has 2 speakers: 'therapist' and 'client'
+        # ClipScribe has: 'SPEAKER_01', 'SPEAKER_02', etc.
+        speaker_mapping = self._map_speakers(cs_segments, gt_segments)
+        
+        # Calculate speaker accuracy
+        speaker_acc, speaker_stats = calculate_speaker_accuracy(
+            cs_segments,
+            gt_segments,
+            speaker_mapping
+        )
+        
+        # Count Gemini corrections
+        gemini_corrections = sum(1 for seg in cs_segments if seg.get('gemini_corrected'))
+        
         result = {
             'transcript_id': transcript_id,
             'video_url': video_url,
             'title': title,
-            'ground_truth_segments': len(gt_segments),
-            'status': 'pending_implementation'
+            'ground_truth': {
+                'segments': len(gt_segments),
+                'speakers': 2,
+                'text_length': len(gt_text)
+            },
+            'clipscribe': {
+                'segments': len(cs_segments),
+                'speakers': len(set(seg.get('speaker') for seg in cs_segments)),
+                'text_length': len(cs_text),
+                'processing_time': clipscribe_result.get('processing_minutes', 0),
+                'cost': clipscribe_result.get('cost', 0)
+            },
+            'metrics': {
+                'wer': wer_score,
+                'speaker_accuracy': speaker_acc,
+                'gemini_corrections': gemini_corrections
+            },
+            'speaker_mapping': speaker_mapping,
+            'speaker_stats': speaker_stats,
+            'status': 'success'
         }
         
+        print(f"  ✓ WER: {wer_score:.1%}")
+        print(f"  ✓ Speaker accuracy: {speaker_acc:.1%}")
+        print(f"  ✓ Gemini corrections: {gemini_corrections}")
+        
         return result
+    
+    async def _process_with_modal(self, video_url: str) -> Optional[Dict]:
+        """
+        Process video with Modal GPU (WhisperX + Gemini).
+        
+        Args:
+            video_url: YouTube URL
+            
+        Returns:
+            Processing result with segments
+        """
+        import modal
+        
+        try:
+            # Lookup Modal function
+            transcribe_fn = modal.Function.lookup("station10-transcription", "test_gcs_transcription")
+            
+            # For YouTube videos, we need to:
+            # 1. Download audio with yt-dlp
+            # 2. Upload to GCS
+            # 3. Call Modal with GCS path
+            
+            # TODO: Implement YouTube → GCS → Modal pipeline
+            # For now, return None to indicate not yet implemented
+            
+            print(f"    ⚠️  Modal integration TODO: YouTube → GCS → Modal")
+            return None
+            
+        except Exception as e:
+            print(f"    ❌ Modal processing failed: {e}")
+            return None
+    
+    def _map_speakers(self, cs_segments: List[Dict], gt_segments: List[Dict]) -> Dict[str, str]:
+        """
+        Map ClipScribe speaker IDs to ground truth speaker labels.
+        
+        For AnnoMI: Map SPEAKER_01/02 → therapist/client based on who speaks more.
+        
+        Args:
+            cs_segments: ClipScribe segments
+            gt_segments: Ground truth segments
+            
+        Returns:
+            Mapping dict {CS_ID: GT_LABEL}
+        """
+        # Count segments per ClipScribe speaker
+        cs_speaker_counts = {}
+        for seg in cs_segments:
+            spk = seg.get('speaker', 'UNKNOWN')
+            cs_speaker_counts[spk] = cs_speaker_counts.get(spk, 0) + 1
+        
+        # Count segments per ground truth speaker
+        gt_speaker_counts = {}
+        for seg in gt_segments:
+            spk = seg.get('speaker', 'UNKNOWN')
+            gt_speaker_counts[spk] = gt_speaker_counts.get(spk, 0) + 1
+        
+        # Sort both by frequency
+        cs_sorted = sorted(cs_speaker_counts.items(), key=lambda x: x[1], reverse=True)
+        gt_sorted = sorted(gt_speaker_counts.items(), key=lambda x: x[1], reverse=True)
+        
+        # Map most frequent → most frequent, second → second, etc.
+        mapping = {}
+        for i, (cs_spk, _) in enumerate(cs_sorted):
+            if i < len(gt_sorted):
+                gt_spk, _ = gt_sorted[i]
+                mapping[cs_spk] = gt_spk
+        
+        return mapping
     
     async def validate_batch(self, num_conversations: int = 10) -> List[Dict]:
         """
