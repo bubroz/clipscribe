@@ -227,7 +227,29 @@ class Station10Transcriber:
         
         original_speaker_count = len(set(seg.get('speaker', 'UNK') for seg in segments))
         
-        # Count speakers first to determine adaptive threshold
+        # Step 0: FIRST - Merge duplicate/similar text across speakers
+        # This MUST happen before counting speakers, so counts are correct
+        from difflib import SequenceMatcher
+        
+        duplicate_merges = 0
+        for i in range(len(segments) - 1):
+            curr = segments[i]
+            next_seg = segments[i+1]
+            
+            if curr.get('speaker') != next_seg.get('speaker'):
+                text1 = curr.get('text', '').lower().strip()
+                text2 = next_seg.get('text', '').lower().strip()
+                
+                if text1 and text2 and len(text1) > 10:  # Only for substantial text
+                    similarity = SequenceMatcher(None, text1, text2).ratio()
+                    if similarity > 0.75:  # 75% similar = same utterance (was 0.8, now more aggressive)
+                        next_seg['speaker'] = curr['speaker']
+                        duplicate_merges += 1
+        
+        if duplicate_merges > 0:
+            print(f"  Merged {duplicate_merges} duplicate text segments")
+        
+        # NOW count speakers AFTER duplicate merging
         total = len(segments)
         speaker_counts = {}
         for seg in segments:
@@ -246,33 +268,12 @@ class Station10Transcriber:
         else:
             threshold = 0.02  # 2% for large meetings
         
-        print(f"  Speaker threshold: {threshold*100:.0f}% (adaptive for {num_speakers} initial speakers)")
+        print(f"  Speaker threshold: {threshold*100:.0f}% (adaptive for {num_speakers} speakers after dedup)")
         
         major_speakers = [s for s, count in speaker_counts.items() if (count / total) > threshold]
         major_set = set(major_speakers)
         
         print(f"  Major speakers: {len(major_speakers)} (>{threshold*100:.0f}%)")
-        
-        # Step 0: NEW - Merge duplicate/similar text across speakers
-        from difflib import SequenceMatcher
-        
-        duplicate_merges = 0
-        for i in range(len(segments) - 1):
-            curr = segments[i]
-            next_seg = segments[i+1]
-            
-            if curr.get('speaker') != next_seg.get('speaker'):
-                text1 = curr.get('text', '').lower().strip()
-                text2 = next_seg.get('text', '').lower().strip()
-                
-                if text1 and text2 and len(text1) > 10:  # Only for substantial text
-                    similarity = SequenceMatcher(None, text1, text2).ratio()
-                    if similarity > 0.8:  # 80% similar = same utterance
-                        next_seg['speaker'] = curr['speaker']
-                        duplicate_merges += 1
-        
-        if duplicate_merges > 0:
-            print(f"  Merged {duplicate_merges} duplicate text segments")
         
         # Step 2: Merge ultra-short (<0.5s)
         cleaned = []
