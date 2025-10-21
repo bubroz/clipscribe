@@ -84,8 +84,8 @@ image = (
         # Google Cloud integration
         "google-cloud-storage",
         
-        # Gemini for quality verification
-        "google-generativeai",
+        # Gemini for quality verification (pinned version - newer has ragStoreName bug)
+        "google-generativeai==0.4.0",
         
         # HTTP client
         "httpx",
