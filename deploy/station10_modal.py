@@ -755,7 +755,7 @@ def api_transcribe():
 # ==============================================================================
 
 @app.function()
-def test_gcs_transcription(gcs_path: str = "gs://prismatic-iris-429006-g6-clipscribe/public/medical.mp3"):
+def test_gcs_transcription(gcs_path: str = "gs://prismatic-iris-429006-g6-clipscribe/public/the_view_oct14.mp3"):
     """
     Simple GCS test function.
     
