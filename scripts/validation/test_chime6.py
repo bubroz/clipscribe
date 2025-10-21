@@ -28,7 +28,7 @@ async def main():
     
     # Setup paths
     transcripts_dir = Path("validation_data/samples/chime6/transcriptions")
-    audio_dir = Path("validation_data/chime6_audio")
+    audio_dir = Path("validation_data/chime6_audio/CHiME6_dev/CHiME6/audio/dev")
     output_path = Path("validation_data/results")
     output_path.mkdir(parents=True, exist_ok=True)
     
