@@ -44,6 +44,8 @@ async def process_youtube_with_modal(video_url: str, gcs_bucket: str = "clipscri
             "-f", "bestaudio",
             "--extract-audio",
             "--audio-format", "mp3",
+            "--no-check-certificate",  # Bypass SSL issues
+            "--user-agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36",
             "-o", str(audio_file),
             video_url
         ]

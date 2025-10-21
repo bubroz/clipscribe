@@ -7,6 +7,7 @@ Process one AnnoMI conversation and calculate WER + speaker accuracy.
 
 import asyncio
 import sys
+import json
 from pathlib import Path
 
 # Add project root to path so we can import scripts.validation
