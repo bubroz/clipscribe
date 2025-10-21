@@ -301,7 +301,7 @@ class Station10Transcriber:
         Benefit: 95-98% speaker accuracy (vs 90% WhisperX-only)
         """
         try:
-            import google.generativeai as genai
+            from google import genai  # New unified SDK
             import os
             
             # Get API key
@@ -310,12 +310,12 @@ class Station10Transcriber:
                 print("⚠️  No GOOGLE_API_KEY - skipping Gemini verification")
                 return segments
             
-            # Configure Gemini (standard API)
-            genai.configure(api_key=api_key)
+            # Create Gemini client (new API pattern)
+            client = genai.Client(api_key=api_key)
             
             # Upload audio file using Files API
             print("  Uploading audio to Gemini...")
-            audio_file = genai.upload_file(path=audio_path, display_name="speaker_verification")
+            audio_file = client.files.upload(path=audio_path, display_name="speaker_verification")
             
             # Build prompt with problematic segments
             # Focus on rapid switches and short segments (where errors occur)
@@ -379,9 +379,11 @@ Only suggest corrections where you're >80% confident after listening.
 If attribution is correct, don't include it.
 """
             
-            # Call Gemini with audio
-            model = genai.GenerativeModel('gemini-2.5-flash')
-            response = model.generate_content([audio_file, prompt])
+            # Call Gemini with audio (new client API)
+            response = client.models.generate_content(
+                model='gemini-2.5-flash',
+                contents=[audio_file, prompt]
+            )
             
             # Parse corrections
             import json
