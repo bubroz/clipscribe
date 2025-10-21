@@ -285,15 +285,36 @@ class CHiME6Validator:
             print(f"    ✓ Modal complete: {result_dict.get('speakers')} speakers, ${result_dict.get('cost', 0):.4f}")
             
             # Download transcript from GCS
+            # Modal uploads to the root of gcs_output path with // separator
+            # e.g., gs://.../validation/results//transcript.json
             result_path = result_dict.get('gcs_output', '')
+            
             if result_path:
-                transcript_blob = bucket.blob(f"{result_path.replace('gs://clipscribe-validation/', '')}transcript.json")
+                # Remove bucket prefix and find transcript
+                blob_path = result_path.replace('gs://clipscribe-validation/', '')
+                
+                # Try exact path
+                transcript_blob = bucket.blob(f"{blob_path}/transcript.json")
+                
+                if not transcript_blob.exists():
+                    # Try with // (Modal's pattern)
+                    transcript_blob = bucket.blob(f"{blob_path.rstrip('/')}/transcript.json")
+                
                 if transcript_blob.exists():
+                    print(f"    Downloading transcript from: {transcript_blob.name}")
                     transcript_json = json.loads(transcript_blob.download_as_text())
                     transcript_json['processing_cost'] = result_dict.get('cost', 0)
                     transcript_json['processing_minutes'] = result_dict.get('processing_minutes', 0)
                     return transcript_json
+                else:
+                    print(f"    ❌ Transcript not found at: {blob_path}/transcript.json")
+                    # List what's actually there
+                    print(f"    Listing {blob_path}:")
+                    blobs = list(bucket.list_blobs(prefix=blob_path[:50]))
+                    for b in blobs[:10]:
+                        print(f"      - {b.name}")
             
+            print(f"    ❌ No transcript found in GCS")
             return None
             
         except Exception as e:
