@@ -331,7 +331,7 @@ class Station10Transcriber:
                     len(next_seg.get('text', '').split()) <= 3):
                     
                     problem_segments.append({
-                        'index': i,
+                        'index': i + 1,  # Store the ACTUAL problem segment index (the middle one)
                         'timestamp': f"{int(next_seg.get('start', 0) // 60):02d}:{int(next_seg.get('start', 0) % 60):02d}",
                         'before_speaker': curr.get('speaker'),
                         'current_speaker': next_seg.get('speaker'),
@@ -361,22 +361,24 @@ For each segment, LISTEN to the audio at the specified timestamp and determine i
 Segments to verify:
 """
             
-            for seg in problem_segments:
-                prompt += f"\n{seg['index']}. [{seg['timestamp']}] Currently labeled as {seg['current_speaker']}: \"{seg['text']}\""
+            for list_idx, seg in enumerate(problem_segments):
+                prompt += f"\n{list_idx}. [{seg['timestamp']}] Currently labeled as {seg['current_speaker']}: \"{seg['text']}\""
                 prompt += f"\n   Context: {seg['before_speaker']} before, {seg['after_speaker']} after"
             
             prompt += """
 
-For each segment, return JSON:
+For each segment, return JSON with the INDEX from the list above (0, 1, 2...):
 {
   "corrections": [
-    {"index": 5, "correct_speaker": "SPEAKER_01", "confidence": 0.95, "reason": "Voice matches previous speaker"},
+    {"index": 0, "correct_speaker": "SPEAKER_01", "confidence": 0.95, "reason": "Voice matches previous speaker"},
+    {"index": 2, "correct_speaker": "SPEAKER_03", "confidence": 0.88, "reason": "Different voice"},
     ...
   ]
 }
 
 Only suggest corrections where you're >80% confident after listening.
 If attribution is correct, don't include it.
+Use the INDEX numbers shown above (0, 1, 2...), not segment numbers.
 """
             
             # Call Gemini with audio (new client API)
@@ -398,13 +400,14 @@ If attribution is correct, don't include it.
                 
                 # Apply corrections
                 for correction in corrections:
-                    idx = correction.get('index')
+                    idx = correction.get('index')  # Index in problem_segments list
                     if idx is not None and 0 <= idx < len(problem_segments):
-                        seg_idx = problem_segments[idx]['index'] + 1  # The middle segment
+                        seg_idx = problem_segments[idx]['index']  # Already the correct segment index
                         if seg_idx < len(segments):
                             segments[seg_idx]['speaker'] = correction.get('correct_speaker')
                             segments[seg_idx]['gemini_corrected'] = True
                             segments[seg_idx]['gemini_confidence'] = correction.get('confidence')
+                            print(f"    ✓ Corrected segment {seg_idx}: {correction.get('correct_speaker')}")
             
             return segments
             
