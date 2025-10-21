@@ -81,13 +81,15 @@ async def process_youtube_with_modal(video_url: str, gcs_bucket: str = "clipscri
         print(f"    Processing with Modal (WhisperX + Gemini)...")
         
         try:
-            transcribe_fn = modal.Function.lookup("station10-transcription", "transcribe_from_gcs")
+            # Get Modal class instance
+            Station10Transcriber = modal.Cls.lookup("station10-transcription", "Station10Transcriber")
             
-            # Call Modal function
-            result_dict = transcribe_fn.remote(
-                gcs_input=gcs_url,
-                gcs_output=f"gs://{gcs_bucket}/validation/results/"
-            )
+            # Call Modal method
+            with Station10Transcriber() as transcriber:
+                result_dict = transcriber.transcribe_from_gcs.remote(
+                    gcs_input=gcs_url,
+                    gcs_output=f"gs://{gcs_bucket}/validation/results/"
+                )
             
             print(f"    ✓ Modal processing complete")
             print(f"      Speakers: {result_dict.get('speakers')}")

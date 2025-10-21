@@ -87,7 +87,6 @@ async def main():
             print()
             
             # Save result
-            import json
             result_file = output_path / f"test_result_{test_id}.json"
             with open(result_file, 'w') as f:
                 json.dump(result, f, indent=2)
