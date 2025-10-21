@@ -220,20 +220,26 @@ class CHiME6Validator:
         # We want the mixed or first channel
         
         if not self.audio_dir or not self.audio_dir.exists():
+            print(f"    ❌ Audio dir doesn't exist: {self.audio_dir}")
             return None
         
         # Try to find any file matching session_id
+        # Use rglob for recursive search
         patterns = [
-            f"{session_id}*.wav",
-            f"{session_id}*.flac",
-            f"{session_id}*.mp3"
+            f"**/{session_id}*.wav",
+            f"**/{session_id}*.flac",
+            f"{session_id}*.wav",  # Also try non-recursive
         ]
         
         for pattern in patterns:
             files = list(self.audio_dir.glob(pattern))
             if files:
+                print(f"    Found {len(files)} audio files for {session_id}")
+                # Return first file (any channel will work for validation)
                 return files[0]
         
+        print(f"    ❌ No audio files found matching: {session_id}*.wav")
+        print(f"    Searched in: {self.audio_dir}")
         return None
     
     async def _process_with_modal(self, audio_path: Path) -> Optional[Dict]:
