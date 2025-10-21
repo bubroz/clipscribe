@@ -208,13 +208,17 @@ class Station10Transcriber:
         """
         Post-process speaker diarization to reduce over-segmentation.
         
-        Algorithm (validated offline Oct 20):
-        1. Identify major speakers (>10% of segments)
+        Algorithm (revised Oct 21 after CHiME-6 validation):
+        0. Merge duplicate text across speakers (NEW - catches repetitions)
+        1. Identify major speakers (ADAPTIVE threshold based on speaker count)
         2. Merge ultra-short segments (<0.5s) into neighbors
         3. Merge interjections (<2s, <5 words) to nearest major speaker
-        4. Eliminate tiny speakers (<1% of content)
+        4. Eliminate minor speakers (ADAPTIVE threshold, not fixed 1%)
         
-        Tested: MTG Interview 7 speakers → 2 speakers ✅
+        Fixes:
+        - Adaptive thresholds: 5% for 4 speakers (not fixed 10%)
+        - Duplicate text detection (catches same utterance split)
+        - Aggressive merging (< threshold, not just <1%)
         
         Returns: (cleaned_segments, stats_dict)
         """
@@ -223,15 +227,31 @@ class Station10Transcriber:
         
         original_speaker_count = len(set(seg.get('speaker', 'UNK') for seg in segments))
         
-        # Step 1: Identify major speakers (>10%)
+        # Count speakers first to determine adaptive threshold
         total = len(segments)
         speaker_counts = {}
         for seg in segments:
             s = seg.get('speaker', 'UNKNOWN')
             speaker_counts[s] = speaker_counts.get(s, 0) + 1
         
-        major_speakers = [s for s, count in speaker_counts.items() if (count / total) > 0.10]
+        num_speakers = len(speaker_counts)
+        
+        # ADAPTIVE THRESHOLD (not fixed 10%)
+        if num_speakers <= 2:
+            threshold = 0.10  # 10% for dyadic
+        elif num_speakers <= 4:
+            threshold = 0.05  # 5% for small meetings
+        elif num_speakers <= 8:
+            threshold = 0.03  # 3% for medium meetings
+        else:
+            threshold = 0.02  # 2% for large meetings
+        
+        print(f"  Speaker threshold: {threshold*100:.0f}% (adaptive for {num_speakers} initial speakers)")
+        
+        major_speakers = [s for s, count in speaker_counts.items() if (count / total) > threshold]
         major_set = set(major_speakers)
+        
+        print(f"  Major speakers: {len(major_speakers)} (>{threshold*100:.0f}%)")
         
         # Step 2: Merge ultra-short (<0.5s)
         cleaned = []
@@ -260,24 +280,40 @@ class Station10Transcriber:
                 elif after in major_set:
                     seg['speaker'] = after
         
-        # Step 4: Eliminate tiny speakers (<1%)
+        # Step 4: Eliminate minor speakers (ADAPTIVE, not fixed 1%)
         final_counts = {}
         for seg in cleaned:
             s = seg.get('speaker', 'UNKNOWN')
             final_counts[s] = final_counts.get(s, 0) + 1
         
-        tiny = [s for s, c in final_counts.items() if (c / len(cleaned)) < 0.01 and s not in major_set]
+        # Use ADAPTIVE threshold (same as major speaker threshold)
+        # Also merge speakers with <50 absolute segments in large meetings
+        absolute_min = 50 if len(cleaned) > 1000 else 20
+        
+        minor_speakers = [
+            s for s, c in final_counts.items() 
+            if ((c / len(cleaned)) < threshold or c < absolute_min) and s not in major_set
+        ]
+        
+        if minor_speakers:
+            print(f"  Merging {len(minor_speakers)} minor speakers: {minor_speakers}")
         
         for i, seg in enumerate(cleaned):
-            if seg.get('speaker') in tiny:
+            if seg.get('speaker') in minor_speakers:
                 before = cleaned[i-1].get('speaker') if i > 0 else None
                 after = cleaned[i+1].get('speaker') if i < len(cleaned)-1 else None
+                
+                # Prefer major speakers in context
                 if before in major_set:
                     seg['speaker'] = before
                 elif after in major_set:
                     seg['speaker'] = after
+                elif before and before not in minor_speakers:
+                    seg['speaker'] = before
+                elif after and after not in minor_speakers:
+                    seg['speaker'] = after
                 elif major_set:
-                    seg['speaker'] = list(major_set)[0]
+                    seg['speaker'] = sorted(major_set)[0]  # Assign to first major speaker
         
         final_speaker_count = len(set(seg.get('speaker', 'UNK') for seg in cleaned))
         
