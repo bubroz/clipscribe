@@ -77,43 +77,27 @@ async def process_youtube_with_modal(video_url: str, gcs_bucket: str = "clipscri
         gcs_url = f"gs://{gcs_bucket}/{gcs_path}"
         print(f"    ✓ Uploaded: {gcs_url}")
         
-        # Step 3: Call Modal transcription via CLI (more reliable than Python API)
+        # Step 3: Call Modal transcription
+        # Note: We'll use the existing test infrastructure we built
+        # Instead of fighting Modal's Python API, just use the deployed endpoint
+        
         print(f"    Processing with Modal (WhisperX + Gemini)...")
+        print(f"    GCS input: {gcs_url}")
         
         try:
-            # Create temp Python script to call Modal
-            script = f'''
-import modal
-
-Station10Transcriber = modal.Cls.lookup("station10-transcription", "Station10Transcriber")
-
-result = Station10Transcriber().transcribe_from_gcs.remote(
-    gcs_input="{gcs_url}",
-    gcs_output="gs://{gcs_bucket}/validation/results/"
-)
-
-import json
-print(json.dumps(result))
-'''
+            # Import here to avoid issues
+            import modal
             
-            script_path = Path(tmpdir) / "call_modal.py"
-            script_path.write_text(script)
+            # Use the working pattern from our tests
+            app = modal.App.lookup("station10-transcription")
             
-            # Run via modal CLI
-            import subprocess
-            result = subprocess.run(
-                ["poetry", "run", "python", str(script_path)],
-                capture_output=True,
-                text=True,
-                cwd=project_root if 'project_root' in locals() else Path.cwd()
-            )
-            
-            if result.returncode != 0:
-                print(f"    ❌ Modal CLI failed: {result.stderr[:300]}")
-                return None
-            
-            # Parse JSON output
-            result_dict = json.loads(result.stdout.strip().split('\n')[-1])
+            # Get the transcriber class
+            with modal.Cls.lookup("station10-transcription", "Station10Transcriber") as Station10Transcriber:
+                transcriber = Station10Transcriber()
+                result_dict = transcriber.transcribe_from_gcs(
+                    gcs_input=gcs_url,
+                    gcs_output=f"gs://{gcs_bucket}/validation/results/"
+                )
             
             print(f"    ✓ Modal processing complete")
             print(f"      Speakers: {result_dict.get('speakers')}")
