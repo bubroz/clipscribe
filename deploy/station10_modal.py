@@ -315,7 +315,7 @@ class Station10Transcriber:
             
             # Upload audio file using Files API
             print("  Uploading audio to Gemini...")
-            audio_file = client.files.upload(path=audio_path, display_name="speaker_verification")
+            audio_file = client.files.upload(file=audio_path, display_name="speaker_verification")
             
             # Build prompt with problematic segments
             # Focus on rapid switches and short segments (where errors occur)
