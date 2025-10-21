@@ -204,25 +204,15 @@ class AnnoMIValidator:
         Returns:
             Processing result with segments
         """
-        import modal
+        from .modal_helper import process_youtube_with_modal
         
         try:
-            # Lookup Modal function
-            transcribe_fn = modal.Function.lookup("station10-transcription", "test_gcs_transcription")
-            
-            # For YouTube videos, we need to:
-            # 1. Download audio with yt-dlp
-            # 2. Upload to GCS
-            # 3. Call Modal with GCS path
-            
-            # TODO: Implement YouTube → GCS → Modal pipeline
-            # For now, return None to indicate not yet implemented
-            
-            print(f"    ⚠️  Modal integration TODO: YouTube → GCS → Modal")
-            return None
-            
+            result = await process_youtube_with_modal(video_url, gcs_bucket="clipscribe-validation")
+            return result
         except Exception as e:
             print(f"    ❌ Modal processing failed: {e}")
+            import traceback
+            traceback.print_exc()
             return None
     
     def _map_speakers(self, cs_segments: List[Dict], gt_segments: List[Dict]) -> Dict[str, str]:
