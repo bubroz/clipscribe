@@ -177,9 +177,11 @@ class Station10Transcriber:
                 # CRITICAL FIX: Set clustering threshold for better speaker merging
                 # Default threshold ~0.7 is too conservative, leads to over-segmentation
                 # Research (Hervé Bredin): Higher threshold = fewer speakers
-                # Testing: 1.2 = 2 speakers (too aggressive), 0.7 = 6 speakers (too conservative)
-                # Sweet spot appears to be ~0.9-1.0
-                CLUSTERING_THRESHOLD = 0.95
+                # Binary search findings:
+                #   0.70: 6 speakers, 17% accuracy
+                #   0.95: 2 speakers, 37% accuracy (binary collapse!)
+                # Testing 0.80 to find middle ground
+                CLUSTERING_THRESHOLD = 0.80
                 
                 self.diarize_model.model.instantiate({
                     'clustering': {
