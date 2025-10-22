@@ -689,7 +689,14 @@ Use the INDEX numbers shown above (0, 1, 2...), not segment numbers.
         speakers_found = 0
         if self.diarize_model:
             try:
-                diarize_segments = self.diarize_model(audio)
+                # CRITICAL FIX: Pass speaker hints to pyannote
+                # Without these, pyannote guesses wildly (often 8+ speakers)
+                # With hints, it constrains to reasonable range
+                diarize_segments = self.diarize_model(
+                    audio,
+                    min_speakers=2,    # Minimum 2 speakers (conversations/interviews)
+                    max_speakers=6     # Maximum 6 speakers (most meetings/panels)
+                )
                 result = whisperx.assign_word_speakers(diarize_segments, result)
                 
                 speakers_found_raw = len(set(seg.get("speaker") for seg in result["segments"]))
