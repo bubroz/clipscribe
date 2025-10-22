@@ -173,7 +173,20 @@ class Station10Transcriber:
                     use_auth_token=hf_token,
                     device=self.device
                 )
-                print("✓ Diarization model loaded successfully")
+                
+                # CRITICAL FIX: Set clustering threshold for better speaker merging
+                # Default threshold ~0.7 is too conservative, leads to over-segmentation
+                # Research (Hervé Bredin): Higher threshold = fewer speakers
+                # Testing range: 1.0-1.5 optimal for 2-6 speaker meetings
+                CLUSTERING_THRESHOLD = 1.2
+                
+                self.diarize_model.model.instantiate({
+                    'clustering': {
+                        'threshold': CLUSTERING_THRESHOLD,
+                        'method': 'centroid'
+                    }
+                })
+                print(f"✓ Diarization model loaded (clustering_threshold={CLUSTERING_THRESHOLD})")
             except Exception as e:
                 import traceback
                 print(f"ERROR: Diarization model failed to load!")
