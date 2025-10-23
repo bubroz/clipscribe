@@ -1,0 +1,37 @@
+================================================================================
+RUN THIS IN EXTERNAL TERMINAL (to avoid Cursor timeouts)
+================================================================================
+
+cd /Users/base/Projects/clipscribe
+
+# Deploy threshold 0.80
+poetry run modal deploy deploy/station10_modal.py
+
+# Wait for deployment, then test
+gsutil rm -r gs://clipscribe-validation/validation/results/ 2>/dev/null
+poetry run python scripts/validation/test_chime6.py
+
+# Record the results:
+# Speakers: _____
+# Accuracy: _____%
+
+================================================================================
+THEN NEXT STEPS BASED ON RESULTS:
+================================================================================
+
+If 6 speakers → Try 0.85 (move threshold higher)
+If 4 speakers → SUCCESS! Validate on more sessions
+If 2 speakers → Try 0.75 (move threshold lower)
+
+================================================================================
+PARALLEL RESEARCH (while testing):
+================================================================================
+
+See DEEP_RESEARCH_PLAN.md for:
+- Speaker embedding visualization
+- Gemini pairwise comparison experiments
+- CHiME-6 audio source testing
+- Literature review
+
+================================================================================
+
