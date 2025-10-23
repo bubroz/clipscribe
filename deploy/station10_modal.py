@@ -178,11 +178,11 @@ class Station10Transcriber:
                 # Default threshold ~0.7 is too conservative, leads to over-segmentation
                 # Research (Hervé Bredin): Higher threshold = fewer speakers
                 # Binary search findings:
-                #   0.70: 6 speakers, 17% accuracy
-                #   0.80: 5 speakers, 35% accuracy ← CLOSE!
-                #   0.95: 2 speakers, 37% accuracy
-                # Testing 0.87 to get from 5→4 speakers
-                CLUSTERING_THRESHOLD = 0.87
+                #   0.70: 6 speakers, 17%
+                #   0.80: 5 speakers, 35% ← CLOSE
+                #   0.87: 2 speakers, 38% ← CLIFF (too high)
+                # Sweet spot is 0.80-0.87, testing 0.83
+                CLUSTERING_THRESHOLD = 0.83
                 
                 self.diarize_model.model.instantiate({
                     'clustering': {
