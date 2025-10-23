@@ -179,9 +179,10 @@ class Station10Transcriber:
                 # Research (Hervé Bredin): Higher threshold = fewer speakers
                 # Binary search findings:
                 #   0.70: 6 speakers, 17% accuracy
-                #   0.95: 2 speakers, 37% accuracy (binary collapse!)
-                # Testing 0.80 to find middle ground
-                CLUSTERING_THRESHOLD = 0.80
+                #   0.80: 5 speakers, 35% accuracy ← CLOSE!
+                #   0.95: 2 speakers, 37% accuracy
+                # Testing 0.87 to get from 5→4 speakers
+                CLUSTERING_THRESHOLD = 0.87
                 
                 self.diarize_model.model.instantiate({
                     'clustering': {
