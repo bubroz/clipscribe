@@ -30,14 +30,8 @@ LOCAL_TEST_FILES = [
         "duration_min": 60,
         "speakers": 2,
         "type": "Legal"
-    },
-    {
-        "path": "test_videos/qjPH9njnaVU_Pavel Durov： Telegram, Freedom, Censorship, Money,.mp3",
-        "name": "Lex + Durov",
-        "duration_min": 274,
-        "speakers": 2,
-        "type": "Tech Interview"
     }
+    # Durov removed - 274 min takes too long for quick testing
 ]
 
 
