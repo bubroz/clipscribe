@@ -77,16 +77,28 @@ async def process_local_file_with_modal(audio_path: Path, video_name: str):
         # IMPORTANT: Download full transcript from GCS (Modal only returns summary)
         gcs_output = result_dict.get('gcs_output', '')
         if gcs_output:
-            # Download transcript.json
-            transcript_path = f"{gcs_output.rstrip('/')}/transcript.json"
-            transcript_blob = bucket.blob(transcript_path.replace('gs://clipscribe-validation/', ''))
+            # Try both paths (Modal uses double slash pattern)
+            possible_paths = [
+                f"{gcs_output.rstrip('/')}/transcript.json",  # Normal path
+                f"{gcs_output.rstrip('/')}//transcript.json",  # Double slash
+                "validation/results//transcript.json",  # Known pattern
+            ]
             
-            if transcript_blob.exists():
-                transcript_json = json.loads(transcript_blob.download_as_text())
-                # Merge with result_dict to include entities/relationships
-                result_dict.update(transcript_json)
-            else:
-                print(f"  ⚠ Transcript not found at {transcript_path}")
+            transcript_json = None
+            for path in possible_paths:
+                # Remove gs:// prefix for blob path
+                blob_path = path.replace('gs://clipscribe-validation/', '')
+                transcript_blob = bucket.blob(blob_path)
+                
+                if transcript_blob.exists():
+                    print(f"  ✓ Found transcript at {blob_path}")
+                    transcript_json = json.loads(transcript_blob.download_as_text())
+                    # Merge with result_dict to include entities/relationships
+                    result_dict.update(transcript_json)
+                    break
+            
+            if transcript_json is None:
+                print(f"  ⚠ Transcript not found - tried: {possible_paths}")
         
         return result_dict
         
