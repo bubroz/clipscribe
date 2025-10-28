@@ -73,6 +73,21 @@ async def process_local_file_with_modal(audio_path: Path, video_name: str):
         )
         
         print(f"  ✓ Modal complete: {result_dict.get('speakers', 0)} speakers, ${result_dict.get('cost', 0):.4f}")
+        
+        # IMPORTANT: Download full transcript from GCS (Modal only returns summary)
+        gcs_output = result_dict.get('gcs_output', '')
+        if gcs_output:
+            # Download transcript.json
+            transcript_path = f"{gcs_output.rstrip('/')}/transcript.json"
+            transcript_blob = bucket.blob(transcript_path.replace('gs://clipscribe-validation/', ''))
+            
+            if transcript_blob.exists():
+                transcript_json = json.loads(transcript_blob.download_as_text())
+                # Merge with result_dict to include entities/relationships
+                result_dict.update(transcript_json)
+            else:
+                print(f"  ⚠ Transcript not found at {transcript_path}")
+        
         return result_dict
         
     except Exception as e:
