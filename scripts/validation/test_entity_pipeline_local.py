@@ -71,9 +71,9 @@ async def process_local_file_with_modal(audio_path: Path, video_name: str):
     print(f"  Processing with Modal...")
     
     try:
-        # CORRECT Modal 1.0+ API pattern
+        # CORRECT Modal 1.0+ API pattern - must instantiate first
         Station10Transcriber = modal.Cls.from_name("station10-transcription", "Station10Transcriber")
-        result_dict = Station10Transcriber.transcribe_from_gcs.remote(
+        result_dict = Station10Transcriber().transcribe_from_gcs.remote(
             gcs_input=gcs_url,
             gcs_output=f"gs://clipscribe-validation/validation/results/"
         )
