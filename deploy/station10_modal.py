@@ -106,7 +106,8 @@ model_cache = modal.Volume.from_name("station10-models", create_if_missing=True)
     secrets=[
         modal.Secret.from_name("huggingface"),  # For pyannote.audio models
         modal.Secret.from_name("googlecloud-secret"),  # For GCS access
-        modal.Secret.from_name("google-api-key")  # For Gemini speaker verification
+        modal.Secret.from_name("google-api-key"),  # For Gemini speaker verification
+        modal.Secret.from_name("grok-api-key")  # For Grok entity extraction
     ],
     volumes={"/models": model_cache}  # Cache models to avoid re-downloading
 )
@@ -640,6 +641,90 @@ Use the INDEX numbers shown above (0, 1, 2...), not segment numbers.
         
         return result_dict
     
+    def _extract_entities(self, segments: list) -> tuple:
+        """
+        Extract entities and relationships using Grok.
+        
+        Args:
+            segments: List of transcript segments with text and speaker
+            
+        Returns:
+            Tuple of (entities_list, relationships_list)
+        """
+        import httpx
+        
+        # Prepare transcript text
+        transcript_text = " ".join(seg.get("text", "") for seg in segments)
+        
+        # Grok configuration
+        grok_api_key = os.getenv("XAI_API_KEY")
+        if not grok_api_key:
+            print("⚠ No Grok API key found - skipping entity extraction")
+            return [], []
+        
+        grok_base_url = "https://api.x.ai/v1"
+        grok_model = "grok-2-1212"  # Fast, cost-effective for entity extraction
+        grok_headers = {
+            "Authorization": f"Bearer {grok_api_key}",
+            "Content-Type": "application/json"
+        }
+        
+        # Build extraction prompt
+        prompt = f"""Extract entities and relationships from this conversation transcript.
+
+Return JSON with this structure:
+{{
+  "entities": [
+    {{"name": "Person/Org/Concept", "type": "PERSON|ORG|CONCEPT|LOCATION", "confidence": 0.9}}
+  ],
+  "relationships": [
+    {{"subject": "Entity1", "predicate": "relation", "object": "Entity2", "confidence": 0.9}}
+  ]
+}}
+
+Transcript:
+{transcript_text[:50000]}"""  # Limit to 50k chars for efficiency
+        
+        try:
+            # Call Grok API
+            with httpx.Client(timeout=120.0) as client:
+                response = client.post(
+                    f"{grok_base_url}/chat/completions",
+                    headers=grok_headers,
+                    json={
+                        "model": grok_model,
+                        "messages": [
+                            {
+                                "role": "system",
+                                "content": "You are a precise entity extraction system. Return only valid JSON."
+                            },
+                            {"role": "user", "content": prompt}
+                        ],
+                        "temperature": 0.1,
+                        "max_tokens": 4096,
+                        "response_format": {"type": "json_object"}
+                    }
+                )
+                
+                if response.status_code != 200:
+                    print(f"⚠ Grok API error: {response.status_code}")
+                    return [], []
+                
+                response_json = response.json()
+                content = response_json["choices"][0]["message"]["content"]
+                
+                # Parse JSON
+                result = json.loads(content)
+                
+                entities = result.get("entities", [])
+                relationships = result.get("relationships", [])
+                
+                return entities, relationships
+                
+        except Exception as e:
+            print(f"⚠ Entity extraction failed: {e}")
+            return [], []
+    
     @modal.method()
     def transcribe_from_gcs(self, gcs_input: str, gcs_output: str) -> dict:
         """
@@ -734,6 +819,15 @@ Use the INDEX numbers shown above (0, 1, 2...), not segment numbers.
                 print("✓ Gemini verification complete")
             except Exception as e:
                 print(f"⚠ Diarization failed: {e}")
+        
+        # GROK ENTITY EXTRACTION
+        print("Extracting entities and relationships with Grok...")
+        entities, relationships = self._extract_entities(result["segments"])
+        print(f"✓ Extracted {len(entities)} entities and {len(relationships)} relationships")
+        
+        # Add to result
+        result["entities"] = entities
+        result["relationships"] = relationships
         
         processing_time = time.time() - process_start
         gpu_cost = (processing_time / 60) * 0.01836
