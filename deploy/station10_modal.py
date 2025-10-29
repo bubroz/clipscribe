@@ -880,17 +880,8 @@ Chunk {i+1} Transcript:
         
         print(f"✓ Chunked extraction complete: {len(all_entities)} total entities, {len(all_relationships)} total relationships")
         
-        # Deduplication for entities
-        entity_dedup = {}
-        for entity in all_entities:
-            key = (entity.get('name', '').lower(), entity.get('type', ''))
-            conf = entity.get('confidence', 0)
-            if conf < 0.7:
-                continue  # Skip low confidence
-            if key not in entity_dedup or conf > entity_dedup[key]['confidence']:
-                entity_dedup[key] = entity
-        
-        dedup_entities = list(entity_dedup.values())
+        # Advanced deduplication with fuzzy matching (ported from EntityNormalizer)
+        dedup_entities = self._deduplicate_entities_advanced(all_entities)
         duplicates_removed = len(all_entities) - len(dedup_entities)
         print(f"✓ Deduplicated entities: {len(dedup_entities)} (removed {duplicates_removed} duplicates)")
         
@@ -909,6 +900,191 @@ Chunk {i+1} Transcript:
         print(f"✓ Deduplicated relationships: {len(dedup_relationships)} (removed {rel_duplicates_removed} duplicates)")
         
         return dedup_entities, dedup_relationships
+    
+    def _deduplicate_entities_advanced(self, entities: list) -> list:
+        """
+        Advanced entity deduplication with fuzzy matching.
+        Ported from ClipScribe's EntityNormalizer for production-grade deduplication.
+        
+        Handles:
+        - Title removal (President Trump → Trump)
+        - Fuzzy matching (Trump ≈ Donald Trump, 85% similarity)
+        - Substring matching (Trump in "Donald Trump")
+        - Abbreviations (US ≈ United States via fuzzy)
+        - Case normalization
+        - Confidence-based merging (keeps highest confidence)
+        - Longest name selection (Donald Trump > Trump)
+        """
+        from difflib import SequenceMatcher
+        import re
+        
+        # Step 1: Filter low confidence and normalize
+        normalized_entities = []
+        for entity in entities:
+            name = entity.get('name', '')
+            entity_type = entity.get('type', '')
+            conf = entity.get('confidence', 0)
+            
+            # Skip low confidence
+            if conf < 0.7:
+                continue
+            
+            # Skip empty names
+            if not name or len(name.strip()) < 2:
+                continue
+            
+            # Normalize name for comparison
+            normalized_name = self._normalize_entity_name(name)
+            
+            normalized_entities.append({
+                'original_name': name,
+                'normalized_name': normalized_name,
+                'type': entity_type,
+                'confidence': conf,
+                'original_entity': entity
+            })
+        
+        print(f"  After confidence filter: {len(normalized_entities)} entities")
+        
+        # Step 2: Group by fuzzy similarity
+        groups = []
+        used = set()
+        
+        for i, entity in enumerate(normalized_entities):
+            if i in used:
+                continue
+            
+            # Start new group with this entity
+            group = [entity]
+            used.add(i)
+            
+            # Find similar entities of the same type
+            for j, other in enumerate(normalized_entities[i+1:], i+1):
+                if j in used:
+                    continue
+                
+                # Must be same type
+                if entity['type'] != other['type']:
+                    continue
+                
+                # Check if names are similar
+                if self._are_names_similar(entity['normalized_name'], other['normalized_name']):
+                    group.append(other)
+                    used.add(j)
+            
+            groups.append(group)
+        
+        print(f"  Grouped into {len(groups)} unique entities")
+        
+        # Step 3: Merge each group, keeping best entity
+        deduplicated = []
+        for group in groups:
+            # Sort by: 1) confidence (highest first), 2) name length (longest first)
+            # This ensures we keep the most confident AND most complete name
+            group.sort(key=lambda x: (x['confidence'], len(x['original_name'])), reverse=True)
+            
+            # Keep the best entity
+            best = group[0]['original_entity']
+            
+            # If multiple entities in group, use longest name from high-confidence entities
+            if len(group) > 1:
+                # Get all entities with confidence >= 0.9 (high confidence)
+                high_conf = [e for e in group if e['confidence'] >= 0.9]
+                if high_conf:
+                    # Among high confidence, choose longest name
+                    high_conf.sort(key=lambda x: len(x['original_name']), reverse=True)
+                    best = high_conf[0]['original_entity']
+            
+            deduplicated.append(best)
+        
+        return deduplicated
+    
+    def _normalize_entity_name(self, name: str) -> str:
+        """
+        Normalize entity name for comparison.
+        Ported from EntityNormalizer._clean_name and _remove_titles.
+        """
+        import re
+        
+        # Remove extra whitespace
+        name = re.sub(r'\s+', ' ', name.strip())
+        
+        # Remove quotes and brackets
+        name = re.sub(r'^["\'\[\(]+|["\'\]\)]+$', '', name)
+        
+        # Remove trailing punctuation (but keep periods in abbreviations)
+        name = re.sub(r'[,;:!?]+$', '', name)
+        
+        # Remove common titles (case-insensitive)
+        titles = [
+            'President', 'Vice President', 'VP',
+            'CEO', 'CFO', 'CTO', 'COO', 'Chairman', 'Chair',
+            'Dr.', 'Dr', 'Mr.', 'Mr', 'Mrs.', 'Mrs', 'Ms.', 'Ms',
+            'Prof.', 'Prof', 'Professor',
+            'Sen.', 'Sen', 'Senator', 'Rep.', 'Rep', 'Representative',
+            'Gov.', 'Gov', 'Governor', 'Mayor',
+            'Former', 'Ex-', 'Acting'
+        ]
+        
+        for title in titles:
+            # Remove title at start of name
+            pattern = f'^{re.escape(title)}\\s+'
+            name = re.sub(pattern, '', name, flags=re.IGNORECASE)
+        
+        # Lowercase for comparison
+        return name.lower().strip()
+    
+    def _are_names_similar(self, name1: str, name2: str, threshold: float = 0.85) -> bool:
+        """
+        Check if two names are similar using fuzzy matching.
+        Ported from EntityNormalizer._similar_names.
+        
+        Args:
+            name1: First normalized name
+            name2: Second normalized name  
+            threshold: Similarity threshold (0.85 = 85% similar)
+            
+        Returns:
+            True if names refer to same entity
+        """
+        from difflib import SequenceMatcher
+        
+        # Exact match
+        if name1 == name2:
+            return True
+        
+        # One is substring of the other (e.g., "trump" in "donald trump")
+        if name1 in name2 or name2 in name1:
+            return True
+        
+        # Check for abbreviation pattern (e.g., "us" vs "united states")
+        if self._is_abbreviation(name1, name2):
+            return True
+        
+        # Fuzzy string similarity using SequenceMatcher (industry standard)
+        similarity = SequenceMatcher(None, name1, name2).ratio()
+        return similarity >= threshold
+    
+    def _is_abbreviation(self, name1: str, name2: str) -> bool:
+        """
+        Check if one name is an abbreviation of another.
+        Ported from EntityNormalizer._check_abbreviations.
+        """
+        words1 = name1.split()
+        words2 = name2.split()
+        
+        # If one is a single word and other is multiple words
+        if len(words1) == 1 and len(words2) > 1:
+            # Check if words1 is acronym of words2
+            acronym = ''.join(word[0] for word in words2 if word)
+            return words1[0].replace('.', '') == acronym.lower()
+        
+        elif len(words2) == 1 and len(words1) > 1:
+            # Check if words2 is acronym of words1
+            acronym = ''.join(word[0] for word in words1 if word)
+            return words2[0].replace('.', '') == acronym.lower()
+        
+        return False
     
     @modal.method()
     def transcribe_from_gcs(self, gcs_input: str, gcs_output: str) -> dict:
