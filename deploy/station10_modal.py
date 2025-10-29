@@ -669,6 +669,12 @@ Use the INDEX numbers shown above (0, 1, 2...), not segment numbers.
             "Content-Type": "application/json"
         }
         
+        # Handle long transcripts with chunking
+        max_chunk_size = 45000  # Leave buffer for prompt text
+        if len(transcript_text) > max_chunk_size:
+            print(f"Long transcript detected ({len(transcript_text)} chars), using chunked extraction")
+            return self._extract_entities_chunked(segments, grok_base_url, grok_model, grok_headers)
+        
         # Build extraction prompt using spaCy's standard 18 entity types
         prompt = f"""Extract entities and relationships from this conversation transcript.
 
@@ -706,7 +712,7 @@ Entity Type Guidelines:
 - PERCENT: Percentage values
 
 Transcript:
-{transcript_text[:50000]}"""  # Limit to 50k chars for efficiency
+{transcript_text}"""
         
         try:
             # Call Grok API with comprehensive error handling
@@ -776,6 +782,104 @@ Transcript:
             import traceback
             traceback.print_exc()
             return [], []
+    
+    def _extract_entities_chunked(self, segments: list, grok_base_url: str, grok_model: str, grok_headers: dict) -> tuple:
+        """
+        Extract entities from long transcripts using chunking.
+        
+        Args:
+            segments: List of transcript segments
+            grok_base_url: Grok API base URL
+            grok_model: Grok model name
+            grok_headers: Grok API headers
+            
+        Returns:
+            Tuple of (entities_list, relationships_list)
+        """
+        import httpx
+        import json
+        
+        # Create chunks of segments
+        chunk_size = 100  # Number of segments per chunk
+        chunks = [segments[i:i + chunk_size] for i in range(0, len(segments), chunk_size)]
+        
+        print(f"Processing {len(chunks)} chunks for long transcript")
+        
+        all_entities = []
+        all_relationships = []
+        
+        for i, chunk in enumerate(chunks):
+            print(f"Processing chunk {i+1}/{len(chunks)} ({len(chunk)} segments)")
+            
+            # Build chunk text
+            chunk_text = " ".join(seg.get("text", "") for seg in chunk)
+            
+            # Build chunk-specific prompt
+            prompt = f"""Extract entities and relationships from this portion of a long conversation transcript.
+
+This is chunk {i+1} of {len(chunks)} from a longer conversation.
+
+Use spaCy's standard entity types:
+PERSON, ORG, GPE, LOC, EVENT, PRODUCT, MONEY, DATE, TIME, FAC, NORP, LANGUAGE, LAW, WORK_OF_ART, CARDINAL, ORDINAL, QUANTITY, PERCENT
+
+Return JSON with this structure:
+{{
+  "entities": [
+    {{"name": "Entity Name", "type": "PERSON|ORG|GPE|LOC|EVENT|PRODUCT|MONEY|DATE|TIME|FAC|NORP|LANGUAGE|LAW|WORK_OF_ART|CARDINAL|ORDINAL|QUANTITY|PERCENT", "confidence": 0.9}}
+  ],
+  "relationships": [
+    {{"subject": "Entity1", "predicate": "relation", "object": "Entity2", "confidence": 0.9}}
+  ]
+}}
+
+Chunk {i+1} Transcript:
+{chunk_text}"""
+            
+            try:
+                # Call Grok API for this chunk
+                with httpx.Client(timeout=120.0) as client:
+                    response = client.post(
+                        f"{grok_base_url}/chat/completions",
+                        headers=grok_headers,
+                        json={
+                            "model": grok_model,
+                            "messages": [
+                                {
+                                    "role": "system",
+                                    "content": "You are a precise entity extraction system. Return only valid JSON."
+                                },
+                                {"role": "user", "content": prompt}
+                            ],
+                            "temperature": 0.1,
+                            "max_tokens": 4096,
+                            "response_format": {"type": "json_object"}
+                        }
+                    )
+                    
+                    if response.status_code != 200:
+                        print(f"⚠ Grok API error for chunk {i+1}: {response.status_code}")
+                        continue
+                    
+                    response_json = response.json()
+                    content = response_json["choices"][0]["message"]["content"]
+                    
+                    # Parse JSON
+                    result = json.loads(content)
+                    
+                    chunk_entities = result.get("entities", [])
+                    chunk_relationships = result.get("relationships", [])
+                    
+                    all_entities.extend(chunk_entities)
+                    all_relationships.extend(chunk_relationships)
+                    
+                    print(f"✓ Chunk {i+1}: {len(chunk_entities)} entities, {len(chunk_relationships)} relationships")
+                    
+            except Exception as e:
+                print(f"⚠ Chunk {i+1} failed: {e}")
+                continue
+        
+        print(f"✓ Chunked extraction complete: {len(all_entities)} total entities, {len(all_relationships)} total relationships")
+        return all_entities, all_relationships
     
     @modal.method()
     def transcribe_from_gcs(self, gcs_input: str, gcs_output: str) -> dict:
