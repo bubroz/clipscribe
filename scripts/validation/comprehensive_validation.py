@@ -21,10 +21,10 @@ project_root = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(project_root))
 
 # Helper for timestamped progress
-def log_progress(msg: str, emoji: str = ""):
+def log_progress(msg: str):
     """Print timestamped progress message."""
     timestamp = datetime.now().strftime("%H:%M:%S")
-    print(f"[{timestamp}] {emoji} {msg}" if emoji else f"[{timestamp}] {msg}")
+    print(f"[{timestamp}] {msg}")
 
 # Test videos from MASTER_TEST_VIDEO_TABLE.md
 COMPREHENSIVE_TEST_VIDEOS = [
@@ -64,16 +64,16 @@ async def process_video_with_modal(audio_path: Path, video_info: dict):
     from google.cloud import storage
     
     print(f"\n{'='*80}")
-    log_progress(f"📹 Processing {video_info['name']} ({video_info['duration_min']} min, {video_info['speakers']} speakers)", "")
+    log_progress(f"Processing {video_info['name']} ({video_info['duration_min']} min, {video_info['speakers']} speakers)")
     print(f"{'='*80}\n")
     
     if not audio_path.exists():
-        log_progress(f"File not found: {audio_path}", "❌")
+        log_progress(f"ERROR: File not found: {audio_path}")
         return None
     
     # Upload to GCS
     file_size_mb = audio_path.stat().st_size / (1024 * 1024)
-    log_progress(f"Uploading to GCS ({file_size_mb:.0f}MB)...", "⬆️")
+    log_progress(f"Uploading to GCS ({file_size_mb:.0f}MB)...")
     
     upload_start = time.time()
     client = storage.Client()
@@ -85,10 +85,10 @@ async def process_video_with_modal(audio_path: Path, video_info: dict):
     
     upload_time = time.time() - upload_start
     gcs_url = f"gs://clipscribe-validation/{gcs_path}"
-    log_progress(f"Upload complete ({upload_time:.1f}s)", "✅")
+    log_progress(f"Upload complete ({upload_time:.1f}s)")
     
     # Call Modal
-    log_progress("Modal processing started...", "🔄")
+    log_progress("Modal processing started...")
     
     try:
         modal_start = time.time()
@@ -99,7 +99,7 @@ async def process_video_with_modal(audio_path: Path, video_info: dict):
         )
         
         modal_time = time.time() - modal_start
-        log_progress(f"Modal complete: {result_dict.get('speakers', 0)} speakers, ${result_dict.get('cost', 0):.4f}, {result_dict.get('entities', 0)} entities ({modal_time:.1f}s)", "✅")
+        log_progress(f"Modal complete: {result_dict.get('speakers', 0)} speakers, ${result_dict.get('cost', 0):.4f}, {result_dict.get('entities', 0)} entities ({modal_time:.1f}s)")
         
         # Download full transcript from GCS
         gcs_output = result_dict.get('gcs_output', '')
@@ -117,18 +117,18 @@ async def process_video_with_modal(audio_path: Path, video_info: dict):
                 transcript_blob = bucket.blob(blob_path)
                 
                 if transcript_blob.exists():
-                    log_progress(f"Downloading transcript from GCS...", "📥")
+                    log_progress("Downloading transcript from GCS...")
                     transcript_json = json.loads(transcript_blob.download_as_text())
                     result_dict.update(transcript_json)
                     break
             
             if transcript_json is None:
-                log_progress("Transcript not found", "⚠️")
+                log_progress("WARNING: Transcript not found")
         
         return result_dict
         
     except Exception as e:
-        log_progress(f"Modal processing failed: {e}", "❌")
+        log_progress(f"ERROR: Modal processing failed: {e}")
         import traceback
         traceback.print_exc()
         return None
@@ -226,7 +226,7 @@ async def main():
     start_time = time.time()
     
     print("="*80)
-    log_progress("🚀 STARTING COMPREHENSIVE VALIDATION", "")
+    log_progress("STARTING COMPREHENSIVE VALIDATION")
     print("="*80)
     print(f"\nTesting {len(COMPREHENSIVE_TEST_VIDEOS)} videos:")
     for v in COMPREHENSIVE_TEST_VIDEOS:
@@ -236,7 +236,7 @@ async def main():
     results = []
     
     for i, video_info in enumerate(COMPREHENSIVE_TEST_VIDEOS, 1):
-        log_progress(f"Video {i}/{len(COMPREHENSIVE_TEST_VIDEOS)}: {video_info['name']}", "📹")
+        log_progress(f"Video {i}/{len(COMPREHENSIVE_TEST_VIDEOS)}: {video_info['name']}")
         
         audio_path = project_root / video_info['local_path']
         
@@ -250,13 +250,13 @@ async def main():
         results.append(analysis)
         
         elapsed = time.time() - start_time
-        log_progress(f"Completed {i}/{len(COMPREHENSIVE_TEST_VIDEOS)} videos (elapsed: {elapsed/60:.1f}m)", "✅")
+        log_progress(f"Completed {i}/{len(COMPREHENSIVE_TEST_VIDEOS)} videos (elapsed: {elapsed/60:.1f}m)")
     
     # Summary
     total_time = time.time() - start_time
     
     print("\n" + "="*80)
-    log_progress(f"🏁 VALIDATION COMPLETE ({total_time/60:.1f}m total)", "")
+    log_progress(f"VALIDATION COMPLETE ({total_time/60:.1f}m total)")
     print("="*80)
     
     total_videos = len(results)
@@ -270,11 +270,11 @@ async def main():
     print(f"Average validation score: {avg_score*100:.0f}%")
     
     if avg_score >= 0.75:
-        log_progress("VALIDATION PASSED - Ready for Week 5-8 features!", "✅")
+        log_progress("VALIDATION PASSED - Ready for Week 5-8 features!")
     elif avg_score >= 0.5:
-        log_progress("VALIDATION PARTIAL - Some issues found, proceed with caution", "⚠️")
+        log_progress("VALIDATION PARTIAL - Some issues found, proceed with caution")
     else:
-        log_progress("VALIDATION FAILED - Fix issues before proceeding", "❌")
+        log_progress("VALIDATION FAILED - Fix issues before proceeding")
     
     # Save results
     output_path = project_root / "validation_data" / "comprehensive_validation_results.json"
