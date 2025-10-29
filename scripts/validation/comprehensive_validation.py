@@ -15,9 +15,16 @@ import json
 from datetime import datetime
 import sys
 from typing import Dict, List
+import time
 
 project_root = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(project_root))
+
+# Helper for timestamped progress
+def log_progress(msg: str, emoji: str = ""):
+    """Print timestamped progress message."""
+    timestamp = datetime.now().strftime("%H:%M:%S")
+    print(f"[{timestamp}] {emoji} {msg}" if emoji else f"[{timestamp}] {msg}")
 
 # Test videos from MASTER_TEST_VIDEO_TABLE.md
 COMPREHENSIVE_TEST_VIDEOS = [
@@ -57,16 +64,18 @@ async def process_video_with_modal(audio_path: Path, video_info: dict):
     from google.cloud import storage
     
     print(f"\n{'='*80}")
-    print(f"PROCESSING: {video_info['name']}")
-    print(f"File: {audio_path}")
+    log_progress(f"📹 Processing {video_info['name']} ({video_info['duration_min']} min, {video_info['speakers']} speakers)", "")
     print(f"{'='*80}\n")
     
     if not audio_path.exists():
-        print(f"❌ File not found: {audio_path}")
+        log_progress(f"File not found: {audio_path}", "❌")
         return None
     
     # Upload to GCS
-    print(f"  Uploading to GCS...")
+    file_size_mb = audio_path.stat().st_size / (1024 * 1024)
+    log_progress(f"Uploading to GCS ({file_size_mb:.0f}MB)...", "⬆️")
+    
+    upload_start = time.time()
     client = storage.Client()
     bucket = client.bucket("clipscribe-validation")
     
@@ -74,20 +83,23 @@ async def process_video_with_modal(audio_path: Path, video_info: dict):
     blob = bucket.blob(gcs_path)
     blob.upload_from_filename(str(audio_path))
     
+    upload_time = time.time() - upload_start
     gcs_url = f"gs://clipscribe-validation/{gcs_path}"
-    print(f"  ✓ Uploaded: {gcs_url}")
+    log_progress(f"Upload complete ({upload_time:.1f}s)", "✅")
     
     # Call Modal
-    print(f"  Processing with Modal...")
+    log_progress("Modal processing started...", "🔄")
     
     try:
+        modal_start = time.time()
         Station10Transcriber = modal.Cls.from_name("station10-transcription", "Station10Transcriber")
         result_dict = Station10Transcriber().transcribe_from_gcs.remote(
             gcs_input=gcs_url,
             gcs_output=f"gs://clipscribe-validation/validation/results/{video_info['id']}/"
         )
         
-        print(f"  ✓ Modal complete: {result_dict.get('speakers', 0)} speakers, ${result_dict.get('cost', 0):.4f}")
+        modal_time = time.time() - modal_start
+        log_progress(f"Modal complete: {result_dict.get('speakers', 0)} speakers, ${result_dict.get('cost', 0):.4f}, {result_dict.get('entities', 0)} entities ({modal_time:.1f}s)", "✅")
         
         # Download full transcript from GCS
         gcs_output = result_dict.get('gcs_output', '')
@@ -105,18 +117,18 @@ async def process_video_with_modal(audio_path: Path, video_info: dict):
                 transcript_blob = bucket.blob(blob_path)
                 
                 if transcript_blob.exists():
-                    print(f"  ✓ Found transcript at {blob_path}")
+                    log_progress(f"Downloading transcript from GCS...", "📥")
                     transcript_json = json.loads(transcript_blob.download_as_text())
                     result_dict.update(transcript_json)
                     break
             
             if transcript_json is None:
-                print(f"  ⚠ Transcript not found")
+                log_progress("Transcript not found", "⚠️")
         
         return result_dict
         
     except Exception as e:
-        print(f"  ❌ Modal processing failed: {e}")
+        log_progress(f"Modal processing failed: {e}", "❌")
         import traceback
         traceback.print_exc()
         return None
@@ -211,8 +223,10 @@ def analyze_entities(result: dict, video_info: dict) -> dict:
 
 
 async def main():
+    start_time = time.time()
+    
     print("="*80)
-    print("COMPREHENSIVE ENTITY EXTRACTION VALIDATION")
+    log_progress("🚀 STARTING COMPREHENSIVE VALIDATION", "")
     print("="*80)
     print(f"\nTesting {len(COMPREHENSIVE_TEST_VIDEOS)} videos:")
     for v in COMPREHENSIVE_TEST_VIDEOS:
@@ -221,7 +235,9 @@ async def main():
     
     results = []
     
-    for video_info in COMPREHENSIVE_TEST_VIDEOS:
+    for i, video_info in enumerate(COMPREHENSIVE_TEST_VIDEOS, 1):
+        log_progress(f"Video {i}/{len(COMPREHENSIVE_TEST_VIDEOS)}: {video_info['name']}", "📹")
+        
         audio_path = project_root / video_info['local_path']
         
         # Process with Modal
@@ -232,26 +248,33 @@ async def main():
         analysis['video'] = video_info['name']
         analysis['video_id'] = video_info['id']
         results.append(analysis)
+        
+        elapsed = time.time() - start_time
+        log_progress(f"Completed {i}/{len(COMPREHENSIVE_TEST_VIDEOS)} videos (elapsed: {elapsed/60:.1f}m)", "✅")
     
     # Summary
+    total_time = time.time() - start_time
+    
     print("\n" + "="*80)
-    print("VALIDATION SUMMARY")
+    log_progress(f"🏁 VALIDATION COMPLETE ({total_time/60:.1f}m total)", "")
     print("="*80)
     
     total_videos = len(results)
     working = sum(1 for r in results if r.get('entity_extraction_working', False))
     avg_score = sum(r.get('validation_score', 0) for r in results) / total_videos if results else 0
+    total_entities = sum(r.get('entities', 0) for r in results)
     
     print(f"Total videos: {total_videos}")
     print(f"Entity extraction working: {working}/{total_videos}")
+    print(f"Total entities extracted: {total_entities}")
     print(f"Average validation score: {avg_score*100:.0f}%")
     
     if avg_score >= 0.75:
-        print("\n✅ VALIDATION PASSED - Ready for Week 5-8 features!")
+        log_progress("VALIDATION PASSED - Ready for Week 5-8 features!", "✅")
     elif avg_score >= 0.5:
-        print("\n⚠️  VALIDATION PARTIAL - Some issues found, proceed with caution")
+        log_progress("VALIDATION PARTIAL - Some issues found, proceed with caution", "⚠️")
     else:
-        print("\n❌ VALIDATION FAILED - Fix issues before proceeding")
+        log_progress("VALIDATION FAILED - Fix issues before proceeding", "❌")
     
     # Save results
     output_path = project_root / "validation_data" / "comprehensive_validation_results.json"
