@@ -693,23 +693,33 @@ Return JSON with this structure:
 
 Entity Type Guidelines:
 - PERSON: People, including fictional characters
-- ORG: Companies, agencies, institutions  
+- ORG: Companies, agencies, institutions, government programs (Medicare, Medicaid)
 - GPE: Countries, cities, states (Geopolitical entities)
 - LOC: Non-GPE locations, mountain ranges, bodies of water
-- EVENT: Named hurricanes, battles, wars, sports events
-- PRODUCT: Objects, vehicles, foods, etc.
+- EVENT: Named hurricanes, battles, wars, sports events, political events
+- PRODUCT: Physical objects, vehicles, foods, weapons (Tomahawk missiles, TikTok app, Iron dome system)
+  * NOT abstract concepts (inflation, tariffs, healthcare are NOT products)
+  * NOT policies (border security, Green New Deal are NOT products)
+  * NOT economic indicators (prices, wages, job market are NOT products)
+  * Physical/tangible items only
 - MONEY: Monetary values ($100, €50, etc.)
 - DATE: Absolute or relative dates or periods
 - TIME: Times smaller than a day (3pm, morning, etc.)
 - FAC: Buildings, airports, highways, bridges
 - NORP: Nationalities, religious, political groups
 - LANGUAGE: Named languages
-- LAW: Named documents made into laws
+- LAW: Named documents made into laws, policies (Green New Deal, tax code)
 - WORK_OF_ART: Titles of books, songs, etc.
 - CARDINAL: Numerals that don't fall under another type
 - ORDINAL: "first", "second", etc.
 - QUANTITY: Measurements, weights, distances
 - PERCENT: Percentage values
+
+IMPORTANT: For abstract concepts, economic terms, or policies that don't fit above categories, use the most appropriate type:
+- Economic concepts (inflation, tariffs, wages) → CARDINAL or omit if just general discussion
+- Healthcare systems (Medicare, Medicaid) → ORG
+- Policies (border security, trade policy) → LAW if formal, omit if general concept
+- When in doubt, prefer concrete categories (PERSON, ORG, GPE, EVENT) over abstract ones
 
 Transcript:
 {transcript_text}"""
@@ -1034,7 +1044,7 @@ Chunk {i+1} Transcript:
         # Lowercase for comparison
         return name.lower().strip()
     
-    def _are_names_similar(self, name1: str, name2: str, threshold: float = 0.85) -> bool:
+    def _are_names_similar(self, name1: str, name2: str, threshold: float = 0.80) -> bool:
         """
         Check if two names are similar using fuzzy matching.
         Ported from EntityNormalizer._similar_names.
@@ -1061,7 +1071,8 @@ Chunk {i+1} Transcript:
         if self._is_abbreviation(name1, name2):
             return True
         
-        # Fuzzy string similarity using SequenceMatcher (industry standard)
+        # Fuzzy string similarity using SequenceMatcher
+        # Lowered to 0.80 to catch typos and short-name variations (e.g., Sacks vs Sachs)
         similarity = SequenceMatcher(None, name1, name2).ratio()
         return similarity >= threshold
     
