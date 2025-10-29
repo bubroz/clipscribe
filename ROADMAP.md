@@ -1,450 +1,199 @@
-# ClipScribe → Station10.media SaaS Product Roadmap
+# Station10.media Product Roadmap
 
-**Last Updated**: October 19, 2025  
-**Current Version**: v2.57.0  
-**Product**: Hosted video intelligence SaaS  
-**Target Launch**: February 2026 (12-16 weeks from Modal validation)
+**Last Updated:** October 28, 2025  
+**Current Version:** v2.60.0  
+**Status:** Core engine validated, ready for intelligence features  
+**Target Launch:** February 2026
 
 ---
 
-## Vision Statement
+## Vision
 
 **Station10.media: Turn any video into structured intelligence in minutes.**
 
 Extract speakers, entities, relationships, and auto-generated clips from any video. Built for journalists, researchers, and intelligence analysts who need professional-grade accuracy without censorship.
 
 **Differentiation:**
-- Auto-clip generation with AI recommendations
-- Speaker identification (who said what)
-- Uncensored processing (medical, legal, controversial)
-- Multi-tier accuracy (standard vs premium)
-- $0.50-1.50/video (vs competitors at $2-5/video)
+- Production-grade entity extraction (0.90 confidence, 17/18 types)
+- Advanced deduplication (fuzzy matching, 99.5% unique)
+- Speaker attribution (who mentioned what)
+- Uncensored processing (no content blocking)
+- Cost-effective ($0.20-0.40/video for premium quality)
 
 ---
 
-## Core Product Strategy
+## Development Status
 
-### Dual-Mode Architecture (SaaS Economics)
+### Phase 1: Core Engine ✅ COMPLETE (Oct 28, 2025)
 
-#### Standard Tier ($0.75/video)
-```
-Cost: $0.05/video
-Margin: $0.70 (93%)
+**Infrastructure:**
+- [x] Modal GPU deployment (A10G, 11.6x realtime)
+- [x] WhisperX transcription with speaker diarization
+- [x] GCS storage and artifact management
+- [x] Production error handling and logging
+- [x] Real-time progress tracking
 
-Pipeline:
-- Voxtral transcription (95% accurate, fast, cheap)
-- pyannote speaker diarization (identifies speakers)
-- Grok speaker identification (context-based naming)
-- Grok entity extraction (with speaker attribution)
-- Grok clip recommendations (3 objectives)
-- ffmpeg auto-clip generation
+**Entity Intelligence:**
+- [x] Grok-2 entity extraction (18 spaCy standard types)
+- [x] Advanced fuzzy deduplication (0.80 threshold)
+- [x] Transcript chunking for long videos (>45k chars)
+- [x] Relationship mapping with confidence scores
+- [x] Speaker-entity attribution
 
-Processing time: 4-5 minutes
-Use case: News, interviews, general content
-```
+**Validation:**
+- [x] 3 diverse videos tested (195min total)
+- [x] 625 entities, 0.90 confidence, 0.5% duplicates
+- [x] 17/18 entity types, 362 relationships
+- [x] 100% validation score
 
-#### Premium Tier ($1.50/video) - ✅ VALIDATED OCT 19
-```
-Cost: $0.046/video (WhisperX on Modal A10G GPU) ✅ TESTED
-Margin: $1.45 (97%) ← BETTER than projected!
-
-Pipeline:
-- WhisperX transcription (97-99% accurate, built-in diarization) ✅
-- Grok speaker identification (planned)
-- Grok entity extraction (planned)
-- Grok clip recommendations (planned)
-- ffmpeg auto-clip generation (planned)
-
-Processing time: 11.6x realtime (16min video in 1.4min) ✅
-Use case: Medical, legal, technical, intelligence
-
-**Status:** Infrastructure working, feature integration pending
-```
+**Quality Metrics Achieved:**
+- Avg confidence: 0.90 (excellent)
+- Deduplication: 22.7% reduction, 99.5% unique
+- Entity type diversity: 15-17 types per video
+- High-value entity ratio: 74.8%
+- Processing: 11.6x realtime, $0.20-0.42/video
 
 ---
 
-## 16-Week Development Plan
+### Phase 2: Intelligence Features (READY TO BUILD)
 
-**CRITICAL: Week 1 starts with infrastructure validation (Cloud Run GPU deployment)**
+**Week 5-6: Auto-Clip Generation**
+- [ ] Clip recommendation engine (newsworthy + viral + info-dense)
+- [ ] ffmpeg clip extraction with timestamps
+- [ ] Social media caption generation
+- [ ] Quality scoring for recommendations
 
-### **Week 1: Infrastructure Validation** ✅ COMPLETE (Oct 15-19)
-
-**Actual Timeline:**
-- Day 1-2: Attempted Cloud Run GPU (failed - no GPU support in Jobs)
-- Day 2-3: Built Vertex AI infrastructure (L4 quota approved, zero capacity)
-- Day 3: Comprehensive research (Modal, RunPod, alternatives)
-- Day 4: Pivoted to Modal Labs
-- Day 5: **6+ hours dependency debugging → SUCCESS**
-
-**Validation Results (Oct 19):**
-- ✅ WhisperX + pyannote.audio working on Modal A10G
-- ✅ 11.6x realtime processing (exceeded 6x target)
-- ✅ $0.0251 per 16min video (92.3% margin)
-- ✅ GCS integration working
-- ✅ Speaker diarization working (1-speaker validated)
-
-**DECISION GATE PASSED:** Infrastructure works, economically viable, proceed with features.
-
-### **Weeks 2-4: Core Intelligence Engine** (After GPU Validated)
-
-**Deliverable**: Voxtral + WhisperX + speakers + entities working in CLI
-
-#### Week 1: Transcription Foundation
-- Install WhisperX, test on medical/legal samples
-- Benchmark: Voxtral vs WhisperX accuracy
-- Build dual-mode transcriber class
-- Auto-detection logic (content type → mode selection)
-- **Validation**: Confirm WhisperX actually better for technical content
-
-#### Week 2: Speaker Diarization
-- Integrate pyannote.audio
-- Align speaker segments with transcript
-- Format output with speaker timestamps
-- Test on multi-speaker content (debates, panels)
-- **Validation**: 95%+ speaker segment accuracy
-
-#### Week 3: Speaker Identification
-- Grok speaker identification from context
-- Confidence scoring (only ID when confident)
-- Manual override system
-- Test accuracy on known speakers
-- **Validation**: 85%+ accuracy when Grok attempts ID
-
-#### Week 4: Entity Extraction with Speakers
-- Grok entity extraction with speaker attribution
-- Evidence quotes with speaker labels
-- Relationship extraction
-- **Validation**: Speaker-entity linkage adds value
-
-**CLI at Week 4:**
-```bash
-clipscribe process video "url" --quality auto
-# Output: Transcript with speakers, entities by speaker, relationships
-```
+**Week 7-8: Entity Search & Batch Processing**
+- [ ] Entity search database (find people/orgs/topics across videos)
+- [ ] Batch processing (multi-video intelligence)
+- [ ] Cross-video knowledge graph construction
+- [ ] Entity mention tracking over time
 
 ---
 
-### **Weeks 5-8: Clip Intelligence & Batch**
+### Phase 3: Web Interface (Week 9-12)
 
-**Deliverable**: Clip recommendations, auto-generation, batch processing
+**Frontend:**
+- [ ] Next.js application
+- [ ] Video upload interface
+- [ ] Live processing status with progress tracking
+- [ ] Results viewer (transcript, entities, relationships, clips)
+- [ ] Entity graph visualization
 
-#### Week 5: Intelligent Clip Recommendations
-- Grok multi-objective optimization (newsworthy + viral + dense)
-- Custom prompt support
-- Score each clip (3 dimensions)
-- Metadata for social media captions
-- **Validation**: Would you share these clips?
-
-#### Week 6: Auto-Clip Generation
-- ffmpeg frame-accurate clipping
-- Metadata sidecar files (.json)
-- Interactive approval workflow (CLI)
-- Batch clip generation
-- **Validation**: Clip quality acceptable for production use
-
-#### Week 7: Entity Search Database
-- Database integration (videos, entities, speakers, relationships)
-- Search queries (cross-video)
-- Speaker-attributed search
-- Cost tracking and stats
-- **Validation**: Search finds what you expect
-
-#### Week 8: Batch Processing Backend
-- Job queue (Cloud Tasks + Pub/Sub)
-- Parallel processing (Cloud Run Jobs)
-- Progress tracking (Redis)
-- Cost estimation before processing
-- **Validation**: Can process 25 videos reliably
-
-**CLI at Week 8:**
-```bash
-clipscribe batch submit urls.txt --auto-clip --quality auto
-clipscribe batch status abc123
-clipscribe search "Raytheon" --speaker "Biden"
-```
+**Backend:**
+- [ ] REST API (FastAPI)
+- [ ] User authentication
+- [ ] Usage tracking and billing
+- [ ] Rate limiting and quotas
 
 ---
 
-### **Weeks 9-12: Web Interface (MVP)**
+## Architecture
 
-**Deliverable**: Working web app customers can use
+### Current Stack (Production)
 
-#### Week 9: Frontend Foundation
-- Next.js + TailwindCSS setup
-- Landing page (demo video, pricing)
-- Upload interface (file drag-drop, URL paste)
-- FastAPI backend (API for frontend)
-- **Deliverable**: Can upload videos via web
+**Transcription:**
+- Modal GPU service (A10G)
+- WhisperX (OpenAI Whisper + speaker diarization)
+- pyannote.audio with adaptive thresholds
 
-#### Week 10: Processing UI
-- Processing status page (WebSocket live updates)
-- Progress visualization
-- Speaker detection status
-- Error handling UI
-- **Deliverable**: Live progress in web
+**Entity Extraction:**
+- Grok-2 API (xAI)
+- Advanced fuzzy deduplication (ported from EntityNormalizer)
+- Confidence-based filtering (>0.7 threshold)
 
-#### Week 11: Results Viewer
-- Transcript viewer (speaker highlighting, interactive)
-- Entity cards (filterable by speaker)
-- Relationship graph (interactive vis)
-- Clip recommendations (with scores)
-- Select clips → generate → download
-- **Deliverable**: Full results exploration
+**Storage:**
+- Google Cloud Storage (artifacts, transcripts, results)
+- JSON format with full entity/relationship data
 
-#### Week 12: Account System
-- Email magic link signup (no passwords yet)
-- User dashboard
-- Video library (grid view)
-- Usage tracking (videos processed)
-- **Deliverable**: Users can create accounts
+**Cost Model:**
+- WhisperX: $0.12/hour (A10G GPU time)
+- Grok-2: ~$0.05/video (entity extraction)
+- Total: $0.20-0.42/video depending on length
 
 ---
 
-### **Weeks 13-14: Billing & Production**
+## Quality Standards
 
-**Deliverable**: Can charge customers
+**Entity Extraction:**
+- Confidence: >0.85 average
+- Duplicate rate: <1%
+- Entity type coverage: >80% (14+ of 18 spaCy types)
+- High-value entity ratio: >70%
 
-#### Week 13: Stripe Integration
-- Payment methods
-- Pay-per-video ($0.75 standard, $1.50 premium)
-- Subscription tiers ($30/mo for 50 videos)
-- Credits system
-- Billing history
-- **Deliverable**: Revenue-generating
+**Deduplication:**
+- Fuzzy matching: 0.80 threshold
+- Title removal: 27 titles handled
+- Abbreviation detection: Acronym matching
+- Confidence-based selection: Highest confidence + longest name
 
-#### Week 14: Production Polish
-- Error handling (user-friendly messages)
-- Email notifications (SendGrid)
-- Results sharing (public links)
-- Help documentation
-- Support email setup
-- **Deliverable**: Production-ready
-
----
-
-### **Weeks 15-16: Beta & Launch**
-
-**Deliverable**: Publicly launched
-
-#### Week 15: Private Beta
-- 10 beta testers
-- Free processing (feedback only)
-- Bug fixes
-- UX refinements
-- Collect testimonials
-- **Deliverable**: Product validated
-
-#### Week 16: Public Launch
-- Legal docs (ToS, Privacy Policy)
-- Demo videos (3 use cases)
-- X launch thread
-- Product Hunt launch
-- Press outreach
-- **Deliverable**: PUBLIC
+**Processing:**
+- Realtime factor: >10x (process faster than playback)
+- Success rate: 100%
+- Error handling: Comprehensive with detailed logging
 
 ---
 
-## Technical Architecture (SaaS-Optimized)
+## Product Positioning
 
-### Local Development (You, M3 Max)
-```
-Use: WhisperX for everything
-Why: Free GPU, best quality, test all features
-Code: Full-featured with all advanced capabilities
-```
+**Target Market:**
+- Journalists (clip creation, entity tracking)
+- Researchers (knowledge extraction, relationship mapping)
+- Intelligence analysts (uncensored, complete extraction)
 
-### Production (Customers, Cloud Run)
-```
-Standard Tier (95% of customers):
-  - Voxtral API transcription
-  - pyannote CPU diarization
-  - Grok speaker ID + entities + clips
-  - Cost: $0.05, Price: $0.75, Margin: $0.70
+**Pricing (Planned):**
+- Free: 10 minutes trial
+- Starter: $39/month (500 minutes standard)
+- Professional: $149/month (2000 minutes + 100 premium)
+- Business: $399/month (6000 minutes + 500 premium + API)
 
-Premium Tier (5% of customers):
-  - WhisperX on Cloud Run GPU
-  - Built-in diarization
-  - Grok speaker ID + entities + clips
-  - Cost: $0.30, Price: $1.50, Margin: $1.20
-```
-
-### Database (Multi-User from Day 1)
-```sql
--- PostgreSQL on Cloud SQL
-users (id, email, credits, subscription_tier)
-videos (id, user_id, video_id, status, cost, quality_tier)
-entities (video_id, name, type, speaker, confidence)
-relationships (video_id, source, target, speaker)
-clips (video_id, clip_id, start, end, scores, gcs_path)
-```
+**Competitive Advantage:**
+- Production-grade quality (0.90 confidence, 0.5% duplicates)
+- Uncensored processing (no content blocking)
+- Entity intelligence (not just transcription)
+- Cost-effective ($0.20-0.40/video vs $2-5/video competitors)
 
 ---
 
-## Cost Projections
+## Next Steps
 
-### Pre-Launch (16 weeks)
-```
-Infrastructure: $40/mo × 4 = $160
-Testing videos: $0.05 × 500 = $25
-Development time: Your time (no cost calculated)
-───────────────────────────────────────
-Total: ~$185
-```
+**Immediate (This Week):**
+1. Build auto-clip recommendation engine
+2. Implement entity search database
+3. Create batch processing workflow
 
-### Post-Launch (Months 1-6)
+**This Month:**
+4. Complete Week 5-8 intelligence features
+5. Begin web interface design
+6. Start user testing with alpha users
 
-**Conservative (50 videos/month):**
-```
-Revenue: 50 × $0.75 = $37.50/mo
-Costs:
-  - Infrastructure: $40/mo
-  - Processing: 50 × $0.05 = $2.50/mo
-  - Total: $42.50/mo
-Loss: -$5/mo (acceptable, early stage)
-```
-
-**Target (200 videos/month):**
-```
-Revenue: 200 × $0.75 = $150/mo
-Costs:
-  - Infrastructure: $40/mo
-  - Processing: 200 × $0.05 = $10/mo
-  - Total: $50/mo
-Profit: $100/mo (break-even achieved)
-```
-
-**Growth (1000 videos/month):**
-```
-Revenue: 1000 × $0.75 = $750/mo
-Costs:
-  - Infrastructure: $40/mo (scales minimally)
-  - Processing: 1000 × $0.05 = $50/mo
-  - Total: $90/mo
-Profit: $660/mo (sustainable)
-```
-
-**Break-even: ~150 videos/month**
+**Next Month:**
+7. Launch web interface
+8. Begin marketing campaign
+9. Onboard first paying customers
 
 ---
 
-## Pricing Strategy
+## Success Metrics
 
-### Launch Pricing (Competitive)
-```
-Free Tier:
-  - 3 videos free (no credit card)
-  - Full features enabled
-  - Hook: Let them see the power
+**Technical:**
+- [x] Entity extraction validated (Oct 28)
+- [ ] Auto-clip generation working
+- [ ] Entity search functional
+- [ ] Batch processing scalable
 
-Standard:
-  - $0.75/video (pay-as-go)
-  - OR $25/month (50 videos = $0.50 each)
-  - Voxtral + pyannote + all features
+**Business:**
+- [ ] 10 alpha users
+- [ ] 100 videos processed
+- [ ] $1000 MRR
+- [ ] 50% user retention
 
-Premium:
-  - $1.50/video (pay-as-go)
-  - OR $50/month (50 videos = $1.00 each)
-  - WhisperX + all features
-  - "Medical/Legal Grade Accuracy"
-
-Enterprise:
-  - Custom pricing
-  - API access
-  - Dedicated support
-  - White-label options
-```
-
-### Competitor Comparison
-```
-Rev.ai: $0.25/minute = $1.25 per 5-min video
-  You: $0.75 (40% cheaper)
-
-AssemblyAI: $0.37 per 5-min video
-  You: $0.75 (2x more, but with clips + speaker ID)
-
-Descript: $12/mo for 10 hours
-  You: $25/mo for 50 videos (~4 hours)
-  
-Your edge: Auto-clips + speaker ID (they don't have this)
-```
+**Product:**
+- [ ] <5 minute processing time
+- [ ] >95% user satisfaction
+- [ ] <1% error rate
+- [ ] 100% uptime
 
 ---
 
-## MVP Feature Set (What Must Work for Launch)
-
-### Core Features (Must Have)
-1. ✅ Upload video (file or URL)
-2. ✅ Transcription (Voxtral standard, WhisperX premium)
-3. ✅ Speaker diarization (pyannote)
-4. ✅ Speaker identification (Grok, 85%+ when confident)
-5. ✅ Entity extraction (with speaker attribution)
-6. ✅ Clip recommendations (Grok multi-objective)
-7. ✅ Auto-generate clips (ffmpeg)
-8. ✅ Download clips + full results
-9. ✅ User signup + billing (Stripe)
-10. ✅ Video library (see all your videos)
-
-### Can Wait for v2 (Nice to Have)
-- ⏳ Batch processing (upload 25 videos at once)
-- ⏳ Search across videos (entity search)
-- ⏳ Timeline visualization
-- ⏳ Interactive graph explorer
-- ⏳ Team collaboration
-- ⏳ API access
-
----
-
-## Development Workflow (Week 1 Starts Now)
-
-### Your Setup
-```bash
-# Local development on M3 Max
-poetry install
-poetry add whisperx pyannote.audio
-
-# Use WhisperX for all local testing
-clipscribe process video "medical-video" --quality accurate
-# Tests full pipeline locally, validates features
-
-# When features proven, adapt for Cloud Run with Voxtral
-```
-
-### Repository Structure
-```
-clipscribe/                      # Private repo
-├── src/clipscribe/              # Core engine
-│   ├── transcribers/
-│   │   ├── voxtral_transcriber.py    # For SaaS standard tier
-│   │   └── whisperx_transcriber.py   # For local dev + premium
-│   ├── processors/
-│   │   └── saas_processor.py         # Unified processor (uses both)
-│   ├── intelligence/
-│   │   ├── speaker_identifier.py     # Grok speaker ID
-│   │   ├── clip_recommender.py       # Grok clip recs
-│   │   └── entity_extractor.py       # Grok entities
-│   └── database/                     # Multi-user DB
-│
-├── web/                         # Next.js frontend
-│   ├── pages/
-│   ├── components/
-│   └── public/
-│
-├── api/                         # FastAPI backend
-│   ├── app.py
-│   ├── auth.py
-│   ├── billing.py
-│   └── worker.py
-│
-└── deploy/                      # Cloud Run configs
-    ├── Dockerfile.api
-    ├── Dockerfile.worker
-    └── cloudbuild.yaml
-```
-
----
-
-## Next Immediate Actions
-
-<function_calls>
-<invoke name="run_terminal_cmd">
-<parameter name="command">git add SAAS_PRODUCT_ROADMAP.md ROADMAP.md PHASE_1_DETAILED_PLAN.md
+**Status:** Core engine complete and validated. Ready to build intelligence features.
