@@ -5,8 +5,8 @@
 Extract speakers, entities, relationships, and intelligence from any video.  
 Built for journalists, researchers, and analysts who need professional-grade accuracy without censorship.
 
-**Current Status:** v2.60.0 - Entity extraction validated and production-ready - October 28, 2025  
-**Production Stack:** WhisperX transcription (Modal GPU), Grok-4 intelligence extraction, advanced fuzzy deduplication  
+**Current Status:** v2.61.0 - Complete intelligence with Grok-4 Fast Reasoning - October 29, 2025  
+**Production Stack:** WhisperX transcription (Modal GPU), Grok-4 Fast Reasoning, complete intelligence extraction  
 **Validation Results:** 625 entities, 0.90 confidence, 17/18 entity types, 0.5% duplicates across 3 diverse videos (195min)
 
 ---

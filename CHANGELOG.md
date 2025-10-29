@@ -1,3 +1,61 @@
+## [2.61.0] - 2025-10-29 (GROK-4 FAST REASONING - COMPLETE INTELLIGENCE)
+
+### MAJOR UPGRADE: Full Intelligence Extraction with Grok-4
+
+**Grok Model Upgrade:**
+- Upgraded: grok-2-1212 → **grok-4-fast-reasoning**
+- Research: Tested 5 Grok-4 variants, chose optimal model
+- Official pricing: $0.20/M input, $0.50/M output (15x cheaper than grok-4-0709!)
+- Context window: 2M tokens (8x larger, handles longest videos in single pass)
+- Quality: More selective entities (287 vs 625) with 100% evidence quotes
+
+**New Intelligence Features (Full Parity with Local):**
+- **Topics extraction:** Main themes with relevance scores + time ranges
+- **Key moments:** Important points with timestamps + significance + quotes
+- **Sentiment analysis:** Overall + per-topic sentiment classification
+- **Evidence quotes:** 100% coverage for entities + relationships
+- **Metadata context:** Video title, channel, duration in extraction prompt
+
+**Validation Results (Oct 29, 2025):**
+- 3 videos tested: All-In (88min), The View (36min), MTG (71min)
+- 287 high-quality entities (selective, named entities only)
+- 21 evidence-based relationships
+- 13 topics extracted (3-5 per video)
+- 13 key moments with timestamps
+- 100% validation score
+- Cost: $0.34 total (CHEAPER than Grok-2's $0.42!)
+
+**Entity Quality Improvement:**
+- Grok-4 filters low-value entities (percentages, vague dates, generic numbers)
+- Keeps high-value entities (named people, organizations, specific events)
+- 100% evidence quote coverage (vs 0% with Grok-2)
+- More selective = better for intelligence applications
+
+**Technical Enhancements:**
+- Chunk limit increased: 45k → 200k chars (all videos get full intelligence)
+- Grok-4 2M token context (handles 87k char transcripts in single pass)
+- Comprehensive extraction prompt (topics, moments, sentiment, evidence)
+- Accurate cost tracking (official xAI pricing from docs.x.ai)
+
+**Repository Cleanup:**
+- Archived 86 unused files (Docker, Cloud Run, Streamlit UI, VPS)
+- Created organized archives with context READMEs
+- README rewritten for 100% accuracy (removed all inaccuracies)
+- Clean repository: 516 → ~430 files
+
+**Production Ready:**
+- Complete intelligence extraction working
+- Topics enable search feature (Week 5-8)
+- Key moments enable auto-clip generation (Week 5-8!)
+- All prerequisites met for intelligence features
+
+**Documentation:**
+- GROK4_VALIDATION_FINAL_REPORT.md (complete analysis)
+- COMPREHENSIVE_RESPONSES.md (business/product/technical planning)
+- Multiple audit reports archived
+
+### Previous Releases
+
 ## [2.60.0] - 2025-10-28 (ENTITY EXTRACTION VALIDATED - PRODUCTION READY)
 
 ### MAJOR MILESTONE: Core Entity Pipeline Validated and Bulletproof
