@@ -1,213 +1,100 @@
 # Station10.media (ClipScribe)
 
-**Video intelligence extraction SaaS - Launching February 2026**
+**Video intelligence extraction platform - Production-ready core engine**
 
-Extract speakers, entities, relationships, and AI-generated clips from any video.  
+Extract speakers, entities, relationships, and intelligence from any video.  
 Built for journalists, researchers, and analysts who need professional-grade accuracy without censorship.
 
-**Status:** v2.60.0 - Entity extraction validated and production-ready - Oct 28, 2025  
-**Stack:** WhisperX transcription on Modal GPU, Grok-2 entity intelligence, production-grade deduplication  
-**Validation:** Complete - 3 diverse videos (195min), 625 entities, 0.90 confidence, 17/18 entity types
+**Current Status:** v2.60.0 - Entity extraction validated and production-ready - October 28, 2025  
+**Production Stack:** WhisperX transcription (Modal GPU), Grok-4 intelligence extraction, advanced fuzzy deduplication  
+**Validation Results:** 625 entities, 0.90 confidence, 17/18 entity types, 0.5% duplicates across 3 diverse videos (195min)
 
 ---
 
-## What Station10.media Does
+## Current Capabilities (Validated & Working)
 
-Upload any video or paste a URL, get:
+### Transcription & Speaker Intelligence
+- **WhisperX transcription** - 97-99% accuracy, medical/legal grade quality
+- **Speaker diarization** - Automatic speaker detection and segmentation (pyannote.audio)
+- **Multi-speaker handling** - Tested up to 5 speakers with adaptive thresholds
+- **Processing speed** - 11.6x realtime on A10G GPU (16min video → 1.4min processing)
 
-**Transcription:**
-- Standard tier: 95% accuracy (Voxtral)
-- Premium tier: 97-99% accuracy (WhisperX) - medical/legal grade
+### Entity Extraction (Production-Validated)
+- **18 entity types** (spaCy standard): PERSON, ORG, GPE, LOC, EVENT, PRODUCT, MONEY, DATE, TIME, FAC, NORP, LANGUAGE, LAW, WORK_OF_ART, CARDINAL, ORDINAL, QUANTITY, PERCENT
+- **Relationship mapping** - Connections between entities with confidence scores
+- **Topics extraction** - Main themes with relevance scores
+- **Key moments** - Important points with timestamps and significance scores
+- **Sentiment analysis** - Overall and per-topic sentiment
+- **Advanced deduplication** - Fuzzy matching (0.80 threshold), title removal, 99.5% unique entities
 
-**Speaker Intelligence:**
-- Automatic speaker diarization (who spoke when)
-- AI speaker identification (context-based naming)
-- Speaker-entity attribution (who mentioned what)
-
-**Entity Extraction:**
-- People, organizations, topics, concepts
-- Confidence scores and evidence quotes
-- Relationship mapping with timestamps
-
-**Auto-Clip Generation:**
-- AI recommendations (newsworthy + viral + info-dense)
-- Auto-generate clips as .mp4 files
-- Social media captions included
-
-**Search & Analysis:**
-- Search entities across all your videos
-- Find relationships between topics
-- Track mentions over time
+### Quality Metrics (Validated Oct 28, 2025)
+- **Average confidence:** 0.90 (excellent)
+- **Entity type coverage:** 17/18 types (94%)
+- **Duplicate rate:** 0.5% (3 in 625 entities) - industry-leading
+- **High-value entity ratio:** 74.8% (PERSON/ORG/GPE/EVENT focus)
+- **Deduplication effectiveness:** 22.7% reduction via fuzzy matching
+- **Processing cost:** $0.20-0.42 per video (88min avg)
 
 ---
 
-## Pricing (Planned)
+## Planned Features (In Development)
 
-**Pay-per-minute:**
-- Standard: $0.10/minute (general content, 95% accurate)
-- Premium: $0.20/minute (medical/legal/technical, 99% accurate)
+### Intelligence Features (Week 5-8 - Next)
+- Auto-clip generation with AI recommendations
+- Entity search across all videos
+- Batch processing for multi-video intelligence
+- Social media caption generation
 
-**Subscriptions:**
-- Free: 10 minutes trial
-- Starter: $39/month (500 minutes)
-- Professional: $149/month (2000 minutes + 100 premium)
-- Business: $399/month (6000 minutes + 500 premium + API)
+### Web Interface (Week 9-12)
+- Next.js frontend with upload interface
+- Live processing status tracking
+- Results viewer (transcript, entities, clips, knowledge graph)
+- Interactive entity graph explorer
 
-**Value:** Replaces Descript ($24/mo) + Opus Clip ($29/mo) + Fireflies ($29/mo) = $82/month of separate tools.
+### Production Features (Week 13-16)
+- User authentication and management
+- Stripe billing integration
+- Email notifications
+- Public beta and launch
 
----
-
-## Quality Validation (Complete - Oct 28, 2025)
-
-**Production Entity Extraction Validated:**
-- **3 diverse videos:** All-In Podcast (88min, 4 speakers), The View (36min, 5 speakers), MTG Interview (71min, 2 speakers)
-- **625 total entities** extracted with 0.90 average confidence
-- **362 relationships** mapped with speaker attribution
-- **17/18 spaCy entity types** (94% coverage: PERSON, ORG, GPE, EVENT, PRODUCT, MONEY, DATE, TIME, FAC, NORP, LAW, WORK_OF_ART, CARDINAL, ORDINAL, QUANTITY, PERCENT, LOC)
-- **0.5% duplicate rate** (3 in 625 entities) - industry-leading
-- **22.7% deduplication** via fuzzy matching (EntityNormalizer-grade)
-
-**Quality Metrics:**
-- Average confidence: 0.90 (excellent)
-- Low confidence (<0.7): 0 (perfect)
-- High-value entity ratio: 74.8% (PERSON/ORG/GPE/EVENT)
-- Relationships per entity: 0.58 (good connectivity)
-
-**See:** `FINAL_VALIDATION_ASSESSMENT.md` for complete analysis
-
----
-
-## Features (In Development)
-
-### Core Engine (COMPLETE - Oct 28, 2025)
-- [x] WhisperX transcription on Modal GPU (11.6x realtime, A10G)
-- [x] Speaker diarization (pyannote.audio with adaptive thresholds)
-- [x] Entity extraction (Grok-2 with 18 spaCy entity types)
-- [x] Relationship mapping with confidence scores
-- [x] Advanced deduplication (fuzzy matching, title removal, 0.80 threshold)
-- [x] Transcript chunking for long videos (>45k chars)
-- [x] Production validation (625 entities, 0.90 confidence, 0.5% duplicates)
-- [x] Speaker-entity attribution (in transcript segments)
-
-### Intelligence Features (READY TO BUILD)
-- [ ] Auto-clip generation (newsworthy + viral + info-dense recommendations)
-- [ ] Entity search (find people, orgs, topics across videos)
-- [ ] Batch processing (multi-video intelligence)
-- [ ] Clip recommendations with social captions
-
-### Week 9-12: Web Interface
-- [ ] Next.js frontend
-- [ ] Upload interface
-- [ ] Live processing status
-- [ ] Results viewer (transcript, entities, clips)
-
-### Week 13-14: Production
-- [ ] User authentication
-- [ ] Stripe billing
-- [ ] Email notifications
-
-### Week 15-16: Launch
-- [ ] Beta testing (10 users)
-- [ ] Public launch
-- [ ] Product Hunt
-
-**Target launch:** February 10, 2026
-
----
-
-## Current Development Status
-
-**What's working:**
-- ✅ WhisperX transcription (97-99% accuracy)
-- ✅ Speaker diarization (identifies multiple speakers)
-- ✅ Voxtral transcription (95% accuracy, fast)
-- ✅ Auto-tier selection (medical/legal → premium)
-- ✅ Test suite (26 videos, all scenarios covered)
-
-**What's being built:**
-- 🔄 Multi-speaker validation (4-5 speaker test in progress)
-- ⏳ Speaker identification (Grok-based naming)
-- ⏳ Clip recommendation engine
-- ⏳ Web interface (starts Week 9)
-
-**Latest:** Week 1 Day 1 complete (Oct 15, 2025)
+**Target Launch:** February 2026
 
 ---
 
 ## Tech Stack
 
-**Transcription:**
-- Voxtral (Mistral API) - standard tier
-- WhisperX (Modal serverless GPU) - premium tier ✅ VALIDATED
-- pyannote.audio - speaker diarization
+**Current Production:**
+- **Transcription:** WhisperX on Modal Labs (A10G GPU, 11.6x realtime)
+- **Speaker Diarization:** pyannote.audio with adaptive thresholds
+- **Intelligence:** Grok-4 (xAI) for entity extraction, relationships, topics, key moments
+- **Deduplication:** Advanced fuzzy matching (ported from EntityNormalizer)
+- **Storage:** Google Cloud Storage (transcripts, results, artifacts)
+- **Development:** Python 3.12, Poetry, async processing
 
-**Intelligence:**
-- Grok-4 (xAI) - entity extraction, speaker ID, clip recommendations
-
-**Infrastructure (Planned):**
-- Frontend: Next.js (Cloud Run - planned)
-- Backend: FastAPI (Cloud Run - planned)
-- GPU Workers: Modal Labs (WhisperX transcription) ✅ DEPLOYED
-- CPU Workers: Cloud Run Jobs (Voxtral, entity extraction) - planned
-- Database: PostgreSQL (Cloud SQL)
-- Storage: Google Cloud Storage
-- Queue: Cloud Tasks + Pub/Sub
-
-**Development:**
-- Python 3.12
-- Poetry for dependencies
-- Async processing
-- Apple Silicon optimized (M3 Max development)
+**Planned (Future):**
+- **Air-gapped Option:** Voxtral transcription for systems without internet access
+- **Frontend:** Next.js, TypeScript, Tailwind CSS
+- **Backend API:** FastAPI, PostgreSQL, Cloud Run
+- **Auth:** Clerk or similar
+- **Billing:** Stripe
 
 ---
 
-## Why Build This?
+## Validation Results (October 28, 2025)
 
-**Problem:** Processing video content manually takes hours.  
-- Watch video, take notes: 1-2 hours
-- Find key quotes, identify speakers: 30-60 minutes  
-- Create clips for social media: 30-60 minutes
-- Total: 2-4 hours per video
+**Test Videos:**
+- All-In Podcast (88min, 4 speakers): 325 entities, 210 relationships, 15 types, 0.91 confidence
+- The View (36min, 5 speakers): 86 entities, 12 relationships, 12 types, 0.89 confidence
+- MTG Interview (71min, 2 speakers): 214 entities, 140 relationships, 17 types, 0.91 confidence
 
-**Solution:** Station10.media does it in 5-10 minutes.
-- Upload video
-- Get transcript with speakers
-- Get AI-selected clips ready to share
-- Get entity intelligence with relationships
+**Quality Metrics:**
+- Total entities: 625 with 0.90 average confidence
+- Total relationships: 362 (0.58 per entity average)
+- Entity type coverage: 17/18 spaCy standard types
+- Duplicate names: 3 across all videos (0.5% rate)
+- Deduplication: 22.7% reduction from raw extraction
 
-**ROI:** 35:1 time savings ($107 value at $60/hour vs $3 cost)
-
----
-
-## Differentiation
-
-**vs Competitors:**
-- **Descript** ($24/mo): Transcription + editing, NO speaker intelligence, NO auto-clips
-- **Opus Clip** ($29/mo): Auto-clips only, NO transcription, NO entities
-- **Fireflies** ($29/mo): Basic entities, NO clips, generic speakers
-
-**Station10.media:** All features + speaker-entity attribution + multi-objective clip AI + uncensored
-
-**Pricing:** $149/mo Pro tier vs $82/mo for 3 separate inferior tools
-
----
-
-## Repository Structure
-
-```
-clipscribe/
-├── src/clipscribe/          # Core engine (Python)
-│   ├── transcribers/        # Voxtral + WhisperX
-│   ├── processors/          # Intelligence pipeline
-│   ├── database/            # Entity search
-│   └── api/                 # FastAPI backend
-├── docs/                    # Documentation
-│   ├── planning/            # SaaS roadmap, architecture
-│   └── advanced/testing/    # Test video suite
-├── scripts/                 # Utilities
-├── tests/                   # Test suite
-└── examples/                # Usage examples
-```
+**Technical Details:** See `FINAL_VALIDATION_ASSESSMENT.md`
 
 ---
 
@@ -220,40 +107,74 @@ cd clipscribe
 poetry install
 ```
 
-**Set up environment:**
+**Environment setup:**
 ```bash
 cp .env.example .env
-# Add: MISTRAL_API_KEY, XAI_API_KEY, HUGGINGFACE_TOKEN
+# Required: XAI_API_KEY, HUGGINGFACE_TOKEN, GOOGLE_APPLICATION_CREDENTIALS
 ```
 
-**Test transcription:**
+**Test Modal pipeline:**
 ```bash
-poetry run python scripts/test_whisperx.py test_videos/sample.mp3
+poetry run modal deploy deploy/station10_modal.py
 ```
 
-**Full roadmap:** See `ROADMAP.md` and `docs/planning/SAAS_PRODUCT_ROADMAP.md`
+**Full roadmap:** See `ROADMAP.md`
 
 ---
 
-## Status
+## Repository Structure
 
-**v2.55.0** - Active SaaS development  
-**Timeline:** Week 1 of 16 (Oct 15 - Feb 10, 2026)  
-**Current:** Building core intelligence features  
-**Next:** Speaker identification, clip generation (Week 2-3)  
-**Launch:** February 10, 2026 (private beta Week 15, public Week 16)
+```
+clipscribe/
+├── src/clipscribe/          # Core Python package
+│   ├── processors/          # Video processing pipeline
+│   ├── extractors/          # Entity extraction (local)
+│   ├── retrievers/          # Video download & transcription
+│   ├── exporters/           # Output formatters
+│   ├── commands/            # CLI commands
+│   └── utils/               # Utilities
+├── deploy/                  # Modal GPU deployment
+│   └── station10_modal.py   # Production transcription service
+├── scripts/                 # Utility scripts
+│   └── validation/          # Validation test scripts
+├── tests/                   # Test suite
+├── examples/                # Usage examples
+├── docs/                    # Documentation
+│   ├── advanced/testing/    # Test video catalog
+│   └── archive/             # Historical docs
+└── archive/                 # Archived code (Cloud Run, Streamlit, VPS)
+```
+
+---
+
+## Project Status
+
+**Version:** v2.60.0  
+**Current Phase:** Core engine complete, intelligence features ready to build  
+**Last Major Milestone:** Entity extraction validation complete (Oct 28, 2025)  
+**Next Milestone:** Auto-clip generation (Week 5-8)
+
+**Recent Achievements:**
+- Grok-4 entity extraction with 18 spaCy types
+- Advanced fuzzy deduplication (99.5% unique)
+- Transcript chunking for long videos (>45k chars)
+- Production validation (625 entities, 0.90 confidence)
+- Repository cleanup (archived 86 unused files)
+
+**See:** `STATUS.md` for detailed current state
 
 ---
 
 ## Contact
 
-Zac Forristall  
-zforristall@gmail.com  
-[@bubroz](https://github.com/bubroz)
+**Developer:** Zac Forristall  
+**Email:** zforristall@gmail.com  
+**GitHub:** [@bubroz](https://github.com/bubroz)
 
-**Product:** station10.media (launching Feb 2026)  
-**This repo:** Core engine development (private during development)
+**Product:** Station10.media (ClipScribe)  
+**Repository:** Private during development  
+**License:** Proprietary
 
 ---
 
-*Last updated: October 15, 2025 - Week 1 Day 1 complete*
+**Last Updated:** October 28, 2025 - v2.60.0 production-ready release
