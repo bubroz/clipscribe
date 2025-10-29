@@ -709,7 +709,10 @@ Transcript:
 {transcript_text[:50000]}"""  # Limit to 50k chars for efficiency
         
         try:
-            # Call Grok API
+            # Call Grok API with comprehensive error handling
+            print(f"Calling Grok API for entity extraction...")
+            print(f"Transcript length: {len(transcript_text)} characters")
+            
             with httpx.Client(timeout=120.0) as client:
                 response = client.post(
                     f"{grok_base_url}/chat/completions",
@@ -729,23 +732,49 @@ Transcript:
                     }
                 )
                 
+                print(f"Grok API response status: {response.status_code}")
+                
                 if response.status_code != 200:
                     print(f"⚠ Grok API error: {response.status_code}")
+                    print(f"Response text: {response.text}")
                     return [], []
                 
                 response_json = response.json()
-                content = response_json["choices"][0]["message"]["content"]
+                print(f"Grok API response keys: {list(response_json.keys())}")
                 
-                # Parse JSON
-                result = json.loads(content)
+                if "choices" not in response_json or len(response_json["choices"]) == 0:
+                    print(f"⚠ Grok API returned no choices: {response_json}")
+                    return [], []
+                
+                content = response_json["choices"][0]["message"]["content"]
+                print(f"Grok API content length: {len(content)} characters")
+                
+                # Parse JSON with error handling
+                try:
+                    result = json.loads(content)
+                    print(f"Parsed JSON keys: {list(result.keys())}")
+                except json.JSONDecodeError as json_err:
+                    print(f"⚠ JSON parsing failed: {json_err}")
+                    print(f"Raw content: {content[:500]}...")
+                    return [], []
                 
                 entities = result.get("entities", [])
                 relationships = result.get("relationships", [])
                 
+                print(f"✓ Extracted {len(entities)} entities and {len(relationships)} relationships")
+                
                 return entities, relationships
                 
+        except httpx.TimeoutException:
+            print(f"⚠ Grok API timeout after 120 seconds")
+            return [], []
+        except httpx.RequestError as req_err:
+            print(f"⚠ Grok API request error: {req_err}")
+            return [], []
         except Exception as e:
             print(f"⚠ Entity extraction failed: {e}")
+            import traceback
+            traceback.print_exc()
             return [], []
     
     @modal.method()
