@@ -488,7 +488,7 @@ Use the INDEX numbers shown above (0, 1, 2...), not segment numbers.
             return segments
             
         except Exception as e:
-            print(f"⚠️  Gemini verification failed: {e}")
+            print(f"⚠  Gemini verification failed: {e}")
             print("  Continuing with WhisperX-only attribution")
             return segments
     
@@ -879,7 +879,36 @@ Chunk {i+1} Transcript:
                 continue
         
         print(f"✓ Chunked extraction complete: {len(all_entities)} total entities, {len(all_relationships)} total relationships")
-        return all_entities, all_relationships
+        
+        # Deduplication for entities
+        entity_dedup = {}
+        for entity in all_entities:
+            key = (entity.get('name', '').lower(), entity.get('type', ''))
+            conf = entity.get('confidence', 0)
+            if conf < 0.7:
+                continue  # Skip low confidence
+            if key not in entity_dedup or conf > entity_dedup[key]['confidence']:
+                entity_dedup[key] = entity
+        
+        dedup_entities = list(entity_dedup.values())
+        duplicates_removed = len(all_entities) - len(dedup_entities)
+        print(f"✓ Deduplicated entities: {len(dedup_entities)} (removed {duplicates_removed} duplicates)")
+        
+        # Deduplication for relationships
+        rel_dedup = {}
+        for rel in all_relationships:
+            key = (rel.get('subject', '').lower(), rel.get('predicate', '').lower(), rel.get('object', '').lower())
+            conf = rel.get('confidence', 0)
+            if conf < 0.8:
+                continue  # Skip low confidence
+            if key not in rel_dedup or conf > rel_dedup[key]['confidence']:
+                rel_dedup[key] = rel
+        
+        dedup_relationships = list(rel_dedup.values())
+        rel_duplicates_removed = len(all_relationships) - len(dedup_relationships)
+        print(f"✓ Deduplicated relationships: {len(dedup_relationships)} (removed {rel_duplicates_removed} duplicates)")
+        
+        return dedup_entities, dedup_relationships
     
     @modal.method()
     def transcribe_from_gcs(self, gcs_input: str, gcs_output: str) -> dict:
