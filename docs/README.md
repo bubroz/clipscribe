@@ -1,23 +1,33 @@
-# ClipScribe Documentation
+# ClipScribe / Station10.media Documentation
 
-**Last Updated**: October 20, 2025
+**Last Updated:** October 28, 2025  
+**Current Version:** v2.60.0  
+**Status:** Entity extraction validated, production-ready
 
-## Essential Documentation
+## Current Documentation
 
-- [Quick Reference](QUICK_REFERENCE.md) - Common commands
-- [CLI Reference](CLI_REFERENCE.md) - Complete command reference (needs update)
-- [Async Monitor Architecture](ASYNC_MONITOR_ARCHITECTURE.md) - 10-worker system
+### Project Status
+- [`../README.md`](../README.md) - Main project overview and features
+- [`../ROADMAP.md`](../ROADMAP.md) - Product roadmap and development plan
+- [`../CHANGELOG.md`](../CHANGELOG.md) - Version history and release notes
+- [`../CONTINUATION_PROMPT.md`](../CONTINUATION_PROMPT.md) - Current state for AI assistant
+
+### Validation Reports
+- [`../FINAL_VALIDATION_ASSESSMENT.md`](../FINAL_VALIDATION_ASSESSMENT.md) - Complete validation analysis
+- [`../FINAL_VALIDATION_REPORT.md`](../FINAL_VALIDATION_REPORT.md) - Technical validation details
+
+### Testing
+- [advanced/testing/MASTER_TEST_VIDEO_TABLE.md](advanced/testing/MASTER_TEST_VIDEO_TABLE.md) - Test video catalog
+
+## Reference Documentation
+
+- [Quick Reference](QUICK_REFERENCE.md) - Common workflows and commands
+- [CLI Reference](CLI_REFERENCE.md) - Complete CLI command reference
+- [Async Monitor Architecture](ASYNC_MONITOR_ARCHITECTURE.md) - 10-worker async system (archived feature)
 
 ## Archived Documentation
 
-See `archive/` directory for historical documentation.
-
-## Up-to-Date Status
-
-For current project status, see:
-- [`../SESSION_COMPLETE_OCT20.md`](../SESSION_COMPLETE_OCT20.md) - Latest session results
-- [`../MODAL_PRODUCTION_VALIDATION.md`](../MODAL_PRODUCTION_VALIDATION.md) - Validation test results
-- [`../README.md`](../README.md) - Main project README (v2.57.0)
-- [`../CHANGELOG.md`](../CHANGELOG.md) - Version history
-- [`../CONTINUATION_PROMPT.md`](../CONTINUATION_PROMPT.md) - Next session plan
+- `archive/` - Historical documentation from previous development phases
+- `planning/` - Product planning and architecture decisions
+- `research/` - Research documents (Modal, GPU infrastructure, etc.)
 
