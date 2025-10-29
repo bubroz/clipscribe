@@ -669,18 +669,41 @@ Use the INDEX numbers shown above (0, 1, 2...), not segment numbers.
             "Content-Type": "application/json"
         }
         
-        # Build extraction prompt
+        # Build extraction prompt using spaCy's standard 18 entity types
         prompt = f"""Extract entities and relationships from this conversation transcript.
+
+Use spaCy's standard entity types for consistency with industry standards:
+PERSON, ORG, GPE, LOC, EVENT, PRODUCT, MONEY, DATE, TIME, FAC, NORP, LANGUAGE, LAW, WORK_OF_ART, CARDINAL, ORDINAL, QUANTITY, PERCENT
 
 Return JSON with this structure:
 {{
   "entities": [
-    {{"name": "Person/Org/Concept", "type": "PERSON|ORG|CONCEPT|LOCATION", "confidence": 0.9}}
+    {{"name": "Entity Name", "type": "PERSON|ORG|GPE|LOC|EVENT|PRODUCT|MONEY|DATE|TIME|FAC|NORP|LANGUAGE|LAW|WORK_OF_ART|CARDINAL|ORDINAL|QUANTITY|PERCENT", "confidence": 0.9}}
   ],
   "relationships": [
     {{"subject": "Entity1", "predicate": "relation", "object": "Entity2", "confidence": 0.9}}
   ]
 }}
+
+Entity Type Guidelines:
+- PERSON: People, including fictional characters
+- ORG: Companies, agencies, institutions  
+- GPE: Countries, cities, states (Geopolitical entities)
+- LOC: Non-GPE locations, mountain ranges, bodies of water
+- EVENT: Named hurricanes, battles, wars, sports events
+- PRODUCT: Objects, vehicles, foods, etc.
+- MONEY: Monetary values ($100, €50, etc.)
+- DATE: Absolute or relative dates or periods
+- TIME: Times smaller than a day (3pm, morning, etc.)
+- FAC: Buildings, airports, highways, bridges
+- NORP: Nationalities, religious, political groups
+- LANGUAGE: Named languages
+- LAW: Named documents made into laws
+- WORK_OF_ART: Titles of books, songs, etc.
+- CARDINAL: Numerals that don't fall under another type
+- ORDINAL: "first", "second", etc.
+- QUANTITY: Measurements, weights, distances
+- PERCENT: Percentage values
 
 Transcript:
 {transcript_text[:50000]}"""  # Limit to 50k chars for efficiency
