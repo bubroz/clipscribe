@@ -663,14 +663,15 @@ Use the INDEX numbers shown above (0, 1, 2...), not segment numbers.
             return [], [], [], [], {}
         
         grok_base_url = "https://api.x.ai/v1"
-        grok_model = "grok-4-0709"  # Grok-4 Fast Reasoning - superior quality, matches local ClipScribe
+        grok_model = "grok-4-fast-reasoning"  # Grok-4 Fast Reasoning - optimized for entity/topic extraction
         grok_headers = {
             "Authorization": f"Bearer {grok_api_key}",
             "Content-Type": "application/json"
         }
         
         # Handle long transcripts with chunking
-        max_chunk_size = 45000  # Leave buffer for prompt text
+        # Grok-4 has 256k token context (~1M chars) - can handle much longer transcripts
+        max_chunk_size = 200000  # Increased for Grok-4 - ensures most videos get full intelligence
         if len(transcript_text) > max_chunk_size:
             print(f"Long transcript detected ({len(transcript_text)} chars), using chunked extraction")
             # Chunked extraction: entities + relationships only (topics/moments need full context)

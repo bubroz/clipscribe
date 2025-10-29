@@ -146,12 +146,18 @@ def analyze_entities(result: dict, video_info: dict) -> dict:
     segments = result.get('segments', [])
     entities = result.get('entities', [])
     relationships = result.get('relationships', [])
+    topics = result.get('topics', [])
+    key_moments = result.get('key_moments', [])
+    sentiment = result.get('sentiment', {})
     speakers = len(set(s.get('speaker') for s in segments if s.get('speaker')))
     
     print(f"✓ Segments: {len(segments)}")
     print(f"✓ Speakers: {speakers} (expected: {video_info['speakers']})")
     print(f"✓ Entities: {len(entities)}")
     print(f"✓ Relationships: {len(relationships)}")
+    print(f"✓ Topics: {len(topics)}")
+    print(f"✓ Key Moments: {len(key_moments)}")
+    print(f"✓ Sentiment: {sentiment.get('overall', 'N/A') if sentiment else 'N/A'}")
     
     if entities:
         # Analyze entity types
@@ -204,15 +210,36 @@ def analyze_entities(result: dict, video_info: dict) -> dict:
         
         print(f"\n📊 VALIDATION SCORE: {validation_score*100:.0f}%")
         
+        # Analyze new intelligence fields
+        if topics:
+            print(f"\n📋 TOPICS EXTRACTED:")
+            for i, topic in enumerate(topics[:5]):
+                topic_name = topic.get('name', topic) if isinstance(topic, dict) else topic
+                print(f"  {i+1}. {topic_name}")
+        
+        if key_moments:
+            print(f"\n⭐ KEY MOMENTS:")
+            for i, moment in enumerate(key_moments[:3]):
+                timestamp = moment.get('timestamp', 'N/A')
+                description = moment.get('description', 'N/A')
+                print(f"  {i+1}. [{timestamp}] {description}")
+        
+        if sentiment:
+            print(f"\n💭 SENTIMENT: {sentiment.get('overall', 'N/A')} (confidence: {sentiment.get('confidence', 'N/A')})")
+        
         return {
             'status': 'success',
             'speakers': speakers,
             'segments': len(segments),
             'entities': len(entities),
             'relationships': len(relationships),
+            'topics': len(topics),
+            'key_moments': len(key_moments),
+            'sentiment': sentiment.get('overall', 'N/A') if sentiment else 'N/A',
             'entity_types': entity_types,
             'validation_score': validation_score,
-            'entity_extraction_working': True
+            'entity_extraction_working': True,
+            'full_intelligence_working': len(topics) > 0 or len(key_moments) > 0  # New validation
         }
     else:
         print(f"❌ NO ENTITIES - Entity extraction not working!")

@@ -1,0 +1,30 @@
+{
+  "test_date": "2025-10-29T00:24:24.685371",
+  "results": [
+    {
+      "model": "grok-4-0709",
+      "status": "available",
+      "tokens": 1125
+    },
+    {
+      "model": "grok-4-fast",
+      "status": "available",
+      "tokens": 517
+    },
+    {
+      "model": "grok-4-fast-reasoning",
+      "status": "available",
+      "tokens": 690
+    },
+    {
+      "model": "grok-4-reasoning",
+      "status": "not_found",
+      "error": "{\"code\":\"Some requested entity was not found\",\"error\":\"The model grok-4-reasoning does not exist or your team 63cd3de5-ef6c-4a03-9d23-a880f4192aeb does not have access to it. Please ensure you're usin"
+    },
+    {
+      "model": "grok-4-latest",
+      "status": "available",
+      "tokens": 1179
+    }
+  ]
+}
