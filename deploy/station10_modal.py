@@ -643,13 +643,13 @@ Use the INDEX numbers shown above (0, 1, 2...), not segment numbers.
     
     def _extract_entities(self, segments: list) -> tuple:
         """
-        Extract entities and relationships using Grok.
+        Extract comprehensive intelligence using Grok-4.
         
         Args:
             segments: List of transcript segments with text and speaker
             
         Returns:
-            Tuple of (entities_list, relationships_list)
+            Tuple of (entities, relationships, topics, key_moments, sentiment)
         """
         import httpx
         
@@ -660,10 +660,10 @@ Use the INDEX numbers shown above (0, 1, 2...), not segment numbers.
         grok_api_key = os.getenv("XAI_API_KEY")
         if not grok_api_key:
             print("⚠ No Grok API key found - skipping entity extraction")
-            return [], []
+            return [], [], [], [], {}
         
         grok_base_url = "https://api.x.ai/v1"
-        grok_model = "grok-2-1212"  # Fast, cost-effective for entity extraction
+        grok_model = "grok-4-0709"  # Grok-4 Fast Reasoning - superior quality, matches local ClipScribe
         grok_headers = {
             "Authorization": f"Bearer {grok_api_key}",
             "Content-Type": "application/json"
@@ -673,10 +673,13 @@ Use the INDEX numbers shown above (0, 1, 2...), not segment numbers.
         max_chunk_size = 45000  # Leave buffer for prompt text
         if len(transcript_text) > max_chunk_size:
             print(f"Long transcript detected ({len(transcript_text)} chars), using chunked extraction")
-            return self._extract_entities_chunked(segments, grok_base_url, grok_model, grok_headers)
+            # Chunked extraction: entities + relationships only (topics/moments need full context)
+            entities, relationships = self._extract_entities_chunked(segments, grok_base_url, grok_model, grok_headers)
+            # Return with empty topics/moments/sentiment for chunked (need full context)
+            return entities, relationships, [], [], {}
         
-        # Build extraction prompt using spaCy's standard 18 entity types
-        prompt = f"""Extract entities and relationships from this conversation transcript.
+        # Build comprehensive extraction prompt (full parity with local ClipScribe)
+        prompt = f"""Extract comprehensive intelligence from this conversation transcript.
 
 Use spaCy's standard entity types for consistency with industry standards:
 PERSON, ORG, GPE, LOC, EVENT, PRODUCT, MONEY, DATE, TIME, FAC, NORP, LANGUAGE, LAW, WORK_OF_ART, CARDINAL, ORDINAL, QUANTITY, PERCENT
@@ -684,11 +687,22 @@ PERSON, ORG, GPE, LOC, EVENT, PRODUCT, MONEY, DATE, TIME, FAC, NORP, LANGUAGE, L
 Return JSON with this structure:
 {{
   "entities": [
-    {{"name": "Entity Name", "type": "PERSON|ORG|GPE|LOC|EVENT|PRODUCT|MONEY|DATE|TIME|FAC|NORP|LANGUAGE|LAW|WORK_OF_ART|CARDINAL|ORDINAL|QUANTITY|PERCENT", "confidence": 0.9}}
+    {{"name": "Entity Name", "type": "PERSON|ORG|GPE|LOC|EVENT|PRODUCT|...", "confidence": 0.9, "evidence": "supporting quote if available"}}
   ],
   "relationships": [
-    {{"subject": "Entity1", "predicate": "relation", "object": "Entity2", "confidence": 0.9}}
-  ]
+    {{"subject": "Entity1", "predicate": "relation", "object": "Entity2", "confidence": 0.9, "evidence": "supporting quote"}}
+  ],
+  "topics": [
+    {{"name": "Topic Name", "relevance": 0.9, "time_range": "00:00-05:30"}}
+  ],
+  "key_moments": [
+    {{"timestamp": "00:03:45", "description": "Important point", "significance": 0.9, "quote": "exact quote"}}
+  ],
+  "sentiment": {{
+    "overall": "positive|negative|neutral",
+    "confidence": 0.9,
+    "per_topic": {{"topic1": "positive", "topic2": "negative"}}
+  }}
 }}
 
 Entity Type Guidelines:
@@ -753,14 +767,14 @@ Transcript:
                 if response.status_code != 200:
                     print(f"⚠ Grok API error: {response.status_code}")
                     print(f"Response text: {response.text}")
-                    return [], []
+                    return [], [], [], [], {}
                 
                 response_json = response.json()
                 print(f"Grok API response keys: {list(response_json.keys())}")
                 
                 if "choices" not in response_json or len(response_json["choices"]) == 0:
                     print(f"⚠ Grok API returned no choices: {response_json}")
-                    return [], []
+                    return [], [], [], [], {}
                 
                 content = response_json["choices"][0]["message"]["content"]
                 print(f"Grok API content length: {len(content)} characters")
@@ -772,30 +786,33 @@ Transcript:
                 except json.JSONDecodeError as json_err:
                     print(f"⚠ JSON parsing failed: {json_err}")
                     print(f"Raw content: {content[:500]}...")
-                    return [], []
+                    return [], [], [], [], {}
                 
                 entities = result.get("entities", [])
                 relationships = result.get("relationships", [])
+                topics = result.get("topics", [])
+                key_moments = result.get("key_moments", [])
+                sentiment = result.get("sentiment", {})
                 
-                print(f"✓ Extracted {len(entities)} entities and {len(relationships)} relationships")
+                print(f"✓ Extracted {len(entities)} entities, {len(relationships)} relationships, {len(topics)} topics, {len(key_moments)} moments")
                 
-                return entities, relationships
+                return entities, relationships, topics, key_moments, sentiment
                 
         except httpx.TimeoutException:
             print(f"⚠ Grok API timeout after 120 seconds")
-            return [], []
+            return [], [], [], [], {}
         except httpx.RequestError as req_err:
             print(f"⚠ Grok API request error: {req_err}")
-            return [], []
+            return [], [], [], [], {}
         except Exception as e:
             print(f"⚠ Entity extraction failed: {e}")
             import traceback
             traceback.print_exc()
-            return [], []
+            return [], [], [], [], {}
     
     def _extract_entities_chunked(self, segments: list, grok_base_url: str, grok_model: str, grok_headers: dict) -> tuple:
         """
-        Extract entities from long transcripts using chunking.
+        Extract comprehensive intelligence from long transcripts using chunking.
         
         Args:
             segments: List of transcript segments
@@ -804,7 +821,7 @@ Transcript:
             grok_headers: Grok API headers
             
         Returns:
-            Tuple of (entities_list, relationships_list)
+            Tuple of (entities, relationships, topics, key_moments, sentiment)
         """
         import httpx
         import json
@@ -1192,14 +1209,17 @@ Chunk {i+1} Transcript:
             except Exception as e:
                 print(f"⚠ Diarization failed: {e}")
         
-        # GROK ENTITY EXTRACTION
-        print("Extracting entities and relationships with Grok...")
-        entities, relationships = self._extract_entities(result["segments"])
-        print(f"✓ Extracted {len(entities)} entities and {len(relationships)} relationships")
+        # GROK COMPREHENSIVE INTELLIGENCE EXTRACTION
+        print("Extracting intelligence with Grok-4...")
+        entities, relationships, topics, key_moments, sentiment = self._extract_entities(result["segments"])
+        print(f"✓ Extracted {len(entities)} entities, {len(relationships)} relationships, {len(topics)} topics, {len(key_moments)} moments")
         
-        # Add to result
+        # Add comprehensive intelligence to result
         result["entities"] = entities
         result["relationships"] = relationships
+        result["topics"] = topics
+        result["key_moments"] = key_moments
+        result["sentiment"] = sentiment
         
         processing_time = time.time() - process_start
         gpu_cost = (processing_time / 60) * 0.01836
