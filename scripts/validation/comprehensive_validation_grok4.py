@@ -258,9 +258,9 @@ def analyze_full_intelligence(result: dict, video_info: dict) -> dict:
     estimated_input_tokens = transcript_chars / 4  # ~4 chars per token
     estimated_output_tokens = (len(entities) + len(relationships)) * 20  # ~20 tokens per entity/rel
     
-    # Official Grok-4 pricing
-    input_cost = (estimated_input_tokens / 1_000_000) * 3.00
-    output_cost = (estimated_output_tokens / 1_000_000) * 15.00
+    # Official Grok-4 Fast Reasoning pricing (from docs.x.ai)
+    input_cost = (estimated_input_tokens / 1_000_000) * 0.20
+    output_cost = (estimated_output_tokens / 1_000_000) * 0.50
     grok_cost = input_cost + output_cost
     whisperx_cost = result.get('cost', 0)
     total_cost = whisperx_cost + grok_cost
