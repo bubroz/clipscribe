@@ -1,9 +1,9 @@
 # Station10.media Product Roadmap
 
-**Last Updated:** October 28, 2025  
-**Current Version:** v2.60.0  
-**Status:** Core engine validated, ready for intelligence features  
-**Target Launch:** February 2026
+**Last Updated:** October 29, 2025  
+**Current Version:** v2.61.0  
+**Status:** Core engine complete, TUI + API approach confirmed  
+**Target Launch:** December 2025 (TUI + API beta)
 
 ---
 
@@ -55,36 +55,47 @@ Extract speakers, entities, relationships, and auto-generated clips from any vid
 
 ---
 
-### Phase 2: Intelligence Features (READY TO BUILD)
+### Phase 2: TUI + API (Week 2-4)
 
-**Week 5-6: Auto-Clip Generation**
-- [ ] Clip recommendation engine (newsworthy + viral + info-dense)
-- [ ] ffmpeg clip extraction with timestamps
-- [ ] Social media caption generation
-- [ ] Quality scoring for recommendations
+**Week 2: Search Features + TUI Foundation**
+- [ ] Topic search API (FastAPI: POST /api/topics/search)
+- [ ] Entity search API (FastAPI: POST /api/entities/search)  
+- [ ] Rich TUI with Textual (interactive Intelligence Dashboard)
+- [ ] TUI topic browser (keyboard-driven, sortable)
+- [ ] TUI entity explorer (18 types, evidence quotes)
 
-**Week 7-8: Entity Search & Batch Processing**
-- [ ] Entity search database (find people/orgs/topics across videos)
-- [ ] Batch processing (multi-video intelligence)
-- [ ] Cross-video knowledge graph construction
-- [ ] Entity mention tracking over time
+**Week 3: Auto-Clip + API Polish**
+- [ ] Auto-clip generation API (POST /api/clips/generate)
+- [ ] ffmpeg integration (key_moments → video clips)
+- [ ] TUI clip recommender (keyboard-driven selection)
+- [ ] Variable clip length (significance-based: 15s-120s)
+- [ ] Intelligence scoring algorithm (newsworthy + info-dense + actionable)
+
+**Week 4: Batch Processing + Documentation**
+- [ ] Batch processing API (POST /api/batch)
+- [ ] TUI batch monitor (live progress, multi-video)
+- [ ] Cross-video knowledge graph API
+- [ ] Complete OpenAPI/Swagger documentation
+- [ ] E2E validation (TUI + API all features)
 
 ---
 
-### Phase 3: Web Interface (Week 9-12)
+### Phase 3: Production & Integration (Week 5-8)
 
-**Frontend:**
-- [ ] Next.js application
-- [ ] Video upload interface
-- [ ] Live processing status with progress tracking
-- [ ] Results viewer (transcript, entities, relationships, clips)
-- [ ] Entity graph visualization
-
-**Backend:**
-- [ ] REST API (FastAPI)
-- [ ] User authentication
+**Beta Launch:**
+- [ ] Beta program (10 intelligence analysts)
+- [ ] API authentication and rate limiting
 - [ ] Usage tracking and billing
-- [ ] Rate limiting and quotas
+- [ ] CLI installation (pip install station10)
+
+**Integrations:**
+- [ ] Chimera API integration (SAT analysis)
+- [ ] Data provider API (intelligence-as-a-service)
+- [ ] Government contract compliance (FedRAMP prep)
+
+**Optional (If Customer Demand):**
+- [ ] Simple web viewer (read-only, for sharing)
+- [ ] Full web interface (only if TUI insufficient)
 
 ---
 

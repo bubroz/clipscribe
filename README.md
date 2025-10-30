@@ -39,25 +39,25 @@ Built for journalists, researchers, and analysts who need professional-grade acc
 
 ## Planned Features (In Development)
 
-### Intelligence Features (Week 5-8 - Next)
-- Auto-clip generation with AI recommendations
-- Entity search across all videos
-- Batch processing for multi-video intelligence
-- Social media caption generation
+### Week 2-4: TUI + API (Intelligence Interface)
+- **Rich TUI** (Textual-based): Interactive terminal interface for analysts
+- **Topic Search API:** Find videos by topic with relevance filtering
+- **Entity Search API:** Track people/orgs across videos (18 spaCy types)
+- **Auto-Clip API:** Generate clips from key_moments with intelligence scoring
+- **Batch Processing:** Multi-video intelligence with progress tracking
+- **OpenAPI Documentation:** Complete API spec for integrations
 
-### Web Interface (Week 9-12)
-- Next.js frontend with upload interface
-- Live processing status tracking
-- Results viewer (transcript, entities, clips, knowledge graph)
-- Interactive entity graph explorer
+### Week 5-8: Production & Integration
+- Beta testing with intelligence analysts
+- API rate limiting and authentication
+- Chimera integration (SAT analysis of video corpus)
+- Data provider API (intelligence-as-a-service for government/enterprise)
 
-### Production Features (Week 13-16)
-- User authentication and management
-- Stripe billing integration
-- Email notifications
-- Public beta and launch
+### Future (If Demanded by Customers)
+- Simple web viewer (read-only, for sharing clips/reports)
+- Full web interface (only if TUI + API insufficient)
 
-**Target Launch:** February 2026
+**Target Launch:** December 2025 (TUI + API beta)
 
 ---
 

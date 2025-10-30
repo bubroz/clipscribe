@@ -64,23 +64,25 @@
 
 ### Roadmap
 
-**Next (Week 5-8 Features - READY TO BUILD):**
-- Auto-clip generation (use key_moments with significance scoring)
-- Topic search database (use topics array for queries)
-- Entity search (find people/orgs across videos)
-- Batch processing (multi-video intelligence)
+**Next (Week 2-4: TUI + API - BUILDING NOW):**
+- Rich TUI with Textual (interactive Intelligence Dashboard for terminal)
+- Topic search API (POST /api/topics/search with relevance filtering)
+- Entity search API (18 spaCy types, evidence quotes, cross-video tracking)
+- Auto-clip generation API (intelligence scoring, ffmpeg extraction)
+- Batch processing API (multi-video with live progress)
+- Complete OpenAPI documentation (Swagger spec)
 
-**Soon (Week 9-12):**
-- Next.js web interface (user designs via Figma)
-- Upload UI with live progress
-- Results viewer (transcript, entities, clips, graph)
-- Entity graph visualization
+**Soon (Week 5-8: Production & Integration):**
+- Beta program (10 intelligence analysts testing TUI + API)
+- API authentication and rate limiting (production-ready)
+- Chimera integration (SAT analysis) - AFTER Phase 2A stable
+- Data provider API (intelligence-as-a-service for gov/enterprise)
+- CLI distribution (pip install station10)
 
-**Future:**
-- Chimera integration (SAT analysis of video corpus) - AFTER Chimera Phase 2A stable
-- Data provider model (intelligence-as-a-service for gov/enterprise)
-- Air-gapped deployment (Voxtral + local models for classified content)
-- Multi-video corpus analysis
+**Future (Only If Customer Demand):**
+- Simple web viewer (read-only, for sharing clips/reports)
+- Full web interface (only if TUI + API prove insufficient)
+- Air-gapped deployment (Voxtral + local models)
 
 ### Repository Status
 
