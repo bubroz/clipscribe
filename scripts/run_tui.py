@@ -15,7 +15,7 @@ from pathlib import Path
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
-from src.clipscribe.tui.interactive_dashboard import IntelligenceDashboard
+from src.clipscribe.tui.dashboard_v2 import IntelligenceDashboard
 
 if __name__ == "__main__":
     app = IntelligenceDashboard()
