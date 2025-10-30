@@ -76,10 +76,12 @@ class EntitiesList(ListView):
     """
     
     current_type: reactive[str] = reactive("PERSON")
+    entities_data: reactive[List[Dict]] = reactive([])
     
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.border_title = "Entities: PERSON (←/→ change type)"
+        self.entities_data = []
 
 
 class DetailsPanel(Static):
@@ -314,7 +316,7 @@ class IntelligenceDashboard(App):
         conn.close()
     
     def load_entities(self):
-        """Load entities of current type."""
+        """Load entities of current type with Grokipedia links."""
         db_path = Path("data/station10.db")
         if not db_path.exists():
             return
@@ -329,9 +331,9 @@ class IntelligenceDashboard(App):
         """, (self.current_video_id, self.current_entity_type))
         count = cursor.fetchone()[0]
         
-        # Get entities
+        # Get entities with Grokipedia URLs
         cursor.execute("""
-            SELECT name, type, confidence, evidence
+            SELECT name, type, confidence, evidence, grokipedia_url
             FROM entities
             WHERE video_id = ? AND type = ?
             ORDER BY confidence DESC
@@ -341,21 +343,32 @@ class IntelligenceDashboard(App):
         entities_list = self.query_one("#entities", EntitiesList)
         entities_list.clear()
         entities_list.border_title = f"Entities: {self.current_entity_type} ({count} total) [←/→ change]"
+        entities_list.entities_data = []
         
         for row in cursor.fetchall():
             name = row[0]
+            entity_type = row[1]
             conf = row[2]
             evidence = row[3] or ""
+            grokipedia_url = row[4]
             
             # Truncate evidence
             evidence_short = evidence[:50] + "..." if len(evidence) > 50 else evidence
             
-            # Check if likely has Grokipedia (PERSON, ORG, GPE)
-            entity_type = row[1]
-            grok_marker = "[green][G][/green]" if entity_type in ['PERSON', 'ORG', 'GPE'] else ""
+            # Real Grokipedia marker (from database, not guessed)
+            grok_marker = "[green][G][/green]" if grokipedia_url else ""
             
             label_text = f"{name} ({conf:.2f}) {grok_marker}\n  [dim italic]\"{evidence_short}\"[/dim italic]"
             entities_list.append(ListItem(Label(label_text)))
+            
+            # Store entity data for actions (Grokipedia open, details)
+            entities_list.entities_data.append({
+                'name': name,
+                'type': entity_type,
+                'confidence': conf,
+                'evidence': evidence,
+                'grokipedia_url': grokipedia_url
+            })
         
         conn.close()
     
@@ -421,8 +434,28 @@ class IntelligenceDashboard(App):
     
     def action_open_grokipedia(self) -> None:
         """Open Grokipedia page for selected entity."""
-        # TODO: Implement Grokipedia URL checking and opening
-        self.notify("Grokipedia integration coming in Phase 2")
+        # Get current selected entity from entities list
+        entities_list = self.query_one("#entities", EntitiesList)
+        
+        if not hasattr(entities_list, 'entities_data') or not entities_list.entities_data:
+            self.notify("No entity selected")
+            return
+        
+        # Get currently selected index
+        if entities_list.index < 0 or entities_list.index >= len(entities_list.entities_data):
+            self.notify("No entity selected")
+            return
+        
+        entity = entities_list.entities_data[entities_list.index]
+        grokipedia_url = entity.get('grokipedia_url')
+        
+        if grokipedia_url:
+            # Open in browser
+            import webbrowser
+            webbrowser.open(grokipedia_url)
+            self.notify(f"Opening Grokipedia: {entity['name']}")
+        else:
+            self.notify(f"No Grokipedia page for {entity['name']}")
     
     def action_prev_topic(self) -> None:
         """Jump to previous topic."""
