@@ -5,11 +5,17 @@ Checks if Grokipedia pages exist for entities and provides links for quick resea
 Grokipedia is an AI-curated knowledge base (part of the Grok ecosystem).
 """
 
-import httpx
 from typing import Optional
 import sqlite3
 from pathlib import Path
 from datetime import datetime
+
+# Import httpx here to avoid logging.py conflict
+try:
+    import httpx
+except ImportError:
+    httpx = None
+    print("Warning: httpx not available, Grokipedia checking disabled")
 
 
 def check_grokipedia_url(entity_name: str, entity_type: str) -> Optional[str]:
@@ -30,6 +36,11 @@ def check_grokipedia_url(entity_name: str, entity_type: str) -> Optional[str]:
     # Construct URL (replace spaces with underscores)
     url_name = entity_name.replace(" ", "_").replace("'", "").replace('"', '')
     url = f"https://grokipedia.com/{url_name}"
+    
+    # Check if httpx is available
+    if httpx is None:
+        # Can't verify, but return URL anyway (user can try)
+        return url
     
     try:
         # Quick HEAD request to check if page exists
