@@ -5,9 +5,9 @@
 Extract speakers, entities, relationships, and intelligence from any video.  
 Built for journalists, researchers, and analysts who need professional-grade accuracy without censorship.
 
-**Current Status:** v2.61.0 - Complete intelligence with Grok-4 Fast Reasoning - October 29, 2025  
-**Production Stack:** WhisperX transcription (Modal GPU), Grok-4 Fast Reasoning, complete intelligence extraction  
-**Validation Results:** 625 entities, 0.90 confidence, 17/18 entity types, 0.5% duplicates across 3 diverse videos (195min)
+**Current Status:** v2.61.0 - API-first with Grok-4 Fast Reasoning - November 1, 2025  
+**Production Stack:** WhisperX transcription (Modal GPU), Grok-4 Fast Reasoning, search APIs validated  
+**Latest Validation:** 287 selective entities, 13 topics, 14/14 API tests passing (Oct 29-Nov 1)
 
 ---
 
@@ -27,13 +27,13 @@ Built for journalists, researchers, and analysts who need professional-grade acc
 - **Sentiment analysis** - Overall and per-topic sentiment
 - **Advanced deduplication** - Fuzzy matching (0.80 threshold), title removal, 99.5% unique entities
 
-### Quality Metrics (Validated Oct 28, 2025)
-- **Average confidence:** 0.90 (excellent)
-- **Entity type coverage:** 17/18 types (94%)
-- **Duplicate rate:** 0.5% (3 in 625 entities) - industry-leading
-- **High-value entity ratio:** 74.8% (PERSON/ORG/GPE/EVENT focus)
-- **Deduplication effectiveness:** 22.7% reduction via fuzzy matching
-- **Processing cost:** $0.20-0.42 per video (88min avg)
+### Quality Metrics (Grok-4 Fast Reasoning, Oct 29, 2025)
+- **Entity quality:** Selective, named entities only (no noise like "98%", "thursdays")
+- **Evidence coverage:** 100% (all entities have supporting transcript quotes)
+- **Entity type coverage:** 17/18 spaCy types (PERSON, ORG, GPE, EVENT, etc.)
+- **Topics extracted:** 3-5 per video with relevance scores and time ranges
+- **Key moments:** 4-5 per video with timestamps and significance
+- **Processing cost:** $0.34 per video (WhisperX $0.33 + Grok-4 $0.01)
 
 ---
 
@@ -80,21 +80,26 @@ Built for journalists, researchers, and analysts who need professional-grade acc
 
 ---
 
-## Validation Results (October 28, 2025)
+## Validation Results (Grok-4 Fast Reasoning, Oct 29, 2025)
 
 **Test Videos:**
-- All-In Podcast (88min, 4 speakers): 325 entities, 210 relationships, 15 types, 0.91 confidence
-- The View (36min, 5 speakers): 86 entities, 12 relationships, 12 types, 0.89 confidence
-- MTG Interview (71min, 2 speakers): 214 entities, 140 relationships, 17 types, 0.91 confidence
+- All-In Podcast (88min, 4 speakers): 107 entities, 6 relationships, 5 topics
+- The View (36min, 5 speakers): 56 entities, 8 relationships, 3 topics  
+- MTG Interview (71min, 2 speakers): 124 entities, 7 relationships, 5 topics
 
-**Quality Metrics:**
-- Total entities: 625 with 0.90 average confidence
-- Total relationships: 362 (0.58 per entity average)
-- Entity type coverage: 17/18 spaCy standard types
-- Duplicate names: 3 across all videos (0.5% rate)
-- Deduplication: 22.7% reduction from raw extraction
+**Grok-4 Quality Improvement:**
+- Total entities: 287 (vs 625 with Grok-2) - more selective, higher quality
+- Entity evidence: 100% coverage (vs 0% with Grok-2)
+- Topics: 13 extracted with relevance + time ranges (NEW!)
+- Key moments: 13 with timestamps + significance (NEW!)
+- Sentiment: All 3 videos analyzed (NEW!)
 
-**Technical Details:** See `FINAL_VALIDATION_ASSESSMENT.md`
+**API Validation (Nov 1, 2025):**
+- Search APIs: 14/14 tests passing
+- Query performance: <100ms average
+- Database: 13 topics, 287 entities indexed
+
+**Technical Details:** See `GROK4_VALIDATION_FINAL_REPORT.md`
 
 ---
 
@@ -149,17 +154,17 @@ clipscribe/
 
 ## Project Status
 
-**Version:** v2.60.0  
-**Current Phase:** Core engine complete, intelligence features ready to build  
-**Last Major Milestone:** Entity extraction validation complete (Oct 28, 2025)  
-**Next Milestone:** Auto-clip generation (Week 5-8)
+**Version:** v2.61.0  
+**Current Phase:** API-first development, Chimera integration focus  
+**Last Major Milestone:** Search APIs validated (Nov 1, 2025) - 14/14 tests passing  
+**Next Milestone:** Chimera integration design (Week 3)
 
-**Recent Achievements:**
-- Grok-4 entity extraction with 18 spaCy types
-- Advanced fuzzy deduplication (99.5% unique)
-- Transcript chunking for long videos (>45k chars)
-- Production validation (625 entities, 0.90 confidence)
-- Repository cleanup (archived 86 unused files)
+**Recent Achievements (Oct 29-Nov 1):**
+- Grok-4 Fast Reasoning upgrade (complete intelligence extraction)
+- Topic search API (13 topics indexed and searchable)
+- Entity search API (287 entities with 100% evidence)
+- TUI development and removal (pivoted to API-first)
+- Comprehensive validation (14 E2E tests, all passing)
 
 **See:** `STATUS.md` for detailed current state
 
@@ -177,4 +182,4 @@ clipscribe/
 
 ---
 
-**Last Updated:** October 28, 2025 - v2.60.0 production-ready release
+**Last Updated:** November 1, 2025 - v2.61.0 API-first, TUI removed, search APIs validated
