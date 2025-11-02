@@ -27,7 +27,7 @@ from enum import Enum
 
 # Gemini removed - using Voxtral-Grok pipeline
 from ..retrievers.universal_video_client import UniversalVideoClient
-from ..utils.logging import setup_logging
+from ..utils.logger_setup import setup_logging
 logger = logging.getLogger(__name__)
 
 

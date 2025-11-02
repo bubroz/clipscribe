@@ -19,7 +19,7 @@ from ..retrievers.knowledge_graph_builder import KnowledgeGraphBuilder
 from ..exporters.x_exporter import XContentGenerator
 from ..exporters.tweet_styles import TweetStyleGenerator
 from ..config.settings import Settings
-from ..utils.logging import setup_logging
+from ..utils.logger_setup import setup_logging
 from ..utils.processing_tracker import ProcessingTracker
 from ..notifications.telegram_notifier import TelegramNotifier
 from ..storage.gcs_uploader import GCSUploader
