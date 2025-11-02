@@ -64,25 +64,27 @@
 
 ### Roadmap
 
-**Next (Week 2-4: TUI + API - BUILDING NOW):**
-- Rich TUI with Textual (interactive Intelligence Dashboard for terminal)
-- Topic search API (POST /api/topics/search with relevance filtering)
-- Entity search API (18 spaCy types, evidence quotes, cross-video tracking)
+**Completed (Week 2):**
+- ✅ Topic search API (POST /api/topics/search) - 13 topics indexed
+- ✅ Entity search API (POST /api/entities/search) - 287 entities indexed
+- ✅ Database schema (SQLite: topics, entities with evidence quotes)
+- ✅ Search functionality validated (all queries working)
+
+**Next (Week 3: Chimera Integration + Auto-Clip):**
+- Chimera API integration design (API-to-API data flow)
 - Auto-clip generation API (intelligence scoring, ffmpeg extraction)
-- Batch processing API (multi-video with live progress)
+- Batch processing API (multi-video with progress tracking)
 - Complete OpenAPI documentation (Swagger spec)
 
-**Soon (Week 5-8: Production & Integration):**
-- Beta program (10 intelligence analysts testing TUI + API)
-- API authentication and rate limiting (production-ready)
-- Chimera integration (SAT analysis) - AFTER Phase 2A stable
-- Data provider API (intelligence-as-a-service for gov/enterprise)
-- CLI distribution (pip install station10)
+**Soon (Week 4-5: Production):**
+- Chimera integration live (SAT analysis of Station10 video intelligence)
+- API authentication and rate limiting
+- Beta testing (Chimera + direct API customers)
+- Data provider model (intelligence-as-a-service)
 
-**Future (Only If Customer Demand):**
-- Simple web viewer (read-only, for sharing clips/reports)
-- Full web interface (only if TUI + API prove insufficient)
-- Air-gapped deployment (Voxtral + local models)
+**Future (Optional):**
+- Simple web interface (only if API customers demand it)
+- Air-gapped deployment (Voxtral + local models for classified content)
 
 ### Repository Status
 

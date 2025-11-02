@@ -1,9 +1,9 @@
 # Station10.media Product Roadmap
 
-**Last Updated:** October 29, 2025  
+**Last Updated:** October 30, 2025  
 **Current Version:** v2.61.0  
-**Status:** Core engine complete, TUI + API approach confirmed  
-**Target Launch:** December 2025 (TUI + API beta)
+**Status:** Core engine complete, API-first approach, Chimera integration focus  
+**Target Launch:** December 2025 (API beta + Chimera integration)
 
 ---
 
@@ -55,28 +55,28 @@ Extract speakers, entities, relationships, and auto-generated clips from any vid
 
 ---
 
-### Phase 2: TUI + API (Week 2-4)
+### Phase 2: API Development (Week 2-4)
 
-**Week 2: Search Features + TUI Foundation**
-- [ ] Topic search API (FastAPI: POST /api/topics/search)
-- [ ] Entity search API (FastAPI: POST /api/entities/search)  
-- [ ] Rich TUI with Textual (interactive Intelligence Dashboard)
-- [ ] TUI topic browser (keyboard-driven, sortable)
-- [ ] TUI entity explorer (18 types, evidence quotes)
+**Week 2: Search APIs** ✅ COMPLETE
+- [x] Topic search API (FastAPI: POST /api/topics/search)
+- [x] Entity search API (FastAPI: POST /api/entities/search)
+- [x] Database schema (SQLite: topics, entities tables)
+- [x] Data loaders (13 topics, 287 entities from validation)
+- [x] E2E validation (all search queries working)
 
-**Week 3: Auto-Clip + API Polish**
+**Week 3: Chimera Integration + Auto-Clip API**
+- [ ] Chimera integration design (API-to-API data flow)
 - [ ] Auto-clip generation API (POST /api/clips/generate)
 - [ ] ffmpeg integration (key_moments → video clips)
-- [ ] TUI clip recommender (keyboard-driven selection)
 - [ ] Variable clip length (significance-based: 15s-120s)
 - [ ] Intelligence scoring algorithm (newsworthy + info-dense + actionable)
 
 **Week 4: Batch Processing + Documentation**
-- [ ] Batch processing API (POST /api/batch)
-- [ ] TUI batch monitor (live progress, multi-video)
+- [ ] Batch processing API (POST /api/batch with progress tracking)
 - [ ] Cross-video knowledge graph API
+- [ ] Chimera ingestion endpoint compatibility
 - [ ] Complete OpenAPI/Swagger documentation
-- [ ] E2E validation (TUI + API all features)
+- [ ] E2E validation (all API endpoints)
 
 ---
 
