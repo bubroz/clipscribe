@@ -679,43 +679,95 @@ Use the INDEX numbers shown above (0, 1, 2...), not segment numbers.
             # Return with empty topics/moments/sentiment for chunked (need full context)
             return entities, relationships, [], [], {}
         
-        # Build comprehensive extraction prompt (full parity with local ClipScribe)
-        prompt = f"""Extract comprehensive intelligence from this conversation transcript.
+        # Import prompt template (following xAI best practices)
+        # Note: Can't import from src/ in Modal, so inline the improved prompt
+        
+        # Get metadata for context (if available from segments)
+        metadata = {
+            'title': 'Video',  # TODO: Pass actual metadata to _extract_entities
+            'duration': 0,
+            'channel': 'Unknown'
+        }
+        
+        # Build comprehensive extraction prompt (following xAI best practices)
+        prompt = f"""Extract comprehensive intelligence from this video transcript.
 
-Use spaCy's standard entity types for consistency with industry standards:
+Video Context:
+- Title: {metadata.get('title', 'Unknown')}
+- Duration: {metadata.get('duration', 0) / 60:.0f} minutes
+- Source: {metadata.get('channel', 'Unknown')}
+
+EXTRACTION GUIDELINES (Quality Over Quantity):
+
+1. ENTITIES:
+   Extract ALL named people, organizations, places, and events that are clearly mentioned.
+   
+   Requirements:
+   - Only extract if explicitly named in transcript (not generic references)
+   - Each entity MUST have supporting quote as evidence
+   - Confidence score (0-1) based on clarity of mention
+   - Use spaCy standard types: PERSON, ORG, GPE, EVENT, PRODUCT, etc.
+   
+   Quality bar: Named and specific > generic and vague
+
+2. RELATIONSHIPS:
+   Extract ALL relationships between entities where connection is explicitly stated.
+   
+   Requirements:
+   - Subject and object MUST be actual entity names from transcript
+   - Predicate should be specific action/connection (e.g., "announced", "criticized")
+   - MUST include exact supporting quote as evidence
+   - Only extract if relationship is clearly stated (don't infer unstated connections)
+   
+   Quality bar: Explicit and evidenced > inferred and vague
+
+3. TOPICS:
+   Identify main themes or subjects discussed in the video.
+   
+   Requirements:
+   - Topics should be specific (e.g., "Israel-Hamas Ceasefire" not just "Middle East")
+   - Provide time range where topic is discussed (MM:SS-MM:SS format)
+   - Relevance score (0-1): how central this topic is to the video
+   
+   Quality bar: Specific and substantial > generic and brief
+
+4. KEY MOMENTS:
+   Identify moments that are particularly significant or worth highlighting.
+   
+   Requirements:
+   - Exact timestamp (MM:SS format)
+   - Clear description of what makes this moment significant
+   - Significance score (0-1) based on importance to video content
+   - Include exact quote from that moment
+   
+   Quality bar: Objectively significant > subjectively interesting
+
+5. SENTIMENT:
+   Analyze overall tone and per-topic sentiment.
+   
+   Requirements:
+   - Overall: positive, negative, neutral, or mixed
+   - Per-topic sentiment if topics have distinctly different tones
+   - Confidence in overall assessment
+
+CRITICAL PRINCIPLES:
+- Evidence is mandatory for entities and relationships (prevents hallucinations)
+- Quality is more important than quantity (5 perfect > 20 questionable)
+- Only extract what is clearly present (don't infer or assume)
+- Confidence scores should reflect actual certainty
+
+Use spaCy standard entity types for consistency:
 PERSON, ORG, GPE, LOC, EVENT, PRODUCT, MONEY, DATE, TIME, FAC, NORP, LANGUAGE, LAW, WORK_OF_ART, CARDINAL, ORDINAL, QUANTITY, PERCENT
-
-Return JSON with this structure:
-{{
-  "entities": [
-    {{"name": "Entity Name", "type": "PERSON|ORG|GPE|LOC|EVENT|PRODUCT|...", "confidence": 0.9, "evidence": "supporting quote if available"}}
-  ],
-  "relationships": [
-    {{"subject": "Entity1", "predicate": "relation", "object": "Entity2", "confidence": 0.9, "evidence": "supporting quote"}}
-  ],
-  "topics": [
-    {{"name": "Topic Name", "relevance": 0.9, "time_range": "00:00-05:30"}}
-  ],
-  "key_moments": [
-    {{"timestamp": "00:03:45", "description": "Important point", "significance": 0.9, "quote": "exact quote"}}
-  ],
-  "sentiment": {{
-    "overall": "positive|negative|neutral",
-    "confidence": 0.9,
-    "per_topic": {{"topic1": "positive", "topic2": "negative"}}
-  }}
-}}
 
 Entity Type Guidelines:
 - PERSON: People, including fictional characters
-- ORG: Companies, agencies, institutions, government programs (Medicare, Medicaid)
+- ORG: Companies, agencies, institutions, government programs
 - GPE: Countries, cities, states (Geopolitical entities)
 - LOC: Non-GPE locations, mountain ranges, bodies of water
 - EVENT: Named hurricanes, battles, wars, sports events, political events
-- PRODUCT: Physical objects, vehicles, foods, weapons (Tomahawk missiles, TikTok app, Iron dome system)
-  * NOT abstract concepts (inflation, tariffs, healthcare are NOT products)
-  * NOT policies (border security, Green New Deal are NOT products)
-  * NOT economic indicators (prices, wages, job market are NOT products)
+- PRODUCT: Physical objects, vehicles, foods, weapons
+  * NOT abstract concepts (inflation, tariffs, healthcare)
+  * NOT policies (border security, Green New Deal)
   * Physical/tangible items only
 - MONEY: Monetary values ($100, €50, etc.)
 - DATE: Absolute or relative dates or periods
@@ -723,18 +775,12 @@ Entity Type Guidelines:
 - FAC: Buildings, airports, highways, bridges
 - NORP: Nationalities, religious, political groups
 - LANGUAGE: Named languages
-- LAW: Named documents made into laws, policies (Green New Deal, tax code)
+- LAW: Named documents made into laws, policies
 - WORK_OF_ART: Titles of books, songs, etc.
 - CARDINAL: Numerals that don't fall under another type
 - ORDINAL: "first", "second", etc.
 - QUANTITY: Measurements, weights, distances
 - PERCENT: Percentage values
-
-IMPORTANT: For abstract concepts, economic terms, or policies that don't fit above categories, use the most appropriate type:
-- Economic concepts (inflation, tariffs, wages) → CARDINAL or omit if just general discussion
-- Healthcare systems (Medicare, Medicaid) → ORG
-- Policies (border security, trade policy) → LAW if formal, omit if general concept
-- When in doubt, prefer concrete categories (PERSON, ORG, GPE, EVENT) over abstract ones
 
 Transcript:
 {transcript_text}"""
@@ -753,13 +799,92 @@ Transcript:
                         "messages": [
                             {
                                 "role": "system",
-                                "content": "You are a precise entity extraction system. Return only valid JSON."
+                                "content": "You are a precise video intelligence extraction system following strict quality standards."
                             },
                             {"role": "user", "content": prompt}
                         ],
                         "temperature": 0.1,
                         "max_tokens": 4096,
-                        "response_format": {"type": "json_object"}
+                        "response_format": {
+                            "type": "json_schema",
+                            "json_schema": {
+                                "name": "video_intelligence_extraction",
+                                "strict": True,
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "entities": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "name": {"type": "string"},
+                                                    "type": {"type": "string"},
+                                                    "confidence": {"type": "number"},
+                                                    "evidence": {"type": "string"}
+                                                },
+                                                "required": ["name", "type", "confidence", "evidence"],
+                                                "additionalProperties": False
+                                            }
+                                        },
+                                        "relationships": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "subject": {"type": "string"},
+                                                    "predicate": {"type": "string"},
+                                                    "object": {"type": "string"},
+                                                    "evidence": {"type": "string"},
+                                                    "confidence": {"type": "number"}
+                                                },
+                                                "required": ["subject", "predicate", "object", "evidence", "confidence"],
+                                                "additionalProperties": False
+                                            }
+                                        },
+                                        "topics": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "name": {"type": "string"},
+                                                    "relevance": {"type": "number"},
+                                                    "time_range": {"type": "string"}
+                                                },
+                                                "required": ["name", "relevance", "time_range"],
+                                                "additionalProperties": False
+                                            }
+                                        },
+                                        "key_moments": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "timestamp": {"type": "string"},
+                                                    "description": {"type": "string"},
+                                                    "significance": {"type": "number"},
+                                                    "quote": {"type": "string"}
+                                                },
+                                                "required": ["timestamp", "description", "significance", "quote"],
+                                                "additionalProperties": False
+                                            }
+                                        },
+                                        "sentiment": {
+                                            "type": "object",
+                                            "properties": {
+                                                "overall": {"type": "string"},
+                                                "confidence": {"type": "number"},
+                                                "per_topic": {"type": "object"}
+                                            },
+                                            "required": ["overall", "confidence", "per_topic"],
+                                            "additionalProperties": False
+                                        }
+                                    },
+                                    "required": ["entities", "relationships", "topics", "key_moments", "sentiment"],
+                                    "additionalProperties": False
+                                }
+                            }
+                        }
                     }
                 )
                 
