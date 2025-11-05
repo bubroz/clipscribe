@@ -1,6 +1,6 @@
-# Station10.media (ClipScribe)
+# ClipScribe
 
-**Video intelligence extraction platform - Production-ready core engine**
+**AI-powered video intelligence extraction**
 
 Extract speakers, entities, relationships, and intelligence from any video.  
 Built for journalists, researchers, and analysts who need professional-grade accuracy without censorship.
@@ -39,25 +39,12 @@ Built for journalists, researchers, and analysts who need professional-grade acc
 
 ## Planned Features (In Development)
 
-### Week 2-4: API-First Development
-- **Topic Search API:** Find videos by topic with relevance filtering ✅ COMPLETE
-- **Entity Search API:** Track people/orgs across videos (18 spaCy types) ✅ COMPLETE
-- **Auto-Clip API:** Generate clips from key_moments with intelligence scoring
-- **Batch Processing:** Multi-video intelligence with progress tracking
-- **Chimera Integration:** API-to-API for SAT analysis of video corpus
-- **OpenAPI Documentation:** Complete API spec for integrations
-
-### Week 5-8: Production & Integration
-- Beta testing with intelligence analysts
-- API rate limiting and authentication
-- Chimera integration (SAT analysis of video corpus)
-- Data provider API (intelligence-as-a-service for government/enterprise)
-
-### Future (Optional)
-- Simple web interface (if customers demand visual interface)
-- Chimera UI integration (SAT analysis results viewer)
-
-**Target Launch:** December 2025 (API beta + Chimera integration)
+### In Development
+- **Topic Search API:** Find videos by topic ✅ COMPLETE
+- **Entity Search API:** Track people/orgs across videos ✅ COMPLETE
+- Auto-clip generation from key moments
+- Batch processing for multiple videos
+- Additional entity extraction features
 
 ---
 
@@ -176,7 +163,7 @@ clipscribe/
 **Email:** zforristall@gmail.com  
 **GitHub:** [@bubroz](https://github.com/bubroz)
 
-**Product:** Station10.media (ClipScribe)  
+**Product:** ClipScribe  
 **Repository:** Private during development  
 **License:** Proprietary
 

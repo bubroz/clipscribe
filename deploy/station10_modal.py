@@ -22,7 +22,7 @@ from pathlib import Path
 # CONFIGURATION
 # ==============================================================================
 
-app = modal.App("station10-transcription")
+app = modal.App("clipscribe-transcription")
 
 # Container image using Modal's VALIDATED working configuration
 # Source: https://modal.com/blog/how-to-run-whisperx-on-modal (Official Modal example)
@@ -111,7 +111,7 @@ model_cache = modal.Volume.from_name("station10-models", create_if_missing=True)
     ],
     volumes={"/models": model_cache}  # Cache models to avoid re-downloading
 )
-class Station10Transcriber:
+class ClipScribeTranscriber:
     """
     WhisperX transcription with speaker diarization.
     
