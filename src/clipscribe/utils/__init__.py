@@ -5,7 +5,7 @@ Provides utility functions and classes for video processing, progress tracking,
 performance monitoring, batch processing.
 """
 
-from .logging import setup_logging
+from .logger_setup import setup_logging
 from .progress import ClipScribeProgress, progress_tracker, console
 from .batch_progress import BatchProgress
 from .performance import PerformanceMonitor
