@@ -5,9 +5,9 @@
 Extract speakers, entities, relationships, and intelligence from any video.  
 Built for journalists, researchers, and analysts who need professional-grade accuracy without censorship.
 
-**Current Status:** v2.61.0 - API-first with Grok-4 Fast Reasoning - November 1, 2025  
+**Current Status:** v2.61.0 - API-first with Grok-4 Structured Outputs - November 4, 2025  
 **Production Stack:** WhisperX transcription (Modal GPU), Grok-4 Fast Reasoning, search APIs validated  
-**Latest Validation:** 287 selective entities, 13 topics, 14/14 API tests passing (Oct 29-Nov 1)
+**Latest Validation:** Structured Outputs (Nov 1), API tests 14/14 passing (Nov 4), ready for Chimera
 
 ---
 
@@ -99,7 +99,7 @@ Built for journalists, researchers, and analysts who need professional-grade acc
 - Query performance: <100ms average
 - Database: 13 topics, 287 entities indexed
 
-**Technical Details:** See `GROK4_VALIDATION_FINAL_REPORT.md`
+**Latest Results:** See `STRUCTURED_OUTPUTS_RESULTS.md` (Nov 1, 2025)
 
 ---
 
@@ -182,4 +182,4 @@ clipscribe/
 
 ---
 
-**Last Updated:** November 1, 2025 - v2.61.0 API-first, TUI removed, search APIs validated
+**Last Updated:** November 4, 2025 - v2.61.0 Structured Outputs implemented, APIs validated, ready for Chimera
