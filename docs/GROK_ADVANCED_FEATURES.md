@@ -1,8 +1,9 @@
 # Grok Advanced Features Guide
 
-*Last Updated: November 11, 2025*
+**Last Updated:** November 12, 2025  
+**Validated:** November 12, 2025 (pricing corrected, import paths verified)
 
-ClipScribe now integrates all cutting-edge xAI Grok features released between May-November 2025, delivering enhanced intelligence extraction with significant cost savings.
+ClipScribe integrates all xAI Grok features released May-November 2025, delivering enhanced intelligence extraction with significant cost savings through prompt caching.
 
 ## Table of Contents
 
@@ -55,11 +56,11 @@ ClipScribe now integrates all cutting-edge xAI Grok features released between Ma
 
 xAI automatically caches prompt prefixes >1024 tokens. When you send similar prompts, cached portions cost 50% less.
 
-**Example:**
+**Example (with correct Nov 2025 pricing):**
 ```
-First request:  1000 input tokens @ $0.003/1K = $0.003
-Second request: 500 cached + 500 new @ $0.003/1K = $0.00225
-Savings: $0.00075 (25%)
+First request:  10,000 input tokens @ $0.20/M = $0.002
+Second request: 5,000 cached @ $0.05/M + 5,000 new @ $0.20/M = $0.00025 + $0.001 = $0.00125
+Savings: $0.00075 (37.5% on this request, 75% on cached portion)
 ```
 
 ### Implementation
@@ -237,7 +238,7 @@ print(f"Found {len(cooccurrences)} videos mentioning both")
 ### Implementation
 
 ```python
-from clipscribe.models.grok_schemas import get_video_intelligence_schema
+from clipscribe.schemas_grok import get_video_intelligence_schema
 
 # Get structured output schema
 response_format = get_video_intelligence_schema()
@@ -257,7 +258,7 @@ result = json.loads(response["choices"][0]["message"]["content"])
 ### Available Schemas
 
 ```python
-from clipscribe.models.grok_schemas import (
+from clipscribe.schemas_grok import (
     get_video_intelligence_schema,  # Full intelligence extraction
     get_entity_schema,              # Entities only
     get_relationship_schema,        # Relationships only
@@ -271,18 +272,18 @@ from clipscribe.models.grok_schemas import (
 
 **Traditional Approach (json_object, no caching):**
 ```
-Input tokens: 10,000 @ $0.003/1K = $0.030
-Output tokens: 2,000 @ $0.010/1K = $0.020
-Total: $0.050
+Input tokens: 10,000 @ $0.20/M = $0.002
+Output tokens: 2,000 @ $0.50/M = $0.001
+Total: $0.003
 ```
 
 **Optimized Approach (json_schema + caching):**
 ```
-Input tokens: 5,000 @ $0.003/1K = $0.015
-Cached tokens: 5,000 @ $0.0015/1K = $0.0075
-Output tokens: 2,000 @ $0.010/1K = $0.020
-Total: $0.0425
-Savings: $0.0075 (15%)
+Input tokens: 5,000 @ $0.20/M = $0.001
+Cached tokens: 5,000 @ $0.05/M = $0.00025
+Output tokens: 2,000 @ $0.50/M = $0.001
+Total: $0.00225
+Savings: $0.00075 (25% on this request, 75% savings on cached portion)
 ```
 
 ### Monthly Cost Impact

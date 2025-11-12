@@ -1,7 +1,8 @@
 # ClipScribe Development Guide
 
-**Last Updated:** November 4, 2025  
-**Version:** v2.61.0
+**Last Updated:** November 12, 2025  
+**Version:** v2.62.0  
+**Validated:** November 12, 2025 (all commands tested, protocols verified)
 
 ---
 
@@ -36,7 +37,7 @@ cp .env.example .env
 poetry run pytest tests/integration/ -v
 ```
 
-**Expected:** 14/14 tests passing
+**Expected:** 24/24 tests passing (10 Grok advanced features, 8 entity search, 6 topic search)
 
 ### Specific Tests:
 ```bash
@@ -124,10 +125,12 @@ clipscribe/
 │   ├── load_validated_*.py  # Data loaders
 │   └── test_*.py            # Validation scripts
 ├── docs/                     # Documentation
-│   ├── ARCHITECTURE.md
-│   ├── WORKFLOW.md
-│   ├── API.md
-│   └── DEVELOPMENT.md
+│   ├── ARCHITECTURE.md       # System architecture (14 Mermaid diagrams)
+│   ├── WORKFLOW.md           # Production workflows (Modal + Local CLI)
+│   ├── GROK_ADVANCED_FEATURES.md
+│   ├── DEVELOPMENT.md         # This file
+│   ├── VALIDATION_PROTOCOL.md # Documentation validation method
+│   └── REPOSITORY_CLEANUP_PLAYBOOK.md # Cleanup template
 └── examples/                 # Usage examples
 ```
 
@@ -151,7 +154,8 @@ clipscribe/
 **tests/integration/:**
 - test_topic_search_api.py (6 tests)
 - test_entity_search_api.py (8 tests)
-- test_modal_pipeline_e2e.py (2 tests)
+- test_grok_advanced_features.py (10 tests)
+- test_modal_pipeline_e2e.py (2 tests - requires deployed Modal app)
 
 ---
 
