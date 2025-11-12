@@ -6,9 +6,9 @@ using FFmpeg. This is essential for processing long-form content (e.g., >15 minu
 without hitting API timeouts.
 """
 
+import logging
 import subprocess
 from pathlib import Path
-import logging
 from typing import List, Optional
 
 logger = logging.getLogger(__name__)

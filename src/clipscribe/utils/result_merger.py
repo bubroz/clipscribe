@@ -5,8 +5,9 @@ A utility for merging the results of multiple video chunks into a single,
 cohesive VideoIntelligence object.
 """
 
-from typing import List, Dict, Any
 import logging
+from typing import Any, Dict, List
+
 from ..models import Entity
 
 logger = logging.getLogger(__name__)

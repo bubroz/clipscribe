@@ -5,21 +5,24 @@ This module provides an HTTP interface for the worker service, allowing it to ru
 on Cloud Run while processing jobs from the Redis queue.
 """
 
-import asyncio
 import logging
 import os
-from typing import Optional, Dict, Any
 from datetime import datetime
+from typing import Any, Dict, Optional
 
-from fastapi import FastAPI, BackgroundTasks, HTTPException, Depends
-from fastapi.middleware.cors import CORSMiddleware
 import redis
 import uvicorn
+from fastapi import BackgroundTasks, FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 
-from .worker import _process_payload
-from ..config.settings import Settings
-from .monitoring import get_metrics_collector, get_alert_manager, get_health_checker, setup_default_alerts
+from .monitoring import (
+    get_alert_manager,
+    get_health_checker,
+    get_metrics_collector,
+    setup_default_alerts,
+)
 from .retry_manager import get_retry_manager
+from .worker import _process_payload
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -29,7 +32,7 @@ app = FastAPI(
     title="ClipScribe Worker",
     version="1.0.0",
     docs_url=None,  # Disable docs for security
-    redoc_url=None
+    redoc_url=None,
 )
 
 # Add CORS middleware for health checks
@@ -48,6 +51,7 @@ alert_manager = None
 health_checker = None
 retry_manager = None
 
+
 def get_redis_conn() -> redis.Redis:
     """Get Redis connection with singleton pattern."""
     global redis_conn
@@ -55,6 +59,7 @@ def get_redis_conn() -> redis.Redis:
         redis_url = os.getenv("REDIS_URL", "redis://localhost:6379/0")
         redis_conn = redis.from_url(redis_url)
     return redis_conn
+
 
 def get_monitoring_components():
     """Get or initialize monitoring components."""
@@ -71,11 +76,14 @@ def get_monitoring_components():
 
     return metrics_collector, alert_manager, health_checker, retry_manager
 
+
 def _request_id() -> str:
     """Generate a simple request ID."""
     import random
     import string
-    return ''.join(random.choices(string.ascii_letters + string.digits, k=8))
+
+    return "".join(random.choices(string.ascii_letters + string.digits, k=8))
+
 
 @app.middleware("http")
 async def add_request_id_header(request, call_next):
@@ -84,6 +92,7 @@ async def add_request_id_header(request, call_next):
     if "X-Request-ID" not in response.headers:
         response.headers["X-Request-ID"] = _request_id()
     return response
+
 
 @app.get("/health")
 async def health_check():
@@ -98,6 +107,7 @@ async def health_check():
 
         # Check GCS access
         from google.cloud import storage
+
         client = storage.Client()
         bucket_name = os.getenv("GCS_BUCKET")
         gcs_status = "not_configured"
@@ -120,7 +130,7 @@ async def health_check():
         health_status = health.perform_health_check()
 
         # Check for critical alerts
-        critical_alerts = [alert for alert in active_alerts if alert.get('severity') == 'critical']
+        critical_alerts = [alert for alert in active_alerts if alert.get("severity") == "critical"]
 
         overall_status = "healthy"
         if health_status["overall_status"] != "healthy" or critical_alerts:
@@ -137,7 +147,7 @@ async def health_check():
             "queue_status": queue_status,
             "active_alerts_count": len(active_alerts),
             "critical_alerts_count": len(critical_alerts),
-            "version": "1.0.0"
+            "version": "1.0.0",
         }
 
         # Include alerts if any
@@ -153,14 +163,15 @@ async def health_check():
             "timestamp": datetime.utcnow().isoformat(),
             "error": str(e),
             "redis": False,
-            "gcs": "unknown"
+            "gcs": "unknown",
         }
+
 
 @app.post("/process-job")
 async def process_job(request: dict, background_tasks: BackgroundTasks):
     """
     Process a job from Cloud Tasks.
-    
+
     Expected payload:
     {
         "job_id": "...",
@@ -174,21 +185,22 @@ async def process_job(request: dict, background_tasks: BackgroundTasks):
         # Extract job info from Cloud Tasks payload
         job_id = request.get("job_id")
         payload = request.get("payload", {})
-        
+
         if not job_id:
             raise HTTPException(status_code=400, detail="Missing job_id")
-        
+
         logger.info(f"Received job from Cloud Tasks: {job_id}")
-        
+
         # Update job status in Redis
         conn = get_redis_conn()
         job_key = f"cs:job:{job_id}"
-        
+
         # Check if job exists and update it
         job_data_str = conn.get(job_key)
         if job_data_str:
             # Parse existing job
             import json
+
             job_data = json.loads(job_data_str)
             job_data["state"] = "PROCESSING"
             job_data["updated_at"] = datetime.utcnow().isoformat() + "Z"
@@ -200,28 +212,30 @@ async def process_job(request: dict, background_tasks: BackgroundTasks):
                 "job_id": job_id,
                 "state": "PROCESSING",
                 "created_at": datetime.utcnow().isoformat() + "Z",
-                "updated_at": datetime.utcnow().isoformat() + "Z"
+                "updated_at": datetime.utcnow().isoformat() + "Z",
             }
             conn.set(job_key, json.dumps(job_data))
-        
+
         # Process in background
         background_tasks.add_task(process_job_background, job_id, payload)
-        
+
         # Return 200 OK for Cloud Tasks
         return {
             "status": "processing_started",
             "job_id": job_id,
-            "timestamp": datetime.utcnow().isoformat()
+            "timestamp": datetime.utcnow().isoformat(),
         }
-    
+
     except Exception as e:
         logger.error(f"Failed to start job processing: {e}")
         # Return 500 to trigger Cloud Tasks retry
         raise HTTPException(status_code=500, detail=str(e))
 
+
 async def process_job_background(job_id: str, payload: Dict[str, Any]):
     """Process job in background and update status."""
     import json
+
     conn = get_redis_conn()
     job_key = f"cs:job:{job_id}"
 
@@ -255,6 +269,7 @@ async def process_job_background(job_id: str, payload: Dict[str, Any]):
             job_data["failed_at"] = datetime.utcnow().isoformat() + "Z"
             conn.set(job_key, json.dumps(job_data))
 
+
 @app.get("/queue-status")
 async def get_queue_status():
     """Get current queue status for monitoring."""
@@ -286,7 +301,7 @@ async def get_queue_status():
             "timestamp": datetime.utcnow().isoformat(),
             "queues": queue_info,
             "active_jobs": active_jobs,
-            "redis_available": True
+            "redis_available": True,
         }
 
     except Exception as e:
@@ -294,8 +309,9 @@ async def get_queue_status():
         return {
             "timestamp": datetime.utcnow().isoformat(),
             "error": str(e),
-            "redis_available": False
+            "redis_available": False,
         }
+
 
 @app.get("/metrics")
 async def get_metrics():
@@ -327,6 +343,7 @@ async def get_metrics():
         logger.error(f"Failed to get metrics: {e}")
         return f"# Error collecting metrics: {e}\n"
 
+
 @app.get("/alerts")
 async def get_alerts():
     """Get current active alerts."""
@@ -337,7 +354,7 @@ async def get_alerts():
         return {
             "timestamp": datetime.utcnow().isoformat(),
             "active_alerts": alerts,
-            "total_count": len(alerts)
+            "total_count": len(alerts),
         }
 
     except Exception as e:
@@ -346,8 +363,9 @@ async def get_alerts():
             "timestamp": datetime.utcnow().isoformat(),
             "error": str(e),
             "active_alerts": [],
-            "total_count": 0
+            "total_count": 0,
         }
+
 
 @app.get("/dead-letter-queue")
 async def get_dead_letter_queue(limit: int = 10):
@@ -359,7 +377,7 @@ async def get_dead_letter_queue(limit: int = 10):
         return {
             "timestamp": datetime.utcnow().isoformat(),
             "dead_letters": dead_letters,
-            "total_count": len(dead_letters)
+            "total_count": len(dead_letters),
         }
 
     except Exception as e:
@@ -368,8 +386,9 @@ async def get_dead_letter_queue(limit: int = 10):
             "timestamp": datetime.utcnow().isoformat(),
             "error": str(e),
             "dead_letters": [],
-            "total_count": 0
+            "total_count": 0,
         }
+
 
 @app.post("/retry-job")
 async def retry_job(job_id: str):
@@ -388,26 +407,26 @@ async def retry_job(job_id: str):
         if not payload_str:
             raise HTTPException(status_code=404, detail="Job not found")
 
-        payload = json.loads(payload_str.decode())
+        json.loads(payload_str.decode())
 
         # Reset job state to QUEUED
-        conn.hset(job_key, mapping={
-            "state": "QUEUED",
-            "updated_at": datetime.utcnow().isoformat(),
-            "error": None
-        })
+        conn.hset(
+            job_key,
+            mapping={"state": "QUEUED", "updated_at": datetime.utcnow().isoformat(), "error": None},
+        )
 
         logger.info(f"Manually retrying job: {job_id}")
 
         return {
             "status": "retry_queued",
             "job_id": job_id,
-            "timestamp": datetime.utcnow().isoformat()
+            "timestamp": datetime.utcnow().isoformat(),
         }
 
     except Exception as e:
         logger.error(f"Failed to retry job {job_id}: {e}")
         raise HTTPException(status_code=500, detail=str(e))
+
 
 @app.post("/warm-up")
 async def warm_up(background_tasks: BackgroundTasks):
@@ -418,14 +437,12 @@ async def warm_up(background_tasks: BackgroundTasks):
         # Run warm-up tasks in background
         background_tasks.add_task(perform_warm_up)
 
-        return {
-            "status": "warming_up",
-            "timestamp": datetime.utcnow().isoformat()
-        }
+        return {"status": "warming_up", "timestamp": datetime.utcnow().isoformat()}
 
     except Exception as e:
         logger.error(f"Warm-up failed: {e}")
         raise HTTPException(status_code=500, detail=str(e))
+
 
 async def perform_warm_up():
     """Perform actual warm-up tasks."""
@@ -433,12 +450,14 @@ async def perform_warm_up():
         # Load models
         logger.info("Loading ML models...")
         from ..extractors.model_manager import ModelManager
-        manager = ModelManager()
+
+        ModelManager()
         # This will trigger lazy loading of models
 
         # Test GCS connection
         logger.info("Testing GCS connection...")
         from google.cloud import storage
+
         client = storage.Client()
         bucket_name = os.getenv("GCS_BUCKET")
         if bucket_name:
@@ -455,6 +474,7 @@ async def perform_warm_up():
     except Exception as e:
         logger.error(f"Warm-up task failed: {e}")
 
+
 def main():
     """Main entry point for the worker server."""
     import argparse
@@ -469,13 +489,8 @@ def main():
     logger.info(f"Starting worker server on {args.host}:{args.port}")
 
     # Start the server
-    uvicorn.run(
-        app,
-        host=args.host,
-        port=args.port,
-        workers=args.workers,
-        log_level="info"
-    )
+    uvicorn.run(app, host=args.host, port=args.port, workers=args.workers, log_level="info")
+
 
 if __name__ == "__main__":
     main()

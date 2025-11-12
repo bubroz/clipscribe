@@ -18,21 +18,22 @@ import json
 import logging
 import time
 import uuid
-from dataclasses import dataclass, asdict
-from datetime import datetime
-from pathlib import Path
-from typing import Dict, List, Optional, Any, Tuple
 from concurrent.futures import ThreadPoolExecutor
+from dataclasses import asdict, dataclass
+from datetime import datetime
 from enum import Enum
+from pathlib import Path
+from typing import Any, Dict, List, Optional
 
 # Gemini removed - using Voxtral-Grok pipeline
 from ..retrievers.universal_video_client import UniversalVideoClient
-from ..utils.logger_setup import setup_logging
+
 logger = logging.getLogger(__name__)
 
 
 class BatchJobStatus(Enum):
     """Batch job status enumeration."""
+
     PENDING = "pending"
     RUNNING = "running"
     COMPLETED = "completed"
@@ -42,6 +43,7 @@ class BatchJobStatus(Enum):
 
 class ProcessingPriority(Enum):
     """Processing priority levels."""
+
     LOW = "low"
     NORMAL = "normal"
     HIGH = "high"
@@ -51,6 +53,7 @@ class ProcessingPriority(Enum):
 @dataclass
 class BatchJob:
     """Represents a single video processing job within a batch."""
+
     job_id: str
     video_url: str
     priority: ProcessingPriority
@@ -69,34 +72,35 @@ class BatchJob:
         """Convert job to dictionary for serialization."""
         data = asdict(self)
         # Convert enums to strings
-        data['priority'] = self.priority.value
-        data['status'] = self.status.value
+        data["priority"] = self.priority.value
+        data["status"] = self.status.value
         # Convert datetime objects to ISO strings
-        data['created_at'] = self.created_at.isoformat()
+        data["created_at"] = self.created_at.isoformat()
         if self.started_at:
-            data['started_at'] = self.started_at.isoformat()
+            data["started_at"] = self.started_at.isoformat()
         if self.completed_at:
-            data['completed_at'] = self.completed_at.isoformat()
+            data["completed_at"] = self.completed_at.isoformat()
         return data
 
     @classmethod
-    def from_dict(cls, data: Dict[str, Any]) -> 'BatchJob':
+    def from_dict(cls, data: Dict[str, Any]) -> "BatchJob":
         """Create job from dictionary."""
         # Convert strings back to enums
-        data['priority'] = ProcessingPriority(data['priority'])
-        data['status'] = BatchJobStatus(data['status'])
+        data["priority"] = ProcessingPriority(data["priority"])
+        data["status"] = BatchJobStatus(data["status"])
         # Convert ISO strings back to datetime
-        data['created_at'] = datetime.fromisoformat(data['created_at'])
-        if data.get('started_at'):
-            data['started_at'] = datetime.fromisoformat(data['started_at'])
-        if data.get('completed_at'):
-            data['completed_at'] = datetime.fromisoformat(data['completed_at'])
+        data["created_at"] = datetime.fromisoformat(data["created_at"])
+        if data.get("started_at"):
+            data["started_at"] = datetime.fromisoformat(data["started_at"])
+        if data.get("completed_at"):
+            data["completed_at"] = datetime.fromisoformat(data["completed_at"])
         return cls(**data)
 
 
 @dataclass
 class BatchResult:
     """Results summary for a completed batch."""
+
     batch_id: str
     total_jobs: int
     completed_jobs: int
@@ -116,10 +120,10 @@ class BatchResult:
     def to_dict(self) -> Dict[str, Any]:
         """Convert result to dictionary."""
         data = asdict(self)
-        data['created_at'] = self.created_at.isoformat()
+        data["created_at"] = self.created_at.isoformat()
         if self.completed_at:
-            data['completed_at'] = self.completed_at.isoformat()
-        data['jobs'] = [job.to_dict() for job in self.jobs]
+            data["completed_at"] = self.completed_at.isoformat()
+        data["jobs"] = [job.to_dict() for job in self.jobs]
         return data
 
 
@@ -140,7 +144,7 @@ class BatchProcessor:
         max_concurrent_jobs: int = 5,
         output_dir: str = "output/batch",
         enable_caching: bool = True,
-        retry_failed_jobs: bool = True
+        retry_failed_jobs: bool = True,
     ):
         """
         Initialize the batch processor.
@@ -175,7 +179,7 @@ class BatchProcessor:
         self,
         video_urls: List[str],
         batch_id: Optional[str] = None,
-        priority: ProcessingPriority = ProcessingPriority.NORMAL
+        priority: ProcessingPriority = ProcessingPriority.NORMAL,
     ) -> BatchResult:
         """
         Process a batch of video URLs.
@@ -206,7 +210,7 @@ class BatchProcessor:
                 priority=priority,
                 status=BatchJobStatus.PENDING,
                 created_at=datetime.now(),
-                metadata={"batch_id": batch_id}
+                metadata={"batch_id": batch_id},
             )
             jobs.append(job)
 
@@ -222,7 +226,7 @@ class BatchProcessor:
             total_cost=0.0,
             created_at=datetime.now(),
             output_directory=str(batch_dir),
-            jobs=jobs
+            jobs=jobs,
         )
 
         # Save initial batch status
@@ -232,9 +236,7 @@ class BatchProcessor:
             # Process jobs with controlled concurrency
             tasks = []
             for job in jobs:
-                task = asyncio.create_task(
-                    self._process_single_job(job, batch_dir)
-                )
+                task = asyncio.create_task(self._process_single_job(job, batch_dir))
                 tasks.append(task)
 
             # Wait for all jobs to complete
@@ -250,7 +252,7 @@ class BatchProcessor:
 
             result.completed_jobs = len(completed_jobs)
             result.failed_jobs = len(failed_jobs)
-            result.total_cost = sum(j.metadata.get('cost', 0) for j in completed_jobs if j.metadata)
+            result.total_cost = sum(j.metadata.get("cost", 0) for j in completed_jobs if j.metadata)
 
             if completed_jobs:
                 processing_times = [j.processing_time for j in completed_jobs if j.processing_time]
@@ -260,7 +262,9 @@ class BatchProcessor:
             # Save final results
             self._save_batch_results(result)
 
-            logger.info(f"Batch {batch_id} completed: {result.completed_jobs}/{result.total_jobs} successful")
+            logger.info(
+                f"Batch {batch_id} completed: {result.completed_jobs}/{result.total_jobs} successful"
+            )
 
             return result
 
@@ -302,10 +306,9 @@ class BatchProcessor:
 
                 # Process with transcriber
                 logger.info(f"Analyzing content for job {job.job_id}")
-                duration = getattr(metadata, 'duration', 0)
+                duration = getattr(metadata, "duration", 0)
                 result = await self.transcriber.transcribe_audio(
-                    audio_file=str(audio_path),
-                    duration=int(duration)
+                    audio_file=str(audio_path), duration=int(duration)
                 )
 
                 # Save results
@@ -313,7 +316,7 @@ class BatchProcessor:
 
                 # Save individual job results
                 job_output_path = job_output_dir / "results.json"
-                with open(job_output_path, 'w') as f:
+                with open(job_output_path, "w") as f:
                     json.dump(result, f, indent=2, default=str)
 
                 # Update job metadata
@@ -323,10 +326,10 @@ class BatchProcessor:
                 job.status = BatchJobStatus.COMPLETED
                 job.output_path = str(job_output_path)
                 job.metadata = {
-                    "cost": result.get('processing_cost', 0),
-                    "entity_count": len(result.get('entities', [])),
-                    "relationship_count": len(result.get('relationships', [])),
-                    "transcript_length": len(result.get('transcript', ''))
+                    "cost": result.get("processing_cost", 0),
+                    "entity_count": len(result.get("entities", [])),
+                    "relationship_count": len(result.get("relationships", [])),
+                    "transcript_length": len(result.get("transcript", "")),
                 }
 
                 logger.info(f"Job {job.job_id} completed successfully in {processing_time:.2f}s")
@@ -338,10 +341,12 @@ class BatchProcessor:
 
                 # Check if we should retry
                 if self.retry_failed_jobs and job.retry_count < job.max_retries:
-                    logger.info(f"Retrying job {job.job_id} (attempt {job.retry_count + 1}/{job.max_retries})")
+                    logger.info(
+                        f"Retrying job {job.job_id} (attempt {job.retry_count + 1}/{job.max_retries})"
+                    )
                     job.status = BatchJobStatus.PENDING
                     # Add back to queue with delay
-                    await asyncio.sleep(2 ** job.retry_count)  # Exponential backoff
+                    await asyncio.sleep(2**job.retry_count)  # Exponential backoff
                     await self._process_single_job(job, batch_dir)
                 else:
                     job.status = BatchJobStatus.FAILED
@@ -350,20 +355,20 @@ class BatchProcessor:
     def _save_batch_status(self, result: BatchResult) -> None:
         """Save current batch status to file."""
         status_file = self.output_dir / result.batch_id / "batch_status.json"
-        with open(status_file, 'w') as f:
+        with open(status_file, "w") as f:
             json.dump(result.to_dict(), f, indent=2, default=str)
 
     def _save_batch_results(self, result: BatchResult) -> None:
         """Save final batch results to file."""
         results_file = self.output_dir / result.batch_id / "batch_results.json"
-        with open(results_file, 'w') as f:
+        with open(results_file, "w") as f:
             json.dump(result.to_dict(), f, indent=2, default=str)
 
     async def get_batch_status(self, batch_id: str) -> Optional[BatchResult]:
         """Get the current status of a batch."""
         status_file = self.output_dir / batch_id / "batch_status.json"
         if status_file.exists():
-            with open(status_file, 'r') as f:
+            with open(status_file, "r") as f:
                 data = json.load(f)
             return BatchResult(**data)
         return None
@@ -372,7 +377,7 @@ class BatchProcessor:
         """Get the final results of a completed batch."""
         results_file = self.output_dir / batch_id / "batch_results.json"
         if results_file.exists():
-            with open(results_file, 'r') as f:
+            with open(results_file, "r") as f:
                 data = json.load(f)
             return BatchResult(**data)
         return None
@@ -387,6 +392,7 @@ class BatchProcessor:
                 # Check if directory is old enough
                 if batch_dir.stat().st_mtime < cutoff_time:
                     import shutil
+
                     shutil.rmtree(batch_dir)
                     cleaned_count += 1
                     logger.info(f"Cleaned up old batch: {batch_dir.name}")

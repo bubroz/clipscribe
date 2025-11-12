@@ -1,16 +1,15 @@
 """Output Formatter Module - Handles all file saving and formatting."""
 
 import json
-import csv
 import logging
-from pathlib import Path
-from typing import Dict, Any, List, Optional
 from datetime import datetime
+from pathlib import Path
+from typing import Any, Dict, List
 
-from ..models import VideoIntelligence, MultiVideoIntelligence
 from ..config.settings import Settings
-from ..utils.filename import create_output_filename, create_output_structure
+from ..models import VideoIntelligence
 from ..utils.file_utils import calculate_sha256
+from ..utils.filename import create_output_filename, create_output_structure
 
 logger = logging.getLogger(__name__)
 
@@ -23,10 +22,7 @@ class OutputFormatter:
         pass
 
     def save_transcript(
-        self,
-        video: VideoIntelligence,
-        output_dir: str = None,
-        formats: List[str] = ["txt"]
+        self, video: VideoIntelligence, output_dir: str = None, formats: List[str] = ["txt"]
     ) -> Dict[str, Path]:
         """
         Save transcript with meaningful filename.
@@ -88,9 +84,9 @@ class OutputFormatter:
         self._save_facts_file(video, paths)
         self._save_report_file(video, paths)
 
-# Chimera format deprecated - use structured JSON formats instead
-# if include_chimera_format:
-#     self._save_chimera_file(video, paths)
+        # Chimera format deprecated - use structured JSON formats instead
+        # if include_chimera_format:
+        #     self._save_chimera_file(video, paths)
 
         self._create_manifest_file(video, paths)
 
@@ -137,7 +133,9 @@ class OutputFormatter:
         with open(paths["transcript_json"], "w", encoding="utf-8") as f:
             json.dump(full_data, f, default=str, indent=2)
 
-    def _create_full_transcript_data(self, video: VideoIntelligence, metadata: Dict[str, Any]) -> Dict[str, Any]:
+    def _create_full_transcript_data(
+        self, video: VideoIntelligence, metadata: Dict[str, Any]
+    ) -> Dict[str, Any]:
         """Create comprehensive transcript data dictionary."""
         full_data = {
             "metadata": metadata,
@@ -176,9 +174,7 @@ class OutputFormatter:
                 "processed_at": datetime.now().isoformat(),
                 "model": "voxtral-grok",
                 "extractor": (
-                    "advanced_hybrid_v2.2"
-                    if hasattr(video, "entity_extractor")
-                    else "basic_hybrid"
+                    "advanced_hybrid_v2.2" if hasattr(video, "entity_extractor") else "basic_hybrid"
                 ),
             },
         }
@@ -252,7 +248,9 @@ class OutputFormatter:
                     "mention_count": getattr(e, "mention_count", 1),
                     "context_windows": [cw.dict() for cw in getattr(e, "context_windows", [])],
                     "aliases": getattr(e, "aliases", []),
-                    "temporal_distribution": [td.dict() for td in getattr(e, "temporal_distribution", [])],
+                    "temporal_distribution": [
+                        td.dict() for td in getattr(e, "temporal_distribution", [])
+                    ],
                 }
                 for e in all_entities
             ],
@@ -313,6 +311,7 @@ class OutputFormatter:
             # Knowledge Graph GEXF (for Gephi visualization)
             try:
                 from ..retrievers.knowledge_graph_builder import KnowledgeGraphBuilder
+
                 kg_builder = KnowledgeGraphBuilder()
                 gexf_content = kg_builder.generate_gexf_content(video.knowledge_graph)
 
@@ -326,6 +325,7 @@ class OutputFormatter:
             # Knowledge Graph GraphML (for yEd, Cytoscape, etc.)
             try:
                 from ..retrievers.knowledge_graph_builder import KnowledgeGraphBuilder
+
                 kg_builder = KnowledgeGraphBuilder()
                 graphml_content = kg_builder.generate_graphml_content(video.knowledge_graph)
 
@@ -345,7 +345,7 @@ class OutputFormatter:
     def _save_facts_file(self, video: VideoIntelligence, paths: Dict[str, Path]):
         """Saves facts.json with extracted facts from relationships and key points."""
         facts = []
-        
+
         # Generate facts from relationships
         if hasattr(video, "relationships") and video.relationships:
             for rel in video.relationships:
@@ -354,11 +354,13 @@ class OutputFormatter:
                         "fact": f"{rel.subject} {rel.predicate} {rel.object}",
                         "type": "relationship",
                         "confidence": getattr(rel, "confidence", 0.8),
-                        "evidence": rel.properties.get("evidence", "") if hasattr(rel, "properties") else "",
-                        "source": getattr(rel, "source", "grok_analysis")
+                        "evidence": (
+                            rel.properties.get("evidence", "") if hasattr(rel, "properties") else ""
+                        ),
+                        "source": getattr(rel, "source", "grok_analysis"),
                     }
                     facts.append(fact)
-        
+
         # Add facts from key points if available
         if hasattr(video, "key_points") and video.key_points:
             for kp in video.key_points:
@@ -367,20 +369,25 @@ class OutputFormatter:
                     "type": "key_point",
                     "confidence": getattr(kp, "confidence", 0.7),
                     "timestamp": getattr(kp, "timestamp", 0),
-                    "source": "analysis"
+                    "source": "analysis",
                 }
                 facts.append(fact)
-        
+
         # Save facts as JSON
         facts_path = paths["directory"] / "facts.json"
         with open(facts_path, "w", encoding="utf-8") as f:
-            json.dump({
-                "video_url": video.metadata.url,
-                "video_title": video.metadata.title,
-                "extraction_date": datetime.now().isoformat(),
-                "fact_count": len(facts),
-                "facts": facts
-            }, f, indent=2, default=str)
+            json.dump(
+                {
+                    "video_url": video.metadata.url,
+                    "video_title": video.metadata.title,
+                    "extraction_date": datetime.now().isoformat(),
+                    "fact_count": len(facts),
+                    "facts": facts,
+                },
+                f,
+                indent=2,
+                default=str,
+            )
         paths["facts"] = facts_path
 
     def _save_report_file(self, video: VideoIntelligence, paths: Dict[str, Path]):
@@ -395,7 +402,9 @@ class OutputFormatter:
             f.write(f"**Processed**: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n")
             f.write(f"**Processing Cost**: ${video.processing_cost:.4f}\n\n")
             f.write("## Executive Summary (TBD)\n\n")
-            f.write("This is a placeholder for the full executive summary. Future enhancements will include:\n")
+            f.write(
+                "This is a placeholder for the full executive summary. Future enhancements will include:\n"
+            )
             f.write("- Detailed analysis summary\n")
             f.write("- Key insights and findings\n")
             f.write("- Risk assessments\n")

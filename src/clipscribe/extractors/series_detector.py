@@ -7,12 +7,12 @@ using title patterns, temporal analysis, and content similarity.
 
 import logging
 import re
-from typing import List, Dict, Any
+from collections import Counter, defaultdict
 from datetime import datetime
 from difflib import SequenceMatcher
-from collections import defaultdict, Counter
+from typing import Any, Dict, List
 
-from ..models import VideoIntelligence, SeriesDetectionResult, SeriesMetadata, VideoSimilarity
+from ..models import SeriesDetectionResult, SeriesMetadata, VideoIntelligence, VideoSimilarity
 
 logger = logging.getLogger(__name__)
 

@@ -7,21 +7,21 @@ for ClipScribe operations.
 
 import time
 from contextlib import contextmanager
-from typing import Any, Dict, Optional, Iterator
 from datetime import timedelta
+from typing import Any, Dict, Iterator, Optional
 
+from rich import box
 from rich.console import Console
+from rich.panel import Panel
 from rich.progress import (
+    BarColumn,
+    MofNCompleteColumn,
     Progress,
     SpinnerColumn,
-    BarColumn,
     TextColumn,
     TimeElapsedColumn,
-    MofNCompleteColumn,
 )
 from rich.table import Table
-from rich.panel import Panel
-from rich import box
 
 # Global console instance
 console = Console()

@@ -5,20 +5,24 @@ transcription of videos from 1800+ platforms using the Voxtral-Grok pipeline
 for uncensored intelligence extraction.
 """
 
-from pathlib import Path
-from typing import Optional, List
 import asyncio
+import json
 import logging
 import os
+from datetime import datetime
+from pathlib import Path
+from typing import List, Optional
 
 import click
 
-from ..version import __version__
 from ..config.logging_config import setup_logging
-from ..retrievers.video_retriever_v2 import VideoIntelligenceRetrieverV2 as VideoIntelligenceRetriever
 from ..config.settings import Settings
-from ..models import VideoCollectionType
 from ..extractors.multi_video_processor import MultiVideoProcessor
+from ..models import VideoCollectionType
+from ..retrievers.video_retriever_v2 import (
+    VideoIntelligenceRetrieverV2 as VideoIntelligenceRetriever,
+)
+from ..version import __version__
 
 
 @click.group()
@@ -46,8 +50,12 @@ def process():
 @click.option("--use-cache/--no-cache", default=True)
 @click.option("--use-flash", is_flag=True, default=False)
 @click.option("--cookies-from-browser", type=str, default=None)
-@click.option("--with-x-draft", is_flag=True, default=False, help="Generate X (Twitter) content draft")
-@click.option("--force", is_flag=True, default=False, help="Force reprocess even if already completed")
+@click.option(
+    "--with-x-draft", is_flag=True, default=False, help="Generate X (Twitter) content draft"
+)
+@click.option(
+    "--force", is_flag=True, default=False, help="Force reprocess even if already completed"
+)
 @click.pass_context
 def process_video(
     ctx: click.Context,
@@ -62,7 +70,16 @@ def process_video(
 ):
     """Process a single video from a URL to extract intelligence."""
     asyncio.run(
-        run_processing_logic(url, use_flash, use_cache, str(output_dir), mode, cookies_from_browser, with_x_draft, force)
+        run_processing_logic(
+            url,
+            use_flash,
+            use_cache,
+            str(output_dir),
+            mode,
+            cookies_from_browser,
+            with_x_draft,
+            force,
+        )
     )
 
 
@@ -98,18 +115,17 @@ async def run_processing_logic(
             logger.info(f"Channel: {result.metadata.channel}")
             saved_files = await retriever.save_all_formats(result, output_dir)
             logger.info(f"Outputs saved to: {saved_files['directory']}")
-            
+
             # Generate X draft if requested
             if with_x_draft:
                 from pathlib import Path
+
                 x_draft = await retriever.generate_x_content(
-                    result, 
-                    Path(saved_files['directory']),
-                    temp_thumbnail=retriever._last_thumbnail
+                    result, Path(saved_files["directory"]), temp_thumbnail=retriever._last_thumbnail
                 )
                 if x_draft:
                     logger.info(f"📱 X draft ready: {x_draft['directory']}")
-            
+
             # Explicit model line for tests
             model_str = "voxtral-mini-2507 + grok-4-0709"
             print(f"Model: {model_str}")
@@ -324,8 +340,8 @@ def check_auth():
 
 
 @cli.command()
-@click.option('--output-dir', default='output', help='Output directory to scan')
-@click.option('--dashboard-dir', default='output/dashboard', help='Dashboard output directory')
+@click.option("--output-dir", default="output", help="Output directory to scan")
+@click.option("--dashboard-dir", default="output/dashboard", help="Dashboard output directory")
 def dashboard(output_dir, dashboard_dir):
     """Create an output dashboard for browsing and downloading processed videos.
 
@@ -347,7 +363,7 @@ def dashboard(output_dir, dashboard_dir):
     dashboard_creator = OutputDashboard(output_dir=output_dir, dashboard_dir=dashboard_dir)
     dashboard_path = dashboard_creator.create_dashboard()
 
-    click.echo(f"\n✅ Dashboard created successfully!")
+    click.echo("\n✅ Dashboard created successfully!")
     click.echo(f"📂 Location: {dashboard_path}")
     click.echo(f"🌐 Open in browser: file://{Path(dashboard_path).absolute()}")
     click.echo("")
@@ -360,12 +376,19 @@ def dashboard(output_dir, dashboard_dir):
 
 
 @cli.command()
-@click.argument('urls_file', type=click.Path(exists=True))
-@click.option('--output-dir', '-o', default='output/batch', help='Output directory for batch results')
-@click.option('--max-concurrent', '-c', type=int, default=3, help='Maximum concurrent jobs')
-@click.option('--priority', type=click.Choice(['low', 'normal', 'high', 'critical']), default='normal', help='Processing priority')
-@click.option('--batch-id', help='Custom batch identifier (auto-generated if not provided)')
-@click.option('--enable-cache/--disable-cache', default=True, help='Enable/disable video caching')
+@click.argument("urls_file", type=click.Path(exists=True))
+@click.option(
+    "--output-dir", "-o", default="output/batch", help="Output directory for batch results"
+)
+@click.option("--max-concurrent", "-c", type=int, default=3, help="Maximum concurrent jobs")
+@click.option(
+    "--priority",
+    type=click.Choice(["low", "normal", "high", "critical"]),
+    default="normal",
+    help="Processing priority",
+)
+@click.option("--batch-id", help="Custom batch identifier (auto-generated if not provided)")
+@click.option("--enable-cache/--disable-cache", default=True, help="Enable/disable video caching")
 def batch_process(urls_file, output_dir, max_concurrent, priority, batch_id, enable_cache):
     """Process multiple videos in batch with parallel execution.
 
@@ -382,8 +405,8 @@ def batch_process(urls_file, output_dir, max_concurrent, priority, batch_id, ena
             from ..processors.batch_processor import BatchProcessor, ProcessingPriority
 
             # Read URLs from file
-            with open(urls_file, 'r') as f:
-                urls = [line.strip() for line in f if line.strip() and not line.startswith('#')]
+            with open(urls_file, "r") as f:
+                urls = [line.strip() for line in f if line.strip() and not line.startswith("#")]
 
             if not urls:
                 click.echo("❌ No valid URLs found in file", err=True)
@@ -397,25 +420,24 @@ def batch_process(urls_file, output_dir, max_concurrent, priority, batch_id, ena
             processor = BatchProcessor(
                 max_concurrent_jobs=max_concurrent,
                 output_dir=output_dir,
-                enable_caching=enable_cache
+                enable_caching=enable_cache,
             )
 
             # Convert priority string to enum
             priority_enum = ProcessingPriority(priority)
 
             # Process batch
-            with click.progressbar(length=len(urls), label='Processing videos') as bar:
+            with click.progressbar(length=len(urls), label="Processing videos") as bar:
+
                 def progress_callback(job, status):
                     bar.update(1)
 
                 result = await processor.process_batch(
-                    video_urls=urls,
-                    batch_id=batch_id,
-                    priority=priority_enum
+                    video_urls=urls, batch_id=batch_id, priority=priority_enum
                 )
 
             # Display results
-            click.echo(f"\\n🎉 Batch processing completed!")
+            click.echo("\\n🎉 Batch processing completed!")
             click.echo(f"📊 Results: {result.completed_jobs}/{result.total_jobs} successful")
             if result.failed_jobs > 0:
                 click.echo(f"⚠️  Failed: {result.failed_jobs} jobs")
@@ -425,9 +447,11 @@ def batch_process(urls_file, output_dir, max_concurrent, priority, batch_id, ena
             click.echo(f"🔖 Batch ID: {result.batch_id}")
 
             # Show next steps
-            click.echo(f"\\n📋 Next steps:")
+            click.echo("\\n📋 Next steps:")
             click.echo(f"  • View results: clipscribe batch-status {result.batch_id}")
-            click.echo(f"  • Download results: clipscribe batch-results {result.batch_id} --download")
+            click.echo(
+                f"  • Download results: clipscribe batch-results {result.batch_id} --download"
+            )
 
         except Exception as e:
             click.echo(f"❌ Batch processing failed: {e}", err=True)
@@ -437,8 +461,8 @@ def batch_process(urls_file, output_dir, max_concurrent, priority, batch_id, ena
 
 
 @cli.command()
-@click.argument('batch_id')
-@click.option('--output-dir', '-o', default='output/batch', help='Batch output directory')
+@click.argument("batch_id")
+@click.option("--output-dir", "-o", default="output/batch", help="Batch output directory")
 def batch_status(batch_id, output_dir):
     """Check the status of a batch processing job.
 
@@ -463,28 +487,30 @@ def batch_status(batch_id, output_dir):
             if result.completed_at:
                 click.echo(f"✅ Completed: {result.completed_at.strftime('%Y-%m-%d %H:%M:%S')}")
 
-            click.echo(f"\\n📈 Progress:")
+            click.echo("\\n📈 Progress:")
             click.echo(f"  Total jobs: {result.total_jobs}")
             click.echo(f"  Completed: {result.completed_jobs}")
             click.echo(f"  Failed: {result.failed_jobs}")
-            click.echo(f"  Remaining: {result.total_jobs - result.completed_jobs - result.failed_jobs}")
+            click.echo(
+                f"  Remaining: {result.total_jobs - result.completed_jobs - result.failed_jobs}"
+            )
 
             if result.completed_at:
-                click.echo(f"\\n📊 Final Statistics:")
+                click.echo("\\n📊 Final Statistics:")
                 click.echo(f"  Total time: {result.total_processing_time:.1f}s")
                 click.echo(f"  Average time per job: {result.average_processing_time:.1f}s")
                 click.echo(f"  Total cost: ${result.total_cost:.2f}")
 
             # Show job details
-            click.echo(f"\\n📋 Recent Jobs:")
+            click.echo("\\n📋 Recent Jobs:")
             for job in result.jobs[-5:]:  # Show last 5 jobs
                 status_icon = {
-                    'pending': '⏳',
-                    'running': '🔄',
-                    'completed': '✅',
-                    'failed': '❌',
-                    'partial_success': '⚠️'
-                }.get(job.status.value, '?')
+                    "pending": "⏳",
+                    "running": "🔄",
+                    "completed": "✅",
+                    "failed": "❌",
+                    "partial_success": "⚠️",
+                }.get(job.status.value, "?")
                 click.echo(f"  {status_icon} {job.job_id}: {job.video_url[:50]}...")
 
         except Exception as e:
@@ -495,10 +521,15 @@ def batch_status(batch_id, output_dir):
 
 
 @cli.command()
-@click.argument('batch_id')
-@click.option('--output-dir', '-o', default='output/batch', help='Batch output directory')
-@click.option('--download', is_flag=True, help='Download results as ZIP archive')
-@click.option('--format', type=click.Choice(['json', 'csv', 'summary']), default='summary', help='Output format')
+@click.argument("batch_id")
+@click.option("--output-dir", "-o", default="output/batch", help="Batch output directory")
+@click.option("--download", is_flag=True, help="Download results as ZIP archive")
+@click.option(
+    "--format",
+    type=click.Choice(["json", "csv", "summary"]),
+    default="summary",
+    help="Output format",
+)
 def batch_results(batch_id, output_dir, download, format):
     """Get the results of a completed batch processing job.
 
@@ -510,9 +541,10 @@ def batch_results(batch_id, output_dir, download, format):
 
     async def _run():
         try:
-            from ..processors.batch_processor import BatchProcessor
-            import zipfile
             import os
+            import zipfile
+
+            from ..processors.batch_processor import BatchProcessor
 
             processor = BatchProcessor(output_dir=output_dir)
             result = await processor.get_batch_results(batch_id)
@@ -521,38 +553,46 @@ def batch_results(batch_id, output_dir, download, format):
                 click.echo(f"❌ Batch {batch_id} not found", err=True)
                 raise click.Abort()
 
-            if format == 'summary':
+            if format == "summary":
                 # Summary format
                 click.echo(f"📊 Batch Results: {batch_id}")
                 click.echo(f"📅 Completed: {result.completed_at.strftime('%Y-%m-%d %H:%M:%S')}")
-                click.echo(f"📈 Success Rate: {result.completed_jobs}/{result.total_jobs} ({result.completed_jobs/result.total_jobs*100:.1f}%)")
+                click.echo(
+                    f"📈 Success Rate: {result.completed_jobs}/{result.total_jobs} ({result.completed_jobs/result.total_jobs*100:.1f}%)"
+                )
                 click.echo(f"⏱️  Total Processing Time: {result.total_processing_time:.1f}s")
                 click.echo(f"💰 Total Cost: ${result.total_cost:.2f}")
 
                 # Show top performers
-                click.echo(f"\\n🏆 Top Performing Jobs:")
-                successful_jobs = [j for j in result.jobs if j.status.value == 'completed']
-                sorted_jobs = sorted(successful_jobs, key=lambda j: j.metadata.get('entity_count', 0), reverse=True)
+                click.echo("\\n🏆 Top Performing Jobs:")
+                successful_jobs = [j for j in result.jobs if j.status.value == "completed"]
+                sorted_jobs = sorted(
+                    successful_jobs, key=lambda j: j.metadata.get("entity_count", 0), reverse=True
+                )
                 for job in sorted_jobs[:3]:
                     click.echo(f"  ✅ {job.job_id}: {job.metadata.get('entity_count', 0)} entities")
 
-            elif format == 'json':
+            elif format == "json":
                 # JSON format
                 click.echo(json.dumps(result.to_dict(), indent=2, default=str))
 
-            elif format == 'csv':
+            elif format == "csv":
                 # CSV format
-                click.echo("job_id,status,processing_time,cost,entity_count,relationship_count,video_url")
+                click.echo(
+                    "job_id,status,processing_time,cost,entity_count,relationship_count,video_url"
+                )
                 for job in result.jobs:
-                    click.echo(f"{job.job_id},{job.status.value},{job.processing_time or ''},{job.metadata.get('cost', '') if job.metadata else ''},{job.metadata.get('entity_count', '') if job.metadata else ''},{job.metadata.get('relationship_count', '') if job.metadata else ''},{job.video_url}")
+                    click.echo(
+                        f"{job.job_id},{job.status.value},{job.processing_time or ''},{job.metadata.get('cost', '') if job.metadata else ''},{job.metadata.get('entity_count', '') if job.metadata else ''},{job.metadata.get('relationship_count', '') if job.metadata else ''},{job.video_url}"
+                    )
 
             # Create ZIP download if requested
             if download:
                 zip_path = Path(result.output_directory) / f"{batch_id}_results.zip"
-                with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED) as zip_file:
+                with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as zip_file:
                     for root, dirs, files in os.walk(result.output_directory):
                         for file in files:
-                            if file.endswith('.json'):  # Only include result files
+                            if file.endswith(".json"):  # Only include result files
                                 file_path = os.path.join(root, file)
                                 arc_name = os.path.relpath(file_path, result.output_directory)
                                 zip_file.write(file_path, arc_name)
@@ -568,9 +608,11 @@ def batch_results(batch_id, output_dir, download, format):
 
 
 @cli.command()
-@click.argument('batch_id')
-@click.option('--output-dir', '-o', default='output/batch', help='Batch output directory')
-@click.option('--cross-video/--single-video', default=True, help='Enable cross-video entity normalization')
+@click.argument("batch_id")
+@click.option("--output-dir", "-o", default="output/batch", help="Batch output directory")
+@click.option(
+    "--cross-video/--single-video", default=True, help="Enable cross-video entity normalization"
+)
 def normalize_batch_entities(batch_id, output_dir, cross_video):
     """Normalize entities across all videos in a batch with cross-video linking.
 
@@ -588,9 +630,10 @@ def normalize_batch_entities(batch_id, output_dir, cross_video):
 
     async def _run():
         try:
-            from ..extractors.entity_normalizer import EntityNormalizer
-            from pathlib import Path
             import json
+            from pathlib import Path
+
+            from ..extractors.entity_normalizer import EntityNormalizer
 
             batch_dir = Path(output_dir) / batch_id
             if not batch_dir.exists():
@@ -599,13 +642,19 @@ def normalize_batch_entities(batch_id, output_dir, cross_video):
 
             click.echo(f"🔍 Analyzing batch: {batch_id}")
             click.echo(f"📁 Location: {batch_dir}")
-            click.echo(f"🔗 Cross-video normalization: {'✅ Enabled' if cross_video else '❌ Disabled'}")
+            click.echo(
+                f"🔗 Cross-video normalization: {'✅ Enabled' if cross_video else '❌ Disabled'}"
+            )
 
             # Collect entities from all video results in the batch
             video_entities = {}
 
             # Look for job result files
-            job_dirs = [d for d in batch_dir.iterdir() if d.is_dir() and d.name.startswith(f"{batch_id}_job_")]
+            job_dirs = [
+                d
+                for d in batch_dir.iterdir()
+                if d.is_dir() and d.name.startswith(f"{batch_id}_job_")
+            ]
 
             if not job_dirs:
                 click.echo("❌ No job results found in batch", err=True)
@@ -618,15 +667,15 @@ def normalize_batch_entities(batch_id, output_dir, cross_video):
                 results_file = job_dir / "results.json"
                 if results_file.exists():
                     try:
-                        with open(results_file, 'r') as f:
+                        with open(results_file, "r") as f:
                             job_results = json.load(f)
 
                         # Extract entities from job results
                         entities = []
-                        if 'entities' in job_results:
-                            for entity_data in job_results['entities']:
+                        if "entities" in job_results:
+                            for entity_data in job_results["entities"]:
                                 # Convert dict to Entity-like object
-                                entity = type('Entity', (), entity_data)()
+                                entity = type("Entity", (), entity_data)()
                                 entities.append(entity)
 
                         if entities:
@@ -647,19 +696,21 @@ def normalize_batch_entities(batch_id, output_dir, cross_video):
             if cross_video:
                 # PHASE 2: Cross-video normalization
                 click.echo("\\n🚀 PHASE 2: Starting cross-video entity normalization...")
-                with click.progressbar(length=len(video_entities), label='Processing videos') as bar:
+                with click.progressbar(
+                    length=len(video_entities), label="Processing videos"
+                ) as bar:
                     result = normalizer.normalize_entities_across_videos(video_entities)
                     bar.update(len(video_entities))
 
                 # Save comprehensive results
                 output_file = batch_dir / "cross_video_normalization_results.json"
-                with open(output_file, 'w') as f:
+                with open(output_file, "w") as f:
                     json.dump(result, f, indent=2, default=str)
 
                 # Display results
-                stats = result['statistics']
-                click.echo(f"\\n🎉 Cross-video normalization complete!")
-                click.echo(f"📊 Statistics:")
+                stats = result["statistics"]
+                click.echo("\\n🎉 Cross-video normalization complete!")
+                click.echo("📊 Statistics:")
                 click.echo(f"  Videos processed: {stats['input_videos']}")
                 click.echo(f"  Total entities: {stats['total_input_entities']}")
                 click.echo(f"  Normalized entities: {stats['cross_video_normalized_entities']}")
@@ -667,15 +718,19 @@ def normalize_batch_entities(batch_id, output_dir, cross_video):
                 click.echo(f"  Deduplication ratio: {stats.get('deduplication_ratio', 0):.2f}")
 
                 # Show top cross-video entities
-                if result['insights']['cross_video_entities']:
-                    click.echo(f"\\n🏆 Top Cross-Video Entities:")
-                    for entity in result['insights']['cross_video_entities'][:5]:
-                        click.echo(f"  • {entity['entity']} ({entity['type']}) - {len(entity['videos'])} videos")
+                if result["insights"]["cross_video_entities"]:
+                    click.echo("\\n🏆 Top Cross-Video Entities:")
+                    for entity in result["insights"]["cross_video_entities"][:5]:
+                        click.echo(
+                            f"  • {entity['entity']} ({entity['type']}) - {len(entity['videos'])} videos"
+                        )
 
                 # Show video similarity
-                if result['insights']['video_similarity_scores']:
-                    click.echo(f"\\n🔗 Video Similarity Scores:")
-                    for video_pair, similarity in list(result['insights']['video_similarity_scores'].items())[:3]:
+                if result["insights"]["video_similarity_scores"]:
+                    click.echo("\\n🔗 Video Similarity Scores:")
+                    for video_pair, similarity in list(
+                        result["insights"]["video_similarity_scores"].items()
+                    )[:3]:
                         click.echo(f"  • {video_pair}: {similarity:.2f}")
 
             else:
@@ -686,55 +741,64 @@ def normalize_batch_entities(batch_id, output_dir, cross_video):
                 for video_id, entities in video_entities.items():
                     normalized = normalizer.normalize_entities(entities)
                     single_results[video_id] = {
-                        'original_count': len(entities),
-                        'normalized_count': len(normalized),
-                        'entities': [{'name': e.entity, 'type': e.type, 'confidence': getattr(e, 'confidence', 0.5)} for e in normalized]
+                        "original_count": len(entities),
+                        "normalized_count": len(normalized),
+                        "entities": [
+                            {
+                                "name": e.entity,
+                                "type": e.type,
+                                "confidence": getattr(e, "confidence", 0.5),
+                            }
+                            for e in normalized
+                        ],
                     }
 
                 # Save single-video results
                 output_file = batch_dir / "single_video_normalization_results.json"
-                with open(output_file, 'w') as f:
+                with open(output_file, "w") as f:
                     json.dump(single_results, f, indent=2)
 
-                total_normalized = sum(r['normalized_count'] for r in single_results.values())
+                total_normalized = sum(r["normalized_count"] for r in single_results.values())
                 click.echo(f"✅ Single-video normalization complete: {total_normalized} entities")
 
             # Save summary
             summary_file = batch_dir / "entity_normalization_summary.txt"
-            with open(summary_file, 'w') as f:
-                f.write(f"Entity Normalization Summary\\n")
+            with open(summary_file, "w") as f:
+                f.write("Entity Normalization Summary\\n")
                 f.write(f"Batch ID: {batch_id}\\n")
                 f.write(f"Cross-video enabled: {cross_video}\\n")
-                f.write(f"Timestamp: {json.dumps({'timestamp': str(datetime.now())}, default=str)}\\n")
+                f.write(
+                    f"Timestamp: {json.dumps({'timestamp': str(datetime.now())}, default=str)}\\n"
+                )
 
-            click.echo(f"\\n💾 Results saved to:")
+            click.echo("\\n💾 Results saved to:")
             click.echo(f"  📄 {output_file}")
             click.echo(f"  📋 {summary_file}")
 
             if cross_video:
-                click.echo(f"\\n📈 Next steps:")
+                click.echo("\\n📈 Next steps:")
                 click.echo(f"  • View detailed results: cat {output_file}")
-                click.echo(f"  • Analyze entity networks: explore cross_video_links")
-                click.echo(f"  • Check insights: review entity importance ranking")
+                click.echo("  • Analyze entity networks: explore cross_video_links")
+                click.echo("  • Check insights: review entity importance ranking")
 
         except Exception as e:
             click.echo(f"❌ Entity normalization failed: {e}", err=True)
             import traceback
+
             traceback.print_exc()
             raise click.Abort()
 
     asyncio.run(_run())
 
 
-
 @cli.command("stats")
 def show_stats():
     """Show processing statistics."""
     from ..utils.processing_tracker import ProcessingTracker
-    
+
     tracker = ProcessingTracker()
     stats = tracker.get_stats()
-    
+
     click.echo("\n📊 Processing Statistics\n")
     click.echo(f"Total: {stats['total_tracked']}")
     click.echo(f"  ✅ Completed: {stats['completed']}")
@@ -742,24 +806,31 @@ def show_stats():
     click.echo(f"Success rate: {stats['success_rate']}")
 
 
-
 @cli.command("monitor")
 @click.option("--channels", required=True, help="Comma-separated channel IDs (UC...)")
 @click.option("--interval", default=600, help="Check interval in seconds (default: 600 = 10min)")
-@click.option("--with-x-draft", is_flag=True, default=False, help="Generate X drafts for new videos")
-@click.option("--with-obsidian", type=click.Path(), default=None, help="Export to Obsidian vault path")
-@click.option("--output-dir", default="output/monitored", help="Output directory for processed videos")
-def monitor_channels(channels: str, interval: int, with_x_draft: bool, with_obsidian: str, output_dir: str):
+@click.option(
+    "--with-x-draft", is_flag=True, default=False, help="Generate X drafts for new videos"
+)
+@click.option(
+    "--with-obsidian", type=click.Path(), default=None, help="Export to Obsidian vault path"
+)
+@click.option(
+    "--output-dir", default="output/monitored", help="Output directory for processed videos"
+)
+def monitor_channels(
+    channels: str, interval: int, with_x_draft: bool, with_obsidian: str, output_dir: str
+):
     """
     Monitor YouTube channels for new video drops and auto-process them.
-    
+
     Examples:
         # Monitor single channel
         clipscribe monitor --channels UCg5EWI7X2cyS98C8hQwDCcw
-        
+
         # Monitor multiple channels with X drafts
         clipscribe monitor --channels UC123,UC456 --with-x-draft
-        
+
         # Monitor with Obsidian export
         clipscribe monitor --channels UC123 --with-obsidian ~/Documents/Vault
     """
@@ -767,22 +838,19 @@ def monitor_channels(channels: str, interval: int, with_x_draft: bool, with_obsi
 
 
 async def _run_monitor(
-    channels: str,
-    interval: int,
-    with_x_draft: bool,
-    with_obsidian: Optional[str],
-    output_dir: str
+    channels: str, interval: int, with_x_draft: bool, with_obsidian: Optional[str], output_dir: str
 ):
     """Run the monitoring loop."""
+    from pathlib import Path
+
+    from ..exporters.obsidian_exporter import ObsidianExporter
     from ..monitors.channel_monitor import ChannelMonitor
     from ..retrievers.video_retriever_v2 import VideoIntelligenceRetrieverV2
-    from ..exporters.obsidian_exporter import ObsidianExporter
-    from pathlib import Path
-    
+
     # Parse channel IDs
-    channel_ids = [c.strip() for c in channels.split(',')]
-    
-    click.echo(f"\n🔍 ClipScribe Channel Monitor\n")
+    channel_ids = [c.strip() for c in channels.split(",")]
+
+    click.echo("\n🔍 ClipScribe Channel Monitor\n")
     click.echo(f"Monitoring {len(channel_ids)} channels:")
     for cid in channel_ids:
         click.echo(f"  - {cid}")
@@ -790,35 +858,39 @@ async def _run_monitor(
     click.echo(f"X drafts: {'✅ Enabled' if with_x_draft else '❌ Disabled'}")
     click.echo(f"Obsidian export: {'✅ ' + with_obsidian if with_obsidian else '❌ Disabled'}")
     click.echo(f"Output: {output_dir}/")
-    click.echo(f"\nPress Ctrl+C to stop\n")
-    
+    click.echo("\nPress Ctrl+C to stop\n")
+
     # Initialize
     monitor = ChannelMonitor(channel_ids)
     retriever = VideoIntelligenceRetrieverV2(output_dir=output_dir)
     obsidian = ObsidianExporter(Path(with_obsidian)) if with_obsidian else None
-    
+
     # Callback for new videos
     async def process_new_video(video_info: dict):
-        click.echo(f"\n🆕 New video detected!")
+        click.echo("\n🆕 New video detected!")
         click.echo(f"   Title: {video_info['title']}")
         click.echo(f"   Channel: {video_info['channel']}")
         click.echo(f"   URL: {video_info['url']}")
-        click.echo(f"\n   Processing...")
-        
+        click.echo("\n   Processing...")
+
         try:
             # Process video
-            result = await retriever.process_url(video_info['url'])
-            
+            result = await retriever.process_url(video_info["url"])
+
             if result:
-                click.echo(f"   ✅ Complete: {len(result.entities)} entities, {len(result.relationships)} relationships")
-                
+                click.echo(
+                    f"   ✅ Complete: {len(result.entities)} entities, {len(result.relationships)} relationships"
+                )
+
                 # Generate X draft if requested
                 if with_x_draft:
-                    output_path = Path(retriever.output_dir) / f"20251001_youtube_{video_info['video_id']}"  # Approximate
+                    output_path = (
+                        Path(retriever.output_dir) / f"20251001_youtube_{video_info['video_id']}"
+                    )  # Approximate
                     x_draft = await retriever.generate_x_content(result, output_path)
                     if x_draft:
                         click.echo(f"   📱 X draft: {x_draft['directory']}")
-                
+
                 # Export to Obsidian if requested
                 if obsidian:
                     obsidian.export_video(
@@ -829,21 +901,21 @@ async def _run_monitor(
                         entities=result.entities,
                         relationships=result.relationships,
                         transcript=result.transcript.full_text,
-                        metadata={'cost': result.processing_cost}
+                        metadata={"cost": result.processing_cost},
                     )
                     click.echo(f"   📓 Obsidian: {with_obsidian}")
             else:
-                click.echo(f"   ❌ Processing failed or skipped")
-                
+                click.echo("   ❌ Processing failed or skipped")
+
         except Exception as e:
             click.echo(f"   ❌ Error: {e}")
-    
+
     # Run monitor loop
     try:
         await monitor.monitor_loop(interval=interval, on_new_video=process_new_video)
     except KeyboardInterrupt:
-        click.echo(f"\n\n✋ Monitoring stopped by user")
-        stats = monitor.tracker.get_stats() if hasattr(monitor, 'tracker') else None
+        click.echo("\n\n✋ Monitoring stopped by user")
+        stats = monitor.tracker.get_stats() if hasattr(monitor, "tracker") else None
         if stats:
             click.echo(f"\nProcessed: {stats.get('completed', 0)} videos")
 
@@ -856,11 +928,11 @@ async def _run_monitor(
 def monitor_async(channels: str, interval: int, workers: int, output_dir: str):
     """
     Monitor channels with async 10-worker architecture (FAST).
-    
+
     Examples:
         # Monitor with 10 workers
         clipscribe monitor-async --channels UCg5EWI7X2cyS98C8hQwDCcw
-        
+
         # Custom worker count
         clipscribe monitor-async --channels UC123 --workers 20
     """
@@ -870,27 +942,25 @@ def monitor_async(channels: str, interval: int, workers: int, output_dir: str):
 async def _run_async_monitor(channels: str, interval: int, workers: int, output_dir: str):
     """Run async monitor orchestrator."""
     from ..async_processing.async_monitor import AsyncMonitorOrchestrator
-    
+
     # Parse channel IDs
-    channel_ids = [c.strip() for c in channels.split(',')]
-    
-    click.echo(f"\n🚀 ClipScribe Async Monitor (10-Worker Architecture)\n")
+    channel_ids = [c.strip() for c in channels.split(",")]
+
+    click.echo("\n🚀 ClipScribe Async Monitor (10-Worker Architecture)\n")
     click.echo(f"Monitoring {len(channel_ids)} channels:")
     for cid in channel_ids:
         click.echo(f"  - {cid}")
     click.echo(f"\nWorkers: {workers} concurrent")
     click.echo(f"Check interval: {interval}s")
     click.echo(f"Output: {output_dir}/")
-    click.echo(f"\n⚡ Non-blocking processing enabled")
-    click.echo(f"📱 Telegram notifications: ON")
-    click.echo(f"\nPress Ctrl+C to stop\n")
-    
+    click.echo("\n⚡ Non-blocking processing enabled")
+    click.echo("📱 Telegram notifications: ON")
+    click.echo("\nPress Ctrl+C to stop\n")
+
     # Create orchestrator
     orchestrator = AsyncMonitorOrchestrator(
-        channel_ids=channel_ids,
-        max_workers=workers,
-        output_dir=output_dir
+        channel_ids=channel_ids, max_workers=workers, output_dir=output_dir
     )
-    
+
     # Start orchestrator
     await orchestrator.start(check_interval=interval)

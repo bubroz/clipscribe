@@ -1,15 +1,13 @@
 """
 Knowledge graph cleaner - Gemini removed, functionality moved to HybridProcessor.
 
-Instead of rigid rules, let's use AI to understand context and clean intelligently 
+Instead of rigid rules, let's use AI to understand context and clean intelligently
 """
 
 import json
 import logging
-from typing import Dict, List, Any
+from typing import Any, Dict, List
 
-
-import google.generativeai as genai
 from google.generativeai.types import RequestOptions
 
 from ..config.settings import Settings
@@ -91,16 +89,16 @@ Identify ONLY:
 1. NOISE: Truly meaningless fragments or extraction errors
    Examples: "um", "uh", "the the", sentence fragments like "has directed that"
    DO NOT mark as noise: roles ("participant"), generic concepts ("country"), or any real words
-   
+
 2. DUPLICATES: Exact same entity with different spellings
    Examples: "U.S." and "United States", "Trump" and "Donald Trump"
-   
+
 3. MISTYPED: Obviously wrong type classification
 
 Return a JSON object with these exact keys:
 {{
     "noise": ["entity1", "entity2"],  // ONLY fragments and errors
-    "duplicates": {{"variant": "primary", "US": "United States"}},  // Map variants  
+    "duplicates": {{"variant": "primary", "US": "United States"}},  // Map variants
     "retype": {{"entity": "correct_type"}},  // Fix obvious type errors
     "keep_important": ["entity1", "entity2"]  // Entities that are definitely important
 }}

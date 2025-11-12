@@ -6,13 +6,12 @@ Dual-mode architecture:
 - WhisperX: Premium, medical/legal grade (97-99% accuracy)
 """
 
+from .dual_mode_transcriber import DualModeTranscriber
 from .voxtral_transcriber import VoxtralTranscriber
 from .whisperx_transcriber import WhisperXTranscriber
-from .dual_mode_transcriber import DualModeTranscriber
 
 __all__ = [
     "VoxtralTranscriber",
     "WhisperXTranscriber",
     "DualModeTranscriber",
 ]
-

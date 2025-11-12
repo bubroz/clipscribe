@@ -5,22 +5,15 @@ This module provides transcription using Mistral's Voxtral models,
 offering uncensored, high-accuracy transcription for professional data collection.
 """
 
-import os
-import json
 import asyncio
 import logging
-from typing import Dict, Any, Optional, List
-from pathlib import Path
-import aiohttp
-import tempfile
+import os
 from dataclasses import dataclass
+from pathlib import Path
+from typing import Any, Dict, List, Optional
 
-from tenacity import (
-    retry,
-    stop_after_attempt,
-    wait_exponential,
-    retry_if_exception_type,
-)
+import aiohttp
+from tenacity import retry, retry_if_exception_type, stop_after_attempt, wait_exponential
 
 logger = logging.getLogger(__name__)
 
@@ -28,6 +21,7 @@ logger = logging.getLogger(__name__)
 @dataclass
 class VoxtralTranscriptionResult:
     """Result from Voxtral transcription."""
+
     text: str
     language: str
     duration: float
@@ -40,16 +34,16 @@ class VoxtralTranscriptionResult:
 class VoxtralTranscriber:
     """
     Voxtral transcription service using Mistral API.
-    
+
     Supports multiple models:
     - voxtral-small (24B): Best accuracy (1.8% WER)
     - voxtral-mini (3B): Efficient option
     - voxtral-mini-transcribe: API-optimized variant
     """
-    
+
     BASE_URL = "https://api.mistral.ai/v1"
     COST_PER_MINUTE = 0.001  # $0.001 per minute for all models
-    
+
     def __init__(
         self,
         api_key: Optional[str] = None,
@@ -59,7 +53,7 @@ class VoxtralTranscriber:
     ):
         """
         Initialize Voxtral transcriber.
-        
+
         Args:
             api_key: Mistral API key (or from MISTRAL_API_KEY env var)
             model: Model to use (voxtral-mini-latest, voxtral-small-latest)
@@ -69,19 +63,19 @@ class VoxtralTranscriber:
         self.api_key = api_key or os.getenv("MISTRAL_API_KEY")
         if not self.api_key:
             raise ValueError("Mistral API key required (set MISTRAL_API_KEY)")
-        
+
         self.model = model
         self.max_retries = max_retries
         self.timeout = timeout
-        
+
         # Validate model choice - using correct model names from docs
         valid_models = ["voxtral-mini-latest", "voxtral-small-latest", "voxtral-mini-2507"]
         if model not in valid_models:
             logger.warning(f"Model {model} not in known list, proceeding anyway")
             # Don't fail - let the API validate
-        
+
         logger.info(f"Initialized Voxtral transcriber with model: {model}")
-    
+
     @retry(
         stop=stop_after_attempt(3),
         wait=wait_exponential(multiplier=2, min=5, max=60),
@@ -96,25 +90,25 @@ class VoxtralTranscriber:
     ) -> VoxtralTranscriptionResult:
         """
         Transcribe audio file using Voxtral.
-        
+
         Args:
             audio_path: Path to audio file
             language: Optional language hint (auto-detected if not provided)
             prompt: Optional context prompt for better accuracy
-            
+
         Returns:
             VoxtralTranscriptionResult with transcript and metadata
         """
         audio_path = Path(audio_path)
         if not audio_path.exists():
             raise FileNotFoundError(f"Audio file not found: {audio_path}")
-        
+
         # Build context prompt from video metadata
         if video_metadata and not prompt:
-            channel = video_metadata.get('channel', '')
-            title = video_metadata.get('title', '')
-            description = video_metadata.get('description', '')
-            
+            channel = video_metadata.get("channel", "")
+            title = video_metadata.get("title", "")
+            description = video_metadata.get("description", "")
+
             context_parts = []
             if channel:
                 context_parts.append(f"Channel: {channel}")
@@ -123,30 +117,32 @@ class VoxtralTranscriber:
             if description:
                 # Use first 200 chars of description
                 context_parts.append(f"About: {description[:200]}")
-            
+
             if context_parts:
                 prompt = ". ".join(context_parts) + "."
                 logger.info(f"Using context prompt for better accuracy: {prompt[:100]}...")
-        
+
         # Get audio duration for cost calculation
         duration = await self._get_audio_duration(audio_path)
-        
-        logger.info(f"Transcribing {duration:.1f} seconds ({duration/60:.1f} min) with Voxtral {self.model}")
-        
+
+        logger.info(
+            f"Transcribing {duration:.1f} seconds ({duration/60:.1f} min) with Voxtral {self.model}"
+        )
+
         async with aiohttp.ClientSession() as session:
             # Option 1: Upload file first, then get signed URL
             file_id = await self._upload_file(session, audio_path)
-            
+
             try:
                 # Get signed URL for the uploaded file
                 signed_url = await self._get_signed_url(session, file_id)
-                
+
                 # Transcribe using the signed URL
                 result = await self._transcribe_with_url(session, signed_url, language, prompt)
-                
+
                 # Calculate cost
                 cost = (duration / 60) * self.COST_PER_MINUTE
-                
+
                 return VoxtralTranscriptionResult(
                     text=result["text"],
                     language=result.get("language", language or "en"),
@@ -156,15 +152,15 @@ class VoxtralTranscriber:
                     confidence=result.get("confidence"),
                     segments=result.get("segments"),
                 )
-                
+
             finally:
                 # Clean up uploaded file
                 await self._delete_file(session, file_id)
-    
+
     @retry(
         stop=stop_after_attempt(3),
         wait=wait_exponential(multiplier=2, min=5, max=60),
-        retry=retry_if_exception_type((aiohttp.ClientError, asyncio.TimeoutError))
+        retry=retry_if_exception_type((aiohttp.ClientError, asyncio.TimeoutError)),
     )
     async def _upload_file(self, session: aiohttp.ClientSession, file_path: Path) -> str:
         """Upload audio file to Mistral API with retry logic."""
@@ -172,7 +168,7 @@ class VoxtralTranscriber:
         headers = {
             "Authorization": f"Bearer {self.api_key}",
         }
-        
+
         # Prepare multipart upload
         data = aiohttp.FormData()
         data.add_field(
@@ -182,22 +178,22 @@ class VoxtralTranscriber:
             content_type=self._get_mime_type(file_path),
         )
         data.add_field("purpose", "audio")
-        
+
         async with session.post(
-            url, 
-            headers=headers, 
+            url,
+            headers=headers,
             data=data,
             timeout=aiohttp.ClientTimeout(total=self.timeout),
         ) as response:
             if response.status != 200:
                 error_text = await response.text()
                 raise Exception(f"File upload failed: {response.status} - {error_text}")
-            
+
             result = await response.json()
             file_id = result["id"]
             logger.debug(f"Uploaded file: {file_id}")
             return file_id
-    
+
     async def _get_signed_url(self, session: aiohttp.ClientSession, file_id: str) -> str:
         """Get signed URL for uploaded file."""
         url = f"{self.BASE_URL}/files/{file_id}/url"
@@ -205,10 +201,10 @@ class VoxtralTranscriber:
             "Authorization": f"Bearer {self.api_key}",
             "Accept": "application/json",
         }
-        
+
         # Request signed URL with 24 hour expiry
         params = {"expiry": "24"}
-        
+
         async with session.get(
             url,
             headers=headers,
@@ -218,16 +214,16 @@ class VoxtralTranscriber:
             if response.status != 200:
                 error_text = await response.text()
                 raise Exception(f"Failed to get signed URL: {response.status} - {error_text}")
-            
+
             result = await response.json()
             signed_url = result.get("url")
             logger.debug(f"Got signed URL for file {file_id}")
             return signed_url
-    
+
     @retry(
         stop=stop_after_attempt(3),
         wait=wait_exponential(multiplier=2, min=5, max=60),
-        retry=retry_if_exception_type((aiohttp.ClientError, asyncio.TimeoutError))
+        retry=retry_if_exception_type((aiohttp.ClientError, asyncio.TimeoutError)),
     )
     async def _transcribe_with_url(
         self,
@@ -241,18 +237,18 @@ class VoxtralTranscriber:
         headers = {
             "x-api-key": self.api_key,  # Use x-api-key header for transcription endpoint
         }
-        
+
         # Use FormData for multipart/form-data request
         data = aiohttp.FormData()
         data.add_field("model", self.model)
         data.add_field("file_url", file_url)  # Use the signed URL
-        
+
         if language:
             data.add_field("language", language)
-        
+
         if prompt:
             data.add_field("prompt", prompt)
-        
+
         async with session.post(
             url,
             headers=headers,
@@ -262,18 +258,18 @@ class VoxtralTranscriber:
             if response.status != 200:
                 error_text = await response.text()
                 raise Exception(f"Transcription failed: {response.status} - {error_text}")
-            
+
             result = await response.json()
             logger.debug(f"Transcription complete: {len(result.get('text', ''))} chars")
             return result
-    
+
     async def _delete_file(self, session: aiohttp.ClientSession, file_id: str):
         """Delete uploaded file from Mistral."""
         url = f"{self.BASE_URL}/files/{file_id}"
         headers = {
             "Authorization": f"Bearer {self.api_key}",
         }
-        
+
         try:
             async with session.delete(url, headers=headers) as response:
                 # Mistral returns 200 instead of 204 for successful deletion
@@ -281,19 +277,21 @@ class VoxtralTranscriber:
                     logger.warning(f"Failed to delete file {file_id}: {response.status}")
         except Exception as e:
             logger.warning(f"Error deleting file {file_id}: {e}")
-    
+
     async def _get_audio_duration(self, audio_path: Path) -> float:
         """Get audio duration in seconds using ffprobe."""
-        import subprocess
-        
+
         cmd = [
             "ffprobe",
-            "-v", "error",
-            "-show_entries", "format=duration",
-            "-of", "default=noprint_wrappers=1:nokey=1",
+            "-v",
+            "error",
+            "-show_entries",
+            "format=duration",
+            "-of",
+            "default=noprint_wrappers=1:nokey=1",
             str(audio_path),
         ]
-        
+
         try:
             result = await asyncio.create_subprocess_exec(
                 *cmd,
@@ -308,7 +306,7 @@ class VoxtralTranscriber:
             # Estimate based on file size (rough approximation)
             file_size_mb = audio_path.stat().st_size / (1024 * 1024)
             return file_size_mb * 60  # Rough estimate: 1MB = 1 minute
-    
+
     def _get_mime_type(self, file_path: Path) -> str:
         """Get MIME type for audio file."""
         suffix = file_path.suffix.lower()
@@ -322,7 +320,7 @@ class VoxtralTranscriber:
             ".webm": "audio/webm",
         }
         return mime_types.get(suffix, "audio/mpeg")
-    
+
     async def transcribe_with_fallback(
         self,
         audio_path: str,
@@ -355,13 +353,13 @@ async def test_voxtral_transcription():
     """Test Voxtral transcription with a sample file."""
     # This would be called with a test audio file
     transcriber = VoxtralTranscriber(model="voxtral-small")
-    
+
     # Create a test audio file (you'd use a real file in practice)
     test_audio = "/path/to/test/audio.mp3"
-    
+
     try:
         result = await transcriber.transcribe_audio(test_audio)
-        print(f"Transcription successful!")
+        print("Transcription successful!")
         print(f"Text: {result.text[:200]}...")
         print(f"Language: {result.language}")
         print(f"Duration: {result.duration:.1f} seconds")

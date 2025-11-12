@@ -2,15 +2,15 @@
 Video Mode Detector - Intelligently choose between audio-only and full video processing.
 
 This module analyzes video characteristics to determine if visual content is important
-for transcription accuracy 
+for transcription accuracy
 """
 
-import logging
-from typing import Dict, Tuple, Optional
-from dataclasses import dataclass
-import subprocess
 import json
+import logging
 import re
+import subprocess
+from dataclasses import dataclass
+from typing import Dict, Optional, Tuple
 
 logger = logging.getLogger(__name__)
 

@@ -4,13 +4,13 @@ Smart video retention management with cost optimization.
 Balances storage costs vs reprocessing costs for optimal efficiency.
 """
 
+import json
+import logging
 import os
 import shutil
-import logging
-from typing import Dict, Optional, Any
-from pathlib import Path
 from datetime import datetime, timedelta
-import json
+from pathlib import Path
+from typing import Any, Dict, Optional
 
 from ..config.settings import Settings, VideoRetentionPolicy
 from ..models import VideoIntelligence

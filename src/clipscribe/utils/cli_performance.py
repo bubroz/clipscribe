@@ -5,20 +5,20 @@ This module provides the CLI Performance Optimization components for ClipScribe 
 achieving <100ms CLI feedback response times and 25% faster processing.
 """
 
-import time
-from contextlib import asynccontextmanager
-from typing import Any, Dict, Optional, Iterator, List
-from datetime import timedelta
 import logging
+import time
 import traceback
+from contextlib import asynccontextmanager
+from datetime import timedelta
+from typing import Any, Dict, Iterator, List, Optional
 
-from rich.console import Console
-from rich.table import Table
-from rich.panel import Panel
-from rich.live import Live
-from rich.layout import Layout
-from rich import box
 import click
+from rich import box
+from rich.console import Console
+from rich.layout import Layout
+from rich.live import Live
+from rich.panel import Panel
+from rich.table import Table
 
 # Global console instance for consistency
 console = Console()

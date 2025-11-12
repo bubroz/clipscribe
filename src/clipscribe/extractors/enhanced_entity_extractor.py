@@ -5,17 +5,12 @@ milestone (v2.19.0), adding confidence scores, source attribution, context
 windows, and alias detection to entity extraction.
 """
 
-import re
 import logging
+import re
 from collections import defaultdict
 from typing import Dict, List, Optional
 
-from ..models import (
-    Entity,
-    EnhancedEntity,
-    EntityContext,
-    TemporalMention,
-)
+from ..models import EnhancedEntity, Entity, EntityContext, TemporalMention
 
 logger = logging.getLogger(__name__)
 
@@ -63,7 +58,9 @@ class EnhancedEntityExtractor:
             )
 
             # Extract source information
-            sources = [e.source for e in entity_group if hasattr(e, "source") and e.source is not None]
+            sources = [
+                e.source for e in entity_group if hasattr(e, "source") and e.source is not None
+            ]
             if not sources:
                 sources = ["hybrid_processor"]  # Default source
 
@@ -114,7 +111,7 @@ class EnhancedEntityExtractor:
 
             # Skip entities with empty or None names
             if not entity.entity or not entity.entity.strip():
-                logger.debug(f"DEBUG: Skipping empty/None entity")
+                logger.debug("DEBUG: Skipping empty/None entity")
                 continue
 
             canonical = self._get_canonical_form(entity.entity)
@@ -208,7 +205,7 @@ class EnhancedEntityExtractor:
         if len(text1) > len(text2):
             # First param is longer, check if second is abbreviation of first
             for short, long in common_abbrevs.items():
-                if (t1_lower == long and t2_lower == short):
+                if t1_lower == long and t2_lower == short:
                     return True
 
         # Check if short is acronym of long (very restrictive for proper acronyms)
@@ -230,12 +227,23 @@ class EnhancedEntityExtractor:
                     # 1. Words should be meaningful (length > 2)
                     # 2. Should not be personal names (common first names)
                     # 3. Should not be common single-letter abbreviations
-                    common_first_names = {"john", "jane", "mike", "sarah", "david", "mary", "bob", "alice"}
+                    common_first_names = {
+                        "john",
+                        "jane",
+                        "mike",
+                        "sarah",
+                        "david",
+                        "mary",
+                        "bob",
+                        "alice",
+                    }
                     common_single_abbrs = {"ai", "io", "it"}  # Common but not organizational
 
-                    if (all(len(word) > 2 for word in words) and
-                        not any(word.lower() in common_first_names for word in words) and
-                        short.lower() not in common_single_abbrs):
+                    if (
+                        all(len(word) > 2 for word in words)
+                        and not any(word.lower() in common_first_names for word in words)
+                        and short.lower() not in common_single_abbrs
+                    ):
                         return True
 
         return False
@@ -253,7 +261,7 @@ class EnhancedEntityExtractor:
             entity_name = entity.entity
             frequency[entity_name] += 1
             # Use confidence if available, default to 1.0
-            confidence = getattr(entity, 'confidence', 1.0)
+            confidence = getattr(entity, "confidence", 1.0)
             total_confidence[entity_name] += confidence
 
         # Score candidates
@@ -265,7 +273,22 @@ class EnhancedEntityExtractor:
 
             # Bonus for having titles (President, Dr., etc.)
             title_bonus = 0
-            if any(word.lower() in ['president', 'dr.', 'prof.', 'sen.', 'rep.', 'gov.', 'general', 'admiral', 'colonel', 'captain'] for word in words):
+            if any(
+                word.lower()
+                in [
+                    "president",
+                    "dr.",
+                    "prof.",
+                    "sen.",
+                    "rep.",
+                    "gov.",
+                    "general",
+                    "admiral",
+                    "colonel",
+                    "captain",
+                ]
+                for word in words
+            ):
                 title_bonus = 1
 
             # Frequency score
@@ -279,13 +302,18 @@ class EnhancedEntityExtractor:
                 confidence_score = 0
 
             # Combined score: length most important, then titles, then frequency, then confidence
-            scores[candidate] = length_score * 4 + title_bonus * 2 + freq_score * 1 + confidence_score
+            scores[candidate] = (
+                length_score * 4 + title_bonus * 2 + freq_score * 1 + confidence_score
+            )
 
         # Return highest scoring candidate
         return max(scores, key=scores.get)
 
     def _extract_context_windows(
-        self, canonical_form: str, entity_group: List[Entity], transcript_segments: Optional[List[Dict]]
+        self,
+        canonical_form: str,
+        entity_group: List[Entity],
+        transcript_segments: Optional[List[Dict]],
     ) -> List[EntityContext]:
         """Extract context windows for entity mentions."""
         context_windows = []

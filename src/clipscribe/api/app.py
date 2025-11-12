@@ -1,29 +1,30 @@
 from __future__ import annotations
 
-from typing import Optional, Dict, Any, List, Set, Awaitable, Callable, Iterable, cast
-import os
-import json
-import time
-import uuid
 import asyncio
 import hashlib
+import json
 import logging
-from datetime import datetime, timezone, timedelta
+import os
+import time
+import uuid
+from datetime import datetime, timedelta, timezone
+from typing import Any, Awaitable, Callable, Dict, Iterable, List, Optional, Set, cast
 
-from fastapi import FastAPI, Header, Request, HTTPException
+import redis
+from fastapi import FastAPI, Header, Request
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, StreamingResponse
 from pydantic import BaseModel, Field
-from fastapi.middleware.cors import CORSMiddleware
-
-logger = logging.getLogger(__name__)
-from starlette.responses import Response
-from rq import Queue
-import redis
 from redis import Redis as RedisClient
+from rq import Queue
+from starlette.responses import Response
+
 # from clipscribe.config.settings import Settings  # Not needed for API
 from .estimator import estimate_job
-from .monitoring import get_metrics_collector, get_alert_manager, get_health_checker, setup_default_alerts
+from .monitoring import get_alert_manager, get_metrics_collector
 from .retry_manager import get_retry_manager
+
+logger = logging.getLogger(__name__)
 
 
 class SubmitByUrl(BaseModel):
@@ -253,9 +254,9 @@ def _validate_token(authorization: Optional[str]) -> Optional[str]:
     parts = authorization.split()
     if len(parts) != 2 or parts[0].lower() != "bearer":
         return None
-    
+
     token = parts[1]
-    
+
     # Check if token exists in Redis
     conn = redis_conn
     if conn:
@@ -263,13 +264,14 @@ def _validate_token(authorization: Optional[str]) -> Optional[str]:
         if conn.exists(token_key):
             # Token is valid, return its ID
             return hashlib.sha256(token.encode("utf-8")).hexdigest()[:16]
-    
+
     # For development/testing, accept specific tokens from environment
     valid_tokens = os.getenv("VALID_TOKENS", "").split(",")
-    if token in valid_tokens and valid_tokens != ['']:
+    if token in valid_tokens and valid_tokens != [""]:
         return hashlib.sha256(token.encode("utf-8")).hexdigest()[:16]
-    
+
     return None
+
 
 def _token_id_from_auth(authorization: Optional[str]) -> Optional[str]:
     """Extract token ID from authorization header (for backwards compatibility)."""
@@ -324,30 +326,33 @@ async def _enqueue_job_processing(job: Job, source: Dict[str, Any]) -> None:
     """Enqueue job to Cloud Tasks for processing."""
     try:
         from .task_queue import get_task_queue_manager
-        
+
         # Prepare payload for worker
         payload = {
             "job_id": job.job_id,
             "url": source.get("url"),
             "gcs_uri": source.get("gcs_uri"),
-            "options": source.get("options", {})
+            "options": source.get("options", {}),
         }
-        
+
         # Extract model preference from options
         options = source.get("options", {})
         use_pro_model = options.get("model") == "pro" or options.get("use_pro_model", False)
-        
+
         # Estimate duration for queue routing
         estimated_duration = 0
         if "url" in source:
             try:
                 from .estimator import estimate_from_url
+
                 estimated_duration, _ = estimate_from_url(source["url"])
             except Exception:
                 estimated_duration = 600  # Default 10 minutes
-        
-        logger.info(f"Enqueuing job {job.job_id} (estimated {estimated_duration}s, model: {'pro' if use_pro_model else 'flash'})")
-        
+
+        logger.info(
+            f"Enqueuing job {job.job_id} (estimated {estimated_duration}s, model: {'pro' if use_pro_model else 'flash'})"
+        )
+
         # Enqueue to Cloud Tasks or trigger Cloud Run Job
         task_manager = get_task_queue_manager()
         task_name = await asyncio.to_thread(
@@ -356,9 +361,9 @@ async def _enqueue_job_processing(job: Job, source: Dict[str, Any]) -> None:
             payload,
             estimated_duration,
             delay_seconds=0,
-            use_pro_model=use_pro_model
+            use_pro_model=use_pro_model,
         )
-        
+
         if task_name:
             # Update job state
             job.state = "QUEUED"
@@ -376,7 +381,7 @@ async def _enqueue_job_processing(job: Job, source: Dict[str, Any]) -> None:
             _save_job(job)
             _r_srem("cs:active_jobs", job.job_id)
             logger.error(f"Failed to enqueue job {job.job_id}")
-        
+
     except Exception as e:
         logger.error(f"Failed to process job {job.job_id}: {e}")
         job.state = "FAILED"
@@ -403,54 +408,54 @@ async def pause_api(authorization: Optional[str] = Header(default=None, alias="A
     _r_set("cs:api:paused", "1", ex=3600)  # Pauses for 1 hour
     return {"status": "API processing is now paused for one hour."}
 
+
 @app.post("/v1/admin/resume")
 async def resume_api(authorization: Optional[str] = Header(default=None, alias="Authorization")):
     # In a real application, you would protect this with a secure admin key
     if not authorization:
         return _error("unauthorized", "Missing or invalid admin token", status=401)
-    
+
     conn = redis_conn
     if conn:
         conn.delete("cs:api:paused")
     return {"status": "API processing is now resumed."}
 
+
 @app.post("/v1/admin/tokens")
 async def create_token(
     authorization: Optional[str] = Header(default=None, alias="Authorization"),
-    body: Dict[str, Any] = {}
+    body: Dict[str, Any] = {},
 ):
     """Create a new beta access token."""
     # In production, this should require admin authentication
     if not authorization or "admin" not in authorization.lower():
         return _error("unauthorized", "Admin access required", status=401)
-    
+
     import secrets
-    
+
     # Generate token
     tier = body.get("tier", "beta")
     email = body.get("email", "")
     token = f"{tier[:3]}_{secrets.token_urlsafe(16)}"
-    
+
     # Store in Redis
     if redis_conn:
         token_key = f"cs:token:{token}"
-        redis_conn.hset(token_key, mapping={
-            "email": email,
-            "tier": tier,
-            "created": _now_iso(),
-            "monthly_limit": 50,  # Beta limit
-            "videos_used": 0,
-            "status": "active"
-        })
+        redis_conn.hset(
+            token_key,
+            mapping={
+                "email": email,
+                "tier": tier,
+                "created": _now_iso(),
+                "monthly_limit": 50,  # Beta limit
+                "videos_used": 0,
+                "status": "active",
+            },
+        )
         # Token expires in 30 days for beta
         redis_conn.expire(token_key, 30 * 24 * 3600)
-    
-    return {
-        "token": token,
-        "tier": tier,
-        "email": email,
-        "expires_in_days": 30
-    }
+
+    return {"token": token, "tier": tier, "email": email, "expires_in_days": 30}
 
 
 @app.post("/v1/jobs", response_model=None, status_code=202)
@@ -467,7 +472,12 @@ async def create_job(
 
     # Check if the API is paused
     if _r_get("cs:api:paused") == "1":
-        return _error("service_unavailable", "The API is temporarily paused for maintenance.", status=503, retry_after_seconds=300)
+        return _error(
+            "service_unavailable",
+            "The API is temporarily paused for maintenance.",
+            status=503,
+            retry_after_seconds=300,
+        )
 
     if not ("url" in body or "gcs_uri" in body):
         return _error("invalid_input", "Provide either url or gcs_uri", status=400)
@@ -699,7 +709,9 @@ async def presign_upload(
 
     # Mock fallback
     bucket = bucket or "mock-bucket"
-    upload_url = f"https://storage.googleapis.com/{bucket}/uploads/{uuid.uuid4().hex}?signature=mock"
+    upload_url = (
+        f"https://storage.googleapis.com/{bucket}/uploads/{uuid.uuid4().hex}?signature=mock"
+    )
     gcs_uri = f"gs://{bucket}/uploads/{uuid.uuid4().hex}/{req.filename}"
     return PresignResponse(upload_url=upload_url, gcs_uri=gcs_uri)
 
@@ -739,6 +751,7 @@ async def health_check():
         if bucket:
             try:
                 from google.cloud import storage
+
                 client = storage.Client()
                 client.bucket(bucket).reload()
                 gcs_status = "healthy"
@@ -754,17 +767,13 @@ async def health_check():
             "redis": True if redis_conn else False,
             "gcs": gcs_status,
             "queue": queue_status,
-            "version": "1.0.0"
+            "version": "1.0.0",
         }
 
     except Exception as e:
         logger = logging.getLogger(__name__)
         logger.error(f"Health check failed: {e}")
-        return {
-            "status": "unhealthy",
-            "timestamp": datetime.utcnow().isoformat(),
-            "error": str(e)
-        }
+        return {"status": "unhealthy", "timestamp": datetime.utcnow().isoformat(), "error": str(e)}
 
 
 @app.get("/v1/monitoring/metrics")
@@ -786,26 +795,23 @@ async def get_monitoring_metrics():
             "system_metrics": {
                 "cpu_usage_percent": metrics_collector.get_metric("cpu_usage_percent"),
                 "memory_usage_percent": metrics_collector.get_metric("memory_usage_percent"),
-                "disk_usage_percent": metrics_collector.get_metric("disk_usage_percent")
+                "disk_usage_percent": metrics_collector.get_metric("disk_usage_percent"),
             },
             "application_metrics": {
                 "active_jobs": _r_scard("cs:active_jobs"),
-                "queue_backlog": _r_scard("cs:queue:short") + _r_scard("cs:queue:long")
+                "queue_backlog": _r_scard("cs:queue:short") + _r_scard("cs:queue:long"),
             },
             "alerts": {
                 "active_count": len(alerts),
-                "critical_count": len([a for a in alerts if a.get('severity') == 'critical']),
-                "active_alerts": alerts[:10]  # Limit to 10 most recent
-            }
+                "critical_count": len([a for a in alerts if a.get("severity") == "critical"]),
+                "active_alerts": alerts[:10],  # Limit to 10 most recent
+            },
         }
 
     except Exception as e:
         logger = logging.getLogger(__name__)
         logger.error(f"Failed to get monitoring metrics: {e}")
-        return {
-            "timestamp": datetime.utcnow().isoformat(),
-            "error": str(e)
-        }
+        return {"timestamp": datetime.utcnow().isoformat(), "error": str(e)}
 
 
 @app.get("/v1/monitoring/alerts")
@@ -819,7 +825,7 @@ async def get_alerts():
             "timestamp": datetime.utcnow().isoformat(),
             "active_alerts": alerts,
             "total_count": len(alerts),
-            "critical_count": len([a for a in alerts if a.get('severity') == 'critical'])
+            "critical_count": len([a for a in alerts if a.get("severity") == "critical"]),
         }
 
     except Exception as e:
@@ -829,7 +835,7 @@ async def get_alerts():
             "timestamp": datetime.utcnow().isoformat(),
             "error": str(e),
             "active_alerts": [],
-            "total_count": 0
+            "total_count": 0,
         }
 
 
@@ -859,11 +865,11 @@ async def get_queue_status():
             "queues": {
                 "short": short_queue_len,
                 "long": long_queue_len,
-                "total": short_queue_len + long_queue_len
+                "total": short_queue_len + long_queue_len,
             },
             "active_jobs": active_jobs,
             "job_states": job_states,
-            "redis_available": True
+            "redis_available": True,
         }
 
     except Exception as e:
@@ -872,7 +878,7 @@ async def get_queue_status():
         return {
             "timestamp": datetime.utcnow().isoformat(),
             "error": str(e),
-            "redis_available": False
+            "redis_available": False,
         }
 
 
@@ -886,7 +892,7 @@ async def get_dead_letter_queue(limit: int = 20):
         return {
             "timestamp": datetime.utcnow().isoformat(),
             "dead_letters": dead_letters,
-            "total_count": len(dead_letters)
+            "total_count": len(dead_letters),
         }
 
     except Exception as e:
@@ -896,14 +902,16 @@ async def get_dead_letter_queue(limit: int = 20):
             "timestamp": datetime.utcnow().isoformat(),
             "error": str(e),
             "dead_letters": [],
-            "total_count": 0
+            "total_count": 0,
         }
+
 
 @app.get("/v1/monitoring/task-queues")
 async def get_task_queue_status():
     """Get Cloud Tasks queue statistics."""
     try:
         from .task_queue import get_task_queue_manager
+
         task_manager = get_task_queue_manager()
         stats = await asyncio.to_thread(task_manager.get_queue_stats)
         return stats

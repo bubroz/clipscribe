@@ -1,19 +1,18 @@
 from __future__ import annotations
 
-import os
-import json
-import tempfile
 import asyncio
+import json
 import logging
-from typing import Dict, Any, Optional
+import os
+import tempfile
 from datetime import datetime
+from typing import Any, Dict
 
-from rq import Worker, Queue
-from redis import Redis
 import redis
+from rq import Queue, Worker
 
-from .retry_manager import get_retry_manager, should_retry_api_error, should_retry_network_error
 from .monitoring import get_metrics_collector
+from .retry_manager import get_retry_manager, should_retry_api_error, should_retry_network_error
 
 logger = logging.getLogger(__name__)
 
@@ -41,9 +40,7 @@ async def _process_payload(job_id: str, payload: Dict[str, Any]) -> None:
             return storage.Client()
 
         client = await retry_manager.execute_with_retry(
-            f"gcs_init_{job_id}",
-            init_gcs_client,
-            should_retry_network_error
+            f"gcs_init_{job_id}", init_gcs_client, should_retry_network_error
         )
 
         bucket_ref = client.bucket(bucket)
@@ -57,9 +54,7 @@ async def _process_payload(job_id: str, payload: Dict[str, Any]) -> None:
                 return True
 
             await retry_manager.execute_with_retry(
-                f"gcs_upload_{job_id}_{path}",
-                _upload,
-                should_retry_network_error
+                f"gcs_upload_{job_id}_{path}", _upload, should_retry_network_error
             )
 
         artifacts = []
@@ -69,8 +64,8 @@ async def _process_payload(job_id: str, payload: Dict[str, Any]) -> None:
         # Case 1: Direct URL processing via yt-dlp + Voxtral-Grok
         if "url" in payload:
             from clipscribe.retrievers.universal_video_client import EnhancedUniversalVideoClient
-            # Gemini removed - using Voxtral-Grok pipeline
 
+            # Gemini removed - using Voxtral-Grok pipeline
             # Download video with retry
             async def download_video():
                 uvc = EnhancedUniversalVideoClient()
@@ -79,9 +74,7 @@ async def _process_payload(job_id: str, payload: Dict[str, Any]) -> None:
                 return audio_path, metadata, tmpdir
 
             audio_path, metadata, tmpdir = await retry_manager.execute_with_retry(
-                f"video_download_{job_id}",
-                download_video,
-                should_retry_network_error
+                f"video_download_{job_id}", download_video, should_retry_network_error
             )
 
             duration = int(getattr(metadata, "duration", 0) or 0)
@@ -95,20 +88,22 @@ async def _process_payload(job_id: str, payload: Dict[str, Any]) -> None:
                 return analysis
 
             analysis = await retry_manager.execute_with_retry(
-                f"video_transcription_{job_id}",
-                transcribe_video,
-                should_retry_api_error
+                f"video_transcription_{job_id}", transcribe_video, should_retry_api_error
             )
 
             # Record transcription metrics
-            entity_count = len(analysis.get('entities', []))
-            relationship_count = len(analysis.get('relationships', []))
+            entity_count = len(analysis.get("entities", []))
+            relationship_count = len(analysis.get("relationships", []))
             metrics.record_metric("transcription_entities", entity_count, {"job_id": job_id})
-            metrics.record_metric("transcription_relationships", relationship_count, {"job_id": job_id})
+            metrics.record_metric(
+                "transcription_relationships", relationship_count, {"job_id": job_id}
+            )
 
             # transcript.json
             transcript_json = json.dumps(analysis, separators=(",", ":")).encode("utf-8")
-            await upload_bytes(f"jobs/{job_id}/transcript.json", transcript_json, "application/json")
+            await upload_bytes(
+                f"jobs/{job_id}/transcript.json", transcript_json, "application/json"
+            )
             artifacts.append("transcript.json")
 
             # simple report.md
@@ -133,19 +128,19 @@ async def _process_payload(job_id: str, payload: Dict[str, Any]) -> None:
                 return result
 
             result = await retry_manager.execute_with_retry(
-                f"vertex_transcription_{job_id}",
-                transcribe_vertex,
-                should_retry_api_error
+                f"vertex_transcription_{job_id}", transcribe_vertex, should_retry_api_error
             )
 
             # Record Vertex AI metrics
-            entity_count = len(result.get('entities', []))
-            relationship_count = len(result.get('relationships', []))
+            entity_count = len(result.get("entities", []))
+            relationship_count = len(result.get("relationships", []))
             metrics.record_metric("vertex_entities", entity_count, {"job_id": job_id})
             metrics.record_metric("vertex_relationships", relationship_count, {"job_id": job_id})
 
             transcript_json = json.dumps(result, default=str, separators=(",", ":")).encode("utf-8")
-            await upload_bytes(f"jobs/{job_id}/transcript.json", transcript_json, "application/json")
+            await upload_bytes(
+                f"jobs/{job_id}/transcript.json", transcript_json, "application/json"
+            )
             artifacts.append("transcript.json")
 
             report_md = (
@@ -176,9 +171,7 @@ async def _process_payload(job_id: str, payload: Dict[str, Any]) -> None:
             return True
 
         await retry_manager.execute_with_retry(
-            f"manifest_update_{job_id}",
-            update_manifest,
-            should_retry_network_error
+            f"manifest_update_{job_id}", update_manifest, should_retry_network_error
         )
 
         # Record successful completion
@@ -187,13 +180,17 @@ async def _process_payload(job_id: str, payload: Dict[str, Any]) -> None:
         metrics.record_metric("job_completed", 1, {"job_id": job_id})
         metrics.record_metric("artifacts_created", len(artifacts), {"job_id": job_id})
 
-        logger.info(f"Job {job_id} completed successfully in {processing_time:.1f}s with {len(artifacts)} artifacts")
+        logger.info(
+            f"Job {job_id} completed successfully in {processing_time:.1f}s with {len(artifacts)} artifacts"
+        )
 
     except Exception as e:
         # Record failure metrics
         processing_time = (datetime.now() - start_time).total_seconds()
         metrics.record_metric("job_failed", 1, {"job_id": job_id, "error_type": type(e).__name__})
-        metrics.record_metric("job_processing_time_seconds", processing_time, {"job_id": job_id, "failed": "true"})
+        metrics.record_metric(
+            "job_processing_time_seconds", processing_time, {"job_id": job_id, "failed": "true"}
+        )
 
         logger.error(f"Job {job_id} failed after {processing_time:.1f}s: {e}")
 

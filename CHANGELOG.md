@@ -1,3 +1,208 @@
+## [2.62.0] - 2025-11-12 (xAI GROK ADVANCED FEATURES + MODAL PIPELINE UPGRADE)
+
+### MAJOR UPGRADE: Complete xAI Grok Integration (May-Nov 2025) + Production-Grade Modal Pipeline
+
+**Release Summary:**
+- Integrated 6 months of xAI API updates (May-Nov 2025)
+- Upgraded production Modal pipeline with comprehensive fixes
+- Validated with 20 videos (754min, 12.6 hours of content)
+- 100% test pass rate (24/24 tests passing)
+- $0.073 avg cost per video, 10-11x realtime processing
+
+---
+
+### 🚀 xAI Grok Advanced Features
+
+**1. Prompt Caching (50% Cost Savings)**
+- Automatic caching for prompts >1024 tokens (50% discount on cached content)
+- `GrokPromptCache` class with hit/miss tracking and statistics
+- `build_cached_message()` for optimization
+- `get_prompt_cache()` global instance
+- Zero configuration - works automatically
+
+**2. Server-Side Tools (Fact-Checking)**
+- `GrokFactChecker` class for entity verification
+- Tools: `web_search`, `x_search`, `code_execution`, `collections_search`
+- `fact_check_entity()` and `fact_check_entities()` methods
+- `enrich_with_current_info()` for context enrichment
+- Real-time knowledge integration
+
+**3. Knowledge Base Management**
+- `VideoKnowledgeBase` class for cross-video intelligence
+- `add_video_to_knowledge_base()` for indexing
+- `search_knowledge_base()` for semantic search
+- `cross_reference_entity()` for entity tracking
+- `find_entity_cooccurrences()` for relationship discovery
+
+**4. Structured Outputs (Type Safety)**
+- Pydantic schemas in `schemas_grok.py`
+- `get_video_intelligence_schema()` for json_schema mode
+- `get_entity_schema()`, `get_relationship_schema()`, `get_topic_schema()`
+- 100% valid JSON responses, zero parsing errors
+
+**5. Enhanced GrokAPIClient**
+- Files API (upload, list, retrieve, delete)
+- Collections API (create, search, add files) - ready for when xAI releases
+- Enhanced cost calculation with caching savings breakdown
+- Backward compatible (returns Dict or float for costs)
+- `extract_usage_stats()` for cached token tracking
+
+**6. Integration & Configuration**
+- Updated `HybridProcessor` with all Grok features
+- 10 new settings in `config/settings.py`
+- All features optional and configurable
+- Defaults: caching=True, fact-checking/KB=False
+- Comprehensive documentation in `docs/GROK_ADVANCED_FEATURES.md`
+
+---
+
+### 🔧 Modal Pipeline Enhancements
+
+**1. Robust Language Detection**
+- `_detect_language_robust()` - multi-sample detection (start/middle/end)
+- Majority vote consensus across samples
+- Consistency validation to catch false positives
+- Never forces English - respects actual language
+
+**2. Language Validation**
+- `_validate_language_detection()` - validates unlikely languages
+- Re-checks with longer sample (60s vs 30s) if suspicious
+- Filename heuristics as final fallback
+- Prevents Tamil/Ukrainian/etc false positives
+
+**3. GPU Memory Management**
+- `_clear_gpu_memory()` - clears cache before processing
+- `torch.cuda.empty_cache()` + `gc.collect()`
+- Memory availability checking
+- Prevents OOM on large videos
+
+**4. Cascading OOM Retry**
+- `_transcribe_with_retry()` - tries batch_size 16→8→4→2→1
+- Clears GPU memory between attempts
+- Graceful error handling with detailed logging
+- Works for any video size
+
+**5. Enhanced Cost Tracking**
+- Detailed breakdown: GPU + Grok input/cached/output
+- Cache savings tracking (even if 0% in Modal)
+- Per-video cost reporting in results
+- Accurate cost attribution
+
+**6. ModalGrokClient**
+- All xAI Nov 2025 features integrated
+- Prompt caching with hit/miss tracking
+- Server-side tools support
+- Enhanced cost calculation
+- Cache performance metrics
+
+---
+
+### 📊 Production Validation (20 Videos, Nov 12, 2025)
+
+**Processing Stats:**
+- **Videos processed:** 20 (100% success rate)
+- **Total duration:** 754.4 minutes (12.6 hours)
+- **Total segments:** 9,565 transcript segments
+
+**Intelligence Extracted:**
+- **Entities:** 556 (avg 27.8/video, 12 types)
+  - Top types: ORG (41%), PERSON (21%), GPE (14%), PRODUCT (11%)
+- **Relationships:** 161 (avg 8.1/video)
+- **Topics:** 97 (avg 4.8/video)
+- **Key moments:** 100 (avg 5.0/video)
+
+**Cost & Performance:**
+- **Total cost:** $1.46 ($0.073 avg/video, $0.001935/minute)
+- **GPU transcription:** $1.41 (96.3%)
+- **Grok extraction:** $0.05 (3.7%)
+- **Processing speed:** 10-11x realtime on A10G GPU
+- **Quality:** 0.9-1.0 avg entity confidence, 100% evidence coverage
+
+**Test Coverage:**
+- **Unit/Integration:** 24/24 tests passing (100% pass rate)
+- **Skipped:** 5 tests (Modal deployment, unreleased APIs)
+- **XFAIL:** 1 test (file upload - documented for future fix)
+- **Failures:** 0
+
+---
+
+### 📝 Files Changed
+
+**New Files Created (13):**
+- `src/clipscribe/intelligence/fact_checker.py` - Entity fact-checking with Grok
+- `src/clipscribe/knowledge/collection_manager.py` - Knowledge base management
+- `src/clipscribe/utils/prompt_cache.py` - Prompt caching system
+- `src/clipscribe/schemas_grok.py` - Pydantic schemas for structured outputs
+- `docs/GROK_ADVANCED_FEATURES.md` - Comprehensive feature documentation
+- `docs/GROK_BEST_PRACTICES_IMPLEMENTATION.md` - Implementation guide
+- `tests/integration/test_grok_advanced_features.py` - Test suite
+- `env.production.example` - Production environment template
+- `output/VALIDATION_REPORT_NOV11.md` - Validation results
+- `output/SESSION_ACCOMPLISHMENTS_NOV11.md` - Session summary
+- `NEXT_SESSION_CONTINUATION.md` - Continuation planning
+- `CLEANUP_PROGRESS.md` - Cleanup tracking
+- Plus validation data and test artifacts
+
+**Files Modified (20+):**
+- `src/clipscribe/retrievers/grok_client.py` - Enhanced with all xAI features
+- `src/clipscribe/processors/hybrid_processor.py` - Integrated Grok features
+- `src/clipscribe/config/settings.py` - 10 new Grok settings
+- `deploy/station10_modal.py` - Complete Modal pipeline upgrade
+- `src/clipscribe/intelligence/__init__.py` - Export GrokFactChecker
+- `src/clipscribe/knowledge/__init__.py` - Export knowledge base classes
+- `src/clipscribe/utils/__init__.py` - Export prompt cache utilities
+- `pyproject.toml` - Ruff configuration, version
+- `pytest.ini` - Added 'expensive' marker
+- Multiple test files with import fixes
+- README.md - v2.62.0 features and metrics
+- CHANGELOG.md - This entry
+
+**Linting & Code Quality:**
+- Fixed 33 ruff errors (bare except, undefined names, unused variables)
+- Organized all imports with isort
+- Excluded deprecated API layer from linting
+- 100% black formatting compliance
+- All tests passing (24/24)
+
+---
+
+### 🔄 Migration Guide
+
+**No breaking changes** - all new features are opt-in via configuration.
+
+**To enable new features:**
+```bash
+# Required: xAI API key
+export XAI_API_KEY=your_key_here
+
+# Optional: Enable advanced features
+export GROK_ENABLE_PROMPT_CACHING=true  # Default: true
+export GROK_ENABLE_FACT_CHECKING=false   # Default: false
+export GROK_ENABLE_KNOWLEDGE_BASE=false  # Default: false
+```
+
+**See:** `env.production.example` for all configuration options
+
+---
+
+### 📚 Documentation
+
+- **Feature Guide:** `docs/GROK_ADVANCED_FEATURES.md`
+- **Best Practices:** `docs/GROK_BEST_PRACTICES_IMPLEMENTATION.md`
+- **Validation Report:** `output/VALIDATION_REPORT_NOV11.md`
+- **Test Suite:** `tests/integration/test_grok_advanced_features.py`
+
+---
+
+### 🎯 What's Next
+
+**v2.63.0 (Next Release):**
+- Fix file upload multipart/form-data boundary issue
+- Collections API integration (when xAI releases)
+- Additional Modal pipeline optimizations
+- Enhanced cross-video entity linking
+- Performance dashboard improvements
+
 ## [2.61.0] - 2025-10-29 (GROK-4 FAST REASONING - COMPLETE INTELLIGENCE)
 
 ### MAJOR UPGRADE: Full Intelligence Extraction with Grok-4

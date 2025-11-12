@@ -1,9 +1,10 @@
 """Utility functions for filename handling."""
 
 import re
-from pathlib import Path
 from datetime import datetime
-from typing import Optional, Dict, Any
+from pathlib import Path
+from typing import Any, Dict, Optional
+
 from .stable_id import generate_unversioned_digest
 
 

@@ -4,12 +4,13 @@ Uses Pydantic BaseSettings for environment variable management and validation.
 """
 
 import os
-from pathlib import Path
-from typing import Optional, List, Dict
-from pydantic_settings import BaseSettings, SettingsConfigDict
-from pydantic import Field, field_validator
-from dotenv import load_dotenv
 from enum import Enum
+from pathlib import Path
+from typing import Dict, List, Optional
+
+from dotenv import load_dotenv
+from pydantic import Field, field_validator
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 # Load environment variables from .env file
 load_dotenv()
@@ -43,7 +44,8 @@ class Settings(BaseSettings):
 
     # API Keys
     google_api_key: str = Field(
-        default=os.getenv("GOOGLE_API_KEY", ""), description="Legacy Google API key (not used in main pipeline)"
+        default=os.getenv("GOOGLE_API_KEY", ""),
+        description="Legacy Google API key (not used in main pipeline)",
     )
     xai_api_key: str = Field(
         default=os.getenv("XAI_API_KEY", ""), description="xAI API key for Grok models"
@@ -66,7 +68,8 @@ class Settings(BaseSettings):
 
     # AI Model Configuration
     ai_model: str = Field(
-        default="voxtral-grok", description="Default AI model pipeline for transcription and extraction"
+        default="voxtral-grok",
+        description="Default AI model pipeline for transcription and extraction",
     )
     temperature: float = Field(default=0.3, ge=0.0, le=1.0, description="AI model temperature")
 
@@ -157,7 +160,8 @@ class Settings(BaseSettings):
         default=1.0, description="Warn when single operation exceeds this cost (USD)"
     )
     enhanced_temporal_cost_multiplier: float = Field(
-        default=1.0, description="DEPRECATED: Cost multiplier for enhanced temporal intelligence (1.12-1.20)"
+        default=1.0,
+        description="DEPRECATED: Cost multiplier for enhanced temporal intelligence (1.12-1.20)",
     )
     daily_cost_limit: Optional[float] = Field(
         default=None, description="Daily spending limit in USD (None = no limit)"
@@ -178,6 +182,57 @@ class Settings(BaseSettings):
     )
     default_output_formats: List[str] = Field(default=["txt"], description="Default output formats")
 
+    # === GROK ADVANCED FEATURES (November 2025) ===
+
+    # Prompt Caching (May 2025)
+    enable_grok_prompt_caching: bool = Field(
+        default=True,
+        description="Enable automatic prompt caching for 50% cost savings on repeated prompts",
+    )
+
+    # Fact Checking with Tools (October 2025)
+    enable_grok_fact_checking: bool = Field(
+        default=False,  # Disabled by default to avoid initialization failures
+        description="Enable fact-checking using server-side tools",
+    )
+    enable_grok_web_search: bool = Field(
+        default=True, description="Enable web_search tool for fact verification"
+    )
+    enable_grok_x_search: bool = Field(
+        default=True, description="Enable x_search tool for real-time X/Twitter information"
+    )
+    enable_grok_code_execution: bool = Field(
+        default=False,
+        description="Enable code_execution tool for verifying calculations (use with caution)",
+    )
+    fact_check_confidence_threshold: float = Field(
+        default=0.7,
+        ge=0.0,
+        le=1.0,
+        description="Only fact-check entities below this confidence threshold",
+    )
+
+    # Knowledge Base / Collections API (August 2025)
+    enable_knowledge_base: bool = Field(
+        default=False,  # Disabled by default to avoid initialization failures
+        description="Enable Collections API for building searchable knowledge base",
+    )
+    grok_collection_id: Optional[str] = Field(
+        default=None, description="Existing collection ID (will create new if not provided)"
+    )
+    grok_collection_name: str = Field(
+        default="clipscribe-videos", description="Name for knowledge base collection"
+    )
+    auto_add_to_knowledge_base: bool = Field(
+        default=True, description="Automatically add processed videos to knowledge base"
+    )
+
+    # Structured Outputs (November 2025)
+    enable_grok_structured_outputs: bool = Field(
+        default=True,
+        description="Use json_schema mode for type-safe structured outputs (vs basic json_object)",
+    )
+
     # Performance Settings
     concurrent_downloads: int = Field(default=10)  # Increased for enterprise
     chunk_size: int = Field(
@@ -190,7 +245,9 @@ class Settings(BaseSettings):
     # Logging
     log_level: str = Field(default="INFO", description="Logging level")
     log_dir: Path = Field(default=Path("logs"), description="Directory for log files")
-    export_graph_formats: bool = Field(default=False, description="Export GEXF and GraphML formats for visualization")
+    export_graph_formats: bool = Field(
+        default=False, description="Export GEXF and GraphML formats for visualization"
+    )
 
     # yt-dlp Settings
     ytdlp_cookies_file: Optional[Path] = Field(
@@ -202,7 +259,7 @@ class Settings(BaseSettings):
     def validate_api_key(cls, v: str, values) -> str:
         """
         Validate Google API key (optional - not used in Voxtral-Grok pipeline).
-        
+
         Legacy validator - kept for backward compatibility but no longer enforced
         since we use Voxtral + Grok-4 instead of Gemini.
         """
@@ -376,7 +433,6 @@ except Exception as e:
         daily_cost_limit = None
         monthly_cost_limit = None
         cost_tracking_granularity = "operation"
-
 
         def estimate_cost(self, duration_seconds: int, is_pro_model: bool = False):
             if duration_seconds <= 0:

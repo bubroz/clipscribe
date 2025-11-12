@@ -5,8 +5,8 @@ Provides consistent, portable identifiers using modern hash algorithms.
 
 from __future__ import annotations
 
-from typing import Union
 import hashlib
+from typing import Union
 
 
 def _to_bytes(data: Union[str, bytes]) -> bytes:
@@ -16,7 +16,11 @@ def _to_bytes(data: Union[str, bytes]) -> bytes:
 
 
 def generate_stable_id(
-    data: Union[str, bytes], *, algo: str = "sha256", length: int = 16, include_version_prefix: bool = True
+    data: Union[str, bytes],
+    *,
+    algo: str = "sha256",
+    length: int = 16,
+    include_version_prefix: bool = True,
 ) -> str:
     """Generate a stable, versioned identifier.
 
@@ -40,8 +44,8 @@ def generate_stable_id(
     return f"{algo}-{length}-{short}" if include_version_prefix else short
 
 
-def generate_unversioned_digest(data: Union[str, bytes], *, algo: str = "sha256", length: int = 16) -> str:
+def generate_unversioned_digest(
+    data: Union[str, bytes], *, algo: str = "sha256", length: int = 16
+) -> str:
     """Generate just the digest substring without any prefix."""
     return generate_stable_id(data, algo=algo, length=length, include_version_prefix=False)
-
-

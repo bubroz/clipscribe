@@ -2,11 +2,7 @@
 Video processing components.
 """
 
-from .hybrid_processor import HybridProcessor, SeamlessTranscriptAnalyzer
 from .batch_processor import BatchProcessor
+from .hybrid_processor import HybridProcessor, SeamlessTranscriptAnalyzer
 
-__all__ = [
-    "HybridProcessor",
-    "SeamlessTranscriptAnalyzer", 
-    "BatchProcessor"
-]
+__all__ = ["HybridProcessor", "SeamlessTranscriptAnalyzer", "BatchProcessor"]

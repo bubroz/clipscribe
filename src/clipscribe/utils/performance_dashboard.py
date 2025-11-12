@@ -5,13 +5,14 @@ This module provides interactive dashboards for monitoring ClipScribe performanc
 including model cache efficiency, batch processing metrics, and system health.
 """
 
-import streamlit as st
-import pandas as pd
 import json
-from pathlib import Path
-from typing import Dict, Any, List
-from datetime import datetime
 import time
+from datetime import datetime
+from pathlib import Path
+from typing import Any, Dict, List
+
+import pandas as pd
+import streamlit as st
 
 # Optional Plotly imports for advanced visualizations
 try:
@@ -20,6 +21,7 @@ try:
     PLOTLY_AVAILABLE = True
 except ImportError:
     PLOTLY_AVAILABLE = False
+
 
 class PerformanceDashboard:
     """Interactive performance dashboard for ClipScribe."""
@@ -58,6 +60,7 @@ class PerformanceDashboard:
 
         # Get current cache information
         from ..extractors.model_manager import get_model_manager
+
         model_manager = get_model_manager()
         cache_info = model_manager.get_cache_info()
         perf_summary = model_manager.get_performance_summary()
@@ -158,6 +161,7 @@ class PerformanceDashboard:
         with col1:
             if st.button(" Clear Model Cache"):
                 from ..extractors.model_manager import get_model_manager
+
                 get_model_manager().clear_cache()
                 st.success("Model cache cleared successfully!")
                 st.rerun()

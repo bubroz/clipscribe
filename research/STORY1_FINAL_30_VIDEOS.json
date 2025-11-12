@@ -1,0 +1,331 @@
+{
+  "story": "AI Companies Intelligence",
+  "date_range": "Nov 1-15, 2025",
+  "companies": [
+    "Tesla",
+    "OpenAI",
+    "Palantir"
+  ],
+  "total_videos": 29,
+  "videos": [
+    {
+      "company": "Tesla",
+      "rank": 1,
+      "id": "9tl6mGbObXc",
+      "url": "https://www.youtube.com/watch?v=9tl6mGbObXc",
+      "title": "Everything Announced at Tesla's 2025 Shareholder Event in 7 Minutes",
+      "channel": "CNET",
+      "date": "2025-11-06",
+      "views": 280245,
+      "duration_min": 7.0
+    },
+    {
+      "company": "Tesla",
+      "rank": 2,
+      "id": "fG2WbHLXUkQ",
+      "url": "https://www.youtube.com/watch?v=fG2WbHLXUkQ",
+      "title": "Elon Musk Just Dropped His BIGGEST Tesla Bombshell!",
+      "channel": "Brighter with Herbert",
+      "date": "2025-11-07",
+      "views": 97450,
+      "duration_min": 59.5
+    },
+    {
+      "company": "Tesla",
+      "rank": 3,
+      "id": "gveK0yp-O5o",
+      "url": "https://www.youtube.com/watch?v=gveK0yp-O5o",
+      "title": "Tesla 2025 Annual Shareholder Meeting (in under 10 mins)",
+      "channel": "Solving The Money Problem",
+      "date": "2025-11-06",
+      "views": 68914,
+      "duration_min": 9.5
+    },
+    {
+      "company": "Tesla",
+      "rank": 4,
+      "id": "AGnQ2ZAXPgs",
+      "url": "https://www.youtube.com/watch?v=AGnQ2ZAXPgs",
+      "title": "Tesla Quietly Announced A New Model & Confirms Another For 2025",
+      "channel": "Ryan Shaw",
+      "date": "2025-11-08",
+      "views": 55960,
+      "duration_min": 20.9
+    },
+    {
+      "company": "Tesla",
+      "rank": 5,
+      "id": "JJvXIFaqHqY",
+      "url": "https://www.youtube.com/watch?v=JJvXIFaqHqY",
+      "title": "Tesla Just Had Their Best Idea Yet (It's Actually HUGE)",
+      "channel": "Farzad",
+      "date": "2025-11-10",
+      "views": 52199,
+      "duration_min": 13.2
+    },
+    {
+      "company": "Tesla",
+      "rank": 6,
+      "id": "_jR5K4XgI7A",
+      "url": "https://www.youtube.com/watch?v=_jR5K4XgI7A",
+      "title": "Tesla's Hand Has Been Forced",
+      "channel": "Solving The Money Problem",
+      "date": "2025-11-08",
+      "views": 46654,
+      "duration_min": 12.9
+    },
+    {
+      "company": "Tesla",
+      "rank": 7,
+      "id": "wxlV4A6kg64",
+      "url": "https://www.youtube.com/watch?v=wxlV4A6kg64",
+      "title": "EXCLUSIVE: Elon Just Confirmed Tesla's AI Can Now Think!",
+      "channel": "Brighter with Herbert",
+      "date": "2025-11-05",
+      "views": 35927,
+      "duration_min": 44.1
+    },
+    {
+      "company": "Tesla",
+      "rank": 8,
+      "id": "MFgKzPgm8Lw",
+      "url": "https://www.youtube.com/watch?v=MFgKzPgm8Lw",
+      "title": "Elon Musk's Greatest Comeback: Tesla to $5 Trillion",
+      "channel": "Brighter with Herbert",
+      "date": "2025-11-10",
+      "views": 34194,
+      "duration_min": 30.9
+    },
+    {
+      "company": "Tesla",
+      "rank": 9,
+      "id": "L6Etc0ngrTc",
+      "url": "https://www.youtube.com/watch?v=L6Etc0ngrTc",
+      "title": "\"Money Printing Machine\" - Elon Musk Shares Tesla's INSANE Goals",
+      "channel": "Solving The Money Problem",
+      "date": "2025-11-09",
+      "views": 33574,
+      "duration_min": 9.9
+    },
+    {
+      "company": "Tesla",
+      "rank": 10,
+      "id": "lULP_Mfwd-o",
+      "url": "https://www.youtube.com/watch?v=lULP_Mfwd-o",
+      "title": "My UPDATED Tesla Stock Prediction For 2026",
+      "channel": "Jo Bhakdi",
+      "date": "2025-11-10",
+      "views": 24383,
+      "duration_min": 18.0
+    },
+    {
+      "company": "OpenAI",
+      "rank": 1,
+      "id": "6uYEPfiBMAE",
+      "url": "https://www.youtube.com/watch?v=6uYEPfiBMAE",
+      "title": "Does OpenAI Need a Bailout? Mamdani Wins, Socialism Rising, Filibuster Nuclear Option",
+      "channel": "All-In Podcast",
+      "date": "2025-11-07",
+      "views": 466722,
+      "duration_min": 87.2
+    },
+    {
+      "company": "OpenAI",
+      "rank": 2,
+      "id": "nTDS5r5fk_k",
+      "url": "https://www.youtube.com/watch?v=nTDS5r5fk_k",
+      "title": "OpenAI Losing Billions on AI Slop Videos",
+      "channel": "Wall Street Millennial",
+      "date": "2025-11-06",
+      "views": 172101,
+      "duration_min": 22.0
+    },
+    {
+      "company": "OpenAI",
+      "rank": 3,
+      "id": "aI3M9gUrDdg",
+      "url": "https://www.youtube.com/watch?v=aI3M9gUrDdg",
+      "title": "Sam Altman Loses Cool During Interview \"Ive Had ENOUGH!!",
+      "channel": "TheAIGRID",
+      "date": "2025-11-03",
+      "views": 53686,
+      "duration_min": 22.7
+    },
+    {
+      "company": "OpenAI",
+      "rank": 4,
+      "id": "cuSDy0Rmdks",
+      "url": "https://www.youtube.com/watch?v=cuSDy0Rmdks",
+      "title": "Sam Altman on Trust, Persuasion, and the Future of Intelligence - Live at the Progress Conference",
+      "channel": "Conversations with Tyler",
+      "date": "2025-11-05",
+      "views": 32216,
+      "duration_min": 54.5
+    },
+    {
+      "company": "OpenAI",
+      "rank": 5,
+      "id": "pzJfRzm3bL0",
+      "url": "https://www.youtube.com/watch?v=pzJfRzm3bL0",
+      "title": "Top 10 Facts About OpenAI and ChatGPT",
+      "channel": "WatchMojo.com",
+      "date": "2025-11-05",
+      "views": 26123,
+      "duration_min": 16.8
+    },
+    {
+      "company": "OpenAI",
+      "rank": 6,
+      "id": "Zcw_epDd1ak",
+      "url": "https://www.youtube.com/watch?v=Zcw_epDd1ak",
+      "title": "Sam Altman in conversation with Tyler Cowen",
+      "channel": "NA",
+      "date": "2025-11-06",
+      "views": 10330,
+      "duration_min": 54.9
+    },
+    {
+      "company": "OpenAI",
+      "rank": 7,
+      "id": "P7Oa9Hh2L0A",
+      "url": "https://www.youtube.com/watch?v=P7Oa9Hh2L0A",
+      "title": "OpenAI Collapse: Sam Altman's Plans Falling Apart",
+      "channel": "STARTUP HAKK",
+      "date": "2025-11-08",
+      "views": 5453,
+      "duration_min": 21.5
+    },
+    {
+      "company": "OpenAI",
+      "rank": 8,
+      "id": "nL2ixZuBbr0",
+      "url": "https://www.youtube.com/watch?v=nL2ixZuBbr0",
+      "title": "OpenAI's GPT-5.1 Model Just Leaked (Polaris Alpha Explained)",
+      "channel": "Universe of AI",
+      "date": "2025-11-09",
+      "views": 1654,
+      "duration_min": 8.0
+    },
+    {
+      "company": "OpenAI",
+      "rank": 9,
+      "id": "O741oaJolW4",
+      "url": "https://www.youtube.com/watch?v=O741oaJolW4",
+      "title": "Sam Altman (OpenAI) & Coach Kerr (Warriors) - Live with Manny - Nov 3 2025",
+      "channel": "Manny's",
+      "date": "2025-11-06",
+      "views": 1242,
+      "duration_min": 74.9
+    },
+    {
+      "company": "Palantir",
+      "rank": 1,
+      "id": "mqa1yEd891o",
+      "url": "https://www.youtube.com/watch?v=mqa1yEd891o",
+      "title": "Alex Karp on 'Big Short' investor Michael Burry: 'Bats--- crazy' for bets against Palantir, Nvidia",
+      "channel": "CNBC Television",
+      "date": "2025-11-04",
+      "views": 335653,
+      "duration_min": 10.3
+    },
+    {
+      "company": "Palantir",
+      "rank": 2,
+      "id": "-_R1dPYPbxU",
+      "url": "https://www.youtube.com/watch?v=-_R1dPYPbxU",
+      "title": "Michael Burry's Big Short on Nvidia & Palantir Will Make Millionaires (Here's How)",
+      "channel": "Ticker Symbol: YOU",
+      "date": "2025-11-09",
+      "views": 107216,
+      "duration_min": 12.7
+    },
+    {
+      "company": "Palantir",
+      "rank": 3,
+      "id": "lcOLKSdsQ9c",
+      "url": "https://www.youtube.com/watch?v=lcOLKSdsQ9c",
+      "title": "If You Hold Palantir Stock (PLTR)... GET READY!",
+      "channel": "Ticker Symbol: YOU",
+      "date": "2025-11-06",
+      "views": 104417,
+      "duration_min": 16.6
+    },
+    {
+      "company": "Palantir",
+      "rank": 4,
+      "id": "o1ZFfK8hL5M",
+      "url": "https://www.youtube.com/watch?v=o1ZFfK8hL5M",
+      "title": "Palantir's Alex Karp on government surveillance, AI and the Democratic party - The Axios Show Ep. 5",
+      "channel": "Axios",
+      "date": "2025-11-07",
+      "views": 95712,
+      "duration_min": 30.0
+    },
+    {
+      "company": "Palantir",
+      "rank": 5,
+      "id": "_eSvCpVueFU",
+      "url": "https://www.youtube.com/watch?v=_eSvCpVueFU",
+      "title": "Is Palantir's valuation justified?",
+      "channel": "CNBC Television",
+      "date": "2025-11-04",
+      "views": 86551,
+      "duration_min": 10.4
+    },
+    {
+      "company": "Palantir",
+      "rank": 6,
+      "id": "HabEH_Yu4wI",
+      "url": "https://www.youtube.com/watch?v=HabEH_Yu4wI",
+      "title": "Palantir CEO Alex Karp: We've printed venture results for the average American",
+      "channel": "CNBC Television",
+      "date": "2025-11-07",
+      "views": 41255,
+      "duration_min": 6.1
+    },
+    {
+      "company": "Palantir",
+      "rank": 7,
+      "id": "5ogGK_G_5Zs",
+      "url": "https://www.youtube.com/watch?v=5ogGK_G_5Zs",
+      "title": "Smart ways to invest in AI beyond Nvidia, Palantir, and Meta",
+      "channel": "Yahoo Finance",
+      "date": "2025-11-06",
+      "views": 31877,
+      "duration_min": 22.7
+    },
+    {
+      "company": "Palantir",
+      "rank": 8,
+      "id": "b67wVR3SSPo",
+      "url": "https://www.youtube.com/watch?v=b67wVR3SSPo",
+      "title": "MICHAEL BURRY NEW BIG SHORT: PALANTIR (PLTR STOCK)",
+      "channel": "UNRIVALED INVESTING",
+      "date": "2025-11-04",
+      "views": 22025,
+      "duration_min": 8.8
+    },
+    {
+      "company": "Palantir",
+      "rank": 9,
+      "id": "dNbbowEggiA",
+      "url": "https://www.youtube.com/watch?v=dNbbowEggiA",
+      "title": "EARNINGS ALERT: PLTR",
+      "channel": "Schwab Network",
+      "date": "2025-11-03",
+      "views": 10978,
+      "duration_min": 7.1
+    },
+    {
+      "company": "Palantir",
+      "rank": 10,
+      "id": "icigR75rWwI",
+      "url": "https://www.youtube.com/watch?v=icigR75rWwI",
+      "title": "Morning Report 11 Nov 25: Wall Street ends sharply higher; Nvidia and Palantir lead AI surge",
+      "channel": "CommSecTV",
+      "date": "2025-11-10",
+      "views": 2304,
+      "duration_min": 6.0
+    }
+  ]
+}

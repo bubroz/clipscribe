@@ -3,13 +3,14 @@ Advanced progress indicators for batch processing.
 """
 
 import asyncio
-from rich.console import Console
-from rich.panel import Panel
-from rich.progress import Progress, BarColumn, TextColumn, TaskID, TimeElapsedColumn
-from rich.live import Live
-from rich.layout import Layout
+from typing import Dict, Optional
+
 from rich import box
-from typing import Optional, Dict
+from rich.console import Console
+from rich.layout import Layout
+from rich.live import Live
+from rich.panel import Panel
+from rich.progress import BarColumn, Progress, TaskID, TextColumn, TimeElapsedColumn
 
 
 class BatchProgress:

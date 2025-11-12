@@ -5,9 +5,9 @@ These classes have been replaced by the Voxtral-Grok pipeline in VideoIntelligen
 This file exists only to prevent import errors in legacy tests.
 """
 
-import warnings
 import logging
-from typing import Optional, Dict, Any
+import warnings
+from typing import Any, Dict
 
 logger = logging.getLogger(__name__)
 
@@ -23,7 +23,7 @@ class GeminiFlashTranscriber:
         warnings.warn(
             "GeminiFlashTranscriber is deprecated. Use VideoIntelligenceRetrieverV2 instead.",
             DeprecationWarning,
-            stacklevel=2
+            stacklevel=2,
         )
         logger.warning("GeminiFlashTranscriber instantiated - this class is deprecated")
 
@@ -38,7 +38,7 @@ class GeminiFlashTranscriber:
             "transcript": "DEPRECATED: Use Voxtral-Grok pipeline instead",
             "entities": [],
             "relationships": [],
-            "model_used": "deprecated"
+            "model_used": "deprecated",
         }
 
 
@@ -50,15 +50,12 @@ class GeminiPool:
     """
 
     def __init__(self):
-        warnings.warn(
-            "GeminiPool is deprecated.",
-            DeprecationWarning,
-            stacklevel=2
-        )
+        warnings.warn("GeminiPool is deprecated.", DeprecationWarning, stacklevel=2)
         logger.warning("GeminiPool instantiated - this class is deprecated")
 
 
 class TaskType:
     """Mock enum for compatibility."""
+
     TRANSCRIBE = "transcribe"
     EXTRACT = "extract"

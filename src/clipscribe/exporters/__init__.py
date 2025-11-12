@@ -3,4 +3,3 @@
 from .x_exporter import XContentGenerator
 
 __all__ = ["XContentGenerator"]
-

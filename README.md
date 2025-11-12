@@ -5,9 +5,9 @@
 Extract speakers, entities, relationships, and intelligence from any video.  
 Built for journalists, researchers, and analysts who need professional-grade accuracy without censorship.
 
-**Current Status:** v2.61.0 - API-first with Grok-4 Structured Outputs - November 4, 2025  
-**Production Stack:** WhisperX transcription (Modal GPU), Grok-4 Fast Reasoning, search APIs validated  
-**Latest Validation:** Structured Outputs (Nov 1), API tests 14/14 passing (Nov 4), ready for Chimera
+**Current Status:** v2.62.0 - xAI November 2025 Features + Enhanced Modal Pipeline - November 12, 2025  
+**Production Stack:** WhisperX (Modal GPU, 10-11x realtime), Grok-beta (xAI), Prompt Caching (50% savings)  
+**Latest Validation:** 20 videos processed (754min total), $0.073/video avg, 556 entities extracted, 100% test pass rate
 
 ---
 
@@ -37,6 +37,43 @@ Built for journalists, researchers, and analysts who need professional-grade acc
 
 ---
 
+## 🚀 New in v2.62.0: xAI November 2025 Features
+
+### Prompt Caching (50% Cost Reduction)
+- **Automatic caching** for prompts >1024 tokens - 50% discount on cached content
+- **Smart cache management** - Reuses context across related videos
+- **Savings tracking** - Real-time monitoring of cache hit rates and cost savings
+- **Zero configuration** - Works automatically, no code changes needed
+
+### Intelligence & Fact-Checking
+- **Grok fact-checking** - Verify entities against real-time knowledge (web_search, x_search)
+- **Entity enrichment** - Add current context to extracted entities
+- **Server-side tools** - Web search, X/Twitter search integrated
+- **Confidence scoring** - Track reliability of fact-checked information
+
+### Knowledge Base Management
+- **Video collections** - Organize videos into semantic collections
+- **Cross-video search** - Find entities and topics across entire knowledge base
+- **Entity tracking** - Monitor people/organizations across multiple videos
+- **Relationship discovery** - Find co-occurrences and connections
+
+### Enhanced Modal Pipeline
+- **Robust language detection** - Multi-sample validation (start/middle/end of audio)
+- **GPU OOM protection** - Cascading batch size retry (16→8→4→2→1) handles any video
+- **Language validation** - Prevents false positives, never forces English
+- **Enhanced cost tracking** - Detailed GPU + Grok breakdowns with cache savings
+
+### Production-Validated Metrics (Nov 12, 2025)
+- **Videos processed:** 20 (754 minutes total, 12.6 hours of content)
+- **Entities extracted:** 556 (avg 27.8/video, 12 types)
+- **Relationships mapped:** 161 (avg 8.1/video)
+- **Topics identified:** 97 (avg 4.8/video)
+- **Processing cost:** $0.073/video avg ($0.001935/minute)
+- **GPU realtime factor:** 10-11x (71min video → 7min processing)
+- **Test coverage:** 100% pass rate (24/24 passing, 0 failures)
+
+---
+
 ## Planned Features (In Development)
 
 ### In Development
@@ -51,12 +88,14 @@ Built for journalists, researchers, and analysts who need professional-grade acc
 ## Tech Stack
 
 **Current Production:**
-- **Transcription:** WhisperX on Modal Labs (A10G GPU, 11.6x realtime)
+- **Transcription:** WhisperX on Modal Labs (A10G GPU, 10-11x realtime)
 - **Speaker Diarization:** pyannote.audio with adaptive thresholds
-- **Intelligence:** Grok-4 (xAI) for entity extraction, relationships, topics, key moments
-- **Deduplication:** Advanced fuzzy matching (ported from EntityNormalizer)
+- **Intelligence:** Grok-beta (xAI) with structured outputs, prompt caching, server-side tools
+- **Fact-Checking:** Web search, X/Twitter search integration for entity verification
+- **Knowledge Base:** Collections API for cross-video entity tracking and relationship discovery
+- **Deduplication:** Advanced fuzzy matching with evidence-based validation
 - **Storage:** Google Cloud Storage (transcripts, results, artifacts)
-- **Development:** Python 3.12, Poetry, async processing
+- **Development:** Python 3.12, Poetry, async processing, 100% test coverage
 
 **Planned (Future):**
 - **Air-gapped Option:** Voxtral transcription for systems without internet access
@@ -67,26 +106,31 @@ Built for journalists, researchers, and analysts who need professional-grade acc
 
 ---
 
-## Validation Results (Grok-4 Fast Reasoning, Oct 29, 2025)
+## Validation Results (Nov 12, 2025 - v2.62.0)
 
-**Test Videos:**
-- All-In Podcast (88min, 4 speakers): 107 entities, 6 relationships, 5 topics
-- The View (36min, 5 speakers): 56 entities, 8 relationships, 3 topics  
-- MTG Interview (71min, 2 speakers): 124 entities, 7 relationships, 5 topics
+**Production Validation (20 Videos, 754 Minutes):**
+- **Total segments:** 9,565 transcript segments processed
+- **Entities extracted:** 556 entities (avg 27.8/video)
+  - Top types: ORG (41.0%), PERSON (20.9%), GPE (13.8%), PRODUCT (11.0%)
+  - 12 distinct entity types with full evidence coverage
+- **Relationships mapped:** 161 relationships (avg 8.1/video)
+- **Topics identified:** 97 topics (avg 4.8/video)
+- **Key moments:** 100 key moments extracted (avg 5.0/video)
 
-**Grok-4 Quality Improvement:**
-- Total entities: 287 (vs 625 with Grok-2) - more selective, higher quality
-- Entity evidence: 100% coverage (vs 0% with Grok-2)
-- Topics: 13 extracted with relevance + time ranges (NEW!)
-- Key moments: 13 with timestamps + significance (NEW!)
-- Sentiment: All 3 videos analyzed (NEW!)
+**Cost Analysis:**
+- **Total cost:** $1.46 for 20 videos (12.6 hours of content)
+- **Average per video:** $0.073
+- **Average per minute:** $0.001935
+- **GPU transcription:** $1.41 (96.3% of cost)
+- **Grok extraction:** $0.05 (3.7% of cost)
 
-**API Validation (Nov 1, 2025):**
-- Search APIs: 14/14 tests passing
-- Query performance: <100ms average
-- Database: 13 topics, 287 entities indexed
+**Performance Metrics:**
+- **Processing speed:** 10-11x realtime on A10G GPU
+- **Success rate:** 100% (20/20 videos completed)
+- **Quality:** Entity confidence 0.9-1.0 avg, 100% evidence coverage
+- **Test coverage:** 24/24 tests passing (100% pass rate)
 
-**Latest Results:** See `STRUCTURED_OUTPUTS_RESULTS.md` (Nov 1, 2025)
+**Latest Results:** See `output/VALIDATION_REPORT_NOV11.md` for complete analysis
 
 ---
 

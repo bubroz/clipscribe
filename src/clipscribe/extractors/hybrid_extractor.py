@@ -1,13 +1,12 @@
 """Hybrid entity extractor combining SpaCy (free) with LLM validation (selective)."""
 
-import logging
-from typing import List, Dict, Tuple
 import json
-from google.generativeai.types import RequestOptions
+import logging
+from typing import Dict, List, Tuple
 
-from .spacy_extractor import SpacyEntityExtractor
-from ..models import Entity
 from ..config.settings import Settings
+from ..models import Entity
+from .spacy_extractor import SpacyEntityExtractor
 
 logger = logging.getLogger(__name__)
 
@@ -44,7 +43,7 @@ class HybridEntityExtractor:
         self.batch_size = batch_size
 
         # Get timeout from settings
-        settings = Settings()
+        Settings()
         # self.request_timeout = settings.gemini_request_timeout  # Gemini removed
 
         # Cost tracking
@@ -133,35 +132,11 @@ class HybridEntityExtractor:
         for i in range(0, len(entities), self.batch_size):
             batch = entities[i : i + self.batch_size]
 
-            # Create validation prompt
-            prompt = self._create_validation_prompt(batch, full_text)
-
-            try:
-                # LLM validation removed - using Voxtral-Grok pipeline
-                # LLM validation removed - using Voxtral-Grok pipeline
-                # response = await self.llm_validator.model.generate_content_async(
-                    prompt, request_options=RequestOptions(timeout=self.request_timeout)
-                )
-
-                # Parse validation results
-                validated_batch = self._parse_validation_response(response.text, batch)
-                validated.extend(validated_batch)
-
-                # Track costs
-                if self.enable_cost_tracking:
-                    # Cost tracking removed - Gemini pricing deprecated
-                    input_tokens = len(prompt) / 4  # Rough estimate
-                    output_tokens = len(response.text) / 4
-                    cost = (input_tokens * 0.25 + output_tokens * 0.50) / 1_000_000
-                    self.total_cost += cost
-                    self.llm_validations += len(batch)
-
-            except Exception as e:
-                logger.error(f"LLM validation failed: {e}")
-                # Fall back to including all entities with adjusted confidence
-                for entity, conf in batch:
-                    entity.confidence = conf * 0.8  # Reduce confidence
-                    validated.append(entity)
+            # LLM validation removed - using Voxtral-Grok pipeline
+            # Fall back to including all entities with adjusted confidence
+            for entity, conf in batch:
+                entity.confidence = conf * 0.8  # Reduce confidence
+                validated.append(entity)
 
         return validated
 
@@ -182,7 +157,7 @@ class HybridEntityExtractor:
 
         prompt = f"""Validate these entities extracted from the text. For each entity:
 1. Confirm if it's correctly identified
-2. Correct the type if wrong  
+2. Correct the type if wrong
 3. Merge duplicates (e.g., "Trump" and "Donald Trump")
 4. Add any missing important entities nearby
 
@@ -253,31 +228,13 @@ Return a JSON array with validated entities:
 
     async def _llm_only_extraction(self, text: str) -> List[Entity]:
         """Fallback to LLM-only extraction when SpaCy finds nothing."""
-        prompt = f"""Extract all named entities from this text. Include:
-- People (PERSON)
-- Organizations/Companies (ORGANIZATION)  
-- Locations/Places (LOCATION)
-- Events (EVENT)
-- Technologies (TECHNOLOGY)
-- Concepts (CONCEPT)
-- Products (PRODUCT)
-
-Text: {text}
-
-Return as JSON array:
-[{{"name": "Entity Name", "type": "TYPE", "confidence": 0.9}}]
-"""
 
         try:
             # LLM validation removed - using Voxtral-Grok pipeline
-            # response = await self.llm_validator.model.generate_content_async(
-                prompt, request_options=RequestOptions(timeout=self.request_timeout)
-            )
+            # Returning original batch without validation
+            if False:  # Disabled - using Voxtral-Grok pipeline instead
 
-            # Parse response
-            import re
-
-            json_match = re.search(r"\[.*\]", response.text, re.DOTALL)
+                json_match = None
             if json_match:
                 entities_data = json.loads(json_match.group())
                 return [

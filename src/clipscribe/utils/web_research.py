@@ -5,12 +5,12 @@ Provides event context validation and enrichment capabilities for ARGOS v2.17.0.
 Integrates with timeline synthesis to validate events against external sources.
 """
 
-import logging
 import asyncio
 import json
-from typing import List, Dict, Any, Optional
-from datetime import datetime
+import logging
 from dataclasses import dataclass
+from datetime import datetime
+from typing import Any, Dict, List, Optional
 
 # Gemini imports removed - functionality deprecated
 genai = None
@@ -184,7 +184,7 @@ TASK: For each event, determine:
 
 1. VALIDATION STATUS:
    - "validated": Event confirmed by external knowledge
-   - "conflicting": Event contradicts known information  
+   - "conflicting": Event contradicts known information
    - "unverified": Cannot confirm or deny with available knowledge
    - "enhanced": Event confirmed and can be enriched with additional context
 

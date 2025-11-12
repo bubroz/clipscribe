@@ -3,11 +3,10 @@
 Built with Voxtral-Grok pipeline for uncensored, accurate transcription of videos from 1800+ platforms.
 """
 
-from .version import __version__
-
-
 # Lazy import CLI only when needed - don't import at package level
 from typing import Any
+
+from .version import __version__
 
 
 def get_cli() -> Any:

@@ -8,29 +8,29 @@ Timeline features permanently discontinued - focuses on core intelligence extrac
 """
 
 import logging
-from typing import List, Dict, Any, Optional
-from collections import Counter
 import time
+from collections import Counter
+from typing import Any, Dict, List, Optional
 
+from ..config.settings import Settings
 from ..models import (
-    VideoIntelligence,
-    MultiVideoIntelligence,
+    ConceptCluster,
+    ConceptDependency,
+    ConceptEvolutionPath,
+    ConceptMaturityLevel,
+    ConceptNode,
     CrossVideoEntity,
     CrossVideoRelationship,
-    VideoCollectionType,
     Entity,
-    Topic,
-    InformationFlowMap,
-    ConceptNode,
-    ConceptDependency,
     InformationFlow,
-    ConceptEvolutionPath,
-    ConceptCluster,
-    ConceptMaturityLevel,
+    InformationFlowMap,
+    MultiVideoIntelligence,
+    Topic,
+    VideoCollectionType,
+    VideoIntelligence,
 )
 from .entity_normalizer import EntityNormalizer
 from .series_detector import SeriesDetector
-from ..config.settings import Settings
 
 logger = logging.getLogger(__name__)
 
@@ -65,7 +65,6 @@ class MultiVideoProcessor:
         # AI validation setup - using Pro for all multi-video intelligence
         if use_ai_validation:
             try:
-                import google.generativeai as genai
 
                 # Gemini removed - AI validation moved to HybridProcessor
                 # genai.configure(api_key=self.settings.google_api_key)
@@ -1037,21 +1036,21 @@ class MultiVideoProcessor:
 
             prompt = f"""
             Analyze the information flow and concept evolution in this video collection: "{collection_title}"
-            
+
             CONCEPT ANALYSIS:
             Total concepts tracked: {len(concept_nodes)}
             Information flows: {len(information_flows)}
             Evolution paths: {len(evolution_paths)}
-            
+
             TOP CONCEPTS BY DEPTH:
             {chr(10).join(c.concept_name for c in top_concepts)}
-            
+
             KEY INFORMATION FLOWS:
             {chr(10).join(f"{f.source_node.concept_name} → {f.target_node.concept_name} ({f.flow_type})" for f in key_flows)}
-            
+
             EVOLUTION PATTERNS:
             {chr(10).join(p.evolution_summary for p in evolution_paths[:5] if p.evolution_summary)}
-            
+
             Generate insights about:
             1. How information flows through the collection
             2. Which concepts are most critical to understanding
@@ -1059,7 +1058,7 @@ class MultiVideoProcessor:
             4. Pedagogical strengths and weaknesses
             5. Information architecture effectiveness
             6. Strategic implications for learning/understanding
-            
+
             Format as bullet points, each 1-2 sentences.
             """
 

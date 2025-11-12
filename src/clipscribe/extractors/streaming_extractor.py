@@ -1,16 +1,15 @@
 """
 Streaming Extractor - Process transcripts in chunks to avoid token limits.
 
-This approach processes the transcript in smaller, independent pieces 
+This approach processes the transcript in smaller, independent pieces
 """
 
 import asyncio
-import logging
-from typing import Dict, Any, List, Tuple
-from dataclasses import dataclass
 import json
+import logging
+from dataclasses import dataclass
+from typing import Any, Dict, List, Tuple
 
-import google.generativeai as genai
 from google.generativeai.types import RequestOptions
 
 logger = logging.getLogger(__name__)

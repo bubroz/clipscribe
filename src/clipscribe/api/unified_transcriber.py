@@ -12,15 +12,15 @@ Key Features:
 """
 
 import asyncio
+import inspect
 import logging
 import time
-from typing import Dict, Any, Optional, List, Callable, Union, Type
 from dataclasses import dataclass, field
-from enum import Enum
-import inspect
 from datetime import datetime
+from enum import Enum
+from typing import Any, Callable, Dict, List, Optional, Type
 
-from ..models import VideoIntelligence, VideoTranscript, VideoMetadata
+from ..models import VideoIntelligence, VideoMetadata, VideoTranscript
 
 logger = logging.getLogger(__name__)
 
@@ -32,6 +32,7 @@ class TranscriptionResult:
 
     This provides a consistent interface regardless of backend.
     """
+
     transcript: str
     entities: List[Dict[str, Any]] = field(default_factory=list)
     relationships: List[Dict[str, Any]] = field(default_factory=list)
@@ -60,48 +61,56 @@ class TranscriptionResult:
             channel_id=metadata.get("channel_id", "unknown"),
             published_at=metadata.get("published_at", datetime.now()),
             duration=metadata.get("duration", 0),
-            description=metadata.get("description")
+            description=metadata.get("description"),
         )
 
         # Create VideoTranscript
         video_transcript = VideoTranscript(
-            full_text=self.transcript,
-            segments=[]  # Could be enhanced later
+            full_text=self.transcript, segments=[]  # Could be enhanced later
         )
 
         # Convert entities to EnhancedEntity format
         from ..models import EnhancedEntity
+
         enhanced_entities = []
         for entity_data in self.entities:
-            enhanced_entities.append(EnhancedEntity(
-                name=entity_data.get("name", entity_data.get("entity", "Unknown")),
-                type=entity_data.get("type", "UNKNOWN"),
-                extraction_sources=entity_data.get("extraction_sources", ["unified_api"]),
-                mention_count=entity_data.get("mention_count", entity_data.get("mentions", 1)),
-                properties=entity_data
-            ))
+            enhanced_entities.append(
+                EnhancedEntity(
+                    name=entity_data.get("name", entity_data.get("entity", "Unknown")),
+                    type=entity_data.get("type", "UNKNOWN"),
+                    extraction_sources=entity_data.get("extraction_sources", ["unified_api"]),
+                    mention_count=entity_data.get("mention_count", entity_data.get("mentions", 1)),
+                    properties=entity_data,
+                )
+            )
 
         # Convert relationships
         from ..models import Relationship
+
         relationships = []
         for rel_data in self.relationships:
-            relationships.append(Relationship(
-                subject=rel_data.get("subject", ""),
-                predicate=rel_data.get("predicate", ""),
-                object=rel_data.get("object", ""),
-                confidence=rel_data.get("confidence", 0.5),
-                evidence=rel_data.get("evidence")
-            ))
+            relationships.append(
+                Relationship(
+                    subject=rel_data.get("subject", ""),
+                    predicate=rel_data.get("predicate", ""),
+                    object=rel_data.get("object", ""),
+                    confidence=rel_data.get("confidence", 0.5),
+                    evidence=rel_data.get("evidence"),
+                )
+            )
 
         # Convert key points
         from ..models import KeyPoint
+
         keypoints = []
         for kp_data in self.key_points:
-            keypoints.append(KeyPoint(
-                text=kp_data.get("text", kp_data.get("point", "")),
-                importance=kp_data.get("importance", 0.5),
-                context=kp_data.get("context")
-            ))
+            keypoints.append(
+                KeyPoint(
+                    text=kp_data.get("text", kp_data.get("point", "")),
+                    importance=kp_data.get("importance", 0.5),
+                    context=kp_data.get("context"),
+                )
+            )
 
         return VideoIntelligence(
             metadata=video_metadata,
@@ -111,12 +120,13 @@ class TranscriptionResult:
             key_points=keypoints,
             summary=self.summary,
             processing_cost=self.processing_cost,
-            processing_time=self.processing_time
+            processing_time=self.processing_time,
         )
 
 
 class BackendType(Enum):
     """Supported transcription backends."""
+
     # GEMINI = "gemini"  # Removed - using Voxtral-Grok
     VERTEX = "vertex"
     GROK = "grok"
@@ -126,6 +136,7 @@ class BackendType(Enum):
 @dataclass
 class BackendConfig:
     """Configuration for a transcription backend."""
+
     backend_type: BackendType
     name: str
     class_path: str
@@ -137,6 +148,7 @@ class BackendConfig:
 @dataclass
 class BackendHealth:
     """Health status of a backend."""
+
     backend_type: BackendType
     last_check: float
     is_healthy: bool
@@ -158,10 +170,7 @@ class BackendRegistry:
         self.configs: Dict[BackendType, BackendConfig] = {}
 
     def register_backend(
-        self,
-        backend_type: BackendType,
-        backend_class: Type,
-        config: BackendConfig
+        self, backend_type: BackendType, backend_class: Type, config: BackendConfig
     ) -> None:
         """
         Register a new backend with the registry.
@@ -181,10 +190,7 @@ class BackendRegistry:
 
             # Initialize health status
             self.health_status[backend_type] = BackendHealth(
-                backend_type=backend_type,
-                last_check=time.time(),
-                is_healthy=True,
-                error_count=0
+                backend_type=backend_type, last_check=time.time(), is_healthy=True, error_count=0
             )
 
             logger.info(f"Registered backend: {backend_type.value}")
@@ -196,7 +202,7 @@ class BackendRegistry:
                 last_check=time.time(),
                 is_healthy=False,
                 error_count=1,
-                last_error=str(e)
+                last_error=str(e),
             )
 
     def get_backend(self, backend_type: BackendType) -> Optional[Any]:
@@ -231,7 +237,9 @@ class BackendRegistry:
                 available.append(backend_type)
         return available
 
-    def update_health(self, backend_type: BackendType, is_healthy: bool, error: Optional[str] = None) -> None:
+    def update_health(
+        self, backend_type: BackendType, is_healthy: bool, error: Optional[str] = None
+    ) -> None:
         """
         Update health status of a backend.
 
@@ -279,7 +287,7 @@ class ParameterMapper:
                 "media_file": "content_uri",
                 "duration_seconds": "duration",
                 "metadata": "metadata",
-                "language_code": "language"
+                "language_code": "language",
             },
             BackendType.GROK: {
                 "audio_path": "audio_file",
@@ -289,11 +297,11 @@ class ParameterMapper:
                 "language_code": "lang",
                 "file_path": "audio_file",
                 "duration": "duration",
-                "language": "lang"
+                "language": "lang",
             },
             BackendType.MOCK: {
                 # Mock uses unified parameter names
-            }
+            },
         }
 
     def _load_validators(self) -> Dict[BackendType, Dict[str, Callable]]:
@@ -301,32 +309,28 @@ class ParameterMapper:
         return {
             BackendType.GEMINI: {
                 "file_path": self._validate_path,
-                "duration_seconds": self._validate_duration
+                "duration_seconds": self._validate_duration,
             },
             BackendType.VERTEX: {
                 "gcs_uri": self._validate_gcs_uri,
-                "duration": self._validate_duration
+                "duration": self._validate_duration,
             },
             BackendType.GROK: {
                 "content_path": self._validate_path,
-                "length": self._validate_duration
-            }
+                "length": self._validate_duration,
+            },
         }
 
     def _load_type_converters(self) -> Dict[str, Callable]:
         """Load type conversion functions."""
         return {
-            "path_to_str": lambda x: str(x) if hasattr(x, '__str__') else x,
+            "path_to_str": lambda x: str(x) if hasattr(x, "__str__") else x,
             "str_to_path": lambda x: Path(x) if isinstance(x, str) else x,
             "int_to_str": lambda x: str(x) if isinstance(x, int) else x,
-            "str_to_int": lambda x: int(x) if isinstance(x, str) and x.isdigit() else x
+            "str_to_int": lambda x: int(x) if isinstance(x, str) and x.isdigit() else x,
         }
 
-    def map_parameters(
-        self,
-        backend_type: BackendType,
-        params: Dict[str, Any]
-    ) -> Dict[str, Any]:
+    def map_parameters(self, backend_type: BackendType, params: Dict[str, Any]) -> Dict[str, Any]:
         """
         Map parameters to backend-specific format.
 
@@ -365,7 +369,7 @@ class ParameterMapper:
 
     def _validate_path(self, path: Any) -> str:
         """Validate and convert path parameters."""
-        if hasattr(path, '__str__'):
+        if hasattr(path, "__str__"):
             return str(path)
         elif isinstance(path, str):
             return path
@@ -407,14 +411,10 @@ class MethodResolver:
             "transcribe_video",
             "process",
             "analyze",
-            "extract"
+            "extract",
         ]
 
-    def resolve_method(
-        self,
-        backend: Any,
-        operation: str = "transcribe"
-    ) -> Optional[Callable]:
+    def resolve_method(self, backend: Any, operation: str = "transcribe") -> Optional[Callable]:
         """
         Resolve the appropriate method for an operation.
 
@@ -454,7 +454,7 @@ class MethodResolver:
         """
         try:
             # Check if it's a bound method (has __self__ attribute)
-            if hasattr(method, '__self__'):
+            if hasattr(method, "__self__"):
                 return True
 
             # Check signature for unbound methods
@@ -495,19 +495,16 @@ class UnifiedErrorHandler:
             "InvalidArgument": "INVALID_PARAMETERS",
             "ResourceExhausted": "RATE_LIMIT_EXCEEDED",
             "PermissionDenied": "AUTHENTICATION_FAILED",
-
             # Vertex errors
             "google.api_core.exceptions.InvalidArgument": "INVALID_PARAMETERS",
             "google.api_core.exceptions.ResourceExhausted": "RATE_LIMIT_EXCEEDED",
-
             # Grok errors
             "httpx.HTTPStatusError": "API_ERROR",
             "httpx.TimeoutException": "TIMEOUT_ERROR",
-
             # Generic errors
             "TimeoutError": "TIMEOUT_ERROR",
             "ConnectionError": "CONNECTIVITY_ERROR",
-            "ValueError": "VALIDATION_ERROR"
+            "ValueError": "VALIDATION_ERROR",
         }
 
     def _load_recovery_strategies(self) -> Dict[str, Callable]:
@@ -516,7 +513,7 @@ class UnifiedErrorHandler:
             "RATE_LIMIT_EXCEEDED": self._retry_with_backoff,
             "TIMEOUT_ERROR": self._retry_with_timeout,
             "CONNECTIVITY_ERROR": self._retry_with_backoff,
-            "API_ERROR": self._switch_backend
+            "API_ERROR": self._switch_backend,
         }
 
     def handle_error(
@@ -524,7 +521,7 @@ class UnifiedErrorHandler:
         error: Exception,
         backend_type: BackendType,
         original_params: Dict[str, Any],
-        context: Dict[str, Any]
+        context: Dict[str, Any],
     ) -> Dict[str, Any]:
         """
         Handle an error with appropriate recovery strategy.
@@ -551,7 +548,7 @@ class UnifiedErrorHandler:
                 "error": "RECOVERY_FAILED",
                 "original_error": str(error),
                 "recovery_error": str(recovery_error),
-                "should_retry": False
+                "should_retry": False,
             }
 
     def _classify_error(self, error: Exception) -> str:
@@ -576,14 +573,14 @@ class UnifiedErrorHandler:
         error: Exception,
         backend_type: BackendType,
         params: Dict[str, Any],
-        context: Dict[str, Any]
+        context: Dict[str, Any],
     ) -> Dict[str, Any]:
         """Retry with exponential backoff."""
         return {
             "strategy": "RETRY_BACKOFF",
             "should_retry": True,
             "backoff_seconds": min(60, 2 ** context.get("retry_count", 0)),
-            "max_retries": 3
+            "max_retries": 3,
         }
 
     def _retry_with_timeout(
@@ -591,14 +588,14 @@ class UnifiedErrorHandler:
         error: Exception,
         backend_type: BackendType,
         params: Dict[str, Any],
-        context: Dict[str, Any]
+        context: Dict[str, Any],
     ) -> Dict[str, Any]:
         """Retry with increased timeout."""
         return {
             "strategy": "RETRY_TIMEOUT",
             "should_retry": True,
             "new_timeout": min(300, context.get("current_timeout", 60) * 2),
-            "max_retries": 2
+            "max_retries": 2,
         }
 
     def _switch_backend(
@@ -606,14 +603,14 @@ class UnifiedErrorHandler:
         error: Exception,
         backend_type: BackendType,
         params: Dict[str, Any],
-        context: Dict[str, Any]
+        context: Dict[str, Any],
     ) -> Dict[str, Any]:
         """Switch to a different backend."""
         return {
             "strategy": "SWITCH_BACKEND",
             "should_retry": True,
             "new_backend": self._select_alternative_backend(backend_type),
-            "preserve_params": True
+            "preserve_params": True,
         }
 
     def _default_recovery(
@@ -621,13 +618,13 @@ class UnifiedErrorHandler:
         error: Exception,
         backend_type: BackendType,
         params: Dict[str, Any],
-        context: Dict[str, Any]
+        context: Dict[str, Any],
     ) -> Dict[str, Any]:
         """Default recovery strategy."""
         return {
             "strategy": "FAIL_FAST",
             "should_retry": False,
-            "error_message": f"Unhandled error: {str(error)}"
+            "error_message": f"Unhandled error: {str(error)}",
         }
 
     def _select_alternative_backend(self, failed_backend: BackendType) -> BackendType:
@@ -635,7 +632,7 @@ class UnifiedErrorHandler:
         alternatives = {
             BackendType.GEMINI: BackendType.VERTEX,
             BackendType.VERTEX: BackendType.GEMINI,
-            BackendType.GROK: BackendType.GEMINI
+            BackendType.GROK: BackendType.GEMINI,
         }
         return alternatives.get(failed_backend, BackendType.GEMINI)
 
@@ -654,7 +651,7 @@ class MetricsCollector:
             "errors_total": 0,
             "errors_by_type": {},
             "response_times": [],
-            "backend_switches": 0
+            "backend_switches": 0,
         }
 
     def record_request(self, backend_type: BackendType) -> None:
@@ -689,7 +686,9 @@ class MetricsCollector:
     def get_summary(self) -> Dict[str, Any]:
         """Get metrics summary."""
         if self.metrics["response_times"]:
-            avg_response_time = sum(self.metrics["response_times"]) / len(self.metrics["response_times"])
+            avg_response_time = sum(self.metrics["response_times"]) / len(
+                self.metrics["response_times"]
+            )
             max_response_time = max(self.metrics["response_times"])
             min_response_time = min(self.metrics["response_times"])
         else:
@@ -703,7 +702,7 @@ class MetricsCollector:
             "avg_response_time": avg_response_time,
             "max_response_time": max_response_time,
             "min_response_time": min_response_time,
-            "backend_switches": self.metrics["backend_switches"]
+            "backend_switches": self.metrics["backend_switches"],
         }
 
 
@@ -744,31 +743,20 @@ class UnifiedTranscriberAPI:
             backend_type=BackendType.VERTEX,
             name="Vertex AI",
             class_path="clipscribe.retrievers.vertex_ai_transcriber.VertexAITranscriber",
-            parameters={}
+            parameters={},
         )
-        self.registry.register_backend(
-            BackendType.VERTEX,
-            VertexAITranscriber,
-            vertex_config
-        )
+        self.registry.register_backend(BackendType.VERTEX, VertexAITranscriber, vertex_config)
 
         # Register Grok backend
         grok_config = BackendConfig(
             backend_type=BackendType.GROK,
             name="Grok 4",
             class_path="clipscribe.retrievers.grok_transcriber.GrokTranscriber",
-            parameters={}
+            parameters={},
         )
-        self.registry.register_backend(
-            BackendType.GROK,
-            GrokTranscriber,
-            grok_config
-        )
+        self.registry.register_backend(BackendType.GROK, GrokTranscriber, grok_config)
 
-    async def transcribe(
-        self,
-        **kwargs
-    ) -> TranscriptionResult:
+    async def transcribe(self, **kwargs) -> TranscriptionResult:
         """
         Unified transcription method with hybrid fallback logic.
 
@@ -836,7 +824,9 @@ class UnifiedTranscriberAPI:
                     # Step 4: Resolve method
                     method = self.method_resolver.resolve_method(backend, "transcribe")
                     if not method:
-                        logger.warning(f"No compatible transcribe method found for {backend_type.value}")
+                        logger.warning(
+                            f"No compatible transcribe method found for {backend_type.value}"
+                        )
                         continue
 
                     # Step 5: Execute with backend-specific error handling
@@ -860,7 +850,9 @@ class UnifiedTranscriberAPI:
 
             if not result:
                 available_backends = [b.value for b in self.registry.list_available_backends()]
-                raise RuntimeError(f"All backends failed. Attempted: {[b.value for b in attempted_backends]}. Available: {available_backends}")
+                raise RuntimeError(
+                    f"All backends failed. Attempted: {[b.value for b in attempted_backends]}. Available: {available_backends}"
+                )
 
             # Step 6: Normalize result
             normalized_result = self._normalize_result(result, final_backend)
@@ -870,7 +862,9 @@ class UnifiedTranscriberAPI:
             self.metrics.record_response_time(time.time() - start_time)
 
             if len(attempted_backends) > 1:
-                logger.info(f"Successfully used {final_backend.value} after trying {attempted_backends}")
+                logger.info(
+                    f"Successfully used {final_backend.value} after trying {attempted_backends}"
+                )
                 self.metrics.record_backend_switch()
 
             return normalized_result
@@ -880,15 +874,19 @@ class UnifiedTranscriberAPI:
             self.metrics.record_error(type(e).__name__)
             self.metrics.record_response_time(time.time() - start_time)
 
-            logger.error(f"All transcription backends failed. Attempted: {[b.value for b in attempted_backends]}")
-            raise RuntimeError(f"Unified transcription failed after trying {len(attempted_backends)} backends: {e}")
+            logger.error(
+                f"All transcription backends failed. Attempted: {[b.value for b in attempted_backends]}"
+            )
+            raise RuntimeError(
+                f"Unified transcription failed after trying {len(attempted_backends)} backends: {e}"
+            )
 
     async def _execute_with_backend_error_handling(
         self,
         method: Callable,
         params: Dict[str, Any],
         backend_type: BackendType,
-        original_params: Dict[str, Any]
+        original_params: Dict[str, Any],
     ) -> Any:
         """
         Execute method with backend-specific error handling.
@@ -936,21 +934,23 @@ class UnifiedTranscriberAPI:
             True if it's a safety filter error
         """
         error_str = str(error).lower()
-        error_message = getattr(error, 'message', '').lower()
+        error_message = getattr(error, "message", "").lower()
 
         safety_indicators = [
-            'safety',
-            'blocked',
-            'finish_reason',
-            'content filter',
-            'harmful',
-            'inappropriate',
-            'finish_reason: 2',  # Legacy Gemini safety block
-            'content_policy',
-            'safety_settings'
+            "safety",
+            "blocked",
+            "finish_reason",
+            "content filter",
+            "harmful",
+            "inappropriate",
+            "finish_reason: 2",  # Legacy Gemini safety block
+            "content_policy",
+            "safety_settings",
         ]
 
-        return any(indicator in error_str or indicator in error_message for indicator in safety_indicators)
+        return any(
+            indicator in error_str or indicator in error_message for indicator in safety_indicators
+        )
 
     def _select_backend(self, params: Dict[str, Any]) -> BackendType:
         """
@@ -991,8 +991,14 @@ class UnifiedTranscriberAPI:
         """
         # This is a simple heuristic - will be enhanced with ML later
         sensitive_keywords = [
-            "pegasus", "spyware", "surveillance", "intelligence",
-            "military", "defense", "classified", "terrorism"
+            "pegasus",
+            "spyware",
+            "surveillance",
+            "intelligence",
+            "military",
+            "defense",
+            "classified",
+            "terrorism",
         ]
 
         text_content = ""
@@ -1012,7 +1018,7 @@ class UnifiedTranscriberAPI:
         method: Callable,
         params: Dict[str, Any],
         backend_type: BackendType,
-        original_params: Dict[str, Any]
+        original_params: Dict[str, Any],
     ) -> Any:
         """
         Execute method with comprehensive error handling.
@@ -1059,9 +1065,7 @@ class UnifiedTranscriberAPI:
                 await self._apply_recovery_strategy(error_result, backend_type)
 
     async def _apply_recovery_strategy(
-        self,
-        error_result: Dict[str, Any],
-        backend_type: BackendType
+        self, error_result: Dict[str, Any], backend_type: BackendType
     ) -> None:
         """
         Apply a recovery strategy.
@@ -1083,11 +1087,7 @@ class UnifiedTranscriberAPI:
                 logger.info(f"Switching from {backend_type.value} to {new_backend.value}")
                 self.metrics.record_backend_switch()
 
-    def _normalize_result(
-        self,
-        result: Any,
-        backend_type: BackendType
-    ) -> TranscriptionResult:
+    def _normalize_result(self, result: Any, backend_type: BackendType) -> TranscriptionResult:
         """
         Normalize result to unified format.
 
@@ -1100,35 +1100,37 @@ class UnifiedTranscriberAPI:
         """
         # Define valid fields for TranscriptionResult
         valid_fields = {
-            "transcript", "entities", "relationships", "key_points",
-            "summary", "backend", "processing_cost", "processing_time"
+            "transcript",
+            "entities",
+            "relationships",
+            "key_points",
+            "summary",
+            "backend",
+            "processing_cost",
+            "processing_time",
         }
-        
+
         # This is a simplified normalization - will be expanded
         if isinstance(result, dict):
             # Filter out any fields not in TranscriptionResult
-            filtered_result = {
-                k: v for k, v in result.items()
-                if k in valid_fields
-            }
+            filtered_result = {k: v for k, v in result.items() if k in valid_fields}
             # Ensure backend is set
             filtered_result["backend"] = backend_type.value
             return TranscriptionResult(**filtered_result)
-        elif hasattr(result, 'to_dict'):
+        elif hasattr(result, "to_dict"):
             result_dict = result.to_dict()
-            filtered_result = {
-                k: v for k, v in result_dict.items()
-                if k in valid_fields
-            }
+            filtered_result = {k: v for k, v in result_dict.items() if k in valid_fields}
             filtered_result["backend"] = backend_type.value
             return TranscriptionResult(**filtered_result)
         else:
             # Fallback
             return TranscriptionResult(
-                transcript=result.get("transcript", "") if isinstance(result, dict) else str(result),
+                transcript=(
+                    result.get("transcript", "") if isinstance(result, dict) else str(result)
+                ),
                 entities=result.get("entities", []) if isinstance(result, dict) else [],
                 relationships=result.get("relationships", []) if isinstance(result, dict) else [],
-                backend=backend_type.value
+                backend=backend_type.value,
             )
 
     def get_metrics(self) -> Dict[str, Any]:
@@ -1155,6 +1157,6 @@ class UnifiedTranscriberAPI:
                     "healthy": backend_health.is_healthy,
                     "last_check": backend_health.last_check,
                     "error_count": backend_health.error_count,
-                    "last_error": backend_health.last_error
+                    "last_error": backend_health.last_error,
                 }
         return health

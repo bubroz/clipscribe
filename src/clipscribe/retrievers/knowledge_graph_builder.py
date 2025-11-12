@@ -1,7 +1,7 @@
 """Knowledge Graph Builder Module - Handles knowledge graph construction."""
 
 import logging
-from typing import List, Dict, Any, Optional
+from typing import Any, Dict
 
 from ..models import VideoIntelligence
 
@@ -9,6 +9,7 @@ logger = logging.getLogger(__name__)
 
 try:
     import networkx as nx
+
     HAS_NETWORKX = True
 except ImportError:
     HAS_NETWORKX = False
@@ -63,24 +64,34 @@ class KnowledgeGraphBuilder:
                 mention_count=mention_count,
                 occurrences=occurrences,
                 extraction_sources=extraction_sources,
-                canonical_form=canonical_form
+                canonical_form=canonical_form,
             )
 
         # Add relationships as edges
         if hasattr(video_intel, "relationships") and video_intel.relationships:
             for rel in video_intel.relationships:
-                subject = getattr(rel, "subject", rel.get("subject") if isinstance(rel, dict) else None)
+                subject = getattr(
+                    rel, "subject", rel.get("subject") if isinstance(rel, dict) else None
+                )
                 obj = getattr(rel, "object", rel.get("object") if isinstance(rel, dict) else None)
                 predicate = getattr(
-                    rel, "predicate", rel.get("predicate") if isinstance(rel, dict) else "related_to"
+                    rel,
+                    "predicate",
+                    rel.get("predicate") if isinstance(rel, dict) else "related_to",
                 )
                 confidence = getattr(
                     rel, "confidence", rel.get("confidence", 0.9) if isinstance(rel, dict) else 0.9
                 )
-                source = getattr(rel, "source", rel.get("source", "unknown") if isinstance(rel, dict) else "unknown")
+                source = getattr(
+                    rel,
+                    "source",
+                    rel.get("source", "unknown") if isinstance(rel, dict) else "unknown",
+                )
 
                 if subject and obj:
-                    G.add_edge(subject, obj, predicate=predicate, confidence=confidence, source=source)
+                    G.add_edge(
+                        subject, obj, predicate=predicate, confidence=confidence, source=source
+                    )
 
         # Convert to serializable format
         video_intel.knowledge_graph = {
@@ -113,30 +124,30 @@ class KnowledgeGraphBuilder:
         logger.info(
             f"Built knowledge graph with {G.number_of_nodes()} nodes and {G.number_of_edges()} edges"
         )
-        
+
         # Store the NetworkX graph for potential GraphML export
         video_intel._nx_graph = G
-        
+
         return video_intel
 
     def generate_graphml_content(self, knowledge_graph: Dict[str, Any]) -> str:
         """
         Generate GraphML content from knowledge graph.
-        
+
         GraphML is an XML-based format for graphs, supported by many tools including
         yEd, Cytoscape, and NetworkX.
-        
+
         Args:
             knowledge_graph: Knowledge graph dictionary
-            
+
         Returns:
             GraphML XML string
         """
         import io
-        
+
         # Reconstruct NetworkX graph from the knowledge graph data
         G = nx.DiGraph()
-        
+
         # Add nodes with attributes
         for node in knowledge_graph.get("nodes", []):
             G.add_node(
@@ -145,9 +156,9 @@ class KnowledgeGraphBuilder:
                 confidence=node.get("confidence", 0.9),
                 mention_count=node.get("mention_count", 1),
                 occurrences=node.get("occurrences", 1),
-                canonical_form=node.get("canonical_form", node["id"])
+                canonical_form=node.get("canonical_form", node["id"]),
             )
-        
+
         # Add edges with attributes
         for edge in knowledge_graph.get("edges", []):
             G.add_edge(
@@ -155,16 +166,16 @@ class KnowledgeGraphBuilder:
                 edge["target"],
                 predicate=edge.get("predicate", "related_to"),
                 confidence=edge.get("confidence", 0.9),
-                extraction_source=edge.get("extraction_source", "unknown")
+                extraction_source=edge.get("extraction_source", "unknown"),
             )
-        
+
         # Generate GraphML string
         graphml_bytes = io.BytesIO()
-        nx.write_graphml(G, graphml_bytes, encoding='utf-8', prettyprint=True)
-        
+        nx.write_graphml(G, graphml_bytes, encoding="utf-8", prettyprint=True)
+
         # Convert bytes to string
         graphml_bytes.seek(0)
-        return graphml_bytes.read().decode('utf-8')
+        return graphml_bytes.read().decode("utf-8")
 
     def generate_gexf_content(self, knowledge_graph: Dict[str, Any]) -> str:
         """
@@ -176,9 +187,9 @@ class KnowledgeGraphBuilder:
         Returns:
             GEXF XML string
         """
-        from xml.sax.saxutils import escape
         import hashlib
         from datetime import datetime
+        from xml.sax.saxutils import escape
 
         def stable_node_id(label: str) -> str:
             # Use SHA-256 truncated for stable node IDs (12 hex chars)
@@ -191,7 +202,9 @@ class KnowledgeGraphBuilder:
         gexf_content += '<gexf xmlns="http://www.gexf.net/1.3" xmlns:viz="http://www.gexf.net/1.3/viz" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://gexf.net/1.3 http://gexf.net/1.3/gexf.xsd" version="1.3">\n'
         gexf_content += '  <meta lastmodifieddate="' + datetime.now().strftime("%Y-%m-%d") + '">\n'
         gexf_content += "    <creator>ClipScribe</creator>\n"
-        gexf_content += '    <description>Knowledge graph extracted from video content</description>\n'
+        gexf_content += (
+            "    <description>Knowledge graph extracted from video content</description>\n"
+        )
         gexf_content += "  </meta>\n"
         gexf_content += '  <graph mode="static" defaultedgetype="directed" idtype="string">\n'
         gexf_content += '    <attributes class="node">\n'

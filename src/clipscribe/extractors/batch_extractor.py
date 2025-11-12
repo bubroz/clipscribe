@@ -1,13 +1,13 @@
 """
 Batch Extractor - Gemini removed, functionality moved to HybridProcessor.
 
-This dramatically reduces API calls and token usage by doing everything at once 
+This dramatically reduces API calls and token usage by doing everything at once
 """
 
 import json
 import logging
-from typing import Dict, Any
 from datetime import datetime
+from typing import Any, Dict
 
 import google.generativeai as genai
 from google.generativeai.types import RequestOptions
@@ -92,7 +92,7 @@ Then extract ALL of the following in a single JSON response:
         "speaker_count": 1,
         "language": "en"
     }},
-    
+
     "key_points": [
         {{
             "timestamp": 120,
@@ -101,13 +101,13 @@ Then extract ALL of the following in a single JSON response:
             "context": "Additional context"
         }}
     ],
-    
+
     "summary": {{
         "text": "Executive summary under 300 words",
         "main_topics": ["topic1", "topic2"],
         "key_takeaways": ["takeaway1", "takeaway2"]
     }},
-    
+
     "entities": [
         {{
             "name": "Entity Name",
@@ -117,7 +117,7 @@ Then extract ALL of the following in a single JSON response:
             "first_mention_timestamp": 45
         }}
     ],
-    
+
     "topics": [
         {{
             "name": "Topic name",
@@ -125,7 +125,7 @@ Then extract ALL of the following in a single JSON response:
             "keywords": ["keyword1", "keyword2"]
         }}
     ],
-    
+
     "relationships": [
         {{
             "subject": "Entity1",
@@ -135,13 +135,13 @@ Then extract ALL of the following in a single JSON response:
             "confidence": 0.95
         }}
     ],
-    
+
     "sentiment": {{
         "overall": "positive|negative|neutral",
         "score": 0.8,
         "emotions": ["informative", "technical", "enthusiastic"]
     }},
-    
+
     "quality_metrics": {{
         "audio_quality": "high|medium|low",
         "content_density": 0.8,

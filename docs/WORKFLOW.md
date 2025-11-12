@@ -14,7 +14,7 @@
 
 ## Workflow 1: Process Video via Modal (PRODUCTION)
 
-**This is the validated, production-ready workflow.**
+**This is the validated workflow.**
 
 ### Prerequisites:
 - Google Cloud credentials configured

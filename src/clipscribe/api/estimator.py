@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Dict, Any, Optional, Tuple
+from typing import Any, Dict, Optional, Tuple
 
 # from clipscribe.config.settings import Settings  # Avoid dependency on GOOGLE_API_KEY
 

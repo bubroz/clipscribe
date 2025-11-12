@@ -1,6 +1,6 @@
 import logging
-from typing import List
 from difflib import SequenceMatcher
+from typing import List
 
 logger = logging.getLogger(__name__)
 

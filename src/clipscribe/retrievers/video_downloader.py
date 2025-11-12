@@ -1,14 +1,13 @@
 """Video Downloader Module - Handles video downloading and metadata extraction."""
 
-import asyncio
 import logging
-from typing import Optional, Tuple, Any, Dict
 from pathlib import Path
+from typing import Optional, Tuple
 
+from ..config.settings import VideoRetentionPolicy
 from ..models import VideoMetadata
 from .universal_video_client import UniversalVideoClient
 from .video_retention_manager import VideoRetentionManager
-from ..config.settings import VideoRetentionPolicy
 
 logger = logging.getLogger(__name__)
 
@@ -33,9 +32,7 @@ class VideoDownloader:
         return self.video_client.is_supported_url(video_url)
 
     async def download_video(
-        self,
-        video_url: str,
-        cookies_from_browser: Optional[str] = None
+        self, video_url: str, cookies_from_browser: Optional[str] = None
     ) -> Tuple[str, VideoMetadata]:
         """
         Download video and return media file path and metadata.
@@ -70,7 +67,7 @@ class VideoDownloader:
         self,
         media_path: Path,
         retention_policy: VideoRetentionPolicy,
-        retention_manager: Optional[VideoRetentionManager] = None
+        retention_manager: Optional[VideoRetentionManager] = None,
     ) -> None:
         """Clean up temporary video files based on retention policy."""
         if retention_policy == VideoRetentionPolicy.DELETE and media_path.exists():
@@ -80,8 +77,6 @@ class VideoDownloader:
             except OSError as e:
                 logger.warning(f"Could not remove temp file {media_path}: {e}")
 
-    async def search_videos(
-        self, query: str, max_results: int = 5, site: str = "youtube"
-    ) -> list:
+    async def search_videos(self, query: str, max_results: int = 5, site: str = "youtube") -> list:
         """Search for videos (delegated to universal client)."""
         return await self.video_client.search_videos(query, max_results, site)

@@ -18,6 +18,7 @@ sys.path.insert(0, str(project_root))
 
 @pytest.mark.expensive
 @pytest.mark.asyncio
+@pytest.mark.skip(reason="Requires deployed Modal app (station10-transcription) - run manually in CI/CD")
 async def test_modal_pipeline_complete_intelligence():
     """
     Full E2E test of Modal pipeline with Grok-4 Fast Reasoning.
@@ -135,6 +136,7 @@ async def test_modal_pipeline_complete_intelligence():
 
 @pytest.mark.expensive
 @pytest.mark.asyncio
+@pytest.mark.skip(reason="Requires deployed Modal app (station10-transcription) - run manually in CI/CD")
 async def test_modal_pipeline_long_video():
     """
     Test Modal handles long videos (>45k chars) properly.

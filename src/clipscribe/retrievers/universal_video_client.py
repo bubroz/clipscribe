@@ -1,19 +1,20 @@
 """Universal Video Client for 1800+ Sites using yt-dlp with Enhanced Temporal Intelligence."""
 
-import os
-import logging
-import tempfile
 import asyncio
-from typing import List, Dict, Optional, Tuple, Any
-from datetime import datetime, timedelta
+import logging
+import os
+import tempfile
 from dataclasses import dataclass
+from datetime import datetime, timedelta
+from typing import Any, Dict, List, Optional, Tuple
+
 import yt_dlp
-from youtubesearchpython.__future__ import Channel, Playlist, CustomSearch
+from tenacity import retry, retry_if_exception_type, stop_after_attempt, wait_exponential
 from youtubesearchpython import VideoSortOrder, playlist_from_channel_id
-from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
+from youtubesearchpython.__future__ import Channel, CustomSearch, Playlist
 
 from ..models import VideoMetadata
-from ..utils.rate_limiter import RateLimiter, DailyCapExceeded
+from ..utils.rate_limiter import DailyCapExceeded, RateLimiter
 
 logger = logging.getLogger(__name__)
 
@@ -79,10 +80,15 @@ class TemporalMetadata:
 class UniversalVideoClient:
     """Universal Video Client with comprehensive temporal intelligence extraction."""
 
-    def __init__(self, use_impersonation: bool = True, impersonate_target: str = "Chrome-131:Macos-14", rate_limiter: Optional[RateLimiter] = None):
+    def __init__(
+        self,
+        use_impersonation: bool = True,
+        impersonate_target: str = "Chrome-131:Macos-14",
+        rate_limiter: Optional[RateLimiter] = None,
+    ):
         """
         Initialize with enhanced temporal metadata extraction capabilities.
-        
+
         Args:
             use_impersonation: Enable curl-cffi browser impersonation to bypass bot detection (default: True)
             impersonate_target: Browser to impersonate (default: Chrome-131:Macos-14)
@@ -91,7 +97,7 @@ class UniversalVideoClient:
         self.use_impersonation = use_impersonation
         self.impersonate_target = impersonate_target
         self.rate_limiter = rate_limiter or RateLimiter()
-        
+
         # Standard options for basic functionality
         self.ydl_opts = {
             "format": "bestaudio/best",
@@ -145,11 +151,12 @@ class UniversalVideoClient:
                 "id",
             ],
         }
-        
+
         # Add curl-cffi impersonation to bypass bot detection
         # This solves YouTube SABR, Vimeo TLS fingerprinting, and other modern bot detection
         if self.use_impersonation:
             from yt_dlp.networking.impersonate import ImpersonateTarget
+
             # Parse target string (e.g., "Chrome-131:Macos-14")
             # ImpersonateTarget signature: (client, version, os, os_version)
             # CRITICAL: All values must be lowercase to match curl-cffi's supported targets
@@ -167,7 +174,9 @@ class UniversalVideoClient:
                     os = os.lower()  # MUST be lowercase for curl-cffi
                 else:
                     os, os_version = os_full.lower(), None
-                logger.debug(f"Parsed impersonation target: client={client}, version={version}, os={os}, os_version={os_version}")
+                logger.debug(
+                    f"Parsed impersonation target: client={client}, version={version}, os={os}, os_version={os_version}"
+                )
                 impersonate_target = ImpersonateTarget(client, version, os, os_version)
                 logger.debug(f"Created ImpersonateTarget object: {impersonate_target}")
                 self.ydl_opts["impersonate"] = impersonate_target
@@ -175,9 +184,13 @@ class UniversalVideoClient:
                 # No OS specified, parse just client-version
                 if "-" in self.impersonate_target:
                     client, version = self.impersonate_target.rsplit("-", 1)
-                    self.ydl_opts["impersonate"] = ImpersonateTarget(client.lower(), version, None, None)
+                    self.ydl_opts["impersonate"] = ImpersonateTarget(
+                        client.lower(), version, None, None
+                    )
                 else:
-                    self.ydl_opts["impersonate"] = ImpersonateTarget(self.impersonate_target.lower(), None, None, None)
+                    self.ydl_opts["impersonate"] = ImpersonateTarget(
+                        self.impersonate_target.lower(), None, None, None
+                    )
             logger.info(f"Enabled browser impersonation: {self.impersonate_target}")
 
         # ENHANCED TEMPORAL INTELLIGENCE OPTIONS - The Game Changer!
@@ -204,15 +217,15 @@ class UniversalVideoClient:
     def _detect_platform(self, url: str) -> str:
         """
         Detect platform from URL for rate limiting.
-        
+
         Args:
             url: Video URL
-            
+
         Returns:
             Platform name (e.g., 'youtube', 'vimeo', 'twitter')
         """
         url_lower = url.lower()
-        
+
         # Common platforms (maps to rate limiter platform keys)
         if "youtube.com" in url_lower or "youtu.be" in url_lower:
             return "youtube"
@@ -293,11 +306,11 @@ class UniversalVideoClient:
         """
         # Use impersonation settings for validation (same as download)
         validation_opts = {"quiet": True, "no_warnings": True}
-        
+
         # Add impersonation if enabled (critical for YouTube)
         if self.use_impersonation and self.ydl_opts.get("impersonate"):
             validation_opts["impersonate"] = self.ydl_opts["impersonate"]
-        
+
         with yt_dlp.YoutubeDL(validation_opts) as ydl:
             try:
                 # Try to extract basic info without downloading
@@ -309,11 +322,13 @@ class UniversalVideoClient:
                 if "bot" in error_str or "sign in" in error_str or "cookies" in error_str:
                     if "youtube.com" in url or "youtu.be" in url:
                         try:
-                            with yt_dlp.YoutubeDL({
-                                "quiet": True,
-                                "no_warnings": True,
-                                "cookiesfrombrowser": ("chrome",)
-                            }) as ydl_cookies:
+                            with yt_dlp.YoutubeDL(
+                                {
+                                    "quiet": True,
+                                    "no_warnings": True,
+                                    "cookiesfrombrowser": ("chrome",),
+                                }
+                            ) as ydl_cookies:
                                 ydl_cookies.extract_info(url, download=False, process=False)
                                 return True
                         except Exception:
@@ -328,11 +343,13 @@ class UniversalVideoClient:
                     # If initial attempts fail, try with browser cookies for YouTube
                     if "youtube.com" in url or "youtu.be" in url:
                         try:
-                            with yt_dlp.YoutubeDL({
-                                "quiet": True,
-                                "no_warnings": True,
-                                "cookiesfrombrowser": ("chrome",)
-                            }) as ydl_cookies:
+                            with yt_dlp.YoutubeDL(
+                                {
+                                    "quiet": True,
+                                    "no_warnings": True,
+                                    "cookiesfrombrowser": ("chrome",),
+                                }
+                            ) as ydl_cookies:
                                 ydl_cookies.extract_info(url, download=False, process=False)
                                 return True
                         except Exception:
@@ -526,20 +543,20 @@ class UniversalVideoClient:
 
         Returns:
             Tuple of (audio_file_path, video_metadata)
-            
+
         Raises:
             DailyCapExceeded: If daily request limit reached
         """
         # Detect platform for rate limiting
         platform = self._detect_platform(video_url)
-        
+
         # Check daily cap before proceeding
         if not self.rate_limiter.check_daily_cap(platform):
             raise DailyCapExceeded(platform, self.rate_limiter.DAILY_CAP)
-        
+
         # Wait for rate limit compliance (1 req/10s default)
         await self.rate_limiter.wait_if_needed(platform)
-        
+
         if output_dir is None:
             output_dir = tempfile.mkdtemp()
 
@@ -555,7 +572,7 @@ class UniversalVideoClient:
                 logger.info(
                     f"Downloading audio from: {video_url} (attempt {attempt + 1}/{max_retries})"
                 )
-                
+
                 # curl-cffi impersonation (if enabled) handles bot detection automatically
                 # No need for platform-specific workarounds anymore!
                 ydl_opts = opts
@@ -592,32 +609,46 @@ class UniversalVideoClient:
                         raise FileNotFoundError("Audio file not found after download")
 
                     logger.info(f"Audio downloaded: {audio_file}")
-                    
+
                     # Also look for thumbnail (for X posts)
                     thumbnail_file = None
                     for filename in os.listdir(output_dir):
-                        if video_id in filename and filename.lower().endswith(('.jpg', '.jpeg', '.png', '.webp')):
+                        if video_id in filename and filename.lower().endswith(
+                            (".jpg", ".jpeg", ".png", ".webp")
+                        ):
                             thumbnail_file = os.path.join(output_dir, filename)
                             logger.debug(f"Thumbnail found: {thumbnail_file}")
                             break
-                    
+
                     # Record successful request
                     self.rate_limiter.record_request(platform, success=True)
-                    
+
                     return audio_file, metadata
 
             except Exception as e:
                 import traceback
+
                 error_trace = traceback.format_exc()
                 logger.error(f"Audio download failed (attempt {attempt + 1}/{max_retries}): {e}")
                 logger.debug(f"Full error trace: {error_trace}")
 
                 # Record failed request for ban detection
                 self.rate_limiter.record_request(platform, success=False)
-                
+
                 error_str = str(e).lower()
                 # Check if it's a retryable error (ffmpeg, network, or bot detection)
-                retryable_errors = ["ffmpeg", "network", "bot", "sign in", "cookies", "extract", "player response"]
+                retryable_errors = [
+                    "ffmpeg",
+                    "network",
+                    "bot",
+                    "sign in",
+                    "cookies",
+                    "extract",
+                    "player response",
+                    "403",
+                    "forbidden",
+                    "sabr",
+                ]
 
                 is_retryable = any(keyword in error_str for keyword in retryable_errors)
 
@@ -628,10 +659,14 @@ class UniversalVideoClient:
                     continue
                 elif attempt == max_retries - 1:
                     # Last curl-cffi attempt failed - try Playwright fallback
-                    logger.warning(f"curl-cffi failed after {max_retries} attempts, attempting Playwright fallback...")
-                    
+                    logger.warning(
+                        f"curl-cffi failed after {max_retries} attempts, attempting Playwright fallback..."
+                    )
+
                     try:
-                        return await self._download_with_playwright_fallback(video_url, output_dir, platform)
+                        return await self._download_with_playwright_fallback(
+                            video_url, output_dir, platform
+                        )
                     except Exception as playwright_error:
                         logger.error(f"Playwright fallback also failed: {playwright_error}")
                         # Re-raise the original error
@@ -645,49 +680,55 @@ class UniversalVideoClient:
     ) -> Tuple[str, VideoMetadata]:
         """
         Fallback to Playwright when curl-cffi fails.
-        
+
         This method:
         1. Uses Playwright to load the page and extract cookies
         2. Passes those cookies to yt-dlp
         3. yt-dlp downloads with authenticated session
-        
+
         Args:
             video_url: Video URL
             output_dir: Output directory
             platform: Platform name for rate limiting
-            
+
         Returns:
             Tuple of (audio_file_path, video_metadata)
         """
         try:
             from .playwright_downloader import PlaywrightDownloader
         except ImportError:
-            logger.error("Playwright not installed. Cannot use fallback. Run: poetry add playwright")
+            logger.error(
+                "Playwright not installed. Cannot use fallback. Run: poetry add playwright"
+            )
             raise
-        
+
         logger.info("🎭 Playwright fallback activated - using browser automation")
-        
+
         async with PlaywrightDownloader() as pw:
             # Extract cookies using Playwright
-            cookies_file, pw_metadata = await pw.download_with_playwright_cookies(video_url, output_dir)
-            
+            cookies_file, pw_metadata = await pw.download_with_playwright_cookies(
+                video_url, output_dir
+            )
+
             # Now use yt-dlp with those cookies
             opts = self.ydl_opts.copy()
             opts["outtmpl"] = os.path.join(output_dir, "%(title)s-%(id)s.%(ext)s")
             opts["cookiefile"] = cookies_file
-            
-            logger.info("Playwright cookies extracted, attempting yt-dlp download with authenticated session...")
-            
+
+            logger.info(
+                "Playwright cookies extracted, attempting yt-dlp download with authenticated session..."
+            )
+
             with yt_dlp.YoutubeDL(opts) as ydl:
                 # Extract info with cookies
                 info = ydl.extract_info(video_url, download=False)
-                
+
                 # Create metadata
                 metadata = self._create_metadata_from_info(info)
-                
+
                 # Download with cookies
                 ydl.download([video_url])
-                
+
                 # Find the downloaded file
                 video_id = info.get("id", "")
                 audio_file = None
@@ -697,21 +738,23 @@ class UniversalVideoClient:
                     ):
                         audio_file = os.path.join(output_dir, filename)
                         break
-                
+
                 if not audio_file or not os.path.exists(audio_file):
-                    raise FileNotFoundError("Audio file not found after Playwright fallback download")
-                
+                    raise FileNotFoundError(
+                        "Audio file not found after Playwright fallback download"
+                    )
+
                 logger.info(f"✅ Playwright fallback successful: {audio_file}")
-                
+
                 # Record successful request
                 self.rate_limiter.record_request(platform, success=True)
-                
+
                 # Clean up cookies file
                 try:
                     os.remove(cookies_file)
                 except Exception:
                     pass
-                
+
                 return audio_file, metadata
 
     async def get_video_info(
@@ -1267,8 +1310,11 @@ class UniversalVideoClient:
 
         # Get all non-content segments and sort by start time
         sponsorblock_segments = self._extract_sponsorblock(info)
-        non_content_segments = [s for s in sponsorblock_segments
-                               if s.category in ["sponsor", "intro", "outro", "selfpromo", "interaction"]]
+        non_content_segments = [
+            s
+            for s in sponsorblock_segments
+            if s.category in ["sponsor", "intro", "outro", "selfpromo", "interaction"]
+        ]
         non_content_segments.sort(key=lambda s: s.start_time)
 
         if not non_content_segments:
@@ -1304,31 +1350,28 @@ class UniversalVideoClient:
         logger.info(f" Identified {len(content_sections)} content sections")
         return content_sections
 
-
-# Class renamed to UniversalVideoClient
+    # Class renamed to UniversalVideoClient
 
     async def download_video_file(
-        self,
-        video_url: str,
-        output_dir: Optional[str] = None
+        self, video_url: str, output_dir: Optional[str] = None
     ) -> Optional[str]:
         """
         Download full video file (not just audio).
-        
+
         For X posting with video.
         Returns path to video file.
         """
         if output_dir is None:
             output_dir = tempfile.mkdtemp()
-        
+
         platform = self._detect_platform(video_url)
-        
+
         # Check rate limit
         if not self.rate_limiter.check_daily_cap(platform):
             raise DailyCapExceeded(platform, self.rate_limiter.DAILY_CAP)
-        
+
         await self.rate_limiter.wait_if_needed(platform)
-        
+
         # Video download options
         video_opts = {
             "format": "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best",
@@ -1336,30 +1379,28 @@ class UniversalVideoClient:
             "quiet": True,
             "no_warnings": True,
         }
-        
+
         # Add impersonation if enabled
         if self.use_impersonation:
             from yt_dlp.networking.impersonate import ImpersonateTarget
+
             client_full, os_full = self.impersonate_target.split(":", 1)
             client, version = client_full.rsplit("-", 1)
             os_name, os_version = os_full.rsplit("-", 1)
-            
+
             target = ImpersonateTarget(
-                client=client.lower(),
-                version=version,
-                os=os_name.lower(),
-                os_version=os_version
+                client=client.lower(), version=version, os=os_name.lower(), os_version=os_version
             )
             video_opts["impersonate"] = target
-        
+
         try:
             with yt_dlp.YoutubeDL(video_opts) as ydl:
                 info = ydl.extract_info(video_url, download=False)
                 video_id = info.get("id", "")
-                
+
                 # Download video
                 ydl.download([video_url])
-                
+
                 # Find downloaded video
                 for filename in os.listdir(output_dir):
                     if video_id in filename and filename.endswith((".mp4", ".webm", ".mkv")):
@@ -1367,9 +1408,9 @@ class UniversalVideoClient:
                         logger.info(f"Video file downloaded: {video_file}")
                         self.rate_limiter.record_request(platform, success=True)
                         return video_file
-                
+
                 raise FileNotFoundError("Video file not found after download")
-                
+
         except Exception as e:
             logger.error(f"Video download failed: {e}")
             self.rate_limiter.record_request(platform, success=False)

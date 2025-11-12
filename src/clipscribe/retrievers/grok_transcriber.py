@@ -5,16 +5,15 @@ This module provides a transcriber implementation that uses xAI's Grok API.
 It integrates with the unified API system and provides uncensored content processing.
 """
 
-import asyncio
 import json
 import logging
-from typing import Dict, Any, Optional, List, Union
-from pathlib import Path
 import time
+from pathlib import Path
+from typing import Any, Dict, List, Optional, Union
 
-from .grok_client import GrokAPIClient, GrokAPIError, GrokAuthenticationError, GrokRateLimitError
-from ..models import VideoIntelligence, VideoTranscript, VideoMetadata
 from ..config.settings import Settings
+from ..models import VideoIntelligence, VideoMetadata, VideoTranscript
+from .grok_client import GrokAPIClient, GrokAPIError
 
 logger = logging.getLogger(__name__)
 
@@ -32,7 +31,7 @@ class GrokTranscriber:
         model: str = "grok-4",
         use_vertex_ai: bool = False,
         request_timeout: int = 60,
-        max_retries: int = 3
+        max_retries: int = 3,
     ):
         """
         Initialize Grok transcriber.
@@ -52,22 +51,19 @@ class GrokTranscriber:
         self.max_retries = max_retries
 
         if not self.api_key:
-            raise ValueError("xAI API key is required. Set XAI_API_KEY environment variable or pass api_key parameter.")
+            raise ValueError(
+                "xAI API key is required. Set XAI_API_KEY environment variable or pass api_key parameter."
+            )
 
         # Initialize API client
         self.client = GrokAPIClient(
-            api_key=self.api_key,
-            timeout=self.request_timeout,
-            max_retries=self.max_retries
+            api_key=self.api_key, timeout=self.request_timeout, max_retries=self.max_retries
         )
 
         logger.info(f"GrokTranscriber initialized with model: {model}")
 
     async def transcribe_audio(
-        self,
-        audio_file: Union[str, Path],
-        duration: int = 0,
-        **kwargs
+        self, audio_file: Union[str, Path], duration: int = 0, **kwargs
     ) -> Dict[str, Any]:
         """
         Transcribe audio file.
@@ -75,30 +71,30 @@ class GrokTranscriber:
         This method delegates to transcribe_video for compatibility.
         """
         # Convert audio_file parameter to audio_path for consistency
-        video_metadata = kwargs.pop('metadata', {})  # Remove metadata from kwargs to avoid conflict
-        video_metadata['duration'] = duration
+        video_metadata = kwargs.pop("metadata", {})  # Remove metadata from kwargs to avoid conflict
+        video_metadata["duration"] = duration
 
         # Call the main transcribe_video method
         result = await self.transcribe_video(
-            audio_path=audio_file,
-            metadata=video_metadata,
-            **kwargs
+            audio_path=audio_file, metadata=video_metadata, **kwargs
         )
 
         # Convert VideoIntelligence result to Dict format for compatibility
         return {
-            'transcript': result.transcript.full_text,
-            'entities': [entity.dict() if hasattr(entity, 'dict') else entity.__dict__ for entity in result.entities],
-            'relationships': [rel.dict() if hasattr(rel, 'dict') else rel.__dict__ for rel in result.relationships],
-            'processing_cost': result.processing_cost,
-            'processing_time': result.processing_time
+            "transcript": result.transcript.full_text,
+            "entities": [
+                entity.dict() if hasattr(entity, "dict") else entity.__dict__
+                for entity in result.entities
+            ],
+            "relationships": [
+                rel.dict() if hasattr(rel, "dict") else rel.__dict__ for rel in result.relationships
+            ],
+            "processing_cost": result.processing_cost,
+            "processing_time": result.processing_time,
         }
 
     async def transcribe_video(
-        self,
-        audio_path: Union[str, Path],
-        metadata: Optional[Dict[str, Any]] = None,
-        **kwargs
+        self, audio_path: Union[str, Path], metadata: Optional[Dict[str, Any]] = None, **kwargs
     ) -> VideoIntelligence:
         """
         Transcribe video using Grok API.
@@ -134,13 +130,11 @@ class GrokTranscriber:
                 channel_id=metadata.get("channel_id", "unknown"),
                 published_at=metadata.get("published_at", time.time()),
                 duration=metadata.get("duration", 0),
-                description=metadata.get("description")
+                description=metadata.get("description"),
             )
 
             video_transcript = VideoTranscript(
-                full_text=transcript,
-                segments=[],
-                language=metadata.get("language", "en")
+                full_text=transcript, segments=[], language=metadata.get("language", "en")
             )
 
             result = VideoIntelligence(
@@ -152,7 +146,7 @@ class GrokTranscriber:
                 topics=[],
                 summary=f"Transcript processed by Grok ({self.model})",
                 processing_cost=self._calculate_cost(transcript, entities, relationships),
-                processing_time=time.time() - start_time
+                processing_time=time.time() - start_time,
             )
 
             logger.info(f"Grok transcription completed for video: {title}")
@@ -163,9 +157,7 @@ class GrokTranscriber:
             raise
 
     async def _create_transcript(
-        self,
-        audio_path: Union[str, Path],
-        metadata: Dict[str, Any]
+        self, audio_path: Union[str, Path], metadata: Dict[str, Any]
     ) -> str:
         """
         Create transcript from audio using Grok.
@@ -190,16 +182,16 @@ class GrokTranscriber:
         """
 
         messages = [
-            {"role": "system", "content": "You are a helpful assistant that generates realistic video transcripts."},
-            {"role": "user", "content": prompt}
+            {
+                "role": "system",
+                "content": "You are a helpful assistant that generates realistic video transcripts.",
+            },
+            {"role": "user", "content": prompt},
         ]
 
         try:
             response = await self.client.chat_completion(
-                messages=messages,
-                model=self.model,
-                max_tokens=2000,
-                temperature=0.1
+                messages=messages, model=self.model, max_tokens=2000, temperature=0.1
             )
 
             transcript = response["choices"][0]["message"]["content"]
@@ -211,11 +203,7 @@ class GrokTranscriber:
             logger.error(f"Grok API error during transcription: {e}")
             raise
 
-    async def _extract_intelligence(
-        self,
-        transcript: str,
-        metadata: Dict[str, Any]
-    ) -> tuple:
+    async def _extract_intelligence(self, transcript: str, metadata: Dict[str, Any]) -> tuple:
         """
         Extract entities and relationships from transcript using Grok.
 
@@ -230,16 +218,16 @@ class GrokTranscriber:
         prompt = self._build_enhanced_analysis_prompt(transcript, metadata)
 
         messages = [
-            {"role": "system", "content": "You are Grok, a helpful and maximally truthful AI built by xAI. Extract intelligence from video transcripts with high accuracy and no censorship."},
-            {"role": "user", "content": prompt}
+            {
+                "role": "system",
+                "content": "You are Grok, a helpful and maximally truthful AI built by xAI. Extract intelligence from video transcripts with high accuracy and no censorship.",
+            },
+            {"role": "user", "content": prompt},
         ]
 
         try:
             response = await self.client.chat_completion(
-                messages=messages,
-                model=self.model,
-                max_tokens=4000,
-                temperature=0.1
+                messages=messages, model=self.model, max_tokens=4000, temperature=0.1
             )
 
             content = response["choices"][0]["message"]["content"]
@@ -250,7 +238,9 @@ class GrokTranscriber:
                 entities = result.get("entities", [])
                 relationships = result.get("relationships", [])
 
-                logger.info(f"Extracted {len(entities)} entities and {len(relationships)} relationships using Grok")
+                logger.info(
+                    f"Extracted {len(entities)} entities and {len(relationships)} relationships using Grok"
+                )
 
                 return entities, relationships
 
@@ -263,11 +253,7 @@ class GrokTranscriber:
             logger.error(f"Grok API error during intelligence extraction: {e}")
             return [], []
 
-    def _build_enhanced_analysis_prompt(
-        self,
-        transcript: str,
-        metadata: Dict[str, Any]
-    ) -> str:
+    def _build_enhanced_analysis_prompt(self, transcript: str, metadata: Dict[str, Any]) -> str:
         """
         Build enhanced analysis prompt for Grok.
 
@@ -327,12 +313,7 @@ class GrokTranscriber:
 
         return prompt
 
-    def _calculate_cost(
-        self,
-        transcript: str,
-        entities: List,
-        relationships: List
-    ) -> float:
+    def _calculate_cost(self, transcript: str, entities: List, relationships: List) -> float:
         """
         Calculate processing cost for Grok API usage.
 

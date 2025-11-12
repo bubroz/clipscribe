@@ -2,16 +2,16 @@
 Performance monitoring and metrics collection for ClipScribe.
 
 This module provides utilities to track API response times, extraction quality,
-model cache performance, and other performance-related metrics to identify 
+model cache performance, and other performance-related metrics to identify
 bottlenecks and opportunities for optimization.
 """
 
-import time
 import json
-from pathlib import Path
-from typing import Dict, Any, List, Optional
-from datetime import datetime
+import time
 from collections import defaultdict
+from datetime import datetime
+from pathlib import Path
+from typing import Any, Dict, List, Optional
 
 
 class PerformanceMonitor:

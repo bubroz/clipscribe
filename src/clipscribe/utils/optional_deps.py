@@ -5,12 +5,12 @@ to reduce memory footprint and installation requirements for basic functionality
 """
 
 import importlib
-import warnings
-from typing import Any, Dict, Optional, Type
+from typing import Any, Dict, Optional
 
 
 class OptionalDependencyError(ImportError):
     """Raised when an optional dependency is not available."""
+
     pass
 
 
@@ -22,10 +22,7 @@ class OptionalDependencyManager:
         self._error_cache: Dict[str, str] = {}
 
     def import_optional(
-        self,
-        module_name: str,
-        fallback: Optional[Any] = None,
-        error_msg: Optional[str] = None
+        self, module_name: str, fallback: Optional[Any] = None, error_msg: Optional[str] = None
     ) -> Any:
         """Import an optional module with fallback.
 
@@ -73,7 +70,7 @@ class OptionalDependencyManager:
         purpose_msg = f" Required for {purpose}." if purpose else ""
         return self.import_optional(
             module_name,
-            error_msg=f"Dependency '{module_name}' is required but not installed.{purpose_msg}"
+            error_msg=f"Dependency '{module_name}' is required but not installed.{purpose_msg}",
         )
 
 
@@ -155,36 +152,39 @@ def get_uvicorn():
 # Feature availability checks
 def has_ml_features() -> bool:
     """Check if ML features (spacy, transformers, torch) are available."""
-    return all([
-        optional_deps.has_dependency("spacy"),
-        optional_deps.has_dependency("transformers"),
-        optional_deps.has_dependency("torch")
-    ])
+    return all(
+        [
+            optional_deps.has_dependency("spacy"),
+            optional_deps.has_dependency("transformers"),
+            optional_deps.has_dependency("torch"),
+        ]
+    )
 
 
 def has_enterprise_features() -> bool:
     """Check if enterprise features (GCP services) are available."""
-    return all([
-        optional_deps.has_dependency("google.cloud.storage"),
-        optional_deps.has_dependency("google.cloud.aiplatform")
-    ])
+    return all(
+        [
+            optional_deps.has_dependency("google.cloud.storage"),
+            optional_deps.has_dependency("google.cloud.aiplatform"),
+        ]
+    )
 
 
 def has_api_features() -> bool:
     """Check if API features (FastAPI, Redis) are available."""
-    return all([
-        optional_deps.has_dependency("fastapi"),
-        optional_deps.has_dependency("redis"),
-        optional_deps.has_dependency("rq")
-    ])
+    return all(
+        [
+            optional_deps.has_dependency("fastapi"),
+            optional_deps.has_dependency("redis"),
+            optional_deps.has_dependency("rq"),
+        ]
+    )
 
 
 def has_viz_features() -> bool:
     """Check if visualization features are available."""
-    return all([
-        optional_deps.has_dependency("plotly"),
-        optional_deps.has_dependency("pdfkit")
-    ])
+    return all([optional_deps.has_dependency("plotly"), optional_deps.has_dependency("pdfkit")])
 
 
 def has_tui_features() -> bool:

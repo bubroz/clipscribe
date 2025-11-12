@@ -1,10 +1,12 @@
 """Video Intelligence Models for Chimera Integration."""
 
 from __future__ import annotations
-from typing import List, Dict, Any, Optional
+
 from datetime import datetime
-from pydantic import BaseModel, Field, field_validator
 from enum import Enum
+from typing import Any, Dict, List, Optional
+
+from pydantic import BaseModel, Field, field_validator
 
 
 class VideoChapter(BaseModel):

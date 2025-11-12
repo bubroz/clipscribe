@@ -8,8 +8,9 @@ cleaner, more maintainable, and more professional-looking CLI output.
 """
 
 from typing import List, Optional
-from rich.progress import Progress, SpinnerColumn, BarColumn, TextColumn, TimeElapsedColumn
+
 from rich.console import Console
+from rich.progress import BarColumn, Progress, SpinnerColumn, TextColumn, TimeElapsedColumn
 
 
 class CliProgressManager:

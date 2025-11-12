@@ -1,18 +1,17 @@
 """Video Processor Module - Main orchestrator for video intelligence extraction."""
 
-import asyncio
 import logging
 import time
-from typing import Optional, Dict, Any, Callable, List
 from pathlib import Path
+from typing import Any, Callable, Dict, List, Optional
 
+from ..config.settings import Settings
 from ..models import VideoIntelligence
-from .video_downloader import VideoDownloader
+from ..utils.performance import PerformanceMonitor
 from .knowledge_graph_builder import KnowledgeGraphBuilder
 from .output_formatter import OutputFormatter
+from .video_downloader import VideoDownloader
 from .video_retention_manager import VideoRetentionManager
-from ..config.settings import VideoRetentionPolicy, Settings
-from ..utils.performance import PerformanceMonitor
 
 logger = logging.getLogger(__name__)
 
@@ -49,8 +48,7 @@ class VideoProcessor:
 
         # Initialize component modules
         self.downloader = VideoDownloader(
-            cache_dir=cache_dir,
-            cookies_from_browser=cookies_from_browser
+            cache_dir=cache_dir, cookies_from_browser=cookies_from_browser
         )
 
         # Transcriber removed - main pipeline uses HybridProcessor
@@ -64,7 +62,9 @@ class VideoProcessor:
         self.entity_extractor = None
         # Advanced extraction removed - main pipeline uses HybridProcessor
         if use_advanced_extraction:
-            logger.warning("Advanced extraction deprecated - using HybridProcessor in main pipeline")
+            logger.warning(
+                "Advanced extraction deprecated - using HybridProcessor in main pipeline"
+            )
 
         # Retention manager
         self.retention_manager = VideoRetentionManager(self.settings)
@@ -116,7 +116,7 @@ class VideoProcessor:
 
     async def _process_video_pipeline(self, video_url: str) -> Optional[VideoIntelligence]:
         """Execute the complete video processing pipeline."""
-        start_time = time.monotonic()
+        time.monotonic()
 
         # Phase 1: Download video
         self.on_phase_start("Downloading", "In Progress...")
@@ -143,12 +143,16 @@ class VideoProcessor:
         self.on_phase_complete("Transcribing", transcription_cost)
 
         # Create placeholder transcript
-        transcript = type('Transcript', (), {
-            'full_text': analysis.get("transcript", ""),
-            'segments': [],
-            'language': analysis.get("language", "en"),
-            'confidence': analysis.get("confidence_score", 0.0)
-        })()
+        transcript = type(
+            "Transcript",
+            (),
+            {
+                "full_text": analysis.get("transcript", ""),
+                "segments": [],
+                "language": analysis.get("language", "en"),
+                "confidence": analysis.get("confidence_score", 0.0),
+            },
+        )()
         video_intelligence = self._create_video_intelligence(metadata, analysis, transcript)
 
         # Phase 3: Entity extraction removed - handled by HybridProcessor
@@ -184,9 +188,7 @@ class VideoProcessor:
 
         # Clean up temp file
         await self.downloader.cleanup_temp_file(
-            Path(media_file),
-            self.settings.video_retention_policy,
-            self.retention_manager
+            Path(media_file), self.settings.video_retention_policy, self.retention_manager
         )
 
         # Phase 6: Save results
@@ -195,9 +197,7 @@ class VideoProcessor:
 
         try:
             saved_files = self.save_all_formats(
-                video_intelligence,
-                self.output_dir,
-                include_chimera_format=True
+                video_intelligence, self.output_dir, include_chimera_format=True
             )
             video_intelligence.processing_stats["saved_files"] = saved_files
             self.on_phase_complete("Saving Results", 0.0)
@@ -213,11 +213,9 @@ class VideoProcessor:
         logger.info(f"Successfully processed: {metadata.title}")
         return video_intelligence
 
-    def _create_video_intelligence(
-        self, metadata, analysis, transcript
-    ) -> VideoIntelligence:
+    def _create_video_intelligence(self, metadata, analysis, transcript) -> VideoIntelligence:
         """Create VideoIntelligence object from raw data."""
-        from ..models import VideoTranscript, VideoIntelligence, KeyPoint, Topic
+        from ..models import KeyPoint, Topic, VideoIntelligence
 
         video_intelligence = VideoIntelligence(
             metadata=metadata,
@@ -227,7 +225,7 @@ class VideoProcessor:
             entities=[],  # Will be populated by entity extractor
             topics=[Topic(name=t) for t in analysis.get("topics", [])],
             relationships=[],  # Will be populated by entity extractor
-            processing_cost=transcription_cost,
+            processing_cost=analysis.get("processing_cost", 0.0),
         )
 
         # Processing stats - transcriber removed, using HybridProcessor
@@ -247,9 +245,7 @@ class VideoProcessor:
         include_chimera_format: bool = True,
     ) -> Dict[str, Path]:
         """Save video data in all supported formats."""
-        return self.output_formatter.save_all_formats(
-            video, output_dir, include_chimera_format
-        )
+        return self.output_formatter.save_all_formats(video, output_dir, include_chimera_format)
 
     def get_stats(self) -> Dict[str, Any]:
         """Get processing statistics."""

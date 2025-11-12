@@ -7,17 +7,17 @@ performance monitoring for cache hits and load times.
 """
 
 import logging
-from typing import Dict, Any
-import warnings
 import os
 import time
+import warnings
+from typing import Any, Dict
 
 # Suppress the tokenizer warning that appears every time
 warnings.filterwarnings("ignore", message=".*sentencepiece tokenizer.*")
 os.environ["TOKENIZERS_PARALLELISM"] = "false"  # Prevent tokenizer warnings
 
 # Import optional dependency manager
-from ..utils.optional_deps import optional_deps, OptionalDependencyError
+from ..utils.optional_deps import OptionalDependencyError, optional_deps  # noqa: E402
 
 logger = logging.getLogger(__name__)
 
@@ -129,7 +129,9 @@ class ModelManager:
                 logger.info(f"GLiNER model loaded and cached successfully in {load_time:.2f}s ")
 
             except OptionalDependencyError as e:
-                logger.warning(f"GLiNER dependencies not available: {e}. Using fallback extraction.")
+                logger.warning(
+                    f"GLiNER dependencies not available: {e}. Using fallback extraction."
+                )
                 raise e
             except Exception as e:
                 logger.error(f"Failed to load GLiNER model: {e}")
@@ -149,7 +151,9 @@ class ModelManager:
 
             try:
                 torch = optional_deps.require_dependency("torch", "REBEL model inference")
-                transformers = optional_deps.require_dependency("transformers", "REBEL relationship extraction")
+                transformers = optional_deps.require_dependency(
+                    "transformers", "REBEL relationship extraction"
+                )
 
                 # Determine device
                 if device == "auto":

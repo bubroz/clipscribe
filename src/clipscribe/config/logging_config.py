@@ -2,7 +2,7 @@
 
 import logging
 from pathlib import Path
-from typing import Optional, Type, Dict, Any
+from typing import Any, Dict, Optional, Type
 
 from rich.logging import RichHandler
 

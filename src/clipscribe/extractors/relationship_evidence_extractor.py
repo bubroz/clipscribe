@@ -7,14 +7,14 @@ providing comprehensive support for each relationship with confidence scoring.
 
 import logging
 import re
-from typing import List, Dict, Optional
+from typing import Dict, List, Optional
 
 from ..models import (
+    EnhancedEntity,
     Relationship,
     RelationshipEvidence,
     VideoIntelligence,
     VideoTranscript,
-    EnhancedEntity,
 )
 
 logger = logging.getLogger(__name__)

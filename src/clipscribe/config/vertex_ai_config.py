@@ -1,8 +1,8 @@
 """Vertex AI configuration for ClipScribe."""
 
 import os
-from typing import Optional
 from pathlib import Path
+from typing import Optional
 
 # Vertex AI Configuration
 VERTEX_AI_PROJECT_ID = os.getenv("VERTEX_AI_PROJECT_ID", "prismatic-iris-429006-g6")

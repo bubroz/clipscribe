@@ -2,18 +2,16 @@
 Monitoring System for ClipScribe - Comprehensive metrics, alerts, and health checks.
 """
 
-import time
-import logging
-import asyncio
-from typing import Dict, Any, List, Optional, Callable
-from datetime import datetime, timedelta
-from dataclasses import dataclass
 import json
-import os
+import logging
+from dataclasses import dataclass
+from datetime import datetime, timedelta
+from typing import Any, Callable, Dict, List, Optional
 
 # Import psutil conditionally
 try:
     import psutil
+
     PSUTIL_AVAILABLE = True
 except ImportError:
     psutil = None
@@ -22,6 +20,7 @@ except ImportError:
 # Import redis conditionally to avoid import errors in environments without it
 try:
     import redis
+
     REDIS_AVAILABLE = True
 except ImportError:
     redis = None
@@ -33,6 +32,7 @@ logger = logging.getLogger(__name__)
 @dataclass
 class MetricValue:
     """Represents a single metric measurement."""
+
     name: str
     value: float
     timestamp: datetime
@@ -46,6 +46,7 @@ class MetricValue:
 @dataclass
 class AlertRule:
     """Alert rule configuration."""
+
     name: str
     condition: str  # e.g., "cpu_usage > 90"
     threshold: float
@@ -57,6 +58,7 @@ class AlertRule:
 @dataclass
 class Alert:
     """Active alert instance."""
+
     rule_name: str
     message: str
     severity: str
@@ -68,7 +70,7 @@ class Alert:
 class MetricsCollector:
     """Collects and stores system and application metrics."""
 
-    def __init__(self, redis_conn = None):
+    def __init__(self, redis_conn=None):
         self.redis = redis_conn if REDIS_AVAILABLE else None
         self._custom_metrics: Dict[str, float] = {}
 
@@ -87,14 +89,21 @@ class MetricsCollector:
         # Store in Redis for historical data
         if REDIS_AVAILABLE and self.redis:
             try:
-                key = self._get_metric_key(name)
+                self._get_metric_key(name)
                 # Use a sorted set for time-series data
                 ts_key = f"cs:timeseries:{name}"
-                self.redis.zadd(ts_key, {json.dumps({
-                    'value': value,
-                    'timestamp': metric.timestamp.isoformat(),
-                    'labels': labels
-                }): metric.timestamp.timestamp()})
+                self.redis.zadd(
+                    ts_key,
+                    {
+                        json.dumps(
+                            {
+                                "value": value,
+                                "timestamp": metric.timestamp.isoformat(),
+                                "labels": labels,
+                            }
+                        ): metric.timestamp.timestamp()
+                    },
+                )
 
                 # Keep only last 1000 data points per metric
                 self.redis.zremrangebyrank(ts_key, 0, -1001)
@@ -127,7 +136,7 @@ class MetricsCollector:
             self.record_metric("memory_available_gb", memory.available / (1024**3))
 
             # Disk metrics
-            disk = psutil.disk_usage('/')
+            disk = psutil.disk_usage("/")
             self.record_metric("disk_usage_percent", disk.percent)
             self.record_metric("disk_free_gb", disk.free / (1024**3))
 
@@ -140,7 +149,7 @@ class MetricsCollector:
         except Exception as e:
             logger.warning(f"Failed to collect system metrics: {e}")
 
-    def collect_application_metrics(self, redis_conn = None):
+    def collect_application_metrics(self, redis_conn=None):
         """Collect application-specific metrics."""
         try:
             if REDIS_AVAILABLE and redis_conn:
@@ -192,13 +201,13 @@ class MetricsCollector:
             cutoff = (datetime.now() - timedelta(hours=hours)).timestamp()
 
             # Get data points within time range
-            data = self.redis.zrangebyscore(ts_key, cutoff, '+inf', withscores=True)
+            data = self.redis.zrangebyscore(ts_key, cutoff, "+inf", withscores=True)
 
             result = []
             for item, score in data:
                 try:
                     point = json.loads(item.decode())
-                    point['timestamp'] = datetime.fromtimestamp(score)
+                    point["timestamp"] = datetime.fromtimestamp(score)
                     result.append(point)
                 except:
                     pass
@@ -212,7 +221,7 @@ class MetricsCollector:
 class AlertManager:
     """Manages alerts based on metric thresholds."""
 
-    def __init__(self, redis_conn = None):
+    def __init__(self, redis_conn=None):
         self.redis = redis_conn if REDIS_AVAILABLE else None
         self._alert_rules: Dict[str, AlertRule] = {}
         self._active_alerts: Dict[str, Alert] = {}
@@ -252,7 +261,7 @@ class AlertManager:
                         severity=rule.severity,
                         timestamp=datetime.now(),
                         value=current_value,
-                        threshold=rule.threshold
+                        threshold=rule.threshold,
                     )
 
                     triggered_alerts.append(alert)
@@ -261,12 +270,12 @@ class AlertManager:
                     # Store in Redis
                     if REDIS_AVAILABLE and self.redis:
                         alert_data = {
-                            'rule_name': alert.rule_name,
-                            'message': alert.message,
-                            'severity': alert.severity,
-                            'timestamp': alert.timestamp.isoformat(),
-                            'value': alert.value,
-                            'threshold': alert.threshold
+                            "rule_name": alert.rule_name,
+                            "message": alert.message,
+                            "severity": alert.severity,
+                            "timestamp": alert.timestamp.isoformat(),
+                            "value": alert.value,
+                            "threshold": alert.threshold,
                         }
                         self.redis.set(f"cs:alert:{alert_key}", json.dumps(alert_data), ex=3600)
 
@@ -324,12 +333,12 @@ class AlertManager:
         # Add in-memory alerts
         for alert in self._active_alerts.values():
             alert_dict = {
-                'rule_name': alert.rule_name,
-                'message': alert.message,
-                'severity': alert.severity,
-                'timestamp': alert.timestamp.isoformat(),
-                'value': alert.value,
-                'threshold': alert.threshold
+                "rule_name": alert.rule_name,
+                "message": alert.message,
+                "severity": alert.severity,
+                "timestamp": alert.timestamp.isoformat(),
+                "value": alert.value,
+                "threshold": alert.threshold,
             }
             if alert_dict not in alerts:
                 alerts.append(alert_dict)
@@ -340,7 +349,7 @@ class AlertManager:
 class HealthChecker:
     """Performs comprehensive health checks."""
 
-    def __init__(self, redis_conn = None):
+    def __init__(self, redis_conn=None):
         self.redis = redis_conn if REDIS_AVAILABLE else None
         self._health_checks: Dict[str, Callable[[], bool]] = {}
 
@@ -353,7 +362,7 @@ class HealthChecker:
         results = {
             "timestamp": datetime.now().isoformat(),
             "overall_status": "healthy",
-            "checks": {}
+            "checks": {},
         }
 
         # Built-in checks
@@ -372,7 +381,7 @@ class HealthChecker:
                 status = check_func()
                 results["checks"][check_name] = {
                     "status": "healthy" if status else "unhealthy",
-                    "timestamp": datetime.now().isoformat()
+                    "timestamp": datetime.now().isoformat(),
                 }
                 if not status:
                     results["overall_status"] = "unhealthy"
@@ -380,7 +389,7 @@ class HealthChecker:
                 results["checks"][check_name] = {
                     "status": "error",
                     "error": str(e),
-                    "timestamp": datetime.now().isoformat()
+                    "timestamp": datetime.now().isoformat(),
                 }
                 results["overall_status"] = "unhealthy"
 
@@ -401,7 +410,7 @@ class HealthChecker:
             return True  # Assume healthy if psutil not available
 
         try:
-            disk = psutil.disk_usage('/')
+            disk = psutil.disk_usage("/")
             return disk.percent < 90  # Less than 90% usage
         except:
             return False
@@ -434,7 +443,7 @@ alert_manager: Optional[AlertManager] = None
 health_checker: Optional[HealthChecker] = None
 
 
-def get_metrics_collector(redis_conn = None) -> MetricsCollector:
+def get_metrics_collector(redis_conn=None) -> MetricsCollector:
     """Get or create metrics collector instance."""
     global metrics_collector
     if metrics_collector is None:
@@ -442,7 +451,7 @@ def get_metrics_collector(redis_conn = None) -> MetricsCollector:
     return metrics_collector
 
 
-def get_alert_manager(redis_conn = None) -> AlertManager:
+def get_alert_manager(redis_conn=None) -> AlertManager:
     """Get or create alert manager instance."""
     global alert_manager
     if alert_manager is None:
@@ -450,7 +459,7 @@ def get_alert_manager(redis_conn = None) -> AlertManager:
     return alert_manager
 
 
-def get_health_checker(redis_conn = None) -> HealthChecker:
+def get_health_checker(redis_conn=None) -> HealthChecker:
     """Get or create health checker instance."""
     global health_checker
     if health_checker is None:

@@ -1,9 +1,9 @@
 """SpaCy-based entity extractor for basic NER functionality."""
 
 import logging
-from typing import List, Tuple, Any
+from typing import List, Tuple
+
 from ..models import Entity
-from ..utils.optional_deps import optional_deps
 from .model_manager import ModelManager
 
 logger = logging.getLogger(__name__)
@@ -42,7 +42,7 @@ class SpacyEntityExtractor:
                 entity = Entity(
                     entity=ent.text,
                     type=ent.label_.upper(),
-                    properties={"source": "spacy", "spacy_label": ent.label_}
+                    properties={"source": "spacy", "spacy_label": ent.label_},
                 )
                 entities.append((entity, 0.8))
 
