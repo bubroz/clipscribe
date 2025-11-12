@@ -1,16 +1,166 @@
 # ClipScribe Workflows
 
-**Last Updated:** November 4, 2025  
-**Version:** v2.61.0  
-**Status:** Modal GPU + Grok-4 Structured Outputs (Working)
+**Last Updated:** November 12, 2025  
+**Version:** v2.62.0  
+**Status:** Production-validated with xAI Grok advanced features
+
+---
+
+## Workflow Diagrams
+
+### User Workflow: From URL to Intelligence
+
+```mermaid
+flowchart TD
+    Start([Video URL or File]) --> Choice{Input Type?}
+    
+    Choice -->|URL| Download[Download Video<br/>yt-dlp, curl-cffi]
+    Choice -->|Local File| Direct[Use Local File]
+    
+    Download --> Audio[Extract Audio<br/>MP3 format]
+    Direct --> Audio
+    
+    Audio --> Upload[Upload to Modal<br/>Temporary storage]
+    Upload --> Process[Modal GPU Processing<br/>WhisperX + Grok]
+    
+    Process --> Wait[Wait for completion<br/>10-11x realtime]
+    Wait --> Results[Download Results<br/>From GCS or local]
+    
+    Results --> ViewJSON[View JSON<br/>Full intelligence data]
+    Results --> ViewCSV[View CSV<br/>Spreadsheet analysis]
+    Results --> ViewGEXF[View GEXF<br/>Gephi visualization]
+    Results --> ViewMD[View Markdown<br/>Human-readable report]
+    
+    ViewJSON --> Analyze[Analyze Intelligence<br/>Entities, relationships, topics]
+    ViewCSV --> Analyze
+    ViewGEXF --> Analyze
+    ViewMD --> Analyze
+    
+    Analyze --> End([Intelligence Insights])
+    
+    style Process fill:#e1f5ff
+    style Results fill:#e8f5e9
+    style Analyze fill:#f3e5f5
+```
+
+### Developer Workflow: Setup to Deployment
+
+```mermaid
+flowchart LR
+    subgraph "Setup"
+        Clone[Clone Repo<br/>git clone]
+        Install[Install Deps<br/>poetry install]
+        Config[Configure Env<br/>XAI_API_KEY]
+    end
+    
+    subgraph "Development"
+        Code[Write Code<br/>src/clipscribe/]
+        Test[Run Tests<br/>pytest]
+        Lint[Run Linters<br/>black, ruff, isort]
+    end
+    
+    subgraph "Validation"
+        UnitTests[Unit Tests<br/>Fast, mocked]
+        IntTests[Integration Tests<br/>Real APIs]
+        E2ETests[E2E Tests<br/>Full pipeline]
+    end
+    
+    subgraph "Deployment"
+        ModalDeploy[Deploy to Modal<br/>modal deploy]
+        VerifyProd[Verify Production<br/>Test with real video]
+        Monitor[Monitor Costs<br/>Track performance]
+    end
+    
+    Clone --> Install
+    Install --> Config
+    Config --> Code
+    Code --> Test
+    Test --> Lint
+    Lint --> UnitTests
+    UnitTests --> IntTests
+    IntTests --> E2ETests
+    E2ETests --> ModalDeploy
+    ModalDeploy --> VerifyProd
+    VerifyProd --> Monitor
+    
+    style Code fill:#e3f2fd
+    style Test fill:#e8f5e9
+    style ModalDeploy fill:#fff4e1
+    style Monitor fill:#f3e5f5
+```
+
+### Modal Deployment Workflow
+
+```mermaid
+sequenceDiagram
+    participant Dev as Developer
+    participant Local as Local Machine
+    participant Modal as Modal Cloud
+    participant GPU as A10G GPU Instance
+    participant GCS as Google Cloud Storage
+    
+    Dev->>Local: modal deploy deploy/station10_modal.py
+    Local->>Modal: Upload code & dependencies
+    Modal->>Modal: Build container image
+    Modal->>Modal: Deploy to environment
+    Modal-->>Dev: Deployment complete (2-3s)
+    
+    Dev->>Local: Test with video
+    Local->>GCS: Upload test audio
+    Local->>Modal: Invoke Station10Transcriber
+    Modal->>GPU: Spin up A10G instance
+    GPU->>GPU: Load WhisperX models
+    GPU->>GPU: Transcribe + diarize
+    GPU-->>Modal: Return transcript
+    Modal->>Modal: Grok intelligence extraction
+    Modal->>GCS: Save results
+    Modal-->>Local: Return results dict
+    Local-->>Dev: Display results
+    
+    GPU->>GPU: Shutdown after idle
+    
+    Note over Modal,GPU: Cold start: 60-90s<br/>Warm: <5s
+    Note over GPU: Auto-scales to 0<br/>when idle
+```
+
+### Batch Processing Workflow
+
+```mermaid
+flowchart TD
+    Start([List of Video URLs]) --> LoadList[Load URLs<br/>From file or stdin]
+    LoadList --> CreateBatch[Create Batch Job<br/>Assign batch ID]
+    
+    CreateBatch --> Parallel{Parallel<br/>Processing?}
+    Parallel -->|Yes| SpawnWorkers[Spawn N Workers<br/>Concurrent processing]
+    Parallel -->|No| Sequential
+    
+    SpawnWorkers --> Worker1[Worker 1<br/>Process videos 1-10]
+    SpawnWorkers --> Worker2[Worker 2<br/>Process videos 11-20]
+    SpawnWorkers --> Worker3[Worker 3<br/>Process videos 21-30]
+    
+    Worker1 --> Collect
+    Worker2 --> Collect
+    Worker3 --> Collect
+    Sequential[Sequential Processing<br/>One at a time] --> Collect
+    
+    Collect[Collect Results<br/>Aggregate intelligence] --> Dedupe[Cross-Video<br/>Entity Deduplication]
+    Dedupe --> Merge[Merge Knowledge Graphs<br/>Unified view]
+    
+    Merge --> CollectionReport[Generate Collection Report<br/>Unified entities, topics]
+    CollectionReport --> Export[Export All Formats<br/>JSON, CSV, GEXF]
+    
+    Export --> Summary[Generate Summary<br/>Cost, performance, quality]
+    Summary --> End([Batch Complete])
+    
+    style SpawnWorkers fill:#e1f5ff
+    style Dedupe fill:#fff4e1
+    style Merge fill:#e8f5e9
+    style Summary fill:#f3e5f5
+```
 
 ---
 
 ## Current Working Workflows
-
-**Note:** Local CLI (`clipscribe process`) is currently deprecated. Use Modal workflow below.
-
----
 
 ## Workflow 1: Process Video via Modal (PRODUCTION)
 

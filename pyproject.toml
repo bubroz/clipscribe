@@ -5,17 +5,30 @@ build-backend = "poetry.core.masonry.api"
 [tool.poetry]
 name = "clipscribe"
 version = "2.62.0"
-description = "ClipScribe - AI-powered video intelligence tool for extracting knowledge from video content"
+description = "Professional-grade video intelligence platform extracting entities, relationships, and temporal knowledge from 1800+ video sources. WhisperX transcription + xAI Grok analysis. Built for researchers and analysts."
 authors = ["Zac Forristall <zforristall@gmail.com>"]
 readme = "README.md"
 license = "Proprietary"
 repository = "https://github.com/bubroz/clipscribe"
-keywords = ["video", "intelligence", "temporal", "AI", "Gemini", "knowledge extraction", "timeline", "ARGOS"]
+keywords = [
+    "video-intelligence", "entity-extraction", "knowledge-graph",
+    "whisperx", "xai-grok", "modal-labs", "speaker-diarization",
+    "relationship-mapping", "temporal-analysis", "nlp",
+    "video-transcription", "intelligence-analysis", "youtube-api",
+    "yt-dlp", "multi-platform", "grok-api", "prompt-caching",
+    "gpu-acceleration", "research-tools"
+]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Topic :: Multimedia :: Video",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Text Processing :: Linguistic",
     "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "License :: Other/Proprietary License",
 ]
 packages = [{include = "clipscribe", from = "src"}]
 

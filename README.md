@@ -1,9 +1,17 @@
 # ClipScribe
 
+[![Python Version](https://img.shields.io/badge/python-3.12+-blue.svg)](https://python.org)
+[![License](https://img.shields.io/badge/license-Proprietary-red.svg)](LICENSE)
+[![Tests](https://img.shields.io/badge/tests-24%2F24%20passing-success.svg)](tests/)
+[![Code Style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Version](https://img.shields.io/badge/version-2.62.0-blue.svg)](CHANGELOG.md)
+[![GPU](https://img.shields.io/badge/GPU-A10G%2024GB-green.svg)](deploy/station10_modal.py)
+[![Cost](https://img.shields.io/badge/cost-$0.073%2Fvideo-orange.svg)](#validation-results-nov-12-2025---v2620)
+
 **AI-powered video intelligence extraction**
 
 Extract speakers, entities, relationships, and intelligence from any video.  
-Built for journalists, researchers, and analysts who need professional-grade accuracy without censorship.
+Built for anyone who needs professional-grade accuracy without censorship.
 
 **Current Status:** v2.62.0 - xAI November 2025 Features + Enhanced Modal Pipeline - November 12, 2025  
 **Production Stack:** WhisperX (Modal GPU, 10-11x realtime), Grok-beta (xAI), Prompt Caching (50% savings)  
