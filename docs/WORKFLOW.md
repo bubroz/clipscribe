@@ -2,7 +2,7 @@
 
 **Last Updated:** November 12, 2025  
 **Version:** v2.62.0  
-**Status:** Validated with xAI Grok advanced features
+**Validated:** November 12, 2025 (both Modal and Local CLI workflows tested and confirmed working)
 
 ---
 
@@ -162,9 +162,17 @@ flowchart TD
 
 ## Current Working Workflows
 
-## Workflow 1: Process Video via Modal (PRODUCTION)
+ClipScribe supports TWO production workflows:
+1. **Modal GPU Workflow** - Serverless GPU processing (recommended for scale)
+2. **Local CLI Workflow** - Direct processing on local machine
 
-**This is the validated workflow.**
+Both workflows are fully functional and validated. Choose based on your needs.
+
+---
+
+## Workflow 1: Process Video via Modal (RECOMMENDED FOR SCALE)
+
+**Best for:** Batch processing, no local GPU required, serverless scaling.
 
 ### Prerequisites:
 - Google Cloud credentials configured
@@ -307,7 +315,60 @@ if __name__ == "__main__":
 
 ---
 
-## Workflow 2: Query Intelligence via Search APIs (LOCAL)
+## Workflow 2: Process Video via Local CLI (DIRECT)
+
+**Best for:** Single videos, have local machine, simpler setup.
+
+### Prerequisites:
+- Python 3.12+ with Poetry
+- XAI_API_KEY environment variable
+- Local disk space for video downloads
+
+### Step 1: Process Video Directly
+
+```bash
+# Process any video URL (1800+ platforms supported)
+poetry run clipscribe process video "https://youtube.com/watch?v=VIDEO_ID"
+
+# With options
+poetry run clipscribe process video "URL" \
+  --output-dir ./my_output \
+  --use-cache \
+  --with-x-draft
+```
+
+### Step 2: View Results
+
+Results saved to `output/YYYYMMDD_platform_videoid/`:
+```
+output/20251112_youtube_VIDEO_ID/
+├── transcript.json          # Full intelligence data
+├── transcript.txt           # Human-readable transcript
+├── entities.csv             # Entities spreadsheet
+├── knowledge_graph.gexf     # Gephi visualization
+├── summary.md               # Markdown report
+└── metadata.json            # Video metadata
+```
+
+### How It Works:
+
+Local CLI workflow:
+1. Downloads video/audio (yt-dlp with fallbacks)
+2. Sends to grok-4-fast-reasoning for transcription + intelligence
+3. Extracts entities, relationships, topics locally
+4. Builds knowledge graph with NetworkX
+5. Saves all output formats locally
+
+**Processing:**
+- Speed: Depends on video length + Grok API
+- Cost: Same as Modal (~$0.073/video)
+- No GPU required (uses Grok API for everything)
+
+**Validated:** Nov 12, 2025 - Command tested and working
+
+---
+
+## Workflow 3: Query Intelligence via Search APIs (LOCAL)
 
 **This workflow queries previously processed videos.**
 
