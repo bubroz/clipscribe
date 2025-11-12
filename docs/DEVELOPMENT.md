@@ -61,7 +61,7 @@ poetry run modal deploy deploy/station10_modal.py
 
 **Deploys:**
 - ClipScribeTranscriber class
-- WhisperX + pyannote + Grok-4 pipeline
+- WhisperX + pyannote + grok-4-fast-reasoning pipeline
 - Updates live service
 
 ### View Modal Apps:
@@ -136,9 +136,9 @@ clipscribe/
 ## Key Files
 
 **deploy/station10_modal.py:**
-- Main Modal service (WhisperX + Grok-4)
+- Main Modal service (WhisperX + grok-4-fast-reasoning)
 - ClipScribeTranscriber class
-- Grok-4 Structured Outputs implementation
+- grok-4-fast-reasoning Structured Outputs implementation
 
 **src/clipscribe/api/:**
 - topic_search.py - Topic search endpoint

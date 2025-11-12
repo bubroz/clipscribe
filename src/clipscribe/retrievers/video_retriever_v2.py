@@ -66,7 +66,7 @@ class VideoIntelligenceRetrieverV2:
         self.video_client = UniversalVideoClient()
         self.processor = HybridProcessor(
             voxtral_model="voxtral-mini-2507",  # Best for transcription
-            grok_model="grok-4-0709",  # Latest Grok-4
+            grok_model="grok-4-fast-reasoning",  # xAI Grok 4 Fast with reasoning
             cache_transcripts=use_cache,
         )
         self.output_formatter = OutputFormatter()

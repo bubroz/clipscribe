@@ -4,10 +4,19 @@
 
 **Release Summary:**
 - Integrated 6 months of xAI API updates (May-Nov 2025)
+- Standardized to grok-4-fast-reasoning model across all code
+- Fixed pricing constants to match xAI November 2025 pricing
 - Upgraded production Modal pipeline with comprehensive fixes
 - Validated with 20 videos (754min, 12.6 hours of content)
 - 100% test pass rate (24/24 tests passing)
-- $0.073 avg cost per video, 10-11x realtime processing
+
+**PRICING CORRECTION (Nov 12, 2025):**
+- Previous pricing constants were test/legacy values (67x too low!)
+- Corrected to official xAI pricing: $0.20 input, $0.50 output, $0.05 cached
+- Implemented tiered pricing: Standard (<128K context) vs High-context (>128K)
+- 99% of our videos use standard tier (~54K tokens total)
+- Cached tokens get 75% savings (not 50%) - $0.05 vs $0.20 input
+- Source: https://docs.x.ai/docs/pricing
 
 ---
 

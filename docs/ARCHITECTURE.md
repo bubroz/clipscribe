@@ -64,7 +64,7 @@ graph TB
     end
     
     subgraph "xAI Grok Intelligence"
-        GrokAPI[Grok-beta API<br/>Structured Outputs]
+        GrokAPI[grok-4-fast-reasoning API<br/>Structured Outputs]
         PromptCache[Prompt Caching<br/>50% savings]
         EntityExtract[Entity Extraction<br/>12 types]
         RelationMap[Relationship Mapping<br/>Evidence-based]
@@ -432,7 +432,7 @@ async def _transcribe_with_retry(audio_path, language):
 
 ### 3. Grok Intelligence Extraction
 
-**xAI Grok-beta with Structured Outputs** (`src/clipscribe/processors/hybrid_processor.py`)
+**xAI grok-4-fast-reasoning with Structured Outputs** (`src/clipscribe/processors/hybrid_processor.py`)
 
 ```mermaid
 flowchart TD
@@ -877,7 +877,7 @@ graph TD
 - **GPU:** Modal Labs A10G (24GB VRAM, $0.0001/sec)
 - **Transcription:** WhisperX (large-v3, 99% accuracy)
 - **Speaker ID:** pyannote.audio 3.0 (2-13 speakers tested)
-- **Intelligence:** xAI Grok-beta ($0.003/M input, $0.010/M output)
+- **Intelligence:** xAI grok-4-fast-reasoning ($0.20/M input, $0.50/M output, $0.05/M cached)
 
 ### Python Stack
 - **Version:** Python 3.12+
@@ -891,7 +891,7 @@ graph TD
 - **Transcription:** WhisperX large-v3
 - **Diarization:** pyannote/speaker-diarization-3.0
 - **Language:** WhisperX built-in detection
-- **Intelligence:** xAI Grok-beta (200k context)
+- **Intelligence:** xAI grok-4-fast-reasoning (2M context, 200k recommended)
 
 ---
 

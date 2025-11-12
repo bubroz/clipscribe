@@ -26,12 +26,12 @@ def test_grok_models():
     print(f"Date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print("=" * 80)
     
-    # Models to test
+    # Models to test (November 2025)
     models_to_test = [
-        ("grok-4-0709", "Grok-4 (Used in local ClipScribe)"),
-        ("grok-2-1212", "Grok-2 Dec 2021 (Currently in Modal)"),
-        ("grok-2-latest", "Grok-2 Latest"),
-        ("grok-beta", "Grok Beta"),
+        ("grok-4-fast-reasoning", "Grok 4 Fast (Reasoning) - PRODUCTION"),
+        ("grok-4-fast-non-reasoning", "Grok 4 Fast (Non-Reasoning)"),
+        ("grok-4-fast", "Grok 4 Fast (Alias for reasoning)"),
+        ("grok-4-fast-reasoning-latest", "Grok 4 Fast Reasoning (Latest)"),
         ("grok-vision-beta", "Grok Vision Beta"),
     ]
     
@@ -144,23 +144,23 @@ def test_grok_models():
     print("RECOMMENDATION")
     print("=" * 80)
     
-    if any(r["model"] == "grok-4-0709" for r in available):
-        print("\n✅ USE grok-4-0709")
-        print("   - Grok-4 is available")
-        print("   - Matches local ClipScribe")
+    if any(r["model"] == "grok-4-fast-reasoning" for r in available):
+        print("\n✅ USE grok-4-fast-reasoning")
+        print("   - Grok 4 Fast with reasoning is available")
+        print("   - PRODUCTION MODEL")
         print("   - Superior quality (96% coverage validated)")
         print("   - Higher cost ($60/M vs $2/M) but worth it")
         
-    elif any(r["model"] == "grok-2-latest" for r in available):
-        print("\n✅ USE grok-2-latest")
-        print("   - Grok-4 not available")
-        print("   - Latest Grok-2 variant")
+    elif any(r["model"] == "grok-4-fast-non-reasoning" for r in available):
+        print("\n⚠️  FALLBACK: grok-4-fast-non-reasoning")
+        print("   - Grok 4 Fast reasoning not available")
+        print("   - Use non-reasoning variant")
         print("   - UPDATE local ClipScribe to match")
         
-    elif any(r["model"] == "grok-2-1212" for r in available):
-        print("\n⚠️  KEEP grok-2-1212 (Current)")
-        print("   - No better models available")
-        print("   - Validated at 0.90 confidence")
+    else:
+        print("\n❌ NO GROK 4 MODELS AVAILABLE")
+        print("   - Contact xAI support")
+        print("   - Check API key permissions")
         print("   - Cost-effective")
     else:
         print("\n❌ NO GROK MODELS AVAILABLE")

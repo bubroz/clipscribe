@@ -130,7 +130,7 @@ Write ONE tweet. Nothing else. Make it fucking engaging.
             # Call Grok-4 for summary generation
             async with httpx.AsyncClient(timeout=60) as client:
                 data = {
-                    "model": "grok-4-0709",
+                    "model": "grok-4-fast-reasoning",
                     "messages": [
                         {
                             "role": "system",

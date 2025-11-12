@@ -68,7 +68,7 @@ class VideoKnowledgeBase:
         api_key: str,
         collection_id: Optional[str] = None,
         collection_name: str = "clipscribe-videos",
-        model: str = "grok-4",
+        model: str = "grok-4-fast-reasoning",
     ):
         """
         Initialize knowledge base manager.

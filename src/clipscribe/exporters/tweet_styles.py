@@ -155,7 +155,7 @@ Write tweet. 270 chars max. Complete sentences. NO hashtags. NO jargon.
         try:
             async with httpx.AsyncClient(timeout=30) as client:
                 data = {
-                    "model": "grok-4-0709",
+                    "model": "grok-4-fast-reasoning",
                     "messages": [
                         {
                             "role": "system",

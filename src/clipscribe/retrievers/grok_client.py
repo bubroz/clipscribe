@@ -81,7 +81,7 @@ class GrokAPIClient:
     async def chat_completion(
         self,
         messages: List[Dict[str, str]],
-        model: str = "grok-4",
+        model: str = "grok-4-fast-reasoning",
         temperature: float = 0.1,
         max_tokens: Optional[int] = None,
         stream: bool = False,
@@ -95,7 +95,7 @@ class GrokAPIClient:
 
         Args:
             messages: List of message dictionaries
-            model: Model to use (grok-4, grok-beta-3, grok-code-fast-1)
+            model: Model to use (grok-4-fast-reasoning, grok-4-fast-non-reasoning)
             temperature: Sampling temperature
             max_tokens: Maximum tokens to generate
             stream: Whether to stream the response
@@ -219,57 +219,65 @@ class GrokAPIClient:
         output_tokens: int,
         cached_tokens: int = 0,
         tool_calls: int = 0,
-        model: str = "grok-4",
+        model: str = "grok-4-fast-reasoning",
         return_breakdown: bool = True,
     ) -> Union[Dict[str, float], float]:
         """
-        Calculate cost for API usage with caching support.
+        Calculate cost for API usage with correct xAI tiered pricing (Nov 2025).
 
-        Based on xAI pricing as of November 2025:
-        - grok-4: $0.003 per 1K input tokens, $0.01 per 1K output tokens
-        - grok-beta-3: $0.005 per 1K input tokens, $0.015 per 1K output tokens
-        - grok-code-fast-1: $0.001 per 1K input tokens, $0.003 per 1K output tokens
-        - Cached tokens: 50% discount on input token cost (May 2025)
-        - Tool calls: Currently free (subject to change)
+        xAI Pricing Tiers (Source: https://docs.x.ai/docs/pricing):
+        
+        Standard tier (<128K context) - applies to 99% of our videos:
+        - Input: $0.20 per 1M tokens
+        - Output: $0.50 per 1M tokens
+        - Cached: $0.05 per 1M tokens (75% savings vs input!)
+        
+        High-context tier (>128K context) - only for 12+ hour videos:
+        - Input: $0.40 per 1M tokens
+        - Output: $1.00 per 1M tokens
+        - Cached: $0.05 per 1M tokens (87.5% savings vs input!)
 
         Args:
             input_tokens: Number of input tokens (non-cached)
             output_tokens: Number of output tokens
-            cached_tokens: Number of cached input tokens (50% discount)
+            cached_tokens: Number of cached input tokens (75% savings)
             tool_calls: Number of tool calls made
-            model: Model used
+            model: Model used (grok-4-fast-reasoning or grok-4-fast-non-reasoning)
+            return_breakdown: Return dict breakdown or just float total
 
         Returns:
-            Dict with cost breakdown:
-            {
-                "input_cost": float,
-                "output_cost": float,
-                "cache_savings": float,
-                "tool_cost": float,
-                "total": float
-            }
+            Dict with cost breakdown or float total
         """
-        pricing = {
-            "grok-4": {"input": 0.003, "output": 0.01},
-            "grok-beta-3": {"input": 0.005, "output": 0.015},
-            "grok-3": {"input": 0.003, "output": 0.01},
-            "grok-code-fast-1": {"input": 0.001, "output": 0.003},
+        # xAI Pricing (November 2025) - Standard tier (<128K context)
+        pricing_standard = {
+            "grok-4-fast-reasoning": {"input": 0.20, "output": 0.50, "cached": 0.05},
+            "grok-4-fast-non-reasoning": {"input": 0.20, "output": 0.50, "cached": 0.05},
+            # Aliases for backward compatibility
+            "grok-4-fast": {"input": 0.20, "output": 0.50, "cached": 0.05},
+            "grok-4-fast-reasoning-latest": {"input": 0.20, "output": 0.50, "cached": 0.05},
         }
 
-        rates = pricing.get(model, pricing["grok-4"])
+        # High-context tier (>128K context) - rare, only 12+ hour videos
+        pricing_high_context = {
+            "grok-4-fast-reasoning": {"input": 0.40, "output": 1.00, "cached": 0.05},
+            "grok-4-fast-non-reasoning": {"input": 0.40, "output": 1.00, "cached": 0.05},
+        }
 
-        # Calculate regular input cost
-        input_cost = (input_tokens / 1000) * rates["input"]
+        # Determine pricing tier based on total context size
+        total_context_tokens = input_tokens + cached_tokens
+        use_high_context = total_context_tokens > 128000
 
-        # Calculate cached input cost (50% discount)
-        cached_cost = (cached_tokens / 1000) * rates["input"] * 0.5
+        pricing = pricing_high_context if use_high_context else pricing_standard
+        rates = pricing.get(model, pricing_standard["grok-4-fast-reasoning"])
 
-        # Calculate savings from caching
-        full_cached_cost = (cached_tokens / 1000) * rates["input"]
+        # Calculate costs per million tokens
+        input_cost = (input_tokens / 1_000_000) * rates["input"]
+        cached_cost = (cached_tokens / 1_000_000) * rates["cached"]
+        output_cost = (output_tokens / 1_000_000) * rates["output"]
+
+        # Calculate savings from caching (cached vs full input price)
+        full_cached_cost = (cached_tokens / 1_000_000) * rates["input"]
         cache_savings = full_cached_cost - cached_cost
-
-        # Output cost
-        output_cost = (output_tokens / 1000) * rates["output"]
 
         # Tool cost (currently free, but tracked separately)
         tool_cost = 0.0  # May change in future
@@ -283,6 +291,8 @@ class GrokAPIClient:
             "cache_savings": round(cache_savings, 6),
             "tool_cost": round(tool_cost, 6),
             "total": round(total, 6),
+            "pricing_tier": "high_context" if use_high_context else "standard",
+            "context_tokens": total_context_tokens,
         }
 
         # Backward compatibility: return float if requested
@@ -427,7 +437,7 @@ class GrokAPIClient:
     # ==============================================================================
 
     async def create_collection(
-        self, name: str, description: str = "", model: str = "grok-4"
+        self, name: str, description: str = "", model: str = "grok-4-fast-reasoning"
     ) -> Dict[str, Any]:
         """
         Create a new collection for knowledge base.

@@ -171,7 +171,7 @@ flowchart TD
 - Modal account with secrets configured:
   - `huggingface` (HuggingFace token for WhisperX models)
   - `googlecloud-secret` (GCS access)
-  - `grok-api-key` (xAI API key for Grok-4)
+  - `grok-api-key` (xAI API key for grok-4-fast-reasoning)
 
 ### Step 1: Upload Video to GCS
 

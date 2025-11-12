@@ -16,7 +16,7 @@ class Evidence(BaseModel):
 
     quote: str
     timestamp: Optional[float] = Field(None, ge=0.0)
-    source: str = Field(default="grok-4")
+    source: str = Field(default="grok-4-fast-reasoning")
     confidence: float = Field(default=0.9, ge=0.0, le=1.0)
 
 
@@ -32,7 +32,7 @@ class Entity(BaseModel):
     aliases: List[str] = Field(default_factory=list)
     canonical_form: str = Field(default="")
     evidence: List[Evidence] = Field(default_factory=list)
-    extraction_sources: List[str] = Field(default_factory=lambda: ["grok-4"])
+    extraction_sources: List[str] = Field(default_factory=lambda: ["grok-4-fast-reasoning"])
     temporal_distribution: List[Dict[str, Any]] = Field(default_factory=list)
 
     @field_validator("canonical_form", mode="before")
@@ -60,7 +60,7 @@ class Relationship(BaseModel):
     object: str
     confidence: float = Field(default=0.9, ge=0.0, le=1.0)
     evidence: List[Evidence] = Field(default_factory=list)
-    extraction_source: str = Field(default="grok-4")
+    extraction_source: str = Field(default="grok-4-fast-reasoning")
     contradictions: List[str] = Field(default_factory=list)
 
     def to_fact(self) -> str:

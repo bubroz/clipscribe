@@ -245,7 +245,7 @@ response_format = get_video_intelligence_schema()
 # Use in API call
 response = await grok_client.chat_completion(
     messages=messages,
-    model="grok-4",
+    model="grok-4-fast-reasoning",
     response_format=response_format  # Type-safe schema
 )
 
@@ -367,7 +367,7 @@ from clipscribe.processors.hybrid_processor import HybridProcessor
 # Initialize with advanced features enabled
 processor = HybridProcessor(
     voxtral_model="voxtral-mini-2507",
-    grok_model="grok-4"
+    grok_model="grok-4-fast-reasoning"
 )
 
 # Process video (automatic caching, fact-checking, KB integration)

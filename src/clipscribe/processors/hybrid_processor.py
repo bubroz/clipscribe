@@ -43,7 +43,7 @@ class HybridProcessor:
     def __init__(
         self,
         voxtral_model: str = "voxtral-mini-2507",
-        grok_model: str = "grok-4-0709",  # Use Grok-4!
+        grok_model: str = "grok-4-fast-reasoning",  # xAI Grok 4 Fast with reasoning
         cache_transcripts: bool = True,
     ):
         """

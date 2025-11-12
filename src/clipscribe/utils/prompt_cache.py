@@ -117,15 +117,21 @@ class GrokPromptCache:
         self.stats.last_updated = datetime.now()
 
     def estimate_cache_savings(
-        self, input_tokens: int, cache_hit: bool, model: str = "grok-4"
+        self, input_tokens: int, cache_hit: bool, model: str = "grok-4-fast-reasoning"
     ) -> float:
         """
-        Estimate cost savings from caching.
+        Estimate cost savings from caching with correct xAI pricing.
+        
+        xAI Pricing (November 2025):
+        - Input: $0.20 per 1M tokens
+        - Cached: $0.05 per 1M tokens (75% savings!)
+        
+        Source: https://docs.x.ai/docs/pricing
 
         Args:
             input_tokens: Number of input tokens that could be cached
             cache_hit: Whether this would be a cache hit
-            model: Model being used
+            model: Model being used (grok-4-fast-reasoning or grok-4-fast-non-reasoning)
 
         Returns:
             Estimated savings in USD
@@ -133,20 +139,20 @@ class GrokPromptCache:
         if not cache_hit or input_tokens < self._cache_threshold:
             return 0.0
 
-        # Pricing per 1K tokens
+        # Pricing per 1M tokens (November 2025)
         pricing = {
-            "grok-4": 0.003,
-            "grok-beta-3": 0.005,
-            "grok-3": 0.003,
-            "grok-code-fast-1": 0.001,
+            "grok-4-fast-reasoning": 0.20,
+            "grok-4-fast-non-reasoning": 0.20,
+            "grok-4-fast": 0.20,  # Alias
+            "grok-4-fast-reasoning-latest": 0.20,  # Alias
         }
 
-        rate = pricing.get(model, pricing["grok-4"])
+        rate = pricing.get(model, pricing["grok-4-fast-reasoning"])
 
-        # 50% savings on cached tokens
-        full_cost = (input_tokens / 1000) * rate
-        cached_cost = full_cost * 0.5
-        savings = full_cost - cached_cost
+        # 75% savings on cached tokens (cached=$0.05 vs input=$0.20)
+        full_cost = (input_tokens / 1_000_000) * rate
+        cached_cost = full_cost * 0.25  # Pay 25% of input price for cached
+        savings = full_cost - cached_cost  # 75% savings
 
         return round(savings, 6)
 

@@ -241,7 +241,7 @@ async def test_json_schema_response_format(grok_client):
     
     response = await grok_client.chat_completion(
         messages=messages,
-        model="grok-4",
+        model="grok-4-fast-reasoning",
         response_format=get_entity_schema()
     )
     
@@ -328,7 +328,7 @@ def test_cost_calculation_with_caching(grok_client):
         input_tokens=1000,
         output_tokens=200,
         cached_tokens=500,
-        model="grok-4"
+        model="grok-4-fast-reasoning"
     )
     
     assert "input_cost" in cost_breakdown
@@ -394,7 +394,7 @@ async def test_full_advanced_features_workflow(grok_client, prompt_cache, knowle
     # Use structured outputs
     response = await grok_client.chat_completion(
         messages=messages,
-        model="grok-4",
+        model="grok-4-fast-reasoning",
         response_format=get_entity_schema()
     )
     

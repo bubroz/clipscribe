@@ -1,7 +1,7 @@
 """
-End-to-end tests for Modal GPU pipeline with Grok-4 Fast Reasoning.
+End-to-end tests for Modal GPU pipeline with grok-4-fast-reasoning.
 
-These tests call the REAL Modal service and REAL Grok-4 API.
+These tests call the REAL Modal service and REAL grok-4-fast-reasoning API.
 Marked as expensive to run only when explicitly requested.
 """
 
@@ -21,12 +21,12 @@ sys.path.insert(0, str(project_root))
 @pytest.mark.skip(reason="Requires deployed Modal app (station10-transcription) - run manually in CI/CD")
 async def test_modal_pipeline_complete_intelligence():
     """
-    Full E2E test of Modal pipeline with Grok-4 Fast Reasoning.
+    Full E2E test of Modal pipeline with grok-4-fast-reasoning.
     
     Tests:
     1. GCS upload
     2. Modal transcription (WhisperX + diarization)
-    3. Grok-4 intelligence extraction (entities, relationships, topics, moments, sentiment)
+    3. grok-4-fast-reasoning intelligence extraction (entities, relationships, topics, moments, sentiment)
     4. Output structure completeness
     5. Evidence quote coverage
     6. Cost tracking

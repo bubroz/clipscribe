@@ -28,7 +28,7 @@ class GrokTranscriber:
     def __init__(
         self,
         api_key: Optional[str] = None,
-        model: str = "grok-4",
+        model: str = "grok-4-fast-reasoning",
         use_vertex_ai: bool = False,
         request_timeout: int = 60,
         max_retries: int = 3,

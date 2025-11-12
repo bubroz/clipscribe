@@ -127,7 +127,7 @@ async def run_processing_logic(
                     logger.info(f"📱 X draft ready: {x_draft['directory']}")
 
             # Explicit model line for tests
-            model_str = "voxtral-mini-2507 + grok-4-0709"
+            model_str = "voxtral-mini-2507 + grok-4-fast-reasoning"
             print(f"Model: {model_str}")
             print("Intelligence extraction complete!")
         else:

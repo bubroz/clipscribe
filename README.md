@@ -14,7 +14,7 @@ Extract speakers, entities, relationships, and intelligence from any video.
 Built for anyone who needs professional-grade accuracy without censorship.
 
 **Current Status:** v2.62.0 - xAI November 2025 Features + Enhanced Modal Pipeline - November 12, 2025  
-**Production Stack:** WhisperX (Modal GPU, 10-11x realtime), Grok-beta (xAI), Prompt Caching (50% savings)  
+**Production Stack:** WhisperX (Modal GPU, 10-11x realtime), grok-4-fast-reasoning (xAI), Prompt Caching (75% savings)  
 **Latest Validation:** 20 videos processed (754min total), $0.073/video avg, 556 entities extracted, 100% test pass rate
 
 ---
@@ -98,7 +98,7 @@ Built for anyone who needs professional-grade accuracy without censorship.
 **Current Production:**
 - **Transcription:** WhisperX on Modal Labs (A10G GPU, 10-11x realtime)
 - **Speaker Diarization:** pyannote.audio with adaptive thresholds
-- **Intelligence:** Grok-beta (xAI) with structured outputs, prompt caching, server-side tools
+- **Intelligence:** grok-4-fast-reasoning (xAI) with structured outputs, prompt caching, server-side tools
 - **Fact-Checking:** Web search, X/Twitter search integration for entity verification
 - **Knowledge Base:** Collections API for cross-video entity tracking and relationship discovery
 - **Deduplication:** Advanced fuzzy matching with evidence-based validation

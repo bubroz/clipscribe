@@ -66,7 +66,7 @@ class GrokFactChecker:
         enable_x_search: bool = True,
         enable_code_execution: bool = False,
         collection_id: Optional[str] = None,
-        model: str = "grok-4",
+        model: str = "grok-4-fast-reasoning",
     ):
         """
         Initialize fact checker.
