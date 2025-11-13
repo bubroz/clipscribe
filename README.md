@@ -19,7 +19,7 @@ Built for anyone who needs professional-grade accuracy without censorship.
 
 ---
 
-## Current Capabilities (Validated & Working)
+## Current Capabilities
 
 ### Transcription & Speaker Intelligence
 - **WhisperX transcription** - 97-99% accuracy, medical/legal grade quality
@@ -27,7 +27,7 @@ Built for anyone who needs professional-grade accuracy without censorship.
 - **Multi-speaker handling** - Tested up to 5 speakers with adaptive thresholds
 - **Processing speed** - 11.6x realtime on A10G GPU (16min video → 1.4min processing)
 
-### Entity Extraction (Production-Validated)
+### Entity Extraction
 - **18 entity types** (spaCy standard): PERSON, ORG, GPE, LOC, EVENT, PRODUCT, MONEY, DATE, TIME, FAC, NORP, LANGUAGE, LAW, WORK_OF_ART, CARDINAL, ORDINAL, QUANTITY, PERCENT
 - **Relationship mapping** - Connections between entities with confidence scores
 - **Topics extraction** - Main themes with relevance scores
@@ -39,13 +39,13 @@ Built for anyone who needs professional-grade accuracy without censorship.
 - **Entity quality:** Selective, named entities only (no noise like "98%", "thursdays")
 - **Evidence coverage:** 100% (all entities have supporting transcript quotes)
 - **Entity type coverage:** 17/18 spaCy types (PERSON, ORG, GPE, EVENT, etc.)
-- **Topics extracted:** 3-5 per video with relevance scores and time ranges
+- **Topic extraction:** 3-5 per video with relevance scores and time ranges
 - **Key moments:** 4-5 per video with timestamps and significance
 - **Processing cost:** $0.34 per video (WhisperX $0.33 + Grok-4 $0.01)
 
 ---
 
-## 🚀 New in v2.62.0: xAI November 2025 Features
+## New in v2.62.0
 
 ### Prompt Caching (50% Cost Reduction)
 - **Automatic caching** for prompts >1024 tokens - 50% discount on cached content
@@ -73,7 +73,8 @@ Built for anyone who needs professional-grade accuracy without censorship.
 
 ### Production-Validated Metrics (Nov 12, 2025)
 - **Videos processed:** 20 (754 minutes total, 12.6 hours of content)
-- **Entities extracted:** 556 (avg 27.8/video, 12 types)
+- **Entities extracted:** 556 (avg 27.8/video, 12 types found across 20 videos)
+  - Supports all 18 spaCy entity types (actual types found depend on video content)
 - **Relationships mapped:** 161 (avg 8.1/video)
 - **Topics identified:** 97 (avg 4.8/video)
 - **Processing cost:** $0.073/video avg ($0.001935/minute)
@@ -218,7 +219,3 @@ clipscribe/
 **Product:** ClipScribe  
 **Repository:** Private during development  
 **License:** Proprietary
-
----
-
-**Last Updated:** November 4, 2025 - v2.61.0 Structured Outputs implemented, APIs validated, ready for Chimera

@@ -27,7 +27,7 @@ Professional-grade video intelligence platform architecture documentation.
 
 **For Stakeholders & Decision Makers**
 
-ClipScribe is a production-grade video intelligence platform that extracts structured knowledge from video content at scale. Built on enterprise-grade infrastructure (Modal Labs GPU, xAI Grok), the system processes 1800+ video platforms with professional accuracy.
+ClipScribe is a production-grade video intelligence platform that extracts structured knowledge from video content at scale. Built on enterprise-grade infrastructure (Modal Labs GPU, xAI Grok), the system processes video with professional accuracy.
 
 **Key Capabilities:**
 - **Speed:** 10-11x realtime processing (71min video → 7min processing)
@@ -67,7 +67,7 @@ graph TB
     subgraph "xAI Grok Intelligence"
         GrokAPI[grok-4-fast-reasoning API<br/>Structured Outputs]
         PromptCache[Prompt Caching<br/>50% savings]
-        EntityExtract[Entity Extraction<br/>12 types]
+        EntityExtract[Entity Extraction<br/>18 spaCy types]
         RelationMap[Relationship Mapping<br/>Evidence-based]
         TopicExtract[Topic Extraction<br/>Relevance scoring]
     end
@@ -143,7 +143,7 @@ flowchart TD
     SaveCost --> Extract1
     FullCost --> Extract1
     
-    Extract1[Extract Entities<br/>12 types] --> Extract2[Map Relationships<br/>Evidence-based]
+    Extract1[Extract Entities<br/>18 spaCy types] --> Extract2[Map Relationships<br/>Evidence-based]
     Extract2 --> Extract3[Identify Topics<br/>Relevance scores]
     Extract3 --> Extract4[Key Moments<br/>Timestamps]
     Extract4 --> Extract5[Sentiment Analysis]
@@ -456,7 +456,7 @@ flowchart TD
     FullAPI --> Schema[JSON Schema Mode<br/>Guaranteed structure]
     
     Schema --> Parse[Parse Response<br/>Pydantic validation]
-    Parse --> Entities[Entities<br/>12 types]
+    Parse --> Entities[Entities<br/>18 spaCy types]
     Parse --> Relations[Relationships<br/>Subject-predicate-object]
     Parse --> Topics[Topics<br/>Relevance + time]
     Parse --> Moments[Key Moments<br/>Timestamps]

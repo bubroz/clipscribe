@@ -114,7 +114,8 @@
 - **Total segments:** 9,565 transcript segments
 
 **Intelligence Extracted:**
-- **Entities:** 556 (avg 27.8/video, 12 types)
+- **Entities:** 556 (avg 27.8/video, 12 types found in these videos)
+  - Note: Supports all 18 spaCy types, actual types depend on content
   - Top types: ORG (41%), PERSON (21%), GPE (14%), PRODUCT (11%)
 - **Relationships:** 161 (avg 8.1/video)
 - **Topics:** 97 (avg 4.8/video)
