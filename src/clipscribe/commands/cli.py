@@ -41,7 +41,7 @@ def cli(ctx: click.Context, debug: bool):
     "--transcription-provider", "-t",
     type=click.Choice(["voxtral", "whisperx-modal", "whisperx-local"]),
     default="whisperx-local",
-    help="Transcription provider (voxtral=cheap/no-speakers, whisperx-modal=GPU/speakers, whisperx-local=M3-Max/free/speakers)"
+    help="Transcription provider (voxtral=Mistral API/cheap/no-speakers, whisperx-modal=Modal GPU/quality/speakers, whisperx-local=Local/FREE/speakers)"
 )
 @click.option(
     "--intelligence-provider", "-i",
@@ -75,19 +75,19 @@ def process(
     
     Examples:
     
-        Single-speaker content (cheap, no diarization):
+        Single-speaker, cheap Mistral API:
         $ clipscribe process lecture.mp3 -t voxtral --no-diarize
         
-        Multi-speaker, cloud GPU (quality):
+        Multi-speaker, Modal cloud GPU:
         $ clipscribe process interview.mp3 -t whisperx-modal
         
-        Multi-speaker, local M3 Max (FREE):
+        Multi-speaker, FREE local (Apple Silicon/CPU):
         $ clipscribe process podcast.mp3 -t whisperx-local
         
     Provider Comparison (30min video):
-        voxtral:        ~$0.03  (API, no speakers)
-        whisperx-modal: ~$0.06  (Cloud GPU, speakers)
-        whisperx-local: $0.00   (M3 Max, FREE, speakers)
+        voxtral:        ~$0.03  (Mistral API, no speakers)
+        whisperx-modal: ~$0.06  (Modal GPU cloud, speakers)
+        whisperx-local: $0.00   (Local Apple Silicon/CPU, speakers)
         
         Plus Grok intelligence: ~$0.005 per video
     """

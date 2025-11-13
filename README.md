@@ -10,11 +10,11 @@
 **Professional intelligence extraction from audio/video files**
 
 Extract speakers, entities, relationships, and intelligence with provider flexibility.  
-File-first CLI, GCS-first API. Three transcription options: API (cheap), Cloud GPU (quality), Local M3 Max (FREE).
+File-first CLI, GCS-first API. Three transcription options: Mistral API (cheap, no speakers), Modal GPU (cloud quality, speakers), Local processing (FREE, speakers).
 
 **Current Status:** v3.0.0 - Provider Architecture Transformation - November 13, 2025  
 **Architecture:** Provider-based (swappable transcription + intelligence)  
-**Options:** Voxtral API (\$0.03/30min) | WhisperX Modal (\$0.06/30min) | WhisperX Local M3 Max (FREE)  
+**Options:** Voxtral (Mistral API, \$0.03/30min) | WhisperX Modal (GPU cloud, \$0.06/30min) | WhisperX Local (Apple Silicon/CPU, FREE)  
 **Intelligence:** Grok-4 with prompt caching (75% savings), ~\$0.005/30min
 
 ---
@@ -36,13 +36,13 @@ export HF_TOKEN=your_hf_token            # For local WhisperX diarization
 ### Process a File
 
 ```bash
-# Free local processing (M3 Max with Metal)
+# Free local processing (Apple Silicon or CPU)
 clipscribe process interview.mp3
 
-# Cloud GPU with speakers (quality)
+# Cloud GPU with speakers (Modal)
 clipscribe process podcast.mp3 -t whisperx-modal
 
-# Cheap API, no speakers
+# Mistral API, cheap, no speakers
 clipscribe process lecture.mp3 -t voxtral --no-diarize
 ```
 
@@ -51,8 +51,8 @@ clipscribe process lecture.mp3 -t voxtral --no-diarize
 | Provider | Cost | Speakers | Speed | Best For |
 |----------|------|----------|-------|----------|
 | `voxtral` | \$0.03 | ❌ | API (fast) | Single-speaker, budget |
-| `whisperx-modal` | \$0.06 | ✅ | 10x realtime | Cloud, quality |
-| `whisperx-local` | FREE | ✅ | 3-5x realtime | M3 Max, privacy |
+| `whisperx-modal` | \$0.06 | ✅ | 10x realtime | Cloud GPU, quality |
+| `whisperx-local` | FREE | ✅ | 1-2x realtime | Local (Apple Silicon/CPU), privacy |
 
 *Plus Grok intelligence: ~\$0.005 per video*
 
@@ -64,8 +64,8 @@ v3.0.0 introduces provider abstraction - swap transcription and intelligence pro
 
 **Transcription Providers:**
 - **Voxtral** (`-t voxtral`): Mistral API, \$0.001/min, no speaker diarization
-- **WhisperX Modal** (`-t whisperx-modal`): Cloud GPU (A10G), speakers, Gemini verification
-- **WhisperX Local** (`-t whisperx-local`): M3 Max Metal, FREE, speakers
+- **WhisperX Modal** (`-t whisperx-modal`): Modal Cloud GPU (A10G), speakers, Gemini verification  
+- **WhisperX Local** (`-t whisperx-local`): Local processing (Apple Silicon or CPU), FREE, speakers
 
 **Intelligence Providers:**
 - **Grok** (`-i grok`): xAI Grok-4 with prompt caching, \$0.20/M input, \$0.50/M output
