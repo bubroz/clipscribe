@@ -3,19 +3,39 @@
 **Version:** v3.0.0  
 **Last Updated:** November 13, 2025
 
-Complete schema reference for ClipScribe's comprehensive JSON output.
+Complete schema reference for ClipScribe's multi-format export system.
 
 ---
 
 ## Overview
 
-ClipScribe produces a **single comprehensive JSON file** containing all extracted intelligence:
+ClipScribe produces **5 export formats** for every workflow:
+
+1. **JSON** - Complete structured data (always generated)
+2. **DOCX** - Professional reports (Google Docs/Word/Pages)
+3. **CSV** - Data tables (5 files: entities, relationships, topics, key_moments, segments)
+4. **PPTX** - Executive presentations (7-slide deck)
+5. **Markdown** - Searchable documentation (GitHub/VS Code/Obsidian)
+
+**Select formats with `--formats` flag:**
+```bash
+clipscribe process video.mp3 --formats all                 # All 5 formats
+clipscribe process video.mp3 --formats json docx csv       # Specific formats
+```
+
+**Default formats** (if not specified): `json`, `docx`, `csv`
+
+---
+
+## Format 1: JSON (Complete Data)
+
+**Always generated** - Contains all extracted intelligence in machine-readable format.
 
 **File location:** `output/timestamp_filename/transcript.json`
 
 **File size:** ~200KB to 2MB (depending on content length and richness)
 
-**Format:** Standard JSON (import into any tool: Pandas, SQL, visualization, research databases)
+**Best for:** Developers, APIs, databases, custom processing, Pandas/R analysis
 
 ---
 
@@ -406,6 +426,213 @@ with open('network.json', 'w') as f:
 | **Cache stats** | ✅ | ✅ | ✅ |
 
 **All providers deliver same intelligence data** - only transcription features differ (speakers, word-timing).
+
+---
+
+## Format 2: DOCX (Professional Reports)
+
+**File location:** `output/timestamp_filename/intelligence_report.docx`  
+**File size:** ~35-45KB  
+**Best for:** Stakeholder reports, sharing with non-technical teams, editing findings
+
+**Compatible with:**
+- Google Docs (upload and auto-converts)
+- Microsoft Word (Windows/Mac)
+- Apple Pages
+- LibreOffice Writer
+
+**Structure:**
+1. Title page with metadata (date, duration, provider, cost)
+2. Executive summary (key metrics)
+3. Entities table (top 20 with evidence quotes)
+4. Relationships section (top 15 with full evidence)
+5. Topics analysis with time ranges
+6. Key moments timeline
+7. Sentiment analysis breakdown
+8. Footer with ClipScribe branding
+
+**Features:**
+- Standard Word formatting (no advanced features for compatibility)
+- Tables use universal styles
+- Page breaks for logical sections
+- Evidence quotes for verifiability
+
+**Generate:**
+```bash
+clipscribe process video.mp3 --formats docx
+```
+
+---
+
+## Format 3: CSV (Data Tables)
+
+**File location:** `output/timestamp_filename/csv/`  
+**Number of files:** 5 CSV files  
+**Total size:** ~20-100KB  
+**Best for:** Excel analysis, database import, Pandas/R processing, pivot tables
+
+**Compatible with:**
+- Google Sheets
+- Microsoft Excel
+- Apple Numbers
+- Any CSV-compatible tool
+- Pandas: `pd.read_csv()`
+
+**Files Generated:**
+
+### entities.csv
+```csv
+name,type,confidence,evidence
+Alex Karp,PERSON,1.0,"Alex Karp, thanks for having us into the Palantir lair..."
+Palantir,ORG,1.0,"Palantir has been working with Ukraine since the beginning..."
+```
+
+**Columns:** name, type, confidence, evidence (truncated to 500 chars)
+
+### relationships.csv
+```csv
+subject,predicate,object,evidence,confidence
+Trump,announced,Gaza ceasefire deal,"President Trump scores an international win...",1.0
+Palantir,works_with,Ukraine,"Palantir has been working with Ukraine...",1.0
+```
+
+**Columns:** subject, predicate, object, evidence, confidence
+
+### topics.csv
+```csv
+name,relevance,time_range
+Government Shutdown,1.0,00:00-15:00
+Gaza Ceasefire,0.9,00:15-20:00
+```
+
+**Columns:** name, relevance, time_range
+
+### key_moments.csv
+```csv
+timestamp,description,significance,quote
+00:30,Trump's Gaza ceasefire achievement,0.9,"President Trump scores an international win..."
+```
+
+**Columns:** timestamp, description, significance, quote
+
+### segments.csv
+```csv
+start,end,speaker,text,confidence
+4.081,13.117,SPEAKER_07,"Domestic deal maker? President Trump...",0.95
+```
+
+**Columns:** start, end, speaker, text, confidence
+
+**Features:**
+- UTF-8 with BOM encoding (Excel displays unicode correctly)
+- Proper quote escaping (handles commas in data)
+- Evidence truncated to prevent cell overflow
+- Header row included
+
+**Generate:**
+```bash
+clipscribe process video.mp3 --formats csv
+```
+
+---
+
+## Format 4: PPTX (Executive Presentations)
+
+**File location:** `output/timestamp_filename/executive_summary.pptx`  
+**File size:** ~30-40KB  
+**Best for:** Executive briefings, investor presentations, stakeholder updates
+
+**Compatible with:**
+- Google Slides (upload and renders correctly)
+- Microsoft PowerPoint (Windows/Mac)
+- Apple Keynote
+- LibreOffice Impress
+
+**Slide Structure (7 slides):**
+
+1. **Title Slide**
+   - "Intelligence Extraction Report"
+   - Processing date
+
+2. **Executive Summary**
+   - Key metrics (entities, relationships, speakers, topics, moments)
+   - Processing cost
+
+3. **Key Entities**
+   - Top 10 entities with confidence scores
+   - Bullet list format
+
+4. **Relationships**
+   - Top 8 relationships
+   - Subject → predicate → object format
+
+5. **Topics & Timeline**
+   - Topics with relevance scores
+   - Time ranges for each topic
+
+6. **Key Moments**
+   - Top 6 significant moments
+   - Timestamps and significance scores
+
+7. **Sentiment Analysis**
+   - Overall sentiment
+   - Per-topic sentiment breakdown
+
+**Features:**
+- Standard slide layouts (universal compatibility)
+- System fonts (no custom fonts)
+- No animations or transitions
+- Text sizing prevents overflow
+
+**Generate:**
+```bash
+clipscribe process video.mp3 --formats pptx
+```
+
+---
+
+## Format 5: Markdown (Searchable Documentation)
+
+**File location:** `output/timestamp_filename/report.md`  
+**File size:** ~4-10KB  
+**Best for:** GitHub repos, VS Code/Obsidian notes, version control, documentation
+
+**Compatible with:**
+- GitHub (renders automatically)
+- VS Code (preview mode)
+- Obsidian (opens as note)
+- Any text editor
+
+**Structure:**
+- Clean heading hierarchy (# ## ###)
+- Executive summary (bullet list)
+- Entities table (top 20)
+- Relationships with blockquote evidence (top 15)
+- Topics table
+- Key moments with timestamps
+- Sentiment breakdown
+- Footer with links
+
+**Features:**
+- GitHub-flavored markdown syntax
+- Tables for structured data
+- Blockquotes for evidence
+- Proper escaping (pipe characters)
+- Newline handling for readability
+
+**Example:**
+```markdown
+## Relationships
+
+### 1. Trump → announced → Gaza ceasefire deal
+**Confidence:** 1.00
+> President Trump scores an international win with the Gaza ceasefire deal
+```
+
+**Generate:**
+```bash
+clipscribe process video.mp3 --formats markdown
+```
 
 ---
 

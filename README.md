@@ -2,7 +2,7 @@
 
 [![Python Version](https://img.shields.io/badge/python-3.12+-blue.svg)](https://python.org)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-3.0.0--rc-blue.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-3.0.0-blue.svg)](CHANGELOG.md)
 [![Providers](https://img.shields.io/badge/providers-3%20transcription%20%2B%201%20intelligence-blue.svg)](#how-it-works)
 
 **Intelligence extraction platform for video and audio**
@@ -101,13 +101,41 @@ Process a 30-minute video and receive **50-70+ structured data points:**
 }
 ```
 
-### Output Format
+### Output Formats
 
-**Single comprehensive JSON file** containing all data:
+**Five export formats for every workflow:**
+
+**JSON** (default) - Complete structured data:
 - Machine-readable (Pandas, SQL, any analysis tool)
 - Evidence-based (verifiable, citable)
 - Structured (consistent schema)
 - Cost-tracked (know exactly what you spent)
+
+**DOCX** - Professional reports:
+- Google Docs, Microsoft Word, Apple Pages compatible
+- Executive summary, entities table, relationships with evidence
+- Share with non-technical stakeholders
+
+**CSV** - Data analysis (5 files):
+- entities.csv, relationships.csv, topics.csv, key_moments.csv, segments.csv
+- Excel, Google Sheets, Numbers compatible
+- Import to databases, Pandas, R
+
+**PPTX** - Executive presentations:
+- 7-slide deck for stakeholder briefings
+- Google Slides, PowerPoint, Keynote compatible
+- Ready to present
+
+**Markdown** - Searchable documentation:
+- GitHub-flavored markdown
+- VS Code, Obsidian compatible
+- Version control friendly
+
+**Choose formats with `--formats` flag:**
+```bash
+clipscribe process video.mp3 --formats json docx csv
+clipscribe process video.mp3 --formats all  # All 5 formats
+```
 
 **Complete schema reference:** [docs/OUTPUT_FORMAT.md](docs/OUTPUT_FORMAT.md)
 
@@ -121,9 +149,9 @@ Choose optimal provider for your use case:
 
 | Provider | Cost (30min) | Speakers | Speed | Best For |
 |----------|--------------|----------|-------|----------|
-| **Mistral API** | $0.03 | ❌ | API (seconds) | Single-speaker, budget |
-| **Local (Apple Silicon)** | **FREE** | ✅ | 1-2x realtime | Privacy, multi-speaker, zero cost |
-| **Cloud GPU** | $0.06 | ✅ | 10x realtime | Professional quality, scalability |
+| **Voxtral** | $0.03 | ❌ | API (seconds) | Single-speaker, budget |
+| **WhisperX Local** | **FREE** | ✅ | 1-2x realtime | Privacy, multi-speaker, zero cost |
+| **WhisperX Modal** | $0.06 | ✅ | 10x realtime | Professional quality, scalability |
 
 *Plus intelligence extraction: ~$0.005 per video*
 
@@ -170,9 +198,9 @@ clipscribe process interview.mp3
 - Speaker-attributed transcripts
 - Evidence-based entity extraction
 - Searchable by person, organization, topic
-- Export to CSV, JSON for legal software
+- Export to JSON, DOCX, CSV, PPTX, Markdown - choose formats for your workflow
 
-**Value:** Faster discovery, verifiable citations, speaker accountability.
+**Value:** Faster discovery, verifiable citations, speaker accountability, professional reports.
 
 ### Financial Intelligence
 **Problem:** Earnings calls, investor presentations need competitive intelligence  
@@ -278,8 +306,21 @@ clipscribe process audio.mp3
 
 ## What's New in v3.0.0
 
+**Multi-Format Export System:**
+- 5 output formats: JSON, DOCX, CSV, PPTX, Markdown
+- Universal compatibility (Google Workspace, Microsoft Office, Apple iWork)
+- `--formats` flag for format selection
+- Professional reports, executive decks, data tables
+
+**Series Analysis Command:**
+- `process-series` for cross-video intelligence
+- Entity frequency tracking across videos
+- Relationship pattern detection
+- Topic evolution analysis
+- Aggregate insights and statistics
+
 **Provider Architecture:**
-- Swappable transcription providers (Mistral API, Local, Cloud GPU)
+- Swappable transcription providers (Voxtral, Local, Cloud GPU)
 - Cost flexibility (FREE to $0.06 per 30min)
 - Provider selection via CLI flags
 
@@ -288,17 +329,17 @@ clipscribe process audio.mp3
 - More reliable (no download complexity)
 - Privacy-focused option (local processing)
 
-**Comprehensive Output:**
-- Single JSON file with all intelligence
-- Speaker attribution
-- Evidence-based extraction
-- Machine-readable format
+**Comprehensive Intelligence:**
+- Evidence-based extraction (100% coverage)
+- Speaker attribution (up to 12 speakers)
+- Temporal context (time ranges, timestamps)
+- Machine-readable and human-readable formats
 
 **Validated:**
 - Multi-speaker (12 speakers detected)
 - File formats (MP3, MP4)
 - All 3 providers working
-- 100% capability preservation
+- All 5 export formats tested
 
 ---
 
@@ -319,12 +360,12 @@ clipscribe process audio.mp3
 
 ## Project Status
 
-**Version:** v3.0.0-rc  
+**Version:** v3.0.0  
 **Released:** November 13, 2025  
-**Status:** Production-ready release candidate  
+**Status:** Production-ready with multi-format exports and series analysis  
 **Providers:** 3 transcription, 1 intelligence (all validated)
 
-**Next:** v3.0.0 stable after production feedback
+**Features:** Multi-format exports (JSON, DOCX, CSV, PPTX, Markdown) + Series analysis
 
 ---
 

@@ -31,7 +31,8 @@ def export_to_csv(intelligence_result, transcript_result, output_path: Path):
     # Entities CSV
     if intelligence_result.entities:
         entities_path = output_path / "entities.csv"
-        with open(entities_path, 'w', newline='', encoding='utf-8') as f:
+        # Use UTF-8 with BOM for Excel compatibility
+        with open(entities_path, 'w', newline='', encoding='utf-8-sig') as f:
             writer = csv.DictWriter(f, fieldnames=['name', 'type', 'confidence', 'evidence'])
             writer.writeheader()
             
@@ -47,7 +48,8 @@ def export_to_csv(intelligence_result, transcript_result, output_path: Path):
     # Relationships CSV
     if intelligence_result.relationships:
         rels_path = output_path / "relationships.csv"
-        with open(rels_path, 'w', newline='', encoding='utf-8') as f:
+        # Use UTF-8 with BOM for Excel compatibility
+        with open(rels_path, 'w', newline='', encoding='utf-8-sig') as f:
             writer = csv.DictWriter(f, fieldnames=['subject', 'predicate', 'object', 'evidence', 'confidence'])
             writer.writeheader()
             
@@ -64,7 +66,8 @@ def export_to_csv(intelligence_result, transcript_result, output_path: Path):
     # Topics CSV
     if intelligence_result.topics:
         topics_path = output_path / "topics.csv"
-        with open(topics_path, 'w', newline='', encoding='utf-8') as f:
+        # Use UTF-8 with BOM for Excel compatibility
+        with open(topics_path, 'w', newline='', encoding='utf-8-sig') as f:
             writer = csv.DictWriter(f, fieldnames=['name', 'relevance', 'time_range'])
             writer.writeheader()
             
@@ -79,7 +82,8 @@ def export_to_csv(intelligence_result, transcript_result, output_path: Path):
     # Key Moments CSV
     if intelligence_result.key_moments:
         moments_path = output_path / "key_moments.csv"
-        with open(moments_path, 'w', newline='', encoding='utf-8') as f:
+        # Use UTF-8 with BOM for Excel compatibility
+        with open(moments_path, 'w', newline='', encoding='utf-8-sig') as f:
             writer = csv.DictWriter(f, fieldnames=['timestamp', 'description', 'significance', 'quote'])
             writer.writeheader()
             
@@ -95,7 +99,8 @@ def export_to_csv(intelligence_result, transcript_result, output_path: Path):
     # Segments CSV (speaker-attributed transcript)
     if transcript_result.segments:
         segments_path = output_path / "segments.csv"
-        with open(segments_path, 'w', newline='', encoding='utf-8') as f:
+        # Use UTF-8 with BOM for Excel compatibility
+        with open(segments_path, 'w', newline='', encoding='utf-8-sig') as f:
             writer = csv.DictWriter(f, fieldnames=['start', 'end', 'speaker', 'text', 'confidence'])
             writer.writeheader()
             

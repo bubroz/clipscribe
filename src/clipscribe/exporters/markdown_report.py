@@ -136,7 +136,6 @@ def generate_markdown_report(
     # Write file
     md_path = output_path / filename
     md_path.write_text('\n'.join(md_content), encoding='utf-8')
-    csv_files['markdown'] = md_path
     
-    return csv_files
+    return md_path
 

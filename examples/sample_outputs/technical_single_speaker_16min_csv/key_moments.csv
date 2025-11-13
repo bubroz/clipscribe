@@ -1,0 +1,7 @@
+﻿timestamp,description,significance,quote
+00:30,"Introduction to the core question of user privacy on the web, setting the theme for the video",1.0,Are you the product? Not in the metaphysical sense... who profits when you browse the web.
+02:00,Explanation of how DNS leaks domain information to ISPs despite HTTPS encryption,0.9,"Your ISP hears every one of those questions... which domains did you ask for, when, and how often."
+04:00,Key revelation that VPNs do not significantly improve privacy against ISPs,0.95,"For most day-to-day web browsing at home, a consumer VPN is almost pointless as a privacy measure."
+07:30,Introduction to encrypted DNS as an effective privacy solution,1.0,"encrypted DNS, or specifically DOH, or DNS over HTTPS, and DNS over TLS, or DOT."
+09:30,Practical advice on implementing secure DNS settings across devices,0.9,"On Windows 11, you can set secure DNS in the network settings and choose a known resolver."
+11:00,Conclusion emphasizing user control over DNS to reduce being 'the product',1.0,Change that one setting and the product on the shelf becomes just service again.

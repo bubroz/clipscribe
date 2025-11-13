@@ -1,0 +1,46 @@
+﻿name,type,confidence,evidence
+President Trump,PERSON,1.0,Domestic deal maker? President Trump scores an international win with the Gaza ceasefire deal
+Marjorie Taylor Greene,PERSON,1.0,how one-time MAGA All-Star Marjorie Taylor Greene is calling on Republicans to get the government back to business
+Mike Johnson,PERSON,1.0,Speaker of the House Mike Johnson still isn't ready to negotiate
+Robert F. Kennedy Jr.,PERSON,1.0,wife of controversial Health and Human Services Secretary Robert F. Kennedy Jr.
+Cheryl Hines,PERSON,1.0,Cheryl Hines is sharing her journey from Hollywood to D.C.
+Whoopi,PERSON,0.8,"Whoopi, Sarah Haynes, Joy Behar, Anna Navarro, Sunny Hostin, and Alyssa Farah Griffin"
+Joy Behar,PERSON,1.0,"Whoopi, Sarah Haynes, Joy Behar, Anna Navarro, Sunny Hostin, and Alyssa Farah Griffin"
+Ana Navarro,PERSON,1.0,"Whoopi, Sarah Haynes, Joy Behar, Anna Navarro, Sunny Hostin, and Alyssa Farah Griffin"
+Sunny Hostin,PERSON,1.0,"Whoopi, Sarah Haynes, Joy Behar, Anna Navarro, Sunny Hostin, and Alyssa Farah Griffin"
+Alyssa Farah Griffin,PERSON,1.0,"Whoopi, Sarah Haynes, Joy Behar, Anna Navarro, Sunny Hostin, and Alyssa Farah Griffin"
+Donald Trump,PERSON,1.0,Donald Trump does kind of appear all powerful right now
+Mike Lawler,PERSON,1.0,Mike Lawler in New York has come out in favor of extending the Obamacare subsidies
+Larry David,PERSON,1.0,"Cheryl Hines spent 12 seasons of Curb Your Enthusiasm as the wife-turned-ex-wife of a guy who was always getting into controversy, played by Larry David"
+Jennifer Aniston,PERSON,1.0,jennifer anderson opened up on the armchair expert podcast
+Mia Farrow,PERSON,1.0,mia farrow she adopted 10 children
+Madonna,PERSON,1.0,a madonna adopted four
+Angelina Jolie,PERSON,1.0,angelina jolie adopted three
+Charlize Theron,PERSON,0.9,charlize you know
+Fauci,PERSON,1.0,"Fauci, people were saying, when you get the vaccine, you cannot transmit COVID"
+Gaza,GPE,1.0,ceasefire deal in Gaza
+Capitol,GPE,1.0,the battle at the Capitol rages on
+White House,ORG,1.0,the White House celebrates an international victory
+House,ORG,1.0,We control the House
+Senate,ORG,1.0,we control the Senate
+MAGA,ORG,1.0,one-time MAGA All-Star Marjorie Taylor Greene
+Time magazine,ORG,1.0,his new Time magazine cover photo
+Health and Human Services,ORG,1.0,"Secretary of Health and Human Services, Robert F. Kennedy Jr."
+The View,ORG,1.0,welcome to The View
+Affordable Care Act,LAW,1.0,80 percent of all ACA premium tax credits
+CDC,ORG,1.0,"At the CDC, I hope everybody knows, more than half of the dismissals were reversed"
+Pentagon,ORG,1.0,Trump's now directed the Pentagon to pay troops
+Office of Management and Budget,ORG,1.0,directing the Office of Management and Budget to look at ways to pay law enforcement
+Monsanto,ORG,1.0,"Monsanto, he sued, he was part of the team that sued Monsanto because of Roundup"
+DuPont,ORG,1.0,He sued DuPont
+Exxon,ORG,1.0,he sued Exxon
+Israel,GPE,1.0,You've seen Donald Trump in Israel
+Egypt,GPE,1.0,"in Israel, in Egypt"
+Arizona,GPE,1.0,"The one who will vote to expose the Epstein case. Oh, yes, the woman in Arizona"
+New York,GPE,1.0,Mike Lawler in New York
+Chicago,GPE,1.0,stop making trouble in Chicago
+Ukraine,GPE,1.0,we're going to take care of the Ukraine
+D.C.,GPE,1.0,from Hollywood to D.C.
+Epstein case,EVENT,0.9,the woman who will vote to expose the Epstein case
+Gaza ceasefire deal,EVENT,1.0,President Trump scores an international win with the Gaza ceasefire deal
+government shutdown,EVENT,1.0,the government here at home has been shut down for two weeks

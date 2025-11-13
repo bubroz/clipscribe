@@ -1,0 +1,21 @@
+﻿name,type,confidence,evidence
+Dave,PERSON,1.0,"Hey, I'm Dave."
+NSA,ORG,1.0,even the NSA can't read the page you requested
+Netflix,ORG,1.0,Nightly binges of netflix.com
+Google,ORG,1.0,mail.google.com
+Pornhub,ORG,1.0,grandpa's lunchtime pornhub
+Akamai,ORG,0.9,Akami Edge node
+Cloudflare,ORG,1.0,Cloudflare's 1.1.1.1
+Quad9,ORG,1.0,Quad9 or a custom DNS provider
+Microsoft,ORG,1.0,When I ship features at Microsoft
+EFF,ORG,1.0,The EFF's Panopticlick
+US,GPE,1.0,Mainstream US ISPs
+Europe,GPE,1.0,"In Europe, GDPR"
+VPN,PRODUCT,1.0,"a VPN, doesn't often change the facts"
+HTTPS,PRODUCT,1.0,That's HTTPS at work
+DNS,PRODUCT,1.0,the domain names that you look up in DNS
+DOH,PRODUCT,1.0,"encrypted DNS, or specifically DOH, or DNS over HTTPS"
+DOT,PRODUCT,1.0,"DNS over TLS, or DOT"
+ECH,PRODUCT,1.0,ECH or Encrypted Client Hello
+FCC,ORG,1.0,FCC broadband privacy regulations
+GDPR,LAW,1.0,"In Europe, GDPR treats DNS logs"

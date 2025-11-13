@@ -1,0 +1,18 @@
+﻿name,type,confidence,evidence
+Alex Karp,PERSON,1.0,"Alex Karp, thanks for having us into the Palantir lair in Manhattan. You're CEO, co-founder of Palantir."
+Palantir,ORG,1.0,"You're CEO, co-founder of Palantir. What the hell is Palantir?"
+Ukraine,GPE,1.0,"I get yelled at all the time for Ukraine, ICE, Israel"
+ICE,ORG,1.0,"I get yelled at all the time for Ukraine, ICE, Israel"
+Israel,GPE,1.0,"I get yelled at all the time for Ukraine, ICE, Israel"
+Axios,ORG,1.0,Welcome to The Axios Show.
+China,GPE,1.0,We do not sell to China.
+Iran,GPE,1.0,We don't sell to Iran.
+Russia,GPE,1.0,We don't sell to Russia.
+Yale,ORG,1.0,"Yale's one, Stanford's one."
+Stanford,ORG,1.0,"Yale's one, Stanford's one."
+UN,ORG,1.0,lame UN-driven discussion about human rights
+J.D. Vance,PERSON,1.0,"That sounds like the current vice president, J.D. Vance."
+Nick Fuentes,PERSON,1.0,How worried are you about the Nick Fuentes wing of MAGA?
+Trump,PERSON,0.9,"When you talk about politics, you sound like a reluctant Trumper."
+Cuomo,PERSON,0.8,Underclass voters would have voted for Cuomo.
+Mrs. Schneider,PERSON,1.0,"My mom was totally fucked. Someone helped her. I paid them back. And that person was a landlord, gave her and you a place to live. ... Mrs. Schneider"

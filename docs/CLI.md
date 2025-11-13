@@ -69,6 +69,13 @@ clipscribe process AUDIO_FILE [OPTIONS]
 - Only works with providers that support it
 - Example: `--no-diarize`
 
+**`--formats`** (default: `json`, `docx`, `csv`)
+- Choose output formats to generate
+- Options: `json`, `docx`, `csv`, `pptx`, `markdown`, `all`
+- Can specify multiple: `--formats json docx pptx`
+- Use `all` for all 5 formats
+- Example: `--formats json docx csv`
+
 **`-o, --output-dir`** (default: `output`)
 - Output directory for results
 - Example: `-o my_results`
@@ -95,13 +102,34 @@ clipscribe process podcast.mp3 -t whisperx-modal
 clipscribe process audio.mp3 -o my_research/results
 ```
 
+**Multi-format export:**
+```bash
+# Generate all 5 formats
+clipscribe process video.mp3 --formats all
+
+# Select specific formats
+clipscribe process video.mp3 --formats json docx pptx
+
+# Just JSON (minimal)
+clipscribe process video.mp3 --formats json
+```
+
 ### Output
 
-Processing creates timestamped directory:
+Processing creates timestamped directory with selected formats:
 ```
 output/
 └── 20251113_001556_filename/
-    └── transcript.json  # Comprehensive data (transcript + intelligence)
+    ├── transcript.json                   # Complete data (always generated)
+    ├── intelligence_report.docx          # Professional report (if --formats docx)
+    ├── executive_summary.pptx            # 7-slide deck (if --formats pptx)
+    ├── report.md                         # Markdown report (if --formats markdown)
+    └── csv/                              # Data tables (if --formats csv)
+        ├── entities.csv
+        ├── relationships.csv
+        ├── topics.csv
+        ├── key_moments.csv
+        └── segments.csv
 ```
 
 **transcript.json structure:**
@@ -129,6 +157,93 @@ output/
   }
 }
 ```
+
+---
+
+## Command: `process-series`
+
+Process multiple videos as a series to extract cross-video intelligence patterns.
+
+**NEW in v3.0.0** - Analyze entity frequency, relationship patterns, and topic evolution across multiple videos.
+
+### Syntax
+
+```bash
+clipscribe process-series FILES_LIST --series-name NAME [OPTIONS]
+```
+
+### Arguments
+
+**FILES_LIST** (required)
+- Path to text file containing audio/video file paths (one per line)
+- Example: `video_list.txt`
+
+**--series-name** (required)
+- Name for this video series
+- Used in output directory and reports
+- Example: `--series-name "Q1-Earnings-Calls"`
+
+### Options
+
+Same options as `process` command:
+- `-t, --transcription-provider` (default: `whisperx-local`)
+- `-i, --intelligence-provider` (default: `grok`)
+- `--diarize / --no-diarize` (default: `--diarize`)
+- `--formats` (default: `json`, `docx`, `csv`, `pptx`)
+- `-o, --output-dir` (default: `output`)
+
+### Examples
+
+**Analyze earnings calls series:**
+```bash
+# Create file list
+echo "call1.mp3" > earnings_calls.txt
+echo "call2.mp3" >> earnings_calls.txt
+echo "call3.mp3" >> earnings_calls.txt
+
+# Process series
+clipscribe process-series earnings_calls.txt --series-name "Q1-Q4-2024"
+```
+
+**Process multi-part investigation:**
+```bash
+clipscribe process-series interviews.txt --series-name "Cartel-Investigation"
+```
+
+### Output
+
+Creates series directory with individual + aggregate analysis:
+```
+output/collections/
+└── 20251113_series_Q1-Q4-2024/
+    ├── call1/
+    │   ├── transcript.json
+    │   ├── intelligence_report.docx
+    │   └── [other formats]
+    ├── call2/
+    │   └── [same structure]
+    ├── call3/
+    │   └── [same structure]
+    └── series_analysis/
+        ├── series_report.json          # Aggregate intelligence
+        ├── series_summary.docx          # Cross-video findings
+        ├── series_presentation.pptx     # Executive brief
+        └── aggregate_data.csv           # Combined statistics
+```
+
+### Series Analysis Features
+
+**Cross-Video Intelligence:**
+- **Entity frequency tracking:** Which entities appear across multiple videos
+- **Relationship patterns:** Connections that span videos
+- **Topic evolution:** How themes develop across the series
+- **Aggregate statistics:** Combined metrics and insights
+
+**Series Report Includes:**
+- Top entities by frequency (appeared in X of Y videos)
+- Recurring relationships (patterns across corpus)
+- Topic timeline (how themes evolved)
+- Cross-video insights and patterns
 
 ---
 

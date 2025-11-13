@@ -1,0 +1,7 @@
+﻿subject,predicate,object,evidence,confidence
+Dave,ships_features_at,Microsoft,When I ship features at Microsoft,1.0
+Cloudflare,provides,1.1.1.1,Cloudflare's 1.1.1.1,1.0
+Google,provides,8.8.8.8,Google's 8.8.8.8,1.0
+EFF,created,Panopticlick,The EFF's Panopticlick,1.0
+ISP,provides,DNS resolver,your DNS server that your ISP provides,1.0
+Congress,repealed,FCC broadband privacy regulations,Congress repealed stricter FCC broadband privacy regulations,1.0
