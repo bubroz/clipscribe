@@ -55,15 +55,14 @@ class WhisperXModalProvider(TranscriptionProvider):
         """
         # Connect to existing Modal app
         try:
-            self.modal_app = App.lookup("clipscribe-transcription")
-            self.transcriber_cls = self.modal_app.get_class("ClipScribeTranscriber")
+            self.modal_app = App.lookup("clipscribe-transcription", create_if_missing=False)
         except Exception as e:
             raise ConfigurationError(
                 f"Could not connect to Modal app: {e}\n"
                 "Deploy the app first:\n"
-                "  modal deploy deploy/station10_modal.py\n"
+                "  poetry run modal deploy deploy/station10_modal.py\n"
                 "Then verify:\n"
-                "  modal app list"
+                "  poetry run modal app list"
             )
         
         # Initialize GCS client
@@ -125,7 +124,10 @@ class WhisperXModalProvider(TranscriptionProvider):
             gcs_output = gcs_input.replace(Path(audio_path).suffix, "_results/")
             
             # Call existing Modal code (ALL features preserved!)
-            transcriber = self.transcriber_cls()
+            # Note: Modal SDK changed - use function lookup instead of get_class
+            from deploy.station10_modal import ClipScribeTranscriber
+            
+            transcriber = ClipScribeTranscriber()
             modal_result = transcriber.transcribe_from_gcs.remote(
                 gcs_input=gcs_input,
                 gcs_output=gcs_output,
