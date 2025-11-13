@@ -129,13 +129,23 @@ class GrokProvider(IntelligenceProvider):
             )
             
             # Build cache stats
+            prompt_tokens = usage.get("prompt_tokens", 0)
             cached_tokens = usage.get("cached_tokens", 0)
+            
+            # Calculate CORRECT hit rate percentage
+            # hit_rate = cached_tokens / (prompt_tokens + cached_tokens) * 100
+            # Example: 50K prompt + 50K cached = 50% hit rate (not 100%!)
+            total_input_tokens = prompt_tokens + cached_tokens
+            hit_rate_percent = (cached_tokens / total_input_tokens * 100) if total_input_tokens > 0 else 0.0
+            
             cache_stats = {
                 "cache_hits": 1 if cached_tokens > 0 else 0,
                 "cache_misses": 0 if cached_tokens > 0 else 1,
                 "cached_tokens": cached_tokens,
+                "prompt_tokens": prompt_tokens,
+                "total_input_tokens": total_input_tokens,
                 "cache_savings": cost_breakdown.get("cache_savings", 0),
-                "hit_rate_percent": 100.0 if cached_tokens > 0 else 0.0,
+                "hit_rate_percent": round(hit_rate_percent, 2),
             }
             
             return IntelligenceResult(
