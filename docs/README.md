@@ -1,84 +1,128 @@
 # ClipScribe Documentation
 
-**Version:** v2.62.0  
-**Last Updated:** November 12, 2025  
-**Validated:** November 12, 2025 (all docs verified against code, logs, and live testing)
+**Version:** v3.0.0  
+**Last Updated:** November 13, 2025  
+**Status:** Provider-based architecture, file-first processing
 
 ---
 
-## Core Documentation
+## Quick Start
 
-**System Architecture & Design:**
-- [**ARCHITECTURE.md**](ARCHITECTURE.md) - Complete system architecture with 10 Mermaid diagrams
-  - System overview, processing pipeline, Modal GPU architecture
-  - Cost calculation with tiered pricing
-  - Knowledge base architecture, API reference
-  - Component deep-dive and data flows
+**New to ClipScribe?** Start here:
 
-**Production Workflows:**
-- [**WORKFLOW.md**](WORKFLOW.md) - Production workflows with 4 Mermaid diagrams
-  - Modal GPU workflow (serverless, scalable)
-  - Local CLI workflow (direct, simple)
-  - Batch processing, deployment procedures
-  - All workflows validated November 12, 2025
-
-**Developer Guide:**
-- [**DEVELOPMENT.md**](DEVELOPMENT.md) - Setup, testing, deployment
-  - Environment setup and prerequisites
-  - Running tests (24/24 passing)
-  - Modal deployment procedures
-  - Project structure and common tasks
-
-**xAI Grok Features:**
-- [**GROK_ADVANCED_FEATURES.md**](GROK_ADVANCED_FEATURES.md) - Complete Grok features guide
-  - Prompt caching (75% savings)
-  - Fact-checking with server-side tools
-  - Knowledge base management
-  - Structured outputs and cost optimization
+1. **[Installation & Setup](CLI.md#installation)** - Get ClipScribe running
+2. **[Provider Selection Guide](PROVIDERS.md#provider-selection-guide)** - Choose optimal provider
+3. **[Your First Processing Job](CLI.md#common-workflows)** - Process your first file
 
 ---
 
-## Quality Assurance
+## User Guides
 
-**Documentation Standards:**
-- [**VALIDATION_PROTOCOL.md**](VALIDATION_PROTOCOL.md) - Three-source validation method
-  - Code + Logs + Live testing cross-validation
-  - Comprehensive checklists and red flags
-  - Use for all future documentation updates
+### Essential Documentation
 
-**Repository Maintenance:**
-- [**REPOSITORY_CLEANUP_PLAYBOOK.md**](REPOSITORY_CLEANUP_PLAYBOOK.md) - Complete cleanup template
-  - Systematic approach to repository transformation
-  - Phase-by-phase instructions with time estimates
-  - Reusable for other projects
+**[CLI Reference](CLI.md)** - Complete command-line reference
+- `clipscribe process` command
+- All provider flags
+- Common workflows
+- Environment variables
+
+**[Provider System](PROVIDERS.md)** - Choose optimal providers
+- Voxtral (Mistral API): Cheap, no speakers
+- WhisperX Local (Apple Silicon): FREE, speakers
+- WhisperX Modal (Cloud GPU): Quality, speakers
+- Cost comparison & selection guide
+
+**[API Reference](API.md)** - GCS-first API usage
+- Presigned upload flow (step-by-step)
+- Job submission & tracking
+- Endpoint reference
+- Example clients (Python, cURL)
+
+**[Local Processing](LOCAL_PROCESSING.md)** - FREE Apple Silicon guide
+- Setup instructions
+- Performance expectations
+- Cost analysis (FREE!)
+- Troubleshooting
+
+**[Troubleshooting](TROUBLESHOOTING.md)** - Common issues & solutions
+- API key errors
+- Provider errors  
+- File issues
+- Performance problems
+- Modal-specific issues
+
+---
+
+## Technical Documentation
+
+### For Developers
+
+**[Architecture](ARCHITECTURE.md)** - System design
+- Provider architecture overview
+- Processing flows (CLI + API)
+- Data structures
+- Cost model
+- Extensibility (how to add providers)
+
+**[Development](DEVELOPMENT.md)** - Contributing guide
+- Development setup
+- Adding new providers
+- Testing strategy
+- Code organization
+
+**[Performance Benchmarks](PERFORMANCE_BENCHMARKS.md)** - Validated metrics
+- All provider performance data
+- Realtime factors
+- Memory usage
+- Cost per minute
 
 ---
 
 ## Testing Resources
 
-**Test Video Catalog:**
-- [**advanced/testing/MASTER_TEST_VIDEO_TABLE.md**](advanced/testing/MASTER_TEST_VIDEO_TABLE.md)
-  - Curated test videos for validation
-  - Mandatory test video usage standards
+**[Test Video Catalog](advanced/testing/MASTER_TEST_VIDEO_TABLE.md)**
+- Curated test videos
+- Mandatory test video standards
 
 ---
 
 ## Quick Navigation
 
-**Getting Started:**
-1. Read [ARCHITECTURE.md](ARCHITECTURE.md) for system understanding
-2. Follow [WORKFLOW.md](WORKFLOW.md) for processing videos
-3. Use [DEVELOPMENT.md](DEVELOPMENT.md) for development setup
+**By Use Case:**
+- **Budget processing** → [Voxtral provider](PROVIDERS.md#voxtral-mistral-api)
+- **FREE processing** → [WhisperX Local](LOCAL_PROCESSING.md)
+- **Cloud quality** → [WhisperX Modal](PROVIDERS.md#whisperx-modal-cloud-gpu)
+- **Multi-speaker** → [Provider Selection](PROVIDERS.md#provider-selection-guide)
+- **API integration** → [API Reference](API.md)
 
-**For Developers:**
-- Setup: [DEVELOPMENT.md](DEVELOPMENT.md#setup-development-environment)
-- Testing: [DEVELOPMENT.md](DEVELOPMENT.md#running-tests)
-- Deployment: [DEVELOPMENT.md](DEVELOPMENT.md#deploy-to-modal)
-
-**For Advanced Features:**
-- Grok features: [GROK_ADVANCED_FEATURES.md](GROK_ADVANCED_FEATURES.md)
-- Cost optimization: [ARCHITECTURE.md](ARCHITECTURE.md#cost-optimization-strategies)
+**By Task:**
+- **First time setup** → [CLI Installation](CLI.md#installation)
+- **Choose provider** → [Selection Guide](PROVIDERS.md#provider-selection-guide)
+- **Fix errors** → [Troubleshooting](TROUBLESHOOTING.md)
+- **Add provider** → [Architecture: Extensibility](ARCHITECTURE.md#extensibility)
+- **Check performance** → [Benchmarks](PERFORMANCE_BENCHMARKS.md)
 
 ---
 
-**All documentation validated and current as of November 12, 2025.**
+## What's New in v3.0.0
+
+**Breaking Changes:**
+- File-first processing (no URL support)
+- Provider selection required
+- GCS-only API (presigned uploads)
+
+**New Features:**
+- Provider abstraction (swappable components)
+- 3 transcription providers
+- FREE local processing option
+- Improved cost transparency
+
+**Documentation:**
+- Complete rewrite for v3.0.0
+- All guides updated
+- Actual validation data
+- No outdated content
+
+---
+
+**All documentation validated November 13, 2025 with v3.0.0 testing.**
