@@ -1,7 +1,7 @@
 # ClipScribe
 
 [![Python Version](https://img.shields.io/badge/python-3.12+-blue.svg)](https://python.org)
-[![License](https://img.shields.io/badge/license-Proprietary-red.svg)](LICENSE)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Version](https://img.shields.io/badge/version-3.0.0--rc-blue.svg)](CHANGELOG.md)
 [![Providers](https://img.shields.io/badge/providers-3%20transcription%20%2B%201%20intelligence-blue.svg)](#how-it-works)
 
@@ -296,5 +296,5 @@ clipscribe process audio.mp3
 **Email:** zforristall@gmail.com  
 **GitHub:** [@bubroz](https://github.com/bubroz)
 
-**License:** Proprietary  
+**License:** MIT  
 **Repository:** https://github.com/bubroz/clipscribe
