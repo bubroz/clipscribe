@@ -713,44 +713,30 @@ Return JSON:
 """
 
         try:
-            async with httpx.AsyncClient(
-                timeout=httpx.Timeout(120.0, connect=30.0),
-                limits=httpx.Limits(max_keepalive_connections=0),
-            ) as client:
-                data = {
-                    "model": self.grok_model,
-                    "messages": [
-                        {"role": "system", "content": "Extract entities and relationships."},
-                        {"role": "user", "content": prompt},
-                    ],
-                    "temperature": 0.1,
-                    "max_tokens": 2048,
-                    "response_format": {"type": "json_object"},
-                }
-
-                # Retry chunk extraction (Grok can have 502/connection issues)
-                for attempt in range(3):
-                    try:
-                        response = await client.post(
-                            f"{self.grok_base_url}/chat/completions",
-                            headers=self.grok_headers,
-                            json=data,
-                        )
-
-                        if response.status_code == 200:
-                            result = response.json()
-                            content = result["choices"][0]["message"]["content"]
-                            return json.loads(content)
-                        else:
-                            error_body = response.text
-                            logger.warning(
-                                f"Chunk {chunk_num} attempt {attempt + 1}/3: HTTP {response.status_code}"
-                            )
-                            logger.warning(f"Error response: {error_body[:500]}")
-                    except Exception as e:
-                        logger.warning(f"Chunk {chunk_num} attempt {attempt + 1}/3 failed: {e}")
-                        if attempt < 2:
-                            await asyncio.sleep(5)  # Wait before retry
+            messages = [
+                {"role": "system", "content": "Extract entities and relationships from transcript."},
+                {"role": "user", "content": prompt},
+            ]
+            
+            # Retry chunk extraction (Grok can have 502/connection issues)
+            for attempt in range(3):
+                try:
+                    # Use GrokAPIClient properly
+                    response = await self.grok_client.chat_completion(
+                        messages=messages,
+                        model=self.grok_model,
+                        temperature=0.1,
+                        max_tokens=2048,
+                        response_format={"type": "json_object"},
+                    )
+                    
+                    content = response["choices"][0]["message"]["content"]
+                    return json.loads(content)
+                    
+                except Exception as e:
+                    logger.warning(f"Chunk {chunk_num} attempt {attempt + 1}/3 failed: {e}")
+                    if attempt < 2:
+                        await asyncio.sleep(5)  # Wait before retry
         except Exception as e:
             logger.warning(f"Chunk {chunk_num} extraction failed after retries: {e}")
 

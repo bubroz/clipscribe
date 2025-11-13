@@ -13,11 +13,16 @@ logger = logging.getLogger(__name__)
 class ChunkedIntelligenceExtractor:
     """Handles chunked intelligence extraction for long transcripts."""
 
-    def __init__(self, grok_client, grok_model, grok_base_url, grok_headers):
+    def __init__(self, grok_client, grok_model):
+        """
+        Initialize chunked extractor.
+        
+        Args:
+            grok_client: GrokAPIClient instance (handles API calls properly)
+            grok_model: Model name to use (grok-4-fast-reasoning)
+        """
         self.grok_client = grok_client
         self.grok_model = grok_model
-        self.grok_base_url = grok_base_url
-        self.grok_headers = grok_headers
 
     async def extract_intelligence(self, transcript_text: str, metadata: dict) -> dict:
         """
