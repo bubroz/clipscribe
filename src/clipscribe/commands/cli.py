@@ -133,9 +133,17 @@ async def process_file_logic(
         )
         diarize = False
     
-    # Estimate costs
-    from clipscribe.utils.file_utils import get_audio_duration
-    duration = get_audio_duration(str(audio_file))
+    # Estimate costs (get duration)
+    import subprocess
+    try:
+        result = subprocess.run(
+            ["ffprobe", "-v", "error", "-show_entries", "format=duration", 
+             "-of", "default=noprint_wrappers=1:nokey=1", str(audio_file)],
+            capture_output=True, text=True, timeout=10
+        )
+        duration = float(result.stdout.strip())
+    except Exception:
+        duration = 1800.0  # Default 30 min if can't detect
     transcript_cost_est = transcriber.estimate_cost(duration)
     transcript_length_est = int(duration * 150)  # Rough: 150 chars/sec
     intelligence_cost_est = extractor.estimate_cost(transcript_length_est)
@@ -164,35 +172,58 @@ async def process_file_logic(
         savings = intelligence.cache_stats.get("cache_savings", 0)
         logger.info(f"  💰 Cache savings: ${savings:.4f}")
     
-    # Save outputs using existing OutputFormatter
+    # Save outputs
     total_cost = transcript.cost + intelligence.cost
     logger.info(f"\nTotal cost: ${total_cost:.4f} (estimate was ${total_est:.4f})")
     
-    # Use existing output formatter
-    formatter = OutputFormatter(output_dir=str(output_dir))
+    # Create output directory
+    import json
+    from datetime import datetime
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    output_path = output_dir / f"{timestamp}_{audio_file.stem}"
+    output_path.mkdir(parents=True, exist_ok=True)
     
-    # Convert to format expected by OutputFormatter
-    # Note: OutputFormatter might need updating to accept new provider results
-    # For now, convert to compatible format
-    output_data = {
-        "transcript": transcript,
-        "intelligence": intelligence,
-        "metadata": {
+    # Save comprehensive JSON (v3.0.0 format - matches Modal)
+    comprehensive_data = {
+        "transcript": {
+            "segments": [seg.dict() for seg in transcript.segments],
+            "language": transcript.language,
+            "duration": transcript.duration,
+            "speakers": transcript.speakers,
+            "provider": transcript.provider,
+            "model": transcript.model,
+            "cost": transcript.cost,
+            "metadata": transcript.metadata,
+        },
+        "intelligence": {
+            "entities": intelligence.entities,
+            "relationships": intelligence.relationships,
+            "topics": intelligence.topics,
+            "key_moments": intelligence.key_moments,
+            "sentiment": intelligence.sentiment,
+            "provider": intelligence.provider,
+            "model": intelligence.model,
+            "cost": intelligence.cost,
+            "cost_breakdown": intelligence.cost_breakdown,
+            "cache_stats": intelligence.cache_stats,
+        },
+        "file_metadata": {
             "filename": audio_file.name,
+            "processed_at": timestamp,
             "total_cost": total_cost,
+            "transcription_cost": transcript.cost,
+            "intelligence_cost": intelligence.cost,
         }
     }
     
-    output_path = formatter.save_comprehensive_json(
-        transcript=transcript,
-        intelligence=intelligence,
-        output_dir=str(output_dir),
-        filename=audio_file.stem,
-    )
+    with open(output_path / "transcript.json", "w") as f:
+        json.dump(comprehensive_data, f, indent=2)
     
     logger.info(f"\n✓ Complete! Results saved to {output_path}")
-    logger.info(f"  Transcript: {output_path}/transcript.json")
-    logger.info(f"  Knowledge graph: {output_path}/knowledge_graph.gexf")
+    logger.info(f"  Comprehensive JSON: {output_path}/transcript.json")
+    logger.info(f"  Entities: {len(intelligence.entities)}")
+    logger.info(f"  Relationships: {len(intelligence.relationships)}")
+    logger.info(f"  Topics: {len(intelligence.topics)}")
 
 
 def run_cli():

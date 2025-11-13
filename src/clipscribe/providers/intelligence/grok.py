@@ -87,16 +87,19 @@ class GrokProvider(IntelligenceProvider):
         """
         try:
             # Build extraction prompt (reuse existing)
-            from clipscribe.prompts.intelligence_extraction import build_extraction_prompt
-            from clipscribe.schemas_grok import get_intelligence_extraction_schema
+            from clipscribe.prompts.intelligence_extraction import create_intelligence_extraction_prompt
+            from clipscribe.schemas_grok import get_video_intelligence_schema
             
             # Combine transcript segments into full text
             transcript_text = " ".join(seg.text for seg in transcript.segments)
             
             # Build prompt with metadata
-            prompt = build_extraction_prompt(transcript_text, metadata or {})
+            prompt = create_intelligence_extraction_prompt(transcript_text, metadata or {})
             
             # Call existing Grok client (ALL features preserved!)
+            # Note: get_video_intelligence_schema() returns full response_format dict
+            schema_format = get_video_intelligence_schema()
+            
             response = await self.client.chat_completion(
                 messages=[
                     {
@@ -108,10 +111,7 @@ class GrokProvider(IntelligenceProvider):
                 model=self.model,
                 temperature=0.1,
                 max_tokens=4096,
-                response_format={
-                    "type": "json_schema",
-                    "json_schema": get_intelligence_extraction_schema()
-                },
+                response_format=schema_format,  # Already includes "type": "json_schema" wrapper
             )
             
             # Parse JSON result
@@ -170,19 +170,19 @@ class GrokProvider(IntelligenceProvider):
         Returns:
             Estimated cost in USD
         """
-        # Use existing client method for token estimation
-        estimated_tokens = self.client.estimate_tokens(transcript_length)
+        # Estimate tokens (1 char ≈ 0.25 tokens)
+        estimated_tokens = transcript_length // 4
         output_tokens = 4000  # Typical output size
         
-        # Calculate cost (without caching for conservative estimate)
-        cost = self.client.calculate_cost(
+        # Calculate cost using existing client (without caching for conservative estimate)
+        cost_breakdown = self.client.calculate_cost(
             input_tokens=estimated_tokens,
             output_tokens=output_tokens,
             model=self.model,
             return_breakdown=False,
         )
         
-        return cost
+        return cost_breakdown
     
     def validate_config(self) -> bool:
         """Validate Grok configuration.
