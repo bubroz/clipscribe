@@ -1,200 +1,358 @@
 # ClipScribe Development Guide
 
-**Last Updated:** November 12, 2025  
-**Version:** v2.62.0  
-**Validated:** November 12, 2025 (all commands tested, protocols verified)
+**Version:** v3.0.0  
+**Last Updated:** November 13, 2025  
+**Status:** Provider-based architecture
 
 ---
 
 ## Setup Development Environment
 
-### Prerequisites:
-- Python 3.12+
+### Prerequisites
+- Python 3.11-3.12
 - Poetry (dependency management)
-- Google Cloud SDK (for GCS access)
-- Modal account (for GPU processing)
+- Apple Silicon Mac (for local testing) OR
+- Modal account (for cloud GPU) OR
+- Both (recommended)
 
-### Installation:
+### Installation
+
 ```bash
 # Clone repository
 git clone https://github.com/bubroz/clipscribe.git
 cd clipscribe
 
-# Install dependencies
+# Install all dependencies
 poetry install
 
 # Configure environment
 cp .env.example .env
-# Add: XAI_API_KEY, GOOGLE_APPLICATION_CREDENTIALS
+# Add your API keys (see below)
+```
+
+### Environment Variables
+
+```bash
+# For Voxtral provider
+MISTRAL_API_KEY=your_mistral_key
+
+# For Grok intelligence
+XAI_API_KEY=your_xai_key
+
+# For WhisperX Local diarization
+HUGGINGFACE_TOKEN=your_hf_token
+
+# For WhisperX Modal (optional)
+GOOGLE_APPLICATION_CREDENTIALS=/path/to/service-account.json
+GCS_BUCKET=your-bucket-name
 ```
 
 ---
 
 ## Running Tests
 
-### All Integration Tests:
+### Unit Tests (Fast, Mocked)
+
 ```bash
+# All unit tests
+poetry run pytest tests/unit/ -v
+
+# Provider tests specifically
+poetry run pytest tests/unit/providers/ -v
+
+# Expected: All pass, <10 seconds, $0 cost
+```
+
+### Integration Tests (Mocked APIs)
+
+```bash
+# All integration tests
 poetry run pytest tests/integration/ -v
+
+# Provider pipeline tests
+poetry run pytest tests/integration/test_provider_pipeline.py -v
 ```
 
-**Expected:** 24/24 tests passing (10 Grok advanced features, 8 entity search, 6 topic search)
+### Validation Tests (Real Audio)
 
-### Specific Tests:
 ```bash
-# Topic search API
-poetry run pytest tests/integration/test_topic_search_api.py -v
-
-# Entity search API
-poetry run pytest tests/integration/test_entity_search_api.py -v
-
-# Modal pipeline
-poetry run pytest tests/integration/test_modal_pipeline_e2e.py -v
+# Test all providers with real audio
+poetry run clipscribe process test_videos/medical_lxFd5xAN4cg.mp3 -t voxtral --no-diarize
+poetry run clipscribe process test_videos/medical_lxFd5xAN4cg.mp3 -t whisperx-local
+poetry run clipscribe process test_videos/medical_lxFd5xAN4cg.mp3 -t whisperx-modal
 ```
 
 ---
 
-## Deploy to Modal
+## Adding New Providers
 
-### Deploy ClipScribe Transcriber:
-```bash
-poetry run modal deploy deploy/station10_modal.py
+### Step 1: Create Provider Class
+
+```python
+# src/clipscribe/providers/transcription/new_provider.py
+from ..base import TranscriptionProvider, TranscriptResult
+
+class NewProvider(TranscriptionProvider):
+    @property
+    def name(self) -> str:
+        return "new-provider"
+    
+    @property
+    def supports_diarization(self) -> bool:
+        return True  # or False
+    
+    async def transcribe(self, audio_path, language=None, diarize=True):
+        # Your implementation
+        # Can wrap existing code or call new API
+        return TranscriptResult(...)
+    
+    def estimate_cost(self, duration_seconds):
+        # Cost calculation
+        return cost
+    
+    def validate_config(self):
+        # Check API keys, etc.
+        return bool(api_key)
 ```
 
-**Deploys:**
-- ClipScribeTranscriber class
-- WhisperX + pyannote + grok-4-fast-reasoning pipeline
-- Updates live service
+### Step 2: Register in Factory
 
-### View Modal Apps:
-```bash
-modal app list
+```python
+# src/clipscribe/providers/factory.py
+from .transcription.new_provider import NewProvider
+
+providers = {
+    "voxtral": VoxtralProvider,
+    "whisperx-modal": WhisperXModalProvider,
+    "whisperx-local": WhisperXLocalProvider,
+    "new-provider": NewProvider,  # Add here
+}
 ```
 
-### View Logs:
-```bash
-modal app logs clipscribe-transcription
+### Step 3: Update CLI
+
+```python
+# src/clipscribe/commands/cli.py
+@click.option(
+    "--transcription-provider",
+    type=click.Choice(["voxtral", "whisperx-modal", "whisperx-local", "new-provider"]),
+    ...
+)
 ```
+
+### Step 4: Add Tests
+
+```python
+# tests/unit/providers/test_new_provider.py
+def test_new_provider():
+    provider = get_transcription_provider("new-provider")
+    assert provider.name == "new-provider"
+    # Add more tests
+```
+
+### Step 5: Document
+
+- Add to docs/PROVIDERS.md
+- Update cost comparison tables
+- Add setup instructions
 
 ---
 
-## Development Workflows
+## Provider Development Best Practices
 
-### Test Modal Changes Locally:
-```bash
-# Edit deploy/station10_modal.py
-# Deploy to Modal
-poetry run modal deploy deploy/station10_modal.py
+### Wrapping Existing Code (Recommended)
 
-# Test with existing video
-poetry run python scripts/test_structured_outputs.py
+**Don't rewrite - wrap:**
+
+```python
+# GOOD: Wrap existing working code
+class VoxtralProvider:
+    def __init__(self):
+        self.transcriber = VoxtralTranscriber()  # Reuse existing
+    
+    async def transcribe(self, audio_path):
+        result = await self.transcriber.transcribe_audio(audio_path)
+        return TranscriptResult(...)  # Convert format
 ```
 
-### Add New API Endpoint:
-1. Create in `src/clipscribe/api/`
-2. Add tests in `tests/integration/`
-3. Run tests: `poetry run pytest tests/integration/`
+**Benefits:**
+- Single source of truth
+- Bug fixes propagate
+- Low risk
+- Less code to maintain
 
-### Update Database Schema:
-1. Modify schema in API file
-2. Delete local database: `rm data/clipscribe.db`
-3. Reload data: `poetry run python scripts/load_validated_*.py`
-4. Verify tests pass
+### Testing Providers
+
+**Mock the underlying client, not the provider:**
+
+```python
+@patch("clipscribe.transcribers.voxtral_transcriber.VoxtralTranscriber.transcribe_audio")
+async def test_voxtral(mock_transcribe):
+    mock_transcribe.return_value = VoxtralTranscriptionResult(...)
+    
+    provider = VoxtralProvider()
+    result = await provider.transcribe("test.mp3")
+    
+    assert result.provider == "voxtral"
+```
+
+### Cost Tracking
+
+**Always track actual costs:**
+
+```python
+async def transcribe(self, audio_path):
+    result = await self.client.transcribe(audio_path)
+    
+    actual_cost = result.cost  # From API response
+    
+    return TranscriptResult(
+        ...,
+        cost=actual_cost,  # Not estimated!
+    )
+```
 
 ---
 
 ## Project Structure
 
 ```
-clipscribe/
-├── src/clipscribe/           # Source code
-│   ├── api/                  # Search APIs
-│   │   ├── topic_search.py
-│   │   └── entity_search.py
-│   ├── models/               # Pydantic schemas
-│   │   └── grok_schemas.py
-│   ├── prompts/              # Grok prompts
-│   │   └── intelligence_extraction.py
-│   └── utils/                # Utilities
-│       ├── grokipedia.py
-│       └── logger_setup.py
-├── deploy/                   # Modal deployment
-│   └── station10_modal.py   # Main Modal service
-├── tests/                    # Test suite
-│   └── integration/          # Integration tests
-├── scripts/                  # Utility scripts
-│   ├── load_validated_*.py  # Data loaders
-│   └── test_*.py            # Validation scripts
-├── docs/                     # Documentation
-│   ├── ARCHITECTURE.md       # System architecture (14 Mermaid diagrams)
-│   ├── WORKFLOW.md           # Production workflows (Modal + Local CLI)
-│   ├── GROK_ADVANCED_FEATURES.md
-│   ├── DEVELOPMENT.md         # This file
-│   ├── VALIDATION_PROTOCOL.md # Documentation validation method
-│   └── REPOSITORY_CLEANUP_PLAYBOOK.md # Cleanup template
-└── examples/                 # Usage examples
+src/clipscribe/
+├── providers/              # Provider abstraction layer
+│   ├── base.py            # Abstract interfaces
+│   ├── factory.py         # Provider selection
+│   ├── transcription/     # Transcription providers
+│   │   ├── voxtral.py
+│   │   ├── whisperx_local.py
+│   │   └── whisperx_modal.py
+│   └── intelligence/      # Intelligence providers
+│       └── grok.py
+├── transcribers/          # Existing transcriber implementations
+│   ├── voxtral_transcriber.py
+│   └── whisperx_transcriber.py
+├── retrievers/            # Core components
+│   ├── grok_client.py
+│   └── output_formatter.py
+├── commands/              # CLI
+│   └── cli.py
+└── api/                   # API server
+    ├── app.py
+    └── job_worker.py
+
+tests/
+├── unit/
+│   └── providers/         # Provider unit tests
+└── integration/           # Integration tests
 ```
 
 ---
 
-## Key Files
+## Common Tasks
 
-**deploy/station10_modal.py:**
-- Main Modal service (WhisperX + grok-4-fast-reasoning)
-- ClipScribeTranscriber class
-- grok-4-fast-reasoning Structured Outputs implementation
+### Run Provider Locally
 
-**src/clipscribe/api/:**
-- topic_search.py - Topic search endpoint
-- entity_search.py - Entity search endpoint
-
-**src/clipscribe/models/grok_schemas.py:**
-- Pydantic schemas for Structured Outputs
-- No min_items (prevents hallucinations)
-
-**tests/integration/:**
-- test_topic_search_api.py (6 tests)
-- test_entity_search_api.py (8 tests)
-- test_grok_advanced_features.py (10 tests)
-- test_modal_pipeline_e2e.py (2 tests - requires deployed Modal app)
-
----
-
-## Common Development Tasks
-
-### Process a Test Video:
-```python
-# Use Modal workflow (see WORKFLOW.md)
-# Upload to GCS → Call Modal → Download results
-```
-
-### Run Validation on Existing Videos:
 ```bash
-poetry run python scripts/test_structured_outputs.py
+# Test Voxtral
+poetry run clipscribe process test.mp3 -t voxtral --no-diarize
+
+# Test WhisperX Local (FREE!)
+poetry run clipscribe process test.mp3 -t whisperx-local
+
+# Test WhisperX Modal
+poetry run clipscribe process test.mp3 -t whisperx-modal
 ```
 
-### Check Database Contents:
+### Deploy Modal
+
 ```bash
-sqlite3 data/clipscribe.db "SELECT video_id, COUNT(*) FROM topics GROUP BY video_id"
-sqlite3 data/clipscribe.db "SELECT type, COUNT(*) FROM entities GROUP BY type"
+# Deploy
+poetry run modal deploy deploy/station10_modal.py
+
+# Test deployment
+poetry run modal run deploy/station10_modal.py::test_gcs_transcription
+
+# Check logs
+poetry run modal app logs clipscribe-transcription
+```
+
+### Format Code
+
+```bash
+# Format with Black
+poetry run black src/
+
+# Check with Ruff
+poetry run ruff check src/
+
+# Sort imports
+poetry run isort src/
+```
+
+### Run Validation
+
+```bash
+# Full validation suite
+poetry run python scripts/validation/test_provider_system.py
 ```
 
 ---
 
-## Troubleshooting
+## Debugging
 
-**Import errors:**
-- Check all dependencies installed: `poetry install`
-- Verify Python 3.12+: `python --version`
+### Enable Debug Logging
 
-**Modal errors:**
-- Check secrets configured: `modal secret list`
-- Required: huggingface, googlecloud-secret, grok-api-key
+```bash
+poetry run clipscribe --debug process file.mp3
+```
 
-**Test failures:**
-- Check database exists: `ls data/clipscribe.db`
-- Reload data if needed: `poetry run python scripts/load_validated_*.py`
+### Check Provider Configuration
+
+```bash
+poetry run clipscribe utils check-auth
+```
+
+### Modal Debugging
+
+```bash
+# View Modal logs
+poetry run modal app logs clipscribe-transcription
+
+# Check app status
+poetry run modal app list
+```
 
 ---
 
-**This guide documents actual development workflows that work.**
+## Release Process
 
+**For v3.x releases:**
+
+1. **Test all providers:**
+   ```bash
+   poetry run pytest
+   poetry run clipscribe process test.mp3 -t voxtral --no-diarize
+   poetry run clipscribe process test.mp3 -t whisperx-local
+   poetry run clipscribe process test.mp3 -t whisperx-modal
+   ```
+
+2. **Update version:**
+   - `pyproject.toml`: version = "3.x.x"
+   - `src/clipscribe/version.py`: __version__ = "3.x.x"
+   - `CHANGELOG.md`: Add entry
+
+3. **Commit and tag:**
+   ```bash
+   git commit -m "chore: Release v3.x.x"
+   git tag -a v3.x.x -m "v3.x.x: Description"
+   git push origin main --tags
+   ```
+
+4. **Deploy Modal** (if changed):
+   ```bash
+   poetry run modal deploy deploy/station10_modal.py
+   ```
+
+---
+
+**For complete architecture, see [ARCHITECTURE.md](ARCHITECTURE.md)**  
+**For provider details, see [PROVIDERS.md](PROVIDERS.md)**
