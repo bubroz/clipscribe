@@ -60,6 +60,19 @@ def cli(ctx: click.Context, debug: bool):
     default=Path("output"),
     help="Output directory"
 )
+@click.option(
+    "--formats",
+    multiple=True,
+    type=click.Choice(["json", "docx", "csv", "pptx", "markdown", "all"]),
+    default=["json", "docx", "csv"],
+    help="Output formats to generate (default: json, docx, csv)"
+)
+@click.option(
+    "--tier",
+    type=click.Choice(["researcher", "analyst", "executive"]),
+    default=None,
+    help="Auto-select formats for tier (researcher=json+csv, analyst=all, executive=all+pptx)"
+)
 @click.pass_context
 def process(
     ctx: click.Context,
@@ -68,6 +81,8 @@ def process(
     intelligence_provider: str,
     diarize: bool,
     output_dir: Path,
+    formats: tuple,
+    tier: str,
 ):
     """Process audio/video file to extract intelligence.
     
@@ -91,12 +106,26 @@ def process(
         
         Plus Grok intelligence: ~$0.005 per video
     """
+    # Handle tier presets
+    if tier:
+        tier_formats = {
+            "researcher": ["json", "csv"],
+            "analyst": ["json", "docx", "csv", "markdown"],
+            "executive": ["json", "docx", "csv", "pptx", "markdown"]
+        }
+        formats = tier_formats.get(tier, formats)
+    
+    # Handle "all" format
+    if "all" in formats:
+        formats = ["json", "docx", "csv", "pptx", "markdown"]
+    
     asyncio.run(process_file_logic(
         audio_file,
         transcription_provider,
         intelligence_provider,
         diarize,
         output_dir,
+        list(formats),
     ))
 
 
@@ -106,6 +135,7 @@ async def process_file_logic(
     intelligence_provider: str,
     diarize: bool,
     output_dir: Path,
+    formats: List[str],
 ):
     """Core file processing logic using provider abstraction."""
     from clipscribe.providers.factory import (
@@ -115,7 +145,7 @@ async def process_file_logic(
     from clipscribe.retrievers.output_formatter import OutputFormatter
     
     logger = logging.getLogger(__name__)
-    
+
     # Initialize providers
     try:
         transcriber = get_transcription_provider(transcription_provider)
@@ -183,7 +213,9 @@ async def process_file_logic(
     output_path = output_dir / f"{timestamp}_{audio_file.stem}"
     output_path.mkdir(parents=True, exist_ok=True)
     
-    # Save comprehensive JSON (v3.0.0 format - matches Modal)
+    logger.info(f"\n📦 Generating {len(formats)} format(s): {', '.join(formats)}")
+    
+    # Always save comprehensive JSON
     comprehensive_data = {
         "transcript": {
             "segments": [seg.dict() for seg in transcript.segments],
@@ -219,8 +251,47 @@ async def process_file_logic(
     with open(output_path / "transcript.json", "w") as f:
         json.dump(comprehensive_data, f, indent=2)
     
+    # Generate additional formats
+    generated_files = ["transcript.json"]
+    
+    if "docx" in formats:
+        try:
+            from clipscribe.exporters.docx_report import generate_docx_report
+            docx_path = generate_docx_report(transcript, intelligence, output_path)
+            generated_files.append(docx_path.name)
+            logger.info(f"  ✓ DOCX report generated")
+        except Exception as e:
+            logger.error(f"  ✗ DOCX generation failed: {e}")
+    
+    if "csv" in formats:
+        try:
+            from clipscribe.exporters.csv_exporter import export_to_csv
+            csv_files = export_to_csv(intelligence, transcript, output_path)
+            generated_files.extend([p.name for p in csv_files.values()])
+            logger.info(f"  ✓ CSV files generated: {len(csv_files)}")
+        except Exception as e:
+            logger.error(f"  ✗ CSV generation failed: {e}")
+    
+    if "markdown" in formats:
+        try:
+            from clipscribe.exporters.markdown_report import generate_markdown_report
+            md_path = generate_markdown_report(transcript, intelligence, output_path)
+            generated_files.append(md_path.name)
+            logger.info(f"  ✓ Markdown report generated")
+        except Exception as e:
+            logger.error(f"  ✗ Markdown generation failed: {e}")
+    
+    if "pptx" in formats:
+        try:
+            from clipscribe.exporters.pptx_report import generate_pptx_report
+            pptx_path = generate_pptx_report(transcript, intelligence, output_path)
+            generated_files.append(pptx_path.name)
+            logger.info(f"  ✓ PPTX presentation generated")
+        except Exception as e:
+            logger.error(f"  ✗ PPTX generation failed: {e}")
+    
     logger.info(f"\n✓ Complete! Results saved to {output_path}")
-    logger.info(f"  Comprehensive JSON: {output_path}/transcript.json")
+    logger.info(f"  Generated: {', '.join(generated_files)}")
     logger.info(f"  Entities: {len(intelligence.entities)}")
     logger.info(f"  Relationships: {len(intelligence.relationships)}")
     logger.info(f"  Topics: {len(intelligence.topics)}")
