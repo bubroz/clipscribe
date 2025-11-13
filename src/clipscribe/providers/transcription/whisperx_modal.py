@@ -131,13 +131,13 @@ class WhisperXModalProvider(TranscriptionProvider):
             gcs_output = gcs_input.replace(Path(audio_path).suffix, "_results/")
             
             # Call existing Modal code (ALL features preserved!)
-            # Modal SDK: Instantiate class, call .remote() on methods
-            # Modal automatically handles connection to deployed app
-            transcriber = self.transcriber_cls()
-            modal_result = transcriber.transcribe_from_gcs.remote(
-                gcs_input=gcs_input,
-                gcs_output=gcs_output,
-            )
+            # Modal SDK: Must run within app context for @app.cls methods
+            with self.modal_app.run():
+                transcriber = self.transcriber_cls()
+                modal_result = transcriber.transcribe_from_gcs.remote(
+                    gcs_input=gcs_input,
+                    gcs_output=gcs_output,
+                )
             
             # Download results from GCS
             transcript_data = await self._download_from_gcs(f"{gcs_output}transcript.json")
