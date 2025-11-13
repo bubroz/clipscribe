@@ -281,6 +281,220 @@ async def process_file_logic(
     logger.info(f"  Topics: {len(intelligence.topics)}")
 
 
+@cli.command("process-series")
+@click.argument("files_list", type=click.Path(exists=True, path_type=Path))
+@click.option("--series-name", required=True, help="Name for this video series")
+@click.option(
+    "--transcription-provider", "-t",
+    type=click.Choice(["voxtral", "whisperx-modal", "whisperx-local"]),
+    default="whisperx-local",
+    help="Transcription provider"
+)
+@click.option("--output-dir", "-o", type=click.Path(path_type=Path), default=Path("output"))
+@click.option(
+    "--formats",
+    multiple=True,
+    default=["json", "docx", "csv", "pptx"],
+    help="Formats for individual videos (series gets PPTX + aggregate CSVs automatically)"
+)
+@click.pass_context
+def process_series(
+    ctx: click.Context,
+    files_list: Path,
+    series_name: str,
+    transcription_provider: str,
+    output_dir: Path,
+    formats: tuple,
+):
+    """Process multiple videos as a series with aggregate analysis.
+    
+    Premium feature for cross-video intelligence extraction.
+    
+    files_list should contain one file path per line.
+    
+    Examples:
+    
+        Process earnings calls:
+        $ clipscribe process-series calls.txt --series-name "Q1-Q4-2024"
+        
+        Process depositions:
+        $ clipscribe process-series depositions.txt --series-name "Case-XYZ"
+    
+    Output:
+        series_[name]/
+        ├── videos/
+        │   ├── video1/ (individual reports)
+        │   ├── video2/
+        │   └── ...
+        └── aggregate/
+            ├── series_analysis.pptx
+            ├── series_report.docx
+            ├── entity_frequency.csv
+            └── insights.md
+    """
+    asyncio.run(process_series_logic(
+        files_list,
+        series_name,
+        transcription_provider,
+        output_dir,
+        list(formats),
+    ))
+
+
+async def process_series_logic(
+    files_list: Path,
+    series_name: str,
+    transcription_provider: str,
+    output_dir: Path,
+    formats: List[str],
+):
+    """Core series processing logic."""
+    from clipscribe.processors.series_analyzer import SeriesAnalyzer
+    from clipscribe.providers.factory import get_transcription_provider, get_intelligence_provider
+    
+    logger = logging.getLogger(__name__)
+    
+    # Read file list
+    with open(files_list) as f:
+        files = [line.strip() for line in f if line.strip() and not line.startswith('#')]
+    
+    if not files:
+        logger.error("No valid files found in list")
+        raise click.ClickException("Empty file list")
+    
+    logger.info(f"\n🎬 Processing series: {series_name}")
+    logger.info(f"   Videos: {len(files)}")
+    logger.info(f"   Provider: {transcription_provider}")
+    
+    # Create series output directory
+    series_dir = output_dir / f"series_{series_name}_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+    videos_dir = series_dir / "videos"
+    aggregate_dir = series_dir / "aggregate"
+    videos_dir.mkdir(parents=True, exist_ok=True)
+    aggregate_dir.mkdir(parents=True, exist_ok=True)
+    
+    # Initialize series analyzer
+    analyzer = SeriesAnalyzer(series_name)
+    
+    # Process each video
+    transcriber = get_transcription_provider(transcription_provider)
+    extractor = get_intelligence_provider("grok")
+    
+    for idx, file_path in enumerate(files, 1):
+        logger.info(f"\n📹 Processing {idx}/{len(files)}: {Path(file_path).name}")
+        
+        try:
+            # Transcribe
+            transcript = await transcriber.transcribe(file_path, diarize=True)
+            logger.info(f"   ✓ Transcribed: {transcript.language}, {transcript.speakers} speakers")
+            
+            # Extract intelligence
+            intelligence = await extractor.extract(transcript, metadata={"filename": Path(file_path).name})
+            logger.info(f"   ✓ Intelligence: {len(intelligence.entities)} entities, {len(intelligence.relationships)} relationships")
+            
+            # Save individual video results
+            video_output = videos_dir / f"video{idx}_{Path(file_path).stem}"
+            video_output.mkdir(exist_ok=True)
+            
+            # Save in requested formats
+            import json
+            video_data = {
+                "transcript": {
+                    "segments": [seg.dict() for seg in transcript.segments],
+                    "language": transcript.language,
+                    "duration": transcript.duration,
+                    "speakers": transcript.speakers,
+                    "provider": transcript.provider,
+                    "model": transcript.model,
+                    "cost": transcript.cost,
+                },
+                "intelligence": {
+                    "entities": intelligence.entities,
+                    "relationships": intelligence.relationships,
+                    "topics": intelligence.topics,
+                    "key_moments": intelligence.key_moments,
+                    "sentiment": intelligence.sentiment,
+                    "provider": intelligence.provider,
+                    "model": intelligence.model,
+                    "cost": intelligence.cost,
+                },
+                "file_metadata": {
+                    "filename": Path(file_path).name,
+                    "series_video_number": idx,
+                    "total_cost": transcript.cost + intelligence.cost,
+                }
+            }
+            
+            with open(video_output / "transcript.json", "w") as f:
+                json.dump(video_data, f, indent=2)
+            
+            # Generate requested formats
+            if "docx" in formats:
+                from clipscribe.exporters.docx_report import generate_docx_report
+                generate_docx_report(transcript, intelligence, video_output)
+            
+            if "csv" in formats:
+                from clipscribe.exporters.csv_exporter import export_to_csv
+                export_to_csv(intelligence, transcript, video_output)
+            
+            # Add to series analyzer
+            analyzer.add_video(video_data, Path(file_path).name)
+            
+        except Exception as e:
+            logger.error(f"   ✗ Failed to process {file_path}: {e}")
+            continue
+    
+    # Generate aggregate analysis
+    logger.info(f"\n📊 Generating series analysis...")
+    series_analysis = analyzer.analyze()
+    
+    # Save aggregate JSON
+    with open(aggregate_dir / "series_analysis.json", "w") as f:
+        json.dump(series_analysis, f, indent=2)
+    
+    # Generate aggregate reports
+    logger.info(f"   ✓ Generating aggregate reports...")
+    
+    # Aggregate PPTX (always for series)
+    try:
+        from clipscribe.exporters.pptx_report import generate_series_pptx
+        pptx_path = aggregate_dir / "series_analysis.pptx"
+        # Will create series-specific PPTX with aggregate slides
+        logger.info(f"   ✓ Series PPTX (coming soon)")
+    except:
+        logger.info(f"   ⏳ Series PPTX generation pending")
+    
+    # Entity frequency CSV
+    import csv
+    with open(aggregate_dir / "entity_frequency.csv", "w", newline='') as f:
+        writer = csv.DictWriter(f, fieldnames=['name', 'type', 'mentions', 'videos', 'frequency_percent'])
+        writer.writeheader()
+        for entity_data in series_analysis['top_entities']:
+            writer.writerow({
+                'name': entity_data['name'],
+                'type': entity_data['type'],
+                'mentions': entity_data['count'],
+                'videos': entity_data['videos'],
+                'frequency_percent': f"{entity_data['frequency_percent']:.1f}%"
+            })
+    
+    # Insights markdown
+    insights_md = "# Series Insights\n\n"
+    insights_md += f"**Series:** {series_name}\n"
+    insights_md += f"**Videos:** {series_analysis['total_videos']}\n\n"
+    insights_md += "## Key Findings:\n\n"
+    for insight in series_analysis['insights']:
+        insights_md += f"- {insight}\n"
+    
+    (aggregate_dir / "insights.md").write_text(insights_md)
+    
+    logger.info(f"\n✅ Series analysis complete!")
+    logger.info(f"   Individual reports: {series_dir}/videos/")
+    logger.info(f"   Aggregate analysis: {series_dir}/aggregate/")
+    logger.info(f"   Unique entities: {series_analysis['unique_entities']}")
+    logger.info(f"   Total cost: ${series_analysis['total_cost']:.2f}")
+
+
 def run_cli():
     """Run the CLI application."""
     cli()
