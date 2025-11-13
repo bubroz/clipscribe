@@ -1,28 +1,8 @@
 """
-Unified API Layer for ClipScribe
+ClipScribe API Module (v3.0.0)
 
-This package provides a unified interface for all external APIs,
-eliminating method mismatches and parameter mapping issues.
+Job processing now uses provider system directly (see providers/).
+Legacy unified_transcriber.py removed.
 """
 
-from .unified_transcriber import (
-    BackendConfig,
-    BackendRegistry,
-    BackendType,
-    MethodResolver,
-    MetricsCollector,
-    ParameterMapper,
-    UnifiedErrorHandler,
-    UnifiedTranscriberAPI,
-)
-
-__all__ = [
-    "UnifiedTranscriberAPI",
-    "BackendType",
-    "BackendConfig",
-    "BackendRegistry",
-    "ParameterMapper",
-    "MethodResolver",
-    "UnifiedErrorHandler",
-    "MetricsCollector",
-]
+__all__ = []
