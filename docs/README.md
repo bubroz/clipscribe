@@ -26,6 +26,12 @@
 - Common workflows
 - Environment variables
 
+**[Output Format](OUTPUT_FORMAT.md)** - Complete schema reference
+- Full JSON structure
+- All data fields explained
+- Entity types reference
+- Usage examples (Pandas, SQL)
+
 **[Provider System](PROVIDERS.md)** - Choose optimal providers
 - Voxtral (Mistral API): Cheap, no speakers
 - WhisperX Local (Apple Silicon): FREE, speakers

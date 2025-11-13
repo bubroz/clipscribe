@@ -57,17 +57,49 @@ Process a 30-minute video and receive **50-70+ structured data points:**
 ### Topic Analysis
 - **Main themes** with relevance scores
 - **Time ranges** (when each topic discussed)
-- **Temporal context** (00:00-15:00 format)
+- **Temporal context** (MM:SS format)
+
+**Example:**
+```json
+{
+  "name": "Government Shutdown and ACA Subsidies",
+  "relevance": 1.0,
+  "time_range": "00:00-15:00"
+}
+```
 
 ### Key Moments
 - **Significant points** with exact timestamps
 - **Significance scoring** (0-1)
 - **Supporting quotes** for each moment
 
+**Example:**
+```json
+{
+  "timestamp": "00:30",
+  "description": "Trump's Gaza ceasefire achievement contrasting with domestic shutdown",
+  "significance": 0.9,
+  "quote": "President Trump scores an international win with the Gaza ceasefire deal, but the battle at the Capitol rages on"
+}
+```
+
 ### Sentiment Analysis
 - **Overall sentiment** (positive, negative, neutral, mixed)
 - **Per-topic sentiment** (nuanced analysis)
 - **Confidence scores**
+
+**Example:**
+```json
+{
+  "overall": "mixed",
+  "confidence": 0.9,
+  "per_topic": {
+    "Government Shutdown": "negative",
+    "Gaza Ceasefire": "positive",
+    "Jennifer Aniston Interview": "neutral"
+  }
+}
+```
 
 ### Output Format
 
@@ -76,6 +108,8 @@ Process a 30-minute video and receive **50-70+ structured data points:**
 - Evidence-based (verifiable, citable)
 - Structured (consistent schema)
 - Cost-tracked (know exactly what you spent)
+
+**Complete schema reference:** [docs/OUTPUT_FORMAT.md](docs/OUTPUT_FORMAT.md)
 
 ---
 
