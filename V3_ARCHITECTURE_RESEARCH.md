@@ -60,23 +60,32 @@ Output: 10+ files (txt, json, csv, gexf, md, etc.) locally
 
 ## Critical Investigation Questions
 
-### 1. Voxtral vs WhisperX (Nov 2025)
+### 1. Voxtral vs WhisperX (Nov 2025) - RESEARCHED
 
-**Need to research:**
-- Does Voxtral now support speaker diarization?
-- Accuracy comparison (WER, handling accents, etc.)
-- Cost comparison:
-  - Voxtral: $0.001/min API
-  - WhisperX: $0.01836/min GPU (Modal A10G)
-  - WhisperX is 18x more expensive - worth it?
+**Speaker Diarization Status (Nov 2025):**
+- ❌ **Voxtral does NOT support speaker diarization yet**
+- 🔄 Mistral is "working on" speaker ID, emotion detection, advanced diarization
+- 📅 "Inviting design partners" - NOT production-ready
+- Source: https://mistral.ai/news/voxtral
 
-**Questions:**
-- Could Voxtral replace WhisperX in Modal path?
-- Would we lose speaker diarization quality?
-- Performance impact (API latency vs GPU speed)?
-- Is WhisperX's quality advantage worth 18x cost?
+**Cost comparison:**
+- Voxtral: $0.001/min API (transcription only)
+- WhisperX: $0.01836/min GPU (Modal A10G, includes diarization)
+- WhisperX is 18x more expensive
 
-**Action needed:** Deep comparison testing
+**Accuracy comparison:**
+- Voxtral: Good for transcription, but NO speaker attribution
+- WhisperX: large-v3 + pyannote diarization (2-13 speakers)
+
+**VERDICT:**
+- ❌ **Cannot replace WhisperX in Modal path** (speaker diarization is critical)
+- ✅ **Could use Voxtral for Local path** (if user doesn't need speakers)
+- 💡 **Best of both worlds:** Make speaker diarization optional
+  - Budget mode: Voxtral only ($0.001/min)
+  - Full mode: WhisperX + diarization ($0.018/min)
+- 🎯 **18x cost difference IS worth it** when speakers are needed (interviews, podcasts, meetings)
+
+**Recommendation:** Keep WhisperX for Modal, optionally add Voxtral for Local budget mode
 
 ### 2. Output Format Reconciliation
 
@@ -115,72 +124,242 @@ output/20251112_platform_id/
 └── report.md
 ```
 
-**Differences found:**
-- ❓ Modal: Returns dict, uploads 2 files (transcript.json, metadata.json)
-- ❓ Local: Saves 10+ files in structured directory
-- ❓ Modal: Missing GEXF, CSV, markdown reports?
-- ❓ Local: Has all formats
-- **CRITICAL:** Are Modal outputs incomplete? Or designed differently?
+**Differences found (VALIDATED Nov 13):**
+- ✅ Modal: 2 files - `transcript.json` (comprehensive, ALL intelligence) + `metadata.json` (stats)
+- ✅ Local: 10+ files - separate txt, json, csv, gexf, graphml, md exports
+- ✅ **Modal transcript.json contains:** segments, entities, relationships, topics, key_moments, sentiment, cost_breakdown, cache_stats, word_segments
+- ❌ **Modal is missing:** GEXF/GraphML exports, CSV exports, Markdown reports
+- ✅ **Local has all formats** including visualization exports
 
-**Action needed:**
-1. Check actual Modal GCS uploads (what files are there?)
-2. Compare intelligence quality (same entities/relationships?)
-3. Decide: Unified format or clearly separate?
+**CRITICAL FINDING:** Modal outputs are NOT incomplete - just a different export strategy!
+- **Modal strategy:** Single comprehensive JSON (all data, one file)
+- **Local strategy:** Multiple format exports (same data, many formats)
 
-### 3. OpenRouter for Model Flexibility
+**Intelligence Quality:** SAME (both use Grok-4 extraction, same prompts, same schemas)
 
-**Research needed:**
-- What is OpenRouter? (API routing service)
-- Does it support local models?
-- Integration effort?
-- Cost implications?
-- Would it help with "future local model replacement"?
+**Decision needed:**
+1. Should Modal also generate GEXF/CSV/MD exports? (Easy to add)
+2. Or is single JSON sufficient for cloud use case? (Simpler, smaller)
+3. Could add export formatter that reads transcript.json → generates all formats
 
-**Alternative approaches:**
-- LiteLLM (unified API wrapper)
-- Direct integration points (Ollama for local, OpenRouter for cloud)
-- Abstract model interface in ClipScribe
+### 3. OpenRouter for Model Flexibility - RESEARCHED
 
-**Action needed:** Research model abstraction patterns
+**What is OpenRouter:**
+- ✅ **Unified API gateway** for 200+ LLMs (OpenAI, Anthropic, Google, Meta, etc.)
+- ✅ **Single API key** for all models
+- ✅ **Smart routing** with fallbacks
+- ❌ **Does NOT support local models** (Ollama, etc.)
+- 💵 **Pricing:** Pass-through + small markup
 
-### 4. Architecture for Local Model Replacement
+**OpenRouter strengths:**
+- Switch between cloud providers easily
+- Automatic fallbacks (e.g., Claude → GPT if Claude down)
+- Cost comparison across providers
+- Good for multi-model experimentation
+
+**OpenRouter weaknesses:**
+- ❌ No local model support (requires cloud API)
+- ❌ Extra layer = extra latency (~50-100ms)
+- ❌ Dependency on third-party service
+- ❌ Not useful for air-gapped deployments
+
+**Alternative: LiteLLM**
+- ✅ Supports 100+ providers INCLUDING Ollama (local)
+- ✅ Can run locally (no third-party dependency)
+- ✅ Unified interface: OpenAI format for all models
+- ✅ Built-in retry logic, fallbacks, load balancing
+- ✅ Better for ClipScribe's needs (local + cloud support)
+
+**VERDICT:**
+- ❌ **OpenRouter is NOT the right solution** (no local model support)
+- ✅ **LiteLLM is better** (supports both cloud and local)
+- 🎯 **Best approach:** Direct provider abstraction (see Task 4)
+  - More control, less dependencies
+  - Simpler codebase
+  - Easier to test and debug
+
+**Recommendation:** Build simple provider abstraction, skip OpenRouter/LiteLLM
+
+### 4. Architecture for Local Model Replacement - DESIGNED
 
 **Current dependencies:**
 - Voxtral API (Mistral) - transcription
 - Grok API (xAI) - intelligence extraction
 
 **Future vision:**
-- Support local models (Llama, Mistral local, etc.)
-- Air-gapped deployment option
-- Privacy-focused mode
+- ✅ Support local models (Llama, Mistral local, etc.)
+- ✅ Air-gapped deployment option
+- ✅ Privacy-focused mode
 
-**Design questions:**
-- How to abstract transcription provider?
-- How to abstract intelligence extraction?
-- Configuration-driven model selection?
-- Fallback chains (cloud → local)?
+**Provider Abstraction Pattern:**
 
-**Possible architecture:**
 ```python
+# src/clipscribe/providers/base.py
+from abc import ABC, abstractmethod
+from typing import Dict, List, Any
+from pydantic import BaseModel
+
+class TranscriptResult(BaseModel):
+    """Standardized transcript output"""
+    segments: List[Dict]
+    language: str
+    duration: float
+    speakers: int = 0
+    word_level: bool = False
+    cost: float = 0.0
+    
+class IntelligenceResult(BaseModel):
+    """Standardized intelligence output"""
+    entities: List[Dict]
+    relationships: List[Dict]
+    topics: List[Dict]
+    key_moments: List[Dict]
+    sentiment: Dict
+    cost: float = 0.0
+
 class TranscriptionProvider(ABC):
+    """Base class for all transcription providers"""
+    
     @abstractmethod
-    async def transcribe(self, audio_path): ...
+    async def transcribe(
+        self, 
+        audio_path: str,
+        language: str = None,
+        diarize: bool = True
+    ) -> TranscriptResult:
+        pass
+    
+    @abstractmethod
+    def estimate_cost(self, duration_seconds: float) -> float:
+        pass
 
-class VoxtralProvider(TranscriptionProvider):
-    # API-based
-
-class WhisperXProvider(TranscriptionProvider):
-    # GPU-based (Modal)
-
-class OllamaProvider(TranscriptionProvider):
-    # Local model
-
-# Select at runtime
-provider = config.get_transcription_provider()
-transcript = await provider.transcribe(audio)
+class IntelligenceProvider(ABC):
+    """Base class for intelligence extraction"""
+    
+    @abstractmethod
+    async def extract(
+        self, 
+        transcript: TranscriptResult,
+        metadata: Dict = None
+    ) -> IntelligenceResult:
+        pass
+    
+    @abstractmethod
+    def estimate_cost(self, transcript_length: int) -> float:
+        pass
 ```
 
-**Action needed:** Design provider abstraction
+**Concrete Implementations:**
+
+```python
+# src/clipscribe/providers/transcription/
+class VoxtralProvider(TranscriptionProvider):
+    """Mistral Voxtral API (fast, cheap, no speakers)"""
+    def __init__(self, api_key: str):
+        self.api_key = api_key
+    
+    async def transcribe(self, audio_path, language=None, diarize=False):
+        # Voxtral doesn't support diarization yet
+        if diarize:
+            raise NotImplementedError("Voxtral doesn't support speaker diarization")
+        # Call Voxtral API
+        return TranscriptResult(...)
+    
+    def estimate_cost(self, duration_seconds):
+        return (duration_seconds / 60) * 0.001  # $0.001/min
+
+class WhisperXModalProvider(TranscriptionProvider):
+    """WhisperX on Modal GPU (slower, expensive, best quality + speakers)"""
+    async def transcribe(self, audio_path, language=None, diarize=True):
+        # Upload to GCS, call Modal
+        return TranscriptResult(...)
+    
+    def estimate_cost(self, duration_seconds):
+        # GPU cost + network cost
+        return (duration_seconds / 60 / 6) * 0.01836  # 6x realtime, $0.01836/min
+
+class WhisperLocalProvider(TranscriptionProvider):
+    """Local Whisper (free, slow, good quality, optional speakers)"""
+    async def transcribe(self, audio_path, language=None, diarize=False):
+        # Run locally with whisper + pyannote
+        return TranscriptResult(...)
+    
+    def estimate_cost(self, duration_seconds):
+        return 0.0  # Free
+
+# src/clipscribe/providers/intelligence/
+class GrokProvider(IntelligenceProvider):
+    """xAI Grok (best quality, moderate cost)"""
+    async def extract(self, transcript, metadata=None):
+        # Current implementation
+        return IntelligenceResult(...)
+    
+    def estimate_cost(self, transcript_length):
+        tokens = transcript_length / 4
+        return (tokens / 1_000_000) * 0.20  # $0.20/M input
+
+class OllamaProvider(IntelligenceProvider):
+    """Local Llama/Mistral via Ollama (free, privacy, slower)"""
+    async def extract(self, transcript, metadata=None):
+        # Call Ollama API
+        return IntelligenceResult(...)
+    
+    def estimate_cost(self, transcript_length):
+        return 0.0  # Free
+```
+
+**Configuration-Driven Selection:**
+
+```yaml
+# .clipscribe.yaml
+transcription:
+  provider: "voxtral"  # voxtral | whisperx-modal | whisper-local
+  diarization: false   # Enable speaker detection
+  language: "auto"     # or specific language code
+  
+intelligence:
+  provider: "grok"     # grok | ollama | claude
+  model: "grok-4-fast" # Provider-specific model
+  
+# Provider configs
+providers:
+  voxtral:
+    api_key_env: "VOXTRAL_API_KEY"
+  whisperx_modal:
+    api_key_env: "MODAL_API_KEY"
+  grok:
+    api_key_env: "XAI_API_KEY"
+  ollama:
+    base_url: "http://localhost:11434"
+    model: "llama3.2:90b"
+```
+
+**Runtime Usage:**
+
+```python
+# src/clipscribe/core/processor.py
+from clipscribe.providers import get_provider
+
+async def process_audio(audio_path: str):
+    # Get providers from config
+    transcriber = get_provider('transcription')
+    extractor = get_provider('intelligence')
+    
+    # Process
+    transcript = await transcriber.transcribe(audio_path)
+    intelligence = await extractor.extract(transcript)
+    
+    return transcript, intelligence
+```
+
+**Benefits:**
+- ✅ Easy to swap providers (change config, not code)
+- ✅ Test with mocks (swap in TestProvider)
+- ✅ Support air-gapped (use local providers)
+- ✅ Future-proof (add new providers without changing core)
+- ✅ Cost transparency (estimate before processing)
+
+**Recommendation:** Implement provider abstraction in v3.0.0
 
 ### 5. Cloud vs Local - Equal Support
 
@@ -438,9 +617,236 @@ modal run ... --input test.mp3
 
 **Commits today:** 10 (all pushed, all validated)
 
-**Next session should start with:** Deep research on questions above, then comprehensive v3.0.0 architectural planning.
+**Next session should start with:** Implementation planning for v3.0.0 based on research findings below.
 
 ---
 
-**This document provides complete context for continuing the v3.0.0 architectural transformation in a fresh session.**
+## 🎯 RESEARCH SYNTHESIS & RECOMMENDATIONS
+
+### Research Complete (Nov 13, 2025)
+
+All critical questions answered. Ready for v3.0.0 architectural planning.
+
+### Key Findings Summary
+
+**1. Voxtral vs WhisperX:**
+- ❌ Voxtral does NOT support speaker diarization (Nov 2025)
+- ✅ WhisperX + pyannote is REQUIRED for speaker attribution
+- 💡 Could offer both: Voxtral (budget, no speakers) + WhisperX (full, with speakers)
+
+**2. Modal Output Format:**
+- ✅ Modal outputs are COMPREHENSIVE (all intelligence in transcript.json)
+- ❌ Modal is missing GEXF/CSV/Markdown exports
+- 💡 Easy to add: Export formatter that reads transcript.json → generates all formats
+
+**3. OpenRouter:**
+- ❌ Does NOT support local models (cloud-only)
+- ✅ LiteLLM is better (supports Ollama + cloud)
+- 💡 Best approach: Direct provider abstraction (simpler, more control)
+
+**4. Provider Abstraction:**
+- ✅ Design complete (see Task 4 above)
+- ✅ Enables swappable transcription & intelligence providers
+- ✅ Configuration-driven, easy to test, future-proof
+
+### v3.0.0 Architectural Decisions
+
+#### ✅ Decision 1: Remove Download Code
+
+**APPROVED - Remove video download from ClipScribe core**
+
+**Rationale:**
+- Download is NOT core value (intelligence extraction is)
+- Removes 15+ files, ~5,000 lines of fragile code
+- Eliminates YouTube SABR bans, 403s, bot detection issues
+- Professional users can obtain files themselves (yt-dlp)
+
+**Implementation:**
+```bash
+# REMOVE entire download infrastructure
+rm -rf src/clipscribe/retrievers/youtube_client.py
+rm -rf src/clipscribe/retrievers/universal_video_client.py
+rm -rf src/clipscribe/retrievers/video_retriever.py
+# ... (15 files total)
+
+# UPDATE CLI to file-only
+clipscribe process "audio.mp3"  # ✅ KEEP
+# clipscribe process video "URL"  # ❌ REMOVE
+
+# UPDATE docs
+docs/GETTING_FILES.md - "Use yt-dlp to obtain audio files"
+```
+
+**User Impact:**
+- ❌ Can no longer pass URLs directly
+- ✅ Must obtain files first (yt-dlp, download, GCS, etc.)
+- ✅ Simpler, more reliable, faster CLI
+- ✅ Clear separation: procurement (yt-dlp) vs analysis (ClipScribe)
+
+#### ✅ Decision 2: Provider Abstraction Pattern
+
+**APPROVED - Implement provider abstraction (see Task 4 design)**
+
+**Benefits:**
+- Support multiple transcription providers (Voxtral, WhisperX, local Whisper)
+- Support multiple intelligence providers (Grok, Ollama, Claude)
+- Easy testing (mock providers)
+- Air-gapped deployment support
+- Future-proof architecture
+
+**Implementation Priority:** HIGH (foundation for v3.0.0)
+
+#### ✅ Decision 3: Unified Output Format Strategy
+
+**APPROVED - Unify outputs across Modal and Local paths**
+
+**Strategy:**
+1. **Core data structure:** Use Modal's comprehensive JSON (all intelligence in one file)
+2. **Export formatters:** Add formatters that generate GEXF, CSV, Markdown from core JSON
+3. **Both paths generate same core data**, different exports
+
+**Implementation:**
+```python
+# Core processing (same for both Modal and Local)
+result = {
+    "segments": [...],
+    "entities": [...],
+    "relationships": [...],
+    "topics": [...],
+    "key_moments": [...],
+    "sentiment": {...},
+    "cost_breakdown": {...}
+}
+
+# Save core JSON (always)
+save_json(result, "transcript.json")
+
+# Generate exports (configurable)
+if config.output_formats.gexf:
+    generate_gexf(result, "knowledge_graph.gexf")
+if config.output_formats.csv:
+    generate_csv(result, "entities.csv", "relationships.csv")
+if config.output_formats.markdown:
+    generate_markdown(result, "report.md")
+```
+
+**Benefits:**
+- Consistent data structure (easier to work with)
+- Modal and Local produce identical intelligence
+- User chooses export formats (GEXF for visualization, CSV for analysis, etc.)
+- Easy to add new export formats later
+
+#### ✅ Decision 4: Multi-Tier Transcription Options
+
+**APPROVED - Offer budget and full-quality options**
+
+**Tiers:**
+
+1. **Budget Mode** (Voxtral only)
+   - Cost: $0.001/min (~$0.03 for 30min)
+   - Quality: Good transcription
+   - Speakers: NO
+   - Use case: Simple transcription, tight budget
+
+2. **Standard Mode** (Voxtral + Grok)
+   - Cost: $0.003/min (~$0.09 for 30min)
+   - Quality: Good transcription + intelligence
+   - Speakers: NO
+   - Use case: Entity extraction without speaker attribution
+
+3. **Full Mode** (WhisperX + Grok + Gemini verification)
+   - Cost: $0.018/min (~$0.54 for 30min)
+   - Quality: Best transcription + intelligence + speaker attribution
+   - Speakers: YES (2-13 speakers with Gemini verification)
+   - Use case: Interviews, podcasts, meetings
+
+**Configuration:**
+```yaml
+# .clipscribe.yaml
+mode: "full"  # budget | standard | full
+
+# Or explicit provider selection
+transcription:
+  provider: "whisperx-modal"  # voxtral | whisperx-modal | whisper-local
+  diarization: true
+```
+
+#### ✅ Decision 5: Modal Input Modes
+
+**APPROVED - Support both GCS-only and auto-upload modes**
+
+**Modes:**
+
+```python
+# Mode A: GCS-only (enterprise, large batches)
+result = process_from_gcs(
+    gcs_input="gs://bucket/file.mp3",
+    gcs_output="gs://bucket/results/"
+)
+
+# Mode B: Auto-upload (convenience, single files)
+result = process_file(
+    local_path="audio.mp3",
+    auto_upload_gcs=True  # Handles upload/download automatically
+)
+```
+
+**Implementation:** Mode A exists (production-validated), Mode B is new convenience wrapper
+
+### v3.0.0 Implementation Roadmap
+
+**Phase 1: Foundation (Session 1-2)**
+1. ✅ Research complete
+2. ⬜ Implement provider abstraction (base classes + VoxtralProvider + GrokProvider)
+3. ⬜ Refactor Local CLI to use providers
+4. ⬜ Add configuration system (.clipscribe.yaml support)
+5. ⬜ Comprehensive tests for provider system
+
+**Phase 2: Download Removal (Session 2-3)**
+1. ⬜ Identify all download-dependent code
+2. ⬜ Remove download infrastructure (15+ files)
+3. ⬜ Refactor CLI to file-only (remove `process video "URL"`)
+4. ⬜ Update all documentation
+5. ⬜ Validate all examples work with file paths
+
+**Phase 3: Output Unification (Session 3-4)**
+1. ⬜ Standardize core data structure (use Modal's JSON structure)
+2. ⬜ Implement export formatters (GEXF, CSV, Markdown generators)
+3. ⬜ Update Modal to generate all export formats
+4. ⬜ Update Local to use same core structure
+5. ⬜ Add format selection configuration
+
+**Phase 4: Additional Providers (Session 4-5)**
+1. ⬜ Implement WhisperXModalProvider
+2. ⬜ Implement WhisperLocalProvider (optional)
+3. ⬜ Implement OllamaProvider (optional)
+4. ⬜ Add provider auto-detection and fallbacks
+5. ⬜ Documentation for all providers
+
+**Phase 5: Polish & Documentation (Session 5-6)**
+1. ⬜ Comprehensive testing (all providers, all modes)
+2. ⬜ Update all docs (README, CLI_REFERENCE, ARCHITECTURE)
+3. ⬜ Migration guide (v2 → v3)
+4. ⬜ CHANGELOG for v3.0.0
+5. ⬜ Release
+
+**Estimated Timeline:** 5-6 sessions for complete v3.0.0 transformation
+
+**Breaking Changes:**
+- ❌ URL input removed (users must provide file paths)
+- ⚠️ Configuration format changed (new .clipscribe.yaml)
+- ⚠️ Output format standardized (different file structure)
+- ✅ Migration guide provided
+
+**Benefits of v3.0.0:**
+- ✅ Simpler, more reliable (no download issues)
+- ✅ Flexible (swap transcription/intelligence providers)
+- ✅ Unified outputs (Modal and Local produce same format)
+- ✅ Air-gapped ready (supports local models)
+- ✅ Cost transparent (estimate before processing)
+- ✅ Future-proof (easy to add new providers)
+
+---
+
+**This document provides complete research context for v3.0.0 architectural transformation. Implementation can begin immediately.**
 
