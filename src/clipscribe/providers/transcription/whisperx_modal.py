@@ -5,6 +5,7 @@ import os
 import tempfile
 from pathlib import Path
 from typing import Optional
+from dotenv import load_dotenv
 from modal import App
 from google.cloud import storage
 from google.oauth2 import service_account
@@ -15,6 +16,9 @@ from ..base import (
     ConfigurationError,
     ProcessingError,
 )
+
+# Load environment variables (for GCS credentials)
+load_dotenv()
 
 
 class WhisperXModalProvider(TranscriptionProvider):
