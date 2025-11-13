@@ -142,37 +142,61 @@ class WhisperXModalProvider(TranscriptionProvider):
             
             # Modal returns status dict, not full transcript
             # Results were uploaded to GCS by Modal
-            # Download transcript from GCS output location
+            # Download BOTH files from GCS (comprehensive data)
             # Note: gcs_output is like "gs://bucket/path/file_results" (no trailing slash)
             transcript_json_path = f"{gcs_output}/transcript.json"
+            metadata_json_path = f"{gcs_output}/metadata.json"
+            
             transcript_data = await self._download_from_gcs(transcript_json_path)
+            metadata_data = await self._download_from_gcs(metadata_json_path)
             
             # Convert to standardized format
-            # Note: Modal's transcript.json already has comprehensive data!
+            # Note: Modal's transcript.json has ALL data (segments with word-level speakers)
             segments = [
                 TranscriptSegment(
                     start=seg.get("start", 0),
                     end=seg.get("end", 0),
                     text=seg.get("text", ""),
-                    speaker=seg.get("speaker"),
-                    words=seg.get("words"),
+                    speaker=seg.get("speaker"),  # Segment-level speaker
+                    words=seg.get("words"),  # Word-level includes speaker attribution
                     confidence=seg.get("confidence", 1.0),
                 )
                 for seg in transcript_data.get("segments", [])
             ]
             
+            # Extract language and speakers from metadata.json (more reliable)
+            # transcript.json may have null values at root level
+            language = metadata_data.get("language", "en")
+            speakers_count = metadata_data.get("speakers", 0)
+            
+            # If metadata.json doesn't have speakers, count from segments
+            if speakers_count == 0 and segments:
+                # Count unique speakers from word-level data
+                unique_speakers = set()
+                for seg in transcript_data.get("segments", []):
+                    for word in seg.get("words", []):
+                        speaker = word.get("speaker")
+                        if speaker:
+                            unique_speakers.add(speaker)
+                speakers_count = len(unique_speakers)
+            
+            # Get cost and performance metrics
+            duration = metadata_data.get("duration_minutes", 0) * 60
+            processing_cost = transcript_data.get("cost", metadata_data.get("cost", 0))
+            
             return TranscriptResult(
                 segments=segments,
-                language=transcript_data.get("language", "en"),
-                duration=transcript_data.get("duration", 0),
-                speakers=transcript_data.get("speakers", 0),
+                language=language,
+                duration=duration,
+                speakers=speakers_count,
                 word_level=True,
                 provider="whisperx-modal",
                 model="whisperx-large-v3",
-                cost=transcript_data.get("cost", 0),
+                cost=processing_cost,
                 metadata={
                     "gpu": "A10G",
-                    "realtime_factor": transcript_data.get("realtime_factor"),
+                    "realtime_factor": metadata_data.get("realtime_factor"),
+                    "processing_minutes": metadata_data.get("processing_minutes"),
                     "cost_breakdown": transcript_data.get("cost_breakdown", {}),
                     "cache_stats": transcript_data.get("cache_stats", {}),
                     "gcs_output": gcs_output,
