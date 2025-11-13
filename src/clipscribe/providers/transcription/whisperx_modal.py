@@ -57,16 +57,19 @@ class WhisperXModalProvider(TranscriptionProvider):
         Raises:
             ConfigurationError: If Modal app not deployed or GCS not configured
         """
-        # Connect to existing Modal app
+        # Import Modal app and class
+        # Modal SDK automatically handles connection to deployed app
         try:
-            self.modal_app = App.lookup("clipscribe-transcription", create_if_missing=False)
-        except Exception as e:
+            from deploy.station10_modal import app, ClipScribeTranscriber
+            self.modal_app = app
+            self.transcriber_cls = ClipScribeTranscriber
+        except ImportError as e:
             raise ConfigurationError(
-                f"Could not connect to Modal app: {e}\n"
-                "Deploy the app first:\n"
-                "  poetry run modal deploy deploy/station10_modal.py\n"
-                "Then verify:\n"
-                "  poetry run modal app list"
+                f"Could not import Modal app: {e}\n"
+                "Ensure deploy/station10_modal.py exists and Modal is installed:\n"
+                "  poetry install\n"
+                "Deploy the app:\n"
+                "  poetry run modal deploy deploy/station10_modal.py"
             )
         
         # Initialize GCS client
@@ -128,10 +131,9 @@ class WhisperXModalProvider(TranscriptionProvider):
             gcs_output = gcs_input.replace(Path(audio_path).suffix, "_results/")
             
             # Call existing Modal code (ALL features preserved!)
-            # Note: Modal SDK changed - use function lookup instead of get_class
-            from deploy.station10_modal import ClipScribeTranscriber
-            
-            transcriber = ClipScribeTranscriber()
+            # Modal SDK: Instantiate class, call .remote() on methods
+            # Modal automatically handles connection to deployed app
+            transcriber = self.transcriber_cls()
             modal_result = transcriber.transcribe_from_gcs.remote(
                 gcs_input=gcs_input,
                 gcs_output=gcs_output,
@@ -197,13 +199,15 @@ class WhisperXModalProvider(TranscriptionProvider):
         """Validate WhisperX Modal configuration.
         
         Returns:
-            True if Modal app connected and GCS configured
+            True if Modal app available and GCS configured
         """
         try:
-            # Check Modal connection
-            self.modal_app
+            # Check Modal app and class imported
+            if not hasattr(self, 'modal_app') or not hasattr(self, 'transcriber_cls'):
+                return False
             # Check GCS client
-            self.gcs_client
+            if not hasattr(self, 'gcs_client'):
+                return False
             return True
         except:
             return False
