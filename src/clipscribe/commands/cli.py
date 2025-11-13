@@ -67,12 +67,6 @@ def cli(ctx: click.Context, debug: bool):
     default=["json", "docx", "csv"],
     help="Output formats to generate (default: json, docx, csv)"
 )
-@click.option(
-    "--tier",
-    type=click.Choice(["researcher", "analyst", "executive"]),
-    default=None,
-    help="Auto-select formats for tier (researcher=json+csv, analyst=all, executive=all+pptx)"
-)
 @click.pass_context
 def process(
     ctx: click.Context,
@@ -82,7 +76,6 @@ def process(
     diarize: bool,
     output_dir: Path,
     formats: tuple,
-    tier: str,
 ):
     """Process audio/video file to extract intelligence.
     
@@ -106,15 +99,6 @@ def process(
         
         Plus Grok intelligence: ~$0.005 per video
     """
-    # Handle tier presets
-    if tier:
-        tier_formats = {
-            "researcher": ["json", "csv"],
-            "analyst": ["json", "docx", "csv", "markdown"],
-            "executive": ["json", "docx", "csv", "pptx", "markdown"]
-        }
-        formats = tier_formats.get(tier, formats)
-    
     # Handle "all" format
     if "all" in formats:
         formats = ["json", "docx", "csv", "pptx", "markdown"]
@@ -278,7 +262,7 @@ async def process_file_logic(
             md_path = generate_markdown_report(transcript, intelligence, output_path)
             generated_files.append(md_path.name)
             logger.info(f"  ✓ Markdown report generated")
-        except Exception as e:
+    except Exception as e:
             logger.error(f"  ✗ Markdown generation failed: {e}")
     
     if "pptx" in formats:
