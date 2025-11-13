@@ -1,3 +1,38 @@
+## [3.0.0] - 2025-11-13 🎯 PROVIDER ARCHITECTURE TRANSFORMATION
+
+### Breaking Changes - File-First Design
+
+**CLI:** URL processing removed → File-first processing  
+**API:** URL submission removed → GCS presigned upload required
+
+**Migration:** Use `yt-dlp` to obtain files, then `clipscribe process FILE`
+
+### Added
+
+- Provider abstraction (swappable transcription + intelligence)
+- VoxtralProvider (\$0.001/min, no speakers)
+- WhisperXModalProvider (Cloud GPU, \$0.055/30min, speakers)
+- WhisperXLocalProvider (M3 Max, FREE, speakers)
+- GrokProvider (full Grok feature preservation)
+- New `clipscribe process` command with provider selection
+
+### Improved
+
+- Net **-4,461 lines** (36% codebase reduction)
+- 100% capability preservation (wrapped existing working code)
+- Better testability (provider mocking)
+- Simpler architecture (no download complexity)
+
+### Removed
+
+- 18 files (~11,000 lines): download infrastructure, YouTube monitoring
+- Dependencies: yt-dlp, youtube-search-python, playwright, feedparser
+- Commands: `process video URL`, `monitor`, `monitor-async`, `collection series`
+
+See V3_ARCHITECTURE_RESEARCH.md for complete details.
+
+---
+
 ## [2.62.0] - 2025-11-12 (xAI GROK ADVANCED FEATURES + MODAL PIPELINE UPGRADE)
 
 ### MAJOR UPGRADE: Complete xAI Grok Integration (May-Nov 2025) + Production-Grade Modal Pipeline

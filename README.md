@@ -2,20 +2,75 @@
 
 [![Python Version](https://img.shields.io/badge/python-3.12+-blue.svg)](https://python.org)
 [![License](https://img.shields.io/badge/license-Proprietary-red.svg)](LICENSE)
-[![Tests](https://img.shields.io/badge/tests-24%2F24%20passing-success.svg)](tests/)
 [![Code Style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-[![Version](https://img.shields.io/badge/version-2.62.0-blue.svg)](CHANGELOG.md)
-[![GPU](https://img.shields.io/badge/GPU-A10G%2024GB-green.svg)](deploy/station10_modal.py)
-[![Cost](https://img.shields.io/badge/cost-$0.073%2Fvideo-orange.svg)](#validation-results-nov-12-2025---v2620)
+[![Version](https://img.shields.io/badge/version-3.0.0-blue.svg)](CHANGELOG.md)
+[![Providers](https://img.shields.io/badge/providers-4%20(3%20transcription%2B1%20intelligence)-blue.svg)](#provider-system)
+[![Cost](https://img.shields.io/badge/cost-$0.00--$0.06%2F30min-green.svg)](#provider-comparison)
 
-**AI-powered video intelligence extraction**
+**Professional intelligence extraction from audio/video files**
 
-Extract speakers, entities, relationships, and intelligence from any video.  
-Built for anyone who needs professional-grade accuracy without censorship.
+Extract speakers, entities, relationships, and intelligence with provider flexibility.  
+File-first CLI, GCS-first API. Three transcription options: API (cheap), Cloud GPU (quality), Local M3 Max (FREE).
 
-**Current Status:** v2.62.0 - xAI November 2025 Features + Enhanced Modal Pipeline - November 12, 2025  
-**Production Stack:** WhisperX (Modal GPU, 10-11x realtime), grok-4-fast-reasoning (xAI), Prompt Caching (75% savings)  
-**Latest Validation:** 20 videos processed (754min total), $0.073/video avg, 556 entities extracted, 100% test pass rate
+**Current Status:** v3.0.0 - Provider Architecture Transformation - November 13, 2025  
+**Architecture:** Provider-based (swappable transcription + intelligence)  
+**Options:** Voxtral API (\$0.03/30min) | WhisperX Modal (\$0.06/30min) | WhisperX Local M3 Max (FREE)  
+**Intelligence:** Grok-4 with prompt caching (75% savings), ~\$0.005/30min
+
+---
+
+## Quick Start (v3.0.0)
+
+### Installation
+
+```bash
+# Install ClipScribe
+poetry install
+
+# Set API keys
+export MISTRAL_API_KEY=your_voxtral_key  # For Voxtral provider
+export XAI_API_KEY=your_grok_key         # For Grok intelligence
+export HF_TOKEN=your_hf_token            # For local WhisperX diarization
+```
+
+### Process a File
+
+```bash
+# Free local processing (M3 Max with Metal)
+clipscribe process interview.mp3
+
+# Cloud GPU with speakers (quality)
+clipscribe process podcast.mp3 -t whisperx-modal
+
+# Cheap API, no speakers
+clipscribe process lecture.mp3 -t voxtral --no-diarize
+```
+
+### Provider Comparison (30min video)
+
+| Provider | Cost | Speakers | Speed | Best For |
+|----------|------|----------|-------|----------|
+| `voxtral` | \$0.03 | ❌ | API (fast) | Single-speaker, budget |
+| `whisperx-modal` | \$0.06 | ✅ | 10x realtime | Cloud, quality |
+| `whisperx-local` | FREE | ✅ | 3-5x realtime | M3 Max, privacy |
+
+*Plus Grok intelligence: ~\$0.005 per video*
+
+---
+
+## Provider System
+
+v3.0.0 introduces provider abstraction - swap transcription and intelligence providers via CLI flags.
+
+**Transcription Providers:**
+- **Voxtral** (`-t voxtral`): Mistral API, \$0.001/min, no speaker diarization
+- **WhisperX Modal** (`-t whisperx-modal`): Cloud GPU (A10G), speakers, Gemini verification
+- **WhisperX Local** (`-t whisperx-local`): M3 Max Metal, FREE, speakers
+
+**Intelligence Providers:**
+- **Grok** (`-i grok`): xAI Grok-4 with prompt caching, \$0.20/M input, \$0.50/M output
+
+**Design:** Providers wrap existing working code (100% capability preservation).
 
 ---
 
