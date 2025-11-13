@@ -198,6 +198,9 @@ reportlab = "^4.4.4"
 pandas = "^2.2.3"
 whisperx = {version = "^3.7.0", python = ">=3.11,<3.14"}
 modal = "^1.2.0"
+python-docx = "^1.2.0"
+python-pptx = "^1.0.2"
+openpyxl = "^3.1.5"
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.10.0"
