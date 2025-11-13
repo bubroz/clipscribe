@@ -80,9 +80,6 @@
 
 ## Testing Resources
 
-**[Test Video Catalog](advanced/testing/MASTER_TEST_VIDEO_TABLE.md)**
-- Curated test videos
-- Mandatory test video standards
 
 ---
 

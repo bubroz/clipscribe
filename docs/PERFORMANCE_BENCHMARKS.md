@@ -1,7 +1,7 @@
 # Performance Benchmarks (v3.0.0)
 
 **Validated:** November 13, 2025  
-**Hardware:** Apple Silicon (M3 Max 64GB)  
+**Hardware:** Apple Silicon CPU (M-series Mac)  
 **Test Files:** Real audio from test_videos/
 
 ---

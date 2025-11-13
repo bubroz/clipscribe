@@ -67,9 +67,7 @@ graph TB
     end
     
     subgraph "Output"
-        JSON[Comprehensive JSON<br/>All data in one file]
-        GEXF[GEXF Export<br/>Gephi visualization]
-        CSV[CSV Export<br/>Spreadsheet analysis]
+        JSON[Comprehensive JSON<br/>transcript.json with all data]
     end
     
     CLI --> TransProvider
@@ -85,8 +83,6 @@ graph TB
     IntProvider --> Grok
     
     Grok --> JSON
-    JSON --> GEXF
-    JSON --> CSV
     
     style TransProvider fill:#e1f5ff
     style IntProvider fill:#fff4e1

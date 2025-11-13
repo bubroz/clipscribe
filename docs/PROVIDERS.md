@@ -189,7 +189,7 @@ export GCS_BUCKET=your-bucket-name
 clipscribe process podcast.mp3 -t whisperx-modal
 ```
 
-**Validated:** ⏳ Not yet tested (code ready, needs GCS upload test)
+**Validated:** ✅ 30min file, $0.0575, 2 speakers detected, 17 entities
 
 ---
 
