@@ -128,7 +128,8 @@ class WhisperXModalProvider(TranscriptionProvider):
         try:
             # Upload audio to GCS
             gcs_input = await self._upload_to_gcs(audio_path)
-            gcs_output = gcs_input.replace(Path(audio_path).suffix, "_results/")
+            # Remove file extension, add _results (no trailing slash - Modal adds it)
+            gcs_output = gcs_input.replace(Path(audio_path).suffix, "_results")
             
             # Call existing Modal code (ALL features preserved!)
             # Modal SDK: Must run within app context for @app.cls methods
