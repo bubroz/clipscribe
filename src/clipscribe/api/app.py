@@ -27,12 +27,8 @@ from .retry_manager import get_retry_manager
 logger = logging.getLogger(__name__)
 
 
-class SubmitByUrl(BaseModel):
-    url: str
-    options: Optional[Dict[str, Any]] = None
-
-
-class SubmitByGcsUri(BaseModel):
+class SubmitJob(BaseModel):
+    """Job submission request (GCS-only in v3.0.0)."""
     gcs_uri: str
     options: Optional[Dict[str, Any]] = None
 
@@ -315,10 +311,9 @@ def _rpm_allow(token_id: str, max_rpm: int, window_secs: int = 60) -> bool:
 
 
 def _fingerprint_from_body(body: Dict[str, Any]) -> str:
+    """Generate fingerprint from GCS URI for deduplication."""
     if "gcs_uri" in body:
         return f"gcs:{body['gcs_uri']}|opts:{json.dumps(body.get('options') or {}, sort_keys=True)}"
-    if "url" in body:
-        return f"url:{body['url']}|opts:{json.dumps(body.get('options') or {}, sort_keys=True)}"
     return uuid.uuid4().hex
 
 
@@ -327,10 +322,9 @@ async def _enqueue_job_processing(job: Job, source: Dict[str, Any]) -> None:
     try:
         from .task_queue import get_task_queue_manager
 
-        # Prepare payload for worker
+        # Prepare payload for worker (GCS-only)
         payload = {
             "job_id": job.job_id,
-            "url": source.get("url"),
             "gcs_uri": source.get("gcs_uri"),
             "options": source.get("options", {}),
         }
@@ -339,18 +333,11 @@ async def _enqueue_job_processing(job: Job, source: Dict[str, Any]) -> None:
         options = source.get("options", {})
         use_pro_model = options.get("model") == "pro" or options.get("use_pro_model", False)
 
-        # Estimate duration for queue routing
-        estimated_duration = 0
-        if "url" in source:
-            try:
-                from .estimator import estimate_from_url
-
-                estimated_duration, _ = estimate_from_url(source["url"])
-            except Exception:
-                estimated_duration = 600  # Default 10 minutes
+        # Default duration estimate (can't estimate from GCS URI without downloading)
+        estimated_duration = 600  # Default 10 minutes
 
         logger.info(
-            f"Enqueuing job {job.job_id} (estimated {estimated_duration}s, model: {'pro' if use_pro_model else 'flash'})"
+            f"Enqueuing job {job.job_id} (GCS: {source.get('gcs_uri')}, model: {'pro' if use_pro_model else 'flash'})"
         )
 
         # Enqueue to Cloud Tasks or trigger Cloud Run Job
@@ -461,10 +448,18 @@ async def create_token(
 @app.post("/v1/jobs", response_model=None, status_code=202)
 async def create_job(
     req: Request,
-    body: Dict[str, Any],
+    body: SubmitJob,
     idempotency_key: Optional[str] = Header(default=None, alias="Idempotency-Key"),
     authorization: Optional[str] = Header(default=None, alias="Authorization"),
 ) -> JSONResponse | Job:
+    """Create new processing job (GCS-only in v3.0.0).
+    
+    User flow:
+    1. POST /v1/uploads/presign to get upload URL
+    2. Upload file to presigned URL  
+    3. POST /v1/jobs with gcs_uri
+    4. GET /v1/jobs/{job_id} to track progress
+    """
     # Validate token
     token_id = _validate_token(authorization)
     if not token_id:
@@ -478,9 +473,6 @@ async def create_job(
             status=503,
             retry_after_seconds=300,
         )
-
-    if not ("url" in body or "gcs_uri" in body):
-        return _error("invalid_input", "Provide either url or gcs_uri", status=400)
 
     # Per-token RPM & daily budget counters (Redis) with reservation-based budgeting
     # token_id already validated above
@@ -505,7 +497,7 @@ async def create_job(
             )
 
         # USD budget reservation based on real estimate
-        estimate = estimate_job(body, None)  # Settings not needed for estimation
+        estimate = estimate_job(body.model_dump(), None)  # Settings not needed for estimation
         est_cost = float(estimate.get("estimated_cost_usd", 0.01))
         max_usd = float(os.getenv("TOKEN_DAILY_BUDGET_USD", "5.0"))
         budget_key = f"cs:budget:{token_id}:{datetime.utcnow().strftime('%Y%m%d')}"
@@ -541,7 +533,7 @@ async def create_job(
     if active_jobs >= throttle_limit:
         return _error("rate_limited", "Too many active jobs", status=429, retry_after_seconds=10)
 
-    fp = _fingerprint_from_body(body)
+    fp = _fingerprint_from_body(body.model_dump())
     async with jobs_lock:
         if idempotency_key:
             existing_id = _r_get(f"cs:idmp:{idempotency_key}") or idempotency_to_job.get(
@@ -550,13 +542,13 @@ async def create_job(
             if existing_id:
                 j = _load_job(existing_id)
                 if j:
-                    _ensure_processing(j, body)
+                    _ensure_processing(j, body.model_dump())
                     return j
         existing_fp_id = _r_get(f"cs:fp:{fp}") or fingerprint_to_job.get(fp)
         if existing_fp_id:
             j = _load_job(existing_fp_id)
             if j:
-                _ensure_processing(j, body)
+                _ensure_processing(j, body.model_dump())
                 return j
 
         job_id = uuid.uuid4().hex
@@ -571,8 +563,8 @@ async def create_job(
             _r_set(f"cs:idmp:{idempotency_key}", job_id, ex=24 * 3600)
         _r_sadd("cs:active_jobs", job_id)
 
-    # Enqueue job for processing
-    asyncio.create_task(_enqueue_job_processing(job, body))
+    # Enqueue job for processing (GCS-only)
+    asyncio.create_task(_enqueue_job_processing(job, body.model_dump()))
     return job
 
 

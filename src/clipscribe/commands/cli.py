@@ -19,9 +19,6 @@ from ..config.logging_config import setup_logging
 from ..config.settings import Settings
 from ..extractors.multi_video_processor import MultiVideoProcessor
 from ..models import VideoCollectionType
-from ..retrievers.video_retriever_v2 import (
-    VideoIntelligenceRetrieverV2 as VideoIntelligenceRetriever,
-)
 from ..version import __version__
 
 
@@ -38,106 +35,164 @@ def cli(ctx: click.Context, debug: bool):
     ctx.obj["DEBUG"] = debug
 
 
-@cli.group()
-def process():
-    """Process single media."""
-
-
-@process.command("video")
-@click.argument("url")
-@click.option("--output-dir", "-o", type=click.Path(path_type=Path), default=Path("output"))
-@click.option("--mode", "-m", type=click.Choice(["audio", "video", "auto"]), default="auto")
-@click.option("--use-cache/--no-cache", default=True)
-@click.option("--use-flash", is_flag=True, default=False)
-@click.option("--cookies-from-browser", type=str, default=None)
+@cli.command("process")
+@click.argument("audio_file", type=click.Path(exists=True, path_type=Path))
 @click.option(
-    "--with-x-draft", is_flag=True, default=False, help="Generate X (Twitter) content draft"
+    "--transcription-provider", "-t",
+    type=click.Choice(["voxtral", "whisperx-modal", "whisperx-local"]),
+    default="whisperx-local",
+    help="Transcription provider (voxtral=cheap/no-speakers, whisperx-modal=GPU/speakers, whisperx-local=M3-Max/free/speakers)"
 )
 @click.option(
-    "--force", is_flag=True, default=False, help="Force reprocess even if already completed"
+    "--intelligence-provider", "-i",
+    type=click.Choice(["grok"]),
+    default="grok",
+    help="Intelligence extraction provider"
+)
+@click.option(
+    "--diarize/--no-diarize",
+    default=True,
+    help="Enable speaker diarization (if supported by provider)"
+)
+@click.option(
+    "--output-dir", "-o",
+    type=click.Path(path_type=Path),
+    default=Path("output"),
+    help="Output directory"
 )
 @click.pass_context
-def process_video(
+def process(
     ctx: click.Context,
-    url: str,
+    audio_file: Path,
+    transcription_provider: str,
+    intelligence_provider: str,
+    diarize: bool,
     output_dir: Path,
-    mode: str,
-    use_cache: bool,
-    use_flash: bool,
-    cookies_from_browser: Optional[str],
-    with_x_draft: bool,
-    force: bool,
 ):
-    """Process a single video from a URL to extract intelligence."""
-    asyncio.run(
-        run_processing_logic(
-            url,
-            use_flash,
-            use_cache,
-            str(output_dir),
-            mode,
-            cookies_from_browser,
-            with_x_draft,
-            force,
-        )
+    """Process audio/video file to extract intelligence.
+    
+    v3.0.0 file-first processing with provider selection.
+    
+    Examples:
+    
+        Single-speaker content (cheap, no diarization):
+        $ clipscribe process lecture.mp3 -t voxtral --no-diarize
+        
+        Multi-speaker, cloud GPU (quality):
+        $ clipscribe process interview.mp3 -t whisperx-modal
+        
+        Multi-speaker, local M3 Max (FREE):
+        $ clipscribe process podcast.mp3 -t whisperx-local
+        
+    Provider Comparison (30min video):
+        voxtral:        ~$0.03  (API, no speakers)
+        whisperx-modal: ~$0.06  (Cloud GPU, speakers)
+        whisperx-local: $0.00   (M3 Max, FREE, speakers)
+        
+        Plus Grok intelligence: ~$0.005 per video
+    """
+    asyncio.run(process_file_logic(
+        audio_file,
+        transcription_provider,
+        intelligence_provider,
+        diarize,
+        output_dir,
+    ))
+
+
+async def process_file_logic(
+    audio_file: Path,
+    transcription_provider: str,
+    intelligence_provider: str,
+    diarize: bool,
+    output_dir: Path,
+):
+    """Core file processing logic using provider abstraction."""
+    from clipscribe.providers.factory import (
+        get_transcription_provider,
+        get_intelligence_provider
     )
-
-
-async def run_processing_logic(
-    url: str,
-    use_flash: bool,
-    use_cache: bool,
-    output_dir: str,
-    mode: str,
-    cookies_from_browser: Optional[str],
-    with_x_draft: bool = False,
-    force: bool = False,
-):
-    """The core processing logic, designed to be run from any context."""
+    from clipscribe.retrievers.output_formatter import OutputFormatter
+    
     logger = logging.getLogger(__name__)
-
+    
+    # Initialize providers
     try:
-        settings = Settings()
-        retriever = VideoIntelligenceRetriever(
-            use_cache=use_cache,
-            use_advanced_extraction=True,
-            mode=mode,
-            output_dir=output_dir,
-            use_flash=use_flash,
-            cookies_from_browser=cookies_from_browser,
-            settings=settings,
-        )
-
-        result = await retriever.process_url(url, force_reprocess=force)
-
-        if result:
-            logger.info(f"Title: {result.metadata.title}")
-            logger.info(f"Channel: {result.metadata.channel}")
-            saved_files = await retriever.save_all_formats(result, output_dir)
-            logger.info(f"Outputs saved to: {saved_files['directory']}")
-
-            # Generate X draft if requested
-            if with_x_draft:
-                from pathlib import Path
-
-                x_draft = await retriever.generate_x_content(
-                    result, Path(saved_files["directory"]), temp_thumbnail=retriever._last_thumbnail
-                )
-                if x_draft:
-                    logger.info(f"📱 X draft ready: {x_draft['directory']}")
-
-            # Explicit model line for tests
-            model_str = "voxtral-mini-2507 + grok-4-fast-reasoning"
-            print(f"Model: {model_str}")
-            print("Intelligence extraction complete!")
-        else:
-            # Check if it was skipped (already processed) vs actual failure
-            # If skipped, the log will show "already processed" message
-            # This is expected behavior, not an error
-            pass
-
+        transcriber = get_transcription_provider(transcription_provider)
+        extractor = get_intelligence_provider(intelligence_provider)
     except Exception as e:
-        logger.error(f"A fatal error occurred: {e}", exc_info=True)
+        logger.error(f"Provider initialization failed: {e}")
+        raise click.ClickException(str(e))
+    
+    # Validate diarization support
+    if diarize and not transcriber.supports_diarization:
+        logger.warning(
+            f"{transcription_provider} does not support speaker diarization. "
+            f"Processing without speakers. "
+            f"Use -t whisperx-modal or -t whisperx-local for multi-speaker content."
+        )
+        diarize = False
+    
+    # Estimate costs
+    from clipscribe.utils.file_utils import get_audio_duration
+    duration = get_audio_duration(str(audio_file))
+    transcript_cost_est = transcriber.estimate_cost(duration)
+    transcript_length_est = int(duration * 150)  # Rough: 150 chars/sec
+    intelligence_cost_est = extractor.estimate_cost(transcript_length_est)
+    total_est = transcript_cost_est + intelligence_cost_est
+    
+    logger.info(f"\nFile: {audio_file.name}")
+    logger.info(f"Duration: {duration/60:.1f} minutes")
+    logger.info(f"Estimated cost: ${total_est:.4f}")
+    logger.info(f"  Transcription ({transcription_provider}): ${transcript_cost_est:.4f}")
+    logger.info(f"  Intelligence ({intelligence_provider}): ${intelligence_cost_est:.4f}")
+    
+    # Transcribe
+    logger.info(f"\nTranscribing with {transcription_provider}...")
+    transcript = await transcriber.transcribe(str(audio_file), diarize=diarize)
+    logger.info(f"✓ Transcribed: {transcript.language}, {transcript.speakers} speakers")
+    logger.info(f"  Actual cost: ${transcript.cost:.4f}")
+    
+    # Extract intelligence
+    logger.info(f"\nExtracting intelligence with {intelligence_provider}...")
+    intelligence = await extractor.extract(transcript, metadata={"filename": audio_file.name})
+    logger.info(f"✓ Extracted: {len(intelligence.entities)} entities, {len(intelligence.relationships)} relationships")
+    logger.info(f"  Actual cost: ${intelligence.cost:.4f}")
+    
+    # Display cache stats if available
+    if intelligence.cache_stats.get("cached_tokens", 0) > 0:
+        savings = intelligence.cache_stats.get("cache_savings", 0)
+        logger.info(f"  💰 Cache savings: ${savings:.4f}")
+    
+    # Save outputs using existing OutputFormatter
+    total_cost = transcript.cost + intelligence.cost
+    logger.info(f"\nTotal cost: ${total_cost:.4f} (estimate was ${total_est:.4f})")
+    
+    # Use existing output formatter
+    formatter = OutputFormatter(output_dir=str(output_dir))
+    
+    # Convert to format expected by OutputFormatter
+    # Note: OutputFormatter might need updating to accept new provider results
+    # For now, convert to compatible format
+    output_data = {
+        "transcript": transcript,
+        "intelligence": intelligence,
+        "metadata": {
+            "filename": audio_file.name,
+            "total_cost": total_cost,
+        }
+    }
+    
+    output_path = formatter.save_comprehensive_json(
+        transcript=transcript,
+        intelligence=intelligence,
+        output_dir=str(output_dir),
+        filename=audio_file.stem,
+    )
+    
+    logger.info(f"\n✓ Complete! Results saved to {output_path}")
+    logger.info(f"  Transcript: {output_path}/transcript.json")
+    logger.info(f"  Knowledge graph: {output_path}/knowledge_graph.gexf")
 
 
 def run_cli():
@@ -149,96 +204,6 @@ if __name__ == "__main__":
     run_cli()
 
 
-# === Collection Commands ===
-
-
-@cli.group()
-def collection():
-    """Analyze video collections."""
-
-
-@collection.command("series")
-@click.argument("urls", nargs=-1, required=True)
-@click.option("--output-dir", "-o", type=click.Path(path_type=Path), default=Path("output"))
-@click.option("--use-flash", is_flag=True, default=False)
-@click.option("--cookies-from-browser", type=str, default=None)
-@click.pass_context
-def collection_series(
-    ctx: click.Context,
-    urls: List[str],
-    output_dir: Path,
-    use_flash: bool,
-    cookies_from_browser: Optional[str],
-):
-    """Process multiple related videos as a series with narrative analysis."""
-
-    async def _run():
-        settings = Settings()
-        retriever = VideoIntelligenceRetriever(
-            use_cache=True,
-            use_advanced_extraction=True,
-            mode="auto",
-            output_dir=str(output_dir),
-            use_flash=use_flash,
-            cookies_from_browser=cookies_from_browser,
-            settings=settings,
-        )
-
-        # Process each URL
-        videos = []
-        for u in urls:
-            vi = await retriever.process_url(u)
-            if vi:
-                videos.append(vi)
-
-        if not videos:
-            click.echo("No videos could be processed.")
-            return
-
-        # Multi-video processing
-        mvp = MultiVideoProcessor()
-        multi = await mvp.process_video_collection(
-            videos=videos,
-            collection_type=VideoCollectionType.SERIES,
-            collection_title="Series Collection",
-            user_confirmed_series=True,
-        )
-
-        # Save unified outputs
-        retriever.save_collection_outputs(multi, str(output_dir))
-        print("Multi-video collection processing complete!")
-
-    asyncio.run(_run())
-
-
-# === Research Commands ===
-
-
-@cli.command()
-@click.argument("query")
-@click.option("--output-dir", "-o", type=click.Path(path_type=Path), default=Path("output"))
-@click.option("--max-results", type=int, default=5)
-@click.pass_context
-def research(ctx: click.Context, query: str, output_dir: Path, max_results: int):
-    """Search for and analyze multiple videos on a given topic."""
-
-    async def _run():
-        settings = Settings()
-        retriever = VideoIntelligenceRetriever(
-            use_cache=True,
-            use_advanced_extraction=True,
-            mode="auto",
-            output_dir=str(output_dir),
-            settings=settings,
-        )
-
-        results = await retriever.search(query=query, max_results=max_results, site="youtube")
-        for r in results:
-            await retriever.save_all_formats(r, str(output_dir))
-
-        print("Research complete!")
-
-    asyncio.run(_run())
 
 
 # === Utility Commands ===
@@ -376,235 +341,46 @@ def dashboard(output_dir, dashboard_dir):
 
 
 @cli.command()
-@click.argument("urls_file", type=click.Path(exists=True))
+@click.argument("files_list", type=click.Path(exists=True))
 @click.option(
     "--output-dir", "-o", default="output/batch", help="Output directory for batch results"
 )
 @click.option("--max-concurrent", "-c", type=int, default=3, help="Maximum concurrent jobs")
 @click.option(
-    "--priority",
-    type=click.Choice(["low", "normal", "high", "critical"]),
-    default="normal",
-    help="Processing priority",
+    "--transcription-provider", "-t",
+    type=click.Choice(["voxtral", "whisperx-modal", "whisperx-local"]),
+    default="whisperx-local",
+    help="Transcription provider"
 )
 @click.option("--batch-id", help="Custom batch identifier (auto-generated if not provided)")
-@click.option("--enable-cache/--disable-cache", default=True, help="Enable/disable video caching")
-def batch_process(urls_file, output_dir, max_concurrent, priority, batch_id, enable_cache):
-    """Process multiple videos in batch with parallel execution.
+def batch_process(files_list, output_dir, max_concurrent, transcription_provider, batch_id):
+    """Process multiple audio/video files in parallel (v3.0.0 file-based).
 
-    URLS_FILE should contain one video URL per line.
+    FILES_LIST should contain one file path per line.
 
     Examples:
-        clipscribe batch-process urls.txt
-        clipscribe batch-process urls.txt --max-concurrent 5 --priority high
-        clipscribe batch-process urls.txt --batch-id my_custom_batch_001
+        clipscribe batch-process files.txt
+        clipscribe batch-process files.txt --max-concurrent 5 -t whisperx-modal
     """
-
-    async def _run():
-        try:
-            from ..processors.batch_processor import BatchProcessor, ProcessingPriority
-
-            # Read URLs from file
-            with open(urls_file, "r") as f:
-                urls = [line.strip() for line in f if line.strip() and not line.startswith("#")]
-
-            if not urls:
-                click.echo("❌ No valid URLs found in file", err=True)
-                raise click.Abort()
-
-            click.echo(f"📋 Loaded {len(urls)} URLs from {urls_file}")
-            click.echo(f"⚙️  Configuration: {max_concurrent} concurrent, {priority} priority")
-            click.echo(f"📁 Output directory: {output_dir}")
-
-            # Initialize batch processor
-            processor = BatchProcessor(
-                max_concurrent_jobs=max_concurrent,
-                output_dir=output_dir,
-                enable_caching=enable_cache,
-            )
-
-            # Convert priority string to enum
-            priority_enum = ProcessingPriority(priority)
-
-            # Process batch
-            with click.progressbar(length=len(urls), label="Processing videos") as bar:
-
-                def progress_callback(job, status):
-                    bar.update(1)
-
-                result = await processor.process_batch(
-                    video_urls=urls, batch_id=batch_id, priority=priority_enum
-                )
-
-            # Display results
-            click.echo("\\n🎉 Batch processing completed!")
-            click.echo(f"📊 Results: {result.completed_jobs}/{result.total_jobs} successful")
-            if result.failed_jobs > 0:
-                click.echo(f"⚠️  Failed: {result.failed_jobs} jobs")
-            click.echo(f"⏱️  Total time: {result.total_processing_time:.1f}s")
-            click.echo(f"💰 Total cost: ${result.total_cost:.2f}")
-            click.echo(f"📂 Results saved to: {result.output_directory}")
-            click.echo(f"🔖 Batch ID: {result.batch_id}")
-
-            # Show next steps
-            click.echo("\\n📋 Next steps:")
-            click.echo(f"  • View results: clipscribe batch-status {result.batch_id}")
-            click.echo(
-                f"  • Download results: clipscribe batch-results {result.batch_id} --download"
-            )
-
-        except Exception as e:
-            click.echo(f"❌ Batch processing failed: {e}", err=True)
-            raise click.Abort()
-
-    asyncio.run(_run())
+    click.echo("⚠️  Batch processing being updated for v3.0.0 provider architecture.")
+    click.echo("Use individual 'clipscribe process' commands for now.")
+    click.echo("Batch processing will be re-enabled in v3.1.0 with file support.")
 
 
 @cli.command()
 @click.argument("batch_id")
-@click.option("--output-dir", "-o", default="output/batch", help="Batch output directory")
-def batch_status(batch_id, output_dir):
-    """Check the status of a batch processing job.
-
-    Examples:
-        clipscribe batch-status batch_123abc
-        clipscribe batch-status my_custom_batch_001
-    """
-
-    async def _run():
-        try:
-            from ..processors.batch_processor import BatchProcessor
-
-            processor = BatchProcessor(output_dir=output_dir)
-            result = await processor.get_batch_status(batch_id)
-
-            if not result:
-                click.echo(f"❌ Batch {batch_id} not found", err=True)
-                raise click.Abort()
-
-            click.echo(f"📊 Batch Status: {batch_id}")
-            click.echo(f"📅 Created: {result.created_at.strftime('%Y-%m-%d %H:%M:%S')}")
-            if result.completed_at:
-                click.echo(f"✅ Completed: {result.completed_at.strftime('%Y-%m-%d %H:%M:%S')}")
-
-            click.echo("\\n📈 Progress:")
-            click.echo(f"  Total jobs: {result.total_jobs}")
-            click.echo(f"  Completed: {result.completed_jobs}")
-            click.echo(f"  Failed: {result.failed_jobs}")
-            click.echo(
-                f"  Remaining: {result.total_jobs - result.completed_jobs - result.failed_jobs}"
-            )
-
-            if result.completed_at:
-                click.echo("\\n📊 Final Statistics:")
-                click.echo(f"  Total time: {result.total_processing_time:.1f}s")
-                click.echo(f"  Average time per job: {result.average_processing_time:.1f}s")
-                click.echo(f"  Total cost: ${result.total_cost:.2f}")
-
-            # Show job details
-            click.echo("\\n📋 Recent Jobs:")
-            for job in result.jobs[-5:]:  # Show last 5 jobs
-                status_icon = {
-                    "pending": "⏳",
-                    "running": "🔄",
-                    "completed": "✅",
-                    "failed": "❌",
-                    "partial_success": "⚠️",
-                }.get(job.status.value, "?")
-                click.echo(f"  {status_icon} {job.job_id}: {job.video_url[:50]}...")
-
-        except Exception as e:
-            click.echo(f"❌ Error checking batch status: {e}", err=True)
-            raise click.Abort()
-
-    asyncio.run(_run())
+def batch_status(batch_id):
+    """Check batch processing status (temporarily disabled in v3.0.0)."""
+    click.echo("⚠️  Batch status checking temporarily disabled during v3.0.0 refactor.")
+    click.echo("Will be re-enabled in v3.1.0 with file-based batch processing.")
 
 
 @cli.command()
 @click.argument("batch_id")
-@click.option("--output-dir", "-o", default="output/batch", help="Batch output directory")
-@click.option("--download", is_flag=True, help="Download results as ZIP archive")
-@click.option(
-    "--format",
-    type=click.Choice(["json", "csv", "summary"]),
-    default="summary",
-    help="Output format",
-)
-def batch_results(batch_id, output_dir, download, format):
-    """Get the results of a completed batch processing job.
-
-    Examples:
-        clipscribe batch-results batch_123abc
-        clipscribe batch-results batch_123abc --download
-        clipscribe batch-results batch_123abc --format json
-    """
-
-    async def _run():
-        try:
-            import os
-            import zipfile
-
-            from ..processors.batch_processor import BatchProcessor
-
-            processor = BatchProcessor(output_dir=output_dir)
-            result = await processor.get_batch_results(batch_id)
-
-            if not result:
-                click.echo(f"❌ Batch {batch_id} not found", err=True)
-                raise click.Abort()
-
-            if format == "summary":
-                # Summary format
-                click.echo(f"📊 Batch Results: {batch_id}")
-                click.echo(f"📅 Completed: {result.completed_at.strftime('%Y-%m-%d %H:%M:%S')}")
-                click.echo(
-                    f"📈 Success Rate: {result.completed_jobs}/{result.total_jobs} ({result.completed_jobs/result.total_jobs*100:.1f}%)"
-                )
-                click.echo(f"⏱️  Total Processing Time: {result.total_processing_time:.1f}s")
-                click.echo(f"💰 Total Cost: ${result.total_cost:.2f}")
-
-                # Show top performers
-                click.echo("\\n🏆 Top Performing Jobs:")
-                successful_jobs = [j for j in result.jobs if j.status.value == "completed"]
-                sorted_jobs = sorted(
-                    successful_jobs, key=lambda j: j.metadata.get("entity_count", 0), reverse=True
-                )
-                for job in sorted_jobs[:3]:
-                    click.echo(f"  ✅ {job.job_id}: {job.metadata.get('entity_count', 0)} entities")
-
-            elif format == "json":
-                # JSON format
-                click.echo(json.dumps(result.to_dict(), indent=2, default=str))
-
-            elif format == "csv":
-                # CSV format
-                click.echo(
-                    "job_id,status,processing_time,cost,entity_count,relationship_count,video_url"
-                )
-                for job in result.jobs:
-                    click.echo(
-                        f"{job.job_id},{job.status.value},{job.processing_time or ''},{job.metadata.get('cost', '') if job.metadata else ''},{job.metadata.get('entity_count', '') if job.metadata else ''},{job.metadata.get('relationship_count', '') if job.metadata else ''},{job.video_url}"
-                    )
-
-            # Create ZIP download if requested
-            if download:
-                zip_path = Path(result.output_directory) / f"{batch_id}_results.zip"
-                with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as zip_file:
-                    for root, dirs, files in os.walk(result.output_directory):
-                        for file in files:
-                            if file.endswith(".json"):  # Only include result files
-                                file_path = os.path.join(root, file)
-                                arc_name = os.path.relpath(file_path, result.output_directory)
-                                zip_file.write(file_path, arc_name)
-
-                click.echo(f"\\n📦 Download ready: {zip_path}")
-                click.echo(f"📏 Size: {zip_path.stat().st_size / 1024:.1f} KB")
-
-        except Exception as e:
-            click.echo(f"❌ Error getting batch results: {e}", err=True)
-            raise click.Abort()
-
-    asyncio.run(_run())
+def batch_results(batch_id):
+    """Get batch processing results (temporarily disabled in v3.0.0)."""
+    click.echo("⚠️  Batch results temporarily disabled during v3.0.0 refactor.")
+    click.echo("Will be re-enabled in v3.1.0 with file-based batch processing.")
 
 
 @cli.command()
@@ -806,161 +582,3 @@ def show_stats():
     click.echo(f"Success rate: {stats['success_rate']}")
 
 
-@cli.command("monitor")
-@click.option("--channels", required=True, help="Comma-separated channel IDs (UC...)")
-@click.option("--interval", default=600, help="Check interval in seconds (default: 600 = 10min)")
-@click.option(
-    "--with-x-draft", is_flag=True, default=False, help="Generate X drafts for new videos"
-)
-@click.option(
-    "--with-obsidian", type=click.Path(), default=None, help="Export to Obsidian vault path"
-)
-@click.option(
-    "--output-dir", default="output/monitored", help="Output directory for processed videos"
-)
-def monitor_channels(
-    channels: str, interval: int, with_x_draft: bool, with_obsidian: str, output_dir: str
-):
-    """
-    Monitor YouTube channels for new video drops and auto-process them.
-
-    Examples:
-        # Monitor single channel
-        clipscribe monitor --channels UCg5EWI7X2cyS98C8hQwDCcw
-
-        # Monitor multiple channels with X drafts
-        clipscribe monitor --channels UC123,UC456 --with-x-draft
-
-        # Monitor with Obsidian export
-        clipscribe monitor --channels UC123 --with-obsidian ~/Documents/Vault
-    """
-    asyncio.run(_run_monitor(channels, interval, with_x_draft, with_obsidian, output_dir))
-
-
-async def _run_monitor(
-    channels: str, interval: int, with_x_draft: bool, with_obsidian: Optional[str], output_dir: str
-):
-    """Run the monitoring loop."""
-    from pathlib import Path
-
-    from ..exporters.obsidian_exporter import ObsidianExporter
-    from ..monitors.channel_monitor import ChannelMonitor
-    from ..retrievers.video_retriever_v2 import VideoIntelligenceRetrieverV2
-
-    # Parse channel IDs
-    channel_ids = [c.strip() for c in channels.split(",")]
-
-    click.echo("\n🔍 ClipScribe Channel Monitor\n")
-    click.echo(f"Monitoring {len(channel_ids)} channels:")
-    for cid in channel_ids:
-        click.echo(f"  - {cid}")
-    click.echo(f"\nCheck interval: {interval}s ({interval//60}min)")
-    click.echo(f"X drafts: {'✅ Enabled' if with_x_draft else '❌ Disabled'}")
-    click.echo(f"Obsidian export: {'✅ ' + with_obsidian if with_obsidian else '❌ Disabled'}")
-    click.echo(f"Output: {output_dir}/")
-    click.echo("\nPress Ctrl+C to stop\n")
-
-    # Initialize
-    monitor = ChannelMonitor(channel_ids)
-    retriever = VideoIntelligenceRetrieverV2(output_dir=output_dir)
-    obsidian = ObsidianExporter(Path(with_obsidian)) if with_obsidian else None
-
-    # Callback for new videos
-    async def process_new_video(video_info: dict):
-        click.echo("\n🆕 New video detected!")
-        click.echo(f"   Title: {video_info['title']}")
-        click.echo(f"   Channel: {video_info['channel']}")
-        click.echo(f"   URL: {video_info['url']}")
-        click.echo("\n   Processing...")
-
-        try:
-            # Process video
-            result = await retriever.process_url(video_info["url"])
-
-            if result:
-                click.echo(
-                    f"   ✅ Complete: {len(result.entities)} entities, {len(result.relationships)} relationships"
-                )
-
-                # Generate X draft if requested
-                if with_x_draft:
-                    output_path = (
-                        Path(retriever.output_dir) / f"20251001_youtube_{video_info['video_id']}"
-                    )  # Approximate
-                    x_draft = await retriever.generate_x_content(result, output_path)
-                    if x_draft:
-                        click.echo(f"   📱 X draft: {x_draft['directory']}")
-
-                # Export to Obsidian if requested
-                if obsidian:
-                    obsidian.export_video(
-                        title=result.metadata.title,
-                        url=result.metadata.url,
-                        channel=result.metadata.channel,
-                        duration=result.metadata.duration,
-                        entities=result.entities,
-                        relationships=result.relationships,
-                        transcript=result.transcript.full_text,
-                        metadata={"cost": result.processing_cost},
-                    )
-                    click.echo(f"   📓 Obsidian: {with_obsidian}")
-            else:
-                click.echo("   ❌ Processing failed or skipped")
-
-        except Exception as e:
-            click.echo(f"   ❌ Error: {e}")
-
-    # Run monitor loop
-    try:
-        await monitor.monitor_loop(interval=interval, on_new_video=process_new_video)
-    except KeyboardInterrupt:
-        click.echo("\n\n✋ Monitoring stopped by user")
-        stats = monitor.tracker.get_stats() if hasattr(monitor, "tracker") else None
-        if stats:
-            click.echo(f"\nProcessed: {stats.get('completed', 0)} videos")
-
-
-@cli.command("monitor-async")
-@click.option("--channels", required=True, help="Comma-separated channel IDs (UC...)")
-@click.option("--interval", default=60, help="Check interval in seconds (default: 60)")
-@click.option("--workers", default=10, help="Number of concurrent workers (default: 10)")
-@click.option("--output-dir", default="output/monitored", help="Output directory")
-def monitor_async(channels: str, interval: int, workers: int, output_dir: str):
-    """
-    Monitor channels with async 10-worker architecture (FAST).
-
-    Examples:
-        # Monitor with 10 workers
-        clipscribe monitor-async --channels UCg5EWI7X2cyS98C8hQwDCcw
-
-        # Custom worker count
-        clipscribe monitor-async --channels UC123 --workers 20
-    """
-    asyncio.run(_run_async_monitor(channels, interval, workers, output_dir))
-
-
-async def _run_async_monitor(channels: str, interval: int, workers: int, output_dir: str):
-    """Run async monitor orchestrator."""
-    from ..async_processing.async_monitor import AsyncMonitorOrchestrator
-
-    # Parse channel IDs
-    channel_ids = [c.strip() for c in channels.split(",")]
-
-    click.echo("\n🚀 ClipScribe Async Monitor (10-Worker Architecture)\n")
-    click.echo(f"Monitoring {len(channel_ids)} channels:")
-    for cid in channel_ids:
-        click.echo(f"  - {cid}")
-    click.echo(f"\nWorkers: {workers} concurrent")
-    click.echo(f"Check interval: {interval}s")
-    click.echo(f"Output: {output_dir}/")
-    click.echo("\n⚡ Non-blocking processing enabled")
-    click.echo("📱 Telegram notifications: ON")
-    click.echo("\nPress Ctrl+C to stop\n")
-
-    # Create orchestrator
-    orchestrator = AsyncMonitorOrchestrator(
-        channel_ids=channel_ids, max_workers=workers, output_dir=output_dir
-    )
-
-    # Start orchestrator
-    await orchestrator.start(check_interval=interval)

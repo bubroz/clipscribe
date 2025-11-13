@@ -130,12 +130,11 @@ class CloudRunJobWorker:
         logger.info(f"Worker initialized with model: {self.model_name}")
 
     async def process_job(self, job_id: str, payload: Dict[str, Any]) -> Dict[str, Any]:
-        """
-        Process a single job.
+        """Process a single job (GCS-only in v3.0.0).
 
         Args:
             job_id: Unique job identifier
-            payload: Job payload with URL and options
+            payload: Job payload with gcs_uri and options
 
         Returns:
             Job result with artifacts
@@ -153,32 +152,20 @@ class CloudRunJobWorker:
             # Update job status
             self.update_job_status(job_id, "PROCESSING", {"model": self.model_name})
 
-            # Extract URL from payload
-            url = payload.get("url")
-            if not url:
-                raise ValueError("No URL provided in payload")
+            # Extract GCS URI from payload
+            gcs_uri = payload.get("gcs_uri")
+            if not gcs_uri:
+                raise ValueError("No gcs_uri provided in payload")
 
-            logger.info(f"Processing job {job_id}: {url}")
+            logger.info(f"Processing job {job_id}: {gcs_uri}")
 
-            # Check cache first
-            cached_video = self.cache.get(url)
+            # Download from GCS
+            logger.info(f"Downloading from GCS: {gcs_uri}")
+            file_path = await self.download_from_gcs(gcs_uri)
 
-            if cached_video:
-                logger.info(f"Using cached video for {url}")
-                video_path = cached_video
-                metadata = self.get_cached_metadata(url)
-            else:
-                # Download video
-                logger.info(f"Downloading video: {url}")
-                video_path, metadata = await self.download_video(url)
-
-                # Cache the video
-                self.cache.put(url, video_path)
-                self.save_metadata_to_cache(url, metadata)
-
-            # Process with selected model
-            logger.info(f"Processing with {self.model_name}")
-            analysis_result = await self.process_video(video_path, metadata)
+            # Process using new provider system
+            logger.info(f"Processing with providers (WhisperX Modal + Grok)")
+            analysis_result = await self.process_file(file_path, gcs_uri)
 
             # Upload results to GCS
             logger.info("Uploading results to GCS")
@@ -189,12 +176,16 @@ class CloudRunJobWorker:
             result["completed_at"] = datetime.utcnow().isoformat()
             result["artifacts"] = artifacts
             result["processing_time_seconds"] = (datetime.utcnow() - start_time).total_seconds()
-            result["cost_estimate"] = self.calculate_cost(metadata.get("duration", 0))
+            result["actual_cost"] = analysis_result["metadata"].get("total_cost", 0)
 
             # Update job status
             self.update_job_status(job_id, "COMPLETED", result)
 
             logger.info(f"Job {job_id} completed successfully")
+            
+            # Cleanup temp file
+            import shutil
+            shutil.rmtree(file_path.parent, ignore_errors=True)
 
         except Exception as e:
             logger.error(f"Job {job_id} failed: {e}")
@@ -209,65 +200,89 @@ class CloudRunJobWorker:
 
         return result
 
-    async def download_video(self, url: str) -> Tuple[Path, Dict[str, Any]]:
-        """Download video and extract metadata."""
-        from clipscribe.retrievers.universal_video_client import EnhancedUniversalVideoClient
-
-        client = EnhancedUniversalVideoClient()
+    async def download_from_gcs(self, gcs_uri: str) -> Path:
+        """Download file from GCS to temp directory.
+        
+        Args:
+            gcs_uri: GCS URI (gs://bucket/path/to/file.mp3)
+            
+        Returns:
+            Path to downloaded local file
+        """
+        # Parse GCS URI
+        if not gcs_uri.startswith("gs://"):
+            raise ValueError(f"Invalid GCS URI: {gcs_uri}")
+        
+        parts = gcs_uri[5:].split("/", 1)
+        bucket_name = parts[0]
+        blob_path = parts[1]
+        
+        # Download to temp
         tmpdir = tempfile.mkdtemp()
+        local_path = Path(tmpdir) / Path(blob_path).name
+        
+        blob = self.bucket.blob(blob_path) if bucket_name == self.gcs_bucket else self.storage_client.bucket(bucket_name).blob(blob_path)
+        blob.download_to_filename(str(local_path))
+        
+        return local_path
 
-        try:
-            # Download audio/video
-            media_path, metadata = await client.download_audio(url, output_dir=tmpdir)
-
-            # Convert metadata to dict
-            metadata_dict = {
-                "title": getattr(metadata, "title", "Unknown"),
-                "duration": int(getattr(metadata, "duration", 0) or 0),
-                "uploader": getattr(metadata, "uploader", "Unknown"),
-                "description": getattr(metadata, "description", ""),
-                "upload_date": getattr(metadata, "upload_date", ""),
-                "view_count": getattr(metadata, "view_count", 0),
-            }
-
-            return Path(media_path), metadata_dict
-
-        except Exception:
-            # Cleanup on failure
-            shutil.rmtree(tmpdir, ignore_errors=True)
-            raise
-
-    async def process_video(self, video_path: Path, metadata: Dict[str, Any]) -> Dict[str, Any]:
-        """Process video with Voxtral-Grok pipeline."""
-        from clipscribe.retrievers.video_retriever_v2 import VideoIntelligenceRetrieverV2
-
-        # Use the main CLI pipeline
-        retriever = VideoIntelligenceRetrieverV2()
-        result = await retriever.process_url(metadata.get("url", ""))
-
-        if result:
-            # Convert to expected format
-            analysis = {
-                "transcript": (
-                    result.transcript.raw_text
-                    if hasattr(result.transcript, "raw_text")
-                    else str(result.transcript)
-                ),
-                "entities": [
-                    entity.dict() if hasattr(entity, "dict") else entity
-                    for entity in (result.entities or [])
-                ],
-                "relationships": [
-                    rel.dict() if hasattr(rel, "dict") else rel
-                    for rel in (result.relationships or [])
-                ],
-                "metadata": metadata,
-                "model_used": self.model_name,
-                "processing_timestamp": datetime.utcnow().isoformat(),
-            }
-            return analysis
-        else:
-            raise ValueError("Failed to process video with Voxtral-Grok pipeline")
+    async def process_file(self, file_path: Path, gcs_uri: str) -> Dict[str, Any]:
+        """Process file using new provider system.
+        
+        Args:
+            file_path: Local path to audio/video file
+            gcs_uri: Original GCS URI (for metadata)
+            
+        Returns:
+            Analysis dict with transcript, entities, relationships, etc.
+        """
+        from clipscribe.providers.factory import (
+            get_transcription_provider,
+            get_intelligence_provider
+        )
+        
+        # Use providers (default to Modal for API)
+        transcriber = get_transcription_provider("whisperx-modal")
+        extractor = get_intelligence_provider("grok")
+        
+        # Transcribe
+        transcript_result = await transcriber.transcribe(str(file_path), diarize=True)
+        
+        # Extract intelligence
+        intelligence_result = await extractor.extract(
+            transcript_result,
+            metadata={"gcs_uri": gcs_uri}
+        )
+        
+        # Convert to API format
+        analysis = {
+            "transcript": {
+                "text": " ".join(seg.text for seg in transcript_result.segments),
+                "segments": [seg.dict() for seg in transcript_result.segments],
+                "language": transcript_result.language,
+                "duration": transcript_result.duration,
+                "speakers": transcript_result.speakers,
+            },
+            "entities": intelligence_result.entities,
+            "relationships": intelligence_result.relationships,
+            "topics": intelligence_result.topics,
+            "key_moments": intelligence_result.key_moments,
+            "sentiment": intelligence_result.sentiment,
+            "metadata": {
+                "gcs_uri": gcs_uri,
+                "transcription_provider": transcript_result.provider,
+                "intelligence_provider": intelligence_result.provider,
+                "transcription_cost": transcript_result.cost,
+                "intelligence_cost": intelligence_result.cost,
+                "total_cost": transcript_result.cost + intelligence_result.cost,
+                "cost_breakdown": intelligence_result.cost_breakdown,
+                "cache_stats": intelligence_result.cache_stats,
+            },
+            "model_used": f"{transcript_result.model} + {intelligence_result.model}",
+            "processing_timestamp": datetime.utcnow().isoformat(),
+        }
+        
+        return analysis
 
     async def upload_results(self, job_id: str, analysis: Dict[str, Any]) -> list:
         """Upload analysis results to GCS."""

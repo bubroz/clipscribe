@@ -4,8 +4,8 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "clipscribe"
-version = "2.62.0"
-description = "Professional-grade video intelligence platform extracting entities, relationships, and temporal knowledge from 1800+ video sources. WhisperX transcription + xAI Grok analysis. Built for researchers and analysts."
+version = "3.0.0"
+description = "Professional intelligence extraction from audio/video files. GPU transcription (Modal A10G / M3 Max Metal) + xAI Grok analysis. File-first CLI, GCS-first API with presigned uploads."
 authors = ["Zac Forristall <zforristall@gmail.com>"]
 readme = "README.md"
 license = "Proprietary"
@@ -13,10 +13,11 @@ repository = "https://github.com/bubroz/clipscribe"
 keywords = [
     "video-intelligence", "entity-extraction", "knowledge-graph",
     "whisperx", "xai-grok", "modal-labs", "speaker-diarization",
+    "provider-abstraction", "file-processing", "gcs-storage",
     "relationship-mapping", "temporal-analysis", "nlp",
-    "video-transcription", "intelligence-analysis", "youtube-api",
-    "yt-dlp", "multi-platform", "grok-api", "prompt-caching",
-    "gpu-acceleration", "research-tools"
+    "intelligence-analysis", "grok-api", "prompt-caching",
+    "gpu-acceleration", "m3-max", "metal-acceleration",
+    "fastapi", "saas-api", "research-tools"
 ]
 classifiers = [
     "Development Status :: 4 - Beta",
@@ -156,8 +157,6 @@ google-generativeai = "^0.8.2"
 pydantic = "^2.8.2"
 rich = "^13.8.0"
 networkx = "^3.3"
-yt-dlp = "^2025.8.27"
-youtube-search-python = "^1.6.6"
 aiohttp = "^3.10.5"
 python-dotenv = "^1.0.1"
 tenacity = "^8.2.3"
@@ -169,8 +168,9 @@ psutil = "^7.0.0"
 # Optional ML dependencies - install with `poetry install -E ml`
 spacy = {version = "^3.7.5", optional = true}
 transformers = {version = "^4.44.2", optional = true}
-torch = {version = "^2.4.0", optional = true}
+torch = "^2.4.0"
 gliner = {version = "^0.2.10", optional = true}
+pyannote-audio = "^3.1.0"
 
 # Optional visualization dependencies - install with `poetry install -E viz`
 plotly = {version = "^5.21.0", optional = true}
@@ -194,8 +194,6 @@ textual = {version = "^5.2.0", optional = true}
 # Optional web interface - install with `poetry install -E web`
 streamlit = {version = "^1.33.0", optional = true}
 google-cloud-run = "^0.10.19"
-curl-cffi = "^0.13.0"
-feedparser = "^6.0.12"
 reportlab = "^4.4.4"
 pandas = "^2.2.3"
 whisperx = {version = "^3.7.0", python = ">=3.11,<3.14"}
@@ -210,7 +208,6 @@ pre-commit = "^3.6.0"
 matplotlib = "^3.10.3"
 pytest-mock = "^3.14.1"
 ruff = "^0.5.7"
-playwright = "^1.55.0"
 google-cloud-aiplatform = "^1.121.0"
 jiwer = "^4.0.0"
 

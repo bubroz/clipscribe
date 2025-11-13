@@ -1,17 +1,15 @@
 """
 Transcription engines for ClipScribe.
 
-Dual-mode architecture:
-- Voxtral: Fast, cost-effective (95% accuracy)
-- WhisperX: Premium, medical/legal grade (97-99% accuracy)
+Provider-based architecture (v3.0.0):
+- Voxtral: Fast API transcription, no speakers ($0.001/min)
+- WhisperX: GPU transcription with speaker diarization (Modal or Local M3 Max)
 """
 
-from .dual_mode_transcriber import DualModeTranscriber
 from .voxtral_transcriber import VoxtralTranscriber
 from .whisperx_transcriber import WhisperXTranscriber
 
 __all__ = [
     "VoxtralTranscriber",
     "WhisperXTranscriber",
-    "DualModeTranscriber",
 ]
