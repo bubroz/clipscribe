@@ -2,266 +2,291 @@
 
 [![Python Version](https://img.shields.io/badge/python-3.12+-blue.svg)](https://python.org)
 [![License](https://img.shields.io/badge/license-Proprietary-red.svg)](LICENSE)
-[![Code Style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-[![Version](https://img.shields.io/badge/version-3.0.0-blue.svg)](CHANGELOG.md)
-[![Providers](https://img.shields.io/badge/providers-4%20(3%20transcription%2B1%20intelligence)-blue.svg)](#provider-system)
-[![Cost](https://img.shields.io/badge/cost-$0.00--$0.06%2F30min-green.svg)](#provider-comparison)
+[![Version](https://img.shields.io/badge/version-3.0.0--rc-blue.svg)](CHANGELOG.md)
+[![Providers](https://img.shields.io/badge/providers-3%20transcription%20%2B%201%20intelligence-blue.svg)](#how-it-works)
 
-**Professional intelligence extraction from audio/video files**
+**Intelligence extraction platform for video and audio**
 
-Extract speakers, entities, relationships, and intelligence with provider flexibility.  
-File-first CLI, GCS-first API. Three transcription options: Mistral API (cheap, no speakers), Modal GPU (cloud quality, speakers), Local processing (FREE, speakers).
-
-**Current Status:** v3.0.0 - Provider Architecture Transformation - November 13, 2025  
-**Architecture:** Provider-based (swappable transcription + intelligence)  
-**Options:** Voxtral (Mistral API, \$0.03/30min) | WhisperX Modal (GPU cloud, \$0.06/30min) | WhisperX Local (Apple Silicon/CPU, FREE)  
-**Intelligence:** Grok-4 with prompt caching (75% savings), ~\$0.005/30min
+Extract structured, evidence-based intelligence from video content. Get entities, relationships, speaker attribution, and temporal context in machine-readable format.
 
 ---
 
-## Quick Start (v3.0.0)
+## What You Get
 
-### Installation
+Process a 30-minute video and receive **50-70+ structured data points:**
 
-```bash
-# Install ClipScribe
-poetry install
-
-# Set API keys
-export MISTRAL_API_KEY=your_voxtral_key  # For Voxtral provider
-export XAI_API_KEY=your_grok_key         # For Grok intelligence
-export HF_TOKEN=your_hf_token            # For local WhisperX diarization
-```
-
-### Process a File
-
-```bash
-# Free local processing (Apple Silicon or CPU)
-clipscribe process interview.mp3
-
-# Cloud GPU with speakers (Modal)
-clipscribe process podcast.mp3 -t whisperx-modal
-
-# Mistral API, cheap, no speakers
-clipscribe process lecture.mp3 -t voxtral --no-diarize
-```
-
-### Provider Comparison (30min video)
-
-| Provider | Cost | Speakers | Speed | Best For |
-|----------|------|----------|-------|----------|
-| `voxtral` | \$0.03 | ❌ | API (fast) | Single-speaker, budget |
-| `whisperx-modal` | \$0.06 | ✅ | 10x realtime | Cloud GPU, quality |
-| `whisperx-local` | FREE | ✅ | 1-2x realtime | Local (Apple Silicon/CPU), privacy |
-
-*Plus Grok intelligence: ~\$0.005 per video*
-
----
-
-## Provider System
-
-v3.0.0 introduces provider abstraction - swap transcription and intelligence providers via CLI flags.
-
-**Transcription Providers:**
-- **Voxtral** (`-t voxtral`): Mistral API, \$0.001/min, no speaker diarization
-- **WhisperX Modal** (`-t whisperx-modal`): Modal Cloud GPU (A10G), speakers, Gemini verification  
-- **WhisperX Local** (`-t whisperx-local`): Local processing (Apple Silicon or CPU), FREE, speakers
-
-**Intelligence Providers:**
-- **Grok** (`-i grok`): xAI Grok-4 with prompt caching, \$0.20/M input, \$0.50/M output
-
-**Design:** Providers wrap existing working code (100% capability preservation).
-
----
-
-## Current Capabilities
-
-### Transcription & Speaker Intelligence
-- **WhisperX transcription** - 97-99% accuracy, medical/legal grade quality
-- **Speaker diarization** - Automatic speaker detection and segmentation (pyannote.audio)
-- **Multi-speaker handling** - Tested up to 5 speakers with adaptive thresholds
-- **Processing speed** - 11.6x realtime on A10G GPU (16min video → 1.4min processing)
+### Transcript Intelligence
+- **Speaker-attributed segments** with timestamps
+- **Word-level timing** for precise navigation
+- **Language detection** (auto)
+- **12+ speakers** detected and labeled (validated)
 
 ### Entity Extraction
-- **18 entity types** (spaCy standard): PERSON, ORG, GPE, LOC, EVENT, PRODUCT, MONEY, DATE, TIME, FAC, NORP, LANGUAGE, LAW, WORK_OF_ART, CARDINAL, ORDINAL, QUANTITY, PERCENT
-- **Relationship mapping** - Connections between entities with confidence scores
-- **Topics extraction** - Main themes with relevance scores
-- **Key moments** - Important points with timestamps and significance scores
-- **Sentiment analysis** - Overall and per-topic sentiment
-- **Advanced deduplication** - Fuzzy matching (0.80 threshold), title removal, 99.5% unique entities
+- **Named entities** (people, organizations, locations, events)
+- **18 entity types** (PERSON, ORG, GPE, EVENT, PRODUCT, MONEY, DATE, TIME, etc.)
+- **Evidence quotes** for every entity (100% coverage)
+- **Confidence scores** (0-1) for extraction quality
 
-### Quality Metrics (Grok-4 Fast Reasoning, Oct 29, 2025)
-- **Entity quality:** Selective, named entities only (no noise like "98%", "thursdays")
-- **Evidence coverage:** 100% (all entities have supporting transcript quotes)
-- **Entity type coverage:** 17/18 spaCy types (PERSON, ORG, GPE, EVENT, etc.)
-- **Topic extraction:** 3-5 per video with relevance scores and time ranges
-- **Key moments:** 4-5 per video with timestamps and significance
-- **Processing cost:** $0.34 per video (WhisperX $0.33 + Grok-4 $0.01)
+**Example:**
+```json
+{
+  "name": "Alex Karp",
+  "type": "PERSON",
+  "confidence": 1.0,
+  "evidence": "Alex Karp, thanks for having us into the Palantir lair..."
+}
+```
 
----
+### Relationship Mapping
+- **Connections between entities** (who-said-what-about-whom)
+- **Action predicates** (announced, criticized, invested_in, etc.)
+- **Evidence quotes** supporting each relationship
+- **Structured for graph analysis**
 
-## New in v2.62.0
+**Example:**
+```json
+{
+  "subject": "Trump",
+  "predicate": "announced",
+  "object": "Gaza ceasefire deal",
+  "evidence": "President Trump scores an international win with the Gaza ceasefire deal",
+  "confidence": 1.0
+}
+```
 
-### Prompt Caching (50% Cost Reduction)
-- **Automatic caching** for prompts >1024 tokens - 50% discount on cached content
-- **Smart cache management** - Reuses context across related videos
-- **Savings tracking** - Real-time monitoring of cache hit rates and cost savings
-- **Zero configuration** - Works automatically, no code changes needed
+### Topic Analysis
+- **Main themes** with relevance scores
+- **Time ranges** (when each topic discussed)
+- **Temporal context** (00:00-15:00 format)
 
-### Intelligence & Fact-Checking
-- **Grok fact-checking** - Verify entities against real-time knowledge (web_search, x_search)
-- **Entity enrichment** - Add current context to extracted entities
-- **Server-side tools** - Web search, X/Twitter search integrated
-- **Confidence scoring** - Track reliability of fact-checked information
+### Key Moments
+- **Significant points** with exact timestamps
+- **Significance scoring** (0-1)
+- **Supporting quotes** for each moment
 
-### Knowledge Base Management
-- **Video collections** - Organize videos into semantic collections
-- **Cross-video search** - Find entities and topics across entire knowledge base
-- **Entity tracking** - Monitor people/organizations across multiple videos
-- **Relationship discovery** - Find co-occurrences and connections
+### Sentiment Analysis
+- **Overall sentiment** (positive, negative, neutral, mixed)
+- **Per-topic sentiment** (nuanced analysis)
+- **Confidence scores**
 
-### Enhanced Modal Pipeline
-- **Robust language detection** - Multi-sample validation (start/middle/end of audio)
-- **GPU OOM protection** - Cascading batch size retry (16→8→4→2→1) handles any video
-- **Language validation** - Prevents false positives, never forces English
-- **Enhanced cost tracking** - Detailed GPU + Grok breakdowns with cache savings
+### Output Format
 
-### Production-Validated Metrics (Nov 12, 2025)
-- **Videos processed:** 20 (754 minutes total, 12.6 hours of content)
-- **Entities extracted:** 556 (avg 27.8/video, 12 types found across 20 videos)
-  - Supports all 18 spaCy entity types (actual types found depend on video content)
-- **Relationships mapped:** 161 (avg 8.1/video)
-- **Topics identified:** 97 (avg 4.8/video)
-- **Processing cost:** $0.073/video avg ($0.001935/minute)
-- **GPU realtime factor:** 10-11x (71min video → 7min processing)
-- **Test coverage:** 100% pass rate (24/24 passing, 0 failures)
-
----
-
-## Planned Features (In Development)
-
-### In Development
-- **Topic Search API:** Find videos by topic ✅ COMPLETE
-- **Entity Search API:** Track people/orgs across videos ✅ COMPLETE
-- Auto-clip generation from key moments
-- Batch processing for multiple videos
-- Additional entity extraction features
+**Single comprehensive JSON file** containing all data:
+- Machine-readable (Pandas, SQL, any analysis tool)
+- Evidence-based (verifiable, citable)
+- Structured (consistent schema)
+- Cost-tracked (know exactly what you spent)
 
 ---
 
-## Tech Stack
+## How It Works
 
-**Current Production:**
-- **Transcription:** WhisperX on Modal Labs (A10G GPU, 10-11x realtime)
-- **Speaker Diarization:** pyannote.audio with adaptive thresholds
-- **Intelligence:** grok-4-fast-reasoning (xAI) with structured outputs, prompt caching, server-side tools
-- **Fact-Checking:** Web search, X/Twitter search integration for entity verification
-- **Knowledge Base:** Collections API for cross-video entity tracking and relationship discovery
-- **Deduplication:** Advanced fuzzy matching with evidence-based validation
-- **Storage:** Google Cloud Storage (transcripts, results, artifacts)
-- **Development:** Python 3.12, Poetry, async processing, 100% test coverage
+### Three Processing Options
 
-**Planned (Future):**
-- **Air-gapped Option:** Voxtral transcription for systems without internet access
-- **Frontend:** Next.js, TypeScript, Tailwind CSS
-- **Backend API:** FastAPI, PostgreSQL, Cloud Run
-- **Auth:** Clerk or similar
-- **Billing:** Stripe
+Choose optimal provider for your use case:
 
----
+| Provider | Cost (30min) | Speakers | Speed | Best For |
+|----------|--------------|----------|-------|----------|
+| **Mistral API** | $0.03 | ❌ | API (seconds) | Single-speaker, budget |
+| **Local (Apple Silicon)** | **FREE** | ✅ | 1-2x realtime | Privacy, multi-speaker, zero cost |
+| **Cloud GPU** | $0.06 | ✅ | 10x realtime | Professional quality, scalability |
 
-## Validation Results (Nov 12, 2025 - v2.62.0)
+*Plus intelligence extraction: ~$0.005 per video*
 
-**Production Validation (20 Videos, 754 Minutes):**
-- **Total segments:** 9,565 transcript segments processed
-- **Entities extracted:** 556 entities (avg 27.8/video)
-  - Top types: ORG (41.0%), PERSON (20.9%), GPE (13.8%), PRODUCT (11.0%)
-  - 12 distinct entity types with full evidence coverage
-- **Relationships mapped:** 161 relationships (avg 8.1/video)
-- **Topics identified:** 97 topics (avg 4.8/video)
-- **Key moments:** 100 key moments extracted (avg 5.0/video)
+### Quick Start
 
-**Cost Analysis:**
-- **Total cost:** $1.46 for 20 videos (12.6 hours of content)
-- **Average per video:** $0.073
-- **Average per minute:** $0.001935
-- **GPU transcription:** $1.41 (96.3% of cost)
-- **Grok extraction:** $0.05 (3.7% of cost)
-
-**Performance Metrics:**
-- **Processing speed:** 10-11x realtime on A10G GPU
-- **Success rate:** 100% (20/20 videos completed)
-- **Quality:** Entity confidence 0.9-1.0 avg, 100% evidence coverage
-- **Test coverage:** 24/24 tests passing (100% pass rate)
-
-**Latest Results:** See `output/VALIDATION_REPORT_NOV11.md` for complete analysis
-
----
-
-## Development
-
-**Clone and install:**
 ```bash
-git clone https://github.com/bubroz/clipscribe.git
+# Install
+poetry install
+
+# Set API keys (choose your providers)
+export XAI_API_KEY=your_key         # Required (Grok intelligence)
+export MISTRAL_API_KEY=your_key     # For Mistral API provider
+export HUGGINGFACE_TOKEN=your_token # For local speaker diarization
+
+# Process a file
+clipscribe process interview.mp3
+
+# Results saved to: output/timestamp_filename/transcript.json
+```
+
+**That's it.** Single command, comprehensive intelligence extracted.
+
+---
+
+## Use Cases
+
+### Research & Analysis
+**Problem:** 100 hours of interview footage, need structured data  
+**Solution:** Process all 100 hours for $6 (local) or $12 (cloud GPU), get:
+- Complete entity database (people, orgs, locations mentioned)
+- Relationship network (who said what about whom)
+- Topic timeline (when each subject discussed)
+- Searchable, citable, evidence-based
+
+**Value:** Structured data for import into research databases, visualization tools, or analysis pipelines.
+
+### Legal & Compliance
+**Problem:** Depositions, hearings, recordings need speaker attribution  
+**Solution:** Upload files, get:
+- Speaker-attributed transcripts
+- Evidence-based entity extraction
+- Searchable by person, organization, topic
+- Export to CSV, JSON for legal software
+
+**Value:** Faster discovery, verifiable citations, speaker accountability.
+
+### Financial Intelligence
+**Problem:** Earnings calls, investor presentations need competitive intelligence  
+**Solution:** Process corpus of calls, extract:
+- Company mentions with context
+- Executive statements (attributed to speaker)
+- Competitive relationships
+- Temporal trends
+
+**Value:** Structured data for financial analysis tools, competitive intelligence databases.
+
+### Content Production
+**Problem:** Podcast/video archives need metadata, show notes  
+**Solution:** Automated extraction of:
+- Speaker segments (who spoke when)
+- Key moments with timestamps
+- Topic timeline
+- Entity mentions (people, companies referenced)
+
+**Value:** Automated show notes, searchable archives, content discoverability.
+
+---
+
+## Why ClipScribe
+
+**vs Traditional Transcription** (Rev.ai, AssemblyAI):
+- ✅ We extract intelligence, not just words
+- ✅ Structured entities + relationships
+- ✅ Evidence-based (every claim citable)
+- ✅ Often cheaper ($0.003-0.06 vs $0.60-1.20 per 30min)
+
+**vs Manual Analysis:**
+- ✅ Process 1000 hours in 12-24 hours (10 GPUs)
+- ✅ Consistent extraction (no human variance)
+- ✅ Machine-readable output (direct to analysis tools)
+- ✅ ~$100-200 vs $50k+ manual transcription + analysis
+
+**Unique Advantages:**
+- Speaker attribution (who said what)
+- Evidence for every extraction (verifiable)
+- Relationship mapping (connections between entities)
+- Temporal context (when topics discussed)
+- Flexible deployment (local FREE to cloud GPU)
+
+---
+
+## Technical Specs
+
+**Validated Performance:**
+- **Processing:** 1-10x realtime (CPU to GPU)
+- **Multi-speaker:** Up to 12 speakers detected (validated)
+- **Accuracy:** 97-99% transcription (WhisperX large-v3)
+- **Entity Coverage:** 18 spaCy entity types
+- **Output Size:** ~1MB JSON per 30min video (rich data!)
+
+**Data Per Video (Typical 30min):**
+- 17-45 entities with evidence
+- 5-11 relationships with quotes
+- 5-6 topics with time ranges
+- 4-6 key moments with timestamps
+- Complete sentiment analysis
+- Speaker-attributed transcript
+
+**Deployment Options:**
+- Local (Apple Silicon/CPU): FREE, privacy-focused
+- Cloud GPU (Modal): Scalable, 10x realtime
+- API-first (GCS upload): Enterprise-ready
+
+---
+
+## Installation
+
+```bash
+git clone https://github.com/bubroz/clipscribe
 cd clipscribe
 poetry install
-```
 
-**Environment setup:**
-```bash
+# Configure (see docs/CLI.md for details)
 cp .env.example .env
-# Required: XAI_API_KEY, HUGGINGFACE_TOKEN, GOOGLE_APPLICATION_CREDENTIALS
+# Add your API keys
+
+# Process your first file
+clipscribe process audio.mp3
+
+# Output: output/timestamp_filename/transcript.json
 ```
 
-**Test Modal pipeline:**
-```bash
-poetry run modal deploy deploy/station10_modal.py
-```
-
-**Full roadmap:** See `ROADMAP.md`
+**Complete documentation:** [docs/](docs/)
 
 ---
 
-## Repository Structure
+## Documentation
 
-```
-clipscribe/
-├── src/clipscribe/          # Core Python package
-│   ├── processors/          # Video processing pipeline
-│   ├── extractors/          # Entity extraction (local)
-│   ├── retrievers/          # Video download & transcription
-│   ├── exporters/           # Output formatters
-│   ├── commands/            # CLI commands
-│   └── utils/               # Utilities
-├── deploy/                  # Modal GPU deployment
-│   └── station10_modal.py   # Production transcription service
-├── scripts/                 # Utility scripts
-│   └── validation/          # Validation test scripts
-├── tests/                   # Test suite
-├── examples/                # Usage examples
-├── docs/                    # Documentation
-│   ├── advanced/testing/    # Test video catalog
-│   └── archive/             # Historical docs
-└── archive/                 # Archived code (Cloud Run, Streamlit, VPS)
-```
+- **[CLI Reference](docs/CLI.md)** - Complete command guide
+- **[Provider Selection](docs/PROVIDERS.md)** - Choose optimal provider
+- **[API Reference](docs/API.md)** - GCS upload flow
+- **[Local Processing](docs/LOCAL_PROCESSING.md)** - FREE Apple Silicon guide
+- **[Troubleshooting](docs/TROUBLESHOOTING.md)** - Common issues
+- **[Architecture](docs/ARCHITECTURE.md)** - System design
+- **[Performance](docs/PERFORMANCE_BENCHMARKS.md)** - Validated metrics
+
+---
+
+## What's New in v3.0.0
+
+**Provider Architecture:**
+- Swappable transcription providers (Mistral API, Local, Cloud GPU)
+- Cost flexibility (FREE to $0.06 per 30min)
+- Provider selection via CLI flags
+
+**File-First Design:**
+- Process local files (no URL dependencies)
+- More reliable (no download complexity)
+- Privacy-focused option (local processing)
+
+**Comprehensive Output:**
+- Single JSON file with all intelligence
+- Speaker attribution
+- Evidence-based extraction
+- Machine-readable format
+
+**Validated:**
+- Multi-speaker (12 speakers detected)
+- File formats (MP3, MP4)
+- All 3 providers working
+- 100% capability preservation
+
+---
+
+## Example Output
+
+**From 30min interview:**
+
+**Entities:** 17-45 with evidence  
+**Relationships:** 5-11 with quotes  
+**Topics:** 5-6 with time ranges  
+**Speakers:** 2-12 detected  
+**Cost:** $0.003-0.06  
+**Processing:** 3-60 minutes  
+
+**Output Format:** Comprehensive JSON (import into Pandas, SQL, visualization tools, research databases)
 
 ---
 
 ## Project Status
 
-**Version:** v2.61.0  
-**Current Phase:** API-first development, Chimera integration focus  
-**Last Major Milestone:** Search APIs validated (Nov 1, 2025) - 14/14 tests passing  
-**Next Milestone:** Chimera integration design (Week 3)
+**Version:** v3.0.0-rc  
+**Released:** November 13, 2025  
+**Status:** Production-ready release candidate  
+**Providers:** 3 transcription, 1 intelligence (all validated)
 
-**Recent Achievements (Oct 29-Nov 1):**
-- Grok-4 Fast Reasoning upgrade (complete intelligence extraction)
-- Topic search API (13 topics indexed and searchable)
-- Entity search API (287 entities with 100% evidence)
-- TUI development and removal (pivoted to API-first)
-- Comprehensive validation (14 E2E tests, all passing)
-
-**See:** `STATUS.md` for detailed current state
+**Next:** v3.0.0 stable after production feedback
 
 ---
 
@@ -271,6 +296,5 @@ clipscribe/
 **Email:** zforristall@gmail.com  
 **GitHub:** [@bubroz](https://github.com/bubroz)
 
-**Product:** ClipScribe  
-**Repository:** Private during development  
-**License:** Proprietary
+**License:** Proprietary  
+**Repository:** https://github.com/bubroz/clipscribe
