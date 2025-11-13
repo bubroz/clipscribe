@@ -1,24 +1,51 @@
-Third-Party Notices
+# Third-Party Notices
 
-This product includes third-party software components distributed under their
-respective licenses. The following is a non-exhaustive list of significant
-dependencies used during development and runtime. Refer to each project's
-repository for full license texts.
+ClipScribe uses the following open-source components. We thank the developers and contributors.
 
-- fastapi (MIT)
-- uvicorn (BSD)
-- redis (MIT)
-- rq (BSD)
-- google-cloud-storage (Apache-2.0)
-- google-cloud-aiplatform (Apache-2.0)
-- google-generativeai (Apache-2.0)
-- yt-dlp (Unlicense)
-- pydantic (MIT)
-- rich (MIT)
-- networkx (BSD)
-- spacy (MIT)
-- tenacity (Apache-2.0)
+## Core Dependencies
 
-No modifications are distributed from these components within this repository.
-All trademarks are the property of their respective owners.
+**Python Libraries:**
+- **fastapi** (MIT) - Web framework
+- **pydantic** (MIT) - Data validation  
+- **rich** (MIT) - Terminal formatting
+- **click** (BSD) - CLI framework
+- **httpx** (BSD) - HTTP client
+- **aiohttp** (Apache-2.0) - Async HTTP
+- **tenacity** (Apache-2.0) - Retry logic
+- **structlog** (MIT) - Logging
+- **python-dotenv** (BSD) - Environment management
 
+**Machine Learning:**
+- **whisperx** (BSD) - Speech recognition
+- **pyannote.audio** (MIT) - Speaker diarization
+- **torch** (BSD) - ML framework
+- **transformers** (Apache-2.0) - NLP models
+- **spacy** (MIT) - NLP toolkit
+
+**Cloud Services:**
+- **modal** (Proprietary) - Serverless GPU platform
+- **google-cloud-storage** (Apache-2.0) - Cloud storage
+- **google-generativeai** (Apache-2.0) - Gemini API (legacy)
+
+**Data Processing:**
+- **networkx** (BSD) - Graph analysis
+- **pandas** (BSD) - Data manipulation
+- **beautifulsoup4** (MIT) - HTML parsing
+
+## Service Providers
+
+**API Services:**
+- **Mistral AI** - Voxtral transcription API
+- **xAI** - Grok intelligence extraction API
+- **Modal Labs** - Serverless GPU infrastructure
+- **Google Cloud** - Storage and infrastructure
+- **HuggingFace** - Model hosting
+
+## Notes
+
+- No modifications are distributed from these components
+- All trademarks are property of their respective owners
+- Component versions specified in pyproject.toml
+- Full license texts available in each project's repository
+
+For questions about licensing, contact: zforristall@gmail.com
