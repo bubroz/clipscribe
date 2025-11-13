@@ -100,9 +100,13 @@ Choose optimal provider for your use case:
 poetry install
 
 # Set API keys (choose your providers)
-export XAI_API_KEY=your_key         # Required (Grok intelligence)
-export MISTRAL_API_KEY=your_key     # For Mistral API provider
-export HUGGINGFACE_TOKEN=your_token # For local speaker diarization
+export XAI_API_KEY=your_key                  # Required (Grok intelligence)
+export MISTRAL_API_KEY=your_key              # For Voxtral provider
+export HUGGINGFACE_TOKEN=your_token          # For local speaker diarization
+
+# Optional: For Modal cloud GPU provider
+export GOOGLE_APPLICATION_CREDENTIALS=/path/to/service-account.json
+export GCS_BUCKET=your-bucket
 
 # Process a file
 clipscribe process interview.mp3
