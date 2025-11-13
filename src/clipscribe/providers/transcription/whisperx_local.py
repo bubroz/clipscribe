@@ -3,6 +3,7 @@
 import os
 import torch
 from typing import Optional
+from dotenv import load_dotenv
 from ..base import (
     TranscriptionProvider,
     TranscriptResult,
@@ -13,6 +14,9 @@ from clipscribe.transcribers.whisperx_transcriber import (
     WhisperXTranscriber,
     WhisperXTranscriptionResult,
 )
+
+# Load environment variables (for HUGGINGFACE_TOKEN)
+load_dotenv()
 
 
 class WhisperXLocalProvider(TranscriptionProvider):
@@ -52,12 +56,13 @@ class WhisperXLocalProvider(TranscriptionProvider):
             ConfigurationError: If HuggingFace token not set or WhisperX not installed
         """
         # Check HuggingFace token for diarization
-        hf_token = os.getenv("HF_TOKEN")
+        # Note: WhisperXTranscriber expects HUGGINGFACE_TOKEN (not HF_TOKEN)
+        hf_token = os.getenv("HUGGINGFACE_TOKEN")
         if not hf_token:
             raise ConfigurationError(
-                "HF_TOKEN required for speaker diarization.\n"
+                "HUGGINGFACE_TOKEN required for speaker diarization.\n"
                 "Get token from: https://huggingface.co/settings/tokens\n"
-                "Set via: export HF_TOKEN=your_token\n"
+                "Set via: export HUGGINGFACE_TOKEN=your_token\n"
                 "Or disable diarization: --no-diarize"
             )
         
@@ -116,10 +121,10 @@ class WhisperXLocalProvider(TranscriptionProvider):
             TranscriptResult with segments, speakers, and word-level timing
         """
         # Call existing transcriber (preserves all features!)
+        # Note: Diarization is controlled at init time, not per-call
         result: WhisperXTranscriptionResult = await self.transcriber.transcribe_audio(
             audio_path=audio_path,
-            language=language,
-            enable_diarization=diarize,
+            language=language or "en",
         )
         
         # Convert word-level timestamps to segments
@@ -216,9 +221,10 @@ class WhisperXLocalProvider(TranscriptionProvider):
         """Validate WhisperX local configuration.
         
         Returns:
-            True if HF_TOKEN set and WhisperX available
+            True if HUGGINGFACE_TOKEN set and WhisperX available
         """
-        hf_token = os.getenv("HF_TOKEN")
+        # Note: WhisperXTranscriber expects HUGGINGFACE_TOKEN
+        hf_token = os.getenv("HUGGINGFACE_TOKEN")
         if not hf_token:
             return False
         

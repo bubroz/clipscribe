@@ -201,4 +201,3 @@ class GrokProvider(IntelligenceProvider):
             True if API key is set
         """
         return bool(self.client.api_key)
-
