@@ -16,10 +16,10 @@ Extract structured, evidence-based intelligence from video content. Get entities
 Process a 30-minute video and receive **50-70+ structured data points:**
 
 ### Transcript Intelligence
-- **Speaker-attributed segments** with timestamps
-- **Word-level timing** for precise navigation
-- **Language detection** (auto)
-- **12+ speakers** detected and labeled (validated)
+- **Speaker-attributed segments** with timestamps (WhisperX providers)
+- **Word-level timing** for precise navigation (WhisperX providers)
+- **Language detection** (auto, all providers)
+- **Up to 12 speakers** detected and labeled (validated with WhisperX)
 
 ### Entity Extraction
 - **Named entities** (people, organizations, locations, events)
@@ -41,7 +41,7 @@ Process a 30-minute video and receive **50-70+ structured data points:**
 - **Connections between entities** (who-said-what-about-whom)
 - **Action predicates** (announced, criticized, invested_in, etc.)
 - **Evidence quotes** supporting each relationship
-- **Structured for graph analysis**
+- **Subject-predicate-object structure** (graph-ready format)
 
 **Example:**
 ```json
