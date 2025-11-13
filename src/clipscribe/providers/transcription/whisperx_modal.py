@@ -142,8 +142,9 @@ class WhisperXModalProvider(TranscriptionProvider):
             
             # Modal returns status dict, not full transcript
             # Results were uploaded to GCS by Modal
-            # Download transcript from GCS output location (gcs_output already ends with /)
-            transcript_json_path = f"{gcs_output}transcript.json"
+            # Download transcript from GCS output location
+            # Note: gcs_output is like "gs://bucket/path/file_results" (no trailing slash)
+            transcript_json_path = f"{gcs_output}/transcript.json"
             transcript_data = await self._download_from_gcs(transcript_json_path)
             
             # Convert to standardized format
