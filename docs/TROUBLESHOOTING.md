@@ -355,3 +355,74 @@ poetry run modal app list
 poetry run modal app logs clipscribe-transcription
 ```
 
+---
+
+## File Format Issues
+
+### MP4 Speaker Diarization Limitation
+
+**Symptom:**
+```
+ERROR: Speaker diarization failed: Error opening 'video.mp4': Format not recognised.
+WARNING: Continuing without speaker labels
+```
+
+**Cause:** Pyannote speaker diarization library cannot read MP4 video containers directly
+
+**What Works with MP4:**
+- ✅ Transcription (audio extracted and transcribed perfectly)
+- ✅ Intelligence extraction (entities, relationships, topics)
+- ✅ All export formats generated
+- ✅ Processing completes successfully
+- ❌ Speaker attribution (fails on MP4, graceful degradation)
+
+**Solutions:**
+
+**Option 1 - Convert to MP3 (Best for Multi-Speaker):**
+```bash
+# Extract audio with ffmpeg
+ffmpeg -i video.mp4 -vn -acodec libmp3lame audio.mp3
+
+# Process MP3 with full speaker detection
+clipscribe process audio.mp3 -t whisperx-local
+```
+
+**Option 2 - Use MP4 for Single-Speaker:**
+```bash
+# Works fine if only one speaker
+clipscribe process lecture.mp4 -t whisperx-local
+# Speaker diarization fails but transcription works
+```
+
+**Option 3 - Disable Diarization:**
+```bash
+# Process MP4 without speaker labels
+clipscribe process video.mp4 -t whisperx-local --no-diarize
+# Faster, no speaker detection attempted
+```
+
+**Option 4 - Use Voxtral Provider:**
+```bash
+# Voxtral doesn't support speakers anyway
+clipscribe process video.mp4 -t voxtral --no-diarize
+# Fast API processing, no speaker issues
+```
+
+**Best Practice:**
+- **Multi-speaker content:** Use MP3 format (best compatibility)
+- **Single-speaker content:** MP4 is fine
+- **Quick transcription:** Use Voxtral with MP4 (no diarization)
+
+**Technical Details:**
+- WhisperX handles MP4 video containers correctly for transcription
+- Pyannote speaker diarization only reads pure audio formats (MP3, WAV, M4A)
+- ClipScribe extracts audio for transcription but doesn't re-encode for diarization
+- Graceful degradation: Processing continues, speakers set to 0, no crash
+
+---
+
+**For more help:**
+- Check [CLI Reference](CLI.md) for usage
+- Check [PROVIDERS.md](PROVIDERS.md) for provider details  
+- Open GitHub Issue: https://github.com/bubroz/clipscribe/issues
+

@@ -51,6 +51,7 @@ clipscribe process AUDIO_FILE [OPTIONS]
 - Path to audio or video file
 - Formats: MP3, MP4, WAV, M4A, WEBM, OGG
 - Example: `test_videos/interview.mp3`
+- **Note:** For multi-speaker MP4 videos, use MP3 format for best speaker diarization (pyannote limitation)
 
 ### Options
 
@@ -124,12 +125,11 @@ output/
     ├── intelligence_report.docx          # Professional report (if --formats docx)
     ├── executive_summary.pptx            # 7-slide deck (if --formats pptx)
     ├── report.md                         # Markdown report (if --formats markdown)
-    └── csv/                              # Data tables (if --formats csv)
-        ├── entities.csv
-        ├── relationships.csv
-        ├── topics.csv
-        ├── key_moments.csv
-        └── segments.csv
+    ├── entities.csv                      # Data tables (if --formats csv)
+    ├── relationships.csv
+    ├── topics.csv
+    ├── key_moments.csv
+    └── segments.csv
 ```
 
 **transcript.json structure:**

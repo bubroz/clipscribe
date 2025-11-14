@@ -466,7 +466,7 @@ clipscribe process video.mp3 --formats docx
 
 ## Format 3: CSV (Data Tables)
 
-**File location:** `output/timestamp_filename/csv/`  
+**File location:** `output/timestamp_filename/` (root of output directory)  
 **Number of files:** 5 CSV files  
 **Total size:** ~20-100KB  
 **Best for:** Excel analysis, database import, Pandas/R processing, pivot tables
