@@ -262,7 +262,7 @@ async def process_file_logic(
             md_path = generate_markdown_report(transcript, intelligence, output_path)
             generated_files.append(md_path.name)
             logger.info(f"  ✓ Markdown report generated")
-    except Exception as e:
+        except Exception as e:
             logger.error(f"  ✗ Markdown generation failed: {e}")
     
     if "pptx" in formats:
@@ -397,7 +397,6 @@ async def process_series_logic(
             video_output.mkdir(exist_ok=True)
             
             # Save in requested formats
-            import json
             video_data = {
                 "transcript": {
                     "segments": [seg.dict() for seg in transcript.segments],

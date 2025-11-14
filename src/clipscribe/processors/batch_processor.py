@@ -26,7 +26,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 # Gemini removed - using Voxtral-Grok pipeline
-from ..retrievers.universal_video_client import UniversalVideoClient
+# UniversalVideoClient import removed - not used in v3.0.0
 
 logger = logging.getLogger(__name__)
 
@@ -162,7 +162,8 @@ class BatchProcessor:
         # Initialize components
         # Transcriber removed - using Voxtral-Grok pipeline
         self.transcriber = None
-        self.video_client = UniversalVideoClient()
+        # UniversalVideoClient removed - not used in v3.0.0
+        self.video_client = None
 
         # Job management
         self.active_jobs: Dict[str, BatchJob] = {}

@@ -8589,6 +8589,43 @@ idna = ">=2.0"
 multidict = ">=4.0"
 propcache = ">=0.2.1"
 
+[[package]]
+name = "youtube-search-python"
+version = "1.6.6"
+description = "Search for YouTube videos, channels & playlists & get video information using link WITHOUT YouTube Data API v3"
+optional = false
+python-versions = ">=3.6"
+groups = ["main"]
+files = [
+    {file = "youtube-search-python-1.6.6.tar.gz", hash = "sha256:4568d1d769ecd7eb4bb8365f04eec6e364c5f70eec7b3765f543daebb135fcf5"},
+    {file = "youtube_search_python-1.6.6-py3-none-any.whl", hash = "sha256:f0d835278bc32335f2ded48ba119bef39cafb290d98648a64deb22f6c4a705f2"},
+]
+
+[package.dependencies]
+httpx = ">=0.14.2"
+
+[[package]]
+name = "yt-dlp"
+version = "2025.11.12"
+description = "A feature-rich command-line audio/video downloader"
+optional = false
+python-versions = ">=3.10"
+groups = ["main"]
+files = [
+    {file = "yt_dlp-2025.11.12-py3-none-any.whl", hash = "sha256:b47af37bbb16b08efebb36825a280ea25a507c051f93bf413a6e4a0e586c6e79"},
+    {file = "yt_dlp-2025.11.12.tar.gz", hash = "sha256:5f0795a6b8fc57a5c23332d67d6c6acf819a0b46b91a6324bae29414fa97f052"},
+]
+
+[package.extras]
+build = ["build", "hatchling (>=1.27.0)", "pip", "setuptools (>=71.0.2,<81)", "wheel"]
+curl-cffi = ["curl-cffi (>=0.5.10,<0.6.dev0 || >=0.10.dev0,<0.14) ; implementation_name == \"cpython\""]
+default = ["brotli ; implementation_name == \"cpython\"", "brotlicffi ; implementation_name != \"cpython\"", "certifi", "mutagen", "pycryptodomex", "requests (>=2.32.2,<3)", "urllib3 (>=2.0.2,<3)", "websockets (>=13.0)", "yt-dlp-ejs (==0.3.1)"]
+dev = ["autopep8 (>=2.0,<3.0)", "pre-commit", "pytest (>=8.1,<9.0)", "pytest-rerunfailures (>=14.0,<15.0)", "ruff (>=0.14.0,<0.15.0)"]
+pyinstaller = ["pyinstaller (>=6.13.0)"]
+secretstorage = ["cffi", "secretstorage"]
+static-analysis = ["autopep8 (>=2.0,<3.0)", "ruff (>=0.14.0,<0.15.0)"]
+test = ["pytest (>=8.1,<9.0)", "pytest-rerunfailures (>=14.0,<15.0)"]
+
 [extras]
 all = ["fastapi", "gliner", "google-cloud-aiplatform", "google-cloud-storage", "pdfkit", "plotly", "redis", "rq", "spacy", "streamlit", "textual", "torch", "transformers", "uvicorn"]
 api = ["fastapi", "httpx", "redis", "rq", "uvicorn"]
@@ -8601,4 +8638,4 @@ web = ["fastapi", "redis", "rq", "streamlit", "uvicorn"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.11"
-content-hash = "5bbd1223cb91b65011efc881964a012957820c16039e6c5eb11d91533fa42f9a"
+content-hash = "43b73c2d261be6bb44cc1d04a375a96466dc149a116e65c9a04c22ea2b7b04d8"
