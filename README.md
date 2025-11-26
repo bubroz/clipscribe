@@ -11,6 +11,20 @@ Extract structured, evidence-based intelligence from video content. Get entities
 
 ---
 
+## Quick Start
+
+**FREE local processing · $0.06/30 min cloud · MIT licensed**
+
+⭐ **Star if this looks useful**  
+📧 **DM or email info@clipscribe.ai → free processing (first file, 24h turnaround)**
+
+**Try it yourself:**
+- Download sample outputs: [`examples/sample_outputs/`](examples/sample_outputs/)
+- See the 12-speaker panel JSON: [`multispeaker_panel_36min.json`](examples/sample_outputs/multispeaker_panel_36min.json)
+- Process your own file: `clipscribe process video.mp3 -t whisperx-local` (FREE!)
+
+---
+
 ## What You Get
 
 Process a 30-minute video and receive **50-70+ structured data points:**
@@ -394,10 +408,11 @@ clipscribe process audio.mp3
 
 ---
 
-## Contact
+## Contact & Free Trial
 
+**Free Processing:** info@clipscribe.ai (first file, up to 30min, 24h turnaround)  
 **Developer:** Zac Forristall  
-**Email:** zforristall@gmail.com  
+**Email:** info@clipscribe.ai  
 **GitHub:** [@bubroz](https://github.com/bubroz)
 
 **License:** MIT  

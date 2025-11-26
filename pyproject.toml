@@ -8,7 +8,7 @@ version = "3.1.0"
 description = "Professional intelligence extraction from audio/video files. GPU transcription (Modal A10G / M3 Max Metal) + xAI Grok analysis. File-first CLI, GCS-first API with presigned uploads."
 authors = ["Zac Forristall <zforristall@gmail.com>"]
 readme = "README.md"
-license = "Proprietary"
+license = "MIT"
 repository = "https://github.com/bubroz/clipscribe"
 keywords = [
     "video-intelligence", "entity-extraction", "knowledge-graph",
@@ -30,7 +30,7 @@ classifiers = [
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
-    "License :: Other/Proprietary License",
+    "License :: OSI Approved :: MIT License",
 ]
 packages = [{include = "clipscribe", from = "src"}]
 
