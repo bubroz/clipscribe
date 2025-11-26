@@ -1,3 +1,19 @@
+## [3.1.6] - 2025-11-26 🐳 DOCKERFILE DEPLOYMENT
+
+### Added
+- **Dockerfile**: Multi-stage Dockerfile with `api`, `cli`, and `web` targets for containerized deployment
+- **.dockerignore**: Optimized build context exclusions
+- **Deployment Infrastructure**: GitHub Actions workflow now builds and deploys to Cloud Run
+
+### Fixed
+- **Presigned URL Error Handling**: Returns clear error messages instead of silent mock fallbacks
+- **GCS Bucket Name Sanitization**: Removes newlines and whitespace from bucket name environment variable
+- **Deployment Blocker**: Resolved missing Dockerfile that prevented v3.1.x deployments
+
+### Changed
+- **Poetry Lock File**: Updated to match current dependencies
+- **Error Logging**: Improved logging for presigned URL generation failures
+
 ## [3.1.0] - 2025-11-22 🌍 NATIVE GEOINT ENGINE
     
 ### Major Feature - Native GEOINT Engine
