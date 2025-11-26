@@ -583,7 +583,7 @@ async def create_job(
                 return j
 
         job_id = uuid.uuid4().hex
-        bucket = os.getenv("GCS_BUCKET", "mock-bucket").strip()  # Remove any whitespace/newlines
+        bucket = os.getenv("GCS_BUCKET", "mock-bucket").strip().replace("\n", "").replace("\r", "")  # Remove any whitespace/newlines
         manifest_url = f"https://storage.googleapis.com/{bucket}/jobs/{job_id}/manifest.json"
         job = Job(job_id=job_id, state="QUEUED", manifest_url=manifest_url)
         _save_job(job)
@@ -646,7 +646,7 @@ async def list_artifacts(
 ):
     if not authorization:
         return _error("invalid_input", "Missing or invalid bearer token", status=401)
-    bucket = os.getenv("GCS_BUCKET")
+    bucket = os.getenv("GCS_BUCKET", "").strip().replace("\n", "").replace("\r", "")
     artifacts: List[Dict[str, Any]] = []
     if bucket:
         try:
