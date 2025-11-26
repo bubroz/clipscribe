@@ -61,19 +61,20 @@ The Dockerfile has been created and validated. The deployment blocker is resolve
 
 ## Next Steps
 
-### 1. Deploy New Version
-Push a new tag to trigger deployment:
-```bash
-git tag v3.1.6
-git push origin v3.1.6
-```
+### 1. Deployment Status ✅
+Version tag `v3.1.6` has been pushed and deployment is in progress.
 
-This will:
-1. Trigger GitHub Actions build
-2. Build Docker image using new Dockerfile
-3. Push to Artifact Registry
-4. Deploy to Cloud Run
-5. **ETA: 10-15 minutes**
+**Deployment Process:**
+1. ✅ Tag pushed: `v3.1.6` (committed at 22:45 UTC)
+2. ⏳ GitHub Actions build (triggered by tag push)
+3. ⏳ Docker image build and push to Artifact Registry
+4. ⏳ Cloud Run deployment
+5. **ETA: 10-15 minutes from tag push (22:45 UTC = ~23:00 UTC completion)**
+
+**Monitor Build:**
+```bash
+gcloud builds list --filter="tag:v3.1.6" --format="table(id,status,createTime)"
+```
 
 ### 2. Test After Deployment
 Once deployed, test the presign endpoint:
