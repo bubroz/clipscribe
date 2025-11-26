@@ -4,9 +4,9 @@
 
 set -e
 
-PROJECT_ID="prismatic-iris-429006-g6"
+PROJECT_ID="${GOOGLE_CLOUD_PROJECT:-your-project-id}"
 REGION="us-central1"
-GCS_BUCKET="prismatic-iris-429006-g6-clipscribe"
+GCS_BUCKET="${GCS_BUCKET:-your-bucket-name}"
 
 echo "========================================"
 echo "Testing GPU Worker"

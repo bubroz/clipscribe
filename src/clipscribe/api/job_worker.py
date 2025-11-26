@@ -112,7 +112,7 @@ class CloudRunJobWorker:
     def __init__(self):
         self.redis_url = os.getenv("REDIS_URL", "redis://localhost:6379/0")
         self.gcs_bucket = os.getenv("GCS_BUCKET", "clipscribe-outputs")
-        self.project_id = os.getenv("GOOGLE_CLOUD_PROJECT", "prismatic-iris-429006-g6")
+        self.project_id = os.getenv("GOOGLE_CLOUD_PROJECT", "your-project-id")
         self.location = os.getenv("TASK_QUEUE_LOCATION", "us-central1")
 
         # Model selection - Voxtral + Grok pipeline

@@ -5,7 +5,7 @@ from pathlib import Path
 from typing import Optional
 
 # Vertex AI Configuration
-VERTEX_AI_PROJECT_ID = os.getenv("VERTEX_AI_PROJECT_ID", "prismatic-iris-429006-g6")
+VERTEX_AI_PROJECT_ID = os.getenv("VERTEX_AI_PROJECT_ID", "your-project-id")
 VERTEX_AI_LOCATION = os.getenv("VERTEX_AI_LOCATION", "us-central1")
 VERTEX_AI_STAGING_BUCKET = os.getenv(
     "VERTEX_AI_STAGING_BUCKET", f"gs://{VERTEX_AI_PROJECT_ID}-clipscribe-staging"

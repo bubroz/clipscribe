@@ -94,7 +94,7 @@ class WhisperXModalProvider(TranscriptionProvider):
             )
         
         # GCS bucket for temp storage
-        self.gcs_bucket = gcs_bucket or os.getenv("GCS_BUCKET", "prismatic-iris-429006-g6-clipscribe")
+        self.gcs_bucket = gcs_bucket or os.getenv("GCS_BUCKET", "your-bucket-name")
     
     @property
     def name(self) -> str:

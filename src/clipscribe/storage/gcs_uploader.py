@@ -7,6 +7,7 @@ Handles 72-hour auto-deletion of videos.
 
 import asyncio
 import logging
+import os
 from pathlib import Path
 from typing import Optional
 
@@ -348,7 +349,8 @@ class GCSUploader:
 
         try:
             # Use Application Default Credentials (ADC)
-            self.client = storage.Client(project="prismatic-iris-429006-g6")
+            project_id = os.getenv("GOOGLE_CLOUD_PROJECT", "your-project-id")
+            self.client = storage.Client(project=project_id)
             self.bucket = self.client.bucket(bucket_name)
 
             # Set 72-hour lifecycle rule

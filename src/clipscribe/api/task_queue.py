@@ -23,7 +23,7 @@ class TaskQueueManager:
     """Manages job queueing with Google Cloud Tasks and Cloud Run Jobs."""
 
     def __init__(self):
-        self.project = os.getenv("GOOGLE_CLOUD_PROJECT", "prismatic-iris-429006-g6")
+        self.project = os.getenv("GOOGLE_CLOUD_PROJECT", "your-project-id")
         self.location = os.getenv("TASK_QUEUE_LOCATION", "us-central1")
         self.short_queue = os.getenv("SHORT_VIDEO_QUEUE", "clipscribe-short")
         self.long_queue = os.getenv("LONG_VIDEO_QUEUE", "clipscribe-long")

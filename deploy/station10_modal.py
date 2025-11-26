@@ -2054,7 +2054,7 @@ def api_transcribe():
 # ==============================================================================
 
 @app.function(timeout=3600)  # 1 hour timeout for long videos
-def test_gcs_transcription(gcs_path: str = "gs://prismatic-iris-429006-g6-clipscribe/public/medical.mp3"):
+def test_gcs_transcription(gcs_path: str = "gs://your-bucket-name/public/medical.mp3"):
     """
     Simple GCS test function.
     
@@ -2065,7 +2065,7 @@ def test_gcs_transcription(gcs_path: str = "gs://prismatic-iris-429006-g6-clipsc
     
     result = transcriber.transcribe_from_gcs.remote(
         gcs_input=gcs_path,
-        gcs_output="gs://prismatic-iris-429006-g6-clipscribe/test/modal_results/"
+        gcs_output="gs://your-bucket-name/test/modal_results/"
     )
     
     print()

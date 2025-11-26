@@ -39389,7 +39389,7 @@
         "total_savings_usd": 0.0,
         "avg_savings_per_request": 0.0
       },
-      "gcs_output": "gs://prismatic-iris-429006-g6-clipscribe/temp/whisperx/20251113_022300_3c7b1d5d_Palantir's Alex Karp on government surveillance, AI and the Democratic party - The Axios Show Ep. 5-o1ZFfK8hL5M_results"
+      "gcs_output": "gs://your-bucket-name/temp/whisperx/20251113_022300_3c7b1d5d_Palantir's Alex Karp on government surveillance, AI and the Democratic party - The Axios Show Ep. 5-o1ZFfK8hL5M_results"
     }
   },
   "intelligence": {
