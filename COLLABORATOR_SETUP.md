@@ -1,6 +1,6 @@
 # Collaborator Setup Guide
-**ClipScribe v3.0.0**  
-**Date:** November 13, 2025  
+**ClipScribe v3.1.0**  
+**Date:** November 2025  
 **For:** Engineer-level collaborators who want to demo ClipScribe
 
 ---
@@ -101,7 +101,7 @@ MISTRAL_API_KEY=your_mistral_key
 ```bash
 # Check ClipScribe is installed
 poetry run clipscribe --version
-# Output: ClipScribe v3.0.0
+# Output: ClipScribe v3.1.0
 
 # Check authentication
 poetry run clipscribe utils check-auth
@@ -265,6 +265,13 @@ clipscribe process video.mp3 -t whisperx-modal         # Cloud GPU, fast
 - Select specific formats
 - Explain format purposes
 - Show compatibility (Google/Microsoft/Apple)
+
+**Geolocation Intelligence (Beta):**
+- Process drone footage with telemetry (DJI/Autel)
+- Show GPS coordinate extraction
+- Display Google Earth KML visualization
+- Explain OSINT use cases
+- Note: Optional feature, requires raw drone footage
 
 ---
 
@@ -448,7 +455,7 @@ clipscribe process video.mp3 -o my_results/
 
 **For when people ask "What is this?"**
 
-"ClipScribe extracts structured intelligence from videos. Upload a video, get entities, relationships, topics, and insights in 5 formats (JSON, DOCX, CSV, PPTX, Markdown). It's open source (MIT licensed) - run it yourself for free or use the paid managed service. Built with WhisperX for transcription and Grok for intelligence extraction."
+"ClipScribe extracts structured intelligence from videos. Upload a video, get entities, relationships, topics, and insights in 5 formats (JSON, DOCX, CSV, PPTX, Markdown). It's open source (MIT licensed) - run it yourself for free or use the paid managed service. Built with WhisperX for transcription and Grok for intelligence extraction. Optional GEOINT engine extracts GPS coordinates from drone footage."
 
 **Key Points:**
 - Open source, MIT licensed
@@ -457,6 +464,7 @@ clipscribe process video.mp3 -o my_results/
 - FREE to run yourself, $25-500 for managed service
 - Multi-speaker support (up to 12 speakers)
 - Series analysis (cross-video patterns)
+- Geolocation intelligence (Beta) - GPS extraction from drone footage
 
 ---
 
@@ -468,8 +476,9 @@ clipscribe process video.mp3 -o my_results/
 2. **Generate all 5 formats** - Understand use cases
 3. **Process a series** - See cross-video intelligence
 4. **Open outputs in apps** - DOCX in Docs, CSV in Sheets, PPTX in Slides
-5. **Provide feedback** - What works, what doesn't
-6. **Help demo** - Show others how it works
+5. **Try GEOINT (if you have drone footage)** - Extract GPS coordinates and visualize in Google Earth
+6. **Provide feedback** - What works, what doesn't
+7. **Help demo** - Show others how it works
 
 ---
 
