@@ -269,6 +269,8 @@ Accept: text/event-stream
 
 ## CORS Configuration
 
+### API CORS (FastAPI Middleware)
+
 **Current Status:** CORS configured for `https://clipscribe.ai`  
 **Required:** Add `https://clipscribe-front-smashcrashman.replit.app`
 
@@ -288,6 +290,25 @@ gcloud run services update clipscribe-api \
   --region=us-central1 \
   --update-env-vars CORS_ALLOW_ORIGINS="https://clipscribe.ai,https://clipscribe-front-smashcrashman.replit.app"
 ```
+
+### GCS Bucket CORS (Browser Uploads)
+
+**Status:** ✅ **CONFIGURED**
+
+The GCS bucket `clipscribe-artifacts-16459511304` has CORS configured to allow browser-based file uploads.
+
+**Configuration:**
+- **Origins:** `*` (allows uploads from any domain - appropriate for presigned URLs)
+- **Methods:** `PUT`, `POST`, `GET`, `HEAD`, `OPTIONS`
+- **Headers:** `Content-Type`, `x-goog-meta-*`, `x-goog-resumable`
+- **Max Age:** 3600 seconds (1 hour preflight cache)
+
+**Verification:**
+```bash
+gsutil cors get gs://clipscribe-artifacts-16459511304
+```
+
+**Note:** This CORS configuration enables browser uploads to presigned URLs. The bucket accepts cross-origin PUT requests from any origin, which is necessary for the Replit dashboard upload flow.
 
 ---
 
