@@ -734,9 +734,18 @@ async def presign_upload(
         except Exception as e:
             # Log the actual error for debugging
             logger = logging.getLogger(__name__)
-            logger.error(f"Failed to generate presigned URL: {e}", exc_info=True)
-            # Fall through to mock if signing fails
-            pass
+            logger.error(
+                f"Failed to generate presigned URL for bucket {bucket}: {e}",
+                exc_info=True,
+                extra={"bucket": bucket, "error_type": type(e).__name__},
+            )
+            # Return error instead of falling through to mock
+            # This will help us see the actual signing error
+            return _error(
+                "presign_failed",
+                f"Failed to generate presigned URL: {str(e)}",
+                status=500,
+            )
 
     # Mock fallback
     bucket = bucket or "mock-bucket"
