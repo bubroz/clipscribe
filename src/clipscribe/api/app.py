@@ -728,7 +728,10 @@ async def presign_upload(
             )
             gcs_uri = f"gs://{bucket_name}/{object_path}"
             return PresignResponse(upload_url=upload_url, gcs_uri=gcs_uri)
-        except Exception:
+        except Exception as e:
+            # Log the actual error for debugging
+            logger = logging.getLogger(__name__)
+            logger.error(f"Failed to generate presigned URL: {e}", exc_info=True)
             # Fall through to mock if signing fails
             pass
 
