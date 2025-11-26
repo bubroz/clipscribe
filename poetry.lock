@@ -2820,18 +2820,6 @@ files = [
 ]
 
 [[package]]
-name = "klvdata"
-version = "0.0.3"
-description = "A Python library for parsing MISB/STANAG 4609 Key Length Value (KLV) metadata."
-optional = false
-python-versions = ">=3.5"
-groups = ["main"]
-files = [
-    {file = "klvdata-0.0.3-py3-none-any.whl", hash = "sha256:0e3fc811c85b211f5a8c797bb2b58db5788c72b3abaf95c241b61dfbe5e6a9e7"},
-    {file = "klvdata-0.0.3.tar.gz", hash = "sha256:db45d20bc4877e8e27e6762309a3c3468726c7905a78f550ddad8e837a68e4d1"},
-]
-
-[[package]]
 name = "langcodes"
 version = "3.5.0"
 description = "Tools for labeling human languages with IETF language tags"
@@ -8680,4 +8668,4 @@ web = ["fastapi", "redis", "rq", "streamlit", "uvicorn"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.11"
-content-hash = "74bad62bb14d8e8385f5c6b302dd8bf07c7e56b7fb0492a89f9445bdcba0d912"
+content-hash = "b20fa8cc41fdeb32fe13c45fe77847259fbdcbb3e3a5c2f79bf3809f18e6932f"
