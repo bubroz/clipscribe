@@ -709,22 +709,24 @@ async def presign_upload(
     if not authorization:
         return _error("invalid_input", "Missing or invalid bearer token", status=401)
 
-    bucket = os.getenv("GCS_BUCKET")
+    bucket = os.getenv("GCS_BUCKET", "").strip().replace("\n", "").replace("\r", "")
     if bucket:
         try:
             from google.cloud import storage  # type: ignore
 
             client = storage.Client()
+            # Remove gs:// prefix if present
+            bucket_name = bucket.replace("gs://", "").strip()
             # Path: tmp/<uuid>/<filename>
             object_path = f"uploads/{uuid.uuid4().hex}/{req.filename}"
-            blob = client.bucket(bucket).blob(object_path)
+            blob = client.bucket(bucket_name).blob(object_path)
             upload_url = blob.generate_signed_url(
                 version="v4",
                 expiration=900,  # 15 minutes
                 method="PUT",
                 content_type=req.content_type,
             )
-            gcs_uri = f"gs://{bucket}/{object_path}"
+            gcs_uri = f"gs://{bucket_name}/{object_path}"
             return PresignResponse(upload_url=upload_url, gcs_uri=gcs_uri)
         except Exception:
             # Fall through to mock if signing fails
@@ -770,7 +772,7 @@ async def health_check():
 
         # Check GCS access if configured
         gcs_status = "not_configured"
-        bucket = os.getenv("GCS_BUCKET")
+        bucket = os.getenv("GCS_BUCKET", "").strip().replace("\n", "").replace("\r", "")
         if bucket:
             try:
                 from google.cloud import storage
@@ -783,7 +785,7 @@ async def health_check():
                 gcs_status = "healthy"
             except Exception as e:
                 logger = logging.getLogger(__name__)
-                logger.warning(f"GCS health check failed: {e}")
+                logger.warning(f"GCS health check failed: {e}", exc_info=True)
                 gcs_status = "unhealthy"
 
         # Check queue availability
