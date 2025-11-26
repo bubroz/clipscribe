@@ -1,8 +1,8 @@
 # ClipScribe Development Guide
 
-**Version:** v3.0.0  
-**Last Updated:** November 13, 2025  
-**Status:** Provider-based architecture
+**Version:** v3.1.0  
+**Last Updated:** November 2025  
+**Status:** Provider-based architecture, GEOINT engine (Beta)
 
 ---
 
@@ -227,6 +227,24 @@ src/clipscribe/
 │   │   └── whisperx_modal.py
 │   └── intelligence/      # Intelligence providers
 │       └── grok.py
+├── extractors/            # Intelligence extractors
+│   ├── metadata_extractor.py  # GEOINT telemetry extraction
+│   └── ...
+├── processors/            # Processing pipelines
+│   ├── geoint_processor.py    # GEOINT orchestration
+│   ├── geo_correlator.py       # Telemetry-transcript correlation
+│   └── ...
+├── exporters/             # Output formatters
+│   ├── geoint_exporter.py      # KML/HTML map generation
+│   └── ...
+├── utils/klv/             # GEOINT parsing (zero-dependency)
+│   ├── parser.py          # KLV stream parser
+│   ├── decoder.py         # Value decoders
+│   ├── registry.py        # Tag registry
+│   └── geometry.py        # Spatial calculations
+├── utils/                  # Utilities
+│   ├── dji_parser.py      # DJI/Autel subtitle parser
+│   └── ...
 ├── transcribers/          # Existing transcriber implementations
 │   ├── voxtral_transcriber.py
 │   └── whisperx_transcriber.py
@@ -243,6 +261,79 @@ tests/
 ├── unit/
 │   └── providers/         # Provider unit tests
 └── integration/           # Integration tests
+```
+
+---
+
+## GEOINT Engine Architecture
+
+### Overview
+
+The GEOINT engine is an optional component that extracts geospatial telemetry from video files. It uses a unified schema approach where different telemetry formats (KLV, DJI subtitles) are normalized to the same internal representation.
+
+### Adding New Telemetry Formats
+
+To add support for a new telemetry format (e.g., Parrot drones, custom formats):
+
+1. **Create Parser** (if needed)
+   ```python
+   # src/clipscribe/utils/custom_parser.py
+   class CustomTelemetryParser:
+       def parse(self, video_path: str) -> List[Dict]:
+           # Extract telemetry from your format
+           # Return list of dicts with unified schema keys
+           return [
+               {
+                   "SensorLatitude": lat,
+                   "SensorLongitude": lon,
+                   "SensorTrueAltitude": alt,
+                   "video_time": seconds,  # or PrecisionTimeStamp for absolute
+               }
+           ]
+   ```
+
+2. **Update MetadataExtractor**
+   ```python
+   # src/clipscribe/extractors/metadata_extractor.py
+   def extract_metadata(self, video_path: str):
+       # Try KLV first
+       klv_data = self._extract_klv(video_path)
+       if klv_data:
+           return klv_data
+       
+       # Try DJI subtitles
+       subtitle_data = self._extract_subtitle_telemetry(video_path)
+       if subtitle_data:
+           return subtitle_data
+       
+       # Add your format here
+       custom_data = self._extract_custom_telemetry(video_path)
+       if custom_data:
+           return custom_data
+       
+       return []
+   ```
+
+3. **Unified Schema**
+
+All parsers must output the same schema keys:
+- `SensorLatitude` (float, degrees)
+- `SensorLongitude` (float, degrees)
+- `SensorTrueAltitude` (float, meters MSL)
+- `PrecisionTimeStamp` (int, microseconds, for absolute time) OR
+- `video_time` (float, seconds, for relative time)
+
+Downstream processors (correlator, exporter) work with this unified format.
+
+### Testing New Formats
+
+```python
+# tests/unit/test_custom_parser.py
+def test_custom_parser():
+    parser = CustomTelemetryParser()
+    data = parser.parse("test_video.mp4")
+    assert "SensorLatitude" in data[0]
+    assert "SensorLongitude" in data[0]
 ```
 
 ---

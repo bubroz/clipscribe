@@ -1,7 +1,7 @@
 # ClipScribe CLI Reference
 
-**Version:** v3.0.0  
-**Last Updated:** November 13, 2025
+**Version:** v3.1.0  
+**Last Updated:** November 2025
 
 Complete command-line interface reference for ClipScribe.
 
@@ -49,9 +49,10 @@ clipscribe process AUDIO_FILE [OPTIONS]
 
 **AUDIO_FILE** (required)
 - Path to audio or video file
-- Formats: MP3, MP4, WAV, M4A, WEBM, OGG
+- Formats: MP3, MP4, WAV, M4A, WEBM, OGG, MPG, TS, MKV
 - Example: `test_videos/interview.mp3`
 - **Note:** For multi-speaker MP4 videos, use MP3 format for best speaker diarization (pyannote limitation)
+- **GEOINT (Beta):** For video files (MP4, MPG, TS, MKV), ClipScribe automatically detects and extracts geolocation telemetry if available. No additional flags needed. See [GEOINT Documentation](advanced/GEOINT.md) for details.
 
 ### Options
 

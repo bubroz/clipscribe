@@ -2,7 +2,7 @@
 
 [![Python Version](https://img.shields.io/badge/python-3.12+-blue.svg)](https://python.org)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-3.0.0-blue.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-3.1.0-blue.svg)](CHANGELOG.md)
 [![Providers](https://img.shields.io/badge/providers-3%20transcription%20%2B%201%20intelligence-blue.svg)](#how-it-works)
 
 **Intelligence extraction platform for video and audio**
@@ -304,6 +304,31 @@ clipscribe process audio.mp3
 
 ---
 
+## Advanced Features
+
+### Geolocation Intelligence (Beta)
+
+**Geolocation Intelligence (Beta)** - Extract GPS coordinates from consumer drone footage (DJI, Autel). Automatically maps audio transcript segments to geospatial coordinates and generates Google Earth visualizations.
+
+**Use Cases:**
+- OSINT analysis (verify geolocation claims in social media)
+- Flight path analysis and timeline reconstruction
+- Correlate audio intelligence with geographic locations
+
+**Requirements:** Raw drone footage with telemetry enabled (see [GEOINT Documentation](docs/advanced/GEOINT.md) for setup).
+
+**Note:** This is an optional advanced feature. Core intelligence extraction works without it.
+
+---
+
+## What's New in v3.1.0
+
+**Geolocation Intelligence (Beta):**
+- Consumer drone telemetry extraction (DJI/Autel)
+- Automatic GPS coordinate correlation with transcript
+- Google Earth KML export
+- Interactive HTML map generation
+
 ## What's New in v3.0.0
 
 **Multi-Format Export System:**
@@ -360,7 +385,7 @@ clipscribe process audio.mp3
 
 ## Project Status
 
-**Version:** v3.0.0  
+**Version:** v3.1.0  
 **Released:** November 13, 2025  
 **Status:** Production-ready with multi-format exports and series analysis  
 **Providers:** 3 transcription, 1 intelligence (all validated)

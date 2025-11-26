@@ -9,7 +9,7 @@ Following xAI best practices:
 """
 
 from enum import Enum
-from typing import Dict, List
+from typing import Dict, List, Optional
 
 from pydantic import BaseModel, Field
 
@@ -121,6 +121,20 @@ class KeyMoment(BaseModel):
     quote: str = Field(description="Exact quote from this moment in transcript")
 
 
+class VisualObservation(BaseModel):
+    """
+    GEOINT: Visual observation inferred from transcript or context.
+    
+    Used for mapping audio events to geospatial locations.
+    """
+    
+    timestamp: str = Field(description="Timestamp of observation (MM:SS)")
+    description: str = Field(description="Description of visual sighting (e.g., 'Red truck moving west')")
+    entity_type: str = Field(description="Type of object sighted (e.g., Vehicle, Person, Structure)")
+    evidence: str = Field(description="Quote supporting the observation")
+    confidence: float = Field(ge=0.0, le=1.0, description="Confidence that this is a visual sighting")
+
+
 class Sentiment(BaseModel):
     """
     Sentiment analysis of video content.
@@ -164,6 +178,10 @@ class VideoIntelligence(BaseModel):
     )
     key_moments: List[KeyMoment] = Field(
         description="Significant moments worth highlighting. Only extract truly important moments."
+    )
+    visual_observations: Optional[List[VisualObservation]] = Field(
+        default=None,
+        description="GEOINT: Specific visual sightings or activities described in the video (e.g., 'I see a target')."
     )
     sentiment: Sentiment = Field(
         description="Sentiment analysis of video content (overall and per-topic)"

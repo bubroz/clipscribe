@@ -79,7 +79,7 @@ def process(
 ):
     """Process audio/video file to extract intelligence.
     
-    v3.0.0 file-first processing with provider selection.
+    v3.1.0 file-first processing with provider selection.
     
     Examples:
     
@@ -274,6 +274,45 @@ async def process_file_logic(
         except Exception as e:
             logger.error(f"  ✗ PPTX generation failed: {e}")
     
+    # 3. GEOINT Analysis (Auto-detect)
+    # Only for video files that might have KLV (MKV, MPG, TS, MP4)
+    file_ext = audio_file.suffix.lower()
+    if file_ext in ['.mpg', '.ts', '.mkv', '.mp4']:
+        try:
+            from clipscribe.processors.geoint_processor import GeoIntProcessor
+            
+            logger.info(f"\nChecking for GEOINT telemetry...")
+            geoint_proc = GeoIntProcessor(output_path)
+            
+            # Convert transcript segments to dicts for the processor
+            segment_dicts = [seg.dict() for seg in transcript.segments]
+            
+            geoint_result = geoint_proc.process(
+                str(audio_file), 
+                segment_dicts
+            )
+            
+            if geoint_result:
+                logger.info(f"✓ GEOINT: Extracted {geoint_result['telemetry_count']} packets")
+                logger.info(f"  Correlated events: {geoint_result['geo_events_count']}")
+                logger.info(f"  Map: {Path(geoint_result['kml_path']).name}")
+                generated_files.append("mission.kml")
+                
+                # Enrich comprehensive_data with GEOINT
+                comprehensive_data['transcript']['segments'] = geoint_result['enriched_segments']
+                comprehensive_data['geoint'] = {
+                    'kml_path': geoint_result['kml_path'],
+                    'telemetry_count': geoint_result['telemetry_count'],
+                    'geo_events_count': geoint_result['geo_events_count']
+                }
+                
+                # Re-save transcript.json with enriched data
+                with open(output_path / "transcript.json", "w") as f:
+                    json.dump(comprehensive_data, f, indent=2)
+                    
+        except Exception as e:
+            logger.warning(f"GEOINT processing failed (skipping): {e}")
+
     logger.info(f"\n✓ Complete! Results saved to {output_path}")
     logger.info(f"  Generated: {', '.join(generated_files)}")
     logger.info(f"  Entities: {len(intelligence.entities)}")
@@ -653,7 +692,7 @@ def dashboard(output_dir, dashboard_dir):
 )
 @click.option("--batch-id", help="Custom batch identifier (auto-generated if not provided)")
 def batch_process(files_list, output_dir, max_concurrent, transcription_provider, batch_id):
-    """Process multiple audio/video files in parallel (v3.0.0 file-based).
+    """Process multiple audio/video files in parallel (v3.1.0 file-based).
 
     FILES_LIST should contain one file path per line.
 
@@ -661,25 +700,25 @@ def batch_process(files_list, output_dir, max_concurrent, transcription_provider
         clipscribe batch-process files.txt
         clipscribe batch-process files.txt --max-concurrent 5 -t whisperx-modal
     """
-    click.echo("⚠️  Batch processing being updated for v3.0.0 provider architecture.")
+    click.echo("Batch processing being updated for v3.1.0 provider architecture.")
     click.echo("Use individual 'clipscribe process' commands for now.")
-    click.echo("Batch processing will be re-enabled in v3.1.0 with file support.")
+    click.echo("Batch processing will be re-enabled in a future release with file support.")
 
 
 @cli.command()
 @click.argument("batch_id")
 def batch_status(batch_id):
-    """Check batch processing status (temporarily disabled in v3.0.0)."""
-    click.echo("⚠️  Batch status checking temporarily disabled during v3.0.0 refactor.")
-    click.echo("Will be re-enabled in v3.1.0 with file-based batch processing.")
+    """Check batch processing status (temporarily disabled in v3.1.0)."""
+    click.echo("Batch status checking temporarily disabled during v3.1.0 refactor.")
+    click.echo("Will be re-enabled in a future release with file-based batch processing.")
 
 
 @cli.command()
 @click.argument("batch_id")
 def batch_results(batch_id):
-    """Get batch processing results (temporarily disabled in v3.0.0)."""
-    click.echo("⚠️  Batch results temporarily disabled during v3.0.0 refactor.")
-    click.echo("Will be re-enabled in v3.1.0 with file-based batch processing.")
+    """Get batch processing results (temporarily disabled in v3.1.0)."""
+    click.echo("Batch results temporarily disabled during v3.1.0 refactor.")
+    click.echo("Will be re-enabled in a future release with file-based batch processing.")
 
 
 @cli.command()

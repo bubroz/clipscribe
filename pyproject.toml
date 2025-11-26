@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "clipscribe"
-version = "3.0.0"
+version = "3.1.0"
 description = "Professional intelligence extraction from audio/video files. GPU transcription (Modal A10G / M3 Max Metal) + xAI Grok analysis. File-first CLI, GCS-first API with presigned uploads."
 authors = ["Zac Forristall <zforristall@gmail.com>"]
 readme = "README.md"
@@ -17,7 +17,8 @@ keywords = [
     "relationship-mapping", "temporal-analysis", "nlp",
     "intelligence-analysis", "grok-api", "prompt-caching",
     "gpu-acceleration", "m3-max", "metal-acceleration",
-    "fastapi", "saas-api", "research-tools"
+    "fastapi", "saas-api", "research-tools",
+    "geolocation", "osint", "geoint", "drone-telemetry"
 ]
 classifiers = [
     "Development Status :: 4 - Beta",
@@ -203,6 +204,7 @@ python-pptx = "^1.0.2"
 openpyxl = "^3.1.5"
 yt-dlp = "^2025.11.12"
 youtube-search-python = "^1.6.6"
+ffmpeg-python = "^0.2.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.10.0"

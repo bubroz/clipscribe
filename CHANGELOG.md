@@ -1,3 +1,17 @@
+## [3.1.0] - 2025-11-22 🌍 NATIVE GEOINT ENGINE
+    
+### Major Feature - Native GEOINT Engine
+- **Zero-Dependency KLV Parser**: Implemented custom, pure-Python parser for MISB ST 0601 telemetry.
+- **Telemetry Extraction**: Extract Latitude, Longitude, Altitude, Heading, FOV from `.mpg`, `.ts`, `.mkv` files.
+- **Visualization**: 
+  - `mission.kml`: Google Earth flight path and sensor footprint.
+  - `mission_map.html`: Interactive Leaflet.js map (offline capable).
+- **Intelligence Correlation**: Automatically maps audio transcript segments to geospatial coordinates.
+- **Robustness**: Replaced broken `klvdata` library with native implementation (Python 3.12+ compatible).
+
+### Fixed
+- Removed broken `klvdata` dependency that caused import errors.
+
 ## [3.0.0] - 2025-11-13 🎯 PROVIDER ARCHITECTURE TRANSFORMATION
 
 ### Breaking Changes - File-First Design

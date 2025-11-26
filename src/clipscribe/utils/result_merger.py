@@ -22,12 +22,19 @@ def merge_transcripts(results: List[Dict[str, Any]]) -> str:
 
 
 def merge_entities(results: List[Dict[str, Any]], timestamp_offsets: List[float]) -> List[Entity]:
-    """Merges and de-duplicates entities, adjusting timestamps."""
-    # TODO: Implement proper entity normalization and de-duplication
+    """
+    Merges and de-duplicates entities, adjusting timestamps.
+    
+    Note: Current implementation is basic (concatenation only).
+    Future enhancement: Implement proper entity normalization and de-duplication
+    using EntityNormalizer for cross-chunk entity linking.
+    """
     all_entities = []
     for i, result in enumerate(results):
         for entity_data in result.get("entities", []):
-            # This is a placeholder. We need to adjust timestamps and normalize.
+            # Adjust timestamps based on chunk offset
+            if "timestamp" in entity_data:
+                entity_data["timestamp"] += timestamp_offsets[i]
             all_entities.append(Entity(**entity_data))
     return all_entities
 
@@ -35,18 +42,32 @@ def merge_entities(results: List[Dict[str, Any]], timestamp_offsets: List[float]
 def merge_relationships(
     results: List[Dict[str, Any]], timestamp_offsets: List[float]
 ) -> List[Dict[str, Any]]:
-    """Merges relationships, adjusting timestamps."""
-    # TODO: Implement relationship merging
+    """
+    Merges relationships, adjusting timestamps.
+    
+    Note: Current implementation is basic (concatenation only).
+    Future enhancement: Implement relationship deduplication and timestamp adjustment
+    for cross-chunk relationship continuity.
+    """
     all_relationships = []
     for i, result in enumerate(results):
-        all_relationships.extend(result.get("relationships", []))
+        relationships = result.get("relationships", [])
+        # Adjust timestamps based on chunk offset
+        for rel in relationships:
+            if "timestamp" in rel:
+                rel["timestamp"] += timestamp_offsets[i]
+        all_relationships.extend(relationships)
     return all_relationships
 
 
 def synthesize_summary(results: List[Dict[str, Any]]) -> str:
-    """Synthesizes a new summary from individual chunk summaries."""
-    # TODO: Use an LLM call to synthesize a high-quality summary.
-    # For now, just concatenate them.
+    """
+    Synthesizes a new summary from individual chunk summaries.
+    
+    Note: Current implementation concatenates chunk summaries.
+    Future enhancement: Use LLM call to synthesize a high-quality unified summary
+    that eliminates redundancy and creates coherent narrative.
+    """
     full_summary = ""
     for result in results:
         full_summary += result.get("summary", "") + "\n\n"

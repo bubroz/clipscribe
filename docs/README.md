@@ -1,8 +1,8 @@
 # ClipScribe Documentation
 
-**Version:** v3.0.0  
-**Last Updated:** November 13, 2025  
-**Status:** Provider-based architecture, file-first processing
+**Version:** v3.1.0  
+**Last Updated:** November 2025  
+**Status:** Provider-based architecture, file-first processing, GEOINT engine (Beta)
 
 ---
 
@@ -59,12 +59,40 @@
 
 ---
 
+## Advanced Features
+
+### Geolocation Intelligence (Beta)
+
+**[GEOINT Engine](advanced/GEOINT.md)** - Geospatial telemetry extraction
+- Consumer drone telemetry (DJI, Autel)
+- Military KLV support (MISB ST 0601)
+- Automatic GPS coordinate correlation
+- Google Earth KML export
+- Interactive HTML maps
+
+**[DJI Requirements](advanced/GEOINT_DJI_REQUIREMENTS.md)** - File format specifications
+- Exact file format requirements
+- How to enable telemetry
+- Supported drone models
+- Validation checklist
+
+**[OSINT Workflows](advanced/OSINT_GEOINT_WORKFLOWS.md)** - Use case examples
+- Geolocation verification
+- Timeline analysis
+- Cross-reference with audio intelligence
+- Social media claims validation
+
+**Note:** GEOINT is an optional advanced feature. Core intelligence extraction works without it.
+
+---
+
 ## Technical Documentation
 
 ### For Developers
 
 **[Architecture](ARCHITECTURE.md)** - System design
 - Provider architecture overview
+- GEOINT engine (optional component)
 - Processing flows (CLI + API)
 - Data structures
 - Cost model
@@ -73,6 +101,7 @@
 **[Development](DEVELOPMENT.md)** - Contributing guide
 - Development setup
 - Adding new providers
+- Adding new telemetry formats
 - Testing strategy
 - Code organization
 
@@ -107,6 +136,15 @@
 
 ---
 
+## What's New in v3.1.0
+
+**Geolocation Intelligence (Beta):**
+- Consumer drone telemetry extraction (DJI/Autel)
+- Automatic GPS coordinate correlation with transcript
+- Google Earth KML export
+- Interactive HTML map generation
+- Zero-dependency KLV parser (military/government support)
+
 ## What's New in v3.0.0
 
 **Breaking Changes:**
@@ -128,4 +166,4 @@
 
 ---
 
-**All documentation validated November 13, 2025 with v3.0.0 testing.**
+**All documentation validated November 2025 with v3.1.0 testing.**

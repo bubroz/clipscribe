@@ -31,6 +31,24 @@ def create_intelligence_extraction_prompt(transcript_text: str, metadata: dict) 
     duration_sec = metadata.get("duration", 0)
     duration_min = duration_sec / 60 if duration_sec > 0 else 0
     channel = metadata.get("channel", "Unknown")
+    visual_mode = metadata.get("visual_mode", False)
+
+    visual_section = ""
+    if visual_mode:
+        visual_section = """
+6. VISUAL OBSERVATIONS (GEOINT):
+   You are acting as a visual observer analyzing surveillance footage.
+   Identify specific visual sightings, movements, or activities described or implied in the transcript.
+   
+   Requirements:
+   - Extract "Visual Observations" where the speaker describes seeing something.
+   - Focus on physical objects (vehicles, people, infrastructure) and actions.
+   - Timestamp: Best estimate from context (MM:SS).
+   - Description: Clear description of what is seen.
+   - Evidence: Quote supporting the observation.
+   
+   Example: "I see a red truck moving west" -> Observation: Red Truck moving West.
+"""
 
     prompt = f"""Extract comprehensive intelligence from this video transcript.
 
@@ -100,6 +118,7 @@ EXTRACTION GUIDELINES (Quality Over Quantity):
    - Confidence in overall assessment
 
    Quality bar: Based on actual tone > assumed/stereotyped
+{visual_section}
 
 CRITICAL PRINCIPLES:
 - Evidence is mandatory for entities and relationships (prevents hallucinations)

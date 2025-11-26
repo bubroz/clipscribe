@@ -1,7 +1,7 @@
 # Output Format Reference
 
-**Version:** v3.0.0  
-**Last Updated:** November 13, 2025
+**Version:** v3.1.0  
+**Last Updated:** November 2025
 
 Complete schema reference for ClipScribe's multi-format export system.
 
@@ -75,7 +75,22 @@ clipscribe process video.mp3 --formats json docx csv       # Specific formats
             "speaker": "SPEAKER_01"
           }
         ],
-        "confidence": 0.95               // Transcription confidence
+        "confidence": 0.95,              // Transcription confidence
+        "geoint": {                       // Geolocation data (Beta, video files only)
+          "timestamp": 1634523400123000,  // Absolute timestamp (microseconds, KLV) or null
+          "sensor": {                     // Drone/platform location
+            "lat": 34.12345,              // Latitude (degrees)
+            "lon": -118.67890,            // Longitude (degrees)
+            "alt": 1500.5,                // Altitude (meters MSL)
+            "heading": 45.2               // Heading angle (degrees, if available)
+          },
+          "target": {                     // Camera look target (if available)
+            "lat": 34.12500,              // Frame center latitude
+            "lon": -118.68000,            // Frame center longitude
+            "elev": 0.0                   // Ground elevation (meters)
+          },
+          "likely_visual_observation": true  // Heuristic: narrow FOV or high depression angle
+        }
       }
     ],
     "language": "en",                    // Detected language code
@@ -99,6 +114,7 @@ clipscribe process video.mp3 --formats json docx csv       # Specific formats
 - Timestamps in seconds from start
 - Speaker attribution (if diarization enabled)
 - Word-level data available for WhisperX providers
+- `geoint` block (optional, Beta) - Geolocation data for video files with telemetry
 
 **speakers** (Integer)
 - Count of unique speakers detected
@@ -633,6 +649,103 @@ clipscribe process video.mp3 --formats pptx
 ```bash
 clipscribe process video.mp3 --formats markdown
 ```
+
+---
+
+## GEOINT Output Files (Beta)
+
+**Status:** Beta feature, automatically generated for video files with telemetry
+
+When processing video files (MP4, MPG, TS, MKV) that contain geolocation telemetry, ClipScribe automatically generates additional visualization files:
+
+### mission.kml
+
+**File location:** `output/timestamp_filename/mission.kml`  
+**File size:** ~10-50KB (depends on flight duration)  
+**Best for:** Google Earth, GIS software, geographic analysis
+
+**Contents:**
+- Flight path (yellow line showing drone movement)
+- Target track (red line showing where camera was looking)
+- Look vectors (gray lines connecting sensor to target periodically)
+- Event placemarks (pins at locations where audio events occurred)
+
+**Usage:**
+- Open directly in Google Earth
+- Import into QGIS, ArcGIS for spatial analysis
+- Share with stakeholders for geographic context
+
+**Format:** KML 2.2 (Open Geospatial Consortium standard)
+
+### mission_map.html
+
+**File location:** `output/timestamp_filename/mission_map.html`  
+**File size:** ~15-20KB  
+**Best for:** Web sharing, offline viewing, quick visualization
+
+**Contents:**
+- Interactive Leaflet.js map
+- Satellite imagery layer (Esri World Imagery)
+- Street overlay (OpenStreetMap)
+- Flight path visualization
+- Event markers with popups
+
+**Features:**
+- Standalone HTML (no internet required after initial load)
+- Zoom, pan, layer toggle
+- Click markers to see transcript quotes
+- Responsive design (works on mobile)
+
+**Usage:**
+- Open in any web browser
+- Share via email or file sharing
+- Embed in reports or presentations
+
+### GEOINT Data in transcript.json
+
+When GEOINT data is available, transcript segments are enriched with `geoint` blocks:
+
+```json
+{
+  "transcript": {
+    "segments": [
+      {
+        "text": "Target vehicle acquired at the intersection.",
+        "start": 15.4,
+        "end": 18.2,
+        "geoint": {
+          "timestamp": 1634523400123000,
+          "sensor": {
+            "lat": 34.12345,
+            "lon": -118.67890,
+            "alt": 1500.5,
+            "heading": 45.2
+          },
+          "target": {
+            "lat": 34.12500,
+            "lon": -118.68000,
+            "elev": 0.0
+          },
+          "likely_visual_observation": true
+        }
+      }
+    ]
+  },
+  "geoint": {
+    "kml_path": "output/timestamp_filename/mission.kml",
+    "telemetry_count": 450,
+    "geo_events_count": 23
+  }
+}
+```
+
+**Availability:**
+- Only generated for video files with embedded telemetry
+- Requires DJI/Autel subtitle files or KLV metadata
+- Automatically detected, no flags needed
+- Gracefully skipped if no telemetry found (no error)
+
+**For detailed GEOINT documentation, see [GEOINT.md](advanced/GEOINT.md)**
 
 ---
 

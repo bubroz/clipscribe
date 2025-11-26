@@ -1,8 +1,8 @@
-# ClipScribe v3.0.0 Architecture
+# ClipScribe v3.1.0 Architecture
 
-**Last Updated:** November 13, 2025  
-**Version:** v3.0.0  
-**Status:** Provider-based architecture, file-first processing
+**Last Updated:** November 2025  
+**Version:** v3.1.0  
+**Status:** Provider-based architecture, file-first processing, GEOINT engine (Beta)
 
 Professional intelligence extraction from audio/video files with provider flexibility.
 
@@ -24,7 +24,7 @@ Professional intelligence extraction from audio/video files with provider flexib
 
 **For Stakeholders & Decision Makers**
 
-ClipScribe v3.0.0 is a provider-based intelligence extraction platform for audio/video files. Built on swappable provider architecture, users can choose optimal transcription and intelligence providers for their use case.
+ClipScribe v3.1.0 is a provider-based intelligence extraction platform for audio/video files. Built on swappable provider architecture, users can choose optimal transcription and intelligence providers for their use case. Includes optional GEOINT engine for geolocation intelligence from drone footage.
 
 **Key Capabilities:**
 - **Flexibility:** 3 transcription providers, 1 intelligence provider (extensible)
@@ -42,7 +42,7 @@ ClipScribe v3.0.0 is a provider-based intelligence extraction platform for audio
 
 ## System Overview
 
-### v3.0.0 Architecture
+### v3.1.0 Architecture
 
 ```mermaid
 graph TB
@@ -115,7 +115,7 @@ graph TB
 
 ### Design Pattern: Adapter Pattern
 
-ClipScribe v3.0.0 uses the **Adapter Pattern** to wrap existing transcription and intelligence engines with a standardized interface.
+ClipScribe v3.1.0 uses the **Adapter Pattern** to wrap existing transcription and intelligence engines with a standardized interface.
 
 **Benefits:**
 - Single source of truth (no code duplication)
@@ -415,7 +415,7 @@ sequenceDiagram
 }
 ```
 
-### Comprehensive JSON Output (v3.0.0 format)
+### Comprehensive JSON Output (v3.1.0 format)
 
 All providers save a comprehensive JSON file containing transcript + intelligence:
 
@@ -451,6 +451,71 @@ All providers save a comprehensive JSON file containing transcript + intelligenc
 ```
 
 **Saved to:** `output/timestamp_filename/transcript.json`
+
+---
+
+## GEOINT Engine (Optional Component)
+
+**Status:** Beta / Optional Feature
+
+The GEOINT engine is an optional component that extracts geospatial telemetry from video files. It runs automatically during `clipscribe process` if supported file types are detected, but core intelligence extraction works without it.
+
+### Architecture
+
+**Unified Telemetry Schema:**
+- Both military KLV (MISB ST 0601) and consumer drone subtitles (DJI/Autel) are normalized to the same internal format
+- Downstream processors (correlation, visualization) don't need to know the source format
+- Schema keys: `SensorLatitude`, `SensorLongitude`, `SensorTrueAltitude`, `PrecisionTimeStamp` (or `video_time` for relative)
+
+**Fallback Logic:**
+1. Attempt KLV extraction (binary stream, military/government format)
+2. If no KLV found, attempt subtitle extraction (text-based, consumer drones)
+3. If no telemetry found, continue without GEOINT (no error, graceful degradation)
+
+**Components:**
+- `MetadataExtractor`: Extracts raw telemetry (KLV or SRT)
+- `KlvParser`: Custom zero-dependency parser for MISB ST 0601
+- `DjiParser`: Regex-based parser for DJI/Autel subtitle telemetry
+- `GeoCorrelator`: Correlates telemetry timestamps with transcript segments
+- `GeoIntProcessor`: Orchestrates the full pipeline
+- `GeoIntExporter`: Generates KML and HTML visualizations
+
+### Integration Point
+
+GEOINT processing occurs in `cli.py` after transcription and intelligence extraction:
+
+```python
+# Auto-detect for video files
+if file_ext in ['.mpg', '.ts', '.mkv', '.mp4']:
+    geoint_result = geoint_proc.process(video_path, transcript_segments)
+    if geoint_result:
+        # Enrich transcript.json with geoint blocks
+        comprehensive_data['transcript']['segments'] = geoint_result['enriched_segments']
+```
+
+**Key Design Decision:**
+- GEOINT failures don't break the main pipeline (wrapped in try/except)
+- Returns `None` if no telemetry found (not an error condition)
+- Enriches existing transcript data (additive, not replacement)
+
+### Use Cases
+
+**Primary:** Consumer drone OSINT analysis
+- Extract GPS coordinates from DJI footage
+- Verify geolocation claims in social media
+- Analyze flight paths and timelines
+
+**Secondary:** Military/government video analysis
+- Process MISB ST 0601 compliant feeds
+- Requires access to properly formatted video files
+
+### Limitations
+
+- **Test Data:** Military KLV samples are extremely limited (essentially one public sample)
+- **Beta Status:** Needs real-world DJI sample validation
+- **Format Support:** Currently supports KLV and DJI/Autel subtitles only
+
+**For detailed GEOINT documentation, see [GEOINT.md](advanced/GEOINT.md)**
 
 ---
 
@@ -535,7 +600,7 @@ def test_new_provider():
 
 ## Comparison: v2 vs v3
 
-| Aspect | v2.x | v3.0.0 |
+| Aspect | v2.x | v3.1.0 |
 |--------|------|--------|
 | Input | URLs | Files |
 | Download | Built-in (yt-dlp, 15 files) | External (yt-dlp separately) |
