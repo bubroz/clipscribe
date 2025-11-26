@@ -720,6 +720,9 @@ async def presign_upload(
             # Path: tmp/<uuid>/<filename>
             object_path = f"uploads/{uuid.uuid4().hex}/{req.filename}"
             blob = client.bucket(bucket_name).blob(object_path)
+            
+            # Generate signed URL
+            # The storage client will use the default service account from Cloud Run
             upload_url = blob.generate_signed_url(
                 version="v4",
                 expiration=900,  # 15 minutes
