@@ -445,6 +445,37 @@ async def create_token(
     return {"token": token, "tier": tier, "email": email, "expires_in_days": 30}
 
 
+@app.post("/v1/auth/token")
+async def create_public_token(body: Dict[str, Any] = {}):
+    """Create a new beta access token (public endpoint)."""
+    import secrets
+    
+    email = body.get("email", "")
+    if not email:
+        return _error("invalid_input", "Email is required", status=400)
+    
+    tier = "beta"
+    token = f"{tier[:3]}_{secrets.token_urlsafe(16)}"
+    
+    # Store in Redis
+    if redis_conn:
+        token_key = f"cs:token:{token}"
+        redis_conn.hset(
+            token_key,
+            mapping={
+                "email": email,
+                "tier": tier,
+                "created": _now_iso(),
+                "monthly_limit": 50,
+                "videos_used": 0,
+                "status": "active",
+            },
+        )
+        redis_conn.expire(token_key, 30 * 24 * 3600)
+    
+    return {"token": token, "tier": tier, "email": email, "expires_in_days": 30}
+
+
 @app.post("/v1/jobs", response_model=None, status_code=202)
 async def create_job(
     req: Request,
