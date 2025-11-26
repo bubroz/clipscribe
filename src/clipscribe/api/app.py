@@ -776,9 +776,14 @@ async def health_check():
                 from google.cloud import storage
 
                 client = storage.Client()
-                client.bucket(bucket).reload()
+                # Remove gs:// prefix if present
+                bucket_name = bucket.replace("gs://", "").strip()
+                bucket_obj = client.bucket(bucket_name)
+                bucket_obj.reload()
                 gcs_status = "healthy"
-            except Exception:
+            except Exception as e:
+                logger = logging.getLogger(__name__)
+                logger.warning(f"GCS health check failed: {e}")
                 gcs_status = "unhealthy"
 
         # Check queue availability
