@@ -1,0 +1,467 @@
+"""ClipScribe configuration settings.
+
+Uses Pydantic BaseSettings for environment variable management and validation.
+"""
+
+import os
+from enum import Enum
+from pathlib import Path
+from typing import Dict, List, Optional
+
+from dotenv import load_dotenv
+from pydantic import Field, field_validator
+from pydantic_settings import BaseSettings, SettingsConfigDict
+
+# Load environment variables from .env file
+load_dotenv()
+
+
+class VideoRetentionPolicy(str, Enum):
+    """Video retention policies for source material management."""
+
+    DELETE = "delete"  # Delete source video after processing
+    KEEP_PROCESSED = "keep_processed"  # Keep only processed video outputs
+    KEEP_ALL = "keep_all"  # Keep source video and all outputs
+
+
+class TemporalIntelligenceLevel(str, Enum):
+    """Levels of temporal intelligence extraction."""
+
+    STANDARD = "standard"  # Basic temporal intelligence (current v2.16.0)
+    ENHANCED = "enhanced"  # Enhanced temporal intelligence (v2.17.0)
+    MAXIMUM = "maximum"  # Maximum temporal intelligence with all visual cues
+
+
+class Settings(BaseSettings):
+    """Application settings with environment variable support."""
+
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        env_file_encoding="utf-8",
+        case_sensitive=False,
+        extra="ignore",  # Ignore extra fields from environment
+    )
+
+    # API Keys
+    google_api_key: str = Field(
+        default=os.getenv("GOOGLE_API_KEY", ""),
+        description="Legacy Google API key (not used in main pipeline)",
+    )
+    xai_api_key: str = Field(
+        default=os.getenv("XAI_API_KEY", ""), description="xAI API key for Grok models"
+    )
+
+    # Vertex AI Configuration
+    use_vertex_ai: bool = Field(default=False)
+    vertex_ai_project: str = Field(
+        default=os.getenv("VERTEX_AI_PROJECT", os.getenv("VERTEX_AI_PROJECT_ID", "")),
+        description="GCP project ID for Vertex AI (env: VERTEX_AI_PROJECT)",
+    )
+    vertex_ai_location: str = Field(
+        default=os.getenv("VERTEX_AI_LOCATION", "us-central1"),
+        description="Vertex AI location/region (env: VERTEX_AI_LOCATION)",
+    )
+    vertex_ai_staging_bucket: Optional[str] = Field(
+        default=os.getenv("VERTEX_AI_STAGING_BUCKET", None),
+        description="Optional Vertex AI staging bucket (gs://...)",
+    )
+
+    # AI Model Configuration
+    ai_model: str = Field(
+        default="voxtral-grok",
+        description="Default AI model pipeline for transcription and extraction",
+    )
+    temperature: float = Field(default=0.3, ge=0.0, le=1.0, description="AI model temperature")
+
+    # Application Settings
+    output_dir: Path = Field(
+        default=Path("output"), description="Default output directory for transcripts"
+    )
+    default_language: str = Field(default="en", description="Default transcription language")
+    max_video_duration: int = Field(
+        default=14400,  # 4 hours in seconds
+        description="Maximum video duration to process (seconds)",
+    )
+
+    # === v2.17.0 ENHANCED TEMPORAL INTELLIGENCE SETTINGS ===
+
+    # Temporal Intelligence Configuration
+    temporal_intelligence_level: TemporalIntelligenceLevel = Field(
+        default=TemporalIntelligenceLevel.ENHANCED,
+        description="Level of temporal intelligence extraction",
+    )
+    extract_visual_temporal_cues: bool = Field(
+        default=True,
+        description="Extract temporal intelligence from visual cues (charts, graphs, timelines)",
+    )
+    extract_audio_temporal_cues: bool = Field(
+        default=True, description="Extract temporal intelligence from audio/speech patterns"
+    )
+    temporal_intelligence_confidence_threshold: float = Field(
+        default=0.7,
+        ge=0.0,
+        le=1.0,
+        description="Minimum confidence for temporal intelligence extraction",
+    )
+    enable_cross_video_temporal_correlation: bool = Field(
+        default=True, description="Enable temporal correlation across multiple videos"
+    )
+
+    # Video Retention System
+    video_retention_policy: VideoRetentionPolicy = Field(
+        default=VideoRetentionPolicy.DELETE, description="Policy for retaining source video files"
+    )
+    video_archive_directory: Path = Field(
+        default=Path("output/video_archive"), description="Directory for archived video files"
+    )
+    retention_cost_threshold: float = Field(
+        default=5.0, description="USD threshold for automatic retention decisions"
+    )
+    enable_retention_cost_optimization: bool = Field(
+        default=True, description="Enable cost-based retention optimization"
+    )
+    max_archive_size_gb: int = Field(
+        default=50, description="Maximum archive size in GB before cleanup"
+    )
+
+    # Timeline Building Configuration
+    enable_timeline_synthesis: bool = Field(
+        default=True, description="Enable timeline building across videos"
+    )
+    timeline_correlation_window_hours: int = Field(
+        default=168,  # 1 week
+        description="Time window for correlating events across videos (hours)",
+    )
+    timeline_confidence_threshold: float = Field(
+        default=0.8, ge=0.0, le=1.0, description="Minimum confidence for timeline event correlation"
+    )
+    max_timeline_events_per_video: int = Field(
+        default=50, description="DEPRECATED: Maximum temporal events to extract per video"
+    )
+    enable_timeline_date_extraction: bool = Field(
+        default=True, description="Enable LLM-based date extraction from content"
+    )
+
+    # === ENHANCED COST MANAGEMENT ===
+
+    # Cost Calculation Settings
+    # Cost calculation settings (legacy references preserved for documentation)
+    audio_tokens_per_second: int = Field(
+        default=32, description="Estimated number of tokens per second of audio."
+    )
+    output_to_input_token_ratio: float = Field(
+        default=0.15,
+        description="Estimated ratio of output tokens relative to input tokens.",
+    )
+
+    # Cost Tracking & Optimization
+    enable_cost_tracking: bool = Field(default=True, description="Track AI API costs")
+    cost_warning_threshold: float = Field(
+        default=1.0, description="Warn when single operation exceeds this cost (USD)"
+    )
+    enhanced_temporal_cost_multiplier: float = Field(
+        default=1.0,
+        description="DEPRECATED: Cost multiplier for enhanced temporal intelligence (1.12-1.20)",
+    )
+    daily_cost_limit: Optional[float] = Field(
+        default=None, description="Daily spending limit in USD (None = no limit)"
+    )
+    monthly_cost_limit: Optional[float] = Field(
+        default=None, description="Monthly spending limit in USD (None = no limit)"
+    )
+    cost_tracking_granularity: str = Field(
+        default="operation", description="Cost tracking granularity: operation, video, collection"
+    )
+
+    # Transcription Settings
+    include_timestamps_default: bool = Field(
+        default=False, description="Include timestamps by default"
+    )
+    enhance_transcript_default: bool = Field(
+        default=False, description="Enable AI enhancement by default"
+    )
+    default_output_formats: List[str] = Field(default=["txt"], description="Default output formats")
+
+    # === GROK ADVANCED FEATURES (November 2025) ===
+
+    # Prompt Caching (May 2025)
+    enable_grok_prompt_caching: bool = Field(
+        default=True,
+        description="Enable automatic prompt caching for 50% cost savings on repeated prompts",
+    )
+
+    # Fact Checking with Tools (October 2025)
+    enable_grok_fact_checking: bool = Field(
+        default=False,  # Disabled by default to avoid initialization failures
+        description="Enable fact-checking using server-side tools",
+    )
+    enable_grok_web_search: bool = Field(
+        default=True, description="Enable web_search tool for fact verification"
+    )
+    enable_grok_x_search: bool = Field(
+        default=True, description="Enable x_search tool for real-time X/Twitter information"
+    )
+    enable_grok_code_execution: bool = Field(
+        default=False,
+        description="Enable code_execution tool for verifying calculations (use with caution)",
+    )
+    fact_check_confidence_threshold: float = Field(
+        default=0.7,
+        ge=0.0,
+        le=1.0,
+        description="Only fact-check entities below this confidence threshold",
+    )
+
+    # Knowledge Base / Collections API (August 2025)
+    enable_knowledge_base: bool = Field(
+        default=False,  # Disabled by default to avoid initialization failures
+        description="Enable Collections API for building searchable knowledge base",
+    )
+    grok_collection_id: Optional[str] = Field(
+        default=None, description="Existing collection ID (will create new if not provided)"
+    )
+    grok_collection_name: str = Field(
+        default="clipscribe-videos", description="Name for knowledge base collection"
+    )
+    auto_add_to_knowledge_base: bool = Field(
+        default=True, description="Automatically add processed videos to knowledge base"
+    )
+
+    # Structured Outputs (November 2025)
+    enable_grok_structured_outputs: bool = Field(
+        default=True,
+        description="Use json_schema mode for type-safe structured outputs (vs basic json_object)",
+    )
+
+    # Performance Settings
+    concurrent_downloads: int = Field(default=10)  # Increased for enterprise
+    chunk_size: int = Field(
+        default=180,  # 3 minutes (smaller chunks improve upload reliability)
+        description="Chunk size in seconds for processing (used for large videos)",
+    )
+
+    # API Configuration
+
+    # Logging
+    log_level: str = Field(default="INFO", description="Logging level")
+    log_dir: Path = Field(default=Path("logs"), description="Directory for log files")
+    export_graph_formats: bool = Field(
+        default=False, description="Export GEXF and GraphML formats for visualization"
+    )
+
+    # yt-dlp Settings
+    ytdlp_cookies_file: Optional[Path] = Field(
+        default=None, description="Path to cookies file for yt-dlp"
+    )
+    ytdlp_proxy: Optional[str] = Field(default=None, description="Proxy URL for yt-dlp")
+
+    @field_validator("google_api_key")
+    def validate_api_key(cls, v: str, values) -> str:
+        """
+        Validate Google API key (optional - not used in Voxtral-Grok pipeline).
+
+        Legacy validator - kept for backward compatibility but no longer enforced
+        since we use Voxtral + Grok-4 instead of Gemini.
+        """
+        # No longer required - Voxtral + Grok pipeline doesn't use Gemini
+        return v
+
+    @field_validator("output_dir", "log_dir", "video_archive_directory", mode="before")
+    def create_directories(cls, v: Path) -> Path:
+        """Ensure directories exist."""
+        if isinstance(v, str):
+            v = Path(v)
+        v.mkdir(parents=True, exist_ok=True)
+        return v
+
+    @field_validator("default_output_formats")
+    def validate_output_formats(cls, v: List[str]) -> List[str]:
+        """Validate output formats."""
+        valid_formats = {"txt", "json"}
+        for format in v:
+            if format not in valid_formats:
+                raise ValueError(f"Invalid output format: {format}")
+        return v
+
+    # Legacy config method removed - using unified settings
+
+    def get_temporal_intelligence_config(self) -> dict:
+        """Get temporal intelligence-specific configuration."""
+        return {
+            "level": self.temporal_intelligence_level,
+            "extract_visual_cues": self.extract_visual_temporal_cues,
+            "extract_audio_cues": self.extract_audio_temporal_cues,
+            "confidence_threshold": self.temporal_intelligence_confidence_threshold,
+            "cross_video_correlation": self.enable_cross_video_temporal_correlation,
+            "cost_multiplier": self.enhanced_temporal_cost_multiplier,
+        }
+
+    def get_video_retention_config(self) -> dict:
+        """Get video retention system configuration."""
+        return {
+            "policy": self.video_retention_policy,
+            "archive_directory": self.video_archive_directory,
+            "cost_threshold": self.retention_cost_threshold,
+            "cost_optimization": self.enable_retention_cost_optimization,
+            "max_archive_size_gb": self.max_archive_size_gb,
+        }
+
+    def get_timeline_config(self) -> dict:
+        """Get timeline building configuration."""
+        return {
+            "enable_synthesis": self.enable_timeline_synthesis,
+            "correlation_window_hours": self.timeline_correlation_window_hours,
+            "confidence_threshold": self.timeline_confidence_threshold,
+            "max_events_per_video": self.max_timeline_events_per_video,
+            "enable_date_extraction": self.enable_timeline_date_extraction,
+        }
+
+    def estimate_cost(
+        self,
+        duration_seconds: int,
+        is_pro_model: bool = False,
+    ) -> float:
+        """
+        Estimate transcription cost based on audio duration and model tier.
+        This calculation is based on the audio processing pipeline, which is more
+        cost-effective than direct video tokenization for transcription tasks.
+        Args:
+            duration_seconds: The duration of the audio/video in seconds.
+            is_pro_model: True if using Pro model, False for Flash model.
+        Returns:
+            The estimated cost in USD.
+        """
+        if duration_seconds <= 0:
+            return 0.0
+
+        input_tokens = duration_seconds * self.audio_tokens_per_second
+        output_tokens = input_tokens * self.output_to_input_token_ratio
+
+        # Cost calculation for current pipeline
+        if is_pro_model:
+            input_cost_per_million = 1.25  # Pro model input cost
+            output_cost_per_million = 10.00  # Pro model output cost
+        else:  # Flash model
+            input_cost_per_million = 1.00  # Flash model input cost
+            output_cost_per_million = 2.50  # Flash model output cost
+
+        input_cost = (input_tokens / 1_000_000) * input_cost_per_million
+        output_cost = (output_tokens / 1_000_000) * output_cost_per_million
+
+        total_cost = input_cost + output_cost
+        return total_cost
+
+    def estimate_retention_cost(
+        self, video_path: Path, processing_result: Optional[Dict] = None
+    ) -> Dict[str, float]:
+        """Estimate costs for different retention policies."""
+        if not video_path.exists():
+            return {"storage": 0.0, "reprocessing": 0.0}
+
+        # Storage cost estimation (very rough - $0.023/GB/month for standard storage)
+        file_size_gb = video_path.stat().st_size / (1024**3)
+        monthly_storage_cost = file_size_gb * 0.023
+
+        # Reprocessing cost estimation
+        if processing_result and "duration" in processing_result:
+            duration = processing_result["duration"]
+        else:
+            # Rough estimation - 1GB ≈ 15 minutes for typical video
+            duration = file_size_gb * 15 * 60
+
+        reprocessing_cost = self.estimate_cost(duration, is_pro_model=False)
+
+        return {
+            "storage_monthly": monthly_storage_cost,
+            "storage_yearly": monthly_storage_cost * 12,
+            "reprocessing": reprocessing_cost,
+            "breakeven_months": (
+                reprocessing_cost / monthly_storage_cost
+                if monthly_storage_cost > 0
+                else float("inf")
+            ),
+        }
+
+
+# Create global settings instance
+try:
+    settings = Settings()
+except Exception as e:
+    # Fallback for when no API key is set (like in Streamlit without env vars)
+    import warnings
+
+    warnings.warn(f"Settings validation failed: {e}. Using fallback settings.")
+
+    # Create a minimal settings object for UI purposes
+    class FallbackSettings:
+        google_api_key = ""
+        ai_model = "voxtral-grok"
+        temperature = 0.3
+        output_dir = Path("output")
+        default_language = "en"
+        max_video_duration = 14400
+        include_timestamps_default = False
+        enhance_transcript_default = False
+        default_output_formats = ["txt"]
+        concurrent_downloads = 10
+        chunk_size = 600
+        request_timeout = 14400
+        enable_cost_tracking = True
+        cost_warning_threshold = 1.0
+        log_level = "INFO"
+        log_dir = Path("logs")
+        ytdlp_cookies_file = None
+        ytdlp_proxy = None
+
+        # v2.17.0 Enhanced settings with defaults
+        temporal_intelligence_level = TemporalIntelligenceLevel.ENHANCED
+        extract_visual_temporal_cues = True
+        extract_audio_temporal_cues = True
+        temporal_intelligence_confidence_threshold = 0.7
+        enable_cross_video_temporal_correlation = True
+        video_retention_policy = VideoRetentionPolicy.DELETE
+        video_archive_directory = Path("output/video_archive")
+        retention_cost_threshold = 5.0
+        enable_retention_cost_optimization = True
+        max_archive_size_gb = 50
+        enable_timeline_synthesis = True
+        timeline_correlation_window_hours = 168
+        timeline_confidence_threshold = 0.8
+        max_timeline_events_per_video = 50
+        enable_timeline_date_extraction = True
+        enhanced_temporal_cost_multiplier = 1.0
+        daily_cost_limit = None
+        monthly_cost_limit = None
+        cost_tracking_granularity = "operation"
+
+        def estimate_cost(self, duration_seconds: int, is_pro_model: bool = False):
+            if duration_seconds <= 0:
+                return 0.0
+
+            audio_tokens_per_second = 32
+            output_to_input_token_ratio = 0.15
+
+            input_tokens = duration_seconds * audio_tokens_per_second
+            output_tokens = input_tokens * output_to_input_token_ratio
+
+            if is_pro_model:
+                input_cost_per_million = 1.25
+                output_cost_per_million = 10.00
+            else:  # Flash model
+                input_cost_per_million = 1.00
+                output_cost_per_million = 2.50
+
+            input_cost = (input_tokens / 1_000_000) * input_cost_per_million
+            output_cost = (output_tokens / 1_000_000) * output_cost_per_million
+
+            return input_cost + output_cost
+
+        def estimate_retention_cost(self, video_path, processing_result=None):
+            return {
+                "storage_monthly": 0.0,
+                "storage_yearly": 0.0,
+                "reprocessing": 0.0,
+                "breakeven_months": float("inf"),
+            }
+
+    settings = FallbackSettings()

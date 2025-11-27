@@ -1,0 +1,94 @@
+name: Deploy (Cloud Run via WIF)
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch: {}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    env:
+      REGION: us-central1
+      SERVICE: clipscribe-api
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Free disk space on runner
+        uses: jlumbroso/free-disk-space@v1.3.1
+        with:
+          tool-cache: true
+          android: true
+          dotnet: true
+          haskell: true
+          large-packages: true
+          swap-storage: true
+
+      - name: Authenticate to Google Cloud (WIF)
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.WIF_PROVIDER }}
+          service_account: ${{ secrets.WIF_SERVICE_ACCOUNT_EMAIL }}
+
+      - name: Set up gcloud
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Configure gcloud project
+        run: |
+          gcloud config set project ${{ secrets.VERTEX_AI_PROJECT }}
+
+      - name: Export PROJECT_ID env
+        run: |
+          echo "PROJECT_ID=$(gcloud config get-value project)" >> $GITHUB_ENV
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Artifact Registry
+        run: |
+          gcloud auth configure-docker ${REGION}-docker.pkg.dev --quiet
+
+      - name: Build and push image (API)
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          target: api
+          push: true
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          provenance: false
+          tags: |
+            ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/clipscribe/clipscribe-api:${{ github.ref_name }}
+            ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/clipscribe/clipscribe-api:latest
+
+      - name: Deploy to Cloud Run
+        env:
+          IMAGE: ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/clipscribe/clipscribe-api:${{ github.ref_name }}
+        run: |
+          gcloud run deploy ${SERVICE} \
+            --image $IMAGE \
+            --region ${REGION} \
+            --platform managed \
+            --allow-unauthenticated \
+            --memory 4Gi \
+            --cpu 2 \
+            --timeout 3600 \
+            --max-instances 10 \
+            --min-instances 1 \
+            --set-env-vars PYTHONUNBUFFERED=1,GOOGLE_SERVICE_ACCOUNT_EMAIL=clipscribe-api@clipscribe-prod.iam.gserviceaccount.com
+
+      - name: Route traffic to latest revision
+        run: |
+          gcloud run services update-traffic ${SERVICE} \
+            --to-latest \
+            --region ${REGION}
+
+

@@ -1,0 +1,140 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Documentation (not needed in container)
+docs/
+*.md
+!README.md
+
+# Tests (not needed in production container)
+tests/
+pytest.ini
+.pytest_cache/
+.coverage
+htmlcov/
+coverage.xml
+
+# Development files
+.cursor/
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Python cache and virtual environments
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+ENV/
+*.egg-info/
+dist/
+build/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+
+# Environment files (secrets should come from Cloud Run secrets)
+.env
+.env.*
+!.env.example
+env.production
+secrets/
+
+# Output and logs (generated at runtime)
+output/
+logs/
+*.log
+cache/
+.video_cache/
+
+# Test files and fixtures
+test_videos/
+test_*.py
+!tests/**/test_*.py
+!scripts/**/test_*.py
+*_test_output.txt
+*_whisperx_results.*
+
+# Media files (not needed in container)
+*.mp4
+*.mp3
+*.avi
+*.mov
+*.mkv
+*.webm
+*.wav
+
+# Archives and temporary files
+archive/
+*.backup
+*.bak
+*.tmp
+*.temp
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal
+data/
+
+# CI/CD (not needed in container)
+.github/
+.circleci/
+.travis.yml
+.gitlab-ci.yml
+
+# Docker files themselves (avoid recursion)
+Dockerfile*
+docker-compose*.yml
+.dockerignore
+
+# OS files
+.DS_Store
+Thumbs.db
+*.swp
+
+# IDE files
+*.sublime-*
+.vscode/
+.idea/
+
+# Scripts output
+scripts/output/
+scripts/logs/
+
+# Demo and example outputs
+demo/
+structured_output/
+examples/sample_outputs/
+
+# Session and planning docs
+SESSION_*.md
+*_HANDOFF.md
+CLEANUP_*.md
+docs/planning/
+
+# Validation and test results
+*_test_results.json
+*_results.json
+*_VALIDATION_RESULTS.md
+validation_data/
+
+# Replit agent docs (temporary)
+REPLIT_AGENT_*.md
+
+# HTML files (except source)
+*.html
+!src/**/*.html
+
+# CORS config (not needed in container)
+cors.json
+

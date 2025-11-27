@@ -1,0 +1,11 @@
+﻿subject,predicate,object,evidence,confidence
+Alex Karp,is CEO of,Palantir,"You're CEO, co-founder of Palantir.",1.0
+Alex Karp,is co-founder of,Palantir,"You're CEO, co-founder of Palantir.",1.0
+Palantir,works with,ICE,"I get yelled at all the time for Ukraine, ICE, Israel, and generally telling the truth",0.9
+Palantir,works with,Israel,"I get yelled at all the time for Ukraine, ICE, Israel, and generally telling the truth",0.9
+Palantir,works with,Ukraine,"I get yelled at all the time for Ukraine, ICE, Israel, and generally telling the truth",0.9
+Palantir,does not sell to,China,We do not sell to China. We don't sell to Iran. We don't sell to Russia.,1.0
+Palantir,does not sell to,Iran,We do not sell to China. We don't sell to Iran. We don't sell to Russia.,1.0
+Palantir,does not sell to,Russia,We do not sell to China. We don't sell to Iran. We don't sell to Russia.,1.0
+Alex Karp,supports,Trump,"When you talk about politics, you sound like a reluctant Trumper.",0.8
+J.D. Vance,raised in,Appalachia,That sounds like Vice President J.D. Vance raised in Appalachia.,1.0

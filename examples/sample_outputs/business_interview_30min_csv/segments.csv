@@ -1,0 +1,390 @@
+﻿start,end,speaker,text,confidence
+1.184,3.146,SPEAKER_02, I know you're used to CEOs who don't answer your question.,1.0
+3.166,4.748,SPEAKER_02,I'm going to directly answer your question.,1.0
+6.63,18.364,SPEAKER_02,"I get yelled at all the time for Ukraine, ICE, Israel, and generally telling the truth, which I would call, okay, the chance of world survival goes up as America becomes stronger and more dominant.",1.0
+22.768,26.374,SPEAKER_03," Alex Karp, thanks for having us into the Palantir lair in Manhattan.",1.0
+26.674,27.936,SPEAKER_03,Welcome to The Axios Show.,1.0
+28.437,31.021,SPEAKER_03,"You're CEO, co-founder of Palantir.",1.0
+31.381,32.323,SPEAKER_03,What the hell is Palantir?,1.0
+33.769,35.371,SPEAKER_02," Well, it depends who I'm talking to.",1.0
+36.852,39.695,SPEAKER_02,"Well, if I'm talking to you, we are growing the GDP of the US.",1.0
+40.275,49.004,SPEAKER_02,"We are the part of the GDP of the AI economy where things are useful, either on the battlefield or commercially.",1.0
+49.965,54.97,SPEAKER_02,And we're the only AI company with a real spread function to the working class Americans.,1.0
+55.41,67.953,SPEAKER_02," If it's the third or fourth conversation, it would be more like we went long on the reality that large language models were useful in their application, in our software, and are not going to be as performing as people want outside of it.",1.0
+72.074,77.915,SPEAKER_03,"You talk about a single pane of glass, right, that connects AI, connects data, connects analytics.",1.0
+78.155,80.475,SPEAKER_03,Let's give viewers an example.,1.0
+80.915,83.536,SPEAKER_03,I'm a commander in the battlefield. What can...,1.0
+84.861,87.003,SPEAKER_03," Palantir, tell me about my assets.",1.0
+87.603,93.368,SPEAKER_02,"Well, if you're a commander in the battlefield for the first time, you have access to all your assets.",1.0
+93.508,99.072,SPEAKER_02,"When I say all, I mean also assets of foreign countries you work with that are sharing a subset of the data.",1.0
+100.754,103.356,SPEAKER_03,So I'm looking at this pane of glass and what does it show me?,1.0
+104.335,116.199,SPEAKER_02," Well, it probably at this point is showing, again, it depends what you're doing, but it's probably showing if you're, say, doing a complex operation, it's showing you where the plane should fly, where the troops should be, where the missiles should go, where they shouldn't go.",1.0
+116.52,121.102,SPEAKER_02,"And again, it's doing this off of data sets that were not available to you  last year.",1.0
+121.442,124.425,SPEAKER_02,It's also be able to predict where you should put your assets.,1.0
+124.985,131.191,SPEAKER_02,It can and will soon be able to pick up what kind of missiles do you put on what kind of targets.,1.0
+131.211,134.614,SPEAKER_02,So do you put your really expensive missiles on your really expensive targets?,1.0
+135.074,141.139,SPEAKER_02,"It will at some point, and again, this is one of the most important things that's overlooked, be able to totally orchestrate the supply chain.",1.0
+141.179,142.12,SPEAKER_02,So what are you building?,1.0
+142.16,142.901,SPEAKER_02,How are you building it?,1.0
+142.941,143.762,SPEAKER_02,Where is it be building?,1.0
+144.422,149.865,SPEAKER_02," what companies are doing it, understanding the cost for those companies, which is currently something that's very, very hard for those companies.",1.0
+149.906,159.311,SPEAKER_02,"So there's the kind of sexy, violent part of war, which obviously in this case would mean, honestly, for this commander, what it basically will mean is you will be ahead of your adversary.",1.0
+159.331,160.632,SPEAKER_02,You'll be able to predict their actions.,1.0
+160.952,172.379,SPEAKER_02,"You'll be able to put the best effectors on the most important targets and the cheaper ones on less important targets, i.e., by the way, honestly, the most important thing Palantir does is prevent war.",1.0
+172.76,174.488,SPEAKER_03, So that sounds very useful.,1.0
+174.729,176.457,SPEAKER_03,Why are people so suspicious of you?,1.0
+178.072,181.973,SPEAKER_02," Well, I actually would push back on that, which people are suspicious.",1.0
+182.433,184.213,SPEAKER_02,"So like, you know, it's really interesting.",1.0
+184.233,187.394,SPEAKER_02,"I was watching someone on TV who was like, I talk to special operators.",1.0
+187.454,188.574,SPEAKER_02,I talk to military people.,1.0
+188.674,189.734,SPEAKER_02,They love to volunteer.,1.0
+190.335,206.018,SPEAKER_02,"Okay, so I'm just going to say for the sake of being somewhat of a jerk, the people I care about, the people on the front line in factories, the people driving trucks, the people doing things, the people who've used our products, the war fighters, how did we get our business off the ground?",1.0
+206.658,212.602,SPEAKER_02," were fighters who are sacrificing their lives, went to generals and said, I don't care what stars you have, I'm coming home alive.",1.0
+212.982,217.364,SPEAKER_02,"You know, a lot of those people are suspicious of us now, try to take the product out of their hands.",1.0
+217.965,222.628,SPEAKER_02,"Almost all of our clients, meaning people who've bought our product, started off as Palantir skeptics.",1.0
+223.428,226.371,SPEAKER_02, And I've gone into tens of thousands of meetings.,1.0
+226.772,228.754,SPEAKER_02,"Now, currently, when I meet the pound, you're skeptic.",1.0
+228.854,240.005,SPEAKER_02,"I'm like, that's the person who's going to buy because they have legitimate questions like, is this product being used to take away my right to go have a hot dog with a coworker I'm flirting with while being married?",1.0
+240.265,243.726,SPEAKER_02," which honestly, you know, I think is the God-given right of people in this country.",1.0
+244.146,248.247,SPEAKER_02,Can I take the day off and tell my employer I'm working when I'm not? Great.,1.0
+248.467,250.148,SPEAKER_02,"Maybe you shouldn't do that, but I support that.",1.0
+250.548,253.529,SPEAKER_02,Can I have views that are deviant from my bosses?,1.0
+253.569,264.152,SPEAKER_02,"Like, I mean, actually, we have an environment here where you can have any view you want, but let's just say somebody here hates what we're doing at ICE, hates what we're doing in Israel, and hates what we're doing in Ukraine, and doesn't somehow want to express it.",1.0
+264.252,267.052,SPEAKER_02,"It would be incorrect to think they'll be penalized for it, but they think that.",1.0
+267.332,269.073,SPEAKER_02,Can I have that view at home in my house?,1.0
+270.083,279.92,SPEAKER_02," What I would tell those people is listen carefully to the people who are saying we're doing surveillance, listen to every word they say, write those words down, spend 10 minutes looking at our product.",1.0
+280.641,282.344,SPEAKER_02,"And you know, you decide.",1.0
+283.047,285.409,SPEAKER_03, Zoom out beyond Palantir and society.,1.0
+285.489,288.572,SPEAKER_03,How worried are you about a surveillance state?,1.0
+288.692,294.157,SPEAKER_02,"Our primary worry should be, are our enemies so scared of us that they do not fight with us?",1.0
+294.277,295.418,SPEAKER_03,And who's our enemies?,1.0
+295.458,298.281,SPEAKER_02,"Well, you know, I mean, you pick your like, you know, the usual.",1.0
+298.321,299.382,SPEAKER_02,We do not sell to China.,1.0
+299.402,300.483,SPEAKER_02,We don't sell to Iran.,1.0
+300.503,301.384,SPEAKER_02,We don't sell to Russia.,1.0
+301.724,307.028,SPEAKER_02," I actually would say adversaries, not enemies, because I think when you get an enemy thing, it's a way of being dysfunctional.",1.0
+307.048,310.19,SPEAKER_02,But are people scared of us?,1.0
+310.55,313.152,SPEAKER_02,Do terrorists plan terrorist attacks against us?,1.0
+313.512,315.914,SPEAKER_02,Or do they feel that they shouldn't because they're so scared?,1.0
+316.554,319.636,SPEAKER_02,"And by the way, that's the single best way to ever stop wars.",1.0
+319.916,326.02,SPEAKER_02,The primary evidence for a surveillance state in the West is not government on consumer.,1.0
+326.521,331.064,SPEAKER_02,It's company knowing every single action you have at all times.,1.0
+331.784,336.229,SPEAKER_02, And we walk around with surveillance devices called electronic devices.,1.0
+336.529,339.612,SPEAKER_02,And every single thing we do is monitored.,1.0
+340.073,349.502,SPEAKER_02,"Not, I think, primarily so people can eviscerate or have an understanding of, am I shagging with too many people on the side and lying to my partner or lying by omission?",1.0
+349.922,351.924,SPEAKER_02,Because they want to sell us like cornflakes.,1.0
+352.685,354.747,SPEAKER_02, That's the reality of life in the West.,1.0
+355.047,358.189,SPEAKER_02,Can the government surveil your patterns of behavior?,1.0
+358.59,362.953,SPEAKER_02,"It's called pattern of life surveillance, which is a very, very, very important way of finding terrorists.",1.0
+363.353,366.536,SPEAKER_02,"And in general, criminals, because everyone has a pattern.",1.0
+366.556,367.376,SPEAKER_02,So you're saying it's worth it?,1.0
+367.817,368.517,SPEAKER_02,"No, I'm not saying that.",1.0
+368.697,373.521,SPEAKER_02,"Here, the problem is these things require very, very precise tools.",1.0
+373.701,376.723,SPEAKER_02,"Yes, we are monetizing the fact that these decisions are difficult.",1.0
+376.984,378.865,SPEAKER_02,We're monetizing the fact that they're hard.,1.0
+379.125,381.047,SPEAKER_02,We're monetizing the fact that they're important.,1.0
+390.879,392.78,SPEAKER_02, And it's not always raining.,1.0
+393.42,395.601,SPEAKER_02,There'll be days like this.,1.0
+396.602,399.263,SPEAKER_02,When there's no one complaining.,1.0
+399.303,401.464,SPEAKER_02,There'll be days like this.,1.0
+404.125,408.987,SPEAKER_02,My mama told me.,1.0
+409.007,411.028,SPEAKER_02,This way is way faster.,1.0
+411.048,413.389,SPEAKER_02,There'll be days like this.,1.0
+418.806,424.753,SPEAKER_03," So you talked about how AI can increase prosperity, both of the individual and of the country.",1.0
+425.274,426.876,SPEAKER_03,Go dark with me for a second.,1.0
+426.936,429.079,SPEAKER_03,You are a truth teller.,1.0
+429.639,431.402,SPEAKER_03,What should we worry about AI?,1.0
+431.462,432.403,SPEAKER_03,How can it go wrong?,1.0
+433.581,434.943,SPEAKER_02," Well, it could go wrong in lots of ways.",1.0
+434.983,444.615,SPEAKER_02,"But again, there I would say we need to absorb a lot of risk there because it's either going to go right and wrong for us or it's going to go right and wrong for China, which we're in a competition.",1.0
+444.655,446.237,SPEAKER_02,"At the very least, we're in high competition.",1.0
+446.297,447.358,SPEAKER_02,What about for the individual?,1.0
+447.678,448.9,SPEAKER_02,No decision is without risk.,1.0
+449.921,456.966,SPEAKER_02, And the risk we have to absorb here is going long on this because it's not like we're not doing this in a vacuum.,1.0
+457.386,461.229,SPEAKER_02,We are going to be the dominant player or China is going to be the dominant player.,1.0
+461.369,464.231,SPEAKER_02,And there will just be very different rules depending on who wins.,1.0
+464.351,470.855,SPEAKER_02,"And we cannot rely on anyone else to do this in our network of allies because Europe has given up on technology. And actually,",1.0
+471.235,474.863,SPEAKER_02, The Arab and non-Arab Middle East are closest to what you see at AI adoption.,1.0
+474.903,477.668,SPEAKER_02,"But de facto, we are by far the leader of our coalition.",1.0
+478.069,480.394,SPEAKER_02,"So it's like when people are worried about surveillance, it's not...",1.0
+481.311,490.076,SPEAKER_02," Honestly, of course, there are huge dangers there, but it's like you will have far fewer rights if America's not in the lead.",1.0
+490.817,494.599,SPEAKER_02,"And I'll tell you the other risk that, again, I think it doesn't get enough attention.",1.0
+495.059,499.722,SPEAKER_02,"Again, what portion of the wealth creation is available to the average person?",1.0
+500.142,501.643,SPEAKER_02,I'm pretty sure we're in our infancy.,1.0
+501.983,503.945,SPEAKER_02,"So in a world where Palantir could grow 10X,",1.0
+506.573,510.577,SPEAKER_02, What does that mean to the person on the factory floor?,1.0
+510.697,512.318,SPEAKER_02,How much are their real wages going to grow?,1.0
+512.959,519.965,SPEAKER_02,"Like, and if the answer is, you know, 5% roughly at inflation, can you blame them for not being upset?",1.0
+520.786,524.81,SPEAKER_02,"And so, like, I think the primary risk of AI is social instability.",1.0
+525.23,527.312,SPEAKER_02,Like the person- And what form will that take?,1.0
+528.828,532.61,SPEAKER_02, pretty crazy populist movements that obviously make no sense.,1.0
+532.891,538.074,SPEAKER_02,"Like, I mean, I don't know, like, you know, we're going to all, we're going to make, the government is going to run grocery stores.",1.0
+538.194,540.435,SPEAKER_02,"Are you worried about violence, indolence?",1.0
+541.916,543.437,SPEAKER_02,"Well, dysfunction and then violence.",1.0
+543.757,548.8,SPEAKER_02,"Like, you talk to European leaders and they will literally look you in private and tell you,",1.0
+549.56,553.082,SPEAKER_02, Negative GDP isn't a problem because the quality of our revenue is going up.,1.0
+553.183,553.743,SPEAKER_02,They believe this.,1.0
+553.903,554.984,SPEAKER_02,This is clearly wrong.,1.0
+555.044,555.744,SPEAKER_02,It will not work.,1.0
+555.804,558.186,SPEAKER_02,"It's going to lead to violence, indolence.",1.0
+559.427,560.968,SPEAKER_02,It's going to lead to everything you don't want.,1.0
+561.328,572.195,SPEAKER_02,"And OK, so then the American version is you as builder, highly educated builder who's asking technical proximate questions are likely to do well.",1.0
+573.823,574.964,SPEAKER_02, What about everyone here?,1.0
+575.624,576.905,SPEAKER_02,How well does your camera person do?,1.0
+577.385,578.225,SPEAKER_03,"Yeah, so that's a good question.",1.0
+578.245,586.87,SPEAKER_03,"So we've talked about who will benefit from this prosperity, but who, what occupations, what types of businesses should be freaking the hell out?",1.0
+588.044,594.086,SPEAKER_02," Okay, let me give you the way you should, again, because I think the actual, you should not be freaking out is pretty crazy to most people.",1.0
+594.526,599.668,SPEAKER_02,The thing about the commodity nature of LLMs is it commodifies general knowledge.,1.0
+599.848,604.41,SPEAKER_02,"My advice to people around here is, you know, there's a couple of schools you should go to if you get into.",1.0
+604.49,605.79,SPEAKER_02,"Yale's one, Stanford's one.",1.0
+606.03,607.631,SPEAKER_02,There's some schools you maybe should go to.,1.0
+607.971,611.112,SPEAKER_02,"Otherwise, go to the cheapest school and come to Palantir or just come here.",1.0
+611.172,611.992,SPEAKER_02,That's my honest advice.,1.0
+612.352,614.633,SPEAKER_02,"So to people like family members, others, Evers.",1.0
+614.833,618.217,SPEAKER_02," So I pick on Yale because it's a crazy strong, especially for humanities.",1.0
+618.257,620.7,SPEAKER_02,Almost everyone I work with that writes is a Yale grad.,1.0
+621.161,623.023,SPEAKER_02,"So it's a very, very strong school.",1.0
+623.043,634.937,SPEAKER_02,"But like if you are the kind of person that would have gone to Yale, would have kind of classically high IQ and you have generalized knowledge, but it's not specific.",1.0
+636.403,637.183,SPEAKER_02, you're effed.,1.0
+638.243,647.065,SPEAKER_02,"If, on the other hand, you have specific domain knowledge, like how do I actually bend the metal of the hull on a ship?",1.0
+647.865,652.766,SPEAKER_02,How do I actually write a script that allows me to target terrorists in Palantir?,1.0
+653.166,662.688,SPEAKER_02,How do I impute the problem in this complicated device that's going wrong that otherwise would be fixed by a Japanese engineer while being a high school grad?,1.0
+663.408,670.338,SPEAKER_02, How do I put the cement in a factory with such precision that you can build a factory like it was built in Taiwan in America?,1.0
+671.139,678.77,SPEAKER_02,"How do I do anything with deep, specific, particularly what's considered vocational training",1.0
+679.668,687.914,SPEAKER_02, Those people are going to make a lot more money simply because you can turn it any way you want.,1.0
+688.134,695.118,SPEAKER_02,"But at the end of the day, within a relative rapid amount of time, you will get paid downstream of the value you create.",1.0
+695.138,699.021,SPEAKER_03,So an electrician is going to be a lot better off than a lame Yale grad.,1.0
+699.215,702.817,SPEAKER_02, The Yale grad will have to learn something specific.,1.0
+702.997,703.978,SPEAKER_02,Domain expertise.,1.0
+704.038,705.258,SPEAKER_02,Domain expertise.,1.0
+705.558,709.28,SPEAKER_03,What dark forces are you worried about getting their hands on?,1.0
+710.161,711.762,SPEAKER_02,There are a lot of dark forces.,1.0
+712.122,714.463,SPEAKER_02,I just want to keep repeating this.,1.0
+714.483,719.866,SPEAKER_02,"Are you more concerned about- No, I'm much more concerned that we fail in America and that we don't dominate.",1.0
+720.006,728.611,SPEAKER_02,"And therefore, there's a lame UN-driven discussion about human rights that obviously only serves people who somehow want to live in a world that doesn't work.",1.0
+728.971,735.436,SPEAKER_03," Something that's always baffled me, you know, everyone in Silicon Valley, a lot of moguls are building bunkers.",1.0
+736.136,737.517,SPEAKER_03,What do they know that we don't?,1.0
+737.597,739.719,SPEAKER_03,What do they fear that we maybe should?,1.0
+740.079,741.64,SPEAKER_02,I think they have the same fears you do.,1.0
+741.7,742.541,SPEAKER_02,They just have more money.,1.0
+743.561,755.33,SPEAKER_02,People who do well in Silicon Valley are more mathematically adept than they may realize or than other people and have an ability to operate.,1.0
+756.21,765.313,SPEAKER_02," And so, again, if you just take odds, you know, it's like, you know, a lot like if it's no different, I bet you a lot of hedge funders have these just like you're doing a regression.",1.0
+765.753,778.098,SPEAKER_02,"But like, you know, it's like I remember I've talked I end up talking to political people and I was like, you know, it's like when you talk to campaigns are like we have a 25 percent chance of losing and they're like and they're off drinking champagne.",1.0
+778.578,784.38,SPEAKER_02,And anyone in tech is like you have a 25 percent chance of non-recoverable death.,1.0
+785.103,787.706,SPEAKER_02," So it's just, it's a different, I mean, a lot of this is just mathematical.",1.0
+787.806,798.597,SPEAKER_03,"So while we're on that, in Silicon Valley, they talk about the P-Doom, the probability that super intelligent AI is going to end Saul. You know what?",1.0
+798.677,801.981,SPEAKER_02,"I'm happy to talk about anything that like, I think.",1.0
+802.361,803.082,SPEAKER_02,Do you have a P-Doom?,1.0
+803.362,806.546,SPEAKER_02,I worry much more about we lose the race.,1.0
+807.628,811.99,SPEAKER_02," Like again, I'm very culturally specific in a way that maybe, you know, not everyone is.",1.0
+812.21,819.954,SPEAKER_02,"I think the chance of you, of American survival goes, the chance of world survival goes up as America becomes stronger and more dominant.",1.0
+819.974,823.276,SPEAKER_03,"But do you worry about AI outrunning any of us, any state?",1.0
+823.296,825.657,SPEAKER_02,"Okay, but yeah, but I also worry about the ceiling falling.",1.0
+825.697,827.878,SPEAKER_02,"Like I don't, like again, there's an odds question.",1.0
+828.098,829.559,SPEAKER_02,My primary specialization is,1.0
+830.78,835.367,SPEAKER_02," Can you build software that's going to make America's allies, industry and military dominant?",1.0
+835.768,840.074,SPEAKER_02,"And I believe that if you do it, the third, fourth derivative, a lot of these questions go away.",1.0
+844.264,854.329,SPEAKER_03," Palantir's beat the analyst estimates 21 quarters in a row, and you just had a great forecast, and yet your stock got hammered.",1.0
+854.79,856.15,SPEAKER_02,What is it the markets are missing?,1.0
+856.25,858.812,SPEAKER_02,"Honestly, hammered is a little, I think we're up something like 180.",1.0
+858.872,860.573,SPEAKER_02,I don't know what we're up.,1.0
+860.613,863.894,SPEAKER_02,"I mean, I don't track it, but the market price has been more accurate than the analyst price.",1.0
+863.934,865.215,SPEAKER_02,So I would invert it.,1.0
+865.255,868.577,SPEAKER_02,"It's like, what does the market understand that the analysts can't understand?",1.0
+868.997,879.505,SPEAKER_02," And I would say what the market has historically understood that many, not all analysts, the analysts want to do what I would call, I don't know, the journalists that you don't hire do.",1.0
+879.725,880.646,SPEAKER_02,They've got a frame.,1.0
+881.346,883.588,SPEAKER_02,That frame is the frame that was developed in the 50s.,1.0
+885.009,887.491,SPEAKER_02,"So thinking too small, too rigid, too narrow.",1.0
+887.731,889.252,SPEAKER_02,"Yes, but then there's a thing.",1.0
+889.673,895.117,SPEAKER_02,"That frame does not allow you to disambiguate between weak, medium-weak, strong, and baller product.",1.0
+895.856,898.678,SPEAKER_02," Weak, medium, strong, baller culture.",1.0
+899.759,904.303,SPEAKER_02,"Weak, medium, and to the extent, and then- And you're saying you're baller.",1.0
+905.103,907.565,SPEAKER_02,"I mean, that's what the market seems to be saying. I don't know.",1.0
+907.585,908.626,SPEAKER_02,I'm just modest over here.,1.0
+909.387,921.176,SPEAKER_02,You say the analysts care about X. What I'm saying is way upstream of that are assumptions that they control that at the end of the day come down to who they like and don't like.,1.0
+921.576,922.656,SPEAKER_02, And you're saying they don't like you.,1.0
+923.157,926.118,SPEAKER_02,"Well, of course they don't like me, but you know why they didn't like me?",1.0
+926.438,928.939,SPEAKER_02,"Because I mean, it's not actually not just in fairness, not the analyst.",1.0
+928.959,937.102,SPEAKER_02,"Honestly, I actually in some ways aligned with analysts because it was like, here I am somebody who should be, you know, you know, like whatever should not be where I am.",1.0
+937.242,942.144,SPEAKER_02,"I'm having a lot of fun, but mostly we have the most baller, interesting company on the planet.",1.0
+942.464,943.405,SPEAKER_02,I'm not ashamed of that.,1.0
+943.745,945.986,SPEAKER_02,"We're rolling out, we're defending Western values.",1.0
+946.746,948.787,SPEAKER_02,"We are completely meritocratic. It's,",1.0
+950.028,953.491,SPEAKER_02, I'm not the person that should be having this much fun.,1.0
+954.392,957.455,SPEAKER_02,"And that annoys many journalists, not all.",1.0
+957.955,960.698,SPEAKER_02,"It annoys many academics, almost all.",1.0
+961.218,967.124,SPEAKER_02,"It annoys all sorts of purveyors of dysfunction because they want to sit, again, I think the average person",1.0
+967.364,972.627,SPEAKER_02," You know, Ivy League grad voting for this mayor is highly annoyed that their education is not that valuable.",1.0
+972.827,979.591,SPEAKER_02,And the person down the street who knows how to drill for oil and gas who's moved to Texas has a more valuable profession.,1.0
+979.791,981.812,SPEAKER_02,And I think that annoys the fuck out of these people.,1.0
+985.994,989.516,SPEAKER_03,"When you talk about politics, you sound like a reluctant Trumper.",1.0
+989.696,991.737,SPEAKER_03,What would Democrats need to do to get you back?,1.0
+992.659,1021.992,SPEAKER_02," And what I've been telling Democrats, and not just Democrats, established shape people in Europe where I get a lot of calls and all over the world is, first of all, the idea that somehow it's a God-given right of people of widely diversioned cultures to come to our culture, and here I mean America, but I've given this advice for the last 20 years, is not only inane, it goes against actual empirical experience, and none of your voters want it.",1.0
+1022.632,1031.718,SPEAKER_02," And if you enforce, if you make this into some kind of bigotry, like we have to take everyone or we're a bigot, they're going to vote for people who actually are bigoted or not.",1.0
+1031.998,1045.867,SPEAKER_02,"And then I would say to my Democratic friends, also of which I still have, I hope, many, you have to grow a spine because a lot of these people actually agree with me in private.",1.0
+1046.708,1051.611,SPEAKER_02,The percentage of Democrats who know that nothing Mondani is saying can ever work is very high.,1.0
+1052.191,1053.513,SPEAKER_03, Just elected mayor here in New York.,1.0
+1053.533,1054.094,SPEAKER_02,"Yeah, great.",1.0
+1054.214,1057.317,SPEAKER_02,"And if you talk to them in private, they'll be like, yeah, that can never work. Okay, sorry.",1.0
+1057.357,1058.018,SPEAKER_02,You asked a question.,1.0
+1058.038,1059.42,SPEAKER_02,I'm going to give you an answer.,1.0
+1061.072,1063.274,SPEAKER_02, We're in a world where you have to start speaking up.,1.0
+1063.915,1068.138,SPEAKER_02,"If someone is saying something you know can never work, let's just take it.",1.0
+1068.439,1078.708,SPEAKER_02,"There's a reason in this election why the people who voted for him are disproportionately in, are not actually aligned with underclass voters.",1.0
+1079.028,1080.689,SPEAKER_02,Underclass voters would have voted for Cuomo.,1.0
+1080.709,1082.411,SPEAKER_03,So who do you think should be speaking up? Who's not?,1.0
+1082.944,1092.708,SPEAKER_02," Everybody who agrees with me in private, I run around, I get yelled at all the time for Ukraine, ICE, Israel, and generally telling the truth, which I would call, okay, great.",1.0
+1092.848,1096.53,SPEAKER_02,"I get yelled at in private, in public, in family settings here, and in business section.",1.0
+1096.57,1100.151,SPEAKER_02,"And I've had customers say, hey, I don't want to work with you because any of those views are all of the above.",1.0
+1100.551,1101.752,SPEAKER_02,I'll tell you what I also have a lot of.,1.0
+1101.772,1103.632,SPEAKER_02,"A lot of people are like, yeah, I agree with you.",1.0
+1103.652,1104.553,SPEAKER_02,I just could never say that.,1.0
+1105.473,1109.86,SPEAKER_02," Especially in Europe, what I get is- So you're saying more people should be more candid?",1.0
+1110.481,1115.049,SPEAKER_02,"No, I'm just saying, hey, no, I'm saying if you're not candid, you're going to get these results.",1.0
+1115.429,1119.075,SPEAKER_03,How worried are you about the Nick Fuentes wing of MAGA?,1.0
+1124.246,1135.884,SPEAKER_02," Well, first of all, I feel like I'm much more qualified to critique what has been my own party, although I've historically found there's been the most anti-woke...",1.0
+1139.321,1161.953,SPEAKER_02, company and like one of the things we just it's really crazy when people are like attacking us online and like you say that now we've been saying a lot of things that you would have gotten you fired or put out of business for 20 years including meritocracy borders use violence to not do neocon bullshit um for 20 years and doing saying it when it wasn't popular,1.0
+1163.9,1180.334,SPEAKER_02, I think almost all of these movements are downstream from the fact that the people who sign up for these things that are obviously not sensible do not believe they're going to participate in this society economically.,1.0
+1180.354,1182.035,SPEAKER_03,"Well, let's be specific.",1.0
+1182.075,1185.318,SPEAKER_03,So anti-Semitism is one of your signature issues.,1.0
+1185.978,1188.26,SPEAKER_02,"Well, actually, honestly, again, that's how people frame it.",1.0
+1188.72,1191.743,SPEAKER_02,How about stupid discrimination issues?,1.0
+1191.983,1193.764,SPEAKER_02, of which anti-Semitism is a form.,1.0
+1194.805,1195.405,SPEAKER_02,Okay.,1.0
+1195.926,1197.206,SPEAKER_03,So... Stipulate to that.,1.0
+1198.867,1208.514,SPEAKER_03,"Nick Fuentes is a part of the Republican conservative movement that's getting increasing attention, has increasing attention, increasing voice.",1.0
+1209.114,1210.375,SPEAKER_03,How concerned are you about that?,1.0
+1210.655,1211.996,SPEAKER_03,And what does that tell you?,1.0
+1212.036,1216.298,SPEAKER_02,"Again, you always have to disambiguate concern and do you have a legitimate...",1.0
+1217.359,1229.304,SPEAKER_02," I have a legitimate, I'll answer your question, but I have a completely legitimate, authentic voice in the progressive democratic movement because that's been my whole life.",1.0
+1229.384,1233.846,SPEAKER_02,"And so I feel like when I'm screaming about that, they really should listen, even if they don't.",1.0
+1235.106,1243.93,SPEAKER_02," You know, I'm probably just at this point an independent who thinks, admires what Trump has done on many things.",1.0
+1244.01,1255.835,SPEAKER_02,"And I think anybody who's not deranged would acknowledge these things and sure would I. You know, so I think I don't have the credibility to start throwing a hissy about what happens in the Republican Party.",1.0
+1256.215,1267.581,SPEAKER_02," And I'll also say both parties, and again, let me just go to the party where I have more credibility, like the way in which the Democrats just completely neglect males.",1.0
+1268.542,1276.366,SPEAKER_02,Like there is nothing wrong and it's admirable to be a somewhat to high testosterone male.,1.0
+1277.347,1278.487,SPEAKER_02,"And you know, it's like...",1.0
+1279.848,1286.293,SPEAKER_02, You have the general vibe in the Democratic Party that it's like there's something wrong.,1.0
+1286.754,1289.115,SPEAKER_02,I don't know.,1.0
+1289.536,1292.478,SPEAKER_02,There's some way in which I don't find it very appealing as a dude.,1.0
+1292.678,1293.819,SPEAKER_02,I don't think most dudes do.,1.0
+1294.54,1295.46,SPEAKER_02,It's a huge problem.,1.0
+1296.121,1297.122,SPEAKER_02,And you can't address it.,1.0
+1297.722,1303.165,SPEAKER_02, My primary issue on political stuff is not exactly being slightly unfair to your question.,1.0
+1303.746,1306.707,SPEAKER_02,I think the primary issue for America is do we have a closed border?,1.0
+1307.188,1308.849,SPEAKER_02,"At this point, I'm kind of a single-issue voter.",1.0
+1308.869,1310.69,SPEAKER_02,"It's like, is the border closed or is it open?",1.0
+1311.13,1315.573,SPEAKER_02,"Like, Europe is an unmitigated disaster because of, like, unfettered, stupid migration.",1.0
+1315.873,1316.914,SPEAKER_03,"Of all the people you've met,",1.0
+1317.634,1318.935,SPEAKER_03, Who would make the best president?,1.0
+1319.015,1320.655,SPEAKER_03,Who do you think should be the next president?,1.0
+1321.036,1331.26,SPEAKER_02,"The president that will legitimately, credibly say the borders stay enclosed or there'll be common sense cultural standards used on top of just pure IQ.",1.0
+1332.121,1334.802,SPEAKER_02,"And the president that can really, really",1.0
+1335.822,1337.843,SPEAKER_02, credibly fight for workers.,1.0
+1338.243,1339.423,SPEAKER_02,"So like, sorry.",1.0
+1339.703,1341.704,SPEAKER_03,"That sounds like the current vice president, J.D. Vance.",1.0
+1341.764,1344.464,SPEAKER_02,"I'm not, I'm just going to, you asked a question, I'm giving you an answer.",1.0
+1344.885,1361.109,SPEAKER_02,"The way I would judge it, well, the way I would judge it is, who is the person who actually believes and will implement things that make working class Americans healthier and wealthier? And",1.0
+1362.349,1363.75,SPEAKER_03, That sounds like Vice President J.D.,1.0
+1363.81,1365.41,SPEAKER_03,Vance raised in Appalachia.,1.0
+1365.51,1366.33,SPEAKER_03,Do you like him?,1.0
+1366.37,1367.591,SPEAKER_02,Do you think he should be president?,1.0
+1387.876,1395.186,SPEAKER_02," people with non-domain specific knowledge who are kind of, and not the working class.",1.0
+1395.406,1397.289,SPEAKER_03,Is there someone you'd like to see as the leader on that side?,1.0
+1398.622,1401.964,SPEAKER_02," but anyone who reps this, like, I'm not, it's like, for me, it's the issues.",1.0
+1402.344,1410.67,SPEAKER_02,"I like, again, it's like, I don't, I know it's kind of like, I don't think you have to, a politician has to connect with the people, but I'm not a politician, nor is it a job for me to be one.",1.0
+1411.17,1417.614,SPEAKER_02,"I connect with the, with the two issues when I would say it's basically does, is it what, what's going to happen to the working class?",1.0
+1417.674,1420.476,SPEAKER_02,"And is the border closed, which is basically the same issue.",1.0
+1424.389,1428.373,SPEAKER_03, So there was a biography of you that just came out.,1.0
+1428.873,1433.017,SPEAKER_03,You had a lot of cooperation on balance was very positive to you.,1.0
+1433.457,1440.203,SPEAKER_03,"You're worth 17 billion or 18 billion, but most people don't realize that you came from very little.",1.0
+1441.444,1445.408,SPEAKER_03,"You told me a story about a jewelry store in Bryn Mawr, Pennsylvania.",1.0
+1445.468,1447.81,SPEAKER_03,You grew up in the Philadelphia suburbs.,1.0
+1448.17,1450.312,SPEAKER_03,There was a landlord there who owned a jewelry store.,1.0
+1450.332,1451.273,SPEAKER_03,Do tell.,1.0
+1452.244,1452.904,SPEAKER_02," Well, it's in the book.",1.0
+1453.004,1459.426,SPEAKER_02,"And honestly, there's so many stories I would not have told, not because, you know, I don't know.",1.0
+1463.568,1464.868,SPEAKER_02,My mom was totally fucked.,1.0
+1466.789,1467.389,SPEAKER_02,Someone helped her.,1.0
+1469.75,1470.37,SPEAKER_02,I paid them back.,1.0
+1471.711,1475.952,SPEAKER_03,"And that person was a landlord, gave her and you a place to live.",1.0
+1480.319,1482.321,SPEAKER_03, And they still own a jewelry store.,1.0
+1482.541,1487.665,SPEAKER_03,And how did you... I just buy a lot of stuff from them to this day. Yeah.,1.0
+1488.906,1492.128,SPEAKER_03,And what is there for others to learn from that?,1.0
+1492.869,1494.15,SPEAKER_02,Very few people help you.,1.0
+1495.09,1501.735,SPEAKER_02,"And it's like her, the helping my mom, Mrs. Schneider, kind of helped me.",1.0
+1501.755,1503.357,SPEAKER_02,A bunch of people.,1.0
+1503.957,1506.859,SPEAKER_02,"In general, people don't help you, which is totally okay.",1.0
+1506.899,1509.121,SPEAKER_02,But the ones that do are special.,1.0
+1510.43,1519.037,SPEAKER_03," And something that Palantir is doing is you have a fellowship now for high school students, people without degrees, without credentials.",1.0
+1519.818,1522.0,SPEAKER_03,You just tried the inaugural class.,1.0
+1522.3,1523.181,SPEAKER_03,What did you learn from that?,1.0
+1523.241,1524.482,SPEAKER_03,And are you going to do more of that?,1.0
+1526.713,1536.904,SPEAKER_02, I learned there's a lot of very talented people who would be better off learning domain-specific things than being indoctrinated at quasi-elite schools that don't value them.,1.0
+1538.685,1544.632,SPEAKER_02,"I've learned, and I hope that other people will copy this, and we're going to do more and more.",1.0
+1544.932,1546.233,SPEAKER_02,It's good for the nation.,1.0
+1546.854,1547.755,SPEAKER_02,It's great for Palantir.,1.0
+1548.504,1553.209,SPEAKER_03, And so you don't necessarily have to go to college to be successful.,1.0
+1553.269,1556.672,SPEAKER_03,"And it sounds like you're going to invest more in vocational training, high school training.",1.0
+1557.614,1559.535,SPEAKER_02," Well, yeah, we probably should do that too.",1.0
+1559.595,1561.496,SPEAKER_02,"But like, you know, like first of all, we just kicked it off.",1.0
+1561.516,1563.017,SPEAKER_02,"We were the first company, I think, to do this.",1.0
+1563.077,1571.302,SPEAKER_02,"I think other people, we've had actually nations, an interesting thing is we have a number of nations call us like at the national level and saying, hey, we want to learn from this.",1.0
+1572.182,1572.702,SPEAKER_02,Is it outside?,1.0
+1573.043,1574.003,SPEAKER_03,From the high school program?,1.0
+1574.303,1574.944,SPEAKER_02,"Yeah, like, yeah.",1.0
+1575.044,1582.268,SPEAKER_02,"One of the more fascinating things is, I mean, I can't give details, but we had like a nation state saying, could you come over and teach us how to do this?",1.0
+1582.368,1583.128,SPEAKER_02,And are you going to do it?,1.0
+1583.248,1583.889,SPEAKER_03,"Yeah, of course.",1.0
+1584.609,1586.45,SPEAKER_03,And what are you going to teach them or what is the secret?,1.0
+1586.93,1588.791,SPEAKER_02," Uh, well, it's, I mean, selection.",1.0
+1588.851,1589.531,SPEAKER_02,How do you select?,1.0
+1589.591,1590.311,SPEAKER_02,How do you train?,1.0
+1590.431,1593.312,SPEAKER_02,How do you provide like what we're doing with them?,1.0
+1593.352,1594.612,SPEAKER_02,"By the way, it's not indoctrination.",1.0
+1594.632,1595.292,SPEAKER_02,That's really interesting.,1.0
+1595.332,1599.213,SPEAKER_02,"People think we're just like, you come here and you learn there's only one way to do something ideologically.",1.0
+1599.293,1604.074,SPEAKER_02,"No, we're, we're exposing them to a wide swath of kind of core.",1.0
+1604.334,1606.615,SPEAKER_03,Because there's like a Western Civ element to it.,1.0
+1607.355,1608.676,SPEAKER_02," Yeah, but it's like Western Civ.",1.0
+1608.696,1611.378,SPEAKER_02,And then we have a lot of people actually who've built things coming in.,1.0
+1611.838,1614.56,SPEAKER_02,"So we've had a lot of ex-Palantirians, current Palantirians.",1.0
+1615.341,1616.042,SPEAKER_02,I don't know.,1.0
+1616.062,1620.285,SPEAKER_02,"Some of the people may not want to be named, but like titans of industry, like you'd be a perfect person. Come in.",1.0
+1620.745,1622.186,SPEAKER_02,What does it mean to be a journalist?,1.0
+1622.266,1623.667,SPEAKER_02,What does it mean to manage journalists?,1.0
+1624.027,1625.368,SPEAKER_02,What does it mean to build a company?,1.0
+1625.429,1626.389,SPEAKER_02,What are the assumptions?,1.0
+1626.429,1627.15,SPEAKER_02,What have I learned?,1.0
+1627.55,1628.911,SPEAKER_02,What does it mean to be selective?,1.0
+1628.931,1633.134,SPEAKER_02,"I mean, like we want... And then like what you won't hear, by the way, we have like...",1.0
+1634.235,1636.616,SPEAKER_02, We have very prominent establishment progressives.,1.0
+1636.716,1647.378,SPEAKER_02,"I would say one of the things that I'm pretty adamant about is I actually care less about ideology and more about, is this person at the pinnacle of their success?",1.0
+1651.279,1653.5,SPEAKER_03,"So as we say goodbye here, you just turned 58.",1.0
+1654.7,1655.92,SPEAKER_03,You look a lot less.,1.0
+1655.96,1660.101,SPEAKER_03,You just put on this skiing gear.,1.0
+1660.621,1662.582,SPEAKER_03,What is your latest longevity hack?,1.0
+1664.105,1670.19,SPEAKER_02, You have to do technical Norwegian style cardiovascular training. Look that up.,1.0
+1670.61,1671.431,SPEAKER_02,It's a longer story.,1.0
+1671.871,1676.135,SPEAKER_02,But the normal cardiovascular training is basically at a certain level not so valuable.,1.0
+1676.375,1680.078,SPEAKER_03,"And then just some framing bracketing, as you would say, for our viewers.",1.0
+1680.358,1684.321,SPEAKER_03,So Norway has by far the most medals in the Winter Olympics.,1.0
+1684.942,1687.484,SPEAKER_03,"And your theory is that it's because of this kind of training. Well, it's...",1.0
+1688.084,1697.412,SPEAKER_02," It's not just because of that, but I think if you did a regression of all humans with VO2s above 90, you would find 98% were Norwegian.",1.0
+1697.952,1704.837,SPEAKER_02,"And there's probably a genetic element, but there's the way that they train, which is basically being very careful about when you're in zone one.",1.0
+1705.718,1707.84,SPEAKER_02, and zone four and not being in zone two.,1.0
+1708.28,1710.321,SPEAKER_02,"And then you, people should just look it up with that.",1.0
+1710.421,1715.605,SPEAKER_02,"And then every, what I've changed now is every second or third day I do pure strength.",1.0
+1715.925,1722.65,SPEAKER_02,"And I used to do just that and kind of internal strength, but I think that really helps.",1.0
+1722.71,1727.534,SPEAKER_02,"And then I do do like, I think something meditative, like I do Tai Chi every day.",1.0
+1727.634,1729.575,SPEAKER_02,I think those are the Chinese martial art.,1.0
+1729.595,1730.676,SPEAKER_03,How does that change your life?,1.0
+1731.517,1740.805,SPEAKER_02," Well, if you're an entrepreneur doing something that elicits cortisone, you want something that rebalances your softer and harder energy.",1.0
+1741.406,1742.087,SPEAKER_02,And it does that.,1.0
+1742.267,1743.948,SPEAKER_02,And it helps with sleep a lot.,1.0
+1744.229,1747.372,SPEAKER_03,"You told me that you looked at me and you said, I've been sweeping more.",1.0
+1747.592,1748.352,SPEAKER_03,How much do you sweep?,1.0
+1749.453,1751.676,SPEAKER_02,"I mean, I'm primarily a creative human.",1.0
+1752.056,1752.697,SPEAKER_02,I really...,1.0
+1753.9,1755.882,SPEAKER_02, My best work is done if I get eight hours sleep.,1.0
+1756.643,1766.251,SPEAKER_02,"I can't always do that because I'm traveling and it's hard, but I really strive for eight hours quality sleep because what I notice is I just feel better, my brain works better, and yeah.",1.0
+1766.772,1770.135,SPEAKER_03,"Alex Karp, thanks for mixing it up with the Axios show. Thank you.",1.0
