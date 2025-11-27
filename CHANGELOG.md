@@ -1,3 +1,16 @@
+## [3.1.10] - 2025-01-27 🐛 API CONTAINER STARTUP FIX
+
+### Fixed
+- **API Container Startup Crash**: Resolved `ModuleNotFoundError: No module named 'rich'` on container startup
+- **Optional TUI Dependencies**: Made `BatchProgress` and `ClipScribeProgress` imports optional in `utils/__init__.py`
+- **Import Chain Issue**: Fixed crash when API service imports `clipscribe.utils.gcs_signing` without TUI dependencies installed
+
+### Technical Details
+- Wrapped `rich`-dependent imports in `try/except ImportError` blocks
+- Allows API container (which only installs `api` extras) to run without `rich`/`textual` dependencies
+- Preserves TUI functionality for CLI use cases that do have `rich` installed
+- Prevents module-level import failures that crashed the container on startup
+
 ## [3.1.9] - 2025-01-27 🔐 IAM SIGNBLOB PRESIGNED URL IMPLEMENTATION
 
 ### Added
