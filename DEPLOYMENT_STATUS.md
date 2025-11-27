@@ -1,6 +1,6 @@
 # ClipScribe Deployment Status
 
-**Last Updated:** January 27, 2025  
+**Last Updated:** November 27, 2025  
 **Current Version:** v3.1.12
 
 **Documentation Status:** All documentation updated to v3.1.10, professionalized (emojis removed), and consolidated. Outdated files removed from git.
@@ -9,7 +9,7 @@
 
 ## Recent Fixes
 
-### v3.1.12 - Deployment Workflow Update (January 27, 2025)
+### v3.1.12 - Deployment Workflow Update (November 27, 2025)
 
 **Changes:**
 - Added `GOOGLE_SERVICE_ACCOUNT_EMAIL` environment variable to GitHub Actions deployment workflow
@@ -22,7 +22,7 @@
 
 ---
 
-### v3.1.11 - Presigned URL IAM Signing Fix (January 27, 2025)
+### v3.1.11 - Presigned URL IAM Signing Fix (November 27, 2025)
 
 **Problem:** Presigned URL generation still failing with "you need a private key to sign credentials" error on Cloud Run
 
@@ -64,7 +64,7 @@
 
 ---
 
-### v3.1.9 - IAM SignBlob for Presigned URLs (January 27, 2025)
+### v3.1.9 - IAM SignBlob for Presigned URLs (November 27, 2025)
 
 **Problem:** Presigned URL generation failed with "you need a private key to sign credentials"
 
@@ -116,13 +116,11 @@ curl https://clipscribe-api-df6nuv4qxa-uc.a.run.app/v1/health
 
 ---
 
----
-
 ## Front-End Integration Handoff
 
 ### API Base URL
 
-**Production:** `https://clipscribe-api-16459511304.us-central1.run.app`
+**Production:** `https://clipscribe-api-df6nuv4qxa-uc.a.run.app`
 
 ### Authentication
 
@@ -244,7 +242,7 @@ GET /v1/health
 Response:
 {
   "status": "healthy",
-  "timestamp": "2025-01-27T...",
+  "timestamp": "2025-11-27T...",
   "redis": true,
   "gcs": "healthy",
   "queue": "healthy",
@@ -280,7 +278,7 @@ Common error codes:
 
 ```javascript
 // 1. Get token
-const tokenResponse = await fetch('https://clipscribe-api-16459511304.us-central1.run.app/v1/auth/token', {
+const tokenResponse = await fetch('https://clipscribe-api-df6nuv4qxa-uc.a.run.app/v1/auth/token', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({ email: 'user@example.com' })
@@ -288,7 +286,7 @@ const tokenResponse = await fetch('https://clipscribe-api-16459511304.us-central
 const { token } = await tokenResponse.json();
 
 // 2. Get presigned URL
-const presignResponse = await fetch('https://clipscribe-api-16459511304.us-central1.run.app/v1/uploads/presign', {
+const presignResponse = await fetch('https://clipscribe-api-df6nuv4qxa-uc.a.run.app/v1/uploads/presign', {
   method: 'POST',
   headers: {
     'Authorization': `Bearer ${token}`,
@@ -309,7 +307,7 @@ await fetch(upload_url, {
 });
 
 // 4. Submit job
-const jobResponse = await fetch('https://clipscribe-api-16459511304.us-central1.run.app/v1/jobs', {
+const jobResponse = await fetch('https://clipscribe-api-df6nuv4qxa-uc.a.run.app/v1/jobs', {
   method: 'POST',
   headers: {
     'Authorization': `Bearer ${token}`,
@@ -323,7 +321,7 @@ const jobResponse = await fetch('https://clipscribe-api-16459511304.us-central1.
 const job = await jobResponse.json();
 
 // 5. Poll for status
-const statusResponse = await fetch(`https://clipscribe-api-16459511304.us-central1.run.app/v1/jobs/${job.job_id}`, {
+const statusResponse = await fetch(`https://clipscribe-api-df6nuv4qxa-uc.a.run.app/v1/jobs/${job.job_id}`, {
   headers: { 'Authorization': `Bearer ${token}` }
 });
 const status = await statusResponse.json();

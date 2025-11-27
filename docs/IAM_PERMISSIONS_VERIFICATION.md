@@ -1,6 +1,6 @@
 # IAM Permissions Verification for Presigned URLs
 
-**Last Updated:** January 27, 2025  
+**Last Updated:** November 27, 2025  
 **Purpose:** Verify and grant required IAM permissions for presigned URL generation on Cloud Run
 
 ---

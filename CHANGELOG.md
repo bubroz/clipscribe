@@ -1,4 +1,4 @@
-## [3.1.11] - 2025-01-27 🔐 PRESIGNED URL IAM SIGNING FIX
+## [3.1.11] - 2025-11-27 🔐 PRESIGNED URL IAM SIGNING FIX
 
 ### Fixed
 - **Presigned URL Generation on Cloud Run**: Fixed "you need a private key to sign credentials" error by using `google-cloud-storage`'s built-in IAM signing support
@@ -17,7 +17,7 @@
 - Falls back to manual IAM SignBlob implementation if storage library approach fails
 - Requires `roles/iam.serviceAccountTokenCreator` permission on service account itself
 
-## [3.1.10] - 2025-01-27 🐛 API CONTAINER STARTUP FIX
+## [3.1.10] - 2025-11-27 🐛 API CONTAINER STARTUP FIX
 
 ### Fixed
 - **API Container Startup Crash**: Resolved `ModuleNotFoundError: No module named 'rich'` on container startup
@@ -30,7 +30,7 @@
 - Preserves TUI functionality for CLI use cases that do have `rich` installed
 - Prevents module-level import failures that crashed the container on startup
 
-## [3.1.9] - 2025-01-27 🔐 IAM SIGNBLOB PRESIGNED URL IMPLEMENTATION
+## [3.1.9] - 2025-11-27 🔐 IAM SIGNBLOB PRESIGNED URL IMPLEMENTATION
 
 ### Added
 - **IAM SignBlob API Integration**: Replaced `blob.generate_signed_url()` with IAM Credentials API `signBlob` method
