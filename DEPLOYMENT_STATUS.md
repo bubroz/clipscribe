@@ -1,13 +1,26 @@
 # ClipScribe Deployment Status
 
 **Last Updated:** January 27, 2025  
-**Current Version:** v3.1.11
+**Current Version:** v3.1.12
 
 **Documentation Status:** All documentation updated to v3.1.10, professionalized (emojis removed), and consolidated. Outdated files removed from git.
 
 ---
 
 ## Recent Fixes
+
+### v3.1.12 - Deployment Workflow Update (January 27, 2025)
+
+**Changes:**
+- Added `GOOGLE_SERVICE_ACCOUNT_EMAIL` environment variable to GitHub Actions deployment workflow
+- Updated deployment documentation for front-end agent handoff
+- Ensures presigned URL generation works on all future deployments
+
+**Status:** Ready for deployment
+- Workflow updated
+- Documentation complete
+
+---
 
 ### v3.1.11 - Presigned URL IAM Signing Fix (January 27, 2025)
 
@@ -21,17 +34,12 @@
 - Added fallback to manual IAM SignBlob implementation if storage library approach fails
 - Improved error handling and logging
 
-**Status:** Ready for deployment
-- Code changes complete
-- Tests updated
-- IAM permissions verification document created
-- Requires: `roles/iam.serviceAccountTokenCreator` on service account itself
-
-**Next Steps:**
-1. Verify/grant IAM permission (see `docs/IAM_PERMISSIONS_VERIFICATION.md`)
-2. Deploy to Cloud Run
-3. Test presign endpoint
-4. Verify file upload works end-to-end
+**Status:** Deployed successfully
+- Code changes complete and deployed
+- Tests updated and passing (19/19)
+- IAM permission granted: `roles/iam.serviceAccountTokenCreator` on service account `16459511304-compute@developer.gserviceaccount.com`
+- Environment variable set in Cloud Run: `GOOGLE_SERVICE_ACCOUNT_EMAIL=16459511304-compute@developer.gserviceaccount.com`
+- Presigned URL generation working correctly
 
 ---
 
@@ -108,16 +116,218 @@ curl https://clipscribe-api-df6nuv4qxa-uc.a.run.app/v1/health
 
 ---
 
-## Next Steps
+---
 
-1. **CI Improvements:**
-   - Address remaining mypy type annotation issues
-   - Investigate and fix test failures
+## Front-End Integration Handoff
 
-2. **Monitoring:**
-   - Monitor Cloud Run logs for any errors
-   - Verify presigned URL generation continues working
-   - Check API response times
+### API Base URL
+
+**Production:** `https://clipscribe-api-16459511304.us-central1.run.app`
+
+### Authentication
+
+All API endpoints (except `/v1/auth/token`) require Bearer token authentication:
+
+```http
+Authorization: Bearer YOUR_TOKEN
+```
+
+**Getting a Token:**
+```bash
+POST /v1/auth/token
+Content-Type: application/json
+
+{
+  "email": "user@example.com"
+}
+
+Response:
+{
+  "token": "bet_...",
+  "tier": "beta",
+  "email": "user@example.com",
+  "expires_in_days": 30
+}
+```
+
+### Upload Flow (3-Step Process)
+
+**Step 1: Get Presigned Upload URL**
+```bash
+POST /v1/uploads/presign
+Authorization: Bearer YOUR_TOKEN
+Content-Type: application/json
+
+{
+  "filename": "video.mp4",
+  "content_type": "video/mp4"
+}
+
+Response:
+{
+  "upload_url": "https://storage.googleapis.com/...",
+  "gcs_uri": "gs://bucket/uploads/uuid/video.mp4"
+}
+```
+
+**Step 2: Upload File to Presigned URL**
+```bash
+PUT {upload_url}
+Content-Type: video/mp4
+[Binary file data]
+
+Response: 200 OK (from GCS)
+```
+
+**Step 3: Submit Job for Processing**
+```bash
+POST /v1/jobs
+Authorization: Bearer YOUR_TOKEN
+Content-Type: application/json
+
+{
+  "gcs_uri": "gs://bucket/uploads/uuid/video.mp4",
+  "options": {
+    "model": "flash"  // or "pro" for higher quality
+  }
+}
+
+Response:
+{
+  "job_id": "...",
+  "state": "QUEUED",
+  "manifest_url": "https://storage.googleapis.com/.../manifest.json",
+  ...
+}
+```
+
+### Job Status Endpoints
+
+**Get Job Status:**
+```bash
+GET /v1/jobs/{job_id}
+Authorization: Bearer YOUR_TOKEN
+```
+
+**Job States:**
+- `QUEUED` - Job created, waiting to be processed
+- `PROCESSING` - Currently being processed
+- `COMPLETED` - Processing finished successfully
+- `FAILED` - Processing failed (check `error` field)
+
+**Get Job Artifacts:**
+```bash
+GET /v1/jobs/{job_id}/artifacts
+Authorization: Bearer YOUR_TOKEN
+
+Response:
+{
+  "job_id": "...",
+  "artifacts": [
+    {
+      "id": "manifest.json",
+      "kind": "manifest_json",
+      "size_bytes": 1234,
+      "url": "https://storage.googleapis.com/...",
+      "requires_auth": false
+    },
+    ...
+  ]
+}
+```
+
+### Health Check
+
+```bash
+GET /v1/health
+
+Response:
+{
+  "status": "healthy",
+  "timestamp": "2025-01-27T...",
+  "redis": true,
+  "gcs": "healthy",
+  "queue": "healthy",
+  "version": "1.0.0"
+}
+```
+
+### Error Responses
+
+All errors follow this format:
+```json
+{
+  "code": "error_code",
+  "message": "Human-readable error message"
+}
+```
+
+Common error codes:
+- `invalid_input` - Invalid request parameters
+- `unauthorized` - Missing or invalid token
+- `rate_limited` - Rate limit exceeded (includes `retry_after_seconds`)
+- `budget_exceeded` - Daily budget exceeded
+- `presign_failed` - Failed to generate presigned URL
+- `service_unavailable` - API temporarily paused
+
+### Rate Limits
+
+- **Per-token RPM:** 60 requests per minute (configurable via `TOKEN_MAX_RPM`)
+- **Daily requests:** 2000 per token (configurable via `TOKEN_MAX_DAILY_REQUESTS`)
+- **Daily budget:** $5.00 USD per token (configurable via `TOKEN_DAILY_BUDGET_USD`)
+
+### Example Front-End Integration
+
+```javascript
+// 1. Get token
+const tokenResponse = await fetch('https://clipscribe-api-16459511304.us-central1.run.app/v1/auth/token', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ email: 'user@example.com' })
+});
+const { token } = await tokenResponse.json();
+
+// 2. Get presigned URL
+const presignResponse = await fetch('https://clipscribe-api-16459511304.us-central1.run.app/v1/uploads/presign', {
+  method: 'POST',
+  headers: {
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    filename: file.name,
+    content_type: file.type
+  })
+});
+const { upload_url, gcs_uri } = await presignResponse.json();
+
+// 3. Upload file
+await fetch(upload_url, {
+  method: 'PUT',
+  headers: { 'Content-Type': file.type },
+  body: file
+});
+
+// 4. Submit job
+const jobResponse = await fetch('https://clipscribe-api-16459511304.us-central1.run.app/v1/jobs', {
+  method: 'POST',
+  headers: {
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    gcs_uri: gcs_uri,
+    options: { model: 'flash' }
+  })
+});
+const job = await jobResponse.json();
+
+// 5. Poll for status
+const statusResponse = await fetch(`https://clipscribe-api-16459511304.us-central1.run.app/v1/jobs/${job.job_id}`, {
+  headers: { 'Authorization': `Bearer ${token}` }
+});
+const status = await statusResponse.json();
+```
 
 ---
 
@@ -132,5 +342,11 @@ gcloud run revisions describe clipscribe-api-00056-92z --region=us-central1
 
 # View logs
 gcloud logging read "resource.type=cloud_run_revision AND resource.labels.service_name=clipscribe-api" --limit=50
+
+# Update environment variable (if needed)
+gcloud run services update clipscribe-api \
+  --region=us-central1 \
+  --update-env-vars GOOGLE_SERVICE_ACCOUNT_EMAIL=16459511304-compute@developer.gserviceaccount.com \
+  --project=prismatic-iris-429006-g6
 ```
 
