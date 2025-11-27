@@ -71,7 +71,7 @@ jobs:
 
       - name: Deploy to Cloud Run
         env:
-          IMAGE: ${REGION}-docker.pkg.dev/${{ env.PROJECT_ID }}/clipscribe/clipscribe-api:${{ github.ref_name }}
+          IMAGE: ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/clipscribe/clipscribe-api:${{ github.ref_name }}
         run: |
           gcloud run deploy ${SERVICE} \
             --image $IMAGE \
