@@ -722,8 +722,9 @@ async def presign_upload(
             # Path: uploads/<uuid>/<filename>
             object_path = f"uploads/{uuid.uuid4().hex}/{req.filename}"
 
-            # Generate signed URL using IAM SignBlob API
-            # This works with Cloud Run's default service account (no private key needed)
+            # Generate signed URL using IAM signing (storage library with IAM API fallback)
+            # Uses google-cloud-storage's built-in IAM signing, falls back to manual IAM SignBlob
+            # Works with Cloud Run's default service account (no private key needed)
             upload_url = generate_v4_signed_url_with_iam(
                 bucket_name=bucket_name,
                 object_path=object_path,

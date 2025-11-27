@@ -17,9 +17,11 @@ except ImportError:
 class TestGetServiceAccountEmail:
     """Tests for get_service_account_email function."""
 
+    @patch("clipscribe.utils.gcs_signing.google")
     @patch("clipscribe.utils.gcs_signing.default")
-    def test_get_service_account_email_from_credentials(self, mock_default):
+    def test_get_service_account_email_from_credentials(self, mock_default, mock_google):
         """Test extracting service account email from service account credentials."""
+        mock_google.auth = Mock()
         mock_creds = Mock()
         mock_creds.service_account_email = "test@project.iam.gserviceaccount.com"
         mock_default.return_value = (mock_creds, "project-id")
@@ -27,23 +29,36 @@ class TestGetServiceAccountEmail:
         email = gcs_signing.get_service_account_email()
         assert email == "test@project.iam.gserviceaccount.com"
 
+    @patch("clipscribe.utils.gcs_signing.google")
     @patch("clipscribe.utils.gcs_signing.default")
     @patch.dict(os.environ, {"GOOGLE_SERVICE_ACCOUNT_EMAIL": "env@project.iam.gserviceaccount.com"})
-    def test_get_service_account_email_from_env(self, mock_default):
+    def test_get_service_account_email_from_env(self, mock_default, mock_google):
         """Test getting service account email from environment variable."""
-        mock_creds = Mock()
-        del mock_creds.service_account_email  # No email in credentials
+        # Clear cache first
+        gcs_signing._service_account_email_cache = None
+        mock_google.auth = Mock()
+        mock_creds = Mock(spec=[])  # Empty spec so no attributes
+        # Ensure no service_account_email or _service_account_email attributes
+        if hasattr(mock_creds, "service_account_email"):
+            delattr(mock_creds, "service_account_email")
+        if hasattr(mock_creds, "_service_account_email"):
+            delattr(mock_creds, "_service_account_email")
         mock_default.return_value = (mock_creds, "project-id")
 
         email = gcs_signing.get_service_account_email()
         assert email == "env@project.iam.gserviceaccount.com"
 
+    @patch("clipscribe.utils.gcs_signing.google")
     @patch("clipscribe.utils.gcs_signing.default")
-    def test_get_service_account_email_cached(self, mock_default):
+    def test_get_service_account_email_cached(self, mock_default, mock_google):
         """Test that service account email is cached."""
+        mock_google.auth = Mock()
         mock_creds = Mock()
         mock_creds.service_account_email = "test@project.iam.gserviceaccount.com"
         mock_default.return_value = (mock_creds, "project-id")
+
+        # Clear cache first
+        gcs_signing._service_account_email_cache = None
 
         # First call
         email1 = gcs_signing.get_service_account_email()
@@ -54,16 +69,33 @@ class TestGetServiceAccountEmail:
         # Should only call default() once
         assert mock_default.call_count == 1
 
+    @patch("builtins.__import__")
+    @patch("clipscribe.utils.gcs_signing.google")
     @patch("clipscribe.utils.gcs_signing.default")
-    def test_get_service_account_email_failure(self, mock_default):
+    def test_get_service_account_email_failure(self, mock_default, mock_google, mock_import):
         """Test error when service account email cannot be determined."""
-        mock_creds = Mock()
-        del mock_creds.service_account_email  # No email in credentials
+        # Clear cache first
+        gcs_signing._service_account_email_cache = None
+        mock_google.auth = Mock()
+        mock_creds = Mock(spec=[])  # Empty spec so no attributes
+        # Ensure no service_account_email or _service_account_email attributes
+        if hasattr(mock_creds, "service_account_email"):
+            delattr(mock_creds, "service_account_email")
+        if hasattr(mock_creds, "_service_account_email"):
+            delattr(mock_creds, "_service_account_email")
         mock_default.return_value = (mock_creds, "project-id")
+        # Mock httpx import to fail (simulate not installed or network issue)
+        def import_side_effect(name, *args, **kwargs):
+            if name == "httpx":
+                raise ImportError("httpx not available")
+            return __import__(name, *args, **kwargs)
+        mock_import.side_effect = import_side_effect
 
         with patch.dict(os.environ, {}, clear=True):
-            with pytest.raises(RuntimeError, match="Could not determine service account email"):
-                gcs_signing.get_service_account_email()
+            # Also need to mock urllib to fail
+            with patch("urllib.request.urlopen", side_effect=Exception("Network error")):
+                with pytest.raises(RuntimeError, match="Could not determine service account email"):
+                    gcs_signing.get_service_account_email()
 
 
 class TestConstructCanonicalRequest:
@@ -85,7 +117,8 @@ class TestConstructCanonicalRequest:
         assert method in canonical
         assert resource in canonical
         assert "X-Goog-Algorithm" in canonical
-        assert "Content-Type" in canonical.lower()
+        # Headers are lowercased in canonical request
+        assert "content-type" in canonical.lower()
         assert payload_hash in canonical
 
     def test_construct_canonical_request_no_headers(self):
@@ -240,10 +273,12 @@ class TestGenerateV4SignedUrlWithIam:
         assert "test-bucket" in url
         assert "uploads/file.mp3" in url
 
+    @patch("clipscribe.utils.gcs_signing.google")
     @patch("clipscribe.utils.gcs_signing.get_service_account_email")
     @patch("clipscribe.utils.gcs_signing._sign_blob_with_iam")
-    def test_generate_v4_signed_url_manual_iam_basic(self, mock_sign, mock_get_email):
+    def test_generate_v4_signed_url_manual_iam_basic(self, mock_sign, mock_get_email, mock_google):
         """Test manual IAM approach generating a basic signed URL."""
+        mock_google.auth = Mock()
         mock_get_email.return_value = "test@project.iam.gserviceaccount.com"
         mock_sign.return_value = b"fake_signature_bytes"
 
@@ -267,13 +302,15 @@ class TestGenerateV4SignedUrlWithIam:
         # Should be a valid HTTPS URL
         assert url.startswith("https://storage.googleapis.com/")
 
+    @patch("clipscribe.utils.gcs_signing.google")
     @patch("clipscribe.utils.gcs_signing.storage")
     @patch("clipscribe.utils.gcs_signing.default")
     @patch("clipscribe.utils.gcs_signing.auth_requests")
     @patch("clipscribe.utils.gcs_signing.get_service_account_email")
-    def test_generate_signed_url_with_storage_iam(self, mock_get_email, mock_auth_requests, mock_default, mock_storage):
+    def test_generate_signed_url_with_storage_iam(self, mock_get_email, mock_auth_requests, mock_default, mock_storage, mock_google):
         """Test storage IAM approach generating a signed URL."""
         # Setup mocks
+        mock_google.auth = Mock()
         mock_get_email.return_value = "test@project.iam.gserviceaccount.com"
         mock_creds = Mock()
         mock_creds.token = "test_access_token"
@@ -312,10 +349,12 @@ class TestGenerateV4SignedUrlWithIam:
         assert "test-bucket" in url
         assert "uploads/file.mp3" in url
 
+    @patch("clipscribe.utils.gcs_signing.google")
     @patch("clipscribe.utils.gcs_signing.get_service_account_email")
     @patch("clipscribe.utils.gcs_signing._sign_blob_with_iam")
-    def test_generate_v4_signed_url_manual_no_content_type(self, mock_sign, mock_get_email):
+    def test_generate_v4_signed_url_manual_no_content_type(self, mock_sign, mock_get_email, mock_google):
         """Test manual IAM generating signed URL without content type."""
+        mock_google.auth = Mock()
         mock_get_email.return_value = "test@project.iam.gserviceaccount.com"
         mock_sign.return_value = b"fake_signature_bytes"
 
@@ -330,10 +369,12 @@ class TestGenerateV4SignedUrlWithIam:
         assert "test-bucket" in url
         assert "X-Goog-Signature" in url
 
+    @patch("clipscribe.utils.gcs_signing.google")
     @patch("clipscribe.utils.gcs_signing.get_service_account_email")
     @patch("clipscribe.utils.gcs_signing._sign_blob_with_iam")
-    def test_generate_v4_signed_url_manual_different_method(self, mock_sign, mock_get_email):
+    def test_generate_v4_signed_url_manual_different_method(self, mock_sign, mock_get_email, mock_google):
         """Test manual IAM generating signed URL with GET method."""
+        mock_google.auth = Mock()
         mock_get_email.return_value = "test@project.iam.gserviceaccount.com"
         mock_sign.return_value = b"fake_signature_bytes"
 
@@ -348,10 +389,12 @@ class TestGenerateV4SignedUrlWithIam:
         assert "test-bucket" in url
         assert "X-Goog-Expires=3600" in url
 
+    @patch("clipscribe.utils.gcs_signing.google")
     @patch("clipscribe.utils.gcs_signing.get_service_account_email")
     @patch("clipscribe.utils.gcs_signing._sign_blob_with_iam")
-    def test_generate_v4_signed_url_manual_normalizes_path(self, mock_sign, mock_get_email):
+    def test_generate_v4_signed_url_manual_normalizes_path(self, mock_sign, mock_get_email, mock_google):
         """Test that manual IAM normalizes object path (leading slash removed)."""
+        mock_google.auth = Mock()
         mock_get_email.return_value = "test@project.iam.gserviceaccount.com"
         mock_sign.return_value = b"fake_signature_bytes"
 

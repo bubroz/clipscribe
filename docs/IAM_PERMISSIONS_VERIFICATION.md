@@ -125,3 +125,4 @@ curl -X POST https://clipscribe-api-df6nuv4qxa-uc.a.run.app/v1/uploads/presign \
 - [GCS Signed URLs with IAM](https://cloud.google.com/storage/docs/access-control/signing-urls-with-helpers#signing-iam)
 - [Service Account Token Creator Role](https://cloud.google.com/iam/docs/service-accounts#the_service_account_token_creator_role)
 
+
