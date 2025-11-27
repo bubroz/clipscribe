@@ -276,10 +276,10 @@ def generate_v4_signed_url_with_iam(
 
     # Get current time and expiration time
     now = datetime.now(timezone.utc)
-    now + timedelta(seconds=expiration_seconds)
+    expiration_time = now + timedelta(seconds=expiration_seconds)  # noqa: F841
 
     # Format dates for URL
-    now.strftime("%Y%m%d")
+    date_str = now.strftime("%Y%m%d")  # noqa: F841
     timestamp = now.strftime("%Y%m%dT%H%M%SZ")
 
     # Get credential scope
