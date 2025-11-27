@@ -69,9 +69,9 @@ class WhisperXLocalProvider(TranscriptionProvider):
             )
 
         # Check if WhisperX can be imported
-        try:
-            import whisperx
-        except ImportError:
+        import importlib.util
+
+        if importlib.util.find_spec("whisperx") is None:
             raise ConfigurationError(
                 "WhisperX not installed.\n"
                 "Install via: poetry install\n"
@@ -227,9 +227,6 @@ class WhisperXLocalProvider(TranscriptionProvider):
         if not hf_token:
             return False
 
-        try:
-            import whisperx
+        import importlib.util
 
-            return True
-        except ImportError:
-            return False
+        return importlib.util.find_spec("whisperx") is not None

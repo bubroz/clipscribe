@@ -67,10 +67,10 @@ def mock_subprocess_and_external_deps():
     """Mock subprocess calls and external dependencies for all tests."""
     with (
         patch("subprocess.run") as mock_subprocess,
-        patch("google.generativeai.configure") as mock_genai_configure,
+        patch("google.generativeai.configure"),
         patch("google.generativeai.GenerativeModel") as mock_genai_model,
-        patch("google.generativeai.upload_file") as mock_upload_file,
-        patch("google.generativeai.delete_file") as mock_delete_file,
+        patch("google.generativeai.upload_file"),
+        patch("google.generativeai.delete_file"),
         patch("subprocess.Popen") as mock_popen,
         patch("os.system") as mock_system,
         patch.dict(
@@ -143,11 +143,11 @@ def sample_transcript_text():
     return """Hello and welcome to this ClipScribe demo video.
     Today we're going to test the amazing transcription capabilities
     of our AI-powered video intelligence tool.
-    
+
     ClipScribe uses Google's Gemini 2.5 Flash model to provide
     high-accuracy transcriptions at 92% lower cost than traditional
     speech-to-text services.
-    
+
     Let's see it in action!"""
 
 

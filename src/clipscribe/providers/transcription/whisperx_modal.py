@@ -139,7 +139,7 @@ class WhisperXModalProvider(TranscriptionProvider):
             # Modal SDK: Must run within app context for @app.cls methods
             with self.modal_app.run():
                 transcriber = self.transcriber_cls()
-                modal_result = transcriber.transcribe_from_gcs.remote(
+                transcriber.transcribe_from_gcs.remote(
                     gcs_input=gcs_input,
                     gcs_output=gcs_output,
                 )
@@ -242,7 +242,7 @@ class WhisperXModalProvider(TranscriptionProvider):
             if not hasattr(self, "gcs_client"):
                 return False
             return True
-        except:
+        except Exception:
             return False
 
     async def _upload_to_gcs(self, local_path: str) -> str:

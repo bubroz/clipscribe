@@ -51,8 +51,8 @@ def map_linear(value_bytes: bytes, min_val: float, max_val: float, signed: bool 
         # normalized = int_val / 2^(bits-1)  -> range roughly -1 to 1
         # But we want strict mapping.
 
-        total_range = max_val - min_val
-        int_range = (1 << bits) - 1
+        max_val - min_val
+        (1 << bits) - 1
 
         # Shift to unsigned for easier math?
         # Let's stick to the formula: val = int_val * (range / 2^bits) ??

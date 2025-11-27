@@ -39,14 +39,14 @@ def create_intelligence_extraction_prompt(transcript_text: str, metadata: dict) 
 6. VISUAL OBSERVATIONS (GEOINT):
    You are acting as a visual observer analyzing surveillance footage.
    Identify specific visual sightings, movements, or activities described or implied in the transcript.
-   
+
    Requirements:
    - Extract "Visual Observations" where the speaker describes seeing something.
    - Focus on physical objects (vehicles, people, infrastructure) and actions.
    - Timestamp: Best estimate from context (MM:SS).
    - Description: Clear description of what is seen.
    - Evidence: Quote supporting the observation.
-   
+
    Example: "I see a red truck moving west" -> Observation: Red Truck moving West.
 """
 
