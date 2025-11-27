@@ -1,7 +1,7 @@
 # ClipScribe Provider System
 
-**Version:** v3.0.0  
-**Last Updated:** November 13, 2025
+**Version:** v3.1.10  
+**Last Updated:** November 2025
 
 Complete guide to ClipScribe's provider system - choose optimal transcription and intelligence providers for your use case.
 
@@ -53,11 +53,11 @@ Comprehensive JSON Output
 **What it is:** Mistral's Voxtral API for fast,budget-friendly transcription
 
 **Features:**
-- ✅ Fast API-based processing (~0.1x realtime from API latency)
-- ✅ Extremely cheap ($0.001/min)
-- ❌ **NO speaker diarization** (single-speaker only)
-- ✅ Retry logic with exponential backoff
-- ✅ Language auto-detection
+- Fast API-based processing (~0.1x realtime from API latency)
+- Extremely cheap ($0.001/min)
+- **NO speaker diarization** (single-speaker only)
+- Retry logic with exponential backoff
+- Language auto-detection
 
 **Cost:** $0.001/min = **$0.03 for 30min video**
 
@@ -81,7 +81,7 @@ export MISTRAL_API_KEY=your_key_here
 clipscribe process lecture.mp3 -t voxtral --no-diarize
 ```
 
-**Validated:** ✅ 7.1min file, $0.0071, accurate transcription
+**Validated:** 7.1min file, $0.0071, accurate transcription
 
 ---
 
@@ -90,12 +90,12 @@ clipscribe process lecture.mp3 -t voxtral --no-diarize
 **What it is:** WhisperX running locally on your Mac (Apple Silicon or Intel CPU)
 
 **Features:**
-- ✅ **FREE** ($0 transcription cost!)
-- ✅ **Speaker diarization** (pyannote.audio)
-- ✅ Word-level timestamps
-- ✅ Privacy (no data leaves your machine)
-- ✅ Offline processing
-- ✅ Same quality as Modal GPU
+- **FREE** ($0 transcription cost!)
+- **Speaker diarization** (pyannote.audio)
+- Word-level timestamps
+- Privacy (no data leaves your machine)
+- Offline processing
+- Same quality as Modal GPU
 - ⚠️ CPU mode (MPS not supported by faster-whisper library)
 
 **Performance:**
@@ -138,7 +138,7 @@ clipscribe process interview.mp3 -t whisperx-local
 clipscribe process lecture.mp3 -t whisperx-local --no-diarize
 ```
 
-**Validated:** ✅ 16.3min file, $0.0018 (FREE transcription + Grok), 1 speaker detected, 20 entities
+**Validated:** 16.3min file, $0.0018 (FREE transcription + Grok), 1 speaker detected, 20 entities
 
 ---
 
@@ -147,13 +147,13 @@ clipscribe process lecture.mp3 -t whisperx-local --no-diarize
 **What it is:** WhisperX running on Modal cloud GPU (A10G, serverless)
 
 **Features:**
-- ✅ **10x realtime** processing (30min video = 3min processing)
-- ✅ **Speaker diarization** (pyannote + Gemini verification)
-- ✅ Highest quality transcription
-- ✅ Scalable (serverless, auto-scales)
-- ✅ OOM retry with cascading batch sizes
-- ✅ Multi-sample language detection
-- ✅ Speaker quality improvement algorithms
+- **10x realtime** processing (30min video = 3min processing)
+- **Speaker diarization** (pyannote + Gemini verification)
+- Highest quality transcription
+- Scalable (serverless, auto-scales)
+- OOM retry with cascading batch sizes
+- Multi-sample language detection
+- Speaker quality improvement algorithms
 
 **Performance:**
 - Processing: 10x realtime on A10G GPU
@@ -189,7 +189,7 @@ export GCS_BUCKET=your-bucket-name
 clipscribe process podcast.mp3 -t whisperx-modal
 ```
 
-**Validated:** ✅ 30min file, $0.0575, 2 speakers detected, 17 entities
+**Validated:** 30min file, $0.0575, 2 speakers detected, 17 entities
 
 ---
 
@@ -200,12 +200,12 @@ clipscribe process podcast.mp3 -t whisperx-modal
 **What it is:** xAI's Grok-4-fast-reasoning for entity and relationship extraction
 
 **Features:**
-- ✅ **Prompt caching** (75% savings on cached tokens)
-- ✅ **Two-tier pricing** (<128K vs >128K context auto-detected)
-- ✅ **Structured outputs** (json_schema, type-safe)
-- ✅ **Server-side tools** (web_search, x_search for fact-checking)
-- ✅ Detailed cost breakdowns
-- ✅ Cache performance tracking
+- **Prompt caching** (75% savings on cached tokens)
+- **Two-tier pricing** (<128K vs >128K context auto-detected)
+- **Structured outputs** (json_schema, type-safe)
+- **Server-side tools** (web_search, x_search for fact-checking)
+- Detailed cost breakdowns
+- Cache performance tracking
 
 **Pricing (Standard tier, <128K context):**
 - Input: $0.20 per 1M tokens
@@ -231,7 +231,7 @@ export XAI_API_KEY=your_key_here
 clipscribe process audio.mp3
 ```
 
-**Validated:** ✅ 100% feature preservation (caching, pricing, tools all working)
+**Validated:** 100% feature preservation (caching, pricing, tools all working)
 
 ---
 
@@ -282,9 +282,9 @@ Do you need speaker attribution (who said what)?
 
 | Provider Combo | Transcription | Intelligence | Total | Speakers | Speed |
 |----------------|---------------|--------------|-------|----------|-------|
-| Voxtral + Grok | $0.030 | $0.005 | **$0.035** | ❌ No | API (fast) |
-| WhisperX Local + Grok | $0.000 | $0.005 | **$0.005** | ✅ Yes | 1-2x realtime |
-| WhisperX Modal + Grok | $0.055 | $0.005 | **$0.060** | ✅ Yes | 10x realtime |
+| Voxtral + Grok | $0.030 | $0.005 | **$0.035** | No | API (fast) |
+| WhisperX Local + Grok | $0.000 | $0.005 | **$0.005** | Yes | 1-2x realtime |
+| WhisperX Modal + Grok | $0.055 | $0.005 | **$0.060** | Yes | 10x realtime |
 
 ### Cost Breakdown Detail
 

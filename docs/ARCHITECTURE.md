@@ -1,7 +1,7 @@
-# ClipScribe v3.1.0 Architecture
+# ClipScribe v3.1.10 Architecture
 
 **Last Updated:** November 2025  
-**Version:** v3.1.0  
+**Version:** v3.1.10  
 **Status:** Provider-based architecture, file-first processing, GEOINT engine (Beta)
 
 Professional intelligence extraction from audio/video files with provider flexibility.
@@ -24,7 +24,7 @@ Professional intelligence extraction from audio/video files with provider flexib
 
 **For Stakeholders & Decision Makers**
 
-ClipScribe v3.1.0 is a provider-based intelligence extraction platform for audio/video files. Built on swappable provider architecture, users can choose optimal transcription and intelligence providers for their use case. Includes optional GEOINT engine for geolocation intelligence from drone footage.
+ClipScribe v3.1.10 is a provider-based intelligence extraction platform for audio/video files. Built on swappable provider architecture, users can choose optimal transcription and intelligence providers for their use case. Includes optional GEOINT engine for geolocation intelligence from drone footage.
 
 **Key Capabilities:**
 - **Flexibility:** 3 transcription providers, 1 intelligence provider (extensible)
@@ -42,7 +42,7 @@ ClipScribe v3.1.0 is a provider-based intelligence extraction platform for audio
 
 ## System Overview
 
-### v3.1.0 Architecture
+### v3.1.10 Architecture
 
 ```mermaid
 graph TB
@@ -415,7 +415,7 @@ sequenceDiagram
 }
 ```
 
-### Comprehensive JSON Output (v3.1.0 format)
+### Comprehensive JSON Output (v3.1.10 format)
 
 All providers save a comprehensive JSON file containing transcript + intelligence:
 
@@ -600,7 +600,7 @@ def test_new_provider():
 
 ## Comparison: v2 vs v3
 
-| Aspect | v2.x | v3.1.0 |
+| Aspect | v2.x | v3.1.10 |
 |--------|------|--------|
 | Input | URLs | Files |
 | Download | Built-in (yt-dlp, 15 files) | External (yt-dlp separately) |

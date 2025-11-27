@@ -1,7 +1,7 @@
 # ClipScribe API Reference
 
-**Version:** v3.0.0  
-**Last Updated:** November 13, 2025
+**Version:** v3.1.10  
+**Last Updated:** November 2025
 
 Complete API reference for ClipScribe with GCS-first processing and presigned upload flow.
 
@@ -24,13 +24,36 @@ Complete API reference for ClipScribe with GCS-first processing and presigned up
 
 ### GCS-First Architecture
 
-ClipScribe API v3.0.0 uses **GCS (Google Cloud Storage) presigned uploads** for file processing:
+ClipScribe API v3.1.10 uses **GCS (Google Cloud Storage) presigned uploads** for file processing:
 
 **Why GCS?**
-- ✅ Secure (presigned URLs, no API key in upload)
-- ✅ Scalable (handles large files)
-- ✅ Reliable (Google infrastructure)
-- ✅ Fast (direct upload to cloud)
+- Secure (presigned URLs, no API key in upload)
+- Scalable (handles large files)
+- Reliable (Google infrastructure)
+- Fast (direct upload to cloud)
+
+**GCS Bucket CORS Configuration:**
+
+The GCS bucket used for presigned uploads requires CORS configuration to allow browser-based uploads. The configuration allows cross-origin PUT requests from any origin, which is necessary for web-based upload flows.
+
+**CORS Configuration Reference:**
+```json
+[
+  {
+    "origin": ["*"],
+    "method": ["PUT", "POST", "GET", "HEAD", "OPTIONS"],
+    "responseHeader": ["Content-Type", "x-goog-meta-*", "x-goog-resumable"],
+    "maxAgeSeconds": 3600
+  }
+]
+```
+
+**To apply CORS configuration:**
+```bash
+gsutil cors set cors.json gs://your-bucket-name
+```
+
+For deployment-specific CORS details, see [INTEGRATION.md](INTEGRATION.md#cors-configuration).
 
 **User Flow:**
 1. Request presigned upload URL

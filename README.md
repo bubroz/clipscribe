@@ -2,7 +2,7 @@
 
 [![Python Version](https://img.shields.io/badge/python-3.12+-blue.svg)](https://python.org)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-3.1.0-blue.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-3.1.10-blue.svg)](CHANGELOG.md)
 [![Providers](https://img.shields.io/badge/providers-3%20transcription%20%2B%201%20intelligence-blue.svg)](#how-it-works)
 
 **Intelligence extraction platform for video and audio**
@@ -15,8 +15,8 @@ Extract structured, evidence-based intelligence from video content. Get entities
 
 **FREE local processing · $0.06/30 min cloud · MIT licensed**
 
-⭐ **Star if this looks useful**  
-📧 **DM or email info@clipscribe.ai → free processing (first file, 24h turnaround)**
+**Star if this looks useful**  
+**DM or email info@clipscribe.ai for free processing (first file, 24h turnaround)**
 
 **Try it yourself:**
 - Download sample outputs: [`examples/sample_outputs/`](examples/sample_outputs/)
@@ -163,9 +163,9 @@ Choose optimal provider for your use case:
 
 | Provider | Cost (30min) | Speakers | Speed | Best For |
 |----------|--------------|----------|-------|----------|
-| **Voxtral** | $0.03 | ❌ | API (seconds) | Single-speaker, budget |
-| **WhisperX Local** | **FREE** | ✅ | 1-2x realtime | Privacy, multi-speaker, zero cost |
-| **WhisperX Modal** | $0.06 | ✅ | 10x realtime | Professional quality, scalability |
+| **Voxtral** | $0.03 | No | API (seconds) | Single-speaker, budget |
+| **WhisperX Local** | **FREE** | Yes | 1-2x realtime | Privacy, multi-speaker, zero cost |
+| **WhisperX Modal** | $0.06 | Yes | 10x realtime | Professional quality, scalability |
 
 *Plus intelligence extraction: ~$0.005 per video*
 
@@ -241,16 +241,16 @@ clipscribe process interview.mp3
 ## Why ClipScribe
 
 **vs Traditional Transcription** (Rev.ai, AssemblyAI):
-- ✅ We extract intelligence, not just words
-- ✅ Structured entities + relationships
-- ✅ Evidence-based (every claim citable)
-- ✅ Often cheaper ($0.003-0.06 vs $0.60-1.20 per 30min)
+- We extract intelligence, not just words
+- Structured entities + relationships
+- Evidence-based (every claim citable)
+- Often cheaper ($0.003-0.06 vs $0.60-1.20 per 30min)
 
 **vs Manual Analysis:**
-- ✅ Process 1000 hours in 12-24 hours (10 GPUs)
-- ✅ Consistent extraction (no human variance)
-- ✅ Machine-readable output (direct to analysis tools)
-- ✅ ~$100-200 vs $50k+ manual transcription + analysis
+- Process 1000 hours in 12-24 hours (10 GPUs)
+- Consistent extraction (no human variance)
+- Machine-readable output (direct to analysis tools)
+- ~$100-200 vs $50k+ manual transcription + analysis
 
 **Unique Advantages:**
 - Speaker attribution (who said what)
@@ -335,6 +335,13 @@ clipscribe process audio.mp3
 
 ---
 
+## What's New in v3.1.10
+
+**IAM SignBlob Integration:**
+- Presigned URL generation using IAM SignBlob API (no private keys required)
+- Cloud Run deployment compatibility
+- Rich dependency fix for API container
+
 ## What's New in v3.1.0
 
 **Geolocation Intelligence (Beta):**
@@ -399,8 +406,8 @@ clipscribe process audio.mp3
 
 ## Project Status
 
-**Version:** v3.1.0  
-**Released:** November 13, 2025  
+**Version:** v3.1.10  
+**Released:** November 27, 2025  
 **Status:** Production-ready with multi-format exports and series analysis  
 **Providers:** 3 transcription, 1 intelligence (all validated)
 

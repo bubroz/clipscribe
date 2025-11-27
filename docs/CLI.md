@@ -1,6 +1,6 @@
 # ClipScribe CLI Reference
 
-**Version:** v3.1.0  
+**Version:** v3.1.10  
 **Last Updated:** November 2025
 
 Complete command-line interface reference for ClipScribe.
@@ -375,7 +375,7 @@ clipscribe process video.mp3 -t whisperx-modal
 # Get multiple files
 yt-dlp -x --audio-format mp3 -a urls.txt
 
-# Process each (use loop for now, batch coming in v3.1.0)
+# Process each (use loop for now, batch coming in v3.1.10)
 for f in *.mp3; do
     clipscribe process "$f" -t whisperx-local
 done

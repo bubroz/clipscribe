@@ -1,5 +1,5 @@
 # Collaborator Setup Guide
-**ClipScribe v3.1.0**  
+**ClipScribe v3.1.10**  
 **Date:** November 2025  
 **For:** Engineer-level collaborators who want to demo ClipScribe
 

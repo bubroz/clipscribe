@@ -1,6 +1,6 @@
 # ClipScribe Development Guide
 
-**Version:** v3.1.0  
+**Version:** v3.1.10  
 **Last Updated:** November 2025  
 **Status:** Provider-based architecture, GEOINT engine (Beta)
 
@@ -442,6 +442,69 @@ poetry run modal app list
    ```bash
    poetry run modal deploy deploy/station10_modal.py
    ```
+
+---
+
+## Deployment
+
+### Cloud Run Deployment
+
+ClipScribe API is deployed to Google Cloud Run using GitHub Actions with Workload Identity Federation (WIF).
+
+#### Workload Identity Federation Setup
+
+**Project Information:**
+- **Project ID:** `prismatic-iris-429006-g6`
+- **Project Number:** `16459511304`
+- **Region:** `us-central1`
+
+**Service Account:**
+- **Email:** `clipscribe-ci@prismatic-iris-429006-g6.iam.gserviceaccount.com`
+- **Display Name:** ClipScribe CI/CD
+
+**Workload Identity Pool:**
+- **Pool Name:** `github-pool`
+- **Provider Name:** `github`
+- **Repository Binding:** `bubroz/clipscribe`
+
+**Required IAM Permissions:**
+- `roles/run.admin` - Deploy and manage Cloud Run services
+- `roles/artifactregistry.writer` - Push Docker images to Artifact Registry
+- `roles/aiplatform.user` - Access Vertex AI (for E2E tests)
+- `roles/storage.objectAdmin` - Manage GCS objects
+- `roles/iam.serviceAccountUser` on Cloud Run service account
+- `roles/iam.workloadIdentityUser` - Allow GitHub Actions to impersonate service account
+- `roles/iam.serviceAccountTokenCreator` - Create tokens for service account
+
+**GitHub Secrets Required:**
+- `WIF_PROVIDER`: `projects/16459511304/locations/global/workloadIdentityPools/github-pool/providers/github`
+- `WIF_SERVICE_ACCOUNT_EMAIL`: `clipscribe-ci@prismatic-iris-429006-g6.iam.gserviceaccount.com`
+- `VERTEX_AI_PROJECT`: `prismatic-iris-429006-g6`
+
+**Deployment Workflow:**
+1. Push tag (e.g., `v3.1.10`) or use `workflow_dispatch`
+2. GitHub Actions authenticates via WIF
+3. Builds Docker image and pushes to Artifact Registry
+4. Deploys to Cloud Run service `clipscribe-api`
+
+**Verification:**
+```bash
+# Check service status
+gcloud run services describe clipscribe-api --region=us-central1
+
+# View logs
+gcloud logging read "resource.type=cloud_run_revision AND resource.labels.service_name=clipscribe-api" --limit=50
+```
+
+#### Presigned URL Generation
+
+The API uses IAM SignBlob API to generate GCS v4 signed URLs without requiring service account private keys. This is necessary because Cloud Run's default service account uses token-based credentials.
+
+**Implementation:** `src/clipscribe/utils/gcs_signing.py`
+
+**Required Permission:** The Cloud Run service account must have `roles/iam.serviceAccountTokenCreator` on itself to use SignBlob API.
+
+**For complete deployment status, see [DEPLOYMENT_STATUS.md](../DEPLOYMENT_STATUS.md)**
 
 ---
 

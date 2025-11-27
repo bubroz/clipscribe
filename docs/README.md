@@ -1,6 +1,6 @@
 # ClipScribe Documentation
 
-**Version:** v3.1.0  
+**Version:** v3.1.10  
 **Last Updated:** November 2025  
 **Status:** Provider-based architecture, file-first processing, GEOINT engine (Beta)
 
@@ -136,6 +136,13 @@
 
 ---
 
+## What's New in v3.1.10
+
+**IAM SignBlob Integration:**
+- Presigned URL generation using IAM SignBlob API
+- Cloud Run deployment compatibility
+- API container dependency fixes
+
 ## What's New in v3.1.0
 
 **Geolocation Intelligence (Beta):**
@@ -166,4 +173,4 @@
 
 ---
 
-**All documentation validated November 2025 with v3.1.0 testing.**
+**All documentation validated November 2025 with v3.1.10 testing.**
