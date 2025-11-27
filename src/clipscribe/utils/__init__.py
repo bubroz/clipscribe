@@ -5,7 +5,12 @@ Provides utility functions and classes for video processing, progress tracking,
 performance monitoring, batch processing.
 """
 
-from .batch_progress import BatchProgress
+# Handle optional TUI dependencies (rich/textual) which may not be present in API container
+try:
+    from .batch_progress import BatchProgress
+except ImportError:
+    BatchProgress = None  # type: ignore
+
 from .file_utils import calculate_sha256
 
 # Lazy-load PerformanceDashboard (requires streamlit - dev dependency)
@@ -20,7 +25,15 @@ from .filename import (
 )
 from .logger_setup import setup_logging
 from .performance import PerformanceMonitor
-from .progress import ClipScribeProgress, console, progress_tracker
+
+# Handle optional TUI dependencies (rich) which may not be present in API container
+try:
+    from .progress import ClipScribeProgress, console, progress_tracker
+except ImportError:
+    ClipScribeProgress = None  # type: ignore
+    console = None  # type: ignore
+    progress_tracker = None  # type: ignore
+
 from .prompt_cache import GrokPromptCache, get_prompt_cache
 
 # from .web_research import WebResearchIntegrator  # Removed - uses Gemini
