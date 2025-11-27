@@ -1,3 +1,14 @@
+## [3.1.13] - 2025-11-27 FIX DEPLOYMENT AND TRAFFIC ROUTING
+
+### Fixed
+- **Syntax Error in utils/__init__.py**: Fixed missing indentation in try blocks that broke API container
+- **Traffic Routing**: Added explicit traffic routing step to GitHub Actions workflow
+- **Health Endpoint Version**: Now reports semantic version from `version.py` instead of hardcoded `1.0.0`
+
+### Changed
+- **Version Update**: Bumped to v3.1.13
+- **Deployment Workflow**: Added `gcloud run services update-traffic --to-latest` step to ensure new revisions receive traffic
+
 ## [3.1.11] - 2025-11-27 🔐 PRESIGNED URL IAM SIGNING FIX
 
 ### Fixed

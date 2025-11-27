@@ -85,4 +85,10 @@ jobs:
             --min-instances 1 \
             --set-env-vars PYTHONUNBUFFERED=1,GOOGLE_SERVICE_ACCOUNT_EMAIL=16459511304-compute@developer.gserviceaccount.com
 
+      - name: Route traffic to latest revision
+        run: |
+          gcloud run services update-traffic ${SERVICE} \
+            --to-latest \
+            --region ${REGION}
+
 

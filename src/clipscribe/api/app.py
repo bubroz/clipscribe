@@ -20,6 +20,8 @@ from rq import Queue
 from starlette.responses import Response
 
 # from clipscribe.config.settings import Settings  # Not needed for API
+from clipscribe.version import __version__
+
 from .estimator import estimate_job
 from .monitoring import get_alert_manager, get_metrics_collector
 from .retry_manager import get_retry_manager
@@ -815,7 +817,7 @@ async def health_check():
             "redis": True if redis_conn else False,
             "gcs": gcs_status,
             "queue": queue_status,
-            "version": "1.0.0",
+            "version": __version__,
         }
 
     except Exception as e:
