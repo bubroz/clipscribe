@@ -1,3 +1,22 @@
+## [3.1.11] - 2025-01-27 🔐 PRESIGNED URL IAM SIGNING FIX
+
+### Fixed
+- **Presigned URL Generation on Cloud Run**: Fixed "you need a private key to sign credentials" error by using `google-cloud-storage`'s built-in IAM signing support
+- **Compute Engine Credentials**: Now properly handles Cloud Run's token-based credentials that don't include private keys
+- **IAM Client Initialization**: Explicitly pass credentials with proper scopes to IAM Credentials client
+
+### Changed
+- **Primary Signing Method**: Switched from manual IAM SignBlob to `google-cloud-storage` library's native IAM signing (recommended approach)
+- **Fallback Mechanism**: Manual IAM SignBlob implementation retained as fallback if storage library approach fails
+- **Credential Scopes**: Explicitly request `cloud-platform` scope when getting default credentials for IAM API access
+- **Error Handling**: Improved error messages and logging for debugging IAM signing issues
+
+### Technical Details
+- Uses `blob.generate_signed_url()` with `service_account_email` and `access_token` parameters
+- Automatically triggers server-side IAM SignBlob API when these parameters are provided
+- Falls back to manual IAM SignBlob implementation if storage library approach fails
+- Requires `roles/iam.serviceAccountTokenCreator` permission on service account itself
+
 ## [3.1.10] - 2025-01-27 🐛 API CONTAINER STARTUP FIX
 
 ### Fixed

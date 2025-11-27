@@ -197,7 +197,7 @@ class GeoIntExporter:
         L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{{z}}/{{y}}/{{x}}', {{
             attribution: 'Tiles &copy; Esri'
         }}).addTo(map);
-
+        
         // Street Layer Overlay
         var streets = L.tileLayer('https://{{s}}.tile.openstreetmap.org/{{z}}/{{x}}/{{y}}.png', {{
             attribution: '&copy; OpenStreetMap contributors'
@@ -205,28 +205,28 @@ class GeoIntExporter:
 
         var sensorPath = {json.dumps(sensor_path)};
         var targetPath = {json.dumps(target_path)};
-
+        
         // Draw Paths
         if (sensorPath.length > 0) {{
             L.polyline(sensorPath, {{color: 'yellow', weight: 3, opacity: 0.8}}).addTo(map);
         }}
-
+        
         if (targetPath.length > 0) {{
             L.polyline(targetPath, {{color: 'red', weight: 3, opacity: 0.8, dashArray: '5, 10'}}).addTo(map);
         }}
-
+        
         // Add Markers
         var markers = {json.dumps(event_markers)};
         markers.forEach(function(m) {{
             L.marker([m.lat, m.lon])
              .bindPopup(m.desc)
-              .addTo(map);
+             .addTo(map);
         }});
-
+        
         // Fit Bounds
         var bounds = L.latLngBounds(sensorPath.concat(targetPath));
         map.fitBounds(bounds);
-
+        
         L.control.layers({{"Satellite": map}}, {{"Streets": streets}}).addTo(map);
     </script>
 </body>

@@ -1,9 +1,37 @@
 # ClipScribe Deployment Status
 
-**Last Updated:** November 27, 2025  
-**Current Version:** v3.1.10
+**Last Updated:** January 27, 2025  
+**Current Version:** v3.1.11
 
 **Documentation Status:** All documentation updated to v3.1.10, professionalized (emojis removed), and consolidated. Outdated files removed from git.
+
+---
+
+## Recent Fixes
+
+### v3.1.11 - Presigned URL IAM Signing Fix (January 27, 2025)
+
+**Problem:** Presigned URL generation still failing with "you need a private key to sign credentials" error on Cloud Run
+
+**Root Cause:** The IAM Credentials client was being initialized without explicit credentials, causing it to use default credentials that lacked proper scopes for IAM API access.
+
+**Solution:** 
+- Switched to `google-cloud-storage` library's built-in IAM signing support (recommended approach)
+- Explicitly pass credentials with `cloud-platform` scope to IAM client
+- Added fallback to manual IAM SignBlob implementation if storage library approach fails
+- Improved error handling and logging
+
+**Status:** Ready for deployment
+- Code changes complete
+- Tests updated
+- IAM permissions verification document created
+- Requires: `roles/iam.serviceAccountTokenCreator` on service account itself
+
+**Next Steps:**
+1. Verify/grant IAM permission (see `docs/IAM_PERMISSIONS_VERIFICATION.md`)
+2. Deploy to Cloud Run
+3. Test presign endpoint
+4. Verify file upload works end-to-end
 
 ---
 

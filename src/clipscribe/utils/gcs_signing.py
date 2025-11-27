@@ -1,12 +1,16 @@
 """GCS v4 Signed URL generation using IAM SignBlob API.
 
 This module provides functionality to generate Google Cloud Storage v4 signed URLs
-without requiring service account private keys. Instead, it uses the IAM Credentials
-API's SignBlob method, which works with Cloud Run's default service account credentials.
+without requiring service account private keys. It uses Google Cloud Storage's built-in
+IAM signing support, which automatically triggers server-side signing via IAM API when
+service_account_email and access_token are provided.
 
 This is necessary because Cloud Run's default service account uses Compute Engine
 credentials (token-based) that don't include a private key, making traditional
 blob.generate_signed_url() calls fail.
+
+The primary approach uses google-cloud-storage's built-in IAM signing, with a manual
+IAM SignBlob implementation as a fallback.
 """
 
 import base64
@@ -21,12 +25,16 @@ try:
     import google.auth
     from google.auth import default
     from google.auth.exceptions import DefaultCredentialsError
+    from google.auth.transport import requests as auth_requests
     from google.cloud import iam_credentials_v1
+    from google.cloud import storage
 except ImportError:
     google = None  # type: ignore
     default = None  # type: ignore
     DefaultCredentialsError = Exception  # type: ignore
+    auth_requests = None  # type: ignore
     iam_credentials_v1 = None  # type: ignore
+    storage = None  # type: ignore
 
 logger = logging.getLogger(__name__)
 
@@ -60,7 +68,10 @@ def get_service_account_email() -> str:
         )
 
     try:
-        credentials, project = default()
+        # Request credentials with cloud-platform scope for IAM API access
+        credentials, project = default(
+            scopes=["https://www.googleapis.com/auth/cloud-platform"]
+        )
     except DefaultCredentialsError as e:
         raise RuntimeError(
             f"Failed to get default credentials: {e}. "
@@ -200,7 +211,17 @@ def _sign_blob_with_iam(service_account_email: str, blob_to_sign: bytes) -> byte
         )
 
     try:
-        client = iam_credentials_v1.IAMCredentialsClient()
+        # Get credentials with explicit scopes for IAM API
+        credentials, project = default(
+            scopes=["https://www.googleapis.com/auth/cloud-platform"]
+        )
+
+        # Create IAM client with explicit credentials
+        # This ensures the client uses the right credentials with proper scopes
+        client = iam_credentials_v1.IAMCredentialsClient(credentials=credentials)
+
+        # Format: projects/-/serviceAccounts/{email}
+        # Using '-' for project_id tells IAM to infer it from the service account email
         name = f"projects/-/serviceAccounts/{service_account_email}"
 
         request = iam_credentials_v1.SignBlobRequest(
@@ -212,6 +233,7 @@ def _sign_blob_with_iam(service_account_email: str, blob_to_sign: bytes) -> byte
         # Response contains signed_blob which is base64-encoded
         signature = base64.b64decode(response.signed_blob)
 
+        logger.debug(f"Successfully signed blob using IAM API for {service_account_email}")
         return signature
     except Exception as e:
         logger.error(
@@ -221,7 +243,8 @@ def _sign_blob_with_iam(service_account_email: str, blob_to_sign: bytes) -> byte
         raise RuntimeError(
             f"IAM SignBlob API call failed: {e}. "
             "Ensure the service account has roles/iam.serviceAccountTokenCreator "
-            "permission on itself."
+            "permission on itself, and that the calling credentials have "
+            "roles/iam.serviceAccountTokenCreator permission."
         ) from e
 
 
@@ -246,9 +269,11 @@ def generate_v4_signed_url_with_iam(
 ) -> str:
     """Generate a GCS v4 signed URL using IAM SignBlob API.
 
-    This function constructs a GCS v4 signed URL without requiring a service
-    account private key. Instead, it uses the IAM Credentials API to sign the
-    canonical request string.
+    This function uses Google Cloud Storage's built-in IAM signing support, which
+    automatically triggers server-side signing via IAM API when service_account_email
+    and access_token are provided. This is the recommended approach for Cloud Run.
+
+    Falls back to manual IAM SignBlob implementation if storage library approach fails.
 
     Args:
         bucket_name: GCS bucket name.
@@ -263,10 +288,159 @@ def generate_v4_signed_url_with_iam(
     Raises:
         RuntimeError: If signing fails or credentials cannot be obtained.
     """
+    # Try the recommended approach first: google-cloud-storage's built-in IAM signing
+    try:
+        return _generate_signed_url_with_storage_iam(
+            bucket_name=bucket_name,
+            object_path=object_path,
+            method=method,
+            content_type=content_type,
+            expiration_seconds=expiration_seconds,
+        )
+    except Exception as e:
+        logger.warning(
+            f"Storage IAM signing failed, falling back to manual IAM SignBlob: {e}",
+            exc_info=True,
+        )
+        # Fall back to manual IAM SignBlob implementation
+        return _generate_signed_url_manual_iam(
+            bucket_name=bucket_name,
+            object_path=object_path,
+            method=method,
+            content_type=content_type,
+            expiration_seconds=expiration_seconds,
+        )
+
+
+def _generate_signed_url_with_storage_iam(
+    bucket_name: str,
+    object_path: str,
+    method: str = "PUT",
+    content_type: Optional[str] = None,
+    expiration_seconds: int = 900,
+) -> str:
+    """Generate signed URL using google-cloud-storage's built-in IAM signing.
+
+    This is the recommended approach for Cloud Run as it uses the storage library's
+    native IAM signing support, which automatically handles server-side signing.
+
+    Args:
+        bucket_name: GCS bucket name.
+        object_path: Object path within bucket.
+        method: HTTP method.
+        content_type: Content type header (optional).
+        expiration_seconds: URL expiration time in seconds.
+
+    Returns:
+        Signed URL string.
+
+    Raises:
+        RuntimeError: If signing fails or dependencies are missing.
+    """
+    if storage is None:
+        raise RuntimeError(
+            "google-cloud-storage is not installed. Install with: poetry install -E enterprise"
+        )
+
+    if google is None or default is None:
+        raise RuntimeError(
+            "google-auth is not installed. Install with: poetry install -E enterprise"
+        )
+
+    logger.debug(f"Using storage library IAM signing for gs://{bucket_name}/{object_path}")
+
+    # Get credentials with explicit scopes for IAM API access
+    try:
+        credentials, project = default(
+            scopes=["https://www.googleapis.com/auth/cloud-platform"]
+        )
+    except DefaultCredentialsError as e:
+        raise RuntimeError(
+            f"Failed to get default credentials: {e}. "
+            "Ensure GOOGLE_APPLICATION_CREDENTIALS is set or running on GCP."
+        ) from e
+
+    # Refresh credentials to ensure we have a valid access token
+    if auth_requests is None:
+        raise RuntimeError("google-auth transport is not available")
+    auth_request = auth_requests.Request()
+    try:
+        credentials.refresh(auth_request)
+    except Exception as e:
+        logger.warning(f"Credential refresh failed, continuing with existing token: {e}")
+
+    # Get service account email
+    service_account_email = get_service_account_email()
+    logger.debug(f"Using service account: {service_account_email}")
+
+    # Normalize object path (remove leading slash if present)
+    object_path = object_path.lstrip("/")
+
+    # Create storage client with credentials
+    client = storage.Client(credentials=credentials, project=project)
+    bucket = client.bucket(bucket_name)
+    blob = bucket.blob(object_path)
+
+    # Generate signed URL using IAM (server-side signing)
+    # When service_account_email and access_token are provided, the storage library
+    # automatically uses IAM SignBlob API instead of local signing
+    try:
+        url = blob.generate_signed_url(
+            version="v4",
+            expiration=timedelta(seconds=expiration_seconds),
+            method=method,
+            content_type=content_type,
+            service_account_email=service_account_email,
+            access_token=credentials.token,
+        )
+        logger.debug(
+            f"Successfully generated signed URL for gs://{bucket_name}/{object_path} "
+            f"(expires in {expiration_seconds}s)"
+        )
+        return url
+    except Exception as e:
+        logger.error(
+            f"Storage library IAM signing failed for {service_account_email}: {e}",
+            exc_info=True,
+        )
+        raise RuntimeError(
+            f"Failed to generate signed URL using storage library IAM signing: {e}. "
+            "Ensure the service account has roles/iam.serviceAccountTokenCreator "
+            "permission on itself."
+        ) from e
+
+
+def _generate_signed_url_manual_iam(
+    bucket_name: str,
+    object_path: str,
+    method: str = "PUT",
+    content_type: Optional[str] = None,
+    expiration_seconds: int = 900,
+) -> str:
+    """Generate signed URL using manual IAM SignBlob implementation (fallback).
+
+    This is the fallback approach that manually constructs the signed URL and uses
+    IAM SignBlob API directly.
+
+    Args:
+        bucket_name: GCS bucket name.
+        object_path: Object path within bucket.
+        method: HTTP method.
+        content_type: Content type header (optional).
+        expiration_seconds: URL expiration time in seconds.
+
+    Returns:
+        Signed URL string.
+
+    Raises:
+        RuntimeError: If signing fails or credentials cannot be obtained.
+    """
     if google is None:
         raise RuntimeError(
             "google-cloud-iam is not installed. Install with: poetry install -E enterprise"
         )
+
+    logger.debug(f"Using manual IAM SignBlob for gs://{bucket_name}/{object_path}")
 
     # Get service account email
     service_account_email = get_service_account_email()
@@ -343,7 +517,7 @@ def generate_v4_signed_url_with_iam(
     url = f"https://storage.googleapis.com/{bucket_name}/{object_path}?{query_string}"
 
     logger.debug(
-        f"Generated signed URL for gs://{bucket_name}/{object_path} "
+        f"Generated signed URL (manual IAM) for gs://{bucket_name}/{object_path} "
         f"(expires in {expiration_seconds}s)"
     )
 

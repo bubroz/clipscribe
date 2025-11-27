@@ -135,8 +135,11 @@ class TestSignBlobWithIam:
     """Tests for _sign_blob_with_iam helper function."""
 
     @patch("clipscribe.utils.gcs_signing.iam_credentials_v1")
-    def test_sign_blob_with_iam_success(self, mock_iam):
+    @patch("clipscribe.utils.gcs_signing.default")
+    def test_sign_blob_with_iam_success(self, mock_default, mock_iam):
         """Test successful IAM SignBlob API call."""
+        mock_creds = Mock()
+        mock_default.return_value = (mock_creds, "test-project")
         mock_client = MagicMock()
         mock_response = MagicMock()
         mock_response.signed_blob = base64.b64encode(b"signature_bytes").decode("utf-8")
@@ -149,10 +152,15 @@ class TestSignBlobWithIam:
 
         assert signature == b"signature_bytes"
         mock_client.sign_blob.assert_called_once()
+        # Verify credentials were passed to client
+        mock_iam.IAMCredentialsClient.assert_called_once_with(credentials=mock_creds)
 
     @patch("clipscribe.utils.gcs_signing.iam_credentials_v1")
-    def test_sign_blob_with_iam_failure(self, mock_iam):
+    @patch("clipscribe.utils.gcs_signing.default")
+    def test_sign_blob_with_iam_failure(self, mock_default, mock_iam):
         """Test IAM SignBlob API failure."""
+        mock_creds = Mock()
+        mock_default.return_value = (mock_creds, "test-project")
         mock_client = MagicMock()
         mock_client.sign_blob.side_effect = Exception("Permission denied")
         mock_iam.IAMCredentialsClient.return_value = mock_client
@@ -182,14 +190,64 @@ class TestEncodeSignature:
 class TestGenerateV4SignedUrlWithIam:
     """Tests for generate_v4_signed_url_with_iam main function."""
 
+    @patch("clipscribe.utils.gcs_signing._generate_signed_url_with_storage_iam")
+    def test_generate_v4_signed_url_uses_storage_iam_first(self, mock_storage_iam):
+        """Test that storage IAM approach is tried first."""
+        mock_storage_iam.return_value = "https://storage.googleapis.com/test-bucket/uploads/file.mp3?signature=test"
+
+        url = gcs_signing.generate_v4_signed_url_with_iam(
+            bucket_name="test-bucket",
+            object_path="uploads/file.mp3",
+            method="PUT",
+            content_type="audio/mpeg",
+            expiration_seconds=900,
+        )
+
+        # Should use storage IAM approach
+        mock_storage_iam.assert_called_once_with(
+            bucket_name="test-bucket",
+            object_path="uploads/file.mp3",
+            method="PUT",
+            content_type="audio/mpeg",
+            expiration_seconds=900,
+        )
+        assert url == "https://storage.googleapis.com/test-bucket/uploads/file.mp3?signature=test"
+
+    @patch("clipscribe.utils.gcs_signing._generate_signed_url_with_storage_iam")
+    @patch("clipscribe.utils.gcs_signing._generate_signed_url_manual_iam")
+    def test_generate_v4_signed_url_falls_back_to_manual(self, mock_manual_iam, mock_storage_iam):
+        """Test that manual IAM approach is used as fallback."""
+        mock_storage_iam.side_effect = RuntimeError("Storage IAM failed")
+        mock_manual_iam.return_value = "https://storage.googleapis.com/test-bucket/uploads/file.mp3?X-Goog-Signature=test"
+
+        url = gcs_signing.generate_v4_signed_url_with_iam(
+            bucket_name="test-bucket",
+            object_path="uploads/file.mp3",
+            method="PUT",
+            content_type="audio/mpeg",
+            expiration_seconds=900,
+        )
+
+        # Should fall back to manual IAM
+        mock_storage_iam.assert_called_once()
+        mock_manual_iam.assert_called_once_with(
+            bucket_name="test-bucket",
+            object_path="uploads/file.mp3",
+            method="PUT",
+            content_type="audio/mpeg",
+            expiration_seconds=900,
+        )
+        assert "test-bucket" in url
+        assert "uploads/file.mp3" in url
+
     @patch("clipscribe.utils.gcs_signing.get_service_account_email")
     @patch("clipscribe.utils.gcs_signing._sign_blob_with_iam")
-    def test_generate_v4_signed_url_basic(self, mock_sign, mock_get_email):
-        """Test generating a basic signed URL."""
+    def test_generate_v4_signed_url_manual_iam_basic(self, mock_sign, mock_get_email):
+        """Test manual IAM approach generating a basic signed URL."""
         mock_get_email.return_value = "test@project.iam.gserviceaccount.com"
         mock_sign.return_value = b"fake_signature_bytes"
 
-        url = gcs_signing.generate_v4_signed_url_with_iam(
+        url = gcs_signing._generate_signed_url_manual_iam(
             bucket_name="test-bucket",
             object_path="uploads/file.mp3",
             method="PUT",
@@ -209,14 +267,59 @@ class TestGenerateV4SignedUrlWithIam:
         # Should be a valid HTTPS URL
         assert url.startswith("https://storage.googleapis.com/")
 
+    @patch("clipscribe.utils.gcs_signing.storage")
+    @patch("clipscribe.utils.gcs_signing.default")
+    @patch("clipscribe.utils.gcs_signing.auth_requests")
+    @patch("clipscribe.utils.gcs_signing.get_service_account_email")
+    def test_generate_signed_url_with_storage_iam(self, mock_get_email, mock_auth_requests, mock_default, mock_storage):
+        """Test storage IAM approach generating a signed URL."""
+        # Setup mocks
+        mock_get_email.return_value = "test@project.iam.gserviceaccount.com"
+        mock_creds = Mock()
+        mock_creds.token = "test_access_token"
+        mock_default.return_value = (mock_creds, "test-project")
+        mock_request = Mock()
+        mock_auth_requests.Request.return_value = mock_request
+
+        # Mock storage client
+        mock_client = Mock()
+        mock_bucket = Mock()
+        mock_blob = Mock()
+        mock_blob.generate_signed_url.return_value = "https://storage.googleapis.com/test-bucket/uploads/file.mp3?signature=test"
+        mock_bucket.blob.return_value = mock_blob
+        mock_client.bucket.return_value = mock_bucket
+        mock_storage.Client.return_value = mock_client
+
+        url = gcs_signing._generate_signed_url_with_storage_iam(
+            bucket_name="test-bucket",
+            object_path="uploads/file.mp3",
+            method="PUT",
+            content_type="audio/mpeg",
+            expiration_seconds=900,
+        )
+
+        # Verify storage client was used
+        mock_storage.Client.assert_called_once_with(credentials=mock_creds, project="test-project")
+        mock_client.bucket.assert_called_once_with("test-bucket")
+        mock_bucket.blob.assert_called_once_with("uploads/file.mp3")
+        mock_blob.generate_signed_url.assert_called_once()
+        call_kwargs = mock_blob.generate_signed_url.call_args[1]
+        assert call_kwargs["version"] == "v4"
+        assert call_kwargs["method"] == "PUT"
+        assert call_kwargs["content_type"] == "audio/mpeg"
+        assert call_kwargs["service_account_email"] == "test@project.iam.gserviceaccount.com"
+        assert call_kwargs["access_token"] == "test_access_token"
+        assert "test-bucket" in url
+        assert "uploads/file.mp3" in url
+
     @patch("clipscribe.utils.gcs_signing.get_service_account_email")
     @patch("clipscribe.utils.gcs_signing._sign_blob_with_iam")
-    def test_generate_v4_signed_url_no_content_type(self, mock_sign, mock_get_email):
-        """Test generating signed URL without content type."""
+    def test_generate_v4_signed_url_manual_no_content_type(self, mock_sign, mock_get_email):
+        """Test manual IAM generating signed URL without content type."""
         mock_get_email.return_value = "test@project.iam.gserviceaccount.com"
         mock_sign.return_value = b"fake_signature_bytes"
 
-        url = gcs_signing.generate_v4_signed_url_with_iam(
+        url = gcs_signing._generate_signed_url_manual_iam(
             bucket_name="test-bucket",
             object_path="uploads/file.mp3",
             method="PUT",
@@ -229,12 +332,12 @@ class TestGenerateV4SignedUrlWithIam:
 
     @patch("clipscribe.utils.gcs_signing.get_service_account_email")
     @patch("clipscribe.utils.gcs_signing._sign_blob_with_iam")
-    def test_generate_v4_signed_url_different_method(self, mock_sign, mock_get_email):
-        """Test generating signed URL with GET method."""
+    def test_generate_v4_signed_url_manual_different_method(self, mock_sign, mock_get_email):
+        """Test manual IAM generating signed URL with GET method."""
         mock_get_email.return_value = "test@project.iam.gserviceaccount.com"
         mock_sign.return_value = b"fake_signature_bytes"
 
-        url = gcs_signing.generate_v4_signed_url_with_iam(
+        url = gcs_signing._generate_signed_url_manual_iam(
             bucket_name="test-bucket",
             object_path="uploads/file.mp3",
             method="GET",
@@ -246,29 +349,13 @@ class TestGenerateV4SignedUrlWithIam:
         assert "X-Goog-Expires=3600" in url
 
     @patch("clipscribe.utils.gcs_signing.get_service_account_email")
-    def test_generate_v4_signed_url_iam_failure(self, mock_get_email):
-        """Test error handling when IAM API fails."""
-        mock_get_email.return_value = "test@project.iam.gserviceaccount.com"
-
-        with patch("clipscribe.utils.gcs_signing._sign_blob_with_iam") as mock_sign:
-            mock_sign.side_effect = RuntimeError("IAM API failed")
-
-            with pytest.raises(RuntimeError, match="IAM API failed"):
-                gcs_signing.generate_v4_signed_url_with_iam(
-                    bucket_name="test-bucket",
-                    object_path="uploads/file.mp3",
-                    method="PUT",
-                    content_type="audio/mpeg",
-                )
-
-    @patch("clipscribe.utils.gcs_signing.get_service_account_email")
     @patch("clipscribe.utils.gcs_signing._sign_blob_with_iam")
-    def test_generate_v4_signed_url_normalizes_path(self, mock_sign, mock_get_email):
-        """Test that object path is normalized (leading slash removed)."""
+    def test_generate_v4_signed_url_manual_normalizes_path(self, mock_sign, mock_get_email):
+        """Test that manual IAM normalizes object path (leading slash removed)."""
         mock_get_email.return_value = "test@project.iam.gserviceaccount.com"
         mock_sign.return_value = b"fake_signature_bytes"
 
-        url = gcs_signing.generate_v4_signed_url_with_iam(
+        url = gcs_signing._generate_signed_url_manual_iam(
             bucket_name="test-bucket",
             object_path="/uploads/file.mp3",  # Leading slash
             method="PUT",

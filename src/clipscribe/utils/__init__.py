@@ -7,7 +7,7 @@ performance monitoring, batch processing.
 
 # Handle optional TUI dependencies (rich/textual) which may not be present in API container
 try:
-    from .batch_progress import BatchProgress
+from .batch_progress import BatchProgress
 except ImportError:
     BatchProgress = None  # type: ignore
 
@@ -28,7 +28,7 @@ from .performance import PerformanceMonitor
 
 # Handle optional TUI dependencies (rich) which may not be present in API container
 try:
-    from .progress import ClipScribeProgress, console, progress_tracker
+from .progress import ClipScribeProgress, console, progress_tracker
 except ImportError:
     ClipScribeProgress = None  # type: ignore
     console = None  # type: ignore
