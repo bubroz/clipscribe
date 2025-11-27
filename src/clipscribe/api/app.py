@@ -712,22 +712,21 @@ async def presign_upload(
     bucket = os.getenv("GCS_BUCKET", "").strip().replace("\n", "").replace("\r", "")
     if bucket:
         try:
-            from google.cloud import storage  # type: ignore
+            from clipscribe.utils.gcs_signing import generate_v4_signed_url_with_iam
 
-            client = storage.Client()
             # Remove gs:// prefix if present
             bucket_name = bucket.replace("gs://", "").strip()
-            # Path: tmp/<uuid>/<filename>
+            # Path: uploads/<uuid>/<filename>
             object_path = f"uploads/{uuid.uuid4().hex}/{req.filename}"
-            blob = client.bucket(bucket_name).blob(object_path)
             
-            # Generate signed URL
-            # The storage client will use the default service account from Cloud Run
-            upload_url = blob.generate_signed_url(
-                version="v4",
-                expiration=900,  # 15 minutes
+            # Generate signed URL using IAM SignBlob API
+            # This works with Cloud Run's default service account (no private key needed)
+            upload_url = generate_v4_signed_url_with_iam(
+                bucket_name=bucket_name,
+                object_path=object_path,
                 method="PUT",
                 content_type=req.content_type,
+                expiration_seconds=900,  # 15 minutes
             )
             gcs_uri = f"gs://{bucket_name}/{object_path}"
             return PresignResponse(upload_url=upload_url, gcs_uri=gcs_uri)

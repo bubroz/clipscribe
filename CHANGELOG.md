@@ -1,3 +1,28 @@
+## [3.1.9] - 2025-01-27 🔐 IAM SIGNBLOB PRESIGNED URL IMPLEMENTATION
+
+### Added
+- **IAM SignBlob API Integration**: Replaced `blob.generate_signed_url()` with IAM Credentials API `signBlob` method
+- **GCS v4 Signed URL Generation**: New `gcs_signing.py` utility module for generating presigned URLs without service account private keys
+- **Cloud Run Compatibility**: Works with Cloud Run's default service account (Compute Engine credentials, no private key)
+- **Service Account Email Detection**: Automatic detection from credentials, environment variable, or metadata server
+- **Comprehensive Unit Tests**: Full test coverage for GCS signing utility functions
+
+### Fixed
+- **Presigned URL Generation**: Resolved "you need a private key to sign credentials" error on Cloud Run
+- **No More Mock URLs**: Presigned URLs now contain valid signatures instead of falling back to mock URLs
+- **403 Upload Errors**: Fixed browser upload failures caused by invalid presigned URL signatures
+
+### Changed
+- **Presign Endpoint**: Updated `/v1/uploads/presign` to use IAM SignBlob API instead of `blob.generate_signed_url()`
+- **Dependencies**: Added `google-cloud-iam >= 2.18.0` to enterprise extras
+
+### Technical Details
+- Uses IAM Credentials API `projects/-/serviceAccounts/{email}:signBlob` endpoint
+- Manually constructs GCS v4 signed URL format with proper canonical request
+- Service account email cached for performance
+- Supports both service account credentials and Compute Engine credentials
+- Fallback to metadata server query for Cloud Run environments
+
 ## [3.1.6] - 2025-11-26 🐳 DOCKERFILE DEPLOYMENT
 
 ### Added
