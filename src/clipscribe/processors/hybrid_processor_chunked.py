@@ -16,7 +16,7 @@ class ChunkedIntelligenceExtractor:
     def __init__(self, grok_client, grok_model):
         """
         Initialize chunked extractor.
-        
+
         Args:
             grok_client: GrokAPIClient instance (handles API calls properly)
             grok_model: Model name to use (grok-4-fast-reasoning)

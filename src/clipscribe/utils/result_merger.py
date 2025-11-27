@@ -24,7 +24,7 @@ def merge_transcripts(results: List[Dict[str, Any]]) -> str:
 def merge_entities(results: List[Dict[str, Any]], timestamp_offsets: List[float]) -> List[Entity]:
     """
     Merges and de-duplicates entities, adjusting timestamps.
-    
+
     Note: Current implementation is basic (concatenation only).
     Future enhancement: Implement proper entity normalization and de-duplication
     using EntityNormalizer for cross-chunk entity linking.
@@ -44,7 +44,7 @@ def merge_relationships(
 ) -> List[Dict[str, Any]]:
     """
     Merges relationships, adjusting timestamps.
-    
+
     Note: Current implementation is basic (concatenation only).
     Future enhancement: Implement relationship deduplication and timestamp adjustment
     for cross-chunk relationship continuity.
@@ -63,7 +63,7 @@ def merge_relationships(
 def synthesize_summary(results: List[Dict[str, Any]]) -> str:
     """
     Synthesizes a new summary from individual chunk summaries.
-    
+
     Note: Current implementation concatenates chunk summaries.
     Future enhancement: Use LLM call to synthesize a high-quality unified summary
     that eliminates redundancy and creates coherent narrative.

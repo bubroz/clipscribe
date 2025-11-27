@@ -124,15 +124,21 @@ class KeyMoment(BaseModel):
 class VisualObservation(BaseModel):
     """
     GEOINT: Visual observation inferred from transcript or context.
-    
+
     Used for mapping audio events to geospatial locations.
     """
-    
+
     timestamp: str = Field(description="Timestamp of observation (MM:SS)")
-    description: str = Field(description="Description of visual sighting (e.g., 'Red truck moving west')")
-    entity_type: str = Field(description="Type of object sighted (e.g., Vehicle, Person, Structure)")
+    description: str = Field(
+        description="Description of visual sighting (e.g., 'Red truck moving west')"
+    )
+    entity_type: str = Field(
+        description="Type of object sighted (e.g., Vehicle, Person, Structure)"
+    )
     evidence: str = Field(description="Quote supporting the observation")
-    confidence: float = Field(ge=0.0, le=1.0, description="Confidence that this is a visual sighting")
+    confidence: float = Field(
+        ge=0.0, le=1.0, description="Confidence that this is a visual sighting"
+    )
 
 
 class Sentiment(BaseModel):
@@ -181,7 +187,7 @@ class VideoIntelligence(BaseModel):
     )
     visual_observations: Optional[List[VisualObservation]] = Field(
         default=None,
-        description="GEOINT: Specific visual sightings or activities described in the video (e.g., 'I see a target')."
+        description="GEOINT: Specific visual sightings or activities described in the video (e.g., 'I see a target').",
     )
     sentiment: Sentiment = Field(
         description="Sentiment analysis of video content (overall and per-topic)"

@@ -29,6 +29,7 @@ logger = logging.getLogger(__name__)
 
 class SubmitJob(BaseModel):
     """Job submission request (GCS-only in v3.0.0)."""
+
     gcs_uri: str
     options: Optional[Dict[str, Any]] = None
 
@@ -449,14 +450,14 @@ async def create_token(
 async def create_public_token(body: Dict[str, Any] = {}):
     """Create a new beta access token (public endpoint)."""
     import secrets
-    
+
     email = body.get("email", "")
     if not email:
         return _error("invalid_input", "Email is required", status=400)
-    
+
     tier = "beta"
     token = f"{tier[:3]}_{secrets.token_urlsafe(16)}"
-    
+
     # Store in Redis
     if redis_conn:
         token_key = f"cs:token:{token}"
@@ -472,7 +473,7 @@ async def create_public_token(body: Dict[str, Any] = {}):
             },
         )
         redis_conn.expire(token_key, 30 * 24 * 3600)
-    
+
     return {"token": token, "tier": tier, "email": email, "expires_in_days": 30}
 
 
@@ -484,10 +485,10 @@ async def create_job(
     authorization: Optional[str] = Header(default=None, alias="Authorization"),
 ) -> JSONResponse | Job:
     """Create new processing job (GCS-only in v3.0.0).
-    
+
     User flow:
     1. POST /v1/uploads/presign to get upload URL
-    2. Upload file to presigned URL  
+    2. Upload file to presigned URL
     3. POST /v1/jobs with gcs_uri
     4. GET /v1/jobs/{job_id} to track progress
     """
@@ -583,7 +584,9 @@ async def create_job(
                 return j
 
         job_id = uuid.uuid4().hex
-        bucket = os.getenv("GCS_BUCKET", "mock-bucket").strip().replace("\n", "").replace("\r", "")  # Remove any whitespace/newlines
+        bucket = (
+            os.getenv("GCS_BUCKET", "mock-bucket").strip().replace("\n", "").replace("\r", "")
+        )  # Remove any whitespace/newlines
         manifest_url = f"https://storage.googleapis.com/{bucket}/jobs/{job_id}/manifest.json"
         job = Job(job_id=job_id, state="QUEUED", manifest_url=manifest_url)
         _save_job(job)
@@ -718,7 +721,7 @@ async def presign_upload(
             bucket_name = bucket.replace("gs://", "").strip()
             # Path: uploads/<uuid>/<filename>
             object_path = f"uploads/{uuid.uuid4().hex}/{req.filename}"
-            
+
             # Generate signed URL using IAM SignBlob API
             # This works with Cloud Run's default service account (no private key needed)
             upload_url = generate_v4_signed_url_with_iam(

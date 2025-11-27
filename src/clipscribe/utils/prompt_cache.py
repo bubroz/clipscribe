@@ -121,11 +121,11 @@ class GrokPromptCache:
     ) -> float:
         """
         Estimate cost savings from caching with correct xAI pricing.
-        
+
         xAI Pricing (November 2025):
         - Input: $0.20 per 1M tokens
         - Cached: $0.05 per 1M tokens (75% savings!)
-        
+
         Source: https://docs.x.ai/docs/pricing
 
         Args:

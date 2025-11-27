@@ -226,12 +226,12 @@ class GrokAPIClient:
         Calculate cost for API usage with correct xAI tiered pricing (Nov 2025).
 
         xAI Pricing Tiers (Source: https://docs.x.ai/docs/pricing):
-        
+
         Standard tier (<128K context) - applies to 99% of our videos:
         - Input: $0.20 per 1M tokens
         - Output: $0.50 per 1M tokens
         - Cached: $0.05 per 1M tokens (75% savings vs input!)
-        
+
         High-context tier (>128K context) - only for 12+ hour videos:
         - Input: $0.40 per 1M tokens
         - Output: $1.00 per 1M tokens

@@ -1,8 +1,7 @@
 """Shared fixtures for provider tests."""
 
 import pytest
-from unittest.mock import AsyncMock, MagicMock
-from clipscribe.providers.base import TranscriptResult, TranscriptSegment, IntelligenceResult
+from clipscribe.providers.base import IntelligenceResult, TranscriptResult, TranscriptSegment
 
 
 @pytest.fixture
@@ -41,13 +40,22 @@ def mock_intelligence_result():
             {"name": "Test Entity", "type": "PERSON", "confidence": 0.9, "evidence": "test quote"}
         ],
         relationships=[
-            {"subject": "A", "predicate": "knows", "object": "B", "confidence": 0.8, "evidence": "quote"}
+            {
+                "subject": "A",
+                "predicate": "knows",
+                "object": "B",
+                "confidence": 0.8,
+                "evidence": "quote",
+            }
         ],
-        topics=[
-            {"name": "Testing", "relevance": 0.9, "time_range": "00:00-10:00"}
-        ],
+        topics=[{"name": "Testing", "relevance": 0.9, "time_range": "00:00-10:00"}],
         key_moments=[
-            {"timestamp": "00:05", "description": "Key moment", "significance": 0.8, "quote": "quote"}
+            {
+                "timestamp": "00:05",
+                "description": "Key moment",
+                "significance": 0.8,
+                "quote": "quote",
+            }
         ],
         sentiment={"overall": "neutral", "confidence": 0.7, "per_topic": {}},
         provider="test",
@@ -56,4 +64,3 @@ def mock_intelligence_result():
         cost_breakdown={"total": 0.005},
         cache_stats={},
     )
-

@@ -44,7 +44,9 @@ class SpeakerIdentifier:
     - Self-references ("I'm...", "As a...")
     """
 
-    def __init__(self, grok_model: str = "grok-4-fast-reasoning", confidence_threshold: float = 0.70):
+    def __init__(
+        self, grok_model: str = "grok-4-fast-reasoning", confidence_threshold: float = 0.70
+    ):
         """
         Initialize speaker identifier.
 

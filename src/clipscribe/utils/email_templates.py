@@ -12,14 +12,14 @@ def tier1_researcher_email(
     relationships_count: int,
     topics_count: int,
     cost: float,
-    trial_number: int = 1
+    trial_number: int = 1,
 ) -> Dict[str, str]:
     """Email template for Tier 1 (Researcher) - Technical focus.
-    
+
     Returns dict with 'subject', 'body_text', 'body_html'
     """
     subject = f"Your ClipScribe Results - {filename}"
-    
+
     body_text = f"""Hi,
 
 Your intelligence extraction is complete!
@@ -108,12 +108,8 @@ print(entities[['name', 'type', 'confidence']])</code></pre>
 <a href="https://clipscribe.ai">ClipScribe.ai</a></p>
 </body>
 </html>"""
-    
-    return {
-        'subject': subject,
-        'body_text': body_text,
-        'body_html': body_html
-    }
+
+    return {"subject": subject, "body_text": body_text, "body_html": body_html}
 
 
 def tier2_analyst_email(
@@ -123,14 +119,14 @@ def tier2_analyst_email(
     speakers: int,
     cost: float,
     trial_number: int = 1,
-    top_entities: List[str] = None
+    top_entities: List[str] = None,
 ) -> Dict[str, str]:
     """Email template for Tier 2 (Analyst) - Professional focus with insights."""
-    
+
     subject = f"Your Intelligence Report - {filename}"
-    
+
     top_entities_text = "\n".join([f"  • {e}" for e in (top_entities or [])[:5]])
-    
+
     body_text = f"""Hi,
 
 Your video has been analyzed. Here are the key findings:
@@ -219,12 +215,8 @@ clipscribe.ai
 <a href="https://clipscribe.ai">ClipScribe.ai</a></p>
 </body>
 </html>"""
-    
-    return {
-        'subject': subject,
-        'body_text': body_text,
-        'body_html': body_html
-    }
+
+    return {"subject": subject, "body_text": body_text, "body_html": body_html}
 
 
 def tier3_executive_email(
@@ -233,14 +225,14 @@ def tier3_executive_email(
     relationships_count: int,
     speakers: int,
     insights: List[str],
-    calendly_link: str = "https://calendly.com/zforristall/clipscribe-consultation"
+    calendly_link: str = "https://calendly.com/zforristall/clipscribe-consultation",
 ) -> Dict[str, str]:
     """Email template for Tier 3 (Executive) - High-level insights."""
-    
+
     subject = f"Executive Intelligence Report - {filename}"
-    
+
     insights_text = "\n".join([f"  • {insight}" for insight in insights[:5]])
-    
+
     body_text = f"""Hi,
 
 Your executive intelligence report is ready.
@@ -339,12 +331,8 @@ Schedule 30-Min Analysis Call</a></p>
 <a href="https://clipscribe.ai">ClipScribe.ai</a></p>
 </body>
 </html>"""
-    
-    return {
-        'subject': subject,
-        'body_text': body_text,
-        'body_html': body_html
-    }
+
+    return {"subject": subject, "body_text": body_text, "body_html": body_html}
 
 
 def series_complete_email(
@@ -352,14 +340,14 @@ def series_complete_email(
     total_videos: int,
     unique_entities: int,
     top_insights: List[str],
-    total_cost: float
+    total_cost: float,
 ) -> Dict[str, str]:
     """Email template for series analysis completion."""
-    
+
     subject = f"Series Analysis Complete - {series_name}"
-    
+
     insights_text = "\n".join([f"  {i+1}. {insight}" for i, insight in enumerate(top_insights[:5])])
-    
+
     body_text = f"""Hi,
 
 Your {total_videos}-video series analysis is complete.
@@ -457,10 +445,5 @@ Contact: <a href="mailto:zforristall@gmail.com">zforristall@gmail.com</a></p>
 <a href="https://clipscribe.ai">ClipScribe.ai</a></p>
 </body>
 </html>"""
-    
-    return {
-        'subject': subject,
-        'body_text': body_text,
-        'body_html': body_html
-    }
 
+    return {"subject": subject, "body_text": body_text, "body_html": body_html}

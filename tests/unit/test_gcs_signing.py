@@ -250,9 +250,7 @@ class TestGenerateV4SignedUrlWithIam:
         """Test error handling when IAM API fails."""
         mock_get_email.return_value = "test@project.iam.gserviceaccount.com"
 
-        with patch(
-            "clipscribe.utils.gcs_signing._sign_blob_with_iam"
-        ) as mock_sign:
+        with patch("clipscribe.utils.gcs_signing._sign_blob_with_iam") as mock_sign:
             mock_sign.side_effect = RuntimeError("IAM API failed")
 
             with pytest.raises(RuntimeError, match="IAM API failed"):
@@ -280,4 +278,3 @@ class TestGenerateV4SignedUrlWithIam:
         # Should not have double slashes
         assert "//uploads" not in url
         assert "/uploads/file.mp3" in url
-

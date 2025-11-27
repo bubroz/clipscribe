@@ -714,10 +714,13 @@ Return JSON:
 
         try:
             messages = [
-                {"role": "system", "content": "Extract entities and relationships from transcript."},
+                {
+                    "role": "system",
+                    "content": "Extract entities and relationships from transcript.",
+                },
                 {"role": "user", "content": prompt},
             ]
-            
+
             # Retry chunk extraction (Grok can have 502/connection issues)
             for attempt in range(3):
                 try:
@@ -729,10 +732,10 @@ Return JSON:
                         max_tokens=2048,
                         response_format={"type": "json_object"},
                     )
-                    
+
                     content = response["choices"][0]["message"]["content"]
                     return json.loads(content)
-                    
+
                 except Exception as e:
                     logger.warning(f"Chunk {chunk_num} attempt {attempt + 1}/3 failed: {e}")
                     if attempt < 2:

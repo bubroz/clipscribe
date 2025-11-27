@@ -6,20 +6,35 @@ and specific decoder functions.
 """
 
 from .decoder import (
-    decode_string, decode_uint, decode_int, decode_timestamp,
-    decode_lat, decode_lon, decode_alt, decode_heading,
-    decode_pitch, decode_roll, decode_fov, decode_slant_range,
-    map_linear
+    decode_alt,
+    decode_fov,
+    decode_heading,
+    decode_lat,
+    decode_lon,
+    decode_pitch,
+    decode_roll,
+    decode_slant_range,
+    decode_string,
+    decode_timestamp,
+    decode_uint,
+    map_linear,
 )
+
 
 class TagDef:
     def __init__(self, name, decoder):
         self.name = name
         self.decoder = decoder
 
+
 # Generic decoders for reuse
-def decode_angle(b): return map_linear(b, 0.0, 360.0, signed=False)
-def decode_relative_angle(b): return map_linear(b, -180.0, 180.0, signed=True)
+def decode_angle(b):
+    return map_linear(b, 0.0, 360.0, signed=False)
+
+
+def decode_relative_angle(b):
+    return map_linear(b, -180.0, 180.0, signed=True)
+
 
 # MISB ST 0601.16 Tag Dictionary
 TAG_REGISTRY = {
@@ -30,8 +45,8 @@ TAG_REGISTRY = {
     5: TagDef("PlatformHeadingAngle", decode_heading),
     6: TagDef("PlatformPitchAngle", decode_pitch),
     7: TagDef("PlatformRollAngle", decode_roll),
-    8: TagDef("PlatformTrueAirspeed", lambda b: map_linear(b, 0, 255, signed=False)), # Uint8
-    9: TagDef("PlatformIndicatedAirspeed", lambda b: map_linear(b, 0, 255, signed=False)), # Uint8
+    8: TagDef("PlatformTrueAirspeed", lambda b: map_linear(b, 0, 255, signed=False)),  # Uint8
+    9: TagDef("PlatformIndicatedAirspeed", lambda b: map_linear(b, 0, 255, signed=False)),  # Uint8
     10: TagDef("PlatformDesignation", decode_string),
     11: TagDef("ImageSourceSensor", decode_string),
     12: TagDef("ImageCoordinateSystem", decode_string),
@@ -55,6 +70,6 @@ TAG_REGISTRY = {
     94: TagDef("MIISCoreIdentifier", decode_string),
 }
 
+
 def get_tag_def(tag_id: int) -> TagDef:
     return TAG_REGISTRY.get(tag_id, TagDef(f"UnknownTag_{tag_id}", lambda b: b.hex()))
-

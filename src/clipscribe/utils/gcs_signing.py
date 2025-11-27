@@ -315,22 +315,15 @@ def generate_v4_signed_url_with_iam(
     )
 
     # Hash the canonical request
-    canonical_request_hash = hashlib.sha256(
-        canonical_request.encode("utf-8")
-    ).hexdigest()
+    canonical_request_hash = hashlib.sha256(canonical_request.encode("utf-8")).hexdigest()
 
     # Construct string to sign
     string_to_sign = (
-        f"GOOG4-RSA-SHA256\n"
-        f"{timestamp}\n"
-        f"{credential_scope}\n"
-        f"{canonical_request_hash}"
+        f"GOOG4-RSA-SHA256\n" f"{timestamp}\n" f"{credential_scope}\n" f"{canonical_request_hash}"
     )
 
     # Sign the string using IAM API
-    signature_bytes = _sign_blob_with_iam(
-        service_account_email, string_to_sign.encode("utf-8")
-    )
+    signature_bytes = _sign_blob_with_iam(service_account_email, string_to_sign.encode("utf-8"))
 
     # Encode signature
     signature = _encode_signature(signature_bytes)
@@ -355,4 +348,3 @@ def generate_v4_signed_url_with_iam(
     )
 
     return url
-

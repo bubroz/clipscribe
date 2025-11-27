@@ -19,42 +19,39 @@ from src.clipscribe.api.topic_search import TopicSearchRequest, search_topics
 async def test_topic_database_populated():
     """Verify topics are in database."""
     db_path = project_root / "data/station10.db"
-    
+
     assert db_path.exists(), "Database file not found"
-    
+
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
-    
+
     cursor.execute("SELECT COUNT(*) FROM topics")
     count = cursor.fetchone()[0]
-    
+
     assert count >= 13, f"Expected at least 13 topics, found {count}"
-    
+
     # Verify structure
     cursor.execute("SELECT name, relevance, time_range FROM topics LIMIT 1")
     row = cursor.fetchone()
-    
+
     assert row is not None, "No topics found"
     assert row[0], "Topic name is empty"
     assert 0 <= row[1] <= 1.0, f"Invalid relevance: {row[1]}"
-    
+
     conn.close()
 
 
 @pytest.mark.integration
 async def test_topic_search_all():
     """Test searching all topics."""
-    request = TopicSearchRequest(
-        min_relevance=0.0,
-        limit=50
-    )
-    
+    request = TopicSearchRequest(min_relevance=0.0, limit=50)
+
     response = await search_topics(request)
-    
+
     assert response.total >= 13, f"Expected >=13 topics, got {response.total}"
     assert len(response.topics) >= 13
     assert response.query_time_ms > 0
-    
+
     # Verify first topic structure
     topic = response.topics[0]
     assert topic.name
@@ -65,15 +62,12 @@ async def test_topic_search_all():
 @pytest.mark.integration
 async def test_topic_search_by_query():
     """Test text search in topics."""
-    request = TopicSearchRequest(
-        query="ceasefire",
-        min_relevance=0.0
-    )
-    
+    request = TopicSearchRequest(query="ceasefire", min_relevance=0.0)
+
     response = await search_topics(request)
-    
+
     assert response.total >= 1, "Expected at least 1 ceasefire topic"
-    
+
     # Verify all results contain query
     for topic in response.topics:
         assert "ceasefire" in topic.name.lower(), f"Topic {topic.name} doesn't match query"
@@ -82,15 +76,13 @@ async def test_topic_search_by_query():
 @pytest.mark.integration
 async def test_topic_search_by_relevance():
     """Test relevance filtering."""
-    request = TopicSearchRequest(
-        min_relevance=0.95
-    )
-    
+    request = TopicSearchRequest(min_relevance=0.95)
+
     response = await search_topics(request)
-    
+
     # Should have high-relevance topics
     assert response.total >= 1, "Expected high-relevance topics"
-    
+
     # Verify all have relevance >= 0.95
     for topic in response.topics:
         assert topic.relevance >= 0.95, f"Topic {topic.name} has relevance {topic.relevance} < 0.95"
@@ -99,14 +91,12 @@ async def test_topic_search_by_relevance():
 @pytest.mark.integration
 async def test_topic_search_by_video():
     """Test filtering by video ID."""
-    request = TopicSearchRequest(
-        video_id="P-2"  # All-In Podcast
-    )
-    
+    request = TopicSearchRequest(video_id="P-2")  # All-In Podcast
+
     response = await search_topics(request)
-    
+
     assert response.total == 5, f"All-In should have 5 topics, got {response.total}"
-    
+
     # Verify all are from correct video
     for topic in response.topics:
         assert topic.video_id == "P-2"
@@ -116,13 +106,12 @@ async def test_topic_search_by_video():
 async def test_topic_search_performance():
     """Test API response time."""
     request = TopicSearchRequest(limit=50)
-    
+
     response = await search_topics(request)
-    
+
     # Should be fast (< 100ms)
     assert response.query_time_ms < 100, f"Slow query: {response.query_time_ms}ms"
 
 
 if __name__ == "__main__":
     pytest.main([__file__, "-v"])
-

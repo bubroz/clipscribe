@@ -1,11 +1,11 @@
 """Pytest configuration and shared fixtures for ClipScribe tests."""
 
-import pytest
-import asyncio
-from pathlib import Path
-import tempfile
 import shutil
-from unittest.mock import patch, MagicMock, AsyncMock
+import tempfile
+from pathlib import Path
+from unittest.mock import AsyncMock, MagicMock, patch
+
+import pytest
 
 # Configure pytest-asyncio
 pytest_plugins = ("pytest_asyncio",)
@@ -65,15 +65,19 @@ def mock_video_urls():
 @pytest.fixture(autouse=True)
 def mock_subprocess_and_external_deps():
     """Mock subprocess calls and external dependencies for all tests."""
-    with patch('subprocess.run') as mock_subprocess, \
-         patch('google.generativeai.configure') as mock_genai_configure, \
-         patch('google.generativeai.GenerativeModel') as mock_genai_model, \
-         patch('google.generativeai.upload_file') as mock_upload_file, \
-         patch('google.generativeai.delete_file') as mock_delete_file, \
-         patch('subprocess.Popen') as mock_popen, \
-         patch('os.system') as mock_system, \
-         patch.dict('sys.modules', {'google.cloud': MagicMock(), 'google.cloud.tasks_v2': MagicMock()}), \
-         patch('clipscribe.api.task_queue.get_task_queue_manager') as mock_task_manager:
+    with (
+        patch("subprocess.run") as mock_subprocess,
+        patch("google.generativeai.configure") as mock_genai_configure,
+        patch("google.generativeai.GenerativeModel") as mock_genai_model,
+        patch("google.generativeai.upload_file") as mock_upload_file,
+        patch("google.generativeai.delete_file") as mock_delete_file,
+        patch("subprocess.Popen") as mock_popen,
+        patch("os.system") as mock_system,
+        patch.dict(
+            "sys.modules", {"google.cloud": MagicMock(), "google.cloud.tasks_v2": MagicMock()}
+        ),
+        patch("clipscribe.api.task_queue.get_task_queue_manager") as mock_task_manager,
+    ):
 
         # Mock subprocess for CLI commands with smart responses
         def mock_subprocess_run(cmd, **kwargs):
@@ -85,7 +89,7 @@ def mock_subprocess_and_external_deps():
                         returncode=0,
                         stdout="Usage: clipscribe [OPTIONS] COMMAND [ARGS]...\n\n  Video intelligence extraction and analysis.\n\nOptions:\n  --help  Show this message and exit.\n\nCommands:\n  process     Process videos from URLs\n  collection  Process collections of videos\n  research    Research and analyze topics\n  utils       Utility commands\n",
                         stderr="",
-                        check=False
+                        check=False,
                     )
                 elif len(cmd) >= 4 and cmd[3] == "process":
                     # Return realistic error for invalid URL
@@ -93,23 +97,17 @@ def mock_subprocess_and_external_deps():
                         returncode=1,
                         stdout="",
                         stderr="ERROR: URL not supported by yt-dlp\n",
-                        check=False
+                        check=False,
                     )
                 else:
                     # Default success response
                     return MagicMock(
-                        returncode=0,
-                        stdout="Command executed successfully",
-                        stderr="",
-                        check=False
+                        returncode=0, stdout="Command executed successfully", stderr="", check=False
                     )
             else:
                 # Non-clipscribe commands
                 return MagicMock(
-                    returncode=0,
-                    stdout="Command executed successfully",
-                    stderr="",
-                    check=False
+                    returncode=0, stdout="Command executed successfully", stderr="", check=False
                 )
 
         mock_subprocess.side_effect = mock_subprocess_run
@@ -119,7 +117,7 @@ def mock_subprocess_and_external_deps():
             communicate=MagicMock(return_value=(b"mock output", b"")),
             returncode=0,
             stdout=b"mock stdout",
-            stderr=b""
+            stderr=b"",
         )
 
         # Mock os.system calls

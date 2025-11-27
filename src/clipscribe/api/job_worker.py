@@ -182,9 +182,10 @@ class CloudRunJobWorker:
             self.update_job_status(job_id, "COMPLETED", result)
 
             logger.info(f"Job {job_id} completed successfully")
-            
+
             # Cleanup temp file
             import shutil
+
             shutil.rmtree(file_path.parent, ignore_errors=True)
 
         except Exception as e:
@@ -202,58 +203,61 @@ class CloudRunJobWorker:
 
     async def download_from_gcs(self, gcs_uri: str) -> Path:
         """Download file from GCS to temp directory.
-        
+
         Args:
             gcs_uri: GCS URI (gs://bucket/path/to/file.mp3)
-            
+
         Returns:
             Path to downloaded local file
         """
         # Parse GCS URI
         if not gcs_uri.startswith("gs://"):
             raise ValueError(f"Invalid GCS URI: {gcs_uri}")
-        
+
         parts = gcs_uri[5:].split("/", 1)
         bucket_name = parts[0]
         blob_path = parts[1]
-        
+
         # Download to temp
         tmpdir = tempfile.mkdtemp()
         local_path = Path(tmpdir) / Path(blob_path).name
-        
-        blob = self.bucket.blob(blob_path) if bucket_name == self.gcs_bucket else self.storage_client.bucket(bucket_name).blob(blob_path)
+
+        blob = (
+            self.bucket.blob(blob_path)
+            if bucket_name == self.gcs_bucket
+            else self.storage_client.bucket(bucket_name).blob(blob_path)
+        )
         blob.download_to_filename(str(local_path))
-        
+
         return local_path
 
     async def process_file(self, file_path: Path, gcs_uri: str) -> Dict[str, Any]:
         """Process file using new provider system.
-        
+
         Args:
             file_path: Local path to audio/video file
             gcs_uri: Original GCS URI (for metadata)
-            
+
         Returns:
             Analysis dict with transcript, entities, relationships, etc.
         """
         from clipscribe.providers.factory import (
             get_transcription_provider,
-            get_intelligence_provider
+            get_intelligence_provider,
         )
-        
+
         # Use providers (default to Modal for API)
         transcriber = get_transcription_provider("whisperx-modal")
         extractor = get_intelligence_provider("grok")
-        
+
         # Transcribe
         transcript_result = await transcriber.transcribe(str(file_path), diarize=True)
-        
+
         # Extract intelligence
         intelligence_result = await extractor.extract(
-            transcript_result,
-            metadata={"gcs_uri": gcs_uri}
+            transcript_result, metadata={"gcs_uri": gcs_uri}
         )
-        
+
         # Convert to API format
         analysis = {
             "transcript": {
@@ -281,7 +285,7 @@ class CloudRunJobWorker:
             "model_used": f"{transcript_result.model} + {intelligence_result.model}",
             "processing_timestamp": datetime.utcnow().isoformat(),
         }
-        
+
         return analysis
 
     async def upload_results(self, job_id: str, analysis: Dict[str, Any]) -> list:
