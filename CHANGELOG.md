@@ -1,3 +1,15 @@
+## [3.2.1] - 2025-11-28 FIX SERVICE ACCOUNT DETECTION ON CLOUD RUN
+
+### Fixed
+- **Service Account Detection**: Prioritize GOOGLE_SERVICE_ACCOUNT_EMAIL env var over credentials object
+- **"default" Account Bug**: Skip credentials that return "default" instead of actual service account email
+- **Presigned URL Generation**: Now works correctly on Cloud Run with proper service account email
+
+### Technical Details
+- Cloud Run credentials sometimes return "default" as service_account_email
+- Fixed by checking environment variable FIRST before querying credentials object
+- Added explicit check to skip "default" values from credentials attributes
+
 ## [3.1.13] - 2025-11-27 FIX DEPLOYMENT AND TRAFFIC ROUTING
 
 ### Fixed

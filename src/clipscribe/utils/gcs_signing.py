@@ -62,6 +62,14 @@ def get_service_account_email() -> str:
     if _service_account_email_cache:
         return _service_account_email_cache
 
+    # PRIORITY: Check environment variable FIRST (most reliable for Cloud Run)
+    # This avoids issues where credentials return "default" instead of actual email
+    env_email = os.getenv("GOOGLE_SERVICE_ACCOUNT_EMAIL")
+    if env_email:
+        logger.debug(f"Using service account from GOOGLE_SERVICE_ACCOUNT_EMAIL: {env_email}")
+        _service_account_email_cache = env_email
+        return env_email
+
     if google is None:
         raise RuntimeError(
             "google-cloud-iam is not installed. Install with: poetry install -E enterprise"
@@ -82,16 +90,15 @@ def get_service_account_email() -> str:
     service_account_email: Optional[str] = None
 
     # For service account credentials (has service_account_email attribute)
+    # Skip if it's "default" (common on Cloud Run when not properly configured)
     if hasattr(credentials, "service_account_email") and credentials.service_account_email:
-        service_account_email = credentials.service_account_email
+        if credentials.service_account_email != "default":
+            service_account_email = credentials.service_account_email
     # For Compute Engine credentials (Cloud Run default)
     # Try to get from internal attribute (varies by credential type)
-    elif hasattr(credentials, "_service_account_email") and credentials._service_account_email:
-        service_account_email = credentials._service_account_email
-
-    # Fallback: try to get from environment variable
-    if not service_account_email:
-        service_account_email = os.getenv("GOOGLE_SERVICE_ACCOUNT_EMAIL")
+    if not service_account_email and hasattr(credentials, "_service_account_email") and credentials._service_account_email:
+        if credentials._service_account_email != "default":
+            service_account_email = credentials._service_account_email
 
     # Last resort: try to query metadata server for Compute Engine (Cloud Run)
     if not service_account_email:
