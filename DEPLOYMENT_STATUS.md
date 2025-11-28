@@ -1,24 +1,37 @@
 # ClipScribe Deployment Status
 
-**Last Updated:** November 27, 2025  
-**Current Version:** v3.1.12
+**Last Updated:** November 28, 2025  
+**Current Version:** v3.2.2
 
-**Documentation Status:** All documentation updated to v3.1.10, professionalized (emojis removed), and consolidated. Outdated files removed from git.
+**Documentation Status:** All documentation updated and consolidated. Deployment pipeline fixed for Cloud Run compatibility.
 
 ---
 
 ## Recent Fixes
 
-### v3.1.12 - Deployment Workflow Update (November 27, 2025)
+### v3.2.2 - Cloud Run Deployment Platform Fix (November 28, 2025)
 
-**Changes:**
-- Added `GOOGLE_SERVICE_ACCOUNT_EMAIL` environment variable to GitHub Actions deployment workflow
-- Updated deployment documentation for front-end agent handoff
-- Ensures presigned URL generation works on all future deployments
+**Problem:** v3.2.1 deployment failed with error: "Container manifest type 'application/vnd.oci.image.index.v1+json' must support amd64/linux"
 
-**Status:** Ready for deployment
-- Workflow updated
-- Documentation complete
+**Root Cause:** The `deploy.yml` GitHub Actions workflow was missing `platforms: linux/amd64` in the Docker build step. Without explicit platform specification, `docker/build-push-action@v5` creates a multi-architecture OCI index that Cloud Run rejects.
+
+**Solution:** 
+- Added `platforms: linux/amd64` to the `docker/build-push-action` step in `.github/workflows/deploy.yml`
+- This aligns the workflow with `production-deployment.yml` which correctly specifies the platform
+
+**Status:** Deploying
+- Workflow fixed
+- Tag v3.2.2 created to trigger deployment
+
+---
+
+### v3.2.1 - Service Account Detection Fix (November 28, 2025)
+
+**Problem:** Presigned URL generation failed due to incorrect service account detection
+
+**Solution:** Prioritize GOOGLE_SERVICE_ACCOUNT_EMAIL env var over credentials object
+
+**Status:** Image pushed to Artifact Registry successfully, but Cloud Run deployment failed (see v3.2.2 fix above)
 
 ---
 
@@ -60,7 +73,7 @@
 - Health endpoint: `/v1/health` responding correctly
 - All services healthy (Redis, GCS, Queue)
 
-**Deployment URL:** https://clipscribe-api-df6nuv4qxa-uc.a.run.app
+**Deployment URL:** https://clipscribe-api-zrvy4dpx3q-uc.a.run.app
 
 ---
 
@@ -101,7 +114,7 @@
 
 ```bash
 # Check service health
-curl https://clipscribe-api-df6nuv4qxa-uc.a.run.app/v1/health
+curl https://clipscribe-api-zrvy4dpx3q-uc.a.run.app/v1/health
 
 # Expected response:
 {
@@ -120,7 +133,7 @@ curl https://clipscribe-api-df6nuv4qxa-uc.a.run.app/v1/health
 
 ### API Base URL
 
-**Production:** `https://clipscribe-api-df6nuv4qxa-uc.a.run.app`
+**Production:** `https://clipscribe-api-zrvy4dpx3q-uc.a.run.app`
 
 ### Authentication
 
@@ -278,7 +291,7 @@ Common error codes:
 
 ```javascript
 // 1. Get token
-const tokenResponse = await fetch('https://clipscribe-api-df6nuv4qxa-uc.a.run.app/v1/auth/token', {
+const tokenResponse = await fetch('https://clipscribe-api-zrvy4dpx3q-uc.a.run.app/v1/auth/token', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({ email: 'user@example.com' })
@@ -286,7 +299,7 @@ const tokenResponse = await fetch('https://clipscribe-api-df6nuv4qxa-uc.a.run.ap
 const { token } = await tokenResponse.json();
 
 // 2. Get presigned URL
-const presignResponse = await fetch('https://clipscribe-api-df6nuv4qxa-uc.a.run.app/v1/uploads/presign', {
+const presignResponse = await fetch('https://clipscribe-api-zrvy4dpx3q-uc.a.run.app/v1/uploads/presign', {
   method: 'POST',
   headers: {
     'Authorization': `Bearer ${token}`,
@@ -307,7 +320,7 @@ await fetch(upload_url, {
 });
 
 // 4. Submit job
-const jobResponse = await fetch('https://clipscribe-api-df6nuv4qxa-uc.a.run.app/v1/jobs', {
+const jobResponse = await fetch('https://clipscribe-api-zrvy4dpx3q-uc.a.run.app/v1/jobs', {
   method: 'POST',
   headers: {
     'Authorization': `Bearer ${token}`,
@@ -321,7 +334,7 @@ const jobResponse = await fetch('https://clipscribe-api-df6nuv4qxa-uc.a.run.app/
 const job = await jobResponse.json();
 
 // 5. Poll for status
-const statusResponse = await fetch(`https://clipscribe-api-df6nuv4qxa-uc.a.run.app/v1/jobs/${job.job_id}`, {
+const statusResponse = await fetch(`https://clipscribe-api-zrvy4dpx3q-uc.a.run.app/v1/jobs/${job.job_id}`, {
   headers: { 'Authorization': `Bearer ${token}` }
 });
 const status = await statusResponse.json();

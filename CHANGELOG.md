@@ -1,3 +1,16 @@
+## [3.2.2] - 2025-11-28 FIX CLOUD RUN DEPLOYMENT PLATFORM
+
+### Fixed
+- **Cloud Run Deployment**: Added explicit `platforms: linux/amd64` to GitHub Actions Docker build
+- **OCI Manifest Error**: Resolved "Container manifest type must support amd64/linux" rejection by Cloud Run
+- **v3.2.1 Deployment Failure**: Image was successfully pushed to Artifact Registry but Cloud Run rejected multi-arch manifest
+
+### Technical Details
+- The `docker/build-push-action@v5` step in `deploy.yml` was missing the `platforms` parameter
+- Without explicit platform specification, the action creates a multi-architecture OCI index
+- Cloud Run requires images to explicitly support `linux/amd64` architecture
+- Fix aligns `deploy.yml` with `production-deployment.yml` which correctly specifies the platform
+
 ## [3.2.1] - 2025-11-28 FIX SERVICE ACCOUNT DETECTION ON CLOUD RUN
 
 ### Fixed
