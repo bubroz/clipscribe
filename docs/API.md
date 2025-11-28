@@ -1,7 +1,7 @@
 # ClipScribe API Reference
 
-**Version:** v3.1.10  
-**Last Updated:** November 2025
+**Version:** v3.2.3  
+**Last Updated:** November 28, 2025
 
 Complete API reference for ClipScribe with GCS-first processing and presigned upload flow.
 

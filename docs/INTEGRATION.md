@@ -1,7 +1,7 @@
 # ClipScribe Integration Contract
 
-**Last Updated:** November 26, 2025  
-**Version:** 1.0.0
+**Last Updated:** November 28, 2025  
+**Version:** 3.2.3
 
 ## Agent Coordination
 
@@ -14,7 +14,7 @@
 
 ### Base URL
 
-**Production:** `https://clipscribe-api-df6nuv4qxa-uc.a.run.app`
+**Production:** `https://clipscribe-api-zrvy4dpx3q-uc.a.run.app`
 
 ### Authentication
 
@@ -295,7 +295,7 @@ gcloud run services update clipscribe-api \
 
 **Status:** ✅ **CONFIGURED**
 
-The GCS bucket `clipscribe-artifacts-16459511304` has CORS configured to allow browser-based file uploads.
+The GCS bucket `clipscribe-artifacts-prod` has CORS configured to allow browser-based file uploads.
 
 **Configuration:**
 - **Origins:** `*` (allows uploads from any domain - appropriate for presigned URLs)
@@ -305,7 +305,7 @@ The GCS bucket `clipscribe-artifacts-16459511304` has CORS configured to allow b
 
 **Verification:**
 ```bash
-gsutil cors get gs://clipscribe-artifacts-16459511304
+gsutil cors get gs://clipscribe-artifacts-prod
 ```
 
 **Note:** This CORS configuration enables browser uploads to presigned URLs. The bucket accepts cross-origin PUT requests from any origin, which is necessary for the Replit dashboard upload flow.

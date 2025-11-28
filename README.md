@@ -2,7 +2,7 @@
 
 [![Python Version](https://img.shields.io/badge/python-3.12+-blue.svg)](https://python.org)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-3.1.10-blue.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-3.2.3-blue.svg)](CHANGELOG.md)
 [![Providers](https://img.shields.io/badge/providers-3%20transcription%20%2B%201%20intelligence-blue.svg)](#how-it-works)
 
 **Intelligence extraction platform for video and audio**
@@ -335,6 +335,14 @@ clipscribe process audio.mp3
 
 ---
 
+## What's New in v3.2.3
+
+**Production Stability Release:**
+- Redis configuration with Upstash (Cloud Run compatible)
+- GCS storage fully operational (`clipscribe-artifacts-prod`)
+- Dead code cleanup: 15 files removed, 5,628 lines eliminated
+- All systems healthy: redis=true, gcs=healthy, queue=healthy
+
 ## What's New in v3.1.10
 
 **IAM SignBlob Integration:**
@@ -406,11 +414,12 @@ clipscribe process audio.mp3
 
 ## Project Status
 
-**Version:** v3.1.10  
-**Released:** November 27, 2025  
-**Status:** Production-ready with multi-format exports and series analysis  
+**Version:** v3.2.3  
+**Released:** November 28, 2025  
+**Status:** Production-ready, all systems healthy  
 **Providers:** 3 transcription, 1 intelligence (all validated)
 
+**Infrastructure:** Redis (Upstash), GCS storage, Cloud Run API  
 **Features:** Multi-format exports (JSON, DOCX, CSV, PPTX, Markdown) + Series analysis
 
 ---

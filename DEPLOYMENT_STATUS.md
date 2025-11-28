@@ -9,9 +9,9 @@
 
 ## Recent Fixes
 
-### v3.2.3 - Redis Fix + Dead Code Cleanup (November 28, 2025)
+### v3.2.3 - Redis Fix + Dead Code Cleanup + GCS Fix (November 28, 2025)
 
-**Problem:** Health check failing with "Error 111 connecting to localhost:6379"
+**Problem 1:** Health check failing with "Error 111 connecting to localhost:6379"
 
 **Root Cause:** Redis initialization defaulted to `localhost:6379` which doesn't exist on Cloud Run.
 
@@ -20,15 +20,25 @@
 - Add REDIS_URL from GitHub Secrets to deploy.yml
 - Configure Upstash Redis for production
 
-**Dead Code Removed:**
+**Problem 2:** Health check showing `gcs: "not_configured"`
+
+**Root Cause:** GCS_BUCKET environment variable was never in deploy.yml - only set manually.
+
+**Solution:**
+- Added GCS_BUCKET to Cloud Run: `clipscribe-artifacts-prod`
+- Added GCS_BUCKET to deploy.yml for future deployments
+
+**Dead Code Removed (15 files, 5,628 lines):**
 - `notifications/` - Telegram (never used)
 - 6 broken Gemini extractors (batch, streaming, graph_cleaner, etc.)
 - 6 unused extractors (enhanced_entity, relationship_evidence, series_detector, etc.)
 - 2 deprecated retrievers (transcriber.py, gemini_pool.py)
 - web_research.py (commented out Gemini code)
 
-**Status:** Deploying
-- Redis: Upstash configured, REDIS_URL in GitHub Secrets
+**Status:** ✅ **Deployed successfully**
+- Current revision: `clipscribe-api-00012-j44`
+- Redis: Upstash configured ✅
+- GCS: `clipscribe-artifacts-prod` ✅
 - Dead code: 15 files removed
 - env.example: Rewritten for accuracy
 
@@ -44,9 +54,9 @@
 - Added `platforms: linux/amd64` to the `docker/build-push-action` step in `.github/workflows/deploy.yml`
 - This aligns the workflow with `production-deployment.yml` which correctly specifies the platform
 
-**Status:** Deploying
+**Status:** ✅ **Deployed successfully**
 - Workflow fixed
-- Tag v3.2.2 created to trigger deployment
+- Cloud Run now accepting amd64/linux images
 
 ---
 
@@ -141,16 +151,27 @@
 # Check service health
 curl https://clipscribe-api-zrvy4dpx3q-uc.a.run.app/v1/health
 
-# Expected response:
+# Expected response (v3.2.3):
 {
   "status": "healthy",
-  "timestamp": "...",
+  "timestamp": "2025-11-28T19:24:48.962144",
   "redis": true,
   "gcs": "healthy",
   "queue": "healthy",
-  "version": "1.0.0"
+  "version": "3.2.3"
 }
 ```
+
+## Current Cloud Run Environment Variables
+
+| Variable | Value |
+|----------|-------|
+| `PYTHONUNBUFFERED` | `1` |
+| `GOOGLE_SERVICE_ACCOUNT_EMAIL` | `clipscribe-api@clipscribe-prod.iam.gserviceaccount.com` |
+| `REDIS_URL` | `[from GitHub Secrets - Upstash]` |
+| `GCS_BUCKET` | `clipscribe-artifacts-prod` |
+
+**Current Revision:** `clipscribe-api-00012-j44`
 
 ---
 
@@ -280,11 +301,11 @@ GET /v1/health
 Response:
 {
   "status": "healthy",
-  "timestamp": "2025-11-27T...",
+  "timestamp": "2025-11-28T...",
   "redis": true,
   "gcs": "healthy",
   "queue": "healthy",
-  "version": "1.0.0"
+  "version": "3.2.3"
 }
 ```
 

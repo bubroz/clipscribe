@@ -1,8 +1,8 @@
 # ClipScribe Development Guide
 
-**Version:** v3.1.10  
-**Last Updated:** November 2025  
-**Status:** Provider-based architecture, GEOINT engine (Beta)
+**Version:** v3.2.3  
+**Last Updated:** November 28, 2025  
+**Status:** Production-ready, all systems healthy
 
 ---
 

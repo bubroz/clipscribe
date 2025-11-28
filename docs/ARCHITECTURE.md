@@ -1,8 +1,8 @@
-# ClipScribe v3.1.10 Architecture
+# ClipScribe v3.2.3 Architecture
 
-**Last Updated:** November 2025  
-**Version:** v3.1.10  
-**Status:** Provider-based architecture, file-first processing, GEOINT engine (Beta)
+**Last Updated:** November 28, 2025  
+**Version:** v3.2.3  
+**Status:** Production-ready, all systems healthy (Redis, GCS, Queue)
 
 Professional intelligence extraction from audio/video files with provider flexibility.
 

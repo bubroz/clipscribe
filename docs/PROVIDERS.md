@@ -1,7 +1,7 @@
 # ClipScribe Provider System
 
-**Version:** v3.1.10  
-**Last Updated:** November 2025
+**Version:** v3.2.3  
+**Last Updated:** November 28, 2025
 
 Complete guide to ClipScribe's provider system - choose optimal transcription and intelligence providers for your use case.
 
