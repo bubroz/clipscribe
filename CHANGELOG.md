@@ -1,3 +1,34 @@
+## [3.2.3] - 2025-11-28 REDIS FIX + DEAD CODE CLEANUP
+
+### Fixed
+- **Redis Configuration**: Remove localhost:6379 default - REDIS_URL now required for production
+- **Deploy Workflow**: Add REDIS_URL from GitHub Secrets to Cloud Run environment
+- **Dead Code**: Remove vertex_ai_transcriber reference that caused import errors
+
+### Removed
+- **notifications/**: Telegram notifier - never imported, never used
+- **extractors/batch_extractor.py**: Broken Gemini dependencies
+- **extractors/streaming_extractor.py**: Broken Gemini dependencies
+- **extractors/graph_cleaner.py**: Broken Gemini dependencies
+- **extractors/enhanced_entity_extractor.py**: Never imported
+- **extractors/relationship_evidence_extractor.py**: Never imported
+- **extractors/series_detector.py**: Never imported
+- **extractors/temporal_reference_resolver.py**: Never imported
+- **extractors/entity_quality_filter.py**: Never imported
+- **extractors/multi_video_processor.py**: Broken Gemini + never imported
+- **retrievers/transcriber.py**: Deprecated stubs only
+- **retrievers/gemini_pool.py**: Deprecated stubs only
+- **utils/web_research.py**: Commented out, broken Gemini
+
+### Changed
+- **env.example**: Complete rewrite - clean, accurate, no legacy cruft
+- **extractors/__init__.py**: Only export actually-used modules
+
+### Technical Details
+- All removed code preserved in git history at commit prior to this release
+- Redis initialization now validates connection with ping() on startup
+- Production requires REDIS_URL - local dev can run without it (with warning)
+
 ## [3.2.2] - 2025-11-28 FIX CLOUD RUN DEPLOYMENT PLATFORM
 
 ### Fixed

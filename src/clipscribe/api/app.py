@@ -95,16 +95,24 @@ if allowed_origins:
         expose_headers=["X-Request-ID", "Retry-After"],
     )
 
-# Redis queue and counters
-redis_url = os.getenv("REDIS_URL", "redis://localhost:6379/0")
-
+# Redis configuration - empty default, not localhost
+redis_url = os.getenv("REDIS_URL", "")
 redis_conn: Optional[RedisClient] = None
 job_queue: Optional[Queue] = None
-try:
-    redis_conn = redis.from_url(redis_url)
-    job_queue = Queue("clipscribe", connection=redis_conn)
-except Exception:
-    pass
+
+if redis_url:
+    try:
+        redis_conn = redis.from_url(redis_url)
+        redis_conn.ping()  # Verify connection immediately
+        job_queue = Queue("clipscribe", connection=redis_conn)
+        logger.info(
+            f"Redis connected: {redis_url.split('@')[-1] if '@' in redis_url else 'configured'}"
+        )
+    except Exception as e:
+        logger.error(f"Redis connection failed: {e}")
+        raise RuntimeError(f"REDIS_URL set but connection failed: {e}")
+else:
+    logger.warning("REDIS_URL not set - Redis features disabled (local dev only)")
 
 
 @app.middleware("http")

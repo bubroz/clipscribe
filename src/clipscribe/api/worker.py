@@ -115,40 +115,11 @@ async def _process_payload(job_id: str, payload: Dict[str, Any]) -> None:
             await upload_bytes(f"jobs/{job_id}/report.md", report_md, "text/markdown")
             artifacts.append("report.md")
 
-        # Case 2: gcs_uri processing via Vertex AI
+        # Case 2: gcs_uri processing - deprecated (Vertex AI removed)
         elif "gcs_uri" in payload:
-            from clipscribe.retrievers.vertex_ai_transcriber import VertexAITranscriber
-
-            # Transcribe with Vertex AI and retry
-            async def transcribe_vertex():
-                vtx = VertexAITranscriber()
-                result = await vtx.transcribe_with_vertex(
-                    gcs_uri=payload["gcs_uri"], enhance_transcript=False, mode="video"
-                )
-                return result
-
-            result = await retry_manager.execute_with_retry(
-                f"vertex_transcription_{job_id}", transcribe_vertex, should_retry_api_error
+            raise NotImplementedError(
+                "GCS URI processing deprecated - Vertex AI removed. Use main CLI pipeline."
             )
-
-            # Record Vertex AI metrics
-            entity_count = len(result.get("entities", []))
-            relationship_count = len(result.get("relationships", []))
-            metrics.record_metric("vertex_entities", entity_count, {"job_id": job_id})
-            metrics.record_metric("vertex_relationships", relationship_count, {"job_id": job_id})
-
-            transcript_json = json.dumps(result, default=str, separators=(",", ":")).encode("utf-8")
-            await upload_bytes(
-                f"jobs/{job_id}/transcript.json", transcript_json, "application/json"
-            )
-            artifacts.append("transcript.json")
-
-            report_md = (
-                f"# ClipScribe Report\n\nJob: {job_id}\nGCS: {payload['gcs_uri']}\n\n"
-                f"Entities: {entity_count}, Relationships: {relationship_count}\n"
-            ).encode("utf-8")
-            await upload_bytes(f"jobs/{job_id}/report.md", report_md, "text/markdown")
-            artifacts.append("report.md")
 
         # Update manifest.json to include artifact entries
         manifest_path = f"jobs/{job_id}/manifest.json"
@@ -204,8 +175,11 @@ def process_job(job_id: str, payload: Dict[str, Any]) -> None:
 
 
 def run() -> None:
-    url = os.getenv("REDIS_URL", "redis://localhost:6379/0")
+    url = os.getenv("REDIS_URL", "")
+    if not url:
+        raise RuntimeError("REDIS_URL environment variable required")
     redis_conn = redis.from_url(url)
+    redis_conn.ping()  # Verify connection
     # Use Redis connection directly for RQ
     w = Worker([Queue("clipscribe")], connection=redis_conn)
     w.work(with_scheduler=True)

@@ -56,8 +56,11 @@ def get_redis_conn() -> redis.Redis:
     """Get Redis connection with singleton pattern."""
     global redis_conn
     if redis_conn is None:
-        redis_url = os.getenv("REDIS_URL", "redis://localhost:6379/0")
+        redis_url = os.getenv("REDIS_URL", "")
+        if not redis_url:
+            raise RuntimeError("REDIS_URL environment variable required")
         redis_conn = redis.from_url(redis_url)
+        redis_conn.ping()  # Verify connection
     return redis_conn
 
 

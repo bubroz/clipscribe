@@ -1,13 +1,38 @@
 # ClipScribe Deployment Status
 
 **Last Updated:** November 28, 2025  
-**Current Version:** v3.2.2
+**Current Version:** v3.2.3
 
-**Documentation Status:** All documentation updated and consolidated. Deployment pipeline fixed for Cloud Run compatibility.
+**Documentation Status:** All documentation updated. Dead code removed. Redis configured with Upstash.
 
 ---
 
 ## Recent Fixes
+
+### v3.2.3 - Redis Fix + Dead Code Cleanup (November 28, 2025)
+
+**Problem:** Health check failing with "Error 111 connecting to localhost:6379"
+
+**Root Cause:** Redis initialization defaulted to `localhost:6379` which doesn't exist on Cloud Run.
+
+**Solution:**
+- Remove localhost default from all Redis initialization code
+- Add REDIS_URL from GitHub Secrets to deploy.yml
+- Configure Upstash Redis for production
+
+**Dead Code Removed:**
+- `notifications/` - Telegram (never used)
+- 6 broken Gemini extractors (batch, streaming, graph_cleaner, etc.)
+- 6 unused extractors (enhanced_entity, relationship_evidence, series_detector, etc.)
+- 2 deprecated retrievers (transcriber.py, gemini_pool.py)
+- web_research.py (commented out Gemini code)
+
+**Status:** Deploying
+- Redis: Upstash configured, REDIS_URL in GitHub Secrets
+- Dead code: 15 files removed
+- env.example: Rewritten for accuracy
+
+---
 
 ### v3.2.2 - Cloud Run Deployment Platform Fix (November 28, 2025)
 

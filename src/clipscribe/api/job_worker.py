@@ -110,7 +110,7 @@ class CloudRunJobWorker:
     """Worker for processing ClipScribe jobs in Cloud Run Jobs."""
 
     def __init__(self):
-        self.redis_url = os.getenv("REDIS_URL", "redis://localhost:6379/0")
+        self.redis_url = os.getenv("REDIS_URL", "")
         self.gcs_bucket = os.getenv("GCS_BUCKET", "clipscribe-outputs")
         self.project_id = os.getenv("GOOGLE_CLOUD_PROJECT", "your-project-id")
         self.location = os.getenv("TASK_QUEUE_LOCATION", "us-central1")
@@ -118,8 +118,11 @@ class CloudRunJobWorker:
         # Model selection - Voxtral + Grok pipeline
         self.model_name = "voxtral-grok-pipeline"
 
-        # Initialize connections
+        # Initialize Redis connection
+        if not self.redis_url:
+            raise RuntimeError("REDIS_URL environment variable required")
         self.redis_conn = redis.from_url(self.redis_url)
+        self.redis_conn.ping()  # Verify connection
         self.storage_client = storage.Client()
         self.bucket = self.storage_client.bucket(self.gcs_bucket)
         self.tasks_client = tasks_v2.CloudTasksClient()
