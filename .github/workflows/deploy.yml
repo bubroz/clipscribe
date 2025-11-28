@@ -84,7 +84,7 @@ jobs:
             --timeout 3600 \
             --max-instances 10 \
             --min-instances 1 \
-            --set-env-vars PYTHONUNBUFFERED=1,GOOGLE_SERVICE_ACCOUNT_EMAIL=clipscribe-api@clipscribe-prod.iam.gserviceaccount.com,REDIS_URL=${{ secrets.REDIS_URL }},GCS_BUCKET=clipscribe-artifacts-prod,GOOGLE_CLOUD_PROJECT=clipscribe-prod
+            --set-env-vars PYTHONUNBUFFERED=1,GOOGLE_SERVICE_ACCOUNT_EMAIL=clipscribe-api@clipscribe-prod.iam.gserviceaccount.com,REDIS_URL=${{ secrets.REDIS_URL }},GCS_BUCKET=clipscribe-artifacts-prod,GOOGLE_CLOUD_PROJECT=clipscribe-prod,USE_CLOUD_RUN_JOBS=false,WORKER_URL=https://clipscribe-api-zrvy4dpx3q-uc.a.run.app/process-job
 
       - name: Route traffic to latest revision
         run: |
