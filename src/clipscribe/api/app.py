@@ -334,14 +334,15 @@ async def _enqueue_job_processing(job: Job, source: Dict[str, Any]) -> None:
         from .task_queue import get_task_queue_manager
 
         # Prepare payload for worker (GCS-only)
+        # Use `or {}` to handle case where options key exists but value is None
+        options = source.get("options") or {}
         payload = {
             "job_id": job.job_id,
             "gcs_uri": source.get("gcs_uri"),
-            "options": source.get("options", {}),
+            "options": options,
         }
 
         # Extract model preference from options
-        options = source.get("options", {})
         use_pro_model = options.get("model") == "pro" or options.get("use_pro_model", False)
 
         # Default duration estimate (can't estimate from GCS URI without downloading)
