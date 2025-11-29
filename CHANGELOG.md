@@ -1,3 +1,26 @@
+## [3.2.4] - 2025-11-29 CLOUD RUN JOBS INFRASTRUCTURE RESTORED
+
+### Added
+- **Dockerfile.job**: Worker Docker image with ffmpeg, yt-dlp for long-running jobs
+- **Cloud Run Job: clipscribe-worker-flash**: Standard processing (4Gi RAM, 2h timeout)
+- **Cloud Run Job: clipscribe-worker-pro**: Heavy processing (8Gi RAM, 4h timeout)
+- **REDIS_URL Secret**: Moved to Secret Manager for Cloud Run Jobs access
+- **Worker Image Build**: deploy.yml now builds and pushes worker image on release
+
+### Fixed
+- **Job Processing**: Jobs now properly trigger Cloud Run Jobs instead of failing
+- **4+ Hour Video Support**: Cloud Run Jobs have 24h timeout vs 60min Service limit
+
+### Changed
+- **deploy.yml**: Added worker image build step, removed shortcut env vars
+- **IAM**: Granted roles/run.developer to service account for job triggering
+
+### Technical Details
+- Cloud Run Jobs infrastructure existed in v2.46.0 but was deleted during Modal migration
+- Processing a 4-hour video takes ~43 minutes (WhisperX Modal + Grok)
+- Cloud Run Services would timeout after 60 minutes, Jobs support 24 hours
+- Worker image uses same codebase, runs job_worker.py entrypoint
+
 ## [3.2.3] - 2025-11-28 REDIS FIX + DEAD CODE CLEANUP
 
 ### Fixed

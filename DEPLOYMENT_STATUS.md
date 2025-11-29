@@ -1,13 +1,42 @@
 # ClipScribe Deployment Status
 
-**Last Updated:** November 28, 2025  
-**Current Version:** v3.2.3
+**Last Updated:** November 29, 2025  
+**Current Version:** v3.2.4
 
-**Documentation Status:** All documentation updated. Dead code removed. Redis configured with Upstash.
+**Documentation Status:** All documentation updated. Cloud Run Jobs infrastructure restored.
 
 ---
 
 ## Recent Fixes
+
+### v3.2.4 - Cloud Run Jobs Infrastructure Restored (November 29, 2025)
+
+**Problem:** Job submissions failing with "Failed to enqueue to Cloud Tasks" / "Failed to trigger Cloud Run Job"
+
+**Root Cause:** Cloud Run Jobs infrastructure was deleted during Modal migration cleanup (commit 1e9e490). The code expected `clipscribe-worker-flash` and `clipscribe-worker-pro` jobs to exist, but they didn't.
+
+**Solution:**
+- Restored `Dockerfile.job` for worker image
+- Built and pushed worker image to Artifact Registry
+- Created `clipscribe-worker-flash` job (4Gi RAM, 2h timeout, standard processing)
+- Created `clipscribe-worker-pro` job (8Gi RAM, 4h timeout, heavy processing)
+- Created REDIS_URL secret in Secret Manager
+- Granted `roles/run.developer` to service account
+- Updated deploy.yml to build worker image on release
+- Removed shortcut env vars (USE_CLOUD_RUN_JOBS, WORKER_URL)
+
+**Why Cloud Run Jobs?**
+- 4-hour video processing takes ~43 minutes
+- Cloud Run Services timeout at 60 minutes
+- Cloud Run Jobs support 24-hour timeouts
+
+**Status:** ✅ **Infrastructure restored**
+- Worker flash: `clipscribe-worker-flash` ✅
+- Worker pro: `clipscribe-worker-pro` ✅
+- REDIS_URL secret: Secret Manager ✅
+- IAM permissions: `roles/run.developer` ✅
+
+---
 
 ### v3.2.3 - Redis Fix + Dead Code Cleanup + GCS Fix (November 28, 2025)
 

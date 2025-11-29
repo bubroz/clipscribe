@@ -70,6 +70,20 @@ jobs:
             ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/clipscribe/clipscribe-api:${{ github.ref_name }}
             ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/clipscribe/clipscribe-api:latest
 
+      - name: Build and push image (Worker)
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile.job
+          push: true
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          provenance: false
+          platforms: linux/amd64
+          tags: |
+            ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/clipscribe/clipscribe-worker:${{ github.ref_name }}
+            ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/clipscribe/clipscribe-worker:latest
+
       - name: Deploy to Cloud Run
         env:
           IMAGE: ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/clipscribe/clipscribe-api:${{ github.ref_name }}
@@ -84,7 +98,7 @@ jobs:
             --timeout 3600 \
             --max-instances 10 \
             --min-instances 1 \
-            --set-env-vars PYTHONUNBUFFERED=1,GOOGLE_SERVICE_ACCOUNT_EMAIL=clipscribe-api@clipscribe-prod.iam.gserviceaccount.com,REDIS_URL=${{ secrets.REDIS_URL }},GCS_BUCKET=clipscribe-artifacts-prod,GOOGLE_CLOUD_PROJECT=clipscribe-prod,USE_CLOUD_RUN_JOBS=false,WORKER_URL=https://clipscribe-api-zrvy4dpx3q-uc.a.run.app/process-job
+            --set-env-vars PYTHONUNBUFFERED=1,GOOGLE_SERVICE_ACCOUNT_EMAIL=clipscribe-api@clipscribe-prod.iam.gserviceaccount.com,REDIS_URL=${{ secrets.REDIS_URL }},GCS_BUCKET=clipscribe-artifacts-prod,GOOGLE_CLOUD_PROJECT=clipscribe-prod
 
       - name: Route traffic to latest revision
         run: |
