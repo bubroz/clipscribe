@@ -122,10 +122,19 @@ class TaskQueueManager:
             )
 
             # Execute the job
+            logger.info(f"Triggering Cloud Run Job: {job_resource}")
             operation = self.jobs_client.run_job(request=request)
 
             # Get execution name from operation
-            execution_name = operation.name
+            # The operation object is an LRO - we need the operation name to track it
+            execution_name = getattr(operation, "name", None)
+            if not execution_name:
+                # Try to get from metadata if available
+                metadata = getattr(operation, "metadata", None)
+                if metadata:
+                    execution_name = getattr(metadata, "name", f"triggered-{job_id}")
+                else:
+                    execution_name = f"triggered-{job_id}"
 
             logger.info(f"Triggered Cloud Run Job execution: {execution_name}")
             logger.info(f"Job: {job_name}, Model: {'Pro' if use_pro_model else 'Flash'}")
@@ -133,7 +142,10 @@ class TaskQueueManager:
             return execution_name
 
         except Exception as e:
+            import traceback
+
             logger.error(f"Failed to trigger Cloud Run Job: {e}")
+            logger.error(f"Traceback: {traceback.format_exc()}")
             return None
 
     def enqueue_job(

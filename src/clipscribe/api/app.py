@@ -381,7 +381,10 @@ async def _enqueue_job_processing(job: Job, source: Dict[str, Any]) -> None:
             logger.error(f"Failed to enqueue job {job.job_id}")
 
     except Exception as e:
+        import traceback
+
         logger.error(f"Failed to process job {job.job_id}: {e}")
+        logger.error(f"Traceback: {traceback.format_exc()}")
         job.state = "FAILED"
         job.error = f"Failed to enqueue: {str(e)}"
         job.updated_at = _now_iso()
