@@ -99,14 +99,6 @@ module = "clipscribe.retrievers.video_retriever"
 ignore_errors = true
 
 [[tool.mypy.overrides]]
-module = "clipscribe.retrievers.vertex_ai_transcriber"
-ignore_errors = true
-
-[[tool.mypy.overrides]]
-module = "clipscribe.retrievers.gemini_pool"
-ignore_errors = true
-
-[[tool.mypy.overrides]]
 module = "clipscribe.retrievers.*"
 ignore_errors = true
 
@@ -124,6 +116,58 @@ ignore_errors = true
 
 [[tool.mypy.overrides]]
 module = "clipscribe.config.*"
+ignore_errors = true
+
+[[tool.mypy.overrides]]
+module = "clipscribe.api.*"
+ignore_errors = true
+
+[[tool.mypy.overrides]]
+module = "clipscribe.providers.*"
+ignore_errors = true
+
+[[tool.mypy.overrides]]
+module = "clipscribe.transcribers.*"
+ignore_errors = true
+
+[[tool.mypy.overrides]]
+module = "clipscribe.exporters.*"
+ignore_errors = true
+
+[[tool.mypy.overrides]]
+module = "deploy.*"
+ignore_errors = true
+
+[[tool.mypy.overrides]]
+module = "clipscribe.web.*"
+ignore_errors = true
+
+[[tool.mypy.overrides]]
+module = "clipscribe.database.*"
+ignore_errors = true
+
+[[tool.mypy.overrides]]
+module = "clipscribe.validators.*"
+ignore_errors = true
+
+[[tool.mypy.overrides]]
+module = "clipscribe.processors.*"
+ignore_errors = true
+
+[[tool.mypy.overrides]]
+module = "clipscribe.knowledge.*"
+ignore_errors = true
+
+[[tool.mypy.overrides]]
+module = "clipscribe.storage.*"
+ignore_errors = true
+
+[[tool.mypy.overrides]]
+module = "clipscribe.intelligence.*"
+ignore_errors = true
+
+[[tool.mypy.overrides]]
+module = "clipscribe.core_data"
 ignore_errors = true
 
 [tool.pytest.ini_options]

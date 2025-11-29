@@ -26,8 +26,7 @@ try:
     from google.auth import default
     from google.auth.exceptions import DefaultCredentialsError
     from google.auth.transport import requests as auth_requests
-    from google.cloud import iam_credentials_v1
-    from google.cloud import storage
+    from google.cloud import iam_credentials_v1, storage
 except ImportError:
     google = None  # type: ignore
     default = None  # type: ignore
@@ -77,9 +76,7 @@ def get_service_account_email() -> str:
 
     try:
         # Request credentials with cloud-platform scope for IAM API access
-        credentials, project = default(
-            scopes=["https://www.googleapis.com/auth/cloud-platform"]
-        )
+        credentials, project = default(scopes=["https://www.googleapis.com/auth/cloud-platform"])
     except DefaultCredentialsError as e:
         raise RuntimeError(
             f"Failed to get default credentials: {e}. "
@@ -96,7 +93,11 @@ def get_service_account_email() -> str:
             service_account_email = credentials.service_account_email
     # For Compute Engine credentials (Cloud Run default)
     # Try to get from internal attribute (varies by credential type)
-    if not service_account_email and hasattr(credentials, "_service_account_email") and credentials._service_account_email:
+    if (
+        not service_account_email
+        and hasattr(credentials, "_service_account_email")
+        and credentials._service_account_email
+    ):
         if credentials._service_account_email != "default":
             service_account_email = credentials._service_account_email
 
@@ -219,9 +220,7 @@ def _sign_blob_with_iam(service_account_email: str, blob_to_sign: bytes) -> byte
 
     try:
         # Get credentials with explicit scopes for IAM API
-        credentials, project = default(
-            scopes=["https://www.googleapis.com/auth/cloud-platform"]
-        )
+        credentials, project = default(scopes=["https://www.googleapis.com/auth/cloud-platform"])
 
         # Create IAM client with explicit credentials
         # This ensures the client uses the right credentials with proper scopes
@@ -358,9 +357,7 @@ def _generate_signed_url_with_storage_iam(
 
     # Get credentials with explicit scopes for IAM API access
     try:
-        credentials, project = default(
-            scopes=["https://www.googleapis.com/auth/cloud-platform"]
-        )
+        credentials, project = default(scopes=["https://www.googleapis.com/auth/cloud-platform"])
     except DefaultCredentialsError as e:
         raise RuntimeError(
             f"Failed to get default credentials: {e}. "

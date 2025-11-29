@@ -79,39 +79,39 @@ def process(
     formats: tuple,
 ):
     """Process audio/video file to extract intelligence.
-    
+
     v3.1.0 file-first processing with provider selection.
-    
+
     Examples:
-    
+
         Single-speaker, cheap Mistral API:
         $ clipscribe process lecture.mp3 -t voxtral --no-diarize
-        
+
         Multi-speaker, Modal cloud GPU:
         $ clipscribe process interview.mp3 -t whisperx-modal
-        
+
         Multi-speaker, FREE local (Apple Silicon/CPU):
         $ clipscribe process podcast.mp3 -t whisperx-local
-        
+
     Provider Comparison (30min video):
         voxtral:        ~$0.03  (Mistral API, no speakers)
         whisperx-modal: ~$0.06  (Modal GPU cloud, speakers)
         whisperx-local: $0.00   (Local Apple Silicon/CPU, speakers)
-        
+
         Plus Grok intelligence: ~$0.005 per video
     """
     # Handle "all" format
     if "all" in formats:
         formats = ["json", "docx", "csv", "pptx", "markdown"]
-    
+
     asyncio.run(
         process_file_logic(
-        audio_file,
-        transcription_provider,
-        intelligence_provider,
-        diarize,
-        output_dir,
-        list(formats),
+            audio_file,
+            transcription_provider,
+            intelligence_provider,
+            diarize,
+            output_dir,
+            list(formats),
         )
     )
 
@@ -126,7 +126,7 @@ async def process_file_logic(
 ):
     """Core file processing logic using provider abstraction."""
     from clipscribe.providers.factory import get_intelligence_provider, get_transcription_provider
-    
+
     logger = logging.getLogger(__name__)
 
     # Initialize providers
@@ -136,7 +136,7 @@ async def process_file_logic(
     except Exception as e:
         logger.error(f"Provider initialization failed: {e}")
         raise click.ClickException(str(e))
-    
+
     # Validate diarization support
     if diarize and not transcriber.supports_diarization:
         logger.warning(
@@ -145,7 +145,7 @@ async def process_file_logic(
             f"Use -t whisperx-modal or -t whisperx-local for multi-speaker content."
         )
         diarize = False
-    
+
     # Estimate costs (get duration)
     import subprocess
 
@@ -172,19 +172,19 @@ async def process_file_logic(
     transcript_length_est = int(duration * 150)  # Rough: 150 chars/sec
     intelligence_cost_est = extractor.estimate_cost(transcript_length_est)
     total_est = transcript_cost_est + intelligence_cost_est
-    
+
     logger.info(f"\nFile: {audio_file.name}")
     logger.info(f"Duration: {duration/60:.1f} minutes")
     logger.info(f"Estimated cost: ${total_est:.4f}")
     logger.info(f"  Transcription ({transcription_provider}): ${transcript_cost_est:.4f}")
     logger.info(f"  Intelligence ({intelligence_provider}): ${intelligence_cost_est:.4f}")
-    
+
     # Transcribe
     logger.info(f"\nTranscribing with {transcription_provider}...")
     transcript = await transcriber.transcribe(str(audio_file), diarize=diarize)
     logger.info(f"✓ Transcribed: {transcript.language}, {transcript.speakers} speakers")
     logger.info(f"  Actual cost: ${transcript.cost:.4f}")
-    
+
     # Extract intelligence
     logger.info(f"\nExtracting intelligence with {intelligence_provider}...")
     intelligence = await extractor.extract(transcript, metadata={"filename": audio_file.name})
@@ -192,16 +192,16 @@ async def process_file_logic(
         f"✓ Extracted: {len(intelligence.entities)} entities, {len(intelligence.relationships)} relationships"
     )
     logger.info(f"  Actual cost: ${intelligence.cost:.4f}")
-    
+
     # Display cache stats if available
     if intelligence.cache_stats.get("cached_tokens", 0) > 0:
         savings = intelligence.cache_stats.get("cache_savings", 0)
         logger.info(f"  💰 Cache savings: ${savings:.4f}")
-    
+
     # Save outputs
     total_cost = transcript.cost + intelligence.cost
     logger.info(f"\nTotal cost: ${total_cost:.4f} (estimate was ${total_est:.4f})")
-    
+
     # Create output directory
     import json
     from datetime import datetime
@@ -209,9 +209,9 @@ async def process_file_logic(
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     output_path = output_dir / f"{timestamp}_{audio_file.stem}"
     output_path.mkdir(parents=True, exist_ok=True)
-    
+
     logger.info(f"\n📦 Generating {len(formats)} format(s): {', '.join(formats)}")
-    
+
     # Always save comprehensive JSON
     comprehensive_data = {
         "transcript": {
@@ -244,13 +244,13 @@ async def process_file_logic(
             "intelligence_cost": intelligence.cost,
         },
     }
-    
+
     with open(output_path / "transcript.json", "w") as f:
         json.dump(comprehensive_data, f, indent=2)
-    
+
     # Generate additional formats
     generated_files = ["transcript.json"]
-    
+
     if "docx" in formats:
         try:
             from clipscribe.exporters.docx_report import generate_docx_report
@@ -260,7 +260,7 @@ async def process_file_logic(
             logger.info("  ✓ DOCX report generated")
         except Exception as e:
             logger.error(f"  ✗ DOCX generation failed: {e}")
-    
+
     if "csv" in formats:
         try:
             from clipscribe.exporters.csv_exporter import export_to_csv
@@ -270,7 +270,7 @@ async def process_file_logic(
             logger.info(f"  ✓ CSV files generated: {len(csv_files)}")
         except Exception as e:
             logger.error(f"  ✗ CSV generation failed: {e}")
-    
+
     if "markdown" in formats:
         try:
             from clipscribe.exporters.markdown_report import generate_markdown_report
@@ -280,7 +280,7 @@ async def process_file_logic(
             logger.info("  ✓ Markdown report generated")
         except Exception as e:
             logger.error(f"  ✗ Markdown generation failed: {e}")
-    
+
     if "pptx" in formats:
         try:
             from clipscribe.exporters.pptx_report import generate_pptx_report
@@ -290,28 +290,28 @@ async def process_file_logic(
             logger.info("  ✓ PPTX presentation generated")
         except Exception as e:
             logger.error(f"  ✗ PPTX generation failed: {e}")
-    
+
     # 3. GEOINT Analysis (Auto-detect)
     # Only for video files that might have KLV (MKV, MPG, TS, MP4)
     file_ext = audio_file.suffix.lower()
     if file_ext in [".mpg", ".ts", ".mkv", ".mp4"]:
         try:
             from clipscribe.processors.geoint_processor import GeoIntProcessor
-            
+
             logger.info("\nChecking for GEOINT telemetry...")
             geoint_proc = GeoIntProcessor(output_path)
-            
+
             # Convert transcript segments to dicts for the processor
             segment_dicts = [seg.dict() for seg in transcript.segments]
-            
+
             geoint_result = geoint_proc.process(str(audio_file), segment_dicts)
-            
+
             if geoint_result:
                 logger.info(f"✓ GEOINT: Extracted {geoint_result['telemetry_count']} packets")
                 logger.info(f"  Correlated events: {geoint_result['geo_events_count']}")
                 logger.info(f"  Map: {Path(geoint_result['kml_path']).name}")
                 generated_files.append("mission.kml")
-                
+
                 # Enrich comprehensive_data with GEOINT
                 comprehensive_data["transcript"]["segments"] = geoint_result["enriched_segments"]
                 comprehensive_data["geoint"] = {
@@ -319,11 +319,11 @@ async def process_file_logic(
                     "telemetry_count": geoint_result["telemetry_count"],
                     "geo_events_count": geoint_result["geo_events_count"],
                 }
-                
+
                 # Re-save transcript.json with enriched data
                 with open(output_path / "transcript.json", "w") as f:
                     json.dump(comprehensive_data, f, indent=2)
-                    
+
         except Exception as e:
             logger.warning(f"GEOINT processing failed (skipping): {e}")
 
@@ -361,19 +361,19 @@ def process_series(
     formats: tuple,
 ):
     """Process multiple videos as a series with aggregate analysis.
-    
+
     Premium feature for cross-video intelligence extraction.
-    
+
     files_list should contain one file path per line.
-    
+
     Examples:
-    
+
         Process earnings calls:
         $ clipscribe process-series calls.txt --series-name "Q1-Q4-2024"
-        
+
         Process depositions:
         $ clipscribe process-series depositions.txt --series-name "Case-XYZ"
-    
+
     Output:
         series_[name]/
         ├── videos/
@@ -388,11 +388,11 @@ def process_series(
     """
     asyncio.run(
         process_series_logic(
-        files_list,
-        series_name,
-        transcription_provider,
-        output_dir,
-        list(formats),
+            files_list,
+            series_name,
+            transcription_provider,
+            output_dir,
+            list(formats),
         )
     )
 
@@ -407,43 +407,43 @@ async def process_series_logic(
     """Core series processing logic."""
     from clipscribe.processors.series_analyzer import SeriesAnalyzer
     from clipscribe.providers.factory import get_intelligence_provider, get_transcription_provider
-    
+
     logger = logging.getLogger(__name__)
-    
+
     # Read file list
     with open(files_list) as f:
         files = [line.strip() for line in f if line.strip() and not line.startswith("#")]
-    
+
     if not files:
         logger.error("No valid files found in list")
         raise click.ClickException("Empty file list")
-    
+
     logger.info(f"\n🎬 Processing series: {series_name}")
     logger.info(f"   Videos: {len(files)}")
     logger.info(f"   Provider: {transcription_provider}")
-    
+
     # Create series output directory
     series_dir = output_dir / f"series_{series_name}_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
     videos_dir = series_dir / "videos"
     aggregate_dir = series_dir / "aggregate"
     videos_dir.mkdir(parents=True, exist_ok=True)
     aggregate_dir.mkdir(parents=True, exist_ok=True)
-    
+
     # Initialize series analyzer
     analyzer = SeriesAnalyzer(series_name)
-    
+
     # Process each video
     transcriber = get_transcription_provider(transcription_provider)
     extractor = get_intelligence_provider("grok")
-    
+
     for idx, file_path in enumerate(files, 1):
         logger.info(f"\n📹 Processing {idx}/{len(files)}: {Path(file_path).name}")
-        
+
         try:
             # Transcribe
             transcript = await transcriber.transcribe(file_path, diarize=True)
             logger.info(f"   ✓ Transcribed: {transcript.language}, {transcript.speakers} speakers")
-            
+
             # Extract intelligence
             intelligence = await extractor.extract(
                 transcript, metadata={"filename": Path(file_path).name}
@@ -451,11 +451,11 @@ async def process_series_logic(
             logger.info(
                 f"   ✓ Intelligence: {len(intelligence.entities)} entities, {len(intelligence.relationships)} relationships"
             )
-            
+
             # Save individual video results
             video_output = videos_dir / f"video{idx}_{Path(file_path).stem}"
             video_output.mkdir(exist_ok=True)
-            
+
             # Save in requested formats
             video_data = {
                 "transcript": {
@@ -483,46 +483,46 @@ async def process_series_logic(
                     "total_cost": transcript.cost + intelligence.cost,
                 },
             }
-            
+
             with open(video_output / "transcript.json", "w") as f:
                 json.dump(video_data, f, indent=2)
-            
+
             # Generate requested formats
             if "docx" in formats:
                 from clipscribe.exporters.docx_report import generate_docx_report
 
                 generate_docx_report(transcript, intelligence, video_output)
-            
+
             if "csv" in formats:
                 from clipscribe.exporters.csv_exporter import export_to_csv
 
                 export_to_csv(intelligence, transcript, video_output)
-            
+
             # Add to series analyzer
             analyzer.add_video(video_data, Path(file_path).name)
-            
+
         except Exception as e:
             logger.error(f"   ✗ Failed to process {file_path}: {e}")
             continue
-    
+
     # Generate aggregate analysis
     logger.info("\n📊 Generating series analysis...")
     series_analysis = analyzer.analyze()
-    
+
     # Save aggregate JSON
     with open(aggregate_dir / "series_analysis.json", "w") as f:
         json.dump(series_analysis, f, indent=2)
-    
+
     # Generate aggregate reports
     logger.info("   ✓ Generating aggregate reports...")
-    
+
     # Aggregate PPTX (always for series)
     try:
         # Will create series-specific PPTX with aggregate slides
         logger.info("   ✓ Series PPTX (coming soon)")
     except Exception:
         logger.info("   ⏳ Series PPTX generation pending")
-    
+
     # Entity frequency CSV
     import csv
 
@@ -541,7 +541,7 @@ async def process_series_logic(
                     "frequency_percent": f"{entity_data['frequency_percent']:.1f}%",
                 }
             )
-    
+
     # Insights markdown
     insights_md = "# Series Insights\n\n"
     insights_md += f"**Series:** {series_name}\n"
@@ -549,9 +549,9 @@ async def process_series_logic(
     insights_md += "## Key Findings:\n\n"
     for insight in series_analysis["insights"]:
         insights_md += f"- {insight}\n"
-    
+
     (aggregate_dir / "insights.md").write_text(insights_md)
-    
+
     logger.info("\n✅ Series analysis complete!")
     logger.info(f"   Individual reports: {series_dir}/videos/")
     logger.info(f"   Aggregate analysis: {series_dir}/aggregate/")

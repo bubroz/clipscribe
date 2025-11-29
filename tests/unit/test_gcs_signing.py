@@ -84,11 +84,13 @@ class TestGetServiceAccountEmail:
         if hasattr(mock_creds, "_service_account_email"):
             delattr(mock_creds, "_service_account_email")
         mock_default.return_value = (mock_creds, "project-id")
+
         # Mock httpx import to fail (simulate not installed or network issue)
         def import_side_effect(name, *args, **kwargs):
             if name == "httpx":
                 raise ImportError("httpx not available")
             return __import__(name, *args, **kwargs)
+
         mock_import.side_effect = import_side_effect
 
         with patch.dict(os.environ, {}, clear=True):
@@ -226,7 +228,9 @@ class TestGenerateV4SignedUrlWithIam:
     @patch("clipscribe.utils.gcs_signing._generate_signed_url_with_storage_iam")
     def test_generate_v4_signed_url_uses_storage_iam_first(self, mock_storage_iam):
         """Test that storage IAM approach is tried first."""
-        mock_storage_iam.return_value = "https://storage.googleapis.com/test-bucket/uploads/file.mp3?signature=test"
+        mock_storage_iam.return_value = (
+            "https://storage.googleapis.com/test-bucket/uploads/file.mp3?signature=test"
+        )
 
         url = gcs_signing.generate_v4_signed_url_with_iam(
             bucket_name="test-bucket",
@@ -251,7 +255,9 @@ class TestGenerateV4SignedUrlWithIam:
     def test_generate_v4_signed_url_falls_back_to_manual(self, mock_manual_iam, mock_storage_iam):
         """Test that manual IAM approach is used as fallback."""
         mock_storage_iam.side_effect = RuntimeError("Storage IAM failed")
-        mock_manual_iam.return_value = "https://storage.googleapis.com/test-bucket/uploads/file.mp3?X-Goog-Signature=test"
+        mock_manual_iam.return_value = (
+            "https://storage.googleapis.com/test-bucket/uploads/file.mp3?X-Goog-Signature=test"
+        )
 
         url = gcs_signing.generate_v4_signed_url_with_iam(
             bucket_name="test-bucket",
@@ -307,7 +313,9 @@ class TestGenerateV4SignedUrlWithIam:
     @patch("clipscribe.utils.gcs_signing.default")
     @patch("clipscribe.utils.gcs_signing.auth_requests")
     @patch("clipscribe.utils.gcs_signing.get_service_account_email")
-    def test_generate_signed_url_with_storage_iam(self, mock_get_email, mock_auth_requests, mock_default, mock_storage, mock_google):
+    def test_generate_signed_url_with_storage_iam(
+        self, mock_get_email, mock_auth_requests, mock_default, mock_storage, mock_google
+    ):
         """Test storage IAM approach generating a signed URL."""
         # Setup mocks
         mock_google.auth = Mock()
@@ -322,7 +330,9 @@ class TestGenerateV4SignedUrlWithIam:
         mock_client = Mock()
         mock_bucket = Mock()
         mock_blob = Mock()
-        mock_blob.generate_signed_url.return_value = "https://storage.googleapis.com/test-bucket/uploads/file.mp3?signature=test"
+        mock_blob.generate_signed_url.return_value = (
+            "https://storage.googleapis.com/test-bucket/uploads/file.mp3?signature=test"
+        )
         mock_bucket.blob.return_value = mock_blob
         mock_client.bucket.return_value = mock_bucket
         mock_storage.Client.return_value = mock_client
@@ -352,7 +362,9 @@ class TestGenerateV4SignedUrlWithIam:
     @patch("clipscribe.utils.gcs_signing.google")
     @patch("clipscribe.utils.gcs_signing.get_service_account_email")
     @patch("clipscribe.utils.gcs_signing._sign_blob_with_iam")
-    def test_generate_v4_signed_url_manual_no_content_type(self, mock_sign, mock_get_email, mock_google):
+    def test_generate_v4_signed_url_manual_no_content_type(
+        self, mock_sign, mock_get_email, mock_google
+    ):
         """Test manual IAM generating signed URL without content type."""
         mock_google.auth = Mock()
         mock_get_email.return_value = "test@project.iam.gserviceaccount.com"
@@ -372,7 +384,9 @@ class TestGenerateV4SignedUrlWithIam:
     @patch("clipscribe.utils.gcs_signing.google")
     @patch("clipscribe.utils.gcs_signing.get_service_account_email")
     @patch("clipscribe.utils.gcs_signing._sign_blob_with_iam")
-    def test_generate_v4_signed_url_manual_different_method(self, mock_sign, mock_get_email, mock_google):
+    def test_generate_v4_signed_url_manual_different_method(
+        self, mock_sign, mock_get_email, mock_google
+    ):
         """Test manual IAM generating signed URL with GET method."""
         mock_google.auth = Mock()
         mock_get_email.return_value = "test@project.iam.gserviceaccount.com"
@@ -392,7 +406,9 @@ class TestGenerateV4SignedUrlWithIam:
     @patch("clipscribe.utils.gcs_signing.google")
     @patch("clipscribe.utils.gcs_signing.get_service_account_email")
     @patch("clipscribe.utils.gcs_signing._sign_blob_with_iam")
-    def test_generate_v4_signed_url_manual_normalizes_path(self, mock_sign, mock_get_email, mock_google):
+    def test_generate_v4_signed_url_manual_normalizes_path(
+        self, mock_sign, mock_get_email, mock_google
+    ):
         """Test that manual IAM normalizes object path (leading slash removed)."""
         mock_google.auth = Mock()
         mock_get_email.return_value = "test@project.iam.gserviceaccount.com"

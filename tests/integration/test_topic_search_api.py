@@ -14,6 +14,30 @@ sys.path.insert(0, str(project_root))
 
 from src.clipscribe.api.topic_search import TopicSearchRequest, search_topics
 
+# Skip all tests in this module if the database doesn't exist or is empty
+DB_PATH = project_root / "data/station10.db"
+
+
+def _db_has_topics() -> bool:
+    """Check if the database exists and has topics."""
+    if not DB_PATH.exists():
+        return False
+    try:
+        conn = sqlite3.connect(DB_PATH)
+        cursor = conn.cursor()
+        cursor.execute("SELECT COUNT(*) FROM topics")
+        count = cursor.fetchone()[0]
+        conn.close()
+        return count > 0
+    except Exception:
+        return False
+
+
+pytestmark = pytest.mark.skipif(
+    not _db_has_topics(),
+    reason="station10.db database not found or empty (required for topic search tests)"
+)
+
 
 @pytest.mark.integration
 async def test_topic_database_populated():

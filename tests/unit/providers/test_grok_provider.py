@@ -101,7 +101,8 @@ def test_grok_config_validation():
             GrokProvider()
 
 
-def test_grok_preserves_cache_stats(mock_transcript_result, mock_grok_response):
+@pytest.mark.asyncio
+async def test_grok_preserves_cache_stats(mock_transcript_result, mock_grok_response):
     """Test that Grok provider preserves cache statistics."""
     with patch.dict("os.environ", {"XAI_API_KEY": "test-key"}):
         with patch(
@@ -110,7 +111,7 @@ def test_grok_preserves_cache_stats(mock_transcript_result, mock_grok_response):
             return_value=mock_grok_response,
         ):
             provider = GrokProvider()
-            result = pytest.mark.asyncio(provider.extract)(mock_transcript_result)
+            result = await provider.extract(mock_transcript_result)
 
             # Verify cache stats preserved
             assert "cached_tokens" in result.cache_stats

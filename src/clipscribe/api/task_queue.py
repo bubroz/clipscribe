@@ -131,7 +131,9 @@ class TaskQueueManager:
             operation = self.jobs_client.run_job(request=request)
 
             # The operation.name is the LRO name, which we can use to track the execution
-            execution_name = operation.operation.name if hasattr(operation, "operation") else str(operation)
+            execution_name = (
+                operation.operation.name if hasattr(operation, "operation") else str(operation)
+            )
 
             logger.info(f"Triggered Cloud Run Job execution: {execution_name}")
             logger.info(f"Job: {job_name}, Model: {'Pro' if use_pro_model else 'Flash'}")
