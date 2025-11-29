@@ -1,3 +1,21 @@
+## [3.2.5] - 2025-11-29 TOKEN VALIDATION FIX + SECURITY HARDENING
+
+### Fixed
+- **Token Validation**: Added missing Replit frontend token to Redis
+- **Root Cause**: Token was never stored when Upstash Redis was configured (v3.2.3)
+- **Jobs Endpoint**: Now properly validates tokens against Redis
+
+### Security
+- **Presign Endpoint**: Now validates tokens via `_validate_token()` instead of just checking header existence
+- **Other Endpoints**: Applied same fix to GET /v1/jobs/{id}, /events, /artifacts, /status, /estimate
+- **Before**: Any non-empty Authorization header was accepted for these endpoints
+- **After**: Tokens must exist in Redis to be valid
+
+### Technical Details
+- Token `bet_7ePK4urh71QTBB5fNfDsUw` added to Redis with proper schema
+- All protected endpoints now use consistent `_validate_token()` validation
+- This was a security bug: presign would generate signed URLs for anyone with any token
+
 ## [3.2.4] - 2025-11-29 CLOUD RUN JOBS INFRASTRUCTURE RESTORED
 
 ### Added

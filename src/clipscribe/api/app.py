@@ -616,7 +616,8 @@ async def create_job(
 async def get_job(
     job_id: str, authorization: Optional[str] = Header(default=None, alias="Authorization")
 ) -> JSONResponse | Job:
-    if not authorization:
+    token_id = _validate_token(authorization)
+    if not token_id:
         return _error("invalid_input", "Missing or invalid bearer token", status=401)
     # Mock status
     job = _load_job(job_id)
@@ -629,7 +630,8 @@ async def get_job(
 async def get_job_events(
     job_id: str, authorization: Optional[str] = Header(default=None, alias="Authorization")
 ):
-    if not authorization:
+    token_id = _validate_token(authorization)
+    if not token_id:
         return _error("invalid_input", "Missing or invalid bearer token", status=401)
     q = job_events.setdefault(job_id, asyncio.Queue())
 
@@ -648,7 +650,8 @@ async def get_job_events(
 
 @app.get("/v1/status", response_model=None)
 async def get_status(authorization: Optional[str] = Header(default=None, alias="Authorization")):
-    if not authorization:
+    token_id = _validate_token(authorization)
+    if not token_id:
         return _error("invalid_input", "Missing or invalid bearer token", status=401)
     return {"status": "healthy"}
 
@@ -657,7 +660,8 @@ async def get_status(authorization: Optional[str] = Header(default=None, alias="
 async def list_artifacts(
     job_id: str, authorization: Optional[str] = Header(default=None, alias="Authorization")
 ):
-    if not authorization:
+    token_id = _validate_token(authorization)
+    if not token_id:
         return _error("invalid_input", "Missing or invalid bearer token", status=401)
     bucket = os.getenv("GCS_BUCKET", "").strip().replace("\n", "").replace("\r", "")
     artifacts: List[Dict[str, Any]] = []
@@ -703,7 +707,8 @@ async def estimate(
     gcs_uri: Optional[str] = None,
     authorization: Optional[str] = Header(default=None, alias="Authorization"),
 ) -> JSONResponse | Dict[str, Any]:
-    if not authorization:
+    token_id = _validate_token(authorization)
+    if not token_id:
         return _error("invalid_input", "Missing or invalid bearer token", status=401)
     # Simple placeholder estimate: fixed duration and cost, propose flash
     return {
@@ -719,7 +724,8 @@ async def estimate(
 async def presign_upload(
     req: PresignRequest, authorization: Optional[str] = Header(default=None, alias="Authorization")
 ) -> PresignResponse | JSONResponse:
-    if not authorization:
+    token_id = _validate_token(authorization)
+    if not token_id:
         return _error("invalid_input", "Missing or invalid bearer token", status=401)
 
     bucket = os.getenv("GCS_BUCKET", "").strip().replace("\n", "").replace("\r", "")
