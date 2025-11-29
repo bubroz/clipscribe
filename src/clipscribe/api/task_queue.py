@@ -130,10 +130,15 @@ class TaskQueueManager:
             # Execute the job - this returns an Operation (LRO)
             operation = self.jobs_client.run_job(request=request)
 
-            # The operation.name is the LRO name, which we can use to track the execution
-            execution_name = (
-                operation.operation.name if hasattr(operation, "operation") else str(operation)
-            )
+            # Get execution identifier from the operation
+            # The Operation object has .name directly for the operation resource name
+            # We also check .metadata for execution details
+            if hasattr(operation, "name") and operation.name:
+                execution_name = operation.name
+            elif hasattr(operation, "metadata") and hasattr(operation.metadata, "name"):
+                execution_name = operation.metadata.name
+            else:
+                execution_name = f"job-{job_id}"  # Fallback identifier
 
             logger.info(f"Triggered Cloud Run Job execution: {execution_name}")
             logger.info(f"Job: {job_name}, Model: {'Pro' if use_pro_model else 'Flash'}")

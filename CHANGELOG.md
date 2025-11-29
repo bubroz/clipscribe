@@ -1,3 +1,16 @@
+## [3.2.10] - 2025-11-29 FIX CLOUD RUN JOBS OPERATION HANDLING
+
+### Fixed
+- **Cloud Run Jobs Trigger**: Fixed `'Operation' object has no attribute 'name'` error
+- **Root Cause**: Code incorrectly tried to access `operation.operation.name` instead of `operation.name`
+- **task_queue.py**: Fixed execution name extraction to properly access Operation object attributes
+- Jobs were being submitted but failing to log execution name, causing "Failed to enqueue" error
+
+### Technical Details
+- Google Cloud Run v2 API's `run_job()` returns an Operation with `.name` directly on object
+- Previous code assumed nested structure that doesn't exist
+- Added fallback chain: `operation.name` → `operation.metadata.name` → `job-{job_id}`
+
 ## [3.2.9] - 2025-11-29 CI WORKFLOW FIX + CLEANUP
 
 ### Fixed
