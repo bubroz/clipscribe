@@ -1,3 +1,14 @@
+## [3.2.11] - 2025-11-29 FIX WORKER MISSING DEPLOY MODULE
+
+### Fixed
+- **Worker Crash**: Fixed `ModuleNotFoundError: No module named 'deploy'` in Cloud Run Job worker
+- **Root Cause**: Dockerfile.job only copied `src/` but not `deploy/` folder
+- **whisperx-modal provider**: Requires `deploy.station10_modal` module for Modal transcription
+
+### Changes
+- **Dockerfile.job**: Added `COPY deploy ./deploy` to include Modal app code
+- **Dockerfile.job**: Updated PYTHONPATH to `/app:/app/src` so deploy module is importable
+
 ## [3.2.10] - 2025-11-29 FIX CLOUD RUN JOBS OPERATION HANDLING
 
 ### Fixed

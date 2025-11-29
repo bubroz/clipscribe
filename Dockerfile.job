@@ -29,13 +29,14 @@ RUN pip install --no-cache-dir yt-dlp
 
 # Copy application code
 COPY --chown=clipscribe:clipscribe src ./src
+COPY --chown=clipscribe:clipscribe deploy ./deploy
 
 # Switch to non-root user
 USER clipscribe
 
 # Set environment variables
 ENV PYTHONUNBUFFERED=1 \
-    PYTHONPATH=/app/src \
+    PYTHONPATH=/app:/app/src \
     VIDEO_CACHE_DIR=/cache \
     CACHE_MAX_SIZE_GB=50 \
     CACHE_MAX_AGE_DAYS=7
