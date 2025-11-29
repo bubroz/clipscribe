@@ -1,7 +1,8 @@
 """Unit tests for VoxtralProvider."""
 
+from unittest.mock import AsyncMock, patch
+
 import pytest
-from unittest.mock import AsyncMock, patch, MagicMock
 from clipscribe.providers.transcription.voxtral import VoxtralProvider
 from clipscribe.transcribers.voxtral_transcriber import VoxtralTranscriptionResult
 

@@ -1,8 +1,9 @@
 """Unit tests for GrokProvider."""
 
 import json
-import pytest
 from unittest.mock import AsyncMock, patch
+
+import pytest
 from clipscribe.providers.intelligence.grok import GrokProvider
 
 

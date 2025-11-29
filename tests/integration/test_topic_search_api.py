@@ -4,15 +4,16 @@ Topic Search API - End-to-End Integration Tests
 Validates complete flow: Database → API → Response
 """
 
-import pytest
-from pathlib import Path
 import sqlite3
 import sys
+from pathlib import Path
+
+import pytest
 
 project_root = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(project_root))
 
-from src.clipscribe.api.topic_search import TopicSearchRequest, search_topics
+from src.clipscribe.api.topic_search import TopicSearchRequest, search_topics  # noqa: E402
 
 # Skip all tests in this module if the database doesn't exist or is empty
 DB_PATH = project_root / "data/station10.db"
@@ -35,7 +36,7 @@ def _db_has_topics() -> bool:
 
 pytestmark = pytest.mark.skipif(
     not _db_has_topics(),
-    reason="station10.db database not found or empty (required for topic search tests)"
+    reason="station10.db database not found or empty (required for topic search tests)",
 )
 
 

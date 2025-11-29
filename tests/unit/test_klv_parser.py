@@ -1,6 +1,6 @@
 import io
-import pytest
-from clipscribe.utils.klv.parser import KlvParser, parse_tlv, MISB_KEY
+
+from clipscribe.utils.klv.parser import MISB_KEY, KlvParser, parse_tlv
 
 
 class TestKlvParser:

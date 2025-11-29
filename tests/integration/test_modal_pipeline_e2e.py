@@ -5,12 +5,12 @@ These tests call the REAL Modal service and REAL grok-4-1-fast-reasoning API.
 Marked as expensive to run only when explicitly requested.
 """
 
-import pytest
-import asyncio
-from pathlib import Path
 import json
-from google.cloud import storage
 import sys
+from pathlib import Path
+
+import pytest
+from google.cloud import storage
 
 project_root = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(project_root))
@@ -133,7 +133,7 @@ async def test_modal_pipeline_complete_intelligence():
     # Cost tracking
     assert result_dict.get("cost", 0) > 0, "No cost tracked"
 
-    print(f"\n✅ E2E TEST PASSED")
+    print("\n✅ E2E TEST PASSED")
     print(f"  Entities: {len(entities)} (with {entities_with_evidence} evidence quotes)")
     print(f"  Topics: {len(topics)}")
     print(f"  Key moments: {len(key_moments)}")
@@ -176,7 +176,7 @@ async def test_modal_pipeline_long_video():
 
     # Call Modal
     Station10Transcriber = modal.Cls.from_name("station10-transcription", "Station10Transcriber")
-    result_dict = Station10Transcriber().transcribe_from_gcs.remote(
+    _result_dict = Station10Transcriber().transcribe_from_gcs.remote(  # noqa: F841
         gcs_input=gcs_url,
         gcs_output="gs://clipscribe-validation/validation/e2e_test/all_in_output/",
     )
@@ -194,8 +194,8 @@ async def test_modal_pipeline_long_video():
     assert len(topics) >= 1, "Long video missing topics (chunking issue?)"
     assert len(key_moments) >= 1, "Long video missing key moments (chunking issue?)"
 
-    print(f"\n✅ LONG VIDEO TEST PASSED")
-    print(f"  Transcript length: ~87k chars")
+    print("\n✅ LONG VIDEO TEST PASSED")
+    print("  Transcript length: ~87k chars")
     print(f"  Topics: {len(topics)} (proves single-pass extraction)")
     print(f"  Key moments: {len(key_moments)}")
 

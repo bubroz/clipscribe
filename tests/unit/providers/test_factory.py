@@ -1,8 +1,8 @@
 """Unit tests for provider factory."""
 
 import pytest
-from clipscribe.providers.factory import get_transcription_provider, get_intelligence_provider
 from clipscribe.providers.base import ConfigurationError
+from clipscribe.providers.factory import get_intelligence_provider, get_transcription_provider
 
 
 def test_get_valid_transcription_provider():

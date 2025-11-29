@@ -9,23 +9,22 @@ Tests:
 - Structured outputs (json_schema)
 """
 
-import pytest
 import os
-import asyncio
-from pathlib import Path
 import tempfile
+from pathlib import Path
 
-from src.clipscribe.retrievers.grok_client import GrokAPIClient
-from src.clipscribe.utils.prompt_cache import GrokPromptCache
+import pytest
+
 from src.clipscribe.intelligence.fact_checker import GrokFactChecker
 from src.clipscribe.knowledge.collection_manager import VideoKnowledgeBase
+from src.clipscribe.retrievers.grok_client import GrokAPIClient
 from src.clipscribe.schemas_grok import (
     Entity,
     EntityType,
-    get_video_intelligence_schema,
     get_entity_schema,
+    get_video_intelligence_schema,
 )
-
+from src.clipscribe.utils.prompt_cache import GrokPromptCache
 
 # Skip all tests if no API key
 pytestmark = pytest.mark.skipif(not os.getenv("XAI_API_KEY"), reason="XAI_API_KEY not set")

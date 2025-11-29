@@ -5,15 +5,20 @@ Validates complete flow: Database → API → Response
 Tests all 18 spaCy entity types and evidence quote coverage.
 """
 
-import pytest
-from pathlib import Path
 import sqlite3
 import sys
+from pathlib import Path
+
+import pytest
 
 project_root = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(project_root))
 
-from src.clipscribe.api.entity_search import EntitySearchRequest, search_entities, get_entity_types
+from src.clipscribe.api.entity_search import (  # noqa: E402
+    EntitySearchRequest,
+    get_entity_types,
+    search_entities,
+)
 
 # Skip all tests in this module if the database doesn't exist or is empty
 DB_PATH = project_root / "data/station10.db"
@@ -36,7 +41,7 @@ def _db_has_entities() -> bool:
 
 pytestmark = pytest.mark.skipif(
     not _db_has_entities(),
-    reason="station10.db database not found or empty (required for entity search tests)"
+    reason="station10.db database not found or empty (required for entity search tests)",
 )
 
 

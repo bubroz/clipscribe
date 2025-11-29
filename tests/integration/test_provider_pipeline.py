@@ -1,9 +1,9 @@
 """Integration tests for provider pipeline (mocked APIs)."""
 
+from unittest.mock import AsyncMock, patch
+
 import pytest
-from unittest.mock import AsyncMock, patch, MagicMock
-from pathlib import Path
-from clipscribe.providers.factory import get_transcription_provider, get_intelligence_provider
+from clipscribe.providers.factory import get_intelligence_provider, get_transcription_provider
 
 
 @pytest.mark.asyncio
