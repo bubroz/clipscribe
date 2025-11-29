@@ -1,3 +1,15 @@
+## [3.2.6] - 2025-11-29 WORKER DEPENDENCY FIX
+
+### Fixed
+- **Cloud Run Job Worker**: Missing `redis` module - worker crashed on startup
+- **Root Cause**: `Dockerfile.job` used `--only main` which excluded optional `api` dependencies
+- **Solution**: Changed to `poetry install --extras "api enterprise"` to include redis + GCS
+
+### Technical Details
+- Worker logs showed: `ModuleNotFoundError: No module named 'redis'`
+- Both `clipscribe-worker-flash` and `clipscribe-worker-pro` jobs updated with new image
+- Image tag: `us-central1-docker.pkg.dev/clipscribe-prod/clipscribe/clipscribe-worker:v3.2.6`
+
 ## [3.2.5] - 2025-11-29 TOKEN VALIDATION FIX + SECURITY HARDENING
 
 ### Fixed

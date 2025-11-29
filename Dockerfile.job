@@ -19,10 +19,10 @@ WORKDIR /app
 # Copy requirements first for better caching
 COPY pyproject.toml poetry.lock ./
 
-# Install Python dependencies
+# Install Python dependencies (include api + enterprise extras for worker)
 RUN pip install --no-cache-dir poetry && \
     poetry config virtualenvs.create false && \
-    poetry install --only main --no-root --no-interaction --no-ansi
+    poetry install --no-root --no-interaction --no-ansi --extras "api enterprise"
 
 # Install yt-dlp separately (often updated)
 RUN pip install --no-cache-dir yt-dlp
