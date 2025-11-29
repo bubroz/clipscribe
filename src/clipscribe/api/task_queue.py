@@ -104,37 +104,34 @@ class TaskQueueManager:
             # Full job resource name
             job_resource = f"projects/{self.project}/locations/{self.location}/jobs/{job_name}"
 
-            # Create execution request with environment overrides
-            request = run_v2.RunJobRequest(
-                name=job_resource,
-                overrides=run_v2.RunJobRequest.Overrides(
-                    container_overrides=[
-                        run_v2.RunJobRequest.Overrides.ContainerOverride(
-                            env=[
-                                run_v2.EnvVar(name="JOB_ID", value=job_id),
-                                run_v2.EnvVar(name="JOB_PAYLOAD", value=json.dumps(payload)),
-                                run_v2.EnvVar(name="JOB_SOURCE", value="task"),
-                            ],
-                            args=["--job-source", "task"],
-                        )
-                    ],
-                ),
+            logger.info(f"Triggering Cloud Run Job: {job_resource}")
+            logger.info(f"Job ID: {job_id}, Payload: {json.dumps(payload)[:200]}...")
+
+            # Build overrides with environment variables
+            container_override = run_v2.RunJobRequest.Overrides.ContainerOverride(
+                env=[
+                    run_v2.EnvVar(name="JOB_ID", value=job_id),
+                    run_v2.EnvVar(name="JOB_PAYLOAD", value=json.dumps(payload)),
+                    run_v2.EnvVar(name="JOB_SOURCE", value="task"),
+                ],
+                args=["--job-source", "task"],
             )
 
-            # Execute the job
-            logger.info(f"Triggering Cloud Run Job: {job_resource}")
+            overrides = run_v2.RunJobRequest.Overrides(
+                container_overrides=[container_override],
+            )
+
+            # Create execution request
+            request = run_v2.RunJobRequest(
+                name=job_resource,
+                overrides=overrides,
+            )
+
+            # Execute the job - this returns an Operation (LRO)
             operation = self.jobs_client.run_job(request=request)
 
-            # Get execution name from operation
-            # The operation object is an LRO - we need the operation name to track it
-            execution_name = getattr(operation, "name", None)
-            if not execution_name:
-                # Try to get from metadata if available
-                metadata = getattr(operation, "metadata", None)
-                if metadata:
-                    execution_name = getattr(metadata, "name", f"triggered-{job_id}")
-                else:
-                    execution_name = f"triggered-{job_id}"
+            # The operation.name is the LRO name, which we can use to track the execution
+            execution_name = operation.operation.name if hasattr(operation, "operation") else str(operation)
 
             logger.info(f"Triggered Cloud Run Job execution: {execution_name}")
             logger.info(f"Job: {job_name}, Model: {'Pro' if use_pro_model else 'Flash'}")
@@ -145,7 +142,7 @@ class TaskQueueManager:
             import traceback
 
             logger.error(f"Failed to trigger Cloud Run Job: {e}")
-            logger.error(f"Traceback: {traceback.format_exc()}")
+            logger.error(f"Full traceback:\n{traceback.format_exc()}")
             return None
 
     def enqueue_job(
