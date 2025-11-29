@@ -4,6 +4,7 @@ import json
 from unittest.mock import AsyncMock, patch
 
 import pytest
+
 from clipscribe.providers.intelligence.grok import GrokProvider
 
 

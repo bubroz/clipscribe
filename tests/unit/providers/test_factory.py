@@ -1,6 +1,7 @@
 """Unit tests for provider factory."""
 
 import pytest
+
 from clipscribe.providers.base import ConfigurationError
 from clipscribe.providers.factory import get_intelligence_provider, get_transcription_provider
 

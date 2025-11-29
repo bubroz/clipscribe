@@ -1,6 +1,7 @@
 """Shared fixtures for provider tests."""
 
 import pytest
+
 from clipscribe.providers.base import IntelligenceResult, TranscriptResult, TranscriptSegment
 
 

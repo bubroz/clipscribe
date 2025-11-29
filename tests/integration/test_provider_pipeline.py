@@ -3,6 +3,7 @@
 from unittest.mock import AsyncMock, patch
 
 import pytest
+
 from clipscribe.providers.factory import get_intelligence_provider, get_transcription_provider
 
 
