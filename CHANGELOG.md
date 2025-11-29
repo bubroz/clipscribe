@@ -1,3 +1,15 @@
+## [3.2.12] - 2025-11-29 FIX MODAL PROVIDER GCS CREDENTIALS
+
+### Fixed
+- **Modal Provider Crash**: Fixed `GCS credentials required for Modal provider` error
+- **Root Cause**: whisperx_modal.py required explicit credentials but Cloud Run uses ADC
+- **whisperx_modal.py**: Now falls back to Application Default Credentials (ADC) when running in GCP
+
+### Technical Details
+- Cloud Run Jobs use Workload Identity which provides ADC, not explicit JSON keys
+- `storage.Client()` without args uses ADC automatically
+- Explicit credentials (`SERVICE_ACCOUNT_JSON`, `GOOGLE_APPLICATION_CREDENTIALS`) still supported for local dev
+
 ## [3.2.11] - 2025-11-29 FIX WORKER MISSING DEPLOY MODULE
 
 ### Fixed

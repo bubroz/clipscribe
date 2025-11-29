@@ -90,12 +90,17 @@ class WhisperXModalProvider(TranscriptionProvider):
             credentials = service_account.Credentials.from_service_account_file(creds_path)
             self.gcs_client = storage.Client(credentials=credentials)
         else:
-            raise ConfigurationError(
-                "GCS credentials required for Modal provider.\n"
-                "Set one of:\n"
-                "  export SERVICE_ACCOUNT_JSON='{...}'\n"
-                "  export GOOGLE_APPLICATION_CREDENTIALS=/path/to/key.json"
-            )
+            # Try Application Default Credentials (works in Cloud Run, GKE, etc.)
+            try:
+                self.gcs_client = storage.Client()
+            except Exception as e:
+                raise ConfigurationError(
+                    f"GCS credentials required for Modal provider: {e}\n"
+                    "Set one of:\n"
+                    "  export SERVICE_ACCOUNT_JSON='{...}'\n"
+                    "  export GOOGLE_APPLICATION_CREDENTIALS=/path/to/key.json\n"
+                    "Or run in GCP environment with Workload Identity"
+                )
 
         # GCS bucket for temp storage
         self.gcs_bucket = gcs_bucket or os.getenv("GCS_BUCKET", "your-bucket-name")
